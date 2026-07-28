@@ -6,8 +6,8 @@ spec:
   chart: grafana/rollout-operator
   version: 0.49.0
   base: no-crds
-  result: watch
-  observedAt: '2026-06-15T22:32:10Z'
+  result: pass
+  observedAt: '2026-07-28T10:27:31Z'
   package:
     path: packages/grafana/rollout-operator/0.49.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-rollou-c758b-g8hf-helm
-    installerCluster: hx-rollou-c758b-g8hf-installer
+    helmCluster: hx-rollou-c758b-hz0g-helm
+    installerCluster: hx-rollou-c758b-hz0g-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-rollou-c758b-g8hf-helm
+      - cluster: hx-rollou-c758b-hz0g-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-rollou-c758b-g8hf-helm" ...
+        detail: 'Deleting cluster "hx-rollou-c758b-hz0g-helm" ...
 
-          Deleted nodes: ["hx-rollou-c758b-g8hf-helm-control-plane"]'
-      - cluster: hx-rollou-c758b-g8hf-installer
+          Deleted nodes: ["hx-rollou-c758b-hz0g-helm-control-plane"]'
+      - cluster: hx-rollou-c758b-hz0g-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-rollou-c758b-g8hf-installer" ...
+        detail: 'Deleting cluster "hx-rollou-c758b-hz0g-installer" ...
 
-          Deleted nodes: ["hx-rollou-c758b-g8hf-installer-control-plane"]'
+          Deleted nodes: ["hx-rollou-c758b-hz0g-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install rollout-operator rollout-operator --repo https://grafana.github.io/helm-charts
-        --version 0.49.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/regular-helm-values.yaml
+        --version 0.49.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: ae6b9000b84edf8a5ad01c4399619b76ad28b808486d623fc482035ed5e3b403
@@ -54,10 +54,10 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/rollout-operator   1/1   1     1     29s'
+          deployment.apps/rollout-operator   1/1   1     1     30s'
         pods: '# default
 
-          rollout-operator-5f688cdb68-mmd96   1/1   Running   0     29s'
+          rollout-operator-5f688cdb68-7d46j   1/1   Running   0     30s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -66,9 +66,9 @@ spec:
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/grafana/rollout-operator/0.49.0
-        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-rollou-c758b-g8hf-rollout-operator
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/rollout-operator/0.49.0
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-rollou-c758b-hz0g-rollout-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -80,198 +80,16 @@ spec:
       runtimeNamespaces: &id002
       - default
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/rollout-operator   0/1   1     0     7m59s'
+          deployment.apps/rollout-operator   1/1   1     0     21s'
         pods: '# default
 
-          rollout-operator-5f688cdb68-66gj7   0/1   Running   0     7m59s'
-        notReady:
-        - namespace: default
-          pod: rollout-operator-5f688cdb68-66gj7
-          ready: 0/1
-          status: Running
-        diagnostics:
-        - namespace: default
-          pod: rollout-operator-5f688cdb68-66gj7
-          result: pass
-          detailHead: "Name:             rollout-operator-5f688cdb68-66gj7\nNamespace:\
-            \        default\nPriority:         0\nService Account:  rollout-operator\n\
-            Node:             hx-rollou-c758b-g8hf-installer-control-plane/192.168.97.3\n\
-            Start Time:       Mon, 15 Jun 2026 23:33:30 +0100\nLabels:           app.kubernetes.io/instance=rollout-operator\n\
-            \                  app.kubernetes.io/name=rollout-operator\n         \
-            \         pod-template-hash=5f688cdb68\nAnnotations:      <none>\nStatus:\
-            \           Running\nIP:               10.244.0.5\nIPs:\n  IP:       \
-            \    10.244.0.5\nControlled By:  ReplicaSet/rollout-operator-5f688cdb68\n\
-            Containers:\n  rollout-operator:\n    Container ID:  containerd://20baad5a1700e0b874c4f1672717bffb2f2af913da867ace1491392aa108bb7b\n\
-            \    Image:         docker.io/grafana/rollout-operator:v0.36.2\n    Image\
-            \ ID:      docker.io/grafana/rollout-operator@sha256:2c23f78dafd7a6bc5aee438e5bc7b4278a425bf863fcea4e3fc3683ce9bacbc6\n\
-            \    Ports:         8001/TCP (http-metrics), 8443/TCP (https)\n    Host\
-            \ Ports:    0/TCP (http-metrics), 0/TCP (https)\n    Args:\n      -kubernetes.namespace=default\n\
-            \      -server-tls.enabled=true\n      -server-tls.self-signed-cert.secret-name=certificate\n\
-            \      -server-tls.self-signed-cert.dns-name=rollout-operator.default.svc\n\
-            \    State:          Running\n      Started:      Mon, 15 Jun 2026 23:33:37\
-            \ +0100\n    Ready:          False\n    Restart Count:  0\n    Limits:\n\
-            \      memory:  200Mi\n    Requests:\n      cpu:        100m\n      memory:\
-            \     100Mi\n    Readiness:    http-get http://:http-metrics/ready delay=5s\
-            \ timeout=1s period=10s #success=1 #failure=3\n    Environment:  <none>\n\
-            \    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount from\
-            \ kube-api-access-497tb (ro)\nConditions:\n  Type                    \
-            \    Status\n  PodReadyToStartContainers   True \n  Initialized      \
-            \           True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  kube-api-access-497tb:\n    Type:                    Projected (a volume\
-            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
-            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
-            \                false\n    DownwardAPI:             true\nQoS Class:\
-            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
-            \        From               Message\n  ----     ------     ----      \
-            \              ----               -------\n  Normal   Scheduled  7m59s\
-            \                   default-scheduler  Successfully assigned default/rollout-operator-5f688cdb68-66gj7\
-            \ to hx-rollou-c758b-g8hf-installer-control-plane\n  Normal   Pulling\
-            \    7m58s                   kubelet            spec.containers{rollout-operator}:\
-            \ Pulling image \"docker.io/grafana/rollout-operator:v0.36.2\"\n  Normal\
-            \   Pulled     7m52s                   kubelet       "
-          detailTail: "operator-5f688cdb68\nContainers:\n  rollout-operator:\n   \
-            \ Container ID:  containerd://20baad5a1700e0b874c4f1672717bffb2f2af913da867ace1491392aa108bb7b\n\
-            \    Image:         docker.io/grafana/rollout-operator:v0.36.2\n    Image\
-            \ ID:      docker.io/grafana/rollout-operator@sha256:2c23f78dafd7a6bc5aee438e5bc7b4278a425bf863fcea4e3fc3683ce9bacbc6\n\
-            \    Ports:         8001/TCP (http-metrics), 8443/TCP (https)\n    Host\
-            \ Ports:    0/TCP (http-metrics), 0/TCP (https)\n    Args:\n      -kubernetes.namespace=default\n\
-            \      -server-tls.enabled=true\n      -server-tls.self-signed-cert.secret-name=certificate\n\
-            \      -server-tls.self-signed-cert.dns-name=rollout-operator.default.svc\n\
-            \    State:          Running\n      Started:      Mon, 15 Jun 2026 23:33:37\
-            \ +0100\n    Ready:          False\n    Restart Count:  0\n    Limits:\n\
-            \      memory:  200Mi\n    Requests:\n      cpu:        100m\n      memory:\
-            \     100Mi\n    Readiness:    http-get http://:http-metrics/ready delay=5s\
-            \ timeout=1s period=10s #success=1 #failure=3\n    Environment:  <none>\n\
-            \    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount from\
-            \ kube-api-access-497tb (ro)\nConditions:\n  Type                    \
-            \    Status\n  PodReadyToStartContainers   True \n  Initialized      \
-            \           True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  kube-api-access-497tb:\n    Type:                    Projected (a volume\
-            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
-            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
-            \                false\n    DownwardAPI:             true\nQoS Class:\
-            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
-            \        From               Message\n  ----     ------     ----      \
-            \              ----               -------\n  Normal   Scheduled  7m59s\
-            \                   default-scheduler  Successfully assigned default/rollout-operator-5f688cdb68-66gj7\
-            \ to hx-rollou-c758b-g8hf-installer-control-plane\n  Normal   Pulling\
-            \    7m58s                   kubelet            spec.containers{rollout-operator}:\
-            \ Pulling image \"docker.io/grafana/rollout-operator:v0.36.2\"\n  Normal\
-            \   Pulled     7m52s                   kubelet            spec.containers{rollout-operator}:\
-            \ Successfully pulled image \"docker.io/grafana/rollout-operator:v0.36.2\"\
-            \ in 6.47s (6.47s including waiting). Image size: 32493425 bytes.\n  Normal\
-            \   Created    7m52s                   kubelet            spec.containers{rollout-operator}:\
-            \ Container created\n  Normal   Started    7m52s                   kubelet\
-            \            spec.containers{rollout-operator}: Container started\n  Warning\
-            \  Unhealthy  2m38s (x32 over 7m39s)  kubelet            spec.containers{rollout-operator}:\
-            \ Readiness probe failed: HTTP probe failed with statuscode: 500"
-          logsHead: 'level=info ts=2026-06-15T22:33:37.835453109Z msg="zpdb config
-            informer caches are syncing"
-
-            E0615 22:33:37.837783       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:33:38.797549       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:33:40.982577       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:33:45.863215       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:33:56.130363       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:34:14.219480       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:34:55.064761       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:35:26.241906       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector'
-          logsTail: ' "Failed to watch" err="failed to list rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets: the server could not find the
-            requested resource" logger="UnhandledError" reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108"
-            type="rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:39:07.793507       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:39:10.240383       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:39:13.930108       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:39:22.311158       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:39:35.990950       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:40:12.093664       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"
-
-            E0615 22:40:55.788283       1 reflector.go:227] "Failed to watch" err="failed
-            to list rollout-operator.grafana.com/v1, Resource=zoneawarepoddisruptionbudgets:
-            the server could not find the requested resource" logger="UnhandledError"
-            reflector="k8s.io/client-go/dynamic/dynamicinformer/informer.go:108" type="rollout-operator.grafana.com/v1,
-            Resource=zoneawarepoddisruptionbudgets"'
+          rollout-operator-5f688cdb68-7cp67   1/1   Running   0     21s'
+        notReady: []
+        diagnostics: []
         apiServices:
           result: pass
           items: []
@@ -307,10 +125,10 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=0 namespaces=0
+    detail: secrets=0 crds=2 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=0 crds=0 namespaces=0
+    detail: secrets=0 crds=2 namespaces=0
   - name: regular-helm-operating-policy
     result: pass
     detail: none
@@ -323,7 +141,7 @@ spec:
 
       NAME: rollout-operator
 
-      LAST DEPLOYED: Mon Jun 15 23:33:01 2026
+      LAST DEPLOYED: Tue Jul 28 11:28:22 2026
 
       NAMESPACE: default
 
@@ -360,10 +178,10 @@ spec:
     result: pass
     detail: none
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# default
 
-      deployment.apps/rollout-operator   0/1   1     0     7m59s'
+      deployment.apps/rollout-operator   1/1   1     0     21s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||default'] diffs=0
@@ -371,15 +189,29 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: replicatemplates.rollout-operator.grafana.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
+        sourceVariant: default
+        lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: replicatemplates.rollout-operator.grafana.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: zoneawarepoddisruptionbudgets.rollout-operator.grafana.com
+        sourceVariant: default
+        lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-rollout-operator-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

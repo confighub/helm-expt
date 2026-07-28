@@ -43,7 +43,7 @@ spec:
     lifecycleObserved: "yes"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
-    twoClusterKind: "watch"
+    twoClusterKind: "yes"
     variantPromotion: "proven"
   lifecycle:
     routeContract: "n/a"
@@ -62,7 +62,7 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "declared-target-facts-and-observed-action-records"
+    status: "declared-target-facts"
     declared:
       requiredCRDs:
         -
@@ -157,27 +157,10 @@ spec:
         evidence:
           - "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
     actions:
-      -
-        lane: "K"
-        prerequisiteKind: "crd"
-        prerequisiteName: "unknown"
-        actionKind: "install-crds"
-        ownerClass: "user-stage"
-        requiredInputs: "the chart's CRDs"
-        evidenceRequired: "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base"
-        automatic: false
-        supportArtifact: ""
-        sourceReceipt: "runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml"
-        rerunCommand: "npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds"
-        requiredBefore: "apply"
-        freshness:
-          policy: "recheck-before-apply"
-          maxAge: "one-apply"
-        evidence:
-          - "runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml"
+      []
     coverage:
-      state: "attached-with-observed-actions"
-      reason: "3 prerequisite declarations and 1 follow-up action record are attached."
+      state: "attached"
+      reason: "3 target prerequisites declared by this base."
       declarationSource: "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml"
       nextAction: ""
   provenance:

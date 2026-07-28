@@ -6,8 +6,8 @@ spec:
   chart: percona/pxc-operator
   version: 1.19.1
   base: no-crds
-  result: watch
-  observedAt: '2026-06-15T23:14:50Z'
+  result: pass
+  observedAt: '2026-07-28T10:31:49Z'
   package:
     path: packages/percona/pxc-operator/1.19.1
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-pxcope-f2bd5-z3mj-helm
-    installerCluster: hx-pxcope-f2bd5-z3mj-installer
+    helmCluster: hx-pxcope-f2bd5-nhmy-helm
+    installerCluster: hx-pxcope-f2bd5-nhmy-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-pxcope-f2bd5-z3mj-helm
+      - cluster: hx-pxcope-f2bd5-nhmy-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-pxcope-f2bd5-z3mj-helm" ...
+        detail: 'Deleting cluster "hx-pxcope-f2bd5-nhmy-helm" ...
 
-          Deleted nodes: ["hx-pxcope-f2bd5-z3mj-helm-control-plane"]'
-      - cluster: hx-pxcope-f2bd5-z3mj-installer
+          Deleted nodes: ["hx-pxcope-f2bd5-nhmy-helm-control-plane"]'
+      - cluster: hx-pxcope-f2bd5-nhmy-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-pxcope-f2bd5-z3mj-installer" ...
+        detail: 'Deleting cluster "hx-pxcope-f2bd5-nhmy-installer" ...
 
-          Deleted nodes: ["hx-pxcope-f2bd5-z3mj-installer-control-plane"]'
+          Deleted nodes: ["hx-pxcope-f2bd5-nhmy-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pxc-operator pxc-operator --repo https://percona.github.io/percona-helm-charts/
-        --version 1.19.1 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/percona-pxc-operator-no-crds/regular-helm-values.yaml
+        --version 1.19.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pxc-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488
@@ -57,7 +57,7 @@ spec:
           deployment.apps/pxc-operator   1/1   1     1     20s'
         pods: '# default
 
-          pxc-operator-5f59645bd-gxdbh   1/1   Running   0     19s'
+          pxc-operator-5f59645bd-s4868   1/1   Running   0     20s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -66,9 +66,9 @@ spec:
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: blocked
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/percona/pxc-operator/1.19.1
-        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-pxcope-f2bd5-z3mj-pxc-operator
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pxc-operator/1.19.1
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-pxcope-f2bd5-nhmy-pxc-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -80,151 +80,16 @@ spec:
       runtimeNamespaces: &id002
       - default
       runtime:
-        result: blocked
+        result: pass
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/pxc-operator   0/1   1     0     20s'
+          deployment.apps/pxc-operator   1/1   1     1     20s'
         pods: '# default
 
-          pxc-operator-5f59645bd-wkxmz   0/1   Error   1 (2s ago)   20s'
-        notReady:
-        - namespace: default
-          pod: pxc-operator-5f59645bd-wkxmz
-          ready: 0/1
-          status: Error
-          blockedReason: pod-runtime-failure
-        diagnostics:
-        - namespace: default
-          pod: pxc-operator-5f59645bd-wkxmz
-          result: blocked
-          detailHead: "Name:             pxc-operator-5f59645bd-wkxmz\nNamespace:\
-            \        default\nPriority:         0\nService Account:  pxc-operator\n\
-            Node:             hx-pxcope-f2bd5-z3mj-installer-control-plane/192.168.97.3\n\
-            Start Time:       Tue, 16 Jun 2026 00:16:02 +0100\nLabels:           app.kubernetes.io/component=operator\n\
-            \                  app.kubernetes.io/instance=pxc-operator\n         \
-            \         app.kubernetes.io/name=pxc-operator\n                  app.kubernetes.io/part-of=pxc-operator\n\
-            \                  pod-template-hash=5f59645bd\nAnnotations:      <none>\n\
-            Status:           Running\nIP:               10.244.0.5\nIPs:\n  IP: \
-            \          10.244.0.5\nControlled By:  ReplicaSet/pxc-operator-5f59645bd\n\
-            Containers:\n  percona-xtradb-cluster-operator:\n    Container ID:  containerd://bdf3c268cab4081796cdf2f1fa299dad64b8b1d5475e4854e75e68b586692c27\n\
-            \    Image:         percona/percona-xtradb-cluster-operator:1.19.1\n \
-            \   Image ID:      docker.io/percona/percona-xtradb-cluster-operator@sha256:cda218468f42d0a49517a3bace79af5a76556b720a29e8d1655f8e366e9dcf1b\n\
-            \    Port:          8080/TCP (metrics)\n    Host Port:     0/TCP (metrics)\n\
-            \    Command:\n      percona-xtradb-cluster-operator\n    State:     \
-            \     Terminated\n      Reason:       Error\n      Exit Code:    1\n \
-            \     Started:      Tue, 16 Jun 2026 00:16:21 +0100\n      Finished: \
-            \    Tue, 16 Jun 2026 00:16:21 +0100\n    Last State:     Terminated\n\
-            \      Reason:       Error\n      Exit Code:    1\n      Started:    \
-            \  Tue, 16 Jun 2026 00:16:20 +0100\n      Finished:     Tue, 16 Jun 2026\
-            \ 00:16:20 +0100\n    Ready:          False\n    Restart Count:  1\n \
-            \   Limits:\n      cpu:     200m\n      memory:  500Mi\n    Requests:\n\
-            \      cpu:     100m\n      memory:  20Mi\n    Liveness:  http-get http://:metrics/metrics\
-            \ delay=0s timeout=1s period=10s #success=1 #failure=3\n    Environment:\n\
-            \      WATCH_NAMESPACE:            default\n      POD_NAME:          \
-            \         pxc-operator-5f59645bd-wkxmz (v1:metadata.name)\n      OPERATOR_NAME:\
-            \              pxc-operator\n      LOG_STRUCTURED:             false\n\
-            \      LOG_LEVEL:                  INFO\n      DISABLE_TELEMETRY:    \
-            \      false\n      MAX_CONCURRENT_RECONCILES:  1\n      S3_WORKERS_LIMIT:\
-            \           10\n      PXCO_FEATURE_GATES:         XtrabackupSidecar=false\n\
-            \    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount from\
-            \ kube-api-access-4l4td (ro)\nConditions:\n  Type                    \
-            \    Status\n  PodReadyToStartContainers   True \n  Initialized      \
-            \           True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  kube-api-access-4l4td:\n    Type:                    Projected (a volume\
-            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
-            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
-            \                false\n    DownwardAPI:             true\nQoS Class:\
-            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n           "
-          detailTail: "e\n    Restart Count:  1\n    Limits:\n      cpu:     200m\n\
-            \      memory:  500Mi\n    Requests:\n      cpu:     100m\n      memory:\
-            \  20Mi\n    Liveness:  http-get http://:metrics/metrics delay=0s timeout=1s\
-            \ period=10s #success=1 #failure=3\n    Environment:\n      WATCH_NAMESPACE:\
-            \            default\n      POD_NAME:                   pxc-operator-5f59645bd-wkxmz\
-            \ (v1:metadata.name)\n      OPERATOR_NAME:              pxc-operator\n\
-            \      LOG_STRUCTURED:             false\n      LOG_LEVEL:           \
-            \       INFO\n      DISABLE_TELEMETRY:          false\n      MAX_CONCURRENT_RECONCILES:\
-            \  1\n      S3_WORKERS_LIMIT:           10\n      PXCO_FEATURE_GATES:\
-            \         XtrabackupSidecar=false\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-4l4td (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
-            \                True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  kube-api-access-4l4td:\n    Type:                    Projected (a volume\
-            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
-            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
-            \                false\n    DownwardAPI:             true\nQoS Class:\
-            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
-            \ From               Message\n  ----     ------     ----             ----\
-            \               -------\n  Normal   Scheduled  20s              default-scheduler\
-            \  Successfully assigned default/pxc-operator-5f59645bd-wkxmz to hx-pxcope-f2bd5-z3mj-installer-control-plane\n\
-            \  Normal   Pulling    20s              kubelet            spec.containers{percona-xtradb-cluster-operator}:\
-            \ Pulling image \"percona/percona-xtradb-cluster-operator:1.19.1\"\n \
-            \ Normal   Pulled     2s               kubelet            spec.containers{percona-xtradb-cluster-operator}:\
-            \ Successfully pulled image \"percona/percona-xtradb-cluster-operator:1.19.1\"\
-            \ in 17.664s (17.664s including waiting). Image size: 132320156 bytes.\n\
-            \  Normal   Created    1s (x2 over 2s)  kubelet            spec.containers{percona-xtradb-cluster-operator}:\
-            \ Container created\n  Normal   Started    1s (x2 over 2s)  kubelet  \
-            \          spec.containers{percona-xtradb-cluster-operator}: Container\
-            \ started\n  Normal   Pulled     1s               kubelet            spec.containers{percona-xtradb-cluster-operator}:\
-            \ Container image \"percona/percona-xtradb-cluster-operator:1.19.1\" already\
-            \ present on machine and can be accessed by the pod\n  Warning  BackOff\
-            \    0s               kubelet            spec.containers{percona-xtradb-cluster-operator}:\
-            \ Back-off restarting failed container percona-xtradb-cluster-operator\
-            \ in pod pxc-operator-5f59645bd-wkxmz_default(be5d7e32-55b8-4481-802c-96d2e8a4e2be)"
-          logsHead: "2026-06-15T23:16:21.383Z\tINFO\tsetup\tRuns on\t{\"platform\"\
-            : \"kubernetes\", \"version\": \"v1.35.0\"}\n2026-06-15T23:16:21.383Z\t\
-            INFO\tsetup\tManager starting up\t{\"gitCommit\": \"d0d28c75648c3c125e75e5bcd5a1392f961d75fd\"\
-            , \"gitBranch\": \"release-1-19-1\", \"buildTime\": \"2026-04-14T14:34:02Z\"\
-            , \"goVersion\": \"go1.25.9\", \"os\": \"linux\", \"arch\": \"arm64\"\
-            }\n2026-06-15T23:16:21.383Z\tINFO\tsetup\tFeature gates\t{\"PXCO_FEATURE_GATES\"\
-            : \"XtrabackupSidecar=false\", \"enabled\": \"\"}\n2026-06-15T23:16:21.385Z\t\
-            INFO\tsetup\tRegistering Components.\n2026-06-15T23:16:21.387Z\tERROR\t\
-            setup\t\t{\"error\": \"setup field indexers: failed to get restmapping:\
-            \ unable to retrieve the complete list of server APIs: pxc.percona.com/v1:\
-            \ no matches for pxc.percona.com/v1, Resource=\", \"errorVerbose\": \"\
-            failed to get restmapping: unable to retrieve the complete list of server\
-            \ APIs: pxc.percona.com/v1: no matches for pxc.percona.com/v1, Resource=\\\
-            nsetup field indexers\\ngithub.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc.add\\\
-            n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc/controller.go:90\\\
-            ngithub.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc.Add\\\
-            n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc/controller.go:61\\\
-            ngithub.com/percona/percona-xtradb-cluster-operator/pkg/controller.AddToManager\\\
-            n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/pkg/controller/controller.go:13\\\
-            nmain.main\\n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/cmd/manager/main.go:171\\\
-            nruntime.main\\n\\t/usr/local/go/src/runtime/proc.go:285\\nruntime.goexit\\\
-            n\\t/usr/local/go/src/runtime/asm_arm64.s:1268\"}\nmain.main\n\t/go/src/github.com/percona/percona-xtradb-cluster-operator/cmd/manager/main.go:172\n\
-            runtime.main\n\t/usr/local/go/src/runtime/proc.go:285"
-          logsTail: "2026-06-15T23:16:21.383Z\tINFO\tsetup\tRuns on\t{\"platform\"\
-            : \"kubernetes\", \"version\": \"v1.35.0\"}\n2026-06-15T23:16:21.383Z\t\
-            INFO\tsetup\tManager starting up\t{\"gitCommit\": \"d0d28c75648c3c125e75e5bcd5a1392f961d75fd\"\
-            , \"gitBranch\": \"release-1-19-1\", \"buildTime\": \"2026-04-14T14:34:02Z\"\
-            , \"goVersion\": \"go1.25.9\", \"os\": \"linux\", \"arch\": \"arm64\"\
-            }\n2026-06-15T23:16:21.383Z\tINFO\tsetup\tFeature gates\t{\"PXCO_FEATURE_GATES\"\
-            : \"XtrabackupSidecar=false\", \"enabled\": \"\"}\n2026-06-15T23:16:21.385Z\t\
-            INFO\tsetup\tRegistering Components.\n2026-06-15T23:16:21.387Z\tERROR\t\
-            setup\t\t{\"error\": \"setup field indexers: failed to get restmapping:\
-            \ unable to retrieve the complete list of server APIs: pxc.percona.com/v1:\
-            \ no matches for pxc.percona.com/v1, Resource=\", \"errorVerbose\": \"\
-            failed to get restmapping: unable to retrieve the complete list of server\
-            \ APIs: pxc.percona.com/v1: no matches for pxc.percona.com/v1, Resource=\\\
-            nsetup field indexers\\ngithub.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc.add\\\
-            n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc/controller.go:90\\\
-            ngithub.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc.Add\\\
-            n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/pkg/controller/pxc/controller.go:61\\\
-            ngithub.com/percona/percona-xtradb-cluster-operator/pkg/controller.AddToManager\\\
-            n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/pkg/controller/controller.go:13\\\
-            nmain.main\\n\\t/go/src/github.com/percona/percona-xtradb-cluster-operator/cmd/manager/main.go:171\\\
-            nruntime.main\\n\\t/usr/local/go/src/runtime/proc.go:285\\nruntime.goexit\\\
-            n\\t/usr/local/go/src/runtime/asm_arm64.s:1268\"}\nmain.main\n\t/go/src/github.com/percona/percona-xtradb-cluster-operator/cmd/manager/main.go:172\n\
-            runtime.main\n\t/usr/local/go/src/runtime/proc.go:285"
-          blockedReason: pod-runtime-failure
+          pxc-operator-5f59645bd-z4wjt   1/1   Running   0     20s'
+        notReady: []
+        diagnostics: []
         apiServices:
           result: pass
           items: []
@@ -260,10 +125,10 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=0 namespaces=0
+    detail: secrets=0 crds=3 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=0 crds=0 namespaces=0
+    detail: secrets=0 crds=3 namespaces=0
   - name: regular-helm-operating-policy
     result: pass
     detail: none
@@ -273,7 +138,7 @@ spec:
   - name: regular-helm-live
     result: pass
     detail: "Release \"pxc-operator\" does not exist. Installing it now.\nNAME: pxc-operator\n\
-      LAST DEPLOYED: Tue Jun 16 00:15:41 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      LAST DEPLOYED: Tue Jul 28 11:32:44 2026\nNAMESPACE: default\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Percona\
       \ Operator for MySQL is deployed. \n\n  Check if operator Pod is running:\n\n\
       \    kubectl get pods -l app.kubernetes.io/name=pxc-operator --namespace default\n\
@@ -286,10 +151,10 @@ spec:
     result: pass
     detail: none
   - name: cub-installer-apply-live
-    result: blocked
+    result: pass
     detail: '# default
 
-      deployment.apps/pxc-operator   0/1   1     0     20s'
+      deployment.apps/pxc-operator   1/1   1     1     20s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||default'] diffs=0
@@ -297,15 +162,35 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: perconaxtradbclusterbackups.pxc.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: perconaxtradbclusterrestores.pxc.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: perconaxtradbclusters.pxc.percona.com
+        sourceVariant: default
+        lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pxc-operator-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: perconaxtradbclusterbackups.pxc.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: perconaxtradbclusterrestores.pxc.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: perconaxtradbclusters.pxc.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pxc-operator-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

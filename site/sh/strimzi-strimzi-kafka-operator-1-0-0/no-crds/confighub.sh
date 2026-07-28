@@ -44,3 +44,15 @@ printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find
 
 say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
+# Before applying this base variant from ConfigHub to a cluster, it still needs:
+#   - CRD kafkas.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkaconnects.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD strimzipodsets.core.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkatopics.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkausers.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkanodepools.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkabridges.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkaconnectors.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkamirrormaker2s.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)
+#   - CRD kafkarebalances.kafka.strimzi.io (suggested: kubectl apply -f <strimzi-crds.yaml>)

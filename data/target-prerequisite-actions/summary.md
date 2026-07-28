@@ -13,22 +13,22 @@ proof of automated execution. See
 for the sibling image story, and
 [residue-families](../../docs/reference/residue-families.md) for the vocabulary.
 
-## 48 action packets
+## 42 action packets
 
 | Action kind | Rows |
 | --- | ---: |
-| `operator-review` | 21 |
-| `install-crds` | 10 |
-| `create-namespace` | 5 |
-| `provide-external-service` | 5 |
+| `operator-review` | 19 |
+| `install-crds` | 8 |
+| `create-namespace` | 4 |
+| `provide-external-service` | 4 |
 | `stage-secret` | 4 |
 | `unknown-preflight` | 2 |
 | `provide-storage-or-topology` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 30 |
-| `user-stage` | 17 |
+| `operator-review` | 27 |
+| `user-stage` | 14 |
 | `target-policy` | 1 |
 
 ## Packets
@@ -47,15 +47,12 @@ for the sibling image story, and
 | elastic/kibana@8.5.1 | default | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart elastic/kibana --version 8.5.1 --base default` |
 | elastic/metricbeat@8.5.1 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/elastic/metricbeat/8.5.1 --base default` |
 | elastic/metricbeat@8.5.1 | default | K | stage-secret | Secret elasticsearch-master-certs | `npm run kind-parity:run -- --chart elastic/metricbeat --version 8.5.1 --base default` |
-| fairwinds-stable/vpa@4.11.0 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default` |
-| fairwinds-stable/vpa@4.11.0 | no-crds | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds` |
 | fluent/fluentd@0.5.3 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default` |
 | gitlab/gitlab-runner@0.89.0 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default` |
 | gitlab/gitlab-runner@0.89.0 | default | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart gitlab/gitlab-runner --version 0.89.0 --base default` |
 | grafana/pyroscope@2.0.2 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base default` |
 | grafana/pyroscope@2.0.2 | ha | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base ha` |
 | grafana/pyroscope@2.0.2 | no-crds | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/grafana/pyroscope/2.0.2 --base no-crds` |
-| grafana/rollout-operator@0.49.0 | no-crds | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart grafana/rollout-operator --version 0.49.0 --base no-crds` |
 | hashicorp/terraform@1.1.2 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default` |
 | hashicorp/terraform@1.1.2 | no-crds | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base no-crds` |
 | hashicorp/terraform@1.1.2 | no-crds | K | stage-secret | Secret workspacesecrets; Secret terraformrc | `npm run kind-parity:run -- --chart hashicorp/terraform --version 1.1.2 --base no-crds` |
@@ -74,14 +71,11 @@ for the sibling image story, and
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown-preflight | value nfs.server | `npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default` |
 | opencost/opencost@2.5.21 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` |
 | opencost/opencost@2.5.21 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart opencost/opencost --version 2.5.21 --base default` |
-| percona/pg-operator@3.0.0 | no-crds | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart percona/pg-operator --version 3.0.0 --base no-crds` |
-| percona/pxc-operator@1.19.1 | no-crds | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart percona/pxc-operator --version 1.19.1 --base no-crds` |
 | projectcalico/tigera-operator@v3.32.0 | default | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default` |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base cluster-metrics-readonly` |
 | prometheus-community/prometheus-adapter@5.3.0 | default | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base default` |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | G/P | create-namespace | Namespace rook-ceph | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | K | create-namespace | Namespace rook-ceph | `npm run kind-parity:run -- --chart rook-release/rook-ceph-cluster --version v1.19.5 --base default` |
-| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | K | create-namespace | the target Namespace named by the chart | `npm run kind-parity:run -- --chart strimzi/strimzi-kafka-operator --version 1.0.0 --base no-crds` |
 | velero/velero@12.0.1 | no-crds | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart velero/velero --version 12.0.1 --base no-crds` |
 
 ## Boundaries

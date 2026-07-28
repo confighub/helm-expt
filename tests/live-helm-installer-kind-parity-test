@@ -24,6 +24,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -370,19 +371,17 @@ def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, tim
     return out
 
 
-def cert_needs_refresh(cert: Path, key: Path) -> bool:
-    if not cert.exists() or not key.exists():
-        return True
-    rc, _out, _err = sh(["openssl", "x509", "-checkend", "3600", "-noout", "-in", str(cert)], timeout=30)
-    return rc != 0
+target_fact_material_cache: dict[tuple[str, str], tuple[str, ...]] = {}
 
 
 def ensure_tls_material(run_root: Path) -> tuple[str, str]:
-    cert = run_root / "target-facts-tls.crt"
-    key = run_root / "target-facts-tls.key"
-    if cert_needs_refresh(cert, key):
-        cert.unlink(missing_ok=True)
-        key.unlink(missing_ok=True)
+    cache_key = ("tls", str(run_root))
+    cached = target_fact_material_cache.get(cache_key)
+    if cached:
+        return cached[0], cached[1]
+    with tempfile.TemporaryDirectory(prefix="helm-expt-target-fact-tls-") as temp_root:
+        cert = Path(temp_root) / "tls.crt"
+        key = Path(temp_root) / "tls.key"
         rc, out, err = sh([
             "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
             "-keyout", str(key), "-out", str(cert), "-subj", "/CN=helm-expt.local",
@@ -390,25 +389,24 @@ def ensure_tls_material(run_root: Path) -> tuple[str, str]:
         ], timeout=60)
         if rc != 0:
             raise RuntimeError(f"target fact TLS material generation failed: {(err or out)[:1000]}")
-    return cert.read_text(), key.read_text()
+        material = (cert.read_text(), key.read_text())
+    target_fact_material_cache[cache_key] = material
+    return material
 
 
 def ensure_consul_tls_material(run_root: Path) -> tuple[str, str, str]:
-    ca_cert = run_root / "consul-target-facts-ca.crt"
-    ca_key = run_root / "consul-target-facts-ca.key"
-    server_cert = run_root / "consul-target-facts-server.crt"
-    server_key = run_root / "consul-target-facts-server.key"
-    server_csr = run_root / "consul-target-facts-server.csr"
-    server_config = run_root / "consul-target-facts-server-openssl.cnf"
-    needs_refresh = (
-        cert_needs_refresh(ca_cert, ca_key)
-        or cert_needs_refresh(server_cert, server_key)
-        or not server_cert.exists()
-        or not server_key.exists()
-    )
-    if needs_refresh:
-        for path in (ca_cert, ca_key, server_cert, server_key, server_csr):
-            path.unlink(missing_ok=True)
+    cache_key = ("consul", str(run_root))
+    cached = target_fact_material_cache.get(cache_key)
+    if cached:
+        return cached[0], cached[1], cached[2]
+    with tempfile.TemporaryDirectory(prefix="helm-expt-target-fact-consul-") as temp_root:
+        temp_path = Path(temp_root)
+        ca_cert = temp_path / "ca.crt"
+        ca_key = temp_path / "ca.key"
+        server_cert = temp_path / "server.crt"
+        server_key = temp_path / "server.key"
+        server_csr = temp_path / "server.csr"
+        server_config = temp_path / "server-openssl.cnf"
         rc, out, err = sh([
             "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
             "-keyout", str(ca_key), "-out", str(ca_cert), "-subj", "/CN=helm-expt-consul-ca",
@@ -454,16 +452,21 @@ IP.1 = 127.0.0.1
         ], timeout=60)
         if rc != 0:
             raise RuntimeError(f"Consul target fact server certificate generation failed: {(err or out)[:1000]}")
-    return ca_cert.read_text(), server_cert.read_text(), server_key.read_text()
+        material = (ca_cert.read_text(), server_cert.read_text(), server_key.read_text())
+    target_fact_material_cache[cache_key] = material
+    return material
 
 
 def ensure_metrics_server_tls_material(run_root: Path) -> tuple[str, str]:
-    cert = run_root / "metrics-server-target-facts-tls.crt"
-    key = run_root / "metrics-server-target-facts-tls.key"
-    config = run_root / "metrics-server-target-facts-openssl.cnf"
-    if cert_needs_refresh(cert, key):
-        cert.unlink(missing_ok=True)
-        key.unlink(missing_ok=True)
+    cache_key = ("metrics-server", str(run_root))
+    cached = target_fact_material_cache.get(cache_key)
+    if cached:
+        return cached[0], cached[1]
+    with tempfile.TemporaryDirectory(prefix="helm-expt-target-fact-metrics-server-") as temp_root:
+        temp_path = Path(temp_root)
+        cert = temp_path / "tls.crt"
+        key = temp_path / "tls.key"
+        config = temp_path / "openssl.cnf"
         config.write_text("""[req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
@@ -491,17 +494,21 @@ DNS.4 = metrics-server.kube-system.svc.cluster.local
         ], timeout=60)
         if rc != 0:
             raise RuntimeError(f"metrics-server target fact TLS material generation failed: {(err or out)[:1000]}")
-    return cert.read_text(), key.read_text()
+        material = (cert.read_text(), key.read_text())
+    target_fact_material_cache[cache_key] = material
+    return material
 
 
 def ensure_cnpg_webhook_tls_material(run_root: Path) -> tuple[str, str]:
-    cert = run_root / "cnpg-webhook-target-facts-tls.crt"
-    key = run_root / "cnpg-webhook-target-facts-tls.key"
-    config = run_root / "cnpg-webhook-target-facts-openssl.cnf"
-    key_needs_refresh = not key.exists() or "BEGIN EC PRIVATE KEY" not in key.read_text(errors="ignore")[:120]
-    if cert_needs_refresh(cert, key) or key_needs_refresh:
-        cert.unlink(missing_ok=True)
-        key.unlink(missing_ok=True)
+    cache_key = ("cnpg-webhook", str(run_root))
+    cached = target_fact_material_cache.get(cache_key)
+    if cached:
+        return cached[0], cached[1]
+    with tempfile.TemporaryDirectory(prefix="helm-expt-target-fact-cnpg-") as temp_root:
+        temp_path = Path(temp_root)
+        cert = temp_path / "tls.crt"
+        key = temp_path / "tls.key"
+        config = temp_path / "openssl.cnf"
         config.write_text("""[req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
@@ -531,7 +538,9 @@ DNS.4 = cnpg-webhook-service.default.svc.cluster.local
         ], timeout=60)
         if rc != 0:
             raise RuntimeError(f"CloudNativePG target fact certificate generation failed: {(err or out)[:1000]}")
-    return cert.read_text(), key.read_text()
+        material = (cert.read_text(), key.read_text())
+    target_fact_material_cache[cache_key] = material
+    return material
 
 
 def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
@@ -539,9 +548,9 @@ def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
         return ensure_cnpg_webhook_tls_material(run_root)[0]
     if secret_name == "cnpg-webhook-cert" and key in ("key", "tls.key"):
         return ensure_cnpg_webhook_tls_material(run_root)[1]
-    if secret_name == "vpa-tls-certs" and key in ("ca", "cert"):
+    if secret_name in ("vpa-tls-certs", "vpa-tls-secret") and key in ("ca", "cert"):
         return ensure_tls_material(run_root)[0]
-    if secret_name == "vpa-tls-certs" and key == "key":
+    if secret_name in ("vpa-tls-certs", "vpa-tls-secret") and key == "key":
         return ensure_tls_material(run_root)[1]
     if secret_name == "consul-ca-cert" and key in ("tls.crt", "ca.crt"):
         return ensure_consul_tls_material(run_root)[0]
@@ -869,8 +878,43 @@ def stage_target_facts(variant: dict, recipe_path: Path, kubeconfig: Path, conte
             staged_namespaces.append({"name": namespace, "lane": lane})
     target_facts_path = run_root / f"target-facts-{label}.yaml"
     if secret_docs:
-        write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
-        kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
+        private_path = None
+        try:
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as private_file:
+                yaml.safe_dump(
+                    {"apiVersion": "v1", "kind": "List", "items": secret_docs},
+                    private_file,
+                    sort_keys=False,
+                    default_flow_style=False,
+                )
+                private_path = Path(private_file.name)
+            kubectl_must(["apply", "-f", str(private_path)], kubeconfig, context, f"target facts apply {label}")
+        finally:
+            if private_path:
+                private_path.unlink(missing_ok=True)
+        write_yaml(target_facts_path, {
+            "apiVersion": "helm-expt.confighub.com/v1alpha1",
+            "kind": "TargetFactSecretMaterialReceipt",
+            "metadata": {"name": f"target-facts-{label}"},
+            "spec": {
+                "material": "generated for this live run, applied from a temporary file, and not retained",
+                "secrets": [
+                    {
+                        "namespace": (doc.get("metadata") or {}).get("namespace"),
+                        "name": (doc.get("metadata") or {}).get("name"),
+                        "type": doc.get("type"),
+                        "keys": [
+                            {
+                                "name": key,
+                                "sha256": sha256_text(value),
+                            }
+                            for key, value in sorted((doc.get("stringData") or {}).items())
+                        ],
+                    }
+                    for doc in secret_docs
+                ],
+            },
+        })
     if object_store_docs:
         object_store_path = run_root / f"target-facts-{label}-object-stores.yaml"
         write_yaml(object_store_path, {"apiVersion": "v1", "kind": "List", "items": object_store_docs})
@@ -1418,8 +1462,10 @@ def semantic_compare(
     installer_yaml: str,
     allowed_extra: list[str],
     semantic_normalizations: list[str] | None = None,
+    allowed_missing: list[str] | None = None,
 ) -> dict:
     semantic_normalizations = semantic_normalizations or []
+    allowed_missing = sorted(allowed_missing or [])
     helm = object_map(helm_yaml, semantic_normalizations)
     installer = object_map(installer_yaml, semantic_normalizations)
     helm_keys = set(helm)
@@ -1433,19 +1479,49 @@ def semantic_compare(
             continue
         diffs.append(key)
     return {
-        "result": "pass" if not missing and extra == allowed_extra and not diffs else "blocked",
+        "result": "pass" if missing == allowed_missing and extra == allowed_extra and not diffs else "blocked",
         "helmObjectCount": len(helm_keys),
         "installerObjectCount": len(installer_keys),
         "missingFromInstaller": missing,
+        "allowedMissingFromInstaller": allowed_missing,
         "extraInInstaller": extra,
         "semanticDiffs": diffs[:50],
         "semanticNormalizations": semantic_normalizations,
         "comparisonSHA256": sha256_text(json.dumps({
             "missing": missing,
+            "allowedMissing": allowed_missing,
             "extra": extra,
             "diffs": diffs,
             "semanticNormalizations": semantic_normalizations,
         }, sort_keys=True)),
+    }
+
+
+def rendered_crd_names(text: str) -> list[str]:
+    return sorted({
+        str((doc.get("metadata") or {}).get("name"))
+        for doc in yaml_docs(text)
+        if doc.get("kind") == "CustomResourceDefinition"
+        and (doc.get("metadata") or {}).get("name")
+    })
+
+
+def crd_object_key(name: str) -> str:
+    return f"apiextensions.k8s.io/v1|CustomResourceDefinition||{name}"
+
+
+def observe_crds(names: list[str], kubeconfig: Path, context: str) -> dict:
+    items = []
+    for name in names:
+        rc, out, err = kubectl(["get", "crd", name, "-o", "name"], kubeconfig, context)
+        items.append({
+            "name": name,
+            "result": "pass" if rc == 0 else "blocked",
+            "detail": (out or err).strip()[:1000],
+        })
+    return {
+        "result": "pass" if all(item["result"] == "pass" for item in items) else "blocked",
+        "items": items,
     }
 
 
@@ -1669,11 +1745,25 @@ def main() -> int:
         helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=wait_seconds)
         helm_api_services = wait_api_services(helm_kubeconfig, helm_context, api_service_refs(canonical_helm_manifest), timeout_seconds=wait_seconds)
         helm_runtime["apiServices"] = helm_api_services
+        rendered_crds = rendered_crd_names(canonical_helm_manifest)
+        helm_crd_observation = observe_crds(rendered_crds, helm_kubeconfig, helm_context)
+        receipt["spec"].setdefault("crdObservations", {})["regularHelm"] = helm_crd_observation
+        check_item(
+            "regular-helm-rendered-crds",
+            helm_crd_observation["result"],
+            f"observed={sum(item['result'] == 'pass' for item in helm_crd_observation['items'])}/{len(rendered_crds)}",
+        )
+        helm_observed_crd_keys = (
+            [crd_object_key(name) for name in rendered_crds]
+            if helm_crd_observation["result"] == "pass"
+            else []
+        )
         helm_render_live_comparison = semantic_compare(
             canonical_helm_manifest,
             helm_live_manifest,
             [],
             semantic_normalizations,
+            helm_observed_crd_keys,
         ) if helm_live_manifest else {
             "result": "blocked",
             "helmObjectCount": len(object_map(canonical_helm_manifest, semantic_normalizations)),
@@ -1695,6 +1785,7 @@ def main() -> int:
             and get_rc == 0
             and helm_operations["result"] == "pass"
             and helm_api_services["result"] == "pass"
+            and helm_crd_observation["result"] == "pass"
             and helm_render_live_comparison["result"] == "pass"
         )
         helm_result = "pass" if helm_clean and helm_runtime["result"] == "pass" else ("watch" if helm_clean and helm_runtime["result"] == "watch" else "blocked")
@@ -1750,7 +1841,18 @@ def main() -> int:
         installer_runtime = wait_ready_many(installer_kubeconfig, installer_context, apply_info["runtimeNamespaces"], timeout_seconds=wait_seconds)
         installer_api_services = wait_api_services(installer_kubeconfig, installer_context, api_service_refs(installer_manifest), timeout_seconds=wait_seconds)
         installer_runtime["apiServices"] = installer_api_services
-        installer_clean = installer_operations["result"] == "pass" and installer_api_services["result"] == "pass"
+        installer_crd_observation = observe_crds(rendered_crds, installer_kubeconfig, installer_context)
+        receipt["spec"].setdefault("crdObservations", {})["cubInstallerApply"] = installer_crd_observation
+        check_item(
+            "cub-installer-rendered-crds",
+            installer_crd_observation["result"],
+            f"observed={sum(item['result'] == 'pass' for item in installer_crd_observation['items'])}/{len(rendered_crds)}",
+        )
+        installer_clean = (
+            installer_operations["result"] == "pass"
+            and installer_api_services["result"] == "pass"
+            and installer_crd_observation["result"] == "pass"
+        )
         installer_result = "pass" if installer_clean and installer_runtime["result"] == "pass" else ("blocked" if installer_runtime["result"] == "blocked" else "watch")
         leg("cubInstallerApply",
             result=installer_result,
@@ -1774,10 +1876,21 @@ def main() -> int:
         helm_compare_manifest = helm_live_manifest if helm_live_manifest else canonical_helm_manifest
         if helm_live_manifest:
             write_text(run_root / "regular-helm-compare-manifest.yaml", helm_compare_manifest)
+        shared_observed_crd_keys = (
+            helm_observed_crd_keys
+            if installer_crd_observation["result"] == "pass"
+            else []
+        )
+        allowed_extra_objects = sorted([
+            f"v1|Namespace||{args.namespace}",
+            *shared_observed_crd_keys,
+        ])
+        receipt["spec"]["semanticComparison"]["allowedExtraInstallerObjects"] = allowed_extra_objects
+        receipt["spec"]["semanticComparison"]["helmManagedCRDsOmittedFromGetManifest"] = shared_observed_crd_keys
         comparison = semantic_compare(
             helm_compare_manifest,
             installer_manifest,
-            [f"v1|Namespace||{args.namespace}"],
+            allowed_extra_objects,
             semantic_normalizations,
         )
         receipt["spec"]["semanticComparison"]["helmVsCubInstallerApply"] = comparison

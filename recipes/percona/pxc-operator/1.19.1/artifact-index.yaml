@@ -66,7 +66,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1"
     installer: "packages/percona/pxc-operator/1.19.1/installer.yaml"
     receipt: "recipes/percona/pxc-operator/1.19.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d"
+    deterministicBundleSHA256: "124aa275d693006504b646d4ec798132ecd34bdfdb43dcc5ab9b22e42baec9a8"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -154,8 +154,38 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "perconaxtradbclusterbackups.pxc.percona.com"
+            purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "perconaxtradbclusterrestores.pxc.percona.com"
+            purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "perconaxtradbclusters.pxc.percona.com"
+            purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+      targetFactSummary: "required CRD perconaxtradbclusterbackups.pxc.percona.com; required CRD perconaxtradbclusterrestores.pxc.percona.com; required CRD perconaxtradbclusters.pxc.percona.com"
       packageBase:
         name: "no-crds"
         path: "packages/percona/pxc-operator/1.19.1/bases/no-crds"

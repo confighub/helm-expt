@@ -14,19 +14,19 @@ any variant should be created.
 
 | Metric | Rows |
 | --- | ---: |
-| Total rows | 71 |
+| Total rows | 65 |
 | Model-gap rows | 23 |
-| Target-prerequisite rows | 48 |
+| Target-prerequisite rows | 42 |
 
 ### Rows by resolution path
 
 | Value | Rows |
 | --- | ---: |
-| `operator-review-first` | 21 |
-| `crd-ownership-base-or-target-action` | 11 |
-| `derived-target-variant` | 9 |
+| `operator-review-first` | 19 |
+| `crd-ownership-base-or-target-action` | 9 |
+| `derived-target-variant` | 8 |
 | `semantic-normalization` | 7 |
-| `stack-or-target-fact-variant` | 5 |
+| `stack-or-target-fact-variant` | 4 |
 | `new-provider-base-variant` | 3 |
 | `use-existing-sibling-base` | 3 |
 | `new-base-variant-after-input-identification` | 2 |
@@ -44,11 +44,11 @@ any variant should be created.
 
 | Value | Rows |
 | --- | ---: |
-| `no variant until cause is known` | 21 |
-| `CRD ownership base plus target prerequisite` | 11 |
-| `target-bound derived variant` | 9 |
+| `no variant until cause is known` | 19 |
+| `CRD ownership base plus target prerequisite` | 9 |
+| `target-bound derived variant` | 8 |
 | `legacy image-retention base` | 6 |
-| `stack-derived variant` | 5 |
+| `stack-derived variant` | 4 |
 | `CRD ownership off-ramp` | 3 |
 | `base variant if rendered objects change` | 2 |
 | `capability-profile base` | 2 |
@@ -103,15 +103,12 @@ any variant should be created.
 | target-prerequisite | `elastic/kibana@8.5.1` | default | K | stack-or-target-fact-variant | stack-derived variant | identify the upstream service or API the workload expects, then encode it as a target fact or stack dependency |
 | target-prerequisite | `elastic/metricbeat@8.5.1` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `elastic/metricbeat@8.5.1` | default | K | derived-target-variant | target-bound derived variant | create or reference the Secret in the target, then bind it through the target-prerequisite action packet |
-| target-prerequisite | `fairwinds-stable/vpa@4.11.0` | default | K | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
-| target-prerequisite | `fairwinds-stable/vpa@4.11.0` | no-crds | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `fluent/fluentd@0.5.3` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `gitlab/gitlab-runner@0.89.0` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `gitlab/gitlab-runner@0.89.0` | default | K | stack-or-target-fact-variant | stack-derived variant | identify the upstream service or API the workload expects, then encode it as a target fact or stack dependency |
 | target-prerequisite | `grafana/pyroscope@2.0.2` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `grafana/pyroscope@2.0.2` | ha | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `grafana/pyroscope@2.0.2` | no-crds | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
-| target-prerequisite | `grafana/rollout-operator@0.49.0` | no-crds | K | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `hashicorp/terraform@1.1.2` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `hashicorp/terraform@1.1.2` | no-crds | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `hashicorp/terraform@1.1.2` | no-crds | K | derived-target-variant | target-bound derived variant | create or reference the Secret in the target, then bind it through the target-prerequisite action packet |
@@ -130,14 +127,11 @@ any variant should be created.
 | target-prerequisite | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | K | new-base-variant-after-input-identification | base variant if rendered objects change | replace the unknown prerequisite with a named chart value, Secret, namespace, CRD, or external dependency |
 | target-prerequisite | `opencost/opencost@2.5.21` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `opencost/opencost@2.5.21` | default | K | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
-| target-prerequisite | `percona/pg-operator@3.0.0` | no-crds | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
-| target-prerequisite | `percona/pxc-operator@1.19.1` | no-crds | K | stack-or-target-fact-variant | stack-derived variant | identify the upstream service or API the workload expects, then encode it as a target fact or stack dependency |
 | target-prerequisite | `projectcalico/tigera-operator@v3.32.0` | default | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `prometheus-community/prometheus-adapter@5.3.0` | default | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `rook-release/rook-ceph-cluster@v1.19.5` | default | G/P | derived-target-variant | target-bound derived variant | create the Namespace or make namespace creation an explicit preflight step for this target |
 | target-prerequisite | `rook-release/rook-ceph-cluster@v1.19.5` | default | K | derived-target-variant | target-bound derived variant | create the Namespace or make namespace creation an explicit preflight step for this target |
-| target-prerequisite | `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | K | derived-target-variant | target-bound derived variant | create the Namespace or make namespace creation an explicit preflight step for this target |
 | target-prerequisite | `velero/velero@12.0.1` | no-crds | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 
 ## Boundaries

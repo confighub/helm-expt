@@ -18,36 +18,36 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-689 non-green cells:
+676 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 454 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 133 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 55 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-target-or-prereq-fix` | 448 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `already-decided` | 127 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 54 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 396 |
+| `promotion` | 390 |
 | `G` | 64 |
 | `P` | 64 |
-| `K` | 59 |
-| `lifecycle` | 55 |
+| `lifecycle` | 54 |
+| `K` | 53 |
 | `L` | 51 |
 
 | State | Cells |
 | --- | ---: |
 | `proven` | 179 |
-| `watch` | 133 |
+| `watch` | 127 |
 | `not-applicable-source` | 110 |
 | `blocked` | 107 |
-| `not-applicable-candidate` | 74 |
-| `todo` | 55 |
+| `not-applicable-candidate` | 68 |
+| `todo` | 54 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (55)
+## needs-run (54)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -94,7 +94,6 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | kyverno/kyverno@3.8.1 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| percona/pg-operator@3.0.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | projectcalico/tigera-operator@v3.32.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -109,7 +108,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (454)
+## needs-target-or-prereq-fix (448)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -286,9 +285,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | fairwinds-stable/goldilocks@10.3.0 | cluster-metrics-readonly | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | fairwinds-stable/goldilocks@10.3.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | fairwinds-stable/vpa@4.11.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| fairwinds-stable/vpa@4.11.0 | default + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | fairwinds-stable/vpa@4.11.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| fairwinds-stable/vpa@4.11.0 | no-crds + crd | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | fairwinds-stable/vpa@4.11.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | falcosecurity/falco@9.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | falcosecurity/falco@9.0.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -333,7 +330,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | grafana/pyroscope@2.0.2 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/rollout-operator@0.49.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/rollout-operator@0.49.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| grafana/rollout-operator@0.49.0 | no-crds + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | grafana/rollout-operator@0.49.0 | no-crds | L | fail | local-live fail: runtime-readiness: deployment/rollout-operator: not-ready (rollout-operator-5f688cdb68-psdjv[ ready=false restarts=0;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | grafana/rollout-operator@0.49.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/tempo@1.24.4 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -466,14 +462,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | opencost/opencost@2.5.21 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/pg-operator@3.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | percona/pg-operator@3.0.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| percona/pg-operator@3.0.0 | no-crds + crd | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | percona/pg-operator@3.0.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/psmdb-operator@1.22.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | percona/psmdb-operator@1.22.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/psmdb-operator@1.22.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/pxc-operator@1.19.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | percona/pxc-operator@1.19.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| percona/pxc-operator@1.19.1 | no-crds + external-api | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | percona/pxc-operator@1.19.1 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/pxc-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] pxc-operator-5f59645bd-ctt85[CrashLoopBackOff ready=false restarts=4;] rollout-operator) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | percona/pxc-operator@1.19.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | projectcalico/tigera-operator@v3.32.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -545,7 +539,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | stakater/reloader@2.2.12 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | strimzi/strimzi-kafka-operator@1.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | strimzi/strimzi-kafka-operator@1.0.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| strimzi/strimzi-kafka-operator@1.0.0 | no-crds + namespace | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/strimzi-cluster-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] strimzi-cluster-operat | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | traefik/traefik@40.2.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -624,7 +617,7 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (133)
+## already-decided (127)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
@@ -705,8 +698,6 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | elastic/kibana@8.5.1 | default | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/metricbeat@8.5.1 | default | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/metricbeat@8.5.1 | default | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
-| fairwinds-stable/vpa@4.11.0 | default | K | watch | target-runtime: pod crash loop (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
-| fairwinds-stable/vpa@4.11.0 | no-crds | K | watch | target-prerequisite: CRDs disabled or missing (parity passed) | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | fluent/fluentd@0.5.3 | default | G | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | fluent/fluentd@0.5.3 | default | P | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | gitlab/gitlab-runner@0.89.0 | default | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
@@ -719,7 +710,6 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | grafana/pyroscope@2.0.2 | ha | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | no-crds | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | no-crds | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
-| grafana/rollout-operator@0.49.0 | no-crds | K | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
 | grafana/tempo@1.24.4 | s3-query-observability | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | grafana/tempo@1.24.4 | s3-query-observability | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
@@ -756,11 +746,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | open-telemetry/opentelemetry-operator@0.114.0 | no-crds | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | opencost/opencost@2.5.21 | default | G | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | opencost/opencost@2.5.21 | default | P | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
-| percona/pg-operator@3.0.0 | no-crds | K | watch | target-prerequisite: CRDs disabled or missing (parity passed) | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
-| percona/pxc-operator@1.19.1 | no-crds | K | watch | helm-runtime: upstream not ready (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
 | prometheus-community/prometheus@29.9.0 | default | G | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | prometheus-community/prometheus@29.9.0 | default | P | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
-| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | K | watch | target-prerequisite: required Namespace missing (parity passed) | Declare and stage the required Namespace as a target fact, then the row can move to pass. |
 | traefik/traefik@40.2.0 | no-crds | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | traefik/traefik@40.2.0 | no-crds | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 

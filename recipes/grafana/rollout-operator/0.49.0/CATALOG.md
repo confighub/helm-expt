@@ -59,7 +59,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/grafana/rollout-operator/0.49.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/grafana/rollout-operator/0.49.0/bases/default](../../../../packages/grafana/rollout-operator/0.49.0/bases/default) | [recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 15 | 16 | 15/15 | pass | warn | warn | none |
-| no-crds | [recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/grafana/rollout-operator/0.49.0/bases/no-crds](../../../../packages/grafana/rollout-operator/0.49.0/bases/no-crds) | [recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 13 |  | 13/13 | pass |  | allow | none |
+| no-crds | [recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/grafana/rollout-operator/0.49.0/bases/no-crds](../../../../packages/grafana/rollout-operator/0.49.0/bases/no-crds) | [recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 13 |  | 13/13 | pass |  | allow | required CRD replicatemplates.rollout-operator.grafana.com; required CRD zoneawarepoddisruptionbudgets.rollout-operator.grafana.com |
 
 ## Package Bases
 

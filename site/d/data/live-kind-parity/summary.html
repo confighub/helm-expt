@@ -435,30 +435,28 @@
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>Under the same chart, version, values, and base variant, does regular Helm reach
 the same live outcome as cub installer output?</code></pre>
-<pre><code>pass: 121
-watch: 10
+<pre><code>pass: 127
+watch: 4
 blocked: 47
 semantic parity pass: 153
 semantic parity defects: 16
-non-pass rows where semantic parity passed: 32
+non-pass rows where semantic parity passed: 26
 non-pass rows with related lifecycle evidence: 0</code></pre>
 <p>Non-pass rows are still useful when object parity passed. They usually point at target prerequisites, controller readiness, storage, hooks, or operating policy. Use the rerun plan for the next command and expected remediation:</p>
 <pre><code>data/live-parity-rerun-plan/summary.md</code></pre>
 <h2 id="non-pass-by-reason">Non-Pass By Reason</h2>
 <table><thead><tr><th>Reason</th><th>Rows</th></tr></thead><tbody><tr><td>parity: semantic object diff</td><td>16</td></tr>
 <tr><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>10</td></tr>
-<tr><td>helm-runtime: upstream not ready (parity passed)</td><td>5</td></tr>
+<tr><td>helm-runtime: upstream not ready (parity passed)</td><td>4</td></tr>
 <tr><td>target-prerequisite: CRDs missing</td><td>4</td></tr>
 <tr><td>target-prerequisite: required Secret missing (parity passed)</td><td>4</td></tr>
-<tr><td>target-runtime: pod crash loop (parity passed)</td><td>4</td></tr>
-<tr><td>target-prerequisite: required Namespace missing (parity passed)</td><td>3</td></tr>
+<tr><td>target-runtime: pod crash loop (parity passed)</td><td>3</td></tr>
 <tr><td>blocked: inspect receipt</td><td>2</td></tr>
 <tr><td>target-prerequisite: cert-manager CRDs missing</td><td>2</td></tr>
-<tr><td>target-prerequisite: CRDs disabled or missing (parity passed)</td><td>2</td></tr>
+<tr><td>target-prerequisite: required Namespace missing (parity passed)</td><td>2</td></tr>
 <tr><td>helm-hook: pre-install certificate generation failed (parity passed)</td><td>1</td></tr>
 <tr><td>render-input: required Helm values missing</td><td>1</td></tr>
 <tr><td>render-input: required Helm values missing (parity passed)</td><td>1</td></tr>
-<tr><td>target-runtime: installer-applied workload not ready at observation cutoff (parity passed)</td><td>1</td></tr>
 <tr><td>watch: object parity passed; readiness needs review</td><td>1</td></tr></tbody></table>
 <h2 id="how-to-read-non-pass-rows">How To Read Non-Pass Rows</h2>
 <p>The <code>result</code> column records the overall live command outcome. The <code>semantic_parity</code> column records whether regular Helm and <code>cub installer</code> produced the same Kubernetes object meaning. A non-pass row with <code>semantic_parity=pass</code> is not an object parity defect. It means the row exposed target, runtime, or lifecycle behavior that needs a route, observation, or support decision.</p>
@@ -533,8 +531,8 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td>pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml</td><td>live parity passed</td><td>runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml</td></tr>
 <tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td>pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml</td><td>live parity passed</td><td>runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml</td></tr>
 <tr><td><code>fairwinds-stable/goldilocks@10.3.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/fairwinds-stable-goldilocks-default/receipt.yaml</td></tr>
-<tr><td><code>fairwinds-stable/vpa@4.11.0</code></td><td>default</td><td>watch</td><td>pass</td><td>target-runtime: pod crash loop (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml</td></tr>
-<tr><td><code>fairwinds-stable/vpa@4.11.0</code></td><td>no-crds</td><td>watch</td><td>pass</td><td>target-prerequisite: CRDs disabled or missing (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml</td></tr>
+<tr><td><code>fairwinds-stable/vpa@4.11.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml</td></tr>
+<tr><td><code>fairwinds-stable/vpa@4.11.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml</td></tr>
 <tr><td><code>falcosecurity/falco@9.0.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/falcosecurity-falco-default/receipt.yaml</td></tr>
 <tr><td><code>falcosecurity/falcosidekick@0.13.1</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/falcosecurity-falcosidekick-default/receipt.yaml</td></tr>
 <tr><td><code>fluent/fluent-bit@0.57.6</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/fluent-fluent-bit-default/receipt.yaml</td></tr>
@@ -553,7 +551,7 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td><code>grafana/pyroscope@2.0.2</code></td><td>ha</td><td>blocked</td><td>defect</td><td>parity: semantic object diff</td><td></td><td>semantic object parity defect</td><td>runs/live-kind-parity/grafana-pyroscope-ha/receipt.yaml</td></tr>
 <tr><td><code>grafana/pyroscope@2.0.2</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/grafana-pyroscope-no-crds/receipt.yaml</td></tr>
 <tr><td><code>grafana/rollout-operator@0.49.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/grafana-rollout-operator-default/receipt.yaml</td></tr>
-<tr><td><code>grafana/rollout-operator@0.49.0</code></td><td>no-crds</td><td>watch</td><td>pass</td><td>target-runtime: installer-applied workload not ready at observation cutoff (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml</td></tr>
+<tr><td><code>grafana/rollout-operator@0.49.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml</td></tr>
 <tr><td><code>grafana/tempo@1.24.4</code></td><td>local-persistent</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml</td></tr>
 <tr><td><code>grafana/tempo@1.24.4</code></td><td>s3-query-observability</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml</td></tr>
 <tr><td><code>haproxytech/kubernetes-ingress@1.52.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml</td></tr>
@@ -601,11 +599,11 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td><code>open-telemetry/opentelemetry-operator@0.114.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml</td></tr>
 <tr><td><code>opencost/opencost@2.5.21</code></td><td>default</td><td>blocked</td><td>pass</td><td>target-runtime: pod crash loop (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/opencost-opencost-default/receipt.yaml</td></tr>
 <tr><td><code>percona/pg-operator@3.0.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-pg-operator-default/receipt.yaml</td></tr>
-<tr><td><code>percona/pg-operator@3.0.0</code></td><td>no-crds</td><td>watch</td><td>pass</td><td>target-prerequisite: CRDs disabled or missing (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml</td></tr>
+<tr><td><code>percona/pg-operator@3.0.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml</td></tr>
 <tr><td><code>percona/psmdb-operator@1.22.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml</td></tr>
 <tr><td><code>percona/psmdb-operator@1.22.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-psmdb-operator-no-crds/receipt.yaml</td></tr>
 <tr><td><code>percona/pxc-operator@1.19.1</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml</td></tr>
-<tr><td><code>percona/pxc-operator@1.19.1</code></td><td>no-crds</td><td>watch</td><td>pass</td><td>helm-runtime: upstream not ready (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml</td></tr>
+<tr><td><code>percona/pxc-operator@1.19.1</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml</td></tr>
 <tr><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>default</td><td>blocked</td><td>unknown</td><td>target-prerequisite: CRDs missing</td><td></td><td>inspect receipt</td><td>runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml</td></tr>
 <tr><td><code>prometheus-community/alertmanager@1.37.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml</td></tr>
 <tr><td><code>prometheus-community/alertmanager@1.37.0</code></td><td>ha</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml</td></tr>
@@ -634,7 +632,7 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td><code>stakater/reloader@2.2.12</code></td><td>controller-default-reviewed</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/stakater-reloader-controller-default-reviewed/receipt.yaml</td></tr>
 <tr><td><code>stakater/reloader@2.2.12</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/stakater-reloader-default/receipt.yaml</td></tr>
 <tr><td><code>strimzi/strimzi-kafka-operator@1.0.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml</td></tr>
-<tr><td><code>strimzi/strimzi-kafka-operator@1.0.0</code></td><td>no-crds</td><td>watch</td><td>pass</td><td>target-prerequisite: required Namespace missing (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml</td></tr>
+<tr><td><code>strimzi/strimzi-kafka-operator@1.0.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml</td></tr>
 <tr><td><code>traefik/traefik@40.2.0</code></td><td>default</td><td>blocked</td><td>defect</td><td>parity: semantic object diff</td><td></td><td>semantic object parity defect</td><td>runs/live-kind-parity/traefik-traefik-default/receipt.yaml</td></tr>
 <tr><td><code>traefik/traefik@40.2.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/traefik-traefik-no-crds/receipt.yaml</td></tr>
 <tr><td><code>velero/velero@12.0.1</code></td><td>default</td><td>blocked</td><td>unknown</td><td>blocked: inspect receipt</td><td></td><td>inspect receipt</td><td>runs/live-kind-parity/velero-velero-default/receipt.yaml</td></tr>
