@@ -46,7 +46,7 @@ from a different chart version's disposition row.
 | Matrix rows | 389 |
 | F1 source / F2 base / candidate / F4 derived rows | 110 / 199 / 67 / 13 |
 | Layer rows | F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:34 / F4a:7 / F4b:6 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 974 / 105 / 124 / 84 / 1436 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 976 / 105 / 122 / 84 / 1436 |
 | Base/derived rows with the complete core lane set | 131 |
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
@@ -381,7 +381,7 @@ when you want the user/product view with those columns visible.
 |  | F2c | candidate review | node-or-cluster-collector | candidate | `lookup;generated-facts;tpl;capabilities` | - | - | - | - | - | - | - | - | - | - | model | candidate-plan | - |
 | `jaegertracing/jaeger-operator@2.57.0` | F1 | source | (source) | next80 | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | `crds;webhooks` | - | - | ✅ | ✅ | ✅ | ⬜ | ❌ | ❌ | ❌ | ✅ | stage | local-live | ⬜ |
-|  | F2b | base | no-crds | next80 | `crds;webhooks` | - | - | ✅ | ✅ | ❌ | ⬜ | ❌ | ❌ | ❌ | ✅ | stage | in-confighub | ⬜ |
+|  | F2b | base | no-crds | next80 | `crds;webhooks` | - | - | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ❌ | ✅ | stage | live-parity | ⬜ |
 |  | F3 | candidate review | default + crd | candidate | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 |  | F3 | candidate review | no-crds + crd | candidate | `crds;webhooks` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 | `jetstack/cert-manager@v1.20.2` | F1 | source | (source) | top20 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

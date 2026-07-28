@@ -431,16 +431,16 @@
     <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This report tracks the strict live comparison lane for the selected top-20 chart/base rows and any additional committed base-variant receipts. Each completed row has a receipt under <code>runs/live-helm-confighub-compare/</code>.</p>
-<pre><code>pass: 137
+<pre><code>pass: 138
 watch: 51
-blocked: 10
+blocked: 9
 not-started: 0</code></pre>
 <p>Blocked rows broken down by cause (see <code>blocked-triage.md</code>):</p>
 <pre><code>capability-profile: rendered APIService version is not served by target Kubernetes: 2
 crd-bootstrap: required CRDs missing before custom resources apply: 1
 helm-runtime: upstream leg blocked: 1
 render-input: required Velero provider values missing: 2
-target-prerequisite: cert-manager CRDs missing: 2
+target-prerequisite: cert-manager CRDs missing: 1
 target-prerequisite: namespace missing (parity passed): 2</code></pre>
 <table><thead><tr><th>Rank</th><th>Chart</th><th>Base</th><th>Result</th><th>Reason</th><th>Receipt</th></tr></thead><tbody><tr><td>1</td><td><code>bitnami/redis@25.5.3</code></td><td>default</td><td>pass</td><td>-</td><td>runs/live-helm-confighub-compare/bitnami-redis-default/receipt.yaml</td></tr>
 <tr><td>2</td><td><code>metrics-server/metrics-server@3.13.0</code></td><td>default</td><td>pass</td><td>-</td><td>runs/live-helm-confighub-compare/metrics-server-metrics-server-default/receipt.yaml</td></tr>
@@ -582,7 +582,7 @@ target-prerequisite: namespace missing (parity passed): 2</code></pre>
 <tr><td></td><td><code>istio/istiod@1.30.0</code></td><td>default</td><td>blocked</td><td>target-prerequisite: namespace missing (parity passed)</td><td>runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml</td></tr>
 <tr><td></td><td><code>jaegertracing/jaeger@4.8.0</code></td><td>default</td><td>pass</td><td>-</td><td>runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml</td></tr>
 <tr><td></td><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>default</td><td>blocked</td><td>target-prerequisite: cert-manager CRDs missing</td><td>runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml</td></tr>
-<tr><td></td><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>no-crds</td><td>blocked</td><td>target-prerequisite: cert-manager CRDs missing</td><td>runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml</td></tr>
+<tr><td></td><td><code>jaegertracing/jaeger-operator@2.57.0</code></td><td>no-crds</td><td>pass</td><td>-</td><td>runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml</td></tr>
 <tr><td></td><td><code>jetstack/cert-manager-csi-driver@v0.14.0</code></td><td>default</td><td>pass</td><td>-</td><td>runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/receipt.yaml</td></tr>
 <tr><td></td><td><code>jetstack/trust-manager@v0.22.1</code></td><td>default</td><td>watch</td><td>gitops-runtime: Argo health Progressing (parity passed)</td><td>runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml</td></tr>
 <tr><td></td><td><code>jetstack/trust-manager@v0.22.1</code></td><td>no-crds</td><td>pass</td><td>-</td><td>runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml</td></tr>

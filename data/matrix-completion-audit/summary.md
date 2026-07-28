@@ -18,11 +18,11 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-669 non-green cells:
+667 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 447 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 445 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 122 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 53 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
@@ -30,8 +30,8 @@ columns). It changes no status and runs nothing.
 | Lane | Cells |
 | --- | ---: |
 | `promotion` | 389 |
-| `G` | 62 |
-| `P` | 62 |
+| `G` | 61 |
+| `P` | 61 |
 | `lifecycle` | 53 |
 | `K` | 52 |
 | `L` | 51 |
@@ -41,7 +41,7 @@ columns). It changes no status and runs nothing.
 | `proven` | 179 |
 | `watch` | 122 |
 | `not-applicable-source` | 110 |
-| `blocked` | 107 |
+| `blocked` | 105 |
 | `not-applicable-candidate` | 67 |
 | `todo` | 53 |
 | `fail` | 18 |
@@ -107,7 +107,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (447)
+## needs-target-or-prereq-fix (445)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -384,10 +384,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | jaegertracing/jaeger-operator@2.57.0 | default | P | blocked | target-prerequisite: cert-manager CRDs missing | Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass. |
 | jaegertracing/jaeger-operator@2.57.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds + crd | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
-| jaegertracing/jaeger-operator@2.57.0 | no-crds | G | blocked | target-prerequisite: cert-manager CRDs missing | Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass. |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | K | blocked | target-prerequisite: cert-manager CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | L | blocked | local-live blocked: webhook-cert-lifecycle: deployment/jaeger-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (jaeger-operator-b44465548-7jfbn[ContainerCreating ready=false restarts=0;] node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityr) | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
-| jaegertracing/jaeger-operator@2.57.0 | no-crds | P | blocked | target-prerequisite: cert-manager CRDs missing | Stage the named prerequisite as a target fact (see the target-prerequisite-plan), then the row can move to pass. |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jaegertracing/jaeger@4.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | jaegertracing/jaeger@4.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |

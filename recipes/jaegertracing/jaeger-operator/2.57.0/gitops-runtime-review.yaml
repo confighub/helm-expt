@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "jaeger-operator-no-crds-cert-manager-pass"
+  chart: "jaegertracing/jaeger-operator"
+  version: "2.57.0"
+spec:
+  base: "no-crds"
+  controller: "Argo CD"
+  targetShape: "cub-managed kind proof cluster with target profile kind-cert-manager"
+  receipt: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+  observedResult: "pass"
+  targetProfile:
+    name: "kind-cert-manager"
+    sourcePackage: "jetstack/cert-manager@v1.20.2"
+    sourceBase: "crds-enabled"
+    provides:
+      - "the six cert-manager CRDs"
+      - "the cert-manager, cainjector, and webhook controllers"
+      - "a controller that reconciles the chart's Issuer and Certificate"
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "Synced"
+    configHubOciHealth: "Healthy"
+    semanticParity: "pass"
+  passed:
+    - "the Jaeger CRD prerequisite recorded for the no-crds preset was installed before the workload"
+    - "regular Helm reached readiness"
+    - "ConfigHub direct apply reached readiness"
+    - "ConfigHub published the workload Space and cluster Space as OCI releases"
+    - "ConfigHub OCI/Argo synced all rendered Units and reported Healthy"
+    - "the Jaeger Operator Deployment reached readiness"
+    - "the chart's Issuer and Certificate were reconciled by cert-manager"
+    - "semantic object parity passed with zero object diffs for direct apply and OCI/Argo"
+  previousObservation:
+    base: "default"
+    receipt: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml"
+    result: "blocked"
+    detail: "On a plain kind target, Kubernetes rejected the chart's Issuer and Certificate because the cert-manager APIs were not installed."
+  diagnosis:
+    summary: "The earlier failure was caused by missing target prerequisites, not by a render difference."
+    interpretation: "Use the no-crds preset when the platform owns the Jaeger CRD. Install the Jaeger CRD and a working cert-manager controller first; the operator can then be delivered by Helm, direct apply, or ConfigHub OCI through Argo."
+  nextActions:
+    - "Use a target with a working cert-manager controller before installing the Jaeger Operator."
+    - "Keep the Jaeger CRD under explicit platform ownership when using the no-crds preset."
+    - "Replace the local kind profile with evidence from the real target's certificate policy, CRD lifecycle, and Jaeger workloads before making a production claim."
+  evidence:
+    argoCoreChildJson: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/argocd-core-root-tree.txt"
+  notClaimed:
+    - "This row does not prove Jaeger Operator production support for arbitrary targets."
+    - "This row does not prove the default base or a target without cert-manager."
+    - "This row does not prove a Jaeger custom resource or tracing workload."
+    - "This row does not prove certificate rotation, CRD upgrades, or webhook renewal."

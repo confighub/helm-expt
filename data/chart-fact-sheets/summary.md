@@ -706,8 +706,8 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** works-with-operator-review (`works-with-operator-review`)
 - **Support (claim):** not-yet-public-catalog-proof-ready
-- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 0/2)
-- **Recommended base:** `default`
+- **Evidence depth:** proof-grade-ready-for-promotion-review (render parity 2/2, local live 1/2, live parity 1/2)
+- **Recommended base:** `no-crds`
 - **You must provide/decide:** a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time
 - **Quirks & disposition:** crds;webhooks;extension-slots — exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases
 - **Skill:** serious-chart-playbooks (docs/skills/serious-chart-playbooks.md; docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)

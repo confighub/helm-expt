@@ -13,20 +13,20 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 669,
+  "nonGreenCellsCovered": 667,
   "familyCount": 20,
   "byActionType": {
     "run-promotion": 389,
     "record-decision": 112,
     "refresh-image": 74,
-    "stage-prereq": 60,
+    "stage-prereq": 58,
     "fix-model": 27,
     "lifecycle-observe": 7
   },
   "byOwnerLane": {
     "Codex-live": 396,
     "product-decision": 143,
-    "Claude-non-live": 130
+    "Claude-non-live": 128
   },
   "top10": [
     {
@@ -73,24 +73,24 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "install-crds",
-      "affected_cell_count": 9,
-      "owner_lane": "Claude-non-live"
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "affected_cell_count": 8,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
       "affected_cell_count": 7,
       "owner_lane": "Codex-live"
+    },
+    {
+      "action_id": "CCP-09",
+      "action_type": "stage-prereq",
+      "sub_group": "install-crds",
+      "affected_cell_count": 7,
+      "owner_lane": "Claude-non-live"
     },
     {
       "action_id": "CCP-10",
@@ -823,36 +823,6 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "install-crds",
-      "owner_lane": "Claude-non-live",
-      "affected_cell_count": 9,
-      "lanes": [
-        "G",
-        "K",
-        "L",
-        "P"
-      ],
-      "command": "",
-      "prerequisite": "cert-manager CRDs",
-      "expected_status": "pass after the prerequisite is staged",
-      "prediction": true,
-      "evidence_surface": "target-prerequisite-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "jaegertracing/jaeger-operator@2.57.0/default [G]",
-        "jaegertracing/jaeger-operator@2.57.0/default [K]",
-        "jaegertracing/jaeger-operator@2.57.0/default [P]",
-        "jaegertracing/jaeger-operator@2.57.0/no-crds [G]",
-        "jaegertracing/jaeger-operator@2.57.0/no-crds [K]",
-        "jaegertracing/jaeger-operator@2.57.0/no-crds [P]",
-        "open-telemetry/opentelemetry-operator@0.114.0/default [L]",
-        "projectcalico/tigera-operator@v3.32.0/default [K]",
-        "velero/velero@12.0.1/no-crds [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "owner_lane": "Claude-non-live",
@@ -881,7 +851,7 @@
       ]
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "lifecycle-observe",
       "sub_group": "lifecycle-route",
       "owner_lane": "Codex-live",
@@ -904,6 +874,34 @@
         "kyverno/kyverno@3.8.1/no-crds [lifecycle]",
         "projectcalico/tigera-operator@v3.32.0/default [L]",
         "prometheus-community/kube-prometheus-stack@85.3.3/default [lifecycle]"
+      ]
+    },
+    {
+      "action_id": "CCP-09",
+      "action_type": "stage-prereq",
+      "sub_group": "install-crds",
+      "owner_lane": "Claude-non-live",
+      "affected_cell_count": 7,
+      "lanes": [
+        "G",
+        "K",
+        "L",
+        "P"
+      ],
+      "command": "",
+      "prerequisite": "cert-manager CRDs",
+      "expected_status": "pass after the prerequisite is staged",
+      "prediction": true,
+      "evidence_surface": "target-prerequisite-workdown",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "jaegertracing/jaeger-operator@2.57.0/default [G]",
+        "jaegertracing/jaeger-operator@2.57.0/default [K]",
+        "jaegertracing/jaeger-operator@2.57.0/default [P]",
+        "jaegertracing/jaeger-operator@2.57.0/no-crds [K]",
+        "open-telemetry/opentelemetry-operator@0.114.0/default [L]",
+        "projectcalico/tigera-operator@v3.32.0/default [K]",
+        "velero/velero@12.0.1/no-crds [K]"
       ]
     },
     {

@@ -13,12 +13,12 @@ proof of automated execution. See
 for the sibling image story, and
 [residue-families](../../docs/reference/residue-families.md) for the vocabulary.
 
-## 41 action packets
+## 40 action packets
 
 | Action kind | Rows |
 | --- | ---: |
 | `operator-review` | 19 |
-| `install-crds` | 8 |
+| `install-crds` | 7 |
 | `create-namespace` | 4 |
 | `provide-external-service` | 4 |
 | `stage-secret` | 3 |
@@ -27,7 +27,7 @@ for the sibling image story, and
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 27 |
+| `operator-review` | 26 |
 | `user-stage` | 13 |
 | `target-policy` | 1 |
 
@@ -61,7 +61,6 @@ for the sibling image story, and
 | istio/istiod@1.30.0 | default | K | create-namespace | Namespace istio-system | `npm run kind-parity:run -- --chart istio/istiod --version 1.30.0 --base default` |
 | jaegertracing/jaeger-operator@2.57.0 | default | G/P | install-crds | cert-manager CRDs | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base default` |
 | jaegertracing/jaeger-operator@2.57.0 | default | K | install-crds | cert-manager CRDs | `npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base default` |
-| jaegertracing/jaeger-operator@2.57.0 | no-crds | G/P | install-crds | cert-manager CRDs | `npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds` |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | K | install-crds | cert-manager CRDs | `npm run kind-parity:run -- --chart jaegertracing/jaeger-operator --version 2.57.0 --base no-crds` |
 | nats/surveyor@0.20.9 | default-reviewed | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/nats/surveyor/0.20.9 --base default-reviewed` |
 | nats/surveyor@0.20.9 | default-reviewed | K | provide-external-service | the upstream service/endpoint the workload connects to | `npm run kind-parity:run -- --chart nats/surveyor --version 0.20.9 --base default-reviewed` |

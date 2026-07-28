@@ -15,12 +15,12 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 [residue-families](../../docs/reference/residue-families.md). For the full non-green
 triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 41 target-prerequisite rows
+## 40 target-prerequisite rows
 
 | Prerequisite kind | Rows |
 | --- | ---: |
 | `unknown` | 21 |
-| `crd` | 8 |
+| `crd` | 7 |
 | `external-api` | 4 |
 | `namespace` | 4 |
 | `secret` | 3 |
@@ -28,7 +28,7 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 27 |
+| `operator-review` | 26 |
 | `user-stage` | 13 |
 | `target-policy` | 1 |
 
@@ -62,7 +62,6 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | istio/istiod@1.30.0 | default | K | namespace | Namespace istio-system | user-stage | yes |
 | jaegertracing/jaeger-operator@2.57.0 | default | G/P | crd | cert-manager CRDs | operator-review | unknown |
 | jaegertracing/jaeger-operator@2.57.0 | default | K | crd | cert-manager CRDs | operator-review | unknown |
-| jaegertracing/jaeger-operator@2.57.0 | no-crds | G/P | crd | cert-manager CRDs | operator-review | unknown |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | K | crd | cert-manager CRDs | operator-review | unknown |
 | nats/surveyor@0.20.9 | default-reviewed | G/P | unknown | unknown | operator-review | yes |
 | nats/surveyor@0.20.9 | default-reviewed | K | external-api | unknown | operator-review | yes |

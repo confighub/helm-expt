@@ -586,6 +586,47 @@ spec:
         - "recipes/grafana/rollout-operator/0.49.0/CATALOG.md"
         - "recipes/grafana/rollout-operator/0.49.0/helm-pain-report.yaml"
     -
+      chart: "jaegertracing/jaeger-operator"
+      version: "2.57.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "live-helm-vs-confighub-parity"
+      sourceFeatures:
+        - "crds"
+        - "webhooks"
+      scan:
+        high: 0
+        medium: 3
+        gateDecisions:
+          - "allow"
+          - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml"
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/control-points.yaml"
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/value-model.yaml"
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/helm-plan.yaml"
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md"
+        - "recipes/jaegertracing/jaeger-operator/2.57.0/helm-pain-report.yaml"
+    -
       chart: "jetstack/trust-manager"
       version: "v0.22.1"
       variants:

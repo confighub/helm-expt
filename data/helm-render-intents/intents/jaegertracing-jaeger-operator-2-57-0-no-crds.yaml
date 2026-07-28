@@ -41,8 +41,8 @@ spec:
     confighubScanOps: "yes"
     localKind: "no"
     lifecycleObserved: "todo"
-    gitopsOciLive: "no"
-    liveDualParity: "no"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
     twoClusterKind: "no"
     variantPromotion: "proven"
   lifecycle:
@@ -183,25 +183,6 @@ spec:
           - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
     actions:
       -
-        lane: "G/P"
-        prerequisiteKind: "crd"
-        prerequisiteName: "cert-manager CRDs"
-        actionKind: "install-crds"
-        ownerClass: "operator-review"
-        requiredInputs: "cert-manager CRDs"
-        evidenceRequired: "the required CRDs Established on the target before apply; then a fresh G/P parity receipt for this base"
-        automatic: false
-        supportArtifact: "recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml"
-        sourceReceipt: "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
-        rerunCommand: "npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds"
-        requiredBefore: "apply"
-        freshness:
-          policy: "recheck-before-apply"
-          maxAge: "one-apply"
-        evidence:
-          - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
-          - "recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml"
-      -
         lane: "K"
         prerequisiteKind: "crd"
         prerequisiteName: "cert-manager CRDs"
@@ -222,7 +203,7 @@ spec:
           - "recipes/jaegertracing/jaeger-operator/2.57.0/target-prerequisite-plan.yaml"
     coverage:
       state: "attached-with-observed-actions"
-      reason: "3 prerequisite declarations and 2 follow-up action records are attached."
+      reason: "3 prerequisite declarations and 1 follow-up action record are attached."
       declarationSource: "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml"
       nextAction: ""
   provenance:

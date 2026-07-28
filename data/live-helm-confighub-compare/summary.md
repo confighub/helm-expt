@@ -6,9 +6,9 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 137
+pass: 138
 watch: 51
-blocked: 10
+blocked: 9
 not-started: 0
 ```
 
@@ -19,7 +19,7 @@ capability-profile: rendered APIService version is not served by target Kubernet
 crd-bootstrap: required CRDs missing before custom resources apply: 1
 helm-runtime: upstream leg blocked: 1
 render-input: required Velero provider values missing: 2
-target-prerequisite: cert-manager CRDs missing: 2
+target-prerequisite: cert-manager CRDs missing: 1
 target-prerequisite: namespace missing (parity passed): 2
 ```
 
@@ -165,7 +165,7 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `istio/istiod@1.30.0` | default | blocked | target-prerequisite: namespace missing (parity passed) | runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml |
 |  | `jaegertracing/jaeger@4.8.0` | default | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-default/receipt.yaml |
 |  | `jaegertracing/jaeger-operator@2.57.0` | default | blocked | target-prerequisite: cert-manager CRDs missing | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml |
-|  | `jaegertracing/jaeger-operator@2.57.0` | no-crds | blocked | target-prerequisite: cert-manager CRDs missing | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml |
+|  | `jaegertracing/jaeger-operator@2.57.0` | no-crds | pass | - | runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml |
 |  | `jetstack/cert-manager-csi-driver@v0.14.0` | default | pass | - | runs/live-helm-confighub-compare/jetstack-cert-manager-csi-driver-default/receipt.yaml |
 |  | `jetstack/trust-manager@v0.22.1` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/jetstack-trust-manager-default/receipt.yaml |
 |  | `jetstack/trust-manager@v0.22.1` | no-crds | pass | - | runs/live-helm-confighub-compare/jetstack-trust-manager-no-crds/receipt.yaml |

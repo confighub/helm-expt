@@ -436,11 +436,11 @@
 <h2 id="what-watch-and-blocked-mean-here">What watch and blocked mean here</h2>
 <ul><li><b>watch</b> - known evidence with a named residue. The semantic Helm-vs-ConfigHub parity passed (the delivered objects match regular Helm); a GitOps controller-health, runtime, or operational condition still needs review. <b>Not a pass, not a failure.</b></li><li><b>blocked</b> - the row did not reach the lane result. The decision names why and who owns the fix.</li></ul>
 <h2 id="this-batch">This batch</h2>
-<p>61 non-pass rows: 51 watch, 10 blocked. 4 are resolved by the <b>user</b> (stage a prerequisite); 5 need <b>catalog/model</b> work; the rest are GitOps controller-health, runtime, or operational residues to review. In every watch row, semantic parity already passed - the residue is operational, not a config mismatch.</p>
+<p>60 non-pass rows: 51 watch, 9 blocked. 3 are resolved by the <b>user</b> (stage a prerequisite); 5 need <b>catalog/model</b> work; the rest are GitOps controller-health, runtime, or operational residues to review. In every watch row, semantic parity already passed - the residue is operational, not a config mismatch.</p>
 <table><thead><tr><th>Residue category</th><th>Rows</th></tr></thead><tbody><tr><td><code>remote-image</code></td><td>20</td></tr>
 <tr><td><code>target-runtime</code></td><td>15</td></tr>
 <tr><td><code>gitops-runtime</code></td><td>14</td></tr>
-<tr><td><code>target-prerequisite</code></td><td>4</td></tr>
+<tr><td><code>target-prerequisite</code></td><td>3</td></tr>
 <tr><td><code>capability-profile</code></td><td>2</td></tr>
 <tr><td><code>render-input</code></td><td>2</td></tr>
 <tr><td><code>crd-bootstrap</code></td><td>1</td></tr>
@@ -451,7 +451,7 @@
 <tr><td><code>needs runtime review</code></td><td>15</td></tr>
 <tr><td><code>needs GitOps controller-health review</code></td><td>14</td></tr>
 <tr><td><code>catalog</code></td><td>5</td></tr>
-<tr><td><code>user</code></td><td>4</td></tr>
+<tr><td><code>user</code></td><td>3</td></tr>
 <tr><td><code>catalog or operator</code></td><td>1</td></tr>
 <tr><td><code>needs operate review</code></td><td>1</td></tr>
 <tr><td><code>user or catalog</code></td><td>1</td></tr></tbody></table>
@@ -499,7 +499,6 @@
 <tr><td>istio/gateway@1.30.0</td><td>default</td><td>watch</td><td>remote-image</td><td>catalog or image publisher</td><td>watch - image reference must be resolved</td></tr>
 <tr><td>istio/istiod@1.30.0</td><td>default</td><td>blocked</td><td>target-prerequisite</td><td>user</td><td>yes, after staging the prerequisite</td></tr>
 <tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>default</td><td>blocked</td><td>target-prerequisite</td><td>user</td><td>yes, after staging the prerequisite</td></tr>
-<tr><td>jaegertracing/jaeger-operator@2.57.0</td><td>no-crds</td><td>blocked</td><td>target-prerequisite</td><td>user</td><td>yes, after staging the prerequisite</td></tr>
 <tr><td>jetstack/trust-manager@v0.22.1</td><td>default</td><td>watch</td><td>gitops-runtime</td><td>needs GitOps controller-health review</td><td>watch - synced and converged; aggregate health needs explanation</td></tr>
 <tr><td>kyverno/kyverno-policies@3.8.0</td><td>default</td><td>watch</td><td>gitops-runtime</td><td>needs GitOps controller-health review</td><td>watch - synced and converged; aggregate health needs explanation</td></tr>
 <tr><td>linkerd/linkerd-crds@1.8.0</td><td>default</td><td>watch</td><td>gitops-runtime</td><td>needs GitOps controller-health review</td><td>watch - synced and converged; aggregate health needs explanation</td></tr>

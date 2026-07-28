@@ -15,8 +15,8 @@ disposition, and a current support boundary for each row.
 ## Summary
 
 ~~~text
-wave rows: 30
-live Helm-vs-ConfigHub parity rows: 30
+wave rows: 31
+live Helm-vs-ConfigHub parity rows: 31
 two-cluster kind parity rows: 0
 missing item: scan and production disposition
 ~~~
@@ -39,6 +39,7 @@ missing item: scan and production disposition
 | `gatekeeper/gatekeeper@3.22.2` | default;no-crds | high=0, medium=22, gates=allow;warn | capabilities;hooks;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `grafana/alloy@1.8.2` | default;no-crds | high=0, medium=3, gates=allow;warn | tpl;capabilities;crds;cluster-rbac;stateful-storage | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `grafana/rollout-operator@0.49.0` | default;no-crds | high=0, medium=8, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| `jaegertracing/jaeger-operator@2.57.0` | default;no-crds | high=0, medium=3, gates=allow;warn | crds;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `jetstack/trust-manager@v0.22.1` | default;no-crds | high=0, medium=4, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `kedacore/keda@2.19.0` | default;no-crds | high=0, medium=17, gates=allow;warn | tpl;capabilities;crds;cluster-rbac;webhooks | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 | `nats/nack@0.34.0` | default;no-crds | high=0, medium=8, gates=allow;warn | - | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
@@ -78,6 +79,7 @@ offer.
 | `gatekeeper/gatekeeper@3.22.2` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `grafana/alloy@1.8.2` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `grafana/rollout-operator@0.49.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
+| `jaegertracing/jaeger-operator@2.57.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `jetstack/trust-manager@v0.22.1` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `kedacore/keda@2.19.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable<br>webhook readiness/observation policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
 | `nats/nack@0.34.0` | support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade | human review needed: confirm variants are the obvious Helm-user paths<br>medium scan findings require review or waiver before production support<br>install gate warns<br>production support requires documented disposition or acceptance<br>CRD lifecycle policy must be catalog-readable | a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral |
@@ -102,9 +104,9 @@ offer.
 | `tpl` | 14 |
 | `cluster-rbac` | 12 |
 | `capabilities` | 11 |
-| `crds` | 8 |
+| `crds` | 9 |
+| `webhooks` | 6 |
 | `stateful-storage` | 5 |
-| `webhooks` | 5 |
 | `generated-facts` | 3 |
 | `lookup` | 2 |
 | `hooks` | 1 |

@@ -6,7 +6,7 @@
 
 The path to **100% verified disposition** of the master matrix — *not* 100% green.
 A correct `watch` / `blocked` / `refused` / `n-a` with evidence and a named next
-action is a valid product answer. This collapses the 669 non-green cells from the
+action is a valid product answer. This collapses the 667 non-green cells from the
 [matrix-completion-audit](../matrix-completion-audit/summary.md) into
 **20 action families**, ranked by cells-cleared-per-action, so a large
 matrix becomes a short punch-list.
@@ -24,9 +24,9 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | CCP-04 | record-decision | lifecycle-not-applicable | 47 | product-decision | — |
 | CCP-05 | stage-prereq | operator-review | 20 | product-decision | runtime review or target-specific support decision |
 | CCP-06 | stage-prereq | stage-secret | 10 | Claude-non-live | required Secret/ConfigMap/mount target fact |
-| CCP-07 | stage-prereq | install-crds | 9 | Claude-non-live | cert-manager CRDs |
-| CCP-08 | fix-model | model-gap | 8 | Claude-non-live | — |
-| CCP-09 | lifecycle-observe | lifecycle-route | 7 | Codex-live | data/lifecycle-route-actions (route/action packets) |
+| CCP-07 | fix-model | model-gap | 8 | Claude-non-live | — |
+| CCP-08 | lifecycle-observe | lifecycle-route | 7 | Codex-live | data/lifecycle-route-actions (route/action packets) |
+| CCP-09 | stage-prereq | install-crds | 7 | Claude-non-live | cert-manager CRDs |
 | CCP-10 | stage-prereq | create-namespace | 6 | Claude-non-live | see target-prerequisite-actions |
 
 ## Cells by action type
@@ -36,7 +36,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | `run-promotion` | 389 |
 | `record-decision` | 112 |
 | `refresh-image` | 74 |
-| `stage-prereq` | 60 |
+| `stage-prereq` | 58 |
 | `fix-model` | 27 |
 | `lifecycle-observe` | 7 |
 
@@ -46,7 +46,7 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 | --- | ---: |
 | `Codex-live` | 396 |
 | `product-decision` | 143 |
-| `Claude-non-live` | 130 |
+| `Claude-non-live` | 128 |
 
 ## Variant promotion (first-class family)
 
@@ -63,9 +63,9 @@ The promotion (V) lane is the loudest hole: **179 proven / 17 watch / 1 todo / 2
 | CCP-04 | record-decision | lifecycle-not-applicable | 47 | lifecycle | product-decision | n/a (no routed lifecycle to observe) | master-catalog-matrix | #753 |
 | CCP-05 | stage-prereq | operator-review | 20 | K/L | product-decision | pass after the runtime residue is reviewed or a better base is selected (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
 | CCP-06 | stage-prereq | stage-secret | 10 | K/L | Claude-non-live | pass after the prerequisite is staged (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
-| CCP-07 | stage-prereq | install-crds | 9 | G/K/L/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
-| CCP-08 | fix-model | model-gap | 8 | G/K/L/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
-| CCP-09 | lifecycle-observe | lifecycle-route | 7 | L/lifecycle | Codex-live | observed (prediction) | lifecycle-route-actions; local-live-triage | #248; #753 |
+| CCP-07 | fix-model | model-gap | 8 | G/K/L/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
+| CCP-08 | lifecycle-observe | lifecycle-route | 7 | L/lifecycle | Codex-live | observed (prediction) | lifecycle-route-actions; local-live-triage | #248; #753 |
+| CCP-09 | stage-prereq | install-crds | 7 | G/K/L/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
 | CCP-10 | stage-prereq | create-namespace | 6 | G/K/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |
 | CCP-11 | fix-model | base-design | 5 | G/K/P | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
 | CCP-12 | fix-model | crd-lifecycle | 5 | K | Claude-non-live | pass after the model/recipe change (prediction) | model-gap-workdown | #248; #753 |
