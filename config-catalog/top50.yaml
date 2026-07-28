@@ -566,7 +566,7 @@ spec:
     - id: T42
       area: Catalog
       name: Complete production-scoped support decisions for the top 20
-      status: partial
+      status: available
       outcome: Each top-20 chart states its supported target scope, required prerequisites, scans, lifecycle work, live evidence, and remaining limits.
       evidence:
         - data/production-support-decisions/summary.md
@@ -574,7 +574,7 @@ spec:
       verify:
         - npm run production:support-decisions:verify
         - npm run production:disposition:verify
-      next: Close the remaining support decision and keep every decision tied to fresh target and image evidence.
+      next: Keep supported decisions tied to fresh target and image evidence, and require a new hardened base before reopening a rejected or superseded scope.
 
     - id: T43
       area: Catalog

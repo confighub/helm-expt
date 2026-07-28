@@ -435,7 +435,7 @@
 <h2 id="summary">Summary</h2>
 <pre><code>packet charts: 8
 supported for a declared target scope: 7
-rejected for production support: 0
+rejected for production support: 1
 superseded: 0
 production-disposition blocked: 1</code></pre>
 <h2 id="packets">Packets</h2>
@@ -445,7 +445,7 @@ production-disposition blocked: 1</code></pre>
 <tr><td><code>argo-cd/argo-cd@9.5.15</code></td><td>default</td><td>supported</td><td>production-review-ready</td><td>Use default for the declared proof scope. Hardened, self-managed, repository-credential, SSO, or backup/restore paths need sepa...</td><td><a href="packets/argo-cd-argo-cd.html">packet</a></td></tr>
 <tr><td><code>grafana/loki@7.0.0</code></td><td>single-binary-filesystem</td><td>supported</td><td>production-review-ready</td><td>Use single-binary-filesystem for the declared local proof scope. Object-store, retention, backup, restore, tenant, and hardened...</td><td><a href="packets/grafana-loki.html">packet</a></td></tr>
 <tr><td><code>hashicorp/consul@2.0.0</code></td><td>default-control-plane</td><td>supported</td><td>production-review-ready</td><td>Use default-control-plane for the declared proof scope. Secure mesh, TLS, ACL, gateway, UI, production quorum, and digest-pinne...</td><td><a href="packets/hashicorp-consul.html">packet</a></td></tr>
-<tr><td><code>hashicorp/vault@0.32.0</code></td><td>default</td><td>draft</td><td>production-review-ready</td><td>Use dev-mode only for local/demo proof. A production Vault base must cover init/unseal, storage, TLS, backup/restore, and opera...</td><td><a href="packets/hashicorp-vault.html">packet</a></td></tr>
+<tr><td><code>hashicorp/vault@0.32.0</code></td><td>default</td><td>rejected</td><td>production-review-ready</td><td>Use dev-mode only for local/demo proof. A production Vault base must cover init/unseal, storage, TLS, backup/restore, and opera...</td><td><a href="packets/hashicorp-vault.html">packet</a></td></tr>
 <tr><td><code>longhorn/longhorn@1.11.2</code></td><td>default</td><td>supported</td><td>production-review-ready</td><td>Use default only inside the declared privileged storage proof scope. Backup/restore, upgrade, replica policy, UI ingress, and h...</td><td><a href="packets/longhorn-longhorn.html">packet</a></td></tr></tbody></table>
 <h2 id="how-to-read-these">How To Read These</h2>
 <ul><li><code>supported</code> means target-scoped support for the named base and target scope.</li><li><code>rejected</code> means the evidence remains useful, but the base is not a production support offer.</li><li>A hard chart can pass render parity and live evidence while still requiring a separate support decision for another base, target, storage mode, provider, or overlay.</li><li>These packets should be regenerated after support decisions, production disposition, base readiness, or chart pages change.</li></ul>

@@ -448,8 +448,8 @@
 <tr><td>Layer rows</td><td>F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:41 / F4a:7 / F4b:6</td></tr>
 <tr><td>Lane cells ✅ / ⚠️ / ❌ / ⬜ / -</td><td>962 / 116 / 124 / 86 / 1484</td></tr>
 <tr><td>Base/derived rows with the complete core lane set</td><td>131</td></tr>
-<tr><td>Rows with a target run decision</td><td>25</td></tr>
-<tr><td>Target run decisions (runs / superseded / blocked-or-rejected)</td><td>22 / 2 / 1</td></tr>
+<tr><td>Rows with a target run decision</td><td>26</td></tr>
+<tr><td>Target run decisions (runs / superseded / blocked-or-rejected)</td><td>22 / 2 / 2</td></tr>
 <tr><td>Server-side variant promotion (proven / watch / todo / blocked / n/a)</td><td>179 / 17 / 1 / 2 / 197</td></tr>
 <tr><td>Lifecycle route contracts (observed / watch / todo / n/a)</td><td>8 / 0 / 2 / 386</td></tr>
 <tr><td>Render-intent lifecycle records (attached / gap / no separate route)</td><td>8 / 5 / 186</td></tr>
@@ -726,7 +726,7 @@
 <tr><td></td><td>F3</td><td>candidate review</td><td>no-crds + review</td><td>candidate</td><td><code>crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>
 <tr><td></td><td>F3</td><td>candidate</td><td>no-crds + secret</td><td>candidate</td><td><code>crds</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>stage</td><td>candidate-plan</td><td>-</td></tr>
 <tr><td><code>hashicorp/vault@0.32.0</code></td><td>F1</td><td>source</td><td>(source)</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
-<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>draft</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>❌</td></tr>
 <tr><td></td><td>F2b</td><td>base</td><td>dev-mode</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>deferred</td><td>live-parity</td><td>⬜</td></tr>
 <tr><td></td><td>F2b</td><td>base</td><td>ha-raft-ui</td><td>top20</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>stage</td><td>two-cluster-kind-parity</td><td>⬜</td></tr>
 <tr><td></td><td>F3</td><td>candidate review</td><td>ha-raft-ui + review</td><td>candidate</td><td><code>tpl;capabilities;cluster-rbac;webhooks;stateful-storage</code></td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>scope</td><td>candidate-plan</td><td>-</td></tr>

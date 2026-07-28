@@ -8,9 +8,9 @@ is a navigation surface over existing evidence, not a new support decision.
 | Field | Value |
 | --- | --- |
 | Supported base | `default` |
-| Support decision | `draft` |
+| Support decision | `rejected` |
 | Production disposition | `production-review-ready` |
-| Target scope | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux |
+| Target scope | kind-vanilla; namespace=vault; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 | Evidence count | 9 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
@@ -26,7 +26,7 @@ Use dev-mode only for local/demo proof. A production Vault base must cover init/
 
 ## What Remains Before Broader Production Use
 
-Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim.
+Keep the default base as a ready-to-try parity example. Create a separate TLS-enabled, digest-pinned, persistent-storage base with explicit init, unseal, recovery, backup, and upgrade procedures before reconsidering production support.
 
 ## Bases
 
@@ -49,11 +49,11 @@ Resolve image digests and scanner findings for the default base, then refresh ta
 
 | Decision | State |
 | --- | --- |
-| Image policy | `requires-image-digest-resolution` |
-| Scan policy | `scanner-findings-need-review` |
-| Lifecycle policy | `no-lifecycle-specific-decision` |
-| Target facts | `no-unresolved-target-prerequisite-in-candidate-base` |
-| Live evidence | `fresh-target-evidence-exists-but-final-support-pending` |
+| Image policy | `mutable-tags-prevent-production-support` |
+| Scan policy | `default-security-posture-not-accepted-for-production` |
+| Lifecycle policy | `manual-vault-operations-not-production-supported` |
+| Target facts | `production-target-contract-not-defined` |
+| Live evidence | `parity-passed-production-support-rejected` |
 
 ## Evidence Links
 

@@ -12,8 +12,8 @@ live evidence rule, and operator-owned boundaries.
 ```text
 decision artifacts: 20
 supported decisions: 17
-draft decisions: 1
-rejected decisions: 0
+draft decisions: 0
+rejected decisions: 1
 superseded decisions: 2
 open work items: 0
 ```
@@ -82,7 +82,7 @@ Each decision directory also has a generated workdown page:
 | `grafana/loki@7.0.0` | single-binary-filesystem | supported | cub-lk-kind-vanilla; namespace=loki; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate object-store, retention, backup, restore, tenant, hardening, and digest-pinned bases for real customer Loki workloads. |
 | `grafana/tempo@1.24.4` | local-persistent | superseded | vanilla-kubernetes; namespace=tempo; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-source-chart-is-deprecated | Keep this as catalog proof evidence only; review grafana-community/tempo or another maintained successor before making a production-support claim. |
 | `hashicorp/consul@2.0.0` | default-control-plane | supported | cub-lk-kind-vanilla; namespace=consul; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate secure-mesh, TLS, ACL, gateway, UI, external-CRD, production-quorum, hardening, and digest-pinned bases for real customer Consul workloads. |
-| `hashicorp/vault@0.32.0` | default | draft | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux | fresh-target-evidence-exists-but-final-support-pending | Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim. |
+| `hashicorp/vault@0.32.0` | default | rejected | kind-vanilla; namespace=vault; delivery=confighub-oci; controller=argo | parity-passed-production-support-rejected | Keep the default base as a ready-to-try parity example. Create a separate TLS-enabled, digest-pinned, persistent-storage base with explicit init, unseal, recovery, backup, and upgrade procedures before reconsidering production support. |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | supported | cub-lk-kind-vanilla; namespace=ingress-nginx; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | supported | cub-lk-kind-vanilla; namespace=cert-manager; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate issuer, certificate, provider, or hardened resource bases for real customer certificate workloads. |
 | `longhorn/longhorn@1.11.2` | default | supported | cub-lk-kind-vanilla; namespace=longhorn-system; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate backup/restore, upgrade, replica-policy, storage-class, UI-ingress, resource-hardened, or digest-pinned bases for real customer Longhorn workloads. |

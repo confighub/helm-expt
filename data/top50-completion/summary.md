@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 27
-partial:   21
+available: 28
+partial:   20
 planned:   2
 blocked:   0
 total:     50
@@ -127,7 +127,7 @@ The source status definitions are:
 | ID | Outcome | Status | Current evidence | Completion step |
 | --- | --- | --- | --- | --- |
 | T41 | Maintain public packages for the top 100 Helm charts | available | [data/top100-readiness/summary.md](../../data/top100-readiness/summary.md)<br>[data/installer-oci-packages/summary.md](../../data/installer-oci-packages/summary.md) | Keep all packages reproducible and remove any public reference that no longer passes its package verifier. |
-| T42 | Complete production-scoped support decisions for the top 20 | partial | [data/production-support-decisions/summary.md](../../data/production-support-decisions/summary.md)<br>[data/production-disposition/summary.md](../../data/production-disposition/summary.md) | Close the remaining support decision and keep every decision tied to fresh target and image evidence. |
+| T42 | Complete production-scoped support decisions for the top 20 | available | [data/production-support-decisions/summary.md](../../data/production-support-decisions/summary.md)<br>[data/production-disposition/summary.md](../../data/production-disposition/summary.md) | Keep supported decisions tied to fresh target and image evidence, and require a new hardened base before reopening a rejected or superseded scope. |
 | T43 | Promote the next 80 from proof-grade to useful catalog configs | partial | [data/top100-coverage/summary.md](../../data/top100-coverage/summary.md)<br>[data/useful-base-realization-wave/summary.md](../../data/useful-base-realization-wave/summary.md) | Build the remaining useful-base proposals and review promotion candidates in evidence order. |
 | T44 | Expand the catalog beyond Helm | partial | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md)<br>[data/demo-program/summary.md](../../data/demo-program/summary.md) | Add stable browse pages and ready-to-use artifacts for every source family rather than leaving them only in demonstrations. |
 | T45 | Let users browse by starting point and next job | available | [config-catalog/program.yaml](../../config-catalog/program.yaml)<br>[docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md)<br>[site/charts/index.html](../../site/charts/index.html)<br>[site/testing.html](../../site/testing.html) | Keep both navigation tables and their linked source pages current as starting points and jobs change. |

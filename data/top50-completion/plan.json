@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 27,
-      "partial": 21,
+      "available": 28,
+      "partial": 20,
       "planned": 2,
       "blocked": 0
     },
@@ -693,9 +693,9 @@
         ],
         "id": "T42",
         "name": "Complete production-scoped support decisions for the top 20",
-        "next": "Close the remaining support decision and keep every decision tied to fresh target and image evidence.",
+        "next": "Keep supported decisions tied to fresh target and image evidence, and require a new hardened base before reopening a rejected or superseded scope.",
         "outcome": "Each top-20 chart states its supported target scope, required prerequisites, scans, lifecycle work, live evidence, and remaining limits.",
-        "status": "partial",
+        "status": "available",
         "verify": [
           "npm run production:support-decisions:verify",
           "npm run production:disposition:verify"

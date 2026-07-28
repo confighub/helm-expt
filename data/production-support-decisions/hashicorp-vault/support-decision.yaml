@@ -1,48 +1,48 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "hashicorp-vault-default-public-oci-draft"
+  name: "hashicorp-vault-default-public-oci-rejected"
 spec:
   chart: "hashicorp/vault"
   version: "0.32.0"
-  decision: draft
-  decisionDate: "2026-06-09"
+  decision: rejected
+  decisionDate: "2026-07-28"
   supportedBase: "default"
   targetScope:
-    clusterClass: vanilla-kubernetes
+    clusterClass: kind-vanilla
     namespace: "vault"
     deliveryPath: confighub-oci
-    gitopsController: argo-or-flux
+    gitopsController: argo
     storageAssumptions:
-      - "Use the chart's recorded storage behavior for the candidate base unless this draft is narrowed before final support."
+      - "The evaluated default base uses the chart's single-node file-storage behavior."
     networkAssumptions:
-      - "Use the service, ingress, DNS, and certificate behavior recorded by the candidate base unless this draft is narrowed before final support."
+      - "The evaluated default base does not establish a production TLS and certificate policy."
     requiredTargetFacts: []
   supportBoundary:
     includes:
-      - "hashicorp/vault@0.32.0 default base"
-      - ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-      - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+      - "the production-support decision for hashicorp/vault@0.32.0 default"
+      - "the recorded Helm, ConfigHub direct-apply, and ConfigHub OCI/Argo evidence used to evaluate that base"
+      - "continued use of the default base as a ready-to-try catalog and parity example"
     excludes:
-      - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
-      - "non-vanilla Kubernetes distributions unless separately reviewed"
-      - "other delivery controllers or target scopes unless separately reviewed"
+      - "a production-support claim for the default base"
+      - "a production Vault storage, TLS, unseal, recovery, backup, or upgrade policy"
+      - "private values overlays, wrapper charts, populated extension slots, and other target scopes"
   decisions:
     imageDecision:
-      state: "requires-image-digest-resolution"
-      detail: "default base live evidence exists, but production OCI support still needs image digest policy or an explicit target-scoped exception"
+      state: "mutable-tags-prevent-production-support"
+      detail: "the default base renders mutable image tags; this decision does not grant an exception for production use"
     scanDecision:
-      state: "scanner-findings-need-review"
-      detail: "scanner findings remain useful proof data and must be accepted, fixed, or documented for the target scope before final support"
+      state: "default-security-posture-not-accepted-for-production"
+      detail: "the recorded findings include disabled TLS, cluster-wide access, service exposure, and webhook policy that need a separate hardened base"
     lifecycleDecision:
-      state: "no-lifecycle-specific-decision"
-      detail: "no lifecycle-specific decision beyond standard support boundary"
+      state: "manual-vault-operations-not-production-supported"
+      detail: "the proof initializes and unseals Vault after delivery, but it does not define a production unseal, recovery, backup, rollback, or upgrade procedure"
     targetFactDecision:
-      state: "no-unresolved-target-prerequisite-in-candidate-base"
-      detail: "no unresolved target prerequisite in candidate base"
+      state: "production-target-contract-not-defined"
+      detail: "the default base does not state the storage, certificate, identity, availability, and recovery facts required for a production target"
     liveEvidenceDecision:
-      state: "fresh-target-evidence-exists-but-final-support-pending"
-      detail: "regular Helm and ConfigHub paths pass for the default base in committed receipts; final support still needs the target-scoped image and scanner decisions named above"
+      state: "parity-passed-production-support-rejected"
+      detail: "the committed evidence proves the evaluated paths can install the same working example; it does not make the default base production-ready"
   evidence:
     - path: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -62,8 +62,5 @@ spec:
       claim: "The storage backup restore and rollback policy receipt exists for this chart."
     - path: "data/production-disposition/receipts/hashicorp-vault/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy receipt exists for this chart."
-  requiredBeforeFinal:
-    - "Resolve image digests or record an explicit target-scoped exception before production OCI support."
-    - "Accept, fix, or document scanner findings for the supported target scope."
-    - "Refresh target-scoped live/e2e evidence before final support claim."
-  nextAction: "Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim."
+  requiredBeforeFinal: []
+  nextAction: "Keep the default base as a ready-to-try parity example. Create a separate TLS-enabled, digest-pinned, persistent-storage base with explicit init, unseal, recovery, backup, and upgrade procedures before reconsidering production support."
