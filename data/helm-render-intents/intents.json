@@ -26606,8 +26606,8 @@
           "confighubScanOps": "yes",
           "localKind": "no",
           "lifecycleObserved": "n/a",
-          "gitopsOciLive": "watch",
-          "liveDualParity": "watch",
+          "gitopsOciLive": "yes",
+          "liveDualParity": "yes",
           "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },

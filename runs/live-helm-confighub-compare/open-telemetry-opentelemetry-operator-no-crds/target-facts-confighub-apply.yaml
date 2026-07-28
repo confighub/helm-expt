@@ -1,209 +1,29 @@
 apiVersion: v1
 kind: List
+metadata:
+  annotations:
+    helm-expt.confighub.com/evidence-note: Secret values are redacted; the live run
+      applied ephemeral values from a temporary file.
 items:
 - apiVersion: v1
   kind: Secret
   metadata:
     name: opentelemetry-operator-controller-manager-service-cert
     namespace: default
+    annotations:
+      helm-expt.confighub.com/secret-values: redacted-from-committed-evidence
   type: kubernetes.io/tls
   stringData:
-    tls.crt: '-----BEGIN CERTIFICATE-----
-
-      MIIDJTCCAg2gAwIBAgIUGXxfJPLgHbcMRfMJfbXv6JDKcEgwDQYJKoZIhvcNAQEL
-
-      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjAxMzA1OVoX
-
-      DTI2MDYxNzAxMzA1OVowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
-
-      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsgH+YkZflTNT0AkbxnC7sarH1Iz1
-
-      I9epEju4Zhdakcm40RnRL0DJZpl2WwiqDB6+YWCxxnixRpFVStwBeUiDWQzKsqz0
-
-      eNAb1jdK4WqdGtFEodg72sGUt80KBPxTrQOZUit97TOXvhkHmexr5y698YgmpqH1
-
-      /AjuGf+MgPoshij0d1qt5Tid0erHVnrm25t+0NSA9LvalpFZSkJLQTLry4nLMP26
-
-      gdVKQR9I56jxMjnrYzAdt8KMK1VL6zSMY5pFwGXGVyp5gRcgTMiYzE46A6DfAyQl
-
-      q+RfMADTp5y5CGIRgXSuF4ihchjpRm8GX0DdBEZ0SN9zUYNsJW41oPuD4wIDAQAB
-
-      o2MwYTAdBgNVHQ4EFgQUMzij+BbLURW48ncK9iDZ+8OeXeQwHwYDVR0jBBgwFoAU
-
-      Mzij+BbLURW48ncK9iDZ+8OeXeQwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E
-
-      BAMCAqQwDQYJKoZIhvcNAQELBQADggEBAKbMefdDyBQyVrboxzqO8a2b05XqXc0M
-
-      tg8lNdbDIkzB6ZTRQc7vZ4kx3u4bgJX8Wi5K+We4QXt+9KT097xmtFtkRnCnnr8h
-
-      3q41uI4FIsyncCU5Lf2VpbZXcXoCPbQ00XNFdv14jTF2CaU+FoUB2y1dkJMgR3JR
-
-      gkfHEhYUwQdJITdxbTvGN3bU/Al0qmOP8igxyBM50yUXg4dxlJh5IHrEXOACmPAl
-
-      k27d90ShUxrkmpGJ01a9hsKqeQtBN/kogt2fxTGHLS6Ll+/xFey3YU+a+FB+LlLN
-
-      aAWMV2K+7rL7wjfymByh4KaQnVy7VCjzx6jm+GxN+1xBRQqTQ9DynSk=
-
-      -----END CERTIFICATE-----
-
-      '
-    tls.key: '-----BEGIN PRIVATE KEY-----
-
-      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCyAf5iRl+VM1PQ
-
-      CRvGcLuxqsfUjPUj16kSO7hmF1qRybjRGdEvQMlmmXZbCKoMHr5hYLHGeLFGkVVK
-
-      3AF5SINZDMqyrPR40BvWN0rhap0a0USh2DvawZS3zQoE/FOtA5lSK33tM5e+GQeZ
-
-      7GvnLr3xiCamofX8CO4Z/4yA+iyGKPR3Wq3lOJ3R6sdWeubbm37Q1ID0u9qWkVlK
-
-      QktBMuvLicsw/bqB1UpBH0jnqPEyOetjMB23wowrVUvrNIxjmkXAZcZXKnmBFyBM
-
-      yJjMTjoDoN8DJCWr5F8wANOnnLkIYhGBdK4XiKFyGOlGbwZfQN0ERnRI33NRg2wl
-
-      bjWg+4PjAgMBAAECggEAE3B+TFMtGwkY7Q4hl2E2Tie9XOvr1Xc2woP9FkEUpfkm
-
-      ksdD/eoQVIEL2NMwZtRwrAe4Qllp2rACZYNzMcCGf5ITDMIwjIUFlTZCmi1fbM9P
-
-      tHD90Fz1lcDxiCvaI3nSI5QWU3If7yWim9+ixQNowNjCh84GI/kBr5slx+wKMrhV
-
-      cjv8m5IsljIZJNVmo1VlBCZni9wXR0NYGVqcO7Mwmfz0/YFrA9x3PYOSrEH1CjLe
-
-      GKLLt9FA6cN+iIlwqlFtOzTrguF8ADx/4vMHDwKu8z0OkdRSKBQ0V96VAtyjOmjp
-
-      rB8COg6E/fbZ7iTzjwstTCEwyf6L83eeXiPEbJa+OQKBgQDperDNJK1Ag+XTZv/I
-
-      XRRny71zslWa3pvu5DtSjO5HWhhT8jlEs2xu2NTkRAahHwQasrndQMOh6Wze8nhG
-
-      oTMzB8yotEmSNp6YdZ27TjJ0Le1fHlRAge+Ii7idOVbxCVdcpadk94ccL9mT2E9D
-
-      UhQ+evM90G4UDClFGw16793EJQKBgQDDLYtogxCigUCIPKa9muQ4aKgI/k7Qrauu
-
-      sVTtY9gJTkxEQe+vvgu/CwwKb3XE/7glxCOKcwbCFoqFXXZfTqZ45BaIV8NvFKf0
-
-      xwC6lJ3Ut7DJubbSTJqT5M/1/p0gWCxvElx+NEKni0stVUTLK9aCu5lb6gikVzdk
-
-      CR8ASTNlZwKBgQCTyutR4E6fUR7RVBjDr0/0aD7TluajcxiH/wciOT24Aur1cJYZ
-
-      y+3uuOkCWaFMqoKBl/MZgB6WRll5Q0kphG8RdXVysTUFDfgUkBc5csVzT4M7u8of
-
-      T2DeMXu6YoqLZ5tadS3iNuHa0NtMwBdkiPdxmYiR73dOz2fsa7R7xoy91QKBgEmc
-
-      SsCu9b4kOz9miIhn+3ze08kYiIchiOeIz/v8NQVFd3Qi3hANAAccVn01DlivDTeJ
-
-      ItJbkYfv0mx8FGHbmuNrOqhPWVDynGmwCDFWTbRlVxKtrSrhY0c1+8zOK1qAhrmZ
-
-      VjLu6Nihq0e8qgZqUSvbLvrAaGP61NQwsHV+JhkvAoGAG+7oPKmdEWyh++9k66i2
-
-      H5ISkhl/V+PwidOb148cwk6q+9U2IUGSZiLp8NOj0qG8gfeUyTE/Xs+V8jVmDKku
-
-      muY0NGXSOoeIvqk+3o2l84TqCtN6r1H5gZBomAZwBHpGP33XOA0ERftmgMMUhTu+
-
-      q6JghcGRzbavMpw5hXWa1/g=
-
-      -----END PRIVATE KEY-----
-
-      '
+    tls.crt: <redacted>
+    tls.key: <redacted>
 - apiVersion: v1
   kind: Secret
   metadata:
     name: opentelemetry-operator-controller-manager-service-cert
     namespace: default-apply
+    annotations:
+      helm-expt.confighub.com/secret-values: redacted-from-committed-evidence
   type: kubernetes.io/tls
   stringData:
-    tls.crt: '-----BEGIN CERTIFICATE-----
-
-      MIIDJTCCAg2gAwIBAgIUGXxfJPLgHbcMRfMJfbXv6JDKcEgwDQYJKoZIhvcNAQEL
-
-      BQAwGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMB4XDTI2MDYxNjAxMzA1OVoX
-
-      DTI2MDYxNzAxMzA1OVowGjEYMBYGA1UEAwwPaGVsbS1leHB0LmxvY2FsMIIBIjAN
-
-      BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsgH+YkZflTNT0AkbxnC7sarH1Iz1
-
-      I9epEju4Zhdakcm40RnRL0DJZpl2WwiqDB6+YWCxxnixRpFVStwBeUiDWQzKsqz0
-
-      eNAb1jdK4WqdGtFEodg72sGUt80KBPxTrQOZUit97TOXvhkHmexr5y698YgmpqH1
-
-      /AjuGf+MgPoshij0d1qt5Tid0erHVnrm25t+0NSA9LvalpFZSkJLQTLry4nLMP26
-
-      gdVKQR9I56jxMjnrYzAdt8KMK1VL6zSMY5pFwGXGVyp5gRcgTMiYzE46A6DfAyQl
-
-      q+RfMADTp5y5CGIRgXSuF4ihchjpRm8GX0DdBEZ0SN9zUYNsJW41oPuD4wIDAQAB
-
-      o2MwYTAdBgNVHQ4EFgQUMzij+BbLURW48ncK9iDZ+8OeXeQwHwYDVR0jBBgwFoAU
-
-      Mzij+BbLURW48ncK9iDZ+8OeXeQwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E
-
-      BAMCAqQwDQYJKoZIhvcNAQELBQADggEBAKbMefdDyBQyVrboxzqO8a2b05XqXc0M
-
-      tg8lNdbDIkzB6ZTRQc7vZ4kx3u4bgJX8Wi5K+We4QXt+9KT097xmtFtkRnCnnr8h
-
-      3q41uI4FIsyncCU5Lf2VpbZXcXoCPbQ00XNFdv14jTF2CaU+FoUB2y1dkJMgR3JR
-
-      gkfHEhYUwQdJITdxbTvGN3bU/Al0qmOP8igxyBM50yUXg4dxlJh5IHrEXOACmPAl
-
-      k27d90ShUxrkmpGJ01a9hsKqeQtBN/kogt2fxTGHLS6Ll+/xFey3YU+a+FB+LlLN
-
-      aAWMV2K+7rL7wjfymByh4KaQnVy7VCjzx6jm+GxN+1xBRQqTQ9DynSk=
-
-      -----END CERTIFICATE-----
-
-      '
-    tls.key: '-----BEGIN PRIVATE KEY-----
-
-      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCyAf5iRl+VM1PQ
-
-      CRvGcLuxqsfUjPUj16kSO7hmF1qRybjRGdEvQMlmmXZbCKoMHr5hYLHGeLFGkVVK
-
-      3AF5SINZDMqyrPR40BvWN0rhap0a0USh2DvawZS3zQoE/FOtA5lSK33tM5e+GQeZ
-
-      7GvnLr3xiCamofX8CO4Z/4yA+iyGKPR3Wq3lOJ3R6sdWeubbm37Q1ID0u9qWkVlK
-
-      QktBMuvLicsw/bqB1UpBH0jnqPEyOetjMB23wowrVUvrNIxjmkXAZcZXKnmBFyBM
-
-      yJjMTjoDoN8DJCWr5F8wANOnnLkIYhGBdK4XiKFyGOlGbwZfQN0ERnRI33NRg2wl
-
-      bjWg+4PjAgMBAAECggEAE3B+TFMtGwkY7Q4hl2E2Tie9XOvr1Xc2woP9FkEUpfkm
-
-      ksdD/eoQVIEL2NMwZtRwrAe4Qllp2rACZYNzMcCGf5ITDMIwjIUFlTZCmi1fbM9P
-
-      tHD90Fz1lcDxiCvaI3nSI5QWU3If7yWim9+ixQNowNjCh84GI/kBr5slx+wKMrhV
-
-      cjv8m5IsljIZJNVmo1VlBCZni9wXR0NYGVqcO7Mwmfz0/YFrA9x3PYOSrEH1CjLe
-
-      GKLLt9FA6cN+iIlwqlFtOzTrguF8ADx/4vMHDwKu8z0OkdRSKBQ0V96VAtyjOmjp
-
-      rB8COg6E/fbZ7iTzjwstTCEwyf6L83eeXiPEbJa+OQKBgQDperDNJK1Ag+XTZv/I
-
-      XRRny71zslWa3pvu5DtSjO5HWhhT8jlEs2xu2NTkRAahHwQasrndQMOh6Wze8nhG
-
-      oTMzB8yotEmSNp6YdZ27TjJ0Le1fHlRAge+Ii7idOVbxCVdcpadk94ccL9mT2E9D
-
-      UhQ+evM90G4UDClFGw16793EJQKBgQDDLYtogxCigUCIPKa9muQ4aKgI/k7Qrauu
-
-      sVTtY9gJTkxEQe+vvgu/CwwKb3XE/7glxCOKcwbCFoqFXXZfTqZ45BaIV8NvFKf0
-
-      xwC6lJ3Ut7DJubbSTJqT5M/1/p0gWCxvElx+NEKni0stVUTLK9aCu5lb6gikVzdk
-
-      CR8ASTNlZwKBgQCTyutR4E6fUR7RVBjDr0/0aD7TluajcxiH/wciOT24Aur1cJYZ
-
-      y+3uuOkCWaFMqoKBl/MZgB6WRll5Q0kphG8RdXVysTUFDfgUkBc5csVzT4M7u8of
-
-      T2DeMXu6YoqLZ5tadS3iNuHa0NtMwBdkiPdxmYiR73dOz2fsa7R7xoy91QKBgEmc
-
-      SsCu9b4kOz9miIhn+3ze08kYiIchiOeIz/v8NQVFd3Qi3hANAAccVn01DlivDTeJ
-
-      ItJbkYfv0mx8FGHbmuNrOqhPWVDynGmwCDFWTbRlVxKtrSrhY0c1+8zOK1qAhrmZ
-
-      VjLu6Nihq0e8qgZqUSvbLvrAaGP61NQwsHV+JhkvAoGAG+7oPKmdEWyh++9k66i2
-
-      H5ISkhl/V+PwidOb148cwk6q+9U2IUGSZiLp8NOj0qG8gfeUyTE/Xs+V8jVmDKku
-
-      muY0NGXSOoeIvqk+3o2l84TqCtN6r1H5gZBomAZwBHpGP33XOA0ERftmgMMUhTu+
-
-      q6JghcGRzbavMpw5hXWa1/g=
-
-      -----END PRIVATE KEY-----
-
-      '
+    tls.crt: <redacted>
+    tls.key: <redacted>

@@ -64,8 +64,7 @@ function leg(mode, source, ok, reason, obs) {
   };
 }
 
-// Publish the fixture to the ConfigHub OCI bundle (units in wspace, targeted to the
-// cluster space's OCI target, then applied to populate the artifact).
+// Publish the fixture as a ConfigHub Space release OCI.
 function publishToOci(wspace, target) {
   tsh("cub", ["space", "create", wspace]);
   const w = tsh("cub", ["unit", "create", "--space", wspace, "hook-workload",
@@ -73,13 +72,15 @@ function publishToOci(wspace, target) {
   const h = tsh("cub", ["unit", "create", "--space", wspace, "hook-job",
     join(repoRoot, FIXTURE, "hook-job.yaml"), "--target", target]);
   if (!w.ok || !h.ok) return { ok: false, reason: `unit create failed: ${(w.out + h.out).slice(0, 180)}` };
-  const ap = tsh("cub", ["unit", "apply", "--space", wspace, "--unit", "hook-workload,hook-job"]);
-  if (!ap.ok) return { ok: false, reason: `unit apply failed: ${ap.out.slice(0, 180)}` };
+  const rt = tsh("cub", ["space", "update", wspace, "--release-target", target]);
+  if (!rt.ok) return { ok: false, reason: `release target update failed: ${rt.out.slice(0, 180)}` };
+  const publish = tsh("cub", ["release", "publish", wspace]);
+  if (!publish.ok) return { ok: false, reason: `release publish failed: ${publish.out.slice(0, 180)}` };
   return { ok: true };
 }
 
 // Leg 1: Argo CD — Application with an OCI source.
-function legArgoOci(kctx, spaceCluster, wspace) {
+function legArgoOci(kctx, wspace) {
   const ns = "oci-argo";
   k(kctx, ["create", "namespace", ns]);
   const app = `apiVersion: argoproj.io/v1alpha1
@@ -88,9 +89,9 @@ metadata: {name: oci-hook-argo, namespace: argocd}
 spec:
   project: default
   source:
-    repoURL: "oci://${OCI_HOST}/target/${spaceCluster}/oci"
+    repoURL: "oci://${OCI_HOST}/space/${wspace}"
     targetRevision: latest
-    path: "./${wspace}"
+    path: "."
   destination: {server: https://kubernetes.default.svc, namespace: ${ns}}
   syncPolicy:
     automated: {selfHeal: true, prune: true}
@@ -144,7 +145,7 @@ function copyOciCredsToFlux(kctx) {
 }
 
 // Leg 2: Flux — OCIRepository + Kustomization at the same OCI URL.
-function legFluxOci(kctx, spaceCluster, wspace, work) {
+function legFluxOci(kctx, wspace, work) {
   const ns = "oci-flux";
   if (!tsh("which", ["flux"]).ok) return leg("Flux", "OCIRepository", false, "flux CLI not on PATH", null);
   const inst = tsh("flux", ["install", "--kubeconfig", KUBECONFIG, "--context", kctx, "--components", "source-controller,kustomize-controller"]);
@@ -157,7 +158,7 @@ kind: OCIRepository
 metadata: {name: oci-hook, namespace: flux-system}
 spec:
   interval: 1m
-  url: oci://${OCI_HOST}/target/${spaceCluster}/oci
+  url: oci://${OCI_HOST}/space/${wspace}
   ref: {tag: latest}
   secretRef: {name: confighub-oci}
 ---
@@ -167,7 +168,7 @@ metadata: {name: oci-hook, namespace: flux-system}
 spec:
   interval: 1m
   sourceRef: {kind: OCIRepository, name: oci-hook}
-  path: "./${wspace}"
+  path: "."
   prune: true
   targetNamespace: ${ns}
   wait: true
@@ -190,7 +191,7 @@ spec:
 }
 
 // Leg 3: cub-direct (no controller) — oras pulls the SAME artifact, kubectl applies it.
-function legCubDirectOci(kctx, spaceCluster, wspace, work) {
+function legCubDirectOci(kctx, wspace, work) {
   const ns = "oci-direct";
   if (!tsh("which", ["oras"]).ok) return leg("cub-direct (no controller)", "oras pull", false, "oras CLI not on PATH", null);
   // build a temp registry-config from the in-cluster secret WITHOUT printing values
@@ -212,7 +213,7 @@ function legCubDirectOci(kctx, spaceCluster, wspace, work) {
   const cfg = join(work, "registry.json");
   writeFileSync(cfg, registryConfig, { mode: 0o600 });
   const dest = join(work, "pull");
-  const pull = tsh("oras", ["pull", `${OCI_HOST}/target/${spaceCluster}/oci:latest`, "--registry-config", cfg, "-o", dest]);
+  const pull = tsh("oras", ["pull", `${OCI_HOST}/space/${wspace}:latest`, "--registry-config", cfg, "-o", dest]);
   rmSync(cfg, { force: true });
   if (!pull.ok) return leg("cub-direct (no controller)", "oras pull", false, `oras pull failed: ${pull.out.slice(0, 140)}`, null);
   // ConfigHub OCI layers are gzipped tarballs (Flux extracts them fine); oras writes them as
@@ -264,9 +265,9 @@ function runProof() {
     check(rigUp, `cub cluster up failed: ${up.out.slice(0, 200)}`);
     publish = publishToOci(wspace, target);
     if (publish.ok) {
-      legs.argo = legArgoOci(kctx, spaceCluster, wspace);
-      legs.flux = legFluxOci(kctx, spaceCluster, wspace, work);
-      legs.cubDirect = legCubDirectOci(kctx, spaceCluster, wspace, work);
+      legs.argo = legArgoOci(kctx, wspace);
+      legs.flux = legFluxOci(kctx, wspace, work);
+      legs.cubDirect = legCubDirectOci(kctx, wspace, work);
     }
   } finally {
     if (rigUp) tsh("cub", ["cluster", "down", "--name", rig, "--force"], { timeout: 300_000 });

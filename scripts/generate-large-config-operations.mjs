@@ -55,8 +55,14 @@ function rowForReceipt(path) {
   const timings = operationTimings(spec);
   const uploadTiming = timingByName(timings, "configHub-oci-upload");
   const directApplyTiming = timingByName(timings, "configHub-direct-apply");
-  const unitApplyTiming = timingByName(timings, "configHub-oci-unit-apply");
-  const appApplyTiming = timingByName(timings, "configHub-oci-app-apply");
+  const workloadPublishTiming =
+    timings.find((timing) => timing?.name === "configHub-oci-workload-release-publish")
+    ?? timings.find((timing) => timing?.name === "configHub-oci-unit-apply")
+    ?? {};
+  const appPublishTiming =
+    timings.find((timing) => timing?.name === "configHub-oci-app-release-publish")
+    ?? timings.find((timing) => timing?.name === "configHub-oci-app-apply")
+    ?? {};
   const argoWaitTiming = timingByName(timings, "configHub-oci-argo-wait");
   const elapsedSeconds = elapsed(operationState.startedAt, operationState.finishedAt);
   const gitopsHealth = argoStatus.health?.status ?? oci.health ?? "";
@@ -98,8 +104,8 @@ function rowForReceipt(path) {
     operation_elapsed_seconds: elapsedSeconds ?? "",
     confighub_upload_elapsed_seconds: timingElapsed(uploadTiming),
     direct_apply_elapsed_seconds: timingElapsed(directApplyTiming),
-    unit_apply_wait_elapsed_seconds: timingElapsed(unitApplyTiming),
-    app_apply_wait_elapsed_seconds: timingElapsed(appApplyTiming),
+    workload_publish_elapsed_seconds: timingElapsed(workloadPublishTiming),
+    app_publish_elapsed_seconds: timingElapsed(appPublishTiming),
     argo_wait_elapsed_seconds: timingElapsed(argoWaitTiming),
     target_profile: targetProfile.name ?? "",
     target_profile_result: targetProfile.result ?? "",
@@ -186,8 +192,14 @@ function missingProgressFields({ operationState, spec, timings }) {
     && !hasElapsedCheck(spec, "direct-apply")
     && !hasElapsedCheck(spec, "kubectl-apply")
   ) missing.push("direct-apply-elapsed");
-  if (mentionsUnitApply(spec) && !hasTiming(timings, "configHub-oci-unit-apply") && !hasElapsedCheck(spec, "unit apply")) {
-    missing.push("unit-apply-wait-elapsed");
+  if (
+    mentionsWorkloadPublish(spec)
+    && !hasTiming(timings, "configHub-oci-workload-release-publish")
+    && !hasTiming(timings, "configHub-oci-unit-apply")
+    && !hasElapsedCheck(spec, "release publish")
+    && !hasElapsedCheck(spec, "unit apply")
+  ) {
+    missing.push("workload-publish-elapsed");
   }
   return missing;
 }
@@ -197,8 +209,9 @@ function hasElapsedCheck(spec, needle) {
   return checks.some((checkItem) => `${checkItem.name ?? ""} ${checkItem.detail ?? ""}`.toLowerCase().includes(needle) && /\b\d+(\.\d+)?s\b/.test(`${checkItem.detail ?? ""}`));
 }
 
-function mentionsUnitApply(spec) {
-  return JSON.stringify(spec).toLowerCase().includes("cub unit apply");
+function mentionsWorkloadPublish(spec) {
+  const serialized = JSON.stringify(spec).toLowerCase();
+  return serialized.includes("cub release publish") || serialized.includes("cub unit apply");
 }
 
 function elapsed(startedAt, finishedAt) {
@@ -249,10 +262,9 @@ large ConfigHub operations as a funnel, so a 100+ Unit upload/apply/GitOps path
 does not collapse into a vague wait.
 
 This is evidence about current receipts, not a claim that the CLI already emits
-perfect progress streams. Rows with missing upload/apply timing keep that product
-gap visible. Current live parity receipts mostly exercise direct apply and
-OCI/GitOps; a separate \`cub unit apply --wait\` receipt should be added when
-that path is the operation under review.
+perfect progress streams. Rows with missing upload or release-publish timing keep
+that product gap visible. Current live parity receipts exercise direct apply and
+the workload-Space and cluster-Space release publications used by OCI/GitOps.
 
 \`\`\`text
 large rows: ${rows.length}
@@ -280,11 +292,11 @@ Read these rows stage by stage:
 4. target facts and lifecycle prerequisites;
 5. workload convergence;
 6. controller aggregate health;
-7. upload/apply progress evidence.
+7. upload and release-publish progress evidence.
 
 A row can prove render/runtime parity and still remain \`watch\` if controller
 aggregate health has a named residue. A row can pass and still need better
-progress evidence if upload/apply elapsed time is not recorded.
+progress evidence if upload or release-publish elapsed time is not recorded.
 
 The machine-readable table is [operations.csv](./operations.csv).
 `;
@@ -293,8 +305,8 @@ The machine-readable table is [operations.csv](./operations.csv).
 function operationTimingSummary(row) {
   const parts = [];
   if (row.confighub_upload_elapsed_seconds !== "") parts.push(`upload ${row.confighub_upload_elapsed_seconds}s`);
-  if (row.unit_apply_wait_elapsed_seconds !== "") parts.push(`unit apply ${row.unit_apply_wait_elapsed_seconds}s`);
-  if (row.app_apply_wait_elapsed_seconds !== "") parts.push(`app apply ${row.app_apply_wait_elapsed_seconds}s`);
+  if (row.workload_publish_elapsed_seconds !== "") parts.push(`workload publish ${row.workload_publish_elapsed_seconds}s`);
+  if (row.app_publish_elapsed_seconds !== "") parts.push(`app publish ${row.app_publish_elapsed_seconds}s`);
   if (row.argo_wait_elapsed_seconds !== "") parts.push(`argo wait ${row.argo_wait_elapsed_seconds}s`);
   return md(parts.join("; "));
 }
@@ -341,8 +353,8 @@ function toCsv(rows) {
     "operation_elapsed_seconds",
     "confighub_upload_elapsed_seconds",
     "direct_apply_elapsed_seconds",
-    "unit_apply_wait_elapsed_seconds",
-    "app_apply_wait_elapsed_seconds",
+    "workload_publish_elapsed_seconds",
+    "app_publish_elapsed_seconds",
     "argo_wait_elapsed_seconds",
     "target_profile",
     "target_profile_result",

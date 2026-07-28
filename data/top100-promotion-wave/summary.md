@@ -16,8 +16,8 @@ disposition, and a current support boundary for each row.
 
 ~~~text
 wave rows: 30
-live Helm-vs-ConfigHub parity rows: 28
-two-cluster kind parity rows: 2
+live Helm-vs-ConfigHub parity rows: 29
+two-cluster kind parity rows: 1
 missing item: scan and production disposition
 ~~~
 

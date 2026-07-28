@@ -429,7 +429,7 @@ spec:
     argoCd: "not-recorded-for-this-base"
     flux: "not-recorded-for-this-base"
     direct: "not-recorded-for-this-base"
-    historicalGitopsOciStatus: "watch"
+    historicalGitopsOciStatus: "yes"
   policy:
     profile: "catalog-standard"
     productionAdds:
@@ -439,8 +439,8 @@ spec:
     confighubScanOps: "yes"
     localKind: "no"
     lifecycleObserved: "n/a"
-    gitopsOciLive: "watch"
-    liveDualParity: "watch"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
     twoClusterKind: "yes"
     variantPromotion: "proven"
   operations:

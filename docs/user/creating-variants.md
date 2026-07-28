@@ -407,9 +407,8 @@ prometheus/server-only-ephemeral
 ```
 
 These examples start from clean uploaded base Spaces, run
-`cub variant create --target`, apply the cloned workload Units to ConfigHub OCI
-targets, and let Argo CD reconcile the derived Spaces into Kubernetes. The
-receipts are:
+`cub variant create --target`, publish each derived Space as a ConfigHub release
+OCI, and let Argo CD reconcile that release into Kubernetes. The receipts are:
 
 ```text
 runs/derived-variant-target-bound/nginx-prod-us-east/receipt.yaml
@@ -419,9 +418,8 @@ runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.ya
 runs/derived-variant-target-bound/prometheus-server-only-staging-eu-west/receipt.yaml
 ```
 
-The example deliberately excludes `installer-record` from the workload apply.
-That Unit is installer support metadata, not a Kubernetes object for the
-workload artifact.
+The release excludes `installer-record`. That Unit is installer support
+metadata, not a Kubernetes object for the workload artifact.
 
 A future/polished [Creator flow](../reference/variant-creation-artifact.md#creator-status)
 should make those building blocks easy to use. It should not introduce a

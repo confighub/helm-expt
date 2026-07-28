@@ -1265,11 +1265,20 @@ def cub_scout_gitops_status(kubeconfig: Path) -> dict:
     }
 
 
+def target_fact_tls_root(run_root: Path) -> Path:
+    identity = hashlib.sha256(str(run_root.resolve()).encode()).hexdigest()[:16]
+    root = Path(tempfile.gettempdir()) / f"helm-expt-target-facts-{identity}"
+    root.mkdir(parents=True, exist_ok=True, mode=0o700)
+    root.chmod(0o700)
+    return root
+
+
 def ensure_tls_material(run_root: Path, dns_names: list[str] | None = None) -> tuple[str, str]:
     names = sorted({name for name in (dns_names or []) if name})
     suffix = f"-{hashlib.sha256(chr(10).join(names).encode()).hexdigest()[:12]}" if names else ""
-    cert = run_root / f"target-facts-tls{suffix}.crt"
-    key = run_root / f"target-facts-tls{suffix}.key"
+    material_root = target_fact_tls_root(run_root)
+    cert = material_root / f"target-facts-tls{suffix}.crt"
+    key = material_root / f"target-facts-tls{suffix}.key"
     needs_generation = not cert.exists() or not key.exists()
     if cert.exists():
         # The live lane reuses run directories so receipts and diagnostic files
@@ -1528,6 +1537,21 @@ def target_fact_secret_doc(secret: dict, recipe_path: Path, target_namespace: st
     return doc
 
 
+def redact_secret_docs_for_evidence(secret_docs: list[dict]) -> list[dict]:
+    redacted = json.loads(json.dumps(secret_docs))
+    for doc in redacted:
+        if doc.get("kind") != "Secret":
+            continue
+        metadata = doc.setdefault("metadata", {})
+        annotations = metadata.setdefault("annotations", {})
+        annotations["helm-expt.confighub.com/secret-values"] = "redacted-from-committed-evidence"
+        for field in ("data", "stringData"):
+            values = doc.get(field)
+            if isinstance(values, dict):
+                doc[field] = {key: "<redacted>" for key in values}
+    return redacted
+
+
 def stage_target_facts(
     variant: dict,
     recipe_path: Path,
@@ -1669,8 +1693,25 @@ def stage_target_facts(
             staged_namespaces.append({"name": namespace, "lane": lane})
     target_facts_path = run_root / f"target-facts-{label}.yaml"
     if secret_docs:
-        write_yaml(target_facts_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
-        kubectl_must(["apply", "-f", str(target_facts_path)], kubeconfig, context, f"target facts apply {label}")
+        with tempfile.TemporaryDirectory(prefix=f"helm-expt-target-facts-{label}-") as temp_dir:
+            apply_path = Path(temp_dir) / "secrets.yaml"
+            write_yaml(apply_path, {"apiVersion": "v1", "kind": "List", "items": secret_docs})
+            kubectl_must(["apply", "-f", str(apply_path)], kubeconfig, context, f"target facts apply {label}")
+        write_yaml(
+            target_facts_path,
+            {
+                "apiVersion": "v1",
+                "kind": "List",
+                "metadata": {
+                    "annotations": {
+                        "helm-expt.confighub.com/evidence-note": (
+                            "Secret values are redacted; the live run applied ephemeral values from a temporary file."
+                        ),
+                    },
+                },
+                "items": redact_secret_docs_for_evidence(secret_docs),
+            },
+        )
     object_store_path = None
     if object_store_docs:
         object_store_path = run_root / f"target-facts-{label}-object-stores.yaml"
@@ -1763,6 +1804,8 @@ def install_target_profile(profile: str, kubeconfig: Path, context: str, run_roo
         return profile_receipt
     if profile == "kind-loadbalancer":
         return install_kind_loadbalancer_profile(kubeconfig, context, run_root)
+    if profile == "kind-cert-manager":
+        return install_kind_cert_manager_profile(kubeconfig, context, run_root)
     if profile != "kind-ingress-nginx":
         raise RuntimeError(f"unsupported target profile: {profile}")
 
@@ -1797,6 +1840,139 @@ def install_target_profile(profile: str, kubeconfig: Path, context: str, run_roo
         "kind": "TargetProfileReceipt",
         "spec": profile_receipt,
     })
+    return profile_receipt
+
+
+def install_kind_cert_manager_profile(
+    kubeconfig: Path,
+    context: str,
+    run_root: Path,
+) -> dict:
+    repo = Path(__file__).resolve().parents[1]
+    package_path = repo / "packages" / "jetstack" / "cert-manager" / "v1.20.2"
+    profile_root = run_root / "target-profile-kind-cert-manager"
+    workdir = profile_root / "work"
+    if workdir.exists():
+        shutil.rmtree(workdir)
+    workdir.mkdir(parents=True, exist_ok=True)
+
+    setup_cmd = [
+        "cub", "installer", "setup",
+        "--pull", str(package_path),
+        "--base", "crds-enabled",
+        "--work-dir", str(workdir),
+        "--non-interactive",
+        "--namespace", "cert-manager",
+    ]
+    rc, out, err = sh(setup_cmd, timeout=360)
+    if rc != 0:
+        raise RuntimeError(
+            f"target profile kind-cert-manager render failed: {(err or out)[:1000]}"
+        )
+
+    manifests_dir = workdir / "out" / "manifests"
+    secrets_dir = workdir / "out" / "secrets"
+    manifest = combine_yaml_parts(collect_yaml(manifests_dir), collect_yaml(secrets_dir))
+    crds = docs_matching(manifest, "CustomResourceDefinition")
+    objects = [
+        doc for doc in yaml_docs(manifest)
+        if doc.get("kind") not in {"CustomResourceDefinition", "Namespace"}
+    ]
+    if not crds or not objects:
+        raise RuntimeError(
+            "target profile kind-cert-manager package did not render both CRDs and controller objects"
+        )
+
+    namespace_yaml = kubectl_must(
+        ["create", "namespace", "cert-manager", "--dry-run=client", "-o", "yaml"],
+        kubeconfig,
+        context,
+        "target profile kind-cert-manager namespace render",
+    )
+    namespace_path = profile_root / "namespace.yaml"
+    write_text(namespace_path, namespace_yaml)
+    kubectl_must(
+        ["apply", "-f", str(namespace_path)],
+        kubeconfig,
+        context,
+        "target profile kind-cert-manager namespace apply",
+    )
+
+    crd_path = profile_root / "crds.yaml"
+    write_text(crd_path, render_docs_to_yaml(crds))
+    kubectl_must(
+        ["apply", "--server-side", "-f", str(crd_path)],
+        kubeconfig,
+        context,
+        "target profile kind-cert-manager CRD apply",
+        timeout=300,
+    )
+    for crd in crds:
+        name = (crd.get("metadata") or {}).get("name")
+        if name:
+            kubectl_must(
+                ["wait", "--for=condition=Established", f"crd/{name}", "--timeout=180s"],
+                kubeconfig,
+                context,
+                f"target profile kind-cert-manager CRD {name}",
+                timeout=210,
+            )
+
+    objects_path = profile_root / "controller-objects.yaml"
+    write_text(objects_path, render_docs_to_yaml(objects))
+    kubectl_must(
+        ["apply", "--server-side", "-f", str(objects_path)],
+        kubeconfig,
+        context,
+        "target profile kind-cert-manager controller apply",
+        timeout=300,
+    )
+    kubectl_must(
+        [
+            "-n", "cert-manager", "wait",
+            "--for=condition=Available",
+            "deployment",
+            "--all",
+            "--timeout=300s",
+        ],
+        kubeconfig,
+        context,
+        "target profile kind-cert-manager controller readiness",
+        timeout=330,
+    )
+
+    profile_receipt = {
+        "name": "kind-cert-manager",
+        "result": "pass",
+        "source": {
+            "package": "packages/jetstack/cert-manager/v1.20.2",
+            "base": "crds-enabled",
+        },
+        "manifestSHA256": sha256_text(manifest),
+        "resources": [
+            "namespace/cert-manager",
+            *[
+                f"customresourcedefinition/{(doc.get('metadata') or {}).get('name')}"
+                for doc in crds
+            ],
+            "deployment/cert-manager",
+            "deployment/cert-manager-cainjector",
+            "deployment/cert-manager-webhook",
+        ],
+        "observedBehavior": (
+            "The verified cert-manager catalog package installed its six CRDs and "
+            "three controllers before the chart under test. Certificate and Issuer "
+            "objects can now be reconciled instead of remaining permanently Progressing."
+        ),
+    }
+    write_yaml(
+        run_root / "target-profile-kind-cert-manager.yaml",
+        {
+            "apiVersion": "helm-expt.confighub.com/v1alpha1",
+            "kind": "TargetProfileReceipt",
+            "spec": profile_receipt,
+        },
+    )
     return profile_receipt
 
 
@@ -2549,7 +2725,17 @@ def main() -> int:
     parser.add_argument("--rig", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--wait", default="8m")
-    parser.add_argument("--target-profile", default="none", choices=["none", "kind-ingress-nginx", "kind-loadbalancer", "kind-three-node"])
+    parser.add_argument(
+        "--target-profile",
+        default="none",
+        choices=[
+            "none",
+            "kind-cert-manager",
+            "kind-ingress-nginx",
+            "kind-loadbalancer",
+            "kind-three-node",
+        ],
+    )
     parser.add_argument("--gitops-canonicalization-profile", default="none", choices=["none", "k8s-zero-defaults"])
     parser.add_argument(
         "--lock-timeout-seconds",
@@ -2821,7 +3007,9 @@ def main() -> int:
         helm_live_manifest = ""
         get_rc, get_out, get_err = sh(["helm", "get", "manifest", args.release, "--namespace", helm_namespace], timeout=120, env=env)
         if get_rc == 0:
-            helm_live_manifest = get_out + "\n"
+            helm_live_manifest = (
+                "\n".join(line.rstrip(" \t") for line in get_out.splitlines()) + "\n"
+            )
             write_text(run_root / "regular-helm-live-manifest.yaml", helm_live_manifest)
         helm_operations = post_apply_operations(args.chart, args.base, kubeconfig, context, helm_namespace)
         receipt["spec"].setdefault("operatingPolicy", {})["regularHelm"] = helm_operations
@@ -3172,6 +3360,17 @@ def main() -> int:
             raise RuntimeError(f"installer upload failed: {(upload_err or upload_out)[:1000]}")
         workload_space_created = True
 
+        mark_stage("configHub-oci-workload-release-target")
+        rc, target_out, target_err = timed_command(
+            "configHub-oci-workload-release-target",
+            ["cub", "space", "update", wspace, "--release-target", target],
+            timeout=120,
+        )
+        if rc != 0:
+            raise RuntimeError(
+                f"workload Space release target failed: {(target_err or target_out)[:1000]}"
+            )
+
         mark_stage("configHub-oci-unit-list")
         rc, units_out, units_err = timed_command("configHub-oci-unit-list", ["cub", "unit", "list", "--space", wspace], timeout=120)
         if rc != 0:
@@ -3186,15 +3385,17 @@ def main() -> int:
                 units.append(name)
         if not units:
             raise RuntimeError(f"no workload units found in {wspace}")
-        mark_stage("configHub-oci-apply")
+        mark_stage("configHub-oci-workload-release")
         rc, apply_out, apply_err = timed_command(
-            "configHub-oci-unit-apply",
-            ["cub", "unit", "apply", "--space", wspace, "--unit", ",".join(units), "--wait", "--timeout", "5m"],
+            "configHub-oci-workload-release-publish",
+            ["cub", "release", "publish", wspace],
             timeout=360,
             unitCount=len(units),
         )
         if rc != 0:
-            raise RuntimeError(f"unit apply failed: {(apply_err or apply_out)[:1000]}")
+            raise RuntimeError(
+                f"workload Space release publish failed: {(apply_err or apply_out)[:1000]}"
+            )
 
         mark_stage("configHub-oci-argo")
         app = {
@@ -3204,9 +3405,9 @@ def main() -> int:
             "spec": {
                 "project": "default",
                 "source": {
-                    "repoURL": f"oci://oci.hub.confighub.com:443/target/{cluster_space}/oci",
+                    "repoURL": f"oci://oci.hub.confighub.com:443/space/{wspace}",
                     "targetRevision": "latest",
-                    "path": f"./{wspace}",
+                    "path": ".",
                 },
                 "destination": {"server": "https://kubernetes.default.svc", "namespace": oci_namespace},
                 "syncPolicy": {
@@ -3225,13 +3426,14 @@ def main() -> int:
             raise RuntimeError(f"application unit create failed: {(app_create_err or app_create_out)[:1000]}")
         child_app_unit_created = True
         rc, app_apply_out, app_apply_err = timed_command(
-            "configHub-oci-app-apply",
-            ["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{child_app}-app", "--wait", "--timeout", "5m"],
+            "configHub-oci-app-release-publish",
+            ["cub", "release", "publish", cluster_space],
             timeout=360,
-            unitCount=1,
         )
         if rc != 0:
-            raise RuntimeError(f"application apply failed: {(app_apply_err or app_apply_out)[:1000]}")
+            raise RuntimeError(
+                f"cluster Space release publish failed: {(app_apply_err or app_apply_out)[:1000]}"
+            )
         kubectl([
             "annotate", "application", cluster_space, "-n", "argocd",
             "argocd.argoproj.io/refresh=hard", "--overwrite",
@@ -3377,6 +3579,7 @@ def main() -> int:
         receipt["spec"]["failure"] = {"message": str(exc)}
     finally:
         stop_target_profile_processes()
+        shutil.rmtree(target_fact_tls_root(run_root), ignore_errors=True)
         if not args.keep:
             if receipt["spec"]["run"]["clusterLifecycle"] == "not-created":
                 receipt["spec"]["run"]["cleanup"] = {

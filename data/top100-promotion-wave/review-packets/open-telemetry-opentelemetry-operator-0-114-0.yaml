@@ -34,7 +34,7 @@ spec:
     supportLevel: "machine-proof-only"
     productionReadiness: "not-reviewed-for-production"
     catalogStatus: "proof-grade"
-    strongestEvidence: "two-cluster-kind-parity"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     scanHigh: 0
     scanMedium: 9
     gateDecisions:
@@ -58,7 +58,7 @@ spec:
     -
       workType: "selected-live-evidence"
       reviewer: "operator reviewer"
-      reason: "Strict parity evidence exists (two-cluster-kind-parity); catalog promotion needs the selected runtime evidence boundary."
+      reason: "Strict parity evidence exists (live-helm-vs-confighub-parity); catalog promotion needs the selected runtime evidence boundary."
       doneWhen: "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale."
       evidence: "data/live-kind-parity/summary.csv;data/live-helm-confighub-compare/summary.csv"
     -

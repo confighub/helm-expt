@@ -5771,6 +5771,45 @@ function humanTargetScope(scope) {
   );
 }
 
+function gitOpsRuntimeReviewHtml(review, reviewPath) {
+  const spec = review?.spec;
+  if (!spec) return "";
+  const targetProfile = spec.targetProfile ?? {};
+  const targetParts = [
+    spec.targetShape,
+    targetProfile.name && !String(spec.targetShape ?? "").includes(targetProfile.name) ? `profile: ${targetProfile.name}` : "",
+    targetProfile.sourcePackage ? `installed from ${targetProfile.sourcePackage}${targetProfile.sourceBase ? `/${targetProfile.sourceBase}` : ""}` : "",
+  ].filter(Boolean);
+  const passed = Array.isArray(spec.passed) ? spec.passed : [];
+  const boundaries = Array.isArray(spec.notClaimed) ? spec.notClaimed : [];
+  const remaining =
+    spec.watch?.summary ??
+    spec.diagnosis?.summary ??
+    "No separate limitation is recorded in this review.";
+  const rows = [
+    ["Base variant", escapeHtml(spec.base || "not recorded")],
+    ["Target used", escapeHtml(targetParts.join("; ") || "not recorded")],
+    ["Observed result", `<strong>${escapeHtml(spec.observedResult || "not recorded")}</strong>`],
+    ["What passed", passed.length ? passed.map((item) => escapeHtml(item)).join("<br>") : "No passed checks listed."],
+    ["What the result means", escapeHtml(remaining)],
+  ];
+  if (spec.previousObservation?.detail) {
+    rows.push(["Earlier result", escapeHtml(spec.previousObservation.detail)]);
+  }
+  if (boundaries.length) {
+    rows.push(["What this does not prove", boundaries.map((item) => escapeHtml(item)).join("<br>")]);
+  }
+  rows.push(["Full review and receipt", `<a href="../../${escapeHtml(reviewPath)}">Open the runtime review</a>${spec.receipt ? ` · <a href="../../${escapeHtml(spec.receipt)}">open the live receipt</a>` : ""}`]);
+  return `<section aria-labelledby="runtime-review">
+      <h2 id="runtime-review">What We Tested On A Cluster</h2>
+      <p>This is the result of a real run for one base variant on one recorded target setup. It does not silently extend the result to other bases or clusters.</p>
+      ${markdownLikeTable([
+        ["Question", "Recorded answer"],
+        ...rows,
+      ], { rawSecondColumn: true })}
+    </section>`;
+}
+
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
@@ -5801,6 +5840,10 @@ function chartPageHtml(catalog, entry) {
   const userReadiness = catalog.top100UserReadiness.find((row) => row.chart === entry.chart && row.version === entry.version);
   const chartSkill = catalog.chartSkills.find((row) => row.chart === entry.chart && row.version === entry.version);
   const evidenceRoute = catalog.chartEvidenceRouter.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const gitOpsReviewPath = `${posix.dirname(entry.recipe_path)}/gitops-runtime-review.yaml`;
+  const gitOpsReview = existsSync(join(repoRoot, gitOpsReviewPath))
+    ? readYaml(join(repoRoot, gitOpsReviewPath))
+    : null;
   const extension = catalog.extensionSlots.find((row) => row.chart === chartKey);
   const adoptionCaveat =
     catalog.cubAdoptionCaveats.find((row) => row.chart === entry.chart && row.version === entry.version) ??
@@ -5883,6 +5926,7 @@ function chartPageHtml(catalog, entry) {
     ["Chart skills", "data/chart-skills/summary.md"],
     ["Chart evidence router", "data/chart-evidence-router/summary.md"],
     ["Current proof status", "docs/user/current-proof-status.md"],
+    [gitOpsReview ? "Cluster runtime review" : "", gitOpsReview ? gitOpsReviewPath : ""],
     [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof" : "", kpsLifecycleProofPath],
     [
       entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
@@ -6093,7 +6137,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ["Base", "Readiness", "Render", "ConfigHub", "Local live", "GitOps/OCI", "Live parity", "Two-cluster kind"],
         ...proofEvidenceRows,
       ])}
-    </section>
+    </section>${gitOpsReview ? `\n\n    ${gitOpsRuntimeReviewHtml(gitOpsReview, gitOpsReviewPath)}` : ""}
 
     <section aria-labelledby="quirks">
       <h2 id="quirks">Quirks And Inputs</h2>

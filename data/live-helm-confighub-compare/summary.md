@@ -6,8 +6,8 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 135
-watch: 53
+pass: 136
+watch: 52
 blocked: 10
 not-started: 0
 ```
@@ -185,7 +185,7 @@ target-prerequisite: namespace missing (parity passed): 2
 |  | `nats/surveyor@0.20.9` | default-reviewed | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/nats-surveyor-default-reviewed/receipt.yaml |
 |  | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | blocked | helm-runtime: upstream leg blocked | runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml |
 |  | `open-telemetry/opentelemetry-operator@0.114.0` | default | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-default/receipt.yaml |
-|  | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | watch | gitops-runtime: Argo health Progressing (parity passed) | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
+|  | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | pass | - | runs/live-helm-confighub-compare/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
 |  | `opencost/opencost@2.5.21` | default | watch | target-runtime: pod config/runtime errors (parity passed) | runs/live-helm-confighub-compare/opencost-opencost-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | default | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-default/receipt.yaml |
 |  | `percona/pg-operator@3.0.0` | no-crds | pass | - | runs/live-helm-confighub-compare/percona-pg-operator-no-crds/receipt.yaml |

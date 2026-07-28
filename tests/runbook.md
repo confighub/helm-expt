@@ -123,12 +123,12 @@ test "$(grep -rhE '^\s*namespace:' "$WORKDIR"/out/manifests | sort -u | wc -l)" 
 # 3. Upload the rendered manifests as units, targeted at the cluster's OCI target.
 cub installer upload --work-dir "$WORKDIR" --space "$WORKLOAD_SPACE" --target "$TARGET"
 
-# 4. Apply the workload units (Noop → populates the OCI bundle at path ./$WORKLOAD_SPACE).
-#    Exclude the untargeted installer-record unit.
-cub unit apply --space "$WORKLOAD_SPACE" \
-  --unit deployment-nginx-nginx,namespace-nginx,networkpolicy-nginx-nginx,poddisruptionbudget-nginx-nginx,service-nginx-nginx,serviceaccount-nginx-nginx
+# 4. Set the Space release target, then publish the release that Argo will pull.
+cub space update "$WORKLOAD_SPACE" --release-target "$TARGET"
+cub release publish "$WORKLOAD_SPACE"
 
-# 5. Author + apply the Argo Application (the app-of-apps child the root picks up).
+# 5. Create the Argo Application record, then publish the cluster Space release
+#    that the root application reads.
 cat > /tmp/app-nginx.yaml <<YAML
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -136,16 +136,16 @@ metadata: {name: nginx, namespace: argocd}
 spec:
   project: default
   source:
-    repoURL: oci://oci.hub.confighub.com:443/target/${SPACE_CLUSTER}/oci
+    repoURL: oci://oci.hub.confighub.com:443/space/${WORKLOAD_SPACE}
     targetRevision: latest
-    path: ./${WORKLOAD_SPACE}
+    path: .
   destination: {server: https://kubernetes.default.svc, namespace: ${NS}}
   syncPolicy:
     automated: {selfHeal: true, prune: true}
     syncOptions: [ServerSideApply=true, CreateNamespace=true]
 YAML
 cub unit create --space "$SPACE_CLUSTER" nginx-app /tmp/app-nginx.yaml --target "$TARGET"
-cub unit apply  --space "$SPACE_CLUSTER" --unit nginx-app
+cub release publish "$SPACE_CLUSTER"
 
 # 6. Verify (dedicated kubeconfig + explicit --context; never `kubectl config use-context`).
 export KUBECONFIG="$KUBECONFIG_FILE"
@@ -163,8 +163,8 @@ cub cluster down --name "$CLUSTER"
 | Layer | Expected |
 |---|---|
 | Render | 6 manifests; single namespace `nginx` across all |
-| ConfigHub | 6 workload units + installer-record in `$WORKLOAD_SPACE`; all applied (Noop) |
-| OCI | served at `oci://oci.hub.confighub.com:443/target/$SPACE_CLUSTER/oci` |
+| ConfigHub | 6 workload units + installer-record in `$WORKLOAD_SPACE`; workload Space release published |
+| OCI | served at `oci://oci.hub.confighub.com:443/space/$WORKLOAD_SPACE` |
 | Argo | `root` (`$SPACE_CLUSTER`) + child `nginx` both `Synced/Healthy`, same revision (e.g. `sha256:90a8a441…`) |
 | Runtime | `deploy/nginx 1/1` Available; pod Running 1/1; image `registry-1.docker.io/bitnami/nginx:latest` |
 | Teardown | `cub cluster down` deletes the kind cluster and Space; `kind get clusters` → none |

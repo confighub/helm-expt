@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-63 non-pass rows: 53 watch, 10 blocked.
+62 non-pass rows: 52 watch, 10 blocked.
 4 are resolved by the **user** (stage a prerequisite); 5
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,7 +34,7 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `remote-image` | 20 |
-| `gitops-runtime` | 16 |
+| `gitops-runtime` | 15 |
 | `target-runtime` | 15 |
 | `target-prerequisite` | 4 |
 | `capability-profile` | 2 |
@@ -47,7 +47,7 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `catalog or image publisher` | 20 |
-| `needs GitOps controller-health review` | 16 |
+| `needs GitOps controller-health review` | 15 |
 | `needs runtime review` | 15 |
 | `catalog` | 5 |
 | `user` | 4 |
@@ -112,7 +112,6 @@ passed — the residue is operational, not a config mismatch.
 | nats/surveyor@0.20.9 | default-reviewed | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | blocked | semantic-model-gap | catalog | no — needs catalog work |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
-| open-telemetry/opentelemetry-operator@0.114.0 | no-crds | watch | gitops-runtime | needs GitOps controller-health review | watch — synced and converged; aggregate health needs explanation |
 | opencost/opencost@2.5.21 | default | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | projectcalico/tigera-operator@v3.32.0 | default | blocked | crd-bootstrap | catalog or operator | no — needs a CRD/bootstrap route first |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | capability-profile | catalog | yes, use the capability-profile base |

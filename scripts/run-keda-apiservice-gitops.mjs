@@ -91,16 +91,17 @@ function runLiveWitness() {
       return `uploaded KEDA units to ${workloadSpace}`;
     });
 
-    record("confighub-apply-units", () => {
+    record("confighub-publish-workload-release", () => {
+      must("cub", ["space", "update", workloadSpace, "--release-target", target], 120);
       const unitsText = must("cub", ["unit", "list", "--space", workloadSpace], 120);
       const units = unitsText
         .split("\n")
         .map((line) => line.trim().split(/\s+/)[0])
         .filter((unit) => unit && unit !== "NAME" && unit !== "installer-record");
       check(units.length > 0, `no workload units listed in ${workloadSpace}`);
-      must("cub", ["unit", "apply", "--space", workloadSpace, "--unit", units.join(",")], 240);
-      receipt.spec.confighub.workloadUnitsApplied = units.length;
-      return `applied ${units.length} workload unit(s)`;
+      must("cub", ["release", "publish", workloadSpace], 240);
+      receipt.spec.confighub.workloadUnitsPublished = units.length;
+      return `published ${units.length} workload unit(s) as the ${workloadSpace} Space release`;
     });
 
     record("argo-application", () => {
@@ -111,9 +112,9 @@ function runLiveWitness() {
         spec: {
           project: "default",
           source: {
-            repoURL: `oci://oci.hub.confighub.com:443/target/${clusterSpace}/oci`,
+            repoURL: `oci://oci.hub.confighub.com:443/space/${workloadSpace}`,
             targetRevision: "latest",
-            path: `./${workloadSpace}`,
+            path: ".",
           },
           destination: { server: "https://kubernetes.default.svc", namespace },
           syncPolicy: {
@@ -124,9 +125,9 @@ function runLiveWitness() {
       };
       writeFileSync(appFile, JSON.stringify(app, null, 2));
       runCommand("cub", ["unit", "create", "--space", clusterSpace, `${appName}-app`, appFile, "--target", target], 120);
-      must("cub", ["unit", "apply", "--space", clusterSpace, "--unit", `${appName}-app`], 180);
+      must("cub", ["release", "publish", clusterSpace], 180);
       kubectl(kubeconfig, context, ["annotate", "application", clusterSpace, "-n", "argocd", "argocd.argoproj.io/refresh=hard", "--overwrite"], 60);
-      return `created and applied Argo Application unit ${appName}-app`;
+      return `created the Argo Application unit ${appName}-app and published the cluster Space release`;
     });
 
     record("argo-sync", () => {
@@ -135,8 +136,8 @@ function runLiveWitness() {
       check(observed.sync === "Synced", `Argo sync=${observed.sync}`);
       check(observed.health === "Healthy", `Argo health=${observed.health}`);
       receipt.spec.oci = {
-        repoURL: `oci://oci.hub.confighub.com:443/target/${clusterSpace}/oci`,
-        path: `./${workloadSpace}`,
+        repoURL: `oci://oci.hub.confighub.com:443/space/${workloadSpace}`,
+        path: ".",
         targetRevision: "latest",
         revision: observed.revision,
       };

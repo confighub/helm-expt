@@ -482,12 +482,12 @@ test &quot;$(grep -rhE '^\s*namespace:' &quot;$WORKDIR&quot;/out/manifests | sor
 # 3. Upload the rendered manifests as units, targeted at the cluster's OCI target.
 cub installer upload --work-dir &quot;$WORKDIR&quot; --space &quot;$WORKLOAD_SPACE&quot; --target &quot;$TARGET&quot;
 
-# 4. Apply the workload units (Noop → populates the OCI bundle at path ./$WORKLOAD_SPACE).
-#    Exclude the untargeted installer-record unit.
-cub unit apply --space &quot;$WORKLOAD_SPACE&quot; \
-  --unit deployment-nginx-nginx,namespace-nginx,networkpolicy-nginx-nginx,poddisruptionbudget-nginx-nginx,service-nginx-nginx,serviceaccount-nginx-nginx
+# 4. Set the Space release target, then publish the release that Argo will pull.
+cub space update &quot;$WORKLOAD_SPACE&quot; --release-target &quot;$TARGET&quot;
+cub release publish &quot;$WORKLOAD_SPACE&quot;
 
-# 5. Author + apply the Argo Application (the app-of-apps child the root picks up).
+# 5. Create the Argo Application record, then publish the cluster Space release
+#    that the root application reads.
 cat &gt; /tmp/app-nginx.yaml &lt;&lt;YAML
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -495,16 +495,16 @@ metadata: {name: nginx, namespace: argocd}
 spec:
   project: default
   source:
-    repoURL: oci://oci.hub.confighub.com:443/target/${SPACE_CLUSTER}/oci
+    repoURL: oci://oci.hub.confighub.com:443/space/${WORKLOAD_SPACE}
     targetRevision: latest
-    path: ./${WORKLOAD_SPACE}
+    path: .
   destination: {server: https://kubernetes.default.svc, namespace: ${NS}}
   syncPolicy:
     automated: {selfHeal: true, prune: true}
     syncOptions: [ServerSideApply=true, CreateNamespace=true]
 YAML
 cub unit create --space &quot;$SPACE_CLUSTER&quot; nginx-app /tmp/app-nginx.yaml --target &quot;$TARGET&quot;
-cub unit apply  --space &quot;$SPACE_CLUSTER&quot; --unit nginx-app
+cub release publish &quot;$SPACE_CLUSTER&quot;
 
 # 6. Verify (dedicated kubeconfig + explicit --context; never `kubectl config use-context`).
 export KUBECONFIG=&quot;$KUBECONFIG_FILE&quot;
@@ -517,8 +517,8 @@ kubectl --context &quot;$KCTX&quot; get deploy,pods -n &quot;$NS&quot; -o wide
 cub cluster down --name &quot;$CLUSTER&quot;</code></pre>
 <h2 id="expected-proof-reference-values-from-the-2026-06-01-pass-run">Expected proof (reference values from the 2026-06-01 PASS run)</h2>
 <table><thead><tr><th>Layer</th><th>Expected</th></tr></thead><tbody><tr><td>Render</td><td>6 manifests; single namespace <code>nginx</code> across all</td></tr>
-<tr><td>ConfigHub</td><td>6 workload units + installer-record in <code>$WORKLOAD_SPACE</code>; all applied (Noop)</td></tr>
-<tr><td>OCI</td><td>served at <code>oci://oci.hub.confighub.com:443/target/$SPACE_CLUSTER/oci</code></td></tr>
+<tr><td>ConfigHub</td><td>6 workload units + installer-record in <code>$WORKLOAD_SPACE</code>; workload Space release published</td></tr>
+<tr><td>OCI</td><td>served at <code>oci://oci.hub.confighub.com:443/space/$WORKLOAD_SPACE</code></td></tr>
 <tr><td>Argo</td><td><code>root</code> (<code>$SPACE_CLUSTER</code>) + child <code>nginx</code> both <code>Synced/Healthy</code>, same revision (e.g. <code>sha256:90a8a441…</code>)</td></tr>
 <tr><td>Runtime</td><td><code>deploy/nginx 1/1</code> Available; pod Running 1/1; image <code>registry-1.docker.io/bitnami/nginx:latest</code></td></tr>
 <tr><td>Teardown</td><td><code>cub cluster down</code> deletes the kind cluster and Space; <code>kind get clusters</code> → none</td></tr></tbody></table>

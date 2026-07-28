@@ -127,7 +127,7 @@ parity. They prove different things.
 - `chart-install-sweep` — shardable top-20 driver: `--rig <cub-cluster-name> [--shard i/n] [--slugs a,b]`.
 - `live-helm-installer-kind-parity-test` — strict two-cluster Helm-vs-installer parity without ConfigHub's cluster helper.
 - `live-helm-confighub-parity-test` — live Helm vs ConfigHub delivery, dual compare.
-- `target-bound-derived-variant-test` — `cub variant create --target`, deliver cloned Units via OCI/Argo, verify runtime, emit a receipt.
+- `target-bound-derived-variant-test` — `cub variant create --target`, publish the derived Space as OCI, deliver it through Argo, verify runtime, and emit a receipt.
 - `existing-secret-proof` — the F3 fix path: pre-provision the Secret, install the existing-secret base, confirm Ready.
 - Lifecycle proofs: `npm run hook-test:proof` / `hook-execution:proof` (and `:verify`) — route a hook as an explicit, receipted action on a throwaway kind cluster.
 

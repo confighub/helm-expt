@@ -57,6 +57,11 @@ for (const file of scanned) {
         `${relativeRepo(file)}:${index + 1}: kubeconfigs now live under .confighub/clusters`,
       );
     }
+    if (/oci\.hub\.confighub\.com(?::443)?\/target\//.test(line)) {
+      violations.push(
+        `${repoPath}:${index + 1}: current OCI consumers use a Space release at /space/<space>; /target/.../oci is historical`,
+      );
+    }
     if (
       /\[\s*["']cub["']\s*,\s*["']lk["']\s*,\s*["'](?:up|down|list)["']/.test(line)
       || /\[\s*["']lk["']\s*,\s*["'](?:up|down|list)["']/.test(line)

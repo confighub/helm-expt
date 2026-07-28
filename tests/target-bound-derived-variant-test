@@ -6,7 +6,7 @@ This is the live-test atom for the post-upload variant path:
   cub installer setup
   cub installer upload
   cub variant create --target
-  cub unit apply
+  cub release publish
   Argo OCI sync
   Kubernetes runtime observation
 
@@ -239,11 +239,17 @@ def main() -> int:
             },
         }
 
-        must(["cub", "unit", "apply", "--space", downstream_space, "--unit", ",".join(workload_units), "--wait", "--timeout", "5m"], "apply workload units", timeout=360)
-        receipt["spec"]["apply"] = {
+        must(
+            ["cub", "space", "update", downstream_space, "--release-target", target_slug],
+            "set downstream Space release target",
+            timeout=180,
+        )
+        must(["cub", "release", "publish", downstream_space], "publish downstream Space release", timeout=360)
+        receipt["spec"]["delivery"] = {
             "result": "pass",
-            "command": f"cub unit apply --space {downstream_space} --unit {','.join(workload_units)}",
-            "appliedUnitCount": len(workload_units),
+            "releaseTargetCommand": f"cub space update {downstream_space} --release-target {target_slug}",
+            "publishCommand": f"cub release publish {downstream_space}",
+            "publishedUnitCount": len(workload_units),
             "excludedUnits": ["installer-record"],
             "reasonForExclusion": "installer-record is ConfigHub/installer support metadata, not a Kubernetes resource for the workload OCI artifact.",
         }
@@ -255,9 +261,9 @@ def main() -> int:
             "spec": {
                 "project": "default",
                 "source": {
-                    "repoURL": f"oci://oci.hub.confighub.com:443/target/{cluster_space}/oci",
+                    "repoURL": f"oci://oci.hub.confighub.com:443/space/{downstream_space}",
                     "targetRevision": "latest",
-                    "path": f"./{downstream_space}",
+                    "path": ".",
                 },
                 "destination": {"server": "https://kubernetes.default.svc", "namespace": args.namespace},
                 "syncPolicy": {
@@ -271,7 +277,7 @@ def main() -> int:
         rc, out, err = sh(["cub", "unit", "create", "--space", cluster_space, f"{args.child_app}-app", str(app_file), "--target", target_slug, "--allow-exists"], timeout=180)
         if rc != 0 and "already exists" not in (out + err).lower():
             raise RuntimeError(f"app unit create failed: {(err or out)[:600]}")
-        must(["cub", "unit", "apply", "--space", cluster_space, "--unit", f"{args.child_app}-app", "--wait", "--timeout", "5m"], "apply app unit", timeout=360)
+        must(["cub", "release", "publish", cluster_space], "publish cluster Space release", timeout=360)
         sh([
             "kubectl", "--kubeconfig", kubeconfig, "--context", kctx,
             "annotate", "application", cluster_space, "-n", "argocd",
@@ -333,8 +339,8 @@ def main() -> int:
             "result": "pass",
             "rootApplication": cluster_space,
             "childApplication": args.child_app,
-            "repoURL": f"oci://oci.hub.confighub.com:443/target/{cluster_space}/oci",
-            "path": f"./{downstream_space}",
+            "repoURL": f"oci://oci.hub.confighub.com:443/space/{downstream_space}",
+            "path": ".",
             "destinationNamespace": args.namespace,
             "syncStatus": sync,
             "healthStatus": health,

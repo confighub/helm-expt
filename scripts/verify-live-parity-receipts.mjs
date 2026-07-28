@@ -1,11 +1,38 @@
-import { existsSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { join, relative } from "node:path";
 import { check, listFiles, readYaml, repoRoot } from "./lib/proof-common.mjs";
 
 const root = join(repoRoot, "runs", "live-helm-confighub-compare");
 const receipts = listFiles(root).filter((file) => /receipt\.(json|ya?ml)$/.test(file));
+const trackedFiles = new Set(
+  execFileSync("git", ["ls-files", "runs/live-helm-confighub-compare"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+  })
+    .split("\n")
+    .filter(Boolean)
+    .map((file) => join(repoRoot, file)),
+);
+const targetFactEvidence = listFiles(root).filter(
+  (file) => trackedFiles.has(file) && /target-facts-[^/]+\.ya?ml$/.test(file),
+);
+const trackedTlsKeys = [...trackedFiles].filter(
+  (file) => existsSync(file) && /target-facts-tls[^/]*\.key$/.test(file),
+);
 
 check(receipts.length >= 1, "expected at least one live Helm-vs-ConfigHub parity receipt");
+check(
+  trackedTlsKeys.length === 0,
+  `tracked live-parity TLS key files are forbidden: ${trackedTlsKeys.map((file) => relative(repoRoot, file)).join(", ")}`,
+);
+
+for (const evidencePath of targetFactEvidence) {
+  check(
+    !readFileSync(evidencePath, "utf8").includes("-----BEGIN PRIVATE KEY-----"),
+    `${relative(repoRoot, evidencePath)} contains a private key; committed target-fact evidence must redact Secret values`,
+  );
+}
 
 for (const receiptPath of receipts) {
   const receipt = readYaml(receiptPath);

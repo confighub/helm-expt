@@ -304,7 +304,7 @@ Current state: support=machine-proof-only; production=not-reviewed-for-productio
 ### open-telemetry/opentelemetry-operator@0.114.0
 
 Variants: `default;no-crds`<br>
-Evidence: `two-cluster-kind-parity`<br>
+Evidence: `live-helm-vs-confighub-parity`<br>
 Feature focus: `-`<br>
 Current state: support=machine-proof-only; production=not-reviewed-for-production; catalog=proof-grade
 
