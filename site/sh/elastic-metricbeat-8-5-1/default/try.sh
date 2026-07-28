@@ -38,6 +38,21 @@ ls ./elastic-metricbeat-8-5-1-default/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
+  cat >&2 <<'EOF_REQUIREMENTS'
+This base variant needs resources you must create with your own values first:
+  - Secret default/elasticsearch-master-certs
+    kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>
+  - Secret default/elasticsearch-master-credentials keys username,password
+    kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
+  REQUIREMENTS_READY=1 bash try.sh
+EOF_REQUIREMENTS
+  exit 1
+fi
+
 if [ -d ./elastic-metricbeat-8-5-1-default/out/secrets ]; then
   say "Apply rendered Secrets first"
   kubectl apply -f ./elastic-metricbeat-8-5-1-default/out/secrets

@@ -51,3 +51,4 @@ printf '  Walkthrough with the why behind each flag:\n  https://confighub.github
 #   - CRD cephfilesystems.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
 #   - CRD cephfilesystemsubvolumegroups.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
 #   - CRD cephobjectstores.ceph.rook.io (suggested: kubectl apply -f <crd-manifest.yaml>)
+#   - Namespace rook-ceph (suggested: kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -)

@@ -10,6 +10,45 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "jaeger-operator"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "jaegers.jaegertracing.io"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "Jaeger CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <jaeger-crd.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
+      -
+        name: "certificates.cert-manager.io"
+        purpose: "The no-crds preset still renders a cert-manager Certificate for the Jaeger admission webhook."
+        suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+      -
+        name: "issuers.cert-manager.io"
+        purpose: "The no-crds preset still renders a cert-manager Issuer for the Jaeger admission webhook."
+        suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
   valuesProfile: "../../effective-values-no-crds.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

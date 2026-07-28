@@ -10960,9 +10960,103 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml",
+                  "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
+                ],
+                "name": "elasticsearch-master-certs",
+                "namespace": "default",
+                "purpose": "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml",
+                  "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
+                ],
+                "keys": [
+                  "username",
+                  "password"
+                ],
+                "name": "elasticsearch-master-credentials",
+                "namespace": "default",
+                "purpose": "Elasticsearch username and password read by the Filebeat container",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/elasticsearch-master-certs",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection",
+              "check": "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>",
+              "declarationPath": "recipes/elastic/filebeat/8.5.1/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/elastic/filebeat/8.5.1/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml",
+                "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/elasticsearch-master-credentials",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Elasticsearch username and password read by the Filebeat container",
+              "check": "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>",
+              "declarationPath": "recipes/elastic/filebeat/8.5.1/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/elastic/filebeat/8.5.1/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/elastic-filebeat-default/receipt.yaml",
+                "runs/live-kind-parity/elastic-filebeat-default/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -11010,10 +11104,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "2 observed prerequisite action records exist, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "2 prerequisite declarations and 2 follow-up action records are attached.",
+            "declarationSource": "recipes/elastic/filebeat/8.5.1/variants/default/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -11120,9 +11214,103 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml",
+                  "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+                ],
+                "name": "elasticsearch-master-certs",
+                "namespace": "default",
+                "purpose": "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml",
+                  "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+                ],
+                "keys": [
+                  "username",
+                  "password"
+                ],
+                "name": "elasticsearch-master-credentials",
+                "namespace": "default",
+                "purpose": "Elasticsearch username and password read by the Filebeat container",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/elasticsearch-master-certs",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection",
+              "check": "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>",
+              "declarationPath": "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml",
+                "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml",
+                "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/elasticsearch-master-credentials",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Elasticsearch username and password read by the Filebeat container",
+              "check": "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>",
+              "declarationPath": "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml",
+                "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml",
+                "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -11170,10 +11358,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "2 observed prerequisite action records exist, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "2 prerequisite declarations and 2 follow-up action records are attached.",
+            "declarationSource": "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -11702,9 +11890,103 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml",
+                  "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+                ],
+                "name": "elasticsearch-master-certs",
+                "namespace": "default",
+                "purpose": "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "suggestedSource": "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml",
+                  "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+                ],
+                "keys": [
+                  "username",
+                  "password"
+                ],
+                "name": "elasticsearch-master-credentials",
+                "namespace": "default",
+                "purpose": "Elasticsearch username and password read by the Metricbeat workloads",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "suggestedSource": "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/elasticsearch-master-certs",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "CA certificate material mounted by the Metricbeat workloads for their Elasticsearch connection",
+              "check": "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>",
+              "declarationPath": "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml",
+                "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/elasticsearch-master-credentials",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Elasticsearch username and password read by the Metricbeat workloads",
+              "check": "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>",
+              "declarationPath": "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/elastic-metricbeat-default/receipt.yaml",
+                "runs/live-kind-parity/elastic-metricbeat-default/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -11750,10 +12032,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "2 observed prerequisite action records exist, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "2 prerequisite declarations and 2 follow-up action records are attached.",
+            "declarationSource": "recipes/elastic/metricbeat/8.5.1/variants/default/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -17903,9 +18185,102 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml",
+                  "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+                ],
+                "keys": [
+                  "credentials"
+                ],
+                "name": "terraformrc",
+                "namespace": "default",
+                "purpose": "Terraform CLI credentials mounted at /etc/terraform/.terraformrc",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml",
+                  "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+                ],
+                "name": "workspacesecrets",
+                "namespace": "default",
+                "purpose": "Sensitive Terraform workspace variables mounted at /tmp/secrets",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/terraformrc",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Terraform CLI credentials mounted at /etc/terraform/.terraformrc",
+              "check": "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>",
+              "declarationPath": "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml",
+                "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/workspacesecrets",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Sensitive Terraform workspace variables mounted at /tmp/secrets",
+              "check": "kubectl -n default apply -f <workspacesecrets-manifest.yaml>",
+              "declarationPath": "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml",
+                "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -17931,10 +18306,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "2 prerequisite declarations and 1 follow-up action record are attached.",
+            "declarationSource": "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -18041,9 +18416,145 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
+                ],
+                "name": "workspaces.app.terraform.io",
+                "purpose": "Terraform Workspace CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <terraform-workspace-crd.yaml>"
+              }
+            ],
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml",
+                  "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+                ],
+                "keys": [
+                  "credentials"
+                ],
+                "name": "terraformrc",
+                "namespace": "default",
+                "purpose": "Terraform CLI credentials mounted at /etc/terraform/.terraformrc",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml",
+                  "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+                ],
+                "name": "workspacesecrets",
+                "namespace": "default",
+                "purpose": "Sensitive Terraform workspace variables mounted at /tmp/secrets",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "crd",
+              "name": "workspaces.app.terraform.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Terraform Workspace CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <terraform-workspace-crd.yaml>",
+              "declarationPath": "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml",
+                "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/terraformrc",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Terraform CLI credentials mounted at /etc/terraform/.terraformrc",
+              "check": "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>",
+              "declarationPath": "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml",
+                "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml",
+                "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/workspacesecrets",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Sensitive Terraform workspace variables mounted at /tmp/secrets",
+              "check": "kubectl -n default apply -f <workspacesecrets-manifest.yaml>",
+              "declarationPath": "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml",
+                "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml",
+                "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -18091,10 +18602,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "2 observed prerequisite action records exist, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "3 prerequisite declarations and 2 follow-up action records are attached.",
+            "declarationSource": "recipes/hashicorp/terraform/1.1.2/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -19207,9 +19718,55 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredNamespaces": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml",
+                  "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
+                ],
+                "name": "istio-system",
+                "purpose": "The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent.",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "namespace",
+              "name": "istio-system",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent.",
+              "check": "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -",
+              "declarationPath": "recipes/istio/istiod/1.30.0/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/istio/istiod/1.30.0/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml",
+                "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -19257,10 +19814,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "2 observed prerequisite action records exist, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "1 prerequisite declaration and 2 follow-up action records are attached.",
+            "declarationSource": "recipes/istio/istiod/1.30.0/variants/default/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -19482,9 +20039,97 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml",
+                  "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
+                ],
+                "name": "certificates.cert-manager.io",
+                "purpose": "The chart renders a cert-manager Certificate for the Jaeger admission webhook.",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl apply -f <cert-manager-install-manifest.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml",
+                  "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
+                ],
+                "name": "issuers.cert-manager.io",
+                "purpose": "The chart renders a cert-manager Issuer for the Jaeger admission webhook.",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl apply -f <cert-manager-install-manifest.yaml>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "crd",
+              "name": "certificates.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "The chart renders a cert-manager Certificate for the Jaeger admission webhook.",
+              "check": "kubectl apply -f <cert-manager-install-manifest.yaml>",
+              "declarationPath": "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml",
+                "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "issuers.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "The chart renders a cert-manager Issuer for the Jaeger admission webhook.",
+              "check": "kubectl apply -f <cert-manager-install-manifest.yaml>",
+              "declarationPath": "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml",
+                "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -19532,10 +20177,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "2 observed prerequisite action records exist, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "2 prerequisite declarations and 2 follow-up action records are attached.",
+            "declarationSource": "recipes/jaegertracing/jaeger-operator/2.57.0/variants/default/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -19642,9 +20287,134 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
+                ],
+                "name": "jaegers.jaegertracing.io",
+                "purpose": "Jaeger CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <jaeger-crd.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+                ],
+                "name": "certificates.cert-manager.io",
+                "purpose": "The no-crds preset still renders a cert-manager Certificate for the Jaeger admission webhook.",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl apply -f <cert-manager-install-manifest.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+                ],
+                "name": "issuers.cert-manager.io",
+                "purpose": "The no-crds preset still renders a cert-manager Issuer for the Jaeger admission webhook.",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl apply -f <cert-manager-install-manifest.yaml>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "crd",
+              "name": "jaegers.jaegertracing.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Jaeger CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <jaeger-crd.yaml>",
+              "declarationPath": "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml",
+                "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "certificates.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "The no-crds preset still renders a cert-manager Certificate for the Jaeger admission webhook.",
+              "check": "kubectl apply -f <cert-manager-install-manifest.yaml>",
+              "declarationPath": "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml",
+                "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "issuers.cert-manager.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "The no-crds preset still renders a cert-manager Issuer for the Jaeger admission webhook.",
+              "check": "kubectl apply -f <cert-manager-install-manifest.yaml>",
+              "declarationPath": "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml",
+                "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-no-crds/receipt.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "G/P",
@@ -19692,10 +20462,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "2 observed prerequisite action records exist, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "3 prerequisite declarations and 2 follow-up action records are attached.",
+            "declarationSource": "recipes/jaegertracing/jaeger-operator/2.57.0/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -20993,9 +21763,235 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "cloudeventsources.eventing.keda.sh",
+                "purpose": "KEDA CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <keda-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "clustercloudeventsources.eventing.keda.sh",
+                "purpose": "KEDA CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <keda-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "clustertriggerauthentications.keda.sh",
+                "purpose": "KEDA CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <keda-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "scaledjobs.keda.sh",
+                "purpose": "KEDA CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <keda-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "scaledobjects.keda.sh",
+                "purpose": "KEDA CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <keda-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "triggerauthentications.keda.sh",
+                "purpose": "KEDA CRD managed outside this no-crds preset",
+                "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <keda-crds.yaml>"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "crd",
+              "name": "cloudeventsources.eventing.keda.sh",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KEDA CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <keda-crds.yaml>",
+              "declarationPath": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "clustercloudeventsources.eventing.keda.sh",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KEDA CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <keda-crds.yaml>",
+              "declarationPath": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "clustertriggerauthentications.keda.sh",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KEDA CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <keda-crds.yaml>",
+              "declarationPath": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "scaledjobs.keda.sh",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KEDA CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <keda-crds.yaml>",
+              "declarationPath": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "scaledobjects.keda.sh",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KEDA CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <keda-crds.yaml>",
+              "declarationPath": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "triggerauthentications.keda.sh",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KEDA CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <keda-crds.yaml>",
+              "declarationPath": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "../../revisions/default/r001/rendered/release-objects.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml"
+              ]
+            }
+          ],
           "actions": [
             {
               "lane": "K",
@@ -21020,10 +22016,10 @@
             }
           ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached-with-observed-actions",
+            "reason": "6 prerequisite declarations and 1 follow-up action record are attached.",
+            "declarationSource": "recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -30996,6 +31992,24 @@
                 "sourcePath": "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml",
                 "sourceVariant": "rook-release/rook-ceph@v1.19.5/default"
               }
+            ],
+            "requiredNamespaces": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "evidence": [
+                  "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml",
+                  "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
+                ],
+                "name": "rook-ceph",
+                "purpose": "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent.",
+                "sourcePath": "../../target-prerequisite-plan.yaml",
+                "suggestedSource": "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
+              }
             ]
           },
           "requirements": [
@@ -31118,6 +32132,32 @@
               "evidence": [
                 "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml"
               ]
+            },
+            {
+              "category": "namespace",
+              "name": "rook-ceph",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent.",
+              "check": "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -",
+              "declarationPath": "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "../../target-prerequisite-plan.yaml",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml",
+                "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml",
+                "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
+              ]
             }
           ],
           "actions": [
@@ -31168,7 +32208,7 @@
           ],
           "coverage": {
             "state": "attached-with-observed-actions",
-            "reason": "5 prerequisite declarations and 2 follow-up action records are attached.",
+            "reason": "6 prerequisite declarations and 2 follow-up action records are attached.",
             "declarationSource": "recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml",
             "nextAction": ""
           }

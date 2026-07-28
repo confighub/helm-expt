@@ -11,6 +11,21 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "istiod"
+  targetFacts:
+    requiredNamespaces:
+      -
+        name: "istio-system"
+        purpose: "The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent."
+        suggestedSource: "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
+          - "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
   valuesProfile: "../../effective-values.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

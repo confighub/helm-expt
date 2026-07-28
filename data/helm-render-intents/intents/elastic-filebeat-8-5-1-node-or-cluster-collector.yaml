@@ -62,11 +62,85 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "observed-action-records"
+    status: "declared-target-facts-and-observed-action-records"
     declared:
-      {}
+      requiredSecrets:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+            - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          name: "elasticsearch-master-certs"
+          namespace: "default"
+          purpose: "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection"
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+            - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          keys:
+            - "username"
+            - "password"
+          name: "elasticsearch-master-credentials"
+          namespace: "default"
+          purpose: "Elasticsearch username and password read by the Filebeat container"
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
     requirements:
-      []
+      -
+        category: "secret"
+        name: "default/elasticsearch-master-certs"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection"
+        check: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+        declarationPath: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+      -
+        category: "secret"
+        name: "default/elasticsearch-master-credentials"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Elasticsearch username and password read by the Filebeat container"
+        check: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+        declarationPath: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
     actions:
       -
         lane: "G/P"
@@ -107,10 +181,10 @@ spec:
           - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
           - "recipes/elastic/filebeat/8.5.1/target-prerequisite-plan.yaml"
     coverage:
-      state: "actionable-gap"
-      reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
-      declarationSource: ""
-      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+      state: "attached-with-observed-actions"
+      reason: "2 prerequisite declarations and 2 follow-up action records are attached."
+      declarationSource: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

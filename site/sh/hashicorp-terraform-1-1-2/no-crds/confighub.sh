@@ -44,3 +44,8 @@ printf '  cub unit list --space %s\n  or open https://hub.confighub.com and find
 
 say "Next: create an environment variant and promote reviewed changes"
 printf '  Walkthrough with the why behind each flag:\n  https://confighub.github.io/helm-expt/site/d/docs/user/variants-after-upload.html\n'
+
+# Before applying this base variant from ConfigHub to a cluster, it still needs:
+#   - Secret default/terraformrc key credentials (suggested: kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>)
+#   - Secret default/workspacesecrets (suggested: kubectl -n default apply -f <workspacesecrets-manifest.yaml>)
+#   - CRD workspaces.app.terraform.io (suggested: kubectl apply -f <terraform-workspace-crd.yaml>)

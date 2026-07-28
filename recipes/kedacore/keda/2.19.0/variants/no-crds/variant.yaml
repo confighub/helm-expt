@@ -10,6 +10,74 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "keda"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "cloudeventsources.eventing.keda.sh"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "clustercloudeventsources.eventing.keda.sh"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "clustertriggerauthentications.keda.sh"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "scaledjobs.keda.sh"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "scaledobjects.keda.sh"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "triggerauthentications.keda.sh"
+        sourceVariant: "default"
+        sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+        purpose: "KEDA CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <keda-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
   valuesProfile: "../../effective-values-no-crds.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/rook-release/rook-ceph-cluster/v1.19.5 -o <tmp>/rook-release-rook-ceph-cluster-v1-19-5.tgz"
-    sha256: "d9d5ab0731d9a46eb5131128d2ee144f0982728a17fdf9776c6cac2e2238c99d"
+    sha256: "bd52282256c9632d1dedbc1ce300e6ed26b4f8f13ba0bf26653d562b6491081e"
   package:
     name: "rook-release-rook-ceph-cluster"
     path: "packages/rook-release/rook-ceph-cluster/v1.19.5"
@@ -29,12 +29,12 @@ spec:
         bytes: 22705
       -
         path: "collector/target-facts.sh"
-        sha256: "e1374893f30ec486c656cc5bcbded1d4f62895b6ed4071d6f0a859a52aa81878"
-        bytes: 4235
+        sha256: "027a93477b408db43d55365eff51d7570e1570b622064371e715b0bf66ec0180"
+        bytes: 5212
       -
         path: "installer.yaml"
-        sha256: "9f802e8277056d56ccd28bfe7c9565dbbf9046969688ea9ebf7f3e70c876c6b6"
-        bytes: 1361
+        sha256: "f930f1fa9d60469cad757c5bc6f79f0ac7a79b5eff24ade3ed3484890708811b"
+        bytes: 1585
     version: "v1.19.5"
   setupChecks:
     -

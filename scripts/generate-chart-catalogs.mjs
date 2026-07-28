@@ -352,6 +352,13 @@ function targetFactSummary(targetFacts) {
   for (const crd of targetFacts.requiredCRDs ?? []) {
     bits.push(`required CRD ${crd.name}`);
   }
+  for (const namespace of targetFacts.requiredNamespaces ?? []) {
+    bits.push(`required Namespace ${namespace.name}`);
+  }
+  for (const store of targetFacts.requiredObjectStores ?? []) {
+    const namespace = store.namespace ? `${store.namespace}/` : "";
+    bits.push(`required ${store.kind ?? "object store"} ${namespace}${store.name}`);
+  }
   for (const value of targetFacts.requiredValues ?? []) {
     bits.push(`required Value ${value.path}${value.stage ? ` (${value.stage})` : ""}`);
   }

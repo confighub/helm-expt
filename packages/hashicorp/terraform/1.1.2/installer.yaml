@@ -8,9 +8,40 @@ spec:
     -
       default: true
       description: "hashicorp/terraform default variant rendered from hashicorp/terraform@1.1.2"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/terraformrc key credentials"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/workspacesecrets"
+          namespace: "default"
+          suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
       name: "default"
       path: "bases/default"
     -
+      description: "hashicorp/terraform no-crds variant rendered from hashicorp/terraform@1.1.2"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/terraformrc key credentials"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/workspacesecrets"
+          namespace: "default"
+          suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD workspaces.app.terraform.io"
+          suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "hashicorp/terraform no-crds variant rendered from hashicorp/terraform@1.1.2"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

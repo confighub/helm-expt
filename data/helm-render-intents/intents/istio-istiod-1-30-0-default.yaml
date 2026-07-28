@@ -62,11 +62,45 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "observed-action-records"
+    status: "declared-target-facts-and-observed-action-records"
     declared:
-      {}
+      requiredNamespaces:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
+            - "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
+          name: "istio-system"
+          purpose: "The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent."
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -"
     requirements:
-      []
+      -
+        category: "namespace"
+        name: "istio-system"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "The chart renders service-account and RBAC objects into istio-system, and Helm blocks when the namespace is absent."
+        check: "kubectl create namespace istio-system --dry-run=client -o yaml | kubectl apply -f -"
+        declarationPath: "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
+          - "runs/live-helm-confighub-compare/istio-istiod-default/receipt.yaml"
+          - "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
     actions:
       -
         lane: "G/P"
@@ -107,10 +141,10 @@ spec:
           - "runs/live-kind-parity/istio-istiod-default/receipt.yaml"
           - "recipes/istio/istiod/1.30.0/target-prerequisite-plan.yaml"
     coverage:
-      state: "actionable-gap"
-      reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
-      declarationSource: ""
-      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+      state: "attached-with-observed-actions"
+      reason: "1 prerequisite declaration and 2 follow-up action records are attached."
+      declarationSource: "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

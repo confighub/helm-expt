@@ -59,7 +59,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/kedacore/keda/2.19.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/kedacore/keda/2.19.0/bases/default](../../../../packages/kedacore/keda/2.19.0/bases/default) | [recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 29 | 30 | 29/29 | pass | warn | warn | none |
-| no-crds | [recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/kedacore/keda/2.19.0/bases/no-crds](../../../../packages/kedacore/keda/2.19.0/bases/no-crds) | [recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 23 |  | 23/23 | pass |  | allow | none |
+| no-crds | [recipes/kedacore/keda/2.19.0/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/kedacore/keda/2.19.0/bases/no-crds](../../../../packages/kedacore/keda/2.19.0/bases/no-crds) | [recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 23 |  | 23/23 | pass |  | allow | required CRD cloudeventsources.eventing.keda.sh; required CRD clustercloudeventsources.eventing.keda.sh; required CRD clustertriggerauthentications.keda.sh; required CRD scaledjobs.keda.sh; required CRD scaledobjects.keda.sh; required CRD triggerauthentications.keda.sh |
 
 ## Package Bases
 

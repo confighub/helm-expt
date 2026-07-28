@@ -65,7 +65,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5"
     installer: "packages/rook-release/rook-ceph-cluster/v1.19.5/installer.yaml"
     receipt: "recipes/rook-release/rook-ceph-cluster/v1.19.5/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "d9d5ab0731d9a46eb5131128d2ee144f0982728a17fdf9776c6cac2e2238c99d"
+    deterministicBundleSHA256: "bd52282256c9632d1dedbc1ce300e6ed26b4f8f13ba0bf26653d562b6491081e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -137,7 +137,21 @@ spec:
             purpose: "Rook Ceph cluster base creates CephObjectStore resources"
             sourcePath: "../../rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "rook-release/rook-ceph@v1.19.5/default"
-      targetFactSummary: "required CRD cephblockpools.ceph.rook.io; required CRD cephclusters.ceph.rook.io; required CRD cephfilesystems.ceph.rook.io; required CRD cephfilesystemsubvolumegroups.ceph.rook.io; required CRD cephobjectstores.ceph.rook.io"
+        requiredNamespaces:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml"
+              - "runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml"
+            name: "rook-ceph"
+            purpose: "The chart renders a RoleBinding into rook-ceph, and Helm blocks when the namespace is absent."
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -"
+      targetFactSummary: "required CRD cephblockpools.ceph.rook.io; required CRD cephclusters.ceph.rook.io; required CRD cephfilesystems.ceph.rook.io; required CRD cephfilesystemsubvolumegroups.ceph.rook.io; required CRD cephobjectstores.ceph.rook.io; required Namespace rook-ceph"
       packageBase:
         name: "default"
         path: "packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default"

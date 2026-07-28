@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1
   package:
     path: packages/elastic/filebeat/8.5.1
-    sha256: 32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c
+    sha256: 77c9afa2b4577d246bd7c94cb8d451881460ac412b773f486889a814298da7d1
   commands:
     package: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8.5.1.tgz"
     push: "cub installer push <tmp>/elastic-filebeat-8.5.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled elastic-filebeat@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-izv6Ia/elastic-filebeat-8.5.1.tgz
-        files:  6
-        size:   2334 bytes
-        digest: sha256:32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-CysaQO/elastic-filebeat-8.5.1.tgz
+        files:  7
+        size:   3578 bytes
+        digest: sha256:77c9afa2b4577d246bd7c94cb8d451881460ac412b773f486889a814298da7d1
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1
-        manifest: sha256:93197486cded19c0db04edf8c76615e7f66259e9722af2970e15b14b31860fc9
-        layer:    sha256:32748d9cac7d65bcf6929d943932f65f6861c8e6aab63ffb7824c43b89da669c (2334 bytes, 6 files)
-    inspectJSONSHA256: a622b847ba3534ef0d1a196fc343394b5a302dd459e61d7862476c8db287c9d7
+        manifest: sha256:eef75b83546deea5d569842f16bf377c4fe078e57de93d71bdefae29c524e849
+        layer:    sha256:77c9afa2b4577d246bd7c94cb8d451881460ac412b773f486889a814298da7d1 (3578 bytes, 7 files)
+    inspectJSONSHA256: fc828803d8eef87a4a145cda9e5412689f9891a0d5f298d52a35578dc37e15f4

@@ -11,6 +11,7 @@ targetFacts:
   requiredCRDs: []
   requiredValues: []
   requiredObjectStores: []
+  requiredNamespaces: []
   requiredTopology: null
 targetFactChecks:
   base: "$base"
@@ -52,6 +53,18 @@ live_check_crd() {
   fi
 }
 
+live_check_namespace() {
+  name="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  if ! kubectl get namespace "$name" >/dev/null 2>&1; then
+    echo "required Namespace $name was not found" >&2
+    exit 1
+  fi
+}
+
 live_check_min_schedulable_nodes() {
   required="$1"
   if ! command -v kubectl >/dev/null 2>&1; then
@@ -73,6 +86,7 @@ case "$base" in
       live_check_crd 'cephfilesystems.ceph.rook.io'
       live_check_crd 'cephfilesystemsubvolumegroups.ceph.rook.io'
       live_check_crd 'cephobjectstores.ceph.rook.io'
+      live_check_namespace 'rook-ceph'
       result="pass"
     else
       result="recorded"
@@ -131,6 +145,22 @@ targetFacts:
   requiredValues: []
 
   requiredObjectStores: []
+
+  requiredNamespaces:
+  - deliveryLanes:
+    - regularHelm
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    evidence:
+    - runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml
+    - runs/live-kind-parity/rook-release-rook-ceph-cluster-default/receipt.yaml
+    name: rook-ceph
+    purpose: The chart renders a RoleBinding into rook-ceph, and Helm blocks when the
+      namespace is absent.
+    sourcePath: ../../target-prerequisite-plan.yaml
+    suggestedSource: kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl
+      apply -f -
 
   requiredTopology: null
 

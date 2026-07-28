@@ -17,6 +17,39 @@ spec:
   namespace: "default"
   recipe: "../../recipe.yaml"
   releaseName: "filebeat"
+  targetFacts:
+    requiredSecrets:
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+        name: "elasticsearch-master-certs"
+        namespace: "default"
+        purpose: "CA certificate material mounted by the Filebeat DaemonSet for its Elasticsearch connection"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+      -
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+          - "runs/live-kind-parity/elastic-filebeat-node-or-cluster-collector/receipt.yaml"
+        keys:
+          - "username"
+          - "password"
+        name: "elasticsearch-master-credentials"
+        namespace: "default"
+        purpose: "Elasticsearch username and password read by the Filebeat container"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
   valuesProfile: "../../effective-values.yaml"
   usefulBase:
     realizationStrategy: "alias-of-default-render"

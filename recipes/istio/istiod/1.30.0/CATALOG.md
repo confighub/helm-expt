@@ -59,7 +59,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/istio/istiod/1.30.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/istio/istiod/1.30.0/bases/default](../../../../packages/istio/istiod/1.30.0/bases/default) | [recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 17 | 18 | 17/17 | pass | warn | warn | none |
+| default | [recipes/istio/istiod/1.30.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/istio/istiod/1.30.0/bases/default](../../../../packages/istio/istiod/1.30.0/bases/default) | [recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 17 | 18 | 17/17 | pass | warn | warn | required Namespace istio-system |
 
 ## Package Bases
 

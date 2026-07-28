@@ -11,6 +11,34 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "jaeger-operator"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "certificates.cert-manager.io"
+        purpose: "The chart renders a cert-manager Certificate for the Jaeger admission webhook."
+        suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml"
+          - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
+      -
+        name: "issuers.cert-manager.io"
+        purpose: "The chart renders a cert-manager Issuer for the Jaeger admission webhook."
+        suggestedSource: "kubectl apply -f <cert-manager-install-manifest.yaml>"
+        sourcePath: "../../target-prerequisite-plan.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "runs/live-helm-confighub-compare/jaegertracing-jaeger-operator-default/receipt.yaml"
+          - "runs/live-kind-parity/jaegertracing-jaeger-operator-default/receipt.yaml"
   valuesProfile: "../../effective-values.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

@@ -65,7 +65,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2"
     installer: "packages/hashicorp/terraform/1.1.2/installer.yaml"
     receipt: "recipes/hashicorp/terraform/1.1.2/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "737667648f89276c77a2268dd67e52b33ed27b88add655c7aea2232f12ab8ef0"
+    deterministicBundleSHA256: "21eb8df47f89ecf05aa8cccd9cf2ffc11f611ba380241d055ff22f54d3dd237e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -91,8 +91,38 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+              - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+            keys:
+              - "credentials"
+            name: "terraformrc"
+            namespace: "default"
+            purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+              - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+            name: "workspacesecrets"
+            namespace: "default"
+            purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+      targetFactSummary: "required Secret default/terraformrc keys credentials; required Secret default/workspacesecrets"
       packageBase:
         name: "default"
         path: "packages/hashicorp/terraform/1.1.2/bases/default"
@@ -153,8 +183,52 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
+            name: "workspaces.app.terraform.io"
+            purpose: "Terraform Workspace CRD managed outside this no-crds preset"
+            sourcePath: "../../revisions/default/r001/rendered/release-objects.yaml"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <terraform-workspace-crd.yaml>"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
+              - "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+            keys:
+              - "credentials"
+            name: "terraformrc"
+            namespace: "default"
+            purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/hashicorp-terraform-no-crds/receipt.yaml"
+              - "runs/live-kind-parity/hashicorp-terraform-no-crds/receipt.yaml"
+            name: "workspacesecrets"
+            namespace: "default"
+            purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+      targetFactSummary: "required Secret default/terraformrc keys credentials; required Secret default/workspacesecrets; required CRD workspaces.app.terraform.io"
       packageBase:
         name: "no-crds"
         path: "packages/hashicorp/terraform/1.1.2/bases/no-crds"

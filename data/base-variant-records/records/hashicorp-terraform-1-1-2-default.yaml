@@ -33,17 +33,127 @@ spec:
       - "releaseName=terraform"
       - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
     installTime:
-      []
-    installTimeStatus: "not-yet-declared"
+      -
+        name: "terraformrc"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+            - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+          keys:
+            - "credentials"
+          name: "terraformrc"
+          namespace: "default"
+          purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+      -
+        name: "workspacesecrets"
+        type: "requiredSecrets"
+        required: true
+        details:
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+            - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+          name: "workspacesecrets"
+          namespace: "default"
+          purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+    installTimeStatus: "partly-declared"
   routing:
     routes:
       []
     targetFacts:
-      status: "observed-action-records"
+      status: "declared-target-facts-and-observed-action-records"
       declared:
-        {}
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+              - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+            keys:
+              - "credentials"
+            name: "terraformrc"
+            namespace: "default"
+            purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            evidence:
+              - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+              - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+            name: "workspacesecrets"
+            namespace: "default"
+            purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+            sourcePath: "../../target-prerequisite-plan.yaml"
+            suggestedSource: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
       requirements:
-        []
+        -
+          category: "secret"
+          name: "default/terraformrc"
+          namespace: "default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Terraform CLI credentials mounted at /etc/terraform/.terraformrc"
+          check: "kubectl -n default create secret generic terraformrc --from-file=credentials=<path-to-terraform-cli-config>"
+          declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+            - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
+        -
+          category: "secret"
+          name: "default/workspacesecrets"
+          namespace: "default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Sensitive Terraform workspace variables mounted at /tmp/secrets"
+          check: "kubectl -n default apply -f <workspacesecrets-manifest.yaml>"
+          declarationPath: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../target-prerequisite-plan.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+            - "runs/live-kind-parity/hashicorp-terraform-default/receipt.yaml"
       actions:
         -
           lane: "G/P"
@@ -65,10 +175,10 @@ spec:
             - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
             - "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
       coverage:
-        state: "actionable-gap"
-        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
-        declarationSource: ""
-        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+        state: "attached-with-observed-actions"
+        reason: "2 prerequisite declarations and 1 follow-up action record are attached."
+        declarationSource: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/hashicorp-terraform-1-1-2-default.yaml"
   delivery:
     literalConfigOci:

@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0
   package:
     path: packages/jaegertracing/jaeger-operator/2.57.0
-    sha256: 98780a2b5ca0546b5824def5ada44accfdd3af6d228b5991bef4db542f4c2e1d
+    sha256: a1482b8e5ae393c5fc58230adbe962c6e870d0c83569e4e405b3abbafa2e3123
   commands:
     package: "cub installer package packages/jaegertracing/jaeger-operator/2.57.0 -o <tmp>/jaegertracing-jaeger-operator-2.57.0.tgz"
     push: "cub installer push <tmp>/jaegertracing-jaeger-operator-2.57.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled jaegertracing-jaeger-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-hGR7OQ/jaegertracing-jaeger-operator-2.57.0.tgz
-        files:  6
-        size:   34650 bytes
-        digest: sha256:98780a2b5ca0546b5824def5ada44accfdd3af6d228b5991bef4db542f4c2e1d
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-pWFKJs/jaegertracing-jaeger-operator-2.57.0.tgz
+        files:  7
+        size:   35977 bytes
+        digest: sha256:a1482b8e5ae393c5fc58230adbe962c6e870d0c83569e4e405b3abbafa2e3123
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0
-        manifest: sha256:ef791489b213727f2a479bcba936d88a7b9bec657a10ddf94f5665f298cc6388
-        layer:    sha256:98780a2b5ca0546b5824def5ada44accfdd3af6d228b5991bef4db542f4c2e1d (34650 bytes, 6 files)
-    inspectJSONSHA256: 5ace668c91d40ef2b6551a9a18d5ffd57e96ce6d806788ed61dc30e98df2896b
+        manifest: sha256:59b15223bfd9b5a2ce6307baa32820c388acd11db7efd343292bae9b45cc64b7
+        layer:    sha256:a1482b8e5ae393c5fc58230adbe962c6e870d0c83569e4e405b3abbafa2e3123 (35977 bytes, 7 files)
+    inspectJSONSHA256: 5f1a5b59255907bcd737ef9af6277e391edcefb22807dbfa34d27ff80ceea1d5

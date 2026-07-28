@@ -4,17 +4,16 @@ metadata:
   name: "kedacore-keda-2-19-0"
 spec:
   chart:
-    repository: "kedacore"
     name: "keda"
+    repository: "kedacore"
     version: "2.19.0"
   deterministicBundle:
-    command: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2.19.0.tgz"
-    sha256: "850da6e9804c46cb6742812b986c0d9e76efa6f88198321ad10b0bae7813f59d"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/kedacore/keda/2.19.0 -o <tmp>/kedacore-keda-2.19.0.tgz"
+    sha256: "4f5753f14dfa31aad5d54b5818b891891294cb31945aaf860f2a6144e53a980f"
   package:
-    path: "packages/kedacore/keda/2.19.0"
     name: "kedacore-keda"
-    version: "2.19.0"
+    path: "packages/kedacore/keda/2.19.0"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "c5a9b4bf0a0eb7786a206b54365e8ad632e96bb3f4796a51f41621fea1f276a7"
         bytes: 28773
       -
+        path: "collector/target-facts.sh"
+        sha256: "d1e8356271987af905fcbf0026b49e516aed9c3721f399df1d870b94ca2fde4e"
+        bytes: 4621
+      -
         path: "installer.yaml"
-        sha256: "7a0dc8ec5c2b0731040fa3fee944ec524d59ce2a870e20e2f3e08d4dfdbb03ab"
-        bytes: 436
+        sha256: "70537909949bb112a1b48dc05b0ea95ea2d844d430ca2dbccac21fd9211bcba8"
+        bytes: 1594
+    version: "2.19.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -50,14 +54,18 @@ spec:
       helmReleaseObjectCount: 29
       semanticObjectMatches: "29/29"
       separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
       variant: "default"
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/kedacore/keda/2.19.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 23
-      cubInstallObjectCountIncludingSupport: 24
-      semanticObjectMatches: "23/23"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/kedacore/keda/2.19.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 24
+      helmReleaseObjectCount: 23
+      semanticObjectMatches: "23/23"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "no-crds"

@@ -104,8 +104,8 @@ Which detailed CSV should I open next?
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | secrets | top100 variants with explicit Secret disposition | 179/179 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
-| secrets | Secret rows needing lifecycle lane support | 8/75 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
-| secrets | target-fact Secret rows | 31/75 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | Secret rows needing lifecycle lane support | 8/85 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | target-fact Secret rows | 41/85 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
 | hooks | top100 source hook rows still uncovered | 0/11 | good | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |

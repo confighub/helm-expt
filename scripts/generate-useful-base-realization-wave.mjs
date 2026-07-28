@@ -203,6 +203,8 @@ function realizeUsefulBase(item) {
 function writeVariant(item) {
   const recipeRoot = recipeRootFor(item);
   const defaultVariant = readYaml(join(recipeRoot, "variants", "default", "variant.yaml"));
+  const variantPath = join(recipeRoot, "variants", item.base, "variant.yaml");
+  const existingVariant = existsSync(variantPath) ? readYaml(variantPath) : null;
   const queueRow = queueByKey.get(keyFor(item.chart, item.version, item.base));
   const liveFinding = liveFindings.get(keyFor(item.chart, item.version, item.base));
   const variant = {
@@ -218,6 +220,9 @@ function writeVariant(item) {
     },
     spec: {
       ...(defaultVariant.spec ?? {}),
+      ...(existingVariant?.spec?.targetFacts
+        ? { targetFacts: existingVariant.spec.targetFacts }
+        : {}),
       usefulBase:
         {
           realizationStrategy: "alias-of-default-render",
@@ -239,7 +244,7 @@ function writeVariant(item) {
         },
     },
   };
-  writeYaml(join(recipeRoot, "variants", item.base, "variant.yaml"), variant);
+  writeYaml(variantPath, variant);
 }
 
 function updateRecipe(item) {

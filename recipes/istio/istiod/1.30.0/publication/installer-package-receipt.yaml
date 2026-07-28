@@ -4,13 +4,16 @@ metadata:
   name: "istio-istiod-1-30-0"
 spec:
   chart:
-    repository: "istio"
     name: "istiod"
+    repository: "istio"
     version: "1.30.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/istio/istiod/1.30.0 -o <tmp>/istio-istiod-1-30-0.tgz"
+    sha256: "084c99ec88a3b15155935d9e9bfedf875a2cb1ea77217336ae06cf4881e589c6"
   package:
-    path: "packages/istio/istiod/1.30.0"
     name: "istio-istiod"
-    version: "1.30.0"
+    path: "packages/istio/istiod/1.30.0"
     sourceFiles:
       -
         path: "README.md"
@@ -25,21 +28,24 @@ spec:
         sha256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
         bytes: 147073
       -
+        path: "collector/target-facts.sh"
+        sha256: "cf56bc4284d69069638ceead0e708e12945952cd3dc8acdf3b1937fd4d8268ee"
+        bytes: 3062
+      -
         path: "installer.yaml"
-        sha256: "9e75b47b38e4ac4a50f21cc04809610ed9d4189cbaf5cc61405cb110ee2e5907"
-        bytes: 291
-  deterministicBundle:
-    command: "cub installer package packages/istio/istiod/1.30.0 -o <tmp>/istio-istiod-1-30-0.tgz"
-    sha256: "4df6dad3315bc5087397f208dd1f1f0b0c128e4e63f998747cd1d3c9fc654c7e"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "80d8349a7b3956a1654eab7058528be717e5980ef507e960aaf8a88583f4c8ad"
+        bytes: 727
+    version: "1.30.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/istio/istiod/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 17
-      cubInstallObjectCountIncludingSupport: 18
-      semanticObjectMatches: "17/17"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/istio/istiod/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 18
+      helmReleaseObjectCount: 17
+      semanticObjectMatches: "17/17"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "default"

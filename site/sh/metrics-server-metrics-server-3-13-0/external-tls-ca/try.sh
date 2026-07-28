@@ -43,7 +43,9 @@ if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
 This base variant needs resources you must create with your own values first:
   - Secret kube-system/metrics-server-tls keys tls.crt,tls.key
     kubectl -n kube-system create secret generic metrics-server-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>
-Substitute the <...> placeholders and create these, then re-run with:
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

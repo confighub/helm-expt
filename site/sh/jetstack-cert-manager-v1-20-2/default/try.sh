@@ -53,7 +53,9 @@ This base variant needs resources you must create with your own values first:
     kubectl apply -f <crd-manifest.yaml>
   - CRD issuers.cert-manager.io
     kubectl apply -f <crd-manifest.yaml>
-Substitute the <...> placeholders and create these, then re-run with:
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

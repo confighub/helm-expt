@@ -6,7 +6,23 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "elastic/metricbeat default variant rendered from elastic/metricbeat@8.5.1"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/elasticsearch-master-certs"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-certs --from-file=ca.crt=<path-to-ca.crt>"
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/elasticsearch-master-credentials keys username,password"
+          namespace: "default"
+          suggestedSource: "kubectl -n default create secret generic elasticsearch-master-credentials --from-literal=username=<username> --from-literal=password=<password>"
+      name: "default"
+      path: "bases/default"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

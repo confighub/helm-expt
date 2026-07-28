@@ -38,12 +38,6 @@ ls ./grafana-tempo-1-24-4-s3-query-observability/out/manifests
 say "Ensure the tempo namespace exists"
 kubectl create namespace tempo --dry-run=client -o yaml | kubectl apply -f -
 
-say "Requirement before apply: S3-compatible object store tempo/tempo-object-store"
-if ! create or bind an S3-compatible endpoint, bucket, and credentials before apply; then
-  printf '!! The requirement command failed. If the resource already exists, review it and re-run; otherwise fix the error above.\n' >&2
-  exit 1
-fi
-
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'
 This base variant needs resources you must create with your own values first:
@@ -51,7 +45,11 @@ This base variant needs resources you must create with your own values first:
     kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value>
   - CRD servicemonitors.monitoring.coreos.com
     kubectl apply -f <crd-manifest.yaml>
-Substitute the <...> placeholders and create these, then re-run with:
+  - S3-compatible object store tempo/tempo-object-store
+    create or bind an S3-compatible endpoint, bucket, and credentials before apply
+Complete these prerequisites before applying the rendered objects.
+Replace any <...> placeholders with values or files for your environment.
+When the resources exist, re-run with:
   REQUIREMENTS_READY=1 bash try.sh
 EOF_REQUIREMENTS
   exit 1

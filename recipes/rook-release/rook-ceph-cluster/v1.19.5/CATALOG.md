@@ -59,7 +59,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default](../../../../packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default) | [recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 27 | 28 | 27/27 | pass | warn | warn | required CRD cephblockpools.ceph.rook.io; required CRD cephclusters.ceph.rook.io; required CRD cephfilesystems.ceph.rook.io; required CRD cephfilesystemsubvolumegroups.ceph.rook.io; required CRD cephobjectstores.ceph.rook.io |
+| default | [recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default](../../../../packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default) | [recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 27 | 28 | 27/27 | pass | warn | warn | required CRD cephblockpools.ceph.rook.io; required CRD cephclusters.ceph.rook.io; required CRD cephfilesystems.ceph.rook.io; required CRD cephfilesystemsubvolumegroups.ceph.rook.io; required CRD cephobjectstores.ceph.rook.io; required Namespace rook-ceph |
 
 ## Package Bases
 
