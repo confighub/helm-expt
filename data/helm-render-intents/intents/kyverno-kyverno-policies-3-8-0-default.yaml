@@ -55,6 +55,12 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "declared-target-facts"
     declared:
@@ -69,8 +75,34 @@ spec:
           purpose: "Kyverno ClusterPolicy CRD required before kyverno-policies ClusterPolicy objects can be applied"
           sourcePath: "../../kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
           sourceVariant: "kyverno/kyverno@3.8.1/default"
+    requirements:
+      -
+        category: "crd"
+        name: "clusterpolicies.kyverno.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Kyverno ClusterPolicy CRD required before kyverno-policies ClusterPolicy objects can be applied"
+        check: ""
+        declarationPath: "recipes/kyverno/kyverno-policies/3.8.0/variants/default/variant.yaml"
+        sourceVariant: "kyverno/kyverno@3.8.1/default"
+        sourcePath: "../../kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/kyverno/kyverno-policies/3.8.0/variants/default/variant.yaml"
     actions:
       []
+    coverage:
+      state: "attached"
+      reason: "1 target prerequisite declared by this base."
+      declarationSource: "recipes/kyverno/kyverno-policies/3.8.0/variants/default/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

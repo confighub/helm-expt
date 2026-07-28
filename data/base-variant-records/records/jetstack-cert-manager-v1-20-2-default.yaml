@@ -137,8 +137,116 @@ spec:
             sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
             sourceVariant: "crds-enabled"
             suggestedSource: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+      requirements:
+        -
+          category: "crd"
+          name: "challenges.acme.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager CRD managed outside this default base"
+          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+          sourceVariant: "crds-enabled"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+        -
+          category: "crd"
+          name: "orders.acme.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager CRD managed outside this default base"
+          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+          sourceVariant: "crds-enabled"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+        -
+          category: "crd"
+          name: "certificaterequests.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager CRD managed outside this default base"
+          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+          sourceVariant: "crds-enabled"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+        -
+          category: "crd"
+          name: "certificates.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager CRD managed outside this default base"
+          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+          sourceVariant: "crds-enabled"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+        -
+          category: "crd"
+          name: "clusterissuers.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager CRD managed outside this default base"
+          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+          sourceVariant: "crds-enabled"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+        -
+          category: "crd"
+          name: "issuers.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager CRD managed outside this default base"
+          check: "Apply the crds-enabled base CRDs or install cert-manager CRDs before applying this base"
+          declarationPath: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+          sourceVariant: "crds-enabled"
+          sourcePath: "revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "6 target prerequisites declared by this base."
+        declarationSource: "recipes/jetstack/cert-manager/v1.20.2/variants/default/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"
   delivery:
     literalConfigOci:

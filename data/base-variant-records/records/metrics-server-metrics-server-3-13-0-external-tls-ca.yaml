@@ -80,8 +80,48 @@ spec:
             regularHelmFormat: "pem"
             source: "metrics-server-tls-ca"
             stage: "pre-render"
+      requirements:
+        -
+          category: "secret"
+          name: "kube-system/metrics-server-tls"
+          namespace: "kube-system"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "metrics-server serving certificate"
+          check: ""
+          declarationPath: "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
+        -
+          category: "value"
+          name: "apiService.caBundle"
+          namespace: ""
+          requiredBefore: "render"
+          freshness:
+            policy: "recheck-before-render"
+            maxAge: "one-render"
+          purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
+          check: ""
+          declarationPath: "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "2 target prerequisites declared by this base."
+        declarationSource: "recipes/metrics-server/metrics-server/3.13.0/variants/external-tls-ca/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/metrics-server-metrics-server-3-13-0-external-tls-ca.yaml"
   delivery:
     literalConfigOci:

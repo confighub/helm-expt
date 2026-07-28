@@ -55,12 +55,25 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "none-declared-or-observed"
     declared:
       {}
+    requirements:
+      []
     actions:
       []
+    coverage:
+      state: "actionable-gap"
+      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
+      declarationSource: ""
+      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

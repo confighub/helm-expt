@@ -42,6 +42,8 @@ spec:
       status: "observed-action-records"
       declared:
         {}
+      requirements:
+        []
       actions:
         -
           lane: "G/P"
@@ -55,6 +57,18 @@ spec:
           supportArtifact: "recipes/fluent/fluentd/0.5.3/runtime-review.yaml"
           sourceReceipt: "runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml"
           rerunCommand: "npm run live-parity:run -- --recipe recipes/fluent/fluentd/0.5.3 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-helm-confighub-compare/fluent-fluentd-default/receipt.yaml"
+            - "recipes/fluent/fluentd/0.5.3/runtime-review.yaml"
+      coverage:
+        state: "actionable-gap"
+        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
+        declarationSource: ""
+        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
     sourceRecord: "data/helm-render-intents/intents/fluent-fluentd-0-5-3-default.yaml"
   delivery:
     literalConfigOci:

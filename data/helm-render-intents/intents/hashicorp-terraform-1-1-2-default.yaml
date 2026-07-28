@@ -55,10 +55,18 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "observed-action-records"
     declared:
       {}
+    requirements:
+      []
     actions:
       -
         lane: "G/P"
@@ -72,6 +80,18 @@ spec:
         supportArtifact: "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
         sourceReceipt: "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
         rerunCommand: "npm run live-parity:run -- --recipe recipes/hashicorp/terraform/1.1.2 --base default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-helm-confighub-compare/hashicorp-terraform-default/receipt.yaml"
+          - "recipes/hashicorp/terraform/1.1.2/target-prerequisite-plan.yaml"
+    coverage:
+      state: "actionable-gap"
+      reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
+      declarationSource: ""
+      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

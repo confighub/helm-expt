@@ -134,6 +134,21 @@ The source record and the literal objects stay connected. A rendered YAML file o
 own is useful, but it cannot explain why a hook was replaced, who owns a CRD, or which
 target facts were required.
 
+Every real base must also state whether those surrounding records are complete:
+
+- lifecycle work is either attached, explicitly unnecessary, or an actionable gap;
+- target prerequisites are either declared, explicitly unnecessary, or an actionable
+  gap;
+- a route copied from another chart version remains a gap until the exact version has
+  its own receipt;
+- an Argo CD or Flux mapping explains the intended handling, but it is not execution
+  proof;
+- prerequisite checks expire at the next render or apply unless a stricter recorded
+  rule says otherwise.
+
+These states belong in the generated render intent, the master matrix, and the chart
+page. Missing information must not be presented as “nothing required.”
+
 ## The OCI packages are not all the same
 
 The word OCI covers four related artifacts in this work.

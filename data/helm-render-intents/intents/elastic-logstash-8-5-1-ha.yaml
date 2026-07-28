@@ -55,8 +55,14 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
-    status: "none-declared-or-observed"
+    status: "declared-target-facts"
     declared:
       requiredTopology:
         deliveryLanes:
@@ -65,8 +71,33 @@ spec:
           - "configHubOciArgo"
         minimumSchedulableNodes: 3
         purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
+    requirements:
+      -
+        category: "topology"
+        name: "target topology"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Logstash HA renders three replicas with required pod anti-affinity across kubernetes.io/hostname."
+        check: ""
+        declarationPath: "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
     actions:
       []
+    coverage:
+      state: "attached"
+      reason: "1 target prerequisite declared by this base."
+      declarationSource: "recipes/elastic/logstash/8.5.1/variants/ha/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

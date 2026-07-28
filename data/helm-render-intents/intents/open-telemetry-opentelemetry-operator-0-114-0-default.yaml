@@ -55,6 +55,12 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "declared-target-facts"
     declared:
@@ -95,8 +101,74 @@ spec:
           namespace: "default"
           purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
           suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+    requirements:
+      -
+        category: "crd"
+        name: "certificates.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+        check: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+        declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+      -
+        category: "crd"
+        name: "issuers.cert-manager.io"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+        check: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+        declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+        sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+        sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+      -
+        category: "secret"
+        name: "default/opentelemetry-operator-controller-manager-service-cert"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+        check: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+        declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
     actions:
       []
+    coverage:
+      state: "attached"
+      reason: "3 target prerequisites declared by this base."
+      declarationSource: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/default/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

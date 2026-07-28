@@ -65,8 +65,34 @@ spec:
             purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
             sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+      requirements:
+        -
+          category: "crd"
+          name: "servicemonitors.monitoring.coreos.com"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Prometheus Operator ServiceMonitor CRD required by the cluster-metrics-readonly ServiceMonitor object"
+          check: ""
+          declarationPath: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
+          sourceVariant: "prometheus-community/prometheus-operator-crds@29.0.0/default"
+          sourcePath: "../../../prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "1 target prerequisite declared by this base."
+        declarationSource: "recipes/prometheus-community/prometheus-node-exporter/4.55.0/variants/cluster-metrics-readonly/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml"
   delivery:
     literalConfigOci:

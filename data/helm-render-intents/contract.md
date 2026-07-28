@@ -10,13 +10,22 @@ A `HelmRenderIntent` is a generated config object for one real base variant in t
 - The chart, version, recipe, source lock, variant file, full rendered YAML, rendered revision, and package base are named.
 - The same evidence lanes shown in the master matrix are copied onto the object.
 - Target facts declared in the base variant are copied onto the object.
-- Lifecycle routes are attached by exact chart version and base, including the recorded Argo CD and Flux handling.
+- Declared target facts are normalized into requirements with a check point
+  (`render` or `apply`), a freshness policy, and evidence links where they exist.
+- Lifecycle routes name the chart version that supplied their evidence. If that
+  version differs from the base being described, the intent remains an
+  actionable gap until a version-matched lifecycle receipt exists.
+- Each route separates the direct, Argo CD, and Flux implementation. A mapping is
+  not reported as a successful run.
 - Action records derived from observed prerequisite failures stay separate from declared target facts.
+- Every base has a lifecycle coverage state and a target-prerequisite coverage
+  state. Missing contracts are listed in `contract-gaps.csv`.
 
 ## What It Does Not Claim
 
 - It does not mean every live lane is green.
 - It does not make hook execution automatic.
+- It does not treat an Argo CD or Flux mapping as execution evidence.
 - It does not replace the full helm-expt chain.
 - It does not create ConfigHub server state by itself. Upload and variant creation still happen later.
 - It does not emit candidate/custom-discussion rows as runnable configs. Current skipped candidate rows: 74.

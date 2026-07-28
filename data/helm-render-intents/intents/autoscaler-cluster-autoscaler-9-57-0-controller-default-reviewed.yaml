@@ -55,6 +55,12 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
     status: "declared-target-facts"
     declared:
@@ -67,8 +73,48 @@ spec:
           path: "awsRegion"
           purpose: "Supplies the AWS region value required by this chart's default cloud-provider path."
           value: "us-east-1"
+    requirements:
+      -
+        category: "value"
+        name: "autoDiscovery.clusterName"
+        namespace: ""
+        requiredBefore: "render"
+        freshness:
+          policy: "recheck-before-render"
+          maxAge: "one-render"
+        purpose: "Enables the chart's node-group autodiscovery path so the controller Deployment is rendered."
+        check: ""
+        declarationPath: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+      -
+        category: "value"
+        name: "awsRegion"
+        namespace: ""
+        requiredBefore: "render"
+        freshness:
+          policy: "recheck-before-render"
+          maxAge: "one-render"
+        purpose: "Supplies the AWS region value required by this chart's default cloud-provider path."
+        check: ""
+        declarationPath: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
     actions:
       []
+    coverage:
+      state: "attached"
+      reason: "2 target prerequisites declared by this base."
+      declarationSource: "recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

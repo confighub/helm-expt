@@ -65,8 +65,34 @@ spec:
             purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
             sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
             sourceVariant: "minio-operator/operator@7.1.1/default"
+      requirements:
+        -
+          category: "crd"
+          name: "tenants.minio.min.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "MinIO Tenant CRD required before tenant custom resources can be applied"
+          check: ""
+          declarationPath: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+          sourceVariant: "minio-operator/operator@7.1.1/default"
+          sourcePath: "../../operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "1 target prerequisite declared by this base."
+        declarationSource: "recipes/minio-operator/tenant/7.1.1/variants/default/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/minio-operator-tenant-7-1-1-default.yaml"
   delivery:
     literalConfigOci:

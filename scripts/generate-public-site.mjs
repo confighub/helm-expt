@@ -6248,6 +6248,46 @@ function sentenceCase(value) {
   return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 }
 
+function renderIntentForRow(catalog, row) {
+  if (row.row_kind !== "base") return null;
+  return catalog.helmRenderIntents.find((intent) =>
+    intent.chart === row.chart
+      && intent.version === row.version
+      && intent.base === row.variant) ?? null;
+}
+
+function lifecycleContractText(intent) {
+  if (!intent) return "No render-intent record is available for this base.";
+  if (intent.lifecycle_contract_state === "attached") {
+    const count = Number(intent.lifecycle_route_count || 0);
+    return `${count} chart-specific lifecycle route${count === 1 ? " is" : "s are"} recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run.`;
+  }
+  if (intent.lifecycle_contract_state === "no-route-required") {
+    return "The current review found no separate hook or setup route for this base.";
+  }
+  if (Number(intent.lifecycle_route_count || 0) > 0) {
+    return `${intent.lifecycle_contract_reason} Run the lifecycle checks for this chart version before treating the routes as current proof.`;
+  }
+  return `${intent.lifecycle_contract_reason} Decide how the work should run with direct commands, Argo CD, and Flux, then record the result.`;
+}
+
+function targetContractText(intent) {
+  if (!intent) return "No render-intent record is available for this base.";
+  if (["attached", "attached-with-observed-actions"].includes(intent.target_fact_contract_state)) {
+    const requirements = Number(intent.target_requirement_count || 0);
+    const actions = Number(intent.target_fact_action_count || 0);
+    return `${requirements} prerequisite${requirements === 1 ? " is" : "s are"} declared for this base${actions ? `, with ${actions} follow-up action record${actions === 1 ? "" : "s"} from live tests` : ""}. Each prerequisite says whether it must be checked before render or before apply.`;
+  }
+  if (intent.target_fact_contract_state === "no-target-facts-required") {
+    return "This base explicitly records that it needs no separate target prerequisite.";
+  }
+  const actions = Number(intent.target_fact_action_count || 0);
+  if (actions > 0) {
+    return `${actions} live test record${actions === 1 ? "" : "s"} found missing setup, but this base does not yet record what the target must provide. Add the prerequisite to the base and rerun the test.`;
+  }
+  return "This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.";
+}
+
 function matrixRowCard(row, entry, catalog) {
   const title = row.variant || "(unnamed)";
   const command = matrixRowRunPath(row, entry);
@@ -6259,6 +6299,10 @@ function matrixRowCard(row, entry, catalog) {
   const reason = cleanPageActionText(row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "");
   const humanReason = reason ? humanizeReasonList(reason) : "";
   const rowLinks = matrixRowLinks(row, catalog);
+  const renderIntent = renderIntentForRow(catalog, row);
+  const renderIntentLink = renderIntent?.intent_path
+    ? ` <a href="../../${escapeHtml(renderIntent.intent_path)}">Open the full record.</a>`
+    : "";
   const laneBadges = [
     ["R", "Render", row.lane_render_parity],
     ["C", "ConfigHub", row.lane_confighub_scan_ops],
@@ -6284,7 +6328,9 @@ function matrixRowCard(row, entry, catalog) {
           <dt>Scripts</dt><dd>${scriptLinks}</dd>` : ""}
           <dt>Evidence</dt><dd>${escapeHtml(matrixEvidenceLabel(row.strongest_evidence || row.outcome_level || ""))}</dd>
           <dt>Hooks/actions</dt><dd>${escapeHtml(matrixHookSummary(row))}</dd>
-          <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row))}</dd>
+          <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row))}</dd>${renderIntent ? `
+          <dt>Lifecycle record</dt><dd>${escapeHtml(lifecycleContractText(renderIntent))}${renderIntentLink}</dd>
+          <dt>Prerequisites</dt><dd>${escapeHtml(targetContractText(renderIntent))}</dd>` : ""}
           <dt>Next</dt><dd>${escapeHtml(humanizeNextAction(nextAction || "No next action recorded."))}</dd>
           ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(humanReason)}</dd>` : ""}
         </dl>
@@ -6371,9 +6417,19 @@ function matrixActionOwnerSummary(row) {
     if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the route receipt before delivery";
     return "No separate action runner for this row.";
   }
-  const labels = [...new Set(modes)].map(executionModePlain);
+  const labels = [...new Set(modes)].map((mode) => {
+    const [name, count] = mode.split(":");
+    const label = {
+      "target-owned": "Kubernetes or the delivery controller",
+      "user-executes": "you or your delivery pipeline",
+      "confighub-executes": "ConfigHub",
+    }[name] ?? executionModePlain(name);
+    return count ? `${label} (${count})` : label;
+  });
   const automatic = String(row.lifecycle_route_safe_automatic || "").toLowerCase();
-  const suffix = automatic.includes("true") ? "automatic evidence present" : "automatic false until route execution has evidence";
+  const suffix = automatic.includes("true")
+    ? "an automatic run has evidence"
+    : "no step is called automatic until its run has a receipt";
   return `${labels.join(", ")}; ${suffix}`;
 }
 

@@ -42,6 +42,8 @@ spec:
       status: "observed-action-records"
       declared:
         {}
+      requirements:
+        []
       actions:
         -
           lane: "G/P"
@@ -55,6 +57,12 @@ spec:
           supportArtifact: ""
           sourceReceipt: "runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/receipt.yaml"
           rerunCommand: "npm run live-parity:run -- --recipe recipes/gitlab/gitlab-runner/0.89.0 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-helm-confighub-compare/gitlab-gitlab-runner-default/receipt.yaml"
         -
           lane: "K"
           prerequisiteKind: "external-api"
@@ -67,6 +75,17 @@ spec:
           supportArtifact: ""
           sourceReceipt: "runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml"
           rerunCommand: "npm run kind-parity:run -- --chart gitlab/gitlab-runner --version 0.89.0 --base default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          evidence:
+            - "runs/live-kind-parity/gitlab-gitlab-runner-default/receipt.yaml"
+      coverage:
+        state: "actionable-gap"
+        reason: "2 observed prerequisite action records exist, but the base does not declare the prerequisite."
+        declarationSource: ""
+        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
     sourceRecord: "data/helm-render-intents/intents/gitlab-gitlab-runner-0-89-0-default.yaml"
   delivery:
     literalConfigOci:

@@ -439,8 +439,19 @@
 <tr><td>Candidate/custom-discussion rows skipped</td><td>74</td></tr>
 <tr><td>Intents with lifecycle routes attached</td><td>10</td></tr>
 <tr><td>Intents whose routes name the Argo CD and Flux handling</td><td>10</td></tr>
-<tr><td>Intents with target facts declared by the base variant</td><td>48</td></tr>
-<tr><td>Intents with action records from observed prerequisite failures</td><td>34</td></tr></tbody></table>
+<tr><td>Intents with target facts declared by the base variant</td><td>50</td></tr>
+<tr><td>Intents with action records from observed prerequisite failures</td><td>34</td></tr>
+<tr><td>Lifecycle contract gaps named for follow-up</td><td>5</td></tr>
+<tr><td>Target-prerequisite reviews still missing</td><td>149</td></tr></tbody></table>
+<h2 id="contract-coverage">Contract Coverage</h2>
+<p>Every render intent now states whether its lifecycle and target-prerequisite contract is attached, explicitly unnecessary, or still missing. A missing contract stays in the generated gap list; it is not treated as proof that the chart needs no extra work.</p>
+<table><thead><tr><th>Lifecycle state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>5</td></tr>
+<tr><td><code>attached</code></td><td>8</td></tr>
+<tr><td><code>no-route-required</code></td><td>186</td></tr></tbody></table>
+<table><thead><tr><th>Target-prerequisite state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>149</td></tr>
+<tr><td><code>attached</code></td><td>46</td></tr>
+<tr><td><code>attached-with-observed-actions</code></td><td>4</td></tr></tbody></table>
+<p>Open <a href="contract-gaps.html">contract-gaps.md</a> for the exact bases that still need a route or target-prerequisite review.</p>
 <h2 id="by-catalog-layer">By Catalog Layer</h2>
 <table><thead><tr><th>Layer</th><th>Intents</th></tr></thead><tbody><tr><td>F2a</td><td>95</td></tr>
 <tr><td>F2b</td><td>104</td></tr></tbody></table>
@@ -460,7 +471,7 @@
             ConfigHub Units
               managed variants
                 promotions / targets / observations</code></pre>
-<p>A render intent keeps two kinds of prerequisite information separate. <code>targetFacts.declared</code> copies what the base says must exist, such as a Secret or CRD. <code>targetFacts.actions</code> contains follow-up records derived from observed prerequisite failures. Lifecycle routes also state how Argo CD and Flux handle each step for that exact chart version and base.</p>
+<p>A render intent keeps two kinds of prerequisite information separate. <code>targetFacts.requirements</code> normalizes what the base says must exist and when it must be checked again. <code>targetFacts.actions</code> contains follow-up records derived from observed prerequisite failures. Lifecycle routes separately show the direct, Argo CD, and Flux implementations, and say whether each one has evidence or is only mapped.</p>
 <h2 id="render-variant-examples">Render Variant Examples</h2>
 <p>A render variant is the captured output of one base render. Open <code>rendered/release-objects.yaml</code> for the full Kubernetes YAML. That file is the object output, not the whole record. The render intent, <code>variant-revision</code>, lifecycle routes, target facts, and receipts explain the inputs, checksums, hooks, CRDs, setup work, and prerequisites around that output.</p>
 <table><thead><tr><th>Component</th><th>Base variant</th><th>Render intent</th><th>Full rendered YAML</th><th>Package OCI</th><th>Other render records</th><th>Why it exists</th></tr></thead><tbody><tr><td>bitnami/redis 25.5.3</td><td><code>default</code></td><td><a href="../../../../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">bitnami-redis-25-5-3-default</a></td><td><a href="../../../../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a></td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code></td><td><a href="../../../../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> and <a href="../../../../packages/bitnami/redis/25.5.3/bases/default">package base</a></td><td>The Redis default render. Use it to compare with the existing-secret render.</td></tr>
@@ -469,7 +480,7 @@
 <tr><td>prometheus-community/kube-prometheus-stack 85.3.3</td><td><code>no-crds</code></td><td><a href="../../../../data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml">prometheus-community-kube-prometheus-stack-85-3-3-no-crds</a></td><td><a href="../../../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml">release-objects.yaml</a></td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3</code></td><td><a href="../../../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml">revision</a> and <a href="../../../../packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds">package base</a></td><td>A kube-prometheus-stack render with CRDs owned outside the base and seven recorded lifecycle routes.</td></tr>
 <tr><td>prometheus-community/prometheus 29.8.0</td><td><code>server-only-ephemeral</code></td><td><a href="../../../../data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml">prometheus-community-prometheus-29-8-0-server-only-ephemeral</a></td><td><a href="../../../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml">release-objects.yaml</a></td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0</code></td><td><a href="../../../../recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml">revision</a> and <a href="../../../../packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral">package base</a></td><td>A Prometheus render for the server path without the extra default components.</td></tr></tbody></table>
 <h2 id="files">Files</h2>
-<ul><li><a href="../../../../data/helm-render-intents/intents.csv"><code>intents.csv</code></a> - one row per generated render intent.</li><li><a href="../../../../data/helm-render-intents/intents.json"><code>intents.json</code></a> - all generated render intents in one object.</li><li><a href="../../../../data/helm-render-intents/intents"><code>intents/</code></a> - one YAML file per generated render intent.</li><li><a href="contract.html"><code>contract.md</code></a> - what the generated object claims and refuses to claim.</li></ul>
+<ul><li><a href="../../../../data/helm-render-intents/intents.csv"><code>intents.csv</code></a> - one row per generated render intent.</li><li><a href="../../../../data/helm-render-intents/intents.json"><code>intents.json</code></a> - all generated render intents in one object.</li><li><a href="../../../../data/helm-render-intents/intents"><code>intents/</code></a> - one YAML file per generated render intent.</li><li><a href="contract.html"><code>contract.md</code></a> - what the generated object claims and refuses to claim.</li><li><a href="contract-gaps.html"><code>contract-gaps.md</code></a> and <a href="../../../../data/helm-render-intents/contract-gaps.csv"><code>contract-gaps.csv</code></a> - bases whose route or target-prerequisite contract is still incomplete.</li></ul>
 <h2 id="regenerate">Regenerate</h2>
 <pre><code>npm run helm-render-intents
 npm run helm-render-intents:verify</code></pre>

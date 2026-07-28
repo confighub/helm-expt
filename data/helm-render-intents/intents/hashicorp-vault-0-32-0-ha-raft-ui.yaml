@@ -55,12 +55,36 @@ spec:
     jsonPath: ""
     variantRoutes:
       []
+    coverage:
+      state: "no-route-required"
+      reason: "The current catalog record has no source hook or separate lifecycle step for this base."
+      evidence:
+        []
+      nextAction: ""
   targetFacts:
-    status: "observed-action-records"
+    status: "declared-target-facts-and-observed-action-records"
     declared:
       requiredTopology:
         minimumSchedulableNodes: 3
         purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+    requirements:
+      -
+        category: "topology"
+        name: "target topology"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+        check: ""
+        declarationPath: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          []
+        evidence:
+          - "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
     actions:
       -
         lane: "G/P"
@@ -74,6 +98,18 @@ spec:
         supportArtifact: "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
         sourceReceipt: "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
         rerunCommand: "npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base ha-raft-ui"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        evidence:
+          - "runs/live-helm-confighub-compare/hashicorp-vault-ha-raft-ui/receipt.yaml"
+          - "recipes/hashicorp/vault/0.32.0/operating-policy.yaml"
+    coverage:
+      state: "attached-with-observed-actions"
+      reason: "1 prerequisite declaration and 1 follow-up action record are attached."
+      declarationSource: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

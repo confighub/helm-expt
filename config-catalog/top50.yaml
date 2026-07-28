@@ -248,12 +248,15 @@ spec:
       outcome: Each base records source inputs, render context, produced objects, prerequisites, and lifecycle routes.
       evidence:
         - data/helm-render-intents/summary.md
+        - data/helm-render-intents/contract-gaps.md
+        - data/master-catalog-matrix/summary.md
         - data/lifecycle-routes/summary.md
         - docs/user/helm-render-intents.md
       verify:
         - npm run helm-render-intents:verify
+        - npm run helm-render-intents:contracts:verify
         - npm run lifecycle:routes:verify
-      next: Close issue 1037 by attaching route and target-fact records across the full render-intent matrix.
+      next: Work through the generated route and target-prerequisite gaps until every base has an exact attached contract or an explicit no-extra-work decision.
       issue: https://github.com/confighub/helm-expt/issues/1037
 
     - id: T19

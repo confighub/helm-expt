@@ -228,8 +228,154 @@ spec:
             namespace: "default"
             purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
             suggestedSource: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+      requirements:
+        -
+          category: "crd"
+          name: "certificates.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager Certificate CRD required by the chart-rendered serving certificate object"
+          check: "Install cert-manager or apply the cert-manager Certificate CRD before applying this base"
+          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "issuers.cert-manager.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "cert-manager Issuer CRD required by the chart-rendered self-signed issuer object"
+          check: "Install cert-manager or apply the cert-manager Issuer CRD before applying this base"
+          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+          sourceVariant: "jetstack/cert-manager@v1.20.2/crds-enabled"
+          sourcePath: "../../../jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "instrumentations.opentelemetry.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "opampbridges.opentelemetry.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "opentelemetrycollectors.opentelemetry.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+        -
+          category: "crd"
+          name: "targetallocators.opentelemetry.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "OpenTelemetry Operator CRD managed outside this no-crds base"
+          check: "Apply the default base CRDs or install the OpenTelemetry Operator CRDs before applying this base"
+          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+          sourceVariant: "default"
+          sourcePath: "revisions/default/r001/rendered/release-objects.yaml"
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+        -
+          category: "secret"
+          name: "default/opentelemetry-operator-controller-manager-service-cert"
+          namespace: "default"
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Webhook serving certificate Secret mounted by the operator Deployment"
+          check: "Run cert-manager controller to satisfy the chart-rendered Certificate, or stage a valid TLS Secret before waiting for the operator"
+          declarationPath: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+          sourceVariant: ""
+          sourcePath: ""
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          evidence:
+            - "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
       actions:
         []
+      coverage:
+        state: "attached"
+        reason: "7 target prerequisites declared by this base."
+        declarationSource: "recipes/open-telemetry/opentelemetry-operator/0.114.0/variants/no-crds/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/open-telemetry-opentelemetry-operator-0-114-0-no-crds.yaml"
   delivery:
     literalConfigOci:

@@ -452,6 +452,8 @@
 <tr><td>Target run decisions (runs / superseded / blocked-or-rejected)</td><td>22 / 2 / 1</td></tr>
 <tr><td>Server-side variant promotion (proven / watch / todo / blocked / n/a)</td><td>179 / 17 / 1 / 2 / 197</td></tr>
 <tr><td>Lifecycle route contracts (observed / watch / todo / n/a)</td><td>8 / 0 / 2 / 386</td></tr>
+<tr><td>Render-intent lifecycle records (attached / gap / no separate route)</td><td>8 / 5 / 186</td></tr>
+<tr><td>Render-intent prerequisite records (attached / gap / none explicitly required)</td><td>50 / 149 / 0</td></tr>
 <tr><td>Hook-flagged variants with no disposition row (unrouted)</td><td>0</td></tr>
 <tr><td>Rows currently in the active proof queue</td><td>83</td></tr>
 <tr><td>Cells with deferred accepted disposition</td><td>125</td></tr></tbody></table>
@@ -464,6 +466,7 @@
 <tr><td>Where am I in the customization flow?</td><td>Layer, Kind</td></tr>
 <tr><td>Can downstream ConfigHub variants be promoted from this base?</td><td>V, Promotion status</td></tr>
 <tr><td>If a hook or lifecycle behavior exists, where does it go?</td><td>Route, Hooks, lifecycle route contract</td></tr>
+<tr><td>Has this exact base recorded its lifecycle work and target prerequisites?</td><td>Render-intent lifecycle and target states in the CSV/HTML view</td></tr>
 <tr><td>Which non-pass live row should be rerun or reviewed now?</td><td>Active proof</td></tr>
 <tr><td>Is this row active work, an external dependency, or deferred for now?</td><td>Action</td></tr></tbody></table>
 <p>The HTML view carries these user/product columns directly: <a href="../../../../data/master-catalog-matrix/matrix.html">matrix.html</a>. The CSV carries the same fields for filtering: <a href="../../../../data/master-catalog-matrix/matrix.csv">matrix.csv</a>. Counts below are matrix rows unless stated otherwise.</p>
@@ -501,7 +504,8 @@
 <tr><td><a href="../../../../data/derived-variant-target-bound/summary.csv">derived-variant-target-bound/summary.csv</a></td><td>target-bound status for derived variants when a downstream variant has been reconciled through OCI/Argo and observed</td><td>receipt internals; follow the target-bound receipt when diagnosing the target run</td></tr>
 <tr><td><a href="../../../../data/catalog-promotion-wave2/variant-work-orders.yaml">catalog-promotion-wave2/variant-work-orders.yaml</a></td><td>candidate F2 base/fork rows that are explicitly not rendered yet and need recipe/package/evidence work before becoming real bases</td><td>per-value detail beyond the compact inputs, blockers, and first action shown in the candidate row</td></tr>
 <tr><td><a href="../../../../data/useful-base-realization-wave/wave2-selection.csv">useful-base-realization-wave/wave2-selection.csv</a></td><td>candidate F2 user-shaped base rows from the useful-base queue, including render-time knobs, target inputs, and required receipts</td><td>priority scoring internals; follow the source for full wave ordering</td></tr>
-<tr><td><a href="../../../../data/target-prerequisite-actions/actions.csv">target-prerequisite-actions/actions.csv</a></td><td>candidate F3 target prerequisite/fill rows, including required facts, action kind, evidence required, and whether human review is needed</td><td>duplicate lane-level rows after they are grouped by chart/base/prerequisite/action</td></tr></tbody></table>
+<tr><td><a href="../../../../data/target-prerequisite-actions/actions.csv">target-prerequisite-actions/actions.csv</a></td><td>candidate F3 target prerequisite/fill rows, including required facts, action kind, evidence required, and whether human review is needed</td><td>duplicate lane-level rows after they are grouped by chart/base/prerequisite/action</td></tr>
+<tr><td><a href="../../../../data/helm-render-intents/intents.csv">helm-render-intents/intents.csv</a></td><td>one lifecycle-contract state and one target-prerequisite state for every real base, plus requirement/action counts and the exact generated intent</td><td>the full route implementations, normalized prerequisite records, freshness rules, and evidence links; follow the render intent for those details</td></tr></tbody></table>
 <p>The CSV and HTML carry adoption bucket, hard gap, strongest evidence, next action, target run scope, and active proof queue details. The Markdown table below stays compact for GitHub readability; open <a href="../../../../data/master-catalog-matrix/matrix.html">matrix.html</a> when you want the user/product view with those columns visible.</p>
 <h2 id="matrix">Matrix</h2>
 <table><thead><tr><th>Chart</th><th>Layer</th><th>Kind</th><th>Variant</th><th>Tier</th><th>Quirks</th><th>Hooks</th><th>Route</th><th>R</th><th>C</th><th>L</th><th>Y</th><th>G</th><th>P</th><th>K</th><th>V</th><th>Action</th><th>Outcome</th><th>Target</th></tr></thead><tbody><tr><td><code>aqua/trivy-operator@0.32.1</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>

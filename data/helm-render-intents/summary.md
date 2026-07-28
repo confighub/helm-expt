@@ -15,8 +15,28 @@ The generator emits files only for real base rows in the master matrix. Candidat
 | Candidate/custom-discussion rows skipped | 74 |
 | Intents with lifecycle routes attached | 10 |
 | Intents whose routes name the Argo CD and Flux handling | 10 |
-| Intents with target facts declared by the base variant | 48 |
+| Intents with target facts declared by the base variant | 50 |
 | Intents with action records from observed prerequisite failures | 34 |
+| Lifecycle contract gaps named for follow-up | 5 |
+| Target-prerequisite reviews still missing | 149 |
+
+## Contract Coverage
+
+Every render intent now states whether its lifecycle and target-prerequisite contract is attached, explicitly unnecessary, or still missing. A missing contract stays in the generated gap list; it is not treated as proof that the chart needs no extra work.
+
+| Lifecycle state | Intents |
+| --- | ---: |
+| `actionable-gap` | 5 |
+| `attached` | 8 |
+| `no-route-required` | 186 |
+
+| Target-prerequisite state | Intents |
+| --- | ---: |
+| `actionable-gap` | 149 |
+| `attached` | 46 |
+| `attached-with-observed-actions` | 4 |
+
+Open [contract-gaps.md](./contract-gaps.md) for the exact bases that still need a route or target-prerequisite review.
 
 ## By Catalog Layer
 
@@ -50,7 +70,7 @@ chart/version
                 promotions / targets / observations
 ```
 
-A render intent keeps two kinds of prerequisite information separate. `targetFacts.declared` copies what the base says must exist, such as a Secret or CRD. `targetFacts.actions` contains follow-up records derived from observed prerequisite failures. Lifecycle routes also state how Argo CD and Flux handle each step for that exact chart version and base.
+A render intent keeps two kinds of prerequisite information separate. `targetFacts.requirements` normalizes what the base says must exist and when it must be checked again. `targetFacts.actions` contains follow-up records derived from observed prerequisite failures. Lifecycle routes separately show the direct, Argo CD, and Flux implementations, and say whether each one has evidence or is only mapped.
 
 ## Render Variant Examples
 
@@ -70,6 +90,7 @@ A render variant is the captured output of one base render. Open `rendered/relea
 - [`intents.json`](./intents.json) - all generated render intents in one object.
 - [`intents/`](./intents/) - one YAML file per generated render intent.
 - [`contract.md`](./contract.md) - what the generated object claims and refuses to claim.
+- [`contract-gaps.md`](./contract-gaps.md) and [`contract-gaps.csv`](./contract-gaps.csv) - bases whose route or target-prerequisite contract is still incomplete.
 
 ## Regenerate
 
