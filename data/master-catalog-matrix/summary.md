@@ -48,8 +48,8 @@ from a different chart version's disposition row.
 | Layer rows | F1:110 / F2a:95 / F2b:104 / F2c:33 / F3:41 / F4a:7 / F4b:6 |
 | Lane cells ✅ / ⚠️ / ❌ / ⬜ / - | 962 / 116 / 124 / 86 / 1484 |
 | Base/derived rows with the complete core lane set | 131 |
-| Rows with a target run decision | 25 |
-| Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 1 |
+| Rows with a target run decision | 26 |
+| Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 179 / 17 / 1 / 2 / 197 |
 | Lifecycle route contracts (observed / watch / todo / n/a) | 8 / 0 / 2 / 386 |
 | Render-intent lifecycle records (attached / gap / no separate route) | 8 / 5 / 186 |
@@ -360,7 +360,7 @@ when you want the user/product view with those columns visible.
 |  | F3 | candidate review | no-crds + review | candidate | `crds` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |
 |  | F3 | candidate | no-crds + secret | candidate | `crds` | - | - | - | - | - | - | - | - | - | - | stage | candidate-plan | - |
 | `hashicorp/vault@0.32.0` | F1 | source | (source) | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | draft |
+|  | F2a | base | default | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ❌ |
 |  | F2b | base | dev-mode | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | deferred | live-parity | ⬜ |
 |  | F2b | base | ha-raft-ui | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | ✅ | ✅ | ❌ | ⬜ | ⚠️ | ⚠️ | ✅ | ✅ | stage | two-cluster-kind-parity | ⬜ |
 |  | F3 | candidate review | ha-raft-ui + review | candidate | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | - | - | - | - | - | - | - | - | - | - | scope | candidate-plan | - |

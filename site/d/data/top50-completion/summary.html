@@ -433,8 +433,8 @@
 <p>This is the maintained completion tracker for the public configuration catalog and its path into ConfigHub. It replaces conversational task counts with fifty stable task IDs, current evidence, verification commands, and a concrete completion step.</p>
 <p>Generated from <a href="../../../../config-catalog/top50.yaml">config-catalog/top50.yaml</a>. Edit that source and run <code>npm run top50:completion</code>.</p>
 <h2 id="current-state">Current State</h2>
-<pre><code>available: 27
-partial:   21
+<pre><code>available: 28
+partial:   20
 planned:   2
 blocked:   0
 total:     50</code></pre>
@@ -497,7 +497,7 @@ total:     50</code></pre>
 <tr><td>T40</td><td>Complete the AI Change Review App</td><td>partial</td><td><a href="../../docs/demo/apps/ai-change-review.html">docs/demo/apps/ai-change-review.md</a>&lt;br&gt;<a href="../../../../runs/ai-change-review-live-proof/receipt.yaml">runs/ai-change-review-live-proof/receipt.yaml</a></td><td>Add AICR-aware policy, Kubernetes delivery, promotion, rollback, and live workload evidence.</td></tr></tbody></table>
 <h2 id="catalog">Catalog</h2>
 <table><thead><tr><th>ID</th><th>Outcome</th><th>Status</th><th>Current evidence</th><th>Completion step</th></tr></thead><tbody><tr><td>T41</td><td>Maintain public packages for the top 100 Helm charts</td><td>available</td><td><a href="../top100-readiness/summary.html">data/top100-readiness/summary.md</a>&lt;br&gt;<a href="../installer-oci-packages/summary.html">data/installer-oci-packages/summary.md</a></td><td>Keep all packages reproducible and remove any public reference that no longer passes its package verifier.</td></tr>
-<tr><td>T42</td><td>Complete production-scoped support decisions for the top 20</td><td>partial</td><td><a href="../production-support-decisions/summary.html">data/production-support-decisions/summary.md</a>&lt;br&gt;<a href="../production-disposition/summary.html">data/production-disposition/summary.md</a></td><td>Close the remaining support decision and keep every decision tied to fresh target and image evidence.</td></tr>
+<tr><td>T42</td><td>Complete production-scoped support decisions for the top 20</td><td>available</td><td><a href="../production-support-decisions/summary.html">data/production-support-decisions/summary.md</a>&lt;br&gt;<a href="../production-disposition/summary.html">data/production-disposition/summary.md</a></td><td>Keep supported decisions tied to fresh target and image evidence, and require a new hardened base before reopening a rejected or superseded scope.</td></tr>
 <tr><td>T43</td><td>Promote the next 80 from proof-grade to useful catalog configs</td><td>partial</td><td><a href="../top100-coverage/summary.html">data/top100-coverage/summary.md</a>&lt;br&gt;<a href="../useful-base-realization-wave/summary.html">data/useful-base-realization-wave/summary.md</a></td><td>Build the remaining useful-base proposals and review promotion candidates in evidence order.</td></tr>
 <tr><td>T44</td><td>Expand the catalog beyond Helm</td><td>partial</td><td><a href="../../docs/user/config-catalog-demonstrations.html">docs/user/config-catalog-demonstrations.md</a>&lt;br&gt;<a href="../demo-program/summary.html">data/demo-program/summary.md</a></td><td>Add stable browse pages and ready-to-use artifacts for every source family rather than leaving them only in demonstrations.</td></tr>
 <tr><td>T45</td><td>Let users browse by starting point and next job</td><td>available</td><td><a href="../../../../config-catalog/program.yaml">config-catalog/program.yaml</a>&lt;br&gt;<a href="../../docs/user/config-catalog-demonstrations.html">docs/user/config-catalog-demonstrations.md</a>&lt;br&gt;<a href="../../../charts/index.html">site/charts/index.html</a>&lt;br&gt;<a href="../../../testing.html">site/testing.html</a></td><td>Keep both navigation tables and their linked source pages current as starting points and jobs change.</td></tr>

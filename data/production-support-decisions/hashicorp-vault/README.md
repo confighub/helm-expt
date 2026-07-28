@@ -11,8 +11,8 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `hashicorp/vault@0.32.0` |
 | Candidate base | `default` |
-| Decision state | `draft` |
-| Target scope | vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux |
+| Decision state | `rejected` |
+| Target scope | kind-vanilla; namespace=vault; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
@@ -26,23 +26,22 @@ support decision. It does not replace the source decision artifact:
 
 ## Required Before Final Support
 
-- Resolve image digests or record an explicit target-scoped exception before production OCI support.
-- Accept, fix, or document scanner findings for the supported target scope.
-- Refresh target-scoped live/e2e evidence before final support claim.
+- None.
+
 
 ## Support Boundary
 
 Included:
 
-- hashicorp/vault@0.32.0 default base
-- ConfigHub OCI delivery for the declared target scope after fresh target evidence is recorded
-- rendered objects, labels, gates, receipts, and support objects produced by the recorded base
+- the production-support decision for hashicorp/vault@0.32.0 default
+- the recorded Helm, ConfigHub direct-apply, and ConfigHub OCI/Argo evidence used to evaluate that base
+- continued use of the default base as a ready-to-try catalog and parity example
 
 Excluded:
 
-- private values overlays, wrapper charts, and populated extension slots unless separately reviewed
-- non-vanilla Kubernetes distributions unless separately reviewed
-- other delivery controllers or target scopes unless separately reviewed
+- a production-support claim for the default base
+- a production Vault storage, TLS, unseal, recovery, backup, or upgrade policy
+- private values overlays, wrapper charts, populated extension slots, and other target scopes
 
 ## Evidence
 
@@ -58,7 +57,7 @@ Excluded:
 
 ## Next Action
 
-Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim.
+Keep the default base as a ready-to-try parity example. Create a separate TLS-enabled, digest-pinned, persistent-storage base with explicit init, unseal, recovery, backup, and upgrade procedures before reconsidering production support.
 
 Regenerate:
 

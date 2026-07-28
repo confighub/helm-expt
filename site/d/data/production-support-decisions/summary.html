@@ -435,8 +435,8 @@
 <h2 id="summary">Summary</h2>
 <pre><code>decision artifacts: 20
 supported decisions: 17
-draft decisions: 1
-rejected decisions: 0
+draft decisions: 0
+rejected decisions: 1
 superseded decisions: 2
 open work items: 0</code></pre>
 <h2 id="workstreams">Workstreams</h2>
@@ -480,7 +480,7 @@ open work items: 0</code></pre>
 <tr><td><code>grafana/loki@7.0.0</code></td><td>single-binary-filesystem</td><td>supported</td><td>cub-lk-kind-vanilla; namespace=loki; delivery=confighub-oci; controller=argo</td><td>fresh-target-evidence-passed</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate object-store, retention, backup, restore, tenant, hardening, and digest-pinned bases for real customer Loki workloads.</td></tr>
 <tr><td><code>grafana/tempo@1.24.4</code></td><td>local-persistent</td><td>superseded</td><td>vanilla-kubernetes; namespace=tempo; delivery=confighub-oci; controller=argo-or-flux</td><td>not-production-supported-because-source-chart-is-deprecated</td><td>Keep this as catalog proof evidence only; review grafana-community/tempo or another maintained successor before making a production-support claim.</td></tr>
 <tr><td><code>hashicorp/consul@2.0.0</code></td><td>default-control-plane</td><td>supported</td><td>cub-lk-kind-vanilla; namespace=consul; delivery=confighub-oci; controller=argo</td><td>fresh-target-evidence-passed</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate secure-mesh, TLS, ACL, gateway, UI, external-CRD, production-quorum, hardening, and digest-pinned bases for real customer Consul workloads.</td></tr>
-<tr><td><code>hashicorp/vault@0.32.0</code></td><td>default</td><td>draft</td><td>vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux</td><td>fresh-target-evidence-exists-but-final-support-pending</td><td>Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim.</td></tr>
+<tr><td><code>hashicorp/vault@0.32.0</code></td><td>default</td><td>rejected</td><td>kind-vanilla; namespace=vault; delivery=confighub-oci; controller=argo</td><td>parity-passed-production-support-rejected</td><td>Keep the default base as a ready-to-try parity example. Create a separate TLS-enabled, digest-pinned, persistent-storage base with explicit init, unseal, recovery, backup, and upgrade procedures before reconsidering production support.</td></tr>
 <tr><td><code>ingress-nginx/ingress-nginx@4.15.1</code></td><td>internal-clusterip</td><td>supported</td><td>cub-lk-kind-vanilla; namespace=ingress-nginx; delivery=confighub-oci; controller=argo</td><td>fresh-target-evidence-passed</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr>
 <tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td>crds-enabled</td><td>supported</td><td>cub-lk-kind-vanilla; namespace=cert-manager; delivery=confighub-oci; controller=argo</td><td>fresh-target-evidence-passed</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate issuer, certificate, provider, or hardened resource bases for real customer certificate workloads.</td></tr>
 <tr><td><code>longhorn/longhorn@1.11.2</code></td><td>default</td><td>supported</td><td>cub-lk-kind-vanilla; namespace=longhorn-system; delivery=confighub-oci; controller=argo</td><td>fresh-target-evidence-passed</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate backup/restore, upgrade, replica-policy, storage-class, UI-ingress, resource-hardened, or digest-pinned bases for real customer Longhorn workloads.</td></tr>

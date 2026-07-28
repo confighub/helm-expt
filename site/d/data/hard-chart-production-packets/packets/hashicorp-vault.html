@@ -435,9 +435,9 @@
 <p>This generated packet summarizes the current support story for a hard chart. It is a navigation surface over existing evidence, not a new support decision.</p>
 <h2 id="current-answer">Current Answer</h2>
 <table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Supported base</td><td><code>default</code></td></tr>
-<tr><td>Support decision</td><td><code>draft</code></td></tr>
+<tr><td>Support decision</td><td><code>rejected</code></td></tr>
 <tr><td>Production disposition</td><td><code>production-review-ready</code></td></tr>
-<tr><td>Target scope</td><td>vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux</td></tr>
+<tr><td>Target scope</td><td>kind-vanilla; namespace=vault; delivery=confighub-oci; controller=argo</td></tr>
 <tr><td>Delivery path</td><td><code>confighub-oci</code></td></tr>
 <tr><td>Evidence count</td><td>9</td></tr>
 <tr><td>Strongest user-facing evidence</td><td>live-helm-vs-confighub-parity</td></tr>
@@ -447,7 +447,7 @@
 <h2 id="what-a-user-can-safely-do-today">What A User Can Safely Do Today</h2>
 <p>Use dev-mode only for local/demo proof. A production Vault base must cover init/unseal, storage, TLS, backup/restore, and operator runbook evidence.</p>
 <h2 id="what-remains-before-broader-production-use">What Remains Before Broader Production Use</h2>
-<p>Resolve image digests and scanner findings for the default base, then refresh target-scoped live/e2e evidence before making a final support claim.</p>
+<p>Keep the default base as a ready-to-try parity example. Create a separate TLS-enabled, digest-pinned, persistent-storage base with explicit init, unseal, recovery, backup, and upgrade procedures before reconsidering production support.</p>
 <h2 id="bases">Bases</h2>
 <table><thead><tr><th>Base</th><th>User readiness</th><th>Lane summary</th><th>Target facts</th><th>Command</th></tr></thead><tbody><tr><td><code>default</code></td><td>start-here</td><td>render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass</td><td>none</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base default --work-dir &lt;tmp&gt; --non-interactive --namespace vault</code></td></tr>
 <tr><td><code>dev-mode</code></td><td>start-here</td><td>render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass</td><td>none</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0 --base dev-mode --work-dir &lt;tmp&gt; --non-interactive --namespace vault</code></td></tr>
@@ -458,11 +458,11 @@
 <tr><td>ConfigHub / installer absorbs</td><td>exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td></tr>
 <tr><td>Extension slot route</td><td>none recorded</td></tr></tbody></table>
 <h2 id="decision-details">Decision Details</h2>
-<table><thead><tr><th>Decision</th><th>State</th></tr></thead><tbody><tr><td>Image policy</td><td><code>requires-image-digest-resolution</code></td></tr>
-<tr><td>Scan policy</td><td><code>scanner-findings-need-review</code></td></tr>
-<tr><td>Lifecycle policy</td><td><code>no-lifecycle-specific-decision</code></td></tr>
-<tr><td>Target facts</td><td><code>no-unresolved-target-prerequisite-in-candidate-base</code></td></tr>
-<tr><td>Live evidence</td><td><code>fresh-target-evidence-exists-but-final-support-pending</code></td></tr></tbody></table>
+<table><thead><tr><th>Decision</th><th>State</th></tr></thead><tbody><tr><td>Image policy</td><td><code>mutable-tags-prevent-production-support</code></td></tr>
+<tr><td>Scan policy</td><td><code>default-security-posture-not-accepted-for-production</code></td></tr>
+<tr><td>Lifecycle policy</td><td><code>manual-vault-operations-not-production-supported</code></td></tr>
+<tr><td>Target facts</td><td><code>production-target-contract-not-defined</code></td></tr>
+<tr><td>Live evidence</td><td><code>parity-passed-production-support-rejected</code></td></tr></tbody></table>
 <h2 id="evidence-links">Evidence Links</h2>
 <ul><li><a href="../../../../../data/production-support-decisions/hashicorp-vault/support-decision.yaml">Production support decision</a></li><li><a href="../../../../../data/production-disposition/top20.csv">Production disposition table</a></li><li><a href="../../../recipes/hashicorp/vault/0.32.0/CATALOG.html">Per-chart catalog</a></li><li><a href="../../../../../packages/hashicorp/vault/0.32.0">Installer package</a></li><li><a href="../../../../../recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml">Helm pain report</a></li><li><a href="../../../../charts/hashicorp-vault-0-32-0.html">Public chart page</a></li></ul>
 <p>Regenerate:</p>
