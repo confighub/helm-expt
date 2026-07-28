@@ -11,6 +11,44 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "percona/pg-operator no-crds variant rendered from percona/pg-operator@3.0.0"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "percona/pg-operator no-crds variant rendered from percona/pg-operator@3.0.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD crunchybridgeclusters.upstream.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD perconapgbackups.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD perconapgclusters.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD perconapgrestores.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD perconapgupgrades.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD pgadmins.upstream.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD pgupgrades.upstream.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD postgresclusters.upstream.pgv2.percona.com"
+          suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

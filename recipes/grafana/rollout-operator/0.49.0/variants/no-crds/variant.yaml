@@ -10,6 +10,28 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "rollout-operator"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "replicatemplates.rollout-operator.grafana.com"
+        sourceVariant: "default"
+        purpose: "ReplicaTemplate CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+        sourceVariant: "default"
+        purpose: "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
   valuesProfile: "../../effective-values-no-crds.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

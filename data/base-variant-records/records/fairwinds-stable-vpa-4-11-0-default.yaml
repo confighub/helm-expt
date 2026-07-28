@@ -54,7 +54,7 @@ spec:
     routes:
       []
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "declared-target-facts"
       declared:
         requiredSecrets:
           -
@@ -90,27 +90,10 @@ spec:
           evidence:
             - "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
       actions:
-        -
-          lane: "K"
-          prerequisiteKind: "unknown"
-          prerequisiteName: "unknown"
-          actionKind: "operator-review"
-          ownerClass: "operator-review"
-          requiredInputs: "operator review of the runtime residue"
-          evidenceRequired: "an operator decision recorded for this base/target; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: ""
-          sourceReceipt: "runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml"
+        []
       coverage:
-        state: "attached-with-observed-actions"
-        reason: "1 prerequisite declaration and 1 follow-up action record are attached."
+        state: "attached"
+        reason: "1 target prerequisite declared by this base."
         declarationSource: "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml"
         nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-default.yaml"
@@ -136,7 +119,7 @@ spec:
     lifecycleObserved: "yes"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
-    twoClusterKind: "watch"
+    twoClusterKind: "yes"
     variantPromotion: "proven"
   operations:
     resourceClass: "not-yet-classified"

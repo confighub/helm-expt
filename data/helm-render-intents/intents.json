@@ -13699,7 +13699,7 @@
           "lifecycleObserved": "yes",
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
-          "twoClusterKind": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
@@ -13719,7 +13719,7 @@
           }
         },
         "targetFacts": {
-          "status": "declared-target-facts-and-observed-action-records",
+          "status": "declared-target-facts",
           "declared": {
             "requiredSecrets": [
               {
@@ -13764,32 +13764,10 @@
               ]
             }
           ],
-          "actions": [
-            {
-              "lane": "K",
-              "prerequisiteKind": "unknown",
-              "prerequisiteName": "unknown",
-              "actionKind": "operator-review",
-              "ownerClass": "operator-review",
-              "requiredInputs": "operator review of the runtime residue",
-              "evidenceRequired": "an operator decision recorded for this base/target; then a fresh K parity receipt for this base",
-              "automatic": false,
-              "supportArtifact": "",
-              "sourceReceipt": "runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml",
-              "rerunCommand": "npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base default",
-              "requiredBefore": "apply",
-              "freshness": {
-                "policy": "recheck-before-apply",
-                "maxAge": "one-apply"
-              },
-              "evidence": [
-                "runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml"
-              ]
-            }
-          ],
+          "actions": [],
           "coverage": {
-            "state": "attached-with-observed-actions",
-            "reason": "1 prerequisite declaration and 1 follow-up action record are attached.",
+            "state": "attached",
+            "reason": "1 target prerequisite declared by this base.",
             "declarationSource": "recipes/fairwinds-stable/vpa/4.11.0/variants/default/variant.yaml",
             "nextAction": ""
           }
@@ -13878,7 +13856,7 @@
           "lifecycleObserved": "yes",
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
-          "twoClusterKind": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
@@ -13898,7 +13876,7 @@
           }
         },
         "targetFacts": {
-          "status": "declared-target-facts-and-observed-action-records",
+          "status": "declared-target-facts",
           "declared": {
             "requiredCRDs": [
               {
@@ -14015,32 +13993,10 @@
               ]
             }
           ],
-          "actions": [
-            {
-              "lane": "K",
-              "prerequisiteKind": "crd",
-              "prerequisiteName": "unknown",
-              "actionKind": "install-crds",
-              "ownerClass": "user-stage",
-              "requiredInputs": "the chart's CRDs",
-              "evidenceRequired": "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base",
-              "automatic": false,
-              "supportArtifact": "",
-              "sourceReceipt": "runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml",
-              "rerunCommand": "npm run kind-parity:run -- --chart fairwinds-stable/vpa --version 4.11.0 --base no-crds",
-              "requiredBefore": "apply",
-              "freshness": {
-                "policy": "recheck-before-apply",
-                "maxAge": "one-apply"
-              },
-              "evidence": [
-                "runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml"
-              ]
-            }
-          ],
+          "actions": [],
           "coverage": {
-            "state": "attached-with-observed-actions",
-            "reason": "3 prerequisite declarations and 1 follow-up action record are attached.",
+            "state": "attached",
+            "reason": "3 target prerequisites declared by this base.",
             "declarationSource": "recipes/fairwinds-stable/vpa/4.11.0/variants/no-crds/variant.yaml",
             "nextAction": ""
           }
@@ -17091,7 +17047,7 @@
           "lifecycleObserved": "n/a",
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
-          "twoClusterKind": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
@@ -17111,37 +17067,91 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
-          "actions": [
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "replicatemplates.rollout-operator.grafana.com",
+                "purpose": "ReplicaTemplate CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <rollout-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com",
+                "purpose": "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <rollout-operator-crds.yaml>"
+              }
+            ]
+          },
+          "requirements": [
             {
-              "lane": "K",
-              "prerequisiteKind": "unknown",
-              "prerequisiteName": "unknown",
-              "actionKind": "operator-review",
-              "ownerClass": "operator-review",
-              "requiredInputs": "operator review of the runtime residue",
-              "evidenceRequired": "an operator decision recorded for this base/target; then a fresh K parity receipt for this base",
-              "automatic": false,
-              "supportArtifact": "",
-              "sourceReceipt": "runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml",
-              "rerunCommand": "npm run kind-parity:run -- --chart grafana/rollout-operator --version 0.49.0 --base no-crds",
+              "category": "crd",
+              "name": "replicatemplates.rollout-operator.grafana.com",
+              "namespace": "",
               "requiredBefore": "apply",
               "freshness": {
                 "policy": "recheck-before-apply",
                 "maxAge": "one-apply"
               },
+              "purpose": "ReplicaTemplate CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <rollout-operator-crds.yaml>",
+              "declarationPath": "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
               "evidence": [
-                "runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml"
+                "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <rollout-operator-crds.yaml>",
+              "declarationPath": "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml"
               ]
             }
           ],
+          "actions": [],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached",
+            "reason": "2 target prerequisites declared by this base.",
+            "declarationSource": "recipes/grafana/rollout-operator/0.49.0/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -26513,10 +26523,10 @@
           "renderParity": "yes",
           "confighubScanOps": "yes",
           "localKind": "yes",
-          "lifecycleObserved": "todo",
+          "lifecycleObserved": "n/a",
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
-          "twoClusterKind": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
@@ -26536,37 +26546,307 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
-          "actions": [
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "crunchybridgeclusters.upstream.pgv2.percona.com",
+                "purpose": "CrunchyBridgeCluster CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "perconapgbackups.pgv2.percona.com",
+                "purpose": "PerconaPGBackup CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "perconapgclusters.pgv2.percona.com",
+                "purpose": "PerconaPGCluster CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "perconapgrestores.pgv2.percona.com",
+                "purpose": "PerconaPGRestore CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "perconapgupgrades.pgv2.percona.com",
+                "purpose": "PerconaPGUpgrade CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "pgadmins.upstream.pgv2.percona.com",
+                "purpose": "PGAdmin CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "pgupgrades.upstream.pgv2.percona.com",
+                "purpose": "PGUpgrade CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "postgresclusters.upstream.pgv2.percona.com",
+                "purpose": "PostgresCluster CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pg-operator-crds.yaml>"
+              }
+            ]
+          },
+          "requirements": [
             {
-              "lane": "K",
-              "prerequisiteKind": "crd",
-              "prerequisiteName": "unknown",
-              "actionKind": "install-crds",
-              "ownerClass": "user-stage",
-              "requiredInputs": "the chart's CRDs",
-              "evidenceRequired": "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base",
-              "automatic": false,
-              "supportArtifact": "",
-              "sourceReceipt": "runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml",
-              "rerunCommand": "npm run kind-parity:run -- --chart percona/pg-operator --version 3.0.0 --base no-crds",
+              "category": "crd",
+              "name": "crunchybridgeclusters.upstream.pgv2.percona.com",
+              "namespace": "",
               "requiredBefore": "apply",
               "freshness": {
                 "policy": "recheck-before-apply",
                 "maxAge": "one-apply"
               },
+              "purpose": "CrunchyBridgeCluster CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
               "evidence": [
-                "runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml"
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "perconapgbackups.pgv2.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PerconaPGBackup CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "perconapgclusters.pgv2.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PerconaPGCluster CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "perconapgrestores.pgv2.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PerconaPGRestore CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "perconapgupgrades.pgv2.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PerconaPGUpgrade CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "pgadmins.upstream.pgv2.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PGAdmin CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "pgupgrades.upstream.pgv2.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PGUpgrade CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "postgresclusters.upstream.pgv2.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PostgresCluster CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pg-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml"
               ]
             }
           ],
+          "actions": [],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached",
+            "reason": "8 target prerequisites declared by this base.",
+            "declarationSource": "recipes/percona/pg-operator/3.0.0/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -26998,7 +27278,7 @@
           "lifecycleObserved": "todo",
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
-          "twoClusterKind": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
@@ -27018,37 +27298,127 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
-          "actions": [
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "perconaxtradbclusterbackups.pxc.percona.com",
+                "purpose": "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pxc-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "perconaxtradbclusterrestores.pxc.percona.com",
+                "purpose": "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pxc-operator-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "perconaxtradbclusters.pxc.percona.com",
+                "purpose": "PerconaXtraDBCluster CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <pxc-operator-crds.yaml>"
+              }
+            ]
+          },
+          "requirements": [
             {
-              "lane": "K",
-              "prerequisiteKind": "external-api",
-              "prerequisiteName": "unknown",
-              "actionKind": "provide-external-service",
-              "ownerClass": "operator-review",
-              "requiredInputs": "the upstream service/endpoint the workload connects to",
-              "evidenceRequired": "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base",
-              "automatic": false,
-              "supportArtifact": "",
-              "sourceReceipt": "runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml",
-              "rerunCommand": "npm run kind-parity:run -- --chart percona/pxc-operator --version 1.19.1 --base no-crds",
+              "category": "crd",
+              "name": "perconaxtradbclusterbackups.pxc.percona.com",
+              "namespace": "",
               "requiredBefore": "apply",
               "freshness": {
                 "policy": "recheck-before-apply",
                 "maxAge": "one-apply"
               },
+              "purpose": "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pxc-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
               "evidence": [
-                "runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml"
+                "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "perconaxtradbclusterrestores.pxc.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pxc-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "perconaxtradbclusters.pxc.percona.com",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "PerconaXtraDBCluster CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <pxc-operator-crds.yaml>",
+              "declarationPath": "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
               ]
             }
           ],
+          "actions": [],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached",
+            "reason": "3 target prerequisites declared by this base.",
+            "declarationSource": "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -33332,7 +33702,7 @@
           "lifecycleObserved": "todo",
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
-          "twoClusterKind": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
@@ -33352,37 +33722,379 @@
           }
         },
         "targetFacts": {
-          "status": "observed-action-records",
-          "declared": {},
-          "requirements": [],
-          "actions": [
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredCRDs": [
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkas.kafka.strimzi.io",
+                "purpose": "Kafka CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkaconnects.kafka.strimzi.io",
+                "purpose": "KafkaConnect CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "strimzipodsets.core.strimzi.io",
+                "purpose": "StrimziPodSet CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkatopics.kafka.strimzi.io",
+                "purpose": "KafkaTopic CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkausers.kafka.strimzi.io",
+                "purpose": "KafkaUser CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkanodepools.kafka.strimzi.io",
+                "purpose": "KafkaNodePool CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkabridges.kafka.strimzi.io",
+                "purpose": "KafkaBridge CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkaconnectors.kafka.strimzi.io",
+                "purpose": "KafkaConnector CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkamirrormaker2s.kafka.strimzi.io",
+                "purpose": "KafkaMirrorMaker2 CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              },
+              {
+                "deliveryLanes": [
+                  "regularHelm",
+                  "cubInstallerApply",
+                  "configHubKubectlApply",
+                  "configHubOciArgo"
+                ],
+                "name": "kafkarebalances.kafka.strimzi.io",
+                "purpose": "KafkaRebalance CRD managed outside this no-crds preset",
+                "sourceVariant": "default",
+                "suggestedSource": "kubectl apply -f <strimzi-crds.yaml>"
+              }
+            ]
+          },
+          "requirements": [
             {
-              "lane": "K",
-              "prerequisiteKind": "namespace",
-              "prerequisiteName": "unknown",
-              "actionKind": "create-namespace",
-              "ownerClass": "user-stage",
-              "requiredInputs": "the target Namespace named by the chart",
-              "evidenceRequired": "the named Namespace exists on the target before apply; then a fresh K parity receipt for this base",
-              "automatic": false,
-              "supportArtifact": "",
-              "sourceReceipt": "runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml",
-              "rerunCommand": "npm run kind-parity:run -- --chart strimzi/strimzi-kafka-operator --version 1.0.0 --base no-crds",
+              "category": "crd",
+              "name": "kafkas.kafka.strimzi.io",
+              "namespace": "",
               "requiredBefore": "apply",
               "freshness": {
                 "policy": "recheck-before-apply",
                 "maxAge": "one-apply"
               },
+              "purpose": "Kafka CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
               "evidence": [
-                "runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml"
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkaconnects.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaConnect CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "strimzipodsets.core.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "StrimziPodSet CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkatopics.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaTopic CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkausers.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaUser CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkanodepools.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaNodePool CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkabridges.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaBridge CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkaconnectors.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaConnector CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkamirrormaker2s.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaMirrorMaker2 CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "crd",
+              "name": "kafkarebalances.kafka.strimzi.io",
+              "namespace": "",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "KafkaRebalance CRD managed outside this no-crds preset",
+              "check": "kubectl apply -f <strimzi-crds.yaml>",
+              "declarationPath": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+              "sourceVariant": "default",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "regularHelm",
+                "cubInstallerApply",
+                "configHubKubectlApply",
+                "configHubOciArgo"
+              ],
+              "evidence": [
+                "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml"
               ]
             }
           ],
+          "actions": [],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-            "declarationSource": "",
-            "nextAction": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+            "state": "attached",
+            "reason": "10 target prerequisites declared by this base.",
+            "declarationSource": "recipes/strimzi/strimzi-kafka-operator/1.0.0/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {

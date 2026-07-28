@@ -6,7 +6,7 @@
 
 The path to **100% verified disposition** of the master matrix — *not* 100% green.
 A correct `watch` / `blocked` / `refused` / `n-a` with evidence and a named next
-action is a valid product answer. This collapses the 689 non-green cells from the
+action is a valid product answer. This collapses the 676 non-green cells from the
 [matrix-completion-audit](../matrix-completion-audit/summary.md) into
 **20 action families**, ranked by cells-cleared-per-action, so a large
 matrix becomes a short punch-list.
@@ -18,10 +18,10 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | # | Action | Family | Cells | Owner lane | Command / prerequisite |
 | --- | --- | --- | ---: | --- | --- |
-| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 396 | Codex-live | rerun old fallback receipts on the fixed server |
-| CCP-02 | record-decision | verified-watch | 76 | product-decision | — |
-| CCP-03 | refresh-image | remote-image-refresh | 74 | Claude-non-live | a pullable image or retained digest |
-| CCP-04 | record-decision | lifecycle-not-applicable | 49 | product-decision | — |
+| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 390 | Codex-live | rerun old fallback receipts on the fixed server |
+| CCP-02 | refresh-image | remote-image-refresh | 74 | Claude-non-live | a pullable image or retained digest |
+| CCP-03 | record-decision | verified-watch | 70 | product-decision | — |
+| CCP-04 | record-decision | lifecycle-not-applicable | 48 | product-decision | — |
 | CCP-05 | stage-prereq | operator-review | 20 | product-decision | runtime review or target-specific support decision |
 | CCP-06 | stage-prereq | stage-secret | 10 | Claude-non-live | required Secret/ConfigMap/mount target fact |
 | CCP-07 | stage-prereq | install-crds | 9 | Claude-non-live | cert-manager CRDs |
@@ -33,8 +33,8 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | Action type | Cells |
 | --- | ---: |
-| `run-promotion` | 396 |
-| `record-decision` | 125 |
+| `run-promotion` | 390 |
+| `record-decision` | 118 |
 | `refresh-image` | 74 |
 | `stage-prereq` | 60 |
 | `fix-model` | 27 |
@@ -44,23 +44,23 @@ recorded dispositions (`record-decision` / `refuse-or-scope`) are not prediction
 
 | Owner lane | Cells |
 | --- | ---: |
-| `Codex-live` | 403 |
-| `product-decision` | 156 |
+| `Codex-live` | 397 |
+| `product-decision` | 149 |
 | `Claude-non-live` | 130 |
 
 ## Variant promotion (first-class family)
 
 The promotion (V) lane is the loudest hole: **179 proven / 17 watch / 1 todo / 2 blocked / 0 n/a**.
-- `CCP-01` **run-promotion** - 396 old fallback receipts to rerun on ConfigHub v0.1.80+.
+- `CCP-01` **run-promotion** - 390 old fallback receipts to rerun on ConfigHub v0.1.80+.
 
 ## All action families
 
 | # | Action | Family | Cells | Lanes | Owner | Expected (pred?) | Evidence surface | Issues |
 | --- | --- | --- | ---: | --- | --- | --- | --- | --- |
-| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 396 | promotion | Codex-live | pass after rerun on ConfigHub v0.1.80+ (prediction) | variant-promotion-closeout | #682; #948 |
-| CCP-02 | record-decision | verified-watch | 76 | G/K/P | product-decision | watch (verified disposition; recorded with evidence) | (already recorded) | #753 |
-| CCP-03 | refresh-image | remote-image-refresh | 74 | G/K/L/P | Claude-non-live | pass after the image is pullable (refresh tag / pin digest / mirror) (prediction) | remote-image-runtime-workdown | #753 |
-| CCP-04 | record-decision | lifecycle-not-applicable | 49 | lifecycle | product-decision | n/a (no routed lifecycle to observe) | master-catalog-matrix | #753 |
+| CCP-01 | run-promotion | promotion-rerun-after-server-fix | 390 | promotion | Codex-live | pass after rerun on ConfigHub v0.1.80+ (prediction) | variant-promotion-closeout | #682; #948 |
+| CCP-02 | refresh-image | remote-image-refresh | 74 | G/K/L/P | Claude-non-live | pass after the image is pullable (refresh tag / pin digest / mirror) (prediction) | remote-image-runtime-workdown | #753 |
+| CCP-03 | record-decision | verified-watch | 70 | G/K/P | product-decision | watch (verified disposition; recorded with evidence) | (already recorded) | #753 |
+| CCP-04 | record-decision | lifecycle-not-applicable | 48 | lifecycle | product-decision | n/a (no routed lifecycle to observe) | master-catalog-matrix | #753 |
 | CCP-05 | stage-prereq | operator-review | 20 | K/L | product-decision | pass after the runtime residue is reviewed or a better base is selected (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
 | CCP-06 | stage-prereq | stage-secret | 10 | K/L | Claude-non-live | pass after the prerequisite is staged (prediction) | local-live-triage; target-prerequisite-workdown | #248; #753 |
 | CCP-07 | stage-prereq | install-crds | 9 | G/K/L/P | Claude-non-live | pass after the prerequisite is staged (prediction) | target-prerequisite-workdown | #248; #753 |

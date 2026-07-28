@@ -66,7 +66,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1"
     installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "77c9afa2b4577d246bd7c94cb8d451881460ac412b773f486889a814298da7d1"
+    deterministicBundleSHA256: "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

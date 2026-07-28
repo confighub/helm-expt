@@ -15,21 +15,21 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 [residue-families](../../docs/reference/residue-families.md). For the full non-green
 triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 48 target-prerequisite rows
+## 42 target-prerequisite rows
 
 | Prerequisite kind | Rows |
 | --- | ---: |
-| `unknown` | 23 |
-| `crd` | 10 |
-| `external-api` | 5 |
-| `namespace` | 5 |
+| `unknown` | 21 |
+| `crd` | 8 |
+| `external-api` | 4 |
+| `namespace` | 4 |
 | `secret` | 4 |
 | `topology` | 1 |
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 30 |
-| `user-stage` | 17 |
+| `operator-review` | 27 |
+| `user-stage` | 14 |
 | `target-policy` | 1 |
 
 ## Rows
@@ -48,15 +48,12 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | elastic/kibana@8.5.1 | default | K | external-api | unknown | operator-review | yes |
 | elastic/metricbeat@8.5.1 | default | G/P | unknown | unknown | operator-review | yes |
 | elastic/metricbeat@8.5.1 | default | K | secret | Secret elasticsearch-master-certs | user-stage | yes |
-| fairwinds-stable/vpa@4.11.0 | default | K | unknown | unknown | operator-review | yes |
-| fairwinds-stable/vpa@4.11.0 | no-crds | K | crd | unknown | user-stage | yes |
 | fluent/fluentd@0.5.3 | default | G/P | unknown | unknown | operator-review | yes |
 | gitlab/gitlab-runner@0.89.0 | default | G/P | unknown | unknown | operator-review | yes |
 | gitlab/gitlab-runner@0.89.0 | default | K | external-api | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | default | G/P | unknown | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | ha | G/P | unknown | unknown | operator-review | yes |
 | grafana/pyroscope@2.0.2 | no-crds | G/P | unknown | unknown | operator-review | yes |
-| grafana/rollout-operator@0.49.0 | no-crds | K | unknown | unknown | operator-review | yes |
 | hashicorp/terraform@1.1.2 | default | G/P | unknown | unknown | operator-review | yes |
 | hashicorp/terraform@1.1.2 | no-crds | G/P | unknown | unknown | operator-review | yes |
 | hashicorp/terraform@1.1.2 | no-crds | K | secret | Secret workspacesecrets; Secret terraformrc | user-stage | yes |
@@ -75,14 +72,11 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown | value nfs.server | user-stage | unknown |
 | opencost/opencost@2.5.21 | default | G/P | unknown | unknown | operator-review | yes |
 | opencost/opencost@2.5.21 | default | K | unknown | unknown | operator-review | yes |
-| percona/pg-operator@3.0.0 | no-crds | K | crd | unknown | user-stage | yes |
-| percona/pxc-operator@1.19.1 | no-crds | K | external-api | unknown | operator-review | yes |
 | projectcalico/tigera-operator@v3.32.0 | default | K | crd | unknown | user-stage | unknown |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | K | crd | unknown | user-stage | unknown |
 | prometheus-community/prometheus-adapter@5.3.0 | default | K | crd | unknown | user-stage | unknown |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | G/P | namespace | Namespace rook-ceph | user-stage | yes |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | K | namespace | Namespace rook-ceph | user-stage | yes |
-| strimzi/strimzi-kafka-operator@1.0.0 | no-crds | K | namespace | unknown | user-stage | yes |
 | velero/velero@12.0.1 | no-crds | K | crd | unknown | user-stage | unknown |
 
 ## How to read a row

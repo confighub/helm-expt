@@ -38,7 +38,7 @@ spec:
       name: "node-or-cluster-collector"
       path: "bases/node-or-cluster-collector"
   collector:
-    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
+    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."

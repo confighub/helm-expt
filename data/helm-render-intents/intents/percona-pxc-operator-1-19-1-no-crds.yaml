@@ -43,7 +43,7 @@ spec:
     lifecycleObserved: "todo"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
-    twoClusterKind: "watch"
+    twoClusterKind: "yes"
     variantPromotion: "proven"
   lifecycle:
     routeContract: "n/a"
@@ -62,35 +62,107 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "observed-action-records"
+    status: "declared-target-facts"
     declared:
-      {}
+      requiredCRDs:
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "perconaxtradbclusterbackups.pxc.percona.com"
+          purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "perconaxtradbclusterrestores.pxc.percona.com"
+          purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+        -
+          deliveryLanes:
+            - "regularHelm"
+            - "cubInstallerApply"
+            - "configHubKubectlApply"
+            - "configHubOciArgo"
+          name: "perconaxtradbclusters.pxc.percona.com"
+          purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
+          sourceVariant: "default"
+          suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
     requirements:
-      []
-    actions:
       -
-        lane: "K"
-        prerequisiteKind: "external-api"
-        prerequisiteName: "unknown"
-        actionKind: "provide-external-service"
-        ownerClass: "operator-review"
-        requiredInputs: "the upstream service/endpoint the workload connects to"
-        evidenceRequired: "the upstream service/endpoint reachable from the workload; then a fresh K parity receipt for this base"
-        automatic: false
-        supportArtifact: ""
-        sourceReceipt: "runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml"
-        rerunCommand: "npm run kind-parity:run -- --chart percona/pxc-operator --version 1.19.1 --base no-crds"
+        category: "crd"
+        name: "perconaxtradbclusterbackups.pxc.percona.com"
+        namespace: ""
         requiredBefore: "apply"
         freshness:
           policy: "recheck-before-apply"
           maxAge: "one-apply"
+        purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
+        check: "kubectl apply -f <pxc-operator-crds.yaml>"
+        declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
         evidence:
-          - "runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml"
+          - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+      -
+        category: "crd"
+        name: "perconaxtradbclusterrestores.pxc.percona.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
+        check: "kubectl apply -f <pxc-operator-crds.yaml>"
+        declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+      -
+        category: "crd"
+        name: "perconaxtradbclusters.pxc.percona.com"
+        namespace: ""
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
+        check: "kubectl apply -f <pxc-operator-crds.yaml>"
+        declarationPath: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+        sourceVariant: "default"
+        sourcePath: ""
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+        evidence:
+          - "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+    actions:
+      []
     coverage:
-      state: "actionable-gap"
-      reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
-      declarationSource: ""
-      nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+      state: "attached"
+      reason: "3 target prerequisites declared by this base."
+      declarationSource: "recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

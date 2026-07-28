@@ -10,6 +10,38 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "pxc-operator"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "perconaxtradbclusterbackups.pxc.percona.com"
+        sourceVariant: "default"
+        purpose: "PerconaXtraDBClusterBackup CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "perconaxtradbclusterrestores.pxc.percona.com"
+        sourceVariant: "default"
+        purpose: "PerconaXtraDBClusterRestore CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "perconaxtradbclusters.pxc.percona.com"
+        sourceVariant: "default"
+        purpose: "PerconaXtraDBCluster CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pxc-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
   valuesProfile: "../../effective-values-no-crds.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

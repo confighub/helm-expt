@@ -6,8 +6,8 @@ spec:
   chart: percona/pg-operator
   version: 3.0.0
   base: no-crds
-  result: watch
-  observedAt: '2026-06-15T19:45:38Z'
+  result: pass
+  observedAt: '2026-07-28T10:29:39Z'
   package:
     path: packages/percona/pg-operator/3.0.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-pgoper-a1edc-i2zl-helm
-    installerCluster: hx-pgoper-a1edc-i2zl-installer
+    helmCluster: hx-pgoper-a1edc-kpi5-helm
+    installerCluster: hx-pgoper-a1edc-kpi5-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-pgoper-a1edc-i2zl-helm
+      - cluster: hx-pgoper-a1edc-kpi5-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-pgoper-a1edc-i2zl-helm" ...
+        detail: 'Deleting cluster "hx-pgoper-a1edc-kpi5-helm" ...
 
-          Deleted nodes: ["hx-pgoper-a1edc-i2zl-helm-control-plane"]'
-      - cluster: hx-pgoper-a1edc-i2zl-installer
+          Deleted nodes: ["hx-pgoper-a1edc-kpi5-helm-control-plane"]'
+      - cluster: hx-pgoper-a1edc-kpi5-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-pgoper-a1edc-i2zl-installer" ...
+        detail: 'Deleting cluster "hx-pgoper-a1edc-kpi5-installer" ...
 
-          Deleted nodes: ["hx-pgoper-a1edc-i2zl-installer-control-plane"]'
+          Deleted nodes: ["hx-pgoper-a1edc-kpi5-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -40,7 +40,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install pg-operator pg-operator --repo https://percona.github.io/percona-helm-charts/
-        --version 3.0.0 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/percona-pg-operator-no-crds/regular-helm-values.yaml
+        --version 3.0.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pg-operator-no-crds/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: b74ec3d7caff70a013e25ff922dc6ead03c37f01193f603f63a1f6686e59f8d2
@@ -57,7 +57,7 @@ spec:
           deployment.apps/pg-operator   1/1   1     1     13s'
         pods: '# default
 
-          pg-operator-79576c68cb-fgr4f   1/1   Running   0     14s'
+          pg-operator-79576c68cb-279zm   1/1   Running   0     13s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -66,9 +66,9 @@ spec:
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: blocked
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/percona/pg-operator/3.0.0
-        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-pgoper-a1edc-i2zl-pg-operator
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/percona/pg-operator/3.0.0
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-pgoper-a1edc-kpi5-pg-operator
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -80,127 +80,16 @@ spec:
       runtimeNamespaces: &id002
       - default
       runtime:
-        result: blocked
+        result: pass
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/pg-operator   0/1   1     0     21s'
+          deployment.apps/pg-operator   1/1   1     1     21s'
         pods: '# default
 
-          pg-operator-79576c68cb-8vjgx   0/1   CrashLoopBackOff   1 (6s ago)   21s'
-        notReady:
-        - namespace: default
-          pod: pg-operator-79576c68cb-8vjgx
-          ready: 0/1
-          status: CrashLoopBackOff
-          blockedReason: pod-runtime-failure
-        diagnostics:
-        - namespace: default
-          pod: pg-operator-79576c68cb-8vjgx
-          result: blocked
-          detailHead: "Name:             pg-operator-79576c68cb-8vjgx\nNamespace:\
-            \        default\nPriority:         0\nService Account:  pg-operator\n\
-            Node:             hx-pgoper-a1edc-i2zl-installer-control-plane/192.168.97.3\n\
-            Start Time:       Mon, 15 Jun 2026 20:46:44 +0100\nLabels:           app.kubernetes.io/component=operator\n\
-            \                  app.kubernetes.io/instance=pg-operator\n          \
-            \        app.kubernetes.io/name=pg-operator\n                  app.kubernetes.io/part-of=pg-operator\n\
-            \                  pgv2.percona.com/control-plane=postgres-operator\n\
-            \                  pod-template-hash=79576c68cb\nAnnotations:      <none>\n\
-            Status:           Running\nIP:               10.244.0.5\nIPs:\n  IP: \
-            \          10.244.0.5\nControlled By:  ReplicaSet/pg-operator-79576c68cb\n\
-            Containers:\n  operator:\n    Container ID:   containerd://2b34295fdcd83e7314b518ee68559067c573c50cc6ba575c10d8415212c83305\n\
-            \    Image:          docker.io/percona/percona-postgresql-operator:3.0.0\n\
-            \    Image ID:       docker.io/percona/percona-postgresql-operator@sha256:b4e01230258343bb7e3bd0fb384e8865fe6defe564ff5c2a7ceb80fba3d9b303\n\
-            \    Port:           8080/TCP (metrics)\n    Host Port:      0/TCP (metrics)\n\
-            \    State:          Waiting\n      Reason:       CrashLoopBackOff\n \
-            \   Last State:     Terminated\n      Reason:       Error\n      Exit\
-            \ Code:    2\n      Started:      Mon, 15 Jun 2026 20:46:59 +0100\n  \
-            \    Finished:     Mon, 15 Jun 2026 20:46:59 +0100\n    Ready:       \
-            \   False\n    Restart Count:  1\n    Limits:\n      cpu:     200m\n \
-            \     memory:  500Mi\n    Requests:\n      cpu:     100m\n      memory:\
-            \  20Mi\n    Liveness:  http-get http://:metrics/metrics delay=0s timeout=1s\
-            \ period=10s #success=1 #failure=3\n    Environment:\n      PGO_NAMESPACE:\
-            \                           default (v1:metadata.namespace)\n      WATCH_NAMESPACE:\
-            \                         default (v1:metadata.namespace)\n      LOG_STRUCTURED:\
-            \                          false\n      LOG_LEVEL:                   \
-            \            INFO\n      DISABLE_TELEMETRY:                       false\n\
-            \      PPROF_BIND_ADDRESS:                      0\n      PGO_CONTROLLER_LEADER_ELECTION_ENABLED:\
-            \  true\n      PGO_CONTROLLER_LEASE_NAME:               \n      PGO_CONTROLLER_LEASE_DURATION:\
-            \           60s\n      PGO_CONTROLLER_RENEW_DEADLINE:           40s\n\
-            \      PGO_CONTROLLER_RETRY_PERIOD:             10s\n      PGO_FEATURE_GATES:\
-            \                       BackupSnapshots=false\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-hm94v (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
-            \                True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  kube-api-access-hm94v:\n    Type:                    Projected (a volume\
-            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
-            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
-            \                false\n    DownwardAPI:             true\nQoS Class:\
-            \                   "
-          detailTail: "  http-get http://:metrics/metrics delay=0s timeout=1s period=10s\
-            \ #success=1 #failure=3\n    Environment:\n      PGO_NAMESPACE:      \
-            \                     default (v1:metadata.namespace)\n      WATCH_NAMESPACE:\
-            \                         default (v1:metadata.namespace)\n      LOG_STRUCTURED:\
-            \                          false\n      LOG_LEVEL:                   \
-            \            INFO\n      DISABLE_TELEMETRY:                       false\n\
-            \      PPROF_BIND_ADDRESS:                      0\n      PGO_CONTROLLER_LEADER_ELECTION_ENABLED:\
-            \  true\n      PGO_CONTROLLER_LEASE_NAME:               \n      PGO_CONTROLLER_LEASE_DURATION:\
-            \           60s\n      PGO_CONTROLLER_RENEW_DEADLINE:           40s\n\
-            \      PGO_CONTROLLER_RETRY_PERIOD:             10s\n      PGO_FEATURE_GATES:\
-            \                       BackupSnapshots=false\n    Mounts:\n      /var/run/secrets/kubernetes.io/serviceaccount\
-            \ from kube-api-access-hm94v (ro)\nConditions:\n  Type               \
-            \         Status\n  PodReadyToStartContainers   True \n  Initialized \
-            \                True \n  Ready                       False \n  ContainersReady\
-            \             False \n  PodScheduled                True \nVolumes:\n\
-            \  kube-api-access-hm94v:\n    Type:                    Projected (a volume\
-            \ that contains injected data from multiple sources)\n    TokenExpirationSeconds:\
-            \  3607\n    ConfigMapName:           kube-root-ca.crt\n    Optional:\
-            \                false\n    DownwardAPI:             true\nQoS Class:\
-            \                   Burstable\nNode-Selectors:              <none>\nTolerations:\
-            \                 node.kubernetes.io/not-ready:NoExecute op=Exists for\
-            \ 300s\n                             node.kubernetes.io/unreachable:NoExecute\
-            \ op=Exists for 300s\nEvents:\n  Type     Reason     Age             \
-            \  From               Message\n  ----     ------     ----            \
-            \  ----               -------\n  Normal   Scheduled  21s             \
-            \  default-scheduler  Successfully assigned default/pg-operator-79576c68cb-8vjgx\
-            \ to hx-pgoper-a1edc-i2zl-installer-control-plane\n  Normal   Pulled \
-            \    8s                kubelet            spec.containers{operator}: Successfully\
-            \ pulled image \"docker.io/percona/percona-postgresql-operator:3.0.0\"\
-            \ in 12.297s (12.297s including waiting). Image size: 78676364 bytes.\n\
-            \  Normal   Pulling    7s (x2 over 20s)  kubelet            spec.containers{operator}:\
-            \ Pulling image \"docker.io/percona/percona-postgresql-operator:3.0.0\"\
-            \n  Normal   Created    6s (x2 over 8s)   kubelet            spec.containers{operator}:\
-            \ Container created\n  Normal   Started    6s (x2 over 8s)   kubelet \
-            \           spec.containers{operator}: Container started\n  Normal   Pulled\
-            \     6s                kubelet            spec.containers{operator}:\
-            \ Successfully pulled image \"docker.io/percona/percona-postgresql-operator:3.0.0\"\
-            \ in 845ms (845ms including waiting). Image size: 78676364 bytes.\n  Warning\
-            \  BackOff    1s (x3 over 5s)   kubelet            spec.containers{operator}:\
-            \ Back-off restarting failed container operator in pod pg-operator-79576c68cb-8vjgx_default(9d069065-b182-4c0b-b871-9c6179bdc181)"
-          logsHead: "2026-06-15T19:46:59.526Z\tINFO\tManager starting up\t{\"gitCommit\"\
-            : \"6b70de36e22e063697b2f51d9660056c84a9f4b4\", \"gitBranch\": \"release-3.0.0\"\
-            , \"buildTime\": \"2026-05-20T14:58:19Z\", \"goVersion\": \"go1.26.3\"\
-            , \"os\": \"linux\", \"arch\": \"arm64\"}\n2026-06-15T19:46:59.526Z\t\
-            INFO\tfeature gates\t{\"PGO_FEATURE_GATES\": \"BackupSnapshots=false,InstanceSidecars=true,PGBackrestSidecars=true,PGBouncerSidecars=true,TablespaceVolumes=true\"\
-            , \"enabled\": \"AutoCreateUserSchema=true,InstanceSidecars=true,PGBackrestSidecars=true,PGBouncerSidecars=true,TablespaceVolumes=true\"\
-            }\npanic: failed to get restmapping: unable to retrieve the complete list\
-            \ of server APIs: pgv2.percona.com/v2: no matches for pgv2.percona.com/v2,\
-            \ Resource=\n\ngoroutine 1 [running]:\nmain.assertNoError(...)\n\t/go/src/github.com/percona/percona-postgresql-operator/cmd/postgres-operator/main.go:63\n\
-            main.main()\n\t/go/src/github.com/percona/percona-postgresql-operator/cmd/postgres-operator/main.go:138\
-            \ +0x844"
-          logsTail: "2026-06-15T19:46:59.526Z\tINFO\tManager starting up\t{\"gitCommit\"\
-            : \"6b70de36e22e063697b2f51d9660056c84a9f4b4\", \"gitBranch\": \"release-3.0.0\"\
-            , \"buildTime\": \"2026-05-20T14:58:19Z\", \"goVersion\": \"go1.26.3\"\
-            , \"os\": \"linux\", \"arch\": \"arm64\"}\n2026-06-15T19:46:59.526Z\t\
-            INFO\tfeature gates\t{\"PGO_FEATURE_GATES\": \"BackupSnapshots=false,InstanceSidecars=true,PGBackrestSidecars=true,PGBouncerSidecars=true,TablespaceVolumes=true\"\
-            , \"enabled\": \"AutoCreateUserSchema=true,InstanceSidecars=true,PGBackrestSidecars=true,PGBouncerSidecars=true,TablespaceVolumes=true\"\
-            }\npanic: failed to get restmapping: unable to retrieve the complete list\
-            \ of server APIs: pgv2.percona.com/v2: no matches for pgv2.percona.com/v2,\
-            \ Resource=\n\ngoroutine 1 [running]:\nmain.assertNoError(...)\n\t/go/src/github.com/percona/percona-postgresql-operator/cmd/postgres-operator/main.go:63\n\
-            main.main()\n\t/go/src/github.com/percona/percona-postgresql-operator/cmd/postgres-operator/main.go:138\
-            \ +0x844"
-          blockedReason: pod-runtime-failure
+          pg-operator-79576c68cb-cdtj7   1/1   Running   0     21s'
+        notReady: []
+        diagnostics: []
         apiServices:
           result: pass
           items: []
@@ -236,10 +125,10 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=0 namespaces=0
+    detail: secrets=0 crds=8 namespaces=0
   - name: target-facts-installer
     result: pass
-    detail: secrets=0 crds=0 namespaces=0
+    detail: secrets=0 crds=8 namespaces=0
   - name: regular-helm-operating-policy
     result: pass
     detail: none
@@ -249,7 +138,7 @@ spec:
   - name: regular-helm-live
     result: pass
     detail: "Release \"pg-operator\" does not exist. Installing it now.\nNAME: pg-operator\n\
-      LAST DEPLOYED: Mon Jun 15 20:46:29 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      LAST DEPLOYED: Tue Jul 28 11:30:44 2026\nNAMESPACE: default\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Percona\
       \ Operator for PostgreSQL is deployed. \n  See if the operator Pod is running:\n\
       \n    kubectl get pods -l app.kubernetes.io/name=pg-operator --namespace default\n\
@@ -262,10 +151,10 @@ spec:
     result: pass
     detail: none
   - name: cub-installer-apply-live
-    result: blocked
+    result: pass
     detail: '# default
 
-      deployment.apps/pg-operator   0/1   1     0     21s'
+      deployment.apps/pg-operator   1/1   1     1     21s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||default'] diffs=0
@@ -273,15 +162,65 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: crunchybridgeclusters.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: perconapgbackups.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: perconapgclusters.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: perconapgrestores.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: perconapgupgrades.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: pgadmins.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: pgupgrades.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: postgresclusters.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: regularHelm
       stagedObjectStores: []
       stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pg-operator-no-crds/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
-      stagedCRDs: []
+      stagedCRDs:
+      - name: crunchybridgeclusters.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: perconapgbackups.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: perconapgclusters.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: perconapgrestores.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: perconapgupgrades.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: pgadmins.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: pgupgrades.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
+      - name: postgresclusters.upstream.pgv2.percona.com
+        sourceVariant: default
+        lane: cubInstallerApply
       stagedObjectStores: []
       stagedNamespaces: []
+      path: /Users/alexis/code/helm-expt/runs/live-kind-parity/percona-pg-operator-no-crds/target-facts-installer.yaml
     requiredValues: []
   operatingPolicy:
     regularHelm:

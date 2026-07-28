@@ -59,7 +59,7 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/percona/pxc-operator/1.19.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/percona/pxc-operator/1.19.1/bases/default](../../../../packages/percona/pxc-operator/1.19.1/bases/default) | [recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
-| no-crds | [recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/percona/pxc-operator/1.19.1/bases/no-crds](../../../../packages/percona/pxc-operator/1.19.1/bases/no-crds) | [recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 4 |  | 4/4 | pass |  | allow | none |
+| no-crds | [recipes/percona/pxc-operator/1.19.1/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/percona/pxc-operator/1.19.1/bases/no-crds](../../../../packages/percona/pxc-operator/1.19.1/bases/no-crds) | [recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 4 |  | 4/4 | pass |  | allow | required CRD perconaxtradbclusterbackups.pxc.percona.com; required CRD perconaxtradbclusterrestores.pxc.percona.com; required CRD perconaxtradbclusters.pxc.percona.com |
 
 ## Package Bases
 

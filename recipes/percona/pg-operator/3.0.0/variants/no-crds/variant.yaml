@@ -10,6 +10,88 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "pg-operator"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "crunchybridgeclusters.upstream.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "CrunchyBridgeCluster CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "perconapgbackups.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "PerconaPGBackup CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "perconapgclusters.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "PerconaPGCluster CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "perconapgrestores.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "PerconaPGRestore CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "perconapgupgrades.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "PerconaPGUpgrade CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "pgadmins.upstream.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "PGAdmin CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "pgupgrades.upstream.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "PGUpgrade CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "postgresclusters.upstream.pgv2.percona.com"
+        sourceVariant: "default"
+        purpose: "PostgresCluster CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <pg-operator-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
   valuesProfile: "../../effective-values-no-crds.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

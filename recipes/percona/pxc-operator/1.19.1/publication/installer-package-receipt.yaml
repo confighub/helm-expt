@@ -4,17 +4,16 @@ metadata:
   name: "percona-pxc-operator-1-19-1"
 spec:
   chart:
-    repository: "percona"
     name: "pxc-operator"
+    repository: "percona"
     version: "1.19.1"
   deterministicBundle:
-    command: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
-    sha256: "e6a54a2226a9e2535362eec21d5213ff58f73de33e4fce0911239198cb9ef38d"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/percona/pxc-operator/1.19.1 -o <tmp>/percona-pxc-operator-1.19.1.tgz"
+    sha256: "124aa275d693006504b646d4ec798132ecd34bdfdb43dcc5ab9b22e42baec9a8"
   package:
-    path: "packages/percona/pxc-operator/1.19.1"
     name: "percona-pxc-operator"
-    version: "1.19.1"
+    path: "packages/percona/pxc-operator/1.19.1"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
         bytes: 4841
       -
+        path: "collector/target-facts.sh"
+        sha256: "2635f9e5e739a5f18b716c9a03c155a711e85419825f25d7ea9afccbc9cc9719"
+        bytes: 3281
+      -
         path: "installer.yaml"
-        sha256: "da38a0008f32e5f970479af6f689b980d6ea7ed3b5812c73f7c3524d8808ca93"
-        bytes: 471
+        sha256: "9baf8c97627df87d675b0c0a3edd6dddfe691367b8019e7f6ffc07e304d72368"
+        bytes: 1209
+    version: "1.19.1"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -51,13 +55,17 @@ spec:
       semanticObjectMatches: "7/7"
       separatedSecretCount: 0
       variant: "default"
+      targetFactMode: "not-required"
+      targetFactsBound: false
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/percona/pxc-operator/1.19.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 4
-      cubInstallObjectCountIncludingSupport: 5
-      semanticObjectMatches: "4/4"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/percona/pxc-operator/1.19.1 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 5
+      helmReleaseObjectCount: 4
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      variant: "no-crds"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

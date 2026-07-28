@@ -4,17 +4,16 @@ metadata:
   name: "strimzi-strimzi-kafka-operator-1-0-0"
 spec:
   chart:
-    repository: "strimzi"
     name: "strimzi-kafka-operator"
+    repository: "strimzi"
     version: "1.0.0"
   deterministicBundle:
-    command: "cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz"
-    sha256: "fa58a5630e9116cbddbd678f38d00055b0dc4e65514a092a2ca5cd58a374e73e"
     byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/strimzi/strimzi-kafka-operator/1.0.0 -o <tmp>/strimzi-strimzi-kafka-operator-1.0.0.tgz"
+    sha256: "2ea2e60221010c49bee0c5039f1f91b9f46c2b00fe7ae67c19d837c68973d2e2"
   package:
-    path: "packages/strimzi/strimzi-kafka-operator/1.0.0"
     name: "strimzi-strimzi-kafka-operator"
-    version: "1.0.0"
+    path: "packages/strimzi/strimzi-kafka-operator/1.0.0"
     sourceFiles:
       -
         path: "README.md"
@@ -37,9 +36,14 @@ spec:
         sha256: "c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
         bytes: 23791
       -
+        path: "collector/target-facts.sh"
+        sha256: "f63f4edfa0c447ddcb7c1458596ebd62178a80b7510c5cab1585cb9fd374d77e"
+        bytes: 5659
+      -
         path: "installer.yaml"
-        sha256: "b73e26dbac400ae73fd8ec49d75f702b812e2e54c1013c3fe4d440d2c70cbfb0"
-        bytes: 518
+        sha256: "528d74465ccca97d4b36ca81d2413127d3aab5a42e2878efedd8e69934a98a5d"
+        bytes: 2338
+    version: "1.0.0"
   setupChecks:
     -
       allowedCubOnlyObjects:
@@ -51,13 +55,17 @@ spec:
       semanticObjectMatches: "27/27"
       separatedSecretCount: 0
       variant: "default"
+      targetFactMode: "not-required"
+      targetFactsBound: false
     -
-      variant: "no-crds"
-      base: "no-crds"
-      command: "cub installer setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 17
-      cubInstallObjectCountIncludingSupport: 18
-      semanticObjectMatches: "17/17"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "no-crds"
+      command: "cub installer setup --pull packages/strimzi/strimzi-kafka-operator/1.0.0 --base no-crds --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 18
+      helmReleaseObjectCount: 17
+      semanticObjectMatches: "17/17"
+      separatedSecretCount: 0
+      variant: "no-crds"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

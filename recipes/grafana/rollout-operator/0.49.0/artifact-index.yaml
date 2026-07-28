@@ -67,7 +67,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0"
     installer: "packages/grafana/rollout-operator/0.49.0/installer.yaml"
     receipt: "recipes/grafana/rollout-operator/0.49.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "737c8335b42cf355d2c43e18763abaddeaf33ab7d0ea19686cb68556eb4fcf1d"
+    deterministicBundleSHA256: "8c32c9d409f4ea4dfdd65924585c3a87e1f8b9b2b09276f239b0f10f56017362"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -155,8 +155,28 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "replicatemplates.rollout-operator.grafana.com"
+            purpose: "ReplicaTemplate CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+          -
+            deliveryLanes:
+              - "regularHelm"
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            name: "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+            purpose: "ZoneAwarePodDisruptionBudget CRD managed outside this no-crds preset"
+            sourceVariant: "default"
+            suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+      targetFactSummary: "required CRD replicatemplates.rollout-operator.grafana.com; required CRD zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
       packageBase:
         name: "no-crds"
         path: "packages/grafana/rollout-operator/0.49.0/bases/no-crds"

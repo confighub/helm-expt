@@ -10,6 +10,108 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "strimzi-kafka-operator"
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "kafkas.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "Kafka CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkaconnects.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaConnect CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "strimzipodsets.core.strimzi.io"
+        sourceVariant: "default"
+        purpose: "StrimziPodSet CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkatopics.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaTopic CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkausers.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaUser CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkanodepools.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaNodePool CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkabridges.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaBridge CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkaconnectors.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaConnector CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkamirrormaker2s.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaMirrorMaker2 CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
+      -
+        name: "kafkarebalances.kafka.strimzi.io"
+        sourceVariant: "default"
+        purpose: "KafkaRebalance CRD managed outside this no-crds preset"
+        suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        deliveryLanes:
+          - "regularHelm"
+          - "cubInstallerApply"
+          - "configHubKubectlApply"
+          - "configHubOciArgo"
   valuesProfile: "../../effective-values-no-crds.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"

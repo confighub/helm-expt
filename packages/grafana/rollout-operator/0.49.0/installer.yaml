@@ -11,6 +11,20 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "grafana/rollout-operator no-crds variant rendered from grafana/rollout-operator@0.49.0"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "grafana/rollout-operator no-crds variant rendered from grafana/rollout-operator@0.49.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD replicatemplates.rollout-operator.grafana.com"
+          suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+          suggestedSource: "kubectl apply -f <rollout-operator-crds.yaml>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

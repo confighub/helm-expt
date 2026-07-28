@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
-    sha256: "77c9afa2b4577d246bd7c94cb8d451881460ac412b773f486889a814298da7d1"
+    sha256: "95bc33c6d25dededed894c19f91e62d96fed2ece5ad24449a894f0f0b82eb003"
   package:
     name: "elastic-filebeat"
     path: "packages/elastic/filebeat/8.5.1"
@@ -41,7 +41,7 @@ spec:
         bytes: 5594
       -
         path: "installer.yaml"
-        sha256: "18002a67c998d48bba820be85e38aec88feaeacea54d83f4c58a47f02530e52e"
+        sha256: "54c7a63fd759d0f253aadf0c8eccf6cda0484ca739b8e37363798743da7f7fe5"
         bytes: 1980
     version: "8.5.1"
   setupChecks:

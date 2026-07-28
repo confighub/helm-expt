@@ -11,12 +11,12 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 121
-watch: 10
+pass: 127
+watch: 4
 blocked: 47
 semantic parity pass: 153
 semantic parity defects: 16
-non-pass rows where semantic parity passed: 32
+non-pass rows where semantic parity passed: 26
 non-pass rows with related lifecycle evidence: 0
 ```
 
@@ -34,18 +34,16 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 | parity: semantic object diff | 16 |
 | remote-image: image pull failed or pinned image is unavailable (parity passed) | 10 |
-| helm-runtime: upstream not ready (parity passed) | 5 |
+| helm-runtime: upstream not ready (parity passed) | 4 |
 | target-prerequisite: CRDs missing | 4 |
 | target-prerequisite: required Secret missing (parity passed) | 4 |
-| target-runtime: pod crash loop (parity passed) | 4 |
-| target-prerequisite: required Namespace missing (parity passed) | 3 |
+| target-runtime: pod crash loop (parity passed) | 3 |
 | blocked: inspect receipt | 2 |
 | target-prerequisite: cert-manager CRDs missing | 2 |
-| target-prerequisite: CRDs disabled or missing (parity passed) | 2 |
+| target-prerequisite: required Namespace missing (parity passed) | 2 |
 | helm-hook: pre-install certificate generation failed (parity passed) | 1 |
 | render-input: required Helm values missing | 1 |
 | render-input: required Helm values missing (parity passed) | 1 |
-| target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
 | watch: object parity passed; readiness needs review | 1 |
 
 ## How To Read Non-Pass Rows
@@ -135,8 +133,8 @@ broader support claim.
 | `external-secrets/external-secrets@2.5.0` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | no-crds | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
 | `fairwinds-stable/goldilocks@10.3.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fairwinds-stable-goldilocks-default/receipt.yaml |
-| `fairwinds-stable/vpa@4.11.0` | default | watch | pass | target-runtime: pod crash loop (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml |
-| `fairwinds-stable/vpa@4.11.0` | no-crds | watch | pass | target-prerequisite: CRDs disabled or missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml |
+| `fairwinds-stable/vpa@4.11.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fairwinds-stable-vpa-default/receipt.yaml |
+| `fairwinds-stable/vpa@4.11.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/fairwinds-stable-vpa-no-crds/receipt.yaml |
 | `falcosecurity/falco@9.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/falcosecurity-falco-default/receipt.yaml |
 | `falcosecurity/falcosidekick@0.13.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/falcosecurity-falcosidekick-default/receipt.yaml |
 | `fluent/fluent-bit@0.57.6` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/fluent-fluent-bit-default/receipt.yaml |
@@ -155,7 +153,7 @@ broader support claim.
 | `grafana/pyroscope@2.0.2` | ha | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/grafana-pyroscope-ha/receipt.yaml |
 | `grafana/pyroscope@2.0.2` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-pyroscope-no-crds/receipt.yaml |
 | `grafana/rollout-operator@0.49.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-rollout-operator-default/receipt.yaml |
-| `grafana/rollout-operator@0.49.0` | no-crds | watch | pass | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml |
+| `grafana/rollout-operator@0.49.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-rollout-operator-no-crds/receipt.yaml |
 | `grafana/tempo@1.24.4` | local-persistent | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
 | `grafana/tempo@1.24.4` | s3-query-observability | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
 | `haproxytech/kubernetes-ingress@1.52.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/haproxytech-kubernetes-ingress-default/receipt.yaml |
@@ -203,11 +201,11 @@ broader support claim.
 | `open-telemetry/opentelemetry-operator@0.114.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/open-telemetry-opentelemetry-operator-no-crds/receipt.yaml |
 | `opencost/opencost@2.5.21` | default | blocked | pass | target-runtime: pod crash loop (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/opencost-opencost-default/receipt.yaml |
 | `percona/pg-operator@3.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-default/receipt.yaml |
-| `percona/pg-operator@3.0.0` | no-crds | watch | pass | target-prerequisite: CRDs disabled or missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml |
+| `percona/pg-operator@3.0.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pg-operator-no-crds/receipt.yaml |
 | `percona/psmdb-operator@1.22.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-default/receipt.yaml |
 | `percona/psmdb-operator@1.22.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-psmdb-operator-no-crds/receipt.yaml |
 | `percona/pxc-operator@1.19.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml |
-| `percona/pxc-operator@1.19.1` | no-crds | watch | pass | helm-runtime: upstream not ready (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml |
+| `percona/pxc-operator@1.19.1` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml |
 | `projectcalico/tigera-operator@v3.32.0` | default | blocked | unknown | target-prerequisite: CRDs missing |  | inspect receipt | runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
 | `prometheus-community/alertmanager@1.37.0` | ha | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml |
@@ -236,7 +234,7 @@ broader support claim.
 | `stakater/reloader@2.2.12` | controller-default-reviewed | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-controller-default-reviewed/receipt.yaml |
 | `stakater/reloader@2.2.12` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/stakater-reloader-default/receipt.yaml |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-default/receipt.yaml |
-| `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | watch | pass | target-prerequisite: required Namespace missing (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml |
+| `strimzi/strimzi-kafka-operator@1.0.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/strimzi-strimzi-kafka-operator-no-crds/receipt.yaml |
 | `traefik/traefik@40.2.0` | default | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/traefik-traefik-default/receipt.yaml |
 | `traefik/traefik@40.2.0` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/traefik-traefik-no-crds/receipt.yaml |
 | `velero/velero@12.0.1` | default | blocked | unknown | blocked: inspect receipt |  | inspect receipt | runs/live-kind-parity/velero-velero-default/receipt.yaml |

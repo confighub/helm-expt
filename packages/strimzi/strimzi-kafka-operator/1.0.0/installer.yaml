@@ -11,6 +11,52 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "strimzi/strimzi-kafka-operator no-crds variant rendered from strimzi/strimzi-kafka-operator@1.0.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkas.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkaconnects.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD strimzipodsets.core.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkatopics.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkausers.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkanodepools.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkabridges.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkaconnectors.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkamirrormaker2s.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+        -
+          kind: "ClusterFeature"
+          name: "CRD kafkarebalances.kafka.strimzi.io"
+          suggestedSource: "kubectl apply -f <strimzi-crds.yaml>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."
