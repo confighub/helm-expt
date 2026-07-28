@@ -84,6 +84,8 @@ const UNKNOWN_ACTION_LABELS = {
   "unknown-preflight": "run the preflight checks",
 };
 const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
+const REDIS_IMAGE_DIGEST =
+  "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
 const INSTALLER_OCI_AUTH_NOTE =
   "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
@@ -705,17 +707,17 @@ function canonicalUrl(relPath) {
 }
 
 function pageTitle(html) {
-  return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "ConfigHub Helm Ops").trim();
+  return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "Config Test Centre").trim();
 }
 
 function pageDescription(html, relPath) {
   const fromMap = PAGE_DESCRIPTIONS[relPath];
   if (fromMap) return fromMap;
-  const subject = pageTitle(html).replace(/\s*·\s*ConfigHub Helm Ops$/, "");
+  const subject = pageTitle(html).replace(/\s*·\s*Config Test Centre$/, "");
   if (relPath.startsWith("d/")) {
     return `${subject}: a repository document from the helm-expt proof corpus, rendered for the site.`;
   }
-  return `${subject}: chart status, base variants, rendered objects, and evidence in the ConfigHub Helm Ops catalog.`;
+  return `${subject}: chart status, base variants, rendered objects, and evidence in the Config Test Centre catalog.`;
 }
 
 function injectHeadMeta(html, relPath) {
@@ -753,7 +755,7 @@ function buildRobotsTxt() {
 }
 
 function buildLlmsTxt() {
-  return `# ConfigHub Helm Ops (helm-expt)
+  return `# Config Test Centre (helm-expt)
 
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
@@ -1006,7 +1008,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title)} · ConfigHub Helm Ops</title>
+  <title>${escapeHtml(title)} · Config Test Centre</title>
   <style>${siteCss()}${docPageCss()}</style>
 </head>
 <body>
@@ -1223,7 +1225,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><div class="experiment-banner"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="${link("try.html")}">Get Started</a><a href="${link("charts/index.html")}">Helm Ops Catalog</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("testing.html")}">Testing</a><a href="${link("journey.html")}">Apps</a><a href="${link("docs.html")}">Docs/FAQ</a><a href="${link("private/")}">Upgrade</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="${link("charts/index.html")}">Catalog</a><a href="${link("testing.html")}">Testing</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("docs.html")}">Docs</a>${signupLink("site-nav", "Sign in")}</span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1374,10 +1376,6 @@ function homeDesignCss() {
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
 
-  .draftbar { padding: 14px 0 0; }
-  .draftbar a { font-family: var(--mono); font-size: .64rem; letter-spacing: .07em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 999px; padding: 4px 11px; text-decoration: none; display: inline-block; }
-  .draftbar a:hover { border-color: var(--accent); }
-
   nav.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; flex-wrap: wrap; }
   .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
   .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
@@ -1403,7 +1401,7 @@ function homeDesignCss() {
   .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
   .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
   .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
-  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); overflow-x: auto; margin: 0; }
+  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
   .term-body .pr { color: #5fd0b0; }
   .term-body .ok { color: #5cc98d; } .term-body .warn { color: #e6b45a; } .term-body .cmt { color: #6b7b88; }
   .term-body .k { color: #8fd0e6; }
@@ -1475,7 +1473,6 @@ function configTestCentreHome(catalog) {
   <div class="wrap">
     <div class="page">
       <header>
-        <div class="draftbar"><a href="${SITE_FEEDBACK_ISSUE_URL}">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div>
         <nav class="bar">
           <a class="wordmark" href="./index.html"><span class="sq"></span>Config Test Centre</a>
           <span class="navlinks">
@@ -1490,24 +1487,25 @@ function configTestCentreHome(catalog) {
           <div>
             <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
             <h1>A community resource for understanding and testing your configuration.</h1>
-            <p class="lead">Read what a package really installs, prove it is safe, and see if it fits your cluster &mdash; before anything runs. Bring a catalog package, or your own values. No account, no new CLI.</p>
+            <p class="lead">Read and test the exact Kubernetes objects before anything runs. Keep the reviewed result as files or OCI, or save it in ConfigHub so your team can change, promote, and roll it out. Start with a catalog package, your own Helm values, AICR, or an existing OCI.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./try.html">&#128229; Grade your config</a>
-              <a class="btn ghost" href="./charts/index.html">Browse the catalog</a>
+              <a class="btn primary" href="./try.html">Run a catalog package</a>
+              <a class="btn ghost" href="./testing.html#bring-your-own">Check my config</a>
             </div>
-            <div class="sources"><b>tests:</b> Helm charts &middot; AICR packages &middot; anything rendered to Kubernetes objects</div>
+            <div class="sources"><b>starts with:</b> Helm charts &middot; AICR packages &middot; OCI &middot; Kubernetes YAML</div>
           </div>
-          <div class="term" aria-label="Grade your config output (illustrative)">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">grade your config &middot; no cluster touched</span></div>
-            <pre class="term-body"><code><span class="pr">$</span> ctc test ./my-values.yaml <span class="k">--chart</span> bitnami/redis
-<span class="cmt"># AI wrote this. Is it safe to ship?</span>
-render    14 objects, matches Helm        <span class="ok">ok</span>
-scan      1 finding                       <span class="warn">warn</span>
-gate      <span class="warn">WARN</span>  1 reason
-   &middot; server image uses <span class="warn">:latest</span>, not a digest
-blast     +0 / &minus;4 vs base 'default'      <span class="cmt">(auth.enabled=false)</span>
-rollback  prior revision recorded         <span class="ok">ok</span>
-<span class="verdict">verdict   WARN &mdash; safe to fix, then ship</span></code></pre>
+          <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
+            <pre class="term-body"><code><span class="pr">$</span> cub installer setup \\
+  <span class="k">--pull</span> ${REDIS_INSTALLER_OCI_REF} \\
+  <span class="k">--base</span> reuse-existing-secret \\
+  <span class="k">--namespace</span> redis <span class="k">--work-dir</span> ./redis \\
+  <span class="k">--non-interactive --output-oci</span> ./redis-rendered.oci
+
+Rendered 14 manifest(s) to ./redis/out/manifests
+Wrote rendered OCI ./redis-rendered.oci:latest
+  objects:   sha256:... (14 manifest files)
+  pull-back: <span class="ok">verified</span></code></pre>
           </div>
         </div>
       </header>
@@ -1533,18 +1531,19 @@ rollback  prior revision recorded         <span class="ok">ok</span>
 
         <section class="section">
           <span class="eyebrow">One resource, three depths</span>
-          <h2>Start free. Grow only when you want to keep something.</h2>
+          <h2>Test locally. Keep the result in the path.</h2>
+          <p class="intro">Testing is the first step. The reviewed files can go straight to OCI for Argo CD or Flux. Put them in ConfigHub when you want a shared record that can be edited, promoted, approved, and rolled out.</p>
           <div class="routes">
-            <div class="route-card"><h3>Open source <span class="tag">no account</span></h3><p>Understand, test, ask, and check your AI &mdash; on catalog packages or your own config. Pull the OCI bundle and run it all locally.</p></div>
-            <div class="route-card mid"><h3>ConfigHub server <span class="tag">free account</span></h3><p>Keep your variants and test results, run the four confidences live against a target, promote across environments, watch for drift.</p></div>
-            <div class="route-card"><h3>Enterprise <span class="tag">paid</span></h3><p>Private catalog, fleet promotion across many clusters, RBAC and policy gates, patch and production support.</p></div>
+            <div class="route-card"><h3>Open source <span class="tag">no account</span></h3><p>Inspect and test a catalog package or your own config. Keep the exact result as local files or write it to OCI for the delivery tools you already use.</p></div>
+            <div class="route-card mid"><h3>ConfigHub server <span class="tag">free account</span></h3><p>Save the reviewed objects as shared data. Make environment variants, see exact diffs, promote a change, publish OCI, and check what reached each target.</p></div>
+            <div class="route-card"><h3>Enterprise <span class="tag">paid</span></h3><p>Use private catalogs, team access, policy gates, and staged rollout across larger application and platform fleets.</p></div>
           </div>
         </section>
       </main>
 
       <footer class="foot">
         <p class="flip">You know the saying about not wanting to see how the sausage gets made. We are the place that shows you &mdash; every ingredient, before you eat.</p>
-        <p class="sub">Draft, experimental, and unofficial. Some features shown here are the intended experience; the figures on this page are illustrative.</p>
+        <p class="sub">Public experimental evidence. Each result links to the command, receipt, or known gap behind it. <a href="${SITE_FEEDBACK_ISSUE_URL}">Send feedback</a>.</p>
       </footer>
     </div>
   </div>
@@ -1589,7 +1588,7 @@ function howItWorksHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How It Works · ConfigHub Helm Ops</title>
+<title>How It Works · Config Test Centre</title>
 <style>${siteCss()}
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
 .vs .col{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);}
@@ -1629,7 +1628,8 @@ em{font-style:italic;color:var(--ink);}
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page is the whole model: the catalog, the decisions behind it, the patterns we recommend, the choices that stay yours, and exactly how every claim is verified.</p>
     <p class="install-cub-note">The model has several concepts. Five important ones are shown below. There is a <a href="./d/docs/user/model-and-vocabulary.html">taxonomy of the additional terms</a>, and the <a href="./demo-org.html">demo org</a> has real examples.</p>
     <p><strong>Recipe, render, record, route.</strong> Record the inputs as a recipe, render them to the exact objects, keep the evidence with the render, and route the parts Helm leaves at the edges, then deliver and observe. Underneath run two layers: how Helm renders a base, and how ConfigHub manages it afterward. The catalog starts from a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run one chart version. For copy-paste commands, start with <a href="./try.html">Get Started</a>.</p>
-    <p><strong>The simpler frame: OCI in, managed configuration, OCI out.</strong> Keep your Helm charts. The public tools support three paths: <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code>. Here, work means inspect, explain, test, scan, compare, or edit. <strong>Serverless</strong> means the work does not use ConfigHub Server; <strong>anonymous</strong> means it does not use a ConfigHub account. A local command or CI job can be both. The <a href="./d/data/anonymous-oci-ci-proof/summary.html">CI test</a> records a complete no-account run. Claim the configuration in ConfigHub when you want to save its history, make variants, require approval, promote changes, or roll it out to a fleet.</p>
+    <p><strong>The simpler frame: OCI in, managed configuration, OCI out.</strong> Keep your Helm charts. The public tools support three paths: <code>work -&gt; OCI</code>, <code>OCI -&gt; work</code>, and <code>OCI -&gt; work -&gt; OCI</code>. Here, work means inspect, explain, test, scan, compare, or edit. <strong>Serverless</strong> means the work does not use ConfigHub Server; <strong>anonymous</strong> means it does not use a ConfigHub account. A local command or CI job can be both. Claim the configuration in ConfigHub when you want to save its history, make variants, require approval, promote changes, or roll it out to a fleet.</p>
+    <p>The ready-made package path is runnable now: <code>cub installer setup --output-oci</code> pulls one catalog package, writes the exact Kubernetes files for the preset you chose, and writes those same non-secret objects as OCI. The installer reads its output back and checks the object-set digest before returning. The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> records that command, the output digest, Flux reconciliation at that digest, and a ready workload. The separate <a href="./d/data/anonymous-oci-ci-proof/summary.html">CI test</a> records the same public boundary in GitHub Actions.</p>
     <p>ConfigHub can sit inside an existing <code>Git -&gt; CI -&gt; OCI -&gt; Argo CD or Flux -&gt; Kubernetes</code> flow. It can first publish the same specs and user-supplied metadata, then make specific variants later. The ConfigHub release has its own OCI digest and adds <code>confighub.com/origin</code> for provenance. The <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">live OCI, promotion, and two-cluster test</a> records that first unchanged pass-through, a reviewed promotion, and fingerprinted live observations on both clusters. The <a href="./d/data/aicr-oci-roundtrip-proof/summary.html">AICR OCI round trip</a> separately proves the same object-preserving boundary for 17 generated Argo CD Applications, without claiming controller or GPU health. <code>cub release publish</code> creates a ConfigHub Space release OCI; the same reviewed objects can also be packaged for anonymous or external consumers.</p>
     <p>The <a href="./d/data/oci-evidence-chains/summary.html">OCI evidence-chain index</a> follows one result through six checkpoints: source, reviewed configuration, ConfigHub record, output OCI, delivery, and live observation. It covers every supported starting format and shows <code>not-run</code> where a path stops. This makes it possible to see why two OCI digests differ and whether Argo CD or Flux actually consumed the output digest.</p>
   </div>
@@ -1689,7 +1689,7 @@ em{font-style:italic;color:var(--ink);}
   <p>ConfigHub can start from more than a Helm chart. The source stays attached to the literal configuration so a later reviewer can see what produced it and which choices remain.</p>
   <table class="gtable">
     <tr><th>Starting point</th><th>What you keep</th><th>How it enters ConfigHub</th></tr>
-    <tr><td>Helm chart</td><td>The chart version, preset values, source lock, render intent, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package, then upload the files or a single-base literal OCI bundle.</td></tr>
+    <tr><td>Helm chart</td><td>The chart version, preset values, source lock, render intent, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
     <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Keep the generated source package for Argo CD, and upload the separate literal configuration OCI as a base variant. The <a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
     <tr><td>Existing Kubernetes configuration</td><td>The original files and source reference.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code> creates the base Space and Units.</td></tr>
   </table>
@@ -2041,7 +2041,7 @@ function legacyDashboardHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Ops</title>
+  <title>Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -2468,7 +2468,7 @@ function legacyOfferingHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Ops Offering</title>
+  <title>Config Test Centre Offering</title>
   <style>${siteCss()}
     .hero { padding-top: 56px; }
     .hero h1 { max-width: 900px; }
@@ -2647,7 +2647,7 @@ function tryHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Get Started · ConfigHub Helm Ops</title>
+<title>Get Started · Config Test Centre</title>
 <style>${siteCss()}
 .callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--panel);padding:14px 16px;margin:16px 0;}
 .callout p{margin:0;color:var(--ink);}
@@ -2692,7 +2692,7 @@ $ cub installer version</code></pre>
   ${installerCommandNoteHtml()}
 
   <h2>The fastest first run</h2>
-  <p>Five steps. They render the Redis catalog base variant, apply it to a throwaway cluster, and show you the files the cluster received.</p>
+  <p>Five steps. They render the recommended Redis catalog configuration, create its required Secret separately, apply it to a throwaway cluster, and show you the files the cluster received.</p>
   <pre><code># 1. Install cub and its installer plugin once
 # Use the complete source-build block immediately above.
 cub installer version
@@ -2700,15 +2700,15 @@ cub installer version
 # 2. A throwaway cluster (needs Docker; skip if you already have one)
 kind create cluster
 
-# 3. Render the Redis base variant and install it
-bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/default/try.sh)
+# 3. Render Redis without putting a password in the files, then install it
+bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)
 
 # 4. It is running
 kubectl -n redis get pods
 
 # 5. It is all files you can read; this one is what the cluster received
-cat ./bitnami-redis-25-5-3-default/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
-  <p>The script says what it does at every step. Every chart page links its own <code>try.sh</code>; base variants that need real values from you stop and say so instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same run next to plain Helm, one step at a time.</p>
+cat ./bitnami-redis-25-5-3-reuse-existing-secret/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
+  <p>The script says what it does at every step. It generates a fresh password locally, creates <code>redis-existing-secret</code> in the throwaway cluster, and keeps that password out of the rendered package files. Every chart page links its own <code>try.sh</code>; base variants that need target resources name them instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same process next to plain Helm.</p>
 
   <h2>1 · Install it: same result as Helm</h2>
   <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
@@ -2721,13 +2721,14 @@ $ helm install prom prometheus-community/prometheus --version 29.8.0 \\
 # ConfigHub: render the reviewed package, then apply
 # No ConfigHub account or Google registry login is needed for public catalog packages.
 $ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
-    --base default --work-dir ./prom --non-interactive --namespace monitoring
+    --base default --work-dir ./prom --non-interactive --namespace monitoring \\
+    --output-oci ./prom-rendered.oci
 $ kubectl apply -f ./prom/out/manifests</code></pre>
 
   <h3>Helm hides one step. cub shows it.</h3>
   <p><code>helm install</code> renders the chart and installs it in one go, so you only see what it made after it's already running. cub splits that into two steps you can watch:</p>
   <div class="rapply">
-    <div class="box"><div class="n">1 · RENDER</div><h3>Read it first</h3><p><code>cub installer setup</code> writes the exact files to <code>./prom/out/manifests</code>. Read them before anything reaches the cluster. It doesn't re-run Helm; the files are already in the package.</p></div>
+    <div class="box"><div class="n">1 · RENDER</div><h3>Read it first</h3><p><code>cub installer setup</code> writes the exact files to <code>./prom/out/manifests</code>. Read them before anything reaches the cluster. With <code>--output-oci</code>, the same command also writes those non-secret objects as a local OCI layout and checks the result by pulling it back.</p></div>
     <div class="box"><div class="n">2 · APPLY</div><h3>Then install</h3><p><code>kubectl apply</code> installs them. Same objects, now running.</p></div>
   </div>
   <pre><code>$ helm template prom prometheus-community/prometheus --version 29.8.0   # 23 objects
@@ -2772,17 +2773,20 @@ stringData:
   AI_API_KEY: sk-prod-old-key-rotate-me   # rotate or move out
 # nothing has touched a cluster yet</code></pre>
 
-  <h2>4 · Already on Argo or Flux? Skip kubectl</h2>
-  <p>If your cluster pulls from an OCI registry, push the same files there and let the controller you already run pull them in. It gets exactly what you read, not a fresh render.</p>
-  <pre><code>$ flux push artifact oci://&lt;your-registry&gt;/prometheus:v1 --path=./prom/out \\
-    --source=cub-render --revision=v1</code></pre>
+  <h2>4 · Already on Argo or Flux? Write OCI directly</h2>
+  <p>If your cluster pulls from an OCI registry, give <code>--output-oci</code> a registry reference instead of a local path. The installer pushes the same non-secret objects you inspected, records the source package and chosen base, then reads the artifact back and checks its object-set digest. Registry write access is the only additional requirement.</p>
+  <pre><code>$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
+    --base default --work-dir ./prom --non-interactive --namespace monitoring \\
+    --output-oci oci://&lt;your-registry&gt;/prometheus:v1</code></pre>
+  <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
 
   <h2>What we checked</h2>
   <p>With no ConfigHub account or Google registry login, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything. Public catalog package refs are readable anonymously from Google Artifact Registry.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
     <tr><td>Same install as Helm</td><td>Helm, kubectl, and cub reach the same result on throwaway clusters.</td></tr>
-    <tr><td>Works with Argo and Flux</td><td>The files can be pushed to an OCI registry for the controllers already in your cluster.</td></tr>
+    <tr><td>Rendered OCI reaches Flux</td><td>For the recorded NGINX preset, <code>cub installer setup --output-oci</code> wrote and verified the artifact, Flux reconciled its digest, and the workload reached 1/1 ready replicas.</td></tr>
+    <tr><td>ConfigHub release OCI reaches Argo CD and Flux</td><td>A separate live proof published one reviewed ConfigHub release OCI; Argo CD, Flux, and direct apply reported the same digest and a ready NGINX workload.</td></tr>
   </table>
 
   <h2>Check it yourself</h2>
@@ -2808,7 +2812,7 @@ function serverlessHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless Mode · ConfigHub Helm Ops</title>
+  <title>Serverless Mode · Config Test Centre</title>
   <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
@@ -2818,24 +2822,32 @@ function serverlessHtml(catalog) {
       <div class="hero-copy">
         <p class="eyebrow">Serverless mode</p>
         <h1>Run it without ConfigHub Server</h1>
-        <p class="lead">This example is both serverless and anonymous: it uses neither ConfigHub Server nor a ConfigHub account. Same chart, same running result; the difference is that you can inspect the rendered objects, Secrets, and prerequisites before you apply them.</p>
+        <p class="lead">This example is both serverless and anonymous: it uses neither ConfigHub Server nor a ConfigHub account. You can inspect the rendered objects and prerequisites, then keep them as files, apply them yourself, or write the non-secret objects to OCI.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no ConfigHub account</span></div>
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># plain Helm, one step</span>
-<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
-    --version 25.5.3 -n redis --create-namespace
-
-<span class="term-comment"># ConfigHub: render the reviewed package, then apply</span>
-<span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
-    --base default --work-dir ./out --non-interactive
+        <pre class="terminal-body"><code><span class="term-comment"># before either lane: provide the password separately</span>
 <span class="term-prompt">$</span> kubectl create namespace redis
-<span class="term-prompt">$</span> kubectl apply -f ./out/secrets -n redis
+<span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \\
+    --from-literal=redis-password="$(openssl rand -base64 32)"
+
+<span class="term-comment"># plain Helm with the preset's recorded values</span>
+<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
+    --version 25.5.3 -n redis \\
+    --set auth.existingSecret=redis-existing-secret \\
+    --set auth.existingSecretPasswordKey=redis-password \\
+    --set image.digest=sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+
+<span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
+<span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+    --base reuse-existing-secret --namespace redis \\
+    --work-dir ./out --non-interactive \\
+    --output-oci ./redis-rendered.oci
 <span class="term-prompt">$</span> kubectl apply -f ./out/manifests -n redis</code></pre>
       </div>
     </div>
-    <p class="caption">Both bring up Redis in the same namespace. Same outcome. That is parity.</p>
+    <p class="caption">The preset's rendered objects have a committed Helm-equivalence receipt. Run the Helm and cub lanes on separate throwaway clusters when you want to compare the live result.</p>
   </header>
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
@@ -2872,37 +2884,40 @@ function serverlessHtml(catalog) {
 
     <section class="narrow-section" aria-labelledby="how">
       <h2 id="how">Helm hides one step. cub shows it.</h2>
-      <p><code>helm install</code> renders and applies the chart in one command. The ConfigHub path splits that into render, inspect, then apply.</p>
+  <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
       <div class="step-grid">
         <div class="card">
           <h3>1 · Render</h3>
-          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code> and, for Redis, separated Secret material under <code>./out/secrets</code>.</p>
+          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code>. The <code>reuse-existing-secret</code> preset records the Secret name and key the target must supply; it does not put password material in the rendered OCI.</p>
         </div>
         <div class="card">
           <h3>2 · Apply</h3>
           <p><code>kubectl apply</code> installs those files. Create the namespace first so the objects land where you expect.</p>
         </div>
       </div>
-      <p><strong>Same render, same install result, visible before apply.</strong></p>
+      <p><strong>Same render, same working result, visible before apply.</strong></p>
     </section>
 
     <section class="narrow-section" aria-labelledby="gitops">
       <h2 id="gitops">The other delivery: GitOps via OCI</h2>
-      <p>Already running Argo or Flux from an OCI registry? Push the rendered output and let your controller pull it in.</p>
+      <p>Already running Argo CD or Flux from an OCI registry? Give <code>--output-oci</code> a registry reference. The installer pushes the non-secret objects, reads the artifact back, and checks the object-set digest before returning.</p>
       <div class="terminal-card">
         <div class="terminal-title">redis → OCI</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> flux push artifact oci://&lt;your-registry&gt;/redis:v1 --path=./out \\
-    --source=serverless-cub-render --revision=v1
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+    --base reuse-existing-secret --namespace redis \\
+    --work-dir ./out --non-interactive \\
+    --output-oci oci://&lt;your-registry&gt;/redis:v1
 <span class="term-prompt">$</span> flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
 <span class="term-prompt">$</span> flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
       </div>
+      <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="edges">
       <h2 id="edges">The edges, kept in plain sight</h2>
-      <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with generated password material. That is exactly the kind of classic error this path catches. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
+      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> is the package-publish path.</strong> It ships the installer package that users pull with <code>cub installer setup --pull oci://...</code>. That is different from the rendered GitOps bundle above, which Argo and Flux can apply directly.</p>
+      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
@@ -3010,7 +3025,7 @@ function docsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Docs · ConfigHub Helm Ops</title>
+  <title>Docs · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3118,7 +3133,7 @@ function verificationHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Verification · ConfigHub Helm Ops</title>
+  <title>Verification · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3220,7 +3235,7 @@ function quirksHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Helm Quirks · ConfigHub Helm Ops</title>
+  <title>Helm Quirks · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3306,7 +3321,7 @@ function proofHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Proof · ConfigHub Helm Ops</title>
+  <title>Proof · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3746,7 +3761,7 @@ function hardQuestionsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FAQ · ConfigHub Helm Ops</title>
+  <title>FAQ · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3818,7 +3833,7 @@ function knownGapsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Known Gaps · ConfigHub Helm Ops</title>
+  <title>Known Gaps · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3909,7 +3924,7 @@ function hooksHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./charts/index.html#actions">
-  <title>Hooks And Actions · ConfigHub Helm Ops</title>
+  <title>Hooks And Actions · Config Test Centre</title>
 </head>
 <body>
   <p>Hooks and lifecycle behavior are now covered on the Helm Ops Catalog page as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
@@ -3946,7 +3961,7 @@ function privateHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Private · ConfigHub Helm Ops</title>
+  <title>Private · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4032,7 +4047,7 @@ function demoOrgHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Demo Org · ConfigHub Helm Ops</title>
+  <title>The Demo Org · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4148,7 +4163,7 @@ function tiersRedirectHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./private/">
-  <title>Private · ConfigHub Helm Ops</title>
+  <title>Private · Config Test Centre</title>
 </head>
 <body>
   <p>The tiers page moved to <a href="./private/">Private</a>.</p>
@@ -4185,7 +4200,7 @@ function journeyHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps Guide · ConfigHub Helm Ops</title>
+  <title>Apps Guide · Config Test Centre</title>
   <style>${siteCss()}
     .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
     .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
@@ -4319,7 +4334,7 @@ function variantsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Variants · ConfigHub Helm Ops</title>
+  <title>Variants · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4427,7 +4442,7 @@ function customAppsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Custom Apps &amp; Stacks · ConfigHub Helm Ops</title>
+  <title>Custom Apps &amp; Stacks · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4486,7 +4501,7 @@ function existingAppsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Existing Apps · ConfigHub Helm Ops</title>
+  <title>Existing Apps · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4550,7 +4565,7 @@ function aiHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI And The Catalog · ConfigHub Helm Ops</title>
+  <title>AI And The Catalog · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4633,7 +4648,7 @@ function securityHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Security And Provenance · ConfigHub Helm Ops</title>
+  <title>Security And Provenance · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4707,7 +4722,7 @@ function pillarsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Making Configuration Easier To Test · ConfigHub Helm Ops</title>
+  <title>Making Configuration Easier To Test · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4835,7 +4850,7 @@ function futureHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Future And Managed Ideas · ConfigHub Helm Ops</title>
+  <title>Future And Managed Ideas · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4959,7 +4974,7 @@ function operationsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ops Guide · ConfigHub Helm Ops</title>
+  <title>Ops Guide · Config Test Centre</title>
   <style>${siteCss()}
     .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
     .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
@@ -5029,7 +5044,7 @@ function legacyOperationsRedirectHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./operations.html">
-  <title>Ops · ConfigHub Helm Ops</title>
+  <title>Ops · Config Test Centre</title>
 </head>
 <body>
   <p>The day-1 ops page moved to <a href="./operations.html">Ops</a>.</p>
@@ -5250,7 +5265,7 @@ function chartIndexHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Helm Ops Catalog · ConfigHub Helm Ops</title>
+  <title>Helm Ops Catalog · Config Test Centre</title>
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 14.2857%; white-space: normal; }
@@ -5859,7 +5874,7 @@ function chartPageHtml(catalog, entry) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · ConfigHub Helm Ops</title>
+  <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · Config Test Centre</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -6123,13 +6138,24 @@ function chartTeachingHtml(entry) {
   if (entry.chart === "bitnami/redis" && entry.version === "25.5.3") {
     return `<section aria-labelledby="redis-teaching">
       <h2 id="redis-teaching">Redis Proof Slice</h2>
-      <p>Redis was the first compact proof path in this repository. It remains useful evidence, but it is not the public first-run recommendation because Bitnami image and licensing changes can distract from the core idea.</p>
+      <p>Redis is a compact example of a decision that matters before install. The chart's normal default renders password material. The catalog recommends <code>reuse-existing-secret</code>, which records the Secret name and key but keeps the password out of the rendered files and OCI.</p>
       <div class="grid">
-        <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base default --work-dir ./redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
-        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
+        <div class="card"><h3>Normal Helm</h3><pre><code>kubectl create namespace redis
+kubectl -n redis create secret generic redis-existing-secret \\
+  --from-literal=redis-password="$(openssl rand -base64 32)"
+helm install redis oci://registry-1.docker.io/bitnamicharts/redis \\
+  --version 25.5.3 --namespace redis \\
+  --set auth.existingSecret=redis-existing-secret \\
+  --set auth.existingSecretPasswordKey=redis-password \\
+  --set image.digest=${REDIS_IMAGE_DIGEST}</code></pre><p>Helm receives the password from a Secret created separately.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+  --base reuse-existing-secret --work-dir ./redis-reviewed \\
+  --non-interactive --namespace redis \\
+  --output-oci ./redis-rendered.oci</code></pre><p>You can inspect the 13 chart objects before apply. cub adds an explicit Namespace and writes the same non-secret object set as OCI.</p></div>
+        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./redis-reviewed \\
+  --space helm-redis-reviewed</code></pre><p>Upload when you want the objects kept as Units for variants, diffs, promotions, and later releases.</p></div>
       </div>
-      <p><a href="../try.html">Open the current Get Started page</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
+      <p><a href="../../data/serverless-install-parity-proof/summary.md">See the 13/13 live Helm comparison</a> · <a href="../try.html">Open Get Started</a> · <a href="../../docs/user/expected-results-and-clusters.md">Expected results and clusters</a></p>
     </section>`;
   }
   if (entry.chart === "prometheus-community/prometheus" && entry.version === "29.8.0") {

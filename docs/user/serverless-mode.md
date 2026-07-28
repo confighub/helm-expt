@@ -75,12 +75,15 @@ cub installer setup \
   --base http-clusterip \
   --work-dir ./nginx \
   --non-interactive \
-  --namespace nginx
+  --namespace nginx \
+  --output-oci ./reviewed-nginx.oci
 ```
 
 The command writes six objects under `./nginx/out/manifests`: a Namespace,
 ServiceAccount, NetworkPolicy, PodDisruptionBudget, Service, and Deployment. Read or
-scan those files before deciding how to deliver them.
+scan those files before deciding how to deliver them. It also writes a local OCI
+image layout containing the same non-secret objects and a root
+`kustomization.yaml`, then reads the artifact back and checks its object-set digest.
 
 The public package is an **installer OCI**. It contains the chart-specific preset
 configurations and the files `cub installer` needs. It is not yet the single
@@ -97,22 +100,24 @@ kubectl -n nginx rollout status deployment/nginx
 
 The separate
 [render and install parity proof](../../data/serverless-install-parity-proof/summary.md)
-compares Helm and the no-account cub path on Redis. It checks both the rendered
-objects and a running workload.
+compares Helm and the no-account cub path on the recommended Redis
+`reuse-existing-secret` configuration. It compares all 13 chart objects
+field-for-field, verifies the local rendered OCI, starts both deployments, and
+records `PONG` from each.
 
-## Package the reviewed files for Flux
+## Write the reviewed files to a registry
 
-If Flux already owns delivery, package the rendered files instead of applying them
-with `kubectl`:
+If Argo CD or Flux already owns delivery, give `--output-oci` a registry reference
+instead of a local path:
 
 ```sh
-(cd ./nginx/out/manifests && kustomize create --autodetect)
-
-flux push artifact oci://REGISTRY/reviewed-nginx:24.0.2 \
-  --path=./nginx/out/manifests \
-  --source=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
-  --revision=catalog@sha1:SOURCE_REVISION \
-  --reproducible
+cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
+  --base http-clusterip \
+  --work-dir ./nginx \
+  --non-interactive \
+  --namespace nginx \
+  --output-oci oci://REGISTRY/reviewed-nginx:24.0.2
 
 flux create source oci reviewed-nginx \
   --url=oci://REGISTRY/reviewed-nginx \
@@ -125,11 +130,11 @@ flux create kustomization reviewed-nginx \
 ```
 
 The [live public OCI to Flux proof](../../data/serverless-oci-gitops-proof/summary.md)
-runs this pattern on a throwaway cluster. It uses an empty registry credential file
-and an isolated cub home with no ConfigHub token. It pulls the public NGINX installer
-OCI, renders six objects, pushes a second OCI, pulls those files back for comparison,
-and confirms that Flux reconciles the same output manifest digest. NGINX reaches one
-ready replica.
+runs this exact installer output path on a throwaway cluster. It uses an empty source
+registry credential file and an isolated cub home with no ConfigHub token. It pulls
+the public NGINX installer OCI, renders six objects, writes a second OCI with
+`--output-oci`, verifies the output by reading it back, and confirms that Flux
+reconciles the same output manifest digest. NGINX reaches one ready replica.
 
 The proof uses a temporary local registry for the output artifact. It proves the
 package and controller mechanics, not a permanently hosted public workbench.
@@ -151,11 +156,13 @@ consumer its receipt covers.
 - The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with
   setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle
   routes. See [known gaps](./known-gaps-we-surface.md).
-- A rendered Secret placed in a portable OCI will live in that registry. Use an
-  existing Secret or another approved secret-delivery method for production. See
-  [per-chart caveats](../../data/cub-adoption-caveats/summary.md).
-- `cub installer push` publishes an installer package. It does not turn rendered
-  manifests into a Flux deployment artifact.
+- `--output-oci` excludes files under `out/secrets`, but a Secret rendered as an
+  ordinary manifest would still be part of the object set. Prefer an existing Secret
+  or another approved secret-delivery method for production. See [per-chart
+  caveats](../../data/cub-adoption-caveats/summary.md).
+- `cub installer push` publishes the multi-preset installer package that users pull.
+  `cub installer setup --output-oci` writes one selected preset's rendered objects
+  for a controller or another OCI consumer.
 
 The longer-term no-account design is recorded in the
 [serverless install plan](../planning/serverless-verified-install-plan.md).

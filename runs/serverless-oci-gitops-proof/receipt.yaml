@@ -1,9 +1,9 @@
 apiVersion: "catalog.confighub.com/v1alpha1"
 kind: "AnonymousOciFluxProofReceipt"
 metadata:
-  name: "public-nginx-oci-work-oci-20260726-cm5"
+  name: "public-nginx-oci-work-oci-20260728-20z9"
 spec:
-  observedAt: "2026-07-26T20:49:38.369Z"
+  observedAt: "2026-07-28T09:07:05.692Z"
   pathway: "OCI -> work -> OCI"
   source:
     chart: "bitnami/nginx"
@@ -28,6 +28,8 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "nginx"
+      - "--output-oci"
+      - "<temporary-registry>/reviewed-nginx:24.0.2"
     configHubTokenFilePresent: false
     configHubOrganization: ""
     objectCount: 6
@@ -38,18 +40,18 @@ spec:
       - "PodDisruptionBudget"
       - "Service"
       - "ServiceAccount"
-    filesSha256: "sha256:cc1feed9a2e6def845d75438d549d04364990d6028be3279a7066560a85a8a2d"
+    filesSha256: "sha256:567129a96b8a28ff096c9ad53818c03200ce6c0b5d9dcb23ba432999fbd40806"
   output:
-    reference: "oci://127.0.0.1:32782/reviewed-nginx:24.0.2"
-    digest: "sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9"
+    reference: "oci://127.0.0.1:32810/reviewed-nginx:24.0.2"
+    digest: "sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a"
     anonymousPull: "pass"
     pulledFilesMatched: true
-    filesSha256: "sha256:cc1feed9a2e6def845d75438d549d04364990d6028be3279a7066560a85a8a2d"
+    filesSha256: "sha256:567129a96b8a28ff096c9ad53818c03200ce6c0b5d9dcb23ba432999fbd40806"
   flux:
     sourceReady: true
     kustomizationReady: true
-    observedDigest: "sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9"
-    contentDigest: "sha256:5a4daf4bb1fc6ec505f1abc94ef7315db40c208557ca937983ff3fa950342766"
+    observedDigest: "sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a"
+    contentDigest: "sha256:3db4f4f289eeb14aed9aed93a55f0455d4e68cee6c0eb4148b8433194e046668"
     deployment:
       namespace: "nginx"
       name: "nginx"
@@ -57,7 +59,7 @@ spec:
       desiredReplicas: 1
       image: "registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
   run:
-    cluster: "hx-anon-oci-20260726-cm5"
+    cluster: "hx-anon-oci-20260728-20z9"
     registry: "temporary local registry with no authentication"
     cleanup:
       cluster: "pass"
@@ -69,5 +71,5 @@ spec:
     - "This run did not create or use ConfigHub records, variants, approvals, or releases."
 status:
   result: "pass"
-  claim: "Without a ConfigHub login, cub installer pulled the public NGINX installer OCI, wrote six Kubernetes objects, and packaged those files as a second OCI artifact. Flux pulled that exact output digest and NGINX reached one ready replica."
+  claim: "Without a ConfigHub login, cub installer pulled the public NGINX installer OCI, wrote six Kubernetes objects, and used --output-oci to publish those exact files as a second OCI artifact. Flux pulled that output digest and NGINX reached one ready replica."
   error: ""

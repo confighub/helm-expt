@@ -4,15 +4,16 @@
 
 This run started with the public bitnami/nginx@24.0.2 installer package. `cub installer` pulled it using an empty registry credential file and an isolated cub home with no ConfigHub token. It rendered the `http-clusterip` configuration as 6 Kubernetes objects.
 
-The rendered files were then packaged as a second OCI artifact. Flux pulled the exact digest from that artifact and applied it to a throwaway cluster. NGINX reached 1/1 ready replicas.
+The same `cub installer setup` command used `--output-oci` to package those rendered files as a second OCI artifact. The installer pulled its own output back and checked the object-set digest before returning. Flux then pulled that output digest and applied it to a throwaway cluster. NGINX reached 1/1 ready replicas.
 
 | Check | Result |
 | --- | --- |
 | Public installer OCI pulled without registry credentials | pass |
 | ConfigHub token present | no |
 | Rendered objects | 6: Deployment, Namespace, NetworkPolicy, PodDisruptionBudget, Service, ServiceAccount |
+| Rendered OCI written by | `cub installer setup --output-oci` |
 | Output OCI pulled back and compared with the reviewed files | pass |
-| Output digest | `sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9` |
+| Output digest | `sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a` |
 | Flux OCI source | ready |
 | Flux Kustomization | ready |
 | Flux-observed digest matches output | pass |

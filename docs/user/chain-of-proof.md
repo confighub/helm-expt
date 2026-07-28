@@ -17,7 +17,7 @@ claim only to the strongest unbroken proof boundary
 
 | Boundary | Tool or home | What it proves | Time behavior | What it does not prove |
 | --- | --- | --- | --- | --- |
-| Chart inputs to rendered Kubernetes objects | `helm-expt` recipe artifacts and `cub installer` packages | The chart source, values, capability profile, generated facts, and base variant render to a known object set. | Recomputable from locked inputs. | Live cluster health, GitOps sync, hook execution, or controller mutations. |
+| Chart inputs to rendered Kubernetes objects | `helm-expt` recipe artifacts and `cub installer` packages | The chart source, values, capability profile, generated facts, and base variant render to a known object set. `cub installer setup --output-oci` can write that selected non-secret object set as OCI and verify it by reading it back. | Recomputable from locked inputs. | Live cluster health, GitOps sync, hook execution, or controller mutations. |
 | Rendered objects to ConfigHub-managed desired state | `cub installer upload`, ConfigHub Units, labels, scans, gates, receipts | The reviewed object set is present in ConfigHub with searchable metadata, revisions, checks, and operation history. | Historical and reviewable. | That a cluster has applied the desired state. |
 | Base variant to derived ConfigHub variant | `cub variant create`, links, placeholders, TransformPaths, functions, gates, approvals | An already-rendered object set was cloned or refined through explicit ConfigHub operations. | Historical and reviewable. | Any change that requires a new Helm render. |
 | Desired state to delivery handoff | ConfigHub OCI, GitOps, apply receipts, controller receipts | The approved desired object set was handed to the delivery mechanism. | Historical, with controller-specific evidence. | Workload convergence unless observed. |
@@ -57,7 +57,7 @@ competing ways to say "install this chart."
 | Tool or layer | Proof role |
 | --- | --- |
 | `helm-expt` | Proves fidelity and origin: the captured objects match the Helm chart, values, facts, and capability profile that produced them. |
-| `cub installer` | Proves the action surface: a reviewed package/base can produce, package, upload, sign, or inspect the intended object set through a repeatable command path. |
+| `cub installer` | Proves the action surface: a reviewed package/base can produce, inspect, upload, or write the intended non-secret object set as OCI through a repeatable command path. The OCI output records the source digest, selected base, checks, and object-set digest. |
 | ConfigHub Server | Proves desired-state management: rendered objects become Units with labels, links, variants, approvals, gates, changesets, revisions, and queryable history. |
 | GitOps or apply controller | Proves handoff: the approved desired object set was submitted to the delivery mechanism. |
 | cub-scout or other observers | Proves reality for a time window: the cluster was checked by a named observer and the result has freshness. |

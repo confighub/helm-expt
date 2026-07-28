@@ -48,9 +48,10 @@ out. It is not a required first step or a fixed position in every delivery flow.
 
 The [public OCI to Flux proof](../../data/serverless-oci-gitops-proof/summary.md)
 checks that boundary. It starts from a public NGINX installer OCI, runs
-`cub installer` with no ConfigHub token, packages the six rendered objects as a
-second OCI, and records the exact digest Flux reconciled. The output registry is
-temporary; the receipt does not claim a hosted public workbench.
+`cub installer setup --output-oci` with no ConfigHub token, writes the six rendered
+objects as a second OCI, reads that output back to check the object set, and records
+the exact digest Flux reconciled. The output registry is temporary; the receipt does
+not claim a hosted public workbench.
 
 The [anonymous OCI CI proof](../../data/anonymous-oci-ci-proof/summary.md) runs the
 same public entry path in GitHub Actions. With no ConfigHub credentials, it pulls the

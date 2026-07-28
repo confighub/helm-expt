@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless Mode · ConfigHub Helm Ops</title>
+  <title>Serverless Mode · Config Test Centre</title>
   <meta name="description" content="Run a public catalog package without ConfigHub Server. This example also needs no ConfigHub account, and keeps the rendered objects under your control.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/serverless.html">
-  <meta property="og:title" content="Serverless Mode · ConfigHub Helm Ops">
+  <meta property="og:title" content="Serverless Mode · Config Test Centre">
   <meta property="og:description" content="Run a public catalog package without ConfigHub Server. This example also needs no ConfigHub account, and keeps the rendered objects under your control.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/serverless.html">
@@ -601,33 +601,39 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero install-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Get Started</a><a href="./charts/index.html">Helm Ops Catalog</a><a href="./how-it-works.html">How it works</a><a href="./testing.html">Testing</a><a href="./journey.html">Apps</a><a href="./docs.html">Docs/FAQ</a><a href="./private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./charts/index.html">Catalog</a><a href="./testing.html">Testing</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <div class="install-hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">Serverless mode</p>
         <h1>Run it without ConfigHub Server</h1>
-        <p class="lead">This example is both serverless and anonymous: it uses neither ConfigHub Server nor a ConfigHub account. Same chart, same running result; the difference is that you can inspect the rendered objects, Secrets, and prerequisites before you apply them.</p>
+        <p class="lead">This example is both serverless and anonymous: it uses neither ConfigHub Server nor a ConfigHub account. You can inspect the rendered objects and prerequisites, then keep them as files, apply them yourself, or write the non-secret objects to OCI.</p>
         <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no ConfigHub account</span></div>
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># plain Helm, one step</span>
-<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
-    --version 25.5.3 -n redis --create-namespace
-
-<span class="term-comment"># ConfigHub: render the reviewed package, then apply</span>
-<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-    --base default --work-dir ./out --non-interactive
+        <pre class="terminal-body"><code><span class="term-comment"># before either lane: provide the password separately</span>
 <span class="term-prompt">$</span> kubectl create namespace redis
-<span class="term-prompt">$</span> kubectl apply -f ./out/secrets -n redis
+<span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \
+    --from-literal=redis-password="$(openssl rand -base64 32)"
+
+<span class="term-comment"># plain Helm with the preset's recorded values</span>
+<span class="term-prompt">$</span> helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
+    --version 25.5.3 -n redis \
+    --set auth.existingSecret=redis-existing-secret \
+    --set auth.existingSecretPasswordKey=redis-password \
+    --set image.digest=sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+
+<span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
+<span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+    --base reuse-existing-secret --namespace redis \
+    --work-dir ./out --non-interactive \
+    --output-oci ./redis-rendered.oci
 <span class="term-prompt">$</span> kubectl apply -f ./out/manifests -n redis</code></pre>
       </div>
     </div>
-    <p class="caption">Both bring up Redis in the same namespace. Same outcome. That is parity.</p>
+    <p class="caption">The preset's rendered objects have a committed Helm-equivalence receipt. Run the Helm and cub lanes on separate throwaway clusters when you want to compare the live result.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
       <h2 id="package-note">What is <code>--pull</code>?</h2>
       <p>It points cub at an installer package: a reviewed chart/version with bases, recorded inputs, rendered objects, and proof links. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p>
@@ -662,41 +668,46 @@
 
     <section class="narrow-section" aria-labelledby="how">
       <h2 id="how">Helm hides one step. cub shows it.</h2>
-      <p><code>helm install</code> renders and applies the chart in one command. The ConfigHub path splits that into render, inspect, then apply.</p>
+  <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
       <div class="step-grid">
         <div class="card">
           <h3>1 · Render</h3>
-          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code> and, for Redis, separated Secret material under <code>./out/secrets</code>.</p>
+          <p><code>cub installer setup</code> writes plain files under <code>./out/manifests</code>. The <code>reuse-existing-secret</code> preset records the Secret name and key the target must supply; it does not put password material in the rendered OCI.</p>
         </div>
         <div class="card">
           <h3>2 · Apply</h3>
           <p><code>kubectl apply</code> installs those files. Create the namespace first so the objects land where you expect.</p>
         </div>
       </div>
-      <p><strong>Same render, same install result, visible before apply.</strong></p>
+      <p><strong>Same render, same working result, visible before apply.</strong></p>
     </section>
 
     <section class="narrow-section" aria-labelledby="gitops">
       <h2 id="gitops">The other delivery: GitOps via OCI</h2>
-      <p>Already running Argo or Flux from an OCI registry? Push the rendered output and let your controller pull it in.</p>
+      <p>Already running Argo CD or Flux from an OCI registry? Give <code>--output-oci</code> a registry reference. The installer pushes the non-secret objects, reads the artifact back, and checks the object-set digest before returning.</p>
       <div class="terminal-card">
         <div class="terminal-title">redis → OCI</div>
-        <pre class="terminal-body"><code><span class="term-prompt">$</span> flux push artifact oci://&lt;your-registry&gt;/redis:v1 --path=./out \
-    --source=serverless-cub-render --revision=v1
+        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+    --base reuse-existing-secret --namespace redis \
+    --work-dir ./out --non-interactive \
+    --output-oci oci://&lt;your-registry&gt;/redis:v1
 <span class="term-prompt">$</span> flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
 <span class="term-prompt">$</span> flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
       </div>
+      <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live NGINX proof</a> uses this installer output path with no ConfigHub token. Flux reconciled the exact output digest and the workload reached 1/1 ready replicas. The <a href="./d/data/serverless-install-parity-proof/summary.html">Redis comparison</a> independently verifies a local rendered OCI and full Helm parity for the existing-Secret configuration.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="edges">
       <h2 id="edges">The edges, kept in plain sight</h2>
-      <p><strong>The chart carries its own password.</strong> The Redis render includes a Secret with generated password material. That is exactly the kind of classic error this path catches. For anything real, supply your own Secret and choose a base such as <code>reuse-existing-secret</code>.</p>
+      <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
-      <p><strong><code>cub installer push</code> is the package-publish path.</strong> It ships the installer package that users pull with <code>cub installer setup --pull oci://...</code>. That is different from the rendered GitOps bundle above, which Argo and Flux can apply directly.</p>
+      <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
       <p>A chart with hooks, admission webhooks, or its own CRDs needs more than a render. Its chart page says which lifecycle steps apply.</p>
       <p><a href="./try.html">Open Get Started</a> · <a href="d/docs/user/serverless-mode.html">Read the source guide</a></p>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless means this path does not depend on ConfigHub Server; anonymous means it uses no ConfigHub account. This example is both. Claim the configuration in <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=serverless">ConfigHub</a> when it needs saved history, shared variants, approvals, promotions, or fleet rollout.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this serverless guide.</p><p>Generated from committed helm-expt evidence. Serverless means this path does not depend on ConfigHub Server; anonymous means it uses no ConfigHub account. This example is both. Claim the configuration in <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=serverless">ConfigHub</a> when it needs saved history, shared variants, approvals, promotions, or fleet rollout.</p></footer>
 </body>
 </html>

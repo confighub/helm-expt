@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless mode · ConfigHub Helm Ops</title>
+  <title>Serverless mode · Config Test Centre</title>
   <meta name="description" content="Serverless mode: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/serverless-mode.html">
-  <meta property="og:title" content="Serverless mode · ConfigHub Helm Ops">
+  <meta property="og:title" content="Serverless mode · Config Test Centre">
   <meta property="og:description" content="Serverless mode: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/serverless-mode.html">
@@ -423,12 +423,12 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Serverless mode</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/serverless-mode.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b></p>
 <p>Serverless and anonymous are separate choices. <b>Serverless</b> means this work does not depend on ConfigHub Server. <b>Anonymous</b> means it uses no ConfigHub account. The example on this page is both: it runs locally, pulls a public package, and keeps the files and output under your control.</p>
@@ -463,23 +463,24 @@
   --base http-clusterip \
   --work-dir ./nginx \
   --non-interactive \
-  --namespace nginx</code></pre>
-<p>The command writes six objects under <code>./nginx/out/manifests</code>: a Namespace, ServiceAccount, NetworkPolicy, PodDisruptionBudget, Service, and Deployment. Read or scan those files before deciding how to deliver them.</p>
+  --namespace nginx \
+  --output-oci ./reviewed-nginx.oci</code></pre>
+<p>The command writes six objects under <code>./nginx/out/manifests</code>: a Namespace, ServiceAccount, NetworkPolicy, PodDisruptionBudget, Service, and Deployment. Read or scan those files before deciding how to deliver them. It also writes a local OCI image layout containing the same non-secret objects and a root <code>kustomization.yaml</code>, then reads the artifact back and checks its object-set digest.</p>
 <p>The public package is an <b>installer OCI</b>. It contains the chart-specific preset configurations and the files <code>cub installer</code> needs. It is not yet the single configuration that Flux or Argo CD will apply.</p>
 <h2 id="apply-the-files-yourself">Apply the files yourself</h2>
 <p>For a quick development test:</p>
 <pre><code>kubectl apply -f ./nginx/out/manifests
 kubectl -n nginx rollout status deployment/nginx</code></pre>
-<p>The separate <a href="../../data/serverless-install-parity-proof/summary.html">render and install parity proof</a> compares Helm and the no-account cub path on Redis. It checks both the rendered objects and a running workload.</p>
-<h2 id="package-the-reviewed-files-for-flux">Package the reviewed files for Flux</h2>
-<p>If Flux already owns delivery, package the rendered files instead of applying them with <code>kubectl</code>:</p>
-<pre><code>(cd ./nginx/out/manifests &amp;&amp; kustomize create --autodetect)
-
-flux push artifact oci://REGISTRY/reviewed-nginx:24.0.2 \
-  --path=./nginx/out/manifests \
-  --source=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
-  --revision=catalog@sha1:SOURCE_REVISION \
-  --reproducible
+<p>The separate <a href="../../data/serverless-install-parity-proof/summary.html">render and install parity proof</a> compares Helm and the no-account cub path on the recommended Redis <code>reuse-existing-secret</code> configuration. It compares all 13 chart objects field-for-field, verifies the local rendered OCI, starts both deployments, and records <code>PONG</code> from each.</p>
+<h2 id="write-the-reviewed-files-to-a-registry">Write the reviewed files to a registry</h2>
+<p>If Argo CD or Flux already owns delivery, give <code>--output-oci</code> a registry reference instead of a local path:</p>
+<pre><code>cub installer setup \
+  --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2 \
+  --base http-clusterip \
+  --work-dir ./nginx \
+  --non-interactive \
+  --namespace nginx \
+  --output-oci oci://REGISTRY/reviewed-nginx:24.0.2
 
 flux create source oci reviewed-nginx \
   --url=oci://REGISTRY/reviewed-nginx \
@@ -489,7 +490,7 @@ flux create kustomization reviewed-nginx \
   --source=OCIRepository/reviewed-nginx \
   --path=./ \
   --prune=true</code></pre>
-<p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">live public OCI to Flux proof</a> runs this pattern on a throwaway cluster. It uses an empty registry credential file and an isolated cub home with no ConfigHub token. It pulls the public NGINX installer OCI, renders six objects, pushes a second OCI, pulls those files back for comparison, and confirms that Flux reconciles the same output manifest digest. NGINX reaches one ready replica.</p>
+<p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">live public OCI to Flux proof</a> runs this exact installer output path on a throwaway cluster. It uses an empty source registry credential file and an isolated cub home with no ConfigHub token. It pulls the public NGINX installer OCI, renders six objects, writes a second OCI with <code>--output-oci</code>, verifies the output by reading it back, and confirms that Flux reconciles the same output manifest digest. NGINX reaches one ready replica.</p>
 <p>The proof uses a temporary local registry for the output artifact. It proves the package and controller mechanics, not a permanently hosted public workbench.</p>
 <h2 id="keep-the-oci-roles-separate">Keep the OCI roles separate</h2>
 <table><thead><tr><th>OCI artifact</th><th>Contents</th><th>Consumer</th></tr></thead><tbody><tr><td>Installer package</td><td>Chart-specific preset configurations and rendering files</td><td><code>cub installer</code></td></tr>
@@ -498,7 +499,7 @@ flux create kustomization reviewed-nginx \
 <tr><td>ConfigHub release</td><td>A reviewed ConfigHub Space release</td><td>ConfigHub delivery through Flux or Argo CD</td></tr></tbody></table>
 <p>An OCI reference is not enough by itself. Check what the artifact contains and which consumer its receipt covers.</p>
 <h2 id="limits">Limits</h2>
-<ul><li>The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle routes. See <a href="known-gaps-we-surface.html">known gaps</a>.</li><li>A rendered Secret placed in a portable OCI will live in that registry. Use an existing Secret or another approved secret-delivery method for production. See <a href="../../data/cub-adoption-caveats/summary.html">per-chart caveats</a>.</li><li><code>cub installer push</code> publishes an installer package. It does not turn rendered manifests into a Flux deployment artifact.</li></ul>
+<ul><li>The NGINX proof is a straightforward chart with no hooks or CRDs. A chart with setup Jobs, CRDs, webhooks, or certificates also needs its recorded lifecycle routes. See <a href="known-gaps-we-surface.html">known gaps</a>.</li><li><code>--output-oci</code> excludes files under <code>out/secrets</code>, but a Secret rendered as an ordinary manifest would still be part of the object set. Prefer an existing Secret or another approved secret-delivery method for production. See <a href="../../data/cub-adoption-caveats/summary.html">per-chart caveats</a>.</li><li><code>cub installer push</code> publishes the multi-preset installer package that users pull. <code>cub installer setup --output-oci</code> writes one selected preset's rendered objects for a controller or another OCI consumer.</li></ul>
 <p>The longer-term no-account design is recorded in the <a href="../planning/serverless-verified-install-plan.html">serverless install plan</a>.</p>
     </article>
   </main>

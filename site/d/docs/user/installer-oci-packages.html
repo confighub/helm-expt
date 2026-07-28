@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Installer Package OCI Refs · ConfigHub Helm Ops</title>
+  <title>Installer Package OCI Refs · Config Test Centre</title>
   <meta name="description" content="Installer Package OCI Refs: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/installer-oci-packages.html">
-  <meta property="og:title" content="Installer Package OCI Refs · ConfigHub Helm Ops">
+  <meta property="og:title" content="Installer Package OCI Refs · Config Test Centre">
   <meta property="og:description" content="Installer Package OCI Refs: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/installer-oci-packages.html">
@@ -423,12 +423,12 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Installer Package OCI Refs</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/installer-oci-packages.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>The catalog should let a user try a chart without cloning this repo. That is why each chart version now has an installer package OCI ref.</p>
@@ -445,19 +445,29 @@
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
-  --namespace redis</code></pre>
-<p><code>cub installer setup</code> pulls the package into the work directory, writes the selected inputs under <code>out/spec</code>, and writes the rendered Kubernetes files under <code>out/manifests</code>. If the preset separates secret material, it also writes files under <code>out/secrets</code>.</p>
+  --namespace redis \
+  --output-oci ./redis-rendered.oci</code></pre>
+<p><code>cub installer setup</code> pulls the package into the work directory, writes the selected inputs under <code>out/spec</code>, and writes the rendered Kubernetes files under <code>out/manifests</code>. If the preset separates secret material, it also writes files under <code>out/secrets</code>. The optional <code>--output-oci</code> flag writes the exact non-secret rendered objects to a local OCI image layout or pushes them to an <code>oci://host/repository:tag</code> reference. The installer reads that artifact back and checks its object-set digest before returning.</p>
 <h2 id="what-the-package-contains">What The Package Contains</h2>
 <p>An installer package is the catalog artifact for one chart version. It contains:</p>
 <ul><li>the package metadata and <code>installer.yaml</code>;</li><li>the available preset chart configurations, called bases in the repo;</li><li>the files needed to render each supported preset locally;</li><li>the recorded inputs behind those presets;</li><li>links back to the catalog evidence: rendered output, checks, receipts, hooks, CRDs, target prerequisites, and other chart extras.</li></ul>
 <p>The package does not replace Helm charts. The catalog starts from ordinary Helm charts, then publishes reviewed package artifacts so users can pull the ready presets directly once they have access to the package registry.</p>
 <p>The package should also make the install simpler. Most choices are fixed before publication: chart version, base shape, values profile, source lock, known CRD or hook decisions, and the evidence links. Only a small set of choices should be left for install time, such as namespace, target-specific facts, image overrides, or the name of an existing Secret. Those remaining choices should be documented and restricted instead of exposing the whole Helm values surface again.</p>
 <p>This matters for fleets. A package release can be the thing a platform team signs off. ConfigHub can then record which package, preset, and allowed inputs a cluster, customer, or environment should run, and reconcile that desired record through the delivery system already in use.</p>
-<h2 id="two-oci-things-not-one">Two OCI Things, Not One</h2>
-<p>There are two different OCI paths:</p>
-<table><thead><tr><th>OCI path</th><th>What it is for</th><th>Who uses it</th></tr></thead><tbody><tr><td>Installer package OCI</td><td>The package a user pulls with <code>cub installer setup --pull oci://...</code>.</td><td>A person, script, or agent trying a catalog preset.</td></tr>
-<tr><td>ConfigHub delivery OCI</td><td>A rendered and reviewed object bundle that Argo, Flux, or another controller can pull later.</td><td>A delivery controller after the config is managed.</td></tr></tbody></table>
-<p>The first OCI gets the package onto your machine. The second OCI is for delivery after ConfigHub has recorded and managed the rendered objects.</p>
+<h2 id="three-oci-roles">Three OCI Roles</h2>
+<p>The catalog uses OCI for three different jobs:</p>
+<table><thead><tr><th>OCI path</th><th>What it is for</th><th>Who uses it</th></tr></thead><tbody><tr><td>Installer package OCI</td><td>A multi-preset source package pulled with <code>cub installer setup --pull oci://...</code>.</td><td>A person, script, or agent choosing and rendering one catalog preset.</td></tr>
+<tr><td>Rendered OCI</td><td>One selected preset's exact non-secret Kubernetes objects, written by <code>cub installer setup --output-oci</code>.</td><td>Argo CD, Flux, another OCI consumer, or <code>cub variant upload</code>. No ConfigHub account is required to create it.</td></tr>
+<tr><td>ConfigHub release OCI</td><td>A reviewed ConfigHub Space release, published after the objects are stored and managed.</td><td>Argo CD, Flux, or another delivery path that consumes the managed result.</td></tr></tbody></table>
+<p>The input and output may both be OCI without being the same artifact. The installer package can offer several presets and the files needed to render them. A rendered OCI contains one chosen result. A ConfigHub release OCI contains the later managed revision after variants, review, approval, or promotion.</p>
+<p>To push the selected result directly:</p>
+<pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --base reuse-existing-secret \
+  --work-dir ./out \
+  --non-interactive \
+  --namespace redis \
+  --output-oci oci://REGISTRY/redis-reviewed:25.5.3</code></pre>
+<p>Registry write access is required for a push. A local <code>--output-oci</code> path needs no registry credentials. Input values and files under <code>out/secrets</code> are not published in the rendered OCI.</p>
 <h2 id="publication-status">Publication Status</h2>
 <p>The generated package catalog records both the intended package ref and the publication status:</p>
 <ul><li><code>published-receipt</code> means a publication receipt is committed for that ref. Public catalog refs are also readable anonymously from the current Artifact Registry repository.</li><li><code>assigned-ref</code> means the catalog has assigned the package ref, but no publication receipt is committed yet.</li></ul>

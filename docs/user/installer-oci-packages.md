@@ -27,13 +27,17 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
   --base reuse-existing-secret \
   --work-dir ./out \
   --non-interactive \
-  --namespace redis
+  --namespace redis \
+  --output-oci ./redis-rendered.oci
 ```
 
 `cub installer setup` pulls the package into the work directory, writes the
 selected inputs under `out/spec`, and writes the rendered Kubernetes files under
 `out/manifests`. If the preset separates secret material, it also writes files
-under `out/secrets`.
+under `out/secrets`. The optional `--output-oci` flag writes the exact non-secret
+rendered objects to a local OCI image layout or pushes them to an
+`oci://host/repository:tag` reference. The installer reads that artifact back and
+checks its object-set digest before returning.
 
 ## What The Package Contains
 
@@ -63,17 +67,35 @@ signs off. ConfigHub can then record which package, preset, and allowed inputs a
 cluster, customer, or environment should run, and reconcile that desired record
 through the delivery system already in use.
 
-## Two OCI Things, Not One
+## Three OCI Roles
 
-There are two different OCI paths:
+The catalog uses OCI for three different jobs:
 
 | OCI path | What it is for | Who uses it |
 | --- | --- | --- |
-| Installer package OCI | The package a user pulls with `cub installer setup --pull oci://...`. | A person, script, or agent trying a catalog preset. |
-| ConfigHub delivery OCI | A rendered and reviewed object bundle that Argo, Flux, or another controller can pull later. | A delivery controller after the config is managed. |
+| Installer package OCI | A multi-preset source package pulled with `cub installer setup --pull oci://...`. | A person, script, or agent choosing and rendering one catalog preset. |
+| Rendered OCI | One selected preset's exact non-secret Kubernetes objects, written by `cub installer setup --output-oci`. | Argo CD, Flux, another OCI consumer, or `cub variant upload`. No ConfigHub account is required to create it. |
+| ConfigHub release OCI | A reviewed ConfigHub Space release, published after the objects are stored and managed. | Argo CD, Flux, or another delivery path that consumes the managed result. |
 
-The first OCI gets the package onto your machine. The second OCI is for delivery
-after ConfigHub has recorded and managed the rendered objects.
+The input and output may both be OCI without being the same artifact. The installer
+package can offer several presets and the files needed to render them. A rendered OCI
+contains one chosen result. A ConfigHub release OCI contains the later managed
+revision after variants, review, approval, or promotion.
+
+To push the selected result directly:
+
+```sh
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --base reuse-existing-secret \
+  --work-dir ./out \
+  --non-interactive \
+  --namespace redis \
+  --output-oci oci://REGISTRY/redis-reviewed:25.5.3
+```
+
+Registry write access is required for a push. A local `--output-oci` path needs no
+registry credentials. Input values and files under `out/secrets` are not published
+in the rendered OCI.
 
 ## Publication Status
 
