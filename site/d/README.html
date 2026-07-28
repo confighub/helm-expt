@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ConfigHub Helm Experiment · ConfigHub Helm Ops</title>
+  <title>ConfigHub Helm Experiment · Config Test Centre</title>
   <meta name="description" content="ConfigHub Helm Experiment: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/README.html">
-  <meta property="og:title" content="ConfigHub Helm Experiment · ConfigHub Helm Ops">
+  <meta property="og:title" content="ConfigHub Helm Experiment · Config Test Centre">
   <meta property="og:description" content="ConfigHub Helm Experiment: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/README.html">
@@ -423,12 +423,12 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../testing.html">Testing</a><a href="../journey.html">Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../charts/index.html">Catalog</a><a href="../testing.html">Testing</a><a href="../how-it-works.html">How it works</a><a href="../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>ConfigHub Helm Experiment</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../README.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Use Helm charts. Make the fleet recordable.</p>
 <p>Before you <code>helm install</code>, see exactly what you are installing. After you install, keep proof of what was rendered, checked, delivered, and observed.</p>
@@ -452,12 +452,12 @@
 <p>Each stage asks for more trust and gives more value. You can stop at any stage.</p>
 <table><thead><tr><th>Stage</th><th>You want</th><th>Command or surface</th><th>Needs a ConfigHub account?</th></tr></thead><tbody><tr><td>1. Curious</td><td>See exactly what any chart renders.</td><td><code>helm template</code></td><td>No</td></tr>
 <tr><td>2. Fast adoption</td><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Yes</td></tr>
-<tr><td>3. Supported catalog</td><td>A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>No ConfigHub account or registry login for public package pulls</td></tr>
+<tr><td>3. Supported catalog</td><td>A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence. Keep the result as files or a rendered OCI.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt; [--output-oci &lt;path-or-ref&gt;]</code></td><td>No ConfigHub account or registry login for public package pulls; registry write access is needed only when pushing output</td></tr>
 <tr><td>4. Trust proof</td><td>Check the catalog's claims on your own machine.</td><td><code>npm run top20:verify-local-e2e</code>, <code>npm run redis:verify-install:render</code>, kind parity lanes</td><td>No</td></tr>
 <tr><td>5. Operations</td><td>Variants, diffs, scans, approvals, OCI/GitOps delivery, observations.</td><td><code>cub variant create</code>, <code>cub unit diff</code>, <code>cub function vet</code>, changesets</td><td>Yes</td></tr></tbody></table>
 <p>Stages 1 and 2 are direct fast paths and skip the catalog. The separate <code>cub-helm</code> plugin is not the public front door in this repo; the public catalog path remains <code>cub installer setup</code>. Stage 3 is the durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to pay back the extra structure: the same rendered objects can be cloned into environment, region, customer, or target variants; compared before promotion; scanned and gated as exact objects; delivered through GitOps or OCI; and observed later with receipts.</p>
 <p>For fleet work, Stage 5 is the center of gravity. User workloads, system services, and cluster configuration may move on different cadences and under different owners. The shared need is the same: a signed or otherwise proven package release, a small controlled install-time surface, and a record of which version each fleet member should reconcile to.</p>
-<p>Free and low-friction use should cover browsing the catalog, inspecting rendered objects, running <code>helm template</code>, trying public <code>cub installer</code> packages from their <code>oci://</code> refs, and verifying signatures, digests, and local receipts. Paid or managed use begins when the work involves private or custom catalogs, teams, policies, approvals, bulk operations, promotions, GitOps/OCI operations, full stacks, patch services, upgrade services, or production support.</p>
+<p>Free and low-friction use should cover browsing the catalog, inspecting rendered objects, running <code>helm template</code>, trying public <code>cub installer</code> packages from their <code>oci://</code> refs, writing one selected preset as a local rendered OCI, and verifying signatures, digests, and local receipts. The same <code>--output-oci</code> option can push to a registry when credentials are available. ConfigHub begins when the reviewed objects need saved history, shared variants, approval, promotion, release publication, or fleet rollout. Paid or managed use adds private and custom catalogs, teams, policy at scale, bulk operations, patch and upgrade services, and production support.</p>
 <p>For when each command fits, see <a href="docs/user/choosing-commands.html">Choosing Commands</a>.</p>
 <p>Working in this repository as an agent or maintainer? Start with <a href="docs/agent/README.html">Agent And Operator Notes</a>. Those notes keep command recipes, recovery steps, and repo-specific AX guidance out of the human-facing website.</p>
 <p>Four questions, answered up front:</p>

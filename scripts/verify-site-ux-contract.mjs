@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["A community resource for understanding and testing your configuration", "Grade your config", "Browse the catalog", "Five simple things", "Everything here extends one simple act", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
+    terms: ["A community resource for understanding and testing your configuration", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "Everything here extends one simple act", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
   },
   {
     file: "site/variants.html",
@@ -16,11 +16,11 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try It Now with Kubernetes", "quick dev cluster", "Change it after install", "AI_API_KEY", "helm install", "cub installer", "prometheus → monitoring", "What is <code>--pull</code>?"],
+    terms: ["Try It Now with Kubernetes", "quick dev cluster", "Change it after install", "AI_API_KEY", "helm install", "cub installer", "--output-oci", "prometheus → monitoring", "What is <code>--pull</code>?"],
   },
   {
     file: "site/serverless.html",
-    terms: ["Serverless mode", "Run it without ConfigHub Server", "both serverless and anonymous", "Same chart, same running result", "redis → redis", "The chart carries its own password"],
+    terms: ["Serverless mode", "Run it without ConfigHub Server", "both serverless and anonymous", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
   },
   {
     file: "site/charts/index.html",
@@ -118,7 +118,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["A community resource for understanding and testing your configuration", "Grade your config", "Browse the catalog"],
+    headerTerms: ["A community resource for understanding and testing your configuration", "Run a catalog package", "Check my config"],
   },
   {
     file: "site/try.html",
@@ -168,10 +168,12 @@ for (const file of menuGuidePages) {
   if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(header)) {
     failures.push(`${file}: generated timestamp appears in the hero/header`);
   }
-  const bannerIndex = header.indexOf("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS");
-  const navIndex = header.indexOf("class=\"topbar\"");
-  if (bannerIndex < 0) failures.push(`${file}: missing experimental banner in the hero/header`);
-  else if (navIndex >= 0 && bannerIndex > navIndex) failures.push(`${file}: experimental banner must appear before the home/menu row`);
+  if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
+    failures.push(`${file}: draft banner still appears in the hero/header`);
+  }
+  for (const term of ["Config Test Centre", "Catalog", "Testing", "How it works", "Docs", "Sign in"]) {
+    if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
+  }
   const rawPathLinks = [...text.matchAll(/<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
     .filter(([, , label]) => label.includes("../") || /\.md(#.*)?$/.test(label.trim()));
   for (const [, href, label] of rawPathLinks.slice(0, 5)) {

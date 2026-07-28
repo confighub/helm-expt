@@ -13,6 +13,7 @@ other.
 | See what a Helm chart renders, without ConfigHub state. | `helm template` |
 | Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
+| Keep one selected catalog preset as a local OCI layout or push it to a registry. | Add `--output-oci <path-or-oci-ref>` to `cub installer setup`. |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant. | `cub variant create` |
 | Catch a derived ConfigHub variant up with its reviewed upstream Space. | `cub variant promote --dry-run`, then `cub variant promote` |
@@ -45,6 +46,7 @@ path below.
 | `helm template` | The rendered output and any local diff or schema check you ran. | You inspected a Helm render. No ConfigHub or live-cluster claim is implied. |
 | `cub variant upload` | ConfigHub Space and Unit list, source reference or OCI digest, labels, and diffs. | Rendered configuration became ConfigHub Units once. No maintained recipe or catalog support claim is implied. |
 | `cub installer setup --pull ... --base ...` | Per-chart `CATALOG.md`, `helm-equivalence-receipt.yaml`, and `data/outcome-coverage/base-outcomes.csv`. | The selected base has a recorded recipe/package proof and render-parity status. |
+| `cub installer setup ... --output-oci ...` | Installer pull-back check, source package digest, selected base, validator results, rendered object-set digest, and the controller receipt when one exists. | The selected preset's non-secret objects were written as OCI. Argo CD or Flux delivery is claimed only when a live receipt names that output digest. |
 | `cub installer upload` | ConfigHub Units, upload/scan/safe-operation receipts, and `data/outcome-coverage/base-outcomes.csv`. | The rendered base exists in ConfigHub with the receipt lanes that are present for that row. |
 | `cub variant create` | Derived variant receipt, upstream links, changed labels/target/gates, and `data/derived-variant-target-bound/summary.md` if it was delivered live. | A reviewed uploaded base was cloned/refined post-render. It is not a Helm rerender. |
 | `cub variant promote` | Dry-run mutations, changed Units, upstream links, and any changeset/approval receipts. | A downstream variant was reconciled with its upstream Space through ConfigHub, not by silently rerendering Helm. |
@@ -60,7 +62,7 @@ full catalog model on day one.
 | --- | --- | --- |
 | Inspect | `helm template` | Render the chart locally and see the Kubernetes objects. |
 | Adopt quickly | `cub variant upload <files-or-oci-ref>` | Load rendered files or a literal configuration OCI into ConfigHub Units. |
-| Use a maintained catalog entry | `cub installer setup --pull <installer OCI ref> --base <base>` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks. |
+| Use a maintained catalog entry | `cub installer setup --pull <installer OCI ref> --base <base> [--output-oci <path-or-ref>]` | Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks; optionally keep the selected result as OCI. |
 | Operate | `cub installer upload`, `cub variant create`, `cub variant promote`, ConfigHub changesets, scans, approvals, OCI/GitOps, observations | Manage reviewed objects as ConfigHub Units and derived variants. |
 
 Existing apps enter through the same model without a recipe rewrite:

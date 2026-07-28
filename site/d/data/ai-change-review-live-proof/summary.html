@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Check an AICR training change before it is released · ConfigHub Helm Ops</title>
+  <title>Check an AICR training change before it is released · Config Test Centre</title>
   <meta name="description" content="Check an AICR training change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/ai-change-review-live-proof/summary.html">
-  <meta property="og:title" content="Check an AICR training change before it is released · ConfigHub Helm Ops">
+  <meta property="og:title" content="Check an AICR training change before it is released · Config Test Centre">
   <meta property="og:description" content="Check an AICR training change before it is released: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/ai-change-review-live-proof/summary.html">
@@ -423,12 +423,12 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Check an AICR training change before it is released</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/ai-change-review-live-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This example sends two versions of the same AICR PyTorch <code>ClusterTrainingRuntime</code> through ConfigHub. The first version asks for eight H100 nodes, changes a digest-pinned image to <code>latest</code>, and puts a placeholder API key directly in the object. ConfigHub reports the mutable AICR image and blocks the inline API key. It does not run Deployment image or probe checks against this custom resource.</p>
 <p>The reviewed version uses four nodes, restores the pinned image, and refers to an existing Secret. Its AICR image and API-key checks are clear. The four-node capacity limit is checked separately against the recorded target facts because the current ConfigHub policy cannot read that target-specific value.</p>

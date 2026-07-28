@@ -266,13 +266,14 @@ cub installer carries the chart, preset configurations, values, and supporting f
 1. Pull a public installer package with no registry login.
 2. Select one preset configuration.
 3. Render and inspect the package locally.
-4. Upload the chosen result when the team wants shared records and variants.
+4. Keep the result as files, or write the selected non-secret objects as OCI with cub installer setup --output-oci.
+5. Upload the chosen result when the team wants shared records and variants.
 
 Start with [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) or [docs/user/try-now.md](../../docs/user/try-now.md).
 
 Evidence: [data/installer-oci-packages/summary.md](../../data/installer-oci-packages/summary.md).
 
-Current limit: An installer package OCI can contain several preset configurations. It is not the same artifact as a single literal configuration OCI used by cub variant upload.
+Current limit: An installer package OCI can contain several preset configurations. The rendered OCI contains one selected preset. --output-oci excludes separated secret files, records the source package and selected base, and checks the output object set by reading it back. A chart with hooks, CRDs, setup jobs, or target prerequisites still needs the route recorded for that preset.
 
 ### Public OCI inspection and packaging
 

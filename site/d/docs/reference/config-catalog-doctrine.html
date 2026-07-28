@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config catalog doctrine · ConfigHub Helm Ops</title>
+  <title>Config catalog doctrine · Config Test Centre</title>
   <meta name="description" content="Config catalog doctrine: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/config-catalog-doctrine.html">
-  <meta property="og:title" content="Config catalog doctrine · ConfigHub Helm Ops">
+  <meta property="og:title" content="Config catalog doctrine · Config Test Centre">
   <meta property="og:description" content="Config catalog doctrine: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/config-catalog-doctrine.html">
@@ -423,13 +423,14 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Config catalog doctrine</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/config-catalog-doctrine.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>The simplest architecture for this project is <b>OCI in, managed configuration, OCI out</b>.</p>
 <p>The website, catalog, and public tools handle useful configuration work around OCI. They can prepare source before the first OCI is built, inspect an existing OCI, or produce a new OCI after checking or changing its contents. They help people work with Helm charts, AICR recipes, installer packages, Kubara output, Sveltos objects, and existing YAML as literal configuration with recorded inputs, known prerequisites, lifecycle work, and evidence.</p>
@@ -443,7 +444,7 @@
 <p>These are composable options, not three separate products or a required sequence. A team can use any one by itself or combine them in a longer delivery flow. ConfigHub enters when the team wants to save, share, transform, approve, promote, or fan out the configuration; none of the three public operations requires that step.</p>
 <p>The work may run as a local command or a CI job. We also intend to offer a public hosted path for open configuration: inspect, test, and serve a public package without signing in, then claim it later. That hosted path is not yet shipped. Anonymous use must not quietly create private history, saved edits, variants, or approvals.</p>
 <p>The optional handoff is <b>Claim this configuration in ConfigHub</b>. A user can work anonymously with public packages before or after any OCI boundary. Claiming saves the objects and their history so a team can transform, approve, promote, and roll them out. It is not a required first step or a fixed position in every delivery flow.</p>
-<p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">public OCI to Flux proof</a> checks that boundary. It starts from a public NGINX installer OCI, runs <code>cub installer</code> with no ConfigHub token, packages the six rendered objects as a second OCI, and records the exact digest Flux reconciled. The output registry is temporary; the receipt does not claim a hosted public workbench.</p>
+<p>The <a href="../../data/serverless-oci-gitops-proof/summary.html">public OCI to Flux proof</a> checks that boundary. It starts from a public NGINX installer OCI, runs <code>cub installer setup --output-oci</code> with no ConfigHub token, writes the six rendered objects as a second OCI, reads that output back to check the object set, and records the exact digest Flux reconciled. The output registry is temporary; the receipt does not claim a hosted public workbench.</p>
 <p>The <a href="../../data/anonymous-oci-ci-proof/summary.html">anonymous OCI CI proof</a> runs the same public entry path in GitHub Actions. With no ConfigHub credentials, it pulls the NGINX package, renders and checks six objects, creates an OCI image layout, and pulls that layout back to compare the object set. The layout is retained as a workflow artifact, not published as a public registry package.</p>
 <p>Anonymous work can also happen after ConfigHub. The <a href="../../data/rbac-review-live-proof/summary.html">RBAC correction proof</a> stores and approves a correction in ConfigHub, publishes the private ConfigHub release, then packages the same approved objects as a temporary portable OCI. Argo CD in a different organization reads that portable package without borrowing the first organization's OCI credential. That is <code>ConfigHub -&gt; work -&gt; OCI -&gt; Argo CD</code>. The temporary registry proves the shape, not a permanent hosted service.</p>
 <p>ConfigHub is the middle. It stores the exact objects, creates base and derived variants, shows diffs, runs checks, records approvals, promotes changes, and keeps release and observation history. <code>cub release publish</code> then creates an immutable Space release OCI for Argo CD, Flux, or another recorded delivery path. Delivery does not render the source package again.</p>

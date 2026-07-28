@@ -4,11 +4,11 @@
 <body>
 <main>
 <h1>Public OCI in, reviewed files, OCI out</h1>
-<p>Without a ConfigHub login, cub installer pulled the public NGINX installer OCI, wrote six Kubernetes objects, and packaged those files as a second OCI artifact. Flux pulled that exact output digest and NGINX reached one ready replica.</p>
+<p>Without a ConfigHub login, cub installer pulled the public NGINX installer OCI, wrote six Kubernetes objects, and used --output-oci to publish those exact files as a second OCI artifact. Flux pulled that output digest and NGINX reached one ready replica.</p>
 <table>
 <tr><th>Input</th><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2</td></tr>
 <tr><th>Rendered objects</th><td>6</td></tr>
-<tr><th>Output digest</th><td><code>sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9</code></td></tr>
+<tr><th>Output digest</th><td><code>sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a</code></td></tr>
 <tr><th>Flux</th><td>ready</td></tr>
 <tr><th>NGINX</th><td>1/1 ready</td></tr>
 </table>

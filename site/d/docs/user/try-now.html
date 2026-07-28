@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Get Started With Redis · ConfigHub Helm Ops</title>
+  <title>Get Started With Redis · Config Test Centre</title>
   <meta name="description" content="Get Started With Redis: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/try-now.html">
-  <meta property="og:title" content="Get Started With Redis · ConfigHub Helm Ops">
+  <meta property="og:title" content="Get Started With Redis · Config Test Centre">
   <meta property="og:description" content="Get Started With Redis: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/try-now.html">
@@ -423,13 +423,14 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Get Started With Redis</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/try-now.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <blockquote><p>Want to see a real run before you start? <a href="first-run-walkthrough.html">first-run-walkthrough.md</a> captures this flow end-to-end on a throwaway cluster - the actual commands, output, and one honest rough edge.</p></blockquote>
@@ -438,16 +439,17 @@
 <h2 id="helm-or-cub-installer">Helm Or cub Installer?</h2>
 <p>There are two useful ways to look at the same Redis chart. Helm is the direct install path. <code>cub installer</code> is the path that renders the chart into files you can inspect and manage before delivery.</p>
 <table><thead><tr><th>Path</th><th>Use it when</th><th>What you need</th></tr></thead><tbody><tr><td>Normal Helm</td><td>You want Helm to deploy Redis directly into a Kubernetes cluster.</td><td>Kubernetes cluster required.</td></tr>
-<tr><td>cub installer</td><td>You want Redis rendered into explicit local config first, so it can be inspected and managed before delivery.</td><td>No cluster or ConfigHub account required for the render.</td></tr></tbody></table>
+<tr><td>cub installer</td><td>You want Redis rendered into explicit local config first, so it can be inspected, kept as OCI, or managed before delivery.</td><td>No cluster or ConfigHub account required for the render or local OCI output.</td></tr></tbody></table>
 <p>The exact command table, expected output, catalog status, variants, caveats, and evidence links live on the <a href="../../../charts/bitnami-redis-25-5-3.html">Redis chart page</a>.</p>
 <h2 id="what-this-shows">What This Shows</h2>
 <p>Redis answers the first question: can we use the ConfigHub path without changing the starting Kubernetes objects that Helm would have created?</p>
 <table><thead><tr><th>Question</th><th>Answer</th></tr></thead><tbody><tr><td>Does this replace Helm?</td><td>No. Helm remains the source chart ecosystem and the control path.</td></tr>
 <tr><td>Does cub installer deploy the app?</td><td>Not by itself. It renders a reviewed package into explicit config first.</td></tr>
+<tr><td>Can it write the rendered result as OCI?</td><td>Yes. Add <code>--output-oci ./redis-rendered.oci</code> for a local OCI image layout, or use an <code>oci://</code> reference to push. The output contains the selected preset's non-secret Kubernetes objects, source record, and checks.</td></tr>
 <tr><td>Do I need ConfigHub for this first step?</td><td>No. ConfigHub comes later when you want Units, variants, approvals, OCI delivery, observations, and operations.</td></tr>
 <tr><td>Where is the evidence?</td><td>On chart pages, docs, and data surfaces. The Get Started page should stay human-first.</td></tr></tbody></table>
 <h2 id="where-to-go-next">Where To Go Next</h2>
-<ul><li><a href="../../../charts/bitnami-redis-25-5-3.html">Redis chart page</a> for the exact Redis commands, expected output, catalog status, variants, caveats, and evidence links.</li><li><a href="expected-results-and-clusters.html">Expected Results And Clusters</a> for output checkpoints and cluster guidance.</li><li><a href="../../../charts/index.html">Helm Catalog</a> to choose another chart.</li><li><a href="../../../charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack chart page</a> for a serious chart with CRDs, webhooks, target facts, and lifecycle prerequisites.</li><li><a href="../../../how-it-works.html">How It Works</a> for the render, route, deliver, observe model behind the catalog.</li></ul>
+<ul><li><a href="serverless-mode.html">Serverless mode</a> for the complete <code>cub installer setup --output-oci</code> example and its live Flux receipt.</li><li><a href="../../../charts/bitnami-redis-25-5-3.html">Redis chart page</a> for the exact Redis commands, expected output, catalog status, variants, caveats, and evidence links.</li><li><a href="expected-results-and-clusters.html">Expected Results And Clusters</a> for output checkpoints and cluster guidance.</li><li><a href="../../../charts/index.html">Helm Catalog</a> to choose another chart.</li><li><a href="../../../charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack chart page</a> for a serious chart with CRDs, webhooks, target facts, and lifecycle prerequisites.</li><li><a href="../../../how-it-works.html">How It Works</a> for the render, route, deliver, observe model behind the catalog.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/try-now.md</code>. The source file is the authoritative version.</p></footer>

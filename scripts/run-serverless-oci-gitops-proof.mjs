@@ -153,6 +153,8 @@ function runProof() {
           "--non-interactive",
           "--namespace",
           namespace,
+          "--output-oci",
+          "<temporary-registry>/reviewed-nginx:24.0.2",
         ],
         configHubTokenFilePresent: null,
         configHubOrganization: "",
@@ -212,8 +214,15 @@ function runProof() {
     );
     receipt.spec.source.anonymousManifestPull = "pass";
 
+    const registry = startRegistry(registryName);
+    registryStarted = true;
+    cleanup.registry = "pending";
+    const outputReference =
+      `oci://${registry.host}/reviewed-nginx:24.0.2`;
+
     const rendered = renderPublicPackage({
       sourceReference,
+      outputReference,
       workRoot,
       isolated,
     });
@@ -226,14 +235,10 @@ function runProof() {
       filesSha256: rendered.filesSha256,
     };
 
-    const registry = startRegistry(registryName);
-    registryStarted = true;
-    cleanup.registry = "pending";
-
-    const output = pushAndPullOutput({
+    const output = pullAndVerifyOutput({
       bundleRoot: rendered.bundleRoot,
       pullRoot: join(workRoot, "pulled-output"),
-      registryHost: registry.host,
+      reference: outputReference,
       dockerConfigPath: isolated.dockerConfigPath,
     });
     receipt.spec.output = output;
@@ -259,7 +264,7 @@ function runProof() {
     );
 
     receipt.status.result = "pass";
-    receipt.status.claim = "Without a ConfigHub login, cub installer pulled the public NGINX installer OCI, wrote six Kubernetes objects, and packaged those files as a second OCI artifact. Flux pulled that exact output digest and NGINX reached one ready replica.";
+    receipt.status.claim = "Without a ConfigHub login, cub installer pulled the public NGINX installer OCI, wrote six Kubernetes objects, and used --output-oci to publish those exact files as a second OCI artifact. Flux pulled that output digest and NGINX reached one ready replica.";
   } catch (error) {
     receipt.status.error = sanitizeError(error);
   } finally {
@@ -358,7 +363,12 @@ function anonymousSourceDescriptor(reference, dockerConfigPath) {
   return JSON.parse(result);
 }
 
-function renderPublicPackage({ sourceReference, workRoot, isolated }) {
+function renderPublicPackage({
+  sourceReference,
+  outputReference,
+  workRoot,
+  isolated,
+}) {
   const installerWork = join(workRoot, "installer");
   const env = anonymousEnv(isolated);
   command("cub", [
@@ -373,6 +383,8 @@ function renderPublicPackage({ sourceReference, workRoot, isolated }) {
     "--non-interactive",
     "--namespace",
     namespace,
+    "--output-oci",
+    outputReference,
   ], { env, timeout: 240_000 });
 
   const contexts = JSON.parse(command("cub", [
@@ -405,16 +417,17 @@ function renderPublicPackage({ sourceReference, workRoot, isolated }) {
   );
 
   const bundleRoot = join(workRoot, "reviewed-files");
-  mkdirSync(bundleRoot, { recursive: true });
+  const bundleManifestsRoot = join(bundleRoot, "manifests");
+  mkdirSync(bundleManifestsRoot, { recursive: true });
   for (const name of manifestFiles) {
-    cpSync(join(manifestsRoot, name), join(bundleRoot, name));
+    cpSync(join(manifestsRoot, name), join(bundleManifestsRoot, name));
   }
   writeFileSync(
     join(bundleRoot, "kustomization.yaml"),
     `apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-${manifestFiles.map((name) => `  - ${name}\n`).join("")}`,
+${manifestFiles.map((name) => `  - manifests/${name}\n`).join("")}`,
   );
   return {
     bundleRoot,
@@ -473,32 +486,16 @@ function startRegistry(name) {
   throw new Error("temporary OCI registry did not become ready");
 }
 
-function pushAndPullOutput({
+function pullAndVerifyOutput({
   bundleRoot,
   pullRoot,
-  registryHost,
+  reference,
   dockerConfigPath,
 }) {
-  const repository = "reviewed-nginx";
-  const reference = `oci://${registryHost}/${repository}:24.0.2`;
   const env = {
     ...process.env,
     DOCKER_CONFIG: dockerConfigPath.replace(/\/config\.json$/, ""),
   };
-  command("flux", [
-    "push",
-    "artifact",
-    reference,
-    `--path=${bundleRoot}`,
-    "--source",
-    "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2",
-    "--revision",
-    "catalog@sha1:2ad752b92ec7fe256da54a2b86fc0afde30d1f9",
-    "--reproducible",
-    "--insecure-registry",
-    "--output",
-    "json",
-  ], { env, timeout: 180_000 });
   const descriptor = JSON.parse(command("oras", [
     "manifest",
     "fetch",
@@ -736,6 +733,10 @@ function verifyReceipt(receipt) {
     "anonymous render must contain six NGINX objects",
   );
   check(
+    receipt.spec?.localWork?.command?.includes("--output-oci"),
+    "anonymous render did not record cub installer's --output-oci path",
+  );
+  check(
     JSON.stringify(receipt.spec?.localWork?.objectKinds)
       === JSON.stringify([...expectedObjectKinds].sort()),
     "anonymous render object kinds changed",
@@ -795,13 +796,14 @@ function renderSummary(receipt) {
 
 This run started with the public ${spec.source.chart}@${spec.source.version} installer package. \`cub installer\` pulled it using an empty registry credential file and an isolated cub home with no ConfigHub token. It rendered the \`${spec.source.base}\` configuration as ${spec.localWork.objectCount} Kubernetes objects.
 
-The rendered files were then packaged as a second OCI artifact. Flux pulled the exact digest from that artifact and applied it to a throwaway cluster. NGINX reached ${spec.flux.deployment.readyReplicas}/${spec.flux.deployment.desiredReplicas} ready replicas.
+The same \`cub installer setup\` command used \`--output-oci\` to package those rendered files as a second OCI artifact. The installer pulled its own output back and checked the object-set digest before returning. Flux then pulled that output digest and applied it to a throwaway cluster. NGINX reached ${spec.flux.deployment.readyReplicas}/${spec.flux.deployment.desiredReplicas} ready replicas.
 
 | Check | Result |
 | --- | --- |
 | Public installer OCI pulled without registry credentials | ${spec.source.anonymousManifestPull} |
 | ConfigHub token present | ${spec.localWork.configHubTokenFilePresent ? "yes" : "no"} |
 | Rendered objects | ${spec.localWork.objectCount}: ${spec.localWork.objectKinds.join(", ")} |
+| Rendered OCI written by | \`cub installer setup --output-oci\` |
 | Output OCI pulled back and compared with the reviewed files | ${spec.output.pulledFilesMatched ? "pass" : "fail"} |
 | Output digest | \`${spec.output.digest}\` |
 | Flux OCI source | ${spec.flux.sourceReady ? "ready" : "not ready"} |

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Public OCI in, reviewed files, OCI out · ConfigHub Helm Ops</title>
+  <title>Public OCI in, reviewed files, OCI out · Config Test Centre</title>
   <meta name="description" content="Public OCI in, reviewed files, OCI out: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/serverless-oci-gitops-proof/summary.html">
-  <meta property="og:title" content="Public OCI in, reviewed files, OCI out · ConfigHub Helm Ops">
+  <meta property="og:title" content="Public OCI in, reviewed files, OCI out · Config Test Centre">
   <meta property="og:description" content="Public OCI in, reviewed files, OCI out: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/serverless-oci-gitops-proof/summary.html">
@@ -423,22 +423,24 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Public OCI in, reviewed files, OCI out</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/serverless-oci-gitops-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from a live receipt. Run <code>npm run serverless-oci-gitops:proof</code> to repeat it, or <code>npm run serverless-oci-gitops:proof:verify</code> to check the committed result.</p>
 <p>This run started with the public bitnami/nginx@24.0.2 installer package. <code>cub installer</code> pulled it using an empty registry credential file and an isolated cub home with no ConfigHub token. It rendered the <code>http-clusterip</code> configuration as 6 Kubernetes objects.</p>
-<p>The rendered files were then packaged as a second OCI artifact. Flux pulled the exact digest from that artifact and applied it to a throwaway cluster. NGINX reached 1/1 ready replicas.</p>
+<p>The same <code>cub installer setup</code> command used <code>--output-oci</code> to package those rendered files as a second OCI artifact. The installer pulled its own output back and checked the object-set digest before returning. Flux then pulled that output digest and applied it to a throwaway cluster. NGINX reached 1/1 ready replicas.</p>
 <table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Public installer OCI pulled without registry credentials</td><td>pass</td></tr>
 <tr><td>ConfigHub token present</td><td>no</td></tr>
 <tr><td>Rendered objects</td><td>6: Deployment, Namespace, NetworkPolicy, PodDisruptionBudget, Service, ServiceAccount</td></tr>
+<tr><td>Rendered OCI written by</td><td><code>cub installer setup --output-oci</code></td></tr>
 <tr><td>Output OCI pulled back and compared with the reviewed files</td><td>pass</td></tr>
-<tr><td>Output digest</td><td><code>sha256:9d8185e99a660b9f594a7491acf28d49e05c989984a07d71ad648a557eb319d9</code></td></tr>
+<tr><td>Output digest</td><td><code>sha256:ac000807c979534860947ea6876e848fa33af7d09230349fb55fdae91991b02a</code></td></tr>
 <tr><td>Flux OCI source</td><td>ready</td></tr>
 <tr><td>Flux Kustomization</td><td>ready</td></tr>
 <tr><td>Flux-observed digest matches output</td><td>pass</td></tr>

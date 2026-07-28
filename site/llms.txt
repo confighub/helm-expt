@@ -1,4 +1,4 @@
-# ConfigHub Helm Ops (helm-expt)
+# Config Test Centre (helm-expt)
 
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 

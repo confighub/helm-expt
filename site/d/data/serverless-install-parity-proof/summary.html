@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless render parity AND install parity (no ConfigHub account) · ConfigHub Helm Ops</title>
-  <meta name="description" content="Serverless render parity AND install parity (no ConfigHub account): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Redis: Helm and cub produce the same working result · Config Test Centre</title>
+  <meta name="description" content="Redis: Helm and cub produce the same working result: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/serverless-install-parity-proof/summary.html">
-  <meta property="og:title" content="Serverless render parity AND install parity (no ConfigHub account) · ConfigHub Helm Ops">
-  <meta property="og:description" content="Serverless render parity AND install parity (no ConfigHub account): a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Redis: Helm and cub produce the same working result · Config Test Centre">
+  <meta property="og:description" content="Redis: Helm and cub produce the same working result: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/serverless-install-parity-proof/summary.html">
   <style>
@@ -423,23 +423,32 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
-    <h1>Serverless render parity AND install parity (no ConfigHub account)</h1>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <h1>Redis: Helm and cub produce the same working result</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/serverless-install-parity-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Live receipt by <code>scripts/run-serverless-install-parity-proof.mjs</code>; do not hand-edit. Regenerate with <code>npm run serverless-install-parity:proof</code>.</p>
-<p><b>Claim.</b> With NO ConfigHub account, the serverless cub path matches Helm on BOTH render and install. Render parity: <code>cub installer setup</code> produces the same Kubernetes object kinds as <code>helm template</code>. Install parity: <code>helm install redis</code> brings Redis up, and applying the cub render with plain <code>kubectl apply</code> brings the same Redis up - both reach a working (Ready) redis-master on one kind cluster, neither logging into ConfigHub. (The oci+gitops install path is proven in run-serverless-oci-gitops-proof.mjs.)</p>
-<table><thead><tr><th>Step</th><th>OK</th><th>Detail</th></tr></thead><tbody><tr><td>Render parity (cub render == helm render)</td><td>yes</td><td>helm template vs cub render: identical object kinds (helm 14 objs, cub 15 objs incl. an explicit Namespace), no account</td></tr>
-<tr><td>Helm install -&gt; working Redis</td><td>yes</td><td>helm install redis -&gt; redis-master Ready (working)</td></tr>
-<tr><td>cub render -&gt; kubectl apply -&gt; working Redis</td><td>yes</td><td>cub render -&gt; kubectl apply -&gt; redis-master Ready (working), no account</td></tr>
-<tr><td>No ConfigHub account used</td><td>yes</td><td>neither path runs cub login / cub auth; no ConfigHub token used</td></tr></tbody></table>
-<p>Overall: <b>pass</b>. Proven: a no-login user gets render parity (same objects as Helm) AND install parity (a working Redis) from cub - via plain kubectl here, via oci+gitops in the companion proof. 'Serverless' is not render-only; it installs and works, both ways, with no account.</p>
-<ul><li>This is the half users actually want to see: <b>it installs and works</b>, not just &quot;here's the YAML.&quot; Both <code>helm install</code> and the cub serverless render reach a working Redis, with no login.</li><li>The <b>oci+gitops</b> install path (push the rendered bundle to OCI, let your existing Argo/Flux apply it) is proven in the companion <a href="../serverless-oci-gitops-proof/summary.html">serverless-oci-gitops proof</a>.</li><li>Receipt: <code>runs/serverless-install-parity-proof/receipt.yaml</code>.</li></ul>
+<p>This live test starts with the public Redis installer package and its recommended <code>reuse-existing-secret</code> preset. It uses a fresh client with no ConfigHub token, organization, user, or registry login.</p>
+<p><b>Result: pass.</b> With no ConfigHub account or registry login, cub installer pulled the public Redis package and rendered the recommended existing-Secret base. Its 13 chart objects matched Helm field-for-field; cub added only the explicit Namespace. The installer wrote and verified a rendered OCI, and both the Helm and cub lanes reached a ready Redis that answered PING.</p>
+<h2 id="what-was-compared">What was compared</h2>
+<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Public installer package</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code></td></tr>
+<tr><td>Published package digest</td><td><code>sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33</code></td></tr>
+<tr><td>Helm inputs</td><td>Redis 25.5.3; pinned image digest; existing Secret <code>redis-existing-secret</code> key <code>redis-password</code></td></tr>
+<tr><td>Helm chart objects</td><td>13</td></tr>
+<tr><td>cub objects</td><td>14: the same 13 chart objects plus an explicit Namespace</td></tr>
+<tr><td>Full object comparison</td><td>13/13; no differing fields</td></tr>
+<tr><td>Rendered OCI</td><td><code>sha256:ceb2afe39c3eeff54b70e1c3e83a8c805f389c0f331ce2fefbff4ed69daa4fca</code></td></tr>
+<tr><td>Rendered OCI object set</td><td><code>sha256:518db60ad92b59818c9e84042b12cc7b3d850a583ab7ca565bbf09f6806e4324</code></td></tr>
+<tr><td>OCI pull-back</td><td>verified; pulled objects matched the files</td></tr>
+<tr><td>ConfigHub account</td><td>not used</td></tr></tbody></table>
+<h2 id="what-ran">What ran</h2>
+<table><thead><tr><th>Lane</th><th>Master</th><th>Replicas</th><th>Redis command</th><th>Result</th></tr></thead><tbody><tr><td>Helm install</td><td>1/1 ready</td><td>3/3 ready</td><td>PONG</td><td>pass</td></tr>
+<tr><td>cub render, then kubectl apply</td><td>1/1 ready</td><td>3/3 ready</td><td>PONG</td><td>pass</td></tr></tbody></table>
+<p>Both namespaces received a freshly generated <code>redis-existing-secret</code> before the workloads were installed. The selected preset, rendered files, rendered OCI, and receipt stored no password. The multi-preset source package also carries a clearly labeled static-password demo base for comparison; this run did not select it.</p>
+<p>The rendered OCI in this test was a temporary local layout. The companion <a href="../serverless-oci-gitops-proof/summary.html">NGINX OCI-to-Flux proof</a> publishes a rendered OCI to a registry and verifies that Flux applies its exact digest.</p>
+<p>Receipt: <code>runs/serverless-install-parity-proof/receipt.yaml</code>.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/serverless-install-parity-proof/summary.md</code>. The source file is the authoritative version.</p></footer>

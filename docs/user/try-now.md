@@ -24,7 +24,7 @@ can inspect and manage before delivery.
 | Path | Use it when | What you need |
 | --- | --- | --- |
 | Normal Helm | You want Helm to deploy Redis directly into a Kubernetes cluster. | Kubernetes cluster required. |
-| cub installer | You want Redis rendered into explicit local config first, so it can be inspected and managed before delivery. | No cluster or ConfigHub account required for the render. |
+| cub installer | You want Redis rendered into explicit local config first, so it can be inspected, kept as OCI, or managed before delivery. | No cluster or ConfigHub account required for the render or local OCI output. |
 
 The exact command table, expected output, catalog status, variants, caveats,
 and evidence links live on the
@@ -39,11 +39,14 @@ the starting Kubernetes objects that Helm would have created?
 | --- | --- |
 | Does this replace Helm? | No. Helm remains the source chart ecosystem and the control path. |
 | Does cub installer deploy the app? | Not by itself. It renders a reviewed package into explicit config first. |
+| Can it write the rendered result as OCI? | Yes. Add `--output-oci ./redis-rendered.oci` for a local OCI image layout, or use an `oci://` reference to push. The output contains the selected preset's non-secret Kubernetes objects, source record, and checks. |
 | Do I need ConfigHub for this first step? | No. ConfigHub comes later when you want Units, variants, approvals, OCI delivery, observations, and operations. |
 | Where is the evidence? | On chart pages, docs, and data surfaces. The Get Started page should stay human-first. |
 
 ## Where To Go Next
 
+- [Serverless mode](./serverless-mode.md) for the complete
+  `cub installer setup --output-oci` example and its live Flux receipt.
 - [Redis chart page](../../site/charts/bitnami-redis-25-5-3.html) for the exact
   Redis commands, expected output, catalog status, variants, caveats, and
   evidence links.

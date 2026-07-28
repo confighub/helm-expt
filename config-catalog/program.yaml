@@ -345,6 +345,7 @@ spec:
         - Pull a public installer package with no registry login.
         - Select one preset configuration.
         - Render and inspect the package locally.
+        - Keep the result as files, or write the selected non-secret objects as OCI with cub installer setup --output-oci.
         - Upload the chosen result when the team wants shared records and variants.
       entrypoints:
         - docs/user/installer-oci-packages.md
@@ -352,7 +353,7 @@ spec:
       evidence:
         - data/installer-oci-packages/summary.md
       limits:
-        - An installer package OCI can contain several preset configurations. It is not the same artifact as a single literal configuration OCI used by cub variant upload.
+        - An installer package OCI can contain several preset configurations. The rendered OCI contains one selected preset. --output-oci excludes separated secret files, records the source package and selected base, and checks the output object set by reading it back. A chart with hooks, CRDs, setup jobs, or target prerequisites still needs the route recorded for that preset.
     - id: anonymous-oci
       name: Public OCI inspection and packaging
       problem: A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.

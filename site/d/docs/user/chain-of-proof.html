@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chain Of Proof · ConfigHub Helm Ops</title>
+  <title>Chain Of Proof · Config Test Centre</title>
   <meta name="description" content="Chain Of Proof: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/chain-of-proof.html">
-  <meta property="og:title" content="Chain Of Proof · ConfigHub Helm Ops">
+  <meta property="og:title" content="Chain Of Proof · Config Test Centre">
   <meta property="og:description" content="Chain Of Proof: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/chain-of-proof.html">
@@ -423,20 +423,21 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Chain Of Proof</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/chain-of-proof.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>The project does not ask users to trust one large black-box install step. It breaks a Helm install into proof boundaries and records what each boundary can truthfully prove.</p>
 <p>The same rule applies to simple charts, serious charts, AI-assisted edits, fleet operations, and production support decisions:</p>
 <pre><code>claim only to the strongest unbroken proof boundary</code></pre>
 <h2 id="proof-boundaries">Proof Boundaries</h2>
-<table><thead><tr><th>Boundary</th><th>Tool or home</th><th>What it proves</th><th>Time behavior</th><th>What it does not prove</th></tr></thead><tbody><tr><td>Chart inputs to rendered Kubernetes objects</td><td><code>helm-expt</code> recipe artifacts and <code>cub installer</code> packages</td><td>The chart source, values, capability profile, generated facts, and base variant render to a known object set.</td><td>Recomputable from locked inputs.</td><td>Live cluster health, GitOps sync, hook execution, or controller mutations.</td></tr>
+<table><thead><tr><th>Boundary</th><th>Tool or home</th><th>What it proves</th><th>Time behavior</th><th>What it does not prove</th></tr></thead><tbody><tr><td>Chart inputs to rendered Kubernetes objects</td><td><code>helm-expt</code> recipe artifacts and <code>cub installer</code> packages</td><td>The chart source, values, capability profile, generated facts, and base variant render to a known object set. <code>cub installer setup --output-oci</code> can write that selected non-secret object set as OCI and verify it by reading it back.</td><td>Recomputable from locked inputs.</td><td>Live cluster health, GitOps sync, hook execution, or controller mutations.</td></tr>
 <tr><td>Rendered objects to ConfigHub-managed desired state</td><td><code>cub installer upload</code>, ConfigHub Units, labels, scans, gates, receipts</td><td>The reviewed object set is present in ConfigHub with searchable metadata, revisions, checks, and operation history.</td><td>Historical and reviewable.</td><td>That a cluster has applied the desired state.</td></tr>
 <tr><td>Base variant to derived ConfigHub variant</td><td><code>cub variant create</code>, links, placeholders, TransformPaths, functions, gates, approvals</td><td>An already-rendered object set was cloned or refined through explicit ConfigHub operations.</td><td>Historical and reviewable.</td><td>Any change that requires a new Helm render.</td></tr>
 <tr><td>Desired state to delivery handoff</td><td>ConfigHub OCI, GitOps, apply receipts, controller receipts</td><td>The approved desired object set was handed to the delivery mechanism.</td><td>Historical, with controller-specific evidence.</td><td>Workload convergence unless observed.</td></tr>
@@ -454,7 +455,7 @@
 <h2 id="tool-roles">Tool Roles</h2>
 <p>The tools are useful because they prove different boundaries. They are not competing ways to say &quot;install this chart.&quot;</p>
 <table><thead><tr><th>Tool or layer</th><th>Proof role</th></tr></thead><tbody><tr><td><code>helm-expt</code></td><td>Proves fidelity and origin: the captured objects match the Helm chart, values, facts, and capability profile that produced them.</td></tr>
-<tr><td><code>cub installer</code></td><td>Proves the action surface: a reviewed package/base can produce, package, upload, sign, or inspect the intended object set through a repeatable command path.</td></tr>
+<tr><td><code>cub installer</code></td><td>Proves the action surface: a reviewed package/base can produce, inspect, upload, or write the intended non-secret object set as OCI through a repeatable command path. The OCI output records the source digest, selected base, checks, and object-set digest.</td></tr>
 <tr><td>ConfigHub Server</td><td>Proves desired-state management: rendered objects become Units with labels, links, variants, approvals, gates, changesets, revisions, and queryable history.</td></tr>
 <tr><td>GitOps or apply controller</td><td>Proves handoff: the approved desired object set was submitted to the delivery mechanism.</td></tr>
 <tr><td>cub-scout or other observers</td><td>Proves reality for a time window: the cluster was checked by a named observer and the result has freshness.</td></tr></tbody></table>

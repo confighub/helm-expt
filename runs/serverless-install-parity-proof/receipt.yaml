@@ -1,28 +1,72 @@
-apiVersion: "helm-expt.confighub.com/v1alpha1"
+apiVersion: "catalog.confighub.com/v1alpha1"
 kind: "ServerlessInstallParityProofReceipt"
 metadata:
-  name: "srvip-20260623-faz"
+  name: "redis-existing-secret-20260728-1t5y"
 spec:
-  observedAt: "2026-06-23T17:14:42.068Z"
-  result: "pass"
-  claim: "With NO ConfigHub account, the serverless cub path matches Helm on BOTH render and install. Render parity: `cub installer setup` produces the same Kubernetes object kinds as `helm template`. Install parity: `helm install redis` brings Redis up, and applying the cub render with plain `kubectl apply` brings the same Redis up — both reach a working (Ready) redis-master on one kind cluster, neither logging into ConfigHub. (The oci+gitops install path is proven in run-serverless-oci-gitops-proof.mjs.)"
-  legs:
-    renderParity:
-      ok: true
-      detail: "helm template vs cub render: identical object kinds (helm 14 objs, cub 15 objs incl. an explicit Namespace), no account"
-    helmInstall:
-      ok: true
-      detail: "helm install redis -> redis-master Ready (working)"
-    cubInstall:
-      ok: true
-      detail: "cub render -> kubectl apply -> redis-master Ready (working), no account"
-    noAccount:
-      ok: true
-      detail: "neither path runs cub login / cub auth; no ConfigHub token used"
-  run:
-    rig: "srvip-20260623-faz"
-    helmNamespace: "helm-redis"
-    cubNamespace: "redis"
-    cleanup:
+  observedAt: "2026-07-28T09:38:40.082Z"
+  source:
+    chart: "bitnami/redis"
+    version: "25.5.3"
+    base: "reuse-existing-secret"
+    installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3"
+    expectedManifestDigest: "sha256:7ad5fa6de0aa9c29df8cd26650893ebae6ad149a7c5ac33a8beedf5b02e2ac33"
+    anonymousManifestPull: "pass"
+    helmChart: "oci://registry-1.docker.io/bitnamicharts/redis:25.5.3"
+  render:
+    namespace: "redis"
+    values:
+      imageDigest: "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"
+      existingSecret: "redis-existing-secret"
+      existingSecretPasswordKey: "redis-password"
+    helmObjectCount: 13
+    cubObjectCount: 14
+    semanticObjectMatches: "13/13"
+    semanticDiffs:
+      []
+    cubOnlyObjects:
+      - "v1|Namespace||redis"
+    renderedOci:
+      destination: "temporary local OCI layout"
+      manifestDigest: "sha256:ceb2afe39c3eeff54b70e1c3e83a8c805f389c0f331ce2fefbff4ed69daa4fca"
+      objectSetDigest: "sha256:518db60ad92b59818c9e84042b12cc7b3d850a583ab7ca565bbf09f6806e4324"
+      pullBack: "verified"
+      pulledObjectSetMatched: true
+  anonymousClient:
+    isolatedHome: true
+    blankRegistryCredentials: true
+    configHubTokenFilePresent: false
+    configHubOrganization: ""
+    configHubUser: ""
+  live:
+    cluster: "hx-redis-parity-20260728-1t5y"
+    helm:
+      namespace: "helm-redis"
+      existingSecretCreatedBeforeInstall: true
+      masterReady: 1
+      masterDesired: 1
+      replicasReady: 3
+      replicasDesired: 3
+      ping: "PONG"
       result: "pass"
-  conclusion: "Proven: a no-login user gets render parity (same objects as Helm) AND install parity (a working Redis) from cub — via plain kubectl here, via oci+gitops in the companion proof. 'Serverless' is not render-only; it installs and works, both ways, with no account."
+    cub:
+      namespace: "redis"
+      existingSecretCreatedBeforeInstall: true
+      masterReady: 1
+      masterDesired: 1
+      replicasReady: 3
+      replicasDesired: 3
+      ping: "PONG"
+      result: "pass"
+  run:
+    cleanup:
+      cluster: "pass"
+      localFiles: "pass"
+  limits:
+    - "The rendered OCI was written to a temporary local OCI layout. The separate NGINX proof publishes a rendered OCI to a registry and lets Flux apply that exact digest."
+    - "The multi-preset installer package also contains a clearly labeled static-password demo base. This run selected reuse-existing-secret; its rendered files and rendered OCI contain no password."
+    - "This Redis base has no Helm hooks or CRDs. Charts that need lifecycle work use their recorded prerequisite and route contracts."
+    - "This run did not create ConfigHub records, variants, approvals, promotions, or releases."
+status:
+  result: "pass"
+  claim: "With no ConfigHub account or registry login, cub installer pulled the public Redis package and rendered the recommended existing-Secret base. Its 13 chart objects matched Helm field-for-field; cub added only the explicit Namespace. The installer wrote and verified a rendered OCI, and both the Helm and cub lanes reached a ready Redis that answered PING."
+  error: ""

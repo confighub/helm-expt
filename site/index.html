@@ -67,10 +67,6 @@
   h1,h2,h3 { text-wrap: balance; }
   a { color: inherit; }
 
-  .draftbar { padding: 14px 0 0; }
-  .draftbar a { font-family: var(--mono); font-size: .64rem; letter-spacing: .07em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 999px; padding: 4px 11px; text-decoration: none; display: inline-block; }
-  .draftbar a:hover { border-color: var(--accent); }
-
   nav.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; flex-wrap: wrap; }
   .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
   .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
@@ -96,7 +92,7 @@
   .term-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
   .term-bar .d { width: 10px; height: 10px; border-radius: 50%; background: #33414c; }
   .term-bar .t { margin-left: 8px; font-size: .72rem; color: #8595a2; }
-  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); overflow-x: auto; margin: 0; }
+  .term-body { padding: 15px 16px; font-size: .8rem; line-height: 1.85; color: var(--term-ink); white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
   .term-body .pr { color: #5fd0b0; }
   .term-body .ok { color: #5cc98d; } .term-body .warn { color: #e6b45a; } .term-body .cmt { color: #6b7b88; }
   .term-body .k { color: #8fd0e6; }
@@ -145,7 +141,6 @@
   <div class="wrap">
     <div class="page">
       <header>
-        <div class="draftbar"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div>
         <nav class="bar">
           <a class="wordmark" href="./index.html"><span class="sq"></span>Config Test Centre</a>
           <span class="navlinks">
@@ -160,29 +155,31 @@
           <div>
             <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
             <h1>A community resource for understanding and testing your configuration.</h1>
-            <p class="lead">Read what a package really installs, prove it is safe, and see if it fits your cluster &mdash; before anything runs. Bring a catalog package, or your own values. No account, no new CLI.</p>
+            <p class="lead">Read and test the exact Kubernetes objects before anything runs. Keep the reviewed result as files or OCI, or save it in ConfigHub so your team can change, promote, and roll it out. Start with a catalog package, your own Helm values, AICR, or an existing OCI.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./try.html">&#128229; Grade your config</a>
-              <a class="btn ghost" href="./charts/index.html">Browse the catalog</a>
+              <a class="btn primary" href="./try.html">Run a catalog package</a>
+              <a class="btn ghost" href="./testing.html#bring-your-own">Check my config</a>
             </div>
-            <div class="sources"><b>tests:</b> Helm charts &middot; AICR packages &middot; anything rendered to Kubernetes objects</div>
+            <div class="sources"><b>starts with:</b> Helm charts &middot; AICR packages &middot; OCI &middot; Kubernetes YAML</div>
           </div>
-          <div class="term" aria-label="Grade your config output (illustrative)">
-            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">grade your config &middot; no cluster touched</span></div>
-            <pre class="term-body"><code><span class="pr">$</span> ctc test ./my-values.yaml <span class="k">--chart</span> bitnami/redis
-<span class="cmt"># AI wrote this. Is it safe to ship?</span>
-render    14 objects, matches Helm        <span class="ok">ok</span>
-scan      1 finding                       <span class="warn">warn</span>
-gate      <span class="warn">WARN</span>  1 reason
-   &middot; server image uses <span class="warn">:latest</span>, not a digest
-blast     +0 / &minus;4 vs base 'default'      <span class="cmt">(auth.enabled=false)</span>
-rollback  prior revision recorded         <span class="ok">ok</span>
-<span class="verdict">verdict   WARN &mdash; safe to fix, then ship</span></code></pre>
+          <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
+            <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
+            <pre class="term-body"><code><span class="pr">$</span> cub installer setup \
+  <span class="k">--pull</span> oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  <span class="k">--base</span> reuse-existing-secret \
+  <span class="k">--namespace</span> redis <span class="k">--work-dir</span> ./redis \
+  <span class="k">--non-interactive --output-oci</span> ./redis-rendered.oci
+
+Rendered 14 manifest(s) to ./redis/out/manifests
+Wrote rendered OCI ./redis-rendered.oci:latest
+  objects:   sha256:... (14 manifest files)
+  pull-back: <span class="ok">verified</span></code></pre>
           </div>
         </div>
       </header>
 
       <main>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
         <section class="section">
           <span class="eyebrow">Five simple things</span>
           <h2>Everything here extends one simple act</h2>
@@ -210,18 +207,19 @@ rollback  prior revision recorded         <span class="ok">ok</span>
 
         <section class="section">
           <span class="eyebrow">One resource, three depths</span>
-          <h2>Start free. Grow only when you want to keep something.</h2>
+          <h2>Test locally. Keep the result in the path.</h2>
+          <p class="intro">Testing is the first step. The reviewed files can go straight to OCI for Argo CD or Flux. Put them in ConfigHub when you want a shared record that can be edited, promoted, approved, and rolled out.</p>
           <div class="routes">
-            <div class="route-card"><h3>Open source <span class="tag">no account</span></h3><p>Understand, test, ask, and check your AI &mdash; on catalog packages or your own config. Pull the OCI bundle and run it all locally.</p></div>
-            <div class="route-card mid"><h3>ConfigHub server <span class="tag">free account</span></h3><p>Keep your variants and test results, run the four confidences live against a target, promote across environments, watch for drift.</p></div>
-            <div class="route-card"><h3>Enterprise <span class="tag">paid</span></h3><p>Private catalog, fleet promotion across many clusters, RBAC and policy gates, patch and production support.</p></div>
+            <div class="route-card"><h3>Open source <span class="tag">no account</span></h3><p>Inspect and test a catalog package or your own config. Keep the exact result as local files or write it to OCI for the delivery tools you already use.</p></div>
+            <div class="route-card mid"><h3>ConfigHub server <span class="tag">free account</span></h3><p>Save the reviewed objects as shared data. Make environment variants, see exact diffs, promote a change, publish OCI, and check what reached each target.</p></div>
+            <div class="route-card"><h3>Enterprise <span class="tag">paid</span></h3><p>Use private catalogs, team access, policy gates, and staged rollout across larger application and platform fleets.</p></div>
           </div>
         </section>
       </main>
 
       <footer class="foot">
         <p class="flip">You know the saying about not wanting to see how the sausage gets made. We are the place that shows you &mdash; every ingredient, before you eat.</p>
-        <p class="sub">Draft, experimental, and unofficial. Some features shown here are the intended experience; the figures on this page are illustrative.</p>
+        <p class="sub">Public experimental evidence. Each result links to the command, receipt, or known gap behind it. <a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Send feedback</a>.</p>
       </footer>
     </div>
   </div>

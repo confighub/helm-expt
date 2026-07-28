@@ -103,7 +103,7 @@ Each stage asks for more trust and gives more value. You can stop at any stage.
 | --- | --- | --- | --- |
 | 1. Curious | See exactly what any chart renders. | `helm template` | No |
 | 2. Fast adoption | Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` | Yes |
-| 3. Supported catalog | A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` | No ConfigHub account or registry login for public package pulls |
+| 3. Supported catalog | A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence. Keep the result as files or a rendered OCI. | `cub installer setup --pull <installer OCI ref> --base <base> [--output-oci <path-or-ref>]` | No ConfigHub account or registry login for public package pulls; registry write access is needed only when pushing output |
 | 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
 | 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
 
@@ -124,11 +124,13 @@ version each fleet member should reconcile to.
 
 Free and low-friction use should cover browsing the catalog, inspecting
 rendered objects, running `helm template`, trying public `cub installer`
-packages from their `oci://` refs, and verifying signatures, digests, and local
-receipts. Paid or managed use begins when the work involves private or
-custom catalogs, teams, policies, approvals, bulk operations, promotions,
-GitOps/OCI operations, full stacks, patch services, upgrade services, or
-production support.
+packages from their `oci://` refs, writing one selected preset as a local
+rendered OCI, and verifying signatures, digests, and local receipts. The same
+`--output-oci` option can push to a registry when credentials are available.
+ConfigHub begins when the reviewed objects need saved history, shared variants,
+approval, promotion, release publication, or fleet rollout. Paid or managed use
+adds private and custom catalogs, teams, policy at scale, bulk operations,
+patch and upgrade services, and production support.
 
 For when each command fits, see [Choosing Commands](./docs/user/choosing-commands.md).
 

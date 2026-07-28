@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Choosing Commands · ConfigHub Helm Ops</title>
+  <title>Choosing Commands · Config Test Centre</title>
   <meta name="description" content="Choosing Commands: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/choosing-commands.html">
-  <meta property="og:title" content="Choosing Commands · ConfigHub Helm Ops">
+  <meta property="og:title" content="Choosing Commands · Config Test Centre">
   <meta property="og:description" content="Choosing Commands: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/choosing-commands.html">
@@ -423,13 +423,13 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Get Started</a><a href="../../../charts/index.html">Helm Ops Catalog</a><a href="../../../how-it-works.html">How it works</a><a href="../../../testing.html">Testing</a><a href="../../../journey.html">Apps</a><a href="../../../docs.html">Docs/FAQ</a><a href="../../../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Choosing Commands</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/choosing-commands.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>This guide explains which command path to use for a Helm chart. The commands answer different questions. They are complementary, not replacements for each other.</p>
@@ -437,6 +437,7 @@
 <table><thead><tr><th>User goal</th><th>Use</th></tr></thead><tbody><tr><td>See what a Helm chart renders, without ConfigHub state.</td><td><code>helm template</code></td></tr>
 <tr><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Use a maintained catalog entry with supported bases, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td></tr>
+<tr><td>Keep one selected catalog preset as a local OCI layout or push it to a registry.</td><td>Add <code>--output-oci &lt;path-or-oci-ref&gt;</code> to <code>cub installer setup</code>.</td></tr>
 <tr><td>Upload a reviewed rendered base into ConfigHub.</td><td><code>cub installer upload</code></td></tr>
 <tr><td>Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant.</td><td><code>cub variant create</code></td></tr>
 <tr><td>Catch a derived ConfigHub variant up with its reviewed upstream Space.</td><td><code>cub variant promote --dry-run</code>, then <code>cub variant promote</code></td></tr>
@@ -450,6 +451,7 @@
 <table><thead><tr><th>After this path</th><th>Check</th><th>What you can claim</th></tr></thead><tbody><tr><td><code>helm template</code></td><td>The rendered output and any local diff or schema check you ran.</td><td>You inspected a Helm render. No ConfigHub or live-cluster claim is implied.</td></tr>
 <tr><td><code>cub variant upload</code></td><td>ConfigHub Space and Unit list, source reference or OCI digest, labels, and diffs.</td><td>Rendered configuration became ConfigHub Units once. No maintained recipe or catalog support claim is implied.</td></tr>
 <tr><td><code>cub installer setup --pull ... --base ...</code></td><td>Per-chart <code>CATALOG.md</code>, <code>helm-equivalence-receipt.yaml</code>, and <code>data/outcome-coverage/base-outcomes.csv</code>.</td><td>The selected base has a recorded recipe/package proof and render-parity status.</td></tr>
+<tr><td><code>cub installer setup ... --output-oci ...</code></td><td>Installer pull-back check, source package digest, selected base, validator results, rendered object-set digest, and the controller receipt when one exists.</td><td>The selected preset's non-secret objects were written as OCI. Argo CD or Flux delivery is claimed only when a live receipt names that output digest.</td></tr>
 <tr><td><code>cub installer upload</code></td><td>ConfigHub Units, upload/scan/safe-operation receipts, and <code>data/outcome-coverage/base-outcomes.csv</code>.</td><td>The rendered base exists in ConfigHub with the receipt lanes that are present for that row.</td></tr>
 <tr><td><code>cub variant create</code></td><td>Derived variant receipt, upstream links, changed labels/target/gates, and <code>data/derived-variant-target-bound/summary.md</code> if it was delivered live.</td><td>A reviewed uploaded base was cloned/refined post-render. It is not a Helm rerender.</td></tr>
 <tr><td><code>cub variant promote</code></td><td>Dry-run mutations, changed Units, upstream links, and any changeset/approval receipts.</td><td>A downstream variant was reconciled with its upstream Space through ConfigHub, not by silently rerendering Helm.</td></tr>
@@ -459,7 +461,7 @@
 <p>A user can move through these paths over time. They do not need to choose the full catalog model on day one.</p>
 <table><thead><tr><th>Stage</th><th>Command path</th><th>Result</th></tr></thead><tbody><tr><td>Inspect</td><td><code>helm template</code></td><td>Render the chart locally and see the Kubernetes objects.</td></tr>
 <tr><td>Adopt quickly</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td></tr>
-<tr><td>Use a maintained catalog entry</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks.</td></tr>
+<tr><td>Use a maintained catalog entry</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt; [--output-oci &lt;path-or-ref&gt;]</code></td><td>Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks; optionally keep the selected result as OCI.</td></tr>
 <tr><td>Operate</td><td><code>cub installer upload</code>, <code>cub variant create</code>, <code>cub variant promote</code>, ConfigHub changesets, scans, approvals, OCI/GitOps, observations</td><td>Manage reviewed objects as ConfigHub Units and derived variants.</td></tr></tbody></table>
 <p>Existing apps enter through the same model without a recipe rewrite:</p>
 <table><thead><tr><th>Existing source</th><th>First command path</th><th>Next decision</th></tr></thead><tbody><tr><td>Argo CD Application</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>Keep imported, create a derived variant, or graduate to a maintained recipe.</td></tr>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>bitnami/redis 25.5.3 · ConfigHub Helm Ops</title>
-  <meta name="description" content="bitnami/redis 25.5.3: chart status, base variants, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <title>bitnami/redis 25.5.3 · Config Test Centre</title>
+  <meta name="description" content="bitnami/redis 25.5.3: chart status, base variants, rendered objects, and evidence in the Config Test Centre catalog.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html">
-  <meta property="og:title" content="bitnami/redis 25.5.3 · ConfigHub Helm Ops">
-  <meta property="og:description" content="bitnami/redis 25.5.3: chart status, base variants, rendered objects, and evidence in the ConfigHub Helm Ops catalog.">
+  <meta property="og:title" content="bitnami/redis 25.5.3 · Config Test Centre">
+  <meta property="og:description" content="bitnami/redis 25.5.3: chart status, base variants, rendered objects, and evidence in the Config Test Centre catalog.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/bitnami-redis-25-5-3.html">
   <style>
@@ -416,7 +416,7 @@
 </head>
 <body>
   <header>
-    <div class="site-chrome"><div class="experiment-banner"><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS</a></div><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../try.html">Get Started</a><a href="../charts/index.html">Helm Ops Catalog</a><a href="../how-it-works.html">How it works</a><a href="../testing.html">Testing</a><a href="../journey.html">Apps</a><a href="../docs.html">Docs/FAQ</a><a href="../private/">Upgrade</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../charts/index.html">Catalog</a><a href="../testing.html">Testing</a><a href="../how-it-works.html">How it works</a><a href="../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>bitnami/redis</h1>
     <p>This page exists so you do not have to guess your way through this Helm chart. It shows the useful ways we know how to run it, the Kubernetes YAML each choice produces, and the evidence behind the current claim.</p>
     <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a supported Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only.</p>
@@ -508,13 +508,24 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
     <section aria-labelledby="redis-teaching">
       <h2 id="redis-teaching">Redis Proof Slice</h2>
-      <p>Redis was the first compact proof path in this repository. It remains useful evidence, but it is not the public first-run recommendation because Bitnami image and licensing changes can distract from the core idea.</p>
+      <p>Redis is a compact example of a decision that matters before install. The chart's normal default renders password material. The catalog recommends <code>reuse-existing-secret</code>, which records the Secret name and key but keeps the password out of the rendered files and OCI.</p>
       <div class="grid">
-        <div class="card"><h3>Normal Helm</h3><pre><code>helm install redis bitnami/redis --version 25.5.3 --namespace redis --create-namespace</code></pre><p>You should see Helm create a Redis release and Kubernetes objects in the namespace.</p></div>
-        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir ./redis-default --non-interactive --namespace redis</code></pre><p>You should see rendered manifests in the work directory. If <code>out/secrets</code> exists, apply it before the main manifests for a local Kubernetes run.</p></div>
-        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./redis-default --space helm-redis-default</code></pre><p>You should see labeled Redis Units in the ConfigHub Space. Variants and promotions start from those Units.</p></div>
+        <div class="card"><h3>Normal Helm</h3><pre><code>kubectl create namespace redis
+kubectl -n redis create secret generic redis-existing-secret \
+  --from-literal=redis-password="$(openssl rand -base64 32)"
+helm install redis oci://registry-1.docker.io/bitnamicharts/redis \
+  --version 25.5.3 --namespace redis \
+  --set auth.existingSecret=redis-existing-secret \
+  --set auth.existingSecretPasswordKey=redis-password \
+  --set image.digest=sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25</code></pre><p>Helm receives the password from a Secret created separately.</p></div>
+        <div class="card"><h3>cub installer</h3><pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+  --base reuse-existing-secret --work-dir ./redis-reviewed \
+  --non-interactive --namespace redis \
+  --output-oci ./redis-rendered.oci</code></pre><p>You can inspect the 13 chart objects before apply. cub adds an explicit Namespace and writes the same non-secret object set as OCI.</p></div>
+        <div class="card"><h3>ConfigHub</h3><pre><code>cub installer upload --work-dir ./redis-reviewed \
+  --space helm-redis-reviewed</code></pre><p>Upload when you want the objects kept as Units for variants, diffs, promotions, and later releases.</p></div>
       </div>
-      <p><a href="../try.html">Open the current Get Started page</a> · <a href="../d/docs/user/expected-results-and-clusters.html">Expected results and clusters</a></p>
+      <p><a href="../d/data/serverless-install-parity-proof/summary.html">See the 13/13 live Helm comparison</a> · <a href="../try.html">Open Get Started</a> · <a href="../d/docs/user/expected-results-and-clusters.html">Expected results and clusters</a></p>
     </section>
 
 
@@ -798,6 +809,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p class="generated"><b>Generated at:</b> 2026-07-08T10:07:00.645Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this chart status page.</p><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>
