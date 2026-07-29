@@ -166,7 +166,42 @@ for (const [base, receiptPath] of [
       `KPS ${base}/${route.routeName} is missing the direct lifecycle receipt`,
     );
   }
+  if (base === "no-crds") {
+    const upgradeRoute = kps.spec.lifecycle.variantRoutes.find(
+      (route) => route.routeName === "upgrade-action-with-receipt",
+    );
+    check(
+      kps.spec.evidence.lifecycleUpgrade === "85.3.3-to-86.1.0-pass",
+      "KPS no-crds render intent is missing the proved upgrade",
+    );
+    for (const controller of ["argoCd", "flux"]) {
+      check(
+        upgradeRoute?.runners?.[controller]?.status === "pass",
+        `KPS no-crds upgrade is not connected to the ${controller} receipt`,
+      );
+      check(
+        upgradeRoute.runners[controller].evidence.includes(
+          "runs/kps-gitops-lifecycle-proof/receipt.yaml",
+        ),
+        `KPS no-crds upgrade is missing ${controller} evidence`,
+      );
+    }
+  }
 }
+
+const kpsUpgradeTarget = intents.find((intent) =>
+  intent.metadata.name === "prometheus-community-kube-prometheus-stack-86-1-0-no-crds");
+check(
+  kpsUpgradeTarget?.spec?.evidence?.lifecycleUpgradeTarget === "pass-from-85.3.3",
+  "KPS 86.1.0 no-crds intent is not linked as the proved upgrade target",
+);
+check(
+  kpsUpgradeTarget?.spec?.targetFacts?.requirements?.every((requirement) =>
+    requirement.category !== "crd"
+    || requirement.packagePath
+      === "packages/prometheus-community/kube-prometheus-stack/86.1.0/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"),
+  "KPS 86.1.0 no-crds intent does not point at its versioned packaged CRDs",
+);
 
 const vault = intents.find((intent) =>
   intent.metadata.name === "hashicorp-vault-0-32-0-ha-raft-ui");

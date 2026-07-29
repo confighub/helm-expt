@@ -24,16 +24,45 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
-const mode = process.argv[2] ?? "--verify";
+const supportedVersions = ["85.3.3", "86.1.0"];
+const mode =
+  process.argv.find((arg) => ["--generate", "--verify"].includes(arg))
+  ?? "--verify";
 if (!["--generate", "--verify"].includes(mode)) {
   console.error(`Usage:
-  node scripts/generate-kps-packaged-lifecycle.mjs --generate
-  node scripts/generate-kps-packaged-lifecycle.mjs --verify`);
+  node scripts/generate-kps-packaged-lifecycle.mjs --generate [--version <version>]
+  node scripts/generate-kps-packaged-lifecycle.mjs --verify [--version <version>]`);
   process.exit(2);
 }
+const versionIndex = process.argv.indexOf("--version");
+const requestedVersion =
+  versionIndex >= 0 ? process.argv[versionIndex + 1] : "";
+if (!requestedVersion) {
+  for (const supportedVersion of supportedVersions) {
+    const result = spawnSync(
+      process.execPath,
+      [process.argv[1], mode, "--version", supportedVersion],
+      {
+        cwd: repoRoot,
+        encoding: "utf8",
+        stdio: "inherit",
+      },
+    );
+    if (result.status !== 0) process.exit(result.status ?? 1);
+  }
+  console.log(
+    `${mode === "--generate" ? "generated and verified" : "verified"} packaged kube-prometheus-stack lifecycle files for ${supportedVersions.join(" and ")}`,
+  );
+  process.exit(0);
+}
+check(
+  supportedVersions.includes(requestedVersion),
+  `unsupported kube-prometheus-stack lifecycle version ${requestedVersion}`,
+);
 
 const chart = "prometheus-community/kube-prometheus-stack";
-const version = "85.3.3";
+const version = requestedVersion;
+const versionSlug = version.replaceAll(".", "-");
 const release = "kube-prometheus-stack";
 const namespace = "monitoring";
 const routeRoot = join(
@@ -63,6 +92,14 @@ const readmePath = join(routeRoot, "README.md");
 const preparePath = join(routeRoot, "prepare.sh");
 const finishPath = join(routeRoot, "finish.sh");
 const lifecycleActionsPath = join(routeRoot, "lifecycle-actions.yaml");
+const maintainedTemplateRoot = join(
+  repoRoot,
+  "config-catalog",
+  "package-extras",
+  "prometheus-community",
+  "kube-prometheus-stack",
+  supportedVersions[0],
+);
 const createJobName = "kube-prometheus-stack-admission-create";
 const patchJobName = "kube-prometheus-stack-admission-patch";
 const sourceImage = "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3";
@@ -138,6 +175,7 @@ function generate() {
     }
 
     mkdirSync(routeRoot, { recursive: true });
+    materializeMaintainedFiles();
     writeDocuments(generatedFiles.crds, crds);
     writeDocuments(generatedFiles.support, support);
     writeDocuments(generatedFiles.createJob, createJobs);
@@ -146,7 +184,7 @@ function generate() {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "PackagedLifecycleGenerationReceipt",
       metadata: {
-        name: "prometheus-community-kube-prometheus-stack-85-3-3",
+        name: `prometheus-community-kube-prometheus-stack-${versionSlug}`,
       },
       spec: {
         chart,
@@ -175,6 +213,24 @@ function generate() {
     console.log(`wrote ${relativeRepo(receiptPath)}`);
   } finally {
     rmSync(workRoot, { recursive: true, force: true });
+  }
+}
+
+function materializeMaintainedFiles() {
+  if (version === supportedVersions[0]) return;
+  for (const name of [
+    "README.md",
+    "prepare.sh",
+    "finish.sh",
+    "lifecycle-actions.yaml",
+  ]) {
+    const template = readFileSync(join(maintainedTemplateRoot, name), "utf8");
+    writeFileSync(
+      join(routeRoot, name),
+      template
+        .replaceAll(supportedVersions[0], version)
+        .replaceAll(supportedVersions[0].replaceAll(".", "-"), versionSlug),
+    );
   }
 }
 

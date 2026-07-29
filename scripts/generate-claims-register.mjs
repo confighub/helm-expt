@@ -85,7 +85,7 @@ const claims = [
       "runs/kps-gitops-lifecycle-proof/receipt.yaml",
     ],
     verify: "npm run hooks:lifecycle:verify; npm run lifecycle:boundary:verify; npm run lifecycle:gatekeeper-hooks:verify; npm run kps:lifecycle-route:verify; npm run kps:gitops-lifecycle:verify; npm run hooks-crds-app:verify",
-    limit: "The Kube Prometheus Stack fresh-install sequence passed through the direct script and, for the no-crds base, through Argo CD and Flux. Hook cleanup through those controllers and the chart upgrade remain unproved. Other charts still need their own route decisions and receipts.",
+    limit: "The Kube Prometheus Stack no-crds sequence passed a fresh install and the 85.3.3 to 86.1.0 upgrade through Argo CD and Flux. The proof removes completed hook Jobs before replacement, but does not prove rollback, long soak, automatic ConfigHub route selection, or automatic post-success removal of every temporary hook resource. Other charts still need their own route decisions and receipts.",
   },
   {
     id: "crd-webhook-controller-observation",
@@ -103,7 +103,7 @@ const claims = [
       "docs/user/what-we-refuse-to-claim.md",
     ],
     verify: "npm run lifecycle:cert-manager-eso:verify; npm run lifecycle:boundary:verify; npm run kps:lifecycle-route:verify; npm run kps:gitops-lifecycle:verify",
-    limit: "The Kube Prometheus Stack proof covers CRD ordering, webhook certificate setup, and readiness checks for one version through direct apply, Argo CD, and Flux on kind. CRD upgrades and other charts remain separate decisions.",
+    limit: "The Kube Prometheus Stack proof covers CRD ordering, webhook certificate setup, readiness checks, and the 85.3.3 to 86.1.0 no-crds upgrade through Argo CD and Flux on kind. Rollback, longer soak, broader migration behavior, and other charts remain separate decisions.",
   },
   {
     id: "secrets-generated-facts",

@@ -74,6 +74,12 @@ const summaryPath = join(
   "kps-lifecycle-route-proof",
   "summary.md",
 );
+const gitOpsLifecycleReceiptPath = join(
+  repoRoot,
+  "runs",
+  "kps-gitops-lifecycle-proof",
+  "receipt.yaml",
+);
 const createJobName = "kube-prometheus-stack-admission-create";
 const patchJobName = "kube-prometheus-stack-admission-patch";
 const admissionSecretName = "kube-prometheus-stack-admission";
@@ -767,6 +773,15 @@ function verifyRouteReceipts(receipts) {
 function routeReceiptFromRun(receipt) {
   const spec = receipt.spec;
   const runReceipt = relativeRepo(receiptPathFor(spec.base));
+  const gitOpsReceipt = spec.base === "no-crds"
+    && existsSync(gitOpsLifecycleReceiptPath)
+    ? readYaml(gitOpsLifecycleReceiptPath)
+    : null;
+  const hasGitOpsUpgradeProof = gitOpsReceipt?.spec?.result === "pass"
+    && gitOpsReceipt?.spec?.version === chartVersion
+    && gitOpsReceipt?.spec?.upgradeVersion === "86.1.0"
+    && ["argo", "flux"].every((controller) =>
+      gitOpsReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
   const crdReason = spec.base === "default"
     ? "The package applies the locked CRDs before the chart objects that use them."
     : "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.";
@@ -821,15 +836,21 @@ function routeReceiptFromRun(receipt) {
             "preserve-cleanup-policy",
             "The run removes both completed Jobs and their temporary RBAC objects.",
           ),
-          {
-            hookTypes: ["pre-upgrade", "post-upgrade"],
-            action: "upgrade-action-with-receipt",
-            reason: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
-            disposition: "todo",
-            liveStatus: "not-run",
-            executionMode: "not-yet-executable",
-            nextAction: "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result.",
-          },
+          hasGitOpsUpgradeProof
+            ? observedRoutePhase(
+              ["pre-upgrade", "post-upgrade"],
+              "upgrade-action-with-receipt",
+              "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
+            )
+            : {
+              hookTypes: ["pre-upgrade", "post-upgrade"],
+              action: "upgrade-action-with-receipt",
+              reason: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+              disposition: "todo",
+              liveStatus: "not-run",
+              executionMode: "not-yet-executable",
+              nextAction: "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result.",
+            },
         ],
       },
       evidence: [
@@ -845,6 +866,12 @@ function routeReceiptFromRun(receipt) {
           path: relativeRepo(renderedObjectsPathFor(spec.base)),
           claim: "The ordinary package output matched this committed render.",
         },
+        ...(hasGitOpsUpgradeProof
+          ? [{
+            path: relativeRepo(gitOpsLifecycleReceiptPath),
+            claim: "Argo CD and Flux installed 85.3.3 and then upgraded to 86.1.0 from exact staged OCI digests, with the chart-specific lifecycle order and runtime checks recorded.",
+          }]
+          : []),
       ],
       execution: {
         helmHooksExecutedByHelm: false,
@@ -860,13 +887,23 @@ function routeReceiptFromRun(receipt) {
         },
         notes: [
           "The direct runner executes the package's chart-specific steps; ConfigHub does not yet select this route automatically.",
-          "The upgrade and controller-specific paths remain separate proof work.",
+          ...(hasGitOpsUpgradeProof
+            ? [
+              "The controller proof covers this exact no-crds version pair. It does not prove rollback, long soak, or automatic route selection.",
+              "The upgrade removes completed hook Jobs before replacement; it does not prove automatic post-success removal of every temporary hook resource.",
+            ]
+            : ["The upgrade and controller-specific paths remain separate proof work."]),
         ],
       },
-      remainingWork: [
-        "Run the same staged lifecycle through Argo CD and Flux.",
-        "Test the 85.3.3 to 86.1.0 upgrade and record its cleanup behavior.",
-      ],
+      remainingWork: hasGitOpsUpgradeProof
+        ? [
+          "Make ConfigHub select and run this chart-specific route automatically.",
+          "Add rollback and longer-running checks before making broader lifecycle claims.",
+        ]
+        : [
+          "Run the same staged lifecycle through Argo CD and Flux.",
+          "Test the 85.3.3 to 86.1.0 upgrade and record its cleanup behavior.",
+        ],
     },
   };
 }

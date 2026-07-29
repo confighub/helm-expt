@@ -7,17 +7,17 @@
       "metadata": {
         "annotations": {
           "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-crds\",\"namespace\":\"flux-system\"},\"spec\":{\"interval\":\"1m\",\"path\":\"./stages/crds\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"5m\",\"wait\":true}}\n",
-          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:14:41.962053+01:00"
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T14:20:34.025805+01:00"
         },
-        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "creationTimestamp": "2026-07-29T13:20:29Z",
         "finalizers": [
           "finalizers.fluxcd.io"
         ],
-        "generation": 1,
+        "generation": 2,
         "name": "kps-crds",
         "namespace": "flux-system",
-        "resourceVersion": "1517",
-        "uid": "57256320-8454-445b-8c23-cac064129210"
+        "resourceVersion": "1562",
+        "uid": "ae9961d2-91f1-423d-b058-55f05a064254"
       },
       "spec": {
         "force": false,
@@ -29,23 +29,24 @@
           "kind": "OCIRepository",
           "name": "kps-staged"
         },
+        "suspend": false,
         "timeout": "5m",
         "wait": true
       },
       "status": {
         "conditions": [
           {
-            "lastTransitionTime": "2026-07-29T12:15:46Z",
-            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:21:38Z",
+            "message": "Applied revision: sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+            "observedGeneration": 2,
             "reason": "ReconciliationSucceeded",
             "status": "True",
             "type": "Ready"
           },
           {
-            "lastTransitionTime": "2026-07-29T12:15:46Z",
-            "message": "Health check passed in 115.837315ms",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:21:38Z",
+            "message": "Health check passed in 107.299181ms",
+            "observedGeneration": 2,
             "reason": "Succeeded",
             "status": "True",
             "type": "Healthy"
@@ -54,12 +55,12 @@
         "history": [
           {
             "digest": "sha256:d80704a41b6ac0d59f0dce3ca743c70ff30219aee782539009c4e145bd00d04b",
-            "firstReconciled": "2026-07-29T12:14:40Z",
-            "lastReconciled": "2026-07-29T12:15:46Z",
-            "lastReconciledDuration": "1.330962311s",
+            "firstReconciled": "2026-07-29T13:20:32Z",
+            "lastReconciled": "2026-07-29T13:21:38Z",
+            "lastReconciledDuration": "1.307760711s",
             "lastReconciledStatus": "ReconciliationSucceeded",
             "metadata": {
-              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+              "revision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
             },
             "totalReconciliations": 3
           }
@@ -112,10 +113,10 @@
             }
           ]
         },
-        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastHandledReconcileAt": "2026-07-29T13:14:41.962053+01:00",
-        "observedGeneration": 1
+        "lastAppliedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastAttemptedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastHandledReconcileAt": "2026-07-29T14:20:34.025805+01:00",
+        "observedGeneration": 2
       }
     },
     {
@@ -124,17 +125,17 @@
       "metadata": {
         "annotations": {
           "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-finish\",\"namespace\":\"flux-system\"},\"spec\":{\"dependsOn\":[{\"name\":\"kps-workload\"}],\"interval\":\"1m\",\"path\":\"./stages/finish\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"5m\",\"wait\":true}}\n",
-          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:16:14.24582+01:00"
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T14:22:06.261909+01:00"
         },
-        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "creationTimestamp": "2026-07-29T13:20:29Z",
         "finalizers": [
           "finalizers.fluxcd.io"
         ],
-        "generation": 1,
+        "generation": 2,
         "name": "kps-finish",
         "namespace": "flux-system",
-        "resourceVersion": "1692",
-        "uid": "ae361d1f-42b8-493a-9b47-d2ac46b89f80"
+        "resourceVersion": "1729",
+        "uid": "20d2ffcd-a092-4acd-8b9b-cab938e04745"
       },
       "spec": {
         "dependsOn": [
@@ -151,23 +152,24 @@
           "kind": "OCIRepository",
           "name": "kps-staged"
         },
+        "suspend": false,
         "timeout": "5m",
         "wait": true
       },
       "status": {
         "conditions": [
           {
-            "lastTransitionTime": "2026-07-29T12:16:19Z",
-            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:22:11Z",
+            "message": "Applied revision: sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+            "observedGeneration": 2,
             "reason": "ReconciliationSucceeded",
             "status": "True",
             "type": "Ready"
           },
           {
-            "lastTransitionTime": "2026-07-29T12:16:19Z",
-            "message": "Health check passed in 5.016096237s",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:22:11Z",
+            "message": "Health check passed in 5.019233571s",
+            "observedGeneration": 2,
             "reason": "Succeeded",
             "status": "True",
             "type": "Healthy"
@@ -176,12 +178,12 @@
         "history": [
           {
             "digest": "sha256:7a026d5284677eae64a770331512f05cb90b1a4b8468f9d19f097b5165a04eab",
-            "firstReconciled": "2026-07-29T12:16:19Z",
-            "lastReconciled": "2026-07-29T12:16:19Z",
-            "lastReconciledDuration": "5.138745965s",
+            "firstReconciled": "2026-07-29T13:22:11Z",
+            "lastReconciled": "2026-07-29T13:22:11Z",
+            "lastReconciledDuration": "5.077195191s",
             "lastReconciledStatus": "ReconciliationSucceeded",
             "metadata": {
-              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+              "revision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
             },
             "totalReconciliations": 1
           }
@@ -194,10 +196,10 @@
             }
           ]
         },
-        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastHandledReconcileAt": "2026-07-29T13:16:14.24582+01:00",
-        "observedGeneration": 1
+        "lastAppliedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastAttemptedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastHandledReconcileAt": "2026-07-29T14:22:06.261909+01:00",
+        "observedGeneration": 2
       }
     },
     {
@@ -206,17 +208,17 @@
       "metadata": {
         "annotations": {
           "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-prepare\",\"namespace\":\"flux-system\"},\"spec\":{\"dependsOn\":[{\"name\":\"kps-crds\"}],\"interval\":\"1m\",\"path\":\"./stages/prepare\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"5m\",\"wait\":true}}\n",
-          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:14:46.055482+01:00"
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T14:20:38.116863+01:00"
         },
-        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "creationTimestamp": "2026-07-29T13:20:29Z",
         "finalizers": [
           "finalizers.fluxcd.io"
         ],
-        "generation": 1,
+        "generation": 2,
         "name": "kps-prepare",
         "namespace": "flux-system",
-        "resourceVersion": "1578",
-        "uid": "08985da0-9e19-4711-a7db-864fcf1b9268"
+        "resourceVersion": "1650",
+        "uid": "dea1e932-f6f1-4054-a10c-b303f219d7d1"
       },
       "spec": {
         "dependsOn": [
@@ -233,23 +235,24 @@
           "kind": "OCIRepository",
           "name": "kps-staged"
         },
+        "suspend": false,
         "timeout": "5m",
         "wait": true
       },
       "status": {
         "conditions": [
           {
-            "lastTransitionTime": "2026-07-29T12:16:00Z",
-            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:21:54Z",
+            "message": "Applied revision: sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+            "observedGeneration": 2,
             "reason": "ReconciliationSucceeded",
             "status": "True",
             "type": "Ready"
           },
           {
-            "lastTransitionTime": "2026-07-29T12:16:00Z",
-            "message": "Health check passed in 5.01180524s",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:21:54Z",
+            "message": "Health check passed in 5.026384628s",
+            "observedGeneration": 2,
             "reason": "Succeeded",
             "status": "True",
             "type": "Healthy"
@@ -258,12 +261,12 @@
         "history": [
           {
             "digest": "sha256:65b0aeff4ff174c7996b3f2ce5940da98b7a22e2b981d98e01b6a70f7e8cdf85",
-            "firstReconciled": "2026-07-29T12:14:56Z",
-            "lastReconciled": "2026-07-29T12:16:00Z",
-            "lastReconciledDuration": "5.065587628s",
+            "firstReconciled": "2026-07-29T13:20:48Z",
+            "lastReconciled": "2026-07-29T13:21:54Z",
+            "lastReconciledDuration": "5.100043739s",
             "lastReconciledStatus": "ReconciliationSucceeded",
             "metadata": {
-              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+              "revision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
             },
             "totalReconciliations": 2
           }
@@ -296,10 +299,10 @@
             }
           ]
         },
-        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastHandledReconcileAt": "2026-07-29T13:14:46.055482+01:00",
-        "observedGeneration": 1
+        "lastAppliedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastAttemptedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastHandledReconcileAt": "2026-07-29T14:20:38.116863+01:00",
+        "observedGeneration": 2
       }
     },
     {
@@ -308,17 +311,17 @@
       "metadata": {
         "annotations": {
           "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-workload\",\"namespace\":\"flux-system\"},\"spec\":{\"dependsOn\":[{\"name\":\"kps-prepare\"}],\"interval\":\"1m\",\"path\":\"./stages/workload\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"10m\",\"wait\":true}}\n",
-          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:15:00.152167+01:00"
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T14:20:52.211285+01:00"
         },
-        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "creationTimestamp": "2026-07-29T13:20:29Z",
         "finalizers": [
           "finalizers.fluxcd.io"
         ],
-        "generation": 1,
+        "generation": 2,
         "name": "kps-workload",
         "namespace": "flux-system",
-        "resourceVersion": "1633",
-        "uid": "97ab8bc1-8254-4cdc-b585-6a850995c9cd"
+        "resourceVersion": "1674",
+        "uid": "574cfb8e-485b-466e-b9d8-751a3100bdbd"
       },
       "spec": {
         "dependsOn": [
@@ -335,23 +338,24 @@
           "kind": "OCIRepository",
           "name": "kps-staged"
         },
+        "suspend": false,
         "timeout": "10m",
         "wait": true
       },
       "status": {
         "conditions": [
           {
-            "lastTransitionTime": "2026-07-29T12:16:10Z",
-            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:22:02Z",
+            "message": "Applied revision: sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+            "observedGeneration": 2,
             "reason": "ReconciliationSucceeded",
             "status": "True",
             "type": "Ready"
           },
           {
-            "lastTransitionTime": "2026-07-29T12:16:10Z",
-            "message": "Health check passed in 1m10.077018092s",
-            "observedGeneration": 1,
+            "lastTransitionTime": "2026-07-29T13:22:02Z",
+            "message": "Health check passed in 1m10.07108392s",
+            "observedGeneration": 2,
             "reason": "Succeeded",
             "status": "True",
             "type": "Healthy"
@@ -360,12 +364,12 @@
         "history": [
           {
             "digest": "sha256:5fd0787c4187258405ba73e06dc7bc09adbfc9912fd35bcb56ee04db7b33f227",
-            "firstReconciled": "2026-07-29T12:16:10Z",
-            "lastReconciled": "2026-07-29T12:16:10Z",
-            "lastReconciledDuration": "1m10.623163859s",
+            "firstReconciled": "2026-07-29T13:22:02Z",
+            "lastReconciled": "2026-07-29T13:22:02Z",
+            "lastReconciledDuration": "1m10.652342544s",
             "lastReconciledStatus": "ReconciliationSucceeded",
             "metadata": {
-              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+              "revision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
             },
             "totalReconciliations": 1
           }
@@ -822,10 +826,10 @@
             }
           ]
         },
-        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-        "lastHandledReconcileAt": "2026-07-29T13:15:00.152167+01:00",
-        "observedGeneration": 1
+        "lastAppliedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastAttemptedRevision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+        "lastHandledReconcileAt": "2026-07-29T14:20:52.211285+01:00",
+        "observedGeneration": 2
       }
     }
   ],

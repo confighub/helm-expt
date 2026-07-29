@@ -76,7 +76,7 @@ each chart's routes, disposition, `automatic: false`, and whether a skill applie
 
 ## Worked examples
 
-### Kube Prometheus Stack - one complete direct install
+### Kube Prometheus Stack - direct install and controller upgrade
 
 Kube Prometheus Stack 85.3.3 renders 124 ordinary objects, ten CRDs, and seven
 Helm hook objects. The direct example applies the CRDs first, runs the chart's
@@ -92,8 +92,13 @@ HELM_EXPT_ALLOW_LIVE_KPS_LIFECYCLE_PROOF=1 npm run kps:lifecycle-route:run
 
 The [human guide](../demo/hooks-crds/kube-prometheus-stack.md), [summary](../../data/kps-lifecycle-route-proof/summary.md),
 and [receipt](../../runs/kps-lifecycle-route-proof/receipt.yaml) show the order,
-objects, checks, and limits. This proves one fresh direct install on kind. It
-does not prove the chart's Argo CD, Flux, or upgrade routes.
+objects, checks, and limits. This proves one fresh direct install on kind.
+
+The `no-crds` preset also has a separate
+[controller receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml). Argo
+CD and Flux installed 85.3.3, upgraded to 86.1.0, replaced both completed setup
+Jobs, and passed the runtime checks. ConfigHub does not yet select that route
+automatically, and the receipt does not prove rollback or long-running soak.
 
 ### cert-manager / External Secrets — `observed`
 

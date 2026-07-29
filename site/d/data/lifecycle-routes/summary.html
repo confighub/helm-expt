@@ -443,13 +443,13 @@
 <p>0 of 53 rows are safe to show as automatic.</p>
 <p>Nothing the catalog renders today is auto-executed by the cub installer. Every route is <code>user-executes</code>, <code>target-owned</code> (a controller or GitOps engine runs it), or <code>not-yet-executable</code>. That is the entire point of the contract: a <code>routed</code> disposition means the route and its executor are named and an off-ramp exists - <b>not</b> that the product silently runs it. <code>safe_as_automatic</code> only becomes <code>yes</code> when <code>execution_mode</code> is <code>product-executes</code> and evidence proves it.</p>
 <h2 id="distribution">Distribution</h2>
-<table><thead><tr><th>Disposition</th><th>Rows</th></tr></thead><tbody><tr><td><code>observed</code></td><td>41</td></tr>
-<tr><td><code>todo</code></td><td>6</td></tr>
+<table><thead><tr><th>Disposition</th><th>Rows</th></tr></thead><tbody><tr><td><code>observed</code></td><td>42</td></tr>
 <tr><td><code>routed</code></td><td>5</td></tr>
+<tr><td><code>todo</code></td><td>5</td></tr>
 <tr><td><code>per-target</code></td><td>1</td></tr></tbody></table>
-<table><thead><tr><th>Execution mode</th><th>Rows</th></tr></thead><tbody><tr><td><code>user-executes</code></td><td>34</td></tr>
+<table><thead><tr><th>Execution mode</th><th>Rows</th></tr></thead><tbody><tr><td><code>user-executes</code></td><td>35</td></tr>
 <tr><td><code>target-owned</code></td><td>10</td></tr>
-<tr><td><code>not-yet-executable</code></td><td>9</td></tr></tbody></table>
+<tr><td><code>not-yet-executable</code></td><td>8</td></tr></tbody></table>
 <table><thead><tr><th>Quirk class</th><th>Rows</th></tr></thead><tbody><tr><td><code>hook-phase</code></td><td>23</td></tr>
 <tr><td><code>hook-delete-policy</code></td><td>8</td></tr>
 <tr><td><code>crd-install</code></td><td>5</td></tr>
@@ -511,7 +511,7 @@
 <tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>hook-delete-policy</td><td><code>preserve-cleanup-policy</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
 <tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>hook-phase</td><td><code>postsync-check-or-observation</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
 <tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>hook-phase</td><td><code>preflight-or-presync</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
-<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>todo</td><td>not-yet-executable</td><td>no</td></tr>
+<tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>hook-phase</td><td><code>upgrade-action-with-receipt</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
 <tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>hook-weight-ordering</td><td><code>preserve-ordering</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
 <tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>target-facts</td><td><code>target-facts-or-preflight</code></td><td>observed</td><td>user-executes</td><td>no</td></tr>
 <tr><td>prometheus-community/kube-prometheus-stack@85.3.3</td><td>no-crds</td><td>webhook-readiness</td><td><code>webhook-readiness-observation</code></td><td>observed</td><td>user-executes</td><td>no</td></tr></tbody></table>

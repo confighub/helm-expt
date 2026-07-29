@@ -3,63 +3,63 @@
   "kind": "OCIRepository",
   "metadata": {
     "annotations": {
-      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"source.toolkit.fluxcd.io/v1\",\"kind\":\"OCIRepository\",\"metadata\":{\"annotations\":{},\"name\":\"kps-staged\",\"namespace\":\"flux-system\"},\"spec\":{\"interval\":\"1m\",\"ref\":{\"digest\":\"sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234\"},\"url\":\"oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged\"}}\n",
-      "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:16:12.22324+01:00"
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"source.toolkit.fluxcd.io/v1\",\"kind\":\"OCIRepository\",\"metadata\":{\"annotations\":{},\"name\":\"kps-staged\",\"namespace\":\"flux-system\"},\"spec\":{\"interval\":\"1m\",\"ref\":{\"digest\":\"sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59\"},\"url\":\"oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged\"}}\n",
+      "reconcile.fluxcd.io/requestedAt": "2026-07-29T14:22:04.252172+01:00"
     },
-    "creationTimestamp": "2026-07-29T12:14:37Z",
+    "creationTimestamp": "2026-07-29T13:20:29Z",
     "finalizers": [
       "finalizers.fluxcd.io"
     ],
     "generation": 1,
     "name": "kps-staged",
     "namespace": "flux-system",
-    "resourceVersion": "1644",
-    "uid": "d46a20ec-e884-4d79-bc44-8932cd3ccd63"
+    "resourceVersion": "1684",
+    "uid": "3da552ad-ef1e-4e26-a317-bc3622d2b564"
   },
   "spec": {
     "interval": "1m",
     "provider": "generic",
     "ref": {
-      "digest": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      "digest": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
     },
     "timeout": "60s",
     "url": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged"
   },
   "status": {
     "artifact": {
-      "digest": "sha256:0803186a9ca711b5224414dfa05df16691aa480acce4df9d07a02e83ca5667e0",
-      "lastUpdateTime": "2026-07-29T12:14:38Z",
+      "digest": "sha256:d353eb0a0d4c142393363f39c4187991f784bf7f0ef5084788a20cac2cb3e846",
+      "lastUpdateTime": "2026-07-29T13:20:30Z",
       "metadata": {
         "confighub.com/lifecycle-stages": "crds,prepare,workload,finish",
         "confighub.com/source-object-set": "sha256:e536005bf01a5aa0cd2dba5dcbfa1917c84e80341a2eae8f5bcbd0440d276b39",
         "confighub.com/source-rendered-oci": "sha256:8ecf19ff2f5aaafdfa3c83a659b7475e9ccc5482c0183733059a2fd60b66bea2",
-        "org.opencontainers.image.created": "2026-07-29T12:09:26Z",
+        "org.opencontainers.image.created": "2026-07-29T13:13:01Z",
         "org.opencontainers.image.title": "kube-prometheus-stack-85.3.3-no-crds-staged"
       },
-      "path": "ocirepository/flux-system/kps-staged/sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234.tar.gz",
-      "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
-      "size": 470750,
-      "url": "http://source-controller.flux-system.svc.cluster.local./ocirepository/flux-system/kps-staged/sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234.tar.gz"
+      "path": "ocirepository/flux-system/kps-staged/sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59.tar.gz",
+      "revision": "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59",
+      "size": 470774,
+      "url": "http://source-controller.flux-system.svc.cluster.local./ocirepository/flux-system/kps-staged/sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59.tar.gz"
     },
     "conditions": [
       {
-        "lastTransitionTime": "2026-07-29T12:14:38Z",
-        "message": "stored artifact for digest 'sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234'",
+        "lastTransitionTime": "2026-07-29T13:20:30Z",
+        "message": "stored artifact for digest 'sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59'",
         "observedGeneration": 1,
         "reason": "Succeeded",
         "status": "True",
         "type": "Ready"
       },
       {
-        "lastTransitionTime": "2026-07-29T12:14:38Z",
-        "message": "stored artifact for digest 'sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234'",
+        "lastTransitionTime": "2026-07-29T13:20:30Z",
+        "message": "stored artifact for digest 'sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59'",
         "observedGeneration": 1,
         "reason": "Succeeded",
         "status": "True",
         "type": "ArtifactInStorage"
       }
     ],
-    "lastHandledReconcileAt": "2026-07-29T13:16:12.22324+01:00",
+    "lastHandledReconcileAt": "2026-07-29T14:22:04.252172+01:00",
     "observedGeneration": 1,
     "url": "http://source-controller.flux-system.svc.cluster.local./ocirepository/flux-system/kps-staged/latest.tar.gz"
   }

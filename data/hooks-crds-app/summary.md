@@ -20,10 +20,10 @@ The `catalog-standard` apply policy checks every LifecycleRoute stored in the de
 | prometheus-community/kube-prometheus-stack@85.3.3/no-crds | crds-first | pre-apply | Your delivery system applies the CRDs and waits for them before applying custom resources. | no | pass | pass | pass |
 | prometheus-community/kube-prometheus-stack@85.3.3/no-crds | postsync-check-or-observation | post-apply | Your delivery — a post-apply check (receipted) | no | pass | pass | pass |
 | prometheus-community/kube-prometheus-stack@85.3.3/no-crds | preflight-or-presync | preflight | Your delivery — a preflight step before apply (receipted) | no | pass | pass | pass |
-| prometheus-community/kube-prometheus-stack@85.3.3/no-crds | preserve-cleanup-policy | observe | Your delivery — an explicit, receipted step | no | pass | not-run | not-run |
+| prometheus-community/kube-prometheus-stack@85.3.3/no-crds | preserve-cleanup-policy | observe | Your delivery — an explicit, receipted step | no | pass | pass | pass |
 | prometheus-community/kube-prometheus-stack@85.3.3/no-crds | preserve-ordering | pre-apply | Your delivery — an explicit, receipted step | no | pass | pass | pass |
 | prometheus-community/kube-prometheus-stack@85.3.3/no-crds | target-facts-or-preflight | preflight | Handled — the recorded package script creates or checks this prerequisite | no | pass | pass | pass |
-| prometheus-community/kube-prometheus-stack@85.3.3/no-crds | upgrade-action-with-receipt | pre-apply | Not tested for this path | no | not-run | not-run | not-run |
+| prometheus-community/kube-prometheus-stack@85.3.3/no-crds | upgrade-action-with-receipt | pre-apply | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | no | not-run | pass | pass |
 | prometheus-community/kube-prometheus-stack@85.3.3/no-crds | webhook-readiness-observation | observe | Your delivery — an explicit, receipted step | no | pass | pass | pass |
 
 ## Human guide

@@ -6,20 +6,20 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0
   package:
     path: packages/prometheus-community/kube-prometheus-stack/86.1.0
-    sha256: 3a497b5206906ab9433df995d7c1a29e58aa17373a95d613e0372d23d7e6568a
+    sha256: e4d8f1daec87a415662c629478c11280e242cbdf92bd796d85cab880b1c036b5
   commands:
     package: "cub installer package packages/prometheus-community/kube-prometheus-stack/86.1.0 -o <tmp>/prometheus-community-kube-prometheus-stack-86.1.0.tgz"
     push: "cub installer push <tmp>/prometheus-community-kube-prometheus-stack-86.1.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0 --json"
   outputs:
     package: |
-      Bundled kube-prometheus-stack-kube-prometheus-stack@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-M9mBBg/prometheus-community-kube-prometheus-stack-86.1.0.tgz
-        files:  8
-        size:   967378 bytes
-        digest: sha256:3a497b5206906ab9433df995d7c1a29e58aa17373a95d613e0372d23d7e6568a
+      Bundled kube-prometheus-stack-kube-prometheus-stack@86.1.0
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-msnuqH/prometheus-community-kube-prometheus-stack-86.1.0.tgz
+        files:  16
+        size:   951236 bytes
+        digest: sha256:e4d8f1daec87a415662c629478c11280e242cbdf92bd796d85cab880b1c036b5
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0
-        manifest: sha256:523ed502fd1ed10dca65dc802ee349fef9760378a17a8e814dfbc67a8b14e3be
-        layer:    sha256:3a497b5206906ab9433df995d7c1a29e58aa17373a95d613e0372d23d7e6568a (967378 bytes, 8 files)
-    inspectJSONSHA256: 40e8120cd30d5d8679ec19d6b1ad9115f1881159698cae3fbee8b476bcbe5e98
+        manifest: sha256:9810de65b598e14ab7eb8fe1d6fc12602c3f81bd991f21b8dfe0d6e15063881f
+        layer:    sha256:e4d8f1daec87a415662c629478c11280e242cbdf92bd796d85cab880b1c036b5 (951236 bytes, 16 files)
+    inspectJSONSHA256: 7a3e3e0ed8a2c58aac7b7654508e017844cf78de2f8cda802b948e01c075de35

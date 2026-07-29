@@ -124,7 +124,7 @@ evidence for the target scope or is explicitly marked per-target, refused, or
 blocked. A chart can have perfect render parity and still be incomplete if its
 hook route is only inventoried.
 
-### A complete direct-install example
+### A complete direct install and controller upgrade
 
 The Kube Prometheus Stack 85.3.3 example runs the chart's real fresh-install
 sequence instead of pretending its 124 ordinary objects are the whole release.
@@ -132,11 +132,13 @@ It applies ten CRDs, runs the chart's admission certificate Job, applies the
 ordinary objects, runs the webhook patch Job, checks the webhook and six
 workloads, then performs the chart's hook cleanup policy.
 
-Seven direct route implementations passed. The upgrade route, and the
-chart-specific Argo CD and Flux implementations, remain `not-run`. Read the
-[guide](../demo/hooks-crds/kube-prometheus-stack.md), [summary](../../data/kps-lifecycle-route-proof/summary.md),
-and [receipt](../../runs/kps-lifecycle-route-proof/receipt.yaml) before reusing
-the pattern.
+Seven direct route implementations passed. The `no-crds` preset then installed
+85.3.3 and upgraded to 86.1.0 through Argo CD and Flux. Both controllers reran
+the chart-specific stages, replaced the completed setup Jobs, and passed the
+runtime checks. ConfigHub does not yet select this route automatically. Read the
+[guide](../demo/hooks-crds/kube-prometheus-stack.md), [direct summary](../../data/kps-lifecycle-route-proof/summary.md),
+and [controller receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml)
+before reusing the pattern.
 
 ### Machine-Readable Route Contract
 
