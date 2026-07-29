@@ -706,7 +706,14 @@ function publishSpaceOci({
     "-czf",
     bundleFile,
     "release-objects.yaml",
-  ], { cwd: outputRoot, timeout: 120_000 });
+  ], {
+    cwd: outputRoot,
+    env: {
+      ...process.env,
+      COPYFILE_DISABLE: "1",
+    },
+    timeout: 120_000,
+  });
   const repository = "reviewed-nginx-staging";
   const localReference = `${registryHost}/${repository}:latest`;
   const pushed = command("oras", [
@@ -2080,13 +2087,18 @@ function renderSummary(receipt) {
   const spec = receipt.spec;
   const passThrough = spec.delivery.passThrough;
   const flux = spec.delivery.flux;
+  const fluxRuntime = flux.runtime ?? {};
   const passThroughEvidence = passThrough.result === "pass"
     ? `Input \`${passThrough.input.manifestDigest}\`; ConfigHub output \`${passThrough.output.manifestDigest}\`; ${passThrough.output.objectCount} objects kept the same specs and user metadata. ConfigHub added \`confighub.com/origin\`.`
     : "The unchanged-output comparison did not complete.";
   const fleetRows = spec.delivery.fleet.targets
     .map((target) => `| \`${target.cluster}\` | ${target.runtime.sync} | ${target.runtime.health} | \`${target.runtime.revision}\` | ${target.observations.objectSet.summary.matched}/${target.observations.objectSet.summary.desired} | ${target.runtime.deployment.replicas} | ${target.observations.workloads.summary.converged}/${target.observations.workloads.summary.desired} | ${target.runtime.result} |`)
     .join("\n");
-  const observationRows = [...spec.delivery.fleet.targets, flux]
+  const observationTargets = [
+    ...spec.delivery.fleet.targets,
+    ...(flux.observations ? [flux] : []),
+  ];
+  const observationRows = observationTargets
     .map((target) => {
       const objectSet = target.observations.objectSet;
       const workloads = target.observations.workloads;
@@ -2117,7 +2129,7 @@ two clusters, and Flux pulls the same digest on a third cluster.
 | Publish the ConfigHub staging release | ${spec.delivery.stagingRelease.result} | \`${spec.delivery.stagingRelease.manifestDigest}\`. |
 | Export the portable OCI | ${spec.serverlessOutput.result} | ${spec.serverlessOutput.objectCount} objects; \`${spec.serverlessOutput.digest}\`; anonymous pull. |
 | Roll out through Argo CD | ${spec.delivery.fleet.result} | Both Argo CD controllers reported the portable OCI digest and both workloads became ready. |
-| Roll out through Flux | ${flux.result} | The Flux OCIRepository and Kustomization became ready at \`${flux.digest}\`; the workload reached ${flux.runtime.deployment.replicas} ready replicas. |
+| Roll out through Flux | ${flux.result} | ${flux.result === "pass" ? `The Flux OCIRepository and Kustomization became ready at \`${flux.digest}\`; the workload reached ${fluxRuntime.deployment.replicas} ready replicas.` : "The Flux reconciliation did not complete; see the run status and error below."} |
 
 ## Argo CD controller feedback
 
@@ -2129,7 +2141,7 @@ ${fleetRows}
 
 | Cluster | OCI source | Kustomization | OCI revision | Ready replicas | Result |
 | --- | --- | --- | --- | --- | --- |
-| \`${flux.cluster}\` | ${flux.runtime.sourceReady ? "Ready" : "Not ready"} | ${flux.runtime.kustomizationReady ? "Ready" : "Not ready"} | \`${flux.runtime.observedDigest}\` | ${flux.runtime.deployment.replicas} | ${flux.runtime.result} |
+| \`${flux.cluster}\` | ${fluxRuntime.sourceReady ? "Ready" : "Not ready"} | ${fluxRuntime.kustomizationReady ? "Ready" : "Not ready"} | \`${fluxRuntime.observedDigest ?? ""}\` | ${fluxRuntime.deployment?.replicas ?? "not observed"} | ${fluxRuntime.result ?? flux.result} |
 
 ## Live observation receipts
 
