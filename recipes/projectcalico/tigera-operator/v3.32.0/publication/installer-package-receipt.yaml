@@ -4,18 +4,21 @@ metadata:
   name: "projectcalico-tigera-operator-v3-32-0"
 spec:
   chart:
-    repository: "projectcalico"
     name: "tigera-operator"
+    repository: "projectcalico"
     version: "v3.32.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3-32-0.tgz"
+    sha256: "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c"
   package:
-    path: "packages/projectcalico/tigera-operator/v3.32.0"
     name: "projectcalico-tigera-operator"
-    version: "v3.32.0"
+    path: "packages/projectcalico/tigera-operator/v3.32.0"
     sourceFiles:
       -
         path: "README.md"
-        sha256: "ae68b7e3d0277dae7a3a6d426c8f490938f4b478fca5b09dd330cd4fe7fed209"
-        bytes: 211
+        sha256: "fdfc8792bc97f7dc1c562b205b58e6e3972d0aa2fd151265ac91dbd4bbb14fa9"
+        bytes: 927
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -25,21 +28,32 @@ spec:
         sha256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
         bytes: 19893
       -
+        path: "collector/target-facts.sh"
+        sha256: "e6eaa94e7254f7d5a7223f0643b157810fb8783cba5ecf54ff11aaac80c0e288"
+        bytes: 4263
+      -
         path: "installer.yaml"
-        sha256: "f3aaf1674ec4bea38b14fd604e79f993f4dcfd34bf3286060b38ee81c22427c6"
-        bytes: 344
-  deterministicBundle:
-    command: "cub installer package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3-32-0.tgz"
-    sha256: "87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "2a1e1f536e98f6e9e40b5df917548616975d1bf471164543c0832c42e3506477"
+        bytes: 1319
+      -
+        path: "prerequisites/tigera-operator-bootstrap/delete-custom-resources.yaml"
+        sha256: "352d0290f2236768ebb03f1054af132b8f2f891758d3ca1ec0cac33f88c19c53"
+        bytes: 376
+      -
+        path: "prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        sha256: "4a1ffce0d962ca1c2c2efdc80930e367a0ccf6dca6af238e2f97352dbb356b0a"
+        bytes: 147
+    version: "v3.32.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 10
-      cubInstallObjectCountIncludingSupport: 11
-      semanticObjectMatches: "10/10"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 11
+      helmReleaseObjectCount: 10
+      semanticObjectMatches: "10/10"
+      separatedSecretCount: 0
+      variant: "default"
+      targetFactMode: "collector-facts"
+      targetFactsBound: true

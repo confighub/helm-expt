@@ -85,6 +85,21 @@ def write_yaml(path: Path, data: dict) -> None:
         path.write_text(json.dumps(data, indent=2) + "\n")
 
 
+def portable_receipt_value(value, repo: Path):
+    if isinstance(value, dict):
+        return {
+            key: portable_receipt_value(item, repo)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [portable_receipt_value(item, repo) for item in value]
+    if not isinstance(value, str):
+        return value
+    repo_prefix = f"{repo.resolve()}{os.sep}"
+    home_prefix = f"{Path.home().resolve()}{os.sep}"
+    return value.replace(repo_prefix, "").replace(home_prefix, "$HOME/")
+
+
 def load_yaml(path: Path) -> dict:
     if not yaml:
         raise RuntimeError("PyYAML is required for live parity tests")
@@ -691,6 +706,7 @@ def target_fact_crd_docs(
         crd
         for crd in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredCRDs") or [])
         if target_fact_applies(crd, lane)
+        and crd.get("provisioningMode") != "operator-bootstrap"
     ]
     docs = []
     staged = []
@@ -730,6 +746,133 @@ def target_fact_crd_docs(
             "lane": lane,
         })
     return docs, staged
+
+
+def target_fact_operator_bootstraps(
+    variant: dict,
+    recipe_path: Path,
+    lane: str,
+    package_path: Path | None = None,
+) -> list[dict]:
+    required = [
+        crd
+        for crd in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredCRDs") or [])
+        if target_fact_applies(crd, lane)
+        and crd.get("provisioningMode") == "operator-bootstrap"
+    ]
+    grouped = {}
+    for crd in required:
+        name = crd.get("name")
+        if not name:
+            raise RuntimeError(f"invalid operator-bootstrap CRD target fact: {crd}")
+        suggested_source = str(crd.get("suggestedSource") or "")
+        source_path = str(crd.get("sourcePath") or "")
+        if lane == "cubInstallerApply" and package_path is not None and suggested_source.startswith("package://"):
+            relative_path = suggested_source[len("package://"):]
+            if not relative_path or ".." in Path(relative_path).parts:
+                raise RuntimeError(f"unsafe operator-bootstrap package path for {name}: {suggested_source}")
+            source = package_path / relative_path
+            source_kind = "installer-package"
+        elif source_path:
+            source = (recipe_path / source_path).resolve() if not Path(source_path).is_absolute() else Path(source_path)
+            source_kind = "recorded-source-path"
+        else:
+            raise RuntimeError(f"operator-bootstrap CRD {name} has no usable source")
+        if not source.exists():
+            raise RuntimeError(f"operator-bootstrap source not found for {name}: {source}")
+        key = str(source)
+        group = grouped.setdefault(key, {
+            "source": source,
+            "sourceKind": source_kind,
+            "crds": [],
+        })
+        group["crds"].append({"name": name, "lane": lane})
+    return [grouped[key] for key in sorted(grouped)]
+
+
+def wait_for_crd_established(
+    name: str,
+    kubeconfig: Path,
+    context: str,
+    timeout_seconds: int = 300,
+) -> None:
+    deadline = time.monotonic() + timeout_seconds
+    last = ""
+    while time.monotonic() < deadline:
+        rc, out, err = kubectl(
+            ["get", f"crd/{name}", "-o", "name"],
+            kubeconfig,
+            context,
+            timeout=30,
+        )
+        if rc == 0:
+            remaining = max(1, int(deadline - time.monotonic()))
+            kubectl_must(
+                [
+                    "wait", "--for=condition=Established", f"crd/{name}",
+                    f"--timeout={remaining}s",
+                ],
+                kubeconfig,
+                context,
+                f"operator-bootstrap CRD {name}",
+                timeout=remaining + 30,
+            )
+            return
+        last = err or out
+        time.sleep(3)
+    raise RuntimeError(
+        f"operator-bootstrap CRD {name} did not appear within "
+        f"{timeout_seconds}s: {last[:500]}"
+    )
+
+
+def stage_operator_bootstraps(
+    bootstraps: list[dict],
+    kubeconfig: Path,
+    context: str,
+    label: str,
+) -> list[dict]:
+    staged = []
+    for index, bootstrap in enumerate(bootstraps, start=1):
+        source = bootstrap["source"]
+        if source.name in {"kustomization.yaml", "kustomization.yml", "Kustomization"}:
+            apply_args = ["apply", "--server-side", "-k", str(source.parent)]
+            delete_args = ["delete", "-k", str(source.parent), "--ignore-not-found", "--wait=true"]
+        else:
+            apply_args = ["apply", "--server-side", "-f", str(source)]
+            delete_args = ["delete", "-f", str(source), "--ignore-not-found", "--wait=true"]
+        kubectl_must(
+            apply_args,
+            kubeconfig,
+            context,
+            f"operator bootstrap apply {label} {index}",
+            timeout=300,
+        )
+        for crd in bootstrap["crds"]:
+            wait_for_crd_established(crd["name"], kubeconfig, context)
+        kubectl_must(
+            delete_args,
+            kubeconfig,
+            context,
+            f"operator bootstrap cleanup {label} {index}",
+            timeout=300,
+        )
+        for crd in bootstrap["crds"]:
+            kubectl_must(
+                ["wait", "--for=condition=Established", f"crd/{crd['name']}", "--timeout=60s"],
+                kubeconfig,
+                context,
+                f"operator-bootstrap retained CRD {crd['name']}",
+                timeout=90,
+            )
+            staged.append({
+                **crd,
+                "provisioningMode": "operator-bootstrap",
+                "sourceKind": bootstrap["sourceKind"],
+                "sourcePath": str(source),
+                "temporaryBootstrapRemoved": True,
+            })
+    return staged
 
 
 def target_fact_object_stores(variant: dict, lane: str) -> list[dict]:
@@ -852,9 +995,15 @@ def stage_target_facts(
         lane,
         package_path,
     )
+    operator_bootstraps = target_fact_operator_bootstraps(
+        variant,
+        recipe_path,
+        lane,
+        package_path,
+    )
     required_object_stores = target_fact_object_stores(variant, lane)
     required_namespaces = target_fact_namespaces(variant, lane)
-    if not required_secrets and not crd_docs and not required_object_stores and not required_namespaces:
+    if not required_secrets and not crd_docs and not operator_bootstraps and not required_object_stores and not required_namespaces:
         return {"result": "pass", "stagedSecrets": [], "stagedCRDs": [], "stagedObjectStores": [], "stagedNamespaces": []}
     secret_docs = []
     namespaces = {namespace.get("name") for namespace in required_namespaces if namespace.get("name")}
@@ -902,6 +1051,15 @@ def stage_target_facts(
         kubectl_must(["apply", "--server-side", "--force-conflicts", "-f", str(crd_path)], kubeconfig, context, f"target fact CRD apply {label}", timeout=300)
         for crd in staged_crds:
             kubectl(["wait", "--for=condition=Established", f"crd/{crd['name']}", "--timeout=180s"], kubeconfig, context, timeout=210)
+    if operator_bootstraps:
+        staged_crds.extend(
+            stage_operator_bootstraps(
+                operator_bootstraps,
+                kubeconfig,
+                context,
+                label,
+            )
+        )
     for namespace in sorted(namespaces):
         if protected_namespace(namespace):
             continue
@@ -1051,7 +1209,19 @@ spec:
         raise RuntimeError("missing certificate rotation must not receive extra wait time")
     if self_generated_secret_names(manifest.replace("optional: true", "optional: false")):
         raise RuntimeError("a required Secret mount must remain a blocker")
+    portable = portable_receipt_value(
+        {
+            "command": f"tool --file {Path.cwd() / 'runs/example.yaml'}",
+            "external": f"{Path.home() / 'other/example.yaml'}",
+        },
+        Path.cwd(),
+    )
+    if portable["command"] != "tool --file runs/example.yaml":
+        raise RuntimeError("repository paths must be relative in receipts")
+    if portable["external"] != "$HOME/other/example.yaml":
+        raise RuntimeError("home-directory paths must be portable in receipts")
     print("verified self-generated certificate Secret readiness classifier")
+    print("verified portable receipt paths")
     return 0
 
 
@@ -2091,7 +2261,7 @@ def main() -> int:
                 "result": "pass" if all(item["result"] == "pass" for item in cleanup_results) else "blocked",
                 "clusters": cleanup_results,
             }
-        write_yaml(out_path, receipt)
+        write_yaml(out_path, portable_receipt_value(receipt, repo))
         print(f"wrote {out_path.relative_to(repo)} result={receipt['spec']['result']}")
 
     return 0 if receipt["spec"]["result"] in ("pass", "watch", "blocked") else 1

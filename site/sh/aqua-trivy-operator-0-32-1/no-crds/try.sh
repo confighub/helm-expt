@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./aqua-trivy-operator-0-32-1-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -81,18 +94,18 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/clustercompliancereports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterconfigauditreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterinfraassessmentreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterrbacassessmentreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/clustersbomreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/clustervulnerabilityreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/configauditreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/exposedsecretreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/infraassessmentreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/rbacassessmentreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/sbomreports.aquasecurity.github.io
-kubectl wait --for=condition=Established --timeout=120s crd/vulnerabilityreports.aquasecurity.github.io
+wait_for_crd clustercompliancereports.aquasecurity.github.io
+wait_for_crd clusterconfigauditreports.aquasecurity.github.io
+wait_for_crd clusterinfraassessmentreports.aquasecurity.github.io
+wait_for_crd clusterrbacassessmentreports.aquasecurity.github.io
+wait_for_crd clustersbomreports.aquasecurity.github.io
+wait_for_crd clustervulnerabilityreports.aquasecurity.github.io
+wait_for_crd configauditreports.aquasecurity.github.io
+wait_for_crd exposedsecretreports.aquasecurity.github.io
+wait_for_crd infraassessmentreports.aquasecurity.github.io
+wait_for_crd rbacassessmentreports.aquasecurity.github.io
+wait_for_crd sbomreports.aquasecurity.github.io
+wait_for_crd vulnerabilityreports.aquasecurity.github.io
 
 if [ -d ./aqua-trivy-operator-0-32-1-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

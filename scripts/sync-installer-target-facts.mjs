@@ -263,7 +263,9 @@ function externalRequiresFor(targetFacts, variantName) {
     ...(targetFacts.requiredCRDs ?? []).map((crd) => ({
       kind: "ClusterFeature",
       name: crdRequirementName(crd),
-      suggestedSource: `package://${crdBundleRelativePath(variantName)}`,
+      suggestedSource: isOperatorBootstrapCrd(crd)
+        ? crd.suggestedSource
+        : `package://${crdBundleRelativePath(variantName)}`,
     })),
   );
   requirements.push(
@@ -298,7 +300,8 @@ function writeCrdBundles(chart, packageRoot) {
   const generatedRoot = join(packageRoot, "prerequisites", "target-facts");
   rmSync(generatedRoot, { recursive: true, force: true });
   for (const variant of chart.variants) {
-    const requiredCRDs = variant.targetFacts.requiredCRDs ?? [];
+    const requiredCRDs = (variant.targetFacts.requiredCRDs ?? [])
+      .filter((crd) => !isOperatorBootstrapCrd(crd));
     if (requiredCRDs.length === 0) continue;
     const docs = requiredCrdDocs(chart, variant.name, requiredCRDs);
     write(
@@ -309,22 +312,51 @@ function writeCrdBundles(chart, packageRoot) {
 }
 
 function verifyCrdBundle(chart, packageRoot, variantName, targetFacts) {
-  const requiredCRDs = targetFacts.requiredCRDs ?? [];
-  if (requiredCRDs.length === 0) return;
-  const bundlePath = join(packageRoot, crdBundleRelativePath(variantName));
-  check(existsSync(bundlePath), `${relativeRepo(packageRoot)} base ${variantName} missing packaged CRD bundle`);
-  const docs = parseDocs(readFileSync(bundlePath, "utf8"));
-  const actualNames = docs
-    .filter((doc) => doc.kind === "CustomResourceDefinition")
-    .map((doc) => doc.metadata?.name)
-    .filter(Boolean)
-    .sort();
-  const expectedNames = requiredCRDs.map((crd) => crd.name).sort();
-  check(
-    JSON.stringify(actualNames) === JSON.stringify(expectedNames),
-    `${relativeRepo(bundlePath)} must contain exactly the CRDs declared by ${variantName}`,
-  );
-  requiredCrdDocs(chart, variantName, requiredCRDs);
+  const allRequiredCRDs = targetFacts.requiredCRDs ?? [];
+  const staticCRDs = allRequiredCRDs.filter((crd) => !isOperatorBootstrapCrd(crd));
+  const operatorBootstrapCRDs = allRequiredCRDs.filter(isOperatorBootstrapCrd);
+
+  if (staticCRDs.length) {
+    const bundlePath = join(packageRoot, crdBundleRelativePath(variantName));
+    check(existsSync(bundlePath), `${relativeRepo(packageRoot)} base ${variantName} missing packaged CRD bundle`);
+    const docs = parseDocs(readFileSync(bundlePath, "utf8"));
+    const actualNames = docs
+      .filter((doc) => doc.kind === "CustomResourceDefinition")
+      .map((doc) => doc.metadata?.name)
+      .filter(Boolean)
+      .sort();
+    const expectedNames = staticCRDs.map((crd) => crd.name).sort();
+    check(
+      JSON.stringify(actualNames) === JSON.stringify(expectedNames),
+      `${relativeRepo(bundlePath)} must contain exactly the static CRDs declared by ${variantName}`,
+    );
+    requiredCrdDocs(chart, variantName, staticCRDs);
+  }
+
+  for (const crd of operatorBootstrapCRDs) {
+    const suggestedSource = String(crd.suggestedSource ?? "");
+    check(
+      suggestedSource.startsWith("package://"),
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} must name a package:// source`,
+    );
+    const relativePath = suggestedSource.slice("package://".length);
+    check(
+      relativePath && !relativePath.split("/").includes(".."),
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} has an unsafe package path`,
+    );
+    check(
+      existsSync(join(packageRoot, relativePath)),
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} source is missing: ${relativePath}`,
+    );
+    check(
+      Array.isArray(crd.evidence) && crd.evidence.length > 0,
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} needs observed evidence`,
+    );
+  }
+}
+
+function isOperatorBootstrapCrd(crd) {
+  return crd?.provisioningMode === "operator-bootstrap";
 }
 
 function requiredCrdDocs(chart, variantName, requiredCRDs) {

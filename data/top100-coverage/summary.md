@@ -23,7 +23,7 @@ average coverage: 89%
 | d | pain report and quirk axes | 100 | 0 | 0 |
 | e | facts declared | 100 | 0 | 0 |
 | f | scan and production disposition | 20 | 80 | 0 |
-| g | live witness or routed reason | 86 | 14 | 0 |
+| g | live witness or routed reason | 87 | 13 | 0 |
 | h | catalog and site entry | 100 | 0 | 0 |
 
 ## Coverage By Bucket
@@ -52,9 +52,9 @@ average coverage: 89%
 | `nats/surveyor@0.20.9` | 75% | `promote-after-review` | run catalog promotion review |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `opencost/opencost@2.5.21` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
-| `projectcalico/tigera-operator@v3.32.0` | 75% | `needs-useful-variant` | add at least one user-shaped variant before catalog promotion |
 | `velero/velero@12.0.1` | 75% | `promote-after-review` | run catalog promotion review |
 | `aqua/trivy-operator@0.32.1` | 88% | `promote-after-review` | run catalog promotion review |
+| `argo-cd/argo-events@2.4.21` | 88% | `promote-after-review` | run catalog promotion review |
 
 ## Files
 

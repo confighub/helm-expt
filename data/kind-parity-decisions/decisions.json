@@ -607,20 +607,6 @@
       "receipt": "runs/live-kind-parity/opencost-opencost-default/receipt.yaml"
     },
     {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "base": "default",
-      "result": "blocked",
-      "semantic_parity": "unknown",
-      "residue_category": "target-prerequisite-crds",
-      "blocker_owner": "user",
-      "usable_today": "yes, after staging CRDs",
-      "user_decision": "Usable once you stage the required CRDs on the target and rerun the check. This row is blocked by a missing target prerequisite, so the current receipt does not by itself prove full parity.",
-      "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
-      "reason": "target-prerequisite: CRDs missing",
-      "receipt": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
-    },
-    {
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "86.1.0",
       "base": "default",

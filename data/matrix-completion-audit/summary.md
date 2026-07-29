@@ -18,36 +18,36 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-667 non-green cells:
+658 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 445 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 443 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 122 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 53 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
-| `needs-modeling` | 47 | The catalog/model has to change before this can pass. |
+| `needs-run` | 48 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 389 |
-| `G` | 61 |
-| `P` | 61 |
-| `lifecycle` | 53 |
-| `K` | 52 |
+| `promotion` | 388 |
+| `G` | 60 |
+| `P` | 60 |
+| `K` | 51 |
 | `L` | 51 |
+| `lifecycle` | 48 |
 
 | State | Cells |
 | --- | ---: |
 | `proven` | 179 |
 | `watch` | 122 |
 | `not-applicable-source` | 110 |
-| `blocked` | 105 |
-| `not-applicable-candidate` | 67 |
-| `todo` | 53 |
+| `blocked` | 102 |
+| `not-applicable-candidate` | 66 |
+| `todo` | 48 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (53)
+## needs-run (48)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -68,9 +68,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | external-dns/external-dns@1.21.1 | dry-run-txt-registry | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | external-dns/external-dns@1.21.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | fairwinds-stable/goldilocks@10.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| fluent/fluent-bit@0.57.6 | default | lifecycle | todo | lifecycle route(s) defined (observed:2) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| gatekeeper/gatekeeper@3.22.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| gatekeeper/gatekeeper@3.22.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| gatekeeper/gatekeeper@3.22.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | grafana/alloy@1.8.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | grafana/alloy@1.8.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | grafana/loki@7.0.0 | simple-scalable-minio | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -90,13 +88,10 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | jaegertracing/jaeger-operator@2.57.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | kedacore/keda@2.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| kyverno/kyverno@3.8.1 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| projectcalico/tigera-operator@v3.32.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -107,7 +102,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (445)
+## needs-target-or-prereq-fix (443)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -157,7 +152,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/contour@21.1.4 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/contour@21.1.4 | legacy | G | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/contour@21.1.4 | legacy | K | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
-| bitnami/contour@21.1.4 | legacy | L | blocked | local-live blocked: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | deployment/contour-contour: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;] | prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;] | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
+| bitnami/contour@21.1.4 | legacy | L | blocked | local-live blocked: target-prerequisite: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | bitnami/contour@21.1.4 | legacy | P | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/contour@21.1.4 | legacy | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/contour@21.1.4 | no-crds | L | blocked | local-live blocked: runtime-readiness: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=fal) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
@@ -468,8 +463,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | percona/pxc-operator@1.19.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | projectcalico/tigera-operator@v3.32.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | projectcalico/tigera-operator@v3.32.0 | controller-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
-| projectcalico/tigera-operator@v3.32.0 | default + crd | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
-| projectcalico/tigera-operator@v3.32.0 | default | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | projectcalico/tigera-operator@v3.32.0 | default | L | blocked | local-live blocked: lifecycle-ordering: apply: resource mapping not found for name: "default" namespace: "" from "STDIN": no matches for kind "APIServer" in version "operator.tigera.io/v1" ensure CRDs are installed first resource mapping not found | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. |
 | projectcalico/tigera-operator@v3.32.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/alertmanager@1.37.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -559,7 +552,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | vm/victoria-metrics-single@0.39.0 | default-reviewed | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | vm/victoria-metrics-single@0.39.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 
-## needs-modeling (47)
+## needs-modeling (45)
 
 The catalog/model has to change before this can pass.
 
@@ -595,8 +588,6 @@ The catalog/model has to change before this can pass.
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | blocked | render-input: required Helm values missing | Provide the required values in the base/variant, then the row can move to pass. |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | L | fail | local-live fail: admission-or-rbac: apply: The Deployment "nfs-subdir-external-provisioner" is invalid: * spec.template.spec.volumes[0].nfs.server: Required value * spec.template.spec.containers[0].volumeMounts[0].name: Not found: "nfs-subdir | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | P | blocked | helm-runtime: upstream leg blocked | Catalog work: reconcile the base, render context, target facts, or semantic contract with the live Helm result, then rerun. |
-| projectcalico/tigera-operator@v3.32.0 | default | G | blocked | crd-bootstrap: required CRDs missing before custom resources apply | Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness. |
-| projectcalico/tigera-operator@v3.32.0 | default | P | blocked | crd-bootstrap: required CRDs missing before custom resources apply | Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness. |
 | prometheus-community/kube-prometheus-stack@86.1.0 | default | K | blocked | semantic object parity issue: missing=0 extra=11 diffs=0; extra=apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagerconfigs.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||alertmanagers.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||podmonitors.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||probes.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||prometheusagents.monitoring.coreos.com; apiextensions.k8s.io/v1|CustomResourceDefinition||prometheuses.monitoring.coreos.com | Catalog work: update the base, render context, target facts, or semantic contract so the installer package matches the live Helm result, then rerun. |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | G | blocked | capability-profile: rendered APIService version is not served by target Kubernetes | Use or promote the base rendered for the target API set, then rerun live parity. For prometheus-adapter on modern Kubernetes, use the apiservice-v1-capability base. |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |

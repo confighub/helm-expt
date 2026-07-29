@@ -6,20 +6,20 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0
   package:
     path: packages/projectcalico/tigera-operator/v3.32.0
-    sha256: 87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076
+    sha256: 1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c
   commands:
     package: "cub installer package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3.32.0.tgz"
     push: "cub installer push <tmp>/projectcalico-tigera-operator-v3.32.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0 --json"
   outputs:
     package: |
-      Bundled projectcalico-tigera-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-r2DWx9/projectcalico-tigera-operator-v3.32.0.tgz
-        files:  4
-        size:   4063 bytes
-        digest: sha256:87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076
+      Bundled projectcalico-tigera-operator@v3.32.0
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-7075pg/projectcalico-tigera-operator-v3.32.0.tgz
+        files:  7
+        size:   5574 bytes
+        digest: sha256:1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0
-        manifest: sha256:79b5d4e911843b437288f851357effea16498a8fce2c6c7d72c8c071c5742082
-        layer:    sha256:87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076 (4063 bytes, 4 files)
-    inspectJSONSHA256: c58b4483b86af04d8d40020d62e5af27471354cf3a66a1a3c75084531a815fe9
+        manifest: sha256:ee9ebb5ecb6ce84c3202d918fe1c8bc45bfdf7e2f533aad35c82d04f946ef5cb
+        layer:    sha256:1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c (5574 bytes, 7 files)
+    inspectJSONSHA256: d2cfecad1a746385068c79a7d0fc3de0a1c16e20db82e35e7ee974a67187f022

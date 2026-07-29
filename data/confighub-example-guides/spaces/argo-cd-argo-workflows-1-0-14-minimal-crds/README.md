@@ -28,11 +28,13 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+This preset needs a setup step before Kubernetes can accept all of the rendered objects. The step is described below and is part of the tested install path.
 
-This preset config records 1 hook or lifecycle route(s). The current route status is observed:1, with execution modes target-owned:1. They are listed here instead of being left inside the Helm release.
+The catalog records 1 extra step for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-CRD ownership is recorded as part of the preset config. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release.
+- **Before install:** Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.
+
+CRD ownership is recorded as part of the preset config. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -49,13 +51,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-minimal-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/minimal-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-minimal-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/minimal-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +80,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml) |
 | Render variant | [`recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds`](https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-minimal-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-minimal-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/minimal-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/minimal-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| Before install | Apply CRDs before custom resources | Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead. |
 
 ## Evidence
 
@@ -92,7 +94,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `1` |
@@ -107,5 +109,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml)
 - Rendered YAML: [`recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds`](https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/minimal-crds)
-- Generated scripts: [`site/sh/argo-cd-argo-workflows-1-0-14-minimal-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/argo-cd-argo-workflows-1-0-14-minimal-crds)
+- Generated scripts: [`site/sh/argo-cd-argo-workflows-1-0-14/minimal-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/argo-cd-argo-workflows-1-0-14/minimal-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

@@ -28,11 +28,14 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+This preset needs a setup step before Kubernetes can accept all of the rendered objects. The step is described below and is part of the tested install path.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog records 2 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.
+- **Before install:** CRD and admission-webhook prerequisites must be checked before apply.
+- **During upgrade:** The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.
+
+Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -40,6 +43,7 @@ For this preset, the main change from plain Helm is that the render inputs and o
 - The render variant is committed as YAML and contains 30 Kubernetes object(s).
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
+- Hook and lifecycle work is counted and linked to the route record.
 
 This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
 
@@ -48,13 +52,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/default/confighub.sh)
 ```
 
 The core render command is:
@@ -77,13 +81,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml) |
 | Render variant | [`recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/gatekeeper/gatekeeper/3.22.2/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| Before install | Prepare the target | CRD and admission-webhook prerequisites must be checked before apply. |
+| During upgrade | Run the upgrade step | The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims. |
 
 ## Evidence
 
@@ -91,10 +96,10 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
-| Lifecycle routes | `0` |
+| Lifecycle routes | `2` |
 
 ## Limits
 
@@ -106,5 +111,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml)
 - Rendered YAML: [`recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/gatekeeper/gatekeeper/3.22.2/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/default)
-- Generated scripts: [`site/sh/gatekeeper-gatekeeper-3-22-2-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/gatekeeper-gatekeeper-3-22-2-default)
+- Generated scripts: [`site/sh/gatekeeper-gatekeeper-3-22-2/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/gatekeeper-gatekeeper-3-22-2/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

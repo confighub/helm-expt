@@ -24,9 +24,9 @@ guess. Always classify from the actual receipt after a run.
 ## Counts
 
 ```text
-ready-to-run rows:   0
-run blocks:          0  (G/P: 0, K: 0)
-derived predictions: 0
+ready-to-run rows:   9
+run blocks:          3  (G/P: 2, K: 1)
+derived predictions: 9
 unknown predictions: 0
 ```
 
@@ -35,6 +35,42 @@ cells), then two-cluster kind-parity blocks; within each, hard charts
 (operators, CRD/webhook/lifecycle, platform/networking) before ordinary apps,
 then by predicted residue family and chart family. Blocks are capped at
 5 commands.
+
+## GP-01 — G/P · platform/networking
+
+**Goal:** G/P: run the 4 ready live-parity row(s) with predicted remote-image / gitops-runtime (bitnami/contour@21.1.4, grafana/grafana@10.5.15, prometheus-community/prometheus@29.8.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| bitnami/contour@21.1.4 | legacy | `npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy` | remote-image | high | light controller — safe within a block |
+| grafana/grafana@10.5.15 | customer-acme-prod | `npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod` | gitops-runtime | medium | light controller — safe within a block |
+| grafana/grafana@10.5.15 | prod-us-east | `npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east` | gitops-runtime | medium | light controller — safe within a block |
+| prometheus-community/prometheus@29.8.0 | prod-us-east | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base prod-us-east` | gitops-runtime | high | light controller — safe within a block |
+
+## GP-02 — G/P · app
+
+**Goal:** G/P: run the 4 ready live-parity row(s) with predicted gitops-runtime / operate-policy / remote-image (prometheus-community/prometheus@29.8.0, hashicorp/vault@0.32.0, bitnami/redis@25.5.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| prometheus-community/prometheus@29.8.0 | staging-eu-west | `npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base staging-eu-west` | gitops-runtime | high | light controller — safe within a block |
+| hashicorp/vault@0.32.0 | regulated-prod-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
+| hashicorp/vault@0.32.0 | staging-us-east | `npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base staging-us-east` | operate-policy | high | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
+| bitnami/redis@25.5.3 | prod-us-east | `npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east` | remote-image | medium | stateful/heavy — run alone, allow a longer timeout, verify PVC/cluster cleanup |
+
+## K-01 — K · platform/networking
+
+**Goal:** K: run the 1 ready kind-parity row(s) with predicted remote-image (bitnami/contour@21.1.4); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.
+
+**Stop:** Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify — never force the predicted family.
+
+| Chart | Base | Command | Predicted residue | Confidence | Serial safety |
+| --- | --- | --- | --- | --- | --- |
+| bitnami/contour@21.1.4 | legacy | `npm run kind-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy` | remote-image | high | two-cluster kind run (provisions two clusters) |
 
 ## Boundaries
 

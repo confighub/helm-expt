@@ -21,7 +21,7 @@ with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
 | --- | ---: |
-| [Live Parity](../../docs/skills/live-parity.md) | 95 |
+| [Live Parity](../../docs/skills/live-parity.md) | 96 |
 | [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 54 |
 | [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 41 |
 | [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 22 |
@@ -126,7 +126,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | percona/pg-operator@3.0.0 | 1 | live-parity | live |
 | percona/psmdb-operator@1.22.0 | 1 | live-parity | live |
 | percona/pxc-operator@1.19.1 | 3 | target-facts-and-lifecycle | crds; lookup; live |
-| projectcalico/tigera-operator@v3.32.0 | 2 | hook-and-secret-lifecycle | hooks:1; lookup |
+| projectcalico/tigera-operator@v3.32.0 | 3 | hook-and-secret-lifecycle | hooks:1; lookup; live |
 | prometheus-community/alertmanager@1.37.0 | 2 | target-facts-and-lifecycle | stateful-storage; live |
 | prometheus-community/kube-prometheus-stack@85.3.3 | 5 | serious-chart-playbooks | named-serious; hooks:2; generated-facts; webhooks; crds; lookup; stateful-storage; live |
 | prometheus-community/kube-prometheus-stack@86.1.0 | 4 | serious-chart-playbooks | named-serious; hooks:2; live |

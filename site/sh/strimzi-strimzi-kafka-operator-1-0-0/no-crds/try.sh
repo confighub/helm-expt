@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./strimzi-strimzi-kafka-operator-1-0-0-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -75,16 +88,16 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/kafkas.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkaconnects.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/strimzipodsets.core.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkatopics.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkausers.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkanodepools.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkabridges.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkaconnectors.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkamirrormaker2s.kafka.strimzi.io
-kubectl wait --for=condition=Established --timeout=120s crd/kafkarebalances.kafka.strimzi.io
+wait_for_crd kafkas.kafka.strimzi.io
+wait_for_crd kafkaconnects.kafka.strimzi.io
+wait_for_crd strimzipodsets.core.strimzi.io
+wait_for_crd kafkatopics.kafka.strimzi.io
+wait_for_crd kafkausers.kafka.strimzi.io
+wait_for_crd kafkanodepools.kafka.strimzi.io
+wait_for_crd kafkabridges.kafka.strimzi.io
+wait_for_crd kafkaconnectors.kafka.strimzi.io
+wait_for_crd kafkamirrormaker2s.kafka.strimzi.io
+wait_for_crd kafkarebalances.kafka.strimzi.io
 
 if [ -d ./strimzi-strimzi-kafka-operator-1-0-0-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

@@ -4,7 +4,7 @@
 
 Plain-English answer to *"what must happen before or after deployment, and who handles it?"* for each chart and built preset config. Every lifecycle step is named, assigned to an executor, and linked to evidence or remaining work. Derived from committed inputs only (the chart-level and exact-base routes in `data/lifecycle-route-actions/`, each base's `variant.yaml`, and the matrix's per-base disposition). The product does not auto-execute these routes yet (`automatic: false`); that, with a receipt, is the roadmap ([#688](https://github.com/confighub/helm-expt/issues/688)).
 
-Charts: 14 · with a real per-variant delta: 4 (argo-cd/argo-workflows, kedacore/keda, kyverno/kyverno, prometheus-community/kube-prometheus-stack).
+Charts: 16 · with a real per-variant delta: 5 (argo-cd/argo-workflows, gatekeeper/gatekeeper, kedacore/keda, kyverno/kyverno, prometheus-community/kube-prometheus-stack).
 
 ## argo-cd/argo-workflows
 
@@ -13,6 +13,13 @@ Charts: 14 · with a real per-variant delta: 4 (argo-cd/argo-workflows, kedacore
 | controller-default-reviewed@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — apply the CRDs before the workloads | prerequisite (this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform) |
 | default@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — apply the CRDs before the workloads | prerequisite (this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform) |
 | minimal-crds@1.0.14 | crd-install → `self-contained-crd-base` | Your applier — must apply CRDs before dependent objects | resolved (this base installs the required CRDs (observed live)) |
+
+## gatekeeper/gatekeeper
+
+| Base | Hook (route) | After deploy, who runs it? | Per-base change |
+| --- | --- | --- | --- |
+| default@3.22.2 | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| default@3.22.2 | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
 
 ## kedacore/keda
 
@@ -25,7 +32,6 @@ Charts: 14 · with a real per-variant delta: 4 (argo-cd/argo-workflows, kedacore
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
 | default@3.8.1 | hook-delete-policy → `delete-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| default@3.8.1 | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
 | default@3.8.1 | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
 | default@3.8.1 | hook-test → `explicit-test-check` | Opt-in check — run from CI or on demand (tests are explicit by design) | — |
 | default@3.8.1 | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
@@ -84,3 +90,4 @@ These charts have hook routes but no built variant set that changes the hook beh
 - `gitlab/gitlab` — No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.
 - `k8s-dashboard/kubernetes-dashboard` — No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.
 - `kong/kong` — No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.
+- `projectcalico/tigera-operator` — One built base — its hook routes do not differ by variant.

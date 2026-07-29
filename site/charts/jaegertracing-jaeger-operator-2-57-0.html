@@ -576,8 +576,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
           <dt>Lifecycle record</dt><dd>The current review found no separate hook or setup route for this base. <a href="../../data/helm-render-intents/intents/jaegertracing-jaeger-operator-2-57-0-no-crds.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>3 prerequisites are declared for this base, with 1 follow-up action record from live tests. Each prerequisite says whether it must be checked before render or before apply.</dd>
-          <dt>Next</dt><dd>Stage prerequisite</dd>
-          <dt>Reason</dt><dd>Target prerequisite: cert manager CRDs missing</dd>
+          <dt>Next</dt><dd>Repeat the older two-cluster test with the recorded setup.</dd>
+          <dt>Reason</dt><dd>The required CRD setup is now recorded, and the end-to-end Helm and ConfigHub comparison passed. The older two-cluster test still needs to be repeated with that setup.</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for no-crds">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill no" title="Local: no"><b>L</b><em>no</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill no" title="Kind parity: no"><b>K</b><em>no</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
@@ -650,7 +650,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
       <div class="card"><table>
         <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
-        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 1 CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base when one is available.</td></tr></tbody>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 2 CRDs must exist first. The public package contains the bootstrap, and its generated <code>try.sh</code> applies it and waits for the CRDs before installing the main objects.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -690,10 +690,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="proof">
       <h2 id="proof">Proof Lanes</h2>
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
-      <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof. Proven on some bases: Local live, GitOps/OCI live, Live Helm-vs-ConfigHub. Not yet tested: Two-cluster kind - a fresh cluster run would prove these.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
-        <tbody><tr><td>Render parity</td><td>n/a: 2/4; yes: 2/4</td></tr><tr><td>ConfigHub proof</td><td>n/a: 2/4; yes: 2/4</td></tr><tr><td>Local live</td><td>n/a: 2/4; no: 1/4; yes: 1/4</td></tr><tr><td>GitOps/OCI live</td><td>n/a: 2/4; no: 1/4; yes: 1/4</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>n/a: 2/4; no: 1/4; yes: 1/4</td></tr><tr><td>Two-cluster kind</td><td>n/a: 2/4; no: 2/4</td></tr></tbody>
+        <tbody><tr><td>Render parity</td><td>yes: 2/2</td></tr><tr><td>ConfigHub proof</td><td>yes: 2/2</td></tr><tr><td>Local live</td><td>no: 1/2; yes: 1/2</td></tr><tr><td>GitOps/OCI live</td><td>no: 1/2; yes: 1/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>no: 1/2; yes: 1/2</td></tr><tr><td>Two-cluster kind</td><td>no: 2/2</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -703,7 +703,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>Readiness</th><th>Render</th><th>ConfigHub</th><th>Local live</th><th>GitOps/OCI</th><th>Live parity</th><th>Two-cluster kind</th></tr></thead>
-        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr><tr><td>no-crds</td><td>real</td><td>yes</td><td>yes</td><td>no</td><td>yes</td><td>yes</td><td>no</td></tr><tr><td>default + crd</td><td>candidate-custom-discussion</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td></tr><tr><td>no-crds + crd</td><td>candidate-custom-discussion</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td><td>n/a</td></tr></tbody>
+        <tbody><tr><td>default</td><td>real</td><td>yes</td><td>yes</td><td>yes</td><td>no</td><td>no</td><td>no</td></tr><tr><td>no-crds</td><td>real</td><td>yes</td><td>yes</td><td>no</td><td>yes</td><td>yes</td><td>no</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

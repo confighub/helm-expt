@@ -5,11 +5,11 @@ metadata:
   chart: "projectcalico/tigera-operator"
   version: "v3.32.0"
 spec:
-  summary: "The Tigera operator default base preserves the rendered object set, but the live run shows that the chart cannot be treated as a one-step apply on a vanilla target. The rendered manifest includes operator.tigera.io/v1 custom resources before the corresponding CRDs are available. Regular Helm and ConfigHub direct apply both block with the same resource-mapping errors. A supported path needs a CRD bootstrap stage, or a split base that installs the operator and CRDs before applying the custom resources."
+  summary: "The default base includes four operator.tigera.io custom resources, but a vanilla target does not have their CRDs. The package now carries an operator-only Kustomize bootstrap. The public try script applies that bootstrap, waits for the four CRDs, and then applies the complete rendered output. The comparison harness removes the temporary operator before testing Helm, direct apply, and ConfigHub OCI through Argo so that all three lanes start from the same prepared target."
   bases:
     default:
-      status: "target-prerequisite-and-crd-bootstrap-needed"
-      currentProofLimit: "The live parity receipt blocks before the OCI/Argo leg because both regular Helm and ConfigHub direct apply fail to build/apply the same custom resources: APIServer, Goldmane, Installation, and Whisker in apiVersion operator.tigera.io/v1. This is not evidence of ConfigHub semantic drift; it is a lifecycle/prerequisite boundary that must be modeled before this base can be production-supported."
+      status: "crd-bootstrap-route-observed"
+      currentProofLimit: "The route is proven in a fresh kind target. It is not a production claim for clusters where Calico owns live networking, and it does not prove upgrades or uninstall safety for every target state."
       requiredBeforeApply:
         -
           kind: "CustomResourceDefinition"
@@ -40,8 +40,8 @@ spec:
           kind: "CrdBootstrapOperation"
           name: "tigera-operator-crds"
           namespace: "cluster"
-          status: "lifecycle-operation"
-          purpose: "A supported installer path must either stage the Tigera CRDs before applying the CRs, or split the base so operator/CRD bootstrap and custom resources are applied in separate phases."
+          status: "observed-lifecycle-operation"
+          purpose: "Run the packaged operator-only Kustomize bootstrap until the four required CRDs are Established. The public install keeps those same operator objects as part of the full base; the comparison harness removes them before the three comparison lanes."
         -
           kind: "NetworkingTargetDecision"
           name: "calico-target-fit"
@@ -50,24 +50,27 @@ spec:
           purpose: "After CRDs are established, the operator still needs a target shape suitable for Calico/Tigera networking. That target fit is separate from render parity."
       mustObserve:
         - "The required operator.tigera.io CRDs are Established before APIServer, Goldmane, Installation, and Whisker are applied."
-        - "Regular Helm and ConfigHub direct apply both get past the resource-mapping stage after the CRD bootstrap decision."
+        - "The temporary bootstrap operator and its RBAC are removed before the comparison starts."
+        - "Regular Helm and ConfigHub direct apply both get past the resource-mapping stage."
         - "The tigera-operator Deployment reaches Available=True."
-        - "ConfigHub OCI/Argo syncs the staged object set, or any remaining controller-health condition is recorded as a target-scoped watch."
+        - "ConfigHub OCI/Argo syncs the staged object set and any remaining controller-health condition is recorded."
       requiredReceipts:
-        - "crd-bootstrap-receipt"
-        - "target-fact-receipt"
-        - "deployment-readiness-receipt"
-        - "gitops-health-receipt"
+        - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/target-profile-kind-tigera-crds.yaml"
+        - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+        - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+        - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
   evidence:
     liveParityReceipt: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
-    regularHelmEvent: "no matches for kind \"APIServer\" / \"Goldmane\" / \"Installation\" / \"Whisker\" in version \"operator.tigera.io/v1\"; ensure CRDs are installed first"
-    configHubDirectEvent: "kubectl apply blocks with the same operator.tigera.io/v1 resource-mapping errors before the OCI/Argo leg can run"
-    semanticParity: "not reached in this live row because the target rejects the CRs before apply"
+    targetProfileReceipt: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/target-profile-kind-tigera-crds.yaml"
+    hookLifecycleReceipt: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+    publicTryScriptReceipt: "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+    previousBlockedEvent: "Without the bootstrap route, regular Helm and direct apply both reported no matches for APIServer, Goldmane, Installation, and Whisker in operator.tigera.io/v1."
+    semanticParity: "pass with zero object differences for direct apply and ConfigHub OCI/Argo"
   nextInvestigation:
-    - "Decide whether the public catalog should expose this base only for targets where Tigera operator CRDs are already established."
-    - "Design a split base or lifecycle operation that stages Tigera CRDs before applying APIServer, Goldmane, Installation, and Whisker."
-    - "Rerun live parity after the CRD bootstrap route exists, then observe tigera-operator Deployment readiness and GitOps health."
+    - "Decide whether production users should keep this operator bootstrap or use a separately reviewed CRD artifact."
+    - "Test upgrades when the target already has an older Tigera CRD version."
+    - "Review the explicit pre-delete cleanup action on a target where Calico owns live networking."
   notProvenBy:
     - "render parity alone"
-    - "a chart package that renders custom resources before their CRDs are accepted"
-    - "assuming the operator will bootstrap CRDs before Kubernetes validates the same apply batch"
+    - "the local kind result as a production networking claim"
+    - "assuming the bootstrap route is safe for every existing Calico installation"

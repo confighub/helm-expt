@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/default/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/default/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-
 | Render intent | [data/helm-render-intents/intents/hashicorp-vault-0-32-0-default.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-vault-0-32-0-default.yaml) |
 | Rendered YAML | [recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-default/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-default/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-default/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-default/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/default/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/default/confighub.sh) |
 
 ## What is proven
 

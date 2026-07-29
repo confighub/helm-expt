@@ -564,6 +564,7 @@ if (mode === "--generate") {
     check(existsSync(readme.unitPath), `${relativeRepo(readme.unitPath)} is missing; run npm run helm-catalog-readmes`);
     check(readFileSync(readme.markdownPath, "utf8") === readme.markdown, `${relativeRepo(readme.markdownPath)} is stale; run npm run helm-catalog-readmes`);
     check(readFileSync(readme.unitPath, "utf8") === readme.unitYaml, `${relativeRepo(readme.unitPath)} is stale; run npm run helm-catalog-readmes`);
+    verifyLocalScriptLinks(readme.markdown, readme.markdownPath);
   }
   console.log(`verified ${report.readmes.length} Helm Catalog README file(s)`);
 } else {
@@ -614,7 +615,7 @@ function buildPresetReadme(row, guide) {
   const renderedObjects = intent.spec?.renderOutput?.renderedObjects ?? "";
   const renderIntentUrl = githubBlob(intentPath);
   const renderedUrl = renderedObjects ? githubBlob(renderedObjects) : "";
-  const scriptBase = `${SITE_BASE_URL}sh/${space}`;
+  const scriptBase = presetScriptBase(chartPage, base);
   const routeCount = Number(guide.route_count || intent.spec?.lifecycle?.routeCount || 0);
   const prereqSummary = guide.prerequisite_summary && guide.prerequisite_summary !== "none"
     ? guide.prerequisite_summary
@@ -706,6 +707,23 @@ ${presetLimits(base, routeCount).map((item) => `- ${item}`).join("\n")}
       ["Generated guide", githubBlob(guidePath)],
     ],
   });
+}
+
+function presetScriptBase(chartPage, base) {
+  const pageName = String(chartPage ?? "").split("/").at(-1) || "";
+  const chartSlug = pageName.replace(/\.html$/, "");
+  const baseSlug = String(base)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `${SITE_BASE_URL}sh/${chartSlug}/${baseSlug}`;
+}
+
+function verifyLocalScriptLinks(markdown, sourcePath) {
+  for (const match of markdown.matchAll(/https:\/\/confighub\.github\.io\/helm-expt\/site\/(sh\/[^)\s]+\.sh)/g)) {
+    const localPath = join(repoRoot, "site", match[1]);
+    check(existsSync(localPath), `${relativeRepo(sourcePath)} links to missing ${relativeRepo(localPath)}`);
+  }
 }
 
 function buildDemoReadme(model) {

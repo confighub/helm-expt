@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 The fixed credential shape is kept visible so it is not mistaken for generated secret material. Known limitation: ha (curated proof lane - bespoke teaching needed).
 
@@ -48,13 +48,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-static-passwords/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/static-passwords/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-static-passwords/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/static-passwords/confighub.sh)
 ```
 
 The core render command is:
@@ -77,13 +77,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml) |
 | Render variant | [`recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/bitnami/mysql/14.0.3/bases/static-passwords`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/static-passwords) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-static-passwords/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-static-passwords/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/static-passwords/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/static-passwords/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| No extra step recorded | The catalog has not identified a separate prerequisite or lifecycle step for this preset. | Check the limits and evidence before production use. |
 
 ## Evidence
 
@@ -91,7 +91,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -108,5 +108,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml)
 - Rendered YAML: [`recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml)
 - Package source: [`packages/bitnami/mysql/14.0.3/bases/static-passwords`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/static-passwords)
-- Generated scripts: [`site/sh/bitnami-mysql-14-0-3-static-passwords`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-mysql-14-0-3-static-passwords)
+- Generated scripts: [`site/sh/bitnami-mysql-14-0-3/static-passwords`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-mysql-14-0-3/static-passwords)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

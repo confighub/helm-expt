@@ -700,11 +700,11 @@ code{background:#161b22;padding:.05rem .3rem;border-radius:.3rem}
 <td><b>projectcalico/tigera-operator</b><br><span class="v">v3.32.0</span></td>
 <td><span class="pill warn">Needs a better base</span></td>
 <td>not-yet-user-ready</td>
-<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)</td>
+<td class="ev">proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 1/1)</td>
 <td><code>default</code></td>
 <td>target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists</td>
 <td>hooks;required-values;lookup;rbac — exact rendered objects with render parity and receipts; hooks classified and routed (not silently executed); cluster lookups lifted into declared target facts</td>
-<td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md)</td>
+<td>hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)</td>
 <td class="cs">After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.</td>
 </tr>
 <tr class="warn">

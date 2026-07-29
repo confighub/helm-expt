@@ -132,6 +132,7 @@ of the test cluster, not a change to the chart.
 | --- | --- | --- |
 | `kind-ingress-nginx` | A chart renders an Ingress that should be reconciled on kind. This installs a target ingress controller and proves Ingress status behavior. | `npm run live-parity:run -- --recipe recipes/bitnami/nginx/24.0.2 --base existing-tls-ingress --target-profile kind-ingress-nginx` |
 | `kind-loadbalancer` | A chart renders a `Service.type=LoadBalancer` and the test should prove the cloud-shaped Service path on kind. This uses `cloud-provider-kind`. | `npm run live-parity:run -- --recipe recipes/ingress-nginx/ingress-nginx/4.15.1 --base default --target-profile kind-loadbalancer` |
+| `kind-tigera-crds` | The Project Calico default base needs four operator CRDs before Kubernetes can accept its custom resources. This temporarily runs the catalog operator package, waits for those CRDs, removes the bootstrap operator, and leaves the CRDs for the comparison. | `npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default --target-profile kind-tigera-crds` |
 | `kind-three-node` | A chart requires more than one schedulable Kubernetes node for anti-affinity, quorum, or topology. This is target shape, not a ConfigHub worker requirement. | `npm run live-parity:run -- --recipe recipes/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --target-profile kind-three-node` |
 
 The strict two-cluster kind parity lane can create multi-node vanilla kind

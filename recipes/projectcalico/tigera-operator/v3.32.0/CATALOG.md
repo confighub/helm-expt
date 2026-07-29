@@ -30,8 +30,8 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | needs-useful-variant |
 | User status | proof-grade-needs-user-shaped-variant |
-| Strongest evidence | in-confighub-proof |
-| Proof lanes | render parity 1/1; ConfigHub 1/1; local live 0/1; GitOps live 0/1; live parity 0/1 |
+| Strongest evidence | live-helm-vs-confighub-parity |
+| Proof lanes | render parity 1/1; ConfigHub 1/1; local live 0/1; GitOps live 1/1; live parity 1/1 |
 | Feature summary | hooks;required-values |
 | Hard gap | - |
 | Next action | add at least one user-shaped variant before catalog promotion |
@@ -47,6 +47,7 @@ for exact base-variant evidence.
 | Chart dossier | [recipes/projectcalico/tigera-operator/v3.32.0/chart-dossier.yaml](chart-dossier.yaml) |
 | Control points | [recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml](value-model.yaml) |
+| GitOps runtime review | [recipes/projectcalico/tigera-operator/v3.32.0/gitops-runtime-review.yaml](gitops-runtime-review.yaml) |
 | Target prerequisite plan | [recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml](target-prerequisite-plan.yaml) |
 | Catalog status | [recipes/projectcalico/tigera-operator/v3.32.0/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml](helm-pain-report.yaml) |
@@ -59,7 +60,7 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/projectcalico/tigera-operator/v3.32.0/bases/default](../../../../packages/projectcalico/tigera-operator/v3.32.0/bases/default) | [recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 10 | 11 | 10/10 | pass | warn | warn | none |
+| default | [recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/projectcalico/tigera-operator/v3.32.0/bases/default](../../../../packages/projectcalico/tigera-operator/v3.32.0/bases/default) | [recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 10 | 11 | 10/10 | pass | warn | warn | required CRD apiservers.operator.tigera.io; required CRD goldmanes.operator.tigera.io; required CRD installations.operator.tigera.io; required CRD whiskers.operator.tigera.io |
 
 ## Package Bases
 

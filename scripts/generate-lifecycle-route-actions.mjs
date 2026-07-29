@@ -90,6 +90,9 @@ const ROUTE_PHASE = {
   "webhook-readiness-observation": "observe",
   "preserve-cleanup-policy": "observe",
   "delete-cleanup-policy": "observe",
+  "explicit-delete-cleanup-action": "observe",
+  "explicit-post-install-check": "observe",
+  "postsync-readiness-observation": "post-apply",
 };
 
 const ROUTE_ACTION_KIND = {
@@ -108,6 +111,9 @@ const ROUTE_ACTION_KIND = {
   "webhook-readiness-observation": "observe-webhook",
   "preserve-cleanup-policy": "accept-target-policy",
   "delete-cleanup-policy": "accept-target-policy",
+  "explicit-delete-cleanup-action": "run-job",
+  "explicit-post-install-check": "run-test",
+  "postsync-readiness-observation": "run-check",
 };
 
 // Human command placeholders. These are PLACEHOLDERS, not verified commands.

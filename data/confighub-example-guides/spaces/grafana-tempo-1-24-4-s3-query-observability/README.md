@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 3 prerequisite(s): 1 CRD, 1 Secret, 1 other item. Create these with your own values before you apply the rendered objects.
+This preset config records 3 prerequisites: 1 CRD, 1 Secret, 1 other item. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Known limitation: ha (tempo single-binary chart; HA is the separate tempo-distributed chart).
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-s3-query-observability/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/s3-query-observability/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-s3-query-observability/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/s3-query-observability/confighub.sh)
 ```
 
 The core render command is:
@@ -78,15 +78,15 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml) |
 | Render variant | [`recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/grafana/tempo/1.24.4/bases/s3-query-observability`](https://github.com/confighub/helm-expt/tree/main/packages/grafana/tempo/1.24.4/bases/s3-query-observability) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-s3-query-observability/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-s3-query-observability/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/s3-query-observability/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/s3-query-observability/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret tempo/tempo-s3-credentials keys access_key,secret_key | kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value> |
-| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | package://prerequisites/target-facts/s3-query-observability-crds.yaml |
-| ClusterFeature | S3-compatible object store tempo/tempo-object-store | create or bind an S3-compatible endpoint, bucket, and credentials before apply |
+| Before install | ClusterFeature: Secret tempo/tempo-s3-credentials keys access_key,secret_key | kubectl -n tempo create secret generic tempo-s3-credentials --from-literal=access_key=<value> --from-literal=secret_key=<value> |
+| Before install | ClusterFeature: S3-compatible object store tempo/tempo-object-store | create or bind an S3-compatible endpoint, bucket, and credentials before apply |
+| Before install | 1 CRD: servicemonitors.monitoring.coreos.com | Included in the public package as prerequisites/target-facts/s3-query-observability-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -94,7 +94,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
+| Earlier local-cluster test | `no` |
 | GitOps OCI live run | `watch` |
 | Live Helm vs ConfigHub comparison | `watch` |
 | Lifecycle routes | `0` |
@@ -112,5 +112,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-s3-query-observability.yaml)
 - Rendered YAML: [`recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml)
 - Package source: [`packages/grafana/tempo/1.24.4/bases/s3-query-observability`](https://github.com/confighub/helm-expt/tree/main/packages/grafana/tempo/1.24.4/bases/s3-query-observability)
-- Generated scripts: [`site/sh/grafana-tempo-1-24-4-s3-query-observability`](https://github.com/confighub/helm-expt/tree/main/site/sh/grafana-tempo-1-24-4-s3-query-observability)
+- Generated scripts: [`site/sh/grafana-tempo-1-24-4/s3-query-observability`](https://github.com/confighub/helm-expt/tree/main/site/sh/grafana-tempo-1-24-4/s3-query-observability)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

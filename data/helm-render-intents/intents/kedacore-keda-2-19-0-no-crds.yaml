@@ -62,7 +62,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness"
-        operatingDetails: "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods."
+        operatingDetails: "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods."
         command: "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations"
         disposition: "observed"
         delta: "kept"

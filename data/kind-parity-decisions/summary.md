@@ -23,8 +23,8 @@ Source: [data/live-kind-parity/summary.csv](../live-kind-parity/summary.md) (rea
 
 ## This batch
 
-50 non-pass rows: 3 watch, 47 blocked.
-13 are resolved by the **user** (stage a prerequisite or supply
+49 non-pass rows: 3 watch, 46 blocked.
+12 are resolved by the **user** (stage a prerequisite or supply
 values); 19 need **catalog/model** work; the rest need a runtime or
 readiness review.
 
@@ -33,7 +33,7 @@ readiness review.
 | `model-gap-render` | 14 |
 | `remote-image` | 10 |
 | `target-runtime` | 7 |
-| `target-prerequisite-crds` | 6 |
+| `target-prerequisite-crds` | 5 |
 | `capability-profile-diff` | 3 |
 | `target-prerequisite-secret` | 3 |
 | `render-input` | 2 |
@@ -45,7 +45,7 @@ readiness review.
 | Who fixes it | Rows |
 | --- | ---: |
 | `catalog` | 19 |
-| `user` | 13 |
+| `user` | 12 |
 | `catalog or image publisher` | 10 |
 | `needs runtime review` | 7 |
 | `needs readiness review` | 1 |
@@ -96,7 +96,6 @@ readiness review.
 | nats/surveyor@0.20.9 | default-reviewed | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | blocked | render-input | user | yes, after supplying values |
 | opencost/opencost@2.5.21 | default | blocked | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
-| projectcalico/tigera-operator@v3.32.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/kube-prometheus-stack@86.1.0 | default | blocked | model-gap-render | catalog | no — needs catalog work |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | blocked | target-prerequisite-crds | user | yes, after staging CRDs |
 | prometheus-community/prometheus-adapter@5.3.0 | default | blocked | target-prerequisite-crds | user | yes, after staging CRDs |

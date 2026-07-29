@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./gatekeeper-gatekeeper-3-22-2-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -96,23 +109,23 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/assign.mutations.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/assignimage.mutations.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/assignmetadata.mutations.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/configs.config.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/configpodstatuses.status.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/connections.connection.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/connectionpodstatuses.status.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/constraintpodstatuses.status.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/constrainttemplates.templates.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/constrainttemplatepodstatuses.status.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/expansiontemplate.expansion.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/expansiontemplatepodstatuses.status.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/modifyset.mutations.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/mutatorpodstatuses.status.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/providers.externaldata.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/providerpodstatuses.status.gatekeeper.sh
-kubectl wait --for=condition=Established --timeout=120s crd/syncsets.syncset.gatekeeper.sh
+wait_for_crd assign.mutations.gatekeeper.sh
+wait_for_crd assignimage.mutations.gatekeeper.sh
+wait_for_crd assignmetadata.mutations.gatekeeper.sh
+wait_for_crd configs.config.gatekeeper.sh
+wait_for_crd configpodstatuses.status.gatekeeper.sh
+wait_for_crd connections.connection.gatekeeper.sh
+wait_for_crd connectionpodstatuses.status.gatekeeper.sh
+wait_for_crd constraintpodstatuses.status.gatekeeper.sh
+wait_for_crd constrainttemplates.templates.gatekeeper.sh
+wait_for_crd constrainttemplatepodstatuses.status.gatekeeper.sh
+wait_for_crd expansiontemplate.expansion.gatekeeper.sh
+wait_for_crd expansiontemplatepodstatuses.status.gatekeeper.sh
+wait_for_crd modifyset.mutations.gatekeeper.sh
+wait_for_crd mutatorpodstatuses.status.gatekeeper.sh
+wait_for_crd providers.externaldata.gatekeeper.sh
+wait_for_crd providerpodstatuses.status.gatekeeper.sh
+wait_for_crd syncsets.syncset.gatekeeper.sh
 
 if [ -d ./gatekeeper-gatekeeper-3-22-2-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

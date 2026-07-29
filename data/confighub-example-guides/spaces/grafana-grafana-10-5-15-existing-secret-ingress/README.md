@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 1 prerequisite(s): 1 Secret. Create these with your own values before you apply the rendered objects.
+This preset config records 1 prerequisite: 1 Secret. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Secret material is kept outside the chart render and supplied by you. At least one Secret must be created with your values before apply.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/grafana-grafana-10-5-15-existing-secret-ingress.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-grafana-10-5-15-existing-secret-ingress.yaml) |
 | Render variant | [`recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/grafana/grafana/10.5.15/bases/existing-secret-ingress`](https://github.com/confighub/helm-expt/tree/main/packages/grafana/grafana/10.5.15/bases/existing-secret-ingress) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret grafana/grafana-admin keys admin-user,admin-password | kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=admin --from-literal=admin-password="$(openssl rand -base64 32)" |
+| Before install | ClusterFeature: Secret grafana/grafana-admin keys admin-user,admin-password | kubectl -n grafana create secret generic grafana-admin --from-literal=admin-user=admin --from-literal=admin-password="$(openssl rand -base64 32)" |
 
 ## Evidence
 
@@ -92,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -107,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/grafana-grafana-10-5-15-existing-secret-ingress.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-grafana-10-5-15-existing-secret-ingress.yaml)
 - Rendered YAML: [`recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml)
 - Package source: [`packages/grafana/grafana/10.5.15/bases/existing-secret-ingress`](https://github.com/confighub/helm-expt/tree/main/packages/grafana/grafana/10.5.15/bases/existing-secret-ingress)
-- Generated scripts: [`site/sh/grafana-grafana-10-5-15-existing-secret-ingress`](https://github.com/confighub/helm-expt/tree/main/site/sh/grafana-grafana-10-5-15-existing-secret-ingress)
+- Generated scripts: [`site/sh/grafana-grafana-10-5-15/existing-secret-ingress`](https://github.com/confighub/helm-expt/tree/main/site/sh/grafana-grafana-10-5-15/existing-secret-ingress)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

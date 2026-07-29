@@ -1,0 +1,23 @@
+$patch: delete
+apiVersion: operator.tigera.io/v1
+kind: APIServer
+metadata:
+  name: default
+---
+$patch: delete
+apiVersion: operator.tigera.io/v1
+kind: Goldmane
+metadata:
+  name: default
+---
+$patch: delete
+apiVersion: operator.tigera.io/v1
+kind: Installation
+metadata:
+  name: default
+---
+$patch: delete
+apiVersion: operator.tigera.io/v1
+kind: Whisker
+metadata:
+  name: default

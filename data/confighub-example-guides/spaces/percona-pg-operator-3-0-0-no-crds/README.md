@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 8 prerequisite(s): 8 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 8 prerequisites: 8 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -78,20 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml) |
 | Render variant | [`recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/percona/pg-operator/3.0.0/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/percona/pg-operator/3.0.0/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/percona-pg-operator-3-0-0/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD crunchybridgeclusters.upstream.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD perconapgbackups.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD perconapgclusters.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD perconapgrestores.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD perconapgupgrades.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD pgadmins.upstream.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD pgupgrades.upstream.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD postgresclusters.upstream.pgv2.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | 8 CRDs: crunchybridgeclusters.upstream.pgv2.percona.com, perconapgbackups.pgv2.percona.com, perconapgclusters.pgv2.percona.com, perconapgrestores.pgv2.percona.com, perconapgupgrades.pgv2.percona.com, pgadmins.upstream.pgv2.percona.com, pgupgrades.upstream.pgv2.percona.com, postgresclusters.upstream.pgv2.percona.com | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -99,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -114,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pg-operator-3-0-0-no-crds.yaml)
 - Rendered YAML: [`recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/percona/pg-operator/3.0.0/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/percona/pg-operator/3.0.0/bases/no-crds)
-- Generated scripts: [`site/sh/percona-pg-operator-3-0-0-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/percona-pg-operator-3-0-0-no-crds)
+- Generated scripts: [`site/sh/percona-pg-operator-3-0-0/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/percona-pg-operator-3-0-0/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

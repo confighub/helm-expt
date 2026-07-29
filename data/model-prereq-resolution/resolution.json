@@ -972,23 +972,6 @@
     },
     {
       "source_queue": "target-prerequisite",
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "base": "default",
-      "lane": "K",
-      "current_result": "blocked",
-      "gap_kind": "crd",
-      "resolution_path": "crd-ownership-base-or-target-action",
-      "variant_role": "CRD ownership base plus target prerequisite",
-      "recommended_variant_or_action": "use a CRD-rendering base, or keep default as external-crds with the CRDs staged first",
-      "existing_off_ramp": "",
-      "first_step": "choose whether this target owns CRDs through the base or through an external prerequisite",
-      "evidence_needed": "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base",
-      "rerun_command": "npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default",
-      "source_evidence": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
-    },
-    {
-      "source_queue": "target-prerequisite",
       "chart": "prometheus-community/prometheus-adapter",
       "version": "5.3.0",
       "base": "cluster-metrics-readonly",

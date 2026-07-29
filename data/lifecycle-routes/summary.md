@@ -21,7 +21,7 @@ The full field definitions and the deterministic mapping tables are in
 
 ## What This Covers
 
-27 route rows across 14 chart/version lifecycle behaviors,
+38 route rows across 16 chart/version lifecycle behaviors,
 joined from:
 
 - [data/hook-disposition/top100-hook-dispositions.csv](../hook-disposition/summary.md)
@@ -37,7 +37,7 @@ until that data exists — a small correct contract, not a broad guess.
 
 ## The Honest Headline
 
-0 of 27 rows are safe to show as automatic.
+0 of 38 rows are safe to show as automatic.
 
 Nothing the catalog renders today is auto-executed by the cub installer. Every
 route is `user-executes`, `target-owned` (a controller or GitOps engine runs
@@ -51,23 +51,23 @@ it.
 
 | Disposition | Rows |
 | --- | ---: |
-| `observed` | 17 |
+| `observed` | 28 |
 | `routed` | 5 |
 | `todo` | 4 |
 | `per-target` | 1 |
 
 | Execution mode | Rows |
 | --- | ---: |
-| `user-executes` | 11 |
-| `target-owned` | 9 |
+| `user-executes` | 21 |
+| `target-owned` | 10 |
 | `not-yet-executable` | 7 |
 
 | Quirk class | Rows |
 | --- | ---: |
-| `hook-phase` | 12 |
-| `hook-delete-policy` | 4 |
+| `hook-phase` | 19 |
+| `hook-delete-policy` | 6 |
+| `hook-test` | 4 |
 | `crd-install` | 2 |
-| `hook-test` | 2 |
 | `hook-weight-ordering` | 2 |
 | `target-facts` | 2 |
 | `webhook-readiness` | 2 |
@@ -105,6 +105,9 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | datadog/datadog@3.214.0 | chart fallback | per-target-hook | `target-class-preflight-and-upgrade-action` | per-target | user-executes | no |
 | fluent/fluent-bit@0.57.6 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
 | fluent/fluent-bit@0.57.6 | chart fallback | hook-test | `explicit-test-check` | observed | user-executes | no |
+| fluent/fluent-bit@0.57.6 | default | hook-test | `explicit-test-check` | observed | user-executes | no |
+| gatekeeper/gatekeeper@3.22.2 | default | hook-phase | `preflight-or-presync` | observed | user-executes | no |
+| gatekeeper/gatekeeper@3.22.2 | default | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
 | gitlab/gitlab@10.0.0 | chart fallback | hook-phase | `argocd-or-flux-lifecycle-hook` | todo | not-yet-executable | no |
 | k8s-dashboard/kubernetes-dashboard@7.14.0 | chart fallback | hook-phase | `upgrade-action-with-receipt` | routed | user-executes | no |
 | kedacore/keda@2.19.0 | no-crds | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
@@ -115,6 +118,11 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | kyverno/kyverno@3.8.1 | chart fallback | hook-test | `explicit-test-check` | observed | user-executes | no |
 | kyverno/kyverno@3.8.1 | chart fallback | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
 | kyverno/kyverno@3.8.1 | chart fallback | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
+| kyverno/kyverno@3.8.1 | default | hook-delete-policy | `delete-cleanup-policy` | observed | target-owned | no |
+| kyverno/kyverno@3.8.1 | default | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
+| kyverno/kyverno@3.8.1 | default | hook-test | `explicit-test-check` | observed | user-executes | no |
+| projectcalico/tigera-operator@v3.32.0 | default | hook-delete-policy | `explicit-delete-cleanup-action` | observed | user-executes | no |
+| projectcalico/tigera-operator@v3.32.0 | default | hook-phase | `preflight-or-presync` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `preflight-or-presync` | observed | user-executes | no |
@@ -122,6 +130,9 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `preflight-or-presync` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
 
 ## Boundaries
 

@@ -8,11 +8,11 @@ clear without turning every non-pass row into a product defect.
 ## Snapshot
 
 ~~~text
-chart/base rows:          193
-local live observed rows: 193
-local live pass rows:     143
-local live non-pass rows: 50
-classified non-pass rows: 49
+chart/base rows:          199
+local live observed rows: 199
+local live pass rows:     148
+local live non-pass rows: 51
+classified non-pass rows: 50
 needs manual inspection:  1
 ~~~
 
@@ -21,7 +21,7 @@ needs manual inspection:  1
 | Route class | Rows | Meaning | Next action |
 | --- | ---: | --- | --- |
 | `runtime-readiness` | 22 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
-| `target-prerequisite` | 9 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
+| `target-prerequisite` | 10 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | `webhook-cert-lifecycle` | 4 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `admission-or-rbac` | 3 | Kubernetes rejected an object because of permissions, admission, immutability, or API validation. | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |

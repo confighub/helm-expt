@@ -436,20 +436,20 @@
 <h2 id="snapshot">Snapshot</h2>
 <table><thead><tr><th>Measure</th><th>Count</th></tr></thead><tbody><tr><td>Real base rows in the matrix</td><td>199</td></tr>
 <tr><td>Generated HelmRenderIntent objects</td><td>199</td></tr>
-<tr><td>Candidate/custom-discussion rows skipped</td><td>67</td></tr>
-<tr><td>Intents with lifecycle routes attached</td><td>11</td></tr>
-<tr><td>Intents whose routes name the Argo CD and Flux handling</td><td>11</td></tr>
-<tr><td>Intents with target facts declared by the base variant</td><td>63</td></tr>
-<tr><td>Intents with action records from observed prerequisite failures</td><td>27</td></tr>
-<tr><td>Lifecycle contract gaps named for follow-up</td><td>5</td></tr>
-<tr><td>Target-prerequisite reviews still missing</td><td>136</td></tr></tbody></table>
+<tr><td>Candidate/custom-discussion rows skipped</td><td>66</td></tr>
+<tr><td>Intents with lifecycle routes attached</td><td>13</td></tr>
+<tr><td>Intents whose routes name the Argo CD and Flux handling</td><td>13</td></tr>
+<tr><td>Intents with target facts declared by the base variant</td><td>64</td></tr>
+<tr><td>Intents with action records from observed prerequisite failures</td><td>26</td></tr>
+<tr><td>Lifecycle contract gaps named for follow-up</td><td>3</td></tr>
+<tr><td>Target-prerequisite reviews still missing</td><td>135</td></tr></tbody></table>
 <h2 id="contract-coverage">Contract Coverage</h2>
 <p>Every render intent now states whether its lifecycle and target-prerequisite contract is attached, explicitly unnecessary, or still missing. A missing contract stays in the generated gap list; it is not treated as proof that the chart needs no extra work.</p>
-<table><thead><tr><th>Lifecycle state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>5</td></tr>
-<tr><td><code>attached</code></td><td>9</td></tr>
+<table><thead><tr><th>Lifecycle state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>3</td></tr>
+<tr><td><code>attached</code></td><td>11</td></tr>
 <tr><td><code>no-route-required</code></td><td>185</td></tr></tbody></table>
-<table><thead><tr><th>Target-prerequisite state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>136</td></tr>
-<tr><td><code>attached</code></td><td>53</td></tr>
+<table><thead><tr><th>Target-prerequisite state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>135</td></tr>
+<tr><td><code>attached</code></td><td>54</td></tr>
 <tr><td><code>attached-with-observed-actions</code></td><td>10</td></tr></tbody></table>
 <p>Open <a href="contract-gaps.html">contract-gaps.md</a> for the exact bases that still need a route or target-prerequisite review.</p>
 <h2 id="by-catalog-layer">By Catalog Layer</h2>

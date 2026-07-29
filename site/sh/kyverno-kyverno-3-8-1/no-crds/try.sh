@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./kyverno-kyverno-3-8-1-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -111,28 +124,28 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/cleanuppolicies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/clustercleanuppolicies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterpolicies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/globalcontextentries.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/policyexceptions.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/updaterequests.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterephemeralreports.reports.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/ephemeralreports.reports.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterpolicyreports.wgpolicyk8s.io
-kubectl wait --for=condition=Established --timeout=120s crd/policyreports.wgpolicyk8s.io
-kubectl wait --for=condition=Established --timeout=120s crd/deletingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/generatingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/imagevalidatingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/mutatingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/namespaceddeletingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/namespacedgeneratingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/namespacedimagevalidatingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/namespacedmutatingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/namespacedvalidatingpolicies.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/policyexceptions.policies.kyverno.io
-kubectl wait --for=condition=Established --timeout=120s crd/validatingpolicies.policies.kyverno.io
+wait_for_crd cleanuppolicies.kyverno.io
+wait_for_crd clustercleanuppolicies.kyverno.io
+wait_for_crd clusterpolicies.kyverno.io
+wait_for_crd globalcontextentries.kyverno.io
+wait_for_crd policies.kyverno.io
+wait_for_crd policyexceptions.kyverno.io
+wait_for_crd updaterequests.kyverno.io
+wait_for_crd clusterephemeralreports.reports.kyverno.io
+wait_for_crd ephemeralreports.reports.kyverno.io
+wait_for_crd clusterpolicyreports.wgpolicyk8s.io
+wait_for_crd policyreports.wgpolicyk8s.io
+wait_for_crd deletingpolicies.policies.kyverno.io
+wait_for_crd generatingpolicies.policies.kyverno.io
+wait_for_crd imagevalidatingpolicies.policies.kyverno.io
+wait_for_crd mutatingpolicies.policies.kyverno.io
+wait_for_crd namespaceddeletingpolicies.policies.kyverno.io
+wait_for_crd namespacedgeneratingpolicies.policies.kyverno.io
+wait_for_crd namespacedimagevalidatingpolicies.policies.kyverno.io
+wait_for_crd namespacedmutatingpolicies.policies.kyverno.io
+wait_for_crd namespacedvalidatingpolicies.policies.kyverno.io
+wait_for_crd policyexceptions.policies.kyverno.io
+wait_for_crd validatingpolicies.policies.kyverno.io
 
 if [ -d ./kyverno-kyverno-3-8-1-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

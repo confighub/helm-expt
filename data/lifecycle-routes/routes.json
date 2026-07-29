@@ -6,7 +6,8 @@
     "data/hook-disposition/top100-hook-dispositions.csv",
     "data/hook-route-candidates/candidates.csv",
     "data/hook-lifecycle-review/top100-source-hook-route-review.csv",
-    "data/hook-route-candidates/selected-routes"
+    "data/hook-route-candidates/selected-routes",
+    "data/hook-lifecycle/receipts"
   ],
   "vocabulary": {
     "disposition": [
@@ -167,7 +168,7 @@
           "requirement": "use a no-crds base and install/upgrade the CRDs yourself"
         }
       ],
-      "route_requirements": "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
+      "route_requirements": "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
       "execution_mode": "target-owned",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
@@ -380,6 +381,110 @@
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
     },
     {
+      "chart": "fluent/fluent-bit",
+      "version": "0.57.6",
+      "base_or_variant": "default",
+      "quirk_class": "hook-test",
+      "hook_phases": "test",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "explicit-test-check",
+      "default_route": "explicit-test-check",
+      "alternatives": [
+        {
+          "route": "ci-check",
+          "requirement": "run the test as a CI or post-apply check instead of a Helm test hook"
+        },
+        {
+          "route": "skip-test",
+          "requirement": "accept that the test is not run automatically"
+        }
+      ],
+      "route_requirements": "Connectivity tests are checks against the installed target, not render-time behavior.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml;runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "gatekeeper/gatekeeper",
+      "version": "3.22.2",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-install, pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "CRD and admission-webhook prerequisites must be checked before apply.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml;runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "gatekeeper/gatekeeper",
+      "version": "3.22.2",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "upgrade-action-with-receipt",
+      "default_route": "upgrade-action-with-receipt",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml;runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+    },
+    {
       "chart": "gitlab/gitlab",
       "version": "10.0.0",
       "base_or_variant": "",
@@ -463,7 +568,7 @@
           "requirement": "a post-apply readiness check you run or observe"
         }
       ],
-      "route_requirements": "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+      "route_requirements": "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
       "execution_mode": "target-owned",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
@@ -708,6 +813,174 @@
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
     },
     {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.1",
+      "base_or_variant": "default",
+      "quirk_class": "hook-delete-policy",
+      "hook_phases": "pre-delete",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "delete-cleanup-policy",
+      "default_route": "delete-cleanup-policy",
+      "alternatives": [
+        {
+          "route": "delete-on-uninstall",
+          "requirement": "accept deletion of the hook-managed object on uninstall"
+        },
+        {
+          "route": "refuse",
+          "requirement": "manage cleanup manually and keep the object"
+        }
+      ],
+      "route_requirements": "Webhook and APIService cleanup belongs to delete or rollback policy.",
+      "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.1",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "upgrade-action-with-receipt",
+      "default_route": "upgrade-action-with-receipt",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Resource migration after upgrade must be recorded as an upgrade operation.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.1",
+      "base_or_variant": "default",
+      "quirk_class": "hook-test",
+      "hook_phases": "test",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "explicit-test-check",
+      "default_route": "explicit-test-check",
+      "alternatives": [
+        {
+          "route": "ci-check",
+          "requirement": "run the test as a CI or post-apply check instead of a Helm test hook"
+        },
+        {
+          "route": "skip-test",
+          "requirement": "accept that the test is not run automatically"
+        }
+      ],
+      "route_requirements": "Test hooks become checks, not hidden install behavior.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "projectcalico/tigera-operator",
+      "version": "v3.32.0",
+      "base_or_variant": "default",
+      "quirk_class": "hook-delete-policy",
+      "hook_phases": "pre-delete",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "explicit-delete-cleanup-action",
+      "default_route": "explicit-delete-cleanup-action",
+      "alternatives": [
+        {
+          "route": "delete-on-uninstall",
+          "requirement": "accept deletion of the hook-managed object on uninstall"
+        },
+        {
+          "route": "refuse",
+          "requirement": "manage cleanup manually and keep the object"
+        }
+      ],
+      "route_requirements": "Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml;runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml;runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+    },
+    {
+      "chart": "projectcalico/tigera-operator",
+      "version": "v3.32.0",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "crd-bootstrap",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml;runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml;runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+    },
+    {
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "85.3.3",
       "base_or_variant": "",
@@ -938,6 +1211,114 @@
       "live_status": "observed",
       "safe_as_automatic": false,
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "post-install, post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "postsync-check-or-observation",
+      "default_route": "postsync-check-or-observation",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Webhook TLS and readiness must be observed after apply.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-install, pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "The hook creates webhook patch prerequisites before admission configuration is safe to use.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-upgrade, post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "upgrade-action-with-receipt",
+      "default_route": "upgrade-action-with-receipt",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Upgrade behavior must be recorded separately from initial render parity.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
     }
   ]
 }

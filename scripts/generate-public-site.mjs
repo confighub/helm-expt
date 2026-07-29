@@ -5396,10 +5396,28 @@ function executionModePlain(mode) {
 }
 
 function evidenceDepthSummary(lanes) {
-  const fullyPass = (status) => /^pass: \d+\/\d+$/.test(status);
-  const proven = lanes.filter(([, status]) => fullyPass(status)).map(([name]) => name);
-  const partial = lanes.filter(([, status]) => status.includes("pass:") && !fullyPass(status)).map(([name]) => name);
-  const notYet = lanes.filter(([, status]) => !status.includes("pass:") && !/^n\/a: \d+\/\d+$/.test(status)).map(([name]) => name);
+  const passFraction = (status) => {
+    const match = String(status).match(/\b(?:pass|yes):\s*(\d+)\/(\d+)/);
+    return match ? { passed: Number(match[1]), total: Number(match[2]) } : { passed: 0, total: 0 };
+  };
+  const proven = lanes
+    .filter(([, status]) => {
+      const { passed, total } = passFraction(status);
+      return total > 0 && passed === total;
+    })
+    .map(([name]) => name);
+  const partial = lanes
+    .filter(([, status]) => {
+      const { passed, total } = passFraction(status);
+      return passed > 0 && passed < total;
+    })
+    .map(([name]) => name);
+  const notYet = lanes
+    .filter(([, status]) => {
+      const { passed } = passFraction(status);
+      return passed === 0 && !/^n\/a: \d+\/\d+$/.test(status);
+    })
+    .map(([name]) => name);
   const parts = [];
   if (proven.length) parts.push(`Fully proven: ${proven.join(", ")}.`);
   if (partial.length) parts.push(`Proven on some bases: ${partial.join(", ")}.`);
@@ -5537,6 +5555,23 @@ function presetTryScript(entry, row) {
     'say "Read what was rendered; nothing has touched the cluster yet"',
     `ls ${workDir}/out/manifests`,
   );
+  if (packagedRequirements.length) {
+    lines.push(
+      "",
+      "wait_for_crd() {",
+      '  crd_name="$1"',
+      '  deadline=$(( $(date +%s) + 180 ))',
+      '  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do',
+      '    if [ "$(date +%s)" -ge "$deadline" ]; then',
+      '      printf "CRD %s did not appear within 180 seconds.\\n" "$crd_name" >&2',
+      "      return 1",
+      "    fi",
+      "    sleep 2",
+      "  done",
+      '  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"',
+      "}",
+    );
+  }
   for (const namespace of namespaces) {
     lines.push(
       "",
@@ -5581,13 +5616,15 @@ function presetTryScript(entry, row) {
     }
     lines.push(
       'if [ "$missing_crds" -eq 1 ]; then',
-      `  kubectl apply --server-side -f ${workDir}/package/${path}`,
+      path.endsWith("/kustomization.yaml")
+        ? `  kubectl apply --server-side -k ${workDir}/package/${posix.dirname(path)}`
+        : `  kubectl apply --server-side -f ${workDir}/package/${path}`,
       "else",
       '  say "The required CRDs already exist; leave them under their current owner"',
       "fi",
     );
     for (const crdName of crdNames) {
-      lines.push(`kubectl wait --for=condition=Established --timeout=120s crd/${crdName}`);
+      lines.push(`wait_for_crd ${crdName}`);
     }
   }
   for (const requirement of runnable) {
@@ -5859,7 +5896,7 @@ function chartPageHtml(catalog, entry) {
     row.two_cluster_kind_parity,
   ]);
   const proofMatrixRows = matrixRows
-    .filter((row) => row.row_kind !== "source")
+    .filter((row) => row.row_kind === "base")
     .map((row) => [
       row.variant,
       row.row_status || row.customization_layer || "matrix row",
@@ -5873,6 +5910,11 @@ function chartPageHtml(catalog, entry) {
   const proofEvidenceRows = proofRows.length ? proofRows : proofMatrixRows;
   const firstRenderIntent = catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version && row.base === entry.start_variant)
     ?? catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const firstRunnableDisplayReason = currentPathReason(
+    firstRunnableRow,
+    firstRenderIntent,
+    firstRunnableReason,
+  );
   const firstHubReadmePath = firstRunnableRow ? helmCatalogReadmePath(catalog, entry.chart, entry.version, firstRunnableRow.variant) : "";
   const firstRenderIntentLink = firstRenderIntent?.intent_path
     ? `<a href="../../${escapeHtml(firstRenderIntent.intent_path)}">${escapeHtml(firstRenderIntent.base)} render intent</a>`
@@ -5881,6 +5923,16 @@ function chartPageHtml(catalog, entry) {
   const firstRenderedObjectsLink = firstRenderedObjectsPath
     ? `<a href="../../${escapeHtml(firstRenderedObjectsPath)}">full rendered YAML</a>`
     : `<a href="../../data/helm-render-intents/summary.md">render-output summary</a>`;
+  const lifecycleByVariantChart = (catalog.lifecycleByVariant ?? []).find((candidate) => candidate.chart === entry.chart);
+  const lifecycleVariants = lifecycleByVariantChart?.variants?.filter((candidate) =>
+    !candidate.recipeVersion || candidate.recipeVersion === entry.version) ?? [];
+  const lifecycleByVariantEntry = lifecycleVariants.length
+    ? { ...lifecycleByVariantChart, variants: lifecycleVariants }
+    : null;
+  const firstLifecycleRoutes =
+    lifecycleVariants.find((candidate) => candidate.base === firstRunnableRow?.variant)?.routes ??
+    lifecycleVariants[0]?.routes ??
+    [];
   const firstBaseRecordPath = firstRunnableRow
     ? `data/base-variant-records/records/${helmRenderIntentFileName(firstRunnableRow.chart, firstRunnableRow.version, firstRunnableRow.variant)}`
     : "";
@@ -5940,12 +5992,12 @@ function chartPageHtml(catalog, entry) {
   const openDispositions = splitDisposition(production?.open_dispositions);
   const acceptedDispositions = splitDisposition(production?.accepted_dispositions);
   const lanes = [
-    ["Render parity", baseRows.length ? allBaseStatus(baseRows, "render_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_render_parity")],
-    ["ConfigHub proof", baseRows.length ? allBaseStatus(baseRows, "in_confighub") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_confighub_scan_ops")],
-    ["Local live", baseRows.length ? allBaseStatus(baseRows, "local_live") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_local_kind")],
-    ["GitOps/OCI live", baseRows.length ? allBaseStatus(baseRows, "gitops_oci_live") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_gitops_oci_live")],
-    ["Live Helm-vs-ConfigHub", baseRows.length ? allBaseStatus(baseRows, "live_helm_vs_confighub_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_live_dual_parity")],
-    ["Two-cluster kind", baseRows.length ? allBaseStatus(baseRows, "two_cluster_kind_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind !== "source"), "lane_two_cluster_kind")],
+    ["Render parity", baseRows.length ? allBaseStatus(baseRows, "render_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind === "base"), "lane_render_parity")],
+    ["ConfigHub proof", baseRows.length ? allBaseStatus(baseRows, "in_confighub") : allBaseStatus(matrixRows.filter((row) => row.row_kind === "base"), "lane_confighub_scan_ops")],
+    ["Local live", baseRows.length ? allBaseStatus(baseRows, "local_live") : allBaseStatus(matrixRows.filter((row) => row.row_kind === "base"), "lane_local_kind")],
+    ["GitOps/OCI live", baseRows.length ? allBaseStatus(baseRows, "gitops_oci_live") : allBaseStatus(matrixRows.filter((row) => row.row_kind === "base"), "lane_gitops_oci_live")],
+    ["Live Helm-vs-ConfigHub", baseRows.length ? allBaseStatus(baseRows, "live_helm_vs_confighub_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind === "base"), "lane_live_dual_parity")],
+    ["Two-cluster kind", baseRows.length ? allBaseStatus(baseRows, "two_cluster_kind_parity") : allBaseStatus(matrixRows.filter((row) => row.row_kind === "base"), "lane_two_cluster_kind")],
   ];
   const lifecycleRoutes = catalog.lifecycleRoutes.filter((row) => row.chart === entry.chart && (!row.version || row.version === entry.version));
   const lifecycleRows = lifecycleRoutes.map((row) => [
@@ -5955,12 +6007,6 @@ function chartPageHtml(catalog, entry) {
     (row.alternatives ?? []).map((alt) => alt.route).join(", ") || "-",
     isTruthyRouteFlag(row.safe_as_automatic) ? "yes" : "no",
   ]);
-  const lifecycleByVariantChart = (catalog.lifecycleByVariant ?? []).find((c) => c.chart === entry.chart);
-  const lifecycleVariants = lifecycleByVariantChart?.variants?.filter((variant) =>
-    !variant.recipeVersion || variant.recipeVersion === entry.version) ?? [];
-  const lifecycleByVariantEntry = lifecycleVariants.length
-    ? { ...lifecycleByVariantChart, variants: lifecycleVariants }
-    : null;
   const gitopsRouteEmissionChart = (catalog.gitopsRouteEmission ?? []).find((candidate) => candidate.chart === entry.chart);
   const gitopsRouteEmissionVariants = gitopsRouteEmissionChart?.variants?.filter((variant) =>
     !variant.recipeVersion || variant.recipeVersion === entry.version) ?? [];
@@ -6077,7 +6123,7 @@ function chartPageHtml(catalog, entry) {
         <pre><code>cub installer setup ...
 rendered manifests written under &lt;work-dir&gt;
 use the chart option cards below to check pass, watch, blocked, and prerequisites</code></pre>
-        <p><strong>Current status:</strong> ${escapeHtml(firstRunnableRow ? matrixRowStatusLabel(firstRunnableRow) : entry.start_base_readiness || "unknown")} · <strong>Reason:</strong> ${escapeHtml(humanizeReasonList(firstRunnableReason))}</p>
+        <p><strong>Current status:</strong> ${escapeHtml(firstRunnableRow ? matrixRowStatusLabel(firstRunnableRow) : entry.start_base_readiness || "unknown")} · <strong>Reason:</strong> ${escapeHtml(firstRunnableDisplayReason)}</p>
       </div>
     </section>
 
@@ -6107,7 +6153,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
     </section>`;
     })()}
 
-    ${chartAdoptionCaveatHtml(adoptionCaveat)}
+    ${chartAdoptionCaveatHtml(adoptionCaveat, packageRequirements, firstLifecycleRoutes)}
 
     <section aria-labelledby="playbooks">
       <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
@@ -6439,6 +6485,30 @@ function targetContractText(intent) {
   return "This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.";
 }
 
+function resolvedPrerequisiteQueue(row, intent, reason) {
+  return Boolean(
+    row
+    && intent
+    && row.lane_live_dual_parity === "yes"
+    && ["attached", "attached-with-observed-actions"].includes(intent.target_fact_contract_state)
+    && /target-prerequisite|CRDs? missing/i.test(String(reason ?? "")),
+  );
+}
+
+function currentPathReason(row, intent, reason) {
+  if (resolvedPrerequisiteQueue(row, intent, reason)) {
+    return "The required CRD setup is now recorded, and the end-to-end Helm and ConfigHub comparison passed. The older two-cluster test still needs to be repeated with that setup.";
+  }
+  return humanizeReasonList(reason) || "No blocking reason recorded.";
+}
+
+function currentPathNextAction(row, intent, nextAction, reason) {
+  if (resolvedPrerequisiteQueue(row, intent, reason)) {
+    return "Repeat the older two-cluster test with the recorded setup.";
+  }
+  return humanizeNextAction(nextAction || "No next action recorded.");
+}
+
 function matrixRowCard(row, entry, catalog) {
   const title = row.variant || "(unnamed)";
   const command = matrixRowRunPath(row, entry);
@@ -6448,9 +6518,10 @@ function matrixRowCard(row, entry, catalog) {
     : "";
   const nextAction = cleanPageActionText(row.active_proof_next_step || row.next_action || row.variant_promotion_next_action || row.candidate_required_before || "");
   const reason = cleanPageActionText(row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "");
-  const humanReason = reason ? humanizeReasonList(reason) : "";
   const rowLinks = matrixRowLinks(row, catalog);
   const renderIntent = renderIntentForRow(catalog, row);
+  const humanReason = reason ? currentPathReason(row, renderIntent, reason) : "";
+  const humanNextAction = currentPathNextAction(row, renderIntent, nextAction, reason);
   const renderIntentLink = renderIntent?.intent_path
     ? ` <a href="../../${escapeHtml(renderIntent.intent_path)}">Open the full record.</a>`
     : "";
@@ -6482,7 +6553,7 @@ function matrixRowCard(row, entry, catalog) {
           <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row))}</dd>${renderIntent ? `
           <dt>Lifecycle record</dt><dd>${escapeHtml(lifecycleContractText(renderIntent))}${renderIntentLink}</dd>
           <dt>Prerequisites</dt><dd>${escapeHtml(targetContractText(renderIntent))}</dd>` : ""}
-          <dt>Next</dt><dd>${escapeHtml(humanizeNextAction(nextAction || "No next action recorded."))}</dd>
+          <dt>Next</dt><dd>${escapeHtml(humanNextAction)}</dd>
           ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(humanReason)}</dd>` : ""}
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for ${escapeHtml(title)}">
@@ -6825,28 +6896,42 @@ function universalCubAdoptionRows() {
   ];
 }
 
-function chartAdoptionCaveatHtml(caveat) {
-  if (!caveat) {
+function chartAdoptionCaveatHtml(caveat, requirements = [], routes = []) {
+  const packagedCrds = requirements.filter((requirement) =>
+    String(requirement.name ?? "").startsWith("CRD ")
+    && Boolean(packagedRequirementPath(requirement.suggestedSource)),
+  );
+  const crdRoute = routes.find((route) =>
+    route.quirk_class === "crd-install"
+    || route.route_name?.includes("crd")
+    || /\bCRDs?\b/.test(route.operatingDetails ?? ""),
+  );
+  if (!caveat && !packagedCrds.length && !crdRoute) {
     return `<section aria-labelledby="adoption-caveats">
       <h2 id="adoption-caveats">First-Run Caveats</h2>
       <p>No chart-specific password or CRD caveat is recorded for this chart. For direct delivery, define how removed objects are pruned and how field conflicts are resolved. Argo CD and Flux can own those reconciliation jobs when their delivery path is recorded for the selected preset.</p>
       <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../../docs/user/helm-to-cub-migration.md">Helm to cub migration</a></p>
     </section>`;
   }
-  const hasPassword = caveat.bakes_shared_password === "yes";
-  const hasCrds = caveat.ships_crds === "yes";
+  const hasPassword = caveat?.bakes_shared_password === "yes";
+  const hasCrds = caveat?.ships_crds === "yes" || packagedCrds.length > 0 || Boolean(crdRoute);
+  const crdInstruction = packagedCrds.length
+    ? `Yes. ${packagedCrds.length} CRD${packagedCrds.length === 1 ? "" : "s"} must exist first. The public package contains the bootstrap, and its generated <code>try.sh</code> applies it and waits for the CRDs before installing the main objects.`
+    : crdRoute
+      ? `Yes. ${escapeHtml(crdRoute.operatingDetails || "Follow the recorded CRD setup step before applying the main objects.")}`
+      : `Yes. ${escapeHtml(caveat?.crd_count || "Some")} CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base ${caveat?.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`;
   const rows = [
     ["Universal caveats", `Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.`],
     [
       "Shared placeholder password",
       hasPassword
-        ? `Yes. Password keys: <code>${escapeHtml(caveat.password_keys || "recorded")}</code>. Use base <code>${escapeHtml(caveat.password_fix_base || "existing-secret")}</code> and stage your own Secret. Example: <code>${escapeHtml(caveat.password_fix_command || "kubectl create secret ...")}</code>.`
+        ? `Yes. Password keys: <code>${escapeHtml(caveat?.password_keys || "recorded")}</code>. Use base <code>${escapeHtml(caveat?.password_fix_base || "existing-secret")}</code> and stage your own Secret. Example: <code>${escapeHtml(caveat?.password_fix_command || "kubectl create secret ...")}</code>.`
         : "No shared placeholder password caveat recorded for this chart.",
     ],
     [
       "CRD first-ordering",
       hasCrds
-        ? `Yes. ${escapeHtml(caveat.crd_count || "some")} CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base ${caveat.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`
+        ? crdInstruction
         : "No CRD first-ordering caveat recorded for this chart.",
     ],
   ];

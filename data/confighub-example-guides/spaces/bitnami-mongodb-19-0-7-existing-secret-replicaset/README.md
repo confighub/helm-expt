@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 1 prerequisite(s): 1 Secret. Create these with your own values before you apply the rendered objects.
+This preset config records 1 prerequisite: 1 Secret. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Secret material is kept outside the chart render and supplied by you. At least one Secret must be created with your values before apply.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7-existing-secret-replicaset/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7/existing-secret-replicaset/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7-existing-secret-replicaset/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7/existing-secret-replicaset/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml) |
 | Render variant | [`recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7-existing-secret-replicaset/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7-existing-secret-replicaset/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7/existing-secret-replicaset/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mongodb-19-0-7/existing-secret-replicaset/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key | kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password="$(openssl rand -base64 32)" --from-literal=mongodb-replica-set-key="$(openssl rand -base64 48)" |
+| Before install | ClusterFeature: Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key | kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password="$(openssl rand -base64 32)" --from-literal=mongodb-replica-set-key="$(openssl rand -base64 48)" |
 
 ## Evidence
 
@@ -92,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -107,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-mongodb-19-0-7-existing-secret-replicaset.yaml)
 - Rendered YAML: [`recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml)
 - Package source: [`packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset)
-- Generated scripts: [`site/sh/bitnami-mongodb-19-0-7-existing-secret-replicaset`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-mongodb-19-0-7-existing-secret-replicaset)
+- Generated scripts: [`site/sh/bitnami-mongodb-19-0-7/existing-secret-replicaset`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-mongodb-19-0-7/existing-secret-replicaset)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

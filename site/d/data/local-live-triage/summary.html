@@ -432,15 +432,15 @@
     <article class="doc-body">
 <p>This generated report explains the local Kubernetes rows that did not pass. It starts from <a href="../../../../data/outcome-coverage/base-outcomes.csv">base-outcomes.csv</a> and the committed observation receipts. The purpose is to make the next action clear without turning every non-pass row into a product defect.</p>
 <h2 id="snapshot">Snapshot</h2>
-<pre><code>chart/base rows:          193
-local live observed rows: 193
-local live pass rows:     143
-local live non-pass rows: 50
-classified non-pass rows: 49
+<pre><code>chart/base rows:          199
+local live observed rows: 199
+local live pass rows:     148
+local live non-pass rows: 51
+classified non-pass rows: 50
 needs manual inspection:  1</code></pre>
 <h2 id="route-classes">Route Classes</h2>
 <table><thead><tr><th>Route class</th><th>Rows</th><th>Meaning</th><th>Next action</th></tr></thead><tbody><tr><td><code>runtime-readiness</code></td><td>22</td><td>The objects applied, but a controller or workload did not become healthy in the observation budget.</td><td>Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun.</td></tr>
-<tr><td><code>target-prerequisite</code></td><td>9</td><td>The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup.</td><td>Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant.</td></tr>
+<tr><td><code>target-prerequisite</code></td><td>10</td><td>The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup.</td><td>Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant.</td></tr>
 <tr><td><code>image-dependency</code></td><td>6</td><td>The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity.</td><td>Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it.</td></tr>
 <tr><td><code>webhook-cert-lifecycle</code></td><td>4</td><td>A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready.</td><td>Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun.</td></tr>
 <tr><td><code>admission-or-rbac</code></td><td>3</td><td>Kubernetes rejected an object because of permissions, admission, immutability, or API validation.</td><td>Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary.</td></tr>

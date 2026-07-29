@@ -72,6 +72,9 @@ lifecycle-routes disposition (+ live status) → action disposition:
 | `webhook-readiness-observation` | `observe` | `observe-webhook` |
 | `preserve-cleanup-policy` | `observe` | `accept-target-policy` |
 | `delete-cleanup-policy` | `observe` | `accept-target-policy` |
+| `explicit-delete-cleanup-action` | `observe` | `run-job` |
+| `explicit-post-install-check` | `observe` | `run-test` |
+| `postsync-readiness-observation` | `post-apply` | `run-check` |
 
 (For a `refused` route the phase is `refuse`.)
 

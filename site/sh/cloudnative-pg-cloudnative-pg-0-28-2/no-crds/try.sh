@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./cloudnative-pg-cloudnative-pg-0-28-2-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -75,16 +88,16 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/backups.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterimagecatalogs.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusters.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/databases.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/failoverquorums.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/imagecatalogs.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/poolers.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/publications.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/scheduledbackups.postgresql.cnpg.io
-kubectl wait --for=condition=Established --timeout=120s crd/subscriptions.postgresql.cnpg.io
+wait_for_crd backups.postgresql.cnpg.io
+wait_for_crd clusterimagecatalogs.postgresql.cnpg.io
+wait_for_crd clusters.postgresql.cnpg.io
+wait_for_crd databases.postgresql.cnpg.io
+wait_for_crd failoverquorums.postgresql.cnpg.io
+wait_for_crd imagecatalogs.postgresql.cnpg.io
+wait_for_crd poolers.postgresql.cnpg.io
+wait_for_crd publications.postgresql.cnpg.io
+wait_for_crd scheduledbackups.postgresql.cnpg.io
+wait_for_crd subscriptions.postgresql.cnpg.io
 
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'

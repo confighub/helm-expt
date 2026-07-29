@@ -473,7 +473,10 @@
 <tr><td><code>explicit-test-check</code></td><td><code>observe</code></td><td><code>run-test</code></td></tr>
 <tr><td><code>webhook-readiness-observation</code></td><td><code>observe</code></td><td><code>observe-webhook</code></td></tr>
 <tr><td><code>preserve-cleanup-policy</code></td><td><code>observe</code></td><td><code>accept-target-policy</code></td></tr>
-<tr><td><code>delete-cleanup-policy</code></td><td><code>observe</code></td><td><code>accept-target-policy</code></td></tr></tbody></table>
+<tr><td><code>delete-cleanup-policy</code></td><td><code>observe</code></td><td><code>accept-target-policy</code></td></tr>
+<tr><td><code>explicit-delete-cleanup-action</code></td><td><code>observe</code></td><td><code>run-job</code></td></tr>
+<tr><td><code>explicit-post-install-check</code></td><td><code>observe</code></td><td><code>run-test</code></td></tr>
+<tr><td><code>postsync-readiness-observation</code></td><td><code>post-apply</code></td><td><code>run-check</code></td></tr></tbody></table>
 <p>(For a <code>refused</code> route the phase is <code>refuse</code>.)</p>
 <h2 id="determinism">Determinism</h2>
 <p>A pure function of <code>data/lifecycle-routes/routes.json</code> and <code>data/master-catalog-matrix/matrix.csv</code>. No timestamps, no network, no cluster. Regenerate with <code>npm run lifecycle:route-actions</code>; verify byte-for-byte plus invariants with <code>npm run lifecycle:route-actions:verify</code>.</p>

@@ -574,11 +574,11 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 
 - **Status:** Needs a better base (`needs-better-base-variant`)
 - **Support (claim):** not-yet-user-ready
-- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)
+- **Evidence depth:** proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 1/1)
 - **Recommended base:** `default`
 - **You must provide/decide:** target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists
 - **Quirks & disposition:** hooks;required-values;lookup;rbac — exact rendered objects with render parity and receipts; hooks classified and routed (not silently executed); cluster lookups lifted into declared target facts
-- **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md)
+- **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** add at least one user-shaped variant before catalog promotion
 

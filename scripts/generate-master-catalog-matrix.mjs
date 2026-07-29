@@ -240,9 +240,8 @@ function buildReport(generatedAt) {
   const hookCandidatesExact = indexBy(hookCandidateRows, (row) => `${row.chart}@${row.version}`);
   const hookCandidatesByChart = indexBy(hookCandidateRows, (row) => row.chart);
   const selectedHookRoutesExactBase = indexBy(selectedHookRouteRows, (row) => `${row.chart}@${row.version}|${row.base}`);
-  const lifecycleRoutes = aggregateLifecycleRoutes(readCsv(SOURCES.lifecycleRoutes));
-  const lifecycleRoutesExactBase = indexBy(lifecycleRoutes.filter((row) => row.base_or_variant), (row) => `${row.chart}@${row.version}|${row.base_or_variant}`);
-  const lifecycleRoutesExact = indexBy(lifecycleRoutes.filter((row) => !row.base_or_variant), (row) => `${row.chart}@${row.version}`);
+  const lifecycleRouteRows = readCsv(SOURCES.lifecycleRoutes);
+  const lifecycleRoutes = aggregateLifecycleRoutes(lifecycleRouteRows);
   const lifecycleRoutesByChart = indexBy(lifecycleRoutes.filter((row) => !row.base_or_variant), (row) => row.chart);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
   const variantPromotion = indexBy(readCsv(SOURCES.variantPromotion), (row) => `${row.chart}|${row.version}|${row.variant}`);
@@ -292,11 +291,15 @@ function buildReport(generatedAt) {
       const hookCandidateFamily = hookCandidatesByChart.get(chartName);
       const hook = selectedHookRouteExactBase ?? hookExact ?? maintainedHookExact ?? hookCandidateExact ?? hookFamily ?? maintainedHookFamily ?? hookCandidateFamily;
       const exactHook = selectedHookRouteExactBase ?? hookExact ?? maintainedHookExact ?? hookCandidateExact;
-      const lifecycleRouteExactBase = lifecycleRoutesExactBase.get(`${chartAtVersion}|${variant}`);
-      const lifecycleRouteExact = lifecycleRoutesExact.get(chartAtVersion);
+      const lifecycleRouteExact = lifecycleRouteForBase(
+        lifecycleRouteRows,
+        chartName,
+        version,
+        variant,
+      );
       const lifecycleRouteFamily = lifecycleRoutesByChart.get(chartName);
-      const lifecycleRoute = lifecycleRouteExactBase ?? lifecycleRouteExact ?? lifecycleRouteFamily;
-      const lifecycleRouteEvidenceVersion = lifecycleRouteExactBase || lifecycleRouteExact || !lifecycleRoute ? "" : lifecycleRoute.version;
+      const lifecycleRoute = lifecycleRouteExact ?? lifecycleRouteFamily;
+      const lifecycleRouteEvidenceVersion = lifecycleRouteExact || !lifecycleRoute ? "" : lifecycleRoute.version;
       const hookEvidenceVersion = exactHook || !hook ? "" : hook.version;
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const promotion = variantPromotion.get(`${chartName}|${version}|${variant}`);
@@ -470,6 +473,21 @@ function hookCandidateCount(row) {
   return row.source_hook_count || "1";
 }
 
+function lifecycleRouteForBase(rows, chart, version, base) {
+  const exactVersion = rows.filter((row) => row.chart === chart && row.version === version);
+  if (!exactVersion.length) return null;
+
+  const exactBase = exactVersion.filter((row) => row.base_or_variant === base);
+  const exactQuirkClasses = new Set(exactBase.map((row) => row.quirk_class));
+  const selected = [
+    ...exactVersion.filter((row) => !row.base_or_variant && !exactQuirkClasses.has(row.quirk_class)),
+    ...exactBase,
+  ];
+  if (!selected.length) return null;
+
+  return summarizeLifecycleRouteRows(selected, chart, version, base);
+}
+
 function aggregateLifecycleRoutes(rows) {
   const groups = new Map();
   for (const row of rows) {
@@ -484,25 +502,33 @@ function aggregateLifecycleRoutes(rows) {
     }
     groups.get(key).rows.push(row);
   }
-  return [...groups.values()].map((group) => {
-    const dispositions = countValues(group.rows.map((row) => row.disposition));
-    const executionModes = countValues(group.rows.map((row) => row.execution_mode));
-    const routeCount = group.rows.length;
-    const automaticCount = group.rows.filter((row) => row.safe_as_automatic === "yes").length;
-    const hasTodo = group.rows.some((row) => row.disposition === "todo");
-    const allObserved = group.rows.every((row) => row.disposition === "observed");
-    const contractStatus = hasTodo ? "todo" : allObserved ? "yes" : "watch";
-    return {
-      chart: group.chart,
-      version: group.version,
-      base_or_variant: group.base_or_variant,
-      route_count: String(routeCount),
-      contract_status: contractStatus,
-      dispositions: summarizeCounts(dispositions),
-      execution_modes: summarizeCounts(executionModes),
-      safe_as_automatic: `${automaticCount}/${routeCount}`,
-    };
-  });
+  return [...groups.values()].map((group) =>
+    summarizeLifecycleRouteRows(
+      group.rows,
+      group.chart,
+      group.version,
+      group.base_or_variant,
+    ));
+}
+
+function summarizeLifecycleRouteRows(rows, chart, version, base) {
+  const dispositions = countValues(rows.map((row) => row.disposition));
+  const executionModes = countValues(rows.map((row) => row.execution_mode));
+  const routeCount = rows.length;
+  const automaticCount = rows.filter((row) => row.safe_as_automatic === "yes").length;
+  const hasTodo = rows.some((row) => row.disposition === "todo");
+  const allObserved = rows.every((row) => row.disposition === "observed");
+  const contractStatus = hasTodo ? "todo" : allObserved ? "yes" : "watch";
+  return {
+    chart,
+    version,
+    base_or_variant: base,
+    route_count: String(routeCount),
+    contract_status: contractStatus,
+    dispositions: summarizeCounts(dispositions),
+    execution_modes: summarizeCounts(executionModes),
+    safe_as_automatic: `${automaticCount}/${routeCount}`,
+  };
 }
 
 function countValues(values) {

@@ -443,16 +443,16 @@
 <ol><li>Read this page first.</li><li>Open the Kubernetes YAML to see the objects this preset manages.</li><li>Open the render intent to see the Helm inputs behind those objects.</li><li>Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.</li><li>Open revision history when you want to see what changed over time.</li></ol>
 <h2 id="try-it">Try it</h2>
 <p>Run without a ConfigHub account:</p>
-<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/try.sh)</code></pre>
+<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/try.sh)</code></pre>
 <p>Upload to ConfigHub:</p>
-<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/confighub.sh)</code></pre>
+<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/confighub.sh)</code></pre>
 <h2 id="evidence-and-source">Evidence and source</h2>
 <table><thead><tr><th>Item</th><th>Link</th></tr></thead><tbody><tr><td>Catalog chart page</td><td><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html">bitnami/rabbitmq@16.0.14</a></td></tr>
 <tr><td>Render intent</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml">data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml</a></td></tr>
 <tr><td>Rendered YAML</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml">recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml</a></td></tr>
 <tr><td>Detailed guide</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md">data/confighub-example-guides/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md</a></td></tr>
-<tr><td>No-account script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/try.sh">try.sh</a></td></tr>
-<tr><td>ConfigHub upload script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/confighub.sh">confighub.sh</a></td></tr></tbody></table>
+<tr><td>No-account script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/try.sh">try.sh</a></td></tr>
+<tr><td>ConfigHub upload script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="what-is-proven">What is proven</h2>
 <ul><li>Render parity: <code>yes</code>.</li><li>Local kind run: <code>yes</code>.</li><li>GitOps OCI live run: <code>yes</code>.</li><li>Live Helm versus ConfigHub comparison: <code>yes</code>.</li></ul>
 <p>These claims apply to this preset. They do not mean every possible values combination for the chart has been tested.</p>

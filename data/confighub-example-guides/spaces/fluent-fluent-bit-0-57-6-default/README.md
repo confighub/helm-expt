@@ -28,11 +28,14 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.
 
-This preset config records 2 hook or lifecycle route(s). The current route status is observed:2, with execution modes target-owned:1; user-executes:1. They are listed here instead of being left inside the Helm release.
+The catalog records 2 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release.
+- **After install:** Connectivity tests are checks against the installed target, not render-time behavior.
+- **When uninstalling:** preserve-cleanup-policy.
+
+Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -49,13 +52,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6/default/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +81,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml) |
 | Render variant | [`recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/fluent/fluent-bit/0.57.6/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/fluent/fluent-bit/0.57.6/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/fluent-fluent-bit-0-57-6/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| After install | Run the chart check | Connectivity tests are checks against the installed target, not render-time behavior. |
+| When uninstalling | Keep the chart's cleanup policy | preserve-cleanup-policy. |
 
 ## Evidence
 
@@ -92,7 +96,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `2` |
@@ -107,5 +111,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fluent-fluent-bit-0-57-6-default.yaml)
 - Rendered YAML: [`recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/fluent/fluent-bit/0.57.6/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/fluent/fluent-bit/0.57.6/bases/default)
-- Generated scripts: [`site/sh/fluent-fluent-bit-0-57-6-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/fluent-fluent-bit-0-57-6-default)
+- Generated scripts: [`site/sh/fluent-fluent-bit-0-57-6/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/fluent-fluent-bit-0-57-6/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

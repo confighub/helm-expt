@@ -57,13 +57,13 @@ spec:
     Run without a ConfigHub account:
 
     ```sh
-    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/try.sh)
+    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/try.sh)
     ```
 
     Upload to ConfigHub:
 
     ```sh
-    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/confighub.sh)
+    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/confighub.sh)
     ```
 
     ## Evidence and source
@@ -74,8 +74,8 @@ spec:
     | Render intent | [data/helm-render-intents/intents/grafana-grafana-10-5-15-existing-secret-ingress.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-grafana-10-5-15-existing-secret-ingress.yaml) |
     | Rendered YAML | [recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml) |
     | Detailed guide | [data/confighub-example-guides/spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/grafana-grafana-10-5-15-existing-secret-ingress/README.md) |
-    | No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/try.sh) |
-    | ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-existing-secret-ingress/confighub.sh) |
+    | No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/try.sh) |
+    | ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/existing-secret-ingress/confighub.sh) |
 
     ## What is proven
 

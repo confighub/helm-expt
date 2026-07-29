@@ -117,8 +117,8 @@
     "refreshCandidatesWithProof": 7,
     "latestCandidatesAwaitingReplacementDecision": 0,
     "latestRefreshP0Rows": 0,
-    "top100ChartsWithLiveEvidence": 85,
-    "liveParityRerunRows": 109,
+    "top100ChartsWithLiveEvidence": 86,
+    "liveParityRerunRows": 107,
     "liveParityRerunSemanticDefects": 16,
     "productionSupportedCharts": 17,
     "productionSupersededCharts": 2,
@@ -450,8 +450,8 @@
     {
       "section": "proof lanes",
       "metric": "explicit lifecycle observation rows",
-      "value": "14",
-      "total": "14",
+      "value": "19",
+      "total": "19",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
@@ -459,7 +459,7 @@
     {
       "section": "proof lanes",
       "metric": "local live non-pass rows classified",
-      "value": "50",
+      "value": "51",
       "total": "51",
       "status": "good",
       "source": "data/local-live-triage/triage.csv",
@@ -468,25 +468,25 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "138",
+      "value": "139",
       "total": "199",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "60 rows have non-pass GitOps/OCI receipts."
+      "note": "59 rows have non-pass GitOps/OCI receipts."
     },
     {
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
-      "value": "138",
+      "value": "139",
       "total": "199",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
-      "note": "60 rows have non-pass live parity receipts."
+      "note": "59 rows have non-pass live parity receipts."
     },
     {
       "section": "proof lanes",
       "metric": "two-cluster kind parity pass rows",
-      "value": "128",
+      "value": "129",
       "total": "178",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
@@ -495,7 +495,7 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster semantic parity pass rows",
-      "value": "153",
+      "value": "154",
       "total": "178",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
@@ -612,7 +612,7 @@
     {
       "section": "live evidence",
       "metric": "selected live Helm-vs-ConfigHub parity receipts",
-      "value": "138",
+      "value": "139",
       "total": "198",
       "status": "partial",
       "source": "data/live-helm-confighub-compare/summary.csv",
@@ -630,8 +630,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rerun rows needing decisions",
-      "value": "109",
-      "total": "109",
+      "value": "107",
+      "total": "107",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
@@ -639,8 +639,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rows needing model or staging first",
-      "value": "53",
-      "total": "109",
+      "value": "51",
+      "total": "107",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
@@ -649,7 +649,7 @@
       "section": "live evidence",
       "metric": "live parity rows needing target review first",
       "value": "38",
-      "total": "109",
+      "total": "107",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
@@ -657,7 +657,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix commands remaining",
-      "value": "128",
+      "value": "143",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -666,7 +666,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix GitOps/OCI parity commands remaining",
-      "value": "57",
+      "value": "73",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -675,7 +675,7 @@
     {
       "section": "live evidence",
       "metric": "live matrix two-cluster kind commands remaining",
-      "value": "71",
+      "value": "70",
       "total": "",
       "status": "gap",
       "source": "data/live-matrix-burndown/work-items.csv",
@@ -1106,16 +1106,6 @@
       "support_artifact": "",
       "receipt": "runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml",
       "rerun_command": "npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default"
-    },
-    {
-      "chart": "projectcalico/tigera-operator@v3.32.0",
-      "base": "default",
-      "current_result": "blocked",
-      "next_step_type": "crd-bootstrap",
-      "reason": "crd-bootstrap: required CRDs missing before custom resources apply",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "receipt": "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml",
-      "rerun_command": "npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default"
     },
     {
       "chart": "argo-cd/argo-cd@9.5.17",
@@ -2036,16 +2026,6 @@
       "support_artifact": "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/value-model.yaml",
       "receipt": "runs/live-kind-parity/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml",
       "rerun_command": "npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default"
-    },
-    {
-      "chart": "projectcalico/tigera-operator@v3.32.0",
-      "base": "default",
-      "current_result": "blocked",
-      "next_step_type": "stage-prerequisite",
-      "reason": "target-prerequisite: CRDs missing",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "receipt": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml",
-      "rerun_command": "npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default"
     },
     {
       "chart": "prometheus-community/prometheus-adapter@5.3.0",
@@ -9224,7 +9204,7 @@
     {
       "chart": "argo-cd/argo-workflows@1.0.14",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "controller-default-reviewed+default+minimal-crds",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9244,7 +9224,7 @@
     {
       "chart": "autoscaler/cluster-autoscaler@9.57.0",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "controller-default-reviewed+default",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9274,7 +9254,7 @@
     {
       "chart": "bitnami/apache@11.4.29",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "default+legacy",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9284,7 +9264,7 @@
     {
       "chart": "bitnami/contour@21.1.4",
       "catalog_scope": "top100-proof",
-      "built_variants": "default+no-crds",
+      "built_variants": "default+legacy+no-crds",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9294,7 +9274,7 @@
     {
       "chart": "bitnami/elasticsearch@22.1.6",
       "catalog_scope": "top100-proof",
-      "built_variants": "default+ha",
+      "built_variants": "default+ha+legacy",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9314,7 +9294,7 @@
     {
       "chart": "bitnami/opensearch@2.0.10",
       "catalog_scope": "top100-proof",
-      "built_variants": "default+ha",
+      "built_variants": "default+ha+legacy",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9324,7 +9304,7 @@
     {
       "chart": "bitnami/phpmyadmin@20.0.0",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "default+legacy",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9334,7 +9314,7 @@
     {
       "chart": "bitnami/spark@10.0.3",
       "catalog_scope": "top100-proof",
-      "built_variants": "default+ha",
+      "built_variants": "default+ha+legacy",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9344,7 +9324,7 @@
     {
       "chart": "bitnami/zookeeper@13.8.7",
       "catalog_scope": "top100-proof",
-      "built_variants": "default+ha",
+      "built_variants": "default+ha+legacy",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9414,7 +9394,7 @@
     {
       "chart": "elastic/filebeat@8.5.1",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "default+node-or-cluster-collector",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9694,7 +9674,7 @@
     {
       "chart": "nats/surveyor@0.20.9",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "default+default-reviewed",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "extension-slots:source-signal-recorded",
       "surfaces": "raw/extra manifests",
@@ -9744,7 +9724,7 @@
     {
       "chart": "prometheus-community/kube-state-metrics@7.4.0",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "cluster-metrics-readonly+default",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9754,7 +9734,7 @@
     {
       "chart": "prometheus-community/prometheus-adapter@5.3.0",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "apiservice-v1-capability+cluster-metrics-readonly+default",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9764,7 +9744,7 @@
     {
       "chart": "prometheus-community/prometheus-blackbox-exporter@11.10.0",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "cluster-metrics-readonly+default",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9774,7 +9754,7 @@
     {
       "chart": "prometheus-community/prometheus-node-exporter@4.55.0",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "cluster-metrics-readonly+default",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9824,7 +9804,7 @@
     {
       "chart": "stakater/reloader@2.2.12",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "controller-default-reviewed+default",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -9874,7 +9854,7 @@
     {
       "chart": "vm/victoria-metrics-single@0.39.0",
       "catalog_scope": "top100-proof",
-      "built_variants": "default",
+      "built_variants": "default+default-reviewed",
       "extension_slot_status": "yes - per-use review",
       "control_point_status": "tpl-extension-slots:source-signal-recorded",
       "surfaces": "tpl-powered values",
@@ -13475,15 +13455,15 @@
       "workability": "not-yet-a-good-catalog-offer",
       "adoption_bucket": "needs-useful-variant",
       "user_status": "proof-grade-needs-user-shaped-variant",
-      "strongest_evidence": "in-confighub-proof",
+      "strongest_evidence": "live-helm-vs-confighub-parity",
       "variant_count": "1",
       "variants": "default",
       "render_parity": "1/1",
       "in_confighub": "1/1",
       "local_live": "0/1",
-      "gitops_live": "0/1",
-      "live_parity": "0/1",
-      "two_cluster_kind_parity": "0/1",
+      "gitops_live": "1/1",
+      "live_parity": "1/1",
+      "two_cluster_kind_parity": "1/1",
       "hard_gap": "-",
       "proof_focus": "-",
       "proof_focus_status": "-",
@@ -15692,7 +15672,7 @@
       "chart": "projectcalico/tigera-operator",
       "version": "v3.32.0",
       "bucket": "needs-better-base-variant",
-      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 1/1)",
       "recommended_first_base": "default (unreviewed first guess)",
       "quirks": "hooks;required-values;lookup;rbac",
       "user_must_provide": "target facts at variant time; mandatory chart inputs; your wanted install shape, until a reviewed base exists",
@@ -16406,24 +16386,6 @@
       "followup": "If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.",
       "support_artifact": "",
       "receipt": "runs/live-helm-confighub-compare/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-default/receipt.yaml",
-      "related_lifecycle_result": "",
-      "related_lifecycle_receipt": ""
-    },
-    {
-      "priority": "20",
-      "lane": "configHub-oci-live-comparison",
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "base": "default",
-      "current_result": "blocked",
-      "reason": "crd-bootstrap: required CRDs missing before custom resources apply",
-      "next_step_type": "crd-bootstrap",
-      "rerun_readiness": "model-or-stage-first",
-      "diagnosis": "The rendered custom resources cannot be accepted until their CRDs are established. Split or stage the CRD bootstrap before rerunning.",
-      "rerun_command": "npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default",
-      "followup": "Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases, then rerun.",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "receipt": "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
     },
@@ -18086,24 +18048,6 @@
     {
       "priority": "50",
       "lane": "two-cluster-kind-parity",
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "base": "default",
-      "current_result": "blocked",
-      "reason": "target-prerequisite: CRDs missing",
-      "next_step_type": "stage-prerequisite",
-      "rerun_readiness": "model-or-stage-first",
-      "diagnosis": "The target is missing required API types or prerequisites. Stage them, then rerun the same base.",
-      "rerun_command": "npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default",
-      "followup": "Record the prerequisite in the chart facts, base variant, or install checks before promoting.",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "receipt": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml",
-      "related_lifecycle_result": "",
-      "related_lifecycle_receipt": ""
-    },
-    {
-      "priority": "50",
-      "lane": "two-cluster-kind-parity",
       "chart": "prometheus-community/prometheus-adapter",
       "version": "5.3.0",
       "base": "cluster-metrics-readonly",
@@ -19677,7 +19621,7 @@
           "requirement": "use a no-crds base and install/upgrade the CRDs yourself"
         }
       ],
-      "route_requirements": "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
+      "route_requirements": "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
       "execution_mode": "target-owned",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
@@ -19890,6 +19834,110 @@
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
     },
     {
+      "chart": "fluent/fluent-bit",
+      "version": "0.57.6",
+      "base_or_variant": "default",
+      "quirk_class": "hook-test",
+      "hook_phases": "test",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "explicit-test-check",
+      "default_route": "explicit-test-check",
+      "alternatives": [
+        {
+          "route": "ci-check",
+          "requirement": "run the test as a CI or post-apply check instead of a Helm test hook"
+        },
+        {
+          "route": "skip-test",
+          "requirement": "accept that the test is not run automatically"
+        }
+      ],
+      "route_requirements": "Connectivity tests are checks against the installed target, not render-time behavior.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml;runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "gatekeeper/gatekeeper",
+      "version": "3.22.2",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-install, pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "CRD and admission-webhook prerequisites must be checked before apply.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml;runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "gatekeeper/gatekeeper",
+      "version": "3.22.2",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "upgrade-action-with-receipt",
+      "default_route": "upgrade-action-with-receipt",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml;runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+    },
+    {
       "chart": "gitlab/gitlab",
       "version": "10.0.0",
       "base_or_variant": "",
@@ -19973,7 +20021,7 @@
           "requirement": "a post-apply readiness check you run or observe"
         }
       ],
-      "route_requirements": "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+      "route_requirements": "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
       "execution_mode": "target-owned",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
@@ -20218,6 +20266,174 @@
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
     },
     {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.1",
+      "base_or_variant": "default",
+      "quirk_class": "hook-delete-policy",
+      "hook_phases": "pre-delete",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "delete-cleanup-policy",
+      "default_route": "delete-cleanup-policy",
+      "alternatives": [
+        {
+          "route": "delete-on-uninstall",
+          "requirement": "accept deletion of the hook-managed object on uninstall"
+        },
+        {
+          "route": "refuse",
+          "requirement": "manage cleanup manually and keep the object"
+        }
+      ],
+      "route_requirements": "Webhook and APIService cleanup belongs to delete or rollback policy.",
+      "execution_mode": "target-owned",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.1",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "upgrade-action-with-receipt",
+      "default_route": "upgrade-action-with-receipt",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Resource migration after upgrade must be recorded as an upgrade operation.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "kyverno/kyverno",
+      "version": "3.8.1",
+      "base_or_variant": "default",
+      "quirk_class": "hook-test",
+      "hook_phases": "test",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "explicit-test-check",
+      "default_route": "explicit-test-check",
+      "alternatives": [
+        {
+          "route": "ci-check",
+          "requirement": "run the test as a CI or post-apply check instead of a Helm test hook"
+        },
+        {
+          "route": "skip-test",
+          "requirement": "accept that the test is not run automatically"
+        }
+      ],
+      "route_requirements": "Test hooks become checks, not hidden install behavior.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
+    },
+    {
+      "chart": "projectcalico/tigera-operator",
+      "version": "v3.32.0",
+      "base_or_variant": "default",
+      "quirk_class": "hook-delete-policy",
+      "hook_phases": "pre-delete",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "explicit-delete-cleanup-action",
+      "default_route": "explicit-delete-cleanup-action",
+      "alternatives": [
+        {
+          "route": "delete-on-uninstall",
+          "requirement": "accept deletion of the hook-managed object on uninstall"
+        },
+        {
+          "route": "refuse",
+          "requirement": "manage cleanup manually and keep the object"
+        }
+      ],
+      "route_requirements": "Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml;runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml;runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+    },
+    {
+      "chart": "projectcalico/tigera-operator",
+      "version": "v3.32.0",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "crd-bootstrap",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml;runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml;runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+    },
+    {
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "85.3.3",
       "base_or_variant": "",
@@ -20448,10 +20664,118 @@
       "live_status": "observed",
       "safe_as_automatic": false,
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "post-install, post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "postsync-check-or-observation",
+      "default_route": "postsync-check-or-observation",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Webhook TLS and readiness must be observed after apply.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-install, pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "The hook creates webhook patch prerequisites before admission configuration is safe to use.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-upgrade, post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "upgrade-action-with-receipt",
+      "default_route": "upgrade-action-with-receipt",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Upgrade behavior must be recorded separately from initial render parity.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
     }
   ],
   "lifecycleRouteActionSummary": {
-    "total": 27,
+    "total": 38,
     "automatic": 0
   },
   "helmRenderIntents": [
@@ -23510,12 +23834,12 @@
       "live_dual_parity": "yes",
       "two_cluster_kind": "yes",
       "variant_promotion": "proven",
-      "lifecycle_route_contract": "n/a",
-      "lifecycle_route_count": "0",
-      "gitops_route_count": "0",
-      "lifecycle_contract_state": "actionable-gap",
-      "lifecycle_contract_reason": "4 source hooks are recorded, but this base has no attached lifecycle route.",
-      "lifecycle_contract_next_action": "Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts.",
+      "lifecycle_route_contract": "yes",
+      "lifecycle_route_count": "2",
+      "gitops_route_count": "2",
+      "lifecycle_contract_state": "attached",
+      "lifecycle_contract_reason": "2 lifecycle routes attached for this exact chart version and base.",
+      "lifecycle_contract_next_action": "",
       "declared_target_fact_count": "0",
       "target_requirement_count": "0",
       "target_fact_action_count": "0",
@@ -24864,10 +25188,10 @@
       "two_cluster_kind": "yes",
       "variant_promotion": "proven",
       "lifecycle_route_contract": "yes",
-      "lifecycle_route_count": "6",
-      "gitops_route_count": "6",
+      "lifecycle_route_count": "5",
+      "gitops_route_count": "5",
       "lifecycle_contract_state": "attached",
-      "lifecycle_contract_reason": "6 lifecycle routes attached for this exact chart version and base.",
+      "lifecycle_contract_reason": "5 lifecycle routes attached for this exact chart version and base.",
       "lifecycle_contract_next_action": "",
       "declared_target_fact_count": "0",
       "target_requirement_count": "0",
@@ -25717,22 +26041,22 @@
       "render_parity": "yes",
       "confighub_scan_ops": "yes",
       "local_kind": "no",
-      "gitops_oci_live": "no",
-      "live_dual_parity": "no",
-      "two_cluster_kind": "no",
+      "gitops_oci_live": "yes",
+      "live_dual_parity": "yes",
+      "two_cluster_kind": "yes",
       "variant_promotion": "proven",
-      "lifecycle_route_contract": "n/a",
-      "lifecycle_route_count": "0",
-      "gitops_route_count": "0",
-      "lifecycle_contract_state": "actionable-gap",
-      "lifecycle_contract_reason": "1 source hook is recorded, but this base has no attached lifecycle route.",
-      "lifecycle_contract_next_action": "Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts.",
-      "declared_target_fact_count": "0",
-      "target_requirement_count": "0",
-      "target_fact_action_count": "1",
-      "target_fact_contract_state": "actionable-gap",
-      "target_fact_contract_reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-      "target_fact_contract_next_action": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof.",
+      "lifecycle_route_contract": "yes",
+      "lifecycle_route_count": "2",
+      "gitops_route_count": "2",
+      "lifecycle_contract_state": "attached",
+      "lifecycle_contract_reason": "2 lifecycle routes attached for this exact chart version and base.",
+      "lifecycle_contract_next_action": "",
+      "declared_target_fact_count": "4",
+      "target_requirement_count": "4",
+      "target_fact_action_count": "0",
+      "target_fact_contract_state": "attached",
+      "target_fact_contract_reason": "4 target prerequisites declared by this base.",
+      "target_fact_contract_next_action": "",
       "source_repository_url": "https://docs.tigera.io/calico/charts"
     },
     {
@@ -30190,17 +30514,17 @@
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0",
       "publication_status": "published-receipt",
       "publication_receipt": "runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml",
-      "published_digest": "87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076",
+      "published_digest": "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c",
       "default_base": "default",
       "bases": "default",
       "base_count": "1",
-      "external_requires_count": "0",
-      "collector": "no",
+      "external_requires_count": "4",
+      "collector": "yes",
       "transformers": "0",
       "public_catalog": "yes",
       "proof_surface": "next80-proof-grade",
       "chart_page": "site/charts/projectcalico-tigera-operator-v3-32-0.html",
-      "matrix_rows": "4",
+      "matrix_rows": "3",
       "setup_command": "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0 --base default --work-dir .tmp/demo/projectcalico-tigera-operator-v3-32-0-default --non-interactive --namespace default",
       "inspect_command": "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0",
       "list_command": "cub installer list oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator"
@@ -30850,7 +31174,7 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your applier - must apply CRDs before dependent objects",
-              "operatingDetails": "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
+              "operatingDetails": "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.",
               "command": "",
               "delta": "resolved",
               "reason": "this base installs the required CRDs (observed live)",
@@ -31034,17 +31358,75 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
-              "operatingDetails": "",
+              "operatingDetails": "Connectivity tests are checks against the installed target, not render-time behavior.",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "0.57.6",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml;runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
             }
           ]
+        }
+      ]
+    },
+    {
+      "chart": "gatekeeper/gatekeeper",
+      "hasBuiltVariants": true,
+      "note": "",
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "3.22.2",
+          "requiredCrdCount": 0,
+          "routes": [
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a preflight step before apply (receipted)",
+              "operatingDetails": "CRD and admission-webhook prerequisites must be checked before apply.",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "3.22.2",
+              "evidence": "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml;runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "pre-apply",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "3.22.2",
+              "evidence": "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml;runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "3.22.2",
+          "requiredCrdCount": 17,
+          "routes": []
         }
       ]
     },
@@ -31139,7 +31521,7 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness",
-              "operatingDetails": "KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
+              "operatingDetails": "The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.",
               "command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations",
               "delta": "kept",
               "reason": "",
@@ -31205,31 +31587,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your cluster - at uninstall, automatically",
-              "operatingDetails": "",
+              "operatingDetails": "Webhook and APIService cleanup belongs to delete or rollback policy.",
               "command": "",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "3.8.1",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
-              "nextAction": "",
-              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": ""
-            },
-            {
-              "route_name": "preserve-cleanup-policy",
-              "quirk_class": "hook-delete-policy",
-              "lifecycle_phase": "observe",
-              "action_kind": "accept-target-policy",
-              "execution_mode": "target-owned",
-              "disposition": "observed",
-              "automatic": false,
-              "whoRuns": "Your cluster - at uninstall, automatically",
-              "operatingDetails": "",
-              "command": "",
-              "delta": "kept",
-              "reason": "",
-              "sourceVersion": "3.8.1",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -31243,12 +31606,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
-              "operatingDetails": "",
+              "operatingDetails": "Resource migration after upgrade must be recorded as an upgrade operation.",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "3.8.1",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -31262,12 +31625,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Opt-in check - run from CI or on demand (tests are explicit by design)",
-              "operatingDetails": "",
+              "operatingDetails": "Test hooks become checks, not hidden install behavior.",
               "command": "# run the chart's test/check (helm test equivalent)",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "3.8.1",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml;runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -31436,6 +31799,58 @@
       ]
     },
     {
+      "chart": "projectcalico/tigera-operator",
+      "hasBuiltVariants": false,
+      "note": "One built base - its hook routes do not differ by variant.",
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "v3.32.0",
+          "requiredCrdCount": 4,
+          "routes": [
+            {
+              "route_name": "explicit-delete-cleanup-action",
+              "quirk_class": "hook-delete-policy",
+              "lifecycle_phase": "observe",
+              "action_kind": "run-job",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
+              "operatingDetails": "Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough.",
+              "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "v3.32.0",
+              "evidence": "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml;runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml;runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "quirk_class": "hook-phase",
+              "lifecycle_phase": "preflight",
+              "action_kind": "run-preflight",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
+              "automatic": false,
+              "whoRuns": "Your delivery - a preflight step before apply (receipted)",
+              "operatingDetails": "Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "delta": "kept",
+              "reason": "",
+              "sourceVersion": "v3.32.0",
+              "evidence": "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml;runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml;runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
       "chart": "prometheus-community/kube-prometheus-stack",
       "hasBuiltVariants": true,
       "note": "",
@@ -31473,12 +31888,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
-              "operatingDetails": "",
+              "operatingDetails": "Webhook TLS and readiness must be observed after apply.",
               "command": "",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -31492,12 +31907,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
-              "operatingDetails": "",
+              "operatingDetails": "The hook creates webhook patch prerequisites before admission configuration is safe to use.",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -31511,12 +31926,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
-              "operatingDetails": "",
+              "operatingDetails": "Upgrade behavior must be recorded separately from initial render parity.",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
@@ -31753,12 +32168,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery - a post-apply check (receipted)",
-              "operatingDetails": "",
+              "operatingDetails": "Webhook TLS and readiness must be observed after apply.",
               "command": "",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
@@ -31772,12 +32187,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery - a preflight step before apply (receipted)",
-              "operatingDetails": "",
+              "operatingDetails": "The hook creates webhook patch prerequisites before admission configuration is safe to use.",
               "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
@@ -31791,12 +32206,12 @@
               "disposition": "observed",
               "automatic": false,
               "whoRuns": "Your delivery - a GitOps PreSync/PostSync or cub action (receipted)",
-              "operatingDetails": "",
+              "operatingDetails": "Upgrade behavior must be recorded separately from initial render parity.",
               "command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>",
               "delta": "kept",
               "reason": "",
               "sourceVersion": "85.3.3",
-              "evidence": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "evidence": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": "route source version 85.3.3; recipe version 86.1.0"
@@ -32212,6 +32627,41 @@
       ]
     },
     {
+      "chart": "gatekeeper/gatekeeper",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "3.22.2",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "3.22.2",
+          "routes": []
+        }
+      ]
+    },
+    {
       "chart": "gitlab/gitlab",
       "hasBuiltVariants": false,
       "variants": [
@@ -32318,15 +32768,6 @@
               "snippet": ""
             },
             {
-              "route_name": "preserve-cleanup-policy",
-              "action_kind": "accept-target-policy",
-              "quirk_class": "hook-delete-policy",
-              "emit": false,
-              "argo": "none - your cluster handles it",
-              "flux": "none - your cluster handles it",
-              "snippet": ""
-            },
-            {
               "route_name": "upgrade-action-with-receipt",
               "action_kind": "run-job",
               "quirk_class": "hook-phase",
@@ -32421,6 +32862,36 @@
               "argo": "none - supply the inputs before sync",
               "flux": "none - supply the inputs before sync",
               "snippet": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "projectcalico/tigera-operator",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "v3.32.0",
+          "routes": [
+            {
+              "route_name": "explicit-delete-cleanup-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-delete-policy",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
             }
           ]
         }
@@ -32710,13 +33181,13 @@
     }
   ],
   "matrixDisposition": {
-    "pass": 976,
+    "pass": 984,
     "watch": 105,
-    "blocked": 122,
-    "todo": 84,
-    "na": 1436,
+    "blocked": 119,
+    "todo": 79,
+    "na": 1429,
     "blank": 0,
-    "total": 2723
+    "total": 2716
   },
   "chartSkills": [
     {
@@ -34612,7 +35083,8 @@
       "top_skill": "hook-and-secret-lifecycle",
       "matched_signals": [
         "hooks:1",
-        "lookup"
+        "lookup",
+        "live"
       ],
       "applicable": [
         {
@@ -34626,6 +35098,12 @@
           "title": "Target Facts And Lifecycle",
           "doc": "docs/skills/target-facts-and-lifecycle.md",
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },
@@ -36624,14 +37102,14 @@
       "chart_use_answer": "not-yet-user-ready",
       "first_base": "default",
       "catalog_path": "recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md",
-      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 0/1)",
+      "current_proof": "proof-grade-needs-user-shaped-variant (render parity 1/1, local live 0/1, live parity 1/1)",
       "proof_lane_rows": "default",
-      "proof_lane_summary": "default render=pass confighub=pass local=blocked gitops=blocked live-parity=blocked two-cluster=blocked",
+      "proof_lane_summary": "default render=pass confighub=pass local=blocked gitops=pass live-parity=pass two-cluster=pass",
       "variant_revisions": "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml",
       "recipe_paths": "recipes/projectcalico/tigera-operator/v3.32.0",
       "package_paths": "packages/projectcalico/tigera-operator/v3.32.0",
       "coverage_status": "partial",
-      "coverage_evidence": "recipes/projectcalico/tigera-operator/v3.32.0/source-lock.yaml;recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md;recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml;recipes/projectcalico/tigera-operator/v3.32.0/helm-plan.yaml;recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/top100-readiness/readiness.csv;site/catalog.json",
+      "coverage_evidence": "recipes/projectcalico/tigera-operator/v3.32.0/source-lock.yaml;recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md;recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml;recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml;recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml;data/outcome-coverage/feature-outcomes.csv;recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml;recipes/projectcalico/tigera-operator/v3.32.0/helm-plan.yaml;recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml;data/outcome-coverage/chart-outcomes.csv;data/outcome-coverage/base-outcomes.csv;data/live-kind-parity/summary.md;data/live-helm-confighub-compare/summary.md;site/catalog.json",
       "hooks_route": "",
       "hooks_evidence": "",
       "quirks": "hooks;required-values;lookup;rbac",
@@ -40860,7 +41338,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:1",
-      "completion_action_families": "CCP-05:operator-review; CCP-08:lifecycle-route",
+      "completion_action_families": "CCP-05:operator-review; CCP-14:lifecycle-route",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:1"
     },
@@ -40943,7 +41421,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed",
       "completion_action": "stage",
       "completion_action_summary": "run:1; stage:1",
-      "completion_action_families": "CCP-05:operator-review; CCP-08:lifecycle-route",
+      "completion_action_families": "CCP-05:operator-review; CCP-14:lifecycle-route",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1; product-decision:1"
     },
@@ -41939,7 +42417,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default",
       "completion_action": "model",
       "completion_action_summary": "deferred:2; model:1; stage:1",
-      "completion_action_families": "CCP-03:verified-watch; CCP-13:provide-external-service; CCP-17:object-set-shape",
+      "completion_action_families": "CCP-03:verified-watch; CCP-12:provide-external-service; CCP-17:object-set-shape",
       "completion_deferred_cells": "2",
       "completion_owner_lanes": "Claude-non-live:1; product-decision:3"
     },
@@ -48164,7 +48642,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector",
       "completion_action": "stage",
       "completion_action_summary": "deferred:2; stage:2",
-      "completion_action_families": "CCP-03:verified-watch; CCP-06:stage-secret; CCP-13:provide-external-service",
+      "completion_action_families": "CCP-03:verified-watch; CCP-06:stage-secret; CCP-12:provide-external-service",
       "completion_deferred_cells": "2",
       "completion_owner_lanes": "Claude-non-live:1; product-decision:3"
     },
@@ -48662,7 +49140,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/elastic/kibana/8.5.1/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "deferred:2; stage:2",
-      "completion_action_families": "CCP-03:verified-watch; CCP-06:stage-secret; CCP-13:provide-external-service",
+      "completion_action_families": "CCP-03:verified-watch; CCP-06:stage-secret; CCP-12:provide-external-service",
       "completion_deferred_cells": "2",
       "completion_owner_lanes": "Claude-non-live:1; product-decision:3"
     },
@@ -51287,7 +51765,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
-      "lane_lifecycle_observed": "todo",
+      "lane_lifecycle_observed": "yes",
       "lane_gitops_oci_live": "yes",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "yes",
@@ -51316,11 +51794,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/fluent/fluent-bit/0.57.6",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluent-bit/0.57.6/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/fluent/fluent-bit/0.57.6/bases/default",
-      "completion_action": "run",
-      "completion_action_summary": "run:1",
-      "completion_action_families": "CCP-08:lifecycle-route",
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": "Codex-live:1"
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "candidate",
@@ -51848,18 +52326,18 @@
       "hook_disposition": "observed",
       "hook_evidence_version": "",
       "hook_live_status": "yes",
-      "lifecycle_route_contract": "n/a",
-      "lifecycle_route_count": "",
-      "lifecycle_route_dispositions": "",
-      "lifecycle_route_execution_modes": "",
-      "lifecycle_route_safe_automatic": "",
+      "lifecycle_route_contract": "yes",
+      "lifecycle_route_count": "2",
+      "lifecycle_route_dispositions": "observed:2",
+      "lifecycle_route_execution_modes": "user-executes:2",
+      "lifecycle_route_safe_automatic": "0/2",
       "lifecycle_route_evidence_version": "",
-      "lifecycle_route_contract_path": "",
-      "lifecycle_route_json_path": "",
+      "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",
+      "lifecycle_route_json_path": "data/lifecycle-routes/routes.json",
       "render_intent_path": "data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml",
-      "render_intent_lifecycle_state": "actionable-gap",
-      "render_intent_lifecycle_reason": "4 source hooks are recorded, but this base has no attached lifecycle route.",
-      "render_intent_lifecycle_next_action": "Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts.",
+      "render_intent_lifecycle_state": "attached",
+      "render_intent_lifecycle_reason": "2 lifecycle routes attached for this exact chart version and base.",
+      "render_intent_lifecycle_next_action": "",
       "render_intent_target_state": "actionable-gap",
       "render_intent_target_reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
       "render_intent_target_next_action": "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required.",
@@ -51868,7 +52346,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
-      "lane_lifecycle_observed": "todo",
+      "lane_lifecycle_observed": "yes",
       "lane_gitops_oci_live": "yes",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "yes",
@@ -51897,11 +52375,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/gatekeeper/gatekeeper/3.22.2",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/default",
-      "completion_action": "deferred",
-      "completion_action_summary": "deferred:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "product-decision:1"
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "base",
@@ -53725,7 +54203,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/grafana/pyroscope/2.0.2/bases/ha",
       "completion_action": "model",
       "completion_action_summary": "deferred:3; model:1; stage:1",
-      "completion_action_families": "CCP-03:verified-watch; CCP-04:lifecycle-not-applicable; CCP-05:operator-review; CCP-12:crd-lifecycle",
+      "completion_action_families": "CCP-03:verified-watch; CCP-04:lifecycle-not-applicable; CCP-05:operator-review; CCP-11:crd-lifecycle",
       "completion_deferred_cells": "3",
       "completion_owner_lanes": "Claude-non-live:1; product-decision:4"
     },
@@ -54555,7 +55033,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/grafana/tempo/1.24.4/bases/s3-query-observability",
       "completion_action": "stage",
       "completion_action_summary": "deferred:2; stage:1",
-      "completion_action_families": "CCP-03:verified-watch; CCP-13:provide-external-service",
+      "completion_action_families": "CCP-03:verified-watch; CCP-12:provide-external-service",
       "completion_deferred_cells": "2",
       "completion_owner_lanes": "product-decision:3"
     },
@@ -55136,7 +55614,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/terraform/1.1.2/bases/default",
       "completion_action": "model",
       "completion_action_summary": "deferred:3; model:1; stage:1",
-      "completion_action_families": "CCP-03:verified-watch; CCP-04:lifecycle-not-applicable; CCP-06:stage-secret; CCP-12:crd-lifecycle",
+      "completion_action_families": "CCP-03:verified-watch; CCP-04:lifecycle-not-applicable; CCP-06:stage-secret; CCP-11:crd-lifecycle",
       "completion_deferred_cells": "3",
       "completion_owner_lanes": "Claude-non-live:2; product-decision:3"
     },
@@ -56796,7 +57274,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/istio/istiod/1.30.0/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "stage:4",
-      "completion_action_families": "CCP-05:operator-review; CCP-10:create-namespace",
+      "completion_action_families": "CCP-05:operator-review; CCP-08:create-namespace",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3; product-decision:1"
     },
@@ -58821,16 +59299,16 @@
       "hook_evidence_version": "",
       "hook_live_status": "yes",
       "lifecycle_route_contract": "yes",
-      "lifecycle_route_count": "6",
-      "lifecycle_route_dispositions": "observed:6",
-      "lifecycle_route_execution_modes": "target-owned:3; user-executes:3",
-      "lifecycle_route_safe_automatic": "0/6",
+      "lifecycle_route_count": "5",
+      "lifecycle_route_dispositions": "observed:5",
+      "lifecycle_route_execution_modes": "target-owned:2; user-executes:3",
+      "lifecycle_route_safe_automatic": "0/5",
       "lifecycle_route_evidence_version": "",
       "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",
       "lifecycle_route_json_path": "data/lifecycle-routes/routes.json",
       "render_intent_path": "data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml",
       "render_intent_lifecycle_state": "attached",
-      "render_intent_lifecycle_reason": "6 lifecycle routes attached for this exact chart version and base.",
+      "render_intent_lifecycle_reason": "5 lifecycle routes attached for this exact chart version and base.",
       "render_intent_lifecycle_next_action": "",
       "render_intent_target_state": "actionable-gap",
       "render_intent_target_reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
@@ -58840,7 +59318,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
-      "lane_lifecycle_observed": "todo",
+      "lane_lifecycle_observed": "yes",
       "lane_gitops_oci_live": "yes",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "yes",
@@ -58869,11 +59347,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/kyverno/kyverno/3.8.1",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/default",
-      "completion_action": "run",
-      "completion_action_summary": "run:1",
-      "completion_action_families": "CCP-08:lifecycle-route",
+      "completion_action": "-",
+      "completion_action_summary": "",
+      "completion_action_families": "",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": "Codex-live:1"
+      "completion_owner_lanes": ""
     },
     {
       "row_kind": "base",
@@ -58954,7 +59432,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/no-crds",
       "completion_action": "run",
       "completion_action_summary": "run:1",
-      "completion_action_families": "CCP-08:lifecycle-route",
+      "completion_action_families": "CCP-14:lifecycle-route",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Codex-live:1"
     },
@@ -60697,7 +61175,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/nats/nack/0.34.0/bases/default",
       "completion_action": "model",
       "completion_action_summary": "model:1",
-      "completion_action_families": "CCP-12:crd-lifecycle",
+      "completion_action_families": "CCP-11:crd-lifecycle",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:1"
     },
@@ -61278,7 +61756,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/nats/surveyor/0.20.9/bases/default-reviewed",
       "completion_action": "stage",
       "completion_action_summary": "deferred:2; stage:2",
-      "completion_action_families": "CCP-03:verified-watch; CCP-05:operator-review; CCP-13:provide-external-service",
+      "completion_action_families": "CCP-03:verified-watch; CCP-05:operator-review; CCP-12:provide-external-service",
       "completion_deferred_cells": "2",
       "completion_owner_lanes": "product-decision:4"
     },
@@ -63296,38 +63774,38 @@
       "adoption_bucket": "needs-useful-variant",
       "quirk_features": "lookup;hooks;cluster-rbac",
       "hard_gap": "",
-      "strongest_evidence": "in-confighub-proof",
+      "strongest_evidence": "live-helm-vs-confighub-parity",
       "next_action": "add at least one user-shaped variant before catalog promotion",
       "hook_count": "1",
       "hook_disposition": "observed",
       "hook_evidence_version": "",
       "hook_live_status": "yes",
-      "lifecycle_route_contract": "n/a",
-      "lifecycle_route_count": "",
-      "lifecycle_route_dispositions": "",
-      "lifecycle_route_execution_modes": "",
-      "lifecycle_route_safe_automatic": "",
+      "lifecycle_route_contract": "yes",
+      "lifecycle_route_count": "2",
+      "lifecycle_route_dispositions": "observed:2",
+      "lifecycle_route_execution_modes": "user-executes:2",
+      "lifecycle_route_safe_automatic": "0/2",
       "lifecycle_route_evidence_version": "",
-      "lifecycle_route_contract_path": "",
-      "lifecycle_route_json_path": "",
+      "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",
+      "lifecycle_route_json_path": "data/lifecycle-routes/routes.json",
       "render_intent_path": "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml",
-      "render_intent_lifecycle_state": "actionable-gap",
-      "render_intent_lifecycle_reason": "1 source hook is recorded, but this base has no attached lifecycle route.",
-      "render_intent_lifecycle_next_action": "Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts.",
-      "render_intent_target_state": "actionable-gap",
-      "render_intent_target_reason": "1 observed prerequisite action record exists, but the base does not declare the prerequisite.",
-      "render_intent_target_next_action": "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof.",
-      "render_intent_target_requirement_count": "0",
-      "render_intent_target_action_count": "1",
+      "render_intent_lifecycle_state": "attached",
+      "render_intent_lifecycle_reason": "2 lifecycle routes attached for this exact chart version and base.",
+      "render_intent_lifecycle_next_action": "",
+      "render_intent_target_state": "attached",
+      "render_intent_target_reason": "4 target prerequisites declared by this base.",
+      "render_intent_target_next_action": "",
+      "render_intent_target_requirement_count": "4",
+      "render_intent_target_action_count": "0",
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "no",
-      "lane_lifecycle_observed": "todo",
-      "lane_gitops_oci_live": "no",
-      "lane_live_dual_parity": "no",
-      "lane_two_cluster_kind": "no",
+      "lane_lifecycle_observed": "yes",
+      "lane_gitops_oci_live": "yes",
+      "lane_live_dual_parity": "yes",
+      "lane_two_cluster_kind": "yes",
       "core_lanes_complete": "no",
-      "outcome_level": "in-confighub",
+      "outcome_level": "live-parity",
       "production_decision": "todo",
       "production_target_scope": "",
       "variant_promotion": "yes",
@@ -63335,11 +63813,11 @@
       "variant_promotion_evidence": "runs/tigera-operator-default-confighub-proof/latest/variant-promotion-receipt.yaml",
       "variant_promotion_reason": "server-side promotion receipt passed",
       "variant_promotion_next_action": "keep receipt fresh when the upstream base changes",
-      "active_proof_next_step": "crd-bootstrap",
-      "active_proof_readiness": "model-or-stage-first",
-      "active_proof_reason": "crd-bootstrap: required CRDs missing before custom resources apply",
-      "active_proof_command": "npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default",
-      "active_proof_support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
+      "active_proof_next_step": "",
+      "active_proof_readiness": "",
+      "active_proof_reason": "",
+      "active_proof_command": "",
+      "active_proof_support_artifact": "",
       "recipe_path": "recipes/projectcalico/tigera-operator/v3.32.0",
       "recipe_catalog_path": "recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md",
       "variant_path": "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml",
@@ -63351,11 +63829,11 @@
       "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/projectcalico/tigera-operator/v3.32.0",
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/projectcalico/tigera-operator/v3.32.0/bases/default",
-      "completion_action": "model",
-      "completion_action_summary": "deferred:1; model:2; run:1; stage:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable; CCP-07:model-gap; CCP-08:lifecycle-route; CCP-09:install-crds",
-      "completion_deferred_cells": "1",
-      "completion_owner_lanes": "Claude-non-live:3; Codex-live:1; product-decision:1"
+      "completion_action": "run",
+      "completion_action_summary": "run:1",
+      "completion_action_families": "CCP-14:lifecycle-route",
+      "completion_deferred_cells": "0",
+      "completion_owner_lanes": "Codex-live:1"
     },
     {
       "row_kind": "candidate",
@@ -63439,89 +63917,6 @@
       "completion_action_families": "candidate-row",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "product-review:1"
-    },
-    {
-      "row_kind": "candidate",
-      "catalog_layer": "F3",
-      "customization_layer": "F3 target prerequisite/fill",
-      "row_status": "candidate",
-      "custom_discussion": "no",
-      "candidate_source": "data/target-prerequisite-actions/actions.csv",
-      "candidate_state": "K candidate",
-      "candidate_inputs": "the chart's CRDs",
-      "candidate_required_before": "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base",
-      "parent_base": "default",
-      "downstream_space": "",
-      "target_run_status": "not-applicable",
-      "target_run_receipt": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml",
-      "target_run_blockers": "the chart's CRDs",
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "variant": "default + crd",
-      "catalog_tier": "candidate",
-      "adoption_bucket": "candidate-row",
-      "quirk_features": "lookup;hooks;cluster-rbac",
-      "hard_gap": "the chart's CRDs",
-      "strongest_evidence": "candidate-plan",
-      "next_action": "install-crds: unknown; npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default",
-      "hook_count": "",
-      "hook_disposition": "",
-      "hook_evidence_version": "",
-      "hook_live_status": "n/a",
-      "lifecycle_route_contract": "n/a",
-      "lifecycle_route_count": "",
-      "lifecycle_route_dispositions": "",
-      "lifecycle_route_execution_modes": "",
-      "lifecycle_route_safe_automatic": "",
-      "lifecycle_route_evidence_version": "",
-      "lifecycle_route_contract_path": "",
-      "lifecycle_route_json_path": "",
-      "render_intent_path": "",
-      "render_intent_lifecycle_state": "n/a",
-      "render_intent_lifecycle_reason": "",
-      "render_intent_lifecycle_next_action": "",
-      "render_intent_target_state": "n/a",
-      "render_intent_target_reason": "",
-      "render_intent_target_next_action": "",
-      "render_intent_target_requirement_count": "",
-      "render_intent_target_action_count": "",
-      "lane_render_parity": "n/a",
-      "lane_confighub_scan_ops": "n/a",
-      "lane_local_kind": "n/a",
-      "lane_lifecycle_observed": "n/a",
-      "lane_gitops_oci_live": "n/a",
-      "lane_live_dual_parity": "n/a",
-      "lane_two_cluster_kind": "n/a",
-      "core_lanes_complete": "n/a",
-      "outcome_level": "candidate-plan",
-      "production_decision": "n/a",
-      "production_target_scope": "",
-      "variant_promotion": "n/a",
-      "variant_promotion_status": "not-applicable-candidate",
-      "variant_promotion_evidence": "",
-      "variant_promotion_reason": "candidate rows are planning rows, not server-side promotion evidence",
-      "variant_promotion_next_action": "turn this candidate into a real base or derived variant before server-side promotion applies",
-      "active_proof_next_step": "",
-      "active_proof_readiness": "",
-      "active_proof_reason": "",
-      "active_proof_command": "",
-      "active_proof_support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "recipe_path": "recipes/projectcalico/tigera-operator/v3.32.0",
-      "recipe_catalog_path": "recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md",
-      "variant_path": "",
-      "package_base_path": "",
-      "variant_revision_path": "",
-      "source_lock_path": "recipes/projectcalico/tigera-operator/v3.32.0/source-lock.yaml",
-      "source_repository_url": "https://docs.tigera.io/calico/charts",
-      "source_content_url": "",
-      "github_recipe_url": "https://github.com/confighub/helm-expt/tree/main/recipes/projectcalico/tigera-operator/v3.32.0",
-      "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md",
-      "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/projectcalico/tigera-operator/v3.32.0/bases/default",
-      "completion_action": "stage",
-      "completion_action_summary": "stage:1",
-      "completion_action_families": "candidate-row",
-      "completion_deferred_cells": "0",
-      "completion_owner_lanes": "Codex-live:1"
     },
     {
       "row_kind": "source",
@@ -63903,7 +64298,7 @@
       "lane_render_parity": "yes",
       "lane_confighub_scan_ops": "yes",
       "lane_local_kind": "yes",
-      "lane_lifecycle_observed": "todo",
+      "lane_lifecycle_observed": "yes",
       "lane_gitops_oci_live": "yes",
       "lane_live_dual_parity": "yes",
       "lane_two_cluster_kind": "todo",
@@ -63933,10 +64328,10 @@
       "github_catalog_url": "https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md",
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default",
       "completion_action": "stage",
-      "completion_action_summary": "run:1; stage:1",
-      "completion_action_families": "CCP-08:lifecycle-route; CCP-15:stage-prereq-other",
+      "completion_action_summary": "stage:1",
+      "completion_action_families": "CCP-15:stage-prereq-other",
       "completion_deferred_cells": "0",
-      "completion_owner_lanes": "Codex-live:1; product-decision:1"
+      "completion_owner_lanes": "product-decision:1"
     },
     {
       "row_kind": "base",
@@ -65013,7 +65408,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-adapter/5.3.0/bases/default",
       "completion_action": "model",
       "completion_action_summary": "deferred:1; model:4",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable; CCP-07:model-gap; CCP-14:semantic-normalization",
+      "completion_action_families": "CCP-04:lifecycle-not-applicable; CCP-07:model-gap; CCP-13:semantic-normalization",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Claude-non-live:4; product-decision:1"
     },
@@ -65179,7 +65574,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-adapter/5.3.0/bases/cluster-metrics-readonly",
       "completion_action": "model",
       "completion_action_summary": "deferred:1; model:4",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable; CCP-07:model-gap; CCP-14:semantic-normalization",
+      "completion_action_families": "CCP-04:lifecycle-not-applicable; CCP-07:model-gap; CCP-13:semantic-normalization",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Claude-non-live:4; product-decision:1"
     },
@@ -66673,7 +67068,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default",
       "completion_action": "stage",
       "completion_action_summary": "stage:3",
-      "completion_action_families": "CCP-10:create-namespace",
+      "completion_action_families": "CCP-08:create-namespace",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3"
     },
@@ -68167,7 +68562,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/traefik/traefik/40.2.0/bases/default",
       "completion_action": "model",
       "completion_action_summary": "deferred:1; model:1",
-      "completion_action_families": "CCP-04:lifecycle-not-applicable; CCP-12:crd-lifecycle",
+      "completion_action_families": "CCP-04:lifecycle-not-applicable; CCP-11:crd-lifecycle",
       "completion_deferred_cells": "1",
       "completion_owner_lanes": "Claude-non-live:1; product-decision:1"
     },
@@ -68665,7 +69060,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/velero/velero/12.0.1/bases/default",
       "completion_action": "model",
       "completion_action_summary": "model:3; stage:1",
-      "completion_action_families": "CCP-11:base-design; CCP-19:admission-or-rbac",
+      "completion_action_families": "CCP-10:base-design; CCP-19:admission-or-rbac",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3; product-decision:1"
     },
@@ -68748,7 +69143,7 @@
       "github_package_base_url": "https://github.com/confighub/helm-expt/tree/main/packages/velero/velero/12.0.1/bases/no-crds",
       "completion_action": "model",
       "completion_action_summary": "model:2; stage:2",
-      "completion_action_families": "CCP-09:install-crds; CCP-11:base-design; CCP-19:admission-or-rbac",
+      "completion_action_families": "CCP-09:install-crds; CCP-10:base-design; CCP-19:admission-or-rbac",
       "completion_deferred_cells": "0",
       "completion_owner_lanes": "Claude-non-live:3; product-decision:1"
     },

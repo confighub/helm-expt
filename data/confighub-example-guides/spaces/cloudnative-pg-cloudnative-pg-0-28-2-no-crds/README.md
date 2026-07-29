@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 11 prerequisite(s): 10 CRDs, 1 Secret. Create these with your own values before you apply the rendered objects.
+This preset config records 11 prerequisites: 10 CRDs, 1 Secret. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -78,23 +78,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml) |
 | Render variant | [`recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/cloudnative-pg-cloudnative-pg-0-28-2/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret default/cnpg-webhook-cert keys tls.crt,tls.key | kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
-| ClusterFeature | CRD backups.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusterimagecatalogs.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusters.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD databases.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD failoverquorums.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD imagecatalogs.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD poolers.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD publications.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD scheduledbackups.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD subscriptions.postgresql.cnpg.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | ClusterFeature: Secret default/cnpg-webhook-cert keys tls.crt,tls.key | kubectl -n default create secret generic cnpg-webhook-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
+| Before install | 10 CRDs: backups.postgresql.cnpg.io, clusterimagecatalogs.postgresql.cnpg.io, clusters.postgresql.cnpg.io, databases.postgresql.cnpg.io, failoverquorums.postgresql.cnpg.io, imagecatalogs.postgresql.cnpg.io, poolers.postgresql.cnpg.io, publications.postgresql.cnpg.io, scheduledbackups.postgresql.cnpg.io, subscriptions.postgresql.cnpg.io | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -102,14 +93,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
+| Earlier local-cluster test | `no` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
 
 ## Limits
 
-- Local kind evidence is no for this preset config.
+- An older local-cluster test failed before the required setup was added. The newer end-to-end Helm and ConfigHub comparison passed with the setup described above.
 - Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
@@ -118,5 +109,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/cloudnative-pg-cloudnative-pg-0-28-2-no-crds.yaml)
 - Rendered YAML: [`recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/no-crds)
-- Generated scripts: [`site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/cloudnative-pg-cloudnative-pg-0-28-2-no-crds)
+- Generated scripts: [`site/sh/cloudnative-pg-cloudnative-pg-0-28-2/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/cloudnative-pg-cloudnative-pg-0-28-2/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

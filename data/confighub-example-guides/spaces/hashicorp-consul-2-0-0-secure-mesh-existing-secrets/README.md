@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 5 prerequisite(s): 4 Secrets, 1 other item. Create these with your own values before you apply the rendered objects.
+This preset config records 5 prerequisites: 4 Secrets, 1 other item. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Secret material is kept outside the chart render and supplied by you. At least one Secret must be created with your values before apply. Known limitation: ha (curated proof lane - bespoke teaching needed).
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0-secure-mesh-existing-secrets/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0/secure-mesh-existing-secrets/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0-secure-mesh-existing-secrets/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0/secure-mesh-existing-secrets/confighub.sh)
 ```
 
 The core render command is:
@@ -78,17 +78,17 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/hashicorp-consul-2-0-0-secure-mesh-existing-secrets.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-consul-2-0-0-secure-mesh-existing-secrets.yaml) |
 | Render variant | [`recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets`](https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0-secure-mesh-existing-secrets/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0-secure-mesh-existing-secrets/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0/secure-mesh-existing-secrets/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-consul-2-0-0/secure-mesh-existing-secrets/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret consul/consul-ca-cert key tls.crt | kubectl -n consul create secret generic consul-ca-cert --from-literal=tls.crt=<value> |
-| ClusterFeature | Secret consul/consul-server-cert keys tls.crt,tls.key | kubectl -n consul create secret generic consul-server-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
-| ClusterFeature | Secret consul/consul-gossip-encryption-key key key | kubectl -n consul create secret generic consul-gossip-encryption-key --from-literal=key=<value> |
-| ClusterFeature | Secret consul/consul-bootstrap-acl-token key token | kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value> |
-| ClusterFeature | minimum schedulable nodes 3 | use a target with at least 3 schedulable nodes before applying this base |
+| Before install | ClusterFeature: Secret consul/consul-ca-cert key tls.crt | kubectl -n consul create secret generic consul-ca-cert --from-literal=tls.crt=<value> |
+| Before install | ClusterFeature: Secret consul/consul-server-cert keys tls.crt,tls.key | kubectl -n consul create secret generic consul-server-cert --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
+| Before install | ClusterFeature: Secret consul/consul-gossip-encryption-key key key | kubectl -n consul create secret generic consul-gossip-encryption-key --from-literal=key=<value> |
+| Before install | ClusterFeature: Secret consul/consul-bootstrap-acl-token key token | kubectl -n consul create secret generic consul-bootstrap-acl-token --from-literal=token=<value> |
+| Before install | ClusterFeature: minimum schedulable nodes 3 | use a target with at least 3 schedulable nodes before applying this base |
 
 ## Evidence
 
@@ -96,7 +96,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
+| Earlier local-cluster test | `no` |
 | GitOps OCI live run | `no` |
 | Live Helm vs ConfigHub comparison | `watch` |
 | Lifecycle routes | `0` |
@@ -114,5 +114,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/hashicorp-consul-2-0-0-secure-mesh-existing-secrets.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-consul-2-0-0-secure-mesh-existing-secrets.yaml)
 - Rendered YAML: [`recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml)
 - Package source: [`packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets`](https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets)
-- Generated scripts: [`site/sh/hashicorp-consul-2-0-0-secure-mesh-existing-secrets`](https://github.com/confighub/helm-expt/tree/main/site/sh/hashicorp-consul-2-0-0-secure-mesh-existing-secrets)
+- Generated scripts: [`site/sh/hashicorp-consul-2-0-0/secure-mesh-existing-secrets`](https://github.com/confighub/helm-expt/tree/main/site/sh/hashicorp-consul-2-0-0/secure-mesh-existing-secrets)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

@@ -646,7 +646,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="proof">
       <h2 id="proof">Proof Lanes</h2>
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
-      <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
         <tbody><tr><td>Render parity</td><td>yes: 2/2</td></tr><tr><td>ConfigHub proof</td><td>yes: 2/2</td></tr><tr><td>Local live</td><td>yes: 2/2</td></tr><tr><td>GitOps/OCI live</td><td>yes: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>yes: 2/2</td></tr><tr><td>Two-cluster kind</td><td>yes: 2/2</td></tr></tbody>
@@ -713,7 +713,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
 <h4>no-crds: needs 6 CRDs supplied first</h4><div class="card"><table>
         <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
-        <tbody><tr><td>webhook-readiness (webhook-readiness-observation)<br><span class="small">KEDA creates its own webhook certificate Secret after the operator starts, so delivery must wait for that handoff before judging the remaining pods. The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.</span></td><td>Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td><td>-</td></tr></tbody>
+        <tbody><tr><td>webhook-readiness (webhook-readiness-observation)<br><span class="small">The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.</span></td><td>Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td><td>-</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

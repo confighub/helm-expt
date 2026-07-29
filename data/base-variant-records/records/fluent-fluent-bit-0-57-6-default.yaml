@@ -86,15 +86,17 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
-        operatingDetails: ""
+        operatingDetails: "Connectivity tests are checks against the installed target, not render-time behavior."
         command: "# run the chart's test/check (helm test equivalent)"
         disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "0.57.6"
         evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -106,9 +108,9 @@ spec:
         runners:
           direct:
             implementation: "# run the chart's test/check (helm test equivalent)"
-            status: "not-run"
+            status: "evidence-linked"
             evidence:
-              []
+              - "runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml"
           argoCd:
             implementation: "PostSync test Job (Argo has no native helm test)"
             status: "mapping-only"
@@ -152,7 +154,7 @@ spec:
     renderParity: "yes"
     confighubScanOps: "yes"
     localKind: "yes"
-    lifecycleObserved: "todo"
+    lifecycleObserved: "yes"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
     twoClusterKind: "yes"

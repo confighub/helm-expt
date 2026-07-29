@@ -57,13 +57,13 @@ spec:
     Run without a ConfigHub account:
 
     ```sh
-    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0-server-only-ephemeral/try.sh)
+    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0/server-only-ephemeral/try.sh)
     ```
 
     Upload to ConfigHub:
 
     ```sh
-    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0-server-only-ephemeral/confighub.sh)
+    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0/server-only-ephemeral/confighub.sh)
     ```
 
     ## Evidence and source
@@ -74,8 +74,8 @@ spec:
     | Render intent | [data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-29-8-0-server-only-ephemeral.yaml) |
     | Rendered YAML | [recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml) |
     | Detailed guide | [data/confighub-example-guides/spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/prometheus-community-prometheus-29-8-0-server-only-ephemeral/README.md) |
-    | No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0-server-only-ephemeral/try.sh) |
-    | ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0-server-only-ephemeral/confighub.sh) |
+    | No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0/server-only-ephemeral/try.sh) |
+    | ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-29-8-0/server-only-ephemeral/confighub.sh) |
 
     ## What is proven
 

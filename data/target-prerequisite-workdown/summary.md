@@ -15,12 +15,12 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 [residue-families](../../docs/reference/residue-families.md). For the full non-green
 triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 40 target-prerequisite rows
+## 39 target-prerequisite rows
 
 | Prerequisite kind | Rows |
 | --- | ---: |
 | `unknown` | 21 |
-| `crd` | 7 |
+| `crd` | 6 |
 | `external-api` | 4 |
 | `namespace` | 4 |
 | `secret` | 3 |
@@ -29,7 +29,7 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | Owner class | Rows |
 | --- | ---: |
 | `operator-review` | 26 |
-| `user-stage` | 13 |
+| `user-stage` | 12 |
 | `target-policy` | 1 |
 
 ## Rows
@@ -70,7 +70,6 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown | value nfs.server | user-stage | unknown |
 | opencost/opencost@2.5.21 | default | G/P | unknown | unknown | operator-review | yes |
 | opencost/opencost@2.5.21 | default | K | unknown | unknown | operator-review | yes |
-| projectcalico/tigera-operator@v3.32.0 | default | K | crd | unknown | user-stage | unknown |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | K | crd | unknown | user-stage | unknown |
 | prometheus-community/prometheus-adapter@5.3.0 | default | K | crd | unknown | user-stage | unknown |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | G/P | namespace | Namespace rook-ceph | user-stage | yes |

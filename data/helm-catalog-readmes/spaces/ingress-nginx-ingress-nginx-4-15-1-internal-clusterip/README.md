@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-in
 | Render intent | [data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip.yaml) |
 | Rendered YAML | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/confighub.sh) |
 
 ## What is proven
 

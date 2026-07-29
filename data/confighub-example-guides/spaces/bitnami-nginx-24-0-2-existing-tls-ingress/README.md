@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 2 prerequisite(s): 2 Secrets. Create these with your own values before you apply the rendered objects.
+This preset config records 2 prerequisites: 2 Secrets. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 At least one Secret must be created with your values before apply. Known limitation: existing-secret (chart ships no Secret toggle).
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/confighub.sh)
 ```
 
 The core render command is:
@@ -78,14 +78,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml) |
 | Render variant | [`recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt | kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value> |
-| ClusterFeature | Secret nginx/nginx-ingress-tls keys tls.crt,tls.key | kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
+| Before install | ClusterFeature: Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt | kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value> |
+| Before install | ClusterFeature: Secret nginx/nginx-ingress-tls keys tls.crt,tls.key | kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
 
 ## Evidence
 
@@ -93,7 +93,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -109,5 +109,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml)
 - Rendered YAML: [`recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml)
 - Package source: [`packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/nginx/24.0.2/bases/existing-tls-ingress)
-- Generated scripts: [`site/sh/bitnami-nginx-24-0-2-existing-tls-ingress`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress)
+- Generated scripts: [`site/sh/bitnami-nginx-24-0-2/existing-tls-ingress`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

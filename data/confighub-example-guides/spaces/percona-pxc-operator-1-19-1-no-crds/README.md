@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 3 prerequisite(s): 3 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 3 prerequisites: 3 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -78,15 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml) |
 | Render variant | [`recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/percona/pxc-operator/1.19.1/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/percona/pxc-operator/1.19.1/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/percona-pxc-operator-1-19-1/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD perconaxtradbclusterbackups.pxc.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD perconaxtradbclusterrestores.pxc.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD perconaxtradbclusters.pxc.percona.com | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | 3 CRDs: perconaxtradbclusterbackups.pxc.percona.com, perconaxtradbclusterrestores.pxc.percona.com, perconaxtradbclusters.pxc.percona.com | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -94,14 +92,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
+| Earlier local-cluster test | `no` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
 
 ## Limits
 
-- Local kind evidence is no for this preset config.
+- An older local-cluster test failed before the required setup was added. The newer end-to-end Helm and ConfigHub comparison passed with the setup described above.
 - Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
@@ -110,5 +108,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/percona-pxc-operator-1-19-1-no-crds.yaml)
 - Rendered YAML: [`recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/percona/pxc-operator/1.19.1/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/percona/pxc-operator/1.19.1/bases/no-crds)
-- Generated scripts: [`site/sh/percona-pxc-operator-1-19-1-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/percona-pxc-operator-1-19-1-no-crds)
+- Generated scripts: [`site/sh/percona-pxc-operator-1-19-1/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/percona-pxc-operator-1-19-1/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

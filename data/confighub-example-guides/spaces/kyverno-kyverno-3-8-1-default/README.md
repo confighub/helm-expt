@@ -28,11 +28,17 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+This preset needs a setup step before Kubernetes can accept all of the rendered objects. The step is described below and is part of the tested install path.
 
-This preset config records 6 hook or lifecycle route(s). The current route status is observed:6, with execution modes target-owned:3; user-executes:3. They are listed here instead of being left inside the Helm release.
+The catalog records 5 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release. Known limitation: existing-secret (chart ships no Secret toggle).
+- **Before install:** preserve-ordering.
+- **Before install:** target-facts-or-preflight.
+- **After install:** Test hooks become checks, not hidden install behavior.
+- **During upgrade:** Resource migration after upgrade must be recorded as an upgrade operation.
+- **When uninstalling:** Webhook and APIService cleanup belongs to delete or rollback policy.
+
+Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
 
 ## Why you can trust it
 
@@ -49,13 +55,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/default/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +84,17 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml) |
 | Render variant | [`recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/kyverno/kyverno/3.8.1/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| Before install | Keep the required apply order | preserve-ordering. |
+| Before install | Prepare the target | target-facts-or-preflight. |
+| After install | Run the chart check | Test hooks become checks, not hidden install behavior. |
+| During upgrade | Run the upgrade step | Resource migration after upgrade must be recorded as an upgrade operation. |
+| When uninstalling | Use the chart's cleanup policy | Webhook and APIService cleanup belongs to delete or rollback policy. |
 
 ## Evidence
 
@@ -92,10 +102,10 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
-| Lifecycle routes | `6` |
+| Lifecycle routes | `5` |
 
 ## Limits
 
@@ -108,5 +118,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-default.yaml)
 - Rendered YAML: [`recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/kyverno/kyverno/3.8.1/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/default)
-- Generated scripts: [`site/sh/kyverno-kyverno-3-8-1-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/kyverno-kyverno-3-8-1-default)
+- Generated scripts: [`site/sh/kyverno-kyverno-3-8-1/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/kyverno-kyverno-3-8-1/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

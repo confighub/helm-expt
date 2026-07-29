@@ -746,20 +746,6 @@
       "receipt": "runs/live-helm-confighub-compare/opencost-opencost-default/receipt.yaml"
     },
     {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "variant": "default",
-      "result": "blocked",
-      "residue_category": "crd-bootstrap",
-      "blocker_owner": "catalog or operator",
-      "usable_today": "no — needs a CRD/bootstrap route first",
-      "user_decision": "The chart renders custom resources before the target has the matching CRDs established. This is a lifecycle/prerequisite boundary, not something to hide inside a single opaque install. A supported path must stage the CRDs first or split the base into bootstrap and custom-resource phases.",
-      "next_action": "Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness.",
-      "reason": "crd-bootstrap: required CRDs missing before custom resources apply",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "receipt": "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
-    },
-    {
       "chart": "prometheus-community/prometheus-adapter",
       "version": "5.3.0",
       "variant": "cluster-metrics-readonly",

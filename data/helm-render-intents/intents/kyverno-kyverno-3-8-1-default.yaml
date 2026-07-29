@@ -40,17 +40,17 @@ spec:
     renderParity: "yes"
     confighubScanOps: "yes"
     localKind: "yes"
-    lifecycleObserved: "todo"
+    lifecycleObserved: "yes"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
     twoClusterKind: "yes"
     variantPromotion: "proven"
   lifecycle:
     routeContract: "yes"
-    routeCount: "6"
-    dispositions: "observed:6"
-    executionModes: "target-owned:3; user-executes:3"
-    safeAutomatic: "0/6"
+    routeCount: "5"
+    dispositions: "observed:5"
+    executionModes: "target-owned:2; user-executes:3"
+    safeAutomatic: "0/5"
     contractPath: "data/lifecycle-routes/summary.md"
     jsonPath: "data/lifecycle-routes/routes.json"
     variantRoutes:
@@ -62,15 +62,17 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your cluster — at uninstall, automatically"
-        operatingDetails: ""
+        operatingDetails: "Webhook and APIService cleanup belongs to delete or rollback policy."
         command: ""
         disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "3.8.1"
         evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -82,50 +84,9 @@ spec:
         runners:
           direct:
             implementation: "Your cluster — at uninstall, automatically"
-            status: "not-run"
+            status: "evidence-linked"
             evidence:
-              []
-          argoCd:
-            implementation: "none — your cluster handles it"
-            status: "mapping-only"
-            evidence:
-              []
-          flux:
-            implementation: "none — your cluster handles it"
-            status: "mapping-only"
-            evidence:
-              []
-      -
-        routeName: "preserve-cleanup-policy"
-        quirkClass: "hook-delete-policy"
-        lifecyclePhase: "observe"
-        actionKind: "accept-target-policy"
-        executionMode: "target-owned"
-        automatic: false
-        whoRuns: "Your cluster — at uninstall, automatically"
-        operatingDetails: ""
-        command: ""
-        disposition: "observed"
-        delta: "kept"
-        reason: ""
-        routeSourceVersion: "3.8.1"
-        evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
-          - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
-        nextAction: ""
-        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
-        gitOps:
-          emitsControllerStep: false
-          argoCd: "none — your cluster handles it"
-          flux: "none — your cluster handles it"
-          argoCdSnippet: ""
-        runners:
-          direct:
-            implementation: "Your cluster — at uninstall, automatically"
-            status: "not-run"
-            evidence:
-              []
+              - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
           argoCd:
             implementation: "none — your cluster handles it"
             status: "mapping-only"
@@ -144,15 +105,17 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
-        operatingDetails: ""
+        operatingDetails: "Resource migration after upgrade must be recorded as an upgrade operation."
         command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
         disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "3.8.1"
         evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -164,9 +127,9 @@ spec:
         runners:
           direct:
             implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-            status: "not-run"
+            status: "evidence-linked"
             evidence:
-              []
+              - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
           argoCd:
             implementation: "PreSync"
             status: "mapping-only"
@@ -185,15 +148,17 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Opt-in check — run from CI or on demand (tests are explicit by design)"
-        operatingDetails: ""
+        operatingDetails: "Test hooks become checks, not hidden install behavior."
         command: "# run the chart's test/check (helm test equivalent)"
         disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "3.8.1"
         evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/kyverno/kyverno/3.8.1/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: ""
@@ -205,9 +170,9 @@ spec:
         runners:
           direct:
             implementation: "# run the chart's test/check (helm test equivalent)"
-            status: "not-run"
+            status: "evidence-linked"
             evidence:
-              []
+              - "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml"
           argoCd:
             implementation: "PostSync test Job (Argo has no native helm test)"
             status: "mapping-only"
@@ -302,7 +267,7 @@ spec:
               []
     coverage:
       state: "attached"
-      reason: "6 lifecycle routes attached for this exact chart version and base."
+      reason: "5 lifecycle routes attached for this exact chart version and base."
       evidence:
         - "data/lifecycle-routes/summary.md"
         - "data/lifecycle-routes/routes.json"

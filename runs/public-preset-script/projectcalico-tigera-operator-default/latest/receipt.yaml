@@ -1,0 +1,36 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: PublicPresetScriptReceipt
+metadata:
+  name: projectcalico-tigera-operator-default-public-try
+spec:
+  chart: projectcalico/tigera-operator
+  version: v3.32.0
+  base: default
+  observedAt: "2026-07-28T23:33:27Z"
+  result: pass
+  script:
+    path: site/sh/projectcalico-tigera-operator-v3-32-0/default/try.sh
+    sha256: 08dc0f3984aebacf11608464022a0a9bbfb9061fc1149840aca9dab6247b1bc7
+  package:
+    ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0
+    anonymousPull: true
+    publicationReceipt: runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml
+    manifestDigest: sha256:11481eee2b1559ed22781260d8b171dc4b9bbb0b99fab5525932f974aa08bd22
+    layerDigest: sha256:89028df75549d5f9ace1b281149ddb28daf2c44a5e715bdc89c1377d47db4a23
+  target:
+    type: kind
+    clusterName: hx-calico-public-script
+    kubernetesVersion: v1.35.0
+    freshCluster: true
+  observed:
+    - The script pulled the public package without a ConfigHub account or registry login.
+    - The package rendered 11 manifest files before touching the cluster.
+    - The packaged Kustomize bootstrap applied the Tigera operator and its RBAC without the four custom resources.
+    - The script waited until all four operator.tigera.io CRDs existed and were Established.
+    - The complete rendered output applied successfully after the CRDs were ready.
+    - APIServer, Goldmane, Installation, and Whisker named default were accepted by Kubernetes.
+    - The tigera-operator Deployment became Available.
+    - The throwaway cluster was deleted after the checks.
+  boundaries:
+    - This receipt covers the generated no-account try script on one fresh kind cluster.
+    - It does not prove production Calico readiness, a cross-version CRD upgrade, or uninstall safety when Calico owns live cluster networking.

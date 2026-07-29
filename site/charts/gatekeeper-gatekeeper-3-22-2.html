@@ -440,7 +440,7 @@
 
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
-      <p class="stat-strip">default base variant: <strong>30</strong> rendered objects · <strong>1</strong> image · <strong>0</strong> lifecycle routes · <strong>6/6</strong> proof lanes passing. Every number is extracted from committed data.</p>
+      <p class="stat-strip">default base variant: <strong>30</strong> rendered objects · <strong>1</strong> image · <strong>2</strong> lifecycle routes · <strong>7/7</strong> proof lanes passing. Every number is extracted from committed data.</p>
       <div class="grid">
         <div class="metric"><strong>default</strong><span>Recommended first base variant</span></div>
         <div class="metric"><strong>2</strong><span>Candidate base variants</span></div>
@@ -547,15 +547,15 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2 --base default --work-dir ./gatekeeper-gatekeeper-3-22-2-default --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/gatekeeper-gatekeeper-3-22-2/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/gatekeeper-gatekeeper-3-22-2/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>4 source hook(s); observed; live: yes</dd>
-          <dt>Who runs actions?</dt><dd>read the route receipt before delivery</dd>
-          <dt>Lifecycle record</dt><dd>4 source hooks are recorded, but this base has no attached lifecycle route. Decide how the work should run with direct commands, Argo CD, and Flux, then record the result. <a href="../../data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml">Open the full record.</a></dd>
+          <dt>Hooks/actions</dt><dd>4 source hook(s); observed; live: yes; route: yes</dd>
+          <dt>Who runs actions?</dt><dd>you or your delivery pipeline (2); no step is called automatic until its run has a receipt</dd>
+          <dt>Lifecycle record</dt><dd>2 chart-specific lifecycle routes are recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>
           <dt>Reason</dt><dd>Server side promotion receipt passed</dd>
         </dl>
         <div class="lane-strip" aria-label="Proof lanes for default">
-          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill todo" title="Lifecycle: todo"><b>Y</b><em>todo</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
+          <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill yes" title="Lifecycle: yes"><b>Y</b><em>yes</em></span><span class="lane-pill yes" title="GitOps: yes"><b>G</b><em>yes</em></span><span class="lane-pill yes" title="Live parity: yes"><b>P</b><em>yes</em></span><span class="lane-pill yes" title="Kind parity: yes"><b>K</b><em>yes</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/gatekeeper/gatekeeper/3.22.2/CATALOG.html">catalog</a> · <a href="../../recipes/gatekeeper/gatekeeper/3.22.2/variants/default/variant.yaml">variant</a> · <a href="../../recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml">render intent</a> · <a href="../../data/base-variant-records/records/gatekeeper-gatekeeper-3-22-2-default.yaml">base record</a> · <a href="../../packages/gatekeeper/gatekeeper/3.22.2/bases/default">package base</a> · <a href="../../runs/gatekeeper-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://open-policy-agent.github.io/gatekeeper/charts" rel="noopener">source repo</a></p>
       </article><article class="matrix-row-card">
@@ -606,7 +606,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
       <div class="card"><table>
         <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
-        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 17 CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base <code>no-crds</code>.</td></tr></tbody>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. CRD and admission-webhook prerequisites must be checked before apply.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -646,7 +646,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="proof">
       <h2 id="proof">Proof Lanes</h2>
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
-      <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
         <tbody><tr><td>Render parity</td><td>yes: 2/2</td></tr><tr><td>ConfigHub proof</td><td>yes: 2/2</td></tr><tr><td>Local live</td><td>yes: 2/2</td></tr><tr><td>GitOps/OCI live</td><td>yes: 2/2</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>yes: 2/2</td></tr><tr><td>Two-cluster kind</td><td>yes: 2/2</td></tr></tbody>
@@ -701,7 +701,26 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 
-      <p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>
+      <h4>default</h4><div class="card"><table>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <tbody><tr><td>hook-phase (preflight-or-presync)<br><span class="small">CRD and admission-webhook prerequisites must be checked before apply.</span></td><td>Your delivery - a preflight step before apply (receipted)</td><td>PreSync · sync-wave -1</td><td>apply before the release (Kustomization dependsOn)</td><td>-</td></tr><tr><td>hook-phase (upgrade-action-with-receipt)<br><span class="small">The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.</span></td><td>Your delivery - a GitOps PreSync/PostSync or cub action (receipted)</td><td>PreSync</td><td>apply before the release (Kustomization dependsOn)</td><td>-</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml">data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml</a><br><a href="../../data/hook-lifecycle/top100-hooks.csv">data/hook-lifecycle/top100-hooks.csv</a><br><a href="../../recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml">recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml</a><br><a href="../../runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml">runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml</a></p>
+<h4>no-crds: needs 17 CRDs supplied first</h4><div class="card"><table>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
     </section>
 
     <section aria-labelledby="production">

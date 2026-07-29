@@ -12,9 +12,9 @@ required.
 
 | Area | Gaps |
 | --- | ---: |
-| Lifecycle route | 5 |
-| Target prerequisite | 136 |
-| Total | 141 |
+| Lifecycle route | 3 |
+| Target prerequisite | 135 |
+| Total | 138 |
 
 ## Work List
 
@@ -80,7 +80,6 @@ required.
 | falcosecurity/falcosidekick@0.13.1 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/falcosecurity-falcosidekick-0-13-1-default.yaml) |
 | fluent/fluent-bit@0.57.6 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/fluent-fluent-bit-0-57-6-default.yaml) |
 | fluent/fluentd@0.5.3 | `default` | target-prerequisite | 1 observed prerequisite action record exists, but the base does not declare the prerequisite. | Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof. | [intent](./intents/fluent-fluentd-0-5-3-default.yaml) |
-| gatekeeper/gatekeeper@3.22.2 | `default` | lifecycle-route | 4 source hooks are recorded, but this base has no attached lifecycle route. | Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts. | [intent](./intents/gatekeeper-gatekeeper-3-22-2-default.yaml) |
 | gatekeeper/gatekeeper@3.22.2 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/gatekeeper-gatekeeper-3-22-2-default.yaml) |
 | gatekeeper/gatekeeper@3.22.2 | `no-crds` | lifecycle-route | 4 source hooks are recorded, but this base has no attached lifecycle route. | Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts. | [intent](./intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml) |
 | gitlab/gitlab-runner@0.89.0 | `default` | target-prerequisite | 2 observed prerequisite action records exist, but the base does not declare the prerequisite. | Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof. | [intent](./intents/gitlab-gitlab-runner-0-89-0-default.yaml) |
@@ -125,8 +124,6 @@ required.
 | percona/psmdb-operator@1.22.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/percona-psmdb-operator-1-22-0-default.yaml) |
 | percona/psmdb-operator@1.22.0 | `no-crds` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/percona-psmdb-operator-1-22-0-no-crds.yaml) |
 | percona/pxc-operator@1.19.1 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/percona-pxc-operator-1-19-1-default.yaml) |
-| projectcalico/tigera-operator@v3.32.0 | `default` | lifecycle-route | 1 source hook is recorded, but this base has no attached lifecycle route. | Choose how each source hook runs for direct apply, Argo CD, and Flux; attach the route records and version-matched receipts. | [intent](./intents/projectcalico-tigera-operator-v3-32-0-default.yaml) |
-| projectcalico/tigera-operator@v3.32.0 | `default` | target-prerequisite | 1 observed prerequisite action record exists, but the base does not declare the prerequisite. | Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof. | [intent](./intents/projectcalico-tigera-operator-v3-32-0-default.yaml) |
 | prometheus-community/alertmanager@1.37.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/prometheus-community-alertmanager-1-37-0-default.yaml) |
 | prometheus-community/alertmanager@1.37.0 | `ha` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/prometheus-community-alertmanager-1-37-0-ha.yaml) |
 | prometheus-community/kube-prometheus-stack@86.1.0 | `default` | lifecycle-route | 7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.3 instead of 86.1.0. | Run the lifecycle proof for 86.1.0, then update the route source version and receipt. | [intent](./intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml) |

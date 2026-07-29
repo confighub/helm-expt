@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-ha-raft-ui/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/ha-raft-ui/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-ha-raft-ui/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/ha-raft-ui/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-
 | Render intent | [data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-vault-0-32-0-ha-raft-ui.yaml) |
 | Rendered YAML | [recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-ha-raft-ui/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-ha-raft-ui/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-ha-raft-ui/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0-ha-raft-ui/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/ha-raft-ui/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/ha-raft-ui/confighub.sh) |
 
 ## What is proven
 

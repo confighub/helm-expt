@@ -53,7 +53,12 @@ function buildReport() {
   const hookReceiptByChart = new Map(hookReceiptRows.map((row) => [`${row.chart}@${row.version}`, row]));
   const lanesByChart = group(laneRows, (row) => `${row.chart}@${row.version}`);
   const kindParityByBase = new Map(kindParityRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
-  const lifecycleRows = normalizedLifecycleRows(lifecycleObservationRows, webhookCertLifecycleRows, selectedRouteRows);
+  const lifecycleRows = normalizedLifecycleRows(
+    lifecycleObservationRows,
+    webhookCertLifecycleRows,
+    selectedRouteRows,
+    hookReceiptRows,
+  );
   const lifecycleByBase = new Map(lifecycleRows.map((row) => [`${row.chart}|${row.base}`, row]));
 
   const chartRows = modelRows
@@ -444,7 +449,7 @@ function outcomeLevel(row, lifecycle, kindParity) {
   return found?.[0] ?? "not-proven";
 }
 
-function normalizedLifecycleRows(controllerRows, webhookRows, selectedRouteRows) {
+function normalizedLifecycleRows(controllerRows, webhookRows, selectedRouteRows, maintainedHookRows) {
   return [
     ...controllerRows.map((row) => ({
       chart: `${row.chart}@${row.version}`,
@@ -469,6 +474,18 @@ function normalizedLifecycleRows(controllerRows, webhookRows, selectedRouteRows)
       receipt: String(row.evidence ?? "").split(";")[0],
       policy: row.route_or_policy,
       source: "selected-hook-route",
+    })),
+    ...maintainedHookRows.map((row) => ({
+      chart: `${row.chart}@${row.version}`,
+      base: row.base,
+      result: row.receipt_status === "observed"
+        ? "pass"
+        : row.receipt_status === "blocked"
+          ? "blocked"
+          : "watch",
+      receipt: row.required_receipt,
+      policy: row.route_hint || row.recommended_route,
+      source: "maintained-hook-route",
     })),
   ].sort((a, b) => `${a.chart}|${a.base}|${a.source}`.localeCompare(`${b.chart}|${b.base}|${b.source}`));
 }

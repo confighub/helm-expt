@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 1 prerequisite(s): 1 other item. Create these with your own values before you apply the rendered objects.
+This preset config records 1 prerequisite: 1 other item. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1-ha/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1/ha/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1-ha/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1/ha/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml) |
 | Render variant | [`recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/elastic/logstash/8.5.1/bases/ha`](https://github.com/confighub/helm-expt/tree/main/packages/elastic/logstash/8.5.1/bases/ha) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1-ha/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1-ha/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1/ha/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/elastic-logstash-8-5-1/ha/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | minimum schedulable nodes 3 | use a target with at least 3 schedulable nodes before applying this base |
+| Before install | ClusterFeature: minimum schedulable nodes 3 | use a target with at least 3 schedulable nodes before applying this base |
 
 ## Evidence
 
@@ -92,14 +92,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
+| Earlier local-cluster test | `no` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
 
 ## Limits
 
-- Local kind evidence is no for this preset config.
+- An older local-cluster test failed before the required setup was added. The newer end-to-end Helm and ConfigHub comparison passed with the setup described above.
 - Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
@@ -108,5 +108,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/elastic-logstash-8-5-1-ha.yaml)
 - Rendered YAML: [`recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml)
 - Package source: [`packages/elastic/logstash/8.5.1/bases/ha`](https://github.com/confighub/helm-expt/tree/main/packages/elastic/logstash/8.5.1/bases/ha)
-- Generated scripts: [`site/sh/elastic-logstash-8-5-1-ha`](https://github.com/confighub/helm-expt/tree/main/site/sh/elastic-logstash-8-5-1-ha)
+- Generated scripts: [`site/sh/elastic-logstash-8-5-1/ha`](https://github.com/confighub/helm-expt/tree/main/site/sh/elastic-logstash-8-5-1/ha)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

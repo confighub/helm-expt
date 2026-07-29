@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq
 | Render intent | [data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml) |
 | Rendered YAML | [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14-static-passwords/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-rabbitmq-16-0-14/static-passwords/confighub.sh) |
 
 ## What is proven
 

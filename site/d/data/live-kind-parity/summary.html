@@ -435,10 +435,10 @@
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>Under the same chart, version, values, and base variant, does regular Helm reach
 the same live outcome as cub installer output?</code></pre>
-<pre><code>pass: 128
+<pre><code>pass: 129
 watch: 3
-blocked: 47
-semantic parity pass: 153
+blocked: 46
+semantic parity pass: 154
 semantic parity defects: 16
 non-pass rows where semantic parity passed: 25
 non-pass rows with related lifecycle evidence: 0</code></pre>
@@ -448,7 +448,7 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <table><thead><tr><th>Reason</th><th>Rows</th></tr></thead><tbody><tr><td>parity: semantic object diff</td><td>16</td></tr>
 <tr><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>10</td></tr>
 <tr><td>helm-runtime: upstream not ready (parity passed)</td><td>4</td></tr>
-<tr><td>target-prerequisite: CRDs missing</td><td>4</td></tr>
+<tr><td>target-prerequisite: CRDs missing</td><td>3</td></tr>
 <tr><td>target-prerequisite: required Secret missing (parity passed)</td><td>3</td></tr>
 <tr><td>target-runtime: pod crash loop (parity passed)</td><td>3</td></tr>
 <tr><td>blocked: inspect receipt</td><td>2</td></tr>
@@ -604,7 +604,7 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td><code>percona/psmdb-operator@1.22.0</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-psmdb-operator-no-crds/receipt.yaml</td></tr>
 <tr><td><code>percona/pxc-operator@1.19.1</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-pxc-operator-default/receipt.yaml</td></tr>
 <tr><td><code>percona/pxc-operator@1.19.1</code></td><td>no-crds</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/percona-pxc-operator-no-crds/receipt.yaml</td></tr>
-<tr><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>default</td><td>blocked</td><td>unknown</td><td>target-prerequisite: CRDs missing</td><td></td><td>inspect receipt</td><td>runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml</td></tr>
+<tr><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml</td></tr>
 <tr><td><code>prometheus-community/alertmanager@1.37.0</code></td><td>default</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml</td></tr>
 <tr><td><code>prometheus-community/alertmanager@1.37.0</code></td><td>ha</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/prometheus-community-alertmanager-ha/receipt.yaml</td></tr>
 <tr><td><code>prometheus-community/kube-prometheus-stack@86.1.0</code></td><td>default</td><td>blocked</td><td>defect</td><td>parity: semantic object diff</td><td></td><td>semantic object parity defect</td><td>runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml</td></tr>
