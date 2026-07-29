@@ -119,6 +119,7 @@ function runProof() {
     ["kind", ["version"]],
     ["kubectl", ["version", "--client"]],
     ["oras", ["version"]],
+    ["flux", ["--version"]],
     ["cub-scout", ["version"]],
   ];
   for (const [tool, args] of toolChecks) {
@@ -131,6 +132,7 @@ function runProof() {
   const runName = `hx-oci-flow-${suffix}`;
   const clusterA = `${runName}-a`;
   const clusterB = `${runName}-b`;
+  const clusterFlux = `${runName}-flux`;
   const clusterSpaceA = `${clusterA}-cluster`;
   const clusterSpaceB = `${clusterB}-cluster`;
   const targetA = `${clusterSpaceA}/oci`;
@@ -145,6 +147,7 @@ function runProof() {
   const createdSpaces = [];
   const clustersUp = [];
   let registryUp = false;
+  let fluxClusterUp = false;
   let failure = "";
 
   const receipt = {
@@ -199,10 +202,15 @@ function runProof() {
           result: "not-run",
           targets: [],
         },
+        flux: {
+          result: "not-run",
+          cluster: clusterFlux,
+        },
       },
       run: {
         clusterCommand: "cub cluster up",
-        targetShape: "two throwaway cub-managed kind clusters with Argo CD",
+        fluxClusterCommand: "kind create cluster; flux install",
+        targetShape: "two throwaway cub-managed kind clusters with Argo CD and one throwaway kind cluster with Flux",
         sourceRegistry: "temporary local OCI registry",
         organizationPurpose: "ephemeral scratch organization",
         cleanup: {
@@ -212,12 +220,13 @@ function runProof() {
           stagingSpace: "pending",
           clusterA: "pending",
           clusterB: "pending",
+          clusterFlux: "pending",
           localFiles: "pending",
         },
       },
       limits: [
         "The input and portable output OCI packages used a temporary local registry. Public Google Artifact Registry publication is a separate receipt.",
-        "This proves one NGINX catalog configuration on two throwaway kind clusters, not every chart or production target.",
+        "This proves one NGINX catalog configuration on two throwaway Argo CD clusters and one throwaway Flux cluster, not every chart or production target.",
         "cub-scout recorded fingerprinted object-match and workload-convergence receipts locally. This test did not submit those receipts to ConfigHub observation storage.",
         "The test did not exercise hooks, CRDs, Secrets, or admission webhooks; those keep their separate lifecycle routes and receipts.",
         "ConfigHub's target-scoped OCI credential was not shared between clusters. The fleet consumed the portable anonymous OCI output instead.",
@@ -511,8 +520,36 @@ function runProof() {
       digest: controllerDigest,
       targets: fleetTargets,
     };
+
+    createKindCluster(clusterFlux);
+    fluxClusterUp = true;
+    const fluxRuntime = reconcileWithFlux({
+      clusterName: clusterFlux,
+      sourceReference: portableRelease.clusterReference,
+      digest: portableRelease.digest,
+      namespace: "nginx-staging",
+      deployment: "nginx",
+      replicas: 2,
+    });
+    const fluxObservations = collectScoutObservations({
+      clusterName: clusterFlux,
+      namespace: "nginx-staging",
+      slot: "flux-target",
+    });
+    receipt.spec.delivery.flux = {
+      result: "pass",
+      cluster: clusterFlux,
+      digest: fluxRuntime.observedDigest,
+      runtime: fluxRuntime,
+      observations: fluxObservations,
+    };
+    check(
+      receipt.spec.delivery.flux.digest === portableRelease.digest,
+      "Flux's staged revision differs from the portable OCI digest",
+    );
+
     receipt.status.result = "pass";
-    receipt.status.claim = "One literal Kubernetes OCI was imported and republished by ConfigHub with the same specs and user metadata plus a ConfigHub origin annotation, then promoted in sequence through development and staging, exported as one anonymous OCI package, and reconciled at the same digest by Argo CD on two clusters. Fingerprinted cub-scout receipts confirm that both live object sets match the reviewed package and both NGINX Deployments reached two ready replicas.";
+    receipt.status.claim = "One literal Kubernetes OCI was imported and republished by ConfigHub with the same specs and user metadata plus a ConfigHub origin annotation, then promoted in sequence through development and staging and exported as one anonymous OCI package. Two Argo CD controllers and one Flux controller reconciled that exact digest. Fingerprinted cub-scout receipts confirm that all three live object sets match the reviewed package and all three NGINX Deployments reached two ready replicas.";
   } catch (error) {
     failure = sanitizeError(error);
     receipt.status.result = "blocked";
@@ -520,6 +557,12 @@ function runProof() {
     receipt.status.error = failure;
   } finally {
     const cleanup = receipt.spec.run.cleanup;
+    if (fluxClusterUp || clusterPresent(clusterFlux)) {
+      deleteKindCluster(clusterFlux);
+    }
+    cleanup.clusterFlux = waitUntil(() => rawClusterAbsent(clusterFlux), 30)
+      ? "pass"
+      : "fail";
     for (const [space, key] of [
       [stagingSpace, "stagingSpace"],
       [devSpace, "developmentSpace"],
@@ -1460,6 +1503,193 @@ spec:
 `;
 }
 
+function createKindCluster(name) {
+  command("kind", [
+    "create",
+    "cluster",
+    "--name",
+    name,
+    "--wait",
+    "120s",
+  ], { timeout: 300_000 });
+  const kubeconfig = command("kind", [
+    "get",
+    "kubeconfig",
+    "--name",
+    name,
+  ]).output;
+  mkdirSync(join(homedir(), ".confighub", "clusters"), { recursive: true });
+  writeFileSync(clusterKubeconfig(name), kubeconfig);
+}
+
+function deleteKindCluster(name) {
+  tryCommand("kind", ["delete", "cluster", "--name", name], {
+    timeout: 180_000,
+  });
+  rmSync(clusterKubeconfig(name), { force: true });
+  rmSync(clusterEnv(name), { force: true });
+}
+
+function rawClusterAbsent(name) {
+  return !clusterPresent(name)
+    && !existsSync(clusterKubeconfig(name))
+    && !existsSync(clusterEnv(name));
+}
+
+function reconcileWithFlux({
+  clusterName,
+  sourceReference,
+  digest,
+  namespace,
+  deployment,
+  replicas,
+}) {
+  const env = {
+    ...process.env,
+    KUBECONFIG: clusterKubeconfig(clusterName),
+  };
+  command("flux", [
+    "install",
+    "--components=source-controller,kustomize-controller",
+  ], { env, timeout: 300_000 });
+  kubectl(clusterName, [
+    "-n",
+    "flux-system",
+    "rollout",
+    "status",
+    "deployment/source-controller",
+    "--timeout=180s",
+  ]);
+  kubectl(clusterName, [
+    "-n",
+    "flux-system",
+    "rollout",
+    "status",
+    "deployment/kustomize-controller",
+    "--timeout=180s",
+  ]);
+  const namespaceCreate = kubectlTry(clusterName, [
+    "create",
+    "namespace",
+    namespace,
+  ]);
+  check(
+    namespaceCreate.ok || namespaceCreate.error.includes("AlreadyExists"),
+    `could not create Flux target namespace ${namespace}: ${namespaceCreate.error}`,
+  );
+
+  const sourceName = "reviewed-nginx-staging";
+  command("flux", [
+    "create",
+    "source",
+    "oci",
+    sourceName,
+    `--url=${sourceReference}`,
+    `--digest=${digest}`,
+    "--insecure",
+    "--interval=30s",
+    "--namespace=flux-system",
+    "--timeout=3m",
+  ], { env, timeout: 300_000 });
+  command("flux", [
+    "create",
+    "kustomization",
+    sourceName,
+    `--source=OCIRepository/${sourceName}`,
+    "--path=./",
+    "--prune=true",
+    "--interval=30s",
+    "--namespace=flux-system",
+    "--timeout=4m",
+  ], { env, timeout: 360_000 });
+
+  let state = {
+    result: "blocked",
+    sourceReady: false,
+    kustomizationReady: false,
+    observedDigest: "",
+    contentDigest: "",
+    deployment: {
+      namespace,
+      name: deployment,
+      replicas: `0/${replicas}`,
+      image: "",
+    },
+  };
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    const source = kubectlTry(clusterName, [
+      "-n",
+      "flux-system",
+      "get",
+      "ocirepository",
+      sourceName,
+      "-o",
+      "json",
+    ]);
+    const kustomization = kubectlTry(clusterName, [
+      "-n",
+      "flux-system",
+      "get",
+      "kustomization",
+      sourceName,
+      "-o",
+      "json",
+    ]);
+    const workload = kubectlTry(clusterName, [
+      "-n",
+      namespace,
+      "get",
+      "deployment",
+      deployment,
+      "-o",
+      "json",
+    ]);
+    const sourceObject = source.ok ? JSON.parse(source.output) : {};
+    const kustomizationObject = kustomization.ok
+      ? JSON.parse(kustomization.output)
+      : {};
+    const deploymentObject = workload.ok ? JSON.parse(workload.output) : {};
+    const ready = Number(deploymentObject.status?.readyReplicas ?? 0);
+    const desired = Number(deploymentObject.spec?.replicas ?? replicas);
+    state = {
+      result: "blocked",
+      sourceReady: conditionTrue(sourceObject, "Ready"),
+      kustomizationReady: conditionTrue(kustomizationObject, "Ready"),
+      observedDigest: normalizeDigest(
+        String(sourceObject.status?.artifact?.revision ?? ""),
+      ),
+      contentDigest: normalizeDigest(sourceObject.status?.artifact?.digest),
+      deployment: {
+        namespace,
+        name: deployment,
+        replicas: `${ready}/${desired}`,
+        image: String(
+          deploymentObject.spec?.template?.spec?.containers?.[0]?.image ?? "",
+        ),
+      },
+    };
+    if (
+      state.sourceReady
+      && state.kustomizationReady
+      && state.observedDigest === digest
+      && ready === desired
+      && desired === replicas
+    ) {
+      return { ...state, result: "pass" };
+    }
+    sleep(5000);
+  }
+  throw new Error(
+    `Flux did not converge: ${JSON.stringify(state)}`,
+  );
+}
+
+function conditionTrue(object, type) {
+  return object.status?.conditions?.some(
+    (condition) => condition.type === type && condition.status === "True",
+  ) ?? false;
+}
+
 function clusterUp(name) {
   const result = spawnSync(
     "cub",
@@ -1777,6 +2007,18 @@ function validateReceipt(receipt) {
       );
     }
   }
+  const flux = receipt.spec?.delivery?.flux;
+  check(
+    flux?.result === "pass"
+      && flux?.digest === receipt.spec?.serverlessOutput?.digest
+      && flux?.runtime?.result === "pass"
+      && flux?.runtime?.sourceReady === true
+      && flux?.runtime?.kustomizationReady === true
+      && flux?.runtime?.observedDigest === receipt.spec?.serverlessOutput?.digest
+      && flux?.runtime?.deployment?.replicas === "2/2",
+    "Flux rollout did not pass at the reviewed OCI digest",
+  );
+  validateObservationReceipts(flux, `${flux.cluster} Flux`);
   check(
     Object.values(receipt.spec?.run?.cleanup ?? {}).every((value) => value === "pass"),
     "OCI deploy-stage-rollout cleanup did not pass",
@@ -1787,29 +2029,77 @@ function validateReceipt(receipt) {
   );
 }
 
+function validateObservationReceipts(target, label) {
+  check(
+    target.observations?.objectSet?.result === "pass"
+      && target.observations.objectSet.desiredDigest
+        === target.observations.objectSet.liveDigest
+      && target.observations.objectSet.summary?.desired === 5
+      && target.observations.objectSet.summary?.matched === 5
+      && target.observations.objectSet.summary?.missing === 0
+      && target.observations.objectSet.summary?.mismatched === 0
+      && /^sha256:[a-f0-9]{64}$/.test(
+        target.observations.objectSet.fingerprint ?? "",
+      ),
+    `${label} object-set observation did not pass`,
+  );
+  check(
+    target.observations?.workloads?.result === "pass"
+      && target.observations.workloads.summary?.desired
+        === target.observations.objectSet.summary?.desired
+      && target.observations.workloads.summary?.converged
+        === target.observations.workloads.summary?.desired
+      && target.observations.workloads.summary?.progressing === 0
+      && target.observations.workloads.summary?.failed === 0
+      && target.observations.workloads.summary?.missing === 0
+      && /^sha256:[a-f0-9]{64}$/.test(
+        target.observations.workloads.fingerprint ?? "",
+      ),
+    `${label} workload observation did not pass`,
+  );
+  for (const [observation, predicateName] of [
+    [target.observations.objectSet, "object-set-matches"],
+    [target.observations.workloads, "workloads-converged"],
+  ]) {
+    check(
+      existsSync(join(repoRoot, observation.receipt)),
+      `${observation.receipt} is missing`,
+    );
+    const stored = readScoutReceipt(
+      join(repoRoot, observation.receipt),
+      predicateName,
+    );
+    check(
+      stored.predicate.fingerprint === observation.fingerprint,
+      `${observation.receipt} fingerprint differs from the rollout receipt`,
+    );
+  }
+}
+
 function renderSummary(receipt) {
   const spec = receipt.spec;
   const passThrough = spec.delivery.passThrough;
+  const flux = spec.delivery.flux;
   const passThroughEvidence = passThrough.result === "pass"
     ? `Input \`${passThrough.input.manifestDigest}\`; ConfigHub output \`${passThrough.output.manifestDigest}\`; ${passThrough.output.objectCount} objects kept the same specs and user metadata. ConfigHub added \`confighub.com/origin\`.`
     : "The unchanged-output comparison did not complete.";
   const fleetRows = spec.delivery.fleet.targets
     .map((target) => `| \`${target.cluster}\` | ${target.runtime.sync} | ${target.runtime.health} | \`${target.runtime.revision}\` | ${target.observations.objectSet.summary.matched}/${target.observations.objectSet.summary.desired} | ${target.runtime.deployment.replicas} | ${target.observations.workloads.summary.converged}/${target.observations.workloads.summary.desired} | ${target.runtime.result} |`)
     .join("\n");
-  const observationRows = spec.delivery.fleet.targets
+  const observationRows = [...spec.delivery.fleet.targets, flux]
     .map((target) => {
       const objectSet = target.observations.objectSet;
       const workloads = target.observations.workloads;
       return `| \`${target.cluster}\` | [object match](../../${objectSet.receipt}) | \`${objectSet.fingerprint}\` | [workload convergence](../../${workloads.receipt}) | \`${workloads.fingerprint}\` |`;
     })
     .join("\n");
-  return `# One OCI deployed, promoted, and rolled out to two clusters
+  return `# One OCI deployed, promoted, and rolled out through Argo CD and Flux
 
 This is one continuous live test. It starts with literal Kubernetes objects in
 an OCI artifact. ConfigHub imports those objects without running Helm and keeps
 a \`base -> development -> staging\` chain. The reviewed staging objects are
 then exported as one anonymous OCI package. Argo CD pulls that exact package on
-two clusters.
+two clusters, and Flux pulls the same digest on a third cluster.
 
 ## Result
 
@@ -1826,17 +2116,24 @@ two clusters.
 | Promote to staging | ${spec.configHub.promotions.staging.result} | The preview changed nothing. After promotion, staging had no pending upstream change. |
 | Publish the ConfigHub staging release | ${spec.delivery.stagingRelease.result} | \`${spec.delivery.stagingRelease.manifestDigest}\`. |
 | Export the portable OCI | ${spec.serverlessOutput.result} | ${spec.serverlessOutput.objectCount} objects; \`${spec.serverlessOutput.digest}\`; anonymous pull. |
-| Roll out to two clusters | ${spec.delivery.fleet.result} | Both controllers reported the portable OCI digest and both workloads became ready. |
+| Roll out through Argo CD | ${spec.delivery.fleet.result} | Both Argo CD controllers reported the portable OCI digest and both workloads became ready. |
+| Roll out through Flux | ${flux.result} | The Flux OCIRepository and Kustomization became ready at \`${flux.digest}\`; the workload reached ${flux.runtime.deployment.replicas} ready replicas. |
 
-## Live controller feedback
+## Argo CD controller feedback
 
 | Cluster | Argo sync | Argo health | OCI revision | Exact objects | Ready replicas | Current objects | Result |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${fleetRows}
 
+## Flux controller feedback
+
+| Cluster | OCI source | Kustomization | OCI revision | Ready replicas | Result |
+| --- | --- | --- | --- | --- | --- |
+| \`${flux.cluster}\` | ${flux.runtime.sourceReady ? "Ready" : "Not ready"} | ${flux.runtime.kustomizationReady ? "Ready" : "Not ready"} | \`${flux.runtime.observedDigest}\` | ${flux.runtime.deployment.replicas} | ${flux.runtime.result} |
+
 ## Live observation receipts
 
-\`cub-scout\` checked the reviewed staging files against each live cluster. The
+\`cub-scout\` checked the reviewed staging files against all three live clusters. The
 object receipts compare the five namespaced Kubernetes objects and their authored
 fields, using the named Kubernetes zero-default normalization profile for fields
 the API server may omit. The convergence receipts check that all five objects are
@@ -1857,16 +2154,16 @@ ${observationRows}
   and staging in sequence.
 - ConfigHub can publish its own staged release, while the same reviewed objects
   can also leave as a portable OCI package.
-- Two Argo CD controllers can pull the same portable OCI digest. Fingerprinted
-  observation receipts confirm that both live object sets match the reviewed
-  files and both workloads converged.
+- Two Argo CD controllers and one Flux controller can pull the same portable
+  OCI digest. Fingerprinted observation receipts confirm that all three live
+  object sets match the reviewed files and all three workloads converged.
 
 ## What this does not prove
 
 ${spec.limits.map((limit) => `- ${limit}`).join("\n")}
 
-The run removed both kind clusters, their ConfigHub cluster Spaces, the three
-workload Spaces, the temporary registry, and the generated local files.
+The run removed all three kind clusters, both ConfigHub cluster Spaces, the
+three workload Spaces, the temporary registry, and the generated local files.
 
 - Receipt: [\`${relativeRepo(receiptPath)}\`](../../${relativeRepo(receiptPath)})
 - Reviewed staging files: [\`${relativeRepo(observationDesiredPath)}\`](../../${relativeRepo(observationDesiredPath)})
