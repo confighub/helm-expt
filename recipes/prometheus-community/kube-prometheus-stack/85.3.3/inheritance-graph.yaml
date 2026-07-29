@@ -52,20 +52,172 @@ spec:
       namespace: "monitoring"
       name: "kube-prometheus-stack-admission"
       keys:
+        - "ca"
         - "cert"
         - "key"
-      fact: "Secret/monitoring/kube-prometheus-stack-admission:cert+key"
-      purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+      fact: "Secret/monitoring/kube-prometheus-stack-admission:ca+cert+key"
+      purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "alertmanagerconfigs.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/alertmanagerconfigs.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "alertmanagers.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/alertmanagers.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "podmonitors.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/podmonitors.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "probes.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/probes.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "prometheusagents.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/prometheusagents.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "prometheuses.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/prometheuses.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "prometheusrules.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/prometheusrules.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "scrapeconfigs.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/scrapeconfigs.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "servicemonitors.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/servicemonitors.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
+    -
+      variant: "default"
+      kind: "CustomResourceDefinition"
+      namespace: ""
+      name: "thanosrulers.monitoring.coreos.com"
+      keys:
+        []
+      fact: "CRD/thanosrulers.monitoring.coreos.com"
+      purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      sourceVariant: "default"
+      deliveryLanes:
+        - "regularHelm"
+        - "cubInstallerApply"
+        - "configHubKubectlApply"
+        - "configHubOciArgo"
     -
       variant: "no-crds"
       kind: "Secret"
       namespace: "monitoring"
       name: "kube-prometheus-stack-admission"
       keys:
+        - "ca"
         - "cert"
         - "key"
-      fact: "Secret/monitoring/kube-prometheus-stack-admission:cert+key"
-      purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle"
+      fact: "Secret/monitoring/kube-prometheus-stack-admission:ca+cert+key"
+      purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job"
     -
       variant: "no-crds"
       kind: "CustomResourceDefinition"
@@ -74,7 +226,7 @@ spec:
       keys:
         []
       fact: "CRD/alertmanagerconfigs.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -89,7 +241,7 @@ spec:
       keys:
         []
       fact: "CRD/alertmanagers.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -104,7 +256,7 @@ spec:
       keys:
         []
       fact: "CRD/podmonitors.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -119,7 +271,7 @@ spec:
       keys:
         []
       fact: "CRD/probes.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -134,7 +286,7 @@ spec:
       keys:
         []
       fact: "CRD/prometheusagents.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -149,7 +301,7 @@ spec:
       keys:
         []
       fact: "CRD/prometheuses.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -164,7 +316,7 @@ spec:
       keys:
         []
       fact: "CRD/prometheusrules.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -179,7 +331,7 @@ spec:
       keys:
         []
       fact: "CRD/scrapeconfigs.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -194,7 +346,7 @@ spec:
       keys:
         []
       fact: "CRD/servicemonitors.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"
@@ -209,7 +361,7 @@ spec:
       keys:
         []
       fact: "CRD/thanosrulers.monitoring.coreos.com"
-      purpose: "Prometheus Operator CRD managed outside this no-crds base"
+      purpose: "Prometheus Operator CRD managed outside this no-crds preset"
       sourceVariant: "default"
       deliveryLanes:
         - "regularHelm"

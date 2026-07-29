@@ -34,9 +34,9 @@ const contractPath = join(outDir, "contract.md");
 // --- Vocabulary -----------------------------------------------------------
 
 // Executability disposition for an action packet. This is the published hook /
-// lifecycle vocabulary; `blocked` (missing prerequisite or evidence) and
-// `refused` (intentionally not run) are distinct.
-const DISPOSITIONS = ["observed", "routed", "per-target", "blocked", "refused"];
+// lifecycle vocabulary; `not-run` names a known untested path, `blocked`
+// names a missing prerequisite, and `refused` is intentional.
+const DISPOSITIONS = ["observed", "routed", "per-target", "not-run", "blocked", "refused"];
 
 const PHASES = ["pre-render", "preflight", "pre-apply", "post-apply", "observe", "refuse"];
 
@@ -69,7 +69,8 @@ const SOURCE_DISPOSITION_CROSSWALK = {
   observed: "observed",
   "per-target": "per-target",
   refused: "refused",
-  todo: "blocked (no recipe/route built yet)",
+  "todo (live_status=not-run)": "not-run",
+  "todo (other)": "blocked (no recipe/route built yet)",
   "routed (live_status=blocked)": "blocked",
   "routed (live_status=none/other)": "routed",
 };
@@ -148,7 +149,7 @@ function dispositionFor(route) {
     case "refused":
       return "refused";
     case "todo":
-      return "blocked";
+      return route.live_status === "not-run" ? "not-run" : "blocked";
     case "routed":
       return route.live_status === "blocked" ? "blocked" : "routed";
     default:
@@ -165,6 +166,8 @@ function evidenceRequiredFor(disposition) {
       return "a live lifecycle receipt showing this route ran for the supported target scope";
     case "per-target":
       return "a recorded target decision plus a live receipt for that scope";
+    case "not-run":
+      return "run this route for the named path and capture a live receipt";
     case "blocked":
       return "resolve the named prerequisite/blocker, then capture a live receipt";
     case "refused":

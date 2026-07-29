@@ -38,6 +38,7 @@
         "observed",
         "routed",
         "per-target",
+        "not-run",
         "blocked",
         "refused"
       ]

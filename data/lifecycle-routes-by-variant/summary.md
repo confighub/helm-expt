@@ -53,34 +53,38 @@ Charts: 17 · with a real per-variant delta: 6 (argo-cd/argo-workflows, bitnami/
 
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
-| default@85.3.3 | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| default@85.3.3 | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
-| default@85.3.3 | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
-| default@85.3.3 | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| default@85.3.3 | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
-| default@85.3.3 | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
-| default@85.3.3 | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
-| no-crds@85.3.3 (needs 10 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
-| no-crds@85.3.3 (needs 10 CRDs) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
-| no-crds@85.3.3 (needs 10 CRDs) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
-| no-crds@85.3.3 (needs 10 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| no-crds@85.3.3 (needs 10 CRDs) | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
-| no-crds@85.3.3 (needs 10 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 10 CRDs supplied before deploy (the default base installs them for you)) |
-| no-crds@85.3.3 (needs 10 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
-| default@86.1.0 | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| default@85.3.3 (package applies 10 CRDs first) | crd-install → `preflight-or-presync-crd-apply` | Handled — the generated package script applies the CRDs first | resolved (the package carries and applies the 10 CRDs before the workload (observed live)) |
+| default@85.3.3 (package applies 10 CRDs first) | hook-delete-policy → `preserve-cleanup-policy` | Your delivery — an explicit, receipted step | — |
+| default@85.3.3 (package applies 10 CRDs first) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| default@85.3.3 (package applies 10 CRDs first) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| default@85.3.3 (package applies 10 CRDs first) | hook-phase → `upgrade-action-with-receipt` | Not tested for this path | — |
+| default@85.3.3 (package applies 10 CRDs first) | hook-weight-ordering → `preserve-ordering` | Your delivery — an explicit, receipted step | — |
+| default@85.3.3 (package applies 10 CRDs first) | target-facts → `target-facts-or-preflight` | Handled — the recorded package script creates or checks this prerequisite | — |
+| default@85.3.3 (package applies 10 CRDs first) | webhook-readiness → `webhook-readiness-observation` | Your delivery — an explicit, receipted step | — |
+| no-crds@85.3.3 (package applies 10 CRDs first) | crd-install → `preflight-or-presync-crd-apply` | Handled — the generated package script applies the CRDs first | resolved (the package carries and applies the 10 CRDs before the workload (observed live)) |
+| no-crds@85.3.3 (package applies 10 CRDs first) | hook-delete-policy → `preserve-cleanup-policy` | Your delivery — an explicit, receipted step | — |
+| no-crds@85.3.3 (package applies 10 CRDs first) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
+| no-crds@85.3.3 (package applies 10 CRDs first) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
+| no-crds@85.3.3 (package applies 10 CRDs first) | hook-phase → `upgrade-action-with-receipt` | Not tested for this path | — |
+| no-crds@85.3.3 (package applies 10 CRDs first) | hook-weight-ordering → `preserve-ordering` | Your delivery — an explicit, receipted step | — |
+| no-crds@85.3.3 (package applies 10 CRDs first) | target-facts → `target-facts-or-preflight` | Handled — the recorded package script creates or checks this prerequisite | — |
+| no-crds@85.3.3 (package applies 10 CRDs first) | webhook-readiness → `webhook-readiness-observation` | Your delivery — an explicit, receipted step | — |
+| default@86.1.0 | crd-install → `preflight-or-presync-crd-apply` | Handled — this base installs the CRDs | resolved (this base installs the required CRDs (observed live)) |
+| default@86.1.0 | hook-delete-policy → `preserve-cleanup-policy` | Your delivery — an explicit, receipted step | — |
 | default@86.1.0 | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
 | default@86.1.0 | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
-| default@86.1.0 | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| default@86.1.0 | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | — |
-| default@86.1.0 | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | — |
-| default@86.1.0 | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
-| no-crds@86.1.0 (needs 10 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your cluster — at uninstall, automatically | — |
+| default@86.1.0 | hook-phase → `upgrade-action-with-receipt` | Not tested for this path | — |
+| default@86.1.0 | hook-weight-ordering → `preserve-ordering` | Your delivery — an explicit, receipted step | — |
+| default@86.1.0 | target-facts → `target-facts-or-preflight` | Handled — the recorded package script creates or checks this prerequisite | — |
+| default@86.1.0 | webhook-readiness → `webhook-readiness-observation` | Your delivery — an explicit, receipted step | — |
+| no-crds@86.1.0 (needs 10 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Handled — this base installs the CRDs | resolved (this base installs the required CRDs (observed live)) |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-delete-policy → `preserve-cleanup-policy` | Your delivery — an explicit, receipted step | — |
 | no-crds@86.1.0 (needs 10 CRDs) | hook-phase → `postsync-check-or-observation` | Your delivery — a post-apply check (receipted) | — |
 | no-crds@86.1.0 (needs 10 CRDs) | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
-| no-crds@86.1.0 (needs 10 CRDs) | hook-phase → `upgrade-action-with-receipt` | Your delivery — a GitOps PreSync/PostSync or cub action (receipted) | — |
-| no-crds@86.1.0 (needs 10 CRDs) | hook-weight-ordering → `preserve-ordering` | Your applier — must apply CRDs before dependent objects | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
-| no-crds@86.1.0 (needs 10 CRDs) | target-facts → `target-facts-or-preflight` | Prerequisite — supply once (Secret / CRD / storage), like values | strengthened (this base needs 10 CRDs supplied before deploy (the default base installs them for you)) |
-| no-crds@86.1.0 (needs 10 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-phase → `upgrade-action-with-receipt` | Not tested for this path | — |
+| no-crds@86.1.0 (needs 10 CRDs) | hook-weight-ordering → `preserve-ordering` | Your delivery — an explicit, receipted step | reduced (CRD-first ordering is not needed in a base that installs no CRDs) |
+| no-crds@86.1.0 (needs 10 CRDs) | target-facts → `target-facts-or-preflight` | Handled — the recorded package script creates or checks this prerequisite | strengthened (this base needs 10 CRDs supplied before deploy (the default base installs them for you)) |
+| no-crds@86.1.0 (needs 10 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your delivery — an explicit, receipted step | — |
 
 ## Charts without a per-variant delta yet
 

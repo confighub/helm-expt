@@ -48,8 +48,8 @@ spec:
   lifecycle:
     routeContract: "yes"
     routeCount: "5"
-    dispositions: "0:observed,5"
-    executionModes: "0:target-owned,2,1:user-executes,3"
+    dispositions: "observed:5"
+    executionModes: "target-owned:2; user-executes:3"
     safeAutomatic: "0/5"
     contractPath: "data/lifecycle-routes/summary.md"
     jsonPath: "data/lifecycle-routes/routes.json"

@@ -17,7 +17,7 @@ honest boundary that a known route is **not** an automatically executed one.
 | --- | --- |
 | `chart` / `version` / `base` | Subject. |
 | `quirk_class` / `route_name` | The route identity, from lifecycle-routes. |
-| `disposition` | Executability: `observed`, `routed`, `per-target`, `blocked`, `refused`. |
+| `disposition` | Executability: `observed`, `routed`, `per-target`, `not-run`, `blocked`, `refused`. |
 | `source_disposition` / `source_live_status` | The raw lifecycle-routes values, for traceability. |
 | `lifecycle_phase` | `pre-render`, `preflight`, `pre-apply`, `post-apply`, `observe`, `refuse`. |
 | `action_kind` | What kind of step it is (see table). |
@@ -49,7 +49,8 @@ lifecycle-routes disposition (+ live status) → action disposition:
 | `observed` | `observed` |
 | `per-target` | `per-target` |
 | `refused` | `refused` |
-| `todo` | `blocked (no recipe/route built yet)` |
+| `todo (live_status=not-run)` | `not-run` |
+| `todo (other)` | `blocked (no recipe/route built yet)` |
 | `routed (live_status=blocked)` | `blocked` |
 | `routed (live_status=none/other)` | `routed` |
 

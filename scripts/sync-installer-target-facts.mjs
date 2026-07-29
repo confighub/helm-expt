@@ -269,7 +269,7 @@ function externalRequiresFor(targetFacts, variantName) {
     ...(targetFacts.requiredCRDs ?? []).map((crd) => ({
       kind: "ClusterFeature",
       name: crdRequirementName(crd),
-      suggestedSource: isOperatorBootstrapCrd(crd)
+      suggestedSource: usesExplicitPackagedCrdSource(crd)
         ? crd.suggestedSource
         : `package://${crdBundleRelativePath(variantName)}`,
       ...(crd.applyMode ? { applyMode: crd.applyMode } : {}),
@@ -308,7 +308,7 @@ function writeCrdBundles(chart, packageRoot) {
   rmSync(generatedRoot, { recursive: true, force: true });
   for (const variant of chart.variants) {
     const requiredCRDs = (variant.targetFacts.requiredCRDs ?? [])
-      .filter((crd) => !isOperatorBootstrapCrd(crd));
+      .filter((crd) => !usesExplicitPackagedCrdSource(crd));
     if (requiredCRDs.length === 0) continue;
     const docs = requiredCrdDocs(chart, variant.name, requiredCRDs);
     write(
@@ -320,8 +320,8 @@ function writeCrdBundles(chart, packageRoot) {
 
 function verifyCrdBundle(chart, packageRoot, variantName, targetFacts) {
   const allRequiredCRDs = targetFacts.requiredCRDs ?? [];
-  const staticCRDs = allRequiredCRDs.filter((crd) => !isOperatorBootstrapCrd(crd));
-  const operatorBootstrapCRDs = allRequiredCRDs.filter(isOperatorBootstrapCrd);
+  const staticCRDs = allRequiredCRDs.filter((crd) => !usesExplicitPackagedCrdSource(crd));
+  const packagedCRDs = allRequiredCRDs.filter(usesExplicitPackagedCrdSource);
 
   if (staticCRDs.length) {
     const bundlePath = join(packageRoot, crdBundleRelativePath(variantName));
@@ -340,30 +340,37 @@ function verifyCrdBundle(chart, packageRoot, variantName, targetFacts) {
     requiredCrdDocs(chart, variantName, staticCRDs);
   }
 
-  for (const crd of operatorBootstrapCRDs) {
+  for (const crd of packagedCRDs) {
     const suggestedSource = String(crd.suggestedSource ?? "");
     check(
       suggestedSource.startsWith("package://"),
-      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} must name a package:// source`,
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} packaged CRD ${crd.name} must name a package:// source`,
     );
     const relativePath = suggestedSource.slice("package://".length);
     check(
       relativePath && !relativePath.split("/").includes(".."),
-      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} has an unsafe package path`,
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} packaged CRD ${crd.name} has an unsafe package path`,
     );
     check(
       existsSync(join(packageRoot, relativePath)),
-      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} source is missing: ${relativePath}`,
+      `${relativeRepo(chart.recipeRoot)} base ${variantName} packaged CRD ${crd.name} source is missing: ${relativePath}`,
     );
-    check(
-      Array.isArray(crd.evidence) && crd.evidence.length > 0,
-      `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} needs observed evidence`,
-    );
+    if (isOperatorBootstrapCrd(crd)) {
+      check(
+        Array.isArray(crd.evidence) && crd.evidence.length > 0,
+        `${relativeRepo(chart.recipeRoot)} base ${variantName} operator-bootstrap CRD ${crd.name} needs observed evidence`,
+      );
+    }
   }
 }
 
 function isOperatorBootstrapCrd(crd) {
   return crd?.provisioningMode === "operator-bootstrap";
+}
+
+function usesExplicitPackagedCrdSource(crd) {
+  return isOperatorBootstrapCrd(crd)
+    || String(crd?.suggestedSource ?? "").startsWith("package://");
 }
 
 function requiredCrdDocs(chart, variantName, requiredCRDs) {

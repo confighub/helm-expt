@@ -16,7 +16,8 @@ spec:
       useWhen: "ConfigHub owns initial Prometheus Operator CRD publication for the target scope."
       includesCRDs: true
       requiredTargetFacts:
-        - "Secret monitoring/kube-prometheus-stack-admission with cert and key"
+        - "The package applies its ten CRDs first and waits for them to become established"
+        - "The packaged admission setup route creates Secret monitoring/kube-prometheus-stack-admission with ca, cert, and key"
       requiredBeforeProduction:
         - "CRD install and upgrade policy"
         - "admission webhook TLS lifecycle receipt"
@@ -28,7 +29,7 @@ spec:
       includesCRDs: false
       requiredTargetFacts:
         - "10 Prometheus Operator CRDs already present and schema-compatible"
-        - "Secret monitoring/kube-prometheus-stack-admission with cert and key"
+        - "The packaged admission setup route creates Secret monitoring/kube-prometheus-stack-admission with ca, cert, and key"
       requiredBeforeProduction:
         - "CRD ownership receipt"
         - "schema compatibility receipt for the target Kubernetes version"

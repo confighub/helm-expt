@@ -17,22 +17,25 @@ For the `default` preset, where the package owns the CRDs:
 
 The order matters. Our live CRD test showed that applying a custom resource before its CRD is established fails on a new cluster. Applying the CRD first, waiting, and then applying the custom resource works.
 
-For the `no-crds` preset, the platform owns the CRDs. The install must check that compatible CRDs are already present before applying the chart's custom resources.
+The `no-crds` render leaves CRDs out of the chart object set. The installer package still carries the ten checked CRDs as a separate prerequisite. Its direct script keeps compatible CRDs that are already present, or applies the packaged copies on a new cluster, then waits before applying the workload.
 
 ## Run the direct example
 
-This command creates a temporary kind cluster, runs the complete fresh-install sequence, writes a receipt, and deletes the cluster:
+These commands test both catalog bases. Each creates a temporary kind cluster, runs the complete fresh-install sequence, writes a receipt, and deletes the cluster:
 
 ```bash
 HELM_EXPT_ALLOW_LIVE_KPS_LIFECYCLE_PROOF=1 \
-  npm run kps:lifecycle-route:run
+  npm run kps:lifecycle-route:run -- --base default
+
+HELM_EXPT_ALLOW_LIVE_KPS_LIFECYCLE_PROOF=1 \
+  npm run kps:lifecycle-route:run -- --base no-crds
 ```
 
-The script pulls the chart archive recorded in `source-lock.yaml` and checks its SHA-256 digest before running anything. It renders 124 ordinary objects and seven Helm hook objects. The 124 ordinary objects must match the committed catalog render exactly.
+The script starts from the local `cub installer` package. That package was generated from the chart archive and digest recorded in `source-lock.yaml`. The default base produces 124 chart objects; the no-crds base produces 114. Each object set must match its committed catalog render exactly. The package also carries seven lifecycle objects taken from the locked chart hooks.
 
 It then runs the chart's own certificate creation and webhook patch Jobs. It does not replace them with a generic example. The final checks cover ten established CRDs, the `ca`, `cert`, and `key` Secret, three matching webhook CA bundles, a ready operator endpoint, a server-side dry run, six workloads, and the chart's hook cleanup policy.
 
-Read the [plain result](../../../data/kps-lifecycle-route-proof/summary.md) or the [full receipt](../../../runs/kps-lifecycle-route-proof/receipt.yaml).
+Read the [plain result](../../../data/kps-lifecycle-route-proof/summary.md), the [default receipt](../../../runs/kps-lifecycle-route-proof/receipt.yaml), or the [no-crds receipt](../../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml). The [anonymous package proof](../../../data/kps-public-package-proof/summary.md) separately checks that the published package can be pulled without a ConfigHub or registry login and matches the committed package files.
 
 ## What happens to Helm hooks
 
@@ -50,7 +53,7 @@ These are sensible alternatives to Helm's built-in hook runner. They preserve th
 
 ## What ConfigHub stores
 
-The Kube Prometheus Stack example in the live `helm-catalog` organization stores eight `LifecycleRoute` Units. Seven come from the chart's render intent. The eighth states the CRD-first rule explicitly.
+The repository generates eight route records for each Kube Prometheus Stack base. Seven fresh-install steps have live direct receipts. The eighth is the untested upgrade step, which remains `not-run`.
 
 Each Unit records:
 
@@ -61,7 +64,7 @@ Each Unit records:
 - evidence and the next evidence required;
 - the equivalent Argo CD and Flux approach where one is known.
 
-The `hook-probe-base` Space contains a smaller proof fixture. Its setup Job ran from the same OCI bundle through Argo CD, Flux, and direct apply. That one route is marked automatic because those runs produced receipts.
+The live `helm-catalog` organization also contains a smaller `hook-probe-base` proof fixture. Its setup Job ran from the same OCI bundle through Argo CD, Flux, and direct apply. That result proves the staged delivery mechanism, not the Kube Prometheus Stack route.
 
 Kube Prometheus Stack now has a narrower direct result. Seven fresh-install route implementations are automatic inside the recorded direct script. The chart-level routes remain `automatic: false` because ConfigHub does not yet select and execute them across all delivery paths. The upgrade route, Argo CD implementation, and Flux implementation remain `not-run`.
 
@@ -78,7 +81,8 @@ This check does not decide what a chart needs. The chart-specific preset and rou
 - The locked chart's own admission-create and admission-patch Jobs complete in the recorded order.
 - The resulting Secret, webhook CA bundles, operator endpoint, server dry-run, six workloads, and hook cleanup all pass on a fresh kind cluster.
 - One OCI hook fixture ran through Argo CD, Flux, and direct apply.
-- The Kube Prometheus Stack lifecycle receipt observed the CRDs, webhook support Secret, workloads, and GitOps delivery for the recorded chart version.
+- Both Kube Prometheus Stack catalog bases completed the CRD, certificate, webhook patch, workload, and cleanup sequence through direct apply.
+- The Kube Prometheus Stack receipts do not claim chart-specific Argo CD, Flux, or upgrade execution.
 
 The evidence is in:
 
@@ -86,6 +90,8 @@ The evidence is in:
 - [Hook execution receipt](../../../runs/hook-execution-proof/receipt.yaml)
 - [OCI delivery receipt](../../../runs/oci-hook-delivery-proof/receipt.yaml)
 - [Kube Prometheus Stack direct lifecycle route receipt](../../../runs/kps-lifecycle-route-proof/receipt.yaml)
+- [Kube Prometheus Stack no-crds lifecycle route receipt](../../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml)
+- [Anonymous public package proof](../../../data/kps-public-package-proof/summary.md)
 - [Kube Prometheus Stack lifecycle receipt](../../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml)
 - [Generated route records](../../../data/hooks-crds-app/summary.md)
 

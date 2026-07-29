@@ -1,0 +1,61 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "KubePrometheusStackPublicPackageProofReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-85-3-3-default"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  namespace: "monitoring"
+  recordedAt: "2026-07-29T10:51:00.789Z"
+  result: "pass"
+  source:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+    manifestDigest: "sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679"
+    publicationReceipt: "runs/installer-oci/prometheus-community-kube-prometheus-stack/85.3.3/installer-package-publication-receipt.yaml"
+    packageLayerSha256: "cd92ab8dbd15343e9ece4bdaab87d3ca6ab5820d87c11bd3497b400c9d220798"
+  client:
+    configHubAccountUsed: false
+    registryLoginUsed: false
+    isolatedHome: true
+    dockerConfig: "empty auths map before and after pull"
+    command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3 --base default --work-dir <tmp>/install --non-interactive --namespace monitoring"
+  package:
+    files: 16
+    treeSha256: "b9f068ffa850824473349204d1e19dd52b0645c6b8729d841101a9fca95bc158"
+    matchesPublishedSource: true
+    lifecycleFiles:
+      - "README.md"
+      - "admission-create-job.yaml"
+      - "admission-patch-job.yaml"
+      - "default-crds.yaml"
+      - "finish.sh"
+      - "generation-receipt.yaml"
+      - "hook-support.yaml"
+      - "lifecycle-actions.yaml"
+      - "prepare.sh"
+  render:
+    manifests: 123
+    secrets: 2
+    totalObjects: 125
+    objectKinds:
+      Alertmanager: 1
+      ClusterRole: 4
+      ClusterRoleBinding: 4
+      ConfigMap: 31
+      CustomResourceDefinition: 10
+      DaemonSet: 1
+      Deployment: 3
+      MutatingWebhookConfiguration: 1
+      Namespace: 1
+      Prometheus: 1
+      PrometheusRule: 35
+      Secret: 2
+      Service: 11
+      ServiceAccount: 6
+      ServiceMonitor: 13
+      ValidatingWebhookConfiguration: 1
+  limits:
+    - "This proof checks anonymous pull, package integrity, render output, and the presence of the chart-specific lifecycle files."
+    - "The separate lifecycle route receipt records the fresh-cluster execution of those files."
+    - "Argo CD and Flux execution remain separate controller proofs."

@@ -6,8 +6,6 @@ import {
   mkdtempSync,
   readFileSync,
   rmSync,
-  statSync,
-  writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -15,6 +13,7 @@ import { join } from "node:path";
 import {
   canonicalObjectMaps,
   check,
+  listFiles,
   parseDocs,
   readYaml,
   relativeRepo,
@@ -29,7 +28,8 @@ import {
 const mode = process.argv[2] ?? "--verify";
 if (!["--run", "--generate", "--verify"].includes(mode)) {
   console.error(`Usage:
-  node scripts/run-kps-lifecycle-route-proof.mjs --run
+  node scripts/run-kps-lifecycle-route-proof.mjs --run --base default
+  node scripts/run-kps-lifecycle-route-proof.mjs --run --base no-crds
   node scripts/run-kps-lifecycle-route-proof.mjs --generate
   node scripts/run-kps-lifecycle-route-proof.mjs --verify`);
   process.exit(2);
@@ -37,7 +37,12 @@ if (!["--run", "--generate", "--verify"].includes(mode)) {
 
 const chart = "prometheus-community/kube-prometheus-stack";
 const chartVersion = "85.3.3";
-const releaseName = "kube-prometheus-stack";
+const bases = ["default", "no-crds"];
+const requestedBase = argumentValue("--base") || "default";
+check(
+  bases.includes(requestedBase),
+  `--base must be one of: ${bases.join(", ")}`,
+);
 const namespace = "monitoring";
 const sourceLockPath = join(
   repoRoot,
@@ -47,23 +52,21 @@ const sourceLockPath = join(
   chartVersion,
   "source-lock.yaml",
 );
-const renderedObjectsPath = join(
+const packageRoot = join(
   repoRoot,
-  "recipes",
+  "packages",
   "prometheus-community",
   "kube-prometheus-stack",
   chartVersion,
-  "revisions",
-  "default",
-  "r001",
-  "rendered",
-  "release-objects.yaml",
 );
-const receiptPath = join(
-  repoRoot,
-  "runs",
-  "kps-lifecycle-route-proof",
-  "receipt.yaml",
+const packagedLifecycleRelative = join(
+  "prerequisites",
+  "kube-prometheus-stack-lifecycle",
+);
+const packagedLifecycleRoot = join(packageRoot, packagedLifecycleRelative);
+const packagedGenerationReceiptPath = join(
+  packagedLifecycleRoot,
+  "generation-receipt.yaml",
 );
 const summaryPath = join(
   repoRoot,
@@ -77,37 +80,33 @@ const admissionSecretName = "kube-prometheus-stack-admission";
 const operatorDeployment = "kube-prometheus-stack-operator";
 
 if (mode === "--run") {
-  run();
+  run(requestedBase);
 } else if (mode === "--generate") {
-  const receipt = readYaml(receiptPath);
-  verifyReceipt(receipt);
-  write(summaryPath, renderSummary(receipt));
+  const receipts = readAndVerifyReceipts();
+  writeRouteReceipts(receipts);
+  write(summaryPath, renderSummary(receipts));
   console.log(`wrote ${relativeRepo(summaryPath)}`);
 } else {
-  check(
-    existsSync(receiptPath),
-    `${relativeRepo(receiptPath)} is missing; run the live proof`,
-  );
+  const receipts = readAndVerifyReceipts();
   check(
     existsSync(summaryPath),
     `${relativeRepo(summaryPath)} is missing; run the generator`,
   );
-  const receipt = readYaml(receiptPath);
-  verifyReceipt(receipt);
   check(
-    readFileSync(summaryPath, "utf8") === renderSummary(receipt),
+    readFileSync(summaryPath, "utf8") === renderSummary(receipts),
     `${relativeRepo(summaryPath)} is stale`,
   );
+  verifyRouteReceipts(receipts);
   console.log("verified the kube-prometheus-stack lifecycle route proof");
 }
 
-function run() {
+function run(base) {
   check(
     process.env.HELM_EXPT_ALLOW_LIVE_KPS_LIFECYCLE_PROOF === "1",
     "set HELM_EXPT_ALLOW_LIVE_KPS_LIFECYCLE_PROOF=1 to confirm this live proof",
   );
   for (const [tool, args] of [
-    ["helm", ["version", "--short"]],
+    ["cub", ["installer", "version"]],
     ["kind", ["version"]],
     ["kubectl", ["version", "--client"]],
   ]) {
@@ -128,11 +127,10 @@ function run() {
   const clusterName = `hx-kps-route-${runId}`;
   const workRoot = mkdtempSync(join(tmpdir(), "helm-expt-kps-route-"));
   const kubeconfig = join(workRoot, "kubeconfig");
-  const chartArchive = join(workRoot, `kube-prometheus-stack-${chartVersion}.tgz`);
-  const crdsPath = join(workRoot, "crds.yaml");
-  const hookSupportPath = join(workRoot, "hook-support.yaml");
-  const createJobPath = join(workRoot, "admission-create-job.yaml");
-  const patchJobPath = join(workRoot, "admission-patch-job.yaml");
+  const installRoot = join(workRoot, "install");
+  const lifecycleReceiptPath = join(workRoot, "lifecycle-action-receipt.yaml");
+  const renderedObjectsPath = renderedObjectsPathFor(base);
+  const receiptPath = receiptPathFor(base);
   const cleanup = {
     cluster: "not-created",
     localFiles: "pending",
@@ -141,64 +139,80 @@ function run() {
   let receipt;
 
   try {
-    phase("pulling the locked chart");
+    phase("rendering the local installer package");
     must(
-      "helm",
+      "cub",
       [
-        "pull",
-        chart,
-        "--version",
-        chartVersion,
-        "--destination",
-        workRoot,
-      ],
-      { timeout: 180_000 },
-    );
-    check(existsSync(chartArchive), "helm pull did not produce the expected chart archive");
-    check(
-      sha256File(chartArchive) === expectedPackageSha,
-      "the pulled chart archive does not match source-lock.yaml",
-    );
-    check(
-      statSync(chartArchive).size === Number(sourceLock.spec.packageBytes),
-      "the pulled chart archive byte count does not match source-lock.yaml",
-    );
-
-    phase("rendering ordinary objects and Helm hook resources");
-    const rendered = must(
-      "helm",
-      [
-        "template",
-        releaseName,
-        chartArchive,
+        "installer",
+        "setup",
+        "--pull",
+        relativeRepo(packageRoot),
+        "--base",
+        base,
+        "--work-dir",
+        installRoot,
+        "--non-interactive",
         "--namespace",
         namespace,
-        "--include-crds",
-        "--skip-tests",
-        "--set",
-        "grafana.adminPassword=confighub-grafana-admin-password",
       ],
-      { timeout: 180_000, maxBuffer: 256 * 1024 * 1024 },
-    ).stdout;
-    const docs = parseDocs(rendered);
-    const hookDocs = docs.filter(isHook);
-    const ordinaryDocs = docs.filter((doc) => !isHook(doc));
-    const crdDocs = ordinaryDocs.filter(
-      (doc) => doc.kind === "CustomResourceDefinition",
+      { timeout: 300_000, maxBuffer: 256 * 1024 * 1024 },
     );
-    const createJobs = hookDocs.filter(
-      (doc) => doc.kind === "Job" && doc.metadata?.name === createJobName,
-    );
-    const patchJobs = hookDocs.filter(
-      (doc) => doc.kind === "Job" && doc.metadata?.name === patchJobName,
-    );
-    const supportDocs = hookDocs.filter((doc) => doc.kind !== "Job");
 
-    check(docs.length === 131, `expected 131 rendered objects, found ${docs.length}`);
-    check(
-      ordinaryDocs.length === 124,
-      `expected 124 ordinary objects, found ${ordinaryDocs.length}`,
+    const copiedPackageRoot = join(installRoot, "package");
+    const copiedLifecycleRoot = join(
+      copiedPackageRoot,
+      packagedLifecycleRelative,
     );
+    const crdsPath = join(copiedLifecycleRoot, "default-crds.yaml");
+    const hookSupportPath = join(copiedLifecycleRoot, "hook-support.yaml");
+    const createJobPath = join(copiedLifecycleRoot, "admission-create-job.yaml");
+    const patchJobPath = join(copiedLifecycleRoot, "admission-patch-job.yaml");
+    const preparePath = join(copiedLifecycleRoot, "prepare.sh");
+    const finishPath = join(copiedLifecycleRoot, "finish.sh");
+    for (const path of [
+      crdsPath,
+      hookSupportPath,
+      createJobPath,
+      patchJobPath,
+      preparePath,
+      finishPath,
+    ]) {
+      check(existsSync(path), `the rendered package is missing ${path}`);
+    }
+
+    const generationReceipt = readYaml(packagedGenerationReceiptPath);
+    check(
+      generationReceipt.spec?.chartPackageSha256 === expectedPackageSha,
+      "the packaged lifecycle files do not match source-lock.yaml",
+    );
+
+    const renderedDocs = [
+      ...readYamlDocuments(join(installRoot, "out", "manifests")),
+      ...readYamlDocuments(join(installRoot, "out", "secrets")),
+    ];
+    const ordinaryDocs = renderedDocs.filter(
+      (doc) => objectIdentity(doc) !== "v1|Namespace||monitoring",
+    );
+    const supportObjects = renderedDocs.filter(
+      (doc) => objectIdentity(doc) === "v1|Namespace||monitoring",
+    );
+    const crdDocs = parseDocs(readFileSync(crdsPath, "utf8"));
+    const supportDocs = parseDocs(readFileSync(hookSupportPath, "utf8"));
+    const createJobs = parseDocs(readFileSync(createJobPath, "utf8"));
+    const patchJobs = parseDocs(readFileSync(patchJobPath, "utf8"));
+    const hookDocs = [...supportDocs, ...createJobs, ...patchJobs];
+
+    const committedYaml = readFileSync(renderedObjectsPath, "utf8");
+    const expectedOrdinaryObjects = parseDocs(committedYaml).length;
+    check(
+      renderedDocs.length === expectedOrdinaryObjects + 1,
+      `expected ${expectedOrdinaryObjects + 1} package output objects, found ${renderedDocs.length}`,
+    );
+    check(
+      ordinaryDocs.length === expectedOrdinaryObjects,
+      `expected ${expectedOrdinaryObjects} chart objects, found ${ordinaryDocs.length}`,
+    );
+    check(supportObjects.length === 1, "expected one package-created Namespace");
     check(hookDocs.length === 7, `expected seven hook objects, found ${hookDocs.length}`);
     check(crdDocs.length === 10, `expected ten CRDs, found ${crdDocs.length}`);
     check(createJobs.length === 1, "expected one admission-create Job");
@@ -206,7 +220,6 @@ function run() {
     check(supportDocs.length === 5, "expected five hook support objects");
 
     const ordinaryYaml = yamlDocuments(ordinaryDocs);
-    const committedYaml = readFileSync(renderedObjectsPath, "utf8");
     const semantic = canonicalObjectMaps(ordinaryYaml, committedYaml);
     const semanticKeys = new Set([
       ...Object.keys(semantic.helm),
@@ -217,13 +230,8 @@ function run() {
     );
     check(
       semanticDiffs.length === 0,
-      `the live render differs from the 124 committed objects: ${semanticDiffs.slice(0, 3).join(", ")}`,
+      `the package output differs from the 124 committed objects: ${semanticDiffs.slice(0, 3).join(", ")}`,
     );
-
-    writeFileSync(crdsPath, `${yamlDocuments(crdDocs)}\n`);
-    writeFileSync(hookSupportPath, `${yamlDocuments(supportDocs)}\n`);
-    writeFileSync(createJobPath, `${yamlDocuments(createJobs)}\n`);
-    writeFileSync(patchJobPath, `${yamlDocuments(patchJobs)}\n`);
 
     phase("creating a throwaway kind cluster");
     must(
@@ -264,17 +272,11 @@ function run() {
       ]);
     }
 
-    phase("running the chart's pre-install certificate Job");
-    kubectlApply(kubeconfig, hookSupportPath);
-    kubectlApply(kubeconfig, createJobPath);
-    kubectl(kubeconfig, [
-      "-n",
-      namespace,
-      "wait",
-      "--for=condition=complete",
-      `job/${createJobName}`,
-      "--timeout=300s",
-    ]);
+    phase("running the package's pre-install certificate step");
+    must("bash", [preparePath, namespace], {
+      timeout: 360_000,
+      env: { KUBECONFIG: kubeconfig },
+    });
     const secret = kubectlJson(kubeconfig, [
       "-n",
       namespace,
@@ -290,20 +292,30 @@ function run() {
       `the admission Secret has unexpected keys: ${secretKeys.join(", ")}`,
     );
 
-    phase("applying the 124 ordinary rendered objects");
-    kubectlApply(kubeconfig, renderedObjectsPath);
+    phase("applying the package's rendered Secrets and manifests");
+    const secretsRoot = join(installRoot, "out", "secrets");
+    if (existsSync(secretsRoot)) kubectlApply(kubeconfig, secretsRoot);
+    kubectlApply(kubeconfig, join(installRoot, "out", "manifests"));
     waitForWorkload(kubeconfig, "deployment", operatorDeployment);
 
-    phase("running the chart's post-install webhook patch Job");
-    kubectlApply(kubeconfig, patchJobPath);
-    kubectl(kubeconfig, [
-      "-n",
-      namespace,
-      "wait",
-      "--for=condition=complete",
-      `job/${patchJobName}`,
-      "--timeout=300s",
-    ]);
+    phase("running the package's post-install webhook step");
+    must("bash", [finishPath, namespace], {
+      timeout: 420_000,
+      env: {
+        KUBECONFIG: kubeconfig,
+        HELM_EXPT_LIFECYCLE_RECEIPT: lifecycleReceiptPath,
+        KPS_LIFECYCLE_BASE: base,
+      },
+    });
+    const lifecycleReceipt = readYaml(lifecycleReceiptPath);
+    check(
+      lifecycleReceipt.spec?.result === "pass"
+        && lifecycleReceipt.spec?.base === base
+        && lifecycleReceipt.spec?.matchingWebhookCABundles === 3
+        && lifecycleReceipt.spec?.operatorEndpointReady === true
+        && lifecycleReceipt.spec?.serverDryRun === "pass",
+      "the packaged lifecycle script did not write a complete passing receipt",
+    );
 
     const mutatingWebhook = kubectlJson(kubeconfig, [
       "get",
@@ -345,26 +357,6 @@ function run() {
       .filter(Boolean);
     check(endpointAddresses.length > 0, "the operator webhook Service has no ready endpoint");
 
-    const dryRunRule = `apiVersion: monitoring.coreos.com/v1
-kind: PrometheusRule
-metadata:
-  name: lifecycle-route-probe
-  namespace: ${namespace}
-spec:
-  groups:
-    - name: lifecycle-route-probe
-      rules:
-        - alert: LifecycleRouteProbe
-          expr: vector(1)
-`;
-    kubectl(kubeconfig, [
-      "apply",
-      "--server-side",
-      "--dry-run=server",
-      "-f",
-      "-",
-    ], { input: dryRunRule });
-
     const workloadResults = [];
     for (const workload of [
       ["daemonset", "kube-prometheus-stack-prometheus-node-exporter"],
@@ -383,24 +375,7 @@ spec:
       });
     }
 
-    phase("applying the chart's hook cleanup policy");
-    kubectl(kubeconfig, [
-      "-n",
-      namespace,
-      "delete",
-      "job",
-      createJobName,
-      patchJobName,
-      "--ignore-not-found",
-      "--wait=true",
-    ]);
-    kubectl(kubeconfig, [
-      "delete",
-      "-f",
-      hookSupportPath,
-      "--ignore-not-found",
-      "--wait=true",
-    ]);
+    phase("checking the package's hook cleanup");
     check(
       !kubectlTry(kubeconfig, [
         "-n",
@@ -452,26 +427,35 @@ spec:
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "KubePrometheusStackLifecycleRouteReceipt",
       metadata: {
-        name: `kube-prometheus-stack-${chartVersion}-default-direct-install`,
+        name: `kube-prometheus-stack-${chartVersion}-${base}-package-install`,
       },
       spec: {
         chart,
         version: chartVersion,
-        base: "default",
-        deliveryPath: "direct-apply",
+        base,
+        deliveryPath: "cub-installer-package-direct-apply",
         recordedAt,
         result: "pass",
         source: {
           sourceLock: relativeRepo(sourceLockPath),
           chartPackageSha256: expectedPackageSha,
           chartPackageBytes: Number(sourceLock.spec.packageBytes),
+          installerPackage: relativeRepo(packageRoot),
+          installerYamlSha256: sha256File(join(packageRoot, "installer.yaml")),
+          packagedLifecycleGenerationReceipt: relativeRepo(
+            packagedGenerationReceiptPath,
+          ),
+          packagedLifecycleGenerationReceiptSha256: sha256File(
+            packagedGenerationReceiptPath,
+          ),
           renderedObjects: relativeRepo(renderedObjectsPath),
         },
         render: {
-          totalObjectsWithHooks: docs.length,
+          packageOutputObjects: renderedDocs.length,
           ordinaryObjects: ordinaryDocs.length,
           hookObjects: hookDocs.length,
           crds: crdDocs.length,
+          supportObjects: supportObjects.map(objectIdentity),
           exactCommittedOrdinaryObjects: true,
           committedObjectSetSha256: sha256(committedYaml),
         },
@@ -505,6 +489,7 @@ spec:
             image: patchJobs[0].spec?.template?.spec?.containers?.[0]?.image,
             result: "pass",
           },
+          packagedLifecycleReceipt: lifecycleReceipt.spec,
           webhookObservation: {
             mutatingEntries: (mutatingWebhook.webhooks ?? []).length,
             validatingEntries: (validatingWebhook.webhooks ?? []).length,
@@ -524,10 +509,10 @@ spec:
         routes: routeResults,
         cleanup,
         limits: [
-          "This receipt covers one fresh direct-apply installation on one local kind cluster.",
+          "This receipt covers one fresh installer-package installation on one local kind cluster.",
           "It does not prove the Argo CD or Flux implementation of these chart-specific routes.",
           "It does not prove the 85.3.3 to 86.1.0 upgrade route.",
-          "The chart's own hook Jobs were rendered from the locked upstream chart and run explicitly; ConfigHub did not choose the route automatically.",
+          "The package carries chart-specific lifecycle steps and the direct runner executes them explicitly; ConfigHub does not yet choose this route automatically.",
         ],
       },
     };
@@ -549,9 +534,13 @@ spec:
   receipt.spec.cleanup = cleanup;
   verifyReceipt(receipt);
   writeYaml(receiptPath, receipt);
-  write(summaryPath, renderSummary(receipt));
   console.log(`wrote ${relativeRepo(receiptPath)}`);
-  console.log(`wrote ${relativeRepo(summaryPath)}`);
+  if (bases.every((name) => existsSync(receiptPathFor(name)))) {
+    const receipts = readAndVerifyReceipts();
+    writeRouteReceipts(receipts);
+    write(summaryPath, renderSummary(receipts));
+    console.log(`wrote ${relativeRepo(summaryPath)}`);
+  }
 }
 
 function verifyReceipt(receipt) {
@@ -560,15 +549,20 @@ function verifyReceipt(receipt) {
     "lifecycle receipt kind changed",
   );
   const spec = receipt.spec;
+  const base = spec?.base;
   check(
     spec?.chart === chart
       && spec?.version === chartVersion
-      && spec?.base === "default",
+      && bases.includes(base),
     "lifecycle receipt source changed",
   );
+  const renderedObjectsPath = renderedObjectsPathFor(base);
+  const committedYaml = readFileSync(renderedObjectsPath, "utf8");
+  const expectedOrdinaryObjects = parseDocs(committedYaml).length;
   check(
-    spec.deliveryPath === "direct-apply" && spec.result === "pass",
-    "the direct lifecycle route did not pass",
+    spec.deliveryPath === "cub-installer-package-direct-apply"
+      && spec.result === "pass",
+    "the installer-package lifecycle route did not pass",
   );
   check(
     spec.source?.chartPackageSha256
@@ -576,11 +570,28 @@ function verifyReceipt(receipt) {
     "lifecycle receipt chart digest differs from source-lock.yaml",
   );
   check(
-    spec.render?.ordinaryObjects === 124
+    spec.render?.packageOutputObjects === expectedOrdinaryObjects + 1
+      && spec.render?.ordinaryObjects === expectedOrdinaryObjects
       && spec.render?.hookObjects === 7
       && spec.render?.crds === 10
-      && spec.render?.exactCommittedOrdinaryObjects === true,
-    "lifecycle receipt render counts or parity changed",
+      && sameSet(
+        spec.render?.supportObjects ?? [],
+        ["v1|Namespace||monitoring"],
+      )
+      && spec.render?.exactCommittedOrdinaryObjects === true
+      && spec.render?.committedObjectSetSha256 === sha256(committedYaml),
+    "installer-package render counts or parity changed",
+  );
+  check(
+    spec.source?.installerPackage === relativeRepo(packageRoot)
+      && spec.source?.installerYamlSha256
+        === sha256File(join(packageRoot, "installer.yaml"))
+      && spec.source?.packagedLifecycleGenerationReceipt
+        === relativeRepo(packagedGenerationReceiptPath)
+      && spec.source?.packagedLifecycleGenerationReceiptSha256
+        === sha256File(packagedGenerationReceiptPath)
+      && spec.source?.renderedObjects === relativeRepo(renderedObjectsPath),
+    "the recorded installer package or lifecycle generation receipt changed",
   );
   check(
     spec.execution?.crds?.established === 10
@@ -598,8 +609,19 @@ function verifyReceipt(receipt) {
   check(
     spec.execution?.preInstallJob?.result === "pass"
       && spec.execution?.postInstallJob?.result === "pass"
+      && spec.execution?.preInstallJob?.image?.includes("@sha256:")
+      && spec.execution?.postInstallJob?.image?.includes("@sha256:")
       && spec.execution?.hookCleanup?.result === "pass",
     "the hook create, patch, or cleanup result did not pass",
+  );
+  check(
+    spec.execution?.packagedLifecycleReceipt?.result === "pass"
+      && spec.execution?.packagedLifecycleReceipt?.base === base
+      && spec.execution?.packagedLifecycleReceipt?.matchingWebhookCABundles === 3
+      && spec.execution?.packagedLifecycleReceipt?.operatorEndpointReady === true
+      && spec.execution?.packagedLifecycleReceipt?.serverDryRun === "pass"
+      && spec.execution?.packagedLifecycleReceipt?.temporaryResourcesRemoved === true,
+    "the receipt written by the packaged lifecycle script is incomplete",
   );
   check(
     spec.execution?.webhookObservation?.caBundlesPresent === 3
@@ -655,52 +677,252 @@ function verifyReceipt(receipt) {
   );
 }
 
-function renderSummary(receipt) {
+function renderSummary(receipts) {
+  const resultRows = receipts
+    .map((receipt) => {
+      const spec = receipt.spec;
+      return `| \`${spec.base}\` | ${spec.render.ordinaryObjects} | ${spec.execution.crds.established} | ${spec.execution.workloads.length} | ${spec.result} | [receipt](../../${relativeRepo(receiptPathFor(spec.base))}) |`;
+    })
+    .join("\n");
+  const sections = receipts
+    .map((receipt) => renderReceiptSection(receipt))
+    .join("\n");
+  return `# Kube Prometheus Stack lifecycle route proof
+
+These tests install kube-prometheus-stack 85.3.3 from its local \`cub installer\` package. The package contains the checked Kubernetes objects plus the CRDs and admission-webhook work that regular Helm runs around them.
+
+Both catalog bases were tested on new kind clusters. Each package output matched its committed catalog render. The runner then applied ten CRDs, created the admission certificate, applied the workload, patched the webhooks, checked the running system, and removed the temporary Jobs and RBAC objects.
+
+| Base | Checked chart objects | Established CRDs | Ready workloads | Result | Evidence |
+| --- | ---: | ---: | ---: | --- | --- |
+${resultRows}
+
+## What this proves
+
+The package can perform this chart's fresh-install work in the recorded order for both catalog bases. It uses the chart's own certificate and patch Jobs. The checked manifest set is unchanged.
+
+## What remains
+
+- Argo CD and Flux have not yet run these chart-specific steps.
+- The 85.3.3 to 86.1.0 upgrade route has not yet been tested.
+- ConfigHub does not yet choose and execute this route automatically.
+
+${sections}`;
+}
+
+function renderReceiptSection(receipt) {
   const spec = receipt.spec;
   const routeRows = Object.entries(spec.routes)
+    .sort(([left], [right]) => left.localeCompare(right))
     .map(([name, route]) => `| \`${name}\` | ${route.result} | ${route.automatic ? "yes, in the direct script" : "no"} | ${route.observation ?? route.reason} |`)
     .join("\n");
   const workloadRows = spec.execution.workloads
     .map((item) => `| ${item.kind} | \`${item.name}\` | ${item.result} |`)
     .join("\n");
-  return `# Kube Prometheus Stack lifecycle route proof
-
-This example runs the extra work that regular Helm normally performs around kube-prometheus-stack 85.3.3. It uses the locked upstream chart, the committed \`default\` render, and one throwaway kind cluster.
-
-The run rendered 124 ordinary Kubernetes objects and seven Helm hook objects. The 124 ordinary objects matched the committed catalog render exactly. The script then:
-
-1. applied ten CRDs and waited for each one to become Established;
-2. ran the chart's admission certificate creation Job;
-3. checked that the resulting Secret contained \`ca\`, \`cert\`, and \`key\`;
-4. applied the 124 ordinary objects;
-5. ran the chart's webhook patch Job;
-6. checked all three webhook CA bundles, the operator endpoint, a server dry-run, and six workloads;
-7. removed the successful hook Jobs and their temporary RBAC objects.
-
-Overall result: **${spec.result}**.
-
-## Route results
+  return `## ${spec.base}
 
 | Route | Direct result | Automatic | What happened |
 | --- | --- | --- | --- |
 ${routeRows}
 
-## Workloads
-
-| Kind | Name | Result |
+| Workload kind | Name | Result |
 | --- | --- | --- |
 ${workloadRows}
 
-## What this proves
-
-The direct script can perform the fresh-install lifecycle for this chart and version in the recorded order. It uses the chart's own certificate and patch Jobs rather than inventing a generic replacement. The ordinary manifest set remains the checked catalog render.
-
-## What remains
-
-${spec.limits.map((item) => `- ${item}`).join("\n")}
-
-Receipt: [\`${relativeRepo(receiptPath)}\`](../../${relativeRepo(receiptPath)}).
+Receipt: [\`${relativeRepo(receiptPathFor(spec.base))}\`](../../${relativeRepo(receiptPathFor(spec.base))}).
 `;
+}
+
+function readAndVerifyReceipts() {
+  return bases.map((base) => {
+    const path = receiptPathFor(base);
+    check(
+      existsSync(path),
+      `${relativeRepo(path)} is missing; run the live proof for --base ${base}`,
+    );
+    const receipt = readYaml(path);
+    verifyReceipt(receipt);
+    return receipt;
+  });
+}
+
+function writeRouteReceipts(receipts) {
+  for (const receipt of receipts) {
+    writeYaml(routeReceiptPathFor(receipt.spec.base), routeReceiptFromRun(receipt));
+  }
+}
+
+function verifyRouteReceipts(receipts) {
+  for (const receipt of receipts) {
+    const path = routeReceiptPathFor(receipt.spec.base);
+    check(existsSync(path), `${relativeRepo(path)} is missing`);
+    const expected = `${toYaml(routeReceiptFromRun(receipt))}\n`;
+    check(
+      readFileSync(path, "utf8") === expected,
+      `${relativeRepo(path)} is stale`,
+    );
+  }
+}
+
+function routeReceiptFromRun(receipt) {
+  const spec = receipt.spec;
+  const runReceipt = relativeRepo(receiptPathFor(spec.base));
+  const crdReason = spec.base === "default"
+    ? "The package applies the locked CRDs before the chart objects that use them."
+    : "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.";
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "HookLifecycleRouteReceipt",
+    metadata: {
+      name: `prometheus-community-kube-prometheus-stack-${spec.base}-hook-route`,
+    },
+    spec: {
+      chart,
+      version: chartVersion,
+      base: spec.base,
+      result: "observed",
+      selectedAt: spec.recordedAt.slice(0, 10),
+      observedAt: spec.recordedAt,
+      route: {
+        summary: "The package runs CRD and admission-webhook setup as named steps around the checked Kubernetes objects.",
+        phases: [
+          observedRoutePhase(
+            ["pre-install"],
+            "preflight-or-presync-crd-apply",
+            crdReason,
+          ),
+          observedRoutePhase(
+            ["pre-install"],
+            "preflight-or-presync",
+            "The package runs the chart's certificate creation Job before applying the admission webhooks.",
+          ),
+          observedRoutePhase(
+            ["pre-install"],
+            "target-facts-or-preflight",
+            "The certificate Job creates the required admission Secret with ca, cert, and key.",
+          ),
+          observedRoutePhase(
+            ["pre-install", "post-install"],
+            "preserve-ordering",
+            "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
+          ),
+          observedRoutePhase(
+            ["post-install"],
+            "postsync-check-or-observation",
+            "The package runs the chart's webhook patch Job after the webhook objects exist.",
+          ),
+          observedRoutePhase(
+            ["post-install"],
+            "webhook-readiness-observation",
+            "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
+          ),
+          observedRoutePhase(
+            ["post-install"],
+            "preserve-cleanup-policy",
+            "The run removes both completed Jobs and their temporary RBAC objects.",
+          ),
+          {
+            hookTypes: ["pre-upgrade", "post-upgrade"],
+            action: "upgrade-action-with-receipt",
+            reason: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+            disposition: "todo",
+            liveStatus: "not-run",
+            executionMode: "not-yet-executable",
+            nextAction: "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result.",
+          },
+        ],
+      },
+      evidence: [
+        {
+          path: runReceipt,
+          claim: `A fresh ${spec.base} package install ran the CRD, certificate, webhook patch, readiness, and cleanup steps on a new kind cluster.`,
+        },
+        {
+          path: relativeRepo(packagedGenerationReceiptPath),
+          claim: "The packaged lifecycle files were extracted from the locked upstream chart and checked by digest.",
+        },
+        {
+          path: relativeRepo(renderedObjectsPathFor(spec.base)),
+          claim: "The ordinary package output matched this committed render.",
+        },
+      ],
+      execution: {
+        helmHooksExecutedByHelm: false,
+        chartHookJobsExecutedByDirectRunner: true,
+        runtimeObserved: true,
+        productChoosesRouteAutomatically: false,
+        observedRoute: {
+          crdsEstablished: spec.execution.crds.established,
+          admissionSecret: spec.execution.admissionSecret.result,
+          matchingWebhookCABundles: spec.execution.webhookObservation.caBundlesPresent,
+          workloadRollouts: spec.execution.workloads.length,
+          hookCleanup: spec.execution.hookCleanup.result,
+        },
+        notes: [
+          "The direct runner executes the package's chart-specific steps; ConfigHub does not yet select this route automatically.",
+          "The upgrade and controller-specific paths remain separate proof work.",
+        ],
+      },
+      remainingWork: [
+        "Run the same staged lifecycle through Argo CD and Flux.",
+        "Test the 85.3.3 to 86.1.0 upgrade and record its cleanup behavior.",
+      ],
+    },
+  };
+}
+
+function observedRoutePhase(hookTypes, action, reason) {
+  return {
+    hookTypes,
+    action,
+    reason,
+    disposition: "observed",
+    liveStatus: "observed",
+    executionMode: "user-executes",
+  };
+}
+
+function renderedObjectsPathFor(base) {
+  return join(
+    repoRoot,
+    "recipes",
+    "prometheus-community",
+    "kube-prometheus-stack",
+    chartVersion,
+    "revisions",
+    base,
+    "r001",
+    "rendered",
+    "release-objects.yaml",
+  );
+}
+
+function receiptPathFor(base) {
+  return join(
+    repoRoot,
+    "runs",
+    "kps-lifecycle-route-proof",
+    base === "default" ? "receipt.yaml" : `${base}-receipt.yaml`,
+  );
+}
+
+function routeReceiptPathFor(base) {
+  return join(
+    repoRoot,
+    "data",
+    "hook-lifecycle",
+    "receipts",
+    "prometheus-community-kube-prometheus-stack",
+    base,
+    "latest.yaml",
+  );
+}
+
+function argumentValue(name) {
+  const index = process.argv.indexOf(name);
+  if (index < 0) return "";
+  check(process.argv[index + 1], `${name} requires a value`);
+  return process.argv[index + 1];
 }
 
 function directResult(observation) {
@@ -712,12 +934,15 @@ function directResult(observation) {
   };
 }
 
-function isHook(doc) {
-  return Boolean(doc.metadata?.annotations?.["helm.sh/hook"]);
-}
-
 function yamlDocuments(docs) {
   return docs.map((doc) => toYaml(doc)).join("\n---\n");
+}
+
+function readYamlDocuments(root) {
+  check(existsSync(root), `${root} is missing`);
+  return listFiles(root)
+    .filter((path) => /\.ya?ml$/i.test(path))
+    .flatMap((path) => parseDocs(readFileSync(path, "utf8")));
 }
 
 function objectIdentity(doc) {
@@ -738,6 +963,7 @@ function command(file, args, options = {}) {
   const result = spawnSync(file, args, {
     cwd: repoRoot,
     encoding: "utf8",
+    env: { ...process.env, ...(options.env ?? {}) },
     input: options.input,
     timeout: options.timeout ?? 120_000,
     maxBuffer: options.maxBuffer ?? 64 * 1024 * 1024,

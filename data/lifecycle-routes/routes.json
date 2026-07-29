@@ -1288,8 +1288,76 @@
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "85.3.3",
       "base_or_variant": "default",
+      "quirk_class": "crd-install",
+      "hook_phases": "pre-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync-crd-apply",
+      "default_route": "preflight-or-presync-crd-apply",
+      "alternatives": [
+        {
+          "route": "self-contained-crd-base",
+          "requirement": "a preset config that renders the required CRDs as ordinary objects before the workloads"
+        },
+        {
+          "route": "target-owned-crds",
+          "requirement": "the cluster or an operator owns CRD install and upgrade out of band"
+        },
+        {
+          "route": "refuse",
+          "requirement": "use a no-crds base and install/upgrade the CRDs yourself"
+        }
+      ],
+      "route_requirements": "The package applies the locked CRDs before the chart objects that use them.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-delete-policy",
+      "hook_phases": "post-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preserve-cleanup-policy",
+      "default_route": "preserve-cleanup-policy",
+      "alternatives": [
+        {
+          "route": "delete-on-uninstall",
+          "requirement": "accept deletion of the hook-managed object on uninstall"
+        },
+        {
+          "route": "refuse",
+          "requirement": "manage cleanup manually and keep the object"
+        }
+      ],
+      "route_requirements": "The run removes both completed Jobs and their temporary RBAC objects.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
       "quirk_class": "hook-phase",
-      "hook_phases": "post-install, post-upgrade",
+      "hook_phases": "post-install",
       "source_disposition": "selected-route-receipt",
       "disposition": "observed",
       "route_name": "postsync-check-or-observation",
@@ -1308,7 +1376,7 @@
           "requirement": "accept that the catalog will not run this automatically and do it manually"
         }
       ],
-      "route_requirements": "Webhook TLS and readiness must be observed after apply.",
+      "route_requirements": "The package runs the chart's webhook patch Job after the webhook objects exist.",
       "execution_mode": "user-executes",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
@@ -1318,14 +1386,14 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "85.3.3",
       "base_or_variant": "default",
       "quirk_class": "hook-phase",
-      "hook_phases": "pre-install, pre-upgrade",
+      "hook_phases": "pre-install",
       "source_disposition": "selected-route-receipt",
       "disposition": "observed",
       "route_name": "preflight-or-presync",
@@ -1344,7 +1412,7 @@
           "requirement": "accept that the catalog will not run this automatically and do it manually"
         }
       ],
-      "route_requirements": "The hook creates webhook patch prerequisites before admission configuration is safe to use.",
+      "route_requirements": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
       "execution_mode": "user-executes",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
@@ -1354,7 +1422,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1363,7 +1431,7 @@
       "quirk_class": "hook-phase",
       "hook_phases": "pre-upgrade, post-upgrade",
       "source_disposition": "selected-route-receipt",
-      "disposition": "observed",
+      "disposition": "todo",
       "route_name": "upgrade-action-with-receipt",
       "default_route": "upgrade-action-with-receipt",
       "alternatives": [
@@ -1380,7 +1448,39 @@
           "requirement": "accept that the catalog will not run this automatically and do it manually"
         }
       ],
-      "route_requirements": "Upgrade behavior must be recorded separately from initial render parity.",
+      "route_requirements": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+      "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "not-run",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "hook-weight-ordering",
+      "hook_phases": "pre-install, post-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preserve-ordering",
+      "default_route": "preserve-ordering",
+      "alternatives": [
+        {
+          "route": "argocd-sync-waves",
+          "requirement": "a GitOps controller that maps hook weights to sync waves"
+        },
+        {
+          "route": "apply-order",
+          "requirement": "an apply step that preserves the documented order"
+        }
+      ],
+      "route_requirements": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
       "execution_mode": "user-executes",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
@@ -1390,7 +1490,335 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "target-facts",
+      "hook_phases": "pre-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "target-facts-or-preflight",
+      "default_route": "target-facts-or-preflight",
+      "alternatives": [
+        {
+          "route": "preflight-or-presync",
+          "requirement": "a preflight step that establishes the fact before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "supply the fact manually and accept no preflight"
+        }
+      ],
+      "route_requirements": "The certificate Job creates the required admission Secret with ca, cert, and key.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "default",
+      "quirk_class": "webhook-readiness",
+      "hook_phases": "post-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "webhook-readiness-observation",
+      "default_route": "webhook-readiness-observation",
+      "alternatives": [
+        {
+          "route": "postsync-check-or-observation",
+          "requirement": "a post-apply readiness check you run or observe"
+        }
+      ],
+      "route_requirements": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "crd-install",
+      "hook_phases": "pre-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync-crd-apply",
+      "default_route": "preflight-or-presync-crd-apply",
+      "alternatives": [
+        {
+          "route": "self-contained-crd-base",
+          "requirement": "a preset config that renders the required CRDs as ordinary objects before the workloads"
+        },
+        {
+          "route": "target-owned-crds",
+          "requirement": "the cluster or an operator owns CRD install and upgrade out of band"
+        },
+        {
+          "route": "refuse",
+          "requirement": "use a no-crds base and install/upgrade the CRDs yourself"
+        }
+      ],
+      "route_requirements": "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "hook-delete-policy",
+      "hook_phases": "post-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preserve-cleanup-policy",
+      "default_route": "preserve-cleanup-policy",
+      "alternatives": [
+        {
+          "route": "delete-on-uninstall",
+          "requirement": "accept deletion of the hook-managed object on uninstall"
+        },
+        {
+          "route": "refuse",
+          "requirement": "manage cleanup manually and keep the object"
+        }
+      ],
+      "route_requirements": "The run removes both completed Jobs and their temporary RBAC objects.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "hook-phase",
+      "hook_phases": "post-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "postsync-check-or-observation",
+      "default_route": "postsync-check-or-observation",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "The package runs the chart's webhook patch Job after the webhook objects exist.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-upgrade, post-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "todo",
+      "route_name": "upgrade-action-with-receipt",
+      "default_route": "upgrade-action-with-receipt",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+      "execution_mode": "not-yet-executable",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "not-run",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "hook-weight-ordering",
+      "hook_phases": "pre-install, post-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preserve-ordering",
+      "default_route": "preserve-ordering",
+      "alternatives": [
+        {
+          "route": "argocd-sync-waves",
+          "requirement": "a GitOps controller that maps hook weights to sync waves"
+        },
+        {
+          "route": "apply-order",
+          "requirement": "an apply step that preserves the documented order"
+        }
+      ],
+      "route_requirements": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "target-facts",
+      "hook_phases": "pre-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "target-facts-or-preflight",
+      "default_route": "target-facts-or-preflight",
+      "alternatives": [
+        {
+          "route": "preflight-or-presync",
+          "requirement": "a preflight step that establishes the fact before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "supply the fact manually and accept no preflight"
+        }
+      ],
+      "route_requirements": "The certificate Job creates the required admission Secret with ca, cert, and key.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base_or_variant": "no-crds",
+      "quirk_class": "webhook-readiness",
+      "hook_phases": "post-install",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "webhook-readiness-observation",
+      "default_route": "webhook-readiness-observation",
+      "alternatives": [
+        {
+          "route": "postsync-check-or-observation",
+          "requirement": "a post-apply readiness check you run or observe"
+        }
+      ],
+      "route_requirements": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
     }
   ]
 }

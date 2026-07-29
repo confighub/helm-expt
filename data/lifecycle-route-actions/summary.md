@@ -18,7 +18,7 @@ interface), field definitions in [contract.md](./contract.md).
 
 ## The honest flag
 
-0 of 40 packets are `automatic`. No route is
+0 of 53 packets are `automatic`. No route is
 executed by the product today, so `automatic` is `false` everywhere; a packet
 is a *plan*, not a claim that anything ran. `automatic` only becomes `true`
 when `execution_mode` is `product-executes` and committed evidence proves it.
@@ -27,30 +27,31 @@ when `execution_mode` is `product-executes` and committed evidence proves it.
 
 | Disposition | Packets |
 | --- | ---: |
-| `observed` | 30 |
+| `observed` | 41 |
 | `blocked` | 7 |
+| `not-run` | 2 |
 | `routed` | 2 |
 | `per-target` | 1 |
 
 | Lifecycle phase | Packets |
 | --- | ---: |
-| `observe` | 12 |
-| `pre-apply` | 12 |
-| `preflight` | 8 |
-| `post-apply` | 7 |
+| `pre-apply` | 17 |
+| `observe` | 16 |
+| `preflight` | 11 |
+| `post-apply` | 8 |
 | `pre-render` | 1 |
 
 | Action kind | Packets |
 | --- | ---: |
-| `run-job` | 12 |
-| `run-preflight` | 6 |
-| `accept-target-policy` | 5 |
+| `run-job` | 13 |
+| `accept-target-policy` | 7 |
+| `run-preflight` | 7 |
+| `preserve-ordering` | 5 |
+| `install-crd` | 4 |
+| `observe-webhook` | 4 |
 | `run-test` | 4 |
-| `preserve-ordering` | 3 |
-| `install-crd` | 2 |
-| `observe-webhook` | 2 |
-| `run-check` | 2 |
-| `stage-target-facts` | 2 |
+| `stage-target-facts` | 4 |
+| `run-check` | 3 |
 | `gitops-sync-hook` | 1 |
 | `verify-render` | 1 |
 
@@ -79,7 +80,7 @@ the next primitive worth adding to the model.
 
 `route_name` is the route; `lifecycle_phase` is when it happens (pre-render →
 preflight → pre-apply → post-apply → observe, or refuse); `action_kind` is what
-kind of step it is; `disposition` is one of `observed, routed, per-target, blocked, refused`;
+kind of step it is; `disposition` is one of `observed, routed, per-target, not-run, blocked, refused`;
 `automatic` says whether the product runs it (always `false` today);
 `required_target_facts` and `human_command` are the inputs; `agent_inputs`
 (JSON) is the stable block an agent selects from; `evidence_required` is what
