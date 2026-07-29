@@ -16,7 +16,7 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try It Now with Kubernetes", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "a reviewed object edit stays", "What is <code>--pull</code>?"],
+    terms: ["Try It Now with Kubernetes", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub plugin install confighub/installer", "cub installer", "--output-oci", "No account: the package choice stays", "a reviewed object edit stays", "What is <code>--pull</code>?"],
   },
   {
     file: "site/serverless.html",

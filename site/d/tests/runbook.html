@@ -464,7 +464,7 @@ WORKDIR=/tmp/${CLUSTER}-nginx
 KUBECONFIG_FILE=$HOME/.confighub/clusters/${CLUSTER}.kubeconfig
 KCTX=kind-${CLUSTER}</code></pre>
 <h2 id="steps">Steps</h2>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code># 1. Stand up the BYO-cluster simulation (kind + Argo + ConfigHub space/target/root-app).
 #    Long step (kind create + Argo install + rollout wait). Dedicated kubeconfig;
 #    never merged into ~/.kube/config.

@@ -440,7 +440,7 @@
   <pre><code>helm template &lt;release&gt; &lt;chart&gt; --values values.yaml &gt; rendered.yaml
 cub variant upload --component &lt;name&gt; --variant base rendered.yaml</code></pre>
 <p>Use <code>cub installer</code> packages when you want a maintained base with receipts and proof:</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></pre>
 <p>Public catalog pages show the installer package OCI ref for each chart version, so a real command uses <code>--pull oci://...</code>, not a checkout-local path. See <a href="choosing-commands.html">Choosing Commands</a> and <a href="installer-oci-packages.html">Installer Package OCI Refs</a>.</p>
 <h2 id="do-i-have-to-rewrite-my-charts">Do I have to rewrite my charts?</h2>
