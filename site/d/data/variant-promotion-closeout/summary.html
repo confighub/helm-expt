@@ -435,25 +435,26 @@
 <p>This surface turns the master matrix promotion column into a product-and-engineering queue: for every variant, whether <code>cub variant promote</code> is <b>ready to run now</b>, <b>watch-grade pending receipt rerun</b>, or <b>blocked</b> by a proof prerequisite, with the exact next command or fix and the owner who has to act.</p>
 <p>Promotion is a <b>ConfigHub server value</b>, not a helm-expt-only trick: <code>cub variant promote</code> clones and promotes a Unit server-side. See <a href="../../docs/reference/variant-promotion-closeout.html">variant-promotion-closeout reference</a>. Source of record: <a href="../../../../data/variant-promotion/status.csv">variant-promotion/status.csv</a>.</p>
 <h2 id="owner-classes">Owner classes</h2>
-<table><thead><tr><th>Owner class</th><th>Variants</th><th>Meaning</th></tr></thead><tbody><tr><td><code>run-proof</code></td><td>20</td><td>A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI.</td></tr>
+<table><thead><tr><th>Owner class</th><th>Variants</th><th>Meaning</th></tr></thead><tbody><tr><td><code>run-proof</code></td><td>32</td><td>A clone exists (or a prerequisite proof can run); record or rerun the proof. Engineering/CI.</td></tr>
 <tr><td><code>catalog-modeling</code></td><td>0</td><td>Needs catalog/model work before promotion is meaningful.</td></tr>
-<tr><td><code>not-applicable-if-any</code></td><td>179</td><td>Promotion does not apply to this variant.</td></tr></tbody></table>
-<table><thead><tr><th>Readiness</th><th>Variants</th></tr></thead><tbody><tr><td><code>promotion-proven</code></td><td>179</td></tr>
-<tr><td><code>watch-grade</code></td><td>17</td></tr>
+<tr><td><code>not-applicable-if-any</code></td><td>167</td><td>Promotion does not apply to this variant.</td></tr></tbody></table>
+<table><thead><tr><th>Readiness</th><th>Variants</th></tr></thead><tbody><tr><td><code>promotion-proven</code></td><td>167</td></tr>
+<tr><td><code>watch-grade</code></td><td>29</td></tr>
 <tr><td><code>blocked-proof-failed</code></td><td>2</td></tr>
 <tr><td><code>blocked-needs-confighub-proof</code></td><td>1</td></tr></tbody></table>
-<table><thead><tr><th>Promotion state</th><th>Variants</th></tr></thead><tbody><tr><td><code>yes</code></td><td>179</td></tr>
-<tr><td><code>watch</code></td><td>17</td></tr>
+<table><thead><tr><th>Promotion state</th><th>Variants</th></tr></thead><tbody><tr><td><code>yes</code></td><td>167</td></tr>
+<tr><td><code>watch</code></td><td>29</td></tr>
 <tr><td><code>no</code></td><td>2</td></tr>
 <tr><td><code>todo</code></td><td>1</td></tr></tbody></table>
 <h2 id="ready-to-run-now-0">Ready to run now (0)</h2>
 <p>These variants already have a server-side clone and ConfigHub upload proof; only the <code>cub variant promote</code> receipt is missing. <b>A representative set of commands (not run here - promotion is a ConfigHub-server action):</b></p>
 <pre><code></code></pre>
 <p>The full 0-row ready-to-run set is in <a href="../../../../data/variant-promotion-closeout/closeout.csv">closeout.csv</a>.</p>
-<h2 id="watch-grade-rerun-on-the-fixed-server-17">Watch-grade - rerun on the fixed server (17)</h2>
+<h2 id="watch-grade-rerun-on-the-fixed-server-29">Watch-grade - rerun on the fixed server (29)</h2>
 <p>Server-side promotion mechanics are proven for these, but the committed receipts were recorded before the changeset-bound add-new-units server fix. The next action is:</p>
 <blockquote><p>ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass.</p></blockquote>
-<table><thead><tr><th>Chart</th><th>Base</th><th>Evidence</th></tr></thead><tbody><tr><td>bitnami/mongodb@19.0.7</td><td>static-passwords</td><td>runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<table><thead><tr><th>Chart</th><th>Base</th><th>Evidence</th></tr></thead><tbody><tr><td>argo-cd/argo-cd@9.5.15</td><td>default</td><td>runs/argo-cd-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>bitnami/mongodb@19.0.7</td><td>static-passwords</td><td>runs/mongodb-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
 <tr><td>bitnami/mongodb@19.0.9</td><td>existing-secret-replicaset</td><td>runs/cl-mongodb-19-0-9-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
 <tr><td>bitnami/mongodb@19.1.0</td><td>existing-secret-replicaset</td><td>runs/cl-mongodb-19-1-0-existing-secret-replicaset-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
 <tr><td>bitnami/mongodb@19.1.0</td><td>static-passwords</td><td>runs/cl-mongodb-19-1-0-static-passwords-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
@@ -469,7 +470,18 @@
 <tr><td>bitnami/rabbitmq@16.0.14</td><td>static-passwords</td><td>runs/rabbitmq-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
 <tr><td>bitnami/redis@27.0.0</td><td>default</td><td>runs/cl-redis-27-0-0-default-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
 <tr><td>bitnami/redis@27.0.0</td><td>reuse-existing-secret</td><td>runs/cl-redis-27-0-0-reuse-existing-secret-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
-<tr><td>grafana/grafana@10.5.15</td><td>static-passwords</td><td>runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr></tbody></table>
+<tr><td>external-secrets/external-secrets@2.5.0</td><td>default</td><td>runs/external-secrets-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>grafana/grafana@10.5.15</td><td>static-passwords</td><td>runs/grafana-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>grafana/loki@7.0.0</td><td>single-binary-filesystem</td><td>runs/loki-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>grafana/tempo@1.24.4</td><td>local-persistent</td><td>runs/tempo-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>hashicorp/consul@2.0.0</td><td>default-control-plane</td><td>runs/consul-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>hashicorp/vault@0.32.0</td><td>dev-mode</td><td>runs/vault-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>internal-clusterip</td><td>runs/ingress-nginx-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>jetstack/cert-manager@v1.20.2</td><td>crds-enabled</td><td>runs/cert-manager-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>longhorn/longhorn@1.11.2</td><td>default</td><td>runs/longhorn-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>metrics-server/metrics-server@3.13.0</td><td>default</td><td>runs/metrics-server-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>prometheus-community/prometheus@29.8.0</td><td>server-only-ephemeral</td><td>runs/prometheus-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr>
+<tr><td>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</td><td>default</td><td>runs/secrets-store-csi-driver-confighub-proof/latest/variant-promotion-receipt.yaml</td></tr></tbody></table>
 <h2 id="blocked-needs-the-confighub-proof-first-1">Blocked - needs the ConfigHub proof first (1)</h2>
 <p>No ConfigHub upload proof exists yet, so there is no clone to promote.</p>
 <table><thead><tr><th>Chart</th><th>Base</th><th>Next action</th></tr></thead><tbody><tr><td>argo-cd/argo-cd@9.5.17</td><td>no-crds</td><td>run the ConfigHub proof lane first</td></tr></tbody></table>

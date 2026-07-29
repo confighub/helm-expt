@@ -524,7 +524,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
           <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
-          <dt>Hooks/actions</dt><dd>1 source hook(s); candidate-route; live: todo</dd>
+          <dt>Hooks/actions</dt><dd>1 source hook; hook route: candidate-route; live action receipt: todo</dd>
           <dt>Who runs actions?</dt><dd>read the route receipt before delivery</dd>
           <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
           <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
@@ -547,8 +547,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --base default --work-dir ./argo-cd-argo-workflows-1-0-14-default --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/argo-cd-argo-workflows-1-0-14/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/argo-cd-argo-workflows-1-0-14/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>1 source hook(s); candidate-route; live: todo; route: todo</dd>
-          <dt>Who runs actions?</dt><dd>Not automated yet (1); no step is called automatic until its run has a receipt</dd>
+          <dt>Hooks/actions</dt><dd>1 source hook; hook route: candidate-route; live action receipt: todo; 1 recorded lifecycle route</dd>
+          <dt>Who runs actions?</dt><dd>Not automated yet (1); the full record shows which delivery paths have receipts</dd>
           <dt>Lifecycle record</dt><dd>1 chart-specific lifecycle route is recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>8 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>
@@ -572,8 +572,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --base controller-default-reviewed --work-dir ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>1 source hook(s); candidate-route; live: todo; route: todo</dd>
-          <dt>Who runs actions?</dt><dd>Not automated yet (1); no step is called automatic until its run has a receipt</dd>
+          <dt>Hooks/actions</dt><dd>1 source hook; hook route: candidate-route; live action receipt: todo; 1 recorded lifecycle route</dd>
+          <dt>Who runs actions?</dt><dd>Not automated yet (1); the full record shows which delivery paths have receipts</dd>
           <dt>Lifecycle record</dt><dd>1 chart-specific lifecycle route is recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>8 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>
@@ -597,8 +597,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14 --base minimal-crds --work-dir ./argo-cd-argo-workflows-1-0-14-minimal-crds --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/argo-cd-argo-workflows-1-0-14/minimal-crds/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/argo-cd-argo-workflows-1-0-14/minimal-crds/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>1 source hook(s); observed; live: yes; route: yes</dd>
-          <dt>Who runs actions?</dt><dd>Kubernetes or the delivery controller (1); no step is called automatic until its run has a receipt</dd>
+          <dt>Hooks/actions</dt><dd>1 source hook; hook route: observed; live action receipt: yes; 1 recorded lifecycle route</dd>
+          <dt>Who runs actions?</dt><dd>Kubernetes or the delivery controller (1); the full record shows which delivery paths have receipts</dd>
           <dt>Lifecycle record</dt><dd>1 chart-specific lifecycle route is recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-minimal-crds.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>

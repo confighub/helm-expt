@@ -64,13 +64,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "none — your cluster handles it"
@@ -249,13 +249,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "no extra hook — keep CRDs before dependent objects"
@@ -290,13 +290,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "none — supply the inputs before sync"
@@ -331,13 +331,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "wait for the certificate handoff, then observe webhook and workload health after sync"

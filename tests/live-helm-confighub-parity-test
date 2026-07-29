@@ -19,6 +19,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -1537,6 +1538,44 @@ def target_fact_secret_doc(secret: dict, recipe_path: Path, target_namespace: st
     return doc
 
 
+def target_fact_secret_namespaces(
+    secret: dict,
+    variant_namespace: str | None,
+    fallback_namespace: str,
+    rendered_namespaces: list[str] | None,
+) -> set[str]:
+    source_namespace = secret.get("namespace")
+    if source_namespace and variant_namespace and source_namespace == variant_namespace:
+        if source_namespace in (rendered_namespaces or []):
+            return {source_namespace}
+        return {fallback_namespace}
+    return {source_namespace or fallback_namespace}
+
+
+def verify_live_secret_keys(
+    secret: dict,
+    namespace: str,
+    kubeconfig: Path,
+    context: str,
+) -> None:
+    name = secret.get("name")
+    if not name:
+        raise RuntimeError(f"invalid required Secret target fact: {secret}")
+    output = kubectl_must(
+        ["-n", namespace, "get", "secret", name, "-o", "json"],
+        kubeconfig,
+        context,
+        f"lifecycle target fact Secret {namespace}/{name}",
+    )
+    payload = json.loads(output)
+    actual_keys = set((payload.get("data") or {}).keys())
+    missing = sorted(set(secret.get("keys") or []) - actual_keys)
+    if missing:
+        raise RuntimeError(
+            f"lifecycle action left Secret {namespace}/{name} without keys: {', '.join(missing)}"
+        )
+
+
 def redact_secret_docs_for_evidence(secret_docs: list[dict]) -> list[dict]:
     redacted = json.loads(json.dumps(secret_docs))
     for doc in redacted:
@@ -1555,6 +1594,7 @@ def redact_secret_docs_for_evidence(secret_docs: list[dict]) -> list[dict]:
 def stage_target_facts(
     variant: dict,
     recipe_path: Path,
+    package_path: Path,
     kubeconfig: Path,
     context: str,
     fallback_namespace: str,
@@ -1586,7 +1626,15 @@ def stage_target_facts(
         for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
         if target_fact_applies(secret, lane)
     ]
-    tls_material = target_fact_tls_material(required_secrets, run_root)
+    lifecycle_secrets = [
+        secret for secret in required_secrets
+        if secret.get("provisioningMode") == "lifecycle-action"
+    ]
+    ordinary_secrets = [
+        secret for secret in required_secrets
+        if secret.get("provisioningMode") != "lifecycle-action"
+    ]
+    tls_material = target_fact_tls_material(ordinary_secrets, run_root)
     crd_docs, staged_crds = target_fact_crd_docs(variant, recipe_path, lane)
     required_object_stores = target_fact_object_stores(variant, lane)
     required_namespaces = target_fact_namespaces(variant, lane)
@@ -1601,16 +1649,89 @@ def stage_target_facts(
     staged_secrets = []
     staged_object_stores = []
     staged_namespaces = []
+    lifecycle_actions = []
     object_store_docs = []
-    for secret in required_secrets:
-        source_namespace = secret.get("namespace")
-        if source_namespace and variant_namespace and source_namespace == variant_namespace:
-            secret_namespaces = {fallback_namespace}
-            for rendered_namespace in rendered_namespaces or []:
-                if rendered_namespace == source_namespace:
-                    secret_namespaces.add(rendered_namespace)
-        else:
-            secret_namespaces = {source_namespace or fallback_namespace}
+    lifecycle_by_source: dict[str, list[dict]] = {}
+    for secret in lifecycle_secrets:
+        source = str(secret.get("suggestedSource") or "")
+        if not source.startswith("package://"):
+            raise RuntimeError(
+                f"lifecycle-action Secret {secret.get('name')} must use a package:// suggestedSource"
+            )
+        lifecycle_by_source.setdefault(source, []).append(secret)
+    package_root = package_path.resolve()
+    for source, source_secrets in lifecycle_by_source.items():
+        relative_source = source.removeprefix("package://")
+        if not relative_source or ".." in Path(relative_source).parts:
+            raise RuntimeError(f"unsafe packaged lifecycle action path: {source}")
+        action_path = (package_root / relative_source).resolve()
+        try:
+            action_path.relative_to(package_root)
+        except ValueError as exc:
+            raise RuntimeError(f"packaged lifecycle action escapes package root: {source}") from exc
+        if not action_path.is_file() or action_path.suffix != ".sh":
+            raise RuntimeError(f"packaged lifecycle action is not an executable shell script: {source}")
+        action_namespaces = set()
+        for secret in source_secrets:
+            action_namespaces.update(
+                target_fact_secret_namespaces(
+                    secret,
+                    variant_namespace,
+                    fallback_namespace,
+                    rendered_namespaces,
+                )
+            )
+        for namespace in sorted(action_namespaces):
+            namespaces.add(namespace)
+            receipt_slug = re.sub(r"[^a-z0-9]+", "-", f"{label}-{namespace}-{action_path.stem}".lower()).strip("-")
+            lifecycle_receipt = run_root / f"target-facts-{receipt_slug}-receipt.yaml"
+            env = {
+                **os.environ,
+                "KUBECONFIG": str(kubeconfig),
+                "HELM_EXPT_LIFECYCLE_RECEIPT": str(lifecycle_receipt),
+            }
+            rc, out, err = sh(["bash", str(action_path), namespace], timeout=420, env=env)
+            log_path = run_root / f"target-facts-{receipt_slug}.log"
+            write_text(log_path, f"stdout:\n{out}\n\nstderr:\n{err}\n")
+            if rc != 0:
+                raise RuntimeError(
+                    f"packaged lifecycle action {source} failed in {namespace}: {(err or out)[:1000]}"
+                )
+            if not lifecycle_receipt.exists():
+                raise RuntimeError(f"packaged lifecycle action {source} did not write its receipt")
+            for secret in source_secrets:
+                for destination in sorted(
+                    target_fact_secret_namespaces(
+                        secret,
+                        variant_namespace,
+                        fallback_namespace,
+                        rendered_namespaces,
+                    )
+                ):
+                    if destination != namespace:
+                        continue
+                    verify_live_secret_keys(secret, destination, kubeconfig, context)
+                    staged_secrets.append({
+                        "namespace": destination,
+                        "name": secret.get("name"),
+                        "keys": sorted(secret.get("keys") or []),
+                        "lane": lane,
+                        "provisioningMode": "lifecycle-action",
+                        "source": source,
+                    })
+            lifecycle_actions.append({
+                "source": source,
+                "namespace": namespace,
+                "result": "pass",
+                "receipt": load_yaml(lifecycle_receipt),
+            })
+    for secret in ordinary_secrets:
+        secret_namespaces = target_fact_secret_namespaces(
+            secret,
+            variant_namespace,
+            fallback_namespace,
+            rendered_namespaces,
+        )
         name = secret.get("name")
         keys = secret.get("keys") or []
         if not name:
@@ -1738,6 +1859,7 @@ def stage_target_facts(
         "stagedCRDs": staged_crds,
         "stagedObjectStores": staged_object_stores,
         "stagedNamespaces": staged_namespaces,
+        "lifecycleActions": lifecycle_actions,
     }
     if topology_result:
         result["requiredTopology"] = topology_result
@@ -2869,19 +2991,24 @@ def semantic_compare(
     cub_keys = set(cub)
     missing = sorted(helm_keys - cub_keys)
     extra = sorted(cub_keys - helm_keys)
+    unallowed_extra = sorted(set(extra) - set(allowed_extra))
     common = sorted(helm_keys & cub_keys)
     diffs = [key for key in common if helm[key] != cub[key]]
     return {
-        "result": "pass" if not missing and extra == allowed_extra and not diffs else "blocked",
+        "result": "pass" if not missing and not unallowed_extra and not diffs else "blocked",
         "helmObjectCount": len(helm_keys),
         "configHubObjectCount": len(cub_keys),
         "missingFromConfigHub": missing,
         "extraInConfigHub": extra,
+        "allowedExtraInConfigHub": sorted(allowed_extra),
+        "unallowedExtraInConfigHub": unallowed_extra,
         "semanticDiffs": diffs[:50],
         "semanticNormalizations": semantic_normalizations,
         "comparisonSHA256": sha256_text(json.dumps({
             "missing": missing,
             "extra": extra,
+            "allowedExtra": sorted(allowed_extra),
+            "unallowedExtra": unallowed_extra,
             "diffs": diffs,
             "semanticNormalizations": semantic_normalizations,
         }, sort_keys=True)),
@@ -3160,6 +3287,7 @@ def main() -> int:
         helm_target_facts = stage_target_facts(
             variant,
             recipe_path,
+            package_path,
             kubeconfig,
             context,
             helm_namespace,
@@ -3292,6 +3420,7 @@ def main() -> int:
         apply_target_facts = stage_target_facts(
             variant,
             recipe_path,
+            package_path,
             kubeconfig,
             context,
             apply_namespace,
@@ -3506,6 +3635,7 @@ def main() -> int:
         oci_target_facts = stage_target_facts(
             variant,
             recipe_path,
+            package_path,
             kubeconfig,
             context,
             oci_namespace,

@@ -9,9 +9,9 @@ spec:
   semantic_parity: passed
   remediation_class: registry-remap
   recommended: "Remap the removed docker.io/bitnami contour and envoy images to docker.io/bitnamilegacy — Bitnami's documented migration registry for the legacy free images it stopped publishing under docker.io/bitnami in Aug 2025. Verify the exact tags are retained under docker.io/bitnamilegacy and pin their digests. The pre-install certgen hook (contour-contour-certgen) uses one of these images, so the remap also unblocks that hook."
-  override_path: "global.imageRegistry: docker.io/bitnamilegacy (Bitnami common-chart convention) covers both contour and envoy — NOT present in committed recipe artifacts (effective-values are chart-defaults; the workdown records candidate_override_path as unknown), so treat as remediation TO VERIFY against the chart values schema."
-  digest_resolution: "unknown — data/image-digest-workdown has no resolved digest for these images (resolution receipts missing); pin retained digests once confirmed."
-  verify_non_live: "Render each base with global.imageRegistry=docker.io/bitnamilegacy and confirm the contour and envoy refs resolve to docker.io/bitnamilegacy in the Job, Deployment, and DaemonSet (render only, no cluster); a live rerun then confirms pullability and whether the certgen hook runs."
+  override_path: "effective-values-legacy.yaml sets contour.image.repository=bitnamilegacy/contour, envoy.image.repository=bitnamilegacy/envoy, and global.security.allowInsecureImages=true. This reproduces the committed legacy render through ordinary Helm values."
+  digest_resolution: "The packaged certgen action pins the multi-platform contour manifest at sha256:ab0665888c91c754030d46e7bbaf9a661bd1f16bbbbafcef59ce0fafdba871f1. The workload render still uses the frozen tags and needs production mirror/digest work."
+  verify_non_live: "The recorded legacy values render the same contour and envoy image references as the committed legacy base. The strict two-cluster receipt proves both images pull, Helm's hook completes, the packaged action completes, and both workloads become ready."
   bases:
     - base: default
       lane: G/P
@@ -32,18 +32,21 @@ spec:
     variant: recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml
     variant_revision: recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml
     rendered_object_set_sha256: "d7df93e9094b4f918f3f97621beb90909c2d8f5a64ab8dc51b8f8dce0c934123"
-    lane: L
-    result: blocked
-    receipt: runs/next80-local-kind/bitnami-contour-21.1.4-legacy/observation-receipt.yaml
-    note: "The legacy variant remaps the docker.io/bitnami contour and envoy images to docker.io/bitnamilegacy; the images pull, the 5 CRDs establish, and all 20 objects apply, so the IMAGE remediation is proven. The L cell is BLOCKED by a separate, pre-existing prerequisite: the contour-to-envoy xDS TLS secret is normally minted by the contour-certgen Helm hook, which the no-hooks render excludes, so the contour Deployment and envoy DaemonSet stay in ContainerCreating. This prerequisite also affects the default variant and is not an image issue."
+    lane: K
+    result: pass
+    receipt: runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml
+    historical_local_receipt: runs/next80-local-kind/bitnami-contour-21.1.4-legacy/observation-receipt.yaml
+    note: "The legacy values reproduce the image remap in ordinary Helm. On two fresh kind clusters, Helm ran its certgen hook and cub installer ran the packaged equivalent; both images pulled, all 5 CRDs established, both workloads became ready, and semantic object parity passed."
   automatic: false
   evidence:
     - runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml
     - runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml
+    - runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml
+    - runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml
     - data/remote-image-runtime-workdown/workdown.csv
     - data/image-digest-workdown/summary.md
-  cross_reference: "recipes/bitnami/contour/21.1.4/model-gap-fix.yaml (no-crds CRD set) and recipes/bitnami/contour/21.1.4/lifecycle-route.yaml (certgen cert lifecycle) address separate residues; the certgen route cannot be rehearsed until the image is pullable, so this card is a prerequisite for that route."
+  cross_reference: "recipes/bitnami/contour/21.1.4/model-gap-fix.yaml covers the no-crds CRD set. recipes/bitnami/contour/21.1.4/lifecycle-route.yaml records the now-proven direct certgen action and the remaining Argo/Flux work."
   not_claimed:
-    - "This card does not prove the images are pullable or that the cells pass; it requires applying the override and a fresh live rerun."
-    - "It does not verify that docker.io/bitnamilegacy retains the exact pinned tags; that must be confirmed against the registry before the remap is considered stable."
-    - "It does not resolve the no-crds CRD set (see model-gap-fix.yaml) or the certgen cert lifecycle (see lifecycle-route.yaml); this card is only the image pull."
+    - "The frozen bitnamilegacy repositories receive no new security fixes and are not a production image source."
+    - "The workload images are not yet digest-pinned in the legacy base."
+    - "This does not prove the no-crds CRD ownership choice or controller-native execution of the certgen action."

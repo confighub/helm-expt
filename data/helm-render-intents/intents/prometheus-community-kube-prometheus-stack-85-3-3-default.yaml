@@ -53,8 +53,8 @@ spec:
   lifecycle:
     routeContract: "yes"
     routeCount: "7"
-    dispositions: "observed:7"
-    executionModes: "target-owned:3; user-executes:4"
+    dispositions: "0:observed,7"
+    executionModes: "0:target-owned,3,1:user-executes,4"
     safeAutomatic: "0/7"
     contractPath: "data/lifecycle-routes/summary.md"
     jsonPath: "data/lifecycle-routes/routes.json"
@@ -72,13 +72,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "none — your cluster handles it"
@@ -257,13 +257,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "no extra hook — keep CRDs before dependent objects"
@@ -298,13 +298,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "none — supply the inputs before sync"
@@ -339,13 +339,13 @@ spec:
         disposition: "observed"
         delta: "kept"
         reason: ""
-        routeSourceVersion: "85.3.3"
+        routeSourceVersion: "85.3.0"
         evidence:
           - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
-        sourceDrift: ""
+        sourceDrift: "route source version 85.3.0; recipe version 85.3.3"
         gitOps:
           emitsControllerStep: false
           argoCd: "wait for the certificate handoff, then observe webhook and workload health after sync"
@@ -368,12 +368,20 @@ spec:
             evidence:
               []
     coverage:
-      state: "attached"
-      reason: "7 lifecycle routes attached for this exact chart version and base."
+      state: "actionable-gap"
+      reason: "7 lifecycle route mappings are attached, but 4 still use evidence from 85.3.0 instead of 85.3.3."
       evidence:
-        - "data/lifecycle-routes/summary.md"
-        - "data/lifecycle-routes/routes.json"
-      nextAction: ""
+        - "data/hook-lifecycle/receipt-index.csv"
+        - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        - "data/hook-lifecycle/top100-hooks.csv"
+        - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
+        - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+        - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
+        - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+        - "data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml"
+        - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+        - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      nextAction: "Run the lifecycle proof for 85.3.3, then update the route source version and receipt."
   targetFacts:
     status: "declared-target-facts"
     declared:

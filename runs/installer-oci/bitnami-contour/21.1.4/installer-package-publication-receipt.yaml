@@ -6,20 +6,20 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4
   package:
     path: packages/bitnami/contour/21.1.4
-    sha256: ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a
+    sha256: 8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48
   commands:
     package: "cub installer package packages/bitnami/contour/21.1.4 -o <tmp>/bitnami-contour-21.1.4.tgz"
     push: "cub installer push <tmp>/bitnami-contour-21.1.4.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
     inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4 --json"
   outputs:
     package: |
-      Bundled bitnami-contour@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-cDTXxV/bitnami-contour-21.1.4.tgz
-        files:  8
-        size:   157300 bytes
-        digest: sha256:ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a
+      Bundled bitnami-contour@21.1.4
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-ZlifjU/bitnami-contour-21.1.4.tgz
+        files:  12
+        size:   160715 bytes
+        digest: sha256:8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4
-        manifest: sha256:5012a38fa06db0ec75d5069cb6fd20514268a191be30031402a00fdc0e4ff137
-        layer:    sha256:ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a (157300 bytes, 8 files)
-    inspectJSONSHA256: 08a48b3b3b937d19ec865766691ba092bfee36dc671e47c9d86b8965b1b89254
+        manifest: sha256:9367550cdf3060ffa460fe6beffb60e102c9f5c6254d3c153974dfc9242767d3
+        layer:    sha256:8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48 (160715 bytes, 12 files)
+    inspectJSONSHA256: 055d0191fabf1c704906ce0533346a315b6754536e68c6e9b1e9cf2a47488cf0

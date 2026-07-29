@@ -200,6 +200,43 @@
       "evidence_or_next_action": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml;runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml;runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml;runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
     },
     {
+      "chart": "bitnami/contour",
+      "version": "21.1.4",
+      "base": "legacy",
+      "quirk_class": "hook-phase",
+      "route_name": "preflight-or-presync",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "preflight",
+      "action_kind": "run-preflight",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.",
+      "human_command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>   # placeholder",
+      "alternatives": [
+        "argocd-or-flux-lifecycle-hook",
+        "target-facts-or-preflight",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "preflight-or-presync",
+        "default_route": "preflight-or-presync",
+        "alternatives": [
+          "argocd-or-flux-lifecycle-hook",
+          "target-facts-or-preflight",
+          "refuse"
+        ],
+        "lifecycle_phase": "preflight",
+        "action_kind": "run-preflight",
+        "required_target_facts": "Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml;recipes/bitnami/contour/21.1.4/lifecycle-route.yaml;recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml;packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh;runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml;runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+    },
+    {
       "chart": "bitnami/kafka",
       "version": "32.4.3",
       "base": "",
@@ -1057,7 +1094,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base": "",
       "quirk_class": "hook-delete-policy",
       "route_name": "preserve-cleanup-policy",
@@ -1087,12 +1124,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "",
+      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base": "",
       "quirk_class": "hook-phase",
       "route_name": "postsync-check-or-observation",
@@ -1124,12 +1161,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "",
+      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base": "",
       "quirk_class": "hook-phase",
       "route_name": "preflight-or-presync",
@@ -1161,12 +1198,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "",
+      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base": "",
       "quirk_class": "hook-phase",
       "route_name": "upgrade-action-with-receipt",
@@ -1198,12 +1235,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "",
+      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base": "",
       "quirk_class": "hook-weight-ordering",
       "route_name": "preserve-ordering",
@@ -1233,12 +1270,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "",
+      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base": "",
       "quirk_class": "target-facts",
       "route_name": "target-facts-or-preflight",
@@ -1268,12 +1305,12 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "",
+      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base": "",
       "quirk_class": "webhook-readiness",
       "route_name": "webhook-readiness-observation",
@@ -1301,7 +1338,7 @@
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-      "source_drift": "",
+      "source_drift": "route source version 85.3.0; catalog has 85.3.3, 86.1.0",
       "evidence_or_next_action": "data/hook-lifecycle/receipt-index.csv;data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
     },
     {

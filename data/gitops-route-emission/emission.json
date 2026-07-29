@@ -94,6 +94,37 @@
       ]
     },
     {
+      "chart": "bitnami/contour",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "21.1.4",
+          "routes": []
+        },
+        {
+          "base": "legacy",
+          "recipeVersion": "21.1.4",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "21.1.4",
+          "routes": []
+        }
+      ]
+    },
+    {
       "chart": "bitnami/kafka",
       "hasBuiltVariants": false,
       "variants": [

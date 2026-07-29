@@ -16,3 +16,29 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "contourcert"
+        keys:
+          - "ca.crt"
+          - "tls.crt"
+          - "tls.key"
+        purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+        provisioningMode: "lifecycle-action"
+        suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        deliveryLanes:
+          - "cubInstallerApply"
+      -
+        namespace: "default"
+        name: "envoycert"
+        keys:
+          - "ca.crt"
+          - "tls.crt"
+          - "tls.key"
+        purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+        provisioningMode: "lifecycle-action"
+        suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        deliveryLanes:
+          - "cubInstallerApply"

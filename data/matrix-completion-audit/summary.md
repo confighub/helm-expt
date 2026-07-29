@@ -18,36 +18,36 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-658 non-green cells:
+657 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 443 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
-| `already-decided` | 122 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 48 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-target-or-prereq-fix` | 429 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `already-decided` | 136 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
+| `needs-run` | 47 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 388 |
+| `promotion` | 389 |
 | `G` | 60 |
 | `P` | 60 |
-| `K` | 51 |
 | `L` | 51 |
-| `lifecycle` | 48 |
+| `K` | 50 |
+| `lifecycle` | 47 |
 
 | State | Cells |
 | --- | ---: |
-| `proven` | 179 |
-| `watch` | 122 |
+| `proven` | 167 |
+| `watch` | 136 |
 | `not-applicable-source` | 110 |
-| `blocked` | 102 |
-| `not-applicable-candidate` | 66 |
-| `todo` | 48 |
+| `blocked` | 99 |
+| `not-applicable-candidate` | 67 |
+| `todo` | 47 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (48)
+## needs-run (47)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
@@ -56,9 +56,8 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/contour@21.1.4 | legacy | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
-| bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
+| bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | elastic/eck-operator@3.4.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -102,7 +101,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (443)
+## needs-target-or-prereq-fix (429)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -112,7 +111,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | aqua/trivy-operator@0.32.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | aqua/trivy-operator@0.32.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | argo-cd/argo-cd@9.5.15 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| argo-cd/argo-cd@9.5.15 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | argo-cd/argo-cd@9.5.15 | no-crds | L | blocked | local-live blocked: webhook-cert-lifecycle: deployment/argo-cd-argocd-applicationset-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b845 | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | argo-cd/argo-cd@9.5.15 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | argo-cd/argo-cd@9.5.17 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -150,10 +148,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/contour@21.1.4 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | bitnami/contour@21.1.4 | default | L | blocked | local-live blocked: target-prerequisite: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-67kb6[ContainerCreating ready=false restarts=0;] contour-envoy-jtk4r[PodInitializing ready=false restarts=0;PodInitializing ready=fal) | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | bitnami/contour@21.1.4 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| bitnami/contour@21.1.4 | legacy | G | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
-| bitnami/contour@21.1.4 | legacy | K | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
+| bitnami/contour@21.1.4 | legacy + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | bitnami/contour@21.1.4 | legacy | L | blocked | local-live blocked: target-prerequisite: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
-| bitnami/contour@21.1.4 | legacy | P | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/contour@21.1.4 | legacy | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/contour@21.1.4 | no-crds | L | blocked | local-live blocked: runtime-readiness: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=fal) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | bitnami/contour@21.1.4 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -273,7 +269,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | external-dns/external-dns@1.21.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | external-dns/external-dns@1.21.1 | route53-irsa | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | external-secrets/external-secrets@2.5.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| external-secrets/external-secrets@2.5.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | external-secrets/external-secrets@2.5.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | fairwinds-stable/goldilocks@10.3.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | fairwinds-stable/goldilocks@10.3.0 | cluster-metrics-readonly | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
@@ -311,7 +306,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | grafana/grafana@10.5.15 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | grafana/loki@7.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/loki@7.0.0 | simple-scalable-minio | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| grafana/loki@7.0.0 | single-binary-filesystem | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/promtail@6.17.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/promtail@6.17.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/pyroscope@2.0.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -327,13 +321,11 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | grafana/rollout-operator@0.49.0 | no-crds | L | fail | local-live fail: runtime-readiness: deployment/rollout-operator: not-ready (rollout-operator-5f688cdb68-psdjv[ ready=false restarts=0;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | grafana/rollout-operator@0.49.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/tempo@1.24.4 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| grafana/tempo@1.24.4 | local-persistent | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/tempo@1.24.4 | s3-query-observability | L | blocked | local-live blocked: cloud-or-provider-prerequisite: statefulset/tempo: prerequisite-blocked (stuck creating: missing mount/secret/config) (tempo-0[CreateContainerConfigError ready=false restarts=0; ready=true restarts=0;]) | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
 | grafana/tempo@1.24.4 | s3-query-observability | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | haproxytech/kubernetes-ingress@1.52.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | haproxytech/kubernetes-ingress@1.52.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | hashicorp/consul@2.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| hashicorp/consul@2.0.0 | default-control-plane | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | L | fail | local-live fail: webhook-cert-lifecycle: deployment/consul-consul-connect-injector: not-ready (consul-consul-connect-injector-5f47dfbd9-knxmc[CrashLoopBackOff ready=false restarts=6;] consul-consul-ingress-gateway-7c9f6b86f8-v484m[PodInitializing ready=fa) | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | hashicorp/terraform@1.1.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -347,7 +339,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | hashicorp/terraform@1.1.2 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | hashicorp/vault@0.32.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | hashicorp/vault@0.32.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| hashicorp/vault@0.32.0 | dev-mode | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | hashicorp/vault@0.32.0 | ha-raft-ui + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | hashicorp/vault@0.32.0 | ha-raft-ui | L | blocked | local-live blocked: target-prerequisite: statefulset/vault: prerequisite-blocked (stuck creating: missing mount/secret/config) (vault-0[ContainerCreating ready=false restarts=0;] vault-1[] vault-2[] vault-agent-injector-8c76487db-r7vcn[ ready=true restarts=0;]) | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | hashicorp/vault@0.32.0 | ha-raft-ui | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -356,7 +347,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | ingress-nginx/ingress-nginx@4.15.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | ingress-nginx/ingress-nginx@4.15.1 | admission-disabled | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | ingress-nginx/ingress-nginx@4.15.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
-| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | istio/gateway@1.30.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | istio/gateway@1.30.0 | controller-default-reviewed | L | blocked | local-live blocked: image-dependency: deployment/gateway: image-pull-blocked (gateway-7c598dffd4-w4m4g[ImagePullBackOff ready=false restarts=0;] kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f6) | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | istio/gateway@1.30.0 | controller-default-reviewed | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -388,7 +378,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | jetstack/cert-manager-csi-driver@v0.14.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | jetstack/cert-manager-csi-driver@v0.14.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jetstack/cert-manager@v1.20.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| jetstack/cert-manager@v1.20.2 | crds-enabled | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jetstack/cert-manager@v1.20.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jetstack/trust-manager@v0.22.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | jetstack/trust-manager@v0.22.1 | default | L | fail | local-live fail: runtime-readiness: deployment/trust-manager: not-ready (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilit) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
@@ -409,10 +398,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | linkerd/linkerd-crds@1.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | linkerd/linkerd-crds@1.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | longhorn/longhorn@1.11.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| longhorn/longhorn@1.11.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | longhorn/longhorn@1.11.2 | ui-ingress | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | metrics-server/metrics-server@3.13.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| metrics-server/metrics-server@3.13.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | metrics-server/metrics-server@3.13.0 | external-tls-ca | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | metrics-server/metrics-server@3.13.0 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | minio-operator/operator@7.1.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -500,7 +487,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | prometheus-community/prometheus@29.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/prometheus@29.8.0 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | prometheus-community/prometheus@29.8.0 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
-| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/prometheus@29.8.0 | staging-eu-west | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | prometheus-community/prometheus@29.8.0 | staging-eu-west | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | prometheus-community/prometheus@29.9.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -521,7 +507,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | sealed-secrets/sealed-secrets@2.18.6 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | sealed-secrets/sealed-secrets@2.18.6 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
-| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | sync-secret-rotation | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | stakater/reloader@2.2.12 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | stakater/reloader@2.2.12 | controller-default-reviewed | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -604,12 +589,13 @@ The catalog/model has to change before this can pass.
 | velero/velero@12.0.1 | no-crds | G | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 | velero/velero@12.0.1 | no-crds | P | blocked | render-input: required Velero provider values missing | Create a non-alias base with the required Helm values, value schema, target facts, and receipts, then rerun the live lane. |
 
-## already-decided (122)
+## already-decided (136)
 
 A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.
 
 | Chart | Variant | Lane | State | Reason | Next action |
 | --- | --- | --- | --- | --- | --- |
+| argo-cd/argo-cd@9.5.15 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | argo-cd/argo-cd@9.5.17 | default | G | watch | gitops-runtime: child Argo Application not materialized (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | argo-cd/argo-cd@9.5.17 | default | P | watch | gitops-runtime: child Argo Application not materialized (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | autoscaler/cluster-autoscaler@9.57.0 | default | K | watch | render-input: required Helm values missing (parity passed) | Provide the required values in the base/variant, then the row can move to pass. |
@@ -621,6 +607,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | bitnami/apache@11.4.29 | legacy | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| bitnami/contour@21.1.4 | legacy | G | watch | watch: inspect receipt | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
+| bitnami/contour@21.1.4 | legacy | P | watch | watch: inspect receipt | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | bitnami/contour@21.1.4 | no-crds | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/contour@21.1.4 | no-crds | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | bitnami/elasticsearch@22.1.6 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
@@ -685,32 +673,39 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | elastic/kibana@8.5.1 | default | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/metricbeat@8.5.1 | default | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | elastic/metricbeat@8.5.1 | default | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
+| external-secrets/external-secrets@2.5.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | fluent/fluentd@0.5.3 | default | G | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | fluent/fluentd@0.5.3 | default | P | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | gitlab/gitlab-runner@0.89.0 | default | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | gitlab/gitlab-runner@0.89.0 | default | K | watch | helm-runtime: upstream not ready (parity passed) | Review the runtime residue (crash loop / readiness) on the target and record a runtime-review support artifact. |
 | gitlab/gitlab-runner@0.89.0 | default | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/grafana@10.5.15 | static-passwords | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| grafana/loki@7.0.0 | single-binary-filesystem | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | grafana/pyroscope@2.0.2 | default | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | default | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | ha | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | ha | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | no-crds | G | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | grafana/pyroscope@2.0.2 | no-crds | P | watch | target-runtime: ConfigHub workload not ready (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
+| grafana/tempo@1.24.4 | local-persistent | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | grafana/tempo@1.24.4 | s3-query-observability | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | grafana/tempo@1.24.4 | s3-query-observability | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
+| hashicorp/consul@2.0.0 | default-control-plane | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | hashicorp/terraform@1.1.2 | default | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | hashicorp/terraform@1.1.2 | default | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | hashicorp/terraform@1.1.2 | no-crds | G | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | hashicorp/terraform@1.1.2 | no-crds | P | watch | target-runtime: pod ContainerCreating (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
+| hashicorp/vault@0.32.0 | dev-mode | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | hashicorp/vault@0.32.0 | ha-raft-ui | G | watch | operate-policy: Vault init/unseal readiness (parity passed) | Perform and record the operational step (e.g. Vault init/unseal) for the target scope; see the operating-policy artifact. |
 | hashicorp/vault@0.32.0 | ha-raft-ui | P | watch | operate-policy: Vault init/unseal readiness (parity passed) | Perform and record the operational step (e.g. Vault init/unseal) for the target scope; see the operating-policy artifact. |
+| ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | istio/gateway@1.30.0 | controller-default-reviewed | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | istio/gateway@1.30.0 | controller-default-reviewed | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | istio/gateway@1.30.0 | default | G | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
 | istio/gateway@1.30.0 | default | P | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | Resolve the image by digest, override to a maintained image, or refresh the catalog base with a pullable image, then rerun the live lane. |
+| jetstack/cert-manager@v1.20.2 | crds-enabled | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | jetstack/trust-manager@v0.22.1 | default | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | jetstack/trust-manager@v0.22.1 | default | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | kyverno/kyverno-policies@3.8.0 | default | G | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
@@ -718,6 +713,8 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | kyverno/kyverno-policies@3.8.0 | default | P | watch | gitops-runtime: ClusterPolicy OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | linkerd/linkerd-crds@1.8.0 | default | G | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | linkerd/linkerd-crds@1.8.0 | default | P | watch | gitops-runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
+| longhorn/longhorn@1.11.2 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
+| metrics-server/metrics-server@3.13.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | minio-operator/tenant@7.1.1 | default | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | minio-operator/tenant@7.1.1 | default | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | nats/surveyor@0.20.9 | default-reviewed | G | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
@@ -728,8 +725,10 @@ A watch row with a recorded product decision: evidence plus a named residue. Usa
 | open-telemetry/opentelemetry-operator@0.114.0 | default | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | opencost/opencost@2.5.21 | default | G | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
 | opencost/opencost@2.5.21 | default | P | watch | target-runtime: pod config/runtime errors (parity passed) | Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact. |
+| prometheus-community/prometheus@29.8.0 | server-only-ephemeral | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | prometheus-community/prometheus@29.9.0 | default | G | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | prometheus-community/prometheus@29.9.0 | default | P | watch | gitops-runtime: StatefulSet OutOfSync health Healthy (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
+| secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default | promotion | watch | server-side promotion mechanics passed, but changeset-bound promote failed and required the no-changeset fallback | ConfigHub v0.1.80 includes the changeset-bound add-new-units fix; rerun this promotion proof to replace the old fallback receipt with a full pass |
 | traefik/traefik@40.2.0 | no-crds | G | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 | traefik/traefik@40.2.0 | no-crds | P | watch | gitops-runtime: Argo health Progressing (parity passed) | Review the controller-health residue (aggregate vs per-resource health, sync state) and refresh the gitops-runtime-review support artifact. |
 

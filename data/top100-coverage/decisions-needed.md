@@ -34,7 +34,7 @@ recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml;reci
 
 ## bitnami/contour@21.1.4
 
-Current evidence: in-confighub-proof.
+Current evidence: two-cluster-kind-parity.
 
 Named limitation: existing-secret (chart ships no Secret toggle).
 

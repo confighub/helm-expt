@@ -56,7 +56,7 @@ spec:
   proofSummary:
     adoptionBucket: "limitation-decision-first"
     userStatus: "proof-grade-with-named-limitation"
-    strongestEvidence: "in-confighub-proof"
+    strongestEvidence: "two-cluster-kind-parity"
     proofLanes:
       renderParity: "3/3"
       inConfigHub: "3/3"
@@ -71,7 +71,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4"
     installer: "packages/bitnami/contour/21.1.4/installer.yaml"
     receipt: "recipes/bitnami/contour/21.1.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a"
+    deterministicBundleSHA256: "8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -102,8 +102,32 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "ca.crt"
+              - "tls.crt"
+              - "tls.key"
+            name: "contourcert"
+            namespace: "default"
+            provisioningMode: "lifecycle-action"
+            purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+            suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "ca.crt"
+              - "tls.crt"
+              - "tls.key"
+            name: "envoycert"
+            namespace: "default"
+            provisioningMode: "lifecycle-action"
+            purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+            suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+      targetFactSummary: "required Secret default/contourcert keys ca.crt,tls.crt,tls.key; required Secret default/envoycert keys ca.crt,tls.crt,tls.key"
       packageBase:
         name: "default"
         path: "packages/bitnami/contour/21.1.4/bases/default"
@@ -164,8 +188,32 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "ca.crt"
+              - "tls.crt"
+              - "tls.key"
+            name: "contourcert"
+            namespace: "default"
+            provisioningMode: "lifecycle-action"
+            purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+            suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "ca.crt"
+              - "tls.crt"
+              - "tls.key"
+            name: "envoycert"
+            namespace: "default"
+            provisioningMode: "lifecycle-action"
+            purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+            suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+      targetFactSummary: "required Secret default/contourcert keys ca.crt,tls.crt,tls.key; required Secret default/envoycert keys ca.crt,tls.crt,tls.key"
       packageBase:
         name: "no-crds"
         path: "packages/bitnami/contour/21.1.4/bases/no-crds"
@@ -219,15 +267,39 @@ spec:
       variant: "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
       namespace: "default"
       releaseName: "contour"
-      valuesProfile: "recipes/bitnami/contour/21.1.4/effective-values.yaml"
+      valuesProfile: "recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml"
       capabilityProfile:
         apiVersions:
           []
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "ca.crt"
+              - "tls.crt"
+              - "tls.key"
+            name: "contourcert"
+            namespace: "default"
+            provisioningMode: "lifecycle-action"
+            purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+            suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+            keys:
+              - "ca.crt"
+              - "tls.crt"
+              - "tls.key"
+            name: "envoycert"
+            namespace: "default"
+            provisioningMode: "lifecycle-action"
+            purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+            suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+      targetFactSummary: "required Secret default/contourcert keys ca.crt,tls.crt,tls.key; required Secret default/envoycert keys ca.crt,tls.crt,tls.key"
       packageBase:
         name: "legacy"
         path: "packages/bitnami/contour/21.1.4/bases/legacy"

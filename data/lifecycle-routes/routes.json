@@ -181,6 +181,42 @@
       "evidence_or_next_action": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/minimal-crds/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/receipts/install-gate.yaml;runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-minimal-crds/observation-receipt.yaml;runs/argo-workflows-minimal-crds-confighub-proof/latest/confighub-proof-receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml;runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml"
     },
     {
+      "chart": "bitnami/contour",
+      "version": "21.1.4",
+      "base_or_variant": "legacy",
+      "quirk_class": "hook-phase",
+      "hook_phases": "pre-install, pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync",
+      "default_route": "preflight-or-presync",
+      "alternatives": [
+        {
+          "route": "argocd-or-flux-lifecycle-hook",
+          "requirement": "a GitOps controller (Argo CD/Flux) that runs sync hooks or sync waves"
+        },
+        {
+          "route": "target-facts-or-preflight",
+          "requirement": "the prerequisite supplied as a target fact or preflight before apply"
+        },
+        {
+          "route": "refuse",
+          "requirement": "accept that the catalog will not run this automatically and do it manually"
+        }
+      ],
+      "route_requirements": "Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml;recipes/bitnami/contour/21.1.4/lifecycle-route.yaml;recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml;packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh;runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml;runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+    },
+    {
       "chart": "bitnami/kafka",
       "version": "32.4.3",
       "base_or_variant": "",
@@ -982,7 +1018,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base_or_variant": "",
       "quirk_class": "hook-delete-policy",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -1014,7 +1050,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -1050,7 +1086,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -1086,7 +1122,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base_or_variant": "",
       "quirk_class": "hook-phase",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -1122,7 +1158,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base_or_variant": "",
       "quirk_class": "hook-weight-ordering",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -1154,7 +1190,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base_or_variant": "",
       "quirk_class": "target-facts",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",
@@ -1186,7 +1222,7 @@
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
+      "version": "85.3.0",
       "base_or_variant": "",
       "quirk_class": "webhook-readiness",
       "hook_phases": "post-install, post-upgrade, pre-install, pre-upgrade",

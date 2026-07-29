@@ -27,11 +27,7 @@ spec:
     - path: runs/consul-confighub-proof/latest/confighub-proof-receipt.yaml
       claim: The ConfigHub proof records the secure base target fact requirements and suggested kubectl Secret sources.
     - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml
-      claim: The two-cluster parity lane staged four target Secrets for both Helm and cub installer legs and semantic parity passed.
-    - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-helm.yaml
-      claim: Target fact staging evidence exists for the regular Helm leg.
-    - path: runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-installer.yaml
-      claim: Target fact staging evidence exists for the cub installer leg.
+      claim: The two-cluster parity receipt names all four target Secrets and their required keys for both Helm and cub installer, records both staging checks as passing, and records semantic parity without committing Secret values.
   affectedVariants:
     - secure-mesh-existing-secrets
   acceptedPolicy:

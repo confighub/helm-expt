@@ -5479,7 +5479,13 @@ function packagedRequirementPath(value) {
 function packagedRequirementDescription(requirement) {
   const path = packagedRequirementPath(requirement.suggestedSource);
   if (!path) return "";
-  return `Included in the OCI package as <code>${escapeHtml(path)}</code>. The generated try script leaves existing CRDs under their current owner, installs missing ones, and waits for them before the workload.`;
+  if (String(requirement.name ?? "").startsWith("CRD ")) {
+    return `Included in the OCI package as <code>${escapeHtml(path)}</code>. The generated try script leaves existing CRDs under their current owner, installs missing ones, and waits for them before the workload.`;
+  }
+  if (String(requirement.name ?? "").startsWith("Secret ")) {
+    return `Included in the OCI package as <code>${escapeHtml(path)}</code>. The generated try script leaves complete existing Secrets under their current owner; otherwise it runs the packaged setup action and checks every required key before the workload.`;
+  }
+  return `Included in the OCI package as <code>${escapeHtml(path)}</code>. Read the recorded requirement and packaged source before applying the workload.`;
 }
 
 function requirementSourceHtml(requirement) {
@@ -5538,6 +5544,9 @@ function presetTryScript(entry, row) {
   const packagedRequirements = remainingRequirements.filter((requirement) =>
     Boolean(packagedRequirementPath(requirement.suggestedSource)),
   );
+  const packagedCrdRequirements = packagedRequirements.filter((requirement) =>
+    String(requirement.name ?? "").startsWith("CRD "),
+  );
   const lines = presetScriptPreamble(entry, row, [
     "Path: pull the package, render this base variant locally, read the objects,",
     "then apply them with kubectl. No ConfigHub account is needed.",
@@ -5555,7 +5564,7 @@ function presetTryScript(entry, row) {
     'say "Read what was rendered; nothing has touched the cluster yet"',
     `ls ${workDir}/out/manifests`,
   );
-  if (packagedRequirements.length) {
+  if (packagedCrdRequirements.length) {
     lines.push(
       "",
       "wait_for_crd() {",
@@ -5599,32 +5608,108 @@ function presetTryScript(entry, row) {
     const crdNames = groupedRequirements
       .map((requirement) => /^CRD\s+(.+)$/.exec(String(requirement.name ?? ""))?.[1])
       .filter(Boolean);
-    const label = crdNames.length === 1
-      ? `Check the ${crdNames[0]} CRD included with this package`
-      : `Check ${crdNames.length} CRDs included with this package`;
-    lines.push(
-      "",
-      `say "${shellStepText(label)}"`,
-      "missing_crds=0",
-    );
-    for (const crdName of crdNames) {
+    const secretRequirements = groupedRequirements
+      .map((requirement) => {
+        const match = /^Secret\s+([^/]+)\/([^\s]+)(?:\s+keys?\s+(.+))?$/.exec(String(requirement.name ?? ""));
+        if (!match) return null;
+        return {
+          namespace: match[1],
+          name: match[2],
+          keys: match[3] ? match[3].split(",").filter(Boolean) : [],
+        };
+      })
+      .filter(Boolean);
+    if (crdNames.length) {
+      const label = crdNames.length === 1
+        ? `Check the ${crdNames[0]} CRD included with this package`
+        : `Check ${crdNames.length} CRDs included with this package`;
       lines.push(
-        `if ! kubectl get crd/${crdName} >/dev/null 2>&1; then`,
-        "  missing_crds=1",
+        "",
+        `say "${shellStepText(label)}"`,
+        "missing_crds=0",
+      );
+      for (const crdName of crdNames) {
+        lines.push(
+          `if ! kubectl get crd/${crdName} >/dev/null 2>&1; then`,
+          "  missing_crds=1",
+          "fi",
+        );
+      }
+      lines.push(
+        'if [ "$missing_crds" -eq 1 ]; then',
+        path.endsWith("/kustomization.yaml")
+          ? `  kubectl apply --server-side -k ${workDir}/package/${posix.dirname(path)}`
+          : `  kubectl apply --server-side -f ${workDir}/package/${path}`,
+        "else",
+        '  say "The required CRDs already exist; leave them under their current owner"',
         "fi",
       );
+      for (const crdName of crdNames) {
+        lines.push(`wait_for_crd ${crdName}`);
+      }
     }
-    lines.push(
-      'if [ "$missing_crds" -eq 1 ]; then',
-      path.endsWith("/kustomization.yaml")
-        ? `  kubectl apply --server-side -k ${workDir}/package/${posix.dirname(path)}`
-        : `  kubectl apply --server-side -f ${workDir}/package/${path}`,
-      "else",
-      '  say "The required CRDs already exist; leave them under their current owner"',
-      "fi",
-    );
-    for (const crdName of crdNames) {
-      lines.push(`wait_for_crd ${crdName}`);
+    if (secretRequirements.length) {
+      const secretLabel = secretRequirements.length === 1
+        ? `Check the ${secretRequirements[0].namespace}/${secretRequirements[0].name} Secret required by this base`
+        : `Check ${secretRequirements.length} Secrets required by this base`;
+      const secretNamespaces = [...new Set(
+        secretRequirements.map((secret) => secret.namespace),
+      )].sort();
+      lines.push(
+        "",
+        `say "${shellStepText(secretLabel)}"`,
+        "missing_packaged_secrets=0",
+      );
+      for (const secret of secretRequirements) {
+        lines.push(
+          `if ! kubectl -n ${secret.namespace} get secret/${secret.name} >/dev/null 2>&1; then`,
+          "  missing_packaged_secrets=1",
+          "fi",
+        );
+        for (const key of secret.keys) {
+          const jsonPathKey = key.replaceAll(".", "\\.");
+          lines.push(
+            `if [ -z "$(kubectl -n ${secret.namespace} get secret/${secret.name} -o "jsonpath={.data.${jsonPathKey}}" 2>/dev/null)" ]; then`,
+            "  missing_packaged_secrets=1",
+            "fi",
+          );
+        }
+      }
+      lines.push(
+        'if [ "$missing_packaged_secrets" -eq 1 ]; then',
+      );
+      if (path.endsWith(".sh")) {
+        for (const namespace of secretNamespaces) {
+          lines.push(`  bash ${workDir}/package/${path} ${namespace}`);
+        }
+      } else {
+        lines.push(
+          path.endsWith("/kustomization.yaml")
+            ? `  kubectl apply -k ${workDir}/package/${posix.dirname(path)}`
+            : `  kubectl apply -f ${workDir}/package/${path}`,
+        );
+      }
+      lines.push(
+        "else",
+        '  say "The required Secrets already exist and contain every recorded key; leave them under their current owner"',
+        "fi",
+      );
+      for (const secret of secretRequirements) {
+        lines.push(`kubectl -n ${secret.namespace} get secret/${secret.name} >/dev/null`);
+        for (const key of secret.keys) {
+          const jsonPathKey = key.replaceAll(".", "\\.");
+          lines.push(
+            `test -n "$(kubectl -n ${secret.namespace} get secret/${secret.name} -o "jsonpath={.data.${jsonPathKey}}")"`,
+          );
+        }
+      }
+    }
+    if (!crdNames.length && !secretRequirements.length) {
+      lines.push(
+        "",
+        `printf 'The packaged prerequisite ${shellStepText(path)} has no supported CRD or Secret requirement type. Read the chart page before applying.\\n' >&2`,
+        "exit 1",
+      );
     }
   }
   for (const requirement of runnable) {
@@ -6396,6 +6481,7 @@ function matrixEvidenceLabel(value) {
     "target-bound-derived": "Target-bound derived variant receipt",
     "live-parity": "Live Helm-vs-ConfigHub comparison receipt",
     "render-parity": "Helm render parity receipt",
+    "in-confighub-proof": "ConfigHub upload and variant receipt",
     "source-lock": "Pinned chart source and dependency lock",
     "candidate-plan": "Planning evidence only",
     "not recorded": "No evidence recorded yet",
@@ -6453,11 +6539,14 @@ function renderIntentForRow(catalog, row) {
       && intent.base === row.variant) ?? null;
 }
 
-function lifecycleContractText(intent) {
+function lifecycleContractText(intent, packagedActions = []) {
   if (!intent) return "No render-intent record is available for this base.";
   if (intent.lifecycle_contract_state === "attached") {
     const count = Number(intent.lifecycle_route_count || 0);
     return `${count} chart-specific lifecycle route${count === 1 ? " is" : "s are"} recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run.`;
+  }
+  if (packagedActions.length > 0) {
+    return `The package contains ${packagedActions.length === 1 ? "a setup action" : `${packagedActions.length} setup actions`} that the generated try script runs before apply. Controller-specific execution is claimed only when that path has its own receipt.`;
   }
   if (intent.lifecycle_contract_state === "no-route-required") {
     return "The current review found no separate hook or setup route for this base.";
@@ -6520,6 +6609,7 @@ function matrixRowCard(row, entry, catalog) {
   const reason = cleanPageActionText(row.active_proof_reason || row.variant_promotion_reason || row.hard_gap || "");
   const rowLinks = matrixRowLinks(row, catalog);
   const renderIntent = renderIntentForRow(catalog, row);
+  const packagedActions = packagedSetupActions(entry, row);
   const humanReason = reason ? currentPathReason(row, renderIntent, reason) : "";
   const humanNextAction = currentPathNextAction(row, renderIntent, nextAction, reason);
   const renderIntentLink = renderIntent?.intent_path
@@ -6549,9 +6639,9 @@ function matrixRowCard(row, entry, catalog) {
           <dt>How to run</dt><dd>${command}</dd>${scriptLinks ? `
           <dt>Scripts</dt><dd>${scriptLinks}</dd>` : ""}
           <dt>Evidence</dt><dd>${escapeHtml(matrixEvidenceLabel(row.strongest_evidence || row.outcome_level || ""))}</dd>
-          <dt>Hooks/actions</dt><dd>${escapeHtml(matrixHookSummary(row))}</dd>
-          <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row))}</dd>${renderIntent ? `
-          <dt>Lifecycle record</dt><dd>${escapeHtml(lifecycleContractText(renderIntent))}${renderIntentLink}</dd>
+          <dt>Hooks/actions</dt><dd>${escapeHtml(matrixHookSummary(row, packagedActions))}</dd>
+          <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row, packagedActions))}</dd>${renderIntent ? `
+          <dt>Lifecycle record</dt><dd>${escapeHtml(lifecycleContractText(renderIntent, packagedActions))}${renderIntentLink}</dd>
           <dt>Prerequisites</dt><dd>${escapeHtml(targetContractText(renderIntent))}</dd>` : ""}
           <dt>Next</dt><dd>${escapeHtml(humanNextAction)}</dd>
           ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(humanReason)}</dd>` : ""}
@@ -6612,13 +6702,32 @@ function presetWorkDir(entry, row) {
   return `./${presetStem(entry, row)}`;
 }
 
-function matrixHookSummary(row) {
+function packagedSetupActions(entry, row) {
+  return [...new Set(
+    packageRequirementsForBase(entry, row.variant)
+      .map((requirement) => packagedRequirementPath(requirement.suggestedSource))
+      .filter((path) => path.endsWith(".sh")),
+  )];
+}
+
+function matrixHookSummary(row, packagedActions = []) {
   const parts = [];
-  if (row.hook_count) parts.push(`${row.hook_count} source hook(s)`);
-  if (row.hook_disposition) parts.push(row.hook_disposition);
-  if (row.hook_live_status && row.hook_live_status !== "n/a") parts.push(`live: ${row.hook_live_status}`);
+  if (row.hook_count) {
+    const hookCount = Number(row.hook_count);
+    parts.push(`${row.hook_count} source hook${hookCount === 1 ? "" : "s"}`);
+  }
+  if (row.hook_disposition) parts.push(`hook route: ${row.hook_disposition}`);
+  if (row.hook_live_status && row.hook_live_status !== "n/a") {
+    parts.push(`live action receipt: ${row.hook_live_status}`);
+  }
   if (row.lifecycle_route_contract && row.lifecycle_route_contract !== "n/a") {
-    parts.push(`route: ${row.lifecycle_route_contract}`);
+    const routeCount = Number(row.lifecycle_route_count || 0);
+    parts.push(routeCount > 0
+      ? `${routeCount} recorded lifecycle route${routeCount === 1 ? "" : "s"}`
+      : "lifecycle route needs review");
+  }
+  if (packagedActions.length > 0) {
+    parts.push(`packaged setup: ${packagedActions.join(", ")}`);
   }
   return parts.join("; ") || "No separate hook or action for this row.";
 }
@@ -6630,12 +6739,15 @@ function splitSemicolonList(value) {
     .filter((item) => item && item !== "-");
 }
 
-function matrixActionOwnerSummary(row) {
+function matrixActionOwnerSummary(row, packagedActions = []) {
   const modes = String(row.lifecycle_route_execution_modes || "")
     .split(/[;,]/)
     .map((mode) => mode.trim())
     .filter(Boolean);
   if (!modes.length || modes.every((mode) => mode === "n/a")) {
+    if (packagedActions.length > 0) {
+      return "The generated try script runs the packaged setup before apply. Argo CD and Flux need their own recorded route.";
+    }
     if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the route receipt before delivery";
     return "No separate action runner for this row.";
   }
@@ -6643,15 +6755,15 @@ function matrixActionOwnerSummary(row) {
     const [name, count] = mode.split(":");
     const label = {
       "target-owned": "Kubernetes or the delivery controller",
-      "user-executes": "you or your delivery pipeline",
+      "user-executes": "You or your delivery pipeline",
       "confighub-executes": "ConfigHub",
     }[name] ?? executionModePlain(name);
     return count ? `${label} (${count})` : label;
   });
   const automatic = String(row.lifecycle_route_safe_automatic || "").toLowerCase();
   const suffix = automatic.includes("true")
-    ? "an automatic run has evidence"
-    : "no step is called automatic until its run has a receipt";
+    ? "the automatic run has a receipt"
+    : "the full record shows which delivery paths have receipts";
   return `${labels.join(", ")}; ${suffix}`;
 }
 

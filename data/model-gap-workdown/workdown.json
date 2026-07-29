@@ -74,7 +74,7 @@
       "result": "blocked",
       "model_gap_kind": "missing-crd",
       "failure_signature": "semantic object parity issue: missing=5 extra=1 diffs=0; missing=apiextensions.k8s.io/v1|CustomResourceDefinition||contourconfigurations.projectcontour.io; apie",
-      "sibling_base_passes": "none",
+      "sibling_base_passes": "legacy (K pass)",
       "recommended_action": "design-new-base",
       "owner_class": "catalog-modeling",
       "rerun_command": "npm run kind-parity:run -- --chart bitnami/contour --version 21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts",

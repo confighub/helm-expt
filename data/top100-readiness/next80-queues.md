@@ -69,7 +69,7 @@ They should not disappear into a generic promotion-review queue.
 | `bitnami/spark@10.0.3` | `default`<br>`ha`<br>`legacy` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/zookeeper@13.8.7` | `default`<br>`ha`<br>`legacy` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/phpmyadmin@20.0.0` | `default`<br>`legacy` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/contour@21.1.4` | `default`<br>`no-crds`<br>`legacy` | `in-confighub-proof` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/contour@21.1.4` | `default`<br>`no-crds`<br>`legacy` | `two-cluster-kind-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/apache@11.4.29` | `default`<br>`legacy` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 
 ### User-Shaped Variant Work
@@ -88,7 +88,7 @@ They should not disappear into a generic promotion-review queue.
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
-- Most rows still have render parity as their strongest evidence. 4 row(s)
+- Most rows still have render parity as their strongest evidence. 5 row(s)
   now have two-cluster kind parity, meaning regular Helm and `cub installer`
   reached equivalent live outcomes in separate vanilla kind clusters.
 - Promotion needs useful variants, selected live evidence, and any target facts,

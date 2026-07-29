@@ -190,6 +190,12 @@ function buildIntent(
         ? "observed-action-records"
         : "none-declared-or-observed";
   const lifecycleCoverage = lifecycleContractCoverage(row, lifecycleRoutes);
+  const lifecycleRouteCount = lifecycleRoutes.length;
+  const lifecycleDispositions = summarizeRouteValues(lifecycleRoutes, "disposition");
+  const lifecycleExecutionModes = summarizeRouteValues(lifecycleRoutes, "executionMode");
+  const lifecycleSafeAutomatic = lifecycleRouteCount > 0
+    ? `${lifecycleRoutes.filter((route) => route.automatic === true).length}/${lifecycleRouteCount}`
+    : "n/a";
   const targetCoverage = targetFactCoverage({
     declaredTargetFactCount,
     declaredTargetFactsPresent,
@@ -257,11 +263,11 @@ function buildIntent(
           : {}),
       },
       lifecycle: {
-        routeContract: row.lifecycle_route_contract || "n/a",
-        routeCount: row.lifecycle_route_count || "0",
-        dispositions: row.lifecycle_route_dispositions || "n/a",
-        executionModes: row.lifecycle_route_execution_modes || "n/a",
-        safeAutomatic: row.lifecycle_route_safe_automatic || "n/a",
+        routeContract: lifecycleRouteCount > 0 ? "yes" : row.lifecycle_route_contract || "n/a",
+        routeCount: String(lifecycleRouteCount),
+        dispositions: lifecycleDispositions,
+        executionModes: lifecycleExecutionModes,
+        safeAutomatic: lifecycleSafeAutomatic,
         contractPath: row.lifecycle_route_contract_path || "",
         jsonPath: row.lifecycle_route_json_path || "",
         variantRoutes: lifecycleRoutes,
@@ -432,6 +438,16 @@ function asStringList(value) {
 
 function uniqueStrings(values) {
   return [...new Set(values.map(String).filter(Boolean))];
+}
+
+function summarizeRouteValues(routes, field) {
+  const counts = countBy(routes, (route) => route[field]);
+  const entries = Object.entries(counts)
+    .filter(([value]) => value)
+    .sort(([left], [right]) => left.localeCompare(right));
+  return entries.length
+    ? entries.map(([value, count]) => `${value}:${count}`).join(",")
+    : "n/a";
 }
 
 function lifecycleContractCoverage(row, routes) {

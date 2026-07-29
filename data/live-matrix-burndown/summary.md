@@ -19,19 +19,19 @@ For the cell-level completion count, use
 
 | Metric | Rows |
 | --- | ---: |
-| Matrix variant rows | 388 |
+| Matrix variant rows | 389 |
 | Variants needing at least one live command | 96 |
-| Live commands remaining | 143 |
+| Live commands remaining | 142 |
 | GitOps/OCI + live Helm-vs-ConfigHub commands | 73 |
-| Two-cluster kind parity commands | 70 |
-| Watch/blocked/review rows | 134 |
-| Ready-to-run todo rows | 9 |
+| Two-cluster kind parity commands | 69 |
+| Watch/blocked/review rows | 135 |
+| Ready-to-run todo rows | 7 |
 
 ## By Work Type
 
 | Work type | Rows |
 | --- | ---: |
-| `kind-parity` | 70 |
+| `kind-parity` | 69 |
 | `live-parity` | 73 |
 
 ## By Current Status
@@ -39,8 +39,8 @@ For the cell-level completion count, use
 | Status | Rows |
 | --- | ---: |
 | `blocked` | 59 |
-| `todo` | 29 |
-| `watch` | 55 |
+| `todo` | 27 |
+| `watch` | 56 |
 
 ## By Run Readiness
 
@@ -49,8 +49,8 @@ For the cell-level completion count, use
 | `inspect-diff-first` | 16 |
 | `inspect-receipt-first` | 2 |
 | `model-or-stage-first` | 71 |
-| `ready-to-run` | 9 |
-| `review-target-first` | 45 |
+| `ready-to-run` | 7 |
+| `review-target-first` | 46 |
 
 Rows marked `model-or-stage-first` are not safe copy-paste commands yet. For
 example, a two-cluster kind row may need a versioned receipt path before rerun
@@ -69,6 +69,7 @@ claim.
 | live-parity | bitnami/apache | 11.4.29 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/apache | 11.4.29 | legacy | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-apache-legacy/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-apache-legacy/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/contour | 21.1.4 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
+| live-parity | bitnami/contour | 21.1.4 | legacy | G=watch;P=watch | watch: inspect receipt |  | [runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/contour | 21.1.4 | no-crds | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/elasticsearch | 22.1.6 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-elasticsearch-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-elasticsearch-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/elasticsearch | 22.1.6 | ha | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts |
@@ -83,7 +84,6 @@ claim.
 | live-parity | bitnami/phpmyadmin | 20.0.0 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-phpmyadmin-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/phpmyadmin | 20.0.0 | legacy | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-phpmyadmin-legacy/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts |
 | live-parity | bitnami/spark | 10.0.3 | default | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-spark-default/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base default --repo-url oci://registry-1.docker.io/bitnamicharts |
-| live-parity | bitnami/spark | 10.0.3 | ha | G=watch;P=watch | remote-image: image pull failed or pinned image is unavailable (parity passed) | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) | [runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml](../../runs/live-helm-confighub-compare/bitnami-spark-ha/receipt.yaml) | npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base ha --repo-url oci://registry-1.docker.io/bitnamicharts |
 
 ## Next Ready Live-Parity Commands
 
@@ -92,7 +92,6 @@ generated priority. They are good candidates for a serial live block.
 
 | Chart | Version | Base | Catalog Tier | Lane Cells | Command |
 | --- | --- | --- | --- | --- | --- |
-| bitnami/contour | 21.1.4 | legacy | next80-proof-grade | G=todo;P=todo | npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy |
 | bitnami/redis | 25.5.3 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east |
 | grafana/grafana | 10.5.15 | customer-acme-prod | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod |
 | grafana/grafana | 10.5.15 | prod-us-east | derived-variant | G=todo;P=n/a | npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east |

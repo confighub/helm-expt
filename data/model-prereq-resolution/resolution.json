@@ -63,7 +63,7 @@
       "resolution_path": "external-crds-base",
       "variant_role": "CRD ownership base",
       "recommended_variant_or_action": "treat no-crds as an external-crds base, or add an explicit external-crds alias with CRD target prerequisites",
-      "existing_off_ramp": "",
+      "existing_off_ramp": "legacy (K pass)",
       "first_step": "make the CRD ownership choice visible in the base name and target-prerequisite action packet",
       "evidence_needed": "fresh K receipt after CRDs are staged, or a CRD-rendering sibling selected as the supported base",
       "rerun_command": "npm run kind-parity:run -- --chart bitnami/contour --version 21.1.4 --base no-crds --repo-url oci://registry-1.docker.io/bitnamicharts",
@@ -425,6 +425,23 @@
       "evidence_needed": "a bound PVC / a target with the required topology; then a fresh G/P parity receipt for this base",
       "rerun_command": "npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default",
       "source_evidence": "runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
+    },
+    {
+      "source_queue": "target-prerequisite",
+      "chart": "bitnami/contour",
+      "version": "21.1.4",
+      "base": "legacy",
+      "lane": "G/P",
+      "current_result": "watch",
+      "gap_kind": "unknown",
+      "resolution_path": "operator-review-first",
+      "variant_role": "no variant until cause is known",
+      "recommended_variant_or_action": "review the runtime residue before creating a variant",
+      "existing_off_ramp": "",
+      "first_step": "inspect pod events/logs and classify the missing condition before modeling a base or target fact",
+      "evidence_needed": "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base",
+      "rerun_command": "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts",
+      "source_evidence": "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
     },
     {
       "source_queue": "target-prerequisite",

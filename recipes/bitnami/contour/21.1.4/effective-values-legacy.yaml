@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-contour-21.1.4-legacy"
+  labels:
+    confighub.io/chart: "bitnami/contour"
+    confighub.io/version: "21.1.4"
+    confighub.io/variant: "legacy"
+spec:
+  profile: "legacy-image-proof"
+  renderDelta: "use the frozen bitnamilegacy contour and envoy repositories"
+  mergedValuesCaptured: false
+  values:
+    global:
+      security:
+        allowInsecureImages: true
+    contour:
+      image:
+        repository: "bitnamilegacy/contour"
+    envoy:
+      image:
+        repository: "bitnamilegacy/envoy"

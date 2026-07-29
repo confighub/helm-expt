@@ -12,6 +12,12 @@ Phase 2 of [hook-route-execution-plan.md](../../docs/planning/hook-route-executi
 | default@1.0.14 | crd-install → `preflight-or-presync-crd-apply` | PreSync · sync-wave -2 · ServerSideApply | HelmRelease .spec.install.crds=Create (or apply CRDs first) |
 | minimal-crds@1.0.14 | crd-install → `self-contained-crd-base` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 
+## bitnami/contour
+
+| Base | Route | Argo CD | Flux |
+| --- | --- | --- | --- |
+| legacy@21.1.4 | hook-phase → `preflight-or-presync` | PreSync · sync-wave -1 | apply before the release (Kustomization dependsOn) |
+
 ## gatekeeper/gatekeeper
 
 | Base | Route | Argo CD | Flux |

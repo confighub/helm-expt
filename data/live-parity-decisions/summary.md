@@ -25,7 +25,7 @@ Forms: [decisions.csv](./decisions.csv), [decisions.json](./decisions.json).
 
 ## This batch
 
-59 non-pass rows: 51 watch, 8 blocked.
+60 non-pass rows: 52 watch, 8 blocked.
 3 are resolved by the **user** (stage a prerequisite); 5
 need **catalog/model** work; the rest are GitOps controller-health, runtime, or
 operational residues to review. In every watch row, semantic parity already
@@ -34,7 +34,7 @@ passed — the residue is operational, not a config mismatch.
 | Residue category | Rows |
 | --- | ---: |
 | `remote-image` | 20 |
-| `target-runtime` | 15 |
+| `target-runtime` | 16 |
 | `gitops-runtime` | 14 |
 | `target-prerequisite` | 3 |
 | `capability-profile` | 2 |
@@ -46,7 +46,7 @@ passed — the residue is operational, not a config mismatch.
 | Who fixes it | Rows |
 | --- | ---: |
 | `catalog or image publisher` | 20 |
-| `needs runtime review` | 15 |
+| `needs runtime review` | 16 |
 | `needs GitOps controller-health review` | 14 |
 | `catalog` | 5 |
 | `user` | 3 |
@@ -62,6 +62,7 @@ passed — the residue is operational, not a config mismatch.
 | bitnami/apache@11.4.29 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/apache@11.4.29 | legacy | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/contour@21.1.4 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
+| bitnami/contour@21.1.4 | legacy | watch | target-runtime | needs runtime review | watch — config correct, runtime unconfirmed |
 | bitnami/contour@21.1.4 | no-crds | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/elasticsearch@22.1.6 | default | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |
 | bitnami/elasticsearch@22.1.6 | ha | watch | remote-image | catalog or image publisher | watch — image reference must be resolved |

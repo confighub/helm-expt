@@ -767,10 +767,10 @@ After any apply, the honest check is **cub-scout** — `object-set-matches`,
 - **Status:** Not ready yet (`not-ready-yet`)
 - **Support (claim):** decision-needed-first
 - **Evidence depth:** proof-grade-with-named-limitation (render parity 3/3, local live 0/3, live parity 0/3)
-- **Recommended base:** `default`
+- **Recommended base:** `legacy`
 - **You must provide/decide:** an existing Secret for some bases (NOT built - chart ships no Secret toggle); a CRD ownership choice (crds vs no-crds base); target facts at variant time; a decision on the named limitation before use
 - **Quirks & disposition:** crds;generated-secrets;existing-secret;extension-slots;install-vs-upgrade-divergence;lookup;generated-facts;tpl;capabilities;rbac — exact rendered objects with render parity and receipts; generated Secrets separated out of the published artifact; CRD handling split into explicit bases; extension slots routed to reviewed bases; install-vs-upgrade render divergence captured per revision; cluster lookups lifted into declared target facts
-- **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md)
+- **Skill:** hook-and-secret-lifecycle (docs/skills/hook-and-secret-lifecycle.md; docs/skills/target-facts-and-lifecycle.md; docs/skills/large-app-evidence-funnel.md; docs/skills/live-parity.md)
 - **Post-apply check:** After apply, confirm convergence with cub-scout (`object-set-matches`, `prerequisites-met`, `workloads-converged`) — "created" is not "working". `prerequisites-met` will flag the missing prerequisite before you debug pods.
 - **Next action:** review limitation before promotion: existing-secret (chart ships no Secret toggle)
 

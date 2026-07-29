@@ -32,6 +32,22 @@
         <tr><td>crd-install <span class="rt">self-contained-crd-base</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
       </tbody></table>
     </section>
+    <section><h2>bitnami/contour</h2>
+      <h4>default@21.1.4</h4>
+      <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
+
+      </tbody></table>
+
+      <h4>legacy@21.1.4</h4>
+      <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
+        <tr><td>hook-phase <span class="rt">preflight-or-presync</span></td><td><span class="chip ok">PreSync · sync-wave -1</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
+      </tbody></table>
+
+      <h4>no-crds@21.1.4</h4>
+      <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
+
+      </tbody></table>
+    </section>
     <section><h2>gatekeeper/gatekeeper</h2>
       <h4>default@3.22.2</h4>
       <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>

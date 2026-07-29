@@ -13,11 +13,11 @@ proof of automated execution. See
 for the sibling image story, and
 [residue-families](../../docs/reference/residue-families.md) for the vocabulary.
 
-## 39 action packets
+## 40 action packets
 
 | Action kind | Rows |
 | --- | ---: |
-| `operator-review` | 19 |
+| `operator-review` | 20 |
 | `install-crds` | 6 |
 | `create-namespace` | 4 |
 | `provide-external-service` | 4 |
@@ -27,7 +27,7 @@ for the sibling image story, and
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 26 |
+| `operator-review` | 27 |
 | `user-stage` | 12 |
 | `target-policy` | 1 |
 
@@ -37,6 +37,7 @@ for the sibling image story, and
 | --- | --- | --- | --- | --- | --- |
 | autoscaler/cluster-autoscaler@9.57.0 | default | K | unknown-preflight | the missing Helm input value(s) | `npm run kind-parity:run -- --chart autoscaler/cluster-autoscaler --version 9.57.0 --base default` |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | G/P | provide-storage-or-topology | AWS/EKS metadata + node providerID | `npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default` |
+| bitnami/contour@21.1.4 | legacy | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | dex/dex@0.24.0 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/dex/dex/0.24.0 --base default` |
 | dex/dex@0.24.0 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart dex/dex --version 0.24.0 --base default` |
 | elastic/filebeat@8.5.1 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/elastic/filebeat/8.5.1 --base default` |

@@ -4,7 +4,7 @@
 
 Plain-English answer to *"what must happen before or after deployment, and who handles it?"* for each chart and built preset config. Every lifecycle step is named, assigned to an executor, and linked to evidence or remaining work. Derived from committed inputs only (the chart-level and exact-base routes in `data/lifecycle-route-actions/`, each base's `variant.yaml`, and the matrix's per-base disposition). The product does not auto-execute these routes yet (`automatic: false`); that, with a receipt, is the roadmap ([#688](https://github.com/confighub/helm-expt/issues/688)).
 
-Charts: 16 · with a real per-variant delta: 5 (argo-cd/argo-workflows, gatekeeper/gatekeeper, kedacore/keda, kyverno/kyverno, prometheus-community/kube-prometheus-stack).
+Charts: 17 · with a real per-variant delta: 6 (argo-cd/argo-workflows, bitnami/contour, gatekeeper/gatekeeper, kedacore/keda, kyverno/kyverno, prometheus-community/kube-prometheus-stack).
 
 ## argo-cd/argo-workflows
 
@@ -13,6 +13,12 @@ Charts: 16 · with a real per-variant delta: 5 (argo-cd/argo-workflows, gatekeep
 | controller-default-reviewed@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — apply the CRDs before the workloads | prerequisite (this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform) |
 | default@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — apply the CRDs before the workloads | prerequisite (this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform) |
 | minimal-crds@1.0.14 | crd-install → `self-contained-crd-base` | Your applier — must apply CRDs before dependent objects | resolved (this base installs the required CRDs (observed live)) |
+
+## bitnami/contour
+
+| Base | Hook (route) | After deploy, who runs it? | Per-base change |
+| --- | --- | --- | --- |
+| legacy@21.1.4 | hook-phase → `preflight-or-presync` | Your delivery — a preflight step before apply (receipted) | — |
 
 ## gatekeeper/gatekeeper
 

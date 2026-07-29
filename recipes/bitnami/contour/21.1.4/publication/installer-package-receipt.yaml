@@ -10,15 +10,15 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/contour/21.1.4 -o <tmp>/bitnami-contour-21.1.4.tgz"
-    sha256: "ec64f053521d6ce340a933217f08e1dc98d10ef1daaf63f5fb19dbceb877711a"
+    sha256: "8029f13798b6182adf57a7e0118d260c7f1e8da13fcc2e516cc289a82bc2df48"
   package:
     name: "bitnami-contour"
     path: "packages/bitnami/contour/21.1.4"
     sourceFiles:
       -
         path: "README.md"
-        sha256: "a79f77dbe58d1c1ab59b6fda92078238a2eba588b6ea0da9965cb81dd9fbc314"
-        bytes: 196
+        sha256: "14ec21f6bdbaa97751a059772da0cb8481a4fc278ae4e416c5acb0d7acf2c35f"
+        bytes: 1162
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -44,9 +44,25 @@ spec:
         sha256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
         bytes: 23186
       -
+        path: "collector/target-facts.sh"
+        sha256: "f8b36afa669adb08617bd08517dd173f054615b8031d3a0f92ae8dbbe732ed4f"
+        bytes: 5812
+      -
         path: "installer.yaml"
-        sha256: "962c6c7ca792baa133cb24a26cc9a84633b279648b445256c764cc266dc8210d"
-        bytes: 648
+        sha256: "0028201715b9565ab306199f7a95eb212642fc0882204281459876e4319261d2"
+        bytes: 2231
+      -
+        path: "prerequisites/contour-certgen/README.md"
+        sha256: "103b0599576545285374c44f6e18c18679b49d17a35d659cd4807c505502df9e"
+        bytes: 1010
+      -
+        path: "prerequisites/contour-certgen/route.yaml"
+        sha256: "4d97f3422dc4dd17ccca40ba453696d931d7594217aa72b40732f8dd0186b57b"
+        bytes: 4828
+      -
+        path: "prerequisites/contour-certgen/run.sh"
+        sha256: "3526be3a8aefce1686fad6db45bf8a1115126809011b386c62407a73de3c7fbd"
+        bytes: 2589
     version: "21.1.4"
   setupChecks:
     -
@@ -58,17 +74,21 @@ spec:
       helmReleaseObjectCount: 20
       semanticObjectMatches: "20/20"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
-      base: "legacy"
-      variant: "legacy"
-      command: "cub installer setup --pull packages/bitnami/contour/21.1.4 --base legacy --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 20
-      cubInstallObjectCountIncludingSupport: 21
-      semanticObjectMatches: "20/20"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "legacy"
+      command: "cub installer setup --pull packages/bitnami/contour/21.1.4 --base legacy --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 21
+      helmReleaseObjectCount: 20
+      semanticObjectMatches: "20/20"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      variant: "legacy"
     -
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
@@ -78,4 +98,6 @@ spec:
       helmReleaseObjectCount: 15
       semanticObjectMatches: "15/15"
       separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "no-crds"

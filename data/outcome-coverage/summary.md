@@ -15,12 +15,12 @@ render parity rows:                  199/199
 in-ConfigHub proof rows:             198/199
 local live rows:                     148/199
 GitOps/OCI live pass rows:           139/199
-GitOps/OCI non-pass receipts:        59
+GitOps/OCI non-pass receipts:        60
 live Helm-vs-ConfigHub pass rows:    139/199
-live Helm-vs-ConfigHub non-pass receipts: 59
-lifecycle observation rows:          19/19
-selected live parity receipts:       139 pass, 51 watch, 8 blocked
-two-cluster kind parity receipts:    129 pass, 3 watch, 46 blocked
+live Helm-vs-ConfigHub non-pass receipts: 60
+lifecycle observation rows:          20/20
+selected live parity receipts:       139 pass, 52 watch, 8 blocked
+two-cluster kind parity receipts:    130 pass, 3 watch, 46 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -30,7 +30,7 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      19/19
+related lifecycle observations:      20/20
 ```
 
 ## Outcome Promises And Proving Tests

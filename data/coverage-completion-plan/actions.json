@@ -13,19 +13,19 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 658,
+  "nonGreenCellsCovered": 657,
   "familyCount": 20,
   "byActionType": {
-    "run-promotion": 388,
-    "record-decision": 110,
+    "run-promotion": 389,
+    "record-decision": 111,
     "refresh-image": 74,
-    "stage-prereq": 57,
+    "stage-prereq": 54,
     "fix-model": 25,
     "lifecycle-observe": 4
   },
   "byOwnerLane": {
-    "Codex-live": 392,
-    "product-decision": 141,
+    "Codex-live": 393,
+    "product-decision": 139,
     "Claude-non-live": 125
   },
   "top10": [
@@ -33,7 +33,7 @@
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 388,
+      "affected_cell_count": 389,
       "owner_lane": "Codex-live"
     },
     {
@@ -47,14 +47,14 @@
       "action_id": "CCP-03",
       "action_type": "record-decision",
       "sub_group": "verified-watch",
-      "affected_cell_count": 65,
+      "affected_cell_count": 67,
       "owner_lane": "product-decision"
     },
     {
       "action_id": "CCP-04",
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
-      "affected_cell_count": 45,
+      "affected_cell_count": 44,
       "owner_lane": "product-decision"
     },
     {
@@ -106,7 +106,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 388,
+      "affected_cell_count": 389,
       "lanes": [
         "promotion"
       ],
@@ -153,6 +153,7 @@
         "bitnami/apache@11.4.29/legacy [promotion]",
         "bitnami/contour@21.1.4/(source) [promotion]",
         "bitnami/contour@21.1.4/default [promotion]",
+        "bitnami/contour@21.1.4/legacy + review [promotion]",
         "bitnami/contour@21.1.4/legacy [promotion]",
         "bitnami/contour@21.1.4/no-crds [promotion]",
         "bitnami/elasticsearch@22.1.6/(source) [promotion]",
@@ -607,7 +608,7 @@
       "action_type": "record-decision",
       "sub_group": "verified-watch",
       "owner_lane": "product-decision",
-      "affected_cell_count": 65,
+      "affected_cell_count": 67,
       "lanes": [
         "G",
         "K",
@@ -625,6 +626,8 @@
         "autoscaler/cluster-autoscaler@9.57.0/default [K]",
         "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default [G]",
         "aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1/default [P]",
+        "bitnami/contour@21.1.4/legacy [G]",
+        "bitnami/contour@21.1.4/legacy [P]",
         "bitnami/mongodb@19.0.9/existing-secret-replicaset [G]",
         "bitnami/mongodb@19.0.9/existing-secret-replicaset [P]",
         "bitnami/mongodb@19.1.0/existing-secret-replicaset [G]",
@@ -692,7 +695,7 @@
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
       "owner_lane": "product-decision",
-      "affected_cell_count": 45,
+      "affected_cell_count": 44,
       "lanes": [
         "lifecycle"
       ],
@@ -705,7 +708,6 @@
       "affected_rows": [
         "argo-cd/argocd-image-updater@1.2.2/default [lifecycle]",
         "bitnami/contour@21.1.4/default [lifecycle]",
-        "bitnami/contour@21.1.4/legacy [lifecycle]",
         "bitnami/contour@21.1.4/no-crds [lifecycle]",
         "cloudnative-pg/cloudnative-pg@0.28.2/default [lifecycle]",
         "cloudnative-pg/cloudnative-pg@0.28.2/no-crds [lifecycle]",
@@ -1017,30 +1019,6 @@
     {
       "action_id": "CCP-15",
       "action_type": "stage-prereq",
-      "sub_group": "stage-prereq-other",
-      "owner_lane": "product-decision",
-      "affected_cell_count": 4,
-      "lanes": [
-        "G",
-        "K",
-        "P"
-      ],
-      "command": "",
-      "prerequisite": "see target-prerequisite-actions",
-      "expected_status": "pass after the prerequisite is staged",
-      "prediction": true,
-      "evidence_surface": "target-prerequisite-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "bitnami/contour@21.1.4/legacy [G]",
-        "bitnami/contour@21.1.4/legacy [K]",
-        "bitnami/contour@21.1.4/legacy [P]",
-        "prometheus-community/kube-prometheus-stack@85.3.3/default [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-16",
-      "action_type": "stage-prereq",
       "sub_group": "webhook-cert-lifecycle",
       "owner_lane": "Claude-non-live",
       "affected_cell_count": 4,
@@ -1061,7 +1039,7 @@
       ]
     },
     {
-      "action_id": "CCP-17",
+      "action_id": "CCP-16",
       "action_type": "fix-model",
       "sub_group": "object-set-shape",
       "owner_lane": "Claude-non-live",
@@ -1081,7 +1059,7 @@
       ]
     },
     {
-      "action_id": "CCP-18",
+      "action_id": "CCP-17",
       "action_type": "fix-model",
       "sub_group": "unknown",
       "owner_lane": "Claude-non-live",
@@ -1102,7 +1080,7 @@
       ]
     },
     {
-      "action_id": "CCP-19",
+      "action_id": "CCP-18",
       "action_type": "stage-prereq",
       "sub_group": "admission-or-rbac",
       "owner_lane": "product-decision",
@@ -1122,7 +1100,7 @@
       ]
     },
     {
-      "action_id": "CCP-20",
+      "action_id": "CCP-19",
       "action_type": "fix-model",
       "sub_group": "generated-fact",
       "owner_lane": "Claude-non-live",
@@ -1138,6 +1116,25 @@
       "linked_issues": "#248; #753",
       "affected_rows": [
         "autoscaler/cluster-autoscaler@9.57.0/controller-default-reviewed [K]"
+      ]
+    },
+    {
+      "action_id": "CCP-20",
+      "action_type": "stage-prereq",
+      "sub_group": "stage-prereq-other",
+      "owner_lane": "product-decision",
+      "affected_cell_count": 1,
+      "lanes": [
+        "K"
+      ],
+      "command": "",
+      "prerequisite": "see target-prerequisite-actions",
+      "expected_status": "pass after the prerequisite is staged",
+      "prediction": true,
+      "evidence_surface": "target-prerequisite-workdown",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "prometheus-community/kube-prometheus-stack@85.3.3/default [K]"
       ]
     }
   ]

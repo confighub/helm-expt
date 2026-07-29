@@ -15,11 +15,11 @@ Source decisions: [kind-parity-decisions](../kind-parity-decisions/summary.md) a
 [residue-families](../../docs/reference/residue-families.md). For the full non-green
 triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
-## 39 target-prerequisite rows
+## 40 target-prerequisite rows
 
 | Prerequisite kind | Rows |
 | --- | ---: |
-| `unknown` | 21 |
+| `unknown` | 22 |
 | `crd` | 6 |
 | `external-api` | 4 |
 | `namespace` | 4 |
@@ -28,7 +28,7 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 
 | Owner class | Rows |
 | --- | ---: |
-| `operator-review` | 26 |
+| `operator-review` | 27 |
 | `user-stage` | 12 |
 | `target-policy` | 1 |
 
@@ -38,6 +38,7 @@ triage see [matrix-completion-audit](../matrix-completion-audit/summary.md).
 | --- | --- | --- | --- | --- | --- | --- |
 | autoscaler/cluster-autoscaler@9.57.0 | default | K | unknown | unknown | user-stage | yes |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | G/P | topology | AWS/EKS metadata + node providerID | target-policy | yes |
+| bitnami/contour@21.1.4 | legacy | G/P | unknown | unknown | operator-review | unknown |
 | dex/dex@0.24.0 | default | G/P | unknown | unknown | operator-review | yes |
 | dex/dex@0.24.0 | default | K | unknown | unknown | operator-review | yes |
 | elastic/filebeat@8.5.1 | default | G/P | unknown | unknown | operator-review | yes |

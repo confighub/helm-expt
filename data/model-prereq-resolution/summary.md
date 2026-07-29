@@ -14,15 +14,15 @@ any variant should be created.
 
 | Metric | Rows |
 | --- | ---: |
-| Total rows | 62 |
+| Total rows | 63 |
 | Model-gap rows | 23 |
-| Target-prerequisite rows | 39 |
+| Target-prerequisite rows | 40 |
 
 ### Rows by resolution path
 
 | Value | Rows |
 | --- | ---: |
-| `operator-review-first` | 19 |
+| `operator-review-first` | 20 |
 | `crd-ownership-base-or-target-action` | 7 |
 | `derived-target-variant` | 7 |
 | `semantic-normalization` | 7 |
@@ -44,7 +44,7 @@ any variant should be created.
 
 | Value | Rows |
 | --- | ---: |
-| `no variant until cause is known` | 19 |
+| `no variant until cause is known` | 20 |
 | `CRD ownership base plus target prerequisite` | 7 |
 | `target-bound derived variant` | 7 |
 | `legacy image-retention base` | 6 |
@@ -93,6 +93,7 @@ any variant should be created.
 | model-gap | `velero/velero@12.0.1` | no-crds | G/P | new-provider-base-variant | provider and credential base with external CRDs | start with a provider base, then split CRD ownership if the target supplies Velero CRDs |
 | target-prerequisite | `autoscaler/cluster-autoscaler@9.57.0` | default | K | new-base-variant-after-input-identification | base variant if rendered objects change | replace the unknown prerequisite with a named chart value, Secret, namespace, CRD, or external dependency |
 | target-prerequisite | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | G/P | target-scoped-base | platform topology base | record the platform target shape and do not treat vanilla kind as the authoritative target for this base |
+| target-prerequisite | `bitnami/contour@21.1.4` | legacy | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `dex/dex@0.24.0` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `dex/dex@0.24.0` | default | K | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `elastic/filebeat@8.5.1` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |

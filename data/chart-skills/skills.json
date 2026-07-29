@@ -230,9 +230,11 @@
       "version": "21.1.4",
       "top_skill": "hook-and-secret-lifecycle",
       "matched_signals": [
+        "hooks:1",
         "generated-facts",
         "crds",
-        "lookup"
+        "lookup",
+        "live"
       ],
       "applicable": [
         {
@@ -252,6 +254,12 @@
           "title": "Large App Evidence Funnel",
           "doc": "docs/skills/large-app-evidence-funnel.md",
           "why": "renders many Units, so a single pass/fail can hide where an operation is stuck"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },

@@ -435,10 +435,10 @@
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>Under the same chart, version, values, and base variant, does regular Helm reach
 the same live outcome as cub installer output?</code></pre>
-<pre><code>pass: 129
+<pre><code>pass: 130
 watch: 3
 blocked: 46
-semantic parity pass: 154
+semantic parity pass: 155
 semantic parity defects: 16
 non-pass rows where semantic parity passed: 25
 non-pass rows with related lifecycle evidence: 0</code></pre>
@@ -482,6 +482,7 @@ non-pass rows with related lifecycle evidence: 0</code></pre>
 <tr><td><code>bitnami/apache@11.4.29</code></td><td>default</td><td>blocked</td><td>pass</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/bitnami-apache-default/receipt.yaml</td></tr>
 <tr><td><code>bitnami/apache@11.4.29</code></td><td>legacy</td><td>blocked</td><td>defect</td><td>parity: semantic object diff</td><td></td><td>semantic object parity defect</td><td>runs/live-kind-parity/bitnami-apache-legacy/receipt.yaml</td></tr>
 <tr><td><code>bitnami/contour@21.1.4</code></td><td>default</td><td>blocked</td><td>pass</td><td>helm-hook: pre-install certificate generation failed (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/bitnami-contour-default/receipt.yaml</td></tr>
+<tr><td><code>bitnami/contour@21.1.4</code></td><td>legacy</td><td>pass</td><td>pass</td><td></td><td></td><td>live parity passed</td><td>runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml</td></tr>
 <tr><td><code>bitnami/contour@21.1.4</code></td><td>no-crds</td><td>blocked</td><td>defect</td><td>parity: semantic object diff</td><td></td><td>semantic object parity defect</td><td>runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml</td></tr>
 <tr><td><code>bitnami/elasticsearch@22.1.6</code></td><td>default</td><td>blocked</td><td>pass</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml</td></tr>
 <tr><td><code>bitnami/elasticsearch@22.1.6</code></td><td>ha</td><td>blocked</td><td>pass</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td></td><td>semantic parity passed; target or lifecycle behavior needs review</td><td>runs/live-kind-parity/bitnami-elasticsearch-ha/receipt.yaml</td></tr>

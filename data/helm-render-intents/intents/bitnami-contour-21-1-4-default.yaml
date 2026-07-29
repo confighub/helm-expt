@@ -62,18 +62,75 @@ spec:
         []
       nextAction: ""
   targetFacts:
-    status: "none-declared-or-observed"
+    status: "declared-target-facts"
     declared:
-      {}
+      requiredSecrets:
+        -
+          deliveryLanes:
+            - "cubInstallerApply"
+          keys:
+            - "ca.crt"
+            - "tls.crt"
+            - "tls.key"
+          name: "contourcert"
+          namespace: "default"
+          provisioningMode: "lifecycle-action"
+          purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        -
+          deliveryLanes:
+            - "cubInstallerApply"
+          keys:
+            - "ca.crt"
+            - "tls.crt"
+            - "tls.key"
+          name: "envoycert"
+          namespace: "default"
+          provisioningMode: "lifecycle-action"
+          purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
     requirements:
-      []
+      -
+        category: "secret"
+        name: "default/contourcert"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+        check: "package://prerequisites/contour-certgen/run.sh"
+        declarationPath: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "cubInstallerApply"
+        evidence:
+          - "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+      -
+        category: "secret"
+        name: "default/envoycert"
+        namespace: "default"
+        requiredBefore: "apply"
+        freshness:
+          policy: "recheck-before-apply"
+          maxAge: "one-apply"
+        purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+        check: "package://prerequisites/contour-certgen/run.sh"
+        declarationPath: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+        sourceVariant: ""
+        sourcePath: ""
+        deliveryLanes:
+          - "cubInstallerApply"
+        evidence:
+          - "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
     actions:
       []
     coverage:
-      state: "actionable-gap"
-      reason: "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology."
-      declarationSource: ""
-      nextAction: "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+      state: "attached"
+      reason: "2 target prerequisites declared by this base."
+      declarationSource: "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+      nextAction: ""
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"
