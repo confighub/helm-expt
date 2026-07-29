@@ -42,8 +42,7 @@ Install or verify the local tools before Tutorial 1:
 
 ```sh
 cub version
-cub plugin install confighub/installer --source-repo --name installer
-make -C ~/.confighub/plugins/installer build
+cub plugin install confighub/installer
 cub installer --help
 
 go install sigs.k8s.io/kustomize/kustomize/v5@v5.8.1
@@ -53,8 +52,10 @@ cub context get -o json
 cub space list -o json
 ```
 
-The installer plugin has no binary release yet, so this temporary setup builds
-the open-source plugin locally and requires Go.
+The installer plugin is released for macOS and Linux on AMD64 and ARM64.
+`cub plugin install` downloads the matching binary. For a later release, run
+`cub plugin upgrade installer`. An early source-built copy may need to be
+uninstalled once before the released plugin can be installed.
 
 `cub installer setup` shells out to `kustomize build`; the first setup fails if
 `kustomize` is not on `PATH`. The tutorials do not require `helm`.

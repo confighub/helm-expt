@@ -452,7 +452,7 @@
 <p><code>npm run ...</code> commands are optional proof checks. They are useful for reviewers, maintainers, CI, and users who want to verify a receipt. They should not be the main product action in a default guide unless the guide is explicitly about proof or parity.</p>
 <h2 id="stage-1-serverless-redis-render">Stage 1: Serverless Redis Render</h2>
 <p>Run:</p>
-<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>cub installer setup \
   --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
   --base reuse-existing-secret \
