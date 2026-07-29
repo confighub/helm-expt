@@ -1517,7 +1517,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
         <section class="section">
           <span class="eyebrow">Five simple things</span>
           <h2>What you can do</h2>
-          <p class="intro">Look at what a package does, and whether it is safe, before you install it. Each verb works on a catalog package or on your own config. Depth is there when you want it, never before.</p>
+          <p class="intro">Look at what a package does, and whether it is safe, before you install it. Each verb works on a catalog package or on your own config. Every chart has a detailed playbook.</p>
           <div class="verbs">
             ${verbs.map(([n, name, desc, route]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
           </div>
