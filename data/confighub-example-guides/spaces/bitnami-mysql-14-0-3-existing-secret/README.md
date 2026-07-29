@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 1 prerequisite(s): 1 Secret. Create these with your own values before you apply the rendered objects.
+This preset config records 1 prerequisite: 1 Secret. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Secret material is kept outside the chart render and supplied by you. At least one Secret must be created with your values before apply. Known limitation: ha (curated proof lane - bespoke teaching needed).
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-existing-secret/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/existing-secret/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-existing-secret/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/existing-secret/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/bitnami-mysql-14-0-3-existing-secret.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-mysql-14-0-3-existing-secret.yaml) |
 | Render variant | [`recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/bitnami/mysql/14.0.3/bases/existing-secret`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/existing-secret) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-existing-secret/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3-existing-secret/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/existing-secret/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-mysql-14-0-3/existing-secret/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret mysql/mysql-auth keys mysql-root-password,mysql-password,mysql-replication-password | kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password="$(openssl rand -base64 32)" --from-literal=mysql-password="$(openssl rand -base64 32)" --from-literal=mysql-replication-password="$(openssl rand -base64 32)" |
+| Before install | ClusterFeature: Secret mysql/mysql-auth keys mysql-root-password,mysql-password,mysql-replication-password | kubectl -n mysql create secret generic mysql-auth --from-literal=mysql-root-password="$(openssl rand -base64 32)" --from-literal=mysql-password="$(openssl rand -base64 32)" --from-literal=mysql-replication-password="$(openssl rand -base64 32)" |
 
 ## Evidence
 
@@ -92,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -108,5 +108,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/bitnami-mysql-14-0-3-existing-secret.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-mysql-14-0-3-existing-secret.yaml)
 - Rendered YAML: [`recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml)
 - Package source: [`packages/bitnami/mysql/14.0.3/bases/existing-secret`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/existing-secret)
-- Generated scripts: [`site/sh/bitnami-mysql-14-0-3-existing-secret`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-mysql-14-0-3-existing-secret)
+- Generated scripts: [`site/sh/bitnami-mysql-14-0-3/existing-secret`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-mysql-14-0-3/existing-secret)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

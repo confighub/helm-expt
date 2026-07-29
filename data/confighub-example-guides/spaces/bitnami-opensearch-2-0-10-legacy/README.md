@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.
 
@@ -48,13 +48,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10-legacy/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10/legacy/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10-legacy/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10/legacy/confighub.sh)
 ```
 
 The core render command is:
@@ -77,13 +77,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/bitnami-opensearch-2-0-10-legacy.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-opensearch-2-0-10-legacy.yaml) |
 | Render variant | [`recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/bitnami/opensearch/2.0.10/bases/legacy`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/opensearch/2.0.10/bases/legacy) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10-legacy/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10-legacy/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10/legacy/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-opensearch-2-0-10/legacy/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| No extra step recorded | The catalog has not identified a separate prerequisite or lifecycle step for this preset. | Check the limits and evidence before production use. |
 
 ## Evidence
 
@@ -91,7 +91,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `watch` |
 | Live Helm vs ConfigHub comparison | `watch` |
 | Lifecycle routes | `0` |
@@ -107,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/bitnami-opensearch-2-0-10-legacy.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-opensearch-2-0-10-legacy.yaml)
 - Rendered YAML: [`recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/rendered/release-objects.yaml)
 - Package source: [`packages/bitnami/opensearch/2.0.10/bases/legacy`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/opensearch/2.0.10/bases/legacy)
-- Generated scripts: [`site/sh/bitnami-opensearch-2-0-10-legacy`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-opensearch-2-0-10-legacy)
+- Generated scripts: [`site/sh/bitnami-opensearch-2-0-10/legacy`](https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-opensearch-2-0-10/legacy)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

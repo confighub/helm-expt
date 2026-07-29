@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 17 prerequisite(s): 17 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 17 prerequisites: 17 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -78,29 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml) |
 | Render variant | [`recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/gatekeeper-gatekeeper-3-22-2/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD assign.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD assignimage.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD assignmetadata.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD configs.config.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD configpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD connections.connection.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD connectionpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD constraintpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD constrainttemplates.templates.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD constrainttemplatepodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD expansiontemplate.expansion.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD expansiontemplatepodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD modifyset.mutations.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD mutatorpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD providers.externaldata.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD providerpodstatuses.status.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD syncsets.syncset.gatekeeper.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | 17 CRDs: assign.mutations.gatekeeper.sh, assignimage.mutations.gatekeeper.sh, assignmetadata.mutations.gatekeeper.sh, configs.config.gatekeeper.sh, configpodstatuses.status.gatekeeper.sh, connections.connection.gatekeeper.sh, connectionpodstatuses.status.gatekeeper.sh, constraintpodstatuses.status.gatekeeper.sh, constrainttemplates.templates.gatekeeper.sh, constrainttemplatepodstatuses.status.gatekeeper.sh, expansiontemplate.expansion.gatekeeper.sh, expansiontemplatepodstatuses.status.gatekeeper.sh, modifyset.mutations.gatekeeper.sh, mutatorpodstatuses.status.gatekeeper.sh, providers.externaldata.gatekeeper.sh, providerpodstatuses.status.gatekeeper.sh, syncsets.syncset.gatekeeper.sh | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -108,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -123,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml)
 - Rendered YAML: [`recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/no-crds)
-- Generated scripts: [`site/sh/gatekeeper-gatekeeper-3-22-2-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/gatekeeper-gatekeeper-3-22-2-no-crds)
+- Generated scripts: [`site/sh/gatekeeper-gatekeeper-3-22-2/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/gatekeeper-gatekeeper-3-22-2/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

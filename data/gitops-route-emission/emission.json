@@ -208,6 +208,41 @@
       ]
     },
     {
+      "chart": "gatekeeper/gatekeeper",
+      "hasBuiltVariants": true,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "3.22.2",
+          "routes": [
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+            },
+            {
+              "route_name": "upgrade-action-with-receipt",
+              "action_kind": "run-job",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            }
+          ]
+        },
+        {
+          "base": "no-crds",
+          "recipeVersion": "3.22.2",
+          "routes": []
+        }
+      ]
+    },
+    {
       "chart": "gitlab/gitlab",
       "hasBuiltVariants": false,
       "variants": [
@@ -314,15 +349,6 @@
               "snippet": ""
             },
             {
-              "route_name": "preserve-cleanup-policy",
-              "action_kind": "accept-target-policy",
-              "quirk_class": "hook-delete-policy",
-              "emit": false,
-              "argo": "none — your cluster handles it",
-              "flux": "none — your cluster handles it",
-              "snippet": ""
-            },
-            {
               "route_name": "upgrade-action-with-receipt",
               "action_kind": "run-job",
               "quirk_class": "hook-phase",
@@ -417,6 +443,36 @@
               "argo": "none — supply the inputs before sync",
               "flux": "none — supply the inputs before sync",
               "snippet": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chart": "projectcalico/tigera-operator",
+      "hasBuiltVariants": false,
+      "variants": [
+        {
+          "base": "default",
+          "recipeVersion": "v3.32.0",
+          "routes": [
+            {
+              "route_name": "explicit-delete-cleanup-action",
+              "action_kind": "run-job",
+              "quirk_class": "hook-delete-policy",
+              "emit": true,
+              "argo": "PostSync",
+              "flux": "post-apply Job / follow-on Kustomization",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+            },
+            {
+              "route_name": "preflight-or-presync",
+              "action_kind": "run-preflight",
+              "quirk_class": "hook-phase",
+              "emit": true,
+              "argo": "PreSync · sync-wave -1",
+              "flux": "apply before the release (Kustomization dependsOn)",
+              "snippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
             }
           ]
         }

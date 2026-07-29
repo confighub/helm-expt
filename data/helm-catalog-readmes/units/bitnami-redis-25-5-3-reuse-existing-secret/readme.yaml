@@ -57,13 +57,13 @@ spec:
     Run without a ConfigHub account:
 
     ```sh
-    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3-reuse-existing-secret/try.sh)
+    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)
     ```
 
     Upload to ConfigHub:
 
     ```sh
-    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3-reuse-existing-secret/confighub.sh)
+    bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/reuse-existing-secret/confighub.sh)
     ```
 
     ## Evidence and source
@@ -74,8 +74,8 @@ spec:
     | Render intent | [data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml) |
     | Rendered YAML | [recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml) |
     | Detailed guide | [data/confighub-example-guides/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.md) |
-    | No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3-reuse-existing-secret/try.sh) |
-    | ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3-reuse-existing-secret/confighub.sh) |
+    | No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh) |
+    | ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/reuse-existing-secret/confighub.sh) |
 
     ## What is proven
 

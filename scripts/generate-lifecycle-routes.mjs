@@ -13,6 +13,7 @@
 //   - data/hook-route-candidates/candidates.csv           (candidate route plans)
 //   - data/hook-lifecycle-review/top100-source-hook-route-review.csv (review context)
 //   - data/hook-route-candidates/selected-routes/*.yaml   (observed exact-base routes)
+//   - data/hook-lifecycle/receipts/**/latest.yaml          (maintained observed routes)
 //
 // and emits data/lifecycle-routes/{routes.csv,routes.json,summary.md,contract.md}.
 //
@@ -33,6 +34,7 @@ const SOURCES = {
   candidates: "data/hook-route-candidates/candidates.csv",
   review: "data/hook-lifecycle-review/top100-source-hook-route-review.csv",
   selectedRoutes: "data/hook-route-candidates/selected-routes",
+  maintainedRoutes: "data/hook-lifecycle/receipts",
 };
 
 const outDir = join(repoRoot, "data", "lifecycle-routes");
@@ -67,6 +69,11 @@ const SOURCE_DISPOSITION_MAP = {
   "selected-route-receipt": "observed",
 };
 
+const ROUTE_NAME_ALIASES = {
+  "explicit-post-install-check": "explicit-test-check",
+  "postsync-readiness-observation": "postsync-check-or-observation",
+};
+
 // route_name -> quirk class.
 const ROUTE_QUIRK_CLASS = {
   "preflight-or-presync": "hook-phase",
@@ -83,6 +90,9 @@ const ROUTE_QUIRK_CLASS = {
   "preserve-ordering": "hook-weight-ordering",
   "preserve-cleanup-policy": "hook-delete-policy",
   "delete-cleanup-policy": "hook-delete-policy",
+  "explicit-delete-cleanup-action": "hook-delete-policy",
+  "explicit-post-install-check": "hook-test",
+  "postsync-readiness-observation": "webhook-readiness",
   "self-contained-crd-base": "crd-install",
 };
 
@@ -103,6 +113,9 @@ const ROUTE_EXECUTION_MODE = {
   "preserve-ordering": "target-owned",
   "preserve-cleanup-policy": "target-owned",
   "delete-cleanup-policy": "target-owned",
+  "explicit-delete-cleanup-action": "user-executes",
+  "explicit-post-install-check": "user-executes",
+  "postsync-readiness-observation": "user-executes",
   "self-contained-crd-base": "target-owned",
 };
 
@@ -194,14 +207,9 @@ function readCsvObjects(relPath) {
 }
 
 function readSelectedRouteReceipts() {
-  const relDir = SOURCES.selectedRoutes;
-  const absDir = join(repoRoot, relDir);
-  if (!existsSync(absDir)) return [];
-  return readdirSync(absDir)
-    .filter((name) => name.endsWith(".yaml"))
-    .sort()
-    .map((name) => {
-      const path = `${relDir}/${name}`;
+  return [SOURCES.selectedRoutes, SOURCES.maintainedRoutes]
+    .flatMap((relDir) => routeReceiptPaths(relDir))
+    .map((path) => {
       const doc = readYaml(join(repoRoot, path));
       const spec = doc.spec ?? {};
       check(spec.chart, `${path} is missing spec.chart`);
@@ -217,6 +225,25 @@ function readSelectedRouteReceipts() {
       }
       return { path, spec, phases, evidence };
     });
+}
+
+function routeReceiptPaths(relDir) {
+  const absDir = join(repoRoot, relDir);
+  if (!existsSync(absDir)) return [];
+  const paths = [];
+  const visit = (absolute, relative) => {
+    for (const entry of readdirSync(absolute, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+      const childAbsolute = join(absolute, entry.name);
+      const childRelative = `${relative}/${entry.name}`;
+      if (entry.isDirectory()) {
+        visit(childAbsolute, childRelative);
+      } else if (entry.name.endsWith(".yaml")) {
+        paths.push(childRelative);
+      }
+    }
+  };
+  visit(absDir, relDir);
+  return paths;
 }
 
 function csvCell(value) {
@@ -236,7 +263,8 @@ function toCsv(headers, rows) {
 function normalizeRoute(raw) {
   const trimmed = raw.trim();
   const match = trimmed.match(/^([^(]+?)\s*(?:\((.*)\))?$/);
-  const name = (match ? match[1] : trimmed).trim();
+  const rawName = (match ? match[1] : trimmed).trim();
+  const name = ROUTE_NAME_ALIASES[rawName] ?? rawName;
   const qualifier = match && match[2] ? match[2].trim() : "";
   return { name, qualifier };
 }
@@ -340,7 +368,7 @@ function buildRows() {
   // selected receipt.
   for (const selected of selectedRoutes) {
     for (const phase of selected.phases) {
-      const routeName = String(phase.action ?? "").trim();
+      const { name: routeName } = normalizeRoute(String(phase.action ?? ""));
       check(routeName, `${selected.path} has a route phase without an action`);
       rows.push(makeRow({
         chart: selected.spec.chart,
@@ -352,7 +380,7 @@ function buildRows() {
         routeName,
         qualifier: "",
         liveStatus: "observed",
-        requirements: joinNonEmpty([selected.spec.route?.summary, phase.reason], " "),
+        requirements: phase.reason || selected.spec.route?.summary || "",
         evidenceOrNextAction: selected.evidence.join(";"),
       }));
     }

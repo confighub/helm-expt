@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-
 | Render intent | [data/helm-render-intents/intents/argo-cd-argo-cd-9-5-15-no-crds.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-9-5-15-no-crds.yaml) |
 | Rendered YAML | [recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/confighub.sh) |
 
 ## What is proven
 

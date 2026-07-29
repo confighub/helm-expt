@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/ingress-nginx-in
 | Render intent | [data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-admission-disabled.yaml) |
 | Rendered YAML | [recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1-admission-disabled/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/ingress-nginx-ingress-nginx-4-15-1/admission-disabled/confighub.sh) |
 
 ## What is proven
 

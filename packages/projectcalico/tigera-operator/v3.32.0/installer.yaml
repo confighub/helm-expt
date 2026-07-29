@@ -6,7 +6,29 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD apiservers.operator.tigera.io"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD goldmanes.operator.tigera.io"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD installations.operator.tigera.io"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        -
+          kind: "ClusterFeature"
+          name: "CRD whiskers.operator.tigera.io"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+      name: "default"
+      path: "bases/default"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

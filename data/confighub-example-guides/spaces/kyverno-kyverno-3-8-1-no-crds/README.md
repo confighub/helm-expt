@@ -28,11 +28,18 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 22 prerequisite(s): 22 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 22 prerequisites: 22 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-This preset config records 6 hook or lifecycle route(s). The current route status is observed:6, with execution modes target-owned:3; user-executes:3. They are listed here instead of being left inside the Helm release.
+The catalog records 6 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release. Known limitation: existing-secret (chart ships no Secret toggle).
+- **Before install:** preserve-ordering.
+- **Before install:** target-facts-or-preflight.
+- **After install:** explicit-test-check.
+- **During upgrade:** upgrade-action-with-receipt.
+- **When uninstalling:** delete-cleanup-policy.
+- **When uninstalling:** preserve-cleanup-policy.
+
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
 
 ## Why you can trust it
 
@@ -50,13 +57,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -79,34 +86,19 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml) |
 | Render variant | [`recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/kyverno/kyverno/3.8.1/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/kyverno-kyverno-3-8-1/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD cleanuppolicies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clustercleanuppolicies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusterpolicies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD globalcontextentries.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD policyexceptions.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD updaterequests.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusterephemeralreports.reports.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD ephemeralreports.reports.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusterpolicyreports.wgpolicyk8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD policyreports.wgpolicyk8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD deletingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD generatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD imagevalidatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD mutatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD namespaceddeletingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD namespacedgeneratingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD namespacedimagevalidatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD namespacedmutatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD namespacedvalidatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD policyexceptions.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD validatingpolicies.policies.kyverno.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | 22 CRDs: cleanuppolicies.kyverno.io, clustercleanuppolicies.kyverno.io, clusterpolicies.kyverno.io, globalcontextentries.kyverno.io, policies.kyverno.io, policyexceptions.kyverno.io, updaterequests.kyverno.io, clusterephemeralreports.reports.kyverno.io, ephemeralreports.reports.kyverno.io, clusterpolicyreports.wgpolicyk8s.io, policyreports.wgpolicyk8s.io, deletingpolicies.policies.kyverno.io, generatingpolicies.policies.kyverno.io, imagevalidatingpolicies.policies.kyverno.io, mutatingpolicies.policies.kyverno.io, namespaceddeletingpolicies.policies.kyverno.io, namespacedgeneratingpolicies.policies.kyverno.io, namespacedimagevalidatingpolicies.policies.kyverno.io, namespacedmutatingpolicies.policies.kyverno.io, namespacedvalidatingpolicies.policies.kyverno.io, policyexceptions.policies.kyverno.io, validatingpolicies.policies.kyverno.io | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
+| Before install | Keep the required apply order | preserve-ordering. |
+| Before install | Prepare the target | target-facts-or-preflight. |
+| After install | Run the chart check | explicit-test-check. |
+| During upgrade | Run the upgrade step | upgrade-action-with-receipt. |
+| When uninstalling | Use the chart's cleanup policy | delete-cleanup-policy. |
+| When uninstalling | Keep the chart's cleanup policy | preserve-cleanup-policy. |
 
 ## Evidence
 
@@ -114,7 +106,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `6` |
@@ -130,5 +122,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kyverno-kyverno-3-8-1-no-crds.yaml)
 - Rendered YAML: [`recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/kyverno/kyverno/3.8.1/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/no-crds)
-- Generated scripts: [`site/sh/kyverno-kyverno-3-8-1-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/kyverno-kyverno-3-8-1-no-crds)
+- Generated scripts: [`site/sh/kyverno-kyverno-3-8-1/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/kyverno-kyverno-3-8-1/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

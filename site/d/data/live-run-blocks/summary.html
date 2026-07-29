@@ -435,11 +435,29 @@
 <h2 id="predictions-are-not-claims">Predictions are not claims</h2>
 <p>Each row carries a <b>predicted</b> residue family and target profile, derived from committed evidence (a sibling receipt for the same chart, a recipe support artifact, or the chart-family pattern). A prediction is a hint for sequencing, never a result. Where there is no evidence the prediction is <code>unknown</code>, not a guess. Always classify from the actual receipt after a run.</p>
 <h2 id="counts">Counts</h2>
-<pre><code>ready-to-run rows:   0
-run blocks:          0  (G/P: 0, K: 0)
-derived predictions: 0
+<pre><code>ready-to-run rows:   9
+run blocks:          3  (G/P: 2, K: 1)
+derived predictions: 9
 unknown predictions: 0</code></pre>
 <p>Order: G/P live-parity blocks first (one command classifies both the G and P cells), then two-cluster kind-parity blocks; within each, hard charts (operators, CRD/webhook/lifecycle, platform/networking) before ordinary apps, then by predicted residue family and chart family. Blocks are capped at 5 commands.</p>
+<h2 id="gp-01-gp-platformnetworking">GP-01 - G/P · platform/networking</h2>
+<p><b>Goal:</b> G/P: run the 4 ready live-parity row(s) with predicted remote-image / gitops-runtime (bitnami/contour@21.1.4, grafana/grafana@10.5.15, prometheus-community/prometheus@29.8.0); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.</p>
+<p><b>Stop:</b> Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify - never force the predicted family.</p>
+<table><thead><tr><th>Chart</th><th>Base</th><th>Command</th><th>Predicted residue</th><th>Confidence</th><th>Serial safety</th></tr></thead><tbody><tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td><code>npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy</code></td><td>remote-image</td><td>high</td><td>light controller - safe within a block</td></tr>
+<tr><td>grafana/grafana@10.5.15</td><td>customer-acme-prod</td><td><code>npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base customer-acme-prod</code></td><td>gitops-runtime</td><td>medium</td><td>light controller - safe within a block</td></tr>
+<tr><td>grafana/grafana@10.5.15</td><td>prod-us-east</td><td><code>npm run live-parity:run -- --recipe recipes/grafana/grafana/10.5.15 --base prod-us-east</code></td><td>gitops-runtime</td><td>medium</td><td>light controller - safe within a block</td></tr>
+<tr><td>prometheus-community/prometheus@29.8.0</td><td>prod-us-east</td><td><code>npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base prod-us-east</code></td><td>gitops-runtime</td><td>high</td><td>light controller - safe within a block</td></tr></tbody></table>
+<h2 id="gp-02-gp-app">GP-02 - G/P · app</h2>
+<p><b>Goal:</b> G/P: run the 4 ready live-parity row(s) with predicted gitops-runtime / operate-policy / remote-image (prometheus-community/prometheus@29.8.0, hashicorp/vault@0.32.0, bitnami/redis@25.5.3); each live-parity command classifies both the G and P cells. Confirm or reclassify from each receipt.</p>
+<p><b>Stop:</b> Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify - never force the predicted family.</p>
+<table><thead><tr><th>Chart</th><th>Base</th><th>Command</th><th>Predicted residue</th><th>Confidence</th><th>Serial safety</th></tr></thead><tbody><tr><td>prometheus-community/prometheus@29.8.0</td><td>staging-eu-west</td><td><code>npm run live-parity:run -- --recipe recipes/prometheus-community/prometheus/29.8.0 --base staging-eu-west</code></td><td>gitops-runtime</td><td>high</td><td>light controller - safe within a block</td></tr>
+<tr><td>hashicorp/vault@0.32.0</td><td>regulated-prod-us-east</td><td><code>npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base regulated-prod-us-east</code></td><td>operate-policy</td><td>high</td><td>stateful/heavy - run alone, allow a longer timeout, verify PVC/cluster cleanup</td></tr>
+<tr><td>hashicorp/vault@0.32.0</td><td>staging-us-east</td><td><code>npm run live-parity:run -- --recipe recipes/hashicorp/vault/0.32.0 --base staging-us-east</code></td><td>operate-policy</td><td>high</td><td>stateful/heavy - run alone, allow a longer timeout, verify PVC/cluster cleanup</td></tr>
+<tr><td>bitnami/redis@25.5.3</td><td>prod-us-east</td><td><code>npm run live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 --base prod-us-east</code></td><td>remote-image</td><td>medium</td><td>stateful/heavy - run alone, allow a longer timeout, verify PVC/cluster cleanup</td></tr></tbody></table>
+<h2 id="k-01-k-platformnetworking">K-01 - K · platform/networking</h2>
+<p><b>Goal:</b> K: run the 1 ready kind-parity row(s) with predicted remote-image (bitnami/contour@21.1.4); each kind-parity command classifies the K cell. Confirm or reclassify from each receipt.</p>
+<p><b>Stop:</b> Stop when every command in the block has written a committed receipt. If an actual residue differs from the prediction, keep the receipt and let the decision surfaces reclassify - never force the predicted family.</p>
+<table><thead><tr><th>Chart</th><th>Base</th><th>Command</th><th>Predicted residue</th><th>Confidence</th><th>Serial safety</th></tr></thead><tbody><tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td><code>npm run kind-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy</code></td><td>remote-image</td><td>high</td><td>two-cluster kind run (provisions two clusters)</td></tr></tbody></table>
 <h2 id="boundaries">Boundaries</h2>
 <ul><li>Read-only projection over committed sources. No live run, no cluster, no <code>runs/</code> receipt edited, and no status changed.</li><li>Predictions are derived hints, never claims. <code>unknown</code> means no evidence - it is not a defect and not a guess.</li><li>Blocks only sequence existing ready-to-run rows; they never invent rows or promote a row's status.</li></ul>
     </article>

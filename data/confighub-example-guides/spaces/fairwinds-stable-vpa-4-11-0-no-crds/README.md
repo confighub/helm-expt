@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 3 prerequisite(s): 2 CRDs, 1 Secret. Create these with your own values before you apply the rendered objects.
+This preset config records 3 prerequisites: 2 CRDs, 1 Secret. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -78,15 +78,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml) |
 | Render variant | [`recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/fairwinds-stable/vpa/4.11.0/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/fairwinds-stable/vpa/4.11.0/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/fairwinds-stable-vpa-4-11-0/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret default/vpa-tls-secret keys ca,cert,key | kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value> |
-| ClusterFeature | CRD verticalpodautoscalercheckpoints.autoscaling.k8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD verticalpodautoscalers.autoscaling.k8s.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | ClusterFeature: Secret default/vpa-tls-secret keys ca,cert,key | kubectl -n default create secret generic vpa-tls-secret --from-literal=ca=<value> --from-literal=cert=<value> --from-literal=key=<value> |
+| Before install | 2 CRDs: verticalpodautoscalercheckpoints.autoscaling.k8s.io, verticalpodautoscalers.autoscaling.k8s.io | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -94,7 +93,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -109,5 +108,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/fairwinds-stable-vpa-4-11-0-no-crds.yaml)
 - Rendered YAML: [`recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/fairwinds-stable/vpa/4.11.0/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/fairwinds-stable/vpa/4.11.0/bases/no-crds)
-- Generated scripts: [`site/sh/fairwinds-stable-vpa-4-11-0-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/fairwinds-stable-vpa-4-11-0-no-crds)
+- Generated scripts: [`site/sh/fairwinds-stable-vpa-4-11-0/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/fairwinds-stable-vpa-4-11-0/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

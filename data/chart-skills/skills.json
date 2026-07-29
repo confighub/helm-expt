@@ -2058,7 +2058,8 @@
       "top_skill": "hook-and-secret-lifecycle",
       "matched_signals": [
         "hooks:1",
-        "lookup"
+        "lookup",
+        "live"
       ],
       "applicable": [
         {
@@ -2072,6 +2073,12 @@
           "title": "Target Facts And Lifecycle",
           "doc": "docs/skills/target-facts-and-lifecycle.md",
           "why": "needs Secrets, CRDs, APIService readiness, storage, or generated runtime state before apply"
+        },
+        {
+          "slug": "live-parity",
+          "title": "Live Parity",
+          "doc": "docs/skills/live-parity.md",
+          "why": "has live, GitOps/OCI, or two-cluster parity work"
         }
       ]
     },

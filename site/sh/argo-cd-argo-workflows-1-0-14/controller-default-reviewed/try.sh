@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -69,14 +82,14 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/clusterworkflowtemplates.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/cronworkflows.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/workflowartifactgctasks.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/workfloweventbindings.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/workflows.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/workflowtaskresults.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/workflowtasksets.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/workflowtemplates.argoproj.io
+wait_for_crd clusterworkflowtemplates.argoproj.io
+wait_for_crd cronworkflows.argoproj.io
+wait_for_crd workflowartifactgctasks.argoproj.io
+wait_for_crd workfloweventbindings.argoproj.io
+wait_for_crd workflows.argoproj.io
+wait_for_crd workflowtaskresults.argoproj.io
+wait_for_crd workflowtasksets.argoproj.io
+wait_for_crd workflowtemplates.argoproj.io
 
 if [ -d ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed/out/secrets ]; then
   say "Apply rendered Secrets first"

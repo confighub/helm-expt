@@ -443,16 +443,16 @@
 <ol><li>Read this page first.</li><li>Open the Kubernetes YAML to see the objects this preset manages.</li><li>Open the render intent to see the Helm inputs behind those objects.</li><li>Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.</li><li>Open revision history when you want to see what changed over time.</li></ol>
 <h2 id="try-it">Try it</h2>
 <p>Run without a ConfigHub account:</p>
-<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/try.sh)</code></pre>
+<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/try.sh)</code></pre>
 <p>Upload to ConfigHub:</p>
-<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/confighub.sh)</code></pre>
+<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/confighub.sh)</code></pre>
 <h2 id="evidence-and-source">Evidence and source</h2>
 <table><thead><tr><th>Item</th><th>Link</th></tr></thead><tbody><tr><td>Catalog chart page</td><td><a href="https://confighub.github.io/helm-expt/site/charts/argo-cd-argo-cd-9-5-15.html">argo-cd/argo-cd@9.5.15</a></td></tr>
 <tr><td>Render intent</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-cd-9-5-15-no-crds.yaml">data/helm-render-intents/intents/argo-cd-argo-cd-9-5-15-no-crds.yaml</a></td></tr>
 <tr><td>Rendered YAML</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml">recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml</a></td></tr>
 <tr><td>Detailed guide</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.md">data/confighub-example-guides/spaces/argo-cd-argo-cd-9-5-15-no-crds/README.md</a></td></tr>
-<tr><td>No-account script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/try.sh">try.sh</a></td></tr>
-<tr><td>ConfigHub upload script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15-no-crds/confighub.sh">confighub.sh</a></td></tr></tbody></table>
+<tr><td>No-account script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/try.sh">try.sh</a></td></tr>
+<tr><td>ConfigHub upload script</td><td><a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-cd-9-5-15/no-crds/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="what-is-proven">What is proven</h2>
 <ul><li>Render parity: <code>yes</code>.</li><li>Local kind run: <code>no</code>.</li><li>GitOps OCI live run: <code>no</code>.</li><li>Live Helm versus ConfigHub comparison: <code>yes</code>.</li></ul>
 <p>These claims apply to this preset. They do not mean every possible values combination for the chart has been tested.</p>

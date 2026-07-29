@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./kedacore-keda-2-19-0-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -63,12 +76,12 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/cloudeventsources.eventing.keda.sh
-kubectl wait --for=condition=Established --timeout=120s crd/clustercloudeventsources.eventing.keda.sh
-kubectl wait --for=condition=Established --timeout=120s crd/clustertriggerauthentications.keda.sh
-kubectl wait --for=condition=Established --timeout=120s crd/scaledjobs.keda.sh
-kubectl wait --for=condition=Established --timeout=120s crd/scaledobjects.keda.sh
-kubectl wait --for=condition=Established --timeout=120s crd/triggerauthentications.keda.sh
+wait_for_crd cloudeventsources.eventing.keda.sh
+wait_for_crd clustercloudeventsources.eventing.keda.sh
+wait_for_crd clustertriggerauthentications.keda.sh
+wait_for_crd scaledjobs.keda.sh
+wait_for_crd scaledobjects.keda.sh
+wait_for_crd triggerauthentications.keda.sh
 
 if [ -d ./kedacore-keda-2-19-0-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

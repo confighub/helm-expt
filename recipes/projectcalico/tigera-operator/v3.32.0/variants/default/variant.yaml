@@ -16,4 +16,38 @@ spec:
     kubeVersion: "1.30.0"
     apiVersions:
       []
+  targetFacts:
+    requiredCRDs:
+      -
+        name: "apiservers.operator.tigera.io"
+        purpose: "Required before Kubernetes can accept the rendered APIServer object."
+        provisioningMode: "operator-bootstrap"
+        suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        evidence:
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      -
+        name: "goldmanes.operator.tigera.io"
+        purpose: "Required before Kubernetes can accept the rendered Goldmane object."
+        provisioningMode: "operator-bootstrap"
+        suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        evidence:
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      -
+        name: "installations.operator.tigera.io"
+        purpose: "Required before Kubernetes can accept the rendered Installation object."
+        provisioningMode: "operator-bootstrap"
+        suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        evidence:
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+      -
+        name: "whiskers.operator.tigera.io"
+        purpose: "Required before Kubernetes can accept the rendered Whisker object."
+        provisioningMode: "operator-bootstrap"
+        suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+        evidence:
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
   hookPolicy: "no-hooks"

@@ -28,11 +28,13 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 6 prerequisite(s): 6 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 6 prerequisites: 6 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-This preset config records 1 hook or lifecycle route(s). The current route status is observed:1, with execution modes target-owned:1. They are listed here instead of being left inside the Helm release.
+The catalog records 1 extra step for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release.
+- **After install:** The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.
+
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -50,13 +52,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -79,18 +81,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml) |
 | Render variant | [`recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/kedacore/keda/2.19.0/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/kedacore/keda/2.19.0/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/kedacore-keda-2-19-0/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD cloudeventsources.eventing.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clustercloudeventsources.eventing.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clustertriggerauthentications.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD scaledjobs.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD scaledobjects.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD triggerauthentications.keda.sh | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | 6 CRDs: cloudeventsources.eventing.keda.sh, clustercloudeventsources.eventing.keda.sh, clustertriggerauthentications.keda.sh, scaledjobs.keda.sh, scaledobjects.keda.sh, triggerauthentications.keda.sh | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
+| After install | Wait for the webhook to be ready | The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods. |
 
 ## Evidence
 
@@ -98,7 +96,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `1` |
@@ -113,5 +111,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/kedacore-keda-2-19-0-no-crds.yaml)
 - Rendered YAML: [`recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/kedacore/keda/2.19.0/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/kedacore/keda/2.19.0/bases/no-crds)
-- Generated scripts: [`site/sh/kedacore-keda-2-19-0-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/kedacore-keda-2-19-0-no-crds)
+- Generated scripts: [`site/sh/kedacore-keda-2-19-0/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/kedacore-keda-2-19-0/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

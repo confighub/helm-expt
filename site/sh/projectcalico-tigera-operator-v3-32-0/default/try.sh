@@ -35,8 +35,45 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./projectcalico-tigera-operator-v3-32-0-default/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
+
+say "Check 4 CRDs included with this package"
+missing_crds=0
+if ! kubectl get crd/apiservers.operator.tigera.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/goldmanes.operator.tigera.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/installations.operator.tigera.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if ! kubectl get crd/whiskers.operator.tigera.io >/dev/null 2>&1; then
+  missing_crds=1
+fi
+if [ "$missing_crds" -eq 1 ]; then
+  kubectl apply --server-side -k ./projectcalico-tigera-operator-v3-32-0-default/package/prerequisites/tigera-operator-bootstrap
+else
+  say "The required CRDs already exist; leave them under their current owner"
+fi
+wait_for_crd apiservers.operator.tigera.io
+wait_for_crd goldmanes.operator.tigera.io
+wait_for_crd installations.operator.tigera.io
+wait_for_crd whiskers.operator.tigera.io
 
 if [ -d ./projectcalico-tigera-operator-v3-32-0-default/out/secrets ]; then
   say "Apply rendered Secrets first"

@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-static-passwords/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/static-passwords/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-static-passwords/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/static-passwords/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-grafana-
 | Render intent | [data/helm-render-intents/intents/grafana-grafana-10-5-15-static-passwords.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-grafana-10-5-15-static-passwords.yaml) |
 | Rendered YAML | [recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/grafana-grafana-10-5-15-static-passwords/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/grafana-grafana-10-5-15-static-passwords/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-static-passwords/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15-static-passwords/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/static-passwords/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-grafana-10-5-15/static-passwords/confighub.sh) |
 
 ## What is proven
 

@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Known limitation: ha (tempo single-binary chart; HA is the separate tempo-distributed chart).
 
@@ -48,13 +48,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-local-persistent/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/local-persistent/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-local-persistent/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/local-persistent/confighub.sh)
 ```
 
 The core render command is:
@@ -77,13 +77,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/grafana-tempo-1-24-4-local-persistent.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-local-persistent.yaml) |
 | Render variant | [`recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/grafana/tempo/1.24.4/bases/local-persistent`](https://github.com/confighub/helm-expt/tree/main/packages/grafana/tempo/1.24.4/bases/local-persistent) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-local-persistent/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4-local-persistent/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/local-persistent/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/grafana-tempo-1-24-4/local-persistent/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| No extra step recorded | The catalog has not identified a separate prerequisite or lifecycle step for this preset. | Check the limits and evidence before production use. |
 
 ## Evidence
 
@@ -91,7 +91,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -107,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/grafana-tempo-1-24-4-local-persistent.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/grafana-tempo-1-24-4-local-persistent.yaml)
 - Rendered YAML: [`recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml)
 - Package source: [`packages/grafana/tempo/1.24.4/bases/local-persistent`](https://github.com/confighub/helm-expt/tree/main/packages/grafana/tempo/1.24.4/bases/local-persistent)
-- Generated scripts: [`site/sh/grafana-tempo-1-24-4-local-persistent`](https://github.com/confighub/helm-expt/tree/main/site/sh/grafana-tempo-1-24-4-local-persistent)
+- Generated scripts: [`site/sh/grafana-tempo-1-24-4/local-persistent`](https://github.com/confighub/helm-expt/tree/main/site/sh/grafana-tempo-1-24-4/local-persistent)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

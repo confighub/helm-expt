@@ -28,11 +28,19 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 1 prerequisite(s): 1 Secret. Create these with your own values before you apply the rendered objects.
+This preset config records 1 prerequisite: 1 Secret. Follow the instructions below before you apply the rendered objects.
 
-This preset config records 7 hook or lifecycle route(s). The current route status is observed:7, with execution modes target-owned:3; user-executes:4. They are listed here instead of being left inside the Helm release.
+The catalog records 7 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-At least one Secret must be created with your values before apply. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release. Known limitation: existing-secret (chart ships no Secret toggle).
+- **Before install:** The hook creates webhook patch prerequisites before admission configuration is safe to use.
+- **Before install:** preserve-ordering.
+- **Before install:** target-facts-or-preflight.
+- **After install:** Webhook TLS and readiness must be observed after apply.
+- **After install:** webhook-readiness-observation.
+- **During upgrade:** Upgrade behavior must be recorded separately from initial render parity.
+- **When uninstalling:** preserve-cleanup-policy.
+
+At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
 
 ## Why you can trust it
 
@@ -50,13 +58,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default/confighub.sh)
 ```
 
 The core render command is:
@@ -79,13 +87,20 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml) |
 | Render variant | [`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret monitoring/kube-prometheus-stack-admission keys cert,key | kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value> |
+| Before install | ClusterFeature: Secret monitoring/kube-prometheus-stack-admission keys cert,key | kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value> |
+| Before install | Prepare the target | The hook creates webhook patch prerequisites before admission configuration is safe to use. |
+| Before install | Keep the required apply order | preserve-ordering. |
+| Before install | Prepare the target | target-facts-or-preflight. |
+| After install | Check the completed install | Webhook TLS and readiness must be observed after apply. |
+| After install | Wait for the webhook to be ready | webhook-readiness-observation. |
+| During upgrade | Run the upgrade step | Upgrade behavior must be recorded separately from initial render parity. |
+| When uninstalling | Keep the chart's cleanup policy | preserve-cleanup-policy. |
 
 ## Evidence
 
@@ -93,7 +108,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `7` |
@@ -109,5 +124,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml)
 - Rendered YAML: [`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default)
-- Generated scripts: [`site/sh/prometheus-community-kube-prometheus-stack-85-3-3-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/prometheus-community-kube-prometheus-stack-85-3-3-default)
+- Generated scripts: [`site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

@@ -1,161 +1,1167 @@
-apiVersion: "helm-expt.confighub.com/v1alpha1"
-kind: "LiveHelmConfigHubParityReceipt"
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
 metadata:
-  name: "projectcalico-tigera-operator-v3.32.0-default-live-parity-20260605"
+  name: projectcalico-tigera-operator-v3.32.0-default-live-parity-20260605
 spec:
-  base: "default"
-  chart: "projectcalico/tigera-operator"
-  checks:
-    -
-      detail: "acquired $HOME/.confighub/locks/helm-expt-live-parity.lock"
-      name: "live-lane-lock"
-      result: "pass"
-    -
-      detail: "Creating kind cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\" (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig)...\nCreating cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\" ...\n • Ensuring node image (kindest/node:v1.35.0) 🖼  ...\n ✓ Ensuring node image (kindest/node:v1.35.0) 🖼\n • Preparing nodes 📦   ...\n ✓ Preparing nodes 📦 \n • Writing configuration 📜  ...\n ✓ Writing configuration 📜\n • Starting control-plane 🕹️  ...\n ✓ Starting control-plane 🕹️\n • Installing CNI 🔌  ...\n ✓ Installing CNI 🔌\n • Installing StorageClass 💾  ...\n ✓ Installing StorageClass 💾\nSet kubectl context to \"kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\"\nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo --kubeconfig $HOME/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig\n\nThanks for using kind! 😊\nInstalling Argo CD...\nCreating namespace \"argocd\"...\napiVersi"
-      name: "cluster-up"
-      result: "pass"
-    -
-      detail: "secrets=0 crds=0 namespaces=0 objectStores=0"
-      name: "target-facts-regular-helm"
-      result: "pass"
-    -
-      detail: "Error: unable to build kubernetes objects from release manifest: [resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first, resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first, resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first, resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"Whisker\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first]"
-      name: "regular-helm-live"
-      result: "blocked"
-    -
-      detail: "secrets=0 crds=0 namespaces=0 objectStores=0"
-      name: "target-facts-confighub-apply"
-      result: "pass"
-    -
-      detail: "manifest apply failed: resource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm"
-      name: "failure"
-      result: "blocked"
-  failure:
-    message: "manifest apply failed: resource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first\nresource mapping not found for name: \"default\" namespace: \"\" from \"$HOME/code/helm-expt/runs/live-helm-co"
+  chart: projectcalico/tigera-operator
+  version: v3.32.0
+  base: default
+  result: pass
+  observedAt: '2026-07-28T22:41:31Z'
+  package:
+    path: packages/projectcalico/tigera-operator/v3.32.0
+  recipe:
+    path: recipes/projectcalico/tigera-operator/v3.32.0
+  variantRevision: recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: kind-tigera-crds
+    result: pass
+    source:
+      package: packages/projectcalico/tigera-operator/v3.32.0
+      base: default
+    manifestSHA256: 2d7b881cdc6fce8d364b87116f3c50a09b355707eed6c8b95734b412aeae86c5
+    resources:
+    - customresourcedefinition/apiservers.operator.tigera.io
+    - customresourcedefinition/goldmanes.operator.tigera.io
+    - customresourcedefinition/installations.operator.tigera.io
+    - customresourcedefinition/whiskers.operator.tigera.io
+    temporaryBootstrap:
+      namespace: default
+      objectCount: 6
+      removedBeforeComparison: true
+    observedBehavior: The verified Project Calico catalog package temporarily ran
+      the Tigera operator until the four CRDs required by this base were Established.
+      The temporary operator and its RBAC were then removed. Only the CRDs remained
+      when the Helm, direct apply, and OCI/Argo comparison began.
   gitOpsCanonicalizationProfile:
-    name: "none"
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-tigeraoperator-ms58pw55-gct
+    kubeContext: kind-helm-expt-parity-tigeraoperator-ms58pw55-gct
+    namespace: default
+    namespaceMode: isolated-leg-namespaces
+    legNamespaces:
+      regularHelm: default-helm
+      configHubKubectlApply: default-apply
+      configHubOciArgo: default-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub cluster down --name helm-expt-parity-tigeraoperator-ms58pw55-gct
+        --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-tigeraoperator-ms58pw55-gct"...
+
+        Deleting cluster "helm-expt-parity-tigeraoperator-ms58pw55-gct" ...
+
+        Deleted nodes: ["helm-expt-parity-tigeraoperator-ms58pw55-gct-control-plane"]
+
+        Clearing release target on Space "helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster"...
+
+        Deleting Space "helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
   legs:
     regularHelm:
-      command: "helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts --version v3.32.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml --wait --timeout 8m"
-      getManifestError: "Error: release: not found"
-      liveHelmManifestObjectCount: 0
-      liveHelmManifestSHA256: ""
-      manifestSHA256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
-      namespace: "default-helm"
+      result: pass
+      command: helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts
+        --version v3.32.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350
       objectCount: 10
-      result: "blocked"
+      liveHelmManifestSHA256: d459a8e985465e5866695a0929489c714d23510ac40d32630f28499771acd577
+      liveHelmManifestObjectCount: 10
+      namespace: default-helm
       runtime:
-        diagnostics:
-          namespaceArtifacts:
-            -
-              bytes: 1651
-              kind: "events"
-              namespace: "default"
-              path: "runtime-diagnostics/regular-helm/default/events.txt"
-              result: "pass"
-              sha256: "f7ac7615006da8ef221a1e4bbf4f332c6e9b893400276345c6f54acc12bcc4f0"
-            -
-              bytes: 40
-              kind: "workload-describe"
-              namespace: "default"
-              path: "runtime-diagnostics/regular-helm/default/workloads-describe.txt"
-              result: "pass"
-              sha256: "b7c8216194b94c87f493bd308f5dc1a99fa5face8c850b4d97b0e23bbb2dca5d"
-          namespaces:
-            - "default"
-          podArtifacts:
-            []
-          result: "recorded"
-        ignoredJobPods:
-          []
+        result: pass
+        workloads: deployment.apps/tigera-operator   1/1   1     1     1s
+        pods: tigera-operator-665f4f4489-zvdvf   1/1   Running   0     1s
+        notReady: []
+        ignoredJobPods: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+        --non-interactive --namespace default-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: dcffc3e9b17daa730f4a742aab03f53fd430e6c5a53be87671d9c8affba0c663
+      objectCount: 11
+      namespace: default-apply
+      manifestNamespaces:
+      - default
+      - default-apply
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/tigera-operator   1/1   1     1     10s'
+        pods: '# default
+
+          tigera-operator-665f4f4489-pqvck   1/1   Running   0     10s'
+        notReady: []
+        terminalReadinessBlockers: {}
+      cleanupBeforeOci:
         namespaces:
-          - "default"
-        notReady:
-          []
-        pods: ""
-        result: "watch"
-        workloads: ""
-      stderr: "Error: unable to build kubernetes objects from release manifest: [resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first, resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"Goldmane\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first, resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"Installation\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first, resource mapping not found for name: \"default\" namespace: \"\" from \"\": no matches for kind \"Whisker\" in version \"operator.tigera.io/v1\"\nensure CRDs are installed first]"
-  observedAt: "2026-06-16T08:07:26Z"
-  operatingPolicy:
-    regularHelm:
-      operation: "none"
-      result: "pass"
-  operationTimings:
-    -
-      command: "helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts --version v3.32.0 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml --wait --timeout 8m"
-      elapsedSeconds: 3.089
-      finishedAt: "2026-06-16T08:08:26Z"
-      name: "regular-helm-install"
-      result: "blocked"
-      startedAt: "2026-06-16T08:08:23Z"
-      timeoutSeconds: 900
-    -
-      command: "cub installer setup --pull $HOME/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0 --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-tigera-operator --non-interactive --namespace default-apply"
-      elapsedSeconds: 0.554
-      finishedAt: "2026-06-16T08:11:30Z"
-      name: "configHub-direct-render"
-      result: "pass"
-      startedAt: "2026-06-16T08:11:29Z"
-      timeoutSeconds: 360
-    -
-      command: "kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-tigeraoperator-mqgd01bz-1wuo.kubeconfig --context kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo apply --server-side --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml"
-      elapsedSeconds: 0.177
-      finishedAt: "2026-06-16T08:11:30Z"
-      name: "configHub-direct-apply"
-      objectCount: 10
-      result: "blocked"
-      startedAt: "2026-06-16T08:11:30Z"
-      timeoutSeconds: 300
-  package:
-    path: "packages/projectcalico/tigera-operator/v3.32.0"
-  recipe:
-    path: "recipes/projectcalico/tigera-operator/v3.32.0"
-  result: "blocked"
-  run:
-    cleanup:
-      command: "cub lk down --name helm-expt-parity-tigeraoperator-mqgd01bz-1wuo --force"
-      detail: "Deleting kind cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\"...\nDeleting cluster \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo\" ...\nDeleted nodes: [\"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-control-plane\"]\nDeleting Space \"helm-expt-parity-tigeraoperator-mqgd01bz-1wuo-cluster\" (recursive: cascades to Unit, Target, Worker)...\n\nDone."
-      result: "pass"
-    clusterLifecycle: "cleaned-up"
-    kubeContext: "kind-helm-expt-parity-tigeraoperator-mqgd01bz-1wuo"
-    legNamespaces:
-      configHubKubectlApply: "default-apply"
-      configHubOciArgo: "default-oci"
-      regularHelm: "default-helm"
-    namespace: "default"
-    namespaceMode: "isolated-leg-namespaces"
-    rig: "helm-expt-parity-tigeraoperator-mqgd01bz-1wuo"
+        - default-apply
+        retainedNamespaces: &id002
+        - default
+        clusterScopedResources:
+          result: pass
+          objectCount: 7
+          manifest: cluster-scoped-apply-cleanup.yaml
+          detail: 'apiserver.operator.tigera.io "default" deleted
+
+            clusterrole.rbac.authorization.k8s.io "tigera-operator-secrets" deleted
+
+            clusterrole.rbac.authorization.k8s.io "tigera-operator" deleted
+
+            clusterrolebinding.rbac.authorization.k8s.io "tigera-operator" deleted
+
+            goldmane.operator.tigera.io "default" deleted
+
+            installation.operator.tigera.io "default" deleted
+
+            whisker.operator.tigera.io "default" deleted'
+        retainedNamespaceResources:
+          result: pass
+          namespaces: *id002
+          objectCount: 3
+          preservedPreExistingObjects: []
+          manifest: retained-namespace-apply-cleanup.yaml
+          detail: 'deployment.apps "tigera-operator" deleted from default namespace
+
+            rolebinding.rbac.authorization.k8s.io "tigera-operator-secrets" deleted
+            from default namespace
+
+            serviceaccount "tigera-operator" deleted from default namespace'
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+      controller: Argo CD OCI
+      app: tigera-operator-parity
+      manifestSHA256: 08a116f338bc0a6a0ef80721aa23f7846a868f1766bd863ae4d3100877604279
+      objectCount: 11
+      namespace: default-oci
+      manifestNamespaces:
+      - default
+      - default-oci
+      runtimeNamespaces: &id003
+      - default
+      ociRevision: sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      renderedLifecycleSecrets:
+        result: not-needed
+        count: 0
+        secrets: []
+      argoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: default-oci
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+              targetRevision: latest
+          revision: sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9
+          status: Synced
+        health:
+          lastTransitionTime: '2026-07-28T22:44:25Z'
+          status: Healthy
+        summary:
+          images:
+          - quay.io/tigera/operator:v1.42.0
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-07-28T22:44:25Z'
+          finishedAt: '2026-07-28T22:44:27Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 11
+          syncResultStatusCounts:
+            Synced: 11
+        history:
+        - id: 0
+          revision: sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9
+          deployedAt: '2026-07-28T22:44:27Z'
+          deployStartedAt: '2026-07-28T22:44:25Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: ''
+          kind: Namespace
+          namespace: ''
+          name: default-oci
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: ''
+          kind: ServiceAccount
+          namespace: default
+          name: tigera-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: apps
+          kind: Deployment
+          namespace: default
+          name: tigera-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: operator.tigera.io
+          kind: APIServer
+          namespace: ''
+          name: default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: operator.tigera.io
+          kind: Goldmane
+          namespace: ''
+          name: default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: operator.tigera.io
+          kind: Installation
+          namespace: ''
+          name: default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: operator.tigera.io
+          kind: Whisker
+          namespace: ''
+          name: default
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: tigera-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRole
+          namespace: ''
+          name: tigera-operator-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: ClusterRoleBinding
+          namespace: ''
+          name: tigera-operator
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: rbac.authorization.k8s.io
+          kind: RoleBinding
+          namespace: default
+          name: tigera-operator-secrets
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         tigera-operator-parity\nNamespace:    argocd\n\
+              Labels:       <none>\nAnnotations:  argocd.argoproj.io/tracking-id:\
+              \ helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster:argoproj.io/Application:argocd/tigera-operator-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              68b39b98-7209-4562-a032-65002cfb0d49\",\"spaceSlug\":\"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+              ,\"unitId\":\"edc7ae56-19...\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-07-28T22:44:18Z\n\
+              \  Generation:          7\n  Resource Version:    1355\n  UID:     \
+              \            bba37c4a-eb74-4b45-b871-45ac54f9c900\nSpec:\n  Destination:\n\
+              \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
+              \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-07-28T22:44:25Z\n\
+              \    Status:                Healthy\n  History:\n    Deploy Started\
+              \ At:  2026-07-28T22:44:25Z\n    Deployed At:        2026-07-28T22:44:27Z\n\
+              \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
+              \    Revision:     sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-07-28T22:44:27Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
+              \     true\n        Revision:  sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
+              \       Succeeded\n    Started At:  2026-07-28T22:44:25Z\n    Sync Result:\n\
+              \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
+              \        Kind:        Namespace\n        Message:     namespace/default-oci\
+              \ serverside-applied\n        Name:        default-oci\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       \n        Hook Phase:\
+              \  Running\n        Kind:        ServiceAccount\n        Message:  \
+              \   serviceaccount/tigera-operator serverside-applied\n        Name:\
+              \        tigera-operator\n        Namespace:   default\n        Status:\
+              \      Synced\n        Sync Phase:  Sync\n        Version:     v1\n\
+              \        Group:       rbac.authorization.k8s.io\n        Hook Phase:\
+              \  Running\n        Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/tigera-operator\
+              \ serverside-applied\n        Name:        tigera-operator\n       \
+              \ Namespace:   default-oci\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
+              \      Message:     clusterrole.rbac.authorization.k8s.io/tigera-operator-secrets\
+              \ serverside-applied\n        Name:        tigera-operator-secrets\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRoleBinding\n        Message:     clusterrolebinding.rbac.authorization.k8s.io/tigera-operator\
+              \ serverside-applied\n        Name:        tigera-operator\n       \
+              \ Namespace:   default-oci\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
+              \        Hook Phase:  Running\n        Kind:        RoleBinding\n  \
+              \      Message:     rolebinding.rbac.authorization.k8s.io/tigera-operator-secrets\
+              \ serverside-applied\n        Name:        tigera-operator-secrets\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       apps\n\
+              \        Hook Phase:  Running\n        Images:\n          quay.io/tigera/operator:v1.42.0\n\
+              \        Kind:        Deployment\n        Message:     deployment.apps/tigera-operator\
+              \ serverside-applied\n        Name:        tigera-operator\n       \
+              \ Namespace:   default\n        Status:      Synced\n        Sync Phase:\
+              \  Sync\n        Version:     v1\n        Group:       operator.tigera.io\n\
+              \        Hook Phase:  Running\n        Kind:        APIServer\n    \
+              \    Message:     apiserver.operator.tigera.io/default serverside-applied\n\
+              \        Name:        default\n        Namespace:   default-oci\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       operator.tigera.io\n        Hook Phase:\
+              \  Running\n        Kind:        Goldmane\n        Message:     goldmane.operator.tigera.io/default\
+              \ serverside-applied\n        Name:        default\n        Namespace:\
+              \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
+              \        Version:     v1\n        Group:       operator.tigera.io\n\
+              \        Hook Phase:  Running\n        Kind:        Installation\n \
+              \       Message:     installation.operator.tigera.io/default serverside-applied\n\
+              \        Name:        default\n        Namespace:   default-oci\n  \
+              \      Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1\n        Group:       operator.tigera.io\n        Hook Phase:\
+              \  Running\n        Kind:        Whisker\n        Message:     whisker.operator.tigera.io/default\
+              \ serverside-applied\n        Name:        default\n        Namespace:\
+              \   default-oci\n   "
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                               MESSAGE
+
+              5s          Normal   OperationStarted     application/tigera-operator-parity   Initiated
+              automated sync to ''sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9''
+
+              5s          Normal   ResourceUpdated      application/tigera-operator-parity   Updated
+              sync status:  -> OutOfSync
+
+              5s          Normal   ResourceUpdated      application/tigera-operator-parity   Updated
+              health status:  -> Healthy
+
+              3s          Normal   OperationCompleted   application/tigera-operator-parity   Sync
+              operation to sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9
+              succeeded
+
+              1s          Normal   ResourceUpdated      application/tigera-operator-parity   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 11
+              artifact:
+                path: argocd-core-child.json
+                sha256: 7d677b9b6050ebaef8d78e7c974b24d82fe609ff8cf5b707b524d39755b4856c
+                bytes: 13749
+              output: "{\n  \"metadata\": {\n    \"name\": \"tigera-operator-parity\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"bba37c4a-eb74-4b45-b871-45ac54f9c900\"\
+                ,\n    \"resourceVersion\": \"1373\",\n    \"generation\": 9,\n  \
+                \  \"creationTimestamp\": \"2026-07-28T22:44:18Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster:argoproj.io/Application:argocd/tigera-operator-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"68b39b98-7209-4562-a032-65002cfb0d49\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\\\
+                \",\\\"unitId\\\":\\\"edc7ae56-1908-45ed-96c0-b6071cd43725\\\",\\\"\
+                unitSlug\\\":\\\"tigera-operator-parity-app\\\",\\\"revisionNum\\\"\
+                :1}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-07-28T22:44:18Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd-application-controller\",\n        \"operation\"\
+                : \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-07-28T22:44:38Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
+                f:source\": {\n                    \".\": {},\n                  \
+                \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
+                \               \"f:targetRevision\": {}\n                  },\n \
+                \                 \"f:syncOptions\": {}\n                }\n     \
+                \         },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {\n     \
+                \         \".\": {},\n              \"f:images\": {}\n           \
+                \ },\n            \"f:sync\": {\n              \".\": {},\n      \
+                \        \"f:comparedTo\": {\n                \".\": {},\n       \
+                \         \"f:destination\": {\n                  \".\": {},\n   \
+                \               \"f:namespace\": {},\n                  \"f:server\"\
+                : {}\n                },\n                \"f:source\": {\n      \
+                \            \".\": {},\n                  \"f:path\": {},\n     \
+                \             \"f:repoURL\": {},\n                  \"f:targetRevision\"\
+                : {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"default-oci\"\n    },\n    \"project\":\
+                \ \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"Namespace\",\n        \"name\": \"default-oci\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
+                : \"v1\",\n        \"kind\": \"ServiceAccount\",\n        \"namespace\"\
+                : \"default\",\n        \"name\": \"tigera-operator\",\n        \"\
+                status\": \"Synced\"\n      },\n      {\n        \"group\": \"apps\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"Deployment\"\
+                ,\n        \"namespace\": \"default\",\n        \"name\": \"tigera-operator\"\
+                ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
+                \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
+                \   \"group\": \"operator.tigera.io\",\n        \"version\": \"v1\"\
+                ,\n        \"kind\": \"APIServer\",\n        \"name\": \"default\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"operator.tigera.io\",\n        \"version\": \"v1\",\n        \"\
+                kind\": \"Goldmane\",\n        \"name\": \"default\",\n        \"\
+                status\": \"Synced\"\n      },\n      {\n        \"group\": \"operator.tigera.io\"\
+                ,\n        \"version\": \"v1\",\n        \"kind\": \"Installation\"\
+                ,\n        \"name\": \"default\",\n        \"status\": \"Synced\"\n\
+                \      },\n      {\n        \"group\": \"operator.tigera.io\",\n \
+                \       \"version\": \"v1\",\n        \"kind\": \"Whisker\",\n   \
+                \     \"name\": \"default\",\n        \"status\": \"Synced\"\n   \
+                \   },\n      {\n        \"group\": \"rbac.authorization.k8s.io\"\
+                ,\n        \"versi"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-child-tree.txt
+                sha256: 4303a83f6840a98282dfafcef529814e1ac61eb9f9d9de8d39d7081656e211b9
+                bytes: 1727
+              output: "Name:               argocd/tigera-operator-parity\nProject:\
+                \            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          default-oci\nURL:                http://localhost:60306/applications/tigera-operator-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                 STATUS  HEALTH   AGE \
+                \ MESSAGE                                                        \
+                \                   REASON\nNamespace/default-oci                \
+                \     Synced           69s                                       \
+                \                                             \nAPIServer/default\
+                \                         Synced           19s                   \
+                \                                                                \
+                \ \nGoldmane/default                          Synced           19s\
+                \                                                                \
+                \                    \nInstallation/default                      Synced\
+                \           19s                                                  \
+                \                                  \nClusterRole/tigera-operator-secrets\
+                \       Synced           19s                                     \
+                \                                               \nClusterRoleBinding/tigera-operator\
+                \        Synced           19s                                    \
+                \                                                \nRoleBinding/tigera-operator-secrets\
+                \       Synced           19s  rolebinding.rbac.authorization.k8s.io/tigera-operator-secrets\
+                \ serverside-applied  \nServiceAccount/tigera-operator           \
+                \ Synced           19s  serviceaccount/tigera-operator serverside-applied\
+                \                                 \nDeployment/tigera-operator   \
+                \             Synced  Healthy  19s  deployment.apps/tigera-operator\
+                \ serverside-applied                                \n\u2514\u2500\
+                ReplicaSet/tigera-operator-665f4f4489           Healthy  19s     \
+                \                                                                \
+                \               \n  \u2514\u2500Pod/tigera-operator-665f4f4489-kglg8\
+                \          Healthy  19s                                          \
+                \                                          \nWhisker/default     \
+                \                      Synced           19s                      \
+                \                                                              \n\
+                ClusterRole/tigera-operator               Synced           19s"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              tigera-operator-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": true,\n      \"stage\": \"healthy\",\n      \"message\": \"\
+              successfully synced (all tasks run)\",\n      \"sourceRef\": \"OCIRepository/argocd/tigera-operator-parity\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"tigera-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
+      rootArgoStatus:
+        result: recorded
+        sync:
+          comparedTo:
+            destination:
+              namespace: argocd
+              server: https://kubernetes.default.svc
+            source:
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster
+              targetRevision: latest
+          revision: sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d
+          status: Synced
+        health:
+          lastTransitionTime: '2026-07-28T22:43:04Z'
+          status: Healthy
+        summary: {}
+        operationState:
+          phase: Succeeded
+          message: successfully synced (all tasks run)
+          startedAt: '2026-07-28T22:44:17Z'
+          finishedAt: '2026-07-28T22:44:18Z'
+          operationSyncResourceCount: 0
+          operationSyncResources: []
+          syncResultResourceCount: 2
+          syncResultStatusCounts:
+            Synced: 2
+        history:
+        - id: 0
+          revision: sha256:9d9cbbf6dbaa0e5608807be5712b9619dcbc12fc217b7051bc9fe0c96db17f8f
+          deployedAt: '2026-07-28T22:43:06Z'
+          deployStartedAt: '2026-07-28T22:43:04Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster
+            targetRevision: latest
+            path: .
+        - id: 1
+          revision: sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d
+          deployedAt: '2026-07-28T22:44:18Z'
+          deployStartedAt: '2026-07-28T22:44:17Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster
+            targetRevision: latest
+            path: .
+        conditions: []
+        resources:
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        - group: argoproj.io
+          kind: Application
+          namespace: argocd
+          name: tigera-operator-parity
+          status: Synced
+          health: ''
+          healthMessage: ''
+          hook: false
+        diagnostics:
+          healthResidue: []
+          describe:
+            result: pass
+            output: "Name:         helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  confighub.com/origin:\n\
+              \                {\"spaceId\":\"68b39b98-7209-4562-a032-65002cfb0d49\"\
+              ,\"spaceSlug\":\"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+              ,\"unitId\":\"de98da94-e1...\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-07-28T22:42:56Z\n\
+              \  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n  Generation:\
+              \        14\n  Resource Version:  1304\n  UID:               32f003a2-d8a8-4d10-8406-c74320b7e3b7\n\
+              Spec:\n  Destination:\n    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
+              \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
+              \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
+              \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
+              \  Health:\n    Last Transition Time:  2026-07-28T22:43:04Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-07-28T22:43:04Z\n\
+              \    Deployed At:        2026-07-28T22:43:06Z\n    Id:             \
+              \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:9d9cbbf6dbaa0e5608807be5712b9619dcbc12fc217b7051bc9fe0c96db17f8f\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-07-28T22:44:17Z\n\
+              \    Deployed At:        2026-07-28T22:44:18Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \      Target Revision:  latest\n  Operation State:\n    Finished At:\
+              \  2026-07-28T22:44:18Z\n    Message:      successfully synced (all\
+              \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
+              \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
+              \  sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \          Target Revision:  latest\n        Sync Options:\n       \
+              \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
+              \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
+              \    Phase:       Succeeded\n    Started At:  2026-07-28T22:44:17Z\n\
+              \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
+              \        Hook Phase:  Running\n        Kind:        Application\n  \
+              \      Message:     application.argoproj.io/tigera-operator-parity serverside-applied\n\
+              \        Name:        tigera-operator-parity\n        Namespace:   argocd\n\
+              \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
+              \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \        Namespace:   argocd\n        Status:      Synced\n        Sync\
+              \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
+              \ sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-07-28T22:44:20Z\n\
+              \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
+              \    Kind:       Application\n    Name:       helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
+              \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
+              \       tigera-operator-parity\n    Namespace:  argocd\n    Status:\
+              \     Synced\n    Version:    v1alpha1\n  Source Hydrator:\n  Source\
+              \ Type:  Directory\n  Summary:\n  Sync:\n    Compared To:\n      Destination:\n\
+              \        Namespace:  argocd\n        Server:     https://kubernetes.default.svc\n\
+              \      Source:\n        Path:             .\n        Repo URL:     \
+              \    oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+              \        Target Revision:  latest\n    Revision:             sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d\n\
+              \    Status:               Synced\nEvents:\n  Type    Reason       \
+              \       Age   From                           Message\n  ----    ------\
+              \              ----  ----                           -------\n  Normal\
+              \  OperationStarted    103s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:9d9cbbf6dbaa0e5608807be5712b9619dcbc12fc217b7051bc9fe0c96db17f8f'\n\
+              \  Normal  ResourceUpdated     103s  argocd-application-controller \
+              \ Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated    \
+              \ 103s  argocd-application-controller  Updated health status:  -> Healthy\n\
+              \  Normal  OperationCompleted  101s  argocd-application-controller \
+              \ Sync operation to sha256:9d9cbbf6dbaa0e5608807be5712b9619dcbc12fc217b7051bc9fe0c96db17f8f\
+              \ succeeded\n  Normal  ResourceUpdated     100s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  OperationStarted\
+              \    30s   argocd-application-controller  Initiated automated sync to\
+              \ 'sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d'\n\
+              \  Normal  ResourceUpdated     30s   argocd-application-controller \
+              \ Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  29s   argocd-application-controller  Sync op"
+          events:
+            result: pass
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                             MESSAGE
+
+              103s        Normal   OperationStarted     application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Initiated
+              automated sync to ''sha256:9d9cbbf6dbaa0e5608807be5712b9619dcbc12fc217b7051bc9fe0c96db17f8f''
+
+              103s        Normal   ResourceUpdated      application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Updated
+              sync status:  -> OutOfSync
+
+              103s        Normal   ResourceUpdated      application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Updated
+              health status:  -> Healthy
+
+              101s        Normal   OperationCompleted   application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Sync
+              operation to sha256:9d9cbbf6dbaa0e5608807be5712b9619dcbc12fc217b7051bc9fe0c96db17f8f
+              succeeded
+
+              100s        Normal   ResourceUpdated      application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Updated
+              sync status: OutOfSync -> Synced
+
+              30s         Normal   OperationStarted     application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Initiated
+              automated sync to ''sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d''
+
+              30s         Normal   ResourceUpdated      application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              29s         Normal   OperationCompleted   application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Sync
+              operation to sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d
+              succeeded
+
+              27s         Normal   ResourceUpdated      application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster   Updated
+              sync status: OutOfSync -> Synced'
+          argocdCore:
+            result: pass
+            coreNamespace: argocd
+            temporaryKubeconfigNamespace: true
+            json:
+              result: pass
+              summary:
+                sync: Synced
+                health: Healthy
+                operationPhase: Succeeded
+                conditions: 0
+                resources: 2
+              artifact:
+                path: argocd-core-root.json
+                sha256: 1296311120316a8d20d48db35e7f87267b5c2f665646d4114928610f2703f834
+                bytes: 9903
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"32f003a2-d8a8-4d10-8406-c74320b7e3b7\"\
+                ,\n    \"resourceVersion\": \"1626\",\n    \"generation\": 15,\n \
+                \   \"creationTimestamp\": \"2026-07-28T22:42:56Z\",\n    \"annotations\"\
+                : {\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"68b39b98-7209-4562-a032-65002cfb0d49\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\\\
+                \",\\\"unitId\\\":\\\"de98da94-e1e0-491d-86ba-e0ad8b7ecbdb\\\",\\\"\
+                unitSlug\\\":\\\"root\\\",\\\"revisionNum\\\":1}\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\\\
+                \",\\\"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\
+                \":{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\\\
+                \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
+                automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
+                \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
+                \",\\\"CreateNamespace=false\\\"]}}}\\n\"\n    },\n    \"finalizers\"\
+                : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
+                \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
+                ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
+                ,\n        \"time\": \"2026-07-28T22:43:06Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
+                : {\n            \"f:annotations\": {\n              \"f:confighub.com/origin\"\
+                : {},\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {}\n            },\n            \"f:finalizers\": {\n          \
+                \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
+                \          }\n          },\n          \"f:spec\": {\n            \"\
+                f:destination\": {\n              \"f:namespace\": {},\n         \
+                \     \"f:server\": {}\n            },\n            \"f:project\"\
+                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
+                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
+                : {}\n            },\n            \"f:syncPolicy\": {\n          \
+                \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
+                \          },\n              \"f:syncOptions\": {}\n            }\n\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
+                ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
+                : \"2026-07-28T22:44:55Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
+                \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
+                \      \"f:health\": {\n              \".\": {},\n              \"\
+                f:lastTransitionTime\": {},\n              \"f:status\": {}\n    \
+                \        },\n            \"f:history\": {},\n            \"f:operationState\"\
+                : {\n              \".\": {},\n              \"f:finishedAt\": {},\n\
+                \              \"f:message\": {},\n              \"f:operation\":\
+                \ {\n                \".\": {},\n                \"f:initiatedBy\"\
+                : {\n                  \".\": {},\n                  \"f:automated\"\
+                : {}\n                },\n                \"f:retry\": {\n       \
+                \           \".\": {},\n                  \"f:limit\": {}\n      \
+                \          },\n                \"f:sync\": {\n                  \"\
+                .\": {},\n                  \"f:revision\": {},\n                \
+                \  \"f:source\": {\n                    \".\": {},\n             \
+                \       \"f:path\": {},\n                    \"f:repoURL\": {},\n\
+                \                    \"f:targetRevision\": {}\n                  },\n\
+                \                  \"f:syncOptions\": {}\n                }\n    \
+                \          },\n              \"f:phase\": {},\n              \"f:startedAt\"\
+                : {},\n              \"f:syncResult\": {\n                \".\": {},\n\
+                \                \"f:resources\": {},\n                \"f:revision\"\
+                : {},\n                \"f:source\": {\n                  \".\": {},\n\
+                \                  \"f:path\": {},\n                  \"f:repoURL\"\
+                : {},\n                  \"f:targetRevision\": {}\n              \
+                \  }\n              }\n            },\n            \"f:reconciledAt\"\
+                : {},\n            \"f:resourceHealthSource\": {},\n            \"\
+                f:resources\": {},\n            \"f:sourceHydrator\": {},\n      \
+                \      \"f:sourceType\": {},\n            \"f:summary\": {},\n   \
+                \         \"f:sync\": {\n              \".\": {},\n              \"\
+                f:comparedTo\": {\n                \".\": {},\n                \"\
+                f:destination\": {\n                  \".\": {},\n               \
+                \   \"f:namespace\": {},\n                  \"f:server\": {}\n   \
+                \             },\n                \"f:source\": {\n              \
+                \    \".\": {},\n                  \"f:path\": {},\n             \
+                \     \"f:repoURL\": {},\n                  \"f:targetRevision\":\
+                \ {}\n                }\n              },\n              \"f:revision\"\
+                : {},\n              \"f:status\": {}\n            }\n          }\n\
+                \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"tigera-operator-parity\",\n        \"status\": \"\
+                Synced\"\n      }\n    ],\n    \"sync\": {\n      \"status\": \"Syn"
+            tree:
+              result: pass
+              artifact:
+                path: argocd-core-root-tree.txt
+                sha256: 80395e1059c3dd9d7d304a3da65a7e5efe1f852548ac166d4858b409595fac25
+                bytes: 1131
+              output: "Name:               argocd/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+                Project:            default\nServer:             https://kubernetes.default.svc\n\
+                Namespace:          argocd\nURL:                http://localhost:60440/applications/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \   STATUS  HEALTH  AGE   MESSAGE                                \
+                \                                                          REASON\n\
+                Application/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster \
+                \ Synced          2m8s  application.argoproj.io/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\
+                \ serverside-applied  \nApplication/tigera-operator-parity       \
+                \                         Synced          46s   application.argoproj.io/tigera-operator-parity\
+                \ serverside-applied"
+          cubScoutGitOpsStatus:
+            result: pass
+            summary:
+              backendCount: 0
+              applicationCount: 0
+              sourceCount: 2
+              resourceCount: 0
+            output: "{\n  \"backend\": \"argocd\",\n  \"transport\": \"oci\",\n  \"\
+              deployers\": [\n    {\n      \"kind\": \"Application\",\n      \"name\"\
+              : \"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\",\n      \"\
+              namespace\": \"argocd\",\n      \"ready\": true,\n      \"stage\": \"\
+              healthy\",\n      \"message\": \"successfully synced (all tasks run)\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+              ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:0ab7aba0ef1180a9bf12d8eaf4cc6fe10cc4163acae0886d2e5149588ec4fd7d\"\
+              \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
+              tigera-operator-parity\",\n      \"namespace\": \"argocd\",\n      \"\
+              ready\": false,\n      \"stage\": \"sync\",\n      \"reason\": \"Running\"\
+              ,\n      \"sourceRef\": \"OCIRepository/argocd/tigera-operator-parity\"\
+              ,\n      \"syncStatus\": \"OutOfSync\",\n      \"healthStatus\": \"\
+              Healthy\",\n      \"lastAttemptedRevision\": \"sha256:1d34b50846ef2af9a46b64bfadae163b6ef54949e3926b181651532064ab56d9\"\
+              \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
+              ,\n      \"name\": \"helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    },\n\
+              \    {\n      \"kind\": \"OCIRepository\",\n      \"name\": \"tigera-operator-parity\"\
+              ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
+              \  ],\n  \"healthyCount\": 1,\n  \"failedCount\": 1\n}"
+      runtime:
+        result: pass
+        namespaces: *id003
+        workloads: '# default
+
+          deployment.apps/tigera-operator   1/1   1     1     37s'
+        pods: '# default
+
+          tigera-operator-665f4f4489-kglg8   1/1   Running   0     37s'
+        notReady: []
+        terminalReadinessBlockers: {}
   semanticComparison:
     allowedExtraConfigHubObjects:
-      - "v1|Namespace||default"
-    semanticNormalizations:
-      - "prune-null-fields"
+    - v1|Namespace||default
+    semanticNormalizations: &id004
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id004
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 10
+      configHubObjectCount: 11
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  operationTimings:
+  - name: regular-helm-install
+    result: pass
+    startedAt: '2026-07-28T22:43:06Z'
+    finishedAt: '2026-07-28T22:43:11Z'
+    elapsedSeconds: 4.698
+    timeoutSeconds: 900
+    command: helm upgrade --install tigera-operator tigera-operator --repo https://docs.tigera.io/calico/charts
+      --version v3.32.0 --namespace default-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/regular-helm-values.yaml
+      --wait --timeout 8m
+  - name: configHub-direct-render
+    result: pass
+    startedAt: '2026-07-28T22:43:20Z'
+    finishedAt: '2026-07-28T22:43:20Z'
+    elapsedSeconds: 0.312
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+      --non-interactive --namespace default-apply
+  - name: configHub-direct-apply
+    result: pass
+    startedAt: '2026-07-28T22:43:20Z'
+    finishedAt: '2026-07-28T22:43:21Z'
+    elapsedSeconds: 0.166
+    timeoutSeconds: 300
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig
+      --context kind-helm-expt-parity-tigeraoperator-ms58pw55-gct apply --server-side
+      --force-conflicts -f /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/direct-apply-manifest.yaml
+    objectCount: 10
+  - name: configHub-direct-readiness
+    result: pass
+    startedAt: '2026-07-28T22:43:21Z'
+    finishedAt: '2026-07-28T22:43:31Z'
+    elapsedSeconds: 10.273
+    timeoutSeconds: 300
+    namespaces: default
+  - name: configHub-oci-render
+    result: pass
+    startedAt: '2026-07-28T22:43:36Z'
+    finishedAt: '2026-07-28T22:43:36Z'
+    elapsedSeconds: 0.259
+    timeoutSeconds: 360
+    command: cub installer setup --pull /Users/alexis/code/helm-expt/packages/projectcalico/tigera-operator/v3.32.0
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+      --non-interactive --namespace default-oci
+  - name: configHub-oci-upload
+    result: pass
+    startedAt: '2026-07-28T22:43:37Z'
+    finishedAt: '2026-07-28T22:44:06Z'
+    elapsedSeconds: 29.089
+    timeoutSeconds: 600
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+      --space helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator --target
+      helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster/oci
+    objectCount: 11
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-07-28T22:44:06Z'
+    finishedAt: '2026-07-28T22:44:06Z'
+    elapsedSeconds: 0.773
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+      --release-target helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster/oci
+  - name: configHub-oci-unit-list
+    result: pass
+    startedAt: '2026-07-28T22:44:06Z'
+    finishedAt: '2026-07-28T22:44:07Z'
+    elapsedSeconds: 0.594
+    timeoutSeconds: 120
+    command: cub unit list --space helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+  - name: configHub-oci-workload-release-publish
+    result: pass
+    startedAt: '2026-07-28T22:44:07Z'
+    finishedAt: '2026-07-28T22:44:08Z'
+    elapsedSeconds: 0.839
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-tigeraoperator-ms58pw55-gct-tigera-operator
+    unitCount: 11
+  - name: configHub-oci-app-create
+    result: pass
+    startedAt: '2026-07-28T22:44:08Z'
+    finishedAt: '2026-07-28T22:44:09Z'
+    elapsedSeconds: 1.005
+    timeoutSeconds: 180
+    command: cub unit create --space helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster
+      tigera-operator-parity-app /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/argo-application.json
+      --target helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster/oci --allow-exists
+  - name: configHub-oci-app-release-publish
+    result: pass
+    startedAt: '2026-07-28T22:44:09Z'
+    finishedAt: '2026-07-28T22:44:10Z'
+    elapsedSeconds: 0.679
+    timeoutSeconds: 360
+    command: cub release publish helm-expt-parity-tigeraoperator-ms58pw55-gct-cluster
+  - name: configHub-oci-argo-wait
+    result: pass
+    startedAt: '2026-07-28T22:44:10Z'
+    finishedAt: '2026-07-28T22:44:30Z'
+    elapsedSeconds: 20.155
+    timeoutSeconds: 420
+    waitedSeconds: 20
+    sync: Synced
+    health: Healthy
+  - name: configHub-oci-readiness
+    result: pass
+    startedAt: '2026-07-28T22:45:04Z'
+    finishedAt: '2026-07-28T22:45:04Z'
+    elapsedSeconds: 0.092
+    timeoutSeconds: 180
+    namespaces: default
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cluster-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-tigeraoperator-ms58pw55-gct\"\
+      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-tigeraoperator-ms58pw55-gct\" ...\n \u2022\
+      \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
+      \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
+      \ \U0001F4DC  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting\
+      \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
+      \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
+      \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-tigeraoperator-ms58pw55-gct\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-tigeraoperator-ms58pw55-gct\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-tigeraoperator-ms58pw55-gct.kubeconfig\n\
+      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
+      \ \"argocd\"...\nap"
+  - name: target-profile
+    result: pass
+    detail: 'kind-tigera-crds: The verified Project Calico catalog package temporarily
+      ran the Tigera operator until the four CRDs required by this base were Established.
+      The temporary operator and its RBAC were then removed. Only the CRDs remained
+      when the Helm, direct apply, and OCI/Argo comparison began.'
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "tigera-operator" does not exist. Installing it now.
+
+      NAME: tigera-operator
+
+      LAST DEPLOYED: Tue Jul 28 23:43:10 2026
+
+      NAMESPACE: default-helm
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/tigera-operator   1/1   1     1     10s'
+  - name: confighub-kubectl-apply-cluster-cleanup
+    result: pass
+    detail: objects=7
+  - name: confighub-kubectl-apply-retained-namespace-cleanup
+    result: pass
+    detail: objects=3 namespaces=default
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
   targetFacts:
-    configHubKubectlApply:
-      result: "pass"
-      stagedCRDs:
-        []
-      stagedNamespaces:
-        []
-      stagedObjectStores:
-        []
-      stagedSecrets:
-        []
     regularHelm:
-      result: "pass"
-      stagedCRDs:
-        []
-      stagedNamespaces:
-        []
-      stagedObjectStores:
-        []
-      stagedSecrets:
-        []
-  targetProfile:
-    name: "none"
-    resources:
-      []
-    result: "pass"
-  variantRevision: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
-  version: "v3.32.0"
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+      stagedNamespaces: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default-apply
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default-oci

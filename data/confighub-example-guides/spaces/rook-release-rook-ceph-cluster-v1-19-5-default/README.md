@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 6 prerequisite(s): 5 CRDs, 1 other item. Create these with your own values before you apply the rendered objects.
+This preset config records 6 prerequisites: 5 CRDs, 1 other item. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Some CRDs must already exist before the rendered objects are applied.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5/default/confighub.sh)
 ```
 
 The core render command is:
@@ -78,18 +78,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml) |
 | Render variant | [`recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/rook-release-rook-ceph-cluster-v1-19-5/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD cephblockpools.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
-| ClusterFeature | CRD cephclusters.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
-| ClusterFeature | CRD cephfilesystems.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
-| ClusterFeature | CRD cephfilesystemsubvolumegroups.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
-| ClusterFeature | CRD cephobjectstores.ceph.rook.io | package://prerequisites/target-facts/default-crds.yaml |
-| ClusterFeature | Namespace rook-ceph | kubectl create namespace rook-ceph --dry-run=client -o yaml \| kubectl apply -f - |
+| Before install | ClusterFeature: Namespace rook-ceph | kubectl create namespace rook-ceph --dry-run=client -o yaml \| kubectl apply -f - |
+| Before install | 5 CRDs: cephblockpools.ceph.rook.io, cephclusters.ceph.rook.io, cephfilesystems.ceph.rook.io, cephfilesystemsubvolumegroups.ceph.rook.io, cephobjectstores.ceph.rook.io | Included in the public package as prerequisites/target-facts/default-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -97,7 +93,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `no` |
 | Live Helm vs ConfigHub comparison | `no` |
 | Lifecycle routes | `0` |
@@ -113,5 +109,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml)
 - Rendered YAML: [`recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default)
-- Generated scripts: [`site/sh/rook-release-rook-ceph-cluster-v1-19-5-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/rook-release-rook-ceph-cluster-v1-19-5-default)
+- Generated scripts: [`site/sh/rook-release-rook-ceph-cluster-v1-19-5/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/rook-release-rook-ceph-cluster-v1-19-5/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

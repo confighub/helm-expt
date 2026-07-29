@@ -445,8 +445,8 @@
 <p>This is the chart-level summary. Use the variant table and receipt links below for exact base-variant evidence.</p>
 <table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Adoption bucket</td><td>needs-useful-variant</td></tr>
 <tr><td>User status</td><td>proof-grade-needs-user-shaped-variant</td></tr>
-<tr><td>Strongest evidence</td><td>in-confighub-proof</td></tr>
-<tr><td>Proof lanes</td><td>render parity 1/1; ConfigHub 1/1; local live 0/1; GitOps live 0/1; live parity 0/1</td></tr>
+<tr><td>Strongest evidence</td><td>live-helm-vs-confighub-parity</td></tr>
+<tr><td>Proof lanes</td><td>render parity 1/1; ConfigHub 1/1; local live 0/1; GitOps live 1/1; live parity 1/1</td></tr>
 <tr><td>Feature summary</td><td>hooks;required-values</td></tr>
 <tr><td>Hard gap</td><td>-</td></tr>
 <tr><td>Next action</td><td>add at least one user-shaped variant before catalog promotion</td></tr></tbody></table>
@@ -458,6 +458,7 @@
 <tr><td>Chart dossier</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/chart-dossier.yaml">recipes/projectcalico/tigera-operator/v3.32.0/chart-dossier.yaml</a></td></tr>
 <tr><td>Control points</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml">recipes/projectcalico/tigera-operator/v3.32.0/control-points.yaml</a></td></tr>
 <tr><td>Value model</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml">recipes/projectcalico/tigera-operator/v3.32.0/value-model.yaml</a></td></tr>
+<tr><td>GitOps runtime review</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/gitops-runtime-review.yaml">recipes/projectcalico/tigera-operator/v3.32.0/gitops-runtime-review.yaml</a></td></tr>
 <tr><td>Target prerequisite plan</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml">recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml</a></td></tr>
 <tr><td>Catalog status</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/catalog-status.yaml">recipes/projectcalico/tigera-operator/v3.32.0/catalog-status.yaml</a></td></tr>
 <tr><td>Helm pain report</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml">recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml</a></td></tr>
@@ -466,7 +467,7 @@
 <tr><td>Installer package receipt</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml">recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml</a></td></tr>
 <tr><td>Machine index</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/artifact-index.yaml">recipes/projectcalico/tigera-operator/v3.32.0/artifact-index.yaml</a></td></tr></tbody></table>
 <h2 id="variants">Variants</h2>
-<table><thead><tr><th>Variant</th><th>Variant file</th><th>Package base</th><th>Revision</th><th>Helm objects</th><th>cub installer objects</th><th>Match</th><th>Helm equivalence</th><th>Scan</th><th>Gate</th><th>Target facts</th></tr></thead><tbody><tr><td>default</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml">recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml</a></td><td><a href="../../../../../../packages/projectcalico/tigera-operator/v3.32.0/bases/default">packages/projectcalico/tigera-operator/v3.32.0/bases/default</a></td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml">recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml</a></td><td>10</td><td>11</td><td>10/10</td><td>pass</td><td>warn</td><td>warn</td><td>none</td></tr></tbody></table>
+<table><thead><tr><th>Variant</th><th>Variant file</th><th>Package base</th><th>Revision</th><th>Helm objects</th><th>cub installer objects</th><th>Match</th><th>Helm equivalence</th><th>Scan</th><th>Gate</th><th>Target facts</th></tr></thead><tbody><tr><td>default</td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml">recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml</a></td><td><a href="../../../../../../packages/projectcalico/tigera-operator/v3.32.0/bases/default">packages/projectcalico/tigera-operator/v3.32.0/bases/default</a></td><td><a href="../../../../../../recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml">recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml</a></td><td>10</td><td>11</td><td>10/10</td><td>pass</td><td>warn</td><td>warn</td><td>required CRD apiservers.operator.tigera.io; required CRD goldmanes.operator.tigera.io; required CRD installations.operator.tigera.io; required CRD whiskers.operator.tigera.io</td></tr></tbody></table>
 <h2 id="package-bases">Package Bases</h2>
 <table><thead><tr><th>Base</th><th>Path</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>default</td><td><a href="../../../../../../packages/projectcalico/tigera-operator/v3.32.0/bases/default">packages/projectcalico/tigera-operator/v3.32.0/bases/default</a></td><td>yes</td><td>projectcalico/tigera-operator default variant rendered from projectcalico/tigera-operator@v3.32.0</td></tr></tbody></table>
 <h2 id="receipts">Receipts</h2>

@@ -81,6 +81,9 @@ The source data uses more than one vocabulary. This is the published join.
 | `preserve-ordering` | `hook-weight-ordering` |
 | `preserve-cleanup-policy` | `hook-delete-policy` |
 | `delete-cleanup-policy` | `hook-delete-policy` |
+| `explicit-delete-cleanup-action` | `hook-delete-policy` |
+| `explicit-post-install-check` | `hook-test` |
+| `postsync-readiness-observation` | `webhook-readiness` |
 | `self-contained-crd-base` | `crd-install` |
 
 ## Route → Execution Mode (base)
@@ -104,6 +107,9 @@ No route maps to `product-executes`.
 | `preserve-ordering` | `target-owned` |
 | `preserve-cleanup-policy` | `target-owned` |
 | `delete-cleanup-policy` | `target-owned` |
+| `explicit-delete-cleanup-action` | `user-executes` |
+| `explicit-post-install-check` | `user-executes` |
+| `postsync-readiness-observation` | `user-executes` |
 | `self-contained-crd-base` | `target-owned` |
 
 ## Quirk Class → Alternatives (off-ramps)

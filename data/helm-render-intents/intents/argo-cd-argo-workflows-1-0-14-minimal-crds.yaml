@@ -62,7 +62,7 @@ spec:
         executionMode: "target-owned"
         automatic: false
         whoRuns: "Your applier — must apply CRDs before dependent objects"
-        operatingDetails: "The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
+        operatingDetails: "Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead."
         command: ""
         disposition: "observed"
         delta: "resolved"

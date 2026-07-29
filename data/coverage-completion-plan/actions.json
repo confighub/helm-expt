@@ -13,20 +13,20 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 667,
+  "nonGreenCellsCovered": 660,
   "familyCount": 20,
   "byActionType": {
     "run-promotion": 389,
-    "record-decision": 112,
+    "record-decision": 110,
     "refresh-image": 74,
     "stage-prereq": 58,
-    "fix-model": 27,
-    "lifecycle-observe": 7
+    "fix-model": 25,
+    "lifecycle-observe": 4
   },
   "byOwnerLane": {
-    "Codex-live": 396,
-    "product-decision": 143,
-    "Claude-non-live": 128
+    "Codex-live": 393,
+    "product-decision": 141,
+    "Claude-non-live": 126
   },
   "top10": [
     {
@@ -54,7 +54,7 @@
       "action_id": "CCP-04",
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
-      "affected_cell_count": 47,
+      "affected_cell_count": 45,
       "owner_lane": "product-decision"
     },
     {
@@ -73,30 +73,30 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "fix-model",
-      "sub_group": "model-gap",
-      "affected_cell_count": 8,
-      "owner_lane": "Claude-non-live"
-    },
-    {
-      "action_id": "CCP-08",
-      "action_type": "lifecycle-observe",
-      "sub_group": "lifecycle-route",
-      "affected_cell_count": 7,
-      "owner_lane": "Codex-live"
-    },
-    {
-      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "install-crds",
       "affected_cell_count": 7,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-08",
+      "action_type": "fix-model",
+      "sub_group": "model-gap",
+      "affected_cell_count": 6,
+      "owner_lane": "Claude-non-live"
+    },
+    {
+      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
       "affected_cell_count": 6,
+      "owner_lane": "Claude-non-live"
+    },
+    {
+      "action_id": "CCP-10",
+      "action_type": "fix-model",
+      "sub_group": "base-design",
+      "affected_cell_count": 5,
       "owner_lane": "Claude-non-live"
     }
   ],
@@ -693,7 +693,7 @@
       "action_type": "record-decision",
       "sub_group": "lifecycle-not-applicable",
       "owner_lane": "product-decision",
-      "affected_cell_count": 47,
+      "affected_cell_count": 45,
       "lanes": [
         "lifecycle"
       ],
@@ -717,7 +717,6 @@
         "external-dns/external-dns@1.21.1/dry-run-txt-registry [lifecycle]",
         "external-dns/external-dns@1.21.1/no-crds [lifecycle]",
         "fairwinds-stable/goldilocks@10.3.0/default [lifecycle]",
-        "gatekeeper/gatekeeper@3.22.2/default [lifecycle]",
         "gatekeeper/gatekeeper@3.22.2/no-crds [lifecycle]",
         "grafana/alloy@1.8.2/default [lifecycle]",
         "grafana/alloy@1.8.2/no-crds [lifecycle]",
@@ -741,7 +740,6 @@
         "minio-operator/operator@7.1.1/default [lifecycle]",
         "percona/pxc-operator@1.19.1/default [lifecycle]",
         "percona/pxc-operator@1.19.1/no-crds [lifecycle]",
-        "projectcalico/tigera-operator@v3.32.0/default [lifecycle]",
         "prometheus-community/prometheus-adapter@5.3.0/apiservice-v1-capability [lifecycle]",
         "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [lifecycle]",
         "prometheus-community/prometheus-adapter@5.3.0/default [lifecycle]",
@@ -823,61 +821,6 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "fix-model",
-      "sub_group": "model-gap",
-      "owner_lane": "Claude-non-live",
-      "affected_cell_count": 8,
-      "lanes": [
-        "G",
-        "K",
-        "L",
-        "P"
-      ],
-      "command": "",
-      "prerequisite": "",
-      "expected_status": "pass after the model/recipe change",
-      "prediction": true,
-      "evidence_surface": "model-gap-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [K]",
-        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [L]",
-        "projectcalico/tigera-operator@v3.32.0/default [G]",
-        "projectcalico/tigera-operator@v3.32.0/default [P]",
-        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [K]",
-        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [L]",
-        "prometheus-community/prometheus-adapter@5.3.0/default [K]",
-        "prometheus-community/prometheus-adapter@5.3.0/default [L]"
-      ]
-    },
-    {
-      "action_id": "CCP-08",
-      "action_type": "lifecycle-observe",
-      "sub_group": "lifecycle-route",
-      "owner_lane": "Codex-live",
-      "affected_cell_count": 7,
-      "lanes": [
-        "L",
-        "lifecycle"
-      ],
-      "command": "data/lifecycle-route-actions (route/action packets)",
-      "prerequisite": "",
-      "expected_status": "observed",
-      "prediction": true,
-      "evidence_surface": "lifecycle-route-actions; local-live-triage",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "argo-cd/argo-workflows@1.0.14/controller-default-reviewed [lifecycle]",
-        "argo-cd/argo-workflows@1.0.14/default [lifecycle]",
-        "fluent/fluent-bit@0.57.6/default [lifecycle]",
-        "kyverno/kyverno@3.8.1/default [lifecycle]",
-        "kyverno/kyverno@3.8.1/no-crds [lifecycle]",
-        "projectcalico/tigera-operator@v3.32.0/default [L]",
-        "prometheus-community/kube-prometheus-stack@85.3.3/default [lifecycle]"
-      ]
-    },
-    {
-      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "install-crds",
       "owner_lane": "Claude-non-live",
@@ -905,7 +848,32 @@
       ]
     },
     {
-      "action_id": "CCP-10",
+      "action_id": "CCP-08",
+      "action_type": "fix-model",
+      "sub_group": "model-gap",
+      "owner_lane": "Claude-non-live",
+      "affected_cell_count": 6,
+      "lanes": [
+        "K",
+        "L"
+      ],
+      "command": "",
+      "prerequisite": "",
+      "expected_status": "pass after the model/recipe change",
+      "prediction": true,
+      "evidence_surface": "model-gap-workdown",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [K]",
+        "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18/default [L]",
+        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [K]",
+        "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [L]",
+        "prometheus-community/prometheus-adapter@5.3.0/default [K]",
+        "prometheus-community/prometheus-adapter@5.3.0/default [L]"
+      ]
+    },
+    {
+      "action_id": "CCP-09",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
       "owner_lane": "Claude-non-live",
@@ -931,7 +899,7 @@
       ]
     },
     {
-      "action_id": "CCP-11",
+      "action_id": "CCP-10",
       "action_type": "fix-model",
       "sub_group": "base-design",
       "owner_lane": "Claude-non-live",
@@ -956,7 +924,7 @@
       ]
     },
     {
-      "action_id": "CCP-12",
+      "action_id": "CCP-11",
       "action_type": "fix-model",
       "sub_group": "crd-lifecycle",
       "owner_lane": "Claude-non-live",
@@ -979,7 +947,7 @@
       ]
     },
     {
-      "action_id": "CCP-13",
+      "action_id": "CCP-12",
       "action_type": "stage-prereq",
       "sub_group": "provide-external-service",
       "owner_lane": "product-decision",
@@ -1003,7 +971,7 @@
       ]
     },
     {
-      "action_id": "CCP-14",
+      "action_id": "CCP-13",
       "action_type": "fix-model",
       "sub_group": "semantic-normalization",
       "owner_lane": "Claude-non-live",
@@ -1023,6 +991,29 @@
         "prometheus-community/prometheus-adapter@5.3.0/cluster-metrics-readonly [P]",
         "prometheus-community/prometheus-adapter@5.3.0/default [G]",
         "prometheus-community/prometheus-adapter@5.3.0/default [P]"
+      ]
+    },
+    {
+      "action_id": "CCP-14",
+      "action_type": "lifecycle-observe",
+      "sub_group": "lifecycle-route",
+      "owner_lane": "Codex-live",
+      "affected_cell_count": 4,
+      "lanes": [
+        "L",
+        "lifecycle"
+      ],
+      "command": "data/lifecycle-route-actions (route/action packets)",
+      "prerequisite": "",
+      "expected_status": "observed",
+      "prediction": true,
+      "evidence_surface": "lifecycle-route-actions; local-live-triage",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "argo-cd/argo-workflows@1.0.14/controller-default-reviewed [lifecycle]",
+        "argo-cd/argo-workflows@1.0.14/default [lifecycle]",
+        "kyverno/kyverno@3.8.1/no-crds [lifecycle]",
+        "projectcalico/tigera-operator@v3.32.0/default [L]"
       ]
     },
     {

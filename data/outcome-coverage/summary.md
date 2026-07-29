@@ -14,12 +14,12 @@ complete core lane rows:             126/199
 render parity rows:                  199/199
 in-ConfigHub proof rows:             198/199
 local live rows:                     148/199
-GitOps/OCI live pass rows:           138/199
-GitOps/OCI non-pass receipts:        60
-live Helm-vs-ConfigHub pass rows:    138/199
-live Helm-vs-ConfigHub non-pass receipts: 60
-lifecycle observation rows:          14/14
-selected live parity receipts:       138 pass, 51 watch, 9 blocked
+GitOps/OCI live pass rows:           139/199
+GitOps/OCI non-pass receipts:        59
+live Helm-vs-ConfigHub pass rows:    139/199
+live Helm-vs-ConfigHub non-pass receipts: 59
+lifecycle observation rows:          19/19
+selected live parity receipts:       139 pass, 51 watch, 8 blocked
 two-cluster kind parity receipts:    128 pass, 3 watch, 47 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -30,7 +30,7 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      14/14
+related lifecycle observations:      19/19
 ```
 
 ## Outcome Promises And Proving Tests
@@ -78,7 +78,7 @@ related lifecycle observations:      14/14
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 2/2 | 2/2 | 1/2 | 2/2 | 2/2 | 0/2 | existing-secret (chart ships no Secret toggle) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | 0/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 0/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 

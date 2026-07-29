@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./argo-cd-argo-cd-9-5-15-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the argocd namespace exists"
 kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
 
@@ -54,9 +67,9 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/applications.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/applicationsets.argoproj.io
-kubectl wait --for=condition=Established --timeout=120s crd/appprojects.argoproj.io
+wait_for_crd applications.argoproj.io
+wait_for_crd applicationsets.argoproj.io
+wait_for_crd appprojects.argoproj.io
 
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'

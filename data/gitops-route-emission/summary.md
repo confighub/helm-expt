@@ -12,6 +12,13 @@ Phase 2 of [hook-route-execution-plan.md](../../docs/planning/hook-route-executi
 | default@1.0.14 | crd-install → `preflight-or-presync-crd-apply` | PreSync · sync-wave -2 · ServerSideApply | HelmRelease .spec.install.crds=Create (or apply CRDs first) |
 | minimal-crds@1.0.14 | crd-install → `self-contained-crd-base` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |
 
+## gatekeeper/gatekeeper
+
+| Base | Route | Argo CD | Flux |
+| --- | --- | --- | --- |
+| default@3.22.2 | hook-phase → `preflight-or-presync` | PreSync · sync-wave -1 | apply before the release (Kustomization dependsOn) |
+| default@3.22.2 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
+
 ## kedacore/keda
 
 | Base | Route | Argo CD | Flux |
@@ -23,7 +30,6 @@ Phase 2 of [hook-route-execution-plan.md](../../docs/planning/hook-route-executi
 | Base | Route | Argo CD | Flux |
 | --- | --- | --- | --- |
 | default@3.8.1 | hook-delete-policy → `delete-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
-| default@3.8.1 | hook-delete-policy → `preserve-cleanup-policy` | none — your cluster handles it | none — your cluster handles it |
 | default@3.8.1 | hook-phase → `upgrade-action-with-receipt` | PreSync | apply before the release (Kustomization dependsOn) |
 | default@3.8.1 | hook-test → `explicit-test-check` | PostSync test Job (Argo has no native helm test) | HelmRelease .spec.test.enable=true |
 | default@3.8.1 | hook-weight-ordering → `preserve-ordering` | no extra hook — keep CRDs before dependent objects | no extra hook — make sure CRDs are applied before workloads |

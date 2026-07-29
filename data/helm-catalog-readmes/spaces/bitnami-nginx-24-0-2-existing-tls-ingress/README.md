@@ -36,13 +36,13 @@ This is not a new chart language. It is a checked way to use this Helm chart, wi
 Run without a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/try.sh)
 ```
 
 Upload to ConfigHub:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/confighub.sh)
 ```
 
 ## Evidence and source
@@ -53,8 +53,8 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24
 | Render intent | [data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-nginx-24-0-2-existing-tls-ingress.yaml) |
 | Rendered YAML | [recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/bitnami-nginx-24-0-2-existing-tls-ingress/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/bitnami-nginx-24-0-2-existing-tls-ingress/README.md) |
-| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/try.sh) |
-| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2-existing-tls-ingress/confighub.sh) |
+| No-account script | [try.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/try.sh) |
+| ConfigHub upload script | [confighub.sh](https://confighub.github.io/helm-expt/site/sh/bitnami-nginx-24-0-2/existing-tls-ingress/confighub.sh) |
 
 ## What is proven
 

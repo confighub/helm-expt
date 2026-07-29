@@ -28,11 +28,14 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-No chart-specific prerequisite is recorded for this preset config beyond a cluster and namespace.
+This preset config records 4 prerequisites: 4 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog records 2 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.
+- **Before install:** Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.
+- **When uninstalling:** Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough.
+
+Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -40,6 +43,8 @@ For this preset, the main change from plain Helm is that the render inputs and o
 - The render variant is committed as YAML and contains 10 Kubernetes object(s).
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
+- Prerequisites are named before apply, so they are not discovered after rollout.
+- Hook and lifecycle work is counted and linked to the route record.
 
 This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
 
@@ -48,13 +53,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0/default/confighub.sh)
 ```
 
 The core render command is:
@@ -77,13 +82,15 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml) |
 | Render variant | [`recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/projectcalico/tigera-operator/v3.32.0/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/projectcalico/tigera-operator/v3.32.0/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/projectcalico-tigera-operator-v3-32-0/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| None recorded | This preset does not record chart-specific prerequisites beyond a cluster and namespace. | - |
+| Before install | 4 CRDs: apiservers.operator.tigera.io, goldmanes.operator.tigera.io, installations.operator.tigera.io, whiskers.operator.tigera.io | Included in the public package as prerequisites/tigera-operator-bootstrap/kustomization.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
+| Before install | Prepare the target | Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects. |
+| When uninstalling | Run the cleanup step | Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough. |
 
 ## Evidence
 
@@ -91,15 +98,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
-| GitOps OCI live run | `no` |
-| Live Helm vs ConfigHub comparison | `no` |
-| Lifecycle routes | `0` |
+| Earlier local-cluster test | `no` |
+| GitOps OCI live run | `yes` |
+| Live Helm vs ConfigHub comparison | `yes` |
+| Lifecycle routes | `2` |
 
 ## Limits
 
-- Local kind evidence is no for this preset config.
-- GitOps OCI live evidence is no for this preset config.
+- An older local-cluster test failed before the required setup was added. The newer end-to-end Helm and ConfigHub comparison passed with the setup described above.
 - Render parity alone is useful evidence, not a production or catalog recommendation.
 
 ## Source files
@@ -108,5 +114,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml)
 - Rendered YAML: [`recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/projectcalico/tigera-operator/v3.32.0/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/projectcalico/tigera-operator/v3.32.0/bases/default)
-- Generated scripts: [`site/sh/projectcalico-tigera-operator-v3-32-0-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/projectcalico-tigera-operator-v3-32-0-default)
+- Generated scripts: [`site/sh/projectcalico-tigera-operator-v3-32-0/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/projectcalico-tigera-operator-v3-32-0/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

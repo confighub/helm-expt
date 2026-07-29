@@ -437,7 +437,7 @@
 <pre><code>charts: 100
 top-20 catalog-supported: 20
 next-80 proof-grade: 80
-charts with live evidence on at least one variant: 85
+charts with live evidence on at least one variant: 86
 charts with named hard gaps: 25
 source top-100 charts with Helm hooks: 11
 maintained hook lifecycle rows: 5
@@ -459,7 +459,7 @@ source-reviewed hook routes not yet maintained: 8</code></pre>
 <tr><td>Promote proof-grade charts</td><td>37</td><td>Run catalog review on the closest proof-grade rows.</td><td>A chart has reviewed variants, live evidence for selected bases, and an updated catalog status.</td><td><code>external-dns/external-dns@1.21.1</code>&lt;br&gt;<code>cloudnative-pg/cloudnative-pg@0.28.2</code>&lt;br&gt;<code>kedacore/keda@2.19.0</code>&lt;br&gt;<code>prometheus-community/kube-state-metrics@7.4.0</code>&lt;br&gt;<code>elastic/eck-operator@3.4.0</code></td></tr>
 <tr><td>Design user-shaped variants</td><td>33</td><td>Add one realistic base variant that a Helm user would actually pick.</td><td>The chart stops being default-only and moves into promotion review or limitation review.</td><td><code>gitlab/gitlab-runner@0.89.0</code>&lt;br&gt;<code>fluent/fluent-bit@0.57.6</code>&lt;br&gt;<code>runix/pgadmin4@1.62.0</code>&lt;br&gt;<code>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</code>&lt;br&gt;<code>elastic/kibana@8.5.1</code></td></tr>
 <tr><td>Resolve limitations and compatibility blockers</td><td>9</td><td>Decide whether to support, disclose, defer, or refuse the named gap for the target scope.</td><td>The catalog page, compatibility decision, or hard-gap row agrees on the supported path.</td><td><code>traefik/traefik@40.2.0</code>&lt;br&gt;<code>kyverno/kyverno@3.8.1</code>&lt;br&gt;<code>bitnami/elasticsearch@22.1.6</code>&lt;br&gt;<code>bitnami/spark@10.0.3</code>&lt;br&gt;<code>bitnami/zookeeper@13.8.7</code></td></tr>
-<tr><td>Expand live evidence</td><td>15</td><td>Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence.</td><td>The strongest evidence moves beyond render parity for the selected chart/base.</td><td>-</td></tr>
+<tr><td>Expand live evidence</td><td>14</td><td>Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence.</td><td>The strongest evidence moves beyond render parity for the selected chart/base.</td><td>-</td></tr>
 <tr><td>Promote reviewed hook routes</td><td>8</td><td>Open <code>data/hook-route-candidates/summary.md</code> and choose one candidate route.</td><td>The route has a maintained lifecycle receipt, runtime observation path, or explicit blocker.</td><td><code>k8s-dashboard/kubernetes-dashboard@7.14.0</code>&lt;br&gt;<code>gitlab/gitlab@10.0.0</code>&lt;br&gt;<code>bitnami/kafka@32.4.3</code>&lt;br&gt;<code>bitnami/minio@17.0.21</code>&lt;br&gt;<code>datadog/datadog@3.214.0</code></td></tr></tbody></table>
 <h2 id="proof-focus-rows">Proof-Focus Rows</h2>
 <p>Some rows carry a specific proof focus because a hard Helm feature needs more than render parity. These rows point to the evidence or decision surface that should drive promotion.</p>
@@ -508,8 +508,8 @@ source-reviewed hook routes not yet maintained: 8</code></pre>
 <tr><td><code>proof-grade-ready-for-promotion-review</code></td><td>37</td><td>Recipe/package proof exists and variants exist; needs human catalog promotion review.</td></tr>
 <tr><td><code>proof-grade-with-named-limitation</code></td><td>9</td><td>Proof-grade chart with a named capability gap, target compatibility issue, or operator decision.</td></tr></tbody></table>
 <h2 id="strongest-evidence-per-chart">Strongest Evidence Per Chart</h2>
-<table><thead><tr><th>Evidence</th><th>Count</th><th>Meaning</th></tr></thead><tbody><tr><td><code>in-confighub-proof</code></td><td>15</td><td>Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane.</td></tr>
-<tr><td><code>live-helm-vs-confighub-parity</code></td><td>73</td><td>Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant.</td></tr>
+<table><thead><tr><th>Evidence</th><th>Count</th><th>Meaning</th></tr></thead><tbody><tr><td><code>in-confighub-proof</code></td><td>14</td><td>Rendered objects uploaded to ConfigHub and passed the ConfigHub proof lane.</td></tr>
+<tr><td><code>live-helm-vs-confighub-parity</code></td><td>74</td><td>Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant.</td></tr>
 <tr><td><code>local-kubernetes-live</code></td><td>8</td><td>Rendered objects were applied to Kubernetes and observed for at least one variant.</td></tr>
 <tr><td><code>two-cluster-kind-parity</code></td><td>4</td><td>Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters.</td></tr></tbody></table>
 <h2 id="how-to-read-this">How To Read This</h2>

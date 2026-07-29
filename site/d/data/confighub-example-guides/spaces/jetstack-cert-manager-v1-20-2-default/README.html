@@ -443,17 +443,17 @@
 <p>That captured output is the render variant: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml</code></a>. It contains 42 Kubernetes object(s): ClusterRole x13, ClusterRoleBinding x10, Role x4, RoleBinding x4, Deployment x3, Service x3, ServiceAccount x3, MutatingWebhookConfiguration x1.</p>
 <p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2</code>. Users can pull it without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space <code>helm-cert-manager-default</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
 <h2 id="what-to-check">What to check</h2>
-<p>This preset config records 6 prerequisite(s): 6 CRDs. Create these with your own values before you apply the rendered objects.</p>
-<p>No hook or lifecycle route is recorded for this preset config.</p>
+<p>This preset config records 6 prerequisites: 6 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.</p>
+<p>The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.</p>
 <p>Some CRDs must already exist before the rendered objects are applied.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 42 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li><li>Prerequisites are named before apply, so they are not discovered after rollout.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
 <h2 id="repeat-it">Repeat it</h2>
 <p>Fast path with no ConfigHub account:</p>
-<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2-default/try.sh)</code></pre>
+<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2/default/try.sh)</code></pre>
 <p>Fast path with a ConfigHub account:</p>
-<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2-default/confighub.sh)</code></pre>
+<pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2/default/confighub.sh)</code></pre>
 <p>The core render command is:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
@@ -468,25 +468,20 @@
 <tr><td>Render intent</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"><code>data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml</code></a></td></tr>
 <tr><td>Render variant</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml</code></a></td></tr>
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.20.2/bases/default"><code>packages/jetstack/cert-manager/v1.20.2/bases/default</code></a></td></tr>
-<tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2-default/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2-default/confighub.sh">confighub.sh</a></td></tr></tbody></table>
-<h2 id="prerequisites">Prerequisites</h2>
-<table><thead><tr><th>Kind</th><th>What</th><th>How to provide it</th></tr></thead><tbody><tr><td>ClusterFeature</td><td>CRD challenges.acme.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
-<tr><td>ClusterFeature</td><td>CRD orders.acme.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
-<tr><td>ClusterFeature</td><td>CRD certificaterequests.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
-<tr><td>ClusterFeature</td><td>CRD certificates.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
-<tr><td>ClusterFeature</td><td>CRD clusterissuers.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr>
-<tr><td>ClusterFeature</td><td>CRD issuers.cert-manager.io</td><td>package://prerequisites/target-facts/default-crds.yaml</td></tr></tbody></table>
+<tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2/default/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/jetstack-cert-manager-v1-20-2/default/confighub.sh">confighub.sh</a></td></tr></tbody></table>
+<h2 id="prerequisites-and-lifecycle-steps">Prerequisites and lifecycle steps</h2>
+<table><thead><tr><th>When</th><th>What</th><th>How it is handled</th></tr></thead><tbody><tr><td>Before install</td><td>6 CRDs: challenges.acme.cert-manager.io, orders.acme.cert-manager.io, certificaterequests.cert-manager.io, certificates.cert-manager.io, clusterissuers.cert-manager.io, issuers.cert-manager.io</td><td>Included in the public package as prerequisites/target-facts/default-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects.</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>
-<tr><td>Local kind run</td><td><code>yes</code></td></tr>
+<tr><td>Earlier local-cluster test</td><td><code>yes</code></td></tr>
 <tr><td>GitOps OCI live run</td><td><code>yes</code></td></tr>
 <tr><td>Live Helm vs ConfigHub comparison</td><td><code>yes</code></td></tr>
 <tr><td>Lifecycle routes</td><td><code>0</code></td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
 <ul><li>Production support is target-scoped. Use production support decisions before claiming production readiness.</li></ul>
 <h2 id="source-files">Source files</h2>
-<ul><li>Chart page: <a href="https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html">https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html</a></li><li>Render intent: <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"><code>data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml</code></a></li><li>Rendered YAML: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml</code></a></li><li>Package source: <a href="https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.20.2/bases/default"><code>packages/jetstack/cert-manager/v1.20.2/bases/default</code></a></li><li>Generated scripts: <a href="https://github.com/confighub/helm-expt/tree/main/site/sh/jetstack-cert-manager-v1-20-2-default"><code>site/sh/jetstack-cert-manager-v1-20-2-default</code></a></li><li>Preset doctrine: <a href="../../../../docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li></ul>
+<ul><li>Chart page: <a href="https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html">https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html</a></li><li>Render intent: <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml"><code>data/helm-render-intents/intents/jetstack-cert-manager-v1-20-2-default.yaml</code></a></li><li>Rendered YAML: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml</code></a></li><li>Package source: <a href="https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.20.2/bases/default"><code>packages/jetstack/cert-manager/v1.20.2/bases/default</code></a></li><li>Generated scripts: <a href="https://github.com/confighub/helm-expt/tree/main/site/sh/jetstack-cert-manager-v1-20-2/default"><code>site/sh/jetstack-cert-manager-v1-20-2/default</code></a></li><li>Preset doctrine: <a href="../../../../docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/confighub-example-guides/spaces/jetstack-cert-manager-v1-20-2-default/README.md</code>. The source file is the authoritative version.</p></footer>

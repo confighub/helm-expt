@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./percona-pg-operator-3-0-0-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
@@ -69,14 +82,14 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/crunchybridgeclusters.upstream.pgv2.percona.com
-kubectl wait --for=condition=Established --timeout=120s crd/perconapgbackups.pgv2.percona.com
-kubectl wait --for=condition=Established --timeout=120s crd/perconapgclusters.pgv2.percona.com
-kubectl wait --for=condition=Established --timeout=120s crd/perconapgrestores.pgv2.percona.com
-kubectl wait --for=condition=Established --timeout=120s crd/perconapgupgrades.pgv2.percona.com
-kubectl wait --for=condition=Established --timeout=120s crd/pgadmins.upstream.pgv2.percona.com
-kubectl wait --for=condition=Established --timeout=120s crd/pgupgrades.upstream.pgv2.percona.com
-kubectl wait --for=condition=Established --timeout=120s crd/postgresclusters.upstream.pgv2.percona.com
+wait_for_crd crunchybridgeclusters.upstream.pgv2.percona.com
+wait_for_crd perconapgbackups.pgv2.percona.com
+wait_for_crd perconapgclusters.pgv2.percona.com
+wait_for_crd perconapgrestores.pgv2.percona.com
+wait_for_crd perconapgupgrades.pgv2.percona.com
+wait_for_crd pgadmins.upstream.pgv2.percona.com
+wait_for_crd pgupgrades.upstream.pgv2.percona.com
+wait_for_crd postgresclusters.upstream.pgv2.percona.com
 
 if [ -d ./percona-pg-operator-3-0-0-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"

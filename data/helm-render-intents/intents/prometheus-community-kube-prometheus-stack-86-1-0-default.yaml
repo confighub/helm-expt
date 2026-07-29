@@ -103,15 +103,22 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a post-apply check (receipted)"
-        operatingDetails: ""
+        operatingDetails: "Webhook TLS and readiness must be observed after apply."
         command: ""
         disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "85.3.3"
         evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
+          - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+          - "data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml"
+          - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+          - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: "route source version 85.3.3; recipe version 86.1.0"
@@ -123,9 +130,11 @@ spec:
         runners:
           direct:
             implementation: "Your delivery — a post-apply check (receipted)"
-            status: "not-run"
+            status: "evidence-linked"
             evidence:
-              []
+              - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+              - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+              - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
           argoCd:
             implementation: "PostSync"
             status: "mapping-only"
@@ -144,15 +153,22 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a preflight step before apply (receipted)"
-        operatingDetails: ""
+        operatingDetails: "The hook creates webhook patch prerequisites before admission configuration is safe to use."
         command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
         disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "85.3.3"
         evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
+          - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+          - "data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml"
+          - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+          - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: "route source version 85.3.3; recipe version 86.1.0"
@@ -164,9 +180,11 @@ spec:
         runners:
           direct:
             implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
-            status: "not-run"
+            status: "evidence-linked"
             evidence:
-              []
+              - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+              - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+              - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
           argoCd:
             implementation: "PreSync · sync-wave -1"
             status: "mapping-only"
@@ -185,15 +203,22 @@ spec:
         executionMode: "user-executes"
         automatic: false
         whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
-        operatingDetails: ""
+        operatingDetails: "Upgrade behavior must be recorded separately from initial render parity."
         command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
         disposition: "observed"
         delta: "kept"
         reason: ""
         routeSourceVersion: "85.3.3"
         evidence:
-          - "data/hook-lifecycle/receipt-index.csv"
           - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+          - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
+          - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+          - "data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml"
+          - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+          - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
         nextAction: ""
         evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
         sourceDrift: "route source version 85.3.3; recipe version 86.1.0"
@@ -205,9 +230,11 @@ spec:
         runners:
           direct:
             implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-            status: "not-run"
+            status: "evidence-linked"
             evidence:
-              []
+              - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+              - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+              - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
           argoCd:
             implementation: "PreSync"
             status: "mapping-only"
@@ -347,6 +374,14 @@ spec:
       evidence:
         - "data/hook-lifecycle/receipt-index.csv"
         - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
+        - "data/hook-lifecycle/top100-hooks.csv"
+        - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml"
+        - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
+        - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml"
+        - "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+        - "data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml"
+        - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
+        - "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
       nextAction: "Run the lifecycle proof for 86.1.0, then update the route source version and receipt."
   targetFacts:
     status: "declared-target-facts"

@@ -10,12 +10,13 @@ bitnami/thanos,,(chart-level),explicit-managed-action,run-job,yes,PostSync,post-
 datadog/datadog,,(chart-level),target-class-preflight-and-upgrade-action,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
 fluent/fluent-bit,0.57.6,default,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 fluent/fluent-bit,0.57.6,default,explicit-test-check,run-test,yes,PostSync test Job (Argo has no native helm test),HelmRelease .spec.test.enable=true
+gatekeeper/gatekeeper,3.22.2,default,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
+gatekeeper/gatekeeper,3.22.2,default,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
 gitlab/gitlab,,(chart-level),argocd-or-flux-lifecycle-hook,gitops-sync-hook,yes,native sync hook — this is already the GitOps path,native sync hook
 k8s-dashboard/kubernetes-dashboard,,(chart-level),upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
 kedacore/keda,2.19.0,no-crds,webhook-readiness-observation,observe-webhook,no,"wait for the certificate handoff, then observe webhook and workload health after sync","wait for the certificate handoff, then run post-apply webhook and workload health checks"
 kong/kong,,(chart-level),upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
 kyverno/kyverno,3.8.1,default,delete-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
-kyverno/kyverno,3.8.1,default,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 kyverno/kyverno,3.8.1,default,upgrade-action-with-receipt,run-job,yes,PreSync,apply before the release (Kustomization dependsOn)
 kyverno/kyverno,3.8.1,default,explicit-test-check,run-test,yes,PostSync test Job (Argo has no native helm test),HelmRelease .spec.test.enable=true
 kyverno/kyverno,3.8.1,default,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
@@ -26,6 +27,8 @@ kyverno/kyverno,3.8.1,no-crds,upgrade-action-with-receipt,run-job,yes,PreSync,ap
 kyverno/kyverno,3.8.1,no-crds,explicit-test-check,run-test,yes,PostSync test Job (Argo has no native helm test),HelmRelease .spec.test.enable=true
 kyverno/kyverno,3.8.1,no-crds,preserve-ordering,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
 kyverno/kyverno,3.8.1,no-crds,target-facts-or-preflight,stage-target-facts,no,none — supply the inputs before sync,none — supply the inputs before sync
+projectcalico/tigera-operator,v3.32.0,default,explicit-delete-cleanup-action,run-job,yes,PostSync,post-apply Job / follow-on Kustomization
+projectcalico/tigera-operator,v3.32.0,default,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
 prometheus-community/kube-prometheus-stack,85.3.3,default,preserve-cleanup-policy,accept-target-policy,no,none — your cluster handles it,none — your cluster handles it
 prometheus-community/kube-prometheus-stack,85.3.3,default,postsync-check-or-observation,run-check,yes,PostSync,post-apply Job / follow-on Kustomization
 prometheus-community/kube-prometheus-stack,85.3.3,default,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)

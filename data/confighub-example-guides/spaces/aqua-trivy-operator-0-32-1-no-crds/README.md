@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 12 prerequisite(s): 12 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 12 prerequisites: 12 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1-no-crds/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1/no-crds/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1-no-crds/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1/no-crds/confighub.sh)
 ```
 
 The core render command is:
@@ -78,24 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml) |
 | Render variant | [`recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/aqua/trivy-operator/0.32.1/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/aqua/trivy-operator/0.32.1/bases/no-crds) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1-no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1-no-crds/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1/no-crds/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/aqua-trivy-operator-0-32-1/no-crds/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD clustercompliancereports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusterconfigauditreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusterinfraassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clusterrbacassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clustersbomreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD clustervulnerabilityreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD configauditreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD exposedsecretreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD infraassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD rbacassessmentreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD sbomreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
-| ClusterFeature | CRD vulnerabilityreports.aquasecurity.github.io | package://prerequisites/target-facts/no-crds-crds.yaml |
+| Before install | 12 CRDs: clustercompliancereports.aquasecurity.github.io, clusterconfigauditreports.aquasecurity.github.io, clusterinfraassessmentreports.aquasecurity.github.io, clusterrbacassessmentreports.aquasecurity.github.io, clustersbomreports.aquasecurity.github.io, clustervulnerabilityreports.aquasecurity.github.io, configauditreports.aquasecurity.github.io, exposedsecretreports.aquasecurity.github.io, infraassessmentreports.aquasecurity.github.io, rbacassessmentreports.aquasecurity.github.io, sbomreports.aquasecurity.github.io, vulnerabilityreports.aquasecurity.github.io | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -103,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -118,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/aqua-trivy-operator-0-32-1-no-crds.yaml)
 - Rendered YAML: [`recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml)
 - Package source: [`packages/aqua/trivy-operator/0.32.1/bases/no-crds`](https://github.com/confighub/helm-expt/tree/main/packages/aqua/trivy-operator/0.32.1/bases/no-crds)
-- Generated scripts: [`site/sh/aqua-trivy-operator-0-32-1-no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/aqua-trivy-operator-0-32-1-no-crds)
+- Generated scripts: [`site/sh/aqua-trivy-operator-0-32-1/no-crds`](https://github.com/confighub/helm-expt/tree/main/site/sh/aqua-trivy-operator-0-32-1/no-crds)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

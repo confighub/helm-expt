@@ -1,0 +1,60 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "GitOpsRuntimeReview"
+metadata:
+  name: "projectcalico-tigera-operator-default-crd-bootstrap-pass"
+  chart: "projectcalico/tigera-operator"
+  version: "v3.32.0"
+spec:
+  base: "default"
+  controller: "Argo CD"
+  targetShape: "cub-managed kind proof cluster with target profile kind-tigera-crds"
+  receipt: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+  observedResult: "pass"
+  targetProfile:
+    name: "kind-tigera-crds"
+    sourcePackage: "projectcalico/tigera-operator@v3.32.0"
+    sourceBase: "default"
+    provides:
+      - "apiservers.operator.tigera.io"
+      - "goldmanes.operator.tigera.io"
+      - "installations.operator.tigera.io"
+      - "whiskers.operator.tigera.io"
+    cleanup: "The temporary operator Deployment, ServiceAccount, RoleBinding, ClusterRoles, and ClusterRoleBinding were removed before the comparison."
+  currentSummary:
+    regularHelmRuntime: "pass"
+    configHubDirectRuntime: "pass"
+    configHubOciSync: "Synced"
+    configHubOciHealth: "Healthy"
+    semanticParity: "pass"
+  passed:
+    - "the temporary catalog operator package established the four CRDs required by the rendered custom resources"
+    - "the temporary operator and its RBAC were removed before the comparison"
+    - "regular Helm reached readiness"
+    - "ConfigHub direct apply reached readiness"
+    - "ConfigHub published the workload Space and cluster Space as OCI releases"
+    - "ConfigHub OCI/Argo synced all rendered Units and reported Healthy"
+    - "semantic object parity passed with zero object differences for direct apply and OCI/Argo"
+  previousObservation:
+    sourceRevision: "1f6cd894e51965b4a63adc55ad5da9d0ae63662f"
+    receiptAtRevision: "https://github.com/confighub/helm-expt/blob/1f6cd894e51965b4a63adc55ad5da9d0ae63662f/runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+    result: "blocked"
+    detail: "Before this rerun, a plain target rejected APIServer, Goldmane, Installation, and Whisker because their operator.tigera.io/v1 CRDs did not exist."
+  diagnosis:
+    summary: "The earlier failure was caused by CRD ordering, not by a render difference."
+    interpretation: "This chart needs two stages. First establish the operator CRDs. Then apply the operator and its custom resources through Helm, direct apply, or ConfigHub OCI."
+  nextActions:
+    - "Use the recorded CRD bootstrap route before installing the default preset on a target without the four CRDs."
+    - "Keep the pre-delete cleanup hook as a separate, explicit lifecycle action."
+    - "Test CRD upgrades and uninstall behavior on the intended Calico target before making a production claim."
+  evidence:
+    targetProfile: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/target-profile-kind-tigera-crds.yaml"
+    hookLifecycle: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+    publicTryScript: "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+    argoCoreChildJson: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/argocd-core-child.json"
+    argoCoreChildTree: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/argocd-core-child-tree.txt"
+    argoCoreRootJson: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/argocd-core-root.json"
+    argoCoreRootTree: "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/argocd-core-root-tree.txt"
+  notClaimed:
+    - "This row does not prove Project Calico production support for arbitrary targets."
+    - "This row does not prove a safe cross-version CRD upgrade."
+    - "This row does not prove uninstall safety when Calico owns live cluster networking."

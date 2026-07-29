@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 1 prerequisite(s): 1 CRD. Create these with your own values before you apply the rendered objects.
+This preset config records 1 prerequisite: 1 CRD. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Some CRDs must already exist before the rendered objects are applied.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0/cluster-metrics-readonly/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0/cluster-metrics-readonly/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml) |
 | Render variant | [`recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly`](https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0/cluster-metrics-readonly/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/prometheus-community-prometheus-node-exporter-4-55-0/cluster-metrics-readonly/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD servicemonitors.monitoring.coreos.com | package://prerequisites/target-facts/cluster-metrics-readonly-crds.yaml |
+| Before install | 1 CRD: servicemonitors.monitoring.coreos.com | Included in the public package as prerequisites/target-facts/cluster-metrics-readonly-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -92,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -107,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly.yaml)
 - Rendered YAML: [`recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml)
 - Package source: [`packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly`](https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/cluster-metrics-readonly)
-- Generated scripts: [`site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly`](https://github.com/confighub/helm-expt/tree/main/site/sh/prometheus-community-prometheus-node-exporter-4-55-0-cluster-metrics-readonly)
+- Generated scripts: [`site/sh/prometheus-community-prometheus-node-exporter-4-55-0/cluster-metrics-readonly`](https://github.com/confighub/helm-expt/tree/main/site/sh/prometheus-community-prometheus-node-exporter-4-55-0/cluster-metrics-readonly)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

@@ -13,20 +13,20 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 667,
+  "cellCount": 660,
   "byCompletionClass": {
     "needs-target-or-prereq-fix": 445,
     "already-decided": 122,
-    "needs-run": 53,
-    "needs-modeling": 47
+    "needs-run": 48,
+    "needs-modeling": 45
   },
   "byLane": {
     "promotion": 389,
-    "G": 61,
-    "P": 61,
-    "lifecycle": 53,
+    "G": 60,
+    "P": 60,
     "K": 52,
-    "L": 51
+    "L": 51,
+    "lifecycle": 48
   },
   "cells": [
     {
@@ -111,7 +111,7 @@
       "support_artifact": "runs/next80-local-kind/argo-cd-argo-cd-9.5.15-no-crds/observation-receipt.yaml",
       "owner": "webhook-cert-lifecycle",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/9.5.15 --base no-crds"
     },
     {
       "chart": "argo-cd/argo-cd",
@@ -755,7 +755,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/apache",
@@ -783,7 +783,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/apache",
@@ -909,7 +909,7 @@
       "support_artifact": "",
       "owner": "either",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy"
     },
     {
       "chart": "bitnami/contour",
@@ -923,7 +923,7 @@
       "support_artifact": "",
       "owner": "either",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run kind-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy"
     },
     {
       "chart": "bitnami/contour",
@@ -937,7 +937,7 @@
       "support_artifact": "runs/next80-local-kind/bitnami-contour-21.1.4-legacy/observation-receipt.yaml",
       "owner": "target-prerequisite",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy"
     },
     {
       "chart": "bitnami/contour",
@@ -965,7 +965,7 @@
       "support_artifact": "",
       "owner": "either",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy"
     },
     {
       "chart": "bitnami/contour",
@@ -1231,7 +1231,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/elasticsearch",
@@ -1259,7 +1259,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/elasticsearch/22.1.6 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/elasticsearch",
@@ -1917,7 +1917,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/opensearch",
@@ -1945,7 +1945,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/opensearch/2.0.10 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/opensearch",
@@ -2057,7 +2057,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/phpmyadmin",
@@ -2085,7 +2085,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/phpmyadmin/20.0.0 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/phpmyadmin",
@@ -2561,7 +2561,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/spark",
@@ -2589,7 +2589,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/spark/10.0.3 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/spark",
@@ -2771,7 +2771,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/zookeeper",
@@ -2799,7 +2799,7 @@
       "support_artifact": "data/image-digest-workdown/summary.md",
       "owner": "catalog or image publisher",
       "completion_class": "already-decided",
-      "command": ""
+      "command": "npm run live-parity:run -- --recipe recipes/bitnami/zookeeper/13.8.7 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts"
     },
     {
       "chart": "bitnami/zookeeper",
@@ -4079,20 +4079,6 @@
       "chart": "fluent/fluent-bit",
       "version": "0.57.6",
       "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "lifecycle route(s) defined (observed:2) but not yet observed live",
-      "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
-      "support_artifact": "data/lifecycle-routes/summary.md",
-      "owner": "catalog",
-      "completion_class": "needs-run",
-      "command": ""
-    },
-    {
-      "chart": "fluent/fluent-bit",
-      "version": "0.57.6",
-      "variant": "default",
       "lane": "promotion",
       "lane_label": "variant-promotion (proven)",
       "state": "proven",
@@ -4219,20 +4205,6 @@
       "chart": "gatekeeper/gatekeeper",
       "version": "3.22.2",
       "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
-      "command": ""
-    },
-    {
-      "chart": "gatekeeper/gatekeeper",
-      "version": "3.22.2",
-      "variant": "default",
       "lane": "promotion",
       "lane_label": "variant-promotion (proven)",
       "state": "proven",
@@ -4251,8 +4223,8 @@
       "lane_label": "lifecycle-observed",
       "state": "todo",
       "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
+      "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
+      "support_artifact": "data/lifecycle-route-actions/summary.md",
       "owner": "catalog",
       "completion_class": "needs-run",
       "command": ""
@@ -6089,7 +6061,7 @@
       "support_artifact": "runs/next80-local-kind/jaegertracing-jaeger-operator-2.57.0-no-crds/observation-receipt.yaml",
       "owner": "webhook-cert-lifecycle",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/jaegertracing/jaeger-operator/2.57.0 --base no-crds"
+      "command": ""
     },
     {
       "chart": "jaegertracing/jaeger-operator",
@@ -6313,7 +6285,7 @@
       "support_artifact": "runs/next80-local-kind/jetstack-trust-manager-v0.22.1-no-crds/observation-receipt.yaml",
       "owner": "runtime-readiness",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/jetstack/trust-manager/v0.22.1 --base no-crds"
+      "command": ""
     },
     {
       "chart": "jetstack/trust-manager",
@@ -6481,20 +6453,6 @@
       "support_artifact": "",
       "owner": "catalog/promotion",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "kyverno/kyverno",
-      "version": "3.8.1",
-      "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "lifecycle route(s) defined (observed:6) but not yet observed live",
-      "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
-      "support_artifact": "data/lifecycle-routes/summary.md",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {
@@ -7335,7 +7293,7 @@
       "support_artifact": "runs/next80-local-kind/open-telemetry-opentelemetry-operator-0.114.0-no-crds/observation-receipt.yaml",
       "owner": "webhook-cert-lifecycle",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/open-telemetry/opentelemetry-operator/0.114.0 --base no-crds"
+      "command": ""
     },
     {
       "chart": "open-telemetry/opentelemetry-operator",
@@ -7677,20 +7635,6 @@
       "chart": "projectcalico/tigera-operator",
       "version": "v3.32.0",
       "variant": "default",
-      "lane": "G",
-      "lane_label": "gitops-oci-live",
-      "state": "blocked",
-      "reason": "crd-bootstrap: required CRDs missing before custom resources apply",
-      "next_action": "Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness.",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "owner": "catalog or operator",
-      "completion_class": "needs-modeling",
-      "command": "npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default"
-    },
-    {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "variant": "default",
       "lane": "K",
       "lane_label": "two-cluster-kind",
       "state": "blocked",
@@ -7713,35 +7657,7 @@
       "support_artifact": "runs/next80-local-kind/projectcalico-tigera-operator-v3.32.0-default/observation-receipt.yaml",
       "owner": "lifecycle-ordering",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": "npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default"
-    },
-    {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "chart has hook/lifecycle behavior with no live observation yet",
-      "next_action": "decide and record the lifecycle route, then observe it live",
-      "support_artifact": "",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
-    },
-    {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "variant": "default",
-      "lane": "P",
-      "lane_label": "live-helm-vs-confighub-parity",
-      "state": "blocked",
-      "reason": "crd-bootstrap: required CRDs missing before custom resources apply",
-      "next_action": "Use the target-prerequisite plan to stage or split the CRD bootstrap, then rerun live parity and record the operator readiness.",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "owner": "catalog or operator",
-      "completion_class": "needs-modeling",
-      "command": "npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default"
     },
     {
       "chart": "projectcalico/tigera-operator",
@@ -7825,20 +7741,6 @@
       "support_artifact": "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
       "owner": "kind-parity",
       "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "prometheus-community/kube-prometheus-stack",
-      "version": "85.3.3",
-      "variant": "default",
-      "lane": "lifecycle",
-      "lane_label": "lifecycle-observed",
-      "state": "todo",
-      "reason": "lifecycle route(s) defined (observed:7) but not yet observed live",
-      "next_action": "observe the routed lifecycle action and record a receipt (see lifecycle-route-actions)",
-      "support_artifact": "data/lifecycle-routes/summary.md",
-      "owner": "catalog",
-      "completion_class": "needs-run",
       "command": ""
     },
     {

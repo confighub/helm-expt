@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./external-secrets-external-secrets-2-5-0-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the external-secrets namespace exists"
 kubectl create namespace external-secrets --dry-run=client -o yaml | kubectl apply -f -
 
@@ -114,29 +127,29 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/acraccesstokens.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/cloudsmithaccesstokens.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterexternalsecrets.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/clustergenerators.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterpushsecrets.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/clustersecretstores.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/ecrauthorizationtokens.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/externalsecrets.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/fakes.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/gcraccesstokens.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/generatorstates.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/githubaccesstokens.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/grafanas.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/mfas.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/passwords.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/pushsecrets.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/quayaccesstokens.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/secretstores.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/sshkeys.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/stssessiontokens.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/uuids.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/vaultdynamicsecrets.generators.external-secrets.io
-kubectl wait --for=condition=Established --timeout=120s crd/webhooks.generators.external-secrets.io
+wait_for_crd acraccesstokens.generators.external-secrets.io
+wait_for_crd cloudsmithaccesstokens.generators.external-secrets.io
+wait_for_crd clusterexternalsecrets.external-secrets.io
+wait_for_crd clustergenerators.generators.external-secrets.io
+wait_for_crd clusterpushsecrets.external-secrets.io
+wait_for_crd clustersecretstores.external-secrets.io
+wait_for_crd ecrauthorizationtokens.generators.external-secrets.io
+wait_for_crd externalsecrets.external-secrets.io
+wait_for_crd fakes.generators.external-secrets.io
+wait_for_crd gcraccesstokens.generators.external-secrets.io
+wait_for_crd generatorstates.generators.external-secrets.io
+wait_for_crd githubaccesstokens.generators.external-secrets.io
+wait_for_crd grafanas.generators.external-secrets.io
+wait_for_crd mfas.generators.external-secrets.io
+wait_for_crd passwords.generators.external-secrets.io
+wait_for_crd pushsecrets.external-secrets.io
+wait_for_crd quayaccesstokens.generators.external-secrets.io
+wait_for_crd secretstores.external-secrets.io
+wait_for_crd sshkeys.generators.external-secrets.io
+wait_for_crd stssessiontokens.generators.external-secrets.io
+wait_for_crd uuids.generators.external-secrets.io
+wait_for_crd vaultdynamicsecrets.generators.external-secrets.io
+wait_for_crd webhooks.generators.external-secrets.io
 
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'

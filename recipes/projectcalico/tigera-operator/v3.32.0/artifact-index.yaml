@@ -50,13 +50,13 @@ spec:
   proofSummary:
     adoptionBucket: "needs-useful-variant"
     userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "in-confighub-proof"
+    strongestEvidence: "live-helm-vs-confighub-parity"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "1/1"
       localLive: "0/1"
-      gitopsLive: "0/1"
-      liveParity: "0/1"
+      gitopsLive: "1/1"
+      liveParity: "1/1"
     featureSummary: "hooks;required-values"
     hardGap: "-"
     nextAction: "add at least one user-shaped variant before catalog promotion"
@@ -65,7 +65,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0"
     installer: "packages/projectcalico/tigera-operator/v3.32.0/installer.yaml"
     receipt: "recipes/projectcalico/tigera-operator/v3.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076"
+    deterministicBundleSHA256: "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -86,8 +86,40 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredCRDs:
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "apiservers.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered APIServer object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "goldmanes.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered Goldmane object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "installations.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered Installation object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "whiskers.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered Whisker object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+      targetFactSummary: "required CRD apiservers.operator.tigera.io; required CRD goldmanes.operator.tigera.io; required CRD installations.operator.tigera.io; required CRD whiskers.operator.tigera.io"
       packageBase:
         name: "default"
         path: "packages/projectcalico/tigera-operator/v3.32.0/bases/default"

@@ -33,17 +33,260 @@ spec:
       - "releaseName=tigera-operator"
       - "capabilityProfile={\"apiVersions\":[],\"kubeVersion\":\"1.30.0\"}"
     installTime:
-      []
-    installTimeStatus: "not-yet-declared"
+      -
+        name: "apiservers.operator.tigera.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "apiservers.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered APIServer object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+      -
+        name: "goldmanes.operator.tigera.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "goldmanes.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered Goldmane object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+      -
+        name: "installations.operator.tigera.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "installations.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered Installation object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+      -
+        name: "whiskers.operator.tigera.io"
+        type: "requiredCRDs"
+        required: true
+        details:
+          evidence:
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          name: "whiskers.operator.tigera.io"
+          provisioningMode: "operator-bootstrap"
+          purpose: "Required before Kubernetes can accept the rendered Whisker object."
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+    installTimeStatus: "partly-declared"
   routing:
     routes:
-      []
+      -
+        routeName: "explicit-delete-cleanup-action"
+        quirkClass: "hook-delete-policy"
+        lifecyclePhase: "observe"
+        actionKind: "run-job"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
+        operatingDetails: "Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough."
+        command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "v3.32.0"
+        evidence:
+          - "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PostSync"
+          flux: "post-apply Job / follow-on Kustomization"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PostSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
+        runners:
+          direct:
+            implementation: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+              - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PostSync"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "post-apply Job / follow-on Kustomization"
+            status: "mapping-only"
+            evidence:
+              []
+      -
+        routeName: "preflight-or-presync"
+        quirkClass: "hook-phase"
+        lifecyclePhase: "preflight"
+        actionKind: "run-preflight"
+        executionMode: "user-executes"
+        automatic: false
+        whoRuns: "Your delivery — a preflight step before apply (receipted)"
+        operatingDetails: "Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects."
+        command: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+        disposition: "observed"
+        delta: "kept"
+        reason: ""
+        routeSourceVersion: "v3.32.0"
+        evidence:
+          - "data/hook-lifecycle/receipts/projectcalico-tigera-operator/default/latest.yaml"
+          - "data/hook-lifecycle/top100-hooks.csv"
+          - "recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml"
+          - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+          - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+          - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+        nextAction: ""
+        evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
+        sourceDrift: ""
+        gitOps:
+          emitsControllerStep: true
+          argoCd: "PreSync · sync-wave -1"
+          flux: "apply before the release (Kustomization dependsOn)"
+          argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+        runners:
+          direct:
+            implementation: "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>"
+            status: "evidence-linked"
+            evidence:
+              - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+              - "runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml"
+          argoCd:
+            implementation: "PreSync · sync-wave -1"
+            status: "mapping-only"
+            evidence:
+              []
+          flux:
+            implementation: "apply before the release (Kustomization dependsOn)"
+            status: "mapping-only"
+            evidence:
+              []
     targetFacts:
-      status: "observed-action-records"
+      status: "declared-target-facts-and-observed-action-records"
       declared:
-        {}
+        requiredCRDs:
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "apiservers.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered APIServer object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "goldmanes.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered Goldmane object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "installations.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered Installation object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          -
+            evidence:
+              - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+            name: "whiskers.operator.tigera.io"
+            provisioningMode: "operator-bootstrap"
+            purpose: "Required before Kubernetes can accept the rendered Whisker object."
+            sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+            suggestedSource: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
       requirements:
-        []
+        -
+          category: "crd"
+          name: "apiservers.operator.tigera.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Required before Kubernetes can accept the rendered APIServer object."
+          check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+        -
+          category: "crd"
+          name: "goldmanes.operator.tigera.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Required before Kubernetes can accept the rendered Goldmane object."
+          check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+        -
+          category: "crd"
+          name: "installations.operator.tigera.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Required before Kubernetes can accept the rendered Installation object."
+          check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
+        -
+          category: "crd"
+          name: "whiskers.operator.tigera.io"
+          namespace: ""
+          requiredBefore: "apply"
+          freshness:
+            policy: "recheck-before-apply"
+            maxAge: "one-apply"
+          purpose: "Required before Kubernetes can accept the rendered Whisker object."
+          check: "package://prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          declarationPath: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+          sourceVariant: ""
+          sourcePath: "../../../../packages/projectcalico/tigera-operator/v3.32.0/prerequisites/tigera-operator-bootstrap/kustomization.yaml"
+          deliveryLanes:
+            []
+          evidence:
+            - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+            - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
       actions:
         -
           lane: "K"
@@ -65,10 +308,10 @@ spec:
             - "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
             - "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml"
       coverage:
-        state: "actionable-gap"
-        reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
-        declarationSource: ""
-        nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+        state: "attached-with-observed-actions"
+        reason: "4 prerequisite declarations and 1 follow-up action record are attached."
+        declarationSource: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
+        nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml"
   delivery:
     literalConfigOci:
@@ -80,7 +323,7 @@ spec:
     argoCd: "not-recorded-for-this-base"
     flux: "not-recorded-for-this-base"
     direct: "not-recorded-for-this-base"
-    historicalGitopsOciStatus: "no"
+    historicalGitopsOciStatus: "yes"
   policy:
     profile: "catalog-standard"
     productionAdds:
@@ -89,9 +332,9 @@ spec:
     renderParity: "yes"
     confighubScanOps: "yes"
     localKind: "no"
-    lifecycleObserved: "todo"
-    gitopsOciLive: "no"
-    liveDualParity: "no"
+    lifecycleObserved: "yes"
+    gitopsOciLive: "yes"
+    liveDualParity: "yes"
     twoClusterKind: "no"
     variantPromotion: "proven"
   operations:

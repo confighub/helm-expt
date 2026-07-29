@@ -75,6 +75,36 @@
       </div>
     </section>
     <section>
+      <h2>gatekeeper/gatekeeper</h2>
+      <div class="base">
+        <div class="base-h">default@3.22.2</div>
+        <table>
+          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
+          <tbody>
+        <tr>
+          <td>hook-phase <span class="rt">preflight-or-presync</span></td>
+          <td><span class="chip green">Your delivery — a preflight step before apply (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+        <tr>
+          <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
+          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="muted">—</span></td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="base">
+        <div class="base-h">no-crds@3.22.2 <span class="muted">· needs 17 CRDs supplied first</span></div>
+        <table>
+          <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section>
       <h2>kedacore/keda</h2>
       <div class="base">
         <div class="base-h">default@2.19.0</div>
@@ -108,11 +138,6 @@
           <tbody>
         <tr>
           <td>hook-delete-policy <span class="rt">delete-cleanup-policy</span></td>
-          <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
-          <td><span class="muted">—</span></td>
-        </tr>
-        <tr>
-          <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
           <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
           <td><span class="muted">—</span></td>
         </tr>
@@ -366,6 +391,7 @@
       <li><code>gitlab/gitlab</code> — No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.</li>
       <li><code>k8s-dashboard/kubernetes-dashboard</code> — No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.</li>
       <li><code>kong/kong</code> — No built recipe variants yet — routes shown are chart-level. Per-variant hook deltas are named in the chart's pain report but have no built base to attach to.</li>
+      <li><code>projectcalico/tigera-operator</code> — One built base — its hook routes do not differ by variant.</li>
       </ul>
     </section>
   <footer>The point is a <b>visible, named, receipted</b> lifecycle step instead of a hidden Helm hook — not manual toil. Today the product does not auto-execute these (<code>automatic: false</code>); your delivery pipeline runs them as explicit steps (a GitOps PreSync/PostSync, a cub action, or an opt-in check). Product auto-execution with a receipt is the roadmap (<a href="https://github.com/confighub/helm-expt/issues/688">#688</a>).</footer>

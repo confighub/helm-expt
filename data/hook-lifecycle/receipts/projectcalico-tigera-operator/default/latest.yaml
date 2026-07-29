@@ -8,13 +8,16 @@ spec:
   base: default
   result: observed
   selectedAt: "2026-06-09"
-  observedAt: "2026-06-11T17:49:13Z"
+  observedAt: "2026-07-28T23:33:27Z"
   route:
-    summary: The pre-delete hook is routed to an explicit delete cleanup action.
+    summary: The required CRDs are established before apply, and the pre-delete hook is routed to an explicit delete cleanup action.
     phases:
+      - hookTypes: [crd-bootstrap]
+        action: preflight-or-presync
+        reason: Before installing the rendered resources, the Tigera operator must create four operator.tigera.io CRDs so Kubernetes can accept the APIServer, Goldmane, Installation, and Whisker objects.
       - hookTypes: [pre-delete]
         action: explicit-delete-cleanup-action
-        reason: Uninstall cleanup depends on target state and must be recorded as a lifecycle operation, not hidden in render proof.
+        reason: Deleting this chart may require cleanup that depends on the cluster's current state. Run that cleanup as a separate, recorded step instead of assuming that deleting the rendered files is enough.
   evidence:
     - path: data/hook-lifecycle/top100-hooks.csv
       claim: Source scan found a pre-delete uninstall hook.
@@ -22,6 +25,10 @@ spec:
       claim: Chart pain report records cluster-scope and lifecycle risk.
     - path: runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml
       claim: Fresh kind run observed operator bootstrap, operator-managed CRD establishment, rendered custom resource acceptance, explicit execution of the upstream pre-delete cleanup Job, and package object deletion.
+    - path: runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml
+      claim: Live comparison temporarily ran the catalog operator package until the four CRDs were Established, removed the bootstrap operator, then proved regular Helm, direct apply, and ConfigHub OCI through Argo against the same prepared target.
+    - path: runs/public-preset-script/projectcalico-tigera-operator-default/latest/receipt.yaml
+      claim: The generated no-account try script pulled the public package, ran its packaged CRD bootstrap, waited for all four CRDs, and applied the complete rendered output on a fresh kind cluster.
   execution:
     helmHooksExecutedByHarness: true
     runtimeObserved: true
@@ -31,6 +38,7 @@ spec:
       receipt: runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml
     notes:
       - This is a route selection for a proof-grade chart, not a production support claim.
+      - The CRD bootstrap route was observed before all three comparison lanes.
       - The upstream Helm pre-delete Job was rendered and applied as an explicit lifecycle action; it was not hidden inside render parity.
       - The run proves the selected delete-cleanup route in a fresh kind target.
   remainingWork:

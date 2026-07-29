@@ -631,7 +631,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>Some chart paths need a small preparation step before the cub path feels as smooth as Helm. We show those steps here so the first run does not surprise you.</p>
       <div class="card"><table>
         <thead><tr><th>Caveat</th><th>What to do</th></tr></thead>
-        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 8 CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base when one is available.</td></tr></tbody>
+        <tbody><tr><td>Universal caveats</td><td>Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.</td></tr><tr><td>Shared placeholder password</td><td>No shared placeholder password caveat recorded for this chart.</td></tr><tr><td>CRD first-ordering</td><td>Yes. 8 CRDs must exist first. The public package contains the bootstrap, and its generated <code>try.sh</code> applies it and waits for the CRDs before installing the main objects.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -671,7 +671,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     <section aria-labelledby="proof">
       <h2 id="proof">Proof Lanes</h2>
       <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
-      <p><strong>How much is proven, and what more testing would add:</strong> Not yet tested: Render parity, ConfigHub proof, Local live, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
+      <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof, GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind. Proven on some bases: Local live.</p>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
         <tbody><tr><td>Render parity</td><td>yes: 3/3</td></tr><tr><td>ConfigHub proof</td><td>yes: 3/3</td></tr><tr><td>Local live</td><td>no: 2/3; yes: 1/3</td></tr><tr><td>GitOps/OCI live</td><td>yes: 3/3</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>yes: 3/3</td></tr><tr><td>Two-cluster kind</td><td>yes: 3/3</td></tr></tbody>
@@ -748,7 +748,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/candidates.csv">data/hook-route-candidates/candidates.csv</a><br><strong>Next:</strong> choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base</p>
 <h4>minimal-crds</h4><div class="card"><table>
         <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
-        <tbody><tr><td>crd-install (self-contained-crd-base)<br><span class="small">The install-critical full-CRD Helm hook is avoided for this base by rendering minimal CRDs as ordinary desired objects with crds.full=false. Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.</span></td><td>Your applier - must apply CRDs before dependent objects</td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td><td>resolved - this base installs the required CRDs (observed live)</td></tr></tbody>
+        <tbody><tr><td>crd-install (self-contained-crd-base)<br><span class="small">Argo Workflows default full CRDs are installed through a Helm hook using server-side apply; this base chooses the self-contained minimal-CRD route instead.</span></td><td>Your applier - must apply CRDs before dependent objects</td><td>no extra hook - keep CRDs before dependent objects</td><td>no extra hook - make sure CRDs are applied before workloads</td><td>resolved - this base installs the required CRDs (observed live)</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

@@ -276,7 +276,7 @@ function parseCubAuthExpiry(output) {
 function targetProfileCheck(profile) {
   if (!profile || profile === "none") return { name: "target profile", result: "pass", detail: "none" };
   if (profile === "kind-three-node") return kubernetesNodeProfileCheck();
-  if (["kind-cert-manager", "kind-ingress-nginx", "kind-loadbalancer"].includes(profile)) {
+  if (["kind-cert-manager", "kind-ingress-nginx", "kind-loadbalancer", "kind-tigera-crds"].includes(profile)) {
     return { name: `target profile ${profile}`, result: "pass", detail: "recognized" };
   }
   return { name: `target profile ${profile}`, result: "blocked", detail: "unknown target profile" };

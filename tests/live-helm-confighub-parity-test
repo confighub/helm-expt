@@ -1806,6 +1806,8 @@ def install_target_profile(profile: str, kubeconfig: Path, context: str, run_roo
         return install_kind_loadbalancer_profile(kubeconfig, context, run_root)
     if profile == "kind-cert-manager":
         return install_kind_cert_manager_profile(kubeconfig, context, run_root)
+    if profile == "kind-tigera-crds":
+        return install_kind_tigera_crds_profile(kubeconfig, context, run_root)
     if profile != "kind-ingress-nginx":
         raise RuntimeError(f"unsupported target profile: {profile}")
 
@@ -1974,6 +1976,183 @@ def install_kind_cert_manager_profile(
         },
     )
     return profile_receipt
+
+
+def install_kind_tigera_crds_profile(
+    kubeconfig: Path,
+    context: str,
+    run_root: Path,
+) -> dict:
+    repo = Path(__file__).resolve().parents[1]
+    package_path = repo / "packages" / "projectcalico" / "tigera-operator" / "v3.32.0"
+    profile_root = run_root / "target-profile-kind-tigera-crds"
+    workdir = profile_root / "work"
+    if workdir.exists():
+        shutil.rmtree(workdir)
+    workdir.mkdir(parents=True, exist_ok=True)
+
+    setup_cmd = [
+        "cub", "installer", "setup",
+        "--pull", str(package_path),
+        "--base", "default",
+        "--work-dir", str(workdir),
+        "--non-interactive",
+        "--namespace", "default",
+    ]
+    rc, out, err = sh(setup_cmd, timeout=360)
+    if rc != 0:
+        raise RuntimeError(
+            f"target profile kind-tigera-crds render failed: {(err or out)[:1000]}"
+        )
+
+    manifest = combine_yaml_parts(
+        collect_yaml(workdir / "out" / "manifests"),
+        collect_yaml(workdir / "out" / "secrets"),
+    )
+    custom_resource_kinds = {"APIServer", "Goldmane", "Installation", "Whisker"}
+    docs = yaml_docs(manifest)
+    custom_resources = [
+        doc for doc in docs
+        if doc.get("apiVersion") == "operator.tigera.io/v1"
+        and doc.get("kind") in custom_resource_kinds
+    ]
+    bootstrap_objects = [
+        doc for doc in docs
+        if doc not in custom_resources and doc.get("kind") != "Namespace"
+    ]
+    if len(custom_resources) != 4 or not bootstrap_objects:
+        raise RuntimeError(
+            "target profile kind-tigera-crds package did not render the expected "
+            "four custom resources and temporary operator objects"
+        )
+
+    bootstrap_path = profile_root / "operator-bootstrap.yaml"
+    write_text(bootstrap_path, render_docs_to_yaml(bootstrap_objects))
+    kubectl_must(
+        ["apply", "--server-side", "-f", str(bootstrap_path)],
+        kubeconfig,
+        context,
+        "target profile kind-tigera-crds operator bootstrap apply",
+        timeout=300,
+    )
+    kubectl_must(
+        [
+            "-n", "default", "rollout", "status",
+            "deployment/tigera-operator",
+            "--timeout=420s",
+        ],
+        kubeconfig,
+        context,
+        "target profile kind-tigera-crds operator readiness",
+        timeout=450,
+    )
+
+    required_crds = [
+        "apiservers.operator.tigera.io",
+        "goldmanes.operator.tigera.io",
+        "installations.operator.tigera.io",
+        "whiskers.operator.tigera.io",
+    ]
+    for name in required_crds:
+        wait_for_crd_established(name, kubeconfig, context, timeout_seconds=300)
+
+    kubectl_must(
+        ["delete", "-f", str(bootstrap_path), "--ignore-not-found", "--wait=true"],
+        kubeconfig,
+        context,
+        "target profile kind-tigera-crds temporary operator cleanup",
+        timeout=300,
+    )
+    kubectl_must(
+        [
+            "-n", "default", "wait", "--for=delete",
+            "deployment/tigera-operator",
+            "--timeout=180s",
+        ],
+        kubeconfig,
+        context,
+        "target profile kind-tigera-crds operator removal",
+        timeout=210,
+    )
+    for name in required_crds:
+        kubectl_must(
+            ["wait", "--for=condition=Established", f"crd/{name}", "--timeout=60s"],
+            kubeconfig,
+            context,
+            f"target profile kind-tigera-crds retained CRD {name}",
+            timeout=90,
+        )
+
+    profile_receipt = {
+        "name": "kind-tigera-crds",
+        "result": "pass",
+        "source": {
+            "package": "packages/projectcalico/tigera-operator/v3.32.0",
+            "base": "default",
+        },
+        "manifestSHA256": sha256_text(manifest),
+        "resources": [
+            f"customresourcedefinition/{name}"
+            for name in required_crds
+        ],
+        "temporaryBootstrap": {
+            "namespace": "default",
+            "objectCount": len(bootstrap_objects),
+            "removedBeforeComparison": True,
+        },
+        "observedBehavior": (
+            "The verified Project Calico catalog package temporarily ran the "
+            "Tigera operator until the four CRDs required by this base were "
+            "Established. The temporary operator and its RBAC were then removed. "
+            "Only the CRDs remained when the Helm, direct apply, and OCI/Argo "
+            "comparison began."
+        ),
+    }
+    write_yaml(
+        run_root / "target-profile-kind-tigera-crds.yaml",
+        {
+            "apiVersion": "helm-expt.confighub.com/v1alpha1",
+            "kind": "TargetProfileReceipt",
+            "spec": profile_receipt,
+        },
+    )
+    return profile_receipt
+
+
+def wait_for_crd_established(
+    name: str,
+    kubeconfig: Path,
+    context: str,
+    timeout_seconds: int,
+) -> None:
+    deadline = time.monotonic() + timeout_seconds
+    last = ""
+    while time.monotonic() < deadline:
+        rc, out, err = kubectl(
+            ["get", f"crd/{name}", "-o", "name"],
+            kubeconfig,
+            context,
+            timeout=30,
+        )
+        if rc == 0:
+            remaining = max(1, int(deadline - time.monotonic()))
+            kubectl_must(
+                [
+                    "wait", "--for=condition=Established", f"crd/{name}",
+                    f"--timeout={remaining}s",
+                ],
+                kubeconfig,
+                context,
+                f"target profile kind-tigera-crds CRD {name}",
+                timeout=remaining + 30,
+            )
+            return
+        last = err or out
+        time.sleep(3)
+    raise RuntimeError(
+        f"target profile kind-tigera-crds CRD {name} did not appear within "
+        f"{timeout_seconds}s: {last[:500]}"
+    )
 
 
 METALLB_MANIFEST = "https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml"
@@ -2733,6 +2912,7 @@ def main() -> int:
             "kind-cert-manager",
             "kind-ingress-nginx",
             "kind-loadbalancer",
+            "kind-tigera-crds",
             "kind-three-node",
         ],
     )

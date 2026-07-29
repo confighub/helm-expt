@@ -32,6 +32,18 @@
         <tr><td>crd-install <span class="rt">self-contained-crd-base</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>
       </tbody></table>
     </section>
+    <section><h2>gatekeeper/gatekeeper</h2>
+      <h4>default@3.22.2</h4>
+      <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
+        <tr><td>hook-phase <span class="rt">preflight-or-presync</span></td><td><span class="chip ok">PreSync · sync-wave -1</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
+        <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
+      </tbody></table>
+
+      <h4>no-crds@3.22.2</h4>
+      <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
+
+      </tbody></table>
+    </section>
     <section><h2>kedacore/keda</h2>
       <h4>default@2.19.0</h4>
       <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
@@ -47,7 +59,6 @@
       <h4>default@3.8.1</h4>
       <table><thead><tr><th>Route</th><th>Argo CD</th><th>Flux</th></tr></thead><tbody>
         <tr><td>hook-delete-policy <span class="rt">delete-cleanup-policy</span></td><td><span class="chip muted">none — your cluster handles it</span></td><td>none — your cluster handles it</td></tr>
-        <tr><td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td><td><span class="chip muted">none — your cluster handles it</span></td><td>none — your cluster handles it</td></tr>
         <tr><td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td><td><span class="chip ok">PreSync</span></td><td>apply before the release (Kustomization dependsOn)</td></tr>
         <tr><td>hook-test <span class="rt">explicit-test-check</span></td><td><span class="chip ok">PostSync test Job (Argo has no native helm test)</span></td><td>HelmRelease .spec.test.enable=true</td></tr>
         <tr><td>hook-weight-ordering <span class="rt">preserve-ordering</span></td><td><span class="chip muted">no extra hook — keep CRDs before dependent objects</span></td><td>no extra hook — make sure CRDs are applied before workloads</td></tr>

@@ -6,7 +6,7 @@ spec:
   ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0
   package:
     path: packages/projectcalico/tigera-operator/v3.32.0
-    sha256: 87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076
+    sha256: 89028df75549d5f9ace1b281149ddb28daf2c44a5e715bdc89c1377d47db4a23
   commands:
     package: "cub installer package packages/projectcalico/tigera-operator/v3.32.0 -o <tmp>/projectcalico-tigera-operator-v3.32.0.tgz"
     push: "cub installer push <tmp>/projectcalico-tigera-operator-v3.32.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0"
@@ -14,12 +14,12 @@ spec:
   outputs:
     package: |
       Bundled projectcalico-tigera-operator@
-        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-r2DWx9/projectcalico-tigera-operator-v3.32.0.tgz
-        files:  4
-        size:   4063 bytes
-        digest: sha256:87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-itCrwV/projectcalico-tigera-operator-v3.32.0.tgz
+        files:  6
+        size:   4587 bytes
+        digest: sha256:89028df75549d5f9ace1b281149ddb28daf2c44a5e715bdc89c1377d47db4a23
     push: |
       Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0
-        manifest: sha256:79b5d4e911843b437288f851357effea16498a8fce2c6c7d72c8c071c5742082
-        layer:    sha256:87e3c40bc33a18859fdb678939791bfc5738c1788bc2cafad58011b8c63c1076 (4063 bytes, 4 files)
-    inspectJSONSHA256: c58b4483b86af04d8d40020d62e5af27471354cf3a66a1a3c75084531a815fe9
+        manifest: sha256:11481eee2b1559ed22781260d8b171dc4b9bbb0b99fab5525932f974aa08bd22
+        layer:    sha256:89028df75549d5f9ace1b281149ddb28daf2c44a5e715bdc89c1377d47db4a23 (4587 bytes, 6 files)
+    inspectJSONSHA256: 313a3f7122752c902922e6f6f28dd328933041deedc1f8ba9770489a99226f1a

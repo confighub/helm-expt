@@ -439,12 +439,12 @@ complete core lane rows:             126/199
 render parity rows:                  199/199
 in-ConfigHub proof rows:             198/199
 local live rows:                     148/199
-GitOps/OCI live pass rows:           138/199
-GitOps/OCI non-pass receipts:        60
-live Helm-vs-ConfigHub pass rows:    138/199
-live Helm-vs-ConfigHub non-pass receipts: 60
-lifecycle observation rows:          14/14
-selected live parity receipts:       138 pass, 51 watch, 9 blocked
+GitOps/OCI live pass rows:           139/199
+GitOps/OCI non-pass receipts:        59
+live Helm-vs-ConfigHub pass rows:    139/199
+live Helm-vs-ConfigHub non-pass receipts: 59
+lifecycle observation rows:          19/19
+selected live parity receipts:       139 pass, 51 watch, 8 blocked
 two-cluster kind parity receipts:    128 pass, 3 watch, 47 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -455,7 +455,7 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      14/14</code></pre>
+related lifecycle observations:      19/19</code></pre>
 <h2 id="outcome-promises-and-proving-tests">Outcome Promises And Proving Tests</h2>
 <table><thead><tr><th>Outcome users care about</th><th>Test / evidence</th><th>Command</th></tr></thead><tbody><tr><td>The chart model is understandable and honestly scoped.</td><td>model-completeness report, chart facts, pain reports, weirdness notes</td><td><code>npm run completeness:verify</code></td></tr>
 <tr><td>A base variant renders the same object set as Helm under recorded inputs.</td><td><code>render_parity</code> in <a href="../../../../data/outcome-coverage/base-outcomes.csv">base-outcomes.csv</a></td><td><code>npm run outcomes:verify</code></td></tr>
@@ -490,7 +490,7 @@ related lifecycle observations:      14/14</code></pre>
 <tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td>default;crds-enabled</td><td>no</td><td>2/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>-</td></tr>
 <tr><td><code>longhorn/longhorn@1.11.2</code></td><td>default;ui-ingress</td><td>yes</td><td>2/2</td><td>2/2</td><td>0/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>-</td></tr>
 <tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td>default;external-tls-ca</td><td>yes</td><td>2/2</td><td>2/2</td><td>0/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>existing-secret (chart ships no Secret toggle)</td></tr>
-<tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td>default;no-crds</td><td>yes</td><td>2/2</td><td>2/2</td><td>1/2</td><td>2/2</td><td>2/2</td><td>0/2</td><td>existing-secret (chart ships no Secret toggle)</td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td>default;no-crds</td><td>yes</td><td>2/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>0/2</td><td>existing-secret (chart ships no Secret toggle)</td></tr>
 <tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td>default;server-only-ephemeral</td><td>yes</td><td>2/2</td><td>2/2</td><td>0/2</td><td>2/2</td><td>2/2</td><td>0/2</td><td>ha (curated proof lane - bespoke teaching needed)</td></tr>
 <tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td>default;sync-secret-rotation</td><td>yes</td><td>2/2</td><td>2/2</td><td>0/2</td><td>2/2</td><td>2/2</td><td>2/2</td><td>-</td></tr></tbody></table>
 <h2 id="how-to-read-this">How To Read This</h2>

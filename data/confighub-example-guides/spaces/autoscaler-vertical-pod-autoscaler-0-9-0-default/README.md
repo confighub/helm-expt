@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 1 prerequisite(s): 1 Secret. Create these with your own values before you apply the rendered objects.
+This preset config records 1 prerequisite: 1 Secret. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 At least one Secret must be created with your values before apply.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0/default/confighub.sh)
 ```
 
 The core render command is:
@@ -78,13 +78,13 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml) |
 | Render variant | [`recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret default/vpa-tls-certs keys ca,cert,key | Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller |
+| Before install | ClusterFeature: Secret default/vpa-tls-certs keys ca,cert,key | Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller |
 
 ## Evidence
 
@@ -92,7 +92,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `yes` |
+| Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `0` |
@@ -107,5 +107,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/autoscaler-vertical-pod-autoscaler-0-9-0-default.yaml)
 - Rendered YAML: [`recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default)
-- Generated scripts: [`site/sh/autoscaler-vertical-pod-autoscaler-0-9-0-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0-default)
+- Generated scripts: [`site/sh/autoscaler-vertical-pod-autoscaler-0-9-0/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/autoscaler-vertical-pod-autoscaler-0-9-0/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

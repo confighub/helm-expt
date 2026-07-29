@@ -28,11 +28,13 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 8 prerequisite(s): 8 CRDs. Create these with your own values before you apply the rendered objects.
+This preset config records 8 prerequisites: 8 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-This preset config records 1 hook or lifecycle route(s). The current route status is todo:1, with execution modes not-yet-executable:1. They are listed here instead of being left inside the Helm release.
+The catalog records 1 extra step for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-Some CRDs must already exist before the rendered objects are applied. Hook or lifecycle work is recorded as named work instead of being hidden inside a Helm release.
+- **Before install:** full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits.
+
+Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
 ## Why you can trust it
 
@@ -50,13 +52,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed/confighub.sh)
 ```
 
 The core render command is:
@@ -79,20 +81,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml) |
 | Render variant | [`recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed`](https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | CRD clusterworkflowtemplates.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
-| ClusterFeature | CRD cronworkflows.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
-| ClusterFeature | CRD workflowartifactgctasks.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
-| ClusterFeature | CRD workfloweventbindings.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
-| ClusterFeature | CRD workflows.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
-| ClusterFeature | CRD workflowtaskresults.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
-| ClusterFeature | CRD workflowtasksets.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
-| ClusterFeature | CRD workflowtemplates.argoproj.io | package://prerequisites/target-facts/controller-default-reviewed-crds.yaml |
+| Before install | 8 CRDs: clusterworkflowtemplates.argoproj.io, cronworkflows.argoproj.io, workflowartifactgctasks.argoproj.io, workfloweventbindings.argoproj.io, workflows.argoproj.io, workflowtaskresults.argoproj.io, workflowtasksets.argoproj.io, workflowtemplates.argoproj.io | Included in the public package as prerequisites/target-facts/controller-default-reviewed-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
+| Before install | Install CRDs first | full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits. |
 
 ## Evidence
 
@@ -100,14 +96,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
+| Earlier local-cluster test | `no` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
 | Lifecycle routes | `1` |
 
 ## Limits
 
-- Local kind evidence is no for this preset config.
+- An older local-cluster test failed before the required setup was added. The newer end-to-end Helm and ConfigHub comparison passed with the setup described above.
 - Do not present as a catalog-supported chart until promotion review and support decisions are recorded.
 
 ## Source files
@@ -116,5 +112,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/argo-cd-argo-workflows-1-0-14-controller-default-reviewed.yaml)
 - Rendered YAML: [`recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml)
 - Package source: [`packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed`](https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed)
-- Generated scripts: [`site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed`](https://github.com/confighub/helm-expt/tree/main/site/sh/argo-cd-argo-workflows-1-0-14-controller-default-reviewed)
+- Generated scripts: [`site/sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed`](https://github.com/confighub/helm-expt/tree/main/site/sh/argo-cd-argo-workflows-1-0-14/controller-default-reviewed)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

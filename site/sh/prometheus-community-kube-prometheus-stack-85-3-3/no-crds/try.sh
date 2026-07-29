@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the monitoring namespace exists"
 kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
 
@@ -75,16 +88,16 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/alertmanagerconfigs.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/alertmanagers.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/podmonitors.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/probes.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/prometheusagents.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/prometheuses.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/prometheusrules.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/scrapeconfigs.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/servicemonitors.monitoring.coreos.com
-kubectl wait --for=condition=Established --timeout=120s crd/thanosrulers.monitoring.coreos.com
+wait_for_crd alertmanagerconfigs.monitoring.coreos.com
+wait_for_crd alertmanagers.monitoring.coreos.com
+wait_for_crd podmonitors.monitoring.coreos.com
+wait_for_crd probes.monitoring.coreos.com
+wait_for_crd prometheusagents.monitoring.coreos.com
+wait_for_crd prometheuses.monitoring.coreos.com
+wait_for_crd prometheusrules.monitoring.coreos.com
+wait_for_crd scrapeconfigs.monitoring.coreos.com
+wait_for_crd servicemonitors.monitoring.coreos.com
+wait_for_crd thanosrulers.monitoring.coreos.com
 
 if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
   cat >&2 <<'EOF_REQUIREMENTS'

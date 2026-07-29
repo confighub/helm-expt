@@ -18,7 +18,7 @@ interface), field definitions in [contract.md](./contract.md).
 
 ## The honest flag
 
-0 of 27 packets are `automatic`. No route is
+0 of 38 packets are `automatic`. No route is
 executed by the product today, so `automatic` is `false` everywhere; a packet
 is a *plan*, not a claim that anything ran. `automatic` only becomes `true`
 when `execution_mode` is `product-executes` and committed evidence proves it.
@@ -27,31 +27,31 @@ when `execution_mode` is `product-executes` and committed evidence proves it.
 
 | Disposition | Packets |
 | --- | ---: |
-| `observed` | 17 |
+| `observed` | 28 |
 | `blocked` | 7 |
 | `routed` | 2 |
 | `per-target` | 1 |
 
 | Lifecycle phase | Packets |
 | --- | ---: |
-| `observe` | 8 |
-| `pre-apply` | 8 |
-| `post-apply` | 6 |
-| `preflight` | 4 |
+| `observe` | 12 |
+| `pre-apply` | 11 |
+| `post-apply` | 7 |
+| `preflight` | 7 |
 | `pre-render` | 1 |
 
 | Action kind | Packets |
 | --- | ---: |
-| `run-job` | 8 |
-| `accept-target-policy` | 4 |
+| `run-job` | 12 |
+| `accept-target-policy` | 5 |
+| `run-preflight` | 5 |
+| `run-test` | 4 |
 | `preserve-ordering` | 3 |
 | `observe-webhook` | 2 |
-| `run-preflight` | 2 |
-| `run-test` | 2 |
+| `run-check` | 2 |
 | `stage-target-facts` | 2 |
 | `gitops-sync-hook` | 1 |
 | `install-crd` | 1 |
-| `run-check` | 1 |
 | `verify-render` | 1 |
 
 ## Named source drift

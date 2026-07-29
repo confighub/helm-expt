@@ -28,9 +28,9 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 4 prerequisite(s): 2 CRDs, 1 Secret, 1 other item. Create these with your own values before you apply the rendered objects.
+This preset config records 4 prerequisites: 2 CRDs, 1 Secret, 1 other item. Follow the instructions below before you apply the rendered objects.
 
-No hook or lifecycle route is recorded for this preset config.
+The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
 Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply.
 
@@ -49,13 +49,13 @@ This is a claim about this recorded preset config. It is not a claim that every 
 Fast path with no ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1-default/try.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1/default/try.sh)
 ```
 
 Fast path with a ConfigHub account:
 
 ```sh
-bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1-default/confighub.sh)
+bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1/default/confighub.sh)
 ```
 
 The core render command is:
@@ -78,16 +78,15 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render intent | [`data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml) |
 | Render variant | [`recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/jetstack/trust-manager/v0.22.1/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/jetstack/trust-manager/v0.22.1/bases/default) |
-| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1-default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1-default/confighub.sh) |
+| Scripts | [try.sh](https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1/default/try.sh) · [confighub.sh](https://confighub.github.io/helm-expt/site/sh/jetstack-trust-manager-v0-22-1/default/confighub.sh) |
 
-## Prerequisites
+## Prerequisites and lifecycle steps
 
-| Kind | What | How to provide it |
+| When | What | How it is handled |
 | --- | --- | --- |
-| ClusterFeature | Secret default/trust-manager-tls keys tls.crt,tls.key | kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
-| ClusterFeature | CRD certificates.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
-| ClusterFeature | CRD issuers.cert-manager.io | package://prerequisites/target-facts/default-crds.yaml |
-| ClusterFeature | Namespace cert-manager | kubectl create namespace cert-manager |
+| Before install | ClusterFeature: Secret default/trust-manager-tls keys tls.crt,tls.key | kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> |
+| Before install | ClusterFeature: Namespace cert-manager | kubectl create namespace cert-manager |
+| Before install | 2 CRDs: certificates.cert-manager.io, issuers.cert-manager.io | Included in the public package as prerequisites/target-facts/default-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 
@@ -95,7 +94,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | --- | --- |
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
-| Local kind run | `no` |
+| Earlier local-cluster test | `no` |
 | GitOps OCI live run | `watch` |
 | Live Helm vs ConfigHub comparison | `watch` |
 | Lifecycle routes | `0` |
@@ -112,5 +111,5 @@ After upload, create environment versions with `cub variant create` and move rev
 - Render intent: [`data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/jetstack-trust-manager-v0-22-1-default.yaml)
 - Rendered YAML: [`recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml)
 - Package source: [`packages/jetstack/trust-manager/v0.22.1/bases/default`](https://github.com/confighub/helm-expt/tree/main/packages/jetstack/trust-manager/v0.22.1/bases/default)
-- Generated scripts: [`site/sh/jetstack-trust-manager-v0-22-1-default`](https://github.com/confighub/helm-expt/tree/main/site/sh/jetstack-trust-manager-v0-22-1-default)
+- Generated scripts: [`site/sh/jetstack-trust-manager-v0-22-1/default`](https://github.com/confighub/helm-expt/tree/main/site/sh/jetstack-trust-manager-v0-22-1/default)
 - Preset doctrine: [Helm Chart Presets And Values](../../../../docs/user/helm-presets-and-values.md)

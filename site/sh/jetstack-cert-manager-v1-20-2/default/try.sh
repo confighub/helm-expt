@@ -35,6 +35,19 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./jetstack-cert-manager-v1-20-2-default/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the cert-manager namespace exists"
 kubectl create namespace cert-manager --dry-run=client -o yaml | kubectl apply -f -
 
@@ -63,12 +76,12 @@ if [ "$missing_crds" -eq 1 ]; then
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
-kubectl wait --for=condition=Established --timeout=120s crd/challenges.acme.cert-manager.io
-kubectl wait --for=condition=Established --timeout=120s crd/orders.acme.cert-manager.io
-kubectl wait --for=condition=Established --timeout=120s crd/certificaterequests.cert-manager.io
-kubectl wait --for=condition=Established --timeout=120s crd/certificates.cert-manager.io
-kubectl wait --for=condition=Established --timeout=120s crd/clusterissuers.cert-manager.io
-kubectl wait --for=condition=Established --timeout=120s crd/issuers.cert-manager.io
+wait_for_crd challenges.acme.cert-manager.io
+wait_for_crd orders.acme.cert-manager.io
+wait_for_crd certificaterequests.cert-manager.io
+wait_for_crd certificates.cert-manager.io
+wait_for_crd clusterissuers.cert-manager.io
+wait_for_crd issuers.cert-manager.io
 
 if [ -d ./jetstack-cert-manager-v1-20-2-default/out/secrets ]; then
   say "Apply rendered Secrets first"

@@ -433,12 +433,12 @@
 <p>This is the generated queue for reducing non-pass live parity rows. It combines:</p>
 <ul><li>the ConfigHub/OCI live comparison lane;</li><li>the strict two-cluster kind parity lane.</li></ul>
 <p>Use this file to choose the next live rerun. Use the receipts linked from each row to diagnose failures. Do not treat an infrastructure or upstream-runtime block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.</p>
-<pre><code>rows: 109
+<pre><code>rows: 108
 lifecycle-routed-not-active-rerun: 0
 useful-base-resolved-not-active-rerun: 1
-blocked: 56
+blocked: 55
 watch: 53
-configHub-oci-live-comparison: 60
+configHub-oci-live-comparison: 59
 two-cluster-kind-parity: 49
 semantic-parity-defects: 16
 infra-or-rig-rows: 0
@@ -447,7 +447,6 @@ runtime-or-watch-rows: 38</code></pre>
 <h2 id="current-interpretation">Current Interpretation</h2>
 <p>16 row(s) currently point at an object-set parity defect; inspect those first. The rows below are the active work queue for stronger live claims. 1 row(s) are documented below as resolved by a separate useful base and are no longer active rerun work.</p>
 <table><thead><tr><th>Chart</th><th>Base</th><th>Current</th><th>Meaning</th><th>Next action</th></tr></thead><tbody><tr><td><code>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</code></td><td>default</td><td>blocked</td><td>Semantic parity already passed; rerun with right-sized Helm readiness waits or classify as watch if upstream Helm stays pending.</td><td>If object comparison remains clean, record this as upstream runtime readiness rather than a ConfigHub parity defect.</td></tr>
-<tr><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>default</td><td>blocked</td><td>The rendered custom resources cannot be accepted until their CRDs are established. Split or stage the CRD bootstrap before rerunning.</td><td>Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases, then rerun.</td></tr>
 <tr><td><code>argo-cd/argo-cd@9.5.17</code></td><td>default</td><td>watch</td><td>Semantic parity and workload readiness passed, but the GitOps controller reported a sync or health condition that needs review.</td><td>Inspect the Argo application condition and target resources; keep the recipe stable unless semantic parity starts failing.</td></tr>
 <tr><td><code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</code></td><td>default</td><td>watch</td><td>The base declares target-fit requirements. The aws-ebs-csi-driver process initializes metadata from IMDS or Kubernetes node providerID before it can run</td><td>Use a target with the required platform behavior, or create a separate base that matches the proof target.</td></tr>
 <tr><td><code>bitnami/apache@11.4.29</code></td><td>default</td><td>watch</td><td>Semantic parity passed, but at least one rendered image could not be pulled on the target. This is an image retention, registry, or image override problem, not a ConfigHub object-model defect.</td><td>Resolve the image reference by digest, override to a pullable image, or refresh the catalog base before rerunning.</td></tr>
@@ -556,14 +555,13 @@ runtime-or-watch-rows: 38</code></pre>
 <tr><td><code>nats/surveyor@0.20.9</code></td><td>default-reviewed</td><td>blocked</td><td>Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.</td><td>Keep the recipe stable unless the rendered object comparison starts failing.</td></tr>
 <tr><td><code>opencost/opencost@2.5.21</code></td><td>default</td><td>blocked</td><td>Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.</td><td>Keep the recipe stable unless the rendered object comparison starts failing.</td></tr></tbody></table>
 <h2 id="lane-breakdown">Lane Breakdown</h2>
-<table><thead><tr><th>Lane</th><th>Rows</th><th>Pass</th><th>Watch</th><th>Blocked</th><th>Fail</th></tr></thead><tbody><tr><td>configHub-oci-live-comparison</td><td>60</td><td>0</td><td>51</td><td>9</td><td>0</td></tr>
+<table><thead><tr><th>Lane</th><th>Rows</th><th>Pass</th><th>Watch</th><th>Blocked</th><th>Fail</th></tr></thead><tbody><tr><td>configHub-oci-live-comparison</td><td>59</td><td>0</td><td>51</td><td>8</td><td>0</td></tr>
 <tr><td>two-cluster-kind-parity</td><td>49</td><td>0</td><td>2</td><td>47</td><td>0</td></tr></tbody></table>
 <p>Rows in this queue are non-pass live parity rows that need a decision before the next claim can be made. A <code>watch</code> row usually means object parity passed and runtime/controller health needs review. A <code>blocked</code> row can come from either lane and may be infrastructure, prerequisite, lifecycle, target-fit, or upstream-runtime work. Only <code>parity:</code> rows indicate an object-set defect.</p>
 <h2 id="recommended-order">Recommended Order</h2>
 <ol><li>Inspect any <code>parity:</code> rows first. Those are the only rows that currently point at an object-set difference.</li><li>Re-run any <code>infra:</code> rows on a clean host, one at a time.</li><li>Resolve <code>target-prerequisite:</code>, <code>target-fit:</code>, and <code>helm-hook:</code> rows by staging the prerequisite, choosing a suitable target, or choosing the lifecycle route before rerunning.</li><li>Review <code>target-runtime:</code>, <code>helm-runtime:</code>, and <code>watch</code> rows last. They usually mean object parity passed and the target needs a readiness, storage, capacity, or operating-policy decision.</li></ol>
 <h2 id="next-step-buckets">Next Step Buckets</h2>
 <table><thead><tr><th>Next step</th><th>Rows</th><th>What to do</th></tr></thead><tbody><tr><td>capability-profile-base</td><td>2</td><td>Use the base rendered for the target Kubernetes API set before rerunning.</td></tr>
-<tr><td>crd-bootstrap</td><td>1</td><td>Stage the CRDs or split the base into CRD/bootstrap and custom-resource phases before rerunning.</td></tr>
 <tr><td>gitops-runtime-review</td><td>14</td><td>Inspect GitOps/controller health; rerun after target conditions or controller waits are corrected.</td></tr>
 <tr><td>image-retention-review</td><td>30</td><td>Resolve missing or mutable images by digest, override, or catalog refresh before rerunning.</td></tr>
 <tr><td>inspect-parity-diff</td><td>16</td><td>Inspect the object diff before changing waits, target provisioning, or the recipe.</td></tr>
@@ -579,7 +577,7 @@ runtime-or-watch-rows: 38</code></pre>
 <p>This table separates rows that need modeling or target work from rows that are reasonable live rerun candidates.</p>
 <table><thead><tr><th>Readiness</th><th>Rows</th><th>Meaning</th></tr></thead><tbody><tr><td>inspect-diff-first</td><td>16</td><td>Do not rerun until the semantic diff has been inspected.</td></tr>
 <tr><td>inspect-receipt-first</td><td>2</td><td>Read the receipt and classify the row before rerunning.</td></tr>
-<tr><td>model-or-stage-first</td><td>53</td><td>Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning.</td></tr>
+<tr><td>model-or-stage-first</td><td>52</td><td>Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning.</td></tr>
 <tr><td>review-target-first</td><td>38</td><td>Review runtime, storage, controller health, or wait conditions before rerunning.</td></tr></tbody></table>
 <h2 id="resolved-by-useful-base">Resolved By Useful Base</h2>
 <p>These rows are no longer active rerun work. The raw base still has a non-pass receipt, but a separate useful base models the required render inputs and has a passing live receipt. The product answer is to use or promote the useful base, not to keep rerunning a known missing-values render.</p>
@@ -591,7 +589,6 @@ runtime-or-watch-rows: 38</code></pre>
 <p>Some pinned public chart versions remain available from OCI even when the classic Helm repository index no longer exposes them. The generated commands include an explicit <code>--repo-url</code> override for those rows. This keeps the rerun command faithful to the locked chart/version without changing the recipe.</p>
 <h2 id="rerun-queue">Rerun Queue</h2>
 <table><thead><tr><th>Priority</th><th>Readiness</th><th>Next step</th><th>Lane</th><th>Chart</th><th>Base</th><th>Current</th><th>Reason</th><th>Support artifact</th><th>Command</th></tr></thead><tbody><tr><td>20</td><td>review-target-first</td><td>runtime-review</td><td>configHub-oci-live-comparison</td><td><code>nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</code></td><td>default</td><td>blocked</td><td>helm-runtime: upstream leg blocked</td><td>-</td><td><code>npm run live-parity:run -- --recipe recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18 --base default</code></td></tr>
-<tr><td>20</td><td>model-or-stage-first</td><td>crd-bootstrap</td><td>configHub-oci-live-comparison</td><td><code>projectcalico/tigera-operator@v3.32.0</code></td><td>default</td><td>blocked</td><td>crd-bootstrap: required CRDs missing before custom resources apply</td><td><a href="../../../../recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml"><code>recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml</code></a></td><td><code>npm run live-parity:run -- --recipe recipes/projectcalico/tigera-operator/v3.32.0 --base default</code></td></tr>
 <tr><td>30</td><td>review-target-first</td><td>gitops-runtime-review</td><td>configHub-oci-live-comparison</td><td><code>argo-cd/argo-cd@9.5.17</code></td><td>default</td><td>watch</td><td>gitops-runtime: child Argo Application not materialized (parity passed)</td><td><a href="../../../../recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml"><code>recipes/argo-cd/argo-cd/9.5.17/gitops-runtime-review.yaml</code></a></td><td><code>npm run live-parity:run -- --recipe recipes/argo-cd/argo-cd/9.5.17 --base default</code></td></tr>
 <tr><td>30</td><td>model-or-stage-first</td><td>target-fit-review</td><td>configHub-oci-live-comparison</td><td><code>aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1</code></td><td>default</td><td>watch</td><td>target-fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed)</td><td><a href="../../../../recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml"><code>recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/target-topology.yaml</code></a></td><td><code>npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default</code></td></tr>
 <tr><td>30</td><td>model-or-stage-first</td><td>image-retention-review</td><td>configHub-oci-live-comparison</td><td><code>bitnami/apache@11.4.29</code></td><td>default</td><td>watch</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td><a href="../image-digest-workdown/summary.html"><code>data/image-digest-workdown/summary.md</code></a></td><td><code>npm run live-parity:run -- --recipe recipes/bitnami/apache/11.4.29 --base default --repo-url oci://registry-1.docker.io/bitnamicharts</code></td></tr>

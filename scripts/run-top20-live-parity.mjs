@@ -157,6 +157,7 @@ function parseCubAuthExpiry(output) {
 function targetProfileCheck(profile) {
   if (!profile || profile === "none") return { name: "target profile", result: "pass", detail: "none" };
   if (profile === "kind-ingress-nginx") return { name: "target profile kind-ingress-nginx", result: "pass", detail: "installs target ingress controller inside the test rig" };
+  if (profile === "kind-tigera-crds") return { name: "target profile kind-tigera-crds", result: "pass", detail: "bootstraps the four Tigera operator CRDs required by the default base" };
   if (profile === "kind-three-node") return kubernetesNodeProfileCheck();
   if (profile === "kind-loadbalancer") {
     const provider = toolCheck("cloud-provider-kind");
