@@ -84,6 +84,7 @@ const UNKNOWN_ACTION_LABELS = {
   "unknown-preflight": "run the preflight checks",
 };
 const REDIS_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "25.5.3");
+const REDIS_27_INSTALLER_OCI_REF = installerOciRef("bitnami/redis", "27.0.0");
 const REDIS_IMAGE_DIGEST =
   "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
 const PROMETHEUS_INSTALLER_OCI_REF = installerOciRef("prometheus-community/prometheus", "29.8.0");
@@ -1508,6 +1509,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
   pull-back: <span class="ok">verified</span></code></pre>
           </div>
         </div>
+        <div class="sources"><b>checked:</b> <a href="./d/data/redis-public-walkthrough-proof/summary.html">anonymous package pull, 14 non-secret objects, OCI pull-back, and the same selected base from Redis 25.5.3 to 27.0.0</a></div>
       </header>
 
       <main>
@@ -2674,8 +2676,8 @@ em{font-style:italic;color:var(--ink);}
   ${topNav(".")}
   <div class="hero-copy">
     <h1>Try It Now with Kubernetes</h1>
-    <p class="lead">Install a chart on a quick dev cluster such as kind. Change a setting, then upgrade. Your change stays. Helm wipes it; cub keeps it. Compare <code>helm install</code> with <code>cub installer setup</code> followed by <code>kubectl apply</code>, and check that both paths deliver the same Kubernetes objects. No ConfigHub account is needed to start.</p>
-    <div class="steps-line">You'll: <span><b>pick a chart</b> &rarr;</span> <span><b>read what it installs</b> &rarr;</span> <span><b>check what it needs</b> &rarr;</span> <span><b>change it &amp; keep it</b></span></div>
+    <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account: pull Redis 25.5.3, read its 14 Kubernetes objects, compare the result with Helm, write it as OCI, then move the same selected configuration to 27.0.0. Sign in only when you want ConfigHub to keep an arbitrary object edit, promote it, and record a rollback.</p>
+    <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade without losing the choice</b> &rarr;</span> <span><b>see the managed payoff</b></span></div>
   </div>
 </header>
 <main>
@@ -2710,95 +2712,113 @@ kubectl -n redis get pods
 cat ./bitnami-redis-25-5-3-reuse-existing-secret/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
   <p>The script says what it does at every step. It generates a fresh password locally, creates <code>redis-existing-secret</code> in the throwaway cluster, and keeps that password out of the rendered package files. Every chart page links its own <code>try.sh</code>; base variants that need target resources name them instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same process next to plain Helm.</p>
 
-  <h2>1 · Install it: same result as Helm</h2>
-  <p>Use a throwaway cluster to run Helm and cub side by side. Both install the same app. The difference is that cub writes the files to disk first, so you can read them before anything reaches the cluster.</p>
-  <p>The <code>--base default</code> choice is a <a href="./charts/index.html#base-variants">base variant</a>: a supported way to run this chart, with its values, rendered output, checks, and known extras recorded.</p>
-  <p>In the catalog, the full rendered YAML output is always a real file. For this Prometheus example, open <a href="../recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. Then use the chart page and render intent to see the Helm inputs, checks, and any route decisions for hooks, CRDs, setup jobs, or target prerequisites.</p>
-  <pre><code># plain Helm, one step · prometheus → monitoring
-$ helm install prom prometheus-community/prometheus --version 29.8.0 \\
-    -n monitoring --create-namespace
+  <h2 id="redis-walkthrough">1 · Pull, inspect, and verify Redis</h2>
+  <p>Start without a cluster. Pull the public Redis package, select the existing-Secret configuration, write the Kubernetes files, and write the same non-secret objects as a local OCI image layout.</p>
+  <p><code>reuse-existing-secret</code> is a <a href="./charts/index.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
+  <pre><code># No ConfigHub account, Google registry login, or Kubernetes cluster.
+$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+    --base reuse-existing-secret --work-dir ./redis \\
+    --non-interactive --namespace redis \\
+    --output-oci ./redis-25.oci
 
-# ConfigHub: render the reviewed package, then apply
-# No ConfigHub account or Google registry login is needed for public catalog packages.
-$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
-    --base default --work-dir ./prom --non-interactive --namespace monitoring \\
-    --output-oci ./prom-rendered.oci
-$ kubectl apply -f ./prom/out/manifests</code></pre>
+# Read the files before deciding whether to deploy.
+$ ls ./redis/out/manifests
+$ cat ./redis/out/spec/selection.yaml</code></pre>
+  <p>The command writes 14 Kubernetes objects and no Secret. The password remains outside the files and OCI. The output ends with <code>pull-back: verified</code> because cub reads the OCI back and compares its object-set digest before reporting success.</p>
+  <p>Open the <a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">full rendered Redis YAML</a>, the <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">recorded Helm inputs and prerequisites</a>, or the <a href="./d/data/redis-public-walkthrough-proof/summary.html">anonymous 25.5.3 to 27.0.0 walkthrough proof</a>.</p>
 
-  <h3>Helm hides one step. cub shows it.</h3>
-  <p><code>helm install</code> renders the chart and installs it in one go, so you only see what it made after it's already running. cub splits that into two steps you can watch:</p>
+  <h3>Install only after you have read it</h3>
+  <p>If you want a live test, use a throwaway cluster. The generated script creates a fresh password in a separate Kubernetes Secret, applies the 14 files, waits for Redis, and tells you how to remove the cluster afterward.</p>
+  <pre><code>$ kind create cluster
+$ bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)</code></pre>
+  <p>The <a href="./d/data/serverless-install-parity-proof/summary.html">live parity proof</a> ran normal Helm and this cub path on a clean cluster. The 13 chart objects matched field for field, cub added the explicit Namespace, and both Redis installations became ready and answered <code>PING</code>.</p>
+
+  <h3>Helm combines render and install. cub separates them.</h3>
   <div class="rapply">
-    <div class="box"><div class="n">1 · RENDER</div><h3>Read it first</h3><p><code>cub installer setup</code> writes the exact files to <code>./prom/out/manifests</code>. Read them before anything reaches the cluster. With <code>--output-oci</code>, the same command also writes those non-secret objects as a local OCI layout and checks the result by pulling it back.</p></div>
-    <div class="box"><div class="n">2 · APPLY</div><h3>Then install</h3><p><code>kubectl apply</code> installs them. Same objects, now running.</p></div>
+    <div class="box"><div class="n">1 · RENDER</div><h3>Read and verify it</h3><p><code>cub installer setup</code> writes the exact files to <code>./redis/out/manifests</code>. With <code>--output-oci</code>, it also writes those non-secret objects as OCI and checks the result by pulling it back.</p></div>
+    <div class="box"><div class="n">2 · DELIVER</div><h3>Then choose where it goes</h3><p>Use <code>kubectl apply</code>, commit the files for GitOps, or push the rendered OCI for Argo CD or Flux. The separate Redis Secret remains under your normal secret-management process.</p></div>
   </div>
-  <pre><code>$ helm template prom prometheus-community/prometheus --version 29.8.0   # 23 objects
-$ ls ./prom/out/manifests   # the same 23, plus cub's explicit Namespace</code></pre>
-  <p>Same chart, same namespace, same Kubernetes result. Then make a change, and cub puts your change back on upgrade.</p>
   <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p></div>
   <div class="callout"><p><strong>Registry access today.</strong> ${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p></div>
 
-  <h2>2 · Change it after install, and it stays</h2>
-  <p>Once it's running you'll want to tweak something: more replicas, a different image, a field the chart never let you set. With Helm, the next <code>helm upgrade</code> rebuilds everything from the templates and your tweak is gone, so you redo it every time. cub remembers the change and puts it back when you upgrade.</p>
-  <p>If a change makes Helm render different objects, create or choose another <a href="./charts/index.html#base-variants">base variant</a>. If it changes the rendered files after install, ConfigHub can keep that reviewed change through upgrades.</p>
+  <h2>2 · Upgrade the same Redis configuration</h2>
+  <p>Now move the same work directory from Redis chart 25.5.3 to 27.0.0. With no account, cub can retain the package selection and inputs it knows about. With ConfigHub, it can also retain a reviewed edit made directly to a Kubernetes object.</p>
   <div class="two">
     <div class="box">
-      <h3>Free: your settings stay</h3>
+      <h3>No account: the package choice stays</h3>
       <p class="tag">no ConfigHub account</p>
-      <pre><code>$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
-    --set-image server=prom/prometheus:v3.1
-# upgrade to a newer chart version
-$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0
-# your image change is carried forward</code></pre>
-      <p>The settings and image swaps you choose are remembered, so an upgrade doesn't wipe them.</p>
+      <pre><code># Re-enter the same work directory with the newer public package.
+$ cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
+    --work-dir ./redis --reuse --non-interactive --namespace redis \\
+    --output-oci ./redis-27.oci
+
+$ cat ./redis/out/spec/selection.yaml
+# base: reuse-existing-secret</code></pre>
+      <p>The selected existing-Secret base is retained. The newer output contains Redis 8.8.0 and chart 27.0.0, still as 14 non-secret objects, and the second OCI is pulled back and verified. This does not claim that an arbitrary hand edit survives without ConfigHub.</p>
     </div>
     <div class="box">
-      <h3>With a ${signupLink("try", "free account")}: any edit stays</h3>
+      <h3>With a ${signupLink("try", "free account")}: a reviewed object edit stays</h3>
       <p class="tag">${signupLink("try", "free account")}</p>
-      <pre><code>$ cub installer upload --space my-app
-$ edit out/manifests/deployment-server.yaml   # a field no chart value exposes
-$ cub installer plan &amp;&amp; cub installer upload --yes
-# upgrade, keeping your hand edit
-$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.9.0 --merge-external-source</code></pre>
-      <p>Change any line in the files, even one the chart never let you set, and the <span class="win">upgrade keeps it</span>.</p>
+      <pre><code># Record the 25.5.3 objects.
+$ cub installer upload --work-dir ./redis --space my-redis
+
+# Change the rendered replica StatefulSet from 3 replicas to 2.
+$ edit ./redis/out/manifests/statefulset-redis-redis-replicas.yaml
+$ cub installer plan --work-dir ./redis
+$ cub installer upload --work-dir ./redis --yes
+
+# Pull 27.0.0. setup reads upload.yaml; upload performs the merge.
+$ cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
+    --work-dir ./redis --reuse --non-interactive --namespace redis
+$ cub installer plan --work-dir ./redis
+$ cub installer upload --work-dir ./redis --yes</code></pre>
+      <p>The recorded run upgraded the chart from 25.5.3 to 27.0.0 and Redis from 8.6.3 to 8.8.0. The replica count remained two. There is no removed setup flag to remember: <code>setup</code> re-enters from <code>upload.yaml</code>, and <code>upload</code> merges the new package output with the recorded Units.</p>
     </div>
   </div>
 
-  <h2>3 · Catch a classic mistake first</h2>
-  <p>AI keys, generated passwords, and other Secrets can end up baked into a chart. With cub they're just files, so you can read them, rotate them, move them out, or drop them, before the cluster or your registry ever sees them.</p>
-  <pre><code>apiVersion: v1
-kind: Secret
-metadata:
-  name: ai-provider
-stringData:
-  AI_API_KEY: sk-prod-old-key-rotate-me   # rotate or move out
-# nothing has touched a cluster yet</code></pre>
+  <h3>What the managed run did after the upgrade</h3>
+  <p>The <a href="./d/data/redis-upgrade-app-proof/summary.html">Redis upgrade and rollback proof</a> continued the same example. It showed development and staging as the two affected environments, promoted them in order, published one reviewed OCI, and reconciled that digest on two Argo CD clusters. Both Redis installations became ready and answered <code>PONG</code>. It then restored the exact pre-upgrade revisions, published a rollback OCI, and checked both clusters again.</p>
+  <p>The proof also records its limits. The promotion dry run produced no readable mutation output, the portable OCI used a temporary registry, and the rollback restored desired Kubernetes objects rather than database data.</p>
+
+  <h2>3 · See why the Redis base matters</h2>
+  <p>The Redis <code>default</code> catalog base is retained as an explicit static-password demonstration. Its rendered YAML contains credential material, so the chart page warns against treating it as a production default. The recommended <code>reuse-existing-secret</code> base used above contains no Secret object and names the Secret that must exist at delivery time.</p>
+  <pre><code># Compare the two choices without touching a cluster.
+$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+    --base default --work-dir ./redis-static \\
+    --non-interactive --namespace redis
+$ grep -R "kind: Secret" ./redis-static/out/manifests
+
+$ grep -R "kind: Secret" ./redis/out/manifests
+# no match: reuse-existing-secret keeps the credential outside the files</code></pre>
+  <p>This is the sort of choice the catalog records for people and agents. It does not pretend that every chart has one universal answer. For another common case, take a chart and values file produced by AI and <a href="./testing.html#bring-your-own">review the exact rendered objects before applying them</a>.</p>
 
   <h2>4 · Already on Argo or Flux? Write OCI directly</h2>
-  <p>If your cluster pulls from an OCI registry, give <code>--output-oci</code> a registry reference instead of a local path. The installer pushes the same non-secret objects you inspected, records the source package and chosen base, then reads the artifact back and checks its object-set digest. Registry write access is the only additional requirement.</p>
-  <pre><code>$ cub installer setup --pull ${PROMETHEUS_INSTALLER_OCI_REF} \\
-    --base default --work-dir ./prom --non-interactive --namespace monitoring \\
-    --output-oci oci://&lt;your-registry&gt;/prometheus:v1</code></pre>
+  <p>If your cluster pulls from an OCI registry, give <code>--output-oci</code> a registry reference instead of a local path. The installer pushes the same 14 non-secret Redis objects you inspected, records the source package and selected base, then reads the artifact back and checks its object-set digest. Registry write access is the only additional requirement.</p>
+  <pre><code>$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
+    --base reuse-existing-secret --work-dir ./redis \\
+    --non-interactive --namespace redis \\
+    --output-oci oci://&lt;your-registry&gt;/redis:v1</code></pre>
   <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
 
   <h2>What we checked</h2>
-  <p>With no ConfigHub account or Google registry login, you reach the same install as Helm, hand the same files to the delivery tools you already use, and get a correct starting point before you change anything. Public catalog package refs are readable anonymously from Google Artifact Registry.</p>
+  <p>The Redis steps above are backed by separate receipts so one passing lane is not made to prove everything.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
-    <tr><td>Same install as Helm</td><td>Helm, kubectl, and cub reach the same result on throwaway clusters.</td></tr>
-    <tr><td>Rendered OCI reaches Flux</td><td>For the recorded NGINX preset, <code>cub installer setup --output-oci</code> wrote and verified the artifact, Flux reconciled its digest, and the workload reached 1/1 ready replicas.</td></tr>
-    <tr><td>ConfigHub release OCI reaches Argo CD and Flux</td><td>A separate live proof published one reviewed ConfigHub release OCI; Argo CD, Flux, and direct apply reported the same digest and a ready NGINX workload.</td></tr>
+    <tr><td><a href="./d/data/redis-public-walkthrough-proof/summary.html">Public Redis walkthrough</a></td><td>Anonymous pulls of 25.5.3 and 27.0.0, 14 non-secret objects at each version, the same selected base after upgrade, and both local OCI outputs pulled back and verified.</td></tr>
+    <tr><td><a href="./d/data/serverless-install-parity-proof/summary.html">Same live install as Helm</a></td><td>Helm and cub produced the same 13 Redis chart objects; cub added the explicit Namespace; both live installations became ready and answered <code>PING</code>.</td></tr>
+    <tr><td><a href="./d/data/serverless-oci-gitops-proof/summary.html">Rendered OCI reaches Flux</a></td><td>For a separate NGINX preset, <code>cub installer setup --output-oci</code> wrote and verified the artifact, Flux reconciled its digest, and the workload reached 1/1 ready replicas.</td></tr>
+    <tr><td><a href="./d/data/redis-upgrade-app-proof/summary.html">Managed upgrade and rollback</a></td><td>A post-render Redis replica edit stayed through the 25.5.3 to 27.0.0 upgrade, moved through two environments, reached two Argo CD clusters at one digest, and was restored by exact revision.</td></tr>
   </table>
 
   <h2>Check it yourself</h2>
-  <p>These npm commands check the catalog's own evidence. They are not installation commands. To try a catalog package, render it with <code>cub installer setup</code>, then deliver the files with <code>kubectl</code>, Argo CD, or Flux. Plain Helm remains available through <code>helm install</code>.</p>
-  <pre><code># confirm the render matches Helm (a check, not an install)
-$ npm run redis:verify-install:render -- \\
-    --base default --work-dir ./redis-default --namespace redis</code></pre>
+  <p>The first command checks the committed receipt. The second repeats the public no-account run against the current registry packages. Neither command touches Kubernetes.</p>
+  <pre><code>$ npm run redis-public-walkthrough:verify
+$ npm run redis-public-walkthrough:run</code></pre>
   <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
 
   ${productDocsPointer("try")}
-  <p class="closing-line">Get Started needs no ConfigHub account. You add ConfigHub when your config needs to be shared, reviewed, and managed across a team or a fleet. To see where that leads, open <a href="./demo-org.html">the demo org</a>.</p>
-  <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/index.html">Choose a chart</a> · <a href="./demo-org.html">The demo org</a> · <a href="./verification.html">Open verification</a></p>
+  <p class="closing-line">Try the public Redis walkthrough first. When you are ready to use your own example, bring a chart and values file that you or an AI produced. The <a href="./testing.html#bring-your-own">bring-your-own path</a> renders it, reports exact object and field findings, keeps the changes you actually wanted, and builds a reviewed OCI.</p>
+  <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./demo-org.html">The demo org</a> · <a href="./verification.html">Open verification</a></p>
 </main>
 <footer>${generatedStamp(catalog, "Get Started guide")}<p>Generated from committed helm-expt evidence. Get Started is the no-account path. A ${signupLink("try", "ConfigHub account")} is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
 </body>
@@ -2938,6 +2958,7 @@ function docsHtml(catalog) {
   ];
   const startRows = [
     ["Try a chart without an account", `<a href="./try.html">Get Started</a>`, "Render a catalog package, inspect the files, and apply them to Kubernetes yourself."],
+    ["Follow one example from public package to managed rollback", `<a href="./try.html#redis-walkthrough">Redis walkthrough</a>`, "Use Redis 25.5.3 throughout: inspect it, write OCI, retain the selected base through 27.0.0, then see the recorded ConfigHub upgrade, promotion, two-cluster rollout, and rollback."],
     ["Understand the model", `<a href="./how-it-works.html">How it works</a>`, "Render, record, and route: the short version of what ConfigHub adds to Helm."],
     ["See the source and App demonstrations", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstrations</a>`, "Follow the Helm, AICR, cub installer, public OCI, promotion, Kubara, and Sveltos paths and see which Apps are available, partial, or planned."],
     ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
@@ -2953,6 +2974,7 @@ function docsHtml(catalog) {
     ["Config catalog doctrine", "The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.", "../docs/reference/config-catalog-doctrine.md"],
     ["Anonymous OCI work in CI", "A GitHub Actions run with no ConfigHub credentials pulls a public package, renders and checks its objects, creates an OCI layout, and pulls the same objects back.", "../data/anonymous-oci-ci-proof/summary.md"],
     ["Anonymous OCI change", "Pull five public NGINX objects without credentials, change only the replica count, store the source and check records, and pull the new local OCI back for comparison.", "../data/anonymous-oci-transform-proof/summary.md"],
+    ["Redis public walkthrough", "Pull Redis 25.5.3 and 27.0.0 anonymously, retain the selected existing-Secret base, keep Secrets out of both object sets, and verify both local OCI outputs by pulling them back.", "../data/redis-public-walkthrough-proof/summary.md"],
     ["OCI import, promotion, and two-cluster rollout", "One live run imports exact Kubernetes objects from OCI, promotes a change through development and staging, exports one deployable OCI, and records exact-object and convergence receipts on two Argo CD clusters.", "../data/oci-deploy-stage-rollout-proof/summary.md"],
     ["Redis upgrade, promotion, and rollback", "A live chart upgrade keeps a post-render replica change, moves through development and staging, reaches two Argo CD clusters, then restores the exact pre-upgrade revisions and checks both clusters again.", "../data/redis-upgrade-app-proof/summary.md"],
     ["AICR EKS H100 example", "AICR selects and orders a GPU platform. Two public OCI artifacts carry the source package and 17 exact Argo CD Applications. ConfigHub stores the Applications as a base, changes one Grafana Secret reference in development, and promotes that result to staging.", "../docs/demo/aicr/eks-h100-training-kubeflow.md"],

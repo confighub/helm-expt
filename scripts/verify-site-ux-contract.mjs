@@ -16,7 +16,7 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try It Now with Kubernetes", "quick dev cluster", "Change it after install", "AI_API_KEY", "helm install", "cub installer", "--output-oci", "prometheus → monitoring", "What is <code>--pull</code>?"],
+    terms: ["Try It Now with Kubernetes", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "a reviewed object edit stays", "What is <code>--pull</code>?"],
   },
   {
     file: "site/serverless.html",
@@ -122,7 +122,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["quick dev cluster", "helm install", "cub installer"],
+    headerTerms: ["Use one Redis example", "25.5.3", "27.0.0", "Sign in only"],
   },
   {
     file: "site/how-it-works.html",
