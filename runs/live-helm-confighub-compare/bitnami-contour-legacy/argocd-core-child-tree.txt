@@ -1,0 +1,40 @@
+Name:               argocd/contour-parity
+Project:            default
+Server:             https://kubernetes.default.svc
+Namespace:          default-oci
+URL:                http://localhost:50323/applications/contour-parity
+Source:
+- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-contour-ms5humym-13gt-contour
+  Target:           latest
+  Path:             .
+SyncWindow:         Sync Allowed
+Sync Policy:        Automated (Prune)
+Sync Status:        OutOfSync from latest (sha256:)
+Health Status:      Progressing
+
+KIND/NAME                                                             STATUS     HEALTH       AGE    MESSAGE  REASON
+ServiceAccount/contour-envoy                                          Synced                  7m1s
+DaemonSet/contour-envoy                                               Synced     Healthy      7m1s
+├─Pod/contour-envoy-z5fqq                                                        Healthy      7m1s
+└─ControllerRevision/contour-envoy-6bbc74ffd9                                                 7m1s
+NetworkPolicy/contour-contour-certgen                                 Synced                  7m1s
+NetworkPolicy/contour-envoy                                           Synced                  7m1s
+ClusterRoleBinding/contour-contour                                    Synced                  7m1s
+ConfigMap/contour                                                     Synced                  7m1s
+CustomResourceDefinition/contourconfigurations.projectcontour.io      OutOfSync  Healthy      7m1s            CRD is healthy
+CustomResourceDefinition/contourdeployments.projectcontour.io         OutOfSync  Healthy      7m1s            CRD is healthy
+CustomResourceDefinition/extensionservices.projectcontour.io          OutOfSync  Healthy      7m1s            CRD is healthy
+CustomResourceDefinition/httpproxies.projectcontour.io                OutOfSync  Healthy      7m1s            CRD is healthy
+Role/contour-contour                                                  Synced                  7m1s
+Service/contour                                                       Synced     Healthy      7m1s
+Service/contour-envoy                                                 Synced     Progressing  7m1s
+ServiceAccount/contour-contour                                        Synced                  7m1s
+CustomResourceDefinition/tlscertificatedelegations.projectcontour.io  OutOfSync  Healthy      7m1s            CRD is healthy
+Deployment/contour-contour                                            Synced     Healthy      7m1s
+└─ReplicaSet/contour-contour-9c9cb9d47                                           Healthy      7m1s
+  └─Pod/contour-contour-9c9cb9d47-nkmcw                                          Healthy      7m1s
+NetworkPolicy/contour-contour                                         Synced                  7m1s
+ClusterRole/contour-contour                                           Synced                  7m1s
+RoleBinding/contour-contour-role                                      Synced                  7m1s
+Namespace/default-oci                                                 Synced                  8m24s
+IngressClass/contour                                                  Synced                  7m1s
