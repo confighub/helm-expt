@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serious Chart Proof · Config Test Centre</title>
-  <meta name="description" content="Serious Chart Proof: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/serious-chart-proof.html">
-  <meta property="og:title" content="Serious Chart Proof · Config Test Centre">
-  <meta property="og:description" content="Serious Chart Proof: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Kube Prometheus Stack through Argo CD and Flux · Config Test Centre</title>
+  <meta name="description" content="Kube Prometheus Stack through Argo CD and Flux: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/kps-gitops-lifecycle-proof/summary.html">
+  <meta property="og:title" content="Kube Prometheus Stack through Argo CD and Flux · Config Test Centre">
+  <meta property="og:description" content="Kube Prometheus Stack through Argo CD and Flux: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/serious-chart-proof.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/kps-gitops-lifecycle-proof/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -424,96 +424,28 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-    <h1>Serious Chart Proof</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/serious-chart-proof.md">View source markdown</a>.</p>
+    <h1>Kube Prometheus Stack through Argo CD and Flux</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/kps-gitops-lifecycle-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a plugin for the cub CLI. Its first binary release is not available yet, so a fresh setup currently builds the open-source plugin locally. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>Use Redis to understand the happy path. Use kube-prometheus-stack to check whether the model survives a chart that looks like real platform work.</p>
-<p>kube-prometheus-stack is the main hard-chart example in this repo:</p>
-<pre><code>chart: prometheus-community/kube-prometheus-stack@85.3.3
-bases: default, no-crds
-component: monitoring platform</code></pre>
-<p>It is useful because it exercises many Helm pain points at once: CRDs, webhooks, hook-driven admission certificate patching, cluster RBAC, generated facts, subchart dependencies, large object fanout, image policy, scan warnings, and target prerequisites.</p>
-<h2 id="what-this-proves">What This Proves</h2>
-<p>The <code>default</code> base is the strongest current proof path:</p>
-<pre><code>render parity: pass
-two-cluster kind parity: pass
-strict Helm-vs-ConfigHub live parity: pass
-ConfigHub OCI/Argo evidence: pass for the declared support scope
-production support decision: supported for the recorded vanilla kind target, namespace=monitoring</code></pre>
-<p>That means regular Helm and the <code>cub installer</code> path produce equivalent desired objects for the recorded inputs, and the selected ConfigHub delivery path reached the recorded live state for the declared target scope. The receipt stores that historical target class as <code>cub-lk-kind-vanilla</code>. Current local delivery examples create the equivalent kind and Argo CD setup with <code>cub cluster up</code>.</p>
-<p>The <code>no-crds</code> base is deliberately different:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>render parity: pass
-two-cluster kind parity: pass
-target facts staged in live proof: 10 CRDs + monitoring/kube-prometheus-stack-admission Secret
-runtime outcome: regular Helm and cub installer workloads both become Ready
-ConfigHub OCI/Argo runtime path: pass when the same prerequisites are staged
-staged no-crds OCI: pass through Argo CD and Flux on separate fresh clusters</code></pre>
-<p>The earlier blocked runtime evidence was useful because it showed that removing CRDs from the rendered object set creates a target prerequisite. The model did not hide that prerequisite or pretend the install was complete. Fresh live runs on 2026-06-11 then proved the positive path: stage the compatible CRDs and the admission Secret, and both the two-cluster kind lane and the ConfigHub OCI/Argo lane converge with semantic parity.</p>
-<p>A separate fresh-install proof starts from the anonymous public installer package, selects <code>no-crds</code>, and writes a non-secret OCI output with <code>cub installer setup --output-oci</code>. A chart-specific packaging step adds four explicit paths for CRDs, certificate preparation, ordinary workloads, and webhook patching. Argo CD and Flux each pulled the same staged OCI digest on a separate new cluster. Both passed those four stages and the checks for ten established CRDs, three matching webhook CA bundles, a ready operator endpoint, a server-side dry run, and six ready workloads.</p>
-<p><a href="../../data/kps-gitops-lifecycle-proof/summary.html">Read the Argo CD and Flux result</a> or <a href="../../../../runs/kps-gitops-lifecycle-proof/receipt.yaml">open its receipt</a>.</p>
-<p>The current lifecycle evidence also shows the productive path forward: when compatible CRDs and the admission webhook certificate Secret are staged explicitly, the config-only path can converge in the tested local targets. That does not make certificate rotation or CRD upgrade policy automatic. It proves the target contract can be made visible, staged, observed, and bounded.</p>
-<p>That is the important part of the proof. YAML/render parity is the baseline. kube-prometheus-stack is useful because it forces the hidden install contract into the open: which CRDs are owned by the package, which CRDs are target facts, which admission certificate material is generated or staged, which evidence is live, and which claims remain per-target.</p>
-<h2 id="why-this-matters">Why This Matters</h2>
-<p>Small charts can make the catalog look easy. kube-prometheus-stack tests the parts of Helm that usually create day-1 and day-2 pain:</p>
-<table><thead><tr><th>Helm behavior</th><th>How the repo handles it</th></tr></thead><tbody><tr><td>CRDs on or off</td><td>Separate base variants: <code>default</code> owns CRDs, <code>no-crds</code> requires target CRDs.</td></tr>
-<tr><td>Hook-driven admission setup</td><td>Lifecycle route and receipt for the admission webhook jobs.</td></tr>
-<tr><td>Webhook and controller readiness</td><td>Target-scoped lifecycle and production-support decisions.</td></tr>
-<tr><td>Large object fanout</td><td>Value-source and blast-radius evidence for high-impact choices.</td></tr>
-<tr><td>Scan warnings</td><td>Security decision or hardened-base work, not a silent pass.</td></tr>
-<tr><td>Images</td><td>Digest-resolution evidence and image-policy decision for the support scope.</td></tr>
-<tr><td>Production support</td><td>Per target scope, not implied by render success.</td></tr></tbody></table>
-<h2 id="how-to-inspect-it">How To Inspect It</h2>
-<p>Start with the generated catalog page:</p>
-<p><a href="../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.html">kube-prometheus-stack catalog</a></p>
-<p>Then open the user-facing proof explanation:</p>
-<p><a href="prometheus-high-fanout.html">Prometheus High-Fanout Example</a></p>
-<p>For the current supported target scope, open:</p>
-<p><a href="../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.html">kube-prometheus-stack production support workdown</a></p>
-<p>For the staged CRD and admission certificate evidence, open:</p>
-<p><a href="../../data/webhook-cert-lifecycle/summary.html">Webhook Certificate Lifecycle Evidence</a></p>
-<p>For reviewer-level detail, open:</p>
-<p><a href="../reference/kube-prometheus-stack-serious-chart-review.html">kube-prometheus-stack serious chart review</a></p>
-<h2 id="commands">Commands</h2>
-<p>Check the committed proof and package:</p>
-<pre><code>npm run kube-prometheus-stack:verify-proof
-npm run kube-prometheus-stack:verify-package
-npm run kube-prometheus-stack:compare</code></pre>
-<p>Check the generated high-fanout example:</p>
-<pre><code>npm run high-fanout:verify</code></pre>
-<p>Check the live CRD upgrade rehearsal:</p>
-<pre><code>npm run kps:crd-upgrade-live:verify</code></pre>
-<p>Check the full regular-Helm workload upgrade rehearsal:</p>
-<pre><code>npm run kps:workload-upgrade-live:verify</code></pre>
-<p>Check the staged CRD and webhook certificate evidence:</p>
-<pre><code>npm run webhook-cert:lifecycle:verify</code></pre>
-<p>Check the current production-support artifacts:</p>
-<pre><code>npm run kps:image-digests:verify
-npm run kps:image-policy-decision:verify
-npm run kps:fresh-target-evidence:verify
-npm run kps:lifecycle-decision:verify
-npm run kps:security-decision:verify</code></pre>
-<p>Check the direct and controller lifecycle receipts:</p>
-<pre><code>npm run kps:lifecycle-route:verify
-npm run kps:gitops-lifecycle:verify</code></pre>
-<p>Check the live parity receipts that already exist in the repo:</p>
-<pre><code>npm run live-parity:verify
-npm run kind-parity:verify</code></pre>
-<p>These commands verify committed evidence. They do not run a fresh cluster test. Use the live lane docs when you need fresh cluster evidence for a new target.</p>
-<h2 id="what-not-to-claim">What Not To Claim</h2>
-<p>Do not claim that every kube-prometheus-stack topology is supported. The current support decision is for one base and one target scope.</p>
-<p>Do not claim that upgrades are solved. The repo has a render-level CRD upgrade delta, a live API-server CRD upgrade rehearsal, and a live regular-Helm workload upgrade rehearsal for <code>85.3.3 -&gt; 86.1.0</code>. It still does not have a ConfigHub-managed upgrade receipt, rollback receipt, soak receipt, private overlay upgrade receipt, or production-target upgrade receipt.</p>
-<p>Do not claim that all hook patterns are solved. This chart's hook route is observed for the selected profiles. The controller proof covers a fresh install of <code>no-crds</code>; it does not prove Helm's hook cleanup policy or the chart upgrade. Other hook-bearing charts need their own route and receipt.</p>
-<p>Do not claim that <code>no-crds</code> is a simpler install. It is a different contract: the target must already provide compatible CRDs and required admission prerequisites. The repo now has a fresh live proof of that contract on kind; it still needs a target-scoped production decision, freshness policy, and production target review before it becomes a supported production path.</p>
-<h2 id="the-short-version">The Short Version</h2>
-<p>kube-prometheus-stack is the main proof that this is more than a Redis demo. It shows how a complex Helm chart can become named base variants with visible prerequisites, render parity, staged lifecycle evidence, live parity, production decisions, and honest limits.</p>
+<p>This is a fresh-install test of the public <code>prometheus-community/kube-prometheus-stack@85.3.3</code> <code>no-crds</code> preset. The result is <b>pass</b>.</p>
+<p><code>cub installer setup --output-oci</code> first wrote and read back the selected non-secret configuration. That output contained 113 files at object-set digest <code>sha256:e536005bf01a5aa0cd2dba5dcbfa1917c84e80341a2eae8f5bcbd0440d276b39</code>.</p>
+<p>A chart-specific step then added the work Helm normally performs around those objects. One public OCI at <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds@sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234</code> contains four paths:</p>
+<ol><li><code>stages/crds</code> creates the Namespace and establishes ten CRDs.</li><li><code>stages/prepare</code> runs the chart's certificate creation Job.</li><li><code>stages/workload</code> applies the 112 non-secret chart objects.</li><li><code>stages/finish</code> runs the chart's webhook patch Job.</li></ol>
+<p>Argo CD uses sync waves from the root kustomization. Flux uses one <code>OCIRepository</code> and four <code>Kustomization</code> objects joined with <code>dependsOn</code>. They ran on separate fresh clusters and requested the same OCI manifest digest.</p>
+<table><thead><tr><th>Controller</th><th>Digest observed</th><th>Stage results</th><th>Runtime checks</th><th>Result</th></tr></thead><tbody><tr><td>Argo CD</td><td><code>sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234</code></td><td>crds: pass; prepare: pass; workload: pass; finish: pass</td><td>pass</td><td>pass</td></tr>
+<tr><td>Flux</td><td><code>sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234</code></td><td>crds: pass; prepare: pass; workload: pass; finish: pass</td><td>pass</td><td>pass</td></tr></tbody></table>
+<p>Each passing runtime result means the ten CRDs were Established, the chart's create and patch Jobs completed, the admission Secret contained <code>ca</code>, <code>cert</code>, and <code>key</code>, all three webhook CA bundles matched, the operator Service had a ready endpoint, a server-side dry run passed, and the six named workloads were ready.</p>
+<h2 id="secrets">Secrets</h2>
+<p>The rendered OCI and the staged delivery OCI contain no Secret objects. The Alertmanager configuration Secret and a fresh Grafana credential were supplied separately to each throwaway cluster. Their names and required keys are recorded; their values are not.</p>
+<h2 id="limits">Limits</h2>
+<ul><li>This is a fresh-install receipt, not an upgrade receipt.</li><li>It proves this chart, version, preset, artifact digest, and the two named controller paths. It does not prove every Helm hook.</li><li>The route is explicit and repeatable, but ConfigHub does not yet select it automatically.</li><li>Receipt: <code>runs/kps-gitops-lifecycle-proof/receipt.yaml</code>.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/user/serious-chart-proof.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/kps-gitops-lifecycle-proof/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

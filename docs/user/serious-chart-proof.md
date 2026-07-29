@@ -45,6 +45,7 @@ two-cluster kind parity: pass
 target facts staged in live proof: 10 CRDs + monitoring/kube-prometheus-stack-admission Secret
 runtime outcome: regular Helm and cub installer workloads both become Ready
 ConfigHub OCI/Argo runtime path: pass when the same prerequisites are staged
+staged no-crds OCI: pass through Argo CD and Flux on separate fresh clusters
 ```
 
 The earlier blocked runtime evidence was useful because it showed that
@@ -53,6 +54,18 @@ model did not hide that prerequisite or pretend the install was complete. Fresh
 live runs on 2026-06-11 then proved the positive path: stage the compatible
 CRDs and the admission Secret, and both the two-cluster kind lane and the
 ConfigHub OCI/Argo lane converge with semantic parity.
+
+A separate fresh-install proof starts from the anonymous public installer
+package, selects `no-crds`, and writes a non-secret OCI output with
+`cub installer setup --output-oci`. A chart-specific packaging step adds four
+explicit paths for CRDs, certificate preparation, ordinary workloads, and
+webhook patching. Argo CD and Flux each pulled the same staged OCI digest on a
+separate new cluster. Both passed those four stages and the checks for ten
+established CRDs, three matching webhook CA bundles, a ready operator endpoint,
+a server-side dry run, and six ready workloads.
+
+[Read the Argo CD and Flux result](../../data/kps-gitops-lifecycle-proof/summary.md)
+or [open its receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml).
 
 The current lifecycle evidence also shows the productive path forward: when
 compatible CRDs and the admission webhook certificate Secret are staged
@@ -147,6 +160,13 @@ npm run kps:lifecycle-decision:verify
 npm run kps:security-decision:verify
 ```
 
+Check the direct and controller lifecycle receipts:
+
+```sh
+npm run kps:lifecycle-route:verify
+npm run kps:gitops-lifecycle:verify
+```
+
 Check the live parity receipts that already exist in the repo:
 
 ```sh
@@ -169,8 +189,9 @@ ConfigHub-managed upgrade receipt, rollback receipt, soak receipt, private
 overlay upgrade receipt, or production-target upgrade receipt.
 
 Do not claim that all hook patterns are solved. This chart's hook route is
-observed for the selected profile. Other hook-bearing charts need their own
-route and receipt.
+observed for the selected profiles. The controller proof covers a fresh install
+of `no-crds`; it does not prove Helm's hook cleanup policy or the chart upgrade.
+Other hook-bearing charts need their own route and receipt.
 
 Do not claim that `no-crds` is a simpler install. It is a different contract:
 the target must already provide compatible CRDs and required admission

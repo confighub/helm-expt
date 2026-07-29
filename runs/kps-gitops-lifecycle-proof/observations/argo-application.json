@@ -1,0 +1,2567 @@
+{
+  "apiVersion": "argoproj.io/v1alpha1",
+  "kind": "Application",
+  "metadata": {
+    "annotations": {
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"name\":\"kps-staged\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"monitoring\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"default\",\"source\":{\"path\":\".\",\"repoURL\":\"oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged\",\"targetRevision\":\"sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234\"},\"syncPolicy\":{\"automated\":{\"prune\":true,\"selfHeal\":true},\"syncOptions\":[\"CreateNamespace=true\",\"ServerSideApply=true\"]}}}\n"
+    },
+    "creationTimestamp": "2026-07-29T12:10:50Z",
+    "generation": 38,
+    "name": "kps-staged",
+    "namespace": "argocd",
+    "resourceVersion": "1514",
+    "uid": "45a9ead9-8fcf-4508-bfb3-2d3b374b77ab"
+  },
+  "spec": {
+    "destination": {
+      "namespace": "monitoring",
+      "server": "https://kubernetes.default.svc"
+    },
+    "project": "default",
+    "source": {
+      "path": ".",
+      "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged",
+      "targetRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+    },
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true
+      },
+      "syncOptions": [
+        "CreateNamespace=true",
+        "ServerSideApply=true"
+      ]
+    }
+  },
+  "status": {
+    "controllerNamespace": "argocd",
+    "health": {
+      "lastTransitionTime": "2026-07-29T12:12:44Z",
+      "status": "Healthy"
+    },
+    "history": [
+      {
+        "deployStartedAt": "2026-07-29T12:10:52Z",
+        "deployedAt": "2026-07-29T12:12:40Z",
+        "id": 0,
+        "initiatedBy": {
+          "automated": true
+        },
+        "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "source": {
+          "path": ".",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged",
+          "targetRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+        }
+      }
+    ],
+    "operationState": {
+      "finishedAt": "2026-07-29T12:12:40Z",
+      "message": "successfully synced (all tasks run)",
+      "operation": {
+        "initiatedBy": {
+          "automated": true
+        },
+        "retry": {
+          "limit": 5
+        },
+        "sync": {
+          "prune": true,
+          "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+          "source": {
+            "path": ".",
+            "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged",
+            "targetRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+          },
+          "syncOptions": [
+            "CreateNamespace=true",
+            "ServerSideApply=true"
+          ]
+        }
+      },
+      "phase": "Succeeded",
+      "retryCount": 1,
+      "startedAt": "2026-07-29T12:10:52Z",
+      "syncResult": {
+        "resources": [
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Namespace",
+            "message": "namespace/monitoring serverside-applied",
+            "name": "monitoring",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "prometheusrules.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "probes.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "podmonitors.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "servicemonitors.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "thanosrulers.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "alertmanagers.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "prometheusagents.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "scrapeconfigs.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "prometheuses.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apiextensions.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "CustomResourceDefinition",
+            "message": "CRD is healthy",
+            "name": "alertmanagerconfigs.monitoring.coreos.com",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceAccount",
+            "message": "serviceaccount/kube-prometheus-stack-admission serverside-applied",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRole",
+            "message": "clusterrole.rbac.authorization.k8s.io/kube-prometheus-stack-admission serverside-applied",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRoleBinding",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-admission serverside-applied",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "Role",
+            "message": "role.rbac.authorization.k8s.io/kube-prometheus-stack-admission serverside-applied",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "RoleBinding",
+            "message": "rolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-admission serverside-applied",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "batch",
+            "hookPhase": "Succeeded",
+            "images": [
+              "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728"
+            ],
+            "kind": "Job",
+            "message": "Reached expected number of succeeded pods",
+            "name": "kube-prometheus-stack-admission-create",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceAccount",
+            "message": "serviceaccount/kube-prometheus-stack-grafana serverside-applied",
+            "name": "kube-prometheus-stack-grafana",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceAccount",
+            "message": "serviceaccount/kube-prometheus-stack-kube-state-metrics serverside-applied",
+            "name": "kube-prometheus-stack-kube-state-metrics",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceAccount",
+            "message": "serviceaccount/kube-prometheus-stack-prometheus serverside-applied",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceAccount",
+            "message": "serviceaccount/kube-prometheus-stack-prometheus-node-exporter serverside-applied",
+            "name": "kube-prometheus-stack-prometheus-node-exporter",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceAccount",
+            "message": "serviceaccount/kube-prometheus-stack-alertmanager serverside-applied",
+            "name": "kube-prometheus-stack-alertmanager",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceAccount",
+            "message": "serviceaccount/kube-prometheus-stack-operator serverside-applied",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-nodes-aix serverside-applied",
+            "name": "kube-prometheus-stack-nodes-aix",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-resources-pod serverside-applied",
+            "name": "kube-prometheus-stack-k8s-resources-pod",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-resources-workload serverside-applied",
+            "name": "kube-prometheus-stack-k8s-resources-workload",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-scheduler serverside-applied",
+            "name": "kube-prometheus-stack-scheduler",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-controller-manager serverside-applied",
+            "name": "kube-prometheus-stack-controller-manager",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-workload-total serverside-applied",
+            "name": "kube-prometheus-stack-workload-total",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-cluster-total serverside-applied",
+            "name": "kube-prometheus-stack-cluster-total",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-resources-cluster serverside-applied",
+            "name": "kube-prometheus-stack-k8s-resources-cluster",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-grafana-config-dashboards serverside-applied",
+            "name": "kube-prometheus-stack-grafana-config-dashboards",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-resources-namespace serverside-applied",
+            "name": "kube-prometheus-stack-k8s-resources-namespace",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-node-rsrc-use serverside-applied",
+            "name": "kube-prometheus-stack-node-rsrc-use",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-resources-workloads-namespace serverside-applied",
+            "name": "kube-prometheus-stack-k8s-resources-workloads-namespace",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-coredns serverside-applied",
+            "name": "kube-prometheus-stack-k8s-coredns",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-grafana-datasource serverside-applied",
+            "name": "kube-prometheus-stack-grafana-datasource",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-alertmanager-overview serverside-applied",
+            "name": "kube-prometheus-stack-alertmanager-overview",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-namespace-by-workload serverside-applied",
+            "name": "kube-prometheus-stack-namespace-by-workload",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-kubelet serverside-applied",
+            "name": "kube-prometheus-stack-kubelet",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-resources-multicluster serverside-applied",
+            "name": "kube-prometheus-stack-k8s-resources-multicluster",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-apiserver serverside-applied",
+            "name": "kube-prometheus-stack-apiserver",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-node-cluster-rsrc-use serverside-applied",
+            "name": "kube-prometheus-stack-node-cluster-rsrc-use",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-pod-total serverside-applied",
+            "name": "kube-prometheus-stack-pod-total",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-proxy serverside-applied",
+            "name": "kube-prometheus-stack-proxy",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-nodes serverside-applied",
+            "name": "kube-prometheus-stack-nodes",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-grafana-overview serverside-applied",
+            "name": "kube-prometheus-stack-grafana-overview",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-persistentvolumesusage serverside-applied",
+            "name": "kube-prometheus-stack-persistentvolumesusage",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-prometheus serverside-applied",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-grafana serverside-applied",
+            "name": "kube-prometheus-stack-grafana",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-nodes-darwin serverside-applied",
+            "name": "kube-prometheus-stack-nodes-darwin",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-etcd serverside-applied",
+            "name": "kube-prometheus-stack-etcd",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-namespace-by-pod serverside-applied",
+            "name": "kube-prometheus-stack-namespace-by-pod",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "ConfigMap",
+            "message": "configmap/kube-prometheus-stack-k8s-resources-node serverside-applied",
+            "name": "kube-prometheus-stack-k8s-resources-node",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRole",
+            "message": "clusterrole.rbac.authorization.k8s.io/kube-prometheus-stack-grafana-clusterrole serverside-applied",
+            "name": "kube-prometheus-stack-grafana-clusterrole",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRole",
+            "message": "clusterrole.rbac.authorization.k8s.io/kube-prometheus-stack-operator serverside-applied",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRole",
+            "message": "clusterrole.rbac.authorization.k8s.io/kube-prometheus-stack-prometheus serverside-applied",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRole",
+            "message": "clusterrole.rbac.authorization.k8s.io/kube-prometheus-stack-kube-state-metrics serverside-applied",
+            "name": "kube-prometheus-stack-kube-state-metrics",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRoleBinding",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-kube-state-metrics serverside-applied",
+            "name": "kube-prometheus-stack-kube-state-metrics",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRoleBinding",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-grafana-clusterrolebinding serverside-applied",
+            "name": "kube-prometheus-stack-grafana-clusterrolebinding",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRoleBinding",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-prometheus serverside-applied",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "rbac.authorization.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ClusterRoleBinding",
+            "message": "clusterrolebinding.rbac.authorization.k8s.io/kube-prometheus-stack-operator serverside-applied",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-alertmanager serverside-applied",
+            "name": "kube-prometheus-stack-alertmanager",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-kube-state-metrics serverside-applied",
+            "name": "kube-prometheus-stack-kube-state-metrics",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-kube-etcd serverside-applied",
+            "name": "kube-prometheus-stack-kube-etcd",
+            "namespace": "kube-system",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-prometheus serverside-applied",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-coredns serverside-applied",
+            "name": "kube-prometheus-stack-coredns",
+            "namespace": "kube-system",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-kube-scheduler serverside-applied",
+            "name": "kube-prometheus-stack-kube-scheduler",
+            "namespace": "kube-system",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-prometheus-node-exporter serverside-applied",
+            "name": "kube-prometheus-stack-prometheus-node-exporter",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-operator serverside-applied",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-kube-proxy serverside-applied",
+            "name": "kube-prometheus-stack-kube-proxy",
+            "namespace": "kube-system",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-kube-controller-manager serverside-applied",
+            "name": "kube-prometheus-stack-kube-controller-manager",
+            "namespace": "kube-system",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "",
+            "hookPhase": "Succeeded",
+            "kind": "Service",
+            "message": "service/kube-prometheus-stack-grafana serverside-applied",
+            "name": "kube-prometheus-stack-grafana",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apps",
+            "hookPhase": "Succeeded",
+            "images": [
+              "quay.io/prometheus/node-exporter:v1.11.1-distroless"
+            ],
+            "kind": "DaemonSet",
+            "message": "daemonset.apps/kube-prometheus-stack-prometheus-node-exporter serverside-applied",
+            "name": "kube-prometheus-stack-prometheus-node-exporter",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apps",
+            "hookPhase": "Succeeded",
+            "images": [
+              "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+            ],
+            "kind": "Deployment",
+            "message": "deployment.apps/kube-prometheus-stack-kube-state-metrics serverside-applied",
+            "name": "kube-prometheus-stack-kube-state-metrics",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apps",
+            "hookPhase": "Succeeded",
+            "images": [
+              "quay.io/kiwigrid/k8s-sidecar:2.7.3",
+              "quay.io/kiwigrid/k8s-sidecar:2.7.3",
+              "docker.io/grafana/grafana:13.0.1-security-01"
+            ],
+            "kind": "Deployment",
+            "message": "deployment.apps/kube-prometheus-stack-grafana serverside-applied",
+            "name": "kube-prometheus-stack-grafana",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "apps",
+            "hookPhase": "Succeeded",
+            "images": [
+              "quay.io/prometheus-operator/prometheus-operator:v0.90.1"
+            ],
+            "kind": "Deployment",
+            "message": "deployment.apps/kube-prometheus-stack-operator serverside-applied",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "ValidatingWebhookConfiguration",
+            "message": "validatingwebhookconfiguration.admissionregistration.k8s.io/kube-prometheus-stack-admission serverside-applied",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "admissionregistration.k8s.io",
+            "hookPhase": "Succeeded",
+            "kind": "MutatingWebhookConfiguration",
+            "message": "mutatingwebhookconfiguration.admissionregistration.k8s.io/kube-prometheus-stack-admission serverside-applied",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-alertmanager serverside-applied",
+            "name": "kube-prometheus-stack-alertmanager",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "Alertmanager",
+            "message": "alertmanager.monitoring.coreos.com/kube-prometheus-stack-alertmanager serverside-applied",
+            "name": "kube-prometheus-stack-alertmanager",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-alertmanager.rules serverside-applied",
+            "name": "kube-prometheus-stack-alertmanager.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-apiserver serverside-applied",
+            "name": "kube-prometheus-stack-apiserver",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-config-reloaders serverside-applied",
+            "name": "kube-prometheus-stack-config-reloaders",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-coredns serverside-applied",
+            "name": "kube-prometheus-stack-coredns",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-etcd serverside-applied",
+            "name": "kube-prometheus-stack-etcd",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-general.rules serverside-applied",
+            "name": "kube-prometheus-stack-general.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-grafana serverside-applied",
+            "name": "kube-prometheus-stack-grafana",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-resource serverside-applied",
+            "name": "kube-prometheus-stack-k8s.rules.container-resource",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-histogram.rules serverside-applied",
+            "name": "kube-prometheus-stack-kube-apiserver-histogram.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.pod-owner serverside-applied",
+            "name": "kube-prometheus-stack-k8s.rules.pod-owner",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-working-set-by serverside-applied",
+            "name": "kube-prometheus-stack-k8s.rules.container-memory-working-set-by",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-availability.rules serverside-applied",
+            "name": "kube-prometheus-stack-kube-apiserver-availability.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-cache serverside-applied",
+            "name": "kube-prometheus-stack-k8s.rules.container-memory-cache",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-swap serverside-applied",
+            "name": "kube-prometheus-stack-k8s.rules.container-memory-swap",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-slos serverside-applied",
+            "name": "kube-prometheus-stack-kube-apiserver-slos",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot serverside-applied",
+            "name": "kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-k8s.rules.container-memory-rss serverside-applied",
+            "name": "kube-prometheus-stack-k8s.rules.container-memory-rss",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-apiserver-burnrate.rules serverside-applied",
+            "name": "kube-prometheus-stack-kube-apiserver-burnrate.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-controller-manager serverside-applied",
+            "name": "kube-prometheus-stack-kube-controller-manager",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-etcd serverside-applied",
+            "name": "kube-prometheus-stack-kube-etcd",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-prometheus-general.rules serverside-applied",
+            "name": "kube-prometheus-stack-kube-prometheus-general.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-prometheus-node-recording.rules serverside-applied",
+            "name": "kube-prometheus-stack-kube-prometheus-node-recording.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-proxy serverside-applied",
+            "name": "kube-prometheus-stack-kube-proxy",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-scheduler serverside-applied",
+            "name": "kube-prometheus-stack-kube-scheduler",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-scheduler.rules serverside-applied",
+            "name": "kube-prometheus-stack-kube-scheduler.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kube-state-metrics serverside-applied",
+            "name": "kube-prometheus-stack-kube-state-metrics",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kube-state-metrics serverside-applied",
+            "name": "kube-prometheus-stack-kube-state-metrics",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-kubelet serverside-applied",
+            "name": "kube-prometheus-stack-kubelet",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-system",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubelet.rules serverside-applied",
+            "name": "kube-prometheus-stack-kubelet.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-apps serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-apps",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node-exporter.rules serverside-applied",
+            "name": "kube-prometheus-stack-node-exporter.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-kubelet serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-system-kubelet",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-kube-proxy serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-system-kube-proxy",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-apiserver serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-system-apiserver",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node-exporter serverside-applied",
+            "name": "kube-prometheus-stack-node-exporter",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node.rules serverside-applied",
+            "name": "kube-prometheus-stack-node.rules",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-storage serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-storage",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-scheduler serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-system-scheduler",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-system-controller-manager serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-system-controller-manager",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-node-network serverside-applied",
+            "name": "kube-prometheus-stack-node-network",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-kubernetes-resources serverside-applied",
+            "name": "kube-prometheus-stack-kubernetes-resources",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-operator serverside-applied",
+            "name": "kube-prometheus-stack-operator",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "Prometheus",
+            "message": "All instances are available",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-prometheus serverside-applied",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-prometheus serverside-applied",
+            "name": "kube-prometheus-stack-prometheus",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "ServiceMonitor",
+            "message": "servicemonitor.monitoring.coreos.com/kube-prometheus-stack-prometheus-node-exporter serverside-applied",
+            "name": "kube-prometheus-stack-prometheus-node-exporter",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "monitoring.coreos.com",
+            "hookPhase": "Succeeded",
+            "kind": "PrometheusRule",
+            "message": "prometheusrule.monitoring.coreos.com/kube-prometheus-stack-prometheus-operator serverside-applied",
+            "name": "kube-prometheus-stack-prometheus-operator",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          },
+          {
+            "group": "batch",
+            "hookPhase": "Running",
+            "images": [
+              "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728"
+            ],
+            "kind": "Job",
+            "message": "job.batch/kube-prometheus-stack-admission-patch serverside-applied",
+            "name": "kube-prometheus-stack-admission-patch",
+            "namespace": "monitoring",
+            "status": "Synced",
+            "syncPhase": "Sync",
+            "version": "v1"
+          }
+        ],
+        "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "source": {
+          "path": ".",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged",
+          "targetRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+        }
+      }
+    },
+    "reconciledAt": "2026-07-29T12:12:40Z",
+    "resourceHealthSource": "appTree",
+    "resources": [
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-alertmanager-overview",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-apiserver",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-cluster-total",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-controller-manager",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-etcd",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-grafana",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-grafana-config-dashboards",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-grafana-datasource",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-grafana-overview",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-coredns",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-resources-cluster",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-resources-multicluster",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-resources-namespace",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-resources-node",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-resources-pod",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-resources-workload",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-k8s-resources-workloads-namespace",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-kubelet",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-namespace-by-pod",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-namespace-by-workload",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-node-cluster-rsrc-use",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-node-rsrc-use",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-nodes",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-nodes-aix",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-nodes-darwin",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-persistentvolumesusage",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-pod-total",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-prometheus",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-proxy",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-scheduler",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ConfigMap",
+        "name": "kube-prometheus-stack-workload-total",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Namespace",
+        "name": "monitoring",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-coredns",
+        "namespace": "kube-system",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-kube-controller-manager",
+        "namespace": "kube-system",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-kube-etcd",
+        "namespace": "kube-system",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-kube-proxy",
+        "namespace": "kube-system",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-kube-scheduler",
+        "namespace": "kube-system",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-alertmanager",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-grafana",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-kube-state-metrics",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-operator",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-prometheus",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "Service",
+        "name": "kube-prometheus-stack-prometheus-node-exporter",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-prometheus-stack-admission",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "syncWave": -2,
+        "version": "v1"
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-prometheus-stack-alertmanager",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-prometheus-stack-grafana",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-prometheus-stack-kube-state-metrics",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-prometheus-stack-operator",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-prometheus-stack-prometheus",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-prometheus-stack-prometheus-node-exporter",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "kind": "MutatingWebhookConfiguration",
+        "name": "kube-prometheus-stack-admission",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "admissionregistration.k8s.io",
+        "kind": "ValidatingWebhookConfiguration",
+        "name": "kube-prometheus-stack-admission",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "alertmanagerconfigs.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "alertmanagers.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "podmonitors.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "probes.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "prometheusagents.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "prometheuses.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "prometheusrules.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "scrapeconfigs.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "servicemonitors.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apiextensions.k8s.io",
+        "kind": "CustomResourceDefinition",
+        "name": "thanosrulers.monitoring.coreos.com",
+        "status": "Synced",
+        "syncWave": -3,
+        "version": "v1"
+      },
+      {
+        "group": "apps",
+        "kind": "DaemonSet",
+        "name": "kube-prometheus-stack-prometheus-node-exporter",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "apps",
+        "kind": "Deployment",
+        "name": "kube-prometheus-stack-grafana",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "apps",
+        "kind": "Deployment",
+        "name": "kube-prometheus-stack-kube-state-metrics",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "apps",
+        "kind": "Deployment",
+        "name": "kube-prometheus-stack-operator",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "batch",
+        "kind": "Job",
+        "name": "kube-prometheus-stack-admission-create",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "syncWave": -1,
+        "version": "v1"
+      },
+      {
+        "group": "batch",
+        "kind": "Job",
+        "name": "kube-prometheus-stack-admission-patch",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "syncWave": 1,
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "Alertmanager",
+        "name": "kube-prometheus-stack-alertmanager",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "Prometheus",
+        "name": "kube-prometheus-stack-prometheus",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-alertmanager.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-config-reloaders",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-etcd",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-general.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-k8s.rules.container-memory-cache",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-k8s.rules.container-memory-rss",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-k8s.rules.container-memory-swap",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-k8s.rules.container-memory-working-set-by",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-k8s.rules.container-resource",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-k8s.rules.pod-owner",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-apiserver-availability.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-apiserver-burnrate.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-apiserver-histogram.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-apiserver-slos",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-prometheus-general.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-prometheus-node-recording.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-scheduler.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kube-state-metrics",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubelet.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-apps",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-resources",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-storage",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-system",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-system-apiserver",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-system-controller-manager",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-system-kube-proxy",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-system-kubelet",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-kubernetes-system-scheduler",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-node-exporter",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-node-exporter.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-node-network",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-node.rules",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-prometheus",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "PrometheusRule",
+        "name": "kube-prometheus-stack-prometheus-operator",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-alertmanager",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-apiserver",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-coredns",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-grafana",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-kube-controller-manager",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-kube-etcd",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-kube-proxy",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-kube-scheduler",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-kube-state-metrics",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-kubelet",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-operator",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-prometheus",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "monitoring.coreos.com",
+        "kind": "ServiceMonitor",
+        "name": "kube-prometheus-stack-prometheus-node-exporter",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kube-prometheus-stack-admission",
+        "status": "Synced",
+        "syncWave": -2,
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kube-prometheus-stack-grafana-clusterrole",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kube-prometheus-stack-kube-state-metrics",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kube-prometheus-stack-operator",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRole",
+        "name": "kube-prometheus-stack-prometheus",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRoleBinding",
+        "name": "kube-prometheus-stack-admission",
+        "status": "Synced",
+        "syncWave": -2,
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRoleBinding",
+        "name": "kube-prometheus-stack-grafana-clusterrolebinding",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRoleBinding",
+        "name": "kube-prometheus-stack-kube-state-metrics",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRoleBinding",
+        "name": "kube-prometheus-stack-operator",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "ClusterRoleBinding",
+        "name": "kube-prometheus-stack-prometheus",
+        "status": "Synced",
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "Role",
+        "name": "kube-prometheus-stack-admission",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "syncWave": -2,
+        "version": "v1"
+      },
+      {
+        "group": "rbac.authorization.k8s.io",
+        "kind": "RoleBinding",
+        "name": "kube-prometheus-stack-admission",
+        "namespace": "monitoring",
+        "status": "Synced",
+        "syncWave": -2,
+        "version": "v1"
+      }
+    ],
+    "sourceHydrator": {},
+    "sourceType": "Kustomize",
+    "summary": {
+      "images": [
+        "docker.io/grafana/grafana:13.0.1-security-01",
+        "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728",
+        "quay.io/kiwigrid/k8s-sidecar:2.7.3",
+        "quay.io/prometheus-operator/prometheus-config-reloader:v0.90.1",
+        "quay.io/prometheus-operator/prometheus-operator:v0.90.1",
+        "quay.io/prometheus/alertmanager:v0.32.1",
+        "quay.io/prometheus/node-exporter:v1.11.1-distroless",
+        "quay.io/prometheus/prometheus:v3.11.3-distroless",
+        "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+      ]
+    },
+    "sync": {
+      "comparedTo": {
+        "destination": {
+          "namespace": "monitoring",
+          "server": "https://kubernetes.default.svc"
+        },
+        "source": {
+          "path": ".",
+          "repoURL": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged",
+          "targetRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+        }
+      },
+      "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+      "status": "Synced"
+    }
+  }
+}

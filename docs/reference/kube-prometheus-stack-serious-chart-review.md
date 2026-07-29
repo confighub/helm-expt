@@ -1,6 +1,6 @@
 # kube-prometheus-stack: Serious Chart Review
 
-**UNOFFICIAL/EXPERIMENTAL — reviewer-facing snapshot, 2026-06-10.**
+**UNOFFICIAL/EXPERIMENTAL — reviewer-facing snapshot, 2026-07-29.**
 Counts cite generated files; re-check those files before quoting.
 
 kube-prometheus-stack (`prometheus-community/kube-prometheus-stack@85.3.3`,
@@ -11,7 +11,7 @@ Compact table: [data/serious-chart-reviews/kube-prometheus-stack.csv](../../data
 
 ## Why This Chart Matters
 
-It concentrates most quirk classes in one install: ~20 CRDs, admission
+It concentrates most quirk classes in one install: 10 CRDs, admission
 webhooks with hook-driven cert patching, cluster RBAC, generated facts,
 hooks across four phases (`pre-install, post-install, pre-upgrade,
 post-upgrade`), large object fanout, dependency-locked subcharts (Grafana,
@@ -64,7 +64,7 @@ with no semantic diffs beyond the intentionally created Namespace.
 
 ## Hook Lifecycle Proof
 
-The chart's admission-webhook cert patch jobs are the hooks. Status in the
+The chart's admission-webhook certificate Jobs are the hooks. Status in the
 maintained queue (`data/hook-lifecycle/top100-hooks.csv`):
 `lifecycle-disposition: lifecycle-observed`, `receipt_status: observed`, with
 the route hints preserved (preflight-or-presync, postsync check,
@@ -72,16 +72,27 @@ upgrade action with receipt, ordering and cleanup-policy preservation,
 webhook readiness observation). This is the strongest hook evidence in the
 corpus — and it is one chart's hooks observed on one profile, with the
 standing next action "keep receipt fresh when chart, base, or cluster
-version changes." It does not generalize to other charts' hooks.
+version changes."
+
+The package's direct script has passed the fresh-install sequence for both
+bases. The `no-crds` base also has a staged OCI receipt through Argo CD and
+Flux on separate fresh clusters
+([summary](../../data/kps-gitops-lifecycle-proof/summary.md),
+[receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml)). Both
+controllers passed CRD ordering, certificate preparation, workload apply,
+webhook patching, and runtime checks. The controller receipt does not prove
+Helm's hook cleanup policy or the 85.3.3 to 86.1.0 upgrade. None of this
+generalizes to another chart's hooks.
 
 ## CRD / Webhook Lifecycle Proof
 
 - CRD **install** behavior is covered by the live lanes and the explicit
   `no-crds` base; CRD ownership is a recorded user decision.
-- CRD/webhook **runtime** lifecycle observation (controller-owned cert
-  injection, conversion behavior) is demonstrated on cert-manager and
-  External Secrets (`data/lifecycle-observations/cert-manager-eso/`), not yet
-  receipted for this chart's own operator/webhook pair.
+- CRD/webhook **runtime** lifecycle observation is now receipted for this
+  chart's own operator and admission webhook through direct apply, Argo CD,
+  and Flux. Related certificate-injection and conversion behavior is also
+  demonstrated on cert-manager and External Secrets
+  (`data/lifecycle-observations/cert-manager-eso/`).
 - CRD **upgrade** now has two bounded receipts. The committed render-level
   delta for the 85.3.3 → 86.1.0 candidate
   ([`kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml`](../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml),
@@ -136,8 +147,9 @@ supplied on the chosen target.
   receipt. It does not yet have a ConfigHub-managed upgrade receipt, rollback
   receipt, soak receipt, private overlay receipt, or production target upgrade
   receipt.
-- "Hooks are solved" — this chart's hooks are observed on one base and
-  profile; the claim is per-chart, per-profile, freshness-bounded.
+- "Hooks are solved" — this chart's fresh-install hooks are observed on named
+  bases and delivery paths; controller cleanup and the chart upgrade remain
+  open. The claim is per-chart, per-profile, freshness-bounded.
 - "Works on any Kubernetes" — every live claim is bounded to the 1.30
   capability profile; this chart's CRDs are exactly where profile drift
   bites.
@@ -149,8 +161,8 @@ supplied on the chosen target.
 
 In value order: (1) a ConfigHub-managed upgrade receipt for a reviewed
 upgrade path; (2) a target-scoped `no-crds` production-support decision that
-uses the proven target-fact OCI path on the chosen production target; (3)
-runtime webhook lifecycle observation for this chart's own
-operator, reusing the cert-manager/External Secrets pattern; (4) a hardened or
-digest-pinned base for stricter environments that should not reuse the public
-proof scope's mutable-image and scan exceptions.
+uses the proven staged OCI path on the chosen production target; (3) an
+explicit controller cleanup receipt for the two temporary hook Jobs and their
+support RBAC; (4) a hardened or digest-pinned base for stricter environments
+that should not reuse the public proof scope's mutable-image and scan
+exceptions.

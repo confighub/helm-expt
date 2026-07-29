@@ -1,0 +1,836 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "kustomize.toolkit.fluxcd.io/v1",
+      "kind": "Kustomization",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-crds\",\"namespace\":\"flux-system\"},\"spec\":{\"interval\":\"1m\",\"path\":\"./stages/crds\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"5m\",\"wait\":true}}\n",
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:14:41.962053+01:00"
+        },
+        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "finalizers": [
+          "finalizers.fluxcd.io"
+        ],
+        "generation": 1,
+        "name": "kps-crds",
+        "namespace": "flux-system",
+        "resourceVersion": "1517",
+        "uid": "57256320-8454-445b-8c23-cac064129210"
+      },
+      "spec": {
+        "force": false,
+        "interval": "1m",
+        "path": "./stages/crds",
+        "prune": true,
+        "retryInterval": "20s",
+        "sourceRef": {
+          "kind": "OCIRepository",
+          "name": "kps-staged"
+        },
+        "timeout": "5m",
+        "wait": true
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-07-29T12:15:46Z",
+            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+            "observedGeneration": 1,
+            "reason": "ReconciliationSucceeded",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastTransitionTime": "2026-07-29T12:15:46Z",
+            "message": "Health check passed in 115.837315ms",
+            "observedGeneration": 1,
+            "reason": "Succeeded",
+            "status": "True",
+            "type": "Healthy"
+          }
+        ],
+        "history": [
+          {
+            "digest": "sha256:d80704a41b6ac0d59f0dce3ca743c70ff30219aee782539009c4e145bd00d04b",
+            "firstReconciled": "2026-07-29T12:14:40Z",
+            "lastReconciled": "2026-07-29T12:15:46Z",
+            "lastReconciledDuration": "1.330962311s",
+            "lastReconciledStatus": "ReconciliationSucceeded",
+            "metadata": {
+              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+            },
+            "totalReconciliations": 3
+          }
+        ],
+        "inventory": {
+          "entries": [
+            {
+              "id": "_alertmanagerconfigs.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_alertmanagers.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_podmonitors.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_probes.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_prometheusagents.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_prometheuses.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_prometheusrules.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_scrapeconfigs.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_servicemonitors.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_thanosrulers.monitoring.coreos.com_apiextensions.k8s.io_CustomResourceDefinition",
+              "v": "v1"
+            },
+            {
+              "id": "_monitoring__Namespace",
+              "v": "v1"
+            }
+          ]
+        },
+        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastHandledReconcileAt": "2026-07-29T13:14:41.962053+01:00",
+        "observedGeneration": 1
+      }
+    },
+    {
+      "apiVersion": "kustomize.toolkit.fluxcd.io/v1",
+      "kind": "Kustomization",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-finish\",\"namespace\":\"flux-system\"},\"spec\":{\"dependsOn\":[{\"name\":\"kps-workload\"}],\"interval\":\"1m\",\"path\":\"./stages/finish\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"5m\",\"wait\":true}}\n",
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:16:14.24582+01:00"
+        },
+        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "finalizers": [
+          "finalizers.fluxcd.io"
+        ],
+        "generation": 1,
+        "name": "kps-finish",
+        "namespace": "flux-system",
+        "resourceVersion": "1692",
+        "uid": "ae361d1f-42b8-493a-9b47-d2ac46b89f80"
+      },
+      "spec": {
+        "dependsOn": [
+          {
+            "name": "kps-workload"
+          }
+        ],
+        "force": false,
+        "interval": "1m",
+        "path": "./stages/finish",
+        "prune": true,
+        "retryInterval": "20s",
+        "sourceRef": {
+          "kind": "OCIRepository",
+          "name": "kps-staged"
+        },
+        "timeout": "5m",
+        "wait": true
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-07-29T12:16:19Z",
+            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+            "observedGeneration": 1,
+            "reason": "ReconciliationSucceeded",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastTransitionTime": "2026-07-29T12:16:19Z",
+            "message": "Health check passed in 5.016096237s",
+            "observedGeneration": 1,
+            "reason": "Succeeded",
+            "status": "True",
+            "type": "Healthy"
+          }
+        ],
+        "history": [
+          {
+            "digest": "sha256:7a026d5284677eae64a770331512f05cb90b1a4b8468f9d19f097b5165a04eab",
+            "firstReconciled": "2026-07-29T12:16:19Z",
+            "lastReconciled": "2026-07-29T12:16:19Z",
+            "lastReconciledDuration": "5.138745965s",
+            "lastReconciledStatus": "ReconciliationSucceeded",
+            "metadata": {
+              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+            },
+            "totalReconciliations": 1
+          }
+        ],
+        "inventory": {
+          "entries": [
+            {
+              "id": "monitoring_kube-prometheus-stack-admission-patch_batch_Job",
+              "v": "v1"
+            }
+          ]
+        },
+        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastHandledReconcileAt": "2026-07-29T13:16:14.24582+01:00",
+        "observedGeneration": 1
+      }
+    },
+    {
+      "apiVersion": "kustomize.toolkit.fluxcd.io/v1",
+      "kind": "Kustomization",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-prepare\",\"namespace\":\"flux-system\"},\"spec\":{\"dependsOn\":[{\"name\":\"kps-crds\"}],\"interval\":\"1m\",\"path\":\"./stages/prepare\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"5m\",\"wait\":true}}\n",
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:14:46.055482+01:00"
+        },
+        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "finalizers": [
+          "finalizers.fluxcd.io"
+        ],
+        "generation": 1,
+        "name": "kps-prepare",
+        "namespace": "flux-system",
+        "resourceVersion": "1578",
+        "uid": "08985da0-9e19-4711-a7db-864fcf1b9268"
+      },
+      "spec": {
+        "dependsOn": [
+          {
+            "name": "kps-crds"
+          }
+        ],
+        "force": false,
+        "interval": "1m",
+        "path": "./stages/prepare",
+        "prune": true,
+        "retryInterval": "20s",
+        "sourceRef": {
+          "kind": "OCIRepository",
+          "name": "kps-staged"
+        },
+        "timeout": "5m",
+        "wait": true
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-07-29T12:16:00Z",
+            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+            "observedGeneration": 1,
+            "reason": "ReconciliationSucceeded",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastTransitionTime": "2026-07-29T12:16:00Z",
+            "message": "Health check passed in 5.01180524s",
+            "observedGeneration": 1,
+            "reason": "Succeeded",
+            "status": "True",
+            "type": "Healthy"
+          }
+        ],
+        "history": [
+          {
+            "digest": "sha256:65b0aeff4ff174c7996b3f2ce5940da98b7a22e2b981d98e01b6a70f7e8cdf85",
+            "firstReconciled": "2026-07-29T12:14:56Z",
+            "lastReconciled": "2026-07-29T12:16:00Z",
+            "lastReconciledDuration": "5.065587628s",
+            "lastReconciledStatus": "ReconciliationSucceeded",
+            "metadata": {
+              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+            },
+            "totalReconciliations": 2
+          }
+        ],
+        "inventory": {
+          "entries": [
+            {
+              "id": "_kube-prometheus-stack-admission_rbac.authorization.k8s.io_ClusterRole",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-admission_rbac.authorization.k8s.io_ClusterRoleBinding",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-admission__ServiceAccount",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-admission_rbac.authorization.k8s.io_Role",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-admission_rbac.authorization.k8s.io_RoleBinding",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-admission-create_batch_Job",
+              "v": "v1"
+            }
+          ]
+        },
+        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastHandledReconcileAt": "2026-07-29T13:14:46.055482+01:00",
+        "observedGeneration": 1
+      }
+    },
+    {
+      "apiVersion": "kustomize.toolkit.fluxcd.io/v1",
+      "kind": "Kustomization",
+      "metadata": {
+        "annotations": {
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kustomize.toolkit.fluxcd.io/v1\",\"kind\":\"Kustomization\",\"metadata\":{\"annotations\":{},\"name\":\"kps-workload\",\"namespace\":\"flux-system\"},\"spec\":{\"dependsOn\":[{\"name\":\"kps-prepare\"}],\"interval\":\"1m\",\"path\":\"./stages/workload\",\"prune\":true,\"retryInterval\":\"20s\",\"sourceRef\":{\"kind\":\"OCIRepository\",\"name\":\"kps-staged\"},\"timeout\":\"10m\",\"wait\":true}}\n",
+          "reconcile.fluxcd.io/requestedAt": "2026-07-29T13:15:00.152167+01:00"
+        },
+        "creationTimestamp": "2026-07-29T12:14:37Z",
+        "finalizers": [
+          "finalizers.fluxcd.io"
+        ],
+        "generation": 1,
+        "name": "kps-workload",
+        "namespace": "flux-system",
+        "resourceVersion": "1633",
+        "uid": "97ab8bc1-8254-4cdc-b585-6a850995c9cd"
+      },
+      "spec": {
+        "dependsOn": [
+          {
+            "name": "kps-prepare"
+          }
+        ],
+        "force": false,
+        "interval": "1m",
+        "path": "./stages/workload",
+        "prune": true,
+        "retryInterval": "20s",
+        "sourceRef": {
+          "kind": "OCIRepository",
+          "name": "kps-staged"
+        },
+        "timeout": "10m",
+        "wait": true
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-07-29T12:16:10Z",
+            "message": "Applied revision: sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+            "observedGeneration": 1,
+            "reason": "ReconciliationSucceeded",
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastTransitionTime": "2026-07-29T12:16:10Z",
+            "message": "Health check passed in 1m10.077018092s",
+            "observedGeneration": 1,
+            "reason": "Succeeded",
+            "status": "True",
+            "type": "Healthy"
+          }
+        ],
+        "history": [
+          {
+            "digest": "sha256:5fd0787c4187258405ba73e06dc7bc09adbfc9912fd35bcb56ee04db7b33f227",
+            "firstReconciled": "2026-07-29T12:16:10Z",
+            "lastReconciled": "2026-07-29T12:16:10Z",
+            "lastReconciledDuration": "1m10.623163859s",
+            "lastReconciledStatus": "ReconciliationSucceeded",
+            "metadata": {
+              "revision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+            },
+            "totalReconciliations": 1
+          }
+        ],
+        "inventory": {
+          "entries": [
+            {
+              "id": "_kube-prometheus-stack-grafana-clusterrole_rbac.authorization.k8s.io_ClusterRole",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-kube-state-metrics_rbac.authorization.k8s.io_ClusterRole",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-operator_rbac.authorization.k8s.io_ClusterRole",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-prometheus_rbac.authorization.k8s.io_ClusterRole",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-grafana-clusterrolebinding_rbac.authorization.k8s.io_ClusterRoleBinding",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-kube-state-metrics_rbac.authorization.k8s.io_ClusterRoleBinding",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-operator_rbac.authorization.k8s.io_ClusterRoleBinding",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-prometheus_rbac.authorization.k8s.io_ClusterRoleBinding",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-alertmanager__ServiceAccount",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana__ServiceAccount",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-state-metrics__ServiceAccount",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-operator__ServiceAccount",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus__ServiceAccount",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus-node-exporter__ServiceAccount",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-alertmanager-overview__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-apiserver__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-cluster-total__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-controller-manager__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-etcd__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana-config-dashboards__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana-datasource__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana-overview__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-coredns__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-resources-cluster__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-resources-multicluster__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-resources-namespace__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-resources-node__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-resources-pod__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-resources-workload__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s-resources-workloads-namespace__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubelet__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-namespace-by-pod__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-namespace-by-workload__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-node-cluster-rsrc-use__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-node-rsrc-use__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-nodes__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-nodes-aix__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-nodes-darwin__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-persistentvolumesusage__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-pod-total__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-proxy__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-scheduler__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-workload-total__ConfigMap",
+              "v": "v1"
+            },
+            {
+              "id": "kube-system_kube-prometheus-stack-coredns__Service",
+              "v": "v1"
+            },
+            {
+              "id": "kube-system_kube-prometheus-stack-kube-controller-manager__Service",
+              "v": "v1"
+            },
+            {
+              "id": "kube-system_kube-prometheus-stack-kube-etcd__Service",
+              "v": "v1"
+            },
+            {
+              "id": "kube-system_kube-prometheus-stack-kube-proxy__Service",
+              "v": "v1"
+            },
+            {
+              "id": "kube-system_kube-prometheus-stack-kube-scheduler__Service",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-alertmanager__Service",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana__Service",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-state-metrics__Service",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-operator__Service",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus__Service",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus-node-exporter__Service",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana_apps_Deployment",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-state-metrics_apps_Deployment",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-operator_apps_Deployment",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus-node-exporter_apps_DaemonSet",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-alertmanager_monitoring.coreos.com_Alertmanager",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus_monitoring.coreos.com_Prometheus",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-alertmanager.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-config-reloaders_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-etcd_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-general.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s.rules.container-cpu-usage-seconds-tot_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s.rules.container-memory-cache_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s.rules.container-memory-rss_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s.rules.container-memory-swap_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s.rules.container-memory-working-set-by_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s.rules.container-resource_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-k8s.rules.pod-owner_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-apiserver-availability.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-apiserver-burnrate.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-apiserver-histogram.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-apiserver-slos_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-prometheus-general.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-prometheus-node-recording.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-scheduler.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-state-metrics_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubelet.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-apps_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-resources_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-storage_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-system_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-system-apiserver_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-system-controller-manager_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-system-kube-proxy_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-system-kubelet_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubernetes-system-scheduler_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-node-exporter_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-node-exporter.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-node-network_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-node.rules_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus-operator_monitoring.coreos.com_PrometheusRule",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-alertmanager_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-apiserver_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-coredns_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-grafana_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-controller-manager_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-etcd_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-proxy_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-scheduler_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kube-state-metrics_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-kubelet_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-operator_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "monitoring_kube-prometheus-stack-prometheus-node-exporter_monitoring.coreos.com_ServiceMonitor",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-admission_admissionregistration.k8s.io_MutatingWebhookConfiguration",
+              "v": "v1"
+            },
+            {
+              "id": "_kube-prometheus-stack-admission_admissionregistration.k8s.io_ValidatingWebhookConfiguration",
+              "v": "v1"
+            }
+          ]
+        },
+        "lastAppliedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastAttemptedRevision": "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234",
+        "lastHandledReconcileAt": "2026-07-29T13:15:00.152167+01:00",
+        "observedGeneration": 1
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

@@ -6179,6 +6179,11 @@ function chartPageHtml(catalog, entry) {
       && entry.version === "85.3.3"
       ? "data/kps-public-package-proof/summary.md"
       : "";
+  const kpsGitOpsLifecycleProofPath =
+    entry.chart === "prometheus-community/kube-prometheus-stack"
+      && entry.version === "85.3.3"
+      ? "data/kps-gitops-lifecycle-proof/summary.md"
+      : "";
   const argoWorkflowsGuidePath =
     entry.chart === "argo-cd/argo-workflows"
       && entry.version === "1.0.14"
@@ -6221,6 +6226,7 @@ function chartPageHtml(catalog, entry) {
     [gitOpsReview ? "Cluster runtime review" : "", gitOpsReview ? gitOpsReviewPath : ""],
     [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (default)" : "", kpsLifecycleProofPath],
     [kpsNoCrdsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (no-crds)" : "", kpsNoCrdsLifecycleProofPath],
+    [kpsGitOpsLifecycleProofPath ? "Argo CD and Flux lifecycle proof (no-crds)" : "", kpsGitOpsLifecycleProofPath],
     [argoWorkflowsGuidePath ? "Argo Workflows CRD guide" : "", argoWorkflowsGuidePath],
     [
       entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
@@ -6450,7 +6456,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ...basePrerequisiteRows,
       ], { rawThirdColumn: true, rawFourthColumn: true })}` : ""}
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
-${kpsLifecycleProofPath ? `      <p><strong>Public package fresh install:</strong> both catalog bases passed on separate, new kind clusters. The default base matched 124 checked chart objects; the no-crds base matched 114. Each run applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked six workloads, and cleaned up. Open the <a href="../../${kpsLifecycleProofPath}">default receipt</a>${kpsNoCrdsLifecycleProofPath ? `, the <a href="../../${kpsNoCrdsLifecycleProofPath}">no-crds receipt</a>` : ""}${kpsPublicPackageProofPath ? `, or the <a href="../../${kpsPublicPackageProofPath}">anonymous pull proof</a>` : ""}. These receipts do not cover Argo CD, Flux, or the 85.3.3 to 86.1.0 upgrade.</p>` : ""}
+${kpsLifecycleProofPath ? `      <p><strong>Public package fresh install:</strong> both catalog bases passed on separate, new kind clusters. The default base matched 124 checked chart objects; the no-crds base matched 114. Each run applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked six workloads, and cleaned up. The no-crds base then passed through Argo CD and Flux on separate fresh clusters using the same staged OCI digest. Open the <a href="../../${kpsLifecycleProofPath}">default direct receipt</a>${kpsNoCrdsLifecycleProofPath ? `, the <a href="../../${kpsNoCrdsLifecycleProofPath}">no-crds direct receipt</a>` : ""}${kpsPublicPackageProofPath ? `, the <a href="../../${kpsPublicPackageProofPath}">anonymous pull proof</a>` : ""}${kpsGitOpsLifecycleProofPath ? `, or the <a href="../../${kpsGitOpsLifecycleProofPath}">Argo CD and Flux proof</a>` : ""}. The controller proof does not cover Helm's hook cleanup policy or the 85.3.3 to 86.1.0 upgrade.</p>` : ""}
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry, gitopsRouteEmissionEntry)
         : lifecycleRows.length
@@ -6588,8 +6594,8 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
           ["Watch rows", "A non-green row can be the honest result when lifecycle evidence or target support is bounded."],
         ])}
       </div>
-      <p>The public package has run that full fresh-install sequence. A separate isolated client pulled the same package with no ConfigHub account or registry login and received all nine lifecycle files. Argo CD, Flux, and the chart upgrade still need their own receipts.</p>
-      <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the package lifecycle proof</a> · <a href="../../data/kps-public-package-proof/summary.md">Check the anonymous pull</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
+      <p>The public package has run that full fresh-install sequence. A separate isolated client pulled the same package with no ConfigHub account or registry login and received all nine lifecycle files. The <code>no-crds</code> base also ran from one staged OCI digest through Argo CD and Flux on separate fresh clusters. Both controllers established the CRDs, ran the chart's certificate and webhook patch Jobs in order, and reached the six checked workloads. Hook cleanup through those controllers and the chart upgrade still need their own receipts.</p>
+      <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the package lifecycle proof</a> · <a href="../../data/kps-gitops-lifecycle-proof/summary.md">Open the Argo CD and Flux proof</a> · <a href="../../data/kps-public-package-proof/summary.md">Check the anonymous pull</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
     </section>`;
   }
   if (entry.chart === "argo-cd/argo-workflows" && entry.version === "1.0.14") {
@@ -6920,6 +6926,12 @@ function matrixActionOwnerSummary(row, packagedActions = []) {
     .filter(Boolean);
   if (!modes.length || modes.every((mode) => mode === "n/a")) {
     if (packagedActions.length > 0) {
+      if (
+        row.chart === "prometheus-community/kube-prometheus-stack"
+        && row.version === "85.3.3"
+      ) {
+        return "The generated try script runs each packaged step at its recorded point. The no-crds base also has linked Argo CD and Flux receipts.";
+      }
       return "The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded route.";
     }
     if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the route receipt before delivery";

@@ -1,0 +1,275 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "KubePrometheusStackGitOpsLifecycleReceipt"
+metadata:
+  name: "kube-prometheus-stack-85-3-3-no-crds-gitops-20260729-1vsa"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "no-crds"
+  observedAt: "2026-07-29T12:09:20.300Z"
+  result: "pass"
+  claim: "cub installer rendered the public no-crds preset and verified its non-secret OCI output. One derived OCI then carried the exact rendered files plus four explicit lifecycle stages. Argo CD and Flux each pulled that same manifest digest on separate fresh clusters, ran the CRD and admission Jobs in order, and reached the checked workloads."
+  source:
+    installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+    installerPackageManifestDigest: "sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679"
+    publicationReceipt: "runs/installer-oci/prometheus-community-kube-prometheus-stack/85.3.3/installer-package-publication-receipt.yaml"
+    cubInstallerCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
+      - "--base"
+      - "no-crds"
+      - "--namespace"
+      - "monitoring"
+      - "--output-oci"
+      - "<temporary-local-layout>"
+    renderedManifestCount: 113
+    separatedSecretCount: 2
+    separatedSecrets:
+      -
+        namespace: "monitoring"
+        name: "alertmanager-kube-prometheus-stack-alertmanager"
+        keys:
+          - "alertmanager.yaml"
+      -
+        namespace: "monitoring"
+        name: "kube-prometheus-stack-grafana"
+        keys:
+          - "admin-password"
+          - "admin-user"
+          - "ldap-toml"
+    renderedOciManifestDigest: "sha256:8ecf19ff2f5aaafdfa3c83a659b7475e9ccc5482c0183733059a2fd60b66bea2"
+    renderedObjectSetDigest: "sha256:e536005bf01a5aa0cd2dba5dcbfa1917c84e80341a2eae8f5bcbd0440d276b39"
+    renderedOciPullBack: "pass"
+  deliveryArtifact:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds"
+    digest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+    artifactType: "application/vnd.confighub.staged-kubernetes.v1+json"
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    layerDigest: "sha256:24585df3f2de0455e8510af561a4443b2faa400393a5b4644ccc2850a0a8802d"
+    archiveSha256: "24585df3f2de0455e8510af561a4443b2faa400393a5b4644ccc2850a0a8802d"
+    anonymousPull: "pass"
+    containsSecrets: false
+    stages:
+      -
+        name: "crds"
+        path: "stages/crds"
+        objectCount: 11
+      -
+        name: "prepare"
+        path: "stages/prepare"
+        objectCount: 6
+      -
+        name: "workload"
+        path: "stages/workload"
+        objectCount: 112
+      -
+        name: "finish"
+        path: "stages/finish"
+        objectCount: 1
+    totalObjects: 130
+    routeRecord: ".confighub/route.yaml"
+  controllers:
+    argo:
+      result: "pass"
+      cluster: "hx-kps-argo-20260729-1vsa"
+      clusterType: "kind"
+      sourceReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds"
+      requestedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      observedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      targetOwnedSecrets: "pass"
+      stages:
+        crds: "pass"
+        prepare: "pass"
+        workload: "pass"
+        finish: "pass"
+      runtime:
+        result: "pass"
+        crds:
+          -
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "alertmanagers.monitoring.coreos.com"
+            established: true
+          -
+            name: "podmonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "probes.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusagents.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheuses.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusrules.monitoring.coreos.com"
+            established: true
+          -
+            name: "scrapeconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "servicemonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "thanosrulers.monitoring.coreos.com"
+            established: true
+        admissionSecret:
+          namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "ca"
+            - "cert"
+            - "key"
+        matchingWebhookCABundles: 3
+        operatorEndpointAddresses: 1
+        serverDryRun: "pass"
+        jobs:
+          admissionCreate: true
+          admissionPatch: true
+        workloads:
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-grafana"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-kube-state-metrics"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-operator"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "daemonset"
+            name: "kube-prometheus-stack-prometheus-node-exporter"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "alertmanager-kube-prometheus-stack-alertmanager"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "prometheus-kube-prometheus-stack-prometheus"
+            namespace: "monitoring"
+            ready: true
+      cleanup: "pass"
+      controller: "Argo CD"
+      application: "kps-staged"
+      sync: "Synced"
+      health: "Healthy"
+      operation: "Succeeded"
+    flux:
+      result: "pass"
+      cluster: "hx-kps-flux-20260729-1vsa"
+      clusterType: "kind"
+      sourceReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds"
+      requestedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      observedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      targetOwnedSecrets: "pass"
+      stages:
+        crds: "pass"
+        prepare: "pass"
+        workload: "pass"
+        finish: "pass"
+      runtime:
+        result: "pass"
+        crds:
+          -
+            name: "alertmanagerconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "alertmanagers.monitoring.coreos.com"
+            established: true
+          -
+            name: "podmonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "probes.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusagents.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheuses.monitoring.coreos.com"
+            established: true
+          -
+            name: "prometheusrules.monitoring.coreos.com"
+            established: true
+          -
+            name: "scrapeconfigs.monitoring.coreos.com"
+            established: true
+          -
+            name: "servicemonitors.monitoring.coreos.com"
+            established: true
+          -
+            name: "thanosrulers.monitoring.coreos.com"
+            established: true
+        admissionSecret:
+          namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "ca"
+            - "cert"
+            - "key"
+        matchingWebhookCABundles: 3
+        operatorEndpointAddresses: 1
+        serverDryRun: "pass"
+        jobs:
+          admissionCreate: true
+          admissionPatch: true
+        workloads:
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-grafana"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-kube-state-metrics"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "deployment"
+            name: "kube-prometheus-stack-operator"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "daemonset"
+            name: "kube-prometheus-stack-prometheus-node-exporter"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "alertmanager-kube-prometheus-stack-alertmanager"
+            namespace: "monitoring"
+            ready: true
+          -
+            kind: "statefulset"
+            name: "prometheus-kube-prometheus-stack-prometheus"
+            namespace: "monitoring"
+            ready: true
+      cleanup: "pass"
+      controller: "Flux"
+      source: "kps-staged"
+      sourceReady: true
+      sourceRevision: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      sourceContentDigest: "sha256:0803186a9ca711b5224414dfa05df16691aa480acce4df9d07a02e83ca5667e0"
+  cleanup:
+    workDirectory: "pass"
+    argoCluster: "pass"
+    fluxCluster: "pass"
+  limits:
+    - "This receipt covers a fresh install of the no-crds preset. It does not cover the 85.3.3 to 86.1.0 upgrade."
+    - "The Alertmanager configuration Secret and a fresh Grafana credential were supplied separately to each target and were not put in OCI or the receipt."
+    - "The staged artifact is a chart-specific delivery implementation. ConfigHub does not yet choose this route automatically."
+    - "The public source installer package and the staged delivery OCI have different jobs: the source package offers preset choices; the staged OCI contains one selected result and its delivery order."

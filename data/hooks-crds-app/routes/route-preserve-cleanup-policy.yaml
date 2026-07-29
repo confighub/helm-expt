@@ -5,27 +5,28 @@ metadata:
   labels:
     app: "hooks-crds"
     chart: "prometheus-community-kube-prometheus-stack"
-    base: "default"
+    base: "no-crds"
     lifecyclePhase: "observe"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
-  base: "default"
+  base: "no-crds"
   routeName: "preserve-cleanup-policy"
   quirkClass: "hook-delete-policy"
   lifecyclePhase: "observe"
   actionKind: "accept-target-policy"
-  executionMode: "target-owned"
+  executionMode: "user-executes"
   automatic: false
-  whoRuns: "Your cluster — at uninstall, automatically"
+  whoRuns: "Your delivery — an explicit, receipted step"
   command: ""
   disposition: "observed"
   alternatives:
     []
   evidence:
-    - "data/hook-lifecycle/receipt-index.csv"
-    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
-    - "runs/kps-lifecycle-route-proof/receipt.yaml"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
+    - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+    - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
   evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
   gitOps:
     argoCd: "none — your cluster handles it"
@@ -34,22 +35,22 @@ spec:
     flux: "none — your cluster handles it"
   origin:
     type: "helm-render-intent"
-    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
-    routeSourceVersion: "85.3.0"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
+    routeSourceVersion: "85.3.3"
   implementations:
     directApply:
       result: "pass"
       automatic: true
       executor: "scripts/run-kps-lifecycle-route-proof.mjs"
-      evidence: "runs/kps-lifecycle-route-proof/receipt.yaml"
+      evidence: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
       observation: "Removed the successful hook Jobs and their temporary RBAC support objects."
     argoCd:
       result: "not-run"
       automatic: false
       evidence: ""
-      observation: "No chart-specific Argo CD route receipt exists yet."
+      observation: "The fresh-install controller receipt does not prove Helm's hook cleanup policy."
     flux:
       result: "not-run"
       automatic: false
       evidence: ""
-      observation: "No chart-specific Flux route receipt exists yet."
+      observation: "The fresh-install controller receipt does not prove Helm's hook cleanup policy."

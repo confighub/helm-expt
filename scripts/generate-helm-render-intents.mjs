@@ -17,6 +17,8 @@ const kpsLifecycleReceiptPaths = {
   default: "runs/kps-lifecycle-route-proof/receipt.yaml",
   "no-crds": "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml",
 };
+const kpsGitOpsLifecycleReceiptPath =
+  "runs/kps-gitops-lifecycle-proof/receipt.yaml";
 
 const outputs = {
   summary: join(root, "summary.md"),
@@ -81,6 +83,11 @@ function buildReport() {
       .filter(([, path]) => existsSync(join(repoRoot, path)))
       .map(([base, path]) => [base, readYaml(join(repoRoot, path))]),
   );
+  const kpsGitOpsLifecycleReceipt = existsSync(
+    join(repoRoot, kpsGitOpsLifecycleReceiptPath),
+  )
+    ? readYaml(join(repoRoot, kpsGitOpsLifecycleReceiptPath))
+    : null;
   const realBases = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-"));
   const candidates = matrixRows.filter((row) => row.row_kind === "candidate" || row.row_status.startsWith("candidate")).length;
   const intents = realBases
@@ -90,6 +97,7 @@ function buildReport() {
       gitopsRouteEmission,
       targetPrereqRows,
       kpsLifecycleReceipts,
+      kpsGitOpsLifecycleReceipt,
     ))
     .sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
   const summary = summaryMd(intents, matrixRows, candidates);
@@ -106,6 +114,7 @@ function buildIntent(
   gitopsRouteEmission,
   targetPrereqRows,
   kpsLifecycleReceipts,
+  kpsGitOpsLifecycleReceipt,
 ) {
   const variantSpec = readVariantSpec(row.variant_path);
   const chartLifecycle = lifecycleByVariant.find((item) => item.chart === row.chart);
@@ -125,6 +134,12 @@ function buildIntent(
   const kpsLifecycleReceiptPath = isKpsLifecycleBase
     ? kpsLifecycleReceiptPaths[row.variant]
     : "";
+  const hasKpsGitOpsLifecycleProof =
+    row.chart === "prometheus-community/kube-prometheus-stack"
+    && row.version === "85.3.3"
+    && row.variant === "no-crds"
+    && kpsGitOpsLifecycleReceipt?.spec?.result === "pass"
+    && kpsGitOpsLifecycleReceipt?.spec?.base === "no-crds";
   const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => {
     const emission = variantGitops?.routes?.find((item) => item.route_name === route.route_name && item.action_kind === route.action_kind);
     check(emission, `missing GitOps route emission for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
@@ -168,6 +183,12 @@ function buildIntent(
         emission,
         kpsLifecycleReceipt,
         kpsLifecycleReceiptPath,
+        kpsGitOpsLifecycleReceipt: hasKpsGitOpsLifecycleProof
+          ? kpsGitOpsLifecycleReceipt
+          : null,
+        kpsGitOpsLifecycleReceiptPath: hasKpsGitOpsLifecycleProof
+          ? kpsGitOpsLifecycleReceiptPath
+          : "",
       }),
     };
   });
@@ -274,8 +295,20 @@ function buildIntent(
           ? {
             lifecycleDirectFreshInstall: "yes",
             lifecycleDirectFreshInstallReceipt: kpsLifecycleReceiptPath,
-            lifecycleArgoCd: "not-run",
-            lifecycleFlux: "not-run",
+            lifecycleArgoCd: hasKpsGitOpsLifecycleProof
+              ? "fresh-install-pass"
+              : "not-run",
+            lifecycleFlux: hasKpsGitOpsLifecycleProof
+              ? "fresh-install-pass"
+              : "not-run",
+            ...(hasKpsGitOpsLifecycleProof
+              ? {
+                lifecycleGitOpsFreshInstallReceipt:
+                  kpsGitOpsLifecycleReceiptPath,
+                lifecycleGitOpsArtifactDigest:
+                  kpsGitOpsLifecycleReceipt.spec?.deliveryArtifact?.digest ?? "",
+              }
+              : {}),
             lifecycleUpgrade: "not-run",
           }
           : {}),
@@ -566,6 +599,8 @@ function routeRunnerRecords({
   emission,
   kpsLifecycleReceipt,
   kpsLifecycleReceiptPath,
+  kpsGitOpsLifecycleReceipt,
+  kpsGitOpsLifecycleReceiptPath,
 }) {
   const receiptRouteName = route.route_name === "preflight-or-presync-crd-apply"
     ? "crds-first"
@@ -578,22 +613,66 @@ function routeRunnerRecords({
     : routeEvidence.filter((path) => path.startsWith("runs/"));
   const directStatus = directRoute?.result
     ?? (directEvidence.length > 0 ? "evidence-linked" : "not-run");
+  const argoCd = kpsGitOpsRunnerRecord({
+    controller: "argo",
+    implementation: emission.argo,
+    routeName: route.route_name,
+    receipt: kpsGitOpsLifecycleReceipt,
+    receiptPath: kpsGitOpsLifecycleReceiptPath,
+  });
+  const flux = kpsGitOpsRunnerRecord({
+    controller: "flux",
+    implementation: emission.flux,
+    routeName: route.route_name,
+    receipt: kpsGitOpsLifecycleReceipt,
+    receiptPath: kpsGitOpsLifecycleReceiptPath,
+  });
   return {
     direct: {
       implementation: route.command || route.whoRuns || "",
       status: directStatus,
       evidence: directEvidence,
     },
-    argoCd: {
-      implementation: emission.argo,
+    argoCd,
+    flux,
+  };
+}
+
+function kpsGitOpsRunnerRecord({
+  controller,
+  implementation,
+  routeName,
+  receipt,
+  receiptPath,
+}) {
+  const row = receipt?.spec?.controllers?.[controller];
+  const requirements = {
+    "preflight-or-presync-crd-apply": ["crds"],
+    "preflight-or-presync": ["prepare"],
+    "postsync-check-or-observation": ["finish", "runtime"],
+    "preserve-ordering": ["crds", "prepare", "workload", "finish"],
+    "target-facts-or-preflight": ["prepare", "runtime"],
+    "webhook-readiness-observation": ["runtime"],
+  }[routeName];
+  if (!row || !requirements) {
+    return {
+      implementation,
       status: "mapping-only",
       evidence: [],
-    },
-    flux: {
-      implementation: emission.flux,
-      status: "mapping-only",
-      evidence: [],
-    },
+    };
+  }
+  const passed = requirements.every((requirement) =>
+    requirement === "runtime"
+      ? row.runtime?.result === "pass"
+      : row.stages?.[requirement] === "pass");
+  return {
+    implementation: passed
+      ? controller === "argo"
+        ? "One staged OCI root Kustomization ordered CRDs, preparation, workload, and finish with Argo CD sync waves."
+        : "One OCIRepository fed four Flux Kustomizations ordered with dependsOn."
+      : implementation,
+    status: passed ? "pass" : "not-run",
+    evidence: passed ? [receiptPath] : [],
   };
 }
 

@@ -5,27 +5,29 @@ metadata:
   labels:
     app: "hooks-crds"
     chart: "prometheus-community-kube-prometheus-stack"
-    base: "default"
+    base: "no-crds"
     lifecyclePhase: "preflight"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
-  base: "default"
+  base: "no-crds"
   routeName: "target-facts-or-preflight"
   quirkClass: "target-facts"
   lifecyclePhase: "preflight"
   actionKind: "stage-target-facts"
   executionMode: "user-executes"
   automatic: false
-  whoRuns: "Prerequisite — supply once (Secret / CRD / storage), like values"
+  whoRuns: "Handled — the recorded package script creates or checks this prerequisite"
   command: "# create the required target facts (Secret/StorageClass/etc.) before apply"
   disposition: "observed"
   alternatives:
     []
   evidence:
-    - "data/hook-lifecycle/receipt-index.csv"
-    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
-    - "runs/kps-lifecycle-route-proof/receipt.yaml"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
+    - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+    - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
   evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
   gitOps:
     argoCd: "none — supply the inputs before sync"
@@ -34,22 +36,22 @@ spec:
     flux: "none — supply the inputs before sync"
   origin:
     type: "helm-render-intent"
-    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
-    routeSourceVersion: "85.3.0"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
+    routeSourceVersion: "85.3.3"
   implementations:
     directApply:
       result: "pass"
       automatic: true
       executor: "scripts/run-kps-lifecycle-route-proof.mjs"
-      evidence: "runs/kps-lifecycle-route-proof/receipt.yaml"
+      evidence: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
       observation: "Created the chart-required admission Secret through the recorded pre-install Job."
     argoCd:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "No chart-specific Argo CD route receipt exists yet."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Argo CD pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks."
     flux:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "No chart-specific Flux route receipt exists yet."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Flux pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks."
