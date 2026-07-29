@@ -37,6 +37,17 @@ spec:
     - This lane can accept or test changes before production.
     - The placeholder example shows how a local real value can stay local while new safe base fields move forward.
 
+    ## Where each setting comes from
+
+    | Place | What this Space records |
+    | --- | --- |
+    | Starting configuration | The upstream link points to `hashicorp-vault-demo-base`, whose recipe and render record identify the Helm source. |
+    | ConfigHub changes | Dev records its cost annotation and real identity-provider value as local revisions, then records the shared annotations it had to reconcile explicitly. |
+    | Install work | The base owns the chart prerequisites. Environment values, revisions, and approval gates remain separate from that setup work. |
+    | Live cluster | Use the linked receipts to check promotion behavior. A live-only change would still be drift, not an environment setting. |
+
+    If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
     ## What to inspect in Hub
 
     - This README.

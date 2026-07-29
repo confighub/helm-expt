@@ -11,6 +11,8 @@
 //   --sync    execute serially with the quota-probe protocol: stop at the
 //             first server error and report exact counts
 //   --verify  compare live org state against the plan (read-only)
+//   --refresh-recipes  update each existing base Space's recipe Unit from the
+//             generated HelmRenderIntent
 //   --policy-sync     reconcile Trigger definitions, filters, and Space assignments
 //   --policy-record   verify the live policy topology and write its receipt
 //   --policy-verify   compare the live topology with the profile and receipt
@@ -919,6 +921,60 @@ if (mode === "--relabel") {
   process.exit(0);
 }
 
+if (mode === "--refresh-recipes") {
+  assertOrg();
+  let updated = 0;
+  let created = 0;
+  let skipped = 0;
+  for (const item of plan) {
+    if (!spaceExists(item.space)) {
+      skipped += 1;
+      continue;
+    }
+    const intentPath = join(
+      repoRoot,
+      "data",
+      "helm-render-intents",
+      "intents",
+      `${item.space}.yaml`,
+    );
+    if (!existsSync(intentPath)) {
+      skipped += 1;
+      continue;
+    }
+    try {
+      cub(["unit", "get", "recipe", "--space", item.space]);
+      cub([
+        "unit",
+        "update",
+        "--space",
+        item.space,
+        "recipe",
+        intentPath,
+        "--change-desc",
+        "Refresh Helm render inputs and setting sources",
+      ]);
+      updated += 1;
+    } catch {
+      cub([
+        "unit",
+        "create",
+        "--space",
+        item.space,
+        "recipe",
+        intentPath,
+        "--change-desc",
+        "Record Helm render inputs and setting sources",
+      ]);
+      created += 1;
+    }
+  }
+  console.log(
+    `refreshed recipe Units in helm-catalog: ${updated} updated, ${created} created, ${skipped} skipped`,
+  );
+  process.exit(0);
+}
+
 if (mode === "--verify") {
   assertOrg();
   const failures = [];
@@ -934,7 +990,7 @@ if (mode === "--verify") {
     const intent = join(repoRoot, "data", "helm-render-intents", "intents", `${item.space}.yaml`);
     if (existsSync(intent)) {
       try {
-        const unitData = cub(["unit", "get", "recipe", "--space", item.space, "--data-only"]);
+        const unitData = cub(["unit", "data", "recipe", "--space", item.space]);
         const file = readFileSync(intent, "utf8");
         for (const field of ["baseVariant", "name"]) {
           const fromUnit = (unitData.match(new RegExp(`${field}: "([^"]+)"`)) || [])[1];
@@ -1175,7 +1231,7 @@ if (mode === "--exhibits") {
 }
 
 if (mode !== "--sync") {
-  console.log("usage: node scripts/sync-helm-org.mjs [--plan|--sync|--verify|--relabel|--exhibits|--policy-sync|--policy-record|--policy-verify|--policy-receipt-verify] [--org <name>]");
+  console.log("usage: node scripts/sync-helm-org.mjs [--plan|--sync|--verify|--refresh-recipes|--relabel|--exhibits|--policy-sync|--policy-record|--policy-verify|--policy-receipt-verify] [--org <name>]");
   process.exit(2);
 }
 

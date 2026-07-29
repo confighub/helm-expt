@@ -34,12 +34,38 @@ for (const intent of intents) {
     intent.spec?.renderInputs?.recipe,
     intent.spec?.renderInputs?.variant,
     intent.spec?.renderInputs?.sourceLock,
+    intent.spec?.settingSources?.helmValues?.valuesProfile,
     intent.spec?.renderOutput?.renderedObjects,
     intent.spec?.renderOutput?.revision,
     intent.spec?.renderOutput?.packageBase,
   ]) {
     check(path && existsSync(join(repoRoot, path)), `${name} points at missing render evidence: ${path || "(blank)"}`);
   }
+
+  const settingSources = intent.spec?.settingSources;
+  check(
+    settingSources?.helmValues?.status === "recorded"
+      && settingSources.helmValues.controls === "base-render",
+    `${name} does not identify its Helm values as the source of the base render`,
+  );
+  check(
+    settingSources.helmValues.valuesProfile === intent.spec.renderInputs.valuesProfile,
+    `${name} setting-source values profile differs from its render inputs`,
+  );
+  check(
+    settingSources?.configHubChanges?.status === "none-in-catalog-base"
+      && settingSources.configHubChanges.controls === "post-render-fields",
+    `${name} does not keep post-render ConfigHub changes separate from the catalog base`,
+  );
+  check(
+    settingSources?.liveCluster?.status === "observation-only"
+      && settingSources.liveCluster.controls === "observed-state",
+    `${name} treats live cluster state as desired configuration`,
+  );
+  check(
+    settingSources?.overlapPolicy === "review-required",
+    `${name} does not require review when Helm and ConfigHub touch the same field`,
+  );
 
   const lifecycle = intent.spec?.lifecycle;
   const lifecycleState = lifecycle?.coverage?.state;
@@ -142,6 +168,15 @@ for (const intent of intents) {
     check(targetFacts.coverage.nextAction, `${name} target-prerequisite gap has no next action`);
     expectedGaps.add(`${name}|target-prerequisite`);
   }
+
+  check(
+    settingSources.installWork.targetRequirementCount === targetFacts.requirements.length,
+    `${name} setting-source target requirement count differs from target facts`,
+  );
+  check(
+    settingSources.installWork.lifecycleRouteCount === lifecycle.variantRoutes.length,
+    `${name} setting-source lifecycle route count differs from lifecycle routes`,
+  );
 }
 
 const actualGaps = new Set(gaps.map((gap) => `${gap.name}|${gap.area}`));

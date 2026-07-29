@@ -24,11 +24,11 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "cub installer package", "Existing OCI package", "Kubernetes YAML", "Build an App"],
+    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "cub installer package", "Existing OCI package", "Kubernetes YAML", "Build an App", "Helm values or a ConfigHub change?"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["This page exists so you do not have to guess your way through this Helm chart", "Pass means backed by evidence", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
+    terms: ["This page exists so you do not have to guess your way through this Helm chart", "Pass means backed by evidence", "Where This Chart's Settings Come From", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -76,7 +76,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["The recipe: your source of truth", "Variants, in one picture", "AI-assisted changes, with control", "What direct apply still has to handle", "Apply CRDs first", "Field conflicts and removals"],
+    terms: ["The recipe: your source of truth", "Where a setting belongs", "Variants, in one picture", "AI-assisted changes, with control", "What direct apply still has to handle", "Apply CRDs first", "Field conflicts and removals"],
   },
 ];
 
@@ -221,6 +221,9 @@ if (fs.existsSync(chartCardsDir)) {
     const unresolved = [...new Set([...text.matchAll(/([a-z][a-z-]*): unknown;/g)].map((m) => m[1]))];
     if (unresolved.length) failures.push(`site/charts/${name}: unresolved action placeholder(s) ${JSON.stringify(unresolved.map((a) => `${a}: unknown`))}`);
     if (text.includes("&lt;tmp&gt;")) failures.push(`site/charts/${name}: raw <tmp> work-dir placeholder rendered in a command`);
+    if (name !== "index.html" && !text.includes("id=\"setting-sources\"")) {
+      failures.push(`site/charts/${name}: missing the Helm values, ConfigHub changes, install work, and live state provenance view`);
+    }
   }
 }
 

@@ -145,6 +145,27 @@ spec:
       reason: "1 prerequisite declaration and 2 follow-up action records are attached."
       declarationSource: "recipes/istio/istiod/1.30.0/variants/default/variant.yaml"
       nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/istio/istiod/1.30.0/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 1
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

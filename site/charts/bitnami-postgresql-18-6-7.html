@@ -460,6 +460,23 @@
       </style>
     </section>
 
+    <section aria-labelledby="setting-sources">
+      <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
+      <p>Helm values define each base render. ConfigHub changes begin after upload and are recorded against the rendered objects. Secrets, CRDs, hooks, and setup jobs are listed separately because they are install work, not hidden settings. Live cluster state is observed separately and does not silently become the desired configuration.</p>
+      <div class="card"><table>
+        <thead><tr><th>Base variant</th><th>Helm values</th><th>ConfigHub changes</th><th>Install work</th></tr></thead>
+        <tbody><tr><td>existing-secret</td><td><a href="../../recipes/bitnami/postgresql/18.6.7/effective-values-existing-secret.yaml">effective-values-existing-secret.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>1 prerequisite recorded.</td></tr><tr><td>static-passwords</td><td><a href="../../recipes/bitnami/postgresql/18.6.7/effective-values.yaml">effective-values.yaml</a></td><td>None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant.</td><td>No separate work is recorded; read the prerequisite and lifecycle status before assuming none is needed.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><strong>Upgrade rule:</strong> if a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The values profile shows the Helm side; Unit revision history shows the ConfigHub side.</p>
+      <p><a href="../d/docs/user/helm-presets-and-values.html#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
+    </section>
+
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What A Base Variant Records</h2>
       <p>A base variant solves the first Helm problem: which chart inputs should we use, and what Kubernetes objects do they produce? Each base variant records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes.</p>
@@ -544,6 +561,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">Runnable base variant</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
+          <dt>Helm values</dt><dd><a href="../../recipes/bitnami/postgresql/18.6.7/effective-values-existing-secret.yaml">effective-values-existing-secret.yaml</a></dd>
+          <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base existing-secret --work-dir ./bitnami-postgresql-18-6-7-existing-secret --non-interactive --namespace postgresql</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/bitnami-postgresql-18-6-7/existing-secret/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/bitnami-postgresql-18-6-7/existing-secret/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
@@ -569,6 +588,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         <p class="row-purpose">Runnable base variant</p>
         <dl>
           <dt>Status</dt><dd>Available in the catalog</dd>
+          <dt>Helm values</dt><dd><a href="../../recipes/bitnami/postgresql/18.6.7/effective-values.yaml">effective-values.yaml</a></dd>
+          <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7 --base static-passwords --work-dir ./bitnami-postgresql-18-6-7-static-passwords --non-interactive --namespace postgresql</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/bitnami-postgresql-18-6-7/static-passwords/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/bitnami-postgresql-18-6-7/static-passwords/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>

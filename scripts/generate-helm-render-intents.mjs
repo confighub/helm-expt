@@ -253,6 +253,18 @@ function buildIntent(
     targetActions,
     row,
   });
+  const valuesProfile = resolveVariantPath(
+    row.variant_path,
+    variantSpec.valuesProfile,
+  );
+  const installWorkStatus =
+    lifecycleCoverage.state === "attached"
+      || ["attached", "attached-with-observed-actions"].includes(targetCoverage.state)
+      ? "recorded"
+      : lifecycleCoverage.state === "no-route-required"
+        && targetCoverage.state === "no-target-facts-required"
+        ? "none-required"
+        : "review-required";
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HelmRenderIntent",
@@ -284,7 +296,7 @@ function buildIntent(
         sourceLock: row.source_lock_path || "",
         namespace: variantSpec.namespace ?? "",
         releaseName: variantSpec.releaseName ?? "",
-        valuesProfile: resolveVariantPath(row.variant_path, variantSpec.valuesProfile),
+        valuesProfile,
         capabilityProfile: variantSpec.capabilityProfile ?? {},
         hookPolicy: variantSpec.hookPolicy ?? "",
       },
@@ -354,6 +366,33 @@ function buildIntent(
         requirements: targetRequirements,
         actions: targetActions,
         coverage: targetCoverage,
+      },
+      settingSources: {
+        helmValues: {
+          status: valuesProfile ? "recorded" : "not-recorded",
+          valuesProfile,
+          controls: "base-render",
+        },
+        configHubChanges: {
+          status: "none-in-catalog-base",
+          controls: "post-render-fields",
+          recordsAfterUpload: [
+            "Unit revisions",
+            "derived variants",
+            "promotion receipts",
+          ],
+        },
+        installWork: {
+          status: installWorkStatus,
+          controls: "prerequisites-and-lifecycle",
+          targetRequirementCount: targetRequirements.length,
+          lifecycleRouteCount,
+        },
+        liveCluster: {
+          status: "observation-only",
+          controls: "observed-state",
+        },
+        overlapPolicy: "review-required",
       },
       provenance: {
         matrixRowKind: row.row_kind,
@@ -780,6 +819,9 @@ function renderCsv(intents) {
     "catalog_layer",
     "recipe_path",
     "variant_path",
+    "values_profile",
+    "namespace",
+    "release_name",
     "rendered_objects_path",
     "package_base_path",
     "installer_package_oci_ref",
@@ -803,6 +845,8 @@ function renderCsv(intents) {
     "target_fact_contract_state",
     "target_fact_contract_reason",
     "target_fact_contract_next_action",
+    "confighub_change_state",
+    "setting_overlap_policy",
     "source_repository_url",
   ];
   const rows = intents.map((intent) => {
@@ -814,6 +858,9 @@ function renderCsv(intents) {
       catalog_layer: intent.spec.provenance.catalogLayer,
       recipe_path: intent.spec.renderInputs.recipe,
       variant_path: intent.spec.renderInputs.variant,
+      values_profile: intent.spec.settingSources.helmValues.valuesProfile,
+      namespace: intent.spec.renderInputs.namespace,
+      release_name: intent.spec.renderInputs.releaseName,
       package_base_path: intent.spec.renderInputs.packageBase,
       installer_package_oci_ref: intent.spec.renderInputs.installerPackageOciRef,
       rendered_objects_path: intent.spec.renderOutput.renderedObjects,
@@ -837,6 +884,8 @@ function renderCsv(intents) {
       target_fact_contract_state: intent.spec.targetFacts.coverage.state,
       target_fact_contract_reason: intent.spec.targetFacts.coverage.reason,
       target_fact_contract_next_action: intent.spec.targetFacts.coverage.nextAction,
+      confighub_change_state: intent.spec.settingSources.configHubChanges.status,
+      setting_overlap_policy: intent.spec.settingSources.overlapPolicy,
       source_repository_url: intent.spec.chart.sourceRepository,
     };
     return headers.map((header) => csvCell(row[header])).join(",");

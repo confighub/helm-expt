@@ -165,6 +165,27 @@ spec:
       reason: "2 prerequisite declarations and 1 follow-up action record are attached."
       declarationSource: "recipes/hashicorp/terraform/1.1.2/variants/default/variant.yaml"
       nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/hashicorp/terraform/1.1.2/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 2
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

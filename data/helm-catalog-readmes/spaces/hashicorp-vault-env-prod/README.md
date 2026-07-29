@@ -18,6 +18,17 @@ The important thing to inspect is how the environment records what changed and w
 - Production is wired with approval gates.
 - The placeholder example shows how a local real value can stay local while new safe base fields move forward.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | The upstream link points to `hashicorp-vault-demo-base`, whose recipe and render record identify the Helm source. |
+| ConfigHub changes | Production records `spec.replicas: 3`, keeps its environment settings, and requires approval before apply. |
+| Install work | The base owns the chart prerequisites. Environment values, revisions, and approval gates remain separate from that setup work. |
+| Live cluster | Use the linked receipts to check promotion behavior. A live-only change would still be drift, not an environment setting. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README.

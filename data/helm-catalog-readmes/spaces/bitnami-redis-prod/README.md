@@ -17,6 +17,17 @@ This is the production side of the Redis environment demo.
 - Production can receive reviewed changes after staging proves them.
 - Production gates live in the platform model instead of being buried in a Helm command.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | The upstream link points to `bitnami-redis-base`, which holds the Helm-rendered Redis objects. |
+| ConfigHub changes | This Space sets namespace `redis-prod`, records its promotion history, and carries the production approval and deletion gates. Workload fields otherwise come from the base unless a revision says differently. |
+| Install work | Prerequisites come from the selected Redis base. Approval is a ConfigHub delivery rule, not a Helm value. |
+| Live cluster | Open delivery evidence when you need runtime status. This demo Space is the desired record, not a claim about a customer production cluster. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README.

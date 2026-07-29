@@ -437,6 +437,12 @@
 <p>This example moves the Job into the delivery plan. It proves the mechanism on a small fixture before we apply the same pattern to a complex chart.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>The workload and setup Job are stored as ordinary, reviewable Kubernetes objects.</li><li>Argo CD, Flux, and the direct script each ran the Job and recorded its completion.</li><li>The route is marked automatic only for this tested fixture and these three delivery paths.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>Open the upstream Space or source link named on this page. That is the configuration this Space started from.</td></tr>
+<tr><td>ConfigHub changes</td><td>Open Unit revision history. It records changes made after the starting configuration was saved.</td></tr>
+<tr><td>Install work</td><td>Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts.</td></tr>
+<tr><td>Live cluster</td><td>Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The workload and setup Job Units.</li><li>The LifecycleRoute Unit that links the delivery receipts.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

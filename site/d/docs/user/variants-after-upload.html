@@ -442,6 +442,9 @@
 <h2 id="the-one-decision-restated">The one decision, restated</h2>
 <ul><li>If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with <code>--base</code>.</li><li>If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a derived variant. Nothing re-renders.</li></ul>
 <p>Why this matters: the base you reviewed stays one thing. Every environment difference is explicit, diffable, and promotable, instead of hiding in a values-file fork.</p>
+<h2 id="how-to-tell-what-set-a-field">How To Tell What Set A Field</h2>
+<ul><li>Open the base Space's <code>readme</code> or <code>recipe</code> Unit for the recorded Helm values profile and rendered starting point.</li><li>Open the Kubernetes Unit's revision history for changes made in ConfigHub.</li><li>Open the derived Space's upstream link to see which base it started from.</li><li>Treat a value seen only in the live cluster as drift until the team records it as an intended revision or removes it.</li></ul>
+<p>If a new base render and a local ConfigHub revision change the same field, review that overlap before promotion. The full rule and the chart-page view are in <a href="helm-presets-and-values.html#where-each-setting-lives">Helm Chart Presets And Values</a>.</p>
 <h2 id="what-you-have-after-upload">What you have after upload</h2>
 <p>One Space holding your rendered objects as Units, one Unit per manifest. See it:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>

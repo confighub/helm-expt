@@ -92,6 +92,27 @@ spec:
       reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
       declarationSource: ""
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/grafana/pyroscope/2.0.2/effective-values-no-crds.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

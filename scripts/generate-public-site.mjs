@@ -1660,6 +1660,17 @@ em{font-style:italic;color:var(--ink);}
     </div>
   </div>
 
+  <h3>Where a setting belongs</h3>
+  <p>There are four places to look. Keeping them separate answers both questions: what should control a setting, and what controls it now.</p>
+  <table class="gtable">
+    <tr><th>Place</th><th>Use it for</th><th>What happens on upgrade</th></tr>
+    <tr><td><strong>Helm values</strong></td><td>Choose the base shape: components, object count, storage mode, CRDs, ingress, Secret strategy, topology, or another choice that changes what Helm renders.</td><td>Change the recorded values and render a new base. The values profile remains linked to the objects it produced.</td></tr>
+    <tr><td><strong>ConfigHub changes</strong></td><td>Change an exact field after render when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.</td><td>The edit is a Unit revision or derived variant. It is put back when the base is upgraded.</td></tr>
+    <tr><td><strong>Install work</strong></td><td>Provide Secrets, CRDs, target facts, hooks, setup jobs, certificates, or other work needed around the objects.</td><td>The prerequisite or route is checked again. It is not hidden as a Helm value or a ConfigHub edit.</td></tr>
+    <tr><td><strong>Live cluster</strong></td><td>Observe what actually ran and compare it with the reviewed objects.</td><td>A live-only edit is drift. Record an intended fix in ConfigHub, or remove the drift.</td></tr>
+  </table>
+  <p><strong>One field should not have two silent owners.</strong> If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion and choose the intended result.</p>
+
   <h3>Where teams feel it</h3>
   <p><strong>Got values files?</strong> Helm gets painful when values are not enough and you need to change rendered objects, policies, labels, selectors, hooks, or surrounding resources. Instead of maintaining a chart fork forever or hiding the final result behind an overlay, keep Helm, render the objects as data, and make transparent variants you can inspect.</p>
   <p><strong>Upgrades and promotions?</strong> Even an unmodified chart can change many objects at once. Render before you approve: compare the old and new objects, preview the variant, run checks, and promote toward production with diffs and receipts instead of hoping the next upgrade behaves.</p>
@@ -5327,6 +5338,15 @@ function chartIndexHtml(catalog) {
         ["Render context", "Render intent, revision, routes, receipts", "The inputs, checksums, hook/CRD decisions, target facts, and evidence around that YAML output."],
         ["Chart extras", "Routes, target facts, lifecycle rows", "CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and existing cluster resources that need a decision."],
       ])}
+      <h3>Helm values or a ConfigHub change?</h3>
+      ${markdownLikeTable([
+        ["Put it here", "When to use it", "Where the record appears"],
+        ["Helm values", "The choice changes what Helm renders: components, object shape or count, storage, CRDs, ingress, Secret strategy, hooks, or topology.", "The base variant's linked values profile and render intent."],
+        ["ConfigHub change", "The rendered base is right, but an exact field should differ for an environment, region, customer, policy, or later operational decision.", "The Unit revision history or derived variant after upload."],
+        ["Install work", "The chart needs a Secret, CRD, hook, setup job, certificate, cloud account, or target fact.", "The chart page's prerequisites and route records."],
+        ["Live cluster", "You need to check what is running.", "An observation or drift result; live state does not silently become desired configuration."],
+      ])}
+      <p>If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The chart page links the Helm values and base output; Hub revision history shows the later ConfigHub changes.</p>
       <p>The model is deliberately chart-specific. A useful base variant for Redis is different from a useful base variant for Argo CD or kube-prometheus-stack. That is why the catalog stores evidence per chart, version, base variant, lane, and target scope. For the deeper reference, read <a href="../../docs/user/helm-presets-and-values.md">Helm Base Variants And Values</a>.</p>
     </section>
 
@@ -6136,6 +6156,19 @@ function chartPageHtml(catalog, entry) {
   const proofEvidenceRows = proofRows.length ? proofRows : proofMatrixRows;
   const firstRenderIntent = catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version && row.base === entry.start_variant)
     ?? catalog.helmRenderIntents.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const settingSourceRows = matrixRows
+    .filter((row) => row.row_kind === "base")
+    .map((row) => {
+      const intent = renderIntentForRow(catalog, row);
+      return [
+        row.variant,
+        intent ? renderIntentValuesLink(intent) : "Not recorded for this row.",
+        intent
+          ? "None in the catalog base. Later edits appear in ConfigHub Unit revision history or a derived variant."
+          : "No runnable catalog base exists yet.",
+        intent ? renderIntentInstallWorkSummary(intent) : "Not recorded for this row.",
+      ];
+    });
   const firstRunnableDisplayReason = currentPathReason(
     firstRunnableRow,
     firstRenderIntent,
@@ -6332,6 +6365,19 @@ function chartPageHtml(catalog, entry) {
         ["Not yet enabled", entry.not_yet_enabled || "none recorded"],
         ["Namespace", entry.namespace || "chart default"],
       ])}
+    </section>
+
+    <section aria-labelledby="setting-sources">
+      <h2 id="setting-sources">Where This Chart's Settings Come From</h2>
+      <p>Helm values define each base render. ConfigHub changes begin after upload and are recorded against the rendered objects. Secrets, CRDs, hooks, and setup jobs are listed separately because they are install work, not hidden settings. Live cluster state is observed separately and does not silently become the desired configuration.</p>
+      ${settingSourceRows.length
+        ? markdownLikeTable([
+            ["Base variant", "Helm values", "ConfigHub changes", "Install work"],
+            ...settingSourceRows,
+          ], { rawSecondColumn: true })
+        : "<p>No runnable base has a recorded setting source yet.</p>"}
+      <p><strong>Upgrade rule:</strong> if a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The values profile shows the Helm side; Unit revision history shows the ConfigHub side.</p>
+      <p><a href="../../docs/user/helm-presets-and-values.md#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
     </section>
 
     <section aria-labelledby="render-record-route">
@@ -6718,6 +6764,32 @@ function renderIntentForRow(catalog, row) {
       && intent.base === row.variant) ?? null;
 }
 
+function renderIntentValuesLink(intent) {
+  const path = String(intent?.values_profile || "").trim();
+  if (!path) return "No values profile is recorded.";
+  return `<a href="../../${escapeHtml(path)}">${escapeHtml(path.split("/").at(-1))}</a>`;
+}
+
+function renderIntentInstallWorkSummary(intent) {
+  const prerequisites = Number(intent?.target_requirement_count || 0);
+  const routes = Number(intent?.lifecycle_route_count || 0);
+  const parts = [];
+  if (prerequisites > 0) {
+    parts.push(`${prerequisites} prerequisite${prerequisites === 1 ? "" : "s"}`);
+  }
+  if (routes > 0) {
+    parts.push(`${routes} hook or setup route${routes === 1 ? "" : "s"}`);
+  }
+  if (parts.length) return `${parts.join(" and ")} recorded.`;
+  if (
+    intent?.lifecycle_contract_state === "no-route-required"
+    && intent?.target_fact_contract_state === "no-target-facts-required"
+  ) {
+    return "No separate install work is required.";
+  }
+  return "No separate work is recorded; read the prerequisite and lifecycle status before assuming none is needed.";
+}
+
 function lifecycleContractText(intent, packagedActions = []) {
   if (!intent) return "No render-intent record is available for this base.";
   if (intent.lifecycle_contract_state === "attached") {
@@ -6814,7 +6886,9 @@ function matrixRowCard(row, entry, catalog) {
         </div>
         <p class="row-purpose">${escapeHtml(matrixRowPurpose(row))}</p>
         <dl>
-          <dt>Status</dt><dd>${escapeHtml(matrixRowStatusLabel(row))}</dd>
+          <dt>Status</dt><dd>${escapeHtml(matrixRowStatusLabel(row))}</dd>${renderIntent ? `
+          <dt>Helm values</dt><dd>${renderIntentValuesLink(renderIntent)}</dd>
+          <dt>ConfigHub changes</dt><dd>None in this catalog base. After upload, read Unit revision history or the derived variant.</dd>` : ""}
           <dt>How to run</dt><dd>${command}</dd>${scriptLinks ? `
           <dt>Scripts</dt><dd>${scriptLinks}</dd>` : ""}
           <dt>Evidence</dt><dd>${escapeHtml(matrixEvidenceLabel(row.strongest_evidence || row.outcome_level || ""))}</dd>

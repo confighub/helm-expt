@@ -563,6 +563,17 @@ em{font-style:italic;color:var(--ink);}
     </div>
   </div>
 
+  <h3>Where a setting belongs</h3>
+  <p>There are four places to look. Keeping them separate answers both questions: what should control a setting, and what controls it now.</p>
+  <table class="gtable">
+    <tr><th>Place</th><th>Use it for</th><th>What happens on upgrade</th></tr>
+    <tr><td><strong>Helm values</strong></td><td>Choose the base shape: components, object count, storage mode, CRDs, ingress, Secret strategy, topology, or another choice that changes what Helm renders.</td><td>Change the recorded values and render a new base. The values profile remains linked to the objects it produced.</td></tr>
+    <tr><td><strong>ConfigHub changes</strong></td><td>Change an exact field after render when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.</td><td>The edit is a Unit revision or derived variant. It is put back when the base is upgraded.</td></tr>
+    <tr><td><strong>Install work</strong></td><td>Provide Secrets, CRDs, target facts, hooks, setup jobs, certificates, or other work needed around the objects.</td><td>The prerequisite or route is checked again. It is not hidden as a Helm value or a ConfigHub edit.</td></tr>
+    <tr><td><strong>Live cluster</strong></td><td>Observe what actually ran and compare it with the reviewed objects.</td><td>A live-only edit is drift. Record an intended fix in ConfigHub, or remove the drift.</td></tr>
+  </table>
+  <p><strong>One field should not have two silent owners.</strong> If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion and choose the intended result.</p>
+
   <h3>Where teams feel it</h3>
   <p><strong>Got values files?</strong> Helm gets painful when values are not enough and you need to change rendered objects, policies, labels, selectors, hooks, or surrounding resources. Instead of maintaining a chart fork forever or hiding the final result behind an overlay, keep Helm, render the objects as data, and make transparent variants you can inspect.</p>
   <p><strong>Upgrades and promotions?</strong> Even an unmodified chart can change many objects at once. Render before you approve: compare the old and new objects, preview the variant, run checks, and promote toward production with diffs and receipts instead of hoping the next upgrade behaves.</p>

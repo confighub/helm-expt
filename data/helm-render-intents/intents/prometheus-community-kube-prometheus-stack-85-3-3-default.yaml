@@ -822,6 +822,27 @@ spec:
       reason: "11 target prerequisites declared by this base."
       declarationSource: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
       nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 11
+      lifecycleRouteCount: 8
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

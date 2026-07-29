@@ -437,6 +437,12 @@
 <p>This example renders first, compares the result with the checked catalog configuration, fixes the concrete problems, and keeps the requested change.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>The proposed values asked for three replicas but also embedded an old API key, exposed a LoadBalancer, removed the image digest, and weakened three container security settings.</li><li>The reviewed values keep the three replicas, restore the checked defaults, and refer to an existing Secret instead of storing the key in the Deployment.</li><li>The five reviewed Kubernetes objects are published as one literal configuration OCI and imported into this Space without rerendering the chart.</li><li>The Space uses the five catalog checks: schema, placeholder, and lifecycle-route checks can block an apply; image-digest and workload-probe checks report warnings.</li><li>A live test supplied the required Secret separately, published the configuration from ConfigHub, and brought all three NGINX replicas up through Argo CD.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>The reviewed Helm values request three replicas and safe object settings. The linked proposed and reviewed values files show exactly what changed before import.</td></tr>
+<tr><td>ConfigHub changes</td><td>This base contains the five reviewed objects imported from OCI. It has no later environment edit; development and staging changes live in their own Spaces.</td></tr>
+<tr><td>Install work</td><td>The <code>nginx/ai-provider-credentials</code> Secret must be supplied separately. Its value is not stored in the public package or this Space.</td></tr>
+<tr><td>Live cluster</td><td>A throwaway Argo CD run observed three ready replicas. That observation checks the reviewed base; it does not set the replica count.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The configuration Unit to see all five reviewed Kubernetes objects together.</li><li>The Space annotations to see the public OCI source and digest.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

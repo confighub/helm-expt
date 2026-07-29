@@ -25,6 +25,19 @@ One boundary keeps the two straight: the recipe lives in the package and is chos
 
 Why this matters: the base you reviewed stays one thing. Every environment difference is explicit, diffable, and promotable, instead of hiding in a values-file fork.
 
+## How To Tell What Set A Field
+
+- Open the base Space's `readme` or `recipe` Unit for the recorded Helm values
+  profile and rendered starting point.
+- Open the Kubernetes Unit's revision history for changes made in ConfigHub.
+- Open the derived Space's upstream link to see which base it started from.
+- Treat a value seen only in the live cluster as drift until the team records
+  it as an intended revision or removes it.
+
+If a new base render and a local ConfigHub revision change the same field,
+review that overlap before promotion. The full rule and the chart-page view are
+in [Helm Chart Presets And Values](./helm-presets-and-values.md#where-each-setting-lives).
+
 ## What you have after upload
 
 One Space holding your rendered objects as Units, one Unit per manifest. See it:

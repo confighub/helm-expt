@@ -437,6 +437,12 @@
 <p>This is the production side of the Redis environment demo.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>Production can receive reviewed changes after staging proves them.</li><li>Production gates live in the platform model instead of being buried in a Helm command.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>The upstream link points to <code>bitnami-redis-base</code>, which holds the Helm-rendered Redis objects.</td></tr>
+<tr><td>ConfigHub changes</td><td>This Space sets namespace <code>redis-prod</code>, records its promotion history, and carries the production approval and deletion gates. Workload fields otherwise come from the base unless a revision says differently.</td></tr>
+<tr><td>Install work</td><td>Prerequisites come from the selected Redis base. Approval is a ConfigHub delivery rule, not a Helm value.</td></tr>
+<tr><td>Live cluster</td><td>Open delivery evidence when you need runtime status. This demo Space is the desired record, not a claim about a customer production cluster.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>Redis workload YAML and revision history.</li><li>The <code>platform</code> Space for shared gates.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

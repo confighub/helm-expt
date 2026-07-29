@@ -81,6 +81,26 @@ another chart preset.
 For the render-intent layer, see
 [Helm Render Intents](./helm-render-intents.md).
 
+## Where Each Setting Lives
+
+There are four places to look:
+
+| Place | What belongs there | How to see what is set now |
+| --- | --- | --- |
+| Helm values | Choices that change what Helm renders: components, object count or shape, storage mode, CRDs, ingress, Secret strategy, hooks, service exposure, or topology. | Open the base variant's `valuesProfile` link in its `HelmRenderIntent`, then open the rendered YAML it produced. |
+| ConfigHub changes | Exact post-render edits when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ. | Open the Unit revision history or derived variant. The public catalog base itself has no ConfigHub edits. |
+| Install work | Required Secrets, CRDs, target facts, hooks, setup jobs, certificates, cloud accounts, and other work around the objects. | Open the base variant's prerequisites and lifecycle routes. These are not hidden as values or post-render edits. |
+| Live cluster | What actually ran. | Compare observations with the reviewed Units. A live-only edit is drift until it is recorded as an intended ConfigHub revision or removed. |
+
+One field should not have two silent owners. If a new Helm render and a
+ConfigHub revision both change the same field, review the overlap before
+promotion and choose the intended result. The Helm values profile shows one
+side; ConfigHub Unit revision history shows the other.
+
+Every generated `HelmRenderIntent` records this split under
+`spec.settingSources`. Chart pages and the `readme` Unit in each demo Space
+show the same information in plain English.
+
 ## What Happens When You Bring Values?
 
 If a values file changes what Helm renders, it belongs in a new or updated chart

@@ -6,6 +6,8 @@ These are the README pages for the `helm-catalog` ConfigHub demo org. The rule i
 
 The README is for someone who starts inside [hub.confighub.com](https://hub.confighub.com), opens the demo org, and wants to understand the example without reading this repository first.
 
+Every README separates the starting Helm values or imported base, later ConfigHub changes, install work, and live observations. A user can see which layer set a field without treating cluster drift as desired configuration.
+
 ## Counts
 
 | Kind | Spaces |

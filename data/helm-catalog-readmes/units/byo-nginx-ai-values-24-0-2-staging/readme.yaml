@@ -44,6 +44,17 @@ spec:
     - The promotion updated staging to four replicas without changing the saved base or losing the staging namespace.
     - The staging Unit records its upstream link and the exact promoted revision.
 
+    ## Where each setting comes from
+
+    | Place | What this Space records |
+    | --- | --- |
+    | Starting configuration | Staging began from the reviewed three-replica NGINX configuration and keeps its own namespace. |
+    | ConfigHub changes | The promotion records the development change to `spec.replicas: 4` while retaining the staging namespace. Revision history identifies both sources. |
+    | Install work | The existing Secret requirement remains inherited from the reviewed base. |
+    | Live cluster | A throwaway Argo CD run observed four ready replicas after promotion. That observation checks the promoted setting; it does not create it. |
+
+    If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
     ## What to inspect in Hub
 
     - This README.
