@@ -12,6 +12,7 @@ const scanned = files.filter((file) => /\.(md|mjs|yaml|yml|json)$/.test(file));
 const violations = [];
 const oldVariantPattern = "template:{{." + "Source" + "EntitySlug" + "}}-" + "{{.Labels.Variant}}";
 const bundledInstallerClaim = "The public cub CLI includes " + "cub installer";
+const removedSetupMergeFlag = "--merge-" + "external-source";
 
 for (const file of scanned) {
   const text = readFileSync(file, "utf8");
@@ -39,6 +40,11 @@ for (const file of scanned) {
       && line.includes("--force")
     ) {
       violations.push(`${relativeRepo(file)}:${index + 1}: current cub plugin install has no --force flag`);
+    }
+    if (line.includes(removedSetupMergeFlag)) {
+      violations.push(
+        `${relativeRepo(file)}:${index + 1}: installer setup no longer accepts the removed setup merge flag; setup re-enters from upload.yaml and upload performs the merge`,
+      );
     }
   });
 }

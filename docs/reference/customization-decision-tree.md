@@ -63,7 +63,7 @@ The consumer guide and the routing doc answer different questions. Use them toge
 |---|---|---|---|
 | 1. Wizard inputs | edit `out/spec/inputs.yaml` → `installer setup` (re-render) | author-exposed inputs: replicas, names, components, tunables | highest (re-render) |
 | 2. `--set-image` | `installer setup --set-image NAME=REF` (needs an `images:` block in the base) | image tag/digest bumps | high (persisted in `spec.imageOverrides`) |
-| 3. Post-install mutation | `cub function do --space S set-container-image …` | ad-hoc edits tracked in cub revision history; survive re-render via `--merge-external-source` | lowest |
+| 3. Post-install mutation | `cub function do --space S set-container-image …` | ad-hoc edits are tracked in cub revision history; on the next installer reconcile, `cub installer upload` merges the new package output with the recorded Units | lowest |
 
 **Lens B — "where does the change live?" (helm-expt: 3 decisions, in order)**
 1. Changes rendered K8s objects? → **`cub installer` base variant** (re-render + Helm-equivalence).
