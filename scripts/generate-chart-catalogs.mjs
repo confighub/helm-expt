@@ -71,7 +71,7 @@ function buildChartCatalog(root, context) {
   const sourceLock = readYaml(required("source-lock.yaml"));
   const dependencyLock = readYaml(required("dependency-lock.yaml"));
   const helmPlan = readYaml(required("helm-plan.yaml"));
-  readYaml(required("chart-dossier.yaml"));
+  const chartDossier = readYaml(required("chart-dossier.yaml"));
   const controlPoints = readYaml(required("control-points.yaml"));
   readYaml(required("value-model.yaml"));
   const catalogStatus = readYaml(required("catalog-status.yaml"));
@@ -141,6 +141,7 @@ function buildChartCatalog(root, context) {
         importMode: recipe.spec?.importMode ?? "",
         helmPlan: relativeRepo(join(root, "helm-plan.yaml")),
         chartDossier: relativeRepo(join(root, "chart-dossier.yaml")),
+        ...(chartDossier.spec?.operationsGuide ? { operationsGuide: chartDossier.spec.operationsGuide } : {}),
         controlPoints: relativeRepo(join(root, "control-points.yaml")),
         valueModel: relativeRepo(join(root, "value-model.yaml")),
         ...(existsSync(valueSourceMapPath) ? { valueSourceMap: relativeRepo(valueSourceMapPath) } : {}),
@@ -426,7 +427,7 @@ for exact base-variant evidence.
 | Recipe | ${linkFrom(root, recipe.path)} |
 | Helm plan | ${linkFrom(root, recipe.helmPlan)} |
 | Chart dossier | ${linkFrom(root, recipe.chartDossier)} |
-| Control points | ${linkFrom(root, recipe.controlPoints)} |
+${recipe.operationsGuide ? `| Plain-English operations guide | ${linkFrom(root, recipe.operationsGuide)} |\n` : ""}| Control points | ${linkFrom(root, recipe.controlPoints)} |
 | Value model | ${linkFrom(root, recipe.valueModel)} |
 ${recipe.valueSourceMap ? `| Value source map | ${linkFrom(root, recipe.valueSourceMap)} |\n` : ""}${optionalArtifactRows(root)}${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
 ${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}| Installer package OCI | \`${packageInfo.ociRef}\` |

@@ -51,7 +51,7 @@ from a different chart version's disposition row.
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 167 / 29 / 1 / 2 / 190 |
-| Lifecycle route contracts (observed / watch / todo / n/a) | 12 / 0 / 2 / 375 |
+| Lifecycle route contracts (observed / watch / todo / n/a) | 13 / 0 / 1 / 375 |
 | Render-intent lifecycle records (attached / gap / no separate route) | 10 / 5 / 184 |
 | Render-intent prerequisite records (attached / gap / none explicitly required) | 67 / 132 / 0 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
@@ -157,8 +157,8 @@ when you want the user/product view with those columns visible.
 | `argo-cd/argo-rollouts@2.40.9` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | no-crds | next80 | - | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
-| `argo-cd/argo-workflows@1.0.14` | F1 | source | (source) | next80 | - | 1 candidate-route ⬜ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | next80 | - | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
+| `argo-cd/argo-workflows@1.0.14` | F1 | source | (source) | next80 | - | 1 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
+|  | F2a | base | default | next80 | - | 1 observed ✅ | ✅ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
 |  | F2b | base | controller-default-reviewed | next80 | - | 1 candidate-route ⬜ | ⬜ | ✅ | ✅ | ❌ | ⬜ | ✅ | ✅ | ✅ | ✅ | stage | live-parity | ⬜ |
 |  | F2b | base | minimal-crds | next80 | - | 1 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | F1 | source | (source) | next80 | - | - | - | - | - | - | - | - | - | - | - | - | source-lock | - |

@@ -167,6 +167,43 @@
     {
       "chart": "argo-cd/argo-workflows",
       "version": "1.0.14",
+      "base": "default",
+      "quirk_class": "crd-install",
+      "route_name": "preflight-or-presync-crd-apply",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "pre-apply",
+      "action_kind": "install-crd",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.",
+      "human_command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
+      "alternatives": [
+        "self-contained-crd-base",
+        "target-owned-crds",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "preflight-or-presync-crd-apply",
+        "default_route": "preflight-or-presync-crd-apply",
+        "alternatives": [
+          "self-contained-crd-base",
+          "target-owned-crds",
+          "refuse"
+        ],
+        "lifecycle_phase": "pre-apply",
+        "action_kind": "install-crd",
+        "required_target_facts": "The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-default.yaml;docs/demo/hooks-crds/argo-workflows.md;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml;packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml;runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml"
+    },
+    {
+      "chart": "argo-cd/argo-workflows",
+      "version": "1.0.14",
       "base": "minimal-crds",
       "quirk_class": "crd-install",
       "route_name": "self-contained-crd-base",

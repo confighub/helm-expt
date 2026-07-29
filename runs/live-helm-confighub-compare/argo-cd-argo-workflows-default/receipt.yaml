@@ -7,7 +7,7 @@ spec:
   version: 1.0.14
   base: default
   result: pass
-  observedAt: '2026-06-15T12:01:10Z'
+  observedAt: '2026-07-29T06:24:07Z'
   package:
     path: packages/argo-cd/argo-workflows/1.0.14
   recipe:
@@ -22,8 +22,8 @@ spec:
     result: pass
     changes: []
   run:
-    rig: helm-expt-parity-argoworkflows-mqf5wrs8-q40
-    kubeContext: kind-helm-expt-parity-argoworkflows-mqf5wrs8-q40
+    rig: helm-expt-parity-argoworkflows-ms5p8sdl-14pm
+    kubeContext: kind-helm-expt-parity-argoworkflows-ms5p8sdl-14pm
     namespace: default
     namespaceMode: isolated-leg-namespaces
     legNamespaces:
@@ -32,15 +32,18 @@ spec:
       configHubOciArgo: default-oci
     clusterLifecycle: cleaned-up
     cleanup:
-      command: cub lk down --name helm-expt-parity-argoworkflows-mqf5wrs8-q40 --force
+      command: cub cluster down --name helm-expt-parity-argoworkflows-ms5p8sdl-14pm
+        --force
       result: pass
-      detail: 'Deleting kind cluster "helm-expt-parity-argoworkflows-mqf5wrs8-q40"...
+      detail: 'Deleting kind cluster "helm-expt-parity-argoworkflows-ms5p8sdl-14pm"...
 
-        Deleting cluster "helm-expt-parity-argoworkflows-mqf5wrs8-q40" ...
+        Deleting cluster "helm-expt-parity-argoworkflows-ms5p8sdl-14pm" ...
 
-        Deleted nodes: ["helm-expt-parity-argoworkflows-mqf5wrs8-q40-control-plane"]
+        Deleted nodes: ["helm-expt-parity-argoworkflows-ms5p8sdl-14pm-control-plane"]
 
-        Deleting Space "helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster" (recursive:
+        Clearing release target on Space "helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster"...
+
+        Deleting Space "helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster" (recursive:
         cascades to Unit, Target, Worker)...
 
 
@@ -49,7 +52,7 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-workflows argo-workflows --repo https://argoproj.github.io/argo-helm
-        --version 1.0.14 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/regular-helm-values.yaml
+        --version 1.0.14 --namespace default-helm --create-namespace --values /private/tmp/helm-expt-argo-workflows/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/regular-helm-values.yaml
         --wait --timeout 8m
       manifestSHA256: 677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc
       objectCount: 19
@@ -58,20 +61,20 @@ spec:
       namespace: default-helm
       runtime:
         result: pass
-        workloads: 'deployment.apps/argo-workflows-server                1/1   1     1     33s
+        workloads: 'deployment.apps/argo-workflows-server                1/1   1     1     38s
 
-          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     33s'
-        pods: 'argo-workflows-server-cfbbfcdf8-lqdhr                 1/1   Running   0     33s
+          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     38s'
+        pods: 'argo-workflows-server-cfbbfcdf8-zr62k                 1/1   Running   0     38s
 
-          argo-workflows-workflow-controller-5f7944bc8f-hb9n5   1/1   Running   0     33s'
+          argo-workflows-workflow-controller-5f7944bc8f-dkmbx   1/1   Running   0     38s'
         notReady: []
         ignoredJobPods: []
       stderr: ''
       getManifestError: ''
     configHubKubectlApply:
       result: pass
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-workflows/1.0.14
-        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
+      renderCommand: cub installer setup --pull /private/tmp/helm-expt-argo-workflows/packages/argo-cd/argo-workflows/1.0.14
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
         --non-interactive --namespace default-apply
       applyMode: namespace-first kubectl apply; separated secrets staged when present
       manifestSHA256: bdadb82857ab36f1c178d1648ec791de5f3f766133d8930aa256bcc80bdcd58b
@@ -87,19 +90,21 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/argo-workflows-server                1/1   1     1     31s
+          deployment.apps/argo-workflows-server                1/1   1     1     30s
 
-          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     31s'
+          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     30s'
         pods: '# default
 
-          argo-workflows-server-68dc849dd4-vwvtd                1/1   Running   0     31s
+          argo-workflows-server-68dc849dd4-vddn9                1/1   Running   0     30s
 
-          argo-workflows-workflow-controller-5f7944bc8f-27zt6   1/1   Running   0     31s'
+          argo-workflows-workflow-controller-5f7944bc8f-m6h78   1/1   Running   0     30s'
         notReady: []
+        terminalReadinessBlockers: {}
       cleanupBeforeOci:
         namespaces:
         - default-apply
-        retainedNamespaces: []
+        retainedNamespaces: &id002
+        - default
         clusterScopedResources:
           result: pass
           objectCount: 11
@@ -131,25 +136,37 @@ spec:
 
             clusterrolebinding.rbac.authorization.k8s.io "argo-workflows-workflow-controller"
             deleted'
-        protectedNamespaceResources:
-          result: not-needed
-          namespaces:
-          - default
-          objectCount: 0
-          preservedPreExistingObjects:
-          - apps/v1|Deployment|default|argo-workflows-server
-          - apps/v1|Deployment|default|argo-workflows-workflow-controller
-          - rbac.authorization.k8s.io/v1|RoleBinding|default|argo-workflows-workflow
-          - rbac.authorization.k8s.io/v1|Role|default|argo-workflows-workflow
-          - v1|ConfigMap|default|argo-workflows-workflow-controller-configmap
-          - v1|ServiceAccount|default|argo-workflows-server
-          - v1|ServiceAccount|default|argo-workflows-workflow-controller
-          - v1|Service|default|argo-workflows-server
-        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
-          parity rigs
+        retainedNamespaceResources:
+          result: pass
+          namespaces: *id002
+          objectCount: 8
+          preservedPreExistingObjects: []
+          manifest: retained-namespace-apply-cleanup.yaml
+          detail: 'configmap "argo-workflows-workflow-controller-configmap" deleted
+            from default namespace
+
+            deployment.apps "argo-workflows-server" deleted from default namespace
+
+            deployment.apps "argo-workflows-workflow-controller" deleted from default
+            namespace
+
+            role.rbac.authorization.k8s.io "argo-workflows-workflow" deleted from
+            default namespace
+
+            rolebinding.rbac.authorization.k8s.io "argo-workflows-workflow" deleted
+            from default namespace
+
+            service "argo-workflows-server" deleted from default namespace
+
+            serviceaccount "argo-workflows-server" deleted from default namespace
+
+            serviceaccount "argo-workflows-workflow-controller" deleted from default
+            namespace'
+        reason: remove the direct-apply workload while preserving namespaces and objects
+          that existed before the lane
     configHubOciArgo:
       result: pass
-      workloadSpace: helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
+      workloadSpace: helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
       controller: Argo CD OCI
       app: argo-workflows-parity
       manifestSHA256: eb3e278917478cc17b3df96007667f9bf2e204cb525c066a74b832893387a848
@@ -158,9 +175,9 @@ spec:
       manifestNamespaces:
       - default
       - default-oci
-      runtimeNamespaces: &id002
+      runtimeNamespaces: &id003
       - default
-      ociRevision: sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4
+      ociRevision: sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e
       sync: Synced
       health: Healthy
       separatedSecrets: []
@@ -176,13 +193,13 @@ spec:
               namespace: default-oci
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
               targetRevision: latest
-          revision: sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4
+          revision: sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e
           status: Synced
         health:
-          lastTransitionTime: '2026-06-15T12:06:21Z'
+          lastTransitionTime: '2026-07-29T06:29:47Z'
           status: Healthy
         summary:
           images:
@@ -191,8 +208,8 @@ spec:
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-15T12:06:21Z'
-          finishedAt: '2026-06-15T12:06:24Z'
+          startedAt: '2026-07-29T06:29:19Z'
+          finishedAt: '2026-07-29T06:29:21Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 20
@@ -200,13 +217,13 @@ spec:
             Synced: 20
         history:
         - id: 0
-          revision: sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4
-          deployedAt: '2026-06-15T12:06:24Z'
-          deployStartedAt: '2026-06-15T12:06:21Z'
+          revision: sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e
+          deployedAt: '2026-07-29T06:29:21Z'
+          deployStartedAt: '2026-07-29T06:29:19Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
             targetRevision: latest
-            path: ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
+            path: .
         conditions: []
         resources:
         - group: ''
@@ -374,102 +391,110 @@ spec:
           describe:
             result: pass
             output: "Name:         argo-workflows-parity\nNamespace:    argocd\nLabels:\
-              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster:argoproj.io/Application:argocd/argo-workflows-parity\n\
-              \              confighub.com/RevisionNum: 1\n              confighub.com/SpaceID:\
-              \ 028581e0-cbc3-4023-8c3a-9b16d93b853e\n              confighub.com/UnitSlug:\
-              \ argo-workflows-parity-app\nAPI Version:  argoproj.io/v1alpha1\nKind:\
-              \         Application\nMetadata:\n  Creation Timestamp:  2026-06-15T12:06:19Z\n\
-              \  Generation:          8\n  Resource Version:    1586\n  UID:     \
-              \            5ab39df5-cde9-4a2f-947e-2b3f57deff11\nSpec:\n  Destination:\n\
+              \       <none>\nAnnotations:  argocd.argoproj.io/tracking-id: helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster:argoproj.io/Application:argocd/argo-workflows-parity\n\
+              \              confighub.com/origin:\n                {\"spaceId\":\"\
+              1b6f52a1-3edf-497e-ae1f-589ce133ad1e\",\"spaceSlug\":\"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
+              ,\"unitId\":\"3a7b17fd-b0...\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-07-29T06:29:11Z\n\
+              \  Generation:          9\n  Resource Version:    1621\n  UID:     \
+              \            cb9548fc-7864-4e57-b6f8-10b6203f7939\nSpec:\n  Destination:\n\
               \    Namespace:  default-oci\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Prune:      true\n      Self Heal:  true\n    Sync Options:\n   \
               \   ServerSideApply=true\n      CreateNamespace=true\nStatus:\n  Controller\
-              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-06-15T12:06:21Z\n\
+              \ Namespace:  argocd\n  Health:\n    Last Transition Time:  2026-07-29T06:29:47Z\n\
               \    Status:                Healthy\n  History:\n    Deploy Started\
-              \ At:  2026-06-15T12:06:21Z\n    Deployed At:        2026-06-15T12:06:24Z\n\
+              \ At:  2026-07-29T06:29:19Z\n    Deployed At:        2026-07-29T06:29:21Z\n\
               \    Id:                 0\n    Initiated By:\n      Automated:  true\n\
-              \    Revision:     sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\n\
-              \    Source:\n      Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
+              \    Revision:     sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-15T12:06:24Z\n    Message:      successfully synced (all\
+              \  2026-07-29T06:29:21Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Prune:\
-              \     true\n        Revision:  sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\n\
-              \        Source:\n          Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
+              \     true\n        Revision:  sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          CreateNamespace=true\n    Phase:\
-              \       Succeeded\n    Started At:  2026-06-15T12:06:21Z\n    Sync Result:\n\
+              \       Succeeded\n    Started At:  2026-07-29T06:29:19Z\n    Sync Result:\n\
               \      Resources:\n        Group:       \n        Hook Phase:  Running\n\
               \        Kind:        Namespace\n        Message:     namespace/default-oci\
               \ serverside-applied\n        Name:        default-oci\n        Namespace:\
               \   default-oci\n        Status:      Synced\n        Sync Phase:  Sync\n\
               \        Version:     v1\n        Group:       \n        Hook Phase:\
               \  Running\n        Kind:        ServiceAccount\n        Message:  \
-              \   serviceaccount/argo-workflows-workflow-controller serverside-applied\n\
-              \        Name:        argo-workflows-workflow-controller\n        Namespace:\
-              \   default\n        Status:      Synced\n        Sync Phase:  Sync\n\
-              \        Version:     v1\n        Group:       \n        Hook Phase:\
-              \  Running\n        Kind:        ServiceAccount\n        Message:  \
               \   serviceaccount/argo-workflows-server serverside-applied\n      \
               \  Name:        argo-workflows-server\n        Namespace:   default\n\
               \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
               \     v1\n        Group:       \n        Hook Phase:  Running\n    \
-              \    Kind:        ConfigMap\n        Message:     configmap/argo-workflows-workflow-controller-configmap\
+              \    Kind:        ServiceAccount\n        Message:     serviceaccount/argo-workflows-workflow-controller\
+              \ serverside-applied\n        Name:        argo-workflows-workflow-controller\n\
+              \        Namespace:   default\n        Status:      Synced\n       \
+              \ Sync Phase:  Sync\n        Version:     v1\n        Group:       \n\
+              \        Hook Phase:  Running\n        Kind:        ConfigMap\n    \
+              \    Message:     configmap/argo-workflows-workflow-controller-configmap\
               \ serverside-applied\n        Name:        argo-workflows-workflow-controller-configmap\n\
               \        Namespace:   default\n        Status:      Synced\n       \
               \ Sync Phase:  Sync\n        Version:     v1\n        Group:       rbac.authorization.k8s.io\n\
               \        Hook Phase:  Running\n        Kind:        ClusterRole\n  \
-              \      Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-server\
-              \ reconciled. reconciliation required create\n                     missing\
-              \ rules added:\n                       {Verbs:[get watch list] APIGroups:[]\
-              \ Resources:[configmaps events] ResourceNames:[] NonResourceURLs:[]}\n\
-              \                       {Verbs:[get list watch delete] APIGroups:[]\
-              \ Resources:[pods] ResourceNames:[] NonResourceURLs:[]}\n          \
-              \             {Verbs:[get list] APIGroups:[] Resources:[pods/log] ResourceNames:[]\
-              \ NonResourceURLs:[]}\n                       {Verbs:[get] APIGroups:[]\
-              \ Resources:[secrets] ResourceNames:[] NonResourceURLs:[]}\n       \
-              \                {Verbs:[watch create patch] APIGroups:[] Resources:[events]\
-              \ ResourceNames:[] NonResourceURLs:[]}\n                       {Verbs:[create\
-              \ get list watch update patch delete] APIGroups:[argoproj.io] Resources:[eventsources\
-              \ sensors workflows workfloweventbindings workflowtemplates cronworkflows]\
-              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/argo-workflows-server\
+              \      Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-admin\
+              \ serverside-applied\n        Name:        argo-workflows-admin\n  \
+              \      Namespace:   default-oci\n        Status:      Synced\n     \
+              \   Sync Phase:  Sync\n        Version:     v1\n        Group:     \
+              \  rbac.authorization.k8s.io\n        Hook Phase:  Running\n       \
+              \ Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-edit\
+              \ serverside-applied\n        Name:        argo-workflows-edit\n   \
+              \     Namespace:   default-oci\n        Status:      Synced\n      \
+              \  Sync Phase:  Sync\n        Version:     v1\n        Group:      \
+              \ rbac.authorization.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-view\
+              \ serverside-applied\n        Name:        argo-workflows-view\n   \
+              \     Namespace:   default-oci\n        Status:      Synced\n      \
+              \  Sync Phase:  Sync\n        Version:     v1\n        Group:      \
+              \ rbac.authorization.k8s.io\n        Hook Phase:  Running\n        Kind:\
+              \        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-server\
               \ serverside-applied\n        Name:        argo-workflows-server\n \
               \       Namespace:   default-oci\n        Status:      Synced\n    \
               \    Sync Phase:  Sync\n        Version:     v1\n        Group:    \
               \   rbac.authorization.k8s.io\n        Hook Phase:  Running\n      \
-              \  Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-workflow-controller-cluster-template\
-              \ reconciled. reconciliation required create\n                     missing\
-              \ rules added:\n                       {Verbs:[get list watch] APIGroups:[argoproj.io]\
-              \ Resources:[clusterworkflowtemplates clusterworkflowtemplates/finalizers]\
-              \ ResourceNames:[] NonResourceURLs:[]}. clusterrole.rbac.authorization.k8s.io/argo-workflows-workflow-controller-cluster-template\
+              \  Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-workflow-controller\
+              \ serverside-applied\n        Name:        argo-workflows-workflow-controller\n\
+              \        Namespace:   default-oci\n        Status:      Synced\n   \
+              \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
+              \    rbac.authorization.k8s.io\n        Hook Phase:  Running\n     \
+              \   Kind:        ClusterRole\n        Message:     clusterrole.rbac.authorization.k8s.io/argo-workflows-workflow-controller-cluster-template\
               \ serverside-applied\n        Name:        argo-workflows-workflow-controller-cluster-template\n\
               \        Namespace:   default-oci\n        Status:      Synced\n   \
               \     Sync Phase:  Sync\n        Version:     v1\n        Group:   \
-              \    rbac.authorization.k8"
+              \    rbac.authorization.k8s.io\n  "
           events:
             result: pass
             output: 'LAST SEEN   TYPE     REASON               OBJECT                              MESSAGE
 
-              9s          Normal   OperationStarted     application/argo-workflows-parity   Initiated
-              automated sync to ''sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4''
+              34s         Normal   OperationStarted     application/argo-workflows-parity   Initiated
+              automated sync to ''sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e''
 
-              9s          Normal   ResourceUpdated      application/argo-workflows-parity   Updated
+              34s         Normal   ResourceUpdated      application/argo-workflows-parity   Updated
               sync status:  -> OutOfSync
 
-              9s          Normal   ResourceUpdated      application/argo-workflows-parity   Updated
+              34s         Normal   ResourceUpdated      application/argo-workflows-parity   Updated
               health status:  -> Healthy
 
-              6s          Normal   OperationCompleted   application/argo-workflows-parity   Sync
-              operation to sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4
+              32s         Normal   OperationCompleted   application/argo-workflows-parity   Sync
+              operation to sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e
               succeeded
 
-              3s          Normal   ResourceUpdated      application/argo-workflows-parity   Updated
-              sync status: OutOfSync -> Synced'
+              31s         Normal   ResourceUpdated      application/argo-workflows-parity   Updated
+              sync status: OutOfSync -> Synced
+
+              31s         Normal   ResourceUpdated      application/argo-workflows-parity   Updated
+              health status: Healthy -> Progressing
+
+              6s          Normal   ResourceUpdated      application/argo-workflows-parity   Updated
+              health status: Progressing -> Healthy'
           argocdCore:
             result: pass
             coreNamespace: argocd
@@ -484,49 +509,50 @@ spec:
                 resources: 20
               artifact:
                 path: argocd-core-child.json
-                sha256: ce5b3256b9c80086e37dee3df8ced10bc9294c263b976a7a304c9bd39c5508f8
-                bytes: 27143
+                sha256: f8c4e3b34bf724f95b23997e1635a9c0c916a45834877e9091ffc85e18f032c5
+                bytes: 20218
               output: "{\n  \"metadata\": {\n    \"name\": \"argo-workflows-parity\"\
-                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"5ab39df5-cde9-4a2f-947e-2b3f57deff11\"\
-                ,\n    \"resourceVersion\": \"1599\",\n    \"generation\": 9,\n  \
-                \  \"creationTimestamp\": \"2026-06-15T12:06:19Z\",\n    \"annotations\"\
-                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster:argoproj.io/Application:argocd/argo-workflows-parity\"\
-                ,\n      \"confighub.com/RevisionNum\": \"1\",\n      \"confighub.com/SpaceID\"\
-                : \"028581e0-cbc3-4023-8c3a-9b16d93b853e\",\n      \"confighub.com/UnitSlug\"\
-                : \"argo-workflows-parity-app\"\n    },\n    \"managedFields\": [\n\
-                \      {\n        \"manager\": \"argocd-controller\",\n        \"\
-                operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
-                ,\n        \"time\": \"2026-06-15T12:06:19Z\",\n        \"fieldsType\"\
-                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
-                : {\n            \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
-                : {},\n              \"f:confighub.com/RevisionNum\": {},\n      \
-                \        \"f:confighub.com/SpaceID\": {},\n              \"f:confighub.com/UnitSlug\"\
-                : {}\n            }\n          },\n          \"f:spec\": {\n     \
-                \       \"f:destination\": {\n              \"f:namespace\": {},\n\
-                \              \"f:server\": {}\n            },\n            \"f:project\"\
-                : {},\n            \"f:source\": {\n              \"f:path\": {},\n\
-                \              \"f:repoURL\": {},\n              \"f:targetRevision\"\
-                : {}\n            },\n            \"f:syncPolicy\": {\n          \
-                \    \"f:automated\": {\n                \"f:prune\": {},\n      \
-                \          \"f:selfHeal\": {}\n              },\n              \"\
-                f:syncOptions\": {}\n            }\n          }\n        }\n     \
-                \ },\n      {\n        \"manager\": \"argocd-application-controller\"\
-                ,\n        \"operation\": \"Update\",\n        \"apiVersion\": \"\
-                argoproj.io/v1alpha1\",\n        \"time\": \"2026-06-15T12:06:38Z\"\
-                ,\n        \"fieldsType\": \"FieldsV1\",\n        \"fieldsV1\": {\n\
-                \          \"f:status\": {\n            \".\": {},\n            \"\
-                f:controllerNamespace\": {},\n            \"f:health\": {\n      \
-                \        \".\": {},\n              \"f:lastTransitionTime\": {},\n\
-                \              \"f:status\": {}\n            },\n            \"f:history\"\
-                : {},\n            \"f:operationState\": {\n              \".\": {},\n\
-                \              \"f:finishedAt\": {},\n              \"f:message\"\
-                : {},\n              \"f:operation\": {\n                \".\": {},\n\
-                \                \"f:initiatedBy\": {\n                  \".\": {},\n\
-                \                  \"f:automated\": {}\n                },\n     \
-                \           \"f:retry\": {\n                  \".\": {},\n       \
-                \           \"f:limit\": {}\n                },\n                \"\
-                f:sync\": {\n                  \".\": {},\n                  \"f:prune\"\
-                : {},\n                  \"f:revision\": {},\n                  \"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"cb9548fc-7864-4e57-b6f8-10b6203f7939\"\
+                ,\n    \"resourceVersion\": \"1642\",\n    \"generation\": 10,\n \
+                \   \"creationTimestamp\": \"2026-07-29T06:29:11Z\",\n    \"annotations\"\
+                : {\n      \"argocd.argoproj.io/tracking-id\": \"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster:argoproj.io/Application:argocd/argo-workflows-parity\"\
+                ,\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"1b6f52a1-3edf-497e-ae1f-589ce133ad1e\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\\\
+                \",\\\"unitId\\\":\\\"3a7b17fd-b004-45ba-8509-6a18cffe715d\\\",\\\"\
+                unitSlug\\\":\\\"argo-workflows-parity-app\\\",\\\"revisionNum\\\"\
+                :1}\"\n    },\n    \"managedFields\": [\n      {\n        \"manager\"\
+                : \"argocd-controller\",\n        \"operation\": \"Apply\",\n    \
+                \    \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\":\
+                \ \"2026-07-29T06:29:11Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                ,\n        \"fieldsV1\": {\n          \"f:metadata\": {\n        \
+                \    \"f:annotations\": {\n              \"f:argocd.argoproj.io/tracking-id\"\
+                : {},\n              \"f:confighub.com/origin\": {}\n            }\n\
+                \          },\n          \"f:spec\": {\n            \"f:destination\"\
+                : {\n              \"f:namespace\": {},\n              \"f:server\"\
+                : {}\n            },\n            \"f:project\": {},\n           \
+                \ \"f:source\": {\n              \"f:path\": {},\n              \"\
+                f:repoURL\": {},\n              \"f:targetRevision\": {}\n       \
+                \     },\n            \"f:syncPolicy\": {\n              \"f:automated\"\
+                : {\n                \"f:prune\": {},\n                \"f:selfHeal\"\
+                : {}\n              },\n              \"f:syncOptions\": {}\n    \
+                \        }\n          }\n        }\n      },\n      {\n        \"\
+                manager\": \"argocd-application-controller\",\n        \"operation\"\
+                : \"Update\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n\
+                \        \"time\": \"2026-07-29T06:30:01Z\",\n        \"fieldsType\"\
+                : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:status\":\
+                \ {\n            \".\": {},\n            \"f:controllerNamespace\"\
+                : {},\n            \"f:health\": {\n              \".\": {},\n   \
+                \           \"f:lastTransitionTime\": {},\n              \"f:status\"\
+                : {}\n            },\n            \"f:history\": {},\n           \
+                \ \"f:operationState\": {\n              \".\": {},\n            \
+                \  \"f:finishedAt\": {},\n              \"f:message\": {},\n     \
+                \         \"f:operation\": {\n                \".\": {},\n       \
+                \         \"f:initiatedBy\": {\n                  \".\": {},\n   \
+                \               \"f:automated\": {}\n                },\n        \
+                \        \"f:retry\": {\n                  \".\": {},\n          \
+                \        \"f:limit\": {}\n                },\n                \"f:sync\"\
+                : {\n                  \".\": {},\n                  \"f:prune\":\
+                \ {},\n                  \"f:revision\": {},\n                  \"\
                 f:source\": {\n                    \".\": {},\n                  \
                 \  \"f:path\": {},\n                    \"f:repoURL\": {},\n     \
                 \               \"f:targetRevision\": {}\n                  },\n \
@@ -552,17 +578,17 @@ spec:
                 : {}\n                }\n              },\n              \"f:revision\"\
                 : {},\n              \"f:status\": {}\n            }\n          }\n\
                 \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
-                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\"\
-                ,\n      \"path\": \"./helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows\"\
-                ,\n      \"targetRevision\": \"latest\"\n    },\n    \"destination\"\
-                : {\n      \"server\": \"https://kubernetes.default.svc\",\n     \
-                \ \"namespace\": \"default-oci\"\n    },\n    \"project\": \"default\"\
-                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"prune\"\
-                : true,\n        \"selfHeal\": true\n      },\n      \"syncOptions\"\
-                : [\n        \"ServerSideApply=true\",\n        \"CreateNamespace=true\"\
-                \n      ]\n    }\n  },\n  \"status\": {\n    \"resources\": [\n  \
-                \    {\n        \"version\": \"v1\",\n        \"kind\": \"ConfigMap\"\
-                ,\n        \"namespace\": \"default\",\n        \"name\": \"argo-workflows-workflow-controller-configmap\"\
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"default-oci\"\n    },\n    \"project\":\
+                \ \"default\",\n    \"syncPolicy\": {\n      \"automated\": {\n  \
+                \      \"prune\": true,\n        \"selfHeal\": true\n      },\n  \
+                \    \"syncOptions\": [\n        \"ServerSideApply=true\",\n     \
+                \   \"CreateNamespace=true\"\n      ]\n    }\n  },\n  \"status\":\
+                \ {\n    \"resources\": [\n      {\n        \"version\": \"v1\",\n\
+                \        \"kind\": \"ConfigMap\",\n        \"namespace\": \"default\"\
+                ,\n        \"name\": \"argo-workflows-workflow-controller-configmap\"\
                 ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"version\"\
                 : \"v1\",\n        \"kind\": \"Namespace\",\n        \"name\": \"\
                 default-oci\",\n        \"status\": \"Synced\"\n      },\n      {\n\
@@ -580,117 +606,81 @@ spec:
                 ,\n        \"namespace\": \"default\",\n        \"name\": \"argo-workflows-server\"\
                 ,\n        \"status\": \"Synced\",\n        \"health\": {\n      \
                 \    \"status\": \"Healthy\"\n        }\n      },\n      {\n     \
-                \   \"group\": \"apps\",\n        \"version\": "
+                \   \"group\": \"apps\",\n        \"version\": \"v1\",\n        \"\
+                kind\": \"Deployment\",\n        \"names"
             tree:
               result: pass
               artifact:
                 path: argocd-core-child-tree.txt
-                sha256: fa4d833dbba7183310f3d0e25cb93d5754225c5df517d9f48932e764a1953366
-                bytes: 3922
+                sha256: eb6975932c5ff1c3a3e658348b00b83260b1a8ed24b3b2efdc7d1e31813cc83e
+                bytes: 3548
               output: "Name:               argocd/argo-workflows-parity\nProject:\
                 \            default\nServer:             https://kubernetes.default.svc\n\
-                Namespace:          default-oci\nURL:                http://localhost:61419/applications/argo-workflows-parity\n\
-                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
-                \  Target:           latest\n  Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows\n\
-                SyncWindow:         Sync Allowed\nSync Policy:        Automated (Prune)\n\
-                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
-                \   Healthy\n\nKIND/NAME                                         \
-                \                      STATUS  HEALTH   AGE    MESSAGE           \
+                Namespace:          default-oci\nURL:                http://localhost:54818/applications/argo-workflows-parity\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated (Prune)\nSync\
+                \ Status:        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \         STATUS  HEALTH   AGE    MESSAGE                        \
+                \                                                   REASON\nDeployment/argo-workflows-workflow-controller\
+                \                           Synced  Healthy  49s    deployment.apps/argo-workflows-workflow-controller\
+                \ serverside-applied             \n\u2514\u2500ReplicaSet/argo-workflows-workflow-controller-5f7944bc8f\
+                \                      Healthy  49s                              \
+                \                                                        \n  \u2514\
+                \u2500Pod/argo-workflows-workflow-controller-5f7944bc8f-m4bn9    \
+                \                 Healthy  49s                                   \
+                \                                                   \nClusterRole/argo-workflows-admin\
+                \                                        Synced           49s    \
                 \                                                                \
+                \                  \nClusterRole/argo-workflows-view             \
+                \                            Synced           49s                \
                 \                                                                \
-                \                                          REASON\nClusterRoleBinding/argo-workflows-workflow-controller\
-                \                   Synced           22s                         \
+                \      \nClusterRole/argo-workflows-workflow-controller          \
+                \                Synced           49s                            \
+                \                                                          \nClusterRoleBinding/argo-workflows-server\
+                \                                Synced           49s            \
                 \                                                                \
+                \          \nConfigMap/argo-workflows-workflow-controller-configmap\
+                \                  Synced           49s    configmap/argo-workflows-workflow-controller-configmap\
+                \ serverside-applied         \nDeployment/argo-workflows-server  \
+                \                                      Synced  Healthy  49s    deployment.apps/argo-workflows-server\
+                \ serverside-applied                          \n\u2514\u2500ReplicaSet/argo-workflows-server-68dc849dd4\
+                \                                   Healthy  49s                 \
                 \                                                                \
-                \                                       \nNamespace/default-oci  \
-                \                                                 Synced         \
-                \  113s                                                          \
+                \     \n  \u2514\u2500Pod/argo-workflows-server-68dc849dd4-zx4qz \
+                \                                 Healthy  49s                   \
                 \                                                                \
+                \   \nClusterRole/argo-workflows-edit                            \
+                \             Synced           49s                               \
+                \                                                       \nClusterRole/argo-workflows-workflow-controller-cluster-template\
+                \         Synced           49s                                   \
+                \                                                   \nRole/argo-workflows-workflow\
+                \                                            Synced           49s\
+                \    role.rbac.authorization.k8s.io/argo-workflows-workflow serverside-applied\
+                \         \nService/argo-workflows-server                        \
+                \                   Synced  Healthy  49s    service/argo-workflows-server\
+                \ serverside-applied                                  \nServiceAccount/argo-workflows-workflow-controller\
+                \                       Synced           49s    serviceaccount/argo-workflows-workflow-controller\
+                \ serverside-applied              \nClusterRole/argo-workflows-server-cluster-template\
+                \                      Synced           49s                      \
+                \                                                                \n\
+                ClusterRoleBinding/argo-workflows-workflow-controller            \
+                \       Synced           49s                                     \
+                \                                                 \nClusterRoleBinding/argo-workflows-workflow-controller-cluster-template\
+                \  Synced           49s                                          \
+                \                                            \nRoleBinding/argo-workflows-workflow\
+                \                                     Synced           49s    rolebinding.rbac.authorization.k8s.io/argo-workflows-workflow\
+                \ serverside-applied  \nNamespace/default-oci                    \
+                \                               Synced           2m17s           \
                 \                                                                \
-                \     \nClusterRole/argo-workflows-edit                          \
-                \               Synced           22s                             \
+                \         \nServiceAccount/argo-workflows-server                 \
+                \                   Synced           49s    serviceaccount/argo-workflows-server\
+                \ serverside-applied                           \nClusterRole/argo-workflows-server\
+                \                                       Synced           49s     \
                 \                                                                \
-                \                                                                \
-                \                                   \nClusterRole/argo-workflows-server\
-                \                                       Synced           22s     \
-                \                                                                \
-                \                                                                \
-                \                                                           \nClusterRole/argo-workflows-workflow-controller-cluster-template\
-                \         Synced           22s                                   \
-                \                                                                \
-                \                                                                \
-                \                             \nRole/argo-workflows-workflow     \
-                \                                       Synced           2m30s  role.rbac.authorization.k8s.io/argo-workflows-workflow\
-                \ reconciled. reconciliation required update. role.rbac.authorization.k8s.io/argo-workflows-workflow\
-                \ serverside-applied                \nRoleBinding/argo-workflows-workflow\
-                \                                     Synced           2m30s  rolebinding.rbac.authorization.k8s.io/argo-workflows-workflow\
-                \ reconciled. reconciliation required update. rolebinding.rbac.authorization.k8s.io/argo-workflows-workflow\
-                \ serverside-applied  \nServiceAccount/argo-workflows-workflow-controller\
-                \                       Synced           2m30s  serviceaccount/argo-workflows-workflow-controller\
-                \ serverside-applied                                             \
-                \                                                                \
-                \           \nConfigMap/argo-workflows-workflow-controller-configmap\
-                \                  Synced           2m30s  configmap/argo-workflows-workflow-controller-configmap\
-                \ serverside-applied                                             \
-                \                                                                \
-                \      \nServiceAccount/argo-workflows-server                    \
-                \                Synced           2m30s  serviceaccount/argo-workflows-server\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                        \nClusterRole/argo-workflows-server-cluster-template\
-                \                      Synced           22s                      \
-                \                                                                \
-                \                                                                \
-                \                                          \nClusterRoleBinding/argo-workflows-server-cluster-template\
-                \               Synced           22s                             \
-                \                                                                \
-                \                                                                \
-                \                                   \nClusterRoleBinding/argo-workflows-workflow-controller-cluster-template\
-                \  Synced           22s                                          \
-                \                                                                \
-                \                                                                \
-                \                      \nService/argo-workflows-server           \
-                \                                Synced  Healthy  2m30s  service/argo-workflows-server\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                               \nDeployment/argo-workflows-server\
-                \                                        Synced  Healthy  2m30s  deployment.apps/argo-workflows-server\
-                \ serverside-applied                                             \
-                \                                                                \
-                \                       \n\u2514\u2500ReplicaSet/argo-workflows-server-68dc849dd4\
-                \                                   Healthy  2m30s               \
-                \                                                                \
-                \                                                                \
-                \                                               \n  \u2514\u2500Pod/argo-workflows-server-68dc849dd4-vwvtd\
-                \                                  Healthy  2m30s                \
-                \                                                                \
-                \                                                                \
-                \                                              \nDeployment/argo-workflows-workflow-controller\
-                \                           Synced  Healthy  2m30s  deployment.apps/argo-workflows-workflow-controller\
-                \ serverside-applied                                             \
-                \                                                                \
-                \          \n\u2514\u2500ReplicaSet/argo-workflows-workflow-controller-5f7944bc8f\
-                \                      Healthy  2m30s                            \
-                \                                                                \
-                \                                                                \
-                \                                  \n  \u2514\u2500Pod/argo-workflows-workflow-controller-5f7944bc8f-27zt6\
-                \                     Healthy  2m30s                             \
-                \                                                                \
-                \                                                                \
-                \                                 \nClusterRole/argo-workflows-admin\
-                \                                        Synced           22s    \
-                \                                                                \
-                \                                                                \
-                \                                                            \nClusterRole/argo-workflows-view\
-                \                                         Synced           22s   \
-                \                                                                \
-                \                                                                \
-                \                                                             \nClusterRole/argo-workflows-workflow-controller\
-                \                          Synced           22s                  \
-                \                                                                \
-                \                                                                \
-                \                                              \nClusterRoleBinding/argo-workflows-server\
-                \                                Synced           22s"
+                \                 \nClusterRoleBinding/argo-workflows-server-cluster-template\
+                \               Synced           49s"
           cubScoutGitOpsStatus:
             result: pass
             summary:
@@ -705,18 +695,18 @@ spec:
               : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
               OCIRepository/argocd/argo-workflows-parity\",\n      \"syncStatus\"\
               : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
-              : \"sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\"\
+              : \"sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
-              helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\",\n      \"namespace\"\
+              helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\",\n      \"namespace\"\
               : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
               ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
-              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\"\
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
               ,\n      \"name\": \"argo-workflows-parity\",\n      \"namespace\":\
               \ \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
-              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
               \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       rootArgoStatus:
@@ -727,20 +717,20 @@ spec:
               namespace: argocd
               server: https://kubernetes.default.svc
             source:
-              path: ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster
-              repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci
+              path: .
+              repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster
               targetRevision: latest
-          revision: sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4
+          revision: sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed
           status: Synced
         health:
-          lastTransitionTime: '2026-06-15T12:02:40Z'
+          lastTransitionTime: '2026-07-29T06:25:40Z'
           status: Healthy
         summary: {}
         operationState:
           phase: Succeeded
           message: successfully synced (all tasks run)
-          startedAt: '2026-06-15T12:06:17Z'
-          finishedAt: '2026-06-15T12:06:19Z'
+          startedAt: '2026-07-29T06:29:10Z'
+          finishedAt: '2026-07-29T06:29:11Z'
           operationSyncResourceCount: 0
           operationSyncResources: []
           syncResultResourceCount: 2
@@ -748,13 +738,21 @@ spec:
             Synced: 2
         history:
         - id: 0
-          revision: sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4
-          deployedAt: '2026-06-15T12:06:19Z'
-          deployStartedAt: '2026-06-15T12:06:17Z'
+          revision: sha256:997a8b9e728142b3c4b8a7990ba271f1064a573b4f7bc82ba167e5c23f054ec5
+          deployedAt: '2026-07-29T06:25:42Z'
+          deployStartedAt: '2026-07-29T06:25:40Z'
           source:
-            repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster
             targetRevision: latest
-            path: ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster
+            path: .
+        - id: 1
+          revision: sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed
+          deployedAt: '2026-07-29T06:29:11Z'
+          deployStartedAt: '2026-07-29T06:29:10Z'
+          source:
+            repoURL: oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster
+            targetRevision: latest
+            path: .
         conditions: []
         resources:
         - group: argoproj.io
@@ -768,7 +766,7 @@ spec:
         - group: argoproj.io
           kind: Application
           namespace: argocd
-          name: helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster
+          name: helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster
           status: Synced
           health: ''
           healthMessage: ''
@@ -777,97 +775,116 @@ spec:
           healthResidue: []
           describe:
             result: pass
-            output: "Name:         helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-              Namespace:    argocd\nLabels:       <none>\nAnnotations:  <none>\nAPI\
-              \ Version:  argoproj.io/v1alpha1\nKind:         Application\nMetadata:\n\
-              \  Creation Timestamp:  2026-06-15T12:02:37Z\n  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n\
-              \  Generation:        8\n  Resource Version:  1508\n  UID:         \
-              \      a7566182-99b0-4706-ae81-360050b60984\nSpec:\n  Destination:\n\
-              \    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
-              \  Project:      default\n  Source:\n    Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-              \    Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
+            output: "Name:         helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
+              Namespace:    argocd\nLabels:       <none>\nAnnotations:  confighub.com/origin:\n\
+              \                {\"spaceId\":\"1b6f52a1-3edf-497e-ae1f-589ce133ad1e\"\
+              ,\"spaceSlug\":\"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
+              ,\"unitId\":\"77f62ea9-ce...\nAPI Version:  argoproj.io/v1alpha1\nKind:\
+              \         Application\nMetadata:\n  Creation Timestamp:  2026-07-29T06:25:32Z\n\
+              \  Finalizers:\n    resources-finalizer.argocd.argoproj.io\n  Generation:\
+              \        13\n  Resource Version:  1490\n  UID:               b115e5c7-6a67-4802-9fac-8e98bbc8e448\n\
+              Spec:\n  Destination:\n    Namespace:  argocd\n    Server:     https://kubernetes.default.svc\n\
+              \  Project:      default\n  Source:\n    Path:             .\n    Repo\
+              \ URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
               \    Target Revision:  latest\n  Sync Policy:\n    Automated:\n    \
               \  Self Heal:  true\n    Sync Options:\n      ServerSideApply=true\n\
               \      ServerSideApply.ForceConflicts=true\n      RespectIgnoreDifferences=true\n\
               \      CreateNamespace=false\nStatus:\n  Controller Namespace:  argocd\n\
-              \  Health:\n    Last Transition Time:  2026-06-15T12:02:40Z\n    Status:\
-              \                Healthy\n  History:\n    Deploy Started At:  2026-06-15T12:06:17Z\n\
-              \    Deployed At:        2026-06-15T12:06:19Z\n    Id:             \
+              \  Health:\n    Last Transition Time:  2026-07-29T06:25:40Z\n    Status:\
+              \                Healthy\n  History:\n    Deploy Started At:  2026-07-29T06:25:40Z\n\
+              \    Deployed At:        2026-07-29T06:25:42Z\n    Id:             \
               \    0\n    Initiated By:\n      Automated:  true\n    Revision:   \
-              \  sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\n\
-              \    Source:\n      Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-              \      Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
+              \  sha256:997a8b9e728142b3c4b8a7990ba271f1064a573b4f7bc82ba167e5c23f054ec5\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
+              \      Target Revision:  latest\n    Deploy Started At:  2026-07-29T06:29:10Z\n\
+              \    Deployed At:        2026-07-29T06:29:11Z\n    Id:             \
+              \    1\n    Initiated By:\n      Automated:  true\n    Revision:   \
+              \  sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed\n\
+              \    Source:\n      Path:             .\n      Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
               \      Target Revision:  latest\n  Operation State:\n    Finished At:\
-              \  2026-06-15T12:06:19Z\n    Message:      successfully synced (all\
+              \  2026-07-29T06:29:11Z\n    Message:      successfully synced (all\
               \ tasks run)\n    Operation:\n      Initiated By:\n        Automated:\
               \  true\n      Retry:\n        Limit:  5\n      Sync:\n        Revision:\
-              \  sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\n\
-              \        Source:\n          Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-              \          Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
+              \  sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed\n\
+              \        Source:\n          Path:             .\n          Repo URL:\
+              \         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
               \          Target Revision:  latest\n        Sync Options:\n       \
               \   ServerSideApply=true\n          ServerSideApply.ForceConflicts=true\n\
               \          RespectIgnoreDifferences=true\n          CreateNamespace=false\n\
-              \    Phase:       Succeeded\n    Started At:  2026-06-15T12:06:17Z\n\
+              \    Phase:       Succeeded\n    Started At:  2026-07-29T06:29:10Z\n\
               \    Sync Result:\n      Resources:\n        Group:       argoproj.io\n\
               \        Hook Phase:  Running\n        Kind:        Application\n  \
               \      Message:     application.argoproj.io/argo-workflows-parity serverside-applied\n\
               \        Name:        argo-workflows-parity\n        Namespace:   argocd\n\
               \        Status:      Synced\n        Sync Phase:  Sync\n        Version:\
               \     v1alpha1\n        Group:       argoproj.io\n        Hook Phase:\
-              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\
-              \ serverside-applied\n        Name:        helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
+              \  Running\n        Kind:        Application\n        Message:     application.argoproj.io/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\
+              \ serverside-applied\n        Name:        helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
               \        Namespace:   argocd\n        Status:      Synced\n        Sync\
               \ Phase:  Sync\n        Version:     v1alpha1\n      Revision:     \
-              \ sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\n\
-              \      Source:\n        Path:              ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-              \        Repo URL:          oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
-              \        Target Revision:   latest\n  Reconciled At:           2026-06-15T12:06:19Z\n\
+              \ sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed\n\
+              \      Source:\n        Path:              .\n        Repo URL:    \
+              \      oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
+              \        Target Revision:   latest\n  Reconciled At:           2026-07-29T06:29:11Z\n\
               \  Resource Health Source:  appTree\n  Resources:\n    Group:      argoproj.io\n\
               \    Kind:       Application\n    Name:       argo-workflows-parity\n\
               \    Namespace:  argocd\n    Status:     Synced\n    Version:    v1alpha1\n\
               \    Group:      argoproj.io\n    Kind:       Application\n    Name:\
-              \       helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n    Namespace:\
+              \       helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n    Namespace:\
               \  argocd\n    Status:     Synced\n    Version:    v1alpha1\n  Source\
               \ Hydrator:\n  Source Type:  Directory\n  Summary:\n  Sync:\n    Compared\
               \ To:\n      Destination:\n        Namespace:  argocd\n        Server:\
               \     https://kubernetes.default.svc\n      Source:\n        Path: \
-              \            ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-              \        Repo URL:         oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
-              \        Target Revision:  latest\n    Revision:             sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\n\
+              \            .\n        Repo URL:         oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
+              \        Target Revision:  latest\n    Revision:             sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed\n\
               \    Status:               Synced\nEvents:\n  Type    Reason       \
-              \       Age   From                           Message\n  ----    ------\
-              \              ----  ----                           -------\n  Normal\
-              \  ResourceUpdated     4m7s  argocd-application-controller  Updated\
-              \ sync status:  -> Unknown\n  Normal  ResourceUpdated     4m7s  argocd-application-controller\
-              \  Updated health status:  -> Healthy\n  Normal  OperationStarted  \
-              \  30s   argocd-application-controller  Initiated automated sync to\
-              \ 'sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4'\n\
-              \  Normal  ResourceUpdated     30s   argocd-application-controller \
-              \ Updated sync status: Unknown -> OutOfSync\n  Normal  OperationCompleted\
-              \  28s   argocd-application-controller  Sync operation to sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\
-              \ succeeded\n  Normal  ResourceUpdated     26s   argocd-application-controller\
-              \  Updated sync status: OutOfSync -> Synced"
+              \       Age    From                           Message\n  ----    ------\
+              \              ----   ----                           -------\n  Normal\
+              \  OperationStarted    4m30s  argocd-application-controller  Initiated\
+              \ automated sync to 'sha256:997a8b9e728142b3c4b8a7990ba271f1064a573b4f7bc82ba167e5c23f054ec5'\n\
+              \  Normal  ResourceUpdated     4m30s  argocd-application-controller\
+              \  Updated sync status:  -> OutOfSync\n  Normal  ResourceUpdated   \
+              \  4m30s  argocd-application-controller  Updated health status:  ->\
+              \ Healthy\n  Normal  OperationCompleted  4m28s  argocd-application-controller\
+              \  Sync operation to sha256:997a8b9e728142b3c4b8a7990ba271f1064a573b4f7bc82ba167e5c23f054ec5\
+              \ succeeded\n  Normal  ResourceUpdated     4m26s  argocd-application-controller\
+              \  Updated sync status: OutOfSync -> Synced\n  Normal  OperationStarted\
+              \    60s    argocd-application-controller  Initiated automated sync\
+              \ to 'sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed'\n\
+              \  Normal  ResourceUpdated     60s    argocd-application-controller\
+              \  Updated sync status: Synced -> OutOfSync\n  Normal  OperationCompleted\
+              \  59s    argocd-application-controller  "
           events:
             result: pass
-            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                            MESSAGE
+            output: 'LAST SEEN   TYPE     REASON               OBJECT                                                             MESSAGE
 
-              4m7s        Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster   Updated
-              sync status:  -> Unknown
+              4m30s       Normal   OperationStarted     application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Initiated
+              automated sync to ''sha256:997a8b9e728142b3c4b8a7990ba271f1064a573b4f7bc82ba167e5c23f054ec5''
 
-              4m7s        Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster   Updated
+              4m30s       Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Updated
+              sync status:  -> OutOfSync
+
+              4m30s       Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Updated
               health status:  -> Healthy
 
-              30s         Normal   OperationStarted     application/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster   Initiated
-              automated sync to ''sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4''
-
-              30s         Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster   Updated
-              sync status: Unknown -> OutOfSync
-
-              28s         Normal   OperationCompleted   application/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster   Sync
-              operation to sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4
+              4m28s       Normal   OperationCompleted   application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Sync
+              operation to sha256:997a8b9e728142b3c4b8a7990ba271f1064a573b4f7bc82ba167e5c23f054ec5
               succeeded
 
-              26s         Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster   Updated
+              4m26s       Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Updated
+              sync status: OutOfSync -> Synced
+
+              60s         Normal   OperationStarted     application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Initiated
+              automated sync to ''sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed''
+
+              60s         Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Updated
+              sync status: Synced -> OutOfSync
+
+              59s         Normal   OperationCompleted   application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Sync
+              operation to sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed
+              succeeded
+
+              57s         Normal   ResourceUpdated      application/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster   Updated
               sync status: OutOfSync -> Synced'
           argocdCore:
             result: pass
@@ -883,22 +900,24 @@ spec:
                 resources: 2
               artifact:
                 path: argocd-core-root.json
-                sha256: b95cf884d2b100d8d9ff9fb1d2006352d1d32d046bb128e5b5b8fb0ed5254bb4
-                bytes: 10753
-              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\"\
-                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"a7566182-99b0-4706-ae81-360050b60984\"\
-                ,\n    \"resourceVersion\": \"1624\",\n    \"generation\": 9,\n  \
-                \  \"creationTimestamp\": \"2026-06-15T12:02:37Z\",\n    \"annotations\"\
-                : {\n      \"kubectl.kubernetes.io/last-applied-configuration\": \"\
-                {\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\":\\\"\
-                Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"finalizers\\\
-                \":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\"name\\\":\\\
-                \"helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\\\",\\\"namespace\\\
-                \":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\":{\\\"namespace\\\
-                \":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
+                sha256: 44e721b50b4502b412cfb66b17fe335b6365319b12175f536f4bb635354c565b
+                bytes: 9900
+              output: "{\n  \"metadata\": {\n    \"name\": \"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
+                ,\n    \"namespace\": \"argocd\",\n    \"uid\": \"b115e5c7-6a67-4802-9fac-8e98bbc8e448\"\
+                ,\n    \"resourceVersion\": \"1668\",\n    \"generation\": 14,\n \
+                \   \"creationTimestamp\": \"2026-07-29T06:25:32Z\",\n    \"annotations\"\
+                : {\n      \"confighub.com/origin\": \"{\\\"spaceId\\\":\\\"1b6f52a1-3edf-497e-ae1f-589ce133ad1e\\\
+                \",\\\"spaceSlug\\\":\\\"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\\\
+                \",\\\"unitId\\\":\\\"77f62ea9-ce4b-47a5-a244-3429d00ec010\\\",\\\"\
+                unitSlug\\\":\\\"root\\\",\\\"revisionNum\\\":1}\",\n      \"kubectl.kubernetes.io/last-applied-configuration\"\
+                : \"{\\\"apiVersion\\\":\\\"argoproj.io/v1alpha1\\\",\\\"kind\\\"\
+                :\\\"Application\\\",\\\"metadata\\\":{\\\"annotations\\\":{},\\\"\
+                finalizers\\\":[\\\"resources-finalizer.argocd.argoproj.io\\\"],\\\
+                \"name\\\":\\\"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\\\
+                \",\\\"namespace\\\":\\\"argocd\\\"},\\\"spec\\\":{\\\"destination\\\
+                \":{\\\"namespace\\\":\\\"argocd\\\",\\\"server\\\":\\\"https://kubernetes.default.svc\\\
                 \"},\\\"project\\\":\\\"default\\\",\\\"source\\\":{\\\"path\\\":\\\
-                \"./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\\\",\\\"repoURL\\\
-                \":\\\"oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\\\
+                \".\\\",\\\"repoURL\\\":\\\"oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\\\
                 \",\\\"targetRevision\\\":\\\"latest\\\"},\\\"syncPolicy\\\":{\\\"\
                 automated\\\":{\\\"selfHeal\\\":true},\\\"syncOptions\\\":[\\\"ServerSideApply=true\\\
                 \",\\\"ServerSideApply.ForceConflicts=true\\\",\\\"RespectIgnoreDifferences=true\\\
@@ -906,9 +925,10 @@ spec:
                 : [\n      \"resources-finalizer.argocd.argoproj.io\"\n    ],\n  \
                 \  \"managedFields\": [\n      {\n        \"manager\": \"argocd-controller\"\
                 ,\n        \"operation\": \"Apply\",\n        \"apiVersion\": \"argoproj.io/v1alpha1\"\
-                ,\n        \"time\": \"2026-06-15T12:02:37Z\",\n        \"fieldsType\"\
+                ,\n        \"time\": \"2026-07-29T06:25:42Z\",\n        \"fieldsType\"\
                 : \"FieldsV1\",\n        \"fieldsV1\": {\n          \"f:metadata\"\
-                : {\n            \"f:annotations\": {\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
+                : {\n            \"f:annotations\": {\n              \"f:confighub.com/origin\"\
+                : {},\n              \"f:kubectl.kubernetes.io/last-applied-configuration\"\
                 : {}\n            },\n            \"f:finalizers\": {\n          \
                 \    \"v:\\\"resources-finalizer.argocd.argoproj.io\\\"\": {}\n  \
                 \          }\n          },\n          \"f:spec\": {\n            \"\
@@ -919,31 +939,10 @@ spec:
                 : {}\n            },\n            \"f:syncPolicy\": {\n          \
                 \    \"f:automated\": {\n                \"f:selfHeal\": {}\n    \
                 \          },\n              \"f:syncOptions\": {}\n            }\n\
-                \          },\n          \"f:status\": {\n            \"f:controllerNamespace\"\
-                : {},\n            \"f:health\": {\n              \"f:lastTransitionTime\"\
-                : {},\n              \"f:status\": {}\n            },\n          \
-                \  \"f:operationState\": {\n              \"f:operation\": {\n   \
-                \             \"f:initiatedBy\": {\n                  \"f:automated\"\
-                : {}\n                },\n                \"f:retry\": {\n       \
-                \           \"f:limit\": {}\n                },\n                \"\
-                f:sync\": {\n                  \"f:revision\": {},\n             \
-                \     \"f:source\": {\n                    \"f:path\": {},\n     \
-                \               \"f:repoURL\": {},\n                    \"f:targetRevision\"\
-                : {}\n                  },\n                  \"f:syncOptions\": {}\n\
-                \                }\n              },\n              \"f:startedAt\"\
-                : {}\n            },\n            \"f:resourceHealthSource\": {},\n\
-                \            \"f:sourceHydrator\": {},\n            \"f:sourceType\"\
-                : {},\n            \"f:summary\": {},\n            \"f:sync\": {\n\
-                \              \"f:comparedTo\": {\n                \"f:destination\"\
-                : {\n                  \"f:namespace\": {},\n                  \"\
-                f:server\": {}\n                },\n                \"f:source\":\
-                \ {\n                  \"f:path\": {},\n                  \"f:repoURL\"\
-                : {},\n                  \"f:targetRevision\": {}\n              \
-                \  }\n              },\n              \"f:revision\": {}\n       \
-                \     }\n          }\n        }\n      },\n      {\n        \"manager\"\
-                : \"argocd-application-controller\",\n        \"operation\": \"Update\"\
+                \          }\n        }\n      },\n      {\n        \"manager\": \"\
+                argocd-application-controller\",\n        \"operation\": \"Update\"\
                 ,\n        \"apiVersion\": \"argoproj.io/v1alpha1\",\n        \"time\"\
-                : \"2026-06-15T12:06:55Z\",\n        \"fieldsType\": \"FieldsV1\"\
+                : \"2026-07-29T06:30:18Z\",\n        \"fieldsType\": \"FieldsV1\"\
                 ,\n        \"fieldsV1\": {\n          \"f:status\": {\n          \
                 \  \".\": {},\n            \"f:controllerNamespace\": {},\n      \
                 \      \"f:health\": {\n              \".\": {},\n              \"\
@@ -981,27 +980,43 @@ spec:
                 \ {}\n                }\n              },\n              \"f:revision\"\
                 : {},\n              \"f:status\": {}\n            }\n          }\n\
                 \        }\n      }\n    ]\n  },\n  \"spec\": {\n    \"source\": {\n\
-                \      \"repoURL\": \"oci://o"
+                \      \"repoURL\": \"oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
+                ,\n      \"path\": \".\",\n      \"targetRevision\": \"latest\"\n\
+                \    },\n    \"destination\": {\n      \"server\": \"https://kubernetes.default.svc\"\
+                ,\n      \"namespace\": \"argocd\"\n    },\n    \"project\": \"default\"\
+                ,\n    \"syncPolicy\": {\n      \"automated\": {\n        \"selfHeal\"\
+                : true\n      },\n      \"syncOptions\": [\n        \"ServerSideApply=true\"\
+                ,\n        \"ServerSideApply.ForceConflicts=true\",\n        \"RespectIgnoreDifferences=true\"\
+                ,\n        \"CreateNamespace=false\"\n      ]\n    }\n  },\n  \"status\"\
+                : {\n    \"resources\": [\n      {\n        \"group\": \"argoproj.io\"\
+                ,\n        \"version\": \"v1alpha1\",\n        \"kind\": \"Application\"\
+                ,\n        \"namespace\": \"argocd\",\n        \"name\": \"argo-workflows-parity\"\
+                ,\n        \"status\": \"Synced\"\n      },\n      {\n        \"group\"\
+                : \"argoproj.io\",\n        \"version\": \"v1alpha1\",\n        \"\
+                kind\": \"Application\",\n        \"namespace\": \"argocd\",\n   \
+                \     \"name\": \"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
+                ,\n        \"status\": \"Synced\"\n      }\n    ],\n    \"sync\":\
+                \ {\n      \"status\": \"Sync"
             tree:
               result: pass
               artifact:
                 path: argocd-core-root-tree.txt
-                sha256: 97fd516ca9c7c856a8b7257713c2b4fdad9a42240040e1af5f7cfc236f81d796
-                bytes: 1182
-              output: "Name:               argocd/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
+                sha256: 5a054484e34e22921f41673d056ef321d87a8ba629d8868c6ef8cc3268c561a6
+                bytes: 1133
+              output: "Name:               argocd/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
                 Project:            default\nServer:             https://kubernetes.default.svc\n\
-                Namespace:          argocd\nURL:                http://localhost:61537/applications/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-                Source:\n- Repo:             oci://oci.hub.confighub.com:443/target/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci\n\
-                \  Target:           latest\n  Path:             ./helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\n\
-                SyncWindow:         Sync Allowed\nSync Policy:        Automated\n\
-                Sync Status:        Synced to latest (sha256:)\nHealth Status:   \
-                \   Healthy\n\nKIND/NAME                                         \
-                \               STATUS  HEALTH  AGE    MESSAGE                   \
-                \                                                                \
-                \      REASON\nApplication/argo-workflows-parity                 \
-                \               Synced          45s    application.argoproj.io/argo-workflows-parity\
-                \ serverside-applied                                \nApplication/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\
-                \  Synced          4m27s  application.argoproj.io/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\
+                Namespace:          argocd\nURL:                http://localhost:54934/applications/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
+                Source:\n- Repo:             oci://oci.hub.confighub.com:443/space/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\n\
+                \  Target:           latest\n  Path:             .\nSyncWindow:  \
+                \       Sync Allowed\nSync Policy:        Automated\nSync Status:\
+                \        Synced to latest (sha256:)\nHealth Status:      Healthy\n\
+                \nKIND/NAME                                                      \
+                \   STATUS  HEALTH  AGE    MESSAGE                               \
+                \                                                           REASON\n\
+                Application/argo-workflows-parity                                \
+                \ Synced          76s    application.argoproj.io/argo-workflows-parity\
+                \ serverside-applied                                 \nApplication/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\
+                \  Synced          4m55s  application.argoproj.io/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\
                 \ serverside-applied"
           cubScoutGitOpsStatus:
             result: pass
@@ -1017,39 +1032,39 @@ spec:
               : \"successfully synced (all tasks run)\",\n      \"sourceRef\": \"\
               OCIRepository/argocd/argo-workflows-parity\",\n      \"syncStatus\"\
               : \"Synced\",\n      \"healthStatus\": \"Healthy\",\n      \"lastAttemptedRevision\"\
-              : \"sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\"\
+              : \"sha256:4564e1f2e379a9c8cd34ee0beec1a20a11b475e2de892419c9f3034dd10cf34e\"\
               \n    },\n    {\n      \"kind\": \"Application\",\n      \"name\": \"\
-              helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\",\n      \"namespace\"\
+              helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\",\n      \"namespace\"\
               : \"argocd\",\n      \"ready\": true,\n      \"stage\": \"healthy\"\
               ,\n      \"message\": \"successfully synced (all tasks run)\",\n   \
-              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\"\
+              \   \"sourceRef\": \"OCIRepository/argocd/helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
               ,\n      \"syncStatus\": \"Synced\",\n      \"healthStatus\": \"Healthy\"\
-              ,\n      \"lastAttemptedRevision\": \"sha256:6c23b604ecd2cf0a04411bd825685d94c0446e0149435ef42775d6685f5b9ab4\"\
+              ,\n      \"lastAttemptedRevision\": \"sha256:41f8655d19da998b28a464c27b73320ad546360b251ffe1aff3247f022b07fed\"\
               \n    }\n  ],\n  \"sources\": [\n    {\n      \"kind\": \"OCIRepository\"\
               ,\n      \"name\": \"argo-workflows-parity\",\n      \"namespace\":\
               \ \"argocd\",\n      \"ready\": true\n    },\n    {\n      \"kind\"\
-              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster\"\
+              : \"OCIRepository\",\n      \"name\": \"helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster\"\
               ,\n      \"namespace\": \"argocd\",\n      \"ready\": true\n    }\n\
               \  ],\n  \"healthyCount\": 2,\n  \"failedCount\": 0\n}"
       runtime:
         result: pass
-        namespaces: *id002
+        namespaces: *id003
         workloads: '# default
 
-          deployment.apps/argo-workflows-server                1/1   1     1     2m48s
+          deployment.apps/argo-workflows-server                1/1   1     1     67s
 
-          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     2m48s'
+          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     67s'
         pods: '# default
 
-          argo-workflows-server-68dc849dd4-vwvtd                1/1   Running   0             2m48s
+          argo-workflows-server-68dc849dd4-zx4qz                1/1   Running   0     67s
 
-          argo-workflows-workflow-controller-5f7944bc8f-27zt6   1/1   Running   1
-          (40s ago)   2m48s'
+          argo-workflows-workflow-controller-5f7944bc8f-m4bn9   1/1   Running   0     67s'
         notReady: []
+        terminalReadinessBlockers: {}
   semanticComparison:
     allowedExtraConfigHubObjects:
     - v1|Namespace||default
-    semanticNormalizations: &id003
+    semanticNormalizations: &id004
     - prune-null-fields
     helmVsConfigHubKubectlApply:
       result: pass
@@ -1058,9 +1073,12 @@ spec:
       missingFromConfigHub: []
       extraInConfigHub:
       - v1|Namespace||default
+      allowedExtraInConfigHub:
+      - v1|Namespace||default
+      unallowedExtraInConfigHub: []
       semanticDiffs: []
-      semanticNormalizations: *id003
-      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+      semanticNormalizations: *id004
+      comparisonSHA256: 9ea6179f3c25d4c4f32c77e848b288f587e606f72db92255195c920b216dbfb0
     helmVsConfigHubOciArgo:
       result: pass
       helmObjectCount: 19
@@ -1068,124 +1086,132 @@ spec:
       missingFromConfigHub: []
       extraInConfigHub:
       - v1|Namespace||default
+      allowedExtraInConfigHub:
+      - v1|Namespace||default
+      unallowedExtraInConfigHub: []
       semanticDiffs: []
       semanticNormalizations:
       - prune-null-fields
-      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+      comparisonSHA256: 9ea6179f3c25d4c4f32c77e848b288f587e606f72db92255195c920b216dbfb0
   operationTimings:
   - name: regular-helm-install
     result: pass
-    startedAt: '2026-06-15T12:02:42Z'
-    finishedAt: '2026-06-15T12:03:28Z'
-    elapsedSeconds: 46.247
+    startedAt: '2026-07-29T06:25:32Z'
+    finishedAt: '2026-07-29T06:26:24Z'
+    elapsedSeconds: 52.12
     timeoutSeconds: 900
     command: helm upgrade --install argo-workflows argo-workflows --repo https://argoproj.github.io/argo-helm
-      --version 1.0.14 --namespace default-helm --create-namespace --values $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/regular-helm-values.yaml
+      --version 1.0.14 --namespace default-helm --create-namespace --values /private/tmp/helm-expt-argo-workflows/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/regular-helm-values.yaml
       --wait --timeout 8m
   - name: configHub-direct-render
     result: pass
-    startedAt: '2026-06-15T12:04:11Z'
-    finishedAt: '2026-06-15T12:04:11Z'
-    elapsedSeconds: 0.275
+    startedAt: '2026-07-29T06:27:07Z'
+    finishedAt: '2026-07-29T06:27:08Z'
+    elapsedSeconds: 0.568
     timeoutSeconds: 360
-    command: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-workflows/1.0.14
-      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
+    command: cub installer setup --pull /private/tmp/helm-expt-argo-workflows/packages/argo-cd/argo-workflows/1.0.14
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
       --non-interactive --namespace default-apply
   - name: configHub-direct-apply
     result: pass
-    startedAt: '2026-06-15T12:04:16Z'
-    finishedAt: '2026-06-15T12:04:16Z'
-    elapsedSeconds: 0.192
+    startedAt: '2026-07-29T06:27:16Z'
+    finishedAt: '2026-07-29T06:27:17Z'
+    elapsedSeconds: 0.164
     timeoutSeconds: 300
-    command: kubectl --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argoworkflows-mqf5wrs8-q40.kubeconfig
-      --context kind-helm-expt-parity-argoworkflows-mqf5wrs8-q40 apply --server-side
-      --force-conflicts -f $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/direct-apply-manifest.yaml
+    command: kubectl --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-argoworkflows-ms5p8sdl-14pm.kubeconfig
+      --context kind-helm-expt-parity-argoworkflows-ms5p8sdl-14pm apply --server-side
+      --force-conflicts -f /private/tmp/helm-expt-argo-workflows/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/direct-apply-manifest.yaml
     objectCount: 19
   - name: configHub-direct-readiness
     result: pass
-    startedAt: '2026-06-15T12:04:16Z'
-    finishedAt: '2026-06-15T12:04:47Z'
-    elapsedSeconds: 30.626
+    startedAt: '2026-07-29T06:27:17Z'
+    finishedAt: '2026-07-29T06:27:47Z'
+    elapsedSeconds: 30.65
     timeoutSeconds: 300
     namespaces: default
   - name: configHub-oci-render
     result: pass
-    startedAt: '2026-06-15T12:04:53Z'
-    finishedAt: '2026-06-15T12:04:53Z'
-    elapsedSeconds: 0.259
+    startedAt: '2026-07-29T06:27:53Z'
+    finishedAt: '2026-07-29T06:27:53Z'
+    elapsedSeconds: 0.364
     timeoutSeconds: 360
-    command: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-workflows/1.0.14
-      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
+    command: cub installer setup --pull /private/tmp/helm-expt-argo-workflows/packages/argo-cd/argo-workflows/1.0.14
+      --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
       --non-interactive --namespace default-oci
   - name: configHub-oci-upload
     result: pass
-    startedAt: '2026-06-15T12:04:57Z'
-    finishedAt: '2026-06-15T12:05:51Z'
-    elapsedSeconds: 53.563
+    startedAt: '2026-07-29T06:28:02Z'
+    finishedAt: '2026-07-29T06:28:57Z'
+    elapsedSeconds: 55.466
     timeoutSeconds: 600
-    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
-      --space helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows --target
-      helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci
+    command: cub installer upload --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
+      --space helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows --target
+      helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster/oci
     objectCount: 20
+  - name: configHub-oci-workload-release-target
+    result: pass
+    startedAt: '2026-07-29T06:28:57Z'
+    finishedAt: '2026-07-29T06:28:58Z'
+    elapsedSeconds: 0.817
+    timeoutSeconds: 120
+    command: cub space update helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
+      --release-target helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster/oci
   - name: configHub-oci-unit-list
     result: pass
-    startedAt: '2026-06-15T12:05:51Z'
-    finishedAt: '2026-06-15T12:05:52Z'
-    elapsedSeconds: 0.56
+    startedAt: '2026-07-29T06:28:58Z'
+    finishedAt: '2026-07-29T06:28:59Z'
+    elapsedSeconds: 0.634
     timeoutSeconds: 120
-    command: cub unit list --space helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
-  - name: configHub-oci-unit-apply
+    command: cub unit list --space helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
+  - name: configHub-oci-workload-release-publish
     result: pass
-    startedAt: '2026-06-15T12:05:52Z'
-    finishedAt: '2026-06-15T12:06:07Z'
-    elapsedSeconds: 15.599
+    startedAt: '2026-07-29T06:28:59Z'
+    finishedAt: '2026-07-29T06:29:00Z'
+    elapsedSeconds: 1.305
     timeoutSeconds: 360
-    command: cub unit apply --space helm-expt-parity-argoworkflows-mqf5wrs8-q40-argo-workflows
-      --unit <20 unit(s)> --wait --timeout 5m
+    command: cub release publish helm-expt-parity-argoworkflows-ms5p8sdl-14pm-argo-workflows
     unitCount: 20
   - name: configHub-oci-app-create
     result: pass
-    startedAt: '2026-06-15T12:06:07Z'
-    finishedAt: '2026-06-15T12:06:08Z'
-    elapsedSeconds: 1.055
+    startedAt: '2026-07-29T06:29:00Z'
+    finishedAt: '2026-07-29T06:29:01Z'
+    elapsedSeconds: 1.205
     timeoutSeconds: 180
-    command: cub unit create --space helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster
-      argo-workflows-parity-app $HOME/code/helm-expt/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/argo-application.json
-      --target helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster/oci --allow-exists
-  - name: configHub-oci-app-apply
+    command: cub unit create --space helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster
+      argo-workflows-parity-app /private/tmp/helm-expt-argo-workflows/runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/argo-application.json
+      --target helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster/oci --allow-exists
+  - name: configHub-oci-app-release-publish
     result: pass
-    startedAt: '2026-06-15T12:06:08Z'
-    finishedAt: '2026-06-15T12:06:09Z'
-    elapsedSeconds: 1.042
+    startedAt: '2026-07-29T06:29:01Z'
+    finishedAt: '2026-07-29T06:29:02Z'
+    elapsedSeconds: 0.908
     timeoutSeconds: 360
-    command: cub unit apply --space helm-expt-parity-argoworkflows-mqf5wrs8-q40-cluster
-      --unit <1 unit(s)> --wait --timeout 5m
-    unitCount: 1
+    command: cub release publish helm-expt-parity-argoworkflows-ms5p8sdl-14pm-cluster
   - name: configHub-oci-argo-wait
     result: pass
-    startedAt: '2026-06-15T12:06:09Z'
-    finishedAt: '2026-06-15T12:06:29Z'
-    elapsedSeconds: 20.141
+    startedAt: '2026-07-29T06:29:02Z'
+    finishedAt: '2026-07-29T06:29:53Z'
+    elapsedSeconds: 50.335
     timeoutSeconds: 420
-    waitedSeconds: 20
+    waitedSeconds: 50
     sync: Synced
     health: Healthy
   - name: configHub-oci-readiness
     result: pass
-    startedAt: '2026-06-15T12:07:04Z'
-    finishedAt: '2026-06-15T12:07:04Z'
-    elapsedSeconds: 0.11
+    startedAt: '2026-07-29T06:30:28Z'
+    finishedAt: '2026-07-29T06:30:28Z'
+    elapsedSeconds: 0.101
     timeoutSeconds: 180
     namespaces: default
   checks:
   - name: live-lane-lock
     result: pass
-    detail: acquired $HOME/.confighub/locks/helm-expt-live-parity.lock
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
   - name: cluster-up
     result: pass
-    detail: "Creating kind cluster \"helm-expt-parity-argoworkflows-mqf5wrs8-q40\"\
-      \ (kubeconfig: $HOME/.confighub/lk/helm-expt-parity-argoworkflows-mqf5wrs8-q40.kubeconfig)...\n\
-      Creating cluster \"helm-expt-parity-argoworkflows-mqf5wrs8-q40\" ...\n \u2022\
+    detail: "Creating kind cluster \"helm-expt-parity-argoworkflows-ms5p8sdl-14pm\"\
+      \ (kubeconfig: /Users/alexis/.confighub/clusters/helm-expt-parity-argoworkflows-ms5p8sdl-14pm.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-argoworkflows-ms5p8sdl-14pm\" ...\n \u2022\
       \ Ensuring node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring\
       \ node image (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6\
       \   ...\n \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration\
@@ -1193,21 +1219,21 @@ spec:
       \ control-plane \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\
       \uFE0F\n \u2022 Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\
       \n \u2022 Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass\
-      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-argoworkflows-mqf5wrs8-q40\"\
-      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argoworkflows-mqf5wrs8-q40\
-      \ --kubeconfig $HOME/.confighub/lk/helm-expt-parity-argoworkflows-mqf5wrs8-q40.kubeconfig\n\
-      \nThanks for using kind! \U0001F60A\nInstalling Argo CD...\nCreating namespace\
-      \ \"argocd\"...\napiVersion: v1\nkind:"
+      \ \U0001F4BE\nSet kubectl context to \"kind-helm-expt-parity-argoworkflows-ms5p8sdl-14pm\"\
+      \nYou can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-argoworkflows-ms5p8sdl-14pm\
+      \ --kubeconfig /Users/alexis/.confighub/clusters/helm-expt-parity-argoworkflows-ms5p8sdl-14pm.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersi"
   - name: target-facts-regular-helm
     result: pass
-    detail: secrets=0 crds=8 namespaces=0 objectStores=0
+    detail: secrets=0 crds=0 namespaces=0 objectStores=0
   - name: regular-helm-live
     result: pass
     detail: 'Release "argo-workflows" does not exist. Installing it now.
 
       NAME: argo-workflows
 
-      LAST DEPLOYED: Mon Jun 15 13:02:44 2026
+      LAST DEPLOYED: Wed Jul 29 07:25:34 2026
 
       NAMESPACE: default-helm
 
@@ -1239,18 +1265,21 @@ spec:
     result: pass
     detail: '# default
 
-      deployment.apps/argo-workflows-server                1/1   1     1     31s
+      deployment.apps/argo-workflows-server                1/1   1     1     30s
 
-      deployment.apps/argo-workflows-workflow-controller   1/1   1     1     31s'
+      deployment.apps/argo-workflows-workflow-controller   1/1   1     1     30s'
   - name: confighub-kubectl-apply-cluster-cleanup
     result: pass
     detail: objects=11
+  - name: confighub-kubectl-apply-retained-namespace-cleanup
+    result: pass
+    detail: objects=8 namespaces=default
   - name: target-facts-confighub-oci
     result: pass
     detail: secrets=0 crds=8 namespaces=0 objectStores=0
   - name: confighub-oci-argo-live
     result: pass
-    detail: sync=Synced health=Healthy after 20s
+    detail: sync=Synced health=Healthy after 50s
   - name: semantic-object-parity
     result: pass
     detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
@@ -1258,31 +1287,7 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs:
-      - name: clusterworkflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: cronworkflows.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowartifactgctasks.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workfloweventbindings.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflows.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowtaskresults.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowtasksets.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
+      stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
     configHubKubectlApply:
@@ -1290,61 +1295,127 @@ spec:
       stagedSecrets: []
       stagedCRDs:
       - name: clusterworkflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_clusterworkflowtemplates.yaml
+        sourceSHA256: 6451671e3cca063fdc31a242d1eeedbe07240667f3801c0ece62557f71405838
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_clusterworkflowtemplates.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: cronworkflows.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_cronworkflows.yaml
+        sourceSHA256: 83d3bd6dff62fce97b6db5a7413b25de26bed9f25a3f223aa4b6bf7499290fc6
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_cronworkflows.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: workflowartifactgctasks.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowartifactgctasks.yaml
+        sourceSHA256: 9dd524792dfa35513afe0f754b02f76ac6e1b7488479fcd895fb08faeb8ddbd2
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowartifactgctasks.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: workfloweventbindings.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workfloweventbindings.yaml
+        sourceSHA256: 0941c8fda9cde30fd320313f8c0c2f1decf323f673e73bf679614af9e815093f
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workfloweventbindings.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: workflows.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml
+        sourceSHA256: 4dea37845b8ce92a2c255f5a72a92243674d6ba9c63637146ade88d4ef03484e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflows.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: workflowtaskresults.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtaskresults.yaml
+        sourceSHA256: 86fb637b4268b3993f65f240d184604b3de77ecbf803662b9393ef116bfefe04
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtaskresults.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: workflowtasksets.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtasksets.yaml
+        sourceSHA256: b83e656ce12393c833c3c3356f59eb7500e96adb896c53ec0313a2a3ba8a3f8e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtasksets.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       - name: workflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtemplates.yaml
+        sourceSHA256: 5aa32400ce3f1fca44c6cc6547a5f74173a9d29ec3fdb2b3da6d40f89a2ea152
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtemplates.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubKubectlApply
       stagedObjectStores: []
       stagedNamespaces: []
+      lifecycleActions: []
     configHubOciArgo:
       result: pass
       stagedSecrets: []
       stagedCRDs:
       - name: clusterworkflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_clusterworkflowtemplates.yaml
+        sourceSHA256: 6451671e3cca063fdc31a242d1eeedbe07240667f3801c0ece62557f71405838
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_clusterworkflowtemplates.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: cronworkflows.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_cronworkflows.yaml
+        sourceSHA256: 83d3bd6dff62fce97b6db5a7413b25de26bed9f25a3f223aa4b6bf7499290fc6
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_cronworkflows.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: workflowartifactgctasks.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowartifactgctasks.yaml
+        sourceSHA256: 9dd524792dfa35513afe0f754b02f76ac6e1b7488479fcd895fb08faeb8ddbd2
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowartifactgctasks.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: workfloweventbindings.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workfloweventbindings.yaml
+        sourceSHA256: 0941c8fda9cde30fd320313f8c0c2f1decf323f673e73bf679614af9e815093f
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workfloweventbindings.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: workflows.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml
+        sourceSHA256: 4dea37845b8ce92a2c255f5a72a92243674d6ba9c63637146ade88d4ef03484e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflows.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: workflowtaskresults.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtaskresults.yaml
+        sourceSHA256: 86fb637b4268b3993f65f240d184604b3de77ecbf803662b9393ef116bfefe04
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtaskresults.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: workflowtasksets.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtasksets.yaml
+        sourceSHA256: b83e656ce12393c833c3c3356f59eb7500e96adb896c53ec0313a2a3ba8a3f8e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtasksets.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       - name: workflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourcePath: /private/tmp/helm-expt-argo-workflows/recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtemplates.yaml
+        sourceSHA256: 5aa32400ce3f1fca44c6cc6547a5f74173a9d29ec3fdb2b3da6d40f89a2ea152
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtemplates.yaml
+        applyMode: server-side-force-conflicts
         lane: configHubOciArgo
       stagedObjectStores: []
       stagedNamespaces: []
+      lifecycleActions: []
   operatingPolicy:
     regularHelm:
       result: pass

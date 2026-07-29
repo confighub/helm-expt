@@ -27,3 +27,4 @@ spec:
     - "extension-slots"
     - "cluster-rbac"
   proofFocus: "workflow controller, CRDs, RBAC"
+  operationsGuide: "docs/demo/hooks-crds/argo-workflows.md"

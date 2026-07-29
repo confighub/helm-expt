@@ -1,0 +1,57 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteReceipt
+metadata:
+  name: argo-cd-argo-workflows-default-full-crd-route
+spec:
+  chart: argo-cd/argo-workflows
+  version: 1.0.14
+  base: default
+  result: observed
+  selectedAt: "2026-07-29"
+  observedAt: "2026-07-29T06:04:14Z"
+  route:
+    summary: The package carries the eight full upstream CRD files and applies them server-side with forced conflict resolution before the ordinary rendered objects.
+    phases:
+      - hookTypes: [pre-install, pre-upgrade]
+        action: preflight-or-presync-crd-apply
+        reason: The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.
+  evidence:
+    - path: docs/demo/hooks-crds/argo-workflows.md
+      claim: The human guide explains the normal Helm behavior, the packaged alternative, the smaller minimal-CRD option, and the limits.
+    - path: data/hook-route-candidates/argo-cd-argo-workflows.yaml
+      claim: The chart review records the full-CRD hook and the available route choices.
+    - path: recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml
+      claim: The base records each full CRD source URL, source digest, delivery lane, and apply mode.
+    - path: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml
+      claim: The recipe vendors the exact full Workflows CRD used by the locked chart version; the other seven CRDs are stored beside it.
+    - path: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+      claim: The installer package contains the full CRD bundle used by the direct route.
+    - path: runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml
+      claim: Separate kind clusters proved matching live CRD specifications, semantic object parity, ready workloads, and successful cleanup.
+    - path: runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml
+      claim: ConfigHub direct apply and OCI delivery through Argo CD both converged after the same eight locked CRDs were staged first.
+  execution:
+    helmHooksExecutedByHarness: true
+    runtimeObserved: true
+    observedRoute:
+      route: preflight-or-presync-crd-apply
+      result: pass
+      receipts:
+        - runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml
+        - runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml
+      fullCRDs: 8
+      matchingLiveCRDSpecs: 8
+      ordinaryHelmObjects: 19
+      semanticParity: pass
+      convergedWorkloads: 2
+    notes:
+      - Normal Helm executed the chart's real pre-install hook in its own cluster.
+      - The package route used the locked full CRD bundle and the chart's server-side force-conflicts apply mode.
+      - This receipt proves the direct fresh-install route for the default base.
+      - The ConfigHub OCI lane reached Argo CD only after the proof harness staged the CRDs; Argo CD did not execute the CRD action.
+      - The controller-default-reviewed base uses the same render and CRD bundle but has not been run as a separate live lane.
+      - Argo CD and Flux have not executed this CRD action as a native sync hook or ordered step.
+  remainingWork:
+    - Run a cross-version upgrade with the full CRD action before claiming upgrade safety.
+    - Prove Argo CD and Flux ordering separately before claiming controller-native execution.
+    - Record CRD ownership and recovery policy before recommending this base for production.

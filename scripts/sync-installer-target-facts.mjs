@@ -163,6 +163,12 @@ function verifyChart(chart) {
           `${relativeRepo(packageRoot)} base ${variantName} must point ${requirement.name} at its packaged CRD bundle`,
         );
       }
+      if (requirement.applyMode) {
+        check(
+          actualRequirement.applyMode === requirement.applyMode,
+          `${relativeRepo(packageRoot)} base ${variantName} apply mode mismatch for ${requirement.name}`,
+        );
+      }
     }
     verifyCrdBundle(chart, packageRoot, variantName, targetFacts);
     const setupCheck = (receipt.spec?.setupChecks ?? []).find((item) => item.variant === variantName);
@@ -266,6 +272,7 @@ function externalRequiresFor(targetFacts, variantName) {
       suggestedSource: isOperatorBootstrapCrd(crd)
         ? crd.suggestedSource
         : `package://${crdBundleRelativePath(variantName)}`,
+      ...(crd.applyMode ? { applyMode: crd.applyMode } : {}),
     })),
   );
   requirements.push(
@@ -379,6 +386,12 @@ function requiredCrdDocs(chart, variantName, requiredCRDs) {
       existsSync(sourcePath),
       `${relativeRepo(chart.recipeRoot)} base ${variantName} CRD ${crd.name} source does not exist: ${relativeRepo(sourcePath)}`,
     );
+    if (crd.sourceSHA256) {
+      check(
+        sha256File(sourcePath) === crd.sourceSHA256,
+        `${relativeRepo(chart.recipeRoot)} base ${variantName} CRD ${crd.name} source SHA mismatch: ${relativeRepo(sourcePath)}`,
+      );
+    }
     if (!crdSourceDocCache.has(sourcePath)) {
       crdSourceDocCache.set(sourcePath, parseDocs(readFileSync(sourcePath, "utf8")));
     }

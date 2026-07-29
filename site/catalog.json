@@ -19632,6 +19632,42 @@
     {
       "chart": "argo-cd/argo-workflows",
       "version": "1.0.14",
+      "base_or_variant": "default",
+      "quirk_class": "crd-install",
+      "hook_phases": "pre-install, pre-upgrade",
+      "source_disposition": "selected-route-receipt",
+      "disposition": "observed",
+      "route_name": "preflight-or-presync-crd-apply",
+      "default_route": "preflight-or-presync-crd-apply",
+      "alternatives": [
+        {
+          "route": "self-contained-crd-base",
+          "requirement": "a preset config that renders the required CRDs as ordinary objects before the workloads"
+        },
+        {
+          "route": "target-owned-crds",
+          "requirement": "the cluster or an operator owns CRD install and upgrade out of band"
+        },
+        {
+          "route": "refuse",
+          "requirement": "use a no-crds base and install/upgrade the CRDs yourself"
+        }
+      ],
+      "route_requirements": "The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.",
+      "execution_mode": "user-executes",
+      "human_offramp": "recipe-base-or-values",
+      "agent_offramp": "routes-json",
+      "offramp": {
+        "human": "recipe-base-or-values",
+        "agent": "routes-json"
+      },
+      "live_status": "observed",
+      "safe_as_automatic": false,
+      "evidence_or_next_action": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-default.yaml;docs/demo/hooks-crds/argo-workflows.md;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml;packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml;runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml"
+    },
+    {
+      "chart": "argo-cd/argo-workflows",
+      "version": "1.0.14",
       "base_or_variant": "minimal-crds",
       "quirk_class": "crd-install",
       "hook_phases": "pre-install, pre-upgrade",
@@ -20839,7 +20875,7 @@
     }
   ],
   "lifecycleRouteActionSummary": {
-    "total": 39,
+    "total": 40,
     "automatic": 0
   },
   "helmRenderIntents": [
@@ -31110,6 +31146,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -31143,6 +31180,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "recipe-time-lifecycle-verification",
@@ -31176,6 +31214,7 @@
           "base": "controller-default-reviewed",
           "recipeVersion": "1.0.14",
           "requiredCrdCount": 8,
+          "packagedCrdCount": 8,
           "routes": [
             {
               "route_name": "preflight-or-presync-crd-apply",
@@ -31185,11 +31224,11 @@
               "execution_mode": "not-yet-executable",
               "disposition": "routed",
               "automatic": false,
-              "whoRuns": "Prerequisite - apply the CRDs before the workloads",
+              "whoRuns": "Prerequisite - run the generated package script before the workloads",
               "operatingDetails": "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs - apply them first through a lifecycle step or your platform",
+              "delta": "packaged-action",
+              "reason": "the package carries the 8 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "1.0.14",
               "evidence": "data/hook-route-candidates/candidates.csv",
               "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
@@ -31202,24 +31241,25 @@
           "base": "default",
           "recipeVersion": "1.0.14",
           "requiredCrdCount": 8,
+          "packagedCrdCount": 8,
           "routes": [
             {
               "route_name": "preflight-or-presync-crd-apply",
               "quirk_class": "crd-install",
               "lifecycle_phase": "pre-apply",
               "action_kind": "install-crd",
-              "execution_mode": "not-yet-executable",
-              "disposition": "routed",
+              "execution_mode": "user-executes",
+              "disposition": "observed",
               "automatic": false,
-              "whoRuns": "Prerequisite - apply the CRDs before the workloads",
-              "operatingDetails": "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits",
+              "whoRuns": "Handled - the generated package script applies the CRDs first",
+              "operatingDetails": "The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.",
               "command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
-              "delta": "prerequisite",
-              "reason": "this base does not install the 8 CRDs - apply them first through a lifecycle step or your platform",
+              "delta": "resolved",
+              "reason": "the package carries and applies the 8 CRDs before the workload (observed live)",
               "sourceVersion": "1.0.14",
-              "evidence": "data/hook-route-candidates/candidates.csv",
-              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
-              "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
+              "evidence": "data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-default.yaml;docs/demo/hooks-crds/argo-workflows.md;data/hook-route-candidates/argo-cd-argo-workflows.yaml;recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml;recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml;packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml;runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml;runs/live-helm-confighub-compare/argo-cd-argo-workflows-default/receipt.yaml",
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
               "sourceDrift": ""
             }
           ]
@@ -31228,6 +31268,7 @@
           "base": "minimal-crds",
           "recipeVersion": "1.0.14",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "self-contained-crd-base",
@@ -31261,12 +31302,14 @@
           "base": "default",
           "recipeVersion": "21.1.4",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": []
         },
         {
           "base": "legacy",
           "recipeVersion": "21.1.4",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "preflight-or-presync",
@@ -31293,6 +31336,7 @@
           "base": "no-crds",
           "recipeVersion": "21.1.4",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": []
         }
       ]
@@ -31306,6 +31350,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -31339,6 +31384,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -31372,6 +31418,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "explicit-managed-action",
@@ -31405,6 +31452,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "target-class-preflight-and-upgrade-action",
@@ -31438,6 +31486,7 @@
           "base": "default",
           "recipeVersion": "0.57.6",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -31490,6 +31539,7 @@
           "base": "default",
           "recipeVersion": "3.22.2",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "preflight-or-presync",
@@ -31535,6 +31585,7 @@
           "base": "no-crds",
           "recipeVersion": "3.22.2",
           "requiredCrdCount": 17,
+          "packagedCrdCount": 17,
           "routes": []
         }
       ]
@@ -31548,6 +31599,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "argocd-or-flux-lifecycle-hook",
@@ -31581,6 +31633,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "upgrade-action-with-receipt",
@@ -31614,12 +31667,14 @@
           "base": "default",
           "recipeVersion": "2.19.0",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": []
         },
         {
           "base": "no-crds",
           "recipeVersion": "2.19.0",
           "requiredCrdCount": 6,
+          "packagedCrdCount": 6,
           "routes": [
             {
               "route_name": "webhook-readiness-observation",
@@ -31653,6 +31708,7 @@
           "base": "(chart-level)",
           "recipeVersion": "",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "upgrade-action-with-receipt",
@@ -31686,6 +31742,7 @@
           "base": "default",
           "recipeVersion": "3.8.1",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "delete-cleanup-policy",
@@ -31788,6 +31845,7 @@
           "base": "no-crds",
           "recipeVersion": "3.8.1",
           "requiredCrdCount": 22,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "delete-cleanup-policy",
@@ -31916,6 +31974,7 @@
           "base": "default",
           "recipeVersion": "v3.32.0",
           "requiredCrdCount": 4,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "explicit-delete-cleanup-action",
@@ -31968,6 +32027,7 @@
           "base": "default",
           "recipeVersion": "85.3.3",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -32108,6 +32168,7 @@
           "base": "no-crds",
           "recipeVersion": "85.3.3",
           "requiredCrdCount": 10,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -32248,6 +32309,7 @@
           "base": "default",
           "recipeVersion": "86.1.0",
           "requiredCrdCount": 0,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -32388,6 +32450,7 @@
           "base": "no-crds",
           "recipeVersion": "86.1.0",
           "requiredCrdCount": 10,
+          "packagedCrdCount": 0,
           "routes": [
             {
               "route_name": "preserve-cleanup-policy",
@@ -41349,9 +41412,9 @@
       "strongest_evidence": "source-lock",
       "next_action": "choose or create an F2 base before rendering or deploying",
       "hook_count": "1",
-      "hook_disposition": "candidate-route",
+      "hook_disposition": "observed",
       "hook_evidence_version": "",
-      "hook_live_status": "todo",
+      "hook_live_status": "yes",
       "lifecycle_route_contract": "n/a",
       "lifecycle_route_count": "",
       "lifecycle_route_dispositions": "",
@@ -41432,13 +41495,13 @@
       "strongest_evidence": "live-helm-vs-confighub-parity",
       "next_action": "run catalog promotion review",
       "hook_count": "1",
-      "hook_disposition": "candidate-route",
+      "hook_disposition": "observed",
       "hook_evidence_version": "",
-      "hook_live_status": "todo",
-      "lifecycle_route_contract": "todo",
+      "hook_live_status": "yes",
+      "lifecycle_route_contract": "yes",
       "lifecycle_route_count": "1",
-      "lifecycle_route_dispositions": "todo:1",
-      "lifecycle_route_execution_modes": "not-yet-executable:1",
+      "lifecycle_route_dispositions": "observed:1",
+      "lifecycle_route_execution_modes": "user-executes:1",
       "lifecycle_route_safe_automatic": "0/1",
       "lifecycle_route_evidence_version": "",
       "lifecycle_route_contract_path": "data/lifecycle-routes/summary.md",

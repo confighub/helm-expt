@@ -3889,7 +3889,12 @@ function whoRunsVariantTables(c, emissionChart = null) {
     const evidence = [...new Set(v.routes.flatMap((route) => splitDisposition(route.evidence)))];
     const nextActions = [...new Set(v.routes.map((route) => route.nextAction).filter(Boolean))];
     const version = showVersion && v.recipeVersion ? `@${v.recipeVersion}` : "";
-    const heading = `${v.base}${version}${v.requiredCrdCount ? `: needs ${v.requiredCrdCount} CRDs supplied first` : ""}`;
+    const crdHeading = v.requiredCrdCount
+      ? v.packagedCrdCount === v.requiredCrdCount
+        ? `: package applies ${v.requiredCrdCount} CRDs first`
+        : `: needs ${v.requiredCrdCount} CRDs supplied first`
+      : "";
+    const heading = `${v.base}${version}${crdHeading}`;
     const evidenceLine = evidence.length || nextActions.length
       ? `<p class="small">${evidence.length ? `<strong>Evidence:</strong> ${pathLinks(evidence.join(";"))}` : ""}${evidence.length && nextActions.length ? "<br>" : ""}${nextActions.length ? `<strong>Next:</strong> ${escapeHtml(nextActions.join("; "))}` : ""}</p>`
       : "";
@@ -5442,6 +5447,36 @@ function packageRequirementsForEntry(entry) {
   return packageRequirementsForBase(entry, entry.start_variant);
 }
 
+function groupPackageRequirements(requirements) {
+  const groups = new Map();
+  for (const requirement of requirements) {
+    const kind = String(requirement.name ?? requirement.kind ?? "required input").split(/\s+/, 1)[0];
+    const key = [
+      kind,
+      requirement.suggestedSource ?? "",
+      requirement.applyMode ?? "",
+      requirement.namespace ?? "",
+    ].join("\u0000");
+    const group = groups.get(key) ?? [];
+    group.push(requirement);
+    groups.set(key, group);
+  }
+  return [...groups.values()];
+}
+
+function packageRequirementGroupLabel(group) {
+  if (group.length === 1) return group[0].name || group[0].kind || "Required target input";
+  const firstKind = String(group[0].name ?? group[0].kind ?? "input").split(/\s+/, 1)[0];
+  const plural = firstKind === "CRD"
+    ? "CRDs"
+    : firstKind === "Secret"
+      ? "Secrets"
+      : firstKind === "Namespace"
+        ? "Namespaces"
+        : `${firstKind}s`;
+  return `${group.length} ${plural}`;
+}
+
 // Per-base variant scripts. Each runnable base variant row ships try.sh (render locally,
 // prerequisites in order, kubectl apply) and confighub.sh (render locally,
 // upload to the user's Space). Both are emitted from the same data as the
@@ -5480,7 +5515,13 @@ function packagedRequirementDescription(requirement) {
   const path = packagedRequirementPath(requirement.suggestedSource);
   if (!path) return "";
   if (String(requirement.name ?? "").startsWith("CRD ")) {
-    return `Included in the OCI package as <code>${escapeHtml(path)}</code>. The generated try script leaves existing CRDs under their current owner, installs missing ones, and waits for them before the workload.`;
+    const applyDetail = requirement.applyMode === "server-side-force-conflicts"
+      ? "refreshes the locked CRDs with the chart's server-side, force-conflicts apply mode"
+      : "applies missing CRDs server-side";
+    const ownershipDetail = requirement.applyMode === "server-side-force-conflicts"
+      ? "The generated try script runs this step before the workload and waits for every CRD to become established."
+      : "The generated try script leaves existing CRDs under their current owner and waits for them before the workload.";
+    return `Included in the OCI package as <code>${escapeHtml(path)}</code>. It ${applyDetail}. ${ownershipDetail}`;
   }
   if (String(requirement.name ?? "").startsWith("Secret ")) {
     return `Included in the OCI package as <code>${escapeHtml(path)}</code>. The generated try script leaves complete existing Secrets under their current owner; otherwise it runs the packaged setup action and checks every required key before the workload.`;
@@ -5608,6 +5649,9 @@ function presetTryScript(entry, row) {
     const crdNames = groupedRequirements
       .map((requirement) => /^CRD\s+(.+)$/.exec(String(requirement.name ?? ""))?.[1])
       .filter(Boolean);
+    const forceCrdConflicts = groupedRequirements.some(
+      (requirement) => requirement.applyMode === "server-side-force-conflicts",
+    );
     const secretRequirements = groupedRequirements
       .map((requirement) => {
         const match = /^Secret\s+([^/]+)\/([^\s]+)(?:\s+keys?\s+(.+))?$/.exec(String(requirement.name ?? ""));
@@ -5620,30 +5664,42 @@ function presetTryScript(entry, row) {
       })
       .filter(Boolean);
     if (crdNames.length) {
-      const label = crdNames.length === 1
-        ? `Check the ${crdNames[0]} CRD included with this package`
-        : `Check ${crdNames.length} CRDs included with this package`;
-      lines.push(
-        "",
-        `say "${shellStepText(label)}"`,
-        "missing_crds=0",
-      );
-      for (const crdName of crdNames) {
+      const applyCommand = path.endsWith("/kustomization.yaml")
+        ? `kubectl apply --server-side${forceCrdConflicts ? " --force-conflicts" : ""} -k ${workDir}/package/${posix.dirname(path)}`
+        : `kubectl apply --server-side${forceCrdConflicts ? " --force-conflicts" : ""} -f ${workDir}/package/${path}`;
+      if (forceCrdConflicts) {
+        const label = crdNames.length === 1
+          ? `Apply the locked ${crdNames[0]} CRD before the workload`
+          : `Apply the ${crdNames.length} locked CRDs before the workload`;
         lines.push(
-          `if ! kubectl get crd/${crdName} >/dev/null 2>&1; then`,
-          "  missing_crds=1",
+          "",
+          `say "${shellStepText(label)}"`,
+          applyCommand,
+        );
+      } else {
+        const label = crdNames.length === 1
+          ? `Check the ${crdNames[0]} CRD included with this package`
+          : `Check ${crdNames.length} CRDs included with this package`;
+        lines.push(
+          "",
+          `say "${shellStepText(label)}"`,
+          "missing_crds=0",
+        );
+        for (const crdName of crdNames) {
+          lines.push(
+            `if ! kubectl get crd/${crdName} >/dev/null 2>&1; then`,
+            "  missing_crds=1",
+            "fi",
+          );
+        }
+        lines.push(
+          'if [ "$missing_crds" -eq 1 ]; then',
+          `  ${applyCommand}`,
+          "else",
+          '  say "The required CRDs already exist; leave them under their current owner"',
           "fi",
         );
       }
-      lines.push(
-        'if [ "$missing_crds" -eq 1 ]; then',
-        path.endsWith("/kustomization.yaml")
-          ? `  kubectl apply --server-side -k ${workDir}/package/${posix.dirname(path)}`
-          : `  kubectl apply --server-side -f ${workDir}/package/${path}`,
-        "else",
-        '  say "The required CRDs already exist; leave them under their current owner"',
-        "fi",
-      );
       for (const crdName of crdNames) {
         lines.push(`wait_for_crd ${crdName}`);
       }
@@ -6029,20 +6085,25 @@ function chartPageHtml(catalog, entry) {
       && entry.version === "85.3.3"
       ? "runs/kps-lifecycle-route-proof/receipt.yaml"
       : "";
+  const argoWorkflowsGuidePath =
+    entry.chart === "argo-cd/argo-workflows"
+      && entry.version === "1.0.14"
+      ? "docs/demo/hooks-crds/argo-workflows.md"
+      : "";
   const packageRequirements = packageRequirementsForEntry(entry);
-  const packageRequirementRows = packageRequirements.map((requirement) => [
-    requirement.name || requirement.kind || "required target input",
-    requirementSourceHtml(requirement),
+  const packageRequirementRows = groupPackageRequirements(packageRequirements).map((group) => [
+    packageRequirementGroupLabel(group),
+    requirementSourceHtml(group[0]),
   ]);
   const packageRequirementTableRows = packageRequirementRows.length
     ? packageRequirementRows
     : [["None recorded for the recommended base variant.", "No separate setup command recorded."]];
   const basePrerequisiteRows = matrixRows
     .filter((row) => row.row_kind === "base")
-    .flatMap((row) => packageRequirementsForBase(entry, row.variant).map((requirement) => [
+    .flatMap((row) => groupPackageRequirements(packageRequirementsForBase(entry, row.variant)).map((group) => [
       row.variant,
-      requirement.name || requirement.kind || "required target input",
-      requirementSourceHtml(requirement),
+      packageRequirementGroupLabel(group),
+      requirementSourceHtml(group[0]),
       `<a href="../../data/helm-render-intents/intents/${helmRenderIntentFileName(row.chart, row.version, row.variant)}">full render intent</a>`,
     ]));
   const artifactRows = [
@@ -6065,6 +6126,7 @@ function chartPageHtml(catalog, entry) {
     ["Current proof status", "docs/user/current-proof-status.md"],
     [gitOpsReview ? "Cluster runtime review" : "", gitOpsReview ? gitOpsReviewPath : ""],
     [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof" : "", kpsLifecycleProofPath],
+    [argoWorkflowsGuidePath ? "Argo Workflows CRD guide" : "", argoWorkflowsGuidePath],
     [
       entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
         ? "Exact NGINX three-path delivery receipt"
@@ -6433,6 +6495,21 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
       </div>
       <p>The direct script has run that full fresh-install sequence. Argo CD, Flux, and the chart upgrade still need their own receipts.</p>
       <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the direct lifecycle proof</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
+    </section>`;
+  }
+  if (entry.chart === "argo-cd/argo-workflows" && entry.version === "1.0.14") {
+    return `<section aria-labelledby="argo-workflows-teaching">
+      <h2 id="argo-workflows-teaching">Argo Workflows CRDs</h2>
+      <p>The normal Helm install runs a hook that downloads eight full CRD files from GitHub and applies them before the controller and server. Those CRDs are not in the ordinary rendered release, so another delivery path has to replace that step deliberately.</p>
+      <p>The catalog package contains the exact eight files used by this chart version. Their source URLs and digests are recorded. The no-account script applies them with the same server-side, force-conflicts mode as the Helm hook, waits for them to become established, and then applies the ordinary objects.</p>
+      ${markdownLikeTable([
+        ["Choice", "What happens"],
+        ["<code>default</code>", "Uses the full upstream CRD schemas. The package applies the locked CRD bundle before the workloads."],
+        ["<code>minimal-crds</code>", "Renders eight smaller CRDs as ordinary objects. This avoids the hook but uses looser schemas that preserve unknown fields."],
+        ["Argo CD or Flux", "Ordering still needs its own controller-specific proof. The direct package result does not claim either controller ran this step automatically."],
+      ], { rawFirstColumn: true })}
+      <p>Two clean kind clusters checked the direct path: Helm ran its real hook in one, the catalog package ran its CRD action in the other, all eight live CRD specifications matched, the 19 ordinary objects matched, and both workloads became ready.</p>
+      <p><a href="../../docs/demo/hooks-crds/argo-workflows.md">Read the plain-English guide and repeat the test</a> · <a href="../../runs/live-kind-parity/argo-cd-argo-workflows-default/receipt.yaml">Open the receipt</a></p>
     </section>`;
   }
   return "";

@@ -2,6 +2,8 @@
 
 This is one of the next 80 public-chart full proofs.
 
+Start with the [plain-English operations guide](../../../../docs/demo/hooks-crds/argo-workflows.md). It explains the chart-specific problem, the package's chosen route, how to repeat it, and the current limits.
+
 Variant:
 
 - `default`: chart defaults under Kubernetes 1.30.0; 19 Helm objects, 20 `cub installer` objects including allowed support objects.
