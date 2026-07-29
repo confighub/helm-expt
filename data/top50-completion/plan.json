@@ -13,8 +13,8 @@
       "planned": "The outcome is agreed but does not yet have an end-to-end proof."
     },
     "counts": {
-      "available": 28,
-      "partial": 20,
+      "available": 29,
+      "partial": 19,
       "planned": 2,
       "blocked": 0
     },
@@ -465,15 +465,17 @@
         "area": "Delivery",
         "evidence": [
           "runs/serverless-oci-gitops-proof/receipt.yaml",
+          "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
           "docs/user/gitops-adopter-guide.md"
         ],
         "id": "T27",
         "name": "Deliver reviewed OCI through Flux",
-        "next": "Add ConfigHub-output Flux receipts for representative Helm, AICR, and lifecycle-route examples.",
+        "next": "Maintain the ConfigHub-output Flux receipt and add representative AICR and lifecycle-route Flux evidence.",
         "outcome": "Flux can consume the reviewed literal OCI without rerendering the source and produce observed workload evidence.",
-        "status": "partial",
+        "status": "available",
         "verify": [
-          "npm run serverless-oci-gitops:proof:verify"
+          "npm run serverless-oci-gitops:proof:verify",
+          "npm run oci-deploy-stage-rollout:verify"
         ]
       },
       {

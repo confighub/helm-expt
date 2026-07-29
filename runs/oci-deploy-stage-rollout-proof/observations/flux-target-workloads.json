@@ -27,10 +27,10 @@
       "tool": "cub-scout",
       "version": "dev"
     },
-    "verifiedAt": "2026-07-29T09:16:32Z",
+    "verifiedAt": "2026-07-29T09:17:52Z",
     "freshness": {
-      "observedAt": "2026-07-29T09:16:32Z",
-      "expiresAt": "2026-07-29T10:16:32Z",
+      "observedAt": "2026-07-29T09:17:52Z",
+      "expiresAt": "2026-07-29T10:17:52Z",
       "ttl": "1h0m0s"
     },
     "predicateName": "workloads-converged",
@@ -47,7 +47,7 @@
           "kind": "namespace",
           "namespace": "nginx-staging"
         },
-        "observedAt": "2026-07-29T09:16:32Z",
+        "observedAt": "2026-07-29T09:17:52Z",
         "desiredDigest": "2549e10b045652e63488daa9e3ff508f24f24d4ceaf286ea2949c562f8201de6",
         "liveDigest": "e776bcedbc3cb4fd2b4f68901bed78112ef43616b94fc4117b6f60eaff0e51d4",
         "summary": {
@@ -69,7 +69,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Deployment is available. Replicas: 2",
-            "ageSeconds": 22
+            "ageSeconds": 32
           },
           {
             "id": {
@@ -81,7 +81,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 22
+            "ageSeconds": 32
           },
           {
             "id": {
@@ -93,7 +93,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "AllowedDisruptions has been computed.",
-            "ageSeconds": 22
+            "ageSeconds": 32
           },
           {
             "id": {
@@ -105,7 +105,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Resource is current",
-            "ageSeconds": 22
+            "ageSeconds": 32
           },
           {
             "id": {
@@ -117,7 +117,7 @@
             "status": "converged",
             "kstatusStatus": "Current",
             "kstatusMessage": "Service is ready",
-            "ageSeconds": 22
+            "ageSeconds": 32
           }
         ]
       }
@@ -138,6 +138,6 @@
         "nextSurface": "cub-scout"
       }
     ],
-    "fingerprint": "sha256:3b167764a7b61675a95a24784dde1a5da195d5c8a20a967ff5539093506b4f22"
+    "fingerprint": "sha256:ffaaf94dfd009988e3756985014bbdc7d280ffa70e61c8c6bcb6dc270eb22aed"
   }
 }
