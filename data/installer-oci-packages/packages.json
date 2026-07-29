@@ -2009,7 +2009,7 @@
       "installer_oci_ref": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0",
       "publication_status": "published-receipt",
       "publication_receipt": "runs/installer-oci/projectcalico-tigera-operator/v3.32.0/installer-package-publication-receipt.yaml",
-      "published_digest": "89028df75549d5f9ace1b281149ddb28daf2c44a5e715bdc89c1377d47db4a23",
+      "published_digest": "1afb73f1a5e880bbaa47eae69c3d37031fb7cf8d272748a4157dda31f11ab38c",
       "default_base": "default",
       "bases": "default",
       "base_count": "1",
