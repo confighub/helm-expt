@@ -65,10 +65,10 @@ Which detailed CSV should I open next?
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
 | graph bridge | charts with recovered graph fragments | 20/110 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | recovered graph edge rows | 108/108 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | target-fact graph edges | 65/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | recovered graph edge rows | 118/118 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | target-fact graph edges | 75/118 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | generated-fact graph edges | 1/118 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | rows with field reachability | 4/118 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 139/199 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 179/179 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
@@ -116,7 +116,7 @@ Which detailed CSV should I open next?
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 5/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook partial lifecycle observations present | 0/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
-| hooks | hook/lifecycle boundary rows | 12/12 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook/lifecycle boundary rows | 13/13 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook routes still needing execution or observation | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
@@ -782,7 +782,7 @@ controller lifecycle observations:
 | --- | ---: |
 | helm-hook-lifecycle-queue | 5 |
 | hook-like-lifecycle-observation | 4 |
-| selected-hook-route | 3 |
+| selected-hook-route | 4 |
 
 Open [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) when the
 question is whether a row proves hook execution or only proves controller

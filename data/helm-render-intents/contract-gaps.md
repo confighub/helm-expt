@@ -12,9 +12,9 @@ required.
 
 | Area | Gaps |
 | --- | ---: |
-| Lifecycle route | 5 |
+| Lifecycle route | 3 |
 | Target prerequisite | 132 |
-| Total | 137 |
+| Total | 135 |
 
 ## Work List
 
@@ -123,10 +123,8 @@ required.
 | percona/pxc-operator@1.19.1 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/percona-pxc-operator-1-19-1-default.yaml) |
 | prometheus-community/alertmanager@1.37.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/prometheus-community-alertmanager-1-37-0-default.yaml) |
 | prometheus-community/alertmanager@1.37.0 | `ha` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/prometheus-community-alertmanager-1-37-0-ha.yaml) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | `default` | lifecycle-route | 7 lifecycle route mappings are attached, but 4 still use evidence from 85.3.0 instead of 85.3.3. | Run the lifecycle proof for 85.3.3, then update the route source version and receipt. | [intent](./intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | `no-crds` | lifecycle-route | 7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.0 instead of 85.3.3. | Run the lifecycle proof for 85.3.3, then update the route source version and receipt. | [intent](./intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml) |
-| prometheus-community/kube-prometheus-stack@86.1.0 | `default` | lifecycle-route | 7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.0, 85.3.3 instead of 86.1.0. | Run the lifecycle proof for 86.1.0, then update the route source version and receipt. | [intent](./intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml) |
-| prometheus-community/kube-prometheus-stack@86.1.0 | `no-crds` | lifecycle-route | 7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.0 instead of 86.1.0. | Run the lifecycle proof for 86.1.0, then update the route source version and receipt. | [intent](./intents/prometheus-community-kube-prometheus-stack-86-1-0-no-crds.yaml) |
+| prometheus-community/kube-prometheus-stack@86.1.0 | `default` | lifecycle-route | 8 lifecycle route mappings are attached, but 8 still use evidence from 85.3.3 instead of 86.1.0. | Run the lifecycle proof for 86.1.0, then update the route source version and receipt. | [intent](./intents/prometheus-community-kube-prometheus-stack-86-1-0-default.yaml) |
+| prometheus-community/kube-prometheus-stack@86.1.0 | `no-crds` | lifecycle-route | 8 lifecycle route mappings are attached, but 8 still use evidence from 85.3.3 instead of 86.1.0. | Run the lifecycle proof for 86.1.0, then update the route source version and receipt. | [intent](./intents/prometheus-community-kube-prometheus-stack-86-1-0-no-crds.yaml) |
 | prometheus-community/kube-state-metrics@7.4.0 | `cluster-metrics-readonly` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/prometheus-community-kube-state-metrics-7-4-0-cluster-metrics-readonly.yaml) |
 | prometheus-community/kube-state-metrics@7.4.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/prometheus-community-kube-state-metrics-7-4-0-default.yaml) |
 | prometheus-community/prometheus@29.8.0 | `default` | target-prerequisite | This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology. | Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required. | [intent](./intents/prometheus-community-prometheus-29-8-0-default.yaml) |

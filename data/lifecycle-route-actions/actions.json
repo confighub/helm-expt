@@ -12,6 +12,7 @@
       "observed",
       "routed",
       "per-target",
+      "not-run",
       "blocked",
       "refused"
     ],
@@ -44,7 +45,8 @@
     "observed": "observed",
     "per-target": "per-target",
     "refused": "refused",
-    "todo": "blocked (no recipe/route built yet)",
+    "todo (live_status=not-run)": "not-run",
+    "todo (other)": "blocked (no recipe/route built yet)",
     "routed (live_status=blocked)": "blocked",
     "routed (live_status=none/other)": "routed"
   },
@@ -1382,6 +1384,78 @@
       "chart": "prometheus-community/kube-prometheus-stack",
       "version": "85.3.3",
       "base": "default",
+      "quirk_class": "crd-install",
+      "route_name": "preflight-or-presync-crd-apply",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "pre-apply",
+      "action_kind": "install-crd",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The package applies the locked CRDs before the chart objects that use them.",
+      "human_command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
+      "alternatives": [
+        "self-contained-crd-base",
+        "target-owned-crds",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "preflight-or-presync-crd-apply",
+        "default_route": "preflight-or-presync-crd-apply",
+        "alternatives": [
+          "self-contained-crd-base",
+          "target-owned-crds",
+          "refuse"
+        ],
+        "lifecycle_phase": "pre-apply",
+        "action_kind": "install-crd",
+        "required_target_facts": "The package applies the locked CRDs before the chart objects that use them.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "default",
+      "quirk_class": "hook-delete-policy",
+      "route_name": "preserve-cleanup-policy",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "observe",
+      "action_kind": "accept-target-policy",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The run removes both completed Jobs and their temporary RBAC objects.",
+      "human_command": "",
+      "alternatives": [
+        "delete-on-uninstall",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "preserve-cleanup-policy",
+        "default_route": "preserve-cleanup-policy",
+        "alternatives": [
+          "delete-on-uninstall",
+          "refuse"
+        ],
+        "lifecycle_phase": "observe",
+        "action_kind": "accept-target-policy",
+        "required_target_facts": "The run removes both completed Jobs and their temporary RBAC objects.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "default",
       "quirk_class": "hook-phase",
       "route_name": "postsync-check-or-observation",
       "disposition": "observed",
@@ -1391,7 +1465,7 @@
       "action_kind": "run-check",
       "execution_mode": "user-executes",
       "automatic": false,
-      "required_target_facts": "Webhook TLS and readiness must be observed after apply.",
+      "required_target_facts": "The package runs the chart's webhook patch Job after the webhook objects exist.",
       "human_command": "",
       "alternatives": [
         "argocd-or-flux-lifecycle-hook",
@@ -1408,12 +1482,12 @@
         ],
         "lifecycle_phase": "post-apply",
         "action_kind": "run-check",
-        "required_target_facts": "Webhook TLS and readiness must be observed after apply.",
+        "required_target_facts": "The package runs the chart's webhook patch Job after the webhook objects exist.",
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1428,7 +1502,7 @@
       "action_kind": "run-preflight",
       "execution_mode": "user-executes",
       "automatic": false,
-      "required_target_facts": "The hook creates webhook patch prerequisites before admission configuration is safe to use.",
+      "required_target_facts": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
       "human_command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>   # placeholder",
       "alternatives": [
         "argocd-or-flux-lifecycle-hook",
@@ -1445,12 +1519,12 @@
         ],
         "lifecycle_phase": "preflight",
         "action_kind": "run-preflight",
-        "required_target_facts": "The hook creates webhook patch prerequisites before admission configuration is safe to use.",
+        "required_target_facts": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1458,14 +1532,14 @@
       "base": "default",
       "quirk_class": "hook-phase",
       "route_name": "upgrade-action-with-receipt",
-      "disposition": "observed",
-      "source_disposition": "observed",
-      "source_live_status": "observed",
+      "disposition": "not-run",
+      "source_disposition": "todo",
+      "source_live_status": "not-run",
       "lifecycle_phase": "pre-apply",
       "action_kind": "run-job",
-      "execution_mode": "user-executes",
+      "execution_mode": "not-yet-executable",
       "automatic": false,
-      "required_target_facts": "Upgrade behavior must be recorded separately from initial render parity.",
+      "required_target_facts": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
       "human_command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>   # placeholder",
       "alternatives": [
         "argocd-or-flux-lifecycle-hook",
@@ -1482,12 +1556,401 @@
         ],
         "lifecycle_phase": "pre-apply",
         "action_kind": "run-job",
-        "required_target_facts": "Upgrade behavior must be recorded separately from initial render parity.",
+        "required_target_facts": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+        "disposition": "not-run"
+      },
+      "evidence_required": "run this route for the named path and capture a live receipt",
+      "source_drift": "",
+      "evidence_or_next_action": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "default",
+      "quirk_class": "hook-weight-ordering",
+      "route_name": "preserve-ordering",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "pre-apply",
+      "action_kind": "preserve-ordering",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
+      "human_command": "",
+      "alternatives": [
+        "argocd-sync-waves",
+        "apply-order"
+      ],
+      "agent_inputs": {
+        "route_name": "preserve-ordering",
+        "default_route": "preserve-ordering",
+        "alternatives": [
+          "argocd-sync-waves",
+          "apply-order"
+        ],
+        "lifecycle_phase": "pre-apply",
+        "action_kind": "preserve-ordering",
+        "required_target_facts": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
         "disposition": "observed"
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;data/hook-lifecycle/top100-hooks.csv;recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml;data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml;runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml;data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml;runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json;runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "default",
+      "quirk_class": "target-facts",
+      "route_name": "target-facts-or-preflight",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "preflight",
+      "action_kind": "stage-target-facts",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The certificate Job creates the required admission Secret with ca, cert, and key.",
+      "human_command": "# create the required target facts (Secret/StorageClass/etc.) before apply   # placeholder",
+      "alternatives": [
+        "preflight-or-presync",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "target-facts-or-preflight",
+        "default_route": "target-facts-or-preflight",
+        "alternatives": [
+          "preflight-or-presync",
+          "refuse"
+        ],
+        "lifecycle_phase": "preflight",
+        "action_kind": "stage-target-facts",
+        "required_target_facts": "The certificate Job creates the required admission Secret with ca, cert, and key.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "default",
+      "quirk_class": "webhook-readiness",
+      "route_name": "webhook-readiness-observation",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "observe",
+      "action_kind": "observe-webhook",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
+      "human_command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations   # placeholder",
+      "alternatives": [
+        "postsync-check-or-observation"
+      ],
+      "agent_inputs": {
+        "route_name": "webhook-readiness-observation",
+        "default_route": "webhook-readiness-observation",
+        "alternatives": [
+          "postsync-check-or-observation"
+        ],
+        "lifecycle_phase": "observe",
+        "action_kind": "observe-webhook",
+        "required_target_facts": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml;runs/kps-lifecycle-route-proof/receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "crd-install",
+      "route_name": "preflight-or-presync-crd-apply",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "pre-apply",
+      "action_kind": "install-crd",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.",
+      "human_command": "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified",
+      "alternatives": [
+        "self-contained-crd-base",
+        "target-owned-crds",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "preflight-or-presync-crd-apply",
+        "default_route": "preflight-or-presync-crd-apply",
+        "alternatives": [
+          "self-contained-crd-base",
+          "target-owned-crds",
+          "refuse"
+        ],
+        "lifecycle_phase": "pre-apply",
+        "action_kind": "install-crd",
+        "required_target_facts": "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "hook-delete-policy",
+      "route_name": "preserve-cleanup-policy",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "observe",
+      "action_kind": "accept-target-policy",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The run removes both completed Jobs and their temporary RBAC objects.",
+      "human_command": "",
+      "alternatives": [
+        "delete-on-uninstall",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "preserve-cleanup-policy",
+        "default_route": "preserve-cleanup-policy",
+        "alternatives": [
+          "delete-on-uninstall",
+          "refuse"
+        ],
+        "lifecycle_phase": "observe",
+        "action_kind": "accept-target-policy",
+        "required_target_facts": "The run removes both completed Jobs and their temporary RBAC objects.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "hook-phase",
+      "route_name": "postsync-check-or-observation",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "post-apply",
+      "action_kind": "run-check",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The package runs the chart's webhook patch Job after the webhook objects exist.",
+      "human_command": "",
+      "alternatives": [
+        "argocd-or-flux-lifecycle-hook",
+        "target-facts-or-preflight",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "postsync-check-or-observation",
+        "default_route": "postsync-check-or-observation",
+        "alternatives": [
+          "argocd-or-flux-lifecycle-hook",
+          "target-facts-or-preflight",
+          "refuse"
+        ],
+        "lifecycle_phase": "post-apply",
+        "action_kind": "run-check",
+        "required_target_facts": "The package runs the chart's webhook patch Job after the webhook objects exist.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "hook-phase",
+      "route_name": "preflight-or-presync",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "preflight",
+      "action_kind": "run-preflight",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
+      "human_command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>   # placeholder",
+      "alternatives": [
+        "argocd-or-flux-lifecycle-hook",
+        "target-facts-or-preflight",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "preflight-or-presync",
+        "default_route": "preflight-or-presync",
+        "alternatives": [
+          "argocd-or-flux-lifecycle-hook",
+          "target-facts-or-preflight",
+          "refuse"
+        ],
+        "lifecycle_phase": "preflight",
+        "action_kind": "run-preflight",
+        "required_target_facts": "The package runs the chart's certificate creation Job before applying the admission webhooks.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "hook-phase",
+      "route_name": "upgrade-action-with-receipt",
+      "disposition": "not-run",
+      "source_disposition": "todo",
+      "source_live_status": "not-run",
+      "lifecycle_phase": "pre-apply",
+      "action_kind": "run-job",
+      "execution_mode": "not-yet-executable",
+      "automatic": false,
+      "required_target_facts": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+      "human_command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>   # placeholder",
+      "alternatives": [
+        "argocd-or-flux-lifecycle-hook",
+        "target-facts-or-preflight",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "upgrade-action-with-receipt",
+        "default_route": "upgrade-action-with-receipt",
+        "alternatives": [
+          "argocd-or-flux-lifecycle-hook",
+          "target-facts-or-preflight",
+          "refuse"
+        ],
+        "lifecycle_phase": "pre-apply",
+        "action_kind": "run-job",
+        "required_target_facts": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+        "disposition": "not-run"
+      },
+      "evidence_required": "run this route for the named path and capture a live receipt",
+      "source_drift": "",
+      "evidence_or_next_action": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "hook-weight-ordering",
+      "route_name": "preserve-ordering",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "pre-apply",
+      "action_kind": "preserve-ordering",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
+      "human_command": "",
+      "alternatives": [
+        "argocd-sync-waves",
+        "apply-order"
+      ],
+      "agent_inputs": {
+        "route_name": "preserve-ordering",
+        "default_route": "preserve-ordering",
+        "alternatives": [
+          "argocd-sync-waves",
+          "apply-order"
+        ],
+        "lifecycle_phase": "pre-apply",
+        "action_kind": "preserve-ordering",
+        "required_target_facts": "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "target-facts",
+      "route_name": "target-facts-or-preflight",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "preflight",
+      "action_kind": "stage-target-facts",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The certificate Job creates the required admission Secret with ca, cert, and key.",
+      "human_command": "# create the required target facts (Secret/StorageClass/etc.) before apply   # placeholder",
+      "alternatives": [
+        "preflight-or-presync",
+        "refuse"
+      ],
+      "agent_inputs": {
+        "route_name": "target-facts-or-preflight",
+        "default_route": "target-facts-or-preflight",
+        "alternatives": [
+          "preflight-or-presync",
+          "refuse"
+        ],
+        "lifecycle_phase": "preflight",
+        "action_kind": "stage-target-facts",
+        "required_target_facts": "The certificate Job creates the required admission Secret with ca, cert, and key.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    },
+    {
+      "chart": "prometheus-community/kube-prometheus-stack",
+      "version": "85.3.3",
+      "base": "no-crds",
+      "quirk_class": "webhook-readiness",
+      "route_name": "webhook-readiness-observation",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
+      "lifecycle_phase": "observe",
+      "action_kind": "observe-webhook",
+      "execution_mode": "user-executes",
+      "automatic": false,
+      "required_target_facts": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
+      "human_command": "kubectl get validatingwebhookconfigurations,mutatingwebhookconfigurations   # placeholder",
+      "alternatives": [
+        "postsync-check-or-observation"
+      ],
+      "agent_inputs": {
+        "route_name": "webhook-readiness-observation",
+        "default_route": "webhook-readiness-observation",
+        "alternatives": [
+          "postsync-check-or-observation"
+        ],
+        "lifecycle_phase": "observe",
+        "action_kind": "observe-webhook",
+        "required_target_facts": "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.",
+        "disposition": "observed"
+      },
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+      "source_drift": "",
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
     }
   ]
 }

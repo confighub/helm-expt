@@ -21,7 +21,7 @@ The full field definitions and the deterministic mapping tables are in
 
 ## What This Covers
 
-40 route rows across 18 chart/version lifecycle behaviors,
+53 route rows across 18 chart/version lifecycle behaviors,
 joined from:
 
 - [data/hook-disposition/top100-hook-dispositions.csv](../hook-disposition/summary.md)
@@ -37,7 +37,7 @@ until that data exists — a small correct contract, not a broad guess.
 
 ## The Honest Headline
 
-0 of 40 rows are safe to show as automatic.
+0 of 53 rows are safe to show as automatic.
 
 Nothing the catalog renders today is auto-executed by the cub installer. Every
 route is `user-executes`, `target-owned` (a controller or GitOps engine runs
@@ -51,26 +51,26 @@ it.
 
 | Disposition | Rows |
 | --- | ---: |
-| `observed` | 30 |
+| `observed` | 41 |
+| `todo` | 6 |
 | `routed` | 5 |
-| `todo` | 4 |
 | `per-target` | 1 |
 
 | Execution mode | Rows |
 | --- | ---: |
-| `user-executes` | 23 |
+| `user-executes` | 34 |
 | `target-owned` | 10 |
-| `not-yet-executable` | 7 |
+| `not-yet-executable` | 9 |
 
 | Quirk class | Rows |
 | --- | ---: |
-| `hook-phase` | 20 |
-| `hook-delete-policy` | 6 |
+| `hook-phase` | 23 |
+| `hook-delete-policy` | 8 |
+| `crd-install` | 5 |
 | `hook-test` | 4 |
-| `crd-install` | 3 |
-| `hook-weight-ordering` | 2 |
-| `target-facts` | 2 |
-| `webhook-readiness` | 2 |
+| `hook-weight-ordering` | 4 |
+| `target-facts` | 4 |
+| `webhook-readiness` | 4 |
 | `per-target-hook` | 1 |
 
 ## How To Read One Row
@@ -132,9 +132,22 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
 | prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | crd-install | `preflight-or-presync-crd-apply` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-delete-policy | `preserve-cleanup-policy` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `preflight-or-presync` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `upgrade-action-with-receipt` | todo | not-yet-executable | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-weight-ordering | `preserve-ordering` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default | webhook-readiness | `webhook-readiness-observation` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | crd-install | `preflight-or-presync-crd-apply` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | hook-delete-policy | `preserve-cleanup-policy` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | hook-phase | `preflight-or-presync` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | hook-phase | `upgrade-action-with-receipt` | todo | not-yet-executable | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | hook-weight-ordering | `preserve-ordering` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.3 | no-crds | webhook-readiness | `webhook-readiness-observation` | observed | user-executes | no |
 
 ## Boundaries
 

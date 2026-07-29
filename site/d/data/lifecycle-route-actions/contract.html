@@ -436,7 +436,7 @@
 <h2 id="columns">Columns</h2>
 <table><thead><tr><th>Column</th><th>Meaning</th></tr></thead><tbody><tr><td><code>chart</code> / <code>version</code> / <code>base</code></td><td>Subject.</td></tr>
 <tr><td><code>quirk_class</code> / <code>route_name</code></td><td>The route identity, from lifecycle-routes.</td></tr>
-<tr><td><code>disposition</code></td><td>Executability: <code>observed</code>, <code>routed</code>, <code>per-target</code>, <code>blocked</code>, <code>refused</code>.</td></tr>
+<tr><td><code>disposition</code></td><td>Executability: <code>observed</code>, <code>routed</code>, <code>per-target</code>, <code>not-run</code>, <code>blocked</code>, <code>refused</code>.</td></tr>
 <tr><td><code>source_disposition</code> / <code>source_live_status</code></td><td>The raw lifecycle-routes values, for traceability.</td></tr>
 <tr><td><code>lifecycle_phase</code></td><td><code>pre-render</code>, <code>preflight</code>, <code>pre-apply</code>, <code>post-apply</code>, <code>observe</code>, <code>refuse</code>.</td></tr>
 <tr><td><code>action_kind</code></td><td>What kind of step it is (see table).</td></tr>
@@ -455,7 +455,8 @@
 <table><thead><tr><th>Source</th><th>Action disposition</th></tr></thead><tbody><tr><td><code>observed</code></td><td><code>observed</code></td></tr>
 <tr><td><code>per-target</code></td><td><code>per-target</code></td></tr>
 <tr><td><code>refused</code></td><td><code>refused</code></td></tr>
-<tr><td><code>todo</code></td><td><code>blocked (no recipe/route built yet)</code></td></tr>
+<tr><td><code>todo (live_status=not-run)</code></td><td><code>not-run</code></td></tr>
+<tr><td><code>todo (other)</code></td><td><code>blocked (no recipe/route built yet)</code></td></tr>
 <tr><td><code>routed (live_status=blocked)</code></td><td><code>blocked</code></td></tr>
 <tr><td><code>routed (live_status=none/other)</code></td><td><code>routed</code></td></tr></tbody></table>
 <h2 id="route-phase-action-kind">Route → phase / action kind</h2>

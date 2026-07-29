@@ -1,59 +1,108 @@
-apiVersion: helm-expt.confighub.com/v1alpha1
-kind: HookLifecycleRouteReceipt
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookLifecycleRouteReceipt"
 metadata:
-  name: prometheus-community-kube-prometheus-stack-default-hook-route
+  name: "prometheus-community-kube-prometheus-stack-default-hook-route"
 spec:
-  chart: prometheus-community/kube-prometheus-stack
-  version: 85.3.3
-  base: default
-  result: observed
-  selectedAt: "2026-06-09"
-  observedAt: "2026-06-09T13:09:35.333Z"
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "default"
+  result: "observed"
+  selectedAt: "2026-07-29"
+  observedAt: "2026-07-29T10:45:22.801Z"
   route:
-    summary: Admission webhook patch hooks are handled as explicit lifecycle work, not as hidden render parity.
+    summary: "The package runs CRD and admission-webhook setup as named steps around the checked Kubernetes objects."
     phases:
-      - hookTypes: [pre-install, pre-upgrade]
-        action: preflight-or-presync
-        reason: The hook creates webhook patch prerequisites before admission configuration is safe to use.
-      - hookTypes: [post-install, post-upgrade]
-        action: postsync-readiness-observation
-        reason: Webhook TLS and readiness must be observed after apply.
-      - hookTypes: [pre-upgrade, post-upgrade]
-        action: upgrade-action-with-receipt
-        reason: Upgrade behavior must be recorded separately from initial render parity.
+      -
+        hookTypes:
+          - "pre-install"
+        action: "preflight-or-presync-crd-apply"
+        reason: "The package applies the locked CRDs before the chart objects that use them."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-install"
+        action: "preflight-or-presync"
+        reason: "The package runs the chart's certificate creation Job before applying the admission webhooks."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-install"
+        action: "target-facts-or-preflight"
+        reason: "The certificate Job creates the required admission Secret with ca, cert, and key."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-install"
+          - "post-install"
+        action: "preserve-ordering"
+        reason: "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "post-install"
+        action: "postsync-check-or-observation"
+        reason: "The package runs the chart's webhook patch Job after the webhook objects exist."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "post-install"
+        action: "webhook-readiness-observation"
+        reason: "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "post-install"
+        action: "preserve-cleanup-policy"
+        reason: "The run removes both completed Jobs and their temporary RBAC objects."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-upgrade"
+          - "post-upgrade"
+        action: "upgrade-action-with-receipt"
+        reason: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade."
+        disposition: "todo"
+        liveStatus: "not-run"
+        executionMode: "not-yet-executable"
+        nextAction: "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
   evidence:
-    - path: data/hook-lifecycle/top100-hooks.csv
-      claim: Source scan found admission webhook patch hook templates.
-    - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml
-      claim: Chart pain report records CRD, webhook, generated fact, and hook lifecycle risk.
-    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml
-      claim: Production disposition records CRD ownership, install ordering, and upgrade policy for this base.
-    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml
-      claim: Production disposition records webhook readiness and failure handling for this base.
-    - path: runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml
-      claim: Live Helm-vs-ConfigHub parity exists for selected non-hook objects.
-    - path: data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml
-      claim: Target-scoped lifecycle decision binds the selected hook route to observed proof-scope evidence.
-    - path: runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json
-      claim: Local kind observation records webhook TLS prerequisite staging, CRD bootstrap, CRD Established checks, workload rollout, and cub-scout checks.
-    - path: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
-      claim: Retained later-version two-cluster kind parity context; not used as matching-version proof for this 85.3.3 lifecycle receipt.
+    -
+      path: "runs/kps-lifecycle-route-proof/receipt.yaml"
+      claim: "A fresh default package install ran the CRD, certificate, webhook patch, readiness, and cleanup steps on a new kind cluster."
+    -
+      path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+      claim: "The packaged lifecycle files were extracted from the locked upstream chart and checked by digest."
+    -
+      path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+      claim: "The ordinary package output matched this committed render."
   execution:
-    helmHooksExecutedByHarness: false
+    helmHooksExecutedByHelm: false
+    chartHookJobsExecutedByDirectRunner: true
     runtimeObserved: true
+    productChoosesRouteAutomatically: false
     observedRoute:
-      supportSecretStaged: true
-      crdBootstrapObserved: true
       crdsEstablished: 10
+      admissionSecret: "pass"
+      matchingWebhookCABundles: 3
       workloadRollouts: 6
-      cubScoutPrerequisites: pass
-      cubScoutWorkloads: pass
-      confighubOciArgoRuntime: pass
+      hookCleanup: "pass"
     notes:
-      - Render parity does not claim Helm hook execution.
-      - This receipt records the selected lifecycle route and the proof-scope runtime observations for that route.
-      - Helm hook objects are not executed by Helm in the config-only path; equivalent behavior is made explicit as target facts, preflight, apply ordering, and observation.
+      - "The direct runner executes the package's chart-specific steps; ConfigHub does not yet select this route automatically."
+      - "The upgrade and controller-specific paths remain separate proof work."
   remainingWork:
-    - Refresh the observation for each declared production target and artifact digest.
-    - Record cleanup ordering and upgrade behavior before expanding support beyond initial install.
-    - Keep closed-world runtime differences as WATCH unless they are classified for the target.
+    - "Run the same staged lifecycle through Argo CD and Flux."
+    - "Test the 85.3.3 to 86.1.0 upgrade and record its cleanup behavior."

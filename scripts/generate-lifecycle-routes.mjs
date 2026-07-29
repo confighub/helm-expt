@@ -370,18 +370,38 @@ function buildRows() {
     for (const phase of selected.phases) {
       const { name: routeName } = normalizeRoute(String(phase.action ?? ""));
       check(routeName, `${selected.path} has a route phase without an action`);
+      const phaseDisposition = phase.disposition ?? "observed";
+      check(
+        DISPOSITIONS.includes(phaseDisposition),
+        `${selected.path} route ${routeName} has unsupported disposition ${phaseDisposition}`,
+      );
+      const phaseLiveStatus = normalizeLiveStatus(
+        phase.liveStatus ?? (phaseDisposition === "observed" ? "observed" : "none"),
+      );
+      const phaseEvidence = Array.isArray(phase.evidence)
+        ? phase.evidence.map((entry) => entry.path ?? entry).filter(Boolean)
+        : [];
+      for (const evidencePath of phaseEvidence) {
+        check(
+          evidencePath.startsWith("http") || existsSync(join(repoRoot, evidencePath)),
+          `${selected.path} route ${routeName} references missing evidence ${evidencePath}`,
+        );
+      }
       rows.push(makeRow({
         chart: selected.spec.chart,
         version: String(selected.spec.version),
         baseOrVariant: selected.spec.base,
         hookPhases: (phase.hookTypes ?? []).join(", "),
         sourceDisposition: "selected-route-receipt",
-        disposition: "observed",
+        disposition: phaseDisposition,
         routeName,
         qualifier: "",
-        liveStatus: "observed",
+        liveStatus: phaseLiveStatus,
         requirements: phase.reason || selected.spec.route?.summary || "",
-        evidenceOrNextAction: selected.evidence.join(";"),
+        evidenceOrNextAction: phaseDisposition === "observed"
+          ? [...selected.evidence, ...phaseEvidence].join(";")
+          : (phase.nextAction || phase.reason || ""),
+        executionModeOverride: phase.executionMode,
       }));
     }
   }
@@ -394,9 +414,16 @@ function buildRows() {
   return rows;
 }
 
-function makeRow({ chart, version, baseOrVariant = "", hookPhases, sourceDisposition, disposition, routeName, qualifier, liveStatus, requirements, evidenceOrNextAction }) {
+function makeRow({ chart, version, baseOrVariant = "", hookPhases, sourceDisposition, disposition, routeName, qualifier, liveStatus, requirements, evidenceOrNextAction, executionModeOverride = "" }) {
   const quirkClass = quirkClassFor(routeName);
-  const executionMode = executionModeFor(routeName, disposition, liveStatus);
+  if (executionModeOverride) {
+    check(
+      EXECUTION_MODES.includes(executionModeOverride),
+      `${chart}@${version} ${routeName} has unsupported execution mode ${executionModeOverride}`,
+    );
+  }
+  const executionMode = executionModeOverride
+    || executionModeFor(routeName, disposition, liveStatus);
   const alternatives = alternativesFor(quirkClass, routeName);
   const hasOfframp = alternatives.length > 0;
   const requirementText = joinNonEmpty([requirements, qualifier ? `condition: ${qualifier}` : ""], "; ");

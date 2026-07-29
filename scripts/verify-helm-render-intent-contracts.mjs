@@ -63,7 +63,15 @@ for (const intent of intents) {
   }
 
   for (const route of lifecycle.variantRoutes) {
-    check(Array.isArray(route.evidence) && route.evidence.length > 0, `${name}/${route.routeName} has no evidence`);
+    check(Array.isArray(route.evidence), `${name}/${route.routeName} evidence is not an array`);
+    if (route.disposition === "observed") {
+      check(route.evidence.length > 0, `${name}/${route.routeName} has no evidence`);
+    } else {
+      check(
+        route.evidence.length > 0 || route.nextAction,
+        `${name}/${route.routeName} needs evidence or a next action`,
+      );
+    }
     for (const evidence of route.evidence) {
       checkRepoReference(evidence, `${name}/${route.routeName}`);
     }
@@ -141,16 +149,21 @@ for (const gap of expectedGaps) {
   check(actualGaps.has(gap), `contract-gaps.csv is missing ${gap}`);
 }
 
-const kps = intents.find((intent) =>
-  intent.metadata.name === "prometheus-community-kube-prometheus-stack-85-3-3-default");
-check(kps, "kube-prometheus-stack default render intent is missing");
-for (const route of kps.spec.lifecycle.variantRoutes) {
-  const expected = route.routeName === "upgrade-action-with-receipt" ? "not-run" : "pass";
-  check(route.runners.direct.status === expected, `KPS ${route.routeName} direct evidence status is wrong`);
-  check(
-    route.runners.direct.evidence.includes("runs/kps-lifecycle-route-proof/receipt.yaml"),
-    `KPS ${route.routeName} is missing the direct lifecycle receipt`,
-  );
+for (const [base, receiptPath] of [
+  ["default", "runs/kps-lifecycle-route-proof/receipt.yaml"],
+  ["no-crds", "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"],
+]) {
+  const kps = intents.find((intent) =>
+    intent.metadata.name === `prometheus-community-kube-prometheus-stack-85-3-3-${base}`);
+  check(kps, `kube-prometheus-stack ${base} render intent is missing`);
+  for (const route of kps.spec.lifecycle.variantRoutes) {
+    const expected = route.routeName === "upgrade-action-with-receipt" ? "not-run" : "pass";
+    check(route.runners.direct.status === expected, `KPS ${base}/${route.routeName} direct evidence status is wrong`);
+    check(
+      route.runners.direct.evidence.includes(receiptPath),
+      `KPS ${base}/${route.routeName} is missing the direct lifecycle receipt`,
+    );
+  }
 }
 
 const vault = intents.find((intent) =>

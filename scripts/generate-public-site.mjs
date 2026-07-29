@@ -4134,7 +4134,7 @@ function demoOrgHtml(catalog) {
       <p>Three examples below make claims about behavior on a real cluster. Each was executed, observed, and recorded. Here is what happened, and what each result does and does not prove.</p>
       <p><strong>The hook delivery proof.</strong> The claim is that ConfigHub publishes a bundle <em>once</em> to its OCI registry, and the delivery tool is a free choice, not a fork in behaviour. To test it, the hook fixture (a workload ConfigMap plus a migration Job carrying Argo hook annotations) was published from this org to the org's OCI registry, and three consumers pulled <em>the same artifact</em> on a throwaway kind cluster. Argo CD used an OCI-sourced Application. Flux used an OCIRepository and a Kustomization. A no-controller path pulled the bundle and applied it directly. Under each of the three, the workload landed <em>and the hook Job ran to completion on the cluster</em>. All three legs pass. This does not prove every chart, every hook shape, or production scale. It proves the transport claim for the routed fixture, on one rig, on the recorded day. The receipt names the rig, the times, and each observation.</p>
       <p><strong>The CRD-ordering proof.</strong> This claim is a limitation, stated honestly. The no-controller path has no dependency ordering, so on a first install of a bundle where a custom resource precedes its CRD, plain apply fails. The run reproduced that failure. The custom resource was refused with the named Kubernetes error and never created. The fix, CRDs first with a wait for them to establish, made the same bundle succeed. We record this as <em>watch</em>, not pass, because the gap is the finding. Argo CD and Flux can be configured to order this work, but the Kube Prometheus Stack controller-specific routes still need their own receipts.</p>
-      <p><strong>The Kube Prometheus Stack direct install.</strong> A separate run pulled the locked 85.3.3 chart, matched its 124 ordinary objects with the catalog render, applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked the webhook and six workloads, and removed the temporary hook objects. Seven direct fresh-install routes pass. The upgrade route and the chart-specific Argo CD and Flux implementations remain not-run.</p>
+      <p><strong>The Kube Prometheus Stack package install.</strong> A separate run rendered the 85.3.3 catalog package, matched its 124 chart objects with the catalog render, applied ten packaged CRDs first, ran the packaged certificate and webhook patch Jobs, checked the webhook and six workloads, and removed the temporary hook objects. The same package was then pulled from the public OCI registry with an isolated client and no ConfigHub account or registry login. The upgrade route and the chart-specific Argo CD and Flux implementations remain not-run.</p>
       <p class="quiet-line">The receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>, and <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-lifecycle-route-proof"><code>runs/kps-lifecycle-route-proof</code></a>) and summarized under <code>data/</code>. Each throwaway cluster was deleted after its run.</p>
     </section>
 
@@ -4831,7 +4831,7 @@ function pillarsHtml(catalog) {
 
     <section aria-labelledby="pillar-messy">
       <h2 id="pillar-messy">Hooks, CRDs, and setup work are listed</h2>
-      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the result for each delivery path. The Kube Prometheus Stack direct install now has a receipt; its Argo CD, Flux, and upgrade paths remain not-run. A missing receipt remains visible.</p>
+      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records the chart-specific decision, who or what should perform the work, and the result for each delivery path. The public Kube Prometheus Stack package now includes its fresh-install route and has receipts for anonymous pull and direct execution; its Argo CD, Flux, and upgrade paths remain not-run. A missing receipt remains visible.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
     </section>
 
@@ -5469,6 +5469,50 @@ function packageRequirementsForEntry(entry) {
   return packageRequirementsForBase(entry, entry.start_variant);
 }
 
+function packageLifecycleActionsForBase(entry, variant) {
+  if (!entry.package_path) return [];
+  const packageRoot = join(repoRoot, entry.package_path);
+  if (!existsSync(packageRoot)) return [];
+  const candidates = [];
+  const visit = (root) => {
+    for (const name of readdirSync(root)) {
+      const path = join(root, name);
+      if (statSync(path).isDirectory()) {
+        visit(path);
+      } else if (name === "lifecycle-actions.yaml") {
+        candidates.push(path);
+      }
+    }
+  };
+  visit(packageRoot);
+  if (!candidates.length) return [];
+  check(
+    candidates.length === 1,
+    `${entry.package_path} contains more than one lifecycle-actions.yaml`,
+  );
+  const contract = readYaml(candidates[0]);
+  check(
+    contract.kind === "PackagedLifecycleActions",
+    `${candidates[0]} must be a PackagedLifecycleActions document`,
+  );
+  const bases = contract.spec?.bases ?? [];
+  const base =
+    bases.find((candidate) => candidate.name === variant)
+    ?? bases.find((candidate) => candidate.default)
+    ?? bases[0];
+  const actions = Array.isArray(base?.actions) ? base.actions : [];
+  for (const action of actions) {
+    if (!action.script) continue;
+    const scriptPath = packagedRequirementPath(`package://${action.script}`);
+    check(scriptPath, `${candidates[0]} contains an unsafe lifecycle script path`);
+    check(
+      existsSync(join(packageRoot, scriptPath)),
+      `${entry.package_path}/${scriptPath} is missing`,
+    );
+  }
+  return actions;
+}
+
 function groupPackageRequirements(requirements) {
   const groups = new Map();
   for (const requirement of requirements) {
@@ -5600,6 +5644,7 @@ function presetTryScript(entry, row) {
   const workDir = presetWorkDir(entry, row);
   const setup = installerSetupCommand(entry.package_path, row.variant, entry, row);
   const requirements = packageRequirementsForBase(entry, row.variant);
+  const lifecycleActions = packageLifecycleActionsForBase(entry, row.variant);
   const namespaces = [...new Set([entry.namespace, ...requirements.map((requirement) => requirement.namespace)].filter(Boolean))];
   const remainingRequirements = requirements.filter(
     (requirement) => !(String(requirement.name ?? "").startsWith("Namespace ") && requirement.namespace),
@@ -5833,8 +5878,25 @@ function presetTryScript(entry, row) {
     "",
     'say "Apply the rendered objects"',
     `kubectl apply -f ${workDir}/out/manifests`,
+  );
+  for (const action of lifecycleActions.filter(
+    (candidate) =>
+      candidate.invokedBy === "generated-try-script"
+      && ["post-apply", "observe"].includes(candidate.phase),
+  )) {
+    const scriptPath = packagedRequirementPath(`package://${action.script ?? ""}`);
+    check(scriptPath, `${entry.chart} ${row.variant} has no runnable lifecycle script`);
+    lines.push(
+      "",
+      `say "${shellStepText(action.name || "Run the packaged lifecycle check")}"`,
+      `bash ${workDir}/package/${scriptPath} ${entry.namespace}`,
+    );
+  }
+  lines.push(
     "",
-    `say "Done. The cluster received exactly the files in ${workDir}/out."`,
+    lifecycleActions.length > 0
+      ? `say "Done. The cluster received exactly the files in ${workDir}/out, with the packaged lifecycle steps checked."`
+      : `say "Done. The cluster received exactly the files in ${workDir}/out."`,
     "",
   );
   return lines.join("\n");
@@ -6107,6 +6169,16 @@ function chartPageHtml(catalog, entry) {
       && entry.version === "85.3.3"
       ? "runs/kps-lifecycle-route-proof/receipt.yaml"
       : "";
+  const kpsNoCrdsLifecycleProofPath =
+    entry.chart === "prometheus-community/kube-prometheus-stack"
+      && entry.version === "85.3.3"
+      ? "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+      : "";
+  const kpsPublicPackageProofPath =
+    entry.chart === "prometheus-community/kube-prometheus-stack"
+      && entry.version === "85.3.3"
+      ? "data/kps-public-package-proof/summary.md"
+      : "";
   const argoWorkflowsGuidePath =
     entry.chart === "argo-cd/argo-workflows"
       && entry.version === "1.0.14"
@@ -6147,7 +6219,8 @@ function chartPageHtml(catalog, entry) {
     ["Chart evidence router", "data/chart-evidence-router/summary.md"],
     ["Current proof status", "docs/user/current-proof-status.md"],
     [gitOpsReview ? "Cluster runtime review" : "", gitOpsReview ? gitOpsReviewPath : ""],
-    [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof" : "", kpsLifecycleProofPath],
+    [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (default)" : "", kpsLifecycleProofPath],
+    [kpsNoCrdsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (no-crds)" : "", kpsNoCrdsLifecycleProofPath],
     [argoWorkflowsGuidePath ? "Argo Workflows CRD guide" : "", argoWorkflowsGuidePath],
     [
       entry.chart === "bitnami/nginx" && entry.version === "24.0.2"
@@ -6377,7 +6450,7 @@ ${teaching ? `\n    ${teaching}\n` : ""}
         ...basePrerequisiteRows,
       ], { rawThirdColumn: true, rawFourthColumn: true })}` : ""}
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
-${kpsLifecycleProofPath ? `      <p><strong>Direct fresh install:</strong> seven Kube Prometheus Stack lifecycle steps passed on a throwaway kind cluster, including ten CRDs, the chart's certificate and webhook patch Jobs, readiness checks, and cleanup. The <a href="../../${kpsLifecycleProofPath}">receipt</a> does not cover Argo CD, Flux, or the 85.3.3 to 86.1.0 upgrade.</p>` : ""}
+${kpsLifecycleProofPath ? `      <p><strong>Public package fresh install:</strong> both catalog bases passed on separate, new kind clusters. The default base matched 124 checked chart objects; the no-crds base matched 114. Each run applied ten CRDs first, ran the chart's certificate and webhook patch Jobs, checked six workloads, and cleaned up. Open the <a href="../../${kpsLifecycleProofPath}">default receipt</a>${kpsNoCrdsLifecycleProofPath ? `, the <a href="../../${kpsNoCrdsLifecycleProofPath}">no-crds receipt</a>` : ""}${kpsPublicPackageProofPath ? `, or the <a href="../../${kpsPublicPackageProofPath}">anonymous pull proof</a>` : ""}. These receipts do not cover Argo CD, Flux, or the 85.3.3 to 86.1.0 upgrade.</p>` : ""}
       ${lifecycleByVariantEntry
         ? whoRunsVariantTables(lifecycleByVariantEntry, gitopsRouteEmissionEntry)
         : lifecycleRows.length
@@ -6515,8 +6588,8 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
           ["Watch rows", "A non-green row can be the honest result when lifecycle evidence or target support is bounded."],
         ])}
       </div>
-      <p>The direct script has run that full fresh-install sequence. Argo CD, Flux, and the chart upgrade still need their own receipts.</p>
-      <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the direct lifecycle proof</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
+      <p>The public package has run that full fresh-install sequence. A separate isolated client pulled the same package with no ConfigHub account or registry login and received all nine lifecycle files. Argo CD, Flux, and the chart upgrade still need their own receipts.</p>
+      <p><a href="../../data/kps-lifecycle-route-proof/summary.md">Open the package lifecycle proof</a> · <a href="../../data/kps-public-package-proof/summary.md">Check the anonymous pull</a> · <a href="../../docs/demo/hooks-crds/kube-prometheus-stack.md">Read the hooks and CRDs guide</a> · <a href="../../docs/user/serious-chart-proof.md">Open serious chart proof</a></p>
     </section>`;
   }
   if (entry.chart === "argo-cd/argo-workflows" && entry.version === "1.0.14") {
@@ -6802,11 +6875,13 @@ function presetWorkDir(entry, row) {
 }
 
 function packagedSetupActions(entry, row) {
-  return [...new Set(
-    packageRequirementsForBase(entry, row.variant)
+  const requirementScripts = packageRequirementsForBase(entry, row.variant)
       .map((requirement) => packagedRequirementPath(requirement.suggestedSource))
-      .filter((path) => path.endsWith(".sh")),
-  )];
+      .filter((path) => path.endsWith(".sh"));
+  const lifecycleScripts = packageLifecycleActionsForBase(entry, row.variant)
+    .map((action) => packagedRequirementPath(`package://${action.script ?? ""}`))
+    .filter((path) => path.endsWith(".sh"));
+  return [...new Set([...requirementScripts, ...lifecycleScripts])];
 }
 
 function matrixHookSummary(row, packagedActions = []) {
@@ -6845,7 +6920,7 @@ function matrixActionOwnerSummary(row, packagedActions = []) {
     .filter(Boolean);
   if (!modes.length || modes.every((mode) => mode === "n/a")) {
     if (packagedActions.length > 0) {
-      return "The generated try script runs the packaged setup before apply. Argo CD and Flux need their own recorded route.";
+      return "The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded route.";
     }
     if (row.hook_disposition && row.hook_disposition !== "n/a") return "read the route receipt before delivery";
     return "No separate action runner for this row.";

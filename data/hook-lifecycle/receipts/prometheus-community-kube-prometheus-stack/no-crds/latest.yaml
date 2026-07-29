@@ -1,0 +1,108 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookLifecycleRouteReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-no-crds-hook-route"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "no-crds"
+  result: "observed"
+  selectedAt: "2026-07-29"
+  observedAt: "2026-07-29T10:47:51.452Z"
+  route:
+    summary: "The package runs CRD and admission-webhook setup as named steps around the checked Kubernetes objects."
+    phases:
+      -
+        hookTypes:
+          - "pre-install"
+        action: "preflight-or-presync-crd-apply"
+        reason: "The no-crds render omits CRDs, so the package applies the locked CRDs before the workload."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-install"
+        action: "preflight-or-presync"
+        reason: "The package runs the chart's certificate creation Job before applying the admission webhooks."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-install"
+        action: "target-facts-or-preflight"
+        reason: "The certificate Job creates the required admission Secret with ca, cert, and key."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-install"
+          - "post-install"
+        action: "preserve-ordering"
+        reason: "The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "post-install"
+        action: "postsync-check-or-observation"
+        reason: "The package runs the chart's webhook patch Job after the webhook objects exist."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "post-install"
+        action: "webhook-readiness-observation"
+        reason: "The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "post-install"
+        action: "preserve-cleanup-policy"
+        reason: "The run removes both completed Jobs and their temporary RBAC objects."
+        disposition: "observed"
+        liveStatus: "observed"
+        executionMode: "user-executes"
+      -
+        hookTypes:
+          - "pre-upgrade"
+          - "post-upgrade"
+        action: "upgrade-action-with-receipt"
+        reason: "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade."
+        disposition: "todo"
+        liveStatus: "not-run"
+        executionMode: "not-yet-executable"
+        nextAction: "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+  evidence:
+    -
+      path: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+      claim: "A fresh no-crds package install ran the CRD, certificate, webhook patch, readiness, and cleanup steps on a new kind cluster."
+    -
+      path: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+      claim: "The packaged lifecycle files were extracted from the locked upstream chart and checked by digest."
+    -
+      path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      claim: "The ordinary package output matched this committed render."
+  execution:
+    helmHooksExecutedByHelm: false
+    chartHookJobsExecutedByDirectRunner: true
+    runtimeObserved: true
+    productChoosesRouteAutomatically: false
+    observedRoute:
+      crdsEstablished: 10
+      admissionSecret: "pass"
+      matchingWebhookCABundles: 3
+      workloadRollouts: 6
+      hookCleanup: "pass"
+    notes:
+      - "The direct runner executes the package's chart-specific steps; ConfigHub does not yet select this route automatically."
+      - "The upgrade and controller-specific paths remain separate proof work."
+  remainingWork:
+    - "Run the same staged lifecycle through Argo CD and Flux."
+    - "Test the 85.3.3 to 86.1.0 upgrade and record its cleanup behavior."

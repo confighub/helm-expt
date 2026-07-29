@@ -51,8 +51,8 @@ from a different chart version's disposition row.
 | Rows with a target run decision | 26 |
 | Target run decisions (runs / superseded / blocked-or-rejected) | 22 / 2 / 2 |
 | Server-side variant promotion (proven / watch / todo / blocked / n/a) | 167 / 29 / 1 / 2 / 190 |
-| Lifecycle route contracts (observed / watch / todo / n/a) | 13 / 0 / 1 / 375 |
-| Render-intent lifecycle records (attached / gap / no separate route) | 10 / 5 / 184 |
+| Lifecycle route contracts (observed / watch / todo / n/a) | 11 / 0 / 3 / 375 |
+| Render-intent lifecycle records (attached / gap / no separate route) | 12 / 3 / 184 |
 | Render-intent prerequisite records (attached / gap / none explicitly required) | 67 / 132 / 0 |
 | Hook-flagged variants with no disposition row (unrouted) | 0 |
 | Rows currently in the active proof queue | 74 |
@@ -457,8 +457,8 @@ when you want the user/product view with those columns visible.
 |  | F2a | base | default | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 |  | F2b | base | ha | next80 | `tpl;stateful-storage` | - | - | ✅ | ✅ | ✅ | - | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | F1 | source | (source) | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | - | - | - | - | - | - | - | - | - | - | source-lock | - |
-|  | F2a | base | default | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | stage | live-parity | ✅ |
-|  | F2b | base | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
+|  | F2a | base | default | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | stage | live-parity | ✅ |
+|  | F2b | base | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ | ⬜ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ⬜ | ✅ | - | live-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | F1 | source | (source) | - | - | 2 observed ✅ (from @85.3.0) | - | - | - | - | - | - | - | - | - | - | source-lock | - |
 |  | F2a | base | default | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | model | live-parity | ⬜ |
 |  | F2b | base | no-crds | - | - | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | - | live-parity | ⬜ |

@@ -1,29 +1,35 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "KubePrometheusStackLifecycleRouteReceipt"
 metadata:
-  name: "kube-prometheus-stack-85.3.3-default-direct-install"
+  name: "kube-prometheus-stack-85.3.3-default-package-install"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
   base: "default"
-  deliveryPath: "direct-apply"
-  recordedAt: "2026-07-27T06:25:44.605Z"
+  deliveryPath: "cub-installer-package-direct-apply"
+  recordedAt: "2026-07-29T10:45:22.801Z"
   result: "pass"
   source:
     sourceLock: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/source-lock.yaml"
     chartPackageSha256: "ec622442bef2379e170ba0fdc90231d30f8f2886e3414813fe4ae1086779601e"
     chartPackageBytes: 874778
+    installerPackage: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
+    installerYamlSha256: "c0162e50e42b18bd722f36ebe4f02aea583f7c775d7e81d8910030294c00ea54"
+    packagedLifecycleGenerationReceipt: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+    packagedLifecycleGenerationReceiptSha256: "5d80aec8b6972f074610ad9eca97d0a0a98fd7562e4e4f2c4b1b204f84c8abcf"
     renderedObjects: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
   render:
-    totalObjectsWithHooks: 131
+    packageOutputObjects: 125
     ordinaryObjects: 124
     hookObjects: 7
     crds: 10
+    supportObjects:
+      - "v1|Namespace||monitoring"
     exactCommittedOrdinaryObjects: true
     committedObjectSetSha256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
   execution:
     clusterType: "kind"
-    clusterName: "hx-kps-route-20260727062544"
+    clusterName: "hx-kps-route-20260729104522"
     namespace: "monitoring"
     crds:
       names:
@@ -47,7 +53,7 @@ spec:
       - "v1|ServiceAccount|monitoring|kube-prometheus-stack-admission"
     preInstallJob:
       name: "kube-prometheus-stack-admission-create"
-      image: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3"
+      image: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728"
       result: "pass"
     admissionSecret:
       name: "kube-prometheus-stack-admission"
@@ -62,8 +68,19 @@ spec:
       result: "pass"
     postInstallJob:
       name: "kube-prometheus-stack-admission-patch"
-      image: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3"
+      image: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728"
       result: "pass"
+    packagedLifecycleReceipt:
+      admissionSecret: "kube-prometheus-stack-admission"
+      base: "default"
+      chart: "prometheus-community/kube-prometheus-stack"
+      matchingWebhookCABundles: 3
+      namespace: "monitoring"
+      operatorEndpointReady: true
+      result: "pass"
+      serverDryRun: "pass"
+      temporaryResourcesRemoved: true
+      version: "85.3.3"
     webhookObservation:
       mutatingEntries: 1
       validatingEntries: 2
@@ -158,7 +175,7 @@ spec:
     cluster: "pass"
     localFiles: "pass"
   limits:
-    - "This receipt covers one fresh direct-apply installation on one local kind cluster."
+    - "This receipt covers one fresh installer-package installation on one local kind cluster."
     - "It does not prove the Argo CD or Flux implementation of these chart-specific routes."
     - "It does not prove the 85.3.3 to 86.1.0 upgrade route."
-    - "The chart's own hook Jobs were rendered from the locked upstream chart and run explicitly; ConfigHub did not choose the route automatically."
+    - "The package carries chart-specific lifecycle steps and the direct runner executes them explicitly; ConfigHub does not yet choose this route automatically."

@@ -176,6 +176,7 @@ smallest generated surface that answers it.
 | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md) | Top-100 remote dependency closure map: source-scan dependency risk joined to maintained recipe dependency locks. |
 | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites. |
 | [high-fanout-demo/operation-preview.md](./high-fanout-demo/operation-preview.md) | Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof. |
+| [kps-public-package-proof/summary.md](./kps-public-package-proof/summary.md) | Anonymous pull proof for the public kube-prometheus-stack package, including its checked render and chart-specific CRD and webhook setup files. |
 | [edge-recovery/summary.md](./edge-recovery/summary.md) | Recovered graph fragments from catalog-supported recipe artifacts. |
 | [csv-index.csv](./csv-index.csv) | Machine-readable index of every CSV under data/. |
 

@@ -240,13 +240,18 @@
     <section>
       <h2>prometheus-community/kube-prometheus-stack</h2>
       <div class="base">
-        <div class="base-h">default@85.3.3</div>
+        <div class="base-h">default@85.3.3 <span class="muted">· package applies 10 CRDs first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
+          <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
+          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
+          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
+        </tr>
+        <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
-          <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -261,35 +266,40 @@
         </tr>
         <tr>
           <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="chip green">Not tested for this path</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
+          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>
         </table>
       </div>
       <div class="base">
-        <div class="base-h">no-crds@85.3.3 <span class="muted">· needs 10 CRDs supplied first</span></div>
+        <div class="base-h">no-crds@85.3.3 <span class="muted">· package applies 10 CRDs first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
+          <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
+          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
+          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 10 CRDs before the workload (observed live)</div></td>
+        </tr>
+        <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
-          <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -304,22 +314,22 @@
         </tr>
         <tr>
           <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="chip green">Not tested for this path</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
-          <td><span class="chip gray">reduced</span><div class="reason">CRD-first ordering is not needed in a base that installs no CRDs</div></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
+          <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
-          <td><span class="chip amber">strengthened</span><div class="reason">this base needs 10 CRDs supplied before deploy (the default base installs them for you)</div></td>
+          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
+          <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>
@@ -331,8 +341,13 @@
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
+          <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
+          <td><span class="chip green">Handled — this base installs the CRDs</span></td>
+          <td><span class="chip green">resolved</span><div class="reason">this base installs the required CRDs (observed live)</div></td>
+        </tr>
+        <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
-          <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -347,22 +362,22 @@
         </tr>
         <tr>
           <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="chip green">Not tested for this path</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
+          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>
@@ -374,8 +389,13 @@
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
+          <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
+          <td><span class="chip green">Handled — this base installs the CRDs</span></td>
+          <td><span class="chip green">resolved</span><div class="reason">this base installs the required CRDs (observed live)</div></td>
+        </tr>
+        <tr>
           <td>hook-delete-policy <span class="rt">preserve-cleanup-policy</span></td>
-          <td><span class="chip green">Your cluster — at uninstall, automatically</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
@@ -390,22 +410,22 @@
         </tr>
         <tr>
           <td>hook-phase <span class="rt">upgrade-action-with-receipt</span></td>
-          <td><span class="chip green">Your delivery — a GitOps PreSync/PostSync or cub action (receipted)</span></td>
+          <td><span class="chip green">Not tested for this path</span></td>
           <td><span class="muted">—</span></td>
         </tr>
         <tr>
           <td>hook-weight-ordering <span class="rt">preserve-ordering</span></td>
-          <td><span class="chip green">Your applier — must apply CRDs before dependent objects</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="chip gray">reduced</span><div class="reason">CRD-first ordering is not needed in a base that installs no CRDs</div></td>
         </tr>
         <tr>
           <td>target-facts <span class="rt">target-facts-or-preflight</span></td>
-          <td><span class="chip amber">Prerequisite — supply once (Secret / CRD / storage), like values</span></td>
+          <td><span class="chip green">Handled — the recorded package script creates or checks this prerequisite</span></td>
           <td><span class="chip amber">strengthened</span><div class="reason">this base needs 10 CRDs supplied before deploy (the default base installs them for you)</div></td>
         </tr>
         <tr>
           <td>webhook-readiness <span class="rt">webhook-readiness-observation</span></td>
-          <td><span class="chip green">Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</span></td>
+          <td><span class="chip green">Your delivery — an explicit, receipted step</span></td>
           <td><span class="muted">—</span></td>
         </tr>
           </tbody>

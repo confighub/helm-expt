@@ -13,7 +13,10 @@ const matrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv")
 const lifecycleByVariantPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
 const gitopsRouteEmissionPath = join(repoRoot, "data", "gitops-route-emission", "emission.json");
 const targetPrereqActionsPath = join(repoRoot, "data", "target-prerequisite-actions", "actions.csv");
-const kpsLifecycleReceiptPath = "runs/kps-lifecycle-route-proof/receipt.yaml";
+const kpsLifecycleReceiptPaths = {
+  default: "runs/kps-lifecycle-route-proof/receipt.yaml",
+  "no-crds": "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml",
+};
 
 const outputs = {
   summary: join(root, "summary.md"),
@@ -73,9 +76,11 @@ function buildReport() {
   const targetPrereqRows = existsSync(targetPrereqActionsPath)
     ? parseCsv(readFileSync(targetPrereqActionsPath, "utf8"))
     : [];
-  const kpsLifecycleReceipt = existsSync(join(repoRoot, kpsLifecycleReceiptPath))
-    ? readYaml(join(repoRoot, kpsLifecycleReceiptPath))
-    : null;
+  const kpsLifecycleReceipts = Object.fromEntries(
+    Object.entries(kpsLifecycleReceiptPaths)
+      .filter(([, path]) => existsSync(join(repoRoot, path)))
+      .map(([base, path]) => [base, readYaml(join(repoRoot, path))]),
+  );
   const realBases = matrixRows.filter((row) => row.row_kind === "base" && row.row_status !== "candidate" && !row.row_status.startsWith("candidate-"));
   const candidates = matrixRows.filter((row) => row.row_kind === "candidate" || row.row_status.startsWith("candidate")).length;
   const intents = realBases
@@ -84,7 +89,7 @@ function buildReport() {
       lifecycleByVariant,
       gitopsRouteEmission,
       targetPrereqRows,
-      kpsLifecycleReceipt,
+      kpsLifecycleReceipts,
     ))
     .sort((a, b) => a.metadata.name.localeCompare(b.metadata.name));
   const summary = summaryMd(intents, matrixRows, candidates);
@@ -100,7 +105,7 @@ function buildIntent(
   lifecycleByVariant,
   gitopsRouteEmission,
   targetPrereqRows,
-  kpsLifecycleReceipt,
+  kpsLifecycleReceipts,
 ) {
   const variantSpec = readVariantSpec(row.variant_path);
   const chartLifecycle = lifecycleByVariant.find((item) => item.chart === row.chart);
@@ -111,15 +116,28 @@ function buildIntent(
   const sourceLock = row.source_lock_path && existsSync(join(repoRoot, row.source_lock_path)) ? readYaml(join(repoRoot, row.source_lock_path)) : null;
   const chartName = sourceLock?.spec?.ref || (sourceLock?.spec?.repositoryName && sourceLock?.spec?.chart ? `${sourceLock.spec.repositoryName}/${sourceLock.spec.chart}` : row.chart);
   const name = intentSlug(row.chart, row.version, row.variant);
-  const isKpsDefault = row.chart === "prometheus-community/kube-prometheus-stack"
+  const isKpsLifecycleBase = row.chart === "prometheus-community/kube-prometheus-stack"
     && row.version === "85.3.3"
-    && row.variant === "default";
+    && Boolean(kpsLifecycleReceipts[row.variant]);
+  const kpsLifecycleReceipt = isKpsLifecycleBase
+    ? kpsLifecycleReceipts[row.variant]
+    : null;
+  const kpsLifecycleReceiptPath = isKpsLifecycleBase
+    ? kpsLifecycleReceiptPaths[row.variant]
+    : "";
   const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => {
     const emission = variantGitops?.routes?.find((item) => item.route_name === route.route_name && item.action_kind === route.action_kind);
     check(emission, `missing GitOps route emission for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
     const routeEvidence = splitList(route.evidence);
     check(route.sourceVersion, `missing route source version for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
-    check(routeEvidence.length > 0, `missing route evidence for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
+    if (route.disposition === "observed") {
+      check(routeEvidence.length > 0, `missing route evidence for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
+    } else {
+      check(
+        routeEvidence.length > 0 || route.nextAction,
+        `route ${row.chart}@${row.version} ${row.variant} ${route.route_name} needs evidence or a next action`,
+      );
+    }
     return {
       routeName: route.route_name,
       quirkClass: route.quirk_class,
@@ -148,8 +166,8 @@ function buildIntent(
         route,
         routeEvidence,
         emission,
-        isKpsDefault,
         kpsLifecycleReceipt,
+        kpsLifecycleReceiptPath,
       }),
     };
   });
@@ -252,10 +270,10 @@ function buildIntent(
         liveDualParity: lane(row.lane_live_dual_parity),
         twoClusterKind: lane(row.lane_two_cluster_kind),
         variantPromotion: lane(row.variant_promotion_status || row.variant_promotion),
-        ...(isKpsDefault
+        ...(isKpsLifecycleBase
           ? {
             lifecycleDirectFreshInstall: "yes",
-            lifecycleDirectFreshInstallReceipt: "runs/kps-lifecycle-route-proof/receipt.yaml",
+            lifecycleDirectFreshInstallReceipt: kpsLifecycleReceiptPath,
             lifecycleArgoCd: "not-run",
             lifecycleFlux: "not-run",
             lifecycleUpgrade: "not-run",
@@ -444,12 +462,11 @@ function uniqueStrings(values) {
 }
 
 function summarizeRouteValues(routes, field) {
-  const counts = countBy(routes, (route) => route[field]);
-  const entries = Object.entries(counts)
+  const entries = countBy(routes, (route) => route[field])
     .filter(([value]) => value)
     .sort(([left], [right]) => left.localeCompare(right));
   return entries.length
-    ? entries.map(([value, count]) => `${value}:${count}`).join(",")
+    ? entries.map(([value, count]) => `${value}:${count}`).join("; ")
     : "n/a";
 }
 
@@ -547,11 +564,14 @@ function routeRunnerRecords({
   route,
   routeEvidence,
   emission,
-  isKpsDefault,
   kpsLifecycleReceipt,
+  kpsLifecycleReceiptPath,
 }) {
-  const directRoute = isKpsDefault
-    ? kpsLifecycleReceipt?.spec?.routes?.[route.route_name]
+  const receiptRouteName = route.route_name === "preflight-or-presync-crd-apply"
+    ? "crds-first"
+    : route.route_name;
+  const directRoute = kpsLifecycleReceipt
+    ? kpsLifecycleReceipt.spec?.routes?.[receiptRouteName]
     : null;
   const directEvidence = directRoute
     ? [kpsLifecycleReceiptPath]

@@ -31,6 +31,29 @@ const prometheusOperatorCRDs = [
   "thanosrulers.monitoring.coreos.com",
 ];
 
+const packagedLifecycleRoot =
+  "prerequisites/kube-prometheus-stack-lifecycle";
+
+function packagedCRDs({ forceConflicts }) {
+  return prometheusOperatorCRDs.map((name) => ({
+    name,
+    sourceVariant: "default",
+    purpose: forceConflicts
+      ? "Prometheus Operator CRD included in this preset and applied before dependent objects"
+      : "Prometheus Operator CRD managed outside this no-crds preset",
+    deliveryLanes: [
+      "regularHelm",
+      "cubInstallerApply",
+      "configHubKubectlApply",
+      "configHubOciArgo",
+    ],
+    suggestedSource: `package://${packagedLifecycleRoot}/default-crds.yaml`,
+    ...(forceConflicts
+      ? { applyMode: "server-side-force-conflicts" }
+      : {}),
+  }));
+}
+
 const variants = [
   {
     name: "default",
@@ -45,17 +68,19 @@ const variants = [
     expectedCRDCount: 10,
     expectedSecretCount: 2,
     targetFacts: {
+      requiredCRDs: packagedCRDs({ forceConflicts: true }),
       requiredSecrets: [
         {
           namespace: "monitoring",
           name: "kube-prometheus-stack-admission",
-          keys: ["cert", "key"],
-          purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle",
+          keys: ["ca", "cert", "key"],
+          purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job",
           deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+          suggestedSource: `package://${packagedLifecycleRoot}/prepare.sh`,
         },
       ],
     },
-    targetFactNote: "includes Prometheus Operator CRDs, Grafana, webhook configurations, generated Grafana admin password binding, and config-only webhook TLS target facts",
+    targetFactNote: "includes Prometheus Operator CRDs, Grafana, webhook configurations, generated Grafana admin password binding, and the packaged admission-webhook setup route",
   },
   {
     name: "no-crds",
@@ -72,23 +97,19 @@ grafana:
     expectedCRDCount: 0,
     expectedSecretCount: 2,
     targetFacts: {
-      requiredCRDs: prometheusOperatorCRDs.map((name) => ({
-        name,
-        sourceVariant: "default",
-        purpose: "Prometheus Operator CRD managed outside this no-crds base",
-        deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
-      })),
+      requiredCRDs: packagedCRDs({ forceConflicts: false }),
       requiredSecrets: [
         {
           namespace: "monitoring",
           name: "kube-prometheus-stack-admission",
-          keys: ["cert", "key"],
-          purpose: "Prometheus Operator admission webhook TLS material normally created by Helm hook lifecycle",
+          keys: ["ca", "cert", "key"],
+          purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job",
           deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+          suggestedSource: `package://${packagedLifecycleRoot}/prepare.sh`,
         },
       ],
     },
-    targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, ServiceMonitors, required target CRDs, and config-only webhook TLS target facts",
+    targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, ServiceMonitors, the packaged CRD source, and the admission-webhook setup route",
   },
 ];
 
@@ -162,7 +183,8 @@ function kubePrometheusProductionReadinessPlan(ctx) {
           useWhen: "ConfigHub owns initial Prometheus Operator CRD publication for the target scope.",
           includesCRDs: true,
           requiredTargetFacts: [
-            "Secret monitoring/kube-prometheus-stack-admission with cert and key",
+            "The package applies its ten CRDs first and waits for them to become established",
+            "The packaged admission setup route creates Secret monitoring/kube-prometheus-stack-admission with ca, cert, and key",
           ],
           requiredBeforeProduction: [
             "CRD install and upgrade policy",
@@ -177,7 +199,7 @@ function kubePrometheusProductionReadinessPlan(ctx) {
           includesCRDs: false,
           requiredTargetFacts: [
             "10 Prometheus Operator CRDs already present and schema-compatible",
-            "Secret monitoring/kube-prometheus-stack-admission with cert and key",
+            "The packaged admission setup route creates Secret monitoring/kube-prometheus-stack-admission with ca, cert, and key",
           ],
           requiredBeforeProduction: [
             "CRD ownership receipt",
@@ -246,6 +268,33 @@ runProofCli({
   // (kube-prometheus-stack-kube-prometheus-stack) rather than repo-name. Drives both
   // packageName and lockName.
   packageName: "kube-prometheus-stack-kube-prometheus-stack",
+  packageExtraPaths: ({ ctx }) => [
+    {
+      source:
+        `config-catalog/package-extras/prometheus-community/kube-prometheus-stack/${ctx.chart.version}`,
+      destination: packagedLifecycleRoot,
+    },
+  ],
+  packageReadme: ({ ctx }) => `# ${ctx.chartRef} ${ctx.chart.version}
+
+This package contains two ready-to-use preset configs:
+
+- \`default\` includes the ten Prometheus Operator CRDs.
+- \`no-crds\` leaves CRD ownership with the platform.
+
+Both presets carry the chart's real admission-webhook setup work. The package
+includes the CRDs, the certificate creation and webhook patch Jobs, their
+temporary RBAC, direct scripts, and a lifecycle action record under
+\`${packagedLifecycleRoot}/\`.
+
+\`cub installer setup\` renders the checked Kubernetes objects. It does not
+silently run the lifecycle actions. Use the generated public \`try.sh\`, or read
+\`${packagedLifecycleRoot}/README.md\` and run the steps with your delivery
+system.
+
+The hook image is pinned by digest. The generation receipt ties every packaged
+route file to the locked upstream chart.
+`,
   // kps's committed helm-equivalence receipts prune both null fields and empty metadata maps.
   semanticNormalizations: ["prune-null-fields", "prune-empty-metadata-maps"],
   valueModel: {

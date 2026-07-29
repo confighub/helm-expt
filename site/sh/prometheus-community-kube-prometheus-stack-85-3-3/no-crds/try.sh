@@ -84,7 +84,7 @@ if ! kubectl get crd/thanosrulers.monitoring.coreos.com >/dev/null 2>&1; then
   missing_crds=1
 fi
 if [ "$missing_crds" -eq 1 ]; then
-  kubectl apply --server-side -f ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/package/prerequisites/target-facts/no-crds-crds.yaml
+  kubectl apply --server-side -f ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/package/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml
 else
   say "The required CRDs already exist; leave them under their current owner"
 fi
@@ -99,18 +99,29 @@ wait_for_crd scrapeconfigs.monitoring.coreos.com
 wait_for_crd servicemonitors.monitoring.coreos.com
 wait_for_crd thanosrulers.monitoring.coreos.com
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - Secret monitoring/kube-prometheus-stack-admission keys cert,key
-    kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Check the monitoring/kube-prometheus-stack-admission Secret required by this base"
+missing_packaged_secrets=0
+if ! kubectl -n monitoring get secret/kube-prometheus-stack-admission >/dev/null 2>&1; then
+  missing_packaged_secrets=1
 fi
+if [ -z "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.ca}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.cert}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.key}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ "$missing_packaged_secrets" -eq 1 ]; then
+  bash ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/package/prerequisites/kube-prometheus-stack-lifecycle/prepare.sh monitoring
+else
+  say "The required Secrets already exist and contain every recorded key; leave them under their current owner"
+fi
+kubectl -n monitoring get secret/kube-prometheus-stack-admission >/dev/null
+test -n "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.ca}")"
+test -n "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.cert}")"
+test -n "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.key}")"
 
 if [ -d ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/out/secrets ]; then
   say "Apply rendered Secrets first"
@@ -120,4 +131,7 @@ fi
 say "Apply the rendered objects"
 kubectl apply -f ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/out/manifests
 
-say "Done. The cluster received exactly the files in ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/out."
+say "Patch and check the admission webhook"
+bash ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/package/prerequisites/kube-prometheus-stack-lifecycle/finish.sh monitoring
+
+say "Done. The cluster received exactly the files in ./prometheus-community-kube-prometheus-stack-85-3-3-no-crds/out, with the packaged lifecycle steps checked."

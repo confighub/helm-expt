@@ -525,7 +525,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
           <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
           <dt>Hooks/actions</dt><dd>packaged setup: prerequisites/contour-certgen/run.sh</dd>
-          <dt>Who runs actions?</dt><dd>The generated try script runs the packaged setup before apply. Argo CD and Flux need their own recorded route.</dd>
+          <dt>Who runs actions?</dt><dd>The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded route.</dd>
           <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
           <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
         </dl>
@@ -548,7 +548,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Scripts</dt><dd><a href="../sh/bitnami-contour-21-1-4/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/bitnami-contour-21-1-4/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Two cluster kind parity</dd>
           <dt>Hooks/actions</dt><dd>packaged setup: prerequisites/contour-certgen/run.sh</dd>
-          <dt>Who runs actions?</dt><dd>The generated try script runs the packaged setup before apply. Argo CD and Flux need their own recorded route.</dd>
+          <dt>Who runs actions?</dt><dd>The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded route.</dd>
           <dt>Lifecycle record</dt><dd>The package contains a setup action that the generated try script runs before apply. Controller-specific execution is claimed only when that path has its own receipt. <a href="../../data/helm-render-intents/intents/bitnami-contour-21-1-4-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>2 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
           <dt>Next</dt><dd>Image retention review</dd>
@@ -598,7 +598,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Scripts</dt><dd><a href="../sh/bitnami-contour-21-1-4/no-crds/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/bitnami-contour-21-1-4/no-crds/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Two cluster kind parity</dd>
           <dt>Hooks/actions</dt><dd>packaged setup: prerequisites/contour-certgen/run.sh</dd>
-          <dt>Who runs actions?</dt><dd>The generated try script runs the packaged setup before apply. Argo CD and Flux need their own recorded route.</dd>
+          <dt>Who runs actions?</dt><dd>The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded route.</dd>
           <dt>Lifecycle record</dt><dd>The package contains a setup action that the generated try script runs before apply. Controller-specific execution is claimed only when that path has its own receipt. <a href="../../data/helm-render-intents/intents/bitnami-contour-21-1-4-no-crds.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>2 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>
           <dt>Next</dt><dd>Image retention review</dd>
@@ -622,7 +622,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd>Not ready to run yet. First: An operator decision recorded for this base/target; Then a fresh G/P parity receipt for this base.</dd>
           <dt>Evidence</dt><dd>Planning evidence only</dd>
           <dt>Hooks/actions</dt><dd>packaged setup: prerequisites/contour-certgen/run.sh</dd>
-          <dt>Who runs actions?</dt><dd>The generated try script runs the packaged setup before apply. Argo CD and Flux need their own recorded route.</dd>
+          <dt>Who runs actions?</dt><dd>The generated try script runs each packaged step at its recorded point. Argo CD and Flux need their own recorded route.</dd>
           <dt>Next</dt><dd>Complete the operator review; Npm run live parity:run      recipe recipes/bitnami/contour/21.1.4   base legacy   repo url oci://registry 1.docker.io/bitnamicharts</dd>
           <dt>Reason</dt><dd>Candidate rows are planning rows; Not server side promotion evidence</dd>
         </dl>

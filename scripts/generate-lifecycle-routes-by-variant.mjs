@@ -78,6 +78,7 @@ function readCsvObjects(rel) {
 // escape hatch (the command stays in the data), never the headline. Product
 // auto-execution (with a receipt) is the roadmap (#688).
 function whoRuns(execMode, actionKind, disposition) {
+  if (disposition === "not-run") return "Not tested for this path";
   if (actionKind === "install-crd") {
     return disposition === "observed"
       ? "Handled — this base installs the CRDs"
@@ -157,7 +158,7 @@ function requiredCrds(yaml) {
 
 function packagedCrds(yaml) {
   return requiredCrdFacts(yaml).filter((crd) =>
-    crd?.sourcePath
+    (crd?.sourcePath || String(crd?.suggestedSource ?? "").startsWith("package://"))
       && Array.isArray(crd.deliveryLanes)
       && crd.deliveryLanes.includes("cubInstallerApply"),
   ).length;
@@ -183,7 +184,12 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
   return chartRoutes.map((route) => {
     let delta = "kept";
     let reason = "";
-    let disposition = perBase ?? route.disposition;
+    // An exact-base route receipt is more specific than the chart-level hook
+    // disposition. Keep its per-route result so one observed fresh install
+    // cannot make an untested upgrade look observed.
+    let disposition = route.base
+      ? route.disposition
+      : (perBase ?? route.disposition);
     const isCrdRoute = route.action_kind === "install-crd" || /crd/i.test(route.route_name);
     if (isCrdRoute) {
       if (packagedCrdCount === crdCount && crdCount > 0 && disposition === "observed") {
@@ -220,6 +226,10 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
       ? disposition === "observed"
         ? "Handled — the generated package script applies the CRDs first"
         : "Prerequisite — run the generated package script before the workloads"
+      : route.base
+        && route.action_kind === "stage-target-facts"
+        && disposition === "observed"
+        ? "Handled — the recorded package script creates or checks this prerequisite"
       : whoRuns(route.execution_mode, route.action_kind, disposition);
     return {
       route_name: route.route_name,

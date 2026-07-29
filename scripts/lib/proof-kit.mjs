@@ -468,9 +468,28 @@ function generatePackage(ctx) {
   if (variants.some((variant) => hasTargetFacts(variant))) {
     write(join(packageRoot, "collector", "target-facts.sh"), targetFactsCollectorScript(variants));
   }
+  const packageExtraPaths = typeof ctx.spec.packageExtraPaths === "function"
+    ? ctx.spec.packageExtraPaths({ ctx })
+    : (ctx.spec.packageExtraPaths ?? []);
+  for (const extra of packageExtraPaths) {
+    check(
+      typeof extra?.source === "string"
+        && typeof extra?.destination === "string"
+        && extra.source
+        && extra.destination
+        && !extra.destination.startsWith("/")
+        && !extra.destination.split("/").includes(".."),
+      "packageExtraPaths entries require safe source and destination paths",
+    );
+    const source = join(repoRoot, extra.source);
+    const destination = join(packageRoot, extra.destination);
+    check(existsSync(source), `package extra source is missing: ${extra.source}`);
+    mkdirSync(dirname(destination), { recursive: true });
+    cpSync(source, destination, { recursive: true });
+  }
   write(
     join(packageRoot, "README.md"),
-    `# ${ctx.chartRef} ${chart.version} Installer Package
+    ctx.spec.packageReadme?.({ ctx }) ?? `# ${ctx.chartRef} ${chart.version} Installer Package
 
 This package is generated from the ${ctx.receiptSlug} proof artifacts.
 
@@ -749,21 +768,23 @@ function externalRequiresForVariant(variant) {
   const requiredSecrets = variant.targetFacts?.requiredSecrets ?? [];
   const requiredCRDs = variant.targetFacts?.requiredCRDs ?? [];
   const requiredObjectStores = variant.targetFacts?.requiredObjectStores ?? [];
-  const requirements = requiredSecrets.map((secret) => ({
-    kind: "ClusterFeature",
-    name: `Secret ${secret.namespace}/${secret.name}${(secret.keys ?? []).length === 1 ? ` key ${secret.keys[0]}` : (secret.keys ?? []).length > 1 ? ` keys ${secret.keys.join(",")}` : ""}`,
-    namespace: secret.namespace,
-    suggestedSource:
-      secret.suggestedSource ??
-      ((secret.keys ?? []).length
-        ? `kubectl -n ${secret.namespace} create secret generic ${secret.name} ${secret.keys.map((key) => `--from-literal=${key}=<value>`).join(" ")}`
-        : `kubectl -n ${secret.namespace} apply -f <secret-manifest.yaml>`),
-  }));
-  requirements.push(
-    ...requiredCRDs.map((crd) => ({
+  const requirements = requiredCRDs.map((crd) => ({
       kind: "ClusterFeature",
       name: `CRD ${crd.name}`,
-      suggestedSource: "kubectl apply -f <crd-manifest.yaml>",
+      suggestedSource:
+        crd.suggestedSource ?? "kubectl apply -f <crd-manifest.yaml>",
+      ...(crd.applyMode ? { applyMode: crd.applyMode } : {}),
+    }));
+  requirements.push(
+    ...requiredSecrets.map((secret) => ({
+      kind: "ClusterFeature",
+      name: `Secret ${secret.namespace}/${secret.name}${(secret.keys ?? []).length === 1 ? ` key ${secret.keys[0]}` : (secret.keys ?? []).length > 1 ? ` keys ${secret.keys.join(",")}` : ""}`,
+      namespace: secret.namespace,
+      suggestedSource:
+        secret.suggestedSource ??
+        ((secret.keys ?? []).length
+          ? `kubectl -n ${secret.namespace} create secret generic ${secret.name} ${secret.keys.map((key) => `--from-literal=${key}=<value>`).join(" ")}`
+          : `kubectl -n ${secret.namespace} apply -f <secret-manifest.yaml>`),
     })),
   );
   requirements.push(

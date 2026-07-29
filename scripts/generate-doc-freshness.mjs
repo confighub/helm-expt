@@ -50,7 +50,9 @@ const reviewedPath = join(outputRoot, "reviewed.csv");
 const EVIDENCE_ROOTS = ["data/", "scripts/", "tests/", "recipes/", "packages/", "CATALOG.md"];
 
 if (mode === "--generate") {
-  const generatedAt = new Date().toISOString();
+  const generatedAt =
+    process.env.HELM_EXPT_DOC_FRESHNESS_GENERATED_AT
+    || new Date().toISOString();
   const rows = buildRows();
   write(outputs.freshness, toCsv(rows));
   write(outputs.summary, summary(rows));

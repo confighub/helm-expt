@@ -35,21 +35,58 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
 say "Read what was rendered; nothing has touched the cluster yet"
 ls ./prometheus-community-kube-prometheus-stack-85-3-3-default/out/manifests
 
+wait_for_crd() {
+  crd_name="$1"
+  deadline=$(( $(date +%s) + 180 ))
+  until kubectl get "crd/${crd_name}" >/dev/null 2>&1; do
+    if [ "$(date +%s)" -ge "$deadline" ]; then
+      printf "CRD %s did not appear within 180 seconds.\n" "$crd_name" >&2
+      return 1
+    fi
+    sleep 2
+  done
+  kubectl wait --for=condition=Established --timeout=120s "crd/${crd_name}"
+}
+
 say "Ensure the monitoring namespace exists"
 kubectl create namespace monitoring --dry-run=client -o yaml | kubectl apply -f -
 
-if [ "${REQUIREMENTS_READY:-0}" != "1" ]; then
-  cat >&2 <<'EOF_REQUIREMENTS'
-This base variant needs resources you must create with your own values first:
-  - Secret monitoring/kube-prometheus-stack-admission keys cert,key
-    kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value>
-Complete these prerequisites before applying the rendered objects.
-Replace any <...> placeholders with values or files for your environment.
-When the resources exist, re-run with:
-  REQUIREMENTS_READY=1 bash try.sh
-EOF_REQUIREMENTS
-  exit 1
+say "Apply the 10 locked CRDs before the workload"
+kubectl apply --server-side --force-conflicts -f ./prometheus-community-kube-prometheus-stack-85-3-3-default/package/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml
+wait_for_crd alertmanagerconfigs.monitoring.coreos.com
+wait_for_crd alertmanagers.monitoring.coreos.com
+wait_for_crd podmonitors.monitoring.coreos.com
+wait_for_crd probes.monitoring.coreos.com
+wait_for_crd prometheusagents.monitoring.coreos.com
+wait_for_crd prometheuses.monitoring.coreos.com
+wait_for_crd prometheusrules.monitoring.coreos.com
+wait_for_crd scrapeconfigs.monitoring.coreos.com
+wait_for_crd servicemonitors.monitoring.coreos.com
+wait_for_crd thanosrulers.monitoring.coreos.com
+
+say "Check the monitoring/kube-prometheus-stack-admission Secret required by this base"
+missing_packaged_secrets=0
+if ! kubectl -n monitoring get secret/kube-prometheus-stack-admission >/dev/null 2>&1; then
+  missing_packaged_secrets=1
 fi
+if [ -z "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.ca}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.cert}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.key}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ "$missing_packaged_secrets" -eq 1 ]; then
+  bash ./prometheus-community-kube-prometheus-stack-85-3-3-default/package/prerequisites/kube-prometheus-stack-lifecycle/prepare.sh monitoring
+else
+  say "The required Secrets already exist and contain every recorded key; leave them under their current owner"
+fi
+kubectl -n monitoring get secret/kube-prometheus-stack-admission >/dev/null
+test -n "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.ca}")"
+test -n "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.cert}")"
+test -n "$(kubectl -n monitoring get secret/kube-prometheus-stack-admission -o "jsonpath={.data.key}")"
 
 if [ -d ./prometheus-community-kube-prometheus-stack-85-3-3-default/out/secrets ]; then
   say "Apply rendered Secrets first"
@@ -59,4 +96,7 @@ fi
 say "Apply the rendered objects"
 kubectl apply -f ./prometheus-community-kube-prometheus-stack-85-3-3-default/out/manifests
 
-say "Done. The cluster received exactly the files in ./prometheus-community-kube-prometheus-stack-85-3-3-default/out."
+say "Patch and check the admission webhook"
+bash ./prometheus-community-kube-prometheus-stack-85-3-3-default/package/prerequisites/kube-prometheus-stack-lifecycle/finish.sh monitoring
+
+say "Done. The cluster received exactly the files in ./prometheus-community-kube-prometheus-stack-85-3-3-default/out, with the packaged lifecycle steps checked."

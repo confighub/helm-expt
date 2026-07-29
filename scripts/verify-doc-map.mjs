@@ -40,6 +40,7 @@ function isExpectedMarkdownLocation(file) {
     /^docs\/demo\/[^/]+\/[^/]+\.md$/.test(file) ||
     /^examples\/.+\.md$/.test(file) ||
     /^recipes\/[^/]+\/[^/]+\/[^/]+\/(README|CATALOG|weirdness-and-mitigations)\.md$/.test(file) ||
+    /^config-catalog\/package-extras\/[^/]+\/[^/]+\/[^/]+\/README\.md$/.test(file) ||
     /^packages\/[^/]+\/[^/]+\/[^/]+\/README\.md$/.test(file) ||
     /^packages\/[^/]+\/[^/]+\/[^/]+\/prerequisites\/[^/]+\/README\.md$/.test(file) ||
     /^data\/.+\.md$/.test(file) ||
