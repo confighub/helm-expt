@@ -1487,7 +1487,7 @@ function configTestCentreHome(catalog) {
         <div class="hero">
           <div>
             <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
-            <h1>A community resource for understanding and testing your configuration.</h1>
+            <h1>Simplify configuration testing and verification</h1>
             <p class="lead">Read and test the exact Kubernetes objects before anything runs. Keep the reviewed result as files or OCI, or save it in ConfigHub so your team can change, promote, and roll it out. Start with a catalog package, your own Helm values, AICR, or an existing OCI.</p>
             <div class="cta-row">
               <a class="btn primary" href="./try.html">Run a catalog package</a>
@@ -1515,7 +1515,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
       <main>
         <section class="section">
           <span class="eyebrow">Five simple things</span>
-          <h2>Everything here extends one simple act</h2>
+          <h2>What you can do</h2>
           <p class="intro">Look at what a package does, and whether it is safe, before you install it. Each verb works on a catalog package or on your own config. Depth is there when you want it, never before.</p>
           <div class="verbs">
             ${verbs.map(([n, name, desc, route]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}

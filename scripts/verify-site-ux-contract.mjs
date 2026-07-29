@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["A community resource for understanding and testing your configuration", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "Everything here extends one simple act", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
+    terms: ["Simplify configuration testing and verification", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "What you can do", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
   },
   {
     file: "site/variants.html",
@@ -118,7 +118,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["A community resource for understanding and testing your configuration", "Run a catalog package", "Check my config"],
+    headerTerms: ["Simplify configuration testing and verification", "Run a catalog package", "Check my config"],
   },
   {
     file: "site/try.html",
