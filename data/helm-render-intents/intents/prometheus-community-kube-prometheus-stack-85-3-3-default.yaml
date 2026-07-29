@@ -422,6 +422,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -433,6 +435,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -444,6 +448,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -455,6 +461,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -466,6 +474,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -477,6 +487,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -488,6 +500,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -499,6 +513,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -510,6 +526,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         -
           applyMode: "server-side-force-conflicts"
           deliveryLanes:
@@ -521,6 +539,8 @@ spec:
           purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
           sourceVariant: "default"
           suggestedSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+          packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       requiredSecrets:
         -
           deliveryLanes:
@@ -546,6 +566,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -557,6 +579,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "alertmanagers.monitoring.coreos.com"
@@ -567,6 +590,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -578,6 +603,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "podmonitors.monitoring.coreos.com"
@@ -588,6 +614,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -599,6 +627,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "probes.monitoring.coreos.com"
@@ -609,6 +638,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -620,6 +651,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "prometheusagents.monitoring.coreos.com"
@@ -630,6 +662,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -641,6 +675,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "prometheuses.monitoring.coreos.com"
@@ -651,6 +686,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -662,6 +699,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "prometheusrules.monitoring.coreos.com"
@@ -672,6 +710,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -683,6 +723,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "scrapeconfigs.monitoring.coreos.com"
@@ -693,6 +734,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -704,6 +747,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "servicemonitors.monitoring.coreos.com"
@@ -714,6 +758,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -725,6 +771,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "crd"
         name: "thanosrulers.monitoring.coreos.com"
@@ -735,6 +782,8 @@ spec:
           maxAge: "one-apply"
         purpose: "Prometheus Operator CRD included in this preset and applied before dependent objects"
         check: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packageSource: "package://prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
+        packagePath: "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
         declarationPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
         sourceVariant: "default"
         sourcePath: ""
@@ -746,6 +795,7 @@ spec:
           - "configHubOciArgo"
         evidence:
           - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/variants/default/variant.yaml"
+          - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml"
       -
         category: "secret"
         name: "monitoring/kube-prometheus-stack-admission"

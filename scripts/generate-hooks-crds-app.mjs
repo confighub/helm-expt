@@ -260,6 +260,31 @@ function withKpsImplementations(route, receipt, gitOpsReceipt) {
 
 function kpsControllerImplementation(routeName, controller, receipt) {
   const row = receipt.spec?.controllers?.[controller];
+  const upgradeRequirements = {
+    "upgrade-action-with-receipt": ["crds", "prepare", "workload", "finish", "runtime"],
+    "preserve-cleanup-policy": ["completed-hook-jobs-replaced"],
+  }[routeName];
+  if (row && upgradeRequirements) {
+    const upgrade = row.upgrade;
+    const passed = upgrade?.result === "pass"
+      && upgradeRequirements.every((requirement) => {
+        if (requirement === "runtime") return upgrade.runtime?.result === "pass";
+        if (requirement === "completed-hook-jobs-replaced") {
+          return upgrade.completedHookJobsReplaced?.length === 2;
+        }
+        return upgrade.stages?.[requirement] === "pass";
+      });
+    return {
+      result: passed ? "pass" : "not-run",
+      automatic: false,
+      evidence: passed ? relativeRepo(kpsGitOpsReceiptPath) : "",
+      observation: passed
+        ? routeName === "preserve-cleanup-policy"
+          ? `${controller === "argo" ? "Argo CD" : "Flux"} paused while both completed hook Jobs were removed before the upgrade replaced them.`
+          : `${controller === "argo" ? "Argo CD" : "Flux"} upgraded 85.3.3 to 86.1.0, reran all four stages, and passed the runtime checks.`
+        : "No passing chart-specific controller result is recorded for this route.",
+    };
+  }
   const requirements = {
     "crds-first": ["crds"],
     "preflight-or-presync": ["prepare"],
@@ -278,11 +303,7 @@ function kpsControllerImplementation(routeName, controller, receipt) {
     evidence: passed ? relativeRepo(kpsGitOpsReceiptPath) : "",
     observation: passed
       ? `${controller === "argo" ? "Argo CD" : "Flux"} pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks.`
-      : routeName === "upgrade-action-with-receipt"
-        ? "The 85.3.3 to 86.1.0 upgrade has not run through this controller."
-        : routeName === "preserve-cleanup-policy"
-          ? "The fresh-install controller receipt does not prove Helm's hook cleanup policy."
-          : "No passing chart-specific controller result is recorded for this route.",
+      : "No passing chart-specific controller result is recorded for this route.",
   };
 }
 
@@ -385,8 +406,8 @@ function validateRoutes(routes) {
       && route.spec.implementations?.flux?.result === "pass",
   );
   check(
-    controllerPasses.length === 6,
-    `expected six passing controller lifecycle implementations, found ${controllerPasses.length}`,
+    controllerPasses.length === 8,
+    `expected eight passing controller lifecycle implementations, found ${controllerPasses.length}`,
   );
   check(
     kpsRoutes.every(
@@ -399,11 +420,11 @@ function validateRoutes(routes) {
     (route) => route.spec.routeName === "preserve-cleanup-policy",
   );
   check(
-    cleanup?.spec.implementations?.argoCd?.result === "not-run"
-      && cleanup?.spec.implementations?.flux?.result === "not-run"
-      && upgrade?.spec.implementations?.argoCd?.result === "not-run"
-      && upgrade?.spec.implementations?.flux?.result === "not-run",
-    "cleanup or upgrade gained an unsupported controller pass",
+    cleanup?.spec.implementations?.argoCd?.result === "pass"
+      && cleanup?.spec.implementations?.flux?.result === "pass"
+      && upgrade?.spec.implementations?.argoCd?.result === "pass"
+      && upgrade?.spec.implementations?.flux?.result === "pass",
+    "cleanup or upgrade is missing the controller receipt",
   );
 
   const automatic = routes.filter((route) => route.spec.automatic);

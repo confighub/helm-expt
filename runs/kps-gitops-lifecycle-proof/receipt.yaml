@@ -1,14 +1,15 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "KubePrometheusStackGitOpsLifecycleReceipt"
 metadata:
-  name: "kube-prometheus-stack-85-3-3-no-crds-gitops-20260729-1vsa"
+  name: "kube-prometheus-stack-85-3-3-no-crds-gitops-20260729-1zvp"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
+  upgradeVersion: "86.1.0"
   base: "no-crds"
-  observedAt: "2026-07-29T12:09:20.300Z"
+  observedAt: "2026-07-29T13:12:55.623Z"
   result: "pass"
-  claim: "cub installer rendered the public no-crds preset and verified its non-secret OCI output. One derived OCI then carried the exact rendered files plus four explicit lifecycle stages. Argo CD and Flux each pulled that same manifest digest on separate fresh clusters, ran the CRD and admission Jobs in order, and reached the checked workloads."
+  claim: "cub installer rendered the public 85.3.3 and 86.1.0 no-crds presets and verified both non-secret OCI outputs. Argo CD and Flux installed the first staged digest, removed the completed hook Jobs before replacement, upgraded to the second staged digest, reran the chart-specific lifecycle stages, and reached the checked workloads."
   source:
     installerPackage: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3"
     installerPackageManifestDigest: "sha256:bc8b2b5a3b92e2e5e44638dd8da9ae49b2cfb5edccbe664208c8251585148679"
@@ -45,11 +46,70 @@ spec:
     renderedOciPullBack: "pass"
   deliveryArtifact:
     reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds"
-    digest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+    digest: "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
     artifactType: "application/vnd.confighub.staged-kubernetes.v1+json"
     layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
-    layerDigest: "sha256:24585df3f2de0455e8510af561a4443b2faa400393a5b4644ccc2850a0a8802d"
-    archiveSha256: "24585df3f2de0455e8510af561a4443b2faa400393a5b4644ccc2850a0a8802d"
+    layerDigest: "sha256:e8a8323d38b512b1ebebad9cea678d822393c9ce29e80c41ae2968cfcde0e634"
+    archiveSha256: "e8a8323d38b512b1ebebad9cea678d822393c9ce29e80c41ae2968cfcde0e634"
+    anonymousPull: "pass"
+    containsSecrets: false
+    stages:
+      -
+        name: "crds"
+        path: "stages/crds"
+        objectCount: 11
+      -
+        name: "prepare"
+        path: "stages/prepare"
+        objectCount: 6
+      -
+        name: "workload"
+        path: "stages/workload"
+        objectCount: 112
+      -
+        name: "finish"
+        path: "stages/finish"
+        objectCount: 1
+    totalObjects: 130
+    routeRecord: ".confighub/route.yaml"
+  upgradeSource:
+    cubInstallerCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:86.1.0"
+      - "--base"
+      - "no-crds"
+      - "--namespace"
+      - "monitoring"
+      - "--output-oci"
+      - "<temporary-local-layout>"
+    renderedManifestCount: 113
+    separatedSecretCount: 2
+    separatedSecrets:
+      -
+        namespace: "monitoring"
+        name: "alertmanager-kube-prometheus-stack-alertmanager"
+        keys:
+          - "alertmanager.yaml"
+      -
+        namespace: "monitoring"
+        name: "kube-prometheus-stack-grafana"
+        keys:
+          - "admin-password"
+          - "admin-user"
+          - "ldap-toml"
+    renderedOciManifestDigest: "sha256:67d358c1e34ed89603daceb49400cae073b9ec1761b3e66413f88b9e6463a7df"
+    renderedObjectSetDigest: "sha256:ab82bd85549b650c4b2b2ff26258e0b39e69247a22ce7bcc51553186b22fb6bc"
+    renderedOciPullBack: "pass"
+  upgradeArtifact:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:86.1.0-no-crds"
+    digest: "sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+    artifactType: "application/vnd.confighub.staged-kubernetes.v1+json"
+    layerMediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+    layerDigest: "sha256:8cf194932c65de1d7b7d03d5da959b6e5afd85f12d74f889b80f65c8b64390e5"
+    archiveSha256: "8cf194932c65de1d7b7d03d5da959b6e5afd85f12d74f889b80f65c8b64390e5"
     anonymousPull: "pass"
     containsSecrets: false
     stages:
@@ -74,11 +134,11 @@ spec:
   controllers:
     argo:
       result: "pass"
-      cluster: "hx-kps-argo-20260729-1vsa"
+      cluster: "hx-kps-argo-20260729-1zvp"
       clusterType: "kind"
       sourceReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds"
-      requestedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
-      observedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      requestedDigest: "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
+      observedDigest: "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
       targetOwnedSecrets: "pass"
       stages:
         crds: "pass"
@@ -162,6 +222,97 @@ spec:
             name: "prometheus-kube-prometheus-stack-prometheus"
             namespace: "monitoring"
             ready: true
+      upgrade:
+        result: "pass"
+        fromVersion: "85.3.3"
+        toVersion: "86.1.0"
+        requestedDigest: "sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+        observedDigest: "sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+        stages:
+          crds: "pass"
+          prepare: "pass"
+          workload: "pass"
+          finish: "pass"
+        completedHookJobsReplaced:
+          - "kube-prometheus-stack-admission-create"
+          - "kube-prometheus-stack-admission-patch"
+        runtime:
+          result: "pass"
+          crds:
+            -
+              name: "alertmanagerconfigs.monitoring.coreos.com"
+              established: true
+            -
+              name: "alertmanagers.monitoring.coreos.com"
+              established: true
+            -
+              name: "podmonitors.monitoring.coreos.com"
+              established: true
+            -
+              name: "probes.monitoring.coreos.com"
+              established: true
+            -
+              name: "prometheusagents.monitoring.coreos.com"
+              established: true
+            -
+              name: "prometheuses.monitoring.coreos.com"
+              established: true
+            -
+              name: "prometheusrules.monitoring.coreos.com"
+              established: true
+            -
+              name: "scrapeconfigs.monitoring.coreos.com"
+              established: true
+            -
+              name: "servicemonitors.monitoring.coreos.com"
+              established: true
+            -
+              name: "thanosrulers.monitoring.coreos.com"
+              established: true
+          admissionSecret:
+            namespace: "monitoring"
+            name: "kube-prometheus-stack-admission"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+          matchingWebhookCABundles: 3
+          operatorEndpointAddresses: 1
+          serverDryRun: "pass"
+          jobs:
+            admissionCreate: true
+            admissionPatch: true
+          workloads:
+            -
+              kind: "deployment"
+              name: "kube-prometheus-stack-grafana"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "deployment"
+              name: "kube-prometheus-stack-kube-state-metrics"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "deployment"
+              name: "kube-prometheus-stack-operator"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "daemonset"
+              name: "kube-prometheus-stack-prometheus-node-exporter"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "statefulset"
+              name: "alertmanager-kube-prometheus-stack-alertmanager"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "statefulset"
+              name: "prometheus-kube-prometheus-stack-prometheus"
+              namespace: "monitoring"
+              ready: true
       cleanup: "pass"
       controller: "Argo CD"
       application: "kps-staged"
@@ -170,11 +321,11 @@ spec:
       operation: "Succeeded"
     flux:
       result: "pass"
-      cluster: "hx-kps-flux-20260729-1vsa"
+      cluster: "hx-kps-flux-20260729-1zvp"
       clusterType: "kind"
       sourceReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds"
-      requestedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
-      observedDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
+      requestedDigest: "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
+      observedDigest: "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
       targetOwnedSecrets: "pass"
       stages:
         crds: "pass"
@@ -258,18 +409,110 @@ spec:
             name: "prometheus-kube-prometheus-stack-prometheus"
             namespace: "monitoring"
             ready: true
+      upgrade:
+        result: "pass"
+        fromVersion: "85.3.3"
+        toVersion: "86.1.0"
+        requestedDigest: "sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+        observedDigest: "sha256:f1213d6e8ce657b672bd341eb266d89ac95908d674df1375f9e0eef4dd787513"
+        stages:
+          crds: "pass"
+          prepare: "pass"
+          workload: "pass"
+          finish: "pass"
+        completedHookJobsReplaced:
+          - "kube-prometheus-stack-admission-create"
+          - "kube-prometheus-stack-admission-patch"
+        runtime:
+          result: "pass"
+          crds:
+            -
+              name: "alertmanagerconfigs.monitoring.coreos.com"
+              established: true
+            -
+              name: "alertmanagers.monitoring.coreos.com"
+              established: true
+            -
+              name: "podmonitors.monitoring.coreos.com"
+              established: true
+            -
+              name: "probes.monitoring.coreos.com"
+              established: true
+            -
+              name: "prometheusagents.monitoring.coreos.com"
+              established: true
+            -
+              name: "prometheuses.monitoring.coreos.com"
+              established: true
+            -
+              name: "prometheusrules.monitoring.coreos.com"
+              established: true
+            -
+              name: "scrapeconfigs.monitoring.coreos.com"
+              established: true
+            -
+              name: "servicemonitors.monitoring.coreos.com"
+              established: true
+            -
+              name: "thanosrulers.monitoring.coreos.com"
+              established: true
+          admissionSecret:
+            namespace: "monitoring"
+            name: "kube-prometheus-stack-admission"
+            keys:
+              - "ca"
+              - "cert"
+              - "key"
+          matchingWebhookCABundles: 3
+          operatorEndpointAddresses: 1
+          serverDryRun: "pass"
+          jobs:
+            admissionCreate: true
+            admissionPatch: true
+          workloads:
+            -
+              kind: "deployment"
+              name: "kube-prometheus-stack-grafana"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "deployment"
+              name: "kube-prometheus-stack-kube-state-metrics"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "deployment"
+              name: "kube-prometheus-stack-operator"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "daemonset"
+              name: "kube-prometheus-stack-prometheus-node-exporter"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "statefulset"
+              name: "alertmanager-kube-prometheus-stack-alertmanager"
+              namespace: "monitoring"
+              ready: true
+            -
+              kind: "statefulset"
+              name: "prometheus-kube-prometheus-stack-prometheus"
+              namespace: "monitoring"
+              ready: true
       cleanup: "pass"
       controller: "Flux"
       source: "kps-staged"
       sourceReady: true
-      sourceRevision: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
-      sourceContentDigest: "sha256:0803186a9ca711b5224414dfa05df16691aa480acce4df9d07a02e83ca5667e0"
+      sourceRevision: "sha256:0e37d8b94457ff9f13b77fd5898a18981cfbc4c8f879fc45e07bf2e306ad9e59"
+      sourceContentDigest: "sha256:d353eb0a0d4c142393363f39c4187991f784bf7f0ef5084788a20cac2cb3e846"
   cleanup:
     workDirectory: "pass"
     argoCluster: "pass"
     fluxCluster: "pass"
   limits:
-    - "This receipt covers a fresh install of the no-crds preset. It does not cover the 85.3.3 to 86.1.0 upgrade."
+    - "This receipt covers a fresh install and the 85.3.3 to 86.1.0 no-crds upgrade. It does not prove rollback, long-running soak, or stored-object migration outside the exercised objects."
     - "The Alertmanager configuration Secret and a fresh Grafana credential were supplied separately to each target and were not put in OCI or the receipt."
     - "The staged artifact is a chart-specific delivery implementation. ConfigHub does not yet choose this route automatically."
     - "The public source installer package and the staged delivery OCI have different jobs: the source package offers preset choices; the staged OCI contains one selected result and its delivery order."
+    - "The upgrade removes completed hook Jobs before replacement. It does not yet prove automatic post-success removal of every temporary hook resource."

@@ -188,9 +188,9 @@ Keep that work beside the package, name who runs each step, execute only the sup
 4. Deliver the ordinary objects.
 5. Check readiness and record what actually ran.
 
-Evidence: [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md), [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/kps-lifecycle-route-proof/summary.md](../../data/kps-lifecycle-route-proof/summary.md), [runs/kps-lifecycle-route-proof/receipt.yaml](../../runs/kps-lifecycle-route-proof/receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md).
+Evidence: [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md), [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/kps-lifecycle-route-proof/summary.md](../../data/kps-lifecycle-route-proof/summary.md), [runs/kps-lifecycle-route-proof/receipt.yaml](../../runs/kps-lifecycle-route-proof/receipt.yaml), [data/kps-gitops-lifecycle-proof/summary.md](../../data/kps-gitops-lifecycle-proof/summary.md), [runs/kps-gitops-lifecycle-proof/receipt.yaml](../../runs/kps-gitops-lifecycle-proof/receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md).
 
-Current limit: Seven fresh-install steps passed in the direct script. The Kube Prometheus Stack upgrade step and its Argo CD and Flux implementations have not run. A route is automatic only for the chart, version, delivery path, and execution receipt that proves it.
+Current limit: Seven fresh-install steps passed in the direct script. The no-crds 85.3.3 to 86.1.0 path also passed through Argo CD and Flux, including setup-Job replacement and post-upgrade checks. A route is automatic only for the chart, version, delivery path, and execution receipt that proves it.
 
 ### 7. Use an App for a repeated operational job
 
@@ -407,7 +407,7 @@ A complex chart may need CRDs, certificate setup, jobs, and checks in a particul
 
 Keep the chart, record its install and upgrade sequence beside the rendered objects, block incomplete routes from apply, and keep receipts for the delivery paths that have actually run.
 
-1. Start from the Kube Prometheus Stack 85.3.3 default preset and its recorded Helm inputs.
+1. Start from the Kube Prometheus Stack 85.3.3 no-crds preset and its recorded Helm inputs.
 2. Apply the ten CRDs and wait for them before applying dependent custom resources.
 3. Prepare the webhook certificate, apply the ordinary objects, and check readiness in the recorded order.
 4. Choose the recorded Argo CD, Flux, or direct-apply implementation for each step.
@@ -415,9 +415,9 @@ Keep the chart, record its install and upgrade sequence beside the rendered obje
 
 Start with [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks-crds/kube-prometheus-stack.md) or [docs/user/chart-hooks-what-happens.md](../../docs/user/chart-hooks-what-happens.md) or [docs/user/target-prerequisites.md](../../docs/user/target-prerequisites.md).
 
-Evidence: [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/hooks-crds-app/live-receipt.yaml](../../data/hooks-crds-app/live-receipt.yaml), [data/kps-lifecycle-route-proof/summary.md](../../data/kps-lifecycle-route-proof/summary.md), [runs/kps-lifecycle-route-proof/receipt.yaml](../../runs/kps-lifecycle-route-proof/receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md), [runs/crd-ordering-gap/receipt.yaml](../../runs/crd-ordering-gap/receipt.yaml), [runs/hook-execution-proof/receipt.yaml](../../runs/hook-execution-proof/receipt.yaml), [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml).
+Evidence: [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/hooks-crds-app/live-receipt.yaml](../../data/hooks-crds-app/live-receipt.yaml), [data/kps-lifecycle-route-proof/summary.md](../../data/kps-lifecycle-route-proof/summary.md), [runs/kps-lifecycle-route-proof/receipt.yaml](../../runs/kps-lifecycle-route-proof/receipt.yaml), [data/kps-gitops-lifecycle-proof/summary.md](../../data/kps-gitops-lifecycle-proof/summary.md), [runs/kps-gitops-lifecycle-proof/receipt.yaml](../../runs/kps-gitops-lifecycle-proof/receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md), [runs/crd-ordering-gap/receipt.yaml](../../runs/crd-ordering-gap/receipt.yaml), [runs/hook-execution-proof/receipt.yaml](../../runs/hook-execution-proof/receipt.yaml), [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml).
 
-Current limit: Seven Kube Prometheus Stack fresh-install steps passed in the direct script. The upgrade step remains not-run. The top-level Kube Prometheus Stack routes remain automatic false because ConfigHub does not yet choose and execute them across every delivery path. The chart-specific Argo CD and Flux implementations remain not-run. The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply. The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs.
+Current limit: Seven Kube Prometheus Stack fresh-install steps passed in the direct script. The no-crds 85.3.3 to 86.1.0 upgrade passed through Argo CD and Flux. The top-level Kube Prometheus Stack routes remain automatic false because ConfigHub does not yet choose and execute them across every delivery path. The controller proof does not cover rollback, long soak, or automatic post-success removal of every temporary hook resource. The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply. The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs.
 
 ### RBAC Review App
 

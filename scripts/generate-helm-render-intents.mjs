@@ -139,7 +139,19 @@ function buildIntent(
     && row.version === "85.3.3"
     && row.variant === "no-crds"
     && kpsGitOpsLifecycleReceipt?.spec?.result === "pass"
-    && kpsGitOpsLifecycleReceipt?.spec?.base === "no-crds";
+    && kpsGitOpsLifecycleReceipt?.spec?.base === "no-crds"
+    && kpsGitOpsLifecycleReceipt?.spec?.upgradeVersion === "86.1.0"
+    && ["argo", "flux"].every((controller) =>
+      kpsGitOpsLifecycleReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
+  const isKpsGitOpsUpgradeTarget =
+    row.chart === "prometheus-community/kube-prometheus-stack"
+    && row.version === "86.1.0"
+    && row.variant === "no-crds"
+    && kpsGitOpsLifecycleReceipt?.spec?.result === "pass"
+    && kpsGitOpsLifecycleReceipt?.spec?.version === "85.3.3"
+    && kpsGitOpsLifecycleReceipt?.spec?.upgradeVersion === row.version
+    && ["argo", "flux"].every((controller) =>
+      kpsGitOpsLifecycleReceipt?.spec?.controllers?.[controller]?.upgrade?.result === "pass");
   const lifecycleRoutes = (variantLifecycle?.routes ?? []).map((route) => {
     const emission = variantGitops?.routes?.find((item) => item.route_name === route.route_name && item.action_kind === route.action_kind);
     check(emission, `missing GitOps route emission for ${row.chart}@${row.version} ${row.variant} ${route.route_name}`);
@@ -296,20 +308,32 @@ function buildIntent(
             lifecycleDirectFreshInstall: "yes",
             lifecycleDirectFreshInstallReceipt: kpsLifecycleReceiptPath,
             lifecycleArgoCd: hasKpsGitOpsLifecycleProof
-              ? "fresh-install-pass"
+              ? "fresh-install-and-upgrade-pass"
               : "not-run",
             lifecycleFlux: hasKpsGitOpsLifecycleProof
-              ? "fresh-install-pass"
+              ? "fresh-install-and-upgrade-pass"
               : "not-run",
             ...(hasKpsGitOpsLifecycleProof
               ? {
-                lifecycleGitOpsFreshInstallReceipt:
+                lifecycleGitOpsReceipt:
                   kpsGitOpsLifecycleReceiptPath,
-                lifecycleGitOpsArtifactDigest:
+                lifecycleGitOpsInstallArtifactDigest:
                   kpsGitOpsLifecycleReceipt.spec?.deliveryArtifact?.digest ?? "",
+                lifecycleGitOpsUpgradeArtifactDigest:
+                  kpsGitOpsLifecycleReceipt.spec?.upgradeArtifact?.digest ?? "",
+                lifecycleUpgrade: "85.3.3-to-86.1.0-pass",
+                lifecycleUpgradeFromVersion: "85.3.3",
+                lifecycleUpgradeToVersion: "86.1.0",
               }
-              : {}),
-            lifecycleUpgrade: "not-run",
+              : { lifecycleUpgrade: "not-run" }),
+          }
+          : {}),
+        ...(isKpsGitOpsUpgradeTarget
+          ? {
+            lifecycleUpgradeTarget: "pass-from-85.3.3",
+            lifecycleUpgradeReceipt: kpsGitOpsLifecycleReceiptPath,
+            lifecycleGitOpsUpgradeArtifactDigest:
+              kpsGitOpsLifecycleReceipt.spec?.upgradeArtifact?.digest ?? "",
           }
           : {}),
       },
@@ -397,7 +421,10 @@ function packagedCrdRepoPath(row) {
     .replace(/^-+|-+$/g, "");
   if (!slug) return "";
   const path = `${packageRoot}/prerequisites/target-facts/${slug}-crds.yaml`;
-  return existsSync(join(repoRoot, path)) ? path : "";
+  if (existsSync(join(repoRoot, path))) return path;
+  const lifecyclePath =
+    `${packageRoot}/prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml`;
+  return existsSync(join(repoRoot, lifecyclePath)) ? lifecyclePath : "";
 }
 
 function targetFactCount(targetFacts) {
@@ -646,6 +673,32 @@ function kpsGitOpsRunnerRecord({
   receiptPath,
 }) {
   const row = receipt?.spec?.controllers?.[controller];
+  const upgradeRequirements = {
+    "upgrade-action-with-receipt": ["crds", "prepare", "workload", "finish", "runtime"],
+    "preserve-cleanup-policy": ["completed-hook-jobs-replaced"],
+  }[routeName];
+  if (row && upgradeRequirements) {
+    const upgrade = row.upgrade;
+    const passed = upgrade?.result === "pass"
+      && upgradeRequirements.every((requirement) => {
+        if (requirement === "runtime") return upgrade.runtime?.result === "pass";
+        if (requirement === "completed-hook-jobs-replaced") {
+          return upgrade.completedHookJobsReplaced?.length === 2;
+        }
+        return upgrade.stages?.[requirement] === "pass";
+      });
+    return {
+      implementation: passed
+        ? routeName === "preserve-cleanup-policy"
+          ? "The controller paused before upgrade while the two completed hook Jobs were removed, then replaced them during the staged upgrade."
+          : controller === "argo"
+            ? "Argo CD moved from the 85.3.3 staged digest to 86.1.0 and reran the ordered CRD, preparation, workload, and finish stages."
+            : "Flux moved from the 85.3.3 staged digest to 86.1.0 and reran the four ordered Kustomizations."
+        : implementation,
+      status: passed ? "pass" : "not-run",
+      evidence: passed ? [receiptPath] : [],
+    };
+  }
   const requirements = {
     "preflight-or-presync-crd-apply": ["crds"],
     "preflight-or-presync": ["prepare"],

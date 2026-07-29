@@ -32,33 +32,20 @@ import {
 const mode = process.argv[2] ?? "--help";
 const chart = "prometheus-community/kube-prometheus-stack";
 const version = "85.3.3";
+const upgradeVersion = "86.1.0";
 const base = "no-crds";
 const namespace = "monitoring";
-const sourceReference =
-  "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3";
-const deliveryReference =
-  "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged:85.3.3-no-crds";
-const deliveryRepository = deliveryReference.replace(/:[^/]+$/, "");
-const packageRoot = join(
-  repoRoot,
-  "packages",
-  "prometheus-community",
-  "kube-prometheus-stack",
-  version,
-);
-const lifecycleRoot = join(
-  packageRoot,
-  "prerequisites",
-  "kube-prometheus-stack-lifecycle",
-);
-const sourcePublicationReceiptPath = join(
-  repoRoot,
-  "runs",
-  "installer-oci",
-  "prometheus-community-kube-prometheus-stack",
-  version,
-  "installer-package-publication-receipt.yaml",
-);
+const sourceRepository =
+  "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack";
+const deliveryRepository =
+  "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack-staged";
+const releaseConfigs = [version, upgradeVersion].map(releaseConfig);
+const initialConfig = releaseConfigs[0];
+const upgradeConfig = releaseConfigs[1];
+const sourceReference = initialConfig.sourceReference;
+const deliveryReference = initialConfig.deliveryReference;
+const sourcePublicationReceiptPath =
+  initialConfig.sourcePublicationReceiptPath;
 const receiptPath = join(
   repoRoot,
   "runs",
@@ -151,27 +138,42 @@ function runProof() {
   const receipt = initialReceipt({ observedAt, runId, cleanup });
   let rendered;
   let staged;
+  let upgradeRendered;
+  let upgradeStaged;
   try {
-    console.log("Render the public no-crds package and verify cub installer's OCI output");
-    rendered = renderPackage(workRoot);
+    console.log(`Render the public ${version} no-crds package and verify cub installer's OCI output`);
+    rendered = renderPackage(workRoot, initialConfig);
     receipt.spec.source = {
       ...receipt.spec.source,
       ...rendered.receipt,
     };
 
-    console.log("Build and publish one four-stage OCI artifact");
+    console.log(`Build and publish the ${version} four-stage OCI artifact`);
     staged = buildAndPublishStagedArtifact({ workRoot, rendered });
     receipt.spec.deliveryArtifact = staged.receipt;
 
+    console.log(`Render the public ${upgradeVersion} no-crds package`);
+    upgradeRendered = renderPackage(workRoot, upgradeConfig);
+    receipt.spec.upgradeSource = upgradeRendered.receipt;
+
+    console.log(`Build and publish the ${upgradeVersion} four-stage OCI artifact`);
+    upgradeStaged = buildAndPublishStagedArtifact({
+      workRoot,
+      rendered: upgradeRendered,
+    });
+    receipt.spec.upgradeArtifact = upgradeStaged.receipt;
+
     for (const controller of controllerNames) {
       const clusterName = `hx-kps-${controller}-${runId}`;
-      console.log(`Run ${controller === "argo" ? "Argo CD" : "Flux"} on fresh cluster ${clusterName}`);
+      console.log(`Install ${version}, then upgrade to ${upgradeVersion}, through ${controller === "argo" ? "Argo CD" : "Flux"} on ${clusterName}`);
       const result = runController({
         controller,
         clusterName,
         workRoot,
         rendered,
         staged,
+        upgradeRendered,
+        upgradeStaged,
       });
       receipt.spec.controllers[controller] = result;
       cleanup[`${controller}Cluster`] = result.cleanup;
@@ -188,6 +190,7 @@ function runProof() {
   );
   receipt.spec.result =
     receipt.spec.deliveryArtifact?.anonymousPull === "pass"
+      && receipt.spec.upgradeArtifact?.anonymousPull === "pass"
       && controllerResults.every((result) => result === "pass")
       ? "pass"
       : controllerResults.some((result) => result === "pass")
@@ -195,8 +198,8 @@ function runProof() {
         : "blocked";
   receipt.spec.claim =
     receipt.spec.result === "pass"
-      ? "cub installer rendered the public no-crds preset and verified its non-secret OCI output. One derived OCI then carried the exact rendered files plus four explicit lifecycle stages. Argo CD and Flux each pulled that same manifest digest on separate fresh clusters, ran the CRD and admission Jobs in order, and reached the checked workloads."
-      : "The staged Kube Prometheus Stack delivery did not pass through both controllers; read the controller result and error before using this route.";
+      ? `cub installer rendered the public ${version} and ${upgradeVersion} no-crds presets and verified both non-secret OCI outputs. Argo CD and Flux installed the first staged digest, removed the completed hook Jobs before replacement, upgraded to the second staged digest, reran the chart-specific lifecycle stages, and reached the checked workloads.`
+      : "The staged Kube Prometheus Stack install and upgrade did not pass through both controllers; read the controller result and error before using this route.";
   return receipt;
 }
 
@@ -214,11 +217,16 @@ function preflight() {
   ]) {
     check(commandExists(command), `${command} is required`);
   }
-  check(
-    existsSync(sourcePublicationReceiptPath),
-    `${relativeRepo(sourcePublicationReceiptPath)} is missing`,
-  );
-  check(existsSync(lifecycleRoot), `${relativeRepo(lifecycleRoot)} is missing`);
+  for (const config of releaseConfigs) {
+    check(
+      existsSync(config.sourcePublicationReceiptPath),
+      `${relativeRepo(config.sourcePublicationReceiptPath)} is missing`,
+    );
+    check(
+      existsSync(config.lifecycleRoot),
+      `${relativeRepo(config.lifecycleRoot)} is missing`,
+    );
+  }
   check(
     !liveParityRunning(),
     "a tests/live-helm-confighub-parity-test process is already running",
@@ -233,6 +241,9 @@ function preflight() {
 
 function initialReceipt({ observedAt, runId, cleanup }) {
   const publication = readYaml(sourcePublicationReceiptPath);
+  const upgradePublication = readYaml(
+    upgradeConfig.sourcePublicationReceiptPath,
+  );
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "KubePrometheusStackGitOpsLifecycleReceipt",
@@ -242,6 +253,7 @@ function initialReceipt({ observedAt, runId, cleanup }) {
     spec: {
       chart,
       version,
+      upgradeVersion,
       base,
       observedAt,
       result: "blocked",
@@ -256,29 +268,45 @@ function initialReceipt({ observedAt, runId, cleanup }) {
         digest: "",
         anonymousPull: "not-run",
       },
+      upgradeSource: {
+        installerPackage: upgradeConfig.sourceReference,
+        installerPackageManifestDigest: publicationManifestDigest(
+          upgradePublication,
+          upgradeConfig.sourcePublicationReceiptPath,
+        ),
+        publicationReceipt: relativeRepo(
+          upgradeConfig.sourcePublicationReceiptPath,
+        ),
+      },
+      upgradeArtifact: {
+        reference: upgradeConfig.deliveryReference,
+        digest: "",
+        anonymousPull: "not-run",
+      },
       controllers: {
         argo: { result: "not-run" },
         flux: { result: "not-run" },
       },
       cleanup,
       limits: [
-        "This receipt covers a fresh install of the no-crds preset. It does not cover the 85.3.3 to 86.1.0 upgrade.",
+        "This receipt covers a fresh install and the 85.3.3 to 86.1.0 no-crds upgrade. It does not prove rollback, long-running soak, or stored-object migration outside the exercised objects.",
         "The Alertmanager configuration Secret and a fresh Grafana credential were supplied separately to each target and were not put in OCI or the receipt.",
         "The staged artifact is a chart-specific delivery implementation. ConfigHub does not yet choose this route automatically.",
         "The public source installer package and the staged delivery OCI have different jobs: the source package offers preset choices; the staged OCI contains one selected result and its delivery order.",
+        "The upgrade removes completed hook Jobs before replacement. It does not yet prove automatic post-success removal of every temporary hook resource.",
       ],
     },
   };
 }
 
-function renderPackage(workRoot) {
-  const renderRoot = join(workRoot, "render");
-  const layoutRoot = join(workRoot, "cub-rendered-oci");
+function renderPackage(workRoot, config) {
+  const renderRoot = join(workRoot, `render-${config.version}`);
+  const layoutRoot = join(workRoot, `cub-rendered-oci-${config.version}`);
   const output = command("cub", [
     "installer",
     "setup",
     "--pull",
-    sourceReference,
+    config.sourceReference,
     "--base",
     base,
     "--work-dir",
@@ -326,11 +354,15 @@ function renderPackage(workRoot) {
   );
   check(
     manifest.annotations?.["installer.confighub.com/source-digest"]
-      === publicationManifestDigest(readYaml(sourcePublicationReceiptPath)),
+      === publicationManifestDigest(
+        readYaml(config.sourcePublicationReceiptPath),
+        config.sourcePublicationReceiptPath,
+      ),
     "local OCI source digest differs from the public package receipt",
   );
 
   return {
+    config,
     renderRoot,
     layoutRoot,
     manifestRoot,
@@ -345,7 +377,7 @@ function renderPackage(workRoot) {
         "installer",
         "setup",
         "--pull",
-        sourceReference,
+        config.sourceReference,
         "--base",
         base,
         "--namespace",
@@ -364,7 +396,8 @@ function renderPackage(workRoot) {
 }
 
 function buildAndPublishStagedArtifact({ workRoot, rendered }) {
-  const stageRoot = join(workRoot, "staged-artifact");
+  const { config } = rendered;
+  const stageRoot = join(workRoot, `staged-artifact-${config.version}`);
   const crdsRoot = join(stageRoot, "stages", "crds");
   const prepareRoot = join(stageRoot, "stages", "prepare");
   const workloadRoot = join(stageRoot, "stages", "workload");
@@ -381,7 +414,7 @@ function buildAndPublishStagedArtifact({ workRoot, rendered }) {
   }
 
   copyFileSync(
-    join(lifecycleRoot, "default-crds.yaml"),
+    join(config.lifecycleRoot, "default-crds.yaml"),
     join(crdsRoot, "default-crds.yaml"),
   );
   copyFileSync(rendered.namespaceFile, join(crdsRoot, "namespace-monitoring.yaml"));
@@ -393,11 +426,11 @@ function buildAndPublishStagedArtifact({ workRoot, rendered }) {
   });
 
   const support = transformedLifecycleDocs(
-    join(lifecycleRoot, "hook-support.yaml"),
+    join(config.lifecycleRoot, "hook-support.yaml"),
     "-2",
   );
   const createJob = transformedLifecycleDocs(
-    join(lifecycleRoot, "admission-create-job.yaml"),
+    join(config.lifecycleRoot, "admission-create-job.yaml"),
     "-1",
   );
   writeDocs(join(prepareRoot, "hook-support.yaml"), support);
@@ -416,7 +449,7 @@ function buildAndPublishStagedArtifact({ workRoot, rendered }) {
   writeKustomization(workloadRoot, workloadFiles);
 
   const patchJob = transformedLifecycleDocs(
-    join(lifecycleRoot, "admission-patch-job.yaml"),
+    join(config.lifecycleRoot, "admission-patch-job.yaml"),
     "1",
   );
   writeDocs(join(finishRoot, "admission-patch-job.yaml"), patchJob);
@@ -427,12 +460,15 @@ function buildAndPublishStagedArtifact({ workRoot, rendered }) {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "StagedLifecycleDelivery",
     metadata: {
-      name: "prometheus-community-kube-prometheus-stack-85-3-3-no-crds",
+      name: `prometheus-community-kube-prometheus-stack-${config.version.replaceAll(".", "-")}-no-crds`,
     },
     spec: {
-      sourceInstallerPackage: sourceReference,
+      sourceInstallerPackage: config.sourceReference,
       sourceInstallerManifestDigest:
-        publicationManifestDigest(readYaml(sourcePublicationReceiptPath)),
+        publicationManifestDigest(
+          readYaml(config.sourcePublicationReceiptPath),
+          config.sourcePublicationReceiptPath,
+        ),
       selectedBase: base,
       cubRenderedOciManifestDigest:
         rendered.receipt.renderedOciManifestDigest,
@@ -465,7 +501,8 @@ function buildAndPublishStagedArtifact({ workRoot, rendered }) {
         argoCD: "One Application builds the root kustomization. Sync-wave annotations order the four stages.",
         flux: "Four Kustomizations use dependsOn and the four stage paths.",
       },
-      upgrade: "not-run",
+      releaseRole:
+        config.version === version ? "upgrade-source" : "upgrade-target",
     },
   };
   writeYaml(join(companionRoot, "route.yaml"), routeRecord);
@@ -478,23 +515,25 @@ function buildAndPublishStagedArtifact({ workRoot, rendered }) {
     join(stageRoot, "README.md"),
     `# Kube Prometheus Stack staged delivery
 
-This OCI contains the \`${base}\` preset rendered by \`cub installer\` plus the
-chart-specific CRD and admission-webhook work needed for a fresh install.
+This OCI contains the \`${base}\` preset for ${config.version}, rendered by
+\`cub installer\`, plus the chart-specific CRD and admission-webhook work
+needed for install or upgrade.
 
 - Argo CD uses the root \`kustomization.yaml\` and its sync waves.
 - Flux uses the four directories under \`stages/\` with \`dependsOn\`.
 - The Alertmanager configuration and Grafana credential remain target-owned
   Secrets. They are not stored in this OCI.
-- This artifact does not claim upgrade behavior.
+- The controller receipt decides whether this artifact passed as an install or
+  upgrade target.
 
 Read \`.confighub/route.yaml\` for the source digests and exact stage purpose.
 `,
   );
 
   command("kustomize", ["build", stageRoot], { timeout: 120_000 });
-  const tarPath = join(workRoot, "kps-staged.tar.gz");
+  const tarPath = join(workRoot, `kps-staged-${config.version}.tar.gz`);
   command("tar", ["-czf", tarPath, "-C", stageRoot, "."]);
-  const remote = stripOciScheme(deliveryReference);
+  const remote = stripOciScheme(config.deliveryReference);
   command("oras", [
     "push",
     "--artifact-type",
@@ -508,7 +547,7 @@ Read \`.confighub/route.yaml\` for the source digests and exact stage purpose.
     "--annotation",
     "confighub.com/lifecycle-stages=crds,prepare,workload,finish",
     "--annotation",
-    "org.opencontainers.image.title=kube-prometheus-stack-85.3.3-no-crds-staged",
+    `org.opencontainers.image.title=kube-prometheus-stack-${config.version}-no-crds-staged`,
     remote,
     `${basename(tarPath)}:application/vnd.oci.image.layer.v1.tar+gzip`,
   ], { cwd: workRoot, timeout: 300_000 });
@@ -550,10 +589,12 @@ Read \`.confighub/route.yaml\` for the source digests and exact stage purpose.
 
   return {
     stageRoot,
+    config,
     digest: descriptor.digest,
     remote,
+    repository: deliveryRepository,
     receipt: {
-      reference: deliveryReference,
+      reference: config.deliveryReference,
       digest: descriptor.digest,
       artifactType: manifest.artifactType,
       layerMediaType: manifest.layers[0].mediaType,
@@ -579,6 +620,8 @@ function runController({
   workRoot,
   rendered,
   staged,
+  upgradeRendered,
+  upgradeStaged,
 }) {
   const kubeconfig = join(
     homedir(),
@@ -598,6 +641,7 @@ function runController({
       stageNames.map((name) => [name, "not-run"]),
     ),
     runtime: {},
+    upgrade: { result: "not-run" },
     cleanup: "pending",
   };
   let up = false;
@@ -622,10 +666,19 @@ function runController({
     }
     const runtime = observeRuntime({ kubeconfig, controller });
     result.runtime = runtime;
+    const upgrade = runControllerUpgrade({
+      controller,
+      kubeconfig,
+      workRoot,
+      staged,
+      upgradeStaged,
+    });
+    result.upgrade = upgrade;
     result.result =
       result.observedDigest === staged.digest
         && Object.values(result.stages).every((stage) => stage === "pass")
         && runtime.result === "pass"
+        && upgrade.result === "pass"
         ? "pass"
         : "watch";
     writeJson(
@@ -645,7 +698,130 @@ function runController({
   return result;
 }
 
-function runArgo({ kubeconfig, staged, workRoot }) {
+function runControllerUpgrade({
+  controller,
+  kubeconfig,
+  workRoot,
+  staged,
+  upgradeStaged,
+}) {
+  const before = hookJobUids(kubeconfig);
+  if (controller === "argo") {
+    kubectl(kubeconfig, [
+      "-n",
+      "argocd",
+      "patch",
+      "application",
+      "kps-staged",
+      "--type=merge",
+      "-p",
+      '{"spec":{"syncPolicy":{"automated":null}}}',
+    ]);
+  } else {
+    for (const stage of stageNames) {
+      kubectl(kubeconfig, [
+        "-n",
+        "flux-system",
+        "patch",
+        "kustomization",
+        `kps-${stage}`,
+        "--type=merge",
+        "-p",
+        '{"spec":{"suspend":true}}',
+      ]);
+    }
+  }
+  removeCompletedHookResources({ kubeconfig, staged });
+  const delivery = controller === "argo"
+    ? runArgo({
+      kubeconfig,
+      staged: upgradeStaged,
+      workRoot,
+      observationSuffix: "-upgrade",
+    })
+    : runFlux({
+      kubeconfig,
+      staged: upgradeStaged,
+      workRoot,
+      observationSuffix: "-upgrade",
+    });
+  const runtime = observeRuntime({
+    kubeconfig,
+    controller: `${controller}-upgrade`,
+  });
+  const after = hookJobUids(kubeconfig);
+  for (const name of Object.keys(before)) {
+    check(
+      before[name] !== after[name],
+      `${controller} kept the old ${name} Job during upgrade`,
+    );
+  }
+  writeJson(
+    join(observationsRoot, `${controller}-upgrade-runtime.json`),
+    runtime,
+  );
+  return {
+    result:
+      delivery.observedDigest === upgradeStaged.digest
+        && Object.values(delivery.stages).every((stage) => stage === "pass")
+        && runtime.result === "pass"
+        ? "pass"
+        : "watch",
+    fromVersion: version,
+    toVersion: upgradeVersion,
+    requestedDigest: upgradeStaged.digest,
+    observedDigest: delivery.observedDigest,
+    stages: delivery.stages,
+    completedHookJobsReplaced: Object.keys(before),
+    runtime,
+  };
+}
+
+function hookJobUids(kubeconfig) {
+  return Object.fromEntries(
+    [
+      "kube-prometheus-stack-admission-create",
+      "kube-prometheus-stack-admission-patch",
+    ].map((name) => {
+      const object = kubectlJson(kubeconfig, [
+        "-n",
+        namespace,
+        "get",
+        `job/${name}`,
+        "-o",
+        "json",
+      ]);
+      check(object.metadata?.uid, `${name} has no UID`);
+      return [name, object.metadata.uid];
+    }),
+  );
+}
+
+function removeCompletedHookResources({ kubeconfig, staged }) {
+  kubectl(kubeconfig, [
+    "-n",
+    namespace,
+    "delete",
+    "job/kube-prometheus-stack-admission-create",
+    "job/kube-prometheus-stack-admission-patch",
+    "--ignore-not-found",
+    "--wait=true",
+  ]);
+  kubectl(kubeconfig, [
+    "delete",
+    "-f",
+    join(staged.stageRoot, "stages", "prepare", "hook-support.yaml"),
+    "--ignore-not-found",
+    "--wait=true",
+  ]);
+}
+
+function runArgo({
+  kubeconfig,
+  staged,
+  workRoot,
+  observationSuffix = "",
+}) {
   const applicationName = "kps-staged";
   const application = {
     apiVersion: "argoproj.io/v1alpha1",
@@ -710,7 +886,10 @@ function runArgo({ kubeconfig, staged, workRoot }) {
       && (!phase || phase === "Succeeded");
     return done ? object : null;
   });
-  writeJson(join(observationsRoot, "argo-application.json"), observed);
+  writeJson(
+    join(observationsRoot, `argo${observationSuffix}-application.json`),
+    observed,
+  );
   return {
     controller: "Argo CD",
     application: applicationName,
@@ -731,7 +910,12 @@ function runArgo({ kubeconfig, staged, workRoot }) {
   };
 }
 
-function runFlux({ kubeconfig, staged, workRoot }) {
+function runFlux({
+  kubeconfig,
+  staged,
+  workRoot,
+  observationSuffix = "",
+}) {
   commandVisible("flux", [
     "install",
     "--kubeconfig",
@@ -782,6 +966,18 @@ function runFlux({ kubeconfig, staged, workRoot }) {
   const path = join(workRoot, "flux-stages.yaml");
   writeDocs(path, docs);
   kubectl(kubeconfig, ["apply", "-f", path]);
+  for (const stage of stageNames) {
+    kubectl(kubeconfig, [
+      "-n",
+      "flux-system",
+      "patch",
+      "kustomization",
+      `kps-${stage}`,
+      "--type=merge",
+      "-p",
+      '{"spec":{"suspend":false}}',
+    ]);
+  }
   commandVisible("flux", [
     "--kubeconfig",
     kubeconfig,
@@ -825,8 +1021,17 @@ function runFlux({ kubeconfig, staged, workRoot }) {
     "-o",
     "json",
   ]);
-  writeJson(join(observationsRoot, "flux-source.json"), source);
-  writeJson(join(observationsRoot, "flux-kustomizations.json"), kustomizations);
+  writeJson(
+    join(observationsRoot, `flux${observationSuffix}-source.json`),
+    source,
+  );
+  writeJson(
+    join(
+      observationsRoot,
+      `flux${observationSuffix}-kustomizations.json`,
+    ),
+    kustomizations,
+  );
   const stages = Object.fromEntries(stageNames.map((stage) => {
     const object = kustomizations.items?.find(
       (item) => item.metadata?.name === `kps-${stage}`,
@@ -1032,6 +1237,10 @@ function verifyReceipt(receipt) {
   );
   check(receipt.spec?.chart === chart, "receipt chart is wrong");
   check(receipt.spec?.version === version, "receipt version is wrong");
+  check(
+    receipt.spec?.upgradeVersion === upgradeVersion,
+    "receipt upgrade version is wrong",
+  );
   check(receipt.spec?.base === base, "receipt base is wrong");
   check(
     /^sha256:[a-f0-9]{64}$/.test(receipt.spec?.source?.renderedOciManifestDigest ?? ""),
@@ -1054,6 +1263,28 @@ function verifyReceipt(receipt) {
       === stageNames.join(","),
     "receipt lifecycle stages are incomplete or out of order",
   );
+  check(
+    /^sha256:[a-f0-9]{64}$/.test(
+      receipt.spec?.upgradeSource?.renderedOciManifestDigest ?? "",
+    ),
+    "receipt has no upgrade rendered-OCI digest",
+  );
+  check(
+    /^sha256:[a-f0-9]{64}$/.test(
+      receipt.spec?.upgradeSource?.renderedObjectSetDigest ?? "",
+    ),
+    "receipt has no upgrade object-set digest",
+  );
+  check(
+    /^sha256:[a-f0-9]{64}$/.test(
+      receipt.spec?.upgradeArtifact?.digest ?? "",
+    ),
+    "receipt has no staged upgrade digest",
+  );
+  check(
+    receipt.spec?.upgradeArtifact?.containsSecrets === false,
+    "staged upgrade OCI must exclude Secrets",
+  );
   for (const controller of controllerNames) {
     const row = receipt.spec?.controllers?.[controller];
     check(row, `receipt has no ${controller} result`);
@@ -1072,6 +1303,29 @@ function verifyReceipt(receipt) {
         `${controller} did not pass all four lifecycle stages`,
       );
       check(row.runtime?.result === "pass", `${controller} runtime did not pass`);
+      check(
+        row.upgrade?.result === "pass",
+        `${controller} upgrade did not pass`,
+      );
+      check(
+        row.upgrade?.requestedDigest === receipt.spec.upgradeArtifact.digest
+          && row.upgrade?.observedDigest === receipt.spec.upgradeArtifact.digest,
+        `${controller} upgrade used a different OCI digest`,
+      );
+      check(
+        Object.values(row.upgrade?.stages ?? {}).every(
+          (status) => status === "pass",
+        ),
+        `${controller} did not pass all four upgrade stages`,
+      );
+      check(
+        row.upgrade?.completedHookJobsReplaced?.length === 2,
+        `${controller} did not replace both completed hook Jobs`,
+      );
+      check(
+        row.upgrade?.runtime?.result === "pass",
+        `${controller} upgrade runtime did not pass`,
+      );
       check(row.cleanup === "pass", `${controller} cluster was not removed`);
     }
   }
@@ -1079,6 +1333,10 @@ function verifyReceipt(receipt) {
     check(
       receipt.spec?.deliveryArtifact?.anonymousPull === "pass",
       "staged OCI did not pass anonymous pull",
+    );
+    check(
+      receipt.spec?.upgradeArtifact?.anonymousPull === "pass",
+      "staged upgrade OCI did not pass anonymous pull",
     );
     check(
       receipt.spec?.cleanup?.workDirectory === "pass",
@@ -1091,26 +1349,35 @@ function renderSummary(receipt) {
   const spec = receipt.spec;
   const rows = controllerNames.map((name) => {
     const row = spec.controllers[name] ?? {};
-    const stages = stageNames
+    const installStages = stageNames
       .map((stage) => `${stage}: ${row.stages?.[stage] ?? "not-run"}`)
       .join("; ");
-    return `| ${name === "argo" ? "Argo CD" : "Flux"} | ${row.observedDigest ? `\`${row.observedDigest}\`` : "not observed"} | ${stages} | ${row.runtime?.result ?? "not-run"} | ${row.result ?? "not-run"} |`;
+    const upgradeStages = stageNames
+      .map(
+        (stage) =>
+          `${stage}: ${row.upgrade?.stages?.[stage] ?? "not-run"}`,
+      )
+      .join("; ");
+    return `| ${name === "argo" ? "Argo CD" : "Flux"} | ${row.observedDigest ? `\`${row.observedDigest}\`` : "not observed"} | ${installStages} | ${row.upgrade?.observedDigest ? `\`${row.upgrade.observedDigest}\`` : "not observed"} | ${upgradeStages} | ${row.upgrade?.runtime?.result ?? "not-run"} | ${row.result ?? "not-run"} |`;
   }).join("\n");
   return `# Kube Prometheus Stack through Argo CD and Flux
 
-This is a fresh-install test of the public
-\`${chart}@${version}\` \`${base}\` preset. The result is
-**${spec.result}**.
+This test installs the public \`${chart}@${version}\` \`${base}\` preset, then
+upgrades it to \`${upgradeVersion}\`. The result is **${spec.result}**.
 
-\`cub installer setup --output-oci\` first wrote and read back the selected
-non-secret configuration. That output contained ${spec.source.renderedManifestCount}
-files at object-set digest
-\`${spec.source.renderedObjectSetDigest}\`.
+\`cub installer setup --output-oci\` wrote and read back both selected
+non-secret configurations. The ${version} output contained
+${spec.source.renderedManifestCount} files at object-set digest
+\`${spec.source.renderedObjectSetDigest}\`; the ${upgradeVersion} output
+contained ${spec.upgradeSource.renderedManifestCount} files at
+\`${spec.upgradeSource.renderedObjectSetDigest}\`.
 
 A chart-specific step then added the work Helm normally performs around those
-objects. One public OCI at
+objects. The install OCI is
 \`${spec.deliveryArtifact.reference}@${spec.deliveryArtifact.digest}\`
-contains four paths:
+and the upgrade OCI is
+\`${spec.upgradeArtifact.reference}@${spec.upgradeArtifact.digest}\`.
+Each contains four paths:
 
 1. \`stages/crds\` creates the Namespace and establishes ten CRDs.
 2. \`stages/prepare\` runs the chart's certificate creation Job.
@@ -1119,30 +1386,33 @@ contains four paths:
 
 Argo CD uses sync waves from the root kustomization. Flux uses one
 \`OCIRepository\` and four \`Kustomization\` objects joined with \`dependsOn\`.
-They ran on separate fresh clusters and requested the same OCI manifest digest.
+Each controller ran on its own fresh cluster. It installed the first digest,
+removed the two completed hook Jobs before replacement, moved to the second
+digest, and reran the four stages.
 
-| Controller | Digest observed | Stage results | Runtime checks | Result |
-| --- | --- | --- | --- | --- |
+| Controller | Install digest | Install stages | Upgrade digest | Upgrade stages | Checks after upgrade | Result |
+| --- | --- | --- | --- | --- | --- | --- |
 ${rows}
 
-Each passing runtime result means the ten CRDs were Established, the chart's
-create and patch Jobs completed, the admission Secret contained \`ca\`,
-\`cert\`, and \`key\`, all three webhook CA bundles matched, the operator
-Service had a ready endpoint, a server-side dry run passed, and the six named
-workloads were ready.
+Each passing upgrade result means the ten updated CRDs were Established, the
+chart's replacement create and patch Jobs completed, the admission Secret
+contained \`ca\`, \`cert\`, and \`key\`, all three webhook CA bundles matched,
+the operator Service had a ready endpoint, a server-side dry run passed, and
+the six named workloads were ready.
 
 ## Secrets
 
-The rendered OCI and the staged delivery OCI contain no Secret objects. The
-Alertmanager configuration Secret and a fresh Grafana credential were supplied
-separately to each throwaway cluster. Their names and required keys are recorded;
-their values are not.
+Neither rendered OCI nor either staged delivery OCI contains Secret objects.
+The Alertmanager configuration Secret and a fresh Grafana credential were
+supplied separately to each throwaway cluster. Their names and required keys
+are recorded; their values are not.
 
 ## Limits
 
-- This is a fresh-install receipt, not an upgrade receipt.
-- It proves this chart, version, preset, artifact digest, and the two named
-  controller paths. It does not prove every Helm hook.
+- This proves the named ${version} to ${upgradeVersion} path, preset, artifact
+  digests, and controllers. It does not prove other versions or values.
+- It proves removal before hook-Job replacement. Automatic post-success cleanup,
+  rollback, long-running soak, and wider stored-object migration remain open.
 - The route is explicit and repeatable, but ConfigHub does not yet select it
   automatically.
 - Receipt: \`${relativeRepo(receiptPath)}\`.
@@ -1287,7 +1557,36 @@ function secretDescription(path) {
   };
 }
 
-function publicationManifestDigest(receipt) {
+function releaseConfig(targetVersion) {
+  const packageRoot = join(
+    repoRoot,
+    "packages",
+    "prometheus-community",
+    "kube-prometheus-stack",
+    targetVersion,
+  );
+  return {
+    version: targetVersion,
+    packageRoot,
+    lifecycleRoot: join(
+      packageRoot,
+      "prerequisites",
+      "kube-prometheus-stack-lifecycle",
+    ),
+    sourceReference: `${sourceRepository}:${targetVersion}`,
+    deliveryReference: `${deliveryRepository}:${targetVersion}-${base}`,
+    sourcePublicationReceiptPath: join(
+      repoRoot,
+      "runs",
+      "installer-oci",
+      "prometheus-community-kube-prometheus-stack",
+      targetVersion,
+      "installer-package-publication-receipt.yaml",
+    ),
+  };
+}
+
+function publicationManifestDigest(receipt, receiptPath = sourcePublicationReceiptPath) {
   const digest = receipt.spec?.manifest?.digest
     ?? receipt.spec?.manifestDigest
     ?? receipt.spec?.digest
@@ -1296,7 +1595,7 @@ function publicationManifestDigest(receipt) {
     )?.[1];
   check(
     /^sha256:[a-f0-9]{64}$/.test(digest ?? ""),
-    `${relativeRepo(sourcePublicationReceiptPath)} has no manifest digest`,
+    `${relativeRepo(receiptPath)} has no manifest digest`,
   );
   return digest;
 }

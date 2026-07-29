@@ -521,10 +521,13 @@ spec:
       evidence:
         - docs/demo/hooks-crds/kube-prometheus-stack.md
         - data/hooks-crds-app/summary.md
+        - data/kps-gitops-lifecycle-proof/summary.md
+        - runs/kps-gitops-lifecycle-proof/receipt.yaml
       verify:
         - npm run hooks-crds-app:verify
         - npm run kps:lifecycle-route:verify
-      next: Run the upgrade route and the chart-specific Argo CD and Flux implementations before marking them automatic.
+        - npm run kps:gitops-lifecycle:verify
+      next: Add the product App interface and automatic route selection, then test rollback and post-success cleanup before widening the claim.
 
     - id: T38
       area: ConfigHub Apps

@@ -48,12 +48,14 @@ For this chart, we record the pre-install and upgrade work as named routes. A ro
 | Install CRDs first | Proved for `no-crds`: an earlier OCI stage uses Argo CD sync waves. | Proved for `no-crds`: the CRD Kustomization runs first and the next stage uses `dependsOn`. | Proved: apply ten CRDs and wait for `Established`. |
 | Prepare the webhook | Proved for `no-crds`: the certificate Job runs before the workload stage. | Proved for `no-crds`: the certificate Kustomization completes before the workload Kustomization. | Proved: run the chart's admission-create Job and wait. |
 | Patch and check the webhook | Proved for `no-crds`: the patch Job runs after the workload stage, followed by runtime checks. | Proved for `no-crds`: the final Kustomization runs after the workload, followed by runtime checks. | Proved: run the chart's admission-patch Job, compare CA bundles, and check readiness. |
+| Upgrade 85.3.3 to 86.1.0 | Proved for `no-crds`: switch to the second staged OCI digest and rerun all four stages. | Proved for `no-crds`: switch the OCI source to the second digest and rerun the ordered Kustomizations. | Not run by the direct proof. |
+| Replace completed setup Jobs | Proved before upgrade: both old Jobs were removed and the 86.1.0 stages created new Jobs. | Proved before upgrade: both old Jobs were removed and the 86.1.0 stages created new Jobs. | Proved after the fresh install. |
 
 These are sensible alternatives to Helm's built-in hook runner. They preserve the required behavior while making the steps visible and testable.
 
 ## What ConfigHub stores
 
-The repository generates eight route records for each Kube Prometheus Stack base. Seven fresh-install steps have live direct receipts. The eighth is the untested upgrade step, which remains `not-run`.
+The repository generates eight route records for each Kube Prometheus Stack base. Seven fresh-install steps have live direct receipts. The `no-crds` route also records the 85.3.3 to 86.1.0 upgrade through Argo CD and Flux. Direct apply has not run that upgrade.
 
 Each Unit records:
 
@@ -66,7 +68,7 @@ Each Unit records:
 
 The live `helm-catalog` organization also contains a smaller `hook-probe-base` proof fixture. Its setup Job ran from the same OCI bundle through Argo CD, Flux, and direct apply.
 
-Kube Prometheus Stack now has both a direct result and a controller result. Seven fresh-install steps are automatic inside the recorded direct script. For the `no-crds` base, one staged OCI then ran through Argo CD and Flux on separate clusters. Six route behaviors have controller evidence: CRD ordering, certificate preparation, workload ordering, webhook patching, target setup, and runtime checks. Helm's hook cleanup policy did not run through either controller, and the upgrade route remains `not-run`.
+Kube Prometheus Stack now has both direct and controller results. Seven fresh-install steps run inside the recorded direct script. For the `no-crds` base, Argo CD and Flux each installed the 85.3.3 staged OCI, then moved to the 86.1.0 staged OCI on separate clusters. The receipt records the exact digests, the four ordered stages, the replacement of both completed setup Jobs, and the runtime checks after upgrade.
 
 The chart-level routes remain `automatic: false` because ConfigHub does not yet select this chart-specific route for a user. Once selected, the recorded implementation is repeatable.
 
@@ -85,7 +87,8 @@ This check does not decide what a chart needs. The chart-specific preset and rou
 - One OCI hook fixture ran through Argo CD, Flux, and direct apply.
 - Both Kube Prometheus Stack catalog bases completed the CRD, certificate, webhook patch, workload, and cleanup sequence through direct apply.
 - The Kube Prometheus Stack `no-crds` base completed the CRD, certificate, workload, webhook patch, and runtime sequence through Argo CD and Flux from the same OCI digest.
-- The controller receipt does not claim Helm hook cleanup or chart-upgrade execution.
+- Argo CD and Flux upgraded `no-crds` from 85.3.3 to 86.1.0, replaced both completed setup Jobs, and passed the same runtime checks after the upgrade.
+- The receipt does not claim rollback, long-running soak, automatic ConfigHub route selection, or automatic post-success removal of every temporary hook resource.
 
 The evidence is in:
 
@@ -101,7 +104,9 @@ The evidence is in:
 
 ## What is still manual
 
-ConfigHub does not yet select every Kube Prometheus Stack route. A team still chooses the delivery mechanism and confirms that the chart version, target Kubernetes version, CRDs, and webhook behavior match the recorded plan. Direct apply, Argo CD, and Flux have fresh-install evidence for the recorded paths. Hook cleanup through the controllers and the 85.3.3 to 86.1.0 upgrade do not.
+ConfigHub does not yet select the Kube Prometheus Stack route automatically. A team still chooses the delivery mechanism and confirms that the chart version, target Kubernetes version, CRDs, and webhook behavior match the recorded plan. Direct apply has fresh-install evidence. Argo CD and Flux have fresh-install and 85.3.3 to 86.1.0 upgrade evidence for `no-crds`.
+
+The controller run removed completed setup Jobs before replacing them. It did not test rollback, a long soak, or automatic post-success removal of every temporary hook resource.
 
 That is intentional. Most real Helm cases can be handled with chart-specific preset configurations and tested patterns. ConfigHub keeps those choices, evidence, and updates manageable. It does not claim that one universal hook translation is correct for every chart.
 

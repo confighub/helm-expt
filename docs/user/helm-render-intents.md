@@ -61,9 +61,10 @@ The `default` and `reuse-existing-secret` Redis rows are different base
 variants because they ask Helm to render different security choices. Each one
 has its own render intent and its own captured output.
 
-The Kube Prometheus Stack `no-crds` intent now links the exact fresh-install
-receipt for Argo CD and Flux. Six route behaviors passed through both
-controllers. Hook cleanup and the 85.3.3 to 86.1.0 upgrade remain `not-run`.
+The Kube Prometheus Stack `no-crds` intent links the exact Argo CD and Flux
+receipt. Both controllers installed 85.3.3, upgraded to 86.1.0, replaced the
+two completed setup Jobs, and passed the recorded runtime checks. Direct apply
+has not run that upgrade, and ConfigHub does not select the route automatically.
 [Read the controller result](../../data/kps-gitops-lifecycle-proof/summary.md).
 
 ## The Full Model Underneath
@@ -118,9 +119,11 @@ would handle the work but does not claim that it ran.
 
 If a route is carried forward from another chart version, the route remains
 visible as a useful starting point, but the lifecycle coverage state becomes
-`actionable-gap`. For example, the kube-prometheus-stack `86.1.0` mappings
-currently point to `85.3.3` evidence. They do not become `86.1.0` proof until a
-version-matched run and receipt exist.
+`actionable-gap`. The kube-prometheus-stack `86.1.0` intent now points to its
+own packaged CRDs and records that it passed as the target of the 85.3.3 to
+86.1.0 controller upgrade. Its inherited route descriptions still point to
+85.3.3 evidence, so the intent does not present that bounded upgrade result as
+a fresh 86.1.0 install or as proof for a different version pair.
 
 ## Coverage For Every Base
 

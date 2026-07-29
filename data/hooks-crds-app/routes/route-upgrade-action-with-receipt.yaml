@@ -15,16 +15,20 @@ spec:
   quirkClass: "hook-phase"
   lifecyclePhase: "pre-apply"
   actionKind: "run-job"
-  executionMode: "not-yet-executable"
+  executionMode: "user-executes"
   automatic: false
-  whoRuns: "Not tested for this path"
+  whoRuns: "Your delivery — a GitOps PreSync/PostSync or cub action (receipted)"
   command: "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>"
-  disposition: "not-run"
+  disposition: "observed"
   alternatives:
     []
   evidence:
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
     - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
-  evidenceRequired: "run this route for the named path and capture a live receipt"
+    - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+    - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+  evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
   gitOps:
     argoCd: "PreSync"
     argoCdSnippet: "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded"
@@ -42,12 +46,12 @@ spec:
       evidence: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
       observation: "This receipt covers a fresh install only; chart upgrade behavior remains unproved."
     argoCd:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "The 85.3.3 to 86.1.0 upgrade has not run through this controller."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Argo CD upgraded 85.3.3 to 86.1.0, reran all four stages, and passed the runtime checks."
     flux:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "The 85.3.3 to 86.1.0 upgrade has not run through this controller."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Flux upgraded 85.3.3 to 86.1.0, reran all four stages, and passed the runtime checks."

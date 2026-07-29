@@ -75,13 +75,15 @@ standing next action "keep receipt fresh when chart, base, or cluster
 version changes."
 
 The package's direct script has passed the fresh-install sequence for both
-bases. The `no-crds` base also has a staged OCI receipt through Argo CD and
-Flux on separate fresh clusters
+bases. The `no-crds` base also has a staged OCI install-and-upgrade receipt
+through Argo CD and Flux on separate fresh clusters
 ([summary](../../data/kps-gitops-lifecycle-proof/summary.md),
 [receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml)). Both
-controllers passed CRD ordering, certificate preparation, workload apply,
-webhook patching, and runtime checks. The controller receipt does not prove
-Helm's hook cleanup policy or the 85.3.3 to 86.1.0 upgrade. None of this
+controllers installed 85.3.3, moved to the 86.1.0 staged digest, reran the CRD,
+certificate, workload, and webhook-patch stages, replaced both completed setup
+Jobs, and passed the runtime checks after upgrade. The receipt does not prove
+rollback, long-running soak, automatic ConfigHub route selection, or automatic
+post-success removal of every temporary hook resource. None of this
 generalizes to another chart's hooks.
 
 ## CRD / Webhook Lifecycle Proof
@@ -93,7 +95,7 @@ generalizes to another chart's hooks.
   and Flux. Related certificate-injection and conversion behavior is also
   demonstrated on cert-manager and External Secrets
   (`data/lifecycle-observations/cert-manager-eso/`).
-- CRD **upgrade** now has two bounded receipts. The committed render-level
+- CRD **upgrade** now has three bounded results. The committed render-level
   delta for the 85.3.3 → 86.1.0 candidate
   ([`kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml`](../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml),
   regenerable via `node scripts/kps-crd-upgrade-delta.mjs --verify`): 6 of 10
@@ -104,16 +106,19 @@ generalizes to another chart's hooks.
   regenerable via `npm run kps:crd-upgrade-live`) applies the 85.3.3 CRDs to a
   fresh kind API server, applies the 86.1.0 CRDs over them, waits for
   Established, and confirms a `ServiceMonitor` server-side dry-run before and
-  after the upgrade.
+  after the upgrade. The staged OCI controller receipt then runs the complete
+  `no-crds` 85.3.3 to 86.1.0 path through Argo CD and Flux and checks all ten
+  CRDs after the upgrade.
 - Workload **upgrade** now has a bounded live receipt
   ([`receipt.yaml`](../../runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml),
   regenerable via `npm run kps:workload-upgrade-live`). It installs
   kube-prometheus-stack 85.3.3 with the committed default values, waits for
   workloads to become Ready, upgrades the same Helm release to 86.1.0, waits
   again, records Helm history, and deletes the kind cluster. That proves the
-  regular Helm upgrade path for the tested values and kind profile. It does
-  not prove ConfigHub upgrade orchestration, rollback, soak, private overlays,
-  or production target upgrades.
+  regular Helm upgrade path for the tested values and kind profile. The staged
+  OCI controller receipt separately proves the selected `no-crds` result
+  through Argo CD and Flux. Neither proves automatic ConfigHub route selection,
+  rollback, soak, private overlays, or production target upgrades.
 
 ## Production Support State
 
@@ -142,14 +147,15 @@ supplied on the chosen target.
 
 - "Production-supported for every target" — the supported decision is
   target-scoped to one declared kind/namespace/OCI/Argo path.
-- "ConfigHub upgrades are proven" — the repo has render-level CRD evidence, a
-  live API-server CRD rehearsal, and a live regular-Helm workload upgrade
-  receipt. It does not yet have a ConfigHub-managed upgrade receipt, rollback
-  receipt, soak receipt, private overlay receipt, or production target upgrade
-  receipt.
-- "Hooks are solved" — this chart's fresh-install hooks are observed on named
-  bases and delivery paths; controller cleanup and the chart upgrade remain
-  open. The claim is per-chart, per-profile, freshness-bounded.
+- "ConfigHub upgrades are solved" — the repo has render-level CRD evidence, a
+  live API-server CRD rehearsal, a regular-Helm workload upgrade receipt, and a
+  staged OCI `no-crds` upgrade through Argo CD and Flux. ConfigHub does not yet
+  select that route automatically, and there is no rollback, soak,
+  private-overlay, or production-target upgrade receipt.
+- "Hooks are solved" — this chart's install and one upgrade are observed on
+  named delivery paths. Automatic post-success cleanup of every temporary hook
+  resource remains open. The claim is per-chart, per-profile, and
+  freshness-bounded.
 - "Works on any Kubernetes" — every live claim is bounded to the 1.30
   capability profile; this chart's CRDs are exactly where profile drift
   bites.
@@ -159,10 +165,9 @@ supplied on the chosen target.
 
 ## Suggested Next Receipts
 
-In value order: (1) a ConfigHub-managed upgrade receipt for a reviewed
-upgrade path; (2) a target-scoped `no-crds` production-support decision that
-uses the proven staged OCI path on the chosen production target; (3) an
-explicit controller cleanup receipt for the two temporary hook Jobs and their
-support RBAC; (4) a hardened or digest-pinned base for stricter environments
-that should not reuse the public proof scope's mutable-image and scan
-exceptions.
+In value order: (1) automatic ConfigHub selection of the recorded route; (2) a
+target-scoped `no-crds` production-support decision that uses the proven staged
+OCI path on the chosen production target; (3) rollback and longer-running
+receipts; (4) automatic post-success cleanup evidence for the temporary hook
+resources; (5) a hardened or digest-pinned base for stricter environments that
+should not reuse the public proof scope's mutable-image and scan exceptions.

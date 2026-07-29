@@ -27,6 +27,7 @@ spec:
     - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
     - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
     - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
   evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
   gitOps:
     argoCd: "none — your cluster handles it"
@@ -45,12 +46,12 @@ spec:
       evidence: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
       observation: "Removed the successful hook Jobs and their temporary RBAC support objects."
     argoCd:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "The fresh-install controller receipt does not prove Helm's hook cleanup policy."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Argo CD paused while both completed hook Jobs were removed before the upgrade replaced them."
     flux:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "The fresh-install controller receipt does not prove Helm's hook cleanup policy."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Flux paused while both completed hook Jobs were removed before the upgrade replaced them."

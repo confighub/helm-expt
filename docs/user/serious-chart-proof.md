@@ -46,6 +46,7 @@ target facts staged in live proof: 10 CRDs + monitoring/kube-prometheus-stack-ad
 runtime outcome: regular Helm and cub installer workloads both become Ready
 ConfigHub OCI/Argo runtime path: pass when the same prerequisites are staged
 staged no-crds OCI: pass through Argo CD and Flux on separate fresh clusters
+staged upgrade: 85.3.3 to 86.1.0 pass through Argo CD and Flux
 ```
 
 The earlier blocked runtime evidence was useful because it showed that
@@ -62,7 +63,9 @@ explicit paths for CRDs, certificate preparation, ordinary workloads, and
 webhook patching. Argo CD and Flux each pulled the same staged OCI digest on a
 separate new cluster. Both passed those four stages and the checks for ten
 established CRDs, three matching webhook CA bundles, a ready operator endpoint,
-a server-side dry run, and six ready workloads.
+a server-side dry run, and six ready workloads. Each controller then moved to
+the 86.1.0 staged digest, reran the four stages, replaced both completed setup
+Jobs, and passed the runtime checks again.
 
 [Read the Argo CD and Flux result](../../data/kps-gitops-lifecycle-proof/summary.md)
 or [open its receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml).
@@ -70,8 +73,9 @@ or [open its receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml).
 The current lifecycle evidence also shows the productive path forward: when
 compatible CRDs and the admission webhook certificate Secret are staged
 explicitly, the config-only path can converge in the tested local targets. That
-does not make certificate rotation or CRD upgrade policy automatic. It proves
-the target contract can be made visible, staged, observed, and bounded.
+does not make certificate rotation, route selection, or CRD upgrade policy
+automatic. It proves the target contract can be made visible, staged, observed,
+and bounded.
 
 That is the important part of the proof. YAML/render parity is the baseline.
 kube-prometheus-stack is useful because it forces the hidden install contract
@@ -183,15 +187,17 @@ Do not claim that every kube-prometheus-stack topology is supported. The
 current support decision is for one base and one target scope.
 
 Do not claim that upgrades are solved. The repo has a render-level CRD upgrade
-delta, a live API-server CRD upgrade rehearsal, and a live regular-Helm
-workload upgrade rehearsal for `85.3.3 -> 86.1.0`. It still does not have a
-ConfigHub-managed upgrade receipt, rollback receipt, soak receipt, private
-overlay upgrade receipt, or production-target upgrade receipt.
+delta, a live API-server CRD upgrade rehearsal, a live regular-Helm workload
+upgrade rehearsal, and a staged OCI upgrade receipt through Argo CD and Flux
+for `85.3.3 -> 86.1.0`. ConfigHub does not yet select that route automatically.
+The repo still does not have a rollback receipt, soak receipt, private-overlay
+upgrade receipt, or production-target upgrade receipt.
 
 Do not claim that all hook patterns are solved. This chart's hook route is
 observed for the selected profiles. The controller proof covers a fresh install
-of `no-crds`; it does not prove Helm's hook cleanup policy or the chart upgrade.
-Other hook-bearing charts need their own route and receipt.
+and one upgrade of `no-crds`, including removal and replacement of the completed
+setup Jobs. It does not prove automatic post-success cleanup of every temporary
+hook resource. Other hook-bearing charts need their own route and receipt.
 
 Do not claim that `no-crds` is a simpler install. It is a different contract:
 the target must already provide compatible CRDs and required admission

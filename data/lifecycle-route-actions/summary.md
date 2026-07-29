@@ -27,10 +27,10 @@ when `execution_mode` is `product-executes` and committed evidence proves it.
 
 | Disposition | Packets |
 | --- | ---: |
-| `observed` | 41 |
+| `observed` | 42 |
 | `blocked` | 7 |
-| `not-run` | 2 |
 | `routed` | 2 |
+| `not-run` | 1 |
 | `per-target` | 1 |
 
 | Lifecycle phase | Packets |

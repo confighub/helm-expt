@@ -624,16 +624,19 @@
         "area": "ConfigHub Apps",
         "evidence": [
           "docs/demo/hooks-crds/kube-prometheus-stack.md",
-          "data/hooks-crds-app/summary.md"
+          "data/hooks-crds-app/summary.md",
+          "data/kps-gitops-lifecycle-proof/summary.md",
+          "runs/kps-gitops-lifecycle-proof/receipt.yaml"
         ],
         "id": "T37",
         "name": "Complete the Hooks and CRDs App",
-        "next": "Run the upgrade route and the chart-specific Argo CD and Flux implementations before marking them automatic.",
+        "next": "Add the product App interface and automatic route selection, then test rollback and post-success cleanup before widening the claim.",
         "outcome": "The App checks prerequisites, runs chart-specific setup in the recorded order, and stores receipts for each delivery method.",
         "status": "partial",
         "verify": [
           "npm run hooks-crds-app:verify",
-          "npm run kps:lifecycle-route:verify"
+          "npm run kps:lifecycle-route:verify",
+          "npm run kps:gitops-lifecycle:verify"
         ]
       },
       {

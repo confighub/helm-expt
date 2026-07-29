@@ -1586,7 +1586,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1618,7 +1618,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1654,7 +1654,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1690,7 +1690,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1699,7 +1699,7 @@
       "quirk_class": "hook-phase",
       "hook_phases": "pre-upgrade, post-upgrade",
       "source_disposition": "selected-route-receipt",
-      "disposition": "todo",
+      "disposition": "observed",
       "route_name": "upgrade-action-with-receipt",
       "default_route": "upgrade-action-with-receipt",
       "alternatives": [
@@ -1716,17 +1716,17 @@
           "requirement": "accept that the catalog will not run this automatically and do it manually"
         }
       ],
-      "route_requirements": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
-      "execution_mode": "not-yet-executable",
+      "route_requirements": "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
+      "execution_mode": "user-executes",
       "human_offramp": "recipe-base-or-values",
       "agent_offramp": "routes-json",
       "offramp": {
         "human": "recipe-base-or-values",
         "agent": "routes-json"
       },
-      "live_status": "not-run",
+      "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1758,7 +1758,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1790,7 +1790,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1818,7 +1818,7 @@
       },
       "live_status": "observed",
       "safe_as_automatic": false,
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     }
   ]
 }

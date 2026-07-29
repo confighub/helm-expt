@@ -1701,7 +1701,7 @@
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1736,7 +1736,7 @@
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1773,7 +1773,7 @@
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1810,7 +1810,7 @@
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1818,14 +1818,14 @@
       "base": "no-crds",
       "quirk_class": "hook-phase",
       "route_name": "upgrade-action-with-receipt",
-      "disposition": "not-run",
-      "source_disposition": "todo",
-      "source_live_status": "not-run",
+      "disposition": "observed",
+      "source_disposition": "observed",
+      "source_live_status": "observed",
       "lifecycle_phase": "pre-apply",
       "action_kind": "run-job",
-      "execution_mode": "not-yet-executable",
+      "execution_mode": "user-executes",
       "automatic": false,
-      "required_target_facts": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
+      "required_target_facts": "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
       "human_command": "kubectl apply -f <action-job>; kubectl wait --for=condition=complete job/<name>   # placeholder",
       "alternatives": [
         "argocd-or-flux-lifecycle-hook",
@@ -1842,12 +1842,12 @@
         ],
         "lifecycle_phase": "pre-apply",
         "action_kind": "run-job",
-        "required_target_facts": "The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.",
-        "disposition": "not-run"
+        "required_target_facts": "Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.",
+        "disposition": "observed"
       },
-      "evidence_required": "run this route for the named path and capture a live receipt",
+      "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "Run the packaged route during an 85.3.3 to 86.1.0 upgrade and record the result."
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1882,7 +1882,7 @@
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1917,7 +1917,7 @@
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -1950,7 +1950,7 @@
       },
       "evidence_required": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
       "source_drift": "",
-      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+      "evidence_or_next_action": "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml;runs/kps-lifecycle-route-proof/no-crds-receipt.yaml;packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml;recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml;runs/kps-gitops-lifecycle-proof/receipt.yaml"
     }
   ]
 }
