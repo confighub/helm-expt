@@ -3881,8 +3881,8 @@ function whoRunsVariantTables(c, emissionChart = null) {
       return [
         `${escapeHtml(`${r.quirk_class} (${r.route_name})`)}${r.operatingDetails ? `<br><span class="small">${escapeHtml(r.operatingDetails)}</span>` : ""}`,
         r.whoRuns,
-        emission?.argo || "No Argo CD step recorded.",
-        emission?.flux || "No Flux step recorded.",
+        emission?.argo || "No Argo CD mapping recorded.",
+        emission?.flux || "No Flux mapping recorded.",
         r.delta === "kept" ? "—" : `${r.delta}${r.reason ? ` — ${r.reason}` : ""}`,
       ];
     });
@@ -3898,7 +3898,7 @@ function whoRunsVariantTables(c, emissionChart = null) {
     const evidenceLine = evidence.length || nextActions.length
       ? `<p class="small">${evidence.length ? `<strong>Evidence:</strong> ${pathLinks(evidence.join(";"))}` : ""}${evidence.length && nextActions.length ? "<br>" : ""}${nextActions.length ? `<strong>Next:</strong> ${escapeHtml(nextActions.join("; "))}` : ""}</p>`
       : "";
-    return `<h4>${escapeHtml(heading)}</h4>${markdownLikeTable([["Hook or setup step", "Who handles it?", "Argo CD", "Flux", "Change for this variant"], ...rows], { rawFirstColumn: true })}${evidenceLine}`;
+    return `<h4>${escapeHtml(heading)}</h4>${markdownLikeTable([["Hook or setup step", "Who handles it?", "Argo CD mapping", "Flux mapping", "Change for this variant"], ...rows], { rawFirstColumn: true })}${evidenceLine}`;
   }).join("\n");
 }
 

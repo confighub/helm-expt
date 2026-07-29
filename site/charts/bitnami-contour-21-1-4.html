@@ -749,7 +749,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 
       <h4>default</h4><div class="card"><table>
-        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD mapping</th><th>Flux mapping</th><th>Change for this variant</th></tr></thead>
         <tbody></tbody>
       </table></div>
       <style>
@@ -759,7 +759,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         th { color: var(--muted); font-weight: 600; }
       </style>
 <h4>legacy</h4><div class="card"><table>
-        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD mapping</th><th>Flux mapping</th><th>Change for this variant</th></tr></thead>
         <tbody><tr><td>hook-phase (preflight-or-presync)<br><span class="small">Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.</span></td><td>Your delivery - a preflight step before apply (receipted)</td><td>PreSync · sync-wave -1</td><td>apply before the release (Kustomization dependsOn)</td><td>-</td></tr></tbody>
       </table></div>
       <style>
@@ -769,7 +769,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         th { color: var(--muted); font-weight: 600; }
       </style><p class="small"><strong>Evidence:</strong> <a href="../../data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml">data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml</a><br><a href="../../recipes/bitnami/contour/21.1.4/lifecycle-route.yaml">recipes/bitnami/contour/21.1.4/lifecycle-route.yaml</a><br><a href="../../recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml">recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml</a><br><a href="../../packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh">packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh</a><br><a href="../../runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml">runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml</a><br><a href="../../runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml">runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml</a></p>
 <h4>no-crds</h4><div class="card"><table>
-        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD mapping</th><th>Flux mapping</th><th>Change for this variant</th></tr></thead>
         <tbody></tbody>
       </table></div>
       <style>

@@ -702,7 +702,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 
       <h4>default</h4><div class="card"><table>
-        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD mapping</th><th>Flux mapping</th><th>Change for this variant</th></tr></thead>
         <tbody></tbody>
       </table></div>
       <style>
@@ -712,7 +712,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         th { color: var(--muted); font-weight: 600; }
       </style>
 <h4>no-crds: package applies 6 CRDs first</h4><div class="card"><table>
-        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD mapping</th><th>Flux mapping</th><th>Change for this variant</th></tr></thead>
         <tbody><tr><td>webhook-readiness (webhook-readiness-observation)<br><span class="small">The operator mounts kedaorg-certs as optional, starts certificate rotation, and creates the Secret used by the webhook and metrics API pods.</span></td><td>Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness</td><td>wait for the certificate handoff, then observe webhook and workload health after sync</td><td>wait for the certificate handoff, then run post-apply webhook and workload health checks</td><td>-</td></tr></tbody>
       </table></div>
       <style>

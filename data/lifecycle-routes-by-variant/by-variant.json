@@ -94,7 +94,7 @@
               "reason": "the package carries the 8 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt",
               "sourceVersion": "1.0.14",
               "evidence": "data/hook-route-candidates/candidates.csv",
-              "nextAction": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base",
+              "nextAction": "direct full-CRD package route is proven; next prove controller-run ordering under Argo CD and Flux and test a cross-version CRD upgrade",
               "evidenceRequired": "resolve the named prerequisite/blocker, then capture a live receipt",
               "sourceDrift": ""
             }

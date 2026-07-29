@@ -162,7 +162,7 @@
       },
       "evidence_required": "resolve the named prerequisite/blocker, then capture a live receipt",
       "source_drift": "",
-      "evidence_or_next_action": "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base | data/hook-route-candidates/candidates.csv"
+      "evidence_or_next_action": "direct full-CRD package route is proven; next prove controller-run ordering under Argo CD and Flux and test a cross-version CRD upgrade | data/hook-route-candidates/candidates.csv"
     },
     {
       "chart": "argo-cd/argo-workflows",
