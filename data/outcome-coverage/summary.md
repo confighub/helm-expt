@@ -20,7 +20,7 @@ live Helm-vs-ConfigHub pass rows:    139/199
 live Helm-vs-ConfigHub non-pass receipts: 59
 lifecycle observation rows:          19/19
 selected live parity receipts:       139 pass, 51 watch, 8 blocked
-two-cluster kind parity receipts:    128 pass, 3 watch, 47 blocked
+two-cluster kind parity receipts:    129 pass, 3 watch, 46 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1

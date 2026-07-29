@@ -8,10 +8,10 @@
     "data/live-parity-rerun-plan/rerun-plan.csv",
     "runs/live-*/**/receipt.yaml"
   ],
-  "rowCount": 40,
+  "rowCount": 39,
   "byKind": {
     "unknown": 21,
-    "crd": 7,
+    "crd": 6,
     "external-api": 4,
     "namespace": 4,
     "secret": 3,
@@ -19,7 +19,7 @@
   },
   "byOwner": {
     "operator-review": 26,
-    "user-stage": 13,
+    "user-stage": 12,
     "target-policy": 1
   },
   "rows": [
@@ -532,21 +532,6 @@
       "recommended_next_action": "Review the runtime residue on the target (pod not ready / crash loop / ContainerCreating); stage any missing dependency, then rerun.",
       "rerun_command": "npm run kind-parity:run -- --chart opencost/opencost --version 2.5.21 --base default",
       "evidence_path": "runs/live-kind-parity/opencost-opencost-default/receipt.yaml"
-    },
-    {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "base": "default",
-      "lane": "K",
-      "result": "blocked",
-      "prerequisite_kind": "crd",
-      "prerequisite_name": "unknown",
-      "semantic_parity_passed": "unknown",
-      "owner_class": "user-stage",
-      "support_artifact": "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml",
-      "recommended_next_action": "Stage the required CRDs on the target (or use the CRD-rendering base), then rerun.",
-      "rerun_command": "npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default",
-      "evidence_path": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
     },
     {
       "chart": "prometheus-community/prometheus-adapter",

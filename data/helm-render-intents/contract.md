@@ -28,7 +28,7 @@ A `HelmRenderIntent` is a generated config object for one real base variant in t
 - It does not treat an Argo CD or Flux mapping as execution evidence.
 - It does not replace the full helm-expt chain.
 - It does not create ConfigHub server state by itself. Upload and variant creation still happen later.
-- It does not emit candidate/custom-discussion rows as runnable configs. Current skipped candidate rows: 67.
+- It does not emit candidate/custom-discussion rows as runnable configs. Current skipped candidate rows: 66.
 
 ## Current Coverage
 

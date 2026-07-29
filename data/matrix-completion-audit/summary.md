@@ -18,21 +18,21 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-660 non-green cells:
+658 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 445 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 443 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 122 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
 | `needs-run` | 48 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 389 |
+| `promotion` | 388 |
 | `G` | 60 |
 | `P` | 60 |
-| `K` | 52 |
+| `K` | 51 |
 | `L` | 51 |
 | `lifecycle` | 48 |
 
@@ -41,8 +41,8 @@ columns). It changes no status and runs nothing.
 | `proven` | 179 |
 | `watch` | 122 |
 | `not-applicable-source` | 110 |
-| `blocked` | 103 |
-| `not-applicable-candidate` | 67 |
+| `blocked` | 102 |
+| `not-applicable-candidate` | 66 |
 | `todo` | 48 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
@@ -102,7 +102,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (445)
+## needs-target-or-prereq-fix (443)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -152,7 +152,7 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | bitnami/contour@21.1.4 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/contour@21.1.4 | legacy | G | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/contour@21.1.4 | legacy | K | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
-| bitnami/contour@21.1.4 | legacy | L | blocked | local-live blocked: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | deployment/contour-contour: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;] | prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;] | resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it |
+| bitnami/contour@21.1.4 | legacy | L | blocked | local-live blocked: target-prerequisite: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | bitnami/contour@21.1.4 | legacy | P | blocked | upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)) | resolve the local-live prerequisite first; the live lanes inherit it |
 | bitnami/contour@21.1.4 | legacy | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | bitnami/contour@21.1.4 | no-crds | L | blocked | local-live blocked: runtime-readiness: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=fal) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
@@ -463,8 +463,6 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | percona/pxc-operator@1.19.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | projectcalico/tigera-operator@v3.32.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | projectcalico/tigera-operator@v3.32.0 | controller-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
-| projectcalico/tigera-operator@v3.32.0 | default + crd | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
-| projectcalico/tigera-operator@v3.32.0 | default | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | projectcalico/tigera-operator@v3.32.0 | default | L | blocked | local-live blocked: lifecycle-ordering: apply: resource mapping not found for name: "default" namespace: "" from "STDIN": no matches for kind "APIServer" in version "operator.tigera.io/v1" ensure CRDs are installed first resource mapping not found | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. |
 | projectcalico/tigera-operator@v3.32.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/alertmanager@1.37.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |

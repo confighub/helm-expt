@@ -12,11 +12,11 @@ The generator emits files only for real base rows in the master matrix. Candidat
 | --- | ---: |
 | Real base rows in the matrix | 199 |
 | Generated HelmRenderIntent objects | 199 |
-| Candidate/custom-discussion rows skipped | 67 |
+| Candidate/custom-discussion rows skipped | 66 |
 | Intents with lifecycle routes attached | 13 |
 | Intents whose routes name the Argo CD and Flux handling | 13 |
 | Intents with target facts declared by the base variant | 64 |
-| Intents with action records from observed prerequisite failures | 27 |
+| Intents with action records from observed prerequisite failures | 26 |
 | Lifecycle contract gaps named for follow-up | 3 |
 | Target-prerequisite reviews still missing | 135 |
 
@@ -33,8 +33,8 @@ Every render intent now states whether its lifecycle and target-prerequisite con
 | Target-prerequisite state | Intents |
 | --- | ---: |
 | `actionable-gap` | 135 |
-| `attached` | 53 |
-| `attached-with-observed-actions` | 11 |
+| `attached` | 54 |
+| `attached-with-observed-actions` | 10 |
 
 Open [contract-gaps.md](./contract-gaps.md) for the exact bases that still need a route or target-prerequisite review.
 

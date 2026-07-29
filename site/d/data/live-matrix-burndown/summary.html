@@ -434,24 +434,24 @@
 <p>It uses <a href="../../../../data/master-catalog-matrix/matrix.csv">../master-catalog-matrix/matrix.csv</a> as its spine and <a href="../../../../data/live-parity-rerun-plan/rerun-plan.csv">../live-parity-rerun-plan/rerun-plan.csv</a> for active watch-row details. It does not create evidence, change any status, or run Kubernetes. Run live commands serially.</p>
 <p>Do not compare this command count directly with the 99% cell frontier. This page is an execution queue: watch/review rows stay visible until reviewed, and one <code>live-parity</code> command covers both the G and P cells in the master matrix. For the cell-level completion count, use <a href="../disposition-frontier/summary.html">../disposition-frontier/summary.md</a>.</p>
 <h2 id="current-count">Current Count</h2>
-<table><thead><tr><th>Metric</th><th>Rows</th></tr></thead><tbody><tr><td>Matrix variant rows</td><td>389</td></tr>
-<tr><td>Variants needing at least one live command</td><td>97</td></tr>
-<tr><td>Live commands remaining</td><td>144</td></tr>
+<table><thead><tr><th>Metric</th><th>Rows</th></tr></thead><tbody><tr><td>Matrix variant rows</td><td>388</td></tr>
+<tr><td>Variants needing at least one live command</td><td>96</td></tr>
+<tr><td>Live commands remaining</td><td>143</td></tr>
 <tr><td>GitOps/OCI + live Helm-vs-ConfigHub commands</td><td>73</td></tr>
-<tr><td>Two-cluster kind parity commands</td><td>71</td></tr>
-<tr><td>Watch/blocked/review rows</td><td>135</td></tr>
+<tr><td>Two-cluster kind parity commands</td><td>70</td></tr>
+<tr><td>Watch/blocked/review rows</td><td>134</td></tr>
 <tr><td>Ready-to-run todo rows</td><td>9</td></tr></tbody></table>
 <h2 id="by-work-type">By Work Type</h2>
-<table><thead><tr><th>Work type</th><th>Rows</th></tr></thead><tbody><tr><td><code>kind-parity</code></td><td>71</td></tr>
+<table><thead><tr><th>Work type</th><th>Rows</th></tr></thead><tbody><tr><td><code>kind-parity</code></td><td>70</td></tr>
 <tr><td><code>live-parity</code></td><td>73</td></tr></tbody></table>
 <h2 id="by-current-status">By Current Status</h2>
-<table><thead><tr><th>Status</th><th>Rows</th></tr></thead><tbody><tr><td><code>blocked</code></td><td>60</td></tr>
+<table><thead><tr><th>Status</th><th>Rows</th></tr></thead><tbody><tr><td><code>blocked</code></td><td>59</td></tr>
 <tr><td><code>todo</code></td><td>29</td></tr>
 <tr><td><code>watch</code></td><td>55</td></tr></tbody></table>
 <h2 id="by-run-readiness">By Run Readiness</h2>
 <table><thead><tr><th>Readiness</th><th>Rows</th></tr></thead><tbody><tr><td><code>inspect-diff-first</code></td><td>16</td></tr>
 <tr><td><code>inspect-receipt-first</code></td><td>2</td></tr>
-<tr><td><code>model-or-stage-first</code></td><td>72</td></tr>
+<tr><td><code>model-or-stage-first</code></td><td>71</td></tr>
 <tr><td><code>ready-to-run</code></td><td>9</td></tr>
 <tr><td><code>review-target-first</code></td><td>45</td></tr></tbody></table>
 <p>Rows marked <code>model-or-stage-first</code> are not safe copy-paste commands yet. For example, a two-cluster kind row may need a versioned receipt path before rerun so it does not overwrite an existing receipt for a different chart version.</p>

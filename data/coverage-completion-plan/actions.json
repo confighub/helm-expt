@@ -13,27 +13,27 @@
     "data/live-run-blocks",
     "data/variant-promotion-proof-batches"
   ],
-  "nonGreenCellsCovered": 660,
+  "nonGreenCellsCovered": 658,
   "familyCount": 20,
   "byActionType": {
-    "run-promotion": 389,
+    "run-promotion": 388,
     "record-decision": 110,
     "refresh-image": 74,
-    "stage-prereq": 58,
+    "stage-prereq": 57,
     "fix-model": 25,
     "lifecycle-observe": 4
   },
   "byOwnerLane": {
-    "Codex-live": 393,
+    "Codex-live": 392,
     "product-decision": 141,
-    "Claude-non-live": 126
+    "Claude-non-live": 125
   },
   "top10": [
     {
       "action_id": "CCP-01",
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
-      "affected_cell_count": 389,
+      "affected_cell_count": 388,
       "owner_lane": "Codex-live"
     },
     {
@@ -73,22 +73,22 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "install-crds",
-      "affected_cell_count": 7,
-      "owner_lane": "Claude-non-live"
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "affected_cell_count": 6,
       "owner_lane": "Claude-non-live"
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
+      "affected_cell_count": 6,
+      "owner_lane": "Claude-non-live"
+    },
+    {
+      "action_id": "CCP-09",
+      "action_type": "stage-prereq",
+      "sub_group": "install-crds",
       "affected_cell_count": 6,
       "owner_lane": "Claude-non-live"
     },
@@ -106,7 +106,7 @@
       "action_type": "run-promotion",
       "sub_group": "promotion-rerun-after-server-fix",
       "owner_lane": "Codex-live",
-      "affected_cell_count": 389,
+      "affected_cell_count": 388,
       "lanes": [
         "promotion"
       ],
@@ -426,7 +426,6 @@
         "percona/pxc-operator@1.19.1/no-crds [promotion]",
         "projectcalico/tigera-operator@v3.32.0/(source) [promotion]",
         "projectcalico/tigera-operator@v3.32.0/controller-default-reviewed [promotion]",
-        "projectcalico/tigera-operator@v3.32.0/default + crd [promotion]",
         "projectcalico/tigera-operator@v3.32.0/default [promotion]",
         "prometheus-community/alertmanager@1.37.0/(source) [promotion]",
         "prometheus-community/alertmanager@1.37.0/default [promotion]",
@@ -821,34 +820,6 @@
     },
     {
       "action_id": "CCP-07",
-      "action_type": "stage-prereq",
-      "sub_group": "install-crds",
-      "owner_lane": "Claude-non-live",
-      "affected_cell_count": 7,
-      "lanes": [
-        "G",
-        "K",
-        "L",
-        "P"
-      ],
-      "command": "",
-      "prerequisite": "cert-manager CRDs",
-      "expected_status": "pass after the prerequisite is staged",
-      "prediction": true,
-      "evidence_surface": "target-prerequisite-workdown",
-      "linked_issues": "#248; #753",
-      "affected_rows": [
-        "jaegertracing/jaeger-operator@2.57.0/default [G]",
-        "jaegertracing/jaeger-operator@2.57.0/default [K]",
-        "jaegertracing/jaeger-operator@2.57.0/default [P]",
-        "jaegertracing/jaeger-operator@2.57.0/no-crds [K]",
-        "open-telemetry/opentelemetry-operator@0.114.0/default [L]",
-        "projectcalico/tigera-operator@v3.32.0/default [K]",
-        "velero/velero@12.0.1/no-crds [K]"
-      ]
-    },
-    {
-      "action_id": "CCP-08",
       "action_type": "fix-model",
       "sub_group": "model-gap",
       "owner_lane": "Claude-non-live",
@@ -873,7 +844,7 @@
       ]
     },
     {
-      "action_id": "CCP-09",
+      "action_id": "CCP-08",
       "action_type": "stage-prereq",
       "sub_group": "create-namespace",
       "owner_lane": "Claude-non-live",
@@ -896,6 +867,33 @@
         "rook-release/rook-ceph-cluster@v1.19.5/default [G]",
         "rook-release/rook-ceph-cluster@v1.19.5/default [K]",
         "rook-release/rook-ceph-cluster@v1.19.5/default [P]"
+      ]
+    },
+    {
+      "action_id": "CCP-09",
+      "action_type": "stage-prereq",
+      "sub_group": "install-crds",
+      "owner_lane": "Claude-non-live",
+      "affected_cell_count": 6,
+      "lanes": [
+        "G",
+        "K",
+        "L",
+        "P"
+      ],
+      "command": "",
+      "prerequisite": "cert-manager CRDs",
+      "expected_status": "pass after the prerequisite is staged",
+      "prediction": true,
+      "evidence_surface": "target-prerequisite-workdown",
+      "linked_issues": "#248; #753",
+      "affected_rows": [
+        "jaegertracing/jaeger-operator@2.57.0/default [G]",
+        "jaegertracing/jaeger-operator@2.57.0/default [K]",
+        "jaegertracing/jaeger-operator@2.57.0/default [P]",
+        "jaegertracing/jaeger-operator@2.57.0/no-crds [K]",
+        "open-telemetry/opentelemetry-operator@0.114.0/default [L]",
+        "velero/velero@12.0.1/no-crds [K]"
       ]
     },
     {

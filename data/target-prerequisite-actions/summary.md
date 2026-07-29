@@ -13,12 +13,12 @@ proof of automated execution. See
 for the sibling image story, and
 [residue-families](../../docs/reference/residue-families.md) for the vocabulary.
 
-## 40 action packets
+## 39 action packets
 
 | Action kind | Rows |
 | --- | ---: |
 | `operator-review` | 19 |
-| `install-crds` | 7 |
+| `install-crds` | 6 |
 | `create-namespace` | 4 |
 | `provide-external-service` | 4 |
 | `stage-secret` | 3 |
@@ -28,7 +28,7 @@ for the sibling image story, and
 | Owner class | Rows |
 | --- | ---: |
 | `operator-review` | 26 |
-| `user-stage` | 13 |
+| `user-stage` | 12 |
 | `target-policy` | 1 |
 
 ## Packets
@@ -69,7 +69,6 @@ for the sibling image story, and
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | K | unknown-preflight | value nfs.server | `npm run kind-parity:run -- --chart nfs-subdir-external-provisioner/nfs-subdir-external-provisioner --version 4.0.18 --base default` |
 | opencost/opencost@2.5.21 | default | G/P | operator-review | operator review of the runtime residue | `npm run live-parity:run -- --recipe recipes/opencost/opencost/2.5.21 --base default` |
 | opencost/opencost@2.5.21 | default | K | operator-review | operator review of the runtime residue | `npm run kind-parity:run -- --chart opencost/opencost --version 2.5.21 --base default` |
-| projectcalico/tigera-operator@v3.32.0 | default | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default` |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base cluster-metrics-readonly` |
 | prometheus-community/prometheus-adapter@5.3.0 | default | K | install-crds | the chart's CRDs | `npm run kind-parity:run -- --chart prometheus-community/prometheus-adapter --version 5.3.0 --base default` |
 | rook-release/rook-ceph-cluster@v1.19.5 | default | G/P | create-namespace | Namespace rook-ceph | `npm run live-parity:run -- --recipe recipes/rook-release/rook-ceph-cluster/v1.19.5 --base default` |

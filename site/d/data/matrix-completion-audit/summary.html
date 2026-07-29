@@ -434,22 +434,22 @@
 <p>One row per <b>non-green / not-yet-run</b> cell of the <a href="../master-catalog-matrix/summary.html">master catalog matrix</a>. For each cell it records the lane, the state, a product-readable reason, the next action, the support artifact, and a <b>completion class</b> that separates <i>needs a run</i> from <i>needs a model/support fix</i> from <i>already has a named product decision</i> - so the matrix can be finished in the right order.</p>
 <p>It is a read-only projection over the committed decision/queue surfaces (disposition-frontier, the live/kind decisions, the burn-down, run-blocks, base-outcomes, lifecycle-route-actions, and the matrix's own promotion/lifecycle columns). It changes no status and runs nothing.</p>
 <h2 id="completion-classes">Completion classes</h2>
-<p>660 non-green cells:</p>
-<table><thead><tr><th>Class</th><th>Cells</th><th>Meaning</th></tr></thead><tbody><tr><td><code>needs-target-or-prereq-fix</code></td><td>445</td><td>Blocked on a target prerequisite, image, or tooling - a user/target action, not a model change.</td></tr>
+<p>658 non-green cells:</p>
+<table><thead><tr><th>Class</th><th>Cells</th><th>Meaning</th></tr></thead><tbody><tr><td><code>needs-target-or-prereq-fix</code></td><td>443</td><td>Blocked on a target prerequisite, image, or tooling - a user/target action, not a model change.</td></tr>
 <tr><td><code>already-decided</code></td><td>122</td><td>A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat.</td></tr>
 <tr><td><code>needs-run</code></td><td>48</td><td>A command exists - just run it (the burn-down / run-block surfaces have the exact command).</td></tr>
 <tr><td><code>needs-modeling</code></td><td>45</td><td>The catalog/model has to change before this can pass.</td></tr></tbody></table>
-<table><thead><tr><th>Lane</th><th>Cells</th></tr></thead><tbody><tr><td><code>promotion</code></td><td>389</td></tr>
+<table><thead><tr><th>Lane</th><th>Cells</th></tr></thead><tbody><tr><td><code>promotion</code></td><td>388</td></tr>
 <tr><td><code>G</code></td><td>60</td></tr>
 <tr><td><code>P</code></td><td>60</td></tr>
-<tr><td><code>K</code></td><td>52</td></tr>
+<tr><td><code>K</code></td><td>51</td></tr>
 <tr><td><code>L</code></td><td>51</td></tr>
 <tr><td><code>lifecycle</code></td><td>48</td></tr></tbody></table>
 <table><thead><tr><th>State</th><th>Cells</th></tr></thead><tbody><tr><td><code>proven</code></td><td>179</td></tr>
 <tr><td><code>watch</code></td><td>122</td></tr>
 <tr><td><code>not-applicable-source</code></td><td>110</td></tr>
-<tr><td><code>blocked</code></td><td>103</td></tr>
-<tr><td><code>not-applicable-candidate</code></td><td>67</td></tr>
+<tr><td><code>blocked</code></td><td>102</td></tr>
+<tr><td><code>not-applicable-candidate</code></td><td>66</td></tr>
 <tr><td><code>todo</code></td><td>48</td></tr>
 <tr><td><code>fail</code></td><td>18</td></tr>
 <tr><td><code>not-applicable-derived-variant</code></td><td>13</td></tr></tbody></table>
@@ -503,7 +503,7 @@
 <tr><td>strimzi/strimzi-kafka-operator@1.0.0</td><td>no-crds</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>traefik/traefik@40.2.0</td><td>default</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr>
 <tr><td>traefik/traefik@40.2.0</td><td>no-crds</td><td>lifecycle</td><td>todo</td><td>chart has hook/lifecycle behavior with no live observation yet</td><td>decide and record the lifecycle route, then observe it live</td></tr></tbody></table>
-<h2 id="needs-target-or-prereq-fix-445">needs-target-or-prereq-fix (445)</h2>
+<h2 id="needs-target-or-prereq-fix-443">needs-target-or-prereq-fix (443)</h2>
 <p>Blocked on a target prerequisite, image, or tooling - a user/target action, not a model change.</p>
 <table><thead><tr><th>Chart</th><th>Variant</th><th>Lane</th><th>State</th><th>Reason</th><th>Next action</th></tr></thead><tbody><tr><td>aqua/trivy-operator@0.32.1</td><td>(source)</td><td>promotion</td><td>not-applicable-source</td><td>source rows are upstream chart inputs, not server-side promotion evidence</td><td>choose or create an F2 base before server-side variant promotion applies</td></tr>
 <tr><td>aqua/trivy-operator@0.32.1</td><td>default</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
@@ -549,7 +549,7 @@
 <tr><td>bitnami/contour@21.1.4</td><td>default</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>G</td><td>blocked</td><td>upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config))</td><td>resolve the local-live prerequisite first; the live lanes inherit it</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>K</td><td>blocked</td><td>upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config))</td><td>resolve the local-live prerequisite first; the live lanes inherit it</td></tr>
-<tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>L</td><td>blocked</td><td>local-live blocked: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals)</td><td>deployment/contour-contour: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals)</td><td>prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;]</td><td>prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;]</td><td>resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it</td></tr>
+<tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>L</td><td>blocked</td><td>local-live blocked: target-prerequisite: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals)</td><td>Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant.</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>P</td><td>blocked</td><td>upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config))</td><td>resolve the local-live prerequisite first; the live lanes inherit it</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>no-crds</td><td>L</td><td>blocked</td><td>local-live blocked: runtime-readiness: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=fal)</td><td>Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun.</td></tr>
@@ -860,8 +860,6 @@
 <tr><td>percona/pxc-operator@1.19.1</td><td>no-crds</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
 <tr><td>projectcalico/tigera-operator@v3.32.0</td><td>(source)</td><td>promotion</td><td>not-applicable-source</td><td>source rows are upstream chart inputs, not server-side promotion evidence</td><td>choose or create an F2 base before server-side variant promotion applies</td></tr>
 <tr><td>projectcalico/tigera-operator@v3.32.0</td><td>controller-default-reviewed</td><td>promotion</td><td>not-applicable-candidate</td><td>candidate rows are planning rows, not server-side promotion evidence</td><td>turn this candidate into a real base or derived variant before server-side promotion applies</td></tr>
-<tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default + crd</td><td>promotion</td><td>not-applicable-candidate</td><td>candidate rows are planning rows, not server-side promotion evidence</td><td>turn this candidate into a real base or derived variant before server-side promotion applies</td></tr>
-<tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default</td><td>K</td><td>blocked</td><td>target-prerequisite: CRDs missing</td><td>Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.</td></tr>
 <tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default</td><td>L</td><td>blocked</td><td>local-live blocked: lifecycle-ordering: apply: resource mapping not found for name: &quot;default&quot; namespace: &quot;&quot; from &quot;STDIN&quot;: no matches for kind &quot;APIServer&quot; in version &quot;operator.tigera.io/v1&quot; ensure CRDs are installed first resource mapping not found</td><td>Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt.</td></tr>
 <tr><td>projectcalico/tigera-operator@v3.32.0</td><td>default</td><td>promotion</td><td>proven</td><td>server-side promotion receipt passed</td><td>keep receipt fresh when the upstream base changes</td></tr>
 <tr><td>prometheus-community/alertmanager@1.37.0</td><td>(source)</td><td>promotion</td><td>not-applicable-source</td><td>source rows are upstream chart inputs, not server-side promotion evidence</td><td>choose or create an F2 base before server-side variant promotion applies</td></tr>

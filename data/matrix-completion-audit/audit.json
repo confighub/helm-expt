@@ -13,18 +13,18 @@
     "data/live-run-blocks/run-blocks.csv",
     "data/lifecycle-route-actions/actions.csv"
   ],
-  "cellCount": 660,
+  "cellCount": 658,
   "byCompletionClass": {
-    "needs-target-or-prereq-fix": 445,
+    "needs-target-or-prereq-fix": 443,
     "already-decided": 122,
     "needs-run": 48,
     "needs-modeling": 45
   },
   "byLane": {
-    "promotion": 389,
+    "promotion": 388,
     "G": 60,
     "P": 60,
-    "K": 52,
+    "K": 51,
     "L": 51,
     "lifecycle": 48
   },
@@ -932,8 +932,8 @@
       "lane": "L",
       "lane_label": "local-live",
       "state": "blocked",
-      "reason": "local-live blocked: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | deployment/contour-contour: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals) | prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;] | prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;]",
-      "next_action": "resolve the local-live blocker first (local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare); the live lanes inherit it",
+      "reason": "local-live blocked: target-prerequisite: daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-9c9cb9d47-rxs4w[ContainerCreating ready=false restarts=0;] contour-envoy-9sfdn[PodInitializing ready=false restarts=0;PodInitializing ready=fals)",
+      "next_action": "Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant.",
       "support_artifact": "runs/next80-local-kind/bitnami-contour-21.1.4-legacy/observation-receipt.yaml",
       "owner": "target-prerequisite",
       "completion_class": "needs-target-or-prereq-fix",
@@ -7614,34 +7614,6 @@
       "next_action": "turn this candidate into a real base or derived variant before server-side promotion applies",
       "support_artifact": "",
       "owner": "catalog/promotion",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "variant": "default + crd",
-      "lane": "promotion",
-      "lane_label": "variant-promotion (not-applicable-candidate)",
-      "state": "not-applicable-candidate",
-      "reason": "candidate rows are planning rows, not server-side promotion evidence",
-      "next_action": "turn this candidate into a real base or derived variant before server-side promotion applies",
-      "support_artifact": "",
-      "owner": "catalog/promotion",
-      "completion_class": "needs-target-or-prereq-fix",
-      "command": ""
-    },
-    {
-      "chart": "projectcalico/tigera-operator",
-      "version": "v3.32.0",
-      "variant": "default",
-      "lane": "K",
-      "lane_label": "two-cluster-kind",
-      "state": "blocked",
-      "reason": "target-prerequisite: CRDs missing",
-      "next_action": "Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass.",
-      "support_artifact": "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml",
-      "owner": "user",
       "completion_class": "needs-target-or-prereq-fix",
       "command": ""
     },

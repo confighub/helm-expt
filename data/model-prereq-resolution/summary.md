@@ -14,16 +14,16 @@ any variant should be created.
 
 | Metric | Rows |
 | --- | ---: |
-| Total rows | 63 |
+| Total rows | 62 |
 | Model-gap rows | 23 |
-| Target-prerequisite rows | 40 |
+| Target-prerequisite rows | 39 |
 
 ### Rows by resolution path
 
 | Value | Rows |
 | --- | ---: |
 | `operator-review-first` | 19 |
-| `crd-ownership-base-or-target-action` | 8 |
+| `crd-ownership-base-or-target-action` | 7 |
 | `derived-target-variant` | 7 |
 | `semantic-normalization` | 7 |
 | `stack-or-target-fact-variant` | 4 |
@@ -45,7 +45,7 @@ any variant should be created.
 | Value | Rows |
 | --- | ---: |
 | `no variant until cause is known` | 19 |
-| `CRD ownership base plus target prerequisite` | 8 |
+| `CRD ownership base plus target prerequisite` | 7 |
 | `target-bound derived variant` | 7 |
 | `legacy image-retention base` | 6 |
 | `stack-derived variant` | 4 |
@@ -125,7 +125,6 @@ any variant should be created.
 | target-prerequisite | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | K | new-base-variant-after-input-identification | base variant if rendered objects change | replace the unknown prerequisite with a named chart value, Secret, namespace, CRD, or external dependency |
 | target-prerequisite | `opencost/opencost@2.5.21` | default | G/P | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
 | target-prerequisite | `opencost/opencost@2.5.21` | default | K | operator-review-first | no variant until cause is known | inspect pod events/logs and classify the missing condition before modeling a base or target fact |
-| target-prerequisite | `projectcalico/tigera-operator@v3.32.0` | default | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `prometheus-community/prometheus-adapter@5.3.0` | default | K | crd-ownership-base-or-target-action | CRD ownership base plus target prerequisite | choose whether this target owns CRDs through the base or through an external prerequisite |
 | target-prerequisite | `rook-release/rook-ceph-cluster@v1.19.5` | default | G/P | derived-target-variant | target-bound derived variant | create the Namespace or make namespace creation an explicit preflight step for this target |

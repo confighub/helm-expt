@@ -179,7 +179,7 @@ spec:
             evidence:
               []
     targetFacts:
-      status: "declared-target-facts-and-observed-action-records"
+      status: "declared-target-facts"
       declared:
         requiredCRDs:
           -
@@ -288,28 +288,10 @@ spec:
             - "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
             - "runs/live-helm-confighub-compare/projectcalico-tigera-operator-default/receipt.yaml"
       actions:
-        -
-          lane: "K"
-          prerequisiteKind: "crd"
-          prerequisiteName: "unknown"
-          actionKind: "install-crds"
-          ownerClass: "user-stage"
-          requiredInputs: "the chart's CRDs"
-          evidenceRequired: "the required CRDs Established on the target before apply; then a fresh K parity receipt for this base"
-          automatic: false
-          supportArtifact: "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml"
-          sourceReceipt: "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
-          rerunCommand: "npm run kind-parity:run -- --chart projectcalico/tigera-operator --version v3.32.0 --base default"
-          requiredBefore: "apply"
-          freshness:
-            policy: "recheck-before-apply"
-            maxAge: "one-apply"
-          evidence:
-            - "runs/live-kind-parity/projectcalico-tigera-operator-default/receipt.yaml"
-            - "recipes/projectcalico/tigera-operator/v3.32.0/target-prerequisite-plan.yaml"
+        []
       coverage:
-        state: "attached-with-observed-actions"
-        reason: "4 prerequisite declarations and 1 follow-up action record are attached."
+        state: "attached"
+        reason: "4 target prerequisites declared by this base."
         declarationSource: "recipes/projectcalico/tigera-operator/v3.32.0/variants/default/variant.yaml"
         nextAction: ""
     sourceRecord: "data/helm-render-intents/intents/projectcalico-tigera-operator-v3-32-0-default.yaml"
@@ -335,7 +317,7 @@ spec:
     lifecycleObserved: "yes"
     gitopsOciLive: "yes"
     liveDualParity: "yes"
-    twoClusterKind: "no"
+    twoClusterKind: "yes"
     variantPromotion: "proven"
   operations:
     resourceClass: "not-yet-classified"
