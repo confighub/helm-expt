@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Simplify configuration testing and verification", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "What you can do", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
+    terms: ["Simplify configuration testing and verification", "Using configuration tools can be tricky at times. We are here to help.", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "What you can do", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
   },
   {
     file: "site/variants.html",
