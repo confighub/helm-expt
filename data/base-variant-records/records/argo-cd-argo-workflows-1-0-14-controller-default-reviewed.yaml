@@ -38,8 +38,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "clusterworkflowtemplates.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_clusterworkflowtemplates.yaml"
+          sourceSHA256: "6451671e3cca063fdc31a242d1eeedbe07240667f3801c0ece62557f71405838"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_clusterworkflowtemplates.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       -
@@ -47,8 +52,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "cronworkflows.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_cronworkflows.yaml"
+          sourceSHA256: "83d3bd6dff62fce97b6db5a7413b25de26bed9f25a3f223aa4b6bf7499290fc6"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_cronworkflows.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       -
@@ -56,8 +66,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "workflowartifactgctasks.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_workflowartifactgctasks.yaml"
+          sourceSHA256: "9dd524792dfa35513afe0f754b02f76ac6e1b7488479fcd895fb08faeb8ddbd2"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowartifactgctasks.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       -
@@ -65,8 +80,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "workfloweventbindings.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_workfloweventbindings.yaml"
+          sourceSHA256: "0941c8fda9cde30fd320313f8c0c2f1decf323f673e73bf679614af9e815093f"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workfloweventbindings.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       -
@@ -74,8 +94,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "workflows.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_workflows.yaml"
+          sourceSHA256: "4dea37845b8ce92a2c255f5a72a92243674d6ba9c63637146ade88d4ef03484e"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflows.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       -
@@ -83,8 +108,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "workflowtaskresults.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_workflowtaskresults.yaml"
+          sourceSHA256: "86fb637b4268b3993f65f240d184604b3de77ecbf803662b9393ef116bfefe04"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtaskresults.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       -
@@ -92,8 +122,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "workflowtasksets.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_workflowtasksets.yaml"
+          sourceSHA256: "b83e656ce12393c833c3c3356f59eb7500e96adb896c53ec0313a2a3ba8a3f8e"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtasksets.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       -
@@ -101,8 +136,13 @@ spec:
         type: "requiredCRDs"
         required: true
         details:
+          applyMode: "server-side-force-conflicts"
+          deliveryLanes:
+            - "cubInstallerApply"
           name: "workflowtemplates.argoproj.io"
-          sourceVariant: "minimal-crds"
+          sourcePath: "upstream/full-crds/argoproj.io_workflowtemplates.yaml"
+          sourceSHA256: "5aa32400ce3f1fca44c6cc6547a5f74173a9d29ec3fdb2b3da6d40f89a2ea152"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtemplates.yaml"
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
     installTimeStatus: "partly-declared"
@@ -115,16 +155,16 @@ spec:
         actionKind: "install-crd"
         executionMode: "not-yet-executable"
         automatic: false
-        whoRuns: "Prerequisite — apply the CRDs before the workloads"
+        whoRuns: "Prerequisite — run the generated package script before the workloads"
         operatingDetails: "full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits"
         command: "kubectl apply --server-side -f <chart-crds>   # placeholder, not verified"
         disposition: "routed"
-        delta: "prerequisite"
-        reason: "this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform"
+        delta: "packaged-action"
+        reason: "the package carries the 8 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt"
         routeSourceVersion: "1.0.14"
         evidence:
           - "data/hook-route-candidates/candidates.csv"
-        nextAction: "choose supported CRD route: render minimal CRDs with crds.full=false as a self-contained base"
+        nextAction: "direct full-CRD package route is proven; next prove controller-run ordering under Argo CD and Flux and test a cross-version CRD upgrade"
         evidenceRequired: "resolve the named prerequisite/blocker, then capture a live receipt"
         sourceDrift: ""
         gitOps:
@@ -153,43 +193,83 @@ spec:
       declared:
         requiredCRDs:
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "clusterworkflowtemplates.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_clusterworkflowtemplates.yaml"
+            sourceSHA256: "6451671e3cca063fdc31a242d1eeedbe07240667f3801c0ece62557f71405838"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_clusterworkflowtemplates.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "cronworkflows.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_cronworkflows.yaml"
+            sourceSHA256: "83d3bd6dff62fce97b6db5a7413b25de26bed9f25a3f223aa4b6bf7499290fc6"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_cronworkflows.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "workflowartifactgctasks.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_workflowartifactgctasks.yaml"
+            sourceSHA256: "9dd524792dfa35513afe0f754b02f76ac6e1b7488479fcd895fb08faeb8ddbd2"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowartifactgctasks.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "workfloweventbindings.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_workfloweventbindings.yaml"
+            sourceSHA256: "0941c8fda9cde30fd320313f8c0c2f1decf323f673e73bf679614af9e815093f"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workfloweventbindings.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "workflows.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_workflows.yaml"
+            sourceSHA256: "4dea37845b8ce92a2c255f5a72a92243674d6ba9c63637146ade88d4ef03484e"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflows.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "workflowtaskresults.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_workflowtaskresults.yaml"
+            sourceSHA256: "86fb637b4268b3993f65f240d184604b3de77ecbf803662b9393ef116bfefe04"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtaskresults.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "workflowtasksets.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_workflowtasksets.yaml"
+            sourceSHA256: "b83e656ce12393c833c3c3356f59eb7500e96adb896c53ec0313a2a3ba8a3f8e"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtasksets.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           -
+            applyMode: "server-side-force-conflicts"
+            deliveryLanes:
+              - "cubInstallerApply"
             name: "workflowtemplates.argoproj.io"
-            sourceVariant: "minimal-crds"
+            sourcePath: "upstream/full-crds/argoproj.io_workflowtemplates.yaml"
+            sourceSHA256: "5aa32400ce3f1fca44c6cc6547a5f74173a9d29ec3fdb2b3da6d40f89a2ea152"
+            sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtemplates.yaml"
             packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
             packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
       requirements:
@@ -206,10 +286,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_clusterworkflowtemplates.yaml"
+          sourceSHA256: "6451671e3cca063fdc31a242d1eeedbe07240667f3801c0ece62557f71405838"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_clusterworkflowtemplates.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
@@ -226,10 +309,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_cronworkflows.yaml"
+          sourceSHA256: "83d3bd6dff62fce97b6db5a7413b25de26bed9f25a3f223aa4b6bf7499290fc6"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_cronworkflows.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
@@ -246,10 +332,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_workflowartifactgctasks.yaml"
+          sourceSHA256: "9dd524792dfa35513afe0f754b02f76ac6e1b7488479fcd895fb08faeb8ddbd2"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowartifactgctasks.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
@@ -266,10 +355,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_workfloweventbindings.yaml"
+          sourceSHA256: "0941c8fda9cde30fd320313f8c0c2f1decf323f673e73bf679614af9e815093f"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workfloweventbindings.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
@@ -286,10 +378,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_workflows.yaml"
+          sourceSHA256: "4dea37845b8ce92a2c255f5a72a92243674d6ba9c63637146ade88d4ef03484e"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflows.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
@@ -306,10 +401,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_workflowtaskresults.yaml"
+          sourceSHA256: "86fb637b4268b3993f65f240d184604b3de77ecbf803662b9393ef116bfefe04"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtaskresults.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
@@ -326,10 +424,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_workflowtasksets.yaml"
+          sourceSHA256: "b83e656ce12393c833c3c3356f59eb7500e96adb896c53ec0313a2a3ba8a3f8e"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtasksets.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
@@ -346,10 +447,13 @@ spec:
           packageSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           packagePath: "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"
           declarationPath: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
-          sourceVariant: "minimal-crds"
-          sourcePath: ""
+          sourceVariant: ""
+          sourcePath: "upstream/full-crds/argoproj.io_workflowtemplates.yaml"
+          sourceSHA256: "5aa32400ce3f1fca44c6cc6547a5f74173a9d29ec3fdb2b3da6d40f89a2ea152"
+          sourceURL: "https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtemplates.yaml"
+          applyMode: "server-side-force-conflicts"
           deliveryLanes:
-            []
+            - "cubInstallerApply"
           evidence:
             - "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
             - "packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/controller-default-reviewed-crds.yaml"

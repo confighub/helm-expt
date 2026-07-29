@@ -21,7 +21,7 @@ The full field definitions and the deterministic mapping tables are in
 
 ## What This Covers
 
-39 route rows across 18 chart/version lifecycle behaviors,
+40 route rows across 18 chart/version lifecycle behaviors,
 joined from:
 
 - [data/hook-disposition/top100-hook-dispositions.csv](../hook-disposition/summary.md)
@@ -37,7 +37,7 @@ until that data exists — a small correct contract, not a broad guess.
 
 ## The Honest Headline
 
-0 of 39 rows are safe to show as automatic.
+0 of 40 rows are safe to show as automatic.
 
 Nothing the catalog renders today is auto-executed by the cub installer. Every
 route is `user-executes`, `target-owned` (a controller or GitOps engine runs
@@ -51,14 +51,14 @@ it.
 
 | Disposition | Rows |
 | --- | ---: |
-| `observed` | 29 |
+| `observed` | 30 |
 | `routed` | 5 |
 | `todo` | 4 |
 | `per-target` | 1 |
 
 | Execution mode | Rows |
 | --- | ---: |
-| `user-executes` | 22 |
+| `user-executes` | 23 |
 | `target-owned` | 10 |
 | `not-yet-executable` | 7 |
 
@@ -67,7 +67,7 @@ it.
 | `hook-phase` | 20 |
 | `hook-delete-policy` | 6 |
 | `hook-test` | 4 |
-| `crd-install` | 2 |
+| `crd-install` | 3 |
 | `hook-weight-ordering` | 2 |
 | `target-facts` | 2 |
 | `webhook-readiness` | 2 |
@@ -98,6 +98,7 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | airflow-helm/airflow@8.9.0 | chart fallback | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
 | apache-airflow/airflow@1.21.0 | chart fallback | hook-phase | `recipe-time-lifecycle-verification` | todo | not-yet-executable | no |
 | argo-cd/argo-workflows@1.0.14 | chart fallback | crd-install | `preflight-or-presync-crd-apply` | todo | not-yet-executable | no |
+| argo-cd/argo-workflows@1.0.14 | default | crd-install | `preflight-or-presync-crd-apply` | observed | user-executes | no |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds | crd-install | `self-contained-crd-base` | observed | target-owned | no |
 | bitnami/contour@21.1.4 | legacy | hook-phase | `preflight-or-presync` | observed | user-executes | no |
 | bitnami/kafka@32.4.3 | chart fallback | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |

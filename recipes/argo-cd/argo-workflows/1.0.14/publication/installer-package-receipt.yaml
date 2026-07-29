@@ -10,15 +10,15 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1.0.14.tgz"
-    sha256: "c6485f61fd5b2a1375f2714257437c97877393172323ef4ae19afa4924638019"
+    sha256: "63d7842650804abded9b5bd176f48e0b0e46be6615778476e43e7999e60b9388"
   package:
     name: "argo-cd-argo-workflows"
     path: "packages/argo-cd/argo-workflows/1.0.14"
     sourceFiles:
       -
         path: "README.md"
-        sha256: "7c92dfaa8bf95c7a2c759388bdb2fd2bc7155a211bfc991e8891642de0cbb3bb"
-        bytes: 203
+        sha256: "9d53b5ee225514ba497100da796f86a126aa1c3d25dc899f93c4439dc8be39de"
+        bytes: 413
       -
         path: "bases/controller-default-reviewed/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -45,20 +45,20 @@ spec:
         bytes: 872491
       -
         path: "collector/target-facts.sh"
-        sha256: "fc7ca9f656e3fbf94f959cf2cd5001e25fa5f8cc642cc970fb913596e660476b"
-        bytes: 4498
+        sha256: "253e80dc4e69af55969fc87f574689e75af3310579852a9921d177a07d5ec946"
+        bytes: 10442
       -
         path: "installer.yaml"
-        sha256: "5f17a4f715346bf8636bebbb3a0049e2575a2d084a27d73e7cb3c2849d1102ac"
-        bytes: 4017
+        sha256: "c84fa8a2696c1aeedaa45bfcee3fd5f191d80dfe33a4cb934a809d1c672cb067"
+        bytes: 4833
       -
         path: "prerequisites/target-facts/controller-default-reviewed-crds.yaml"
-        sha256: "26ffc0619679a04c337729a4a847800ce6340a71e15c3134f2e8d5e7187f1b5e"
-        bytes: 828155
+        sha256: "97e452a27ae77eec9080bc2231c30680a25ed0567a993a14f5b72f70956bfaff"
+        bytes: 10187197
       -
         path: "prerequisites/target-facts/default-crds.yaml"
-        sha256: "5e99b1283d74824bef9ad016a92d4293d8f57175960bc0e35e47526f6d93e264"
-        bytes: 828135
+        sha256: "f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398"
+        bytes: 10187177
     version: "1.0.14"
   setupChecks:
     -

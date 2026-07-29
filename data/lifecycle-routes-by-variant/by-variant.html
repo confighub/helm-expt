@@ -35,27 +35,27 @@
     <section>
       <h2>argo-cd/argo-workflows</h2>
       <div class="base">
-        <div class="base-h">controller-default-reviewed@1.0.14 <span class="muted">· needs 8 CRDs supplied first</span></div>
+        <div class="base-h">controller-default-reviewed@1.0.14 <span class="muted">· package applies 8 CRDs first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip amber">Prerequisite — apply the CRDs before the workloads</span></td>
-          <td><span class="chip amber">prerequisite</span><div class="reason">this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform</div></td>
+          <td><span class="chip amber">Prerequisite — run the generated package script before the workloads</span></td>
+          <td><span class="chip amber">packaged-action</span><div class="reason">the package carries the 8 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt</div></td>
         </tr>
           </tbody>
         </table>
       </div>
       <div class="base">
-        <div class="base-h">default@1.0.14 <span class="muted">· needs 8 CRDs supplied first</span></div>
+        <div class="base-h">default@1.0.14 <span class="muted">· package applies 8 CRDs first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
         <tr>
           <td>crd-install <span class="rt">preflight-or-presync-crd-apply</span></td>
-          <td><span class="chip amber">Prerequisite — apply the CRDs before the workloads</span></td>
-          <td><span class="chip amber">prerequisite</span><div class="reason">this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform</div></td>
+          <td><span class="chip green">Handled — the generated package script applies the CRDs first</span></td>
+          <td><span class="chip green">resolved</span><div class="reason">the package carries and applies the 8 CRDs before the workload (observed live)</div></td>
         </tr>
           </tbody>
         </table>
@@ -129,7 +129,7 @@
         </table>
       </div>
       <div class="base">
-        <div class="base-h">no-crds@3.22.2 <span class="muted">· needs 17 CRDs supplied first</span></div>
+        <div class="base-h">no-crds@3.22.2 <span class="muted">· package applies 17 CRDs first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>
@@ -150,7 +150,7 @@
         </table>
       </div>
       <div class="base">
-        <div class="base-h">no-crds@2.19.0 <span class="muted">· needs 6 CRDs supplied first</span></div>
+        <div class="base-h">no-crds@2.19.0 <span class="muted">· package applies 6 CRDs first</span></div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>

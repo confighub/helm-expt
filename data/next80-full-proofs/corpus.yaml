@@ -361,6 +361,7 @@ spec:
       ref: "argo-cd/argo-workflows"
       version: "1.0.14"
       proofFocus: "workflow controller, CRDs, RBAC"
+      operationsGuide: "docs/demo/hooks-crds/argo-workflows.md"
     - rank: 72
       repository: "argo-cd"
       repositoryURL: "https://argoproj.github.io/argo-helm"

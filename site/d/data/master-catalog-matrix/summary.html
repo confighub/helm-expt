@@ -451,7 +451,7 @@
 <tr><td>Rows with a target run decision</td><td>26</td></tr>
 <tr><td>Target run decisions (runs / superseded / blocked-or-rejected)</td><td>22 / 2 / 2</td></tr>
 <tr><td>Server-side variant promotion (proven / watch / todo / blocked / n/a)</td><td>167 / 29 / 1 / 2 / 190</td></tr>
-<tr><td>Lifecycle route contracts (observed / watch / todo / n/a)</td><td>12 / 0 / 2 / 375</td></tr>
+<tr><td>Lifecycle route contracts (observed / watch / todo / n/a)</td><td>13 / 0 / 1 / 375</td></tr>
 <tr><td>Render-intent lifecycle records (attached / gap / no separate route)</td><td>10 / 5 / 184</td></tr>
 <tr><td>Render-intent prerequisite records (attached / gap / none explicitly required)</td><td>67 / 132 / 0</td></tr>
 <tr><td>Hook-flagged variants with no disposition row (unrouted)</td><td>0</td></tr>
@@ -523,8 +523,8 @@
 <tr><td><code>argo-cd/argo-rollouts@2.40.9</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
 <tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
 <tr><td></td><td>F2b</td><td>base</td><td>no-crds</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
-<tr><td><code>argo-cd/argo-workflows@1.0.14</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>1 candidate-route ⬜</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
-<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>1 candidate-route ⬜</td><td>⬜</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
+<tr><td><code>argo-cd/argo-workflows@1.0.14</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>1 observed ✅</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>
+<tr><td></td><td>F2a</td><td>base</td><td>default</td><td>next80</td><td>-</td><td>1 observed ✅</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
 <tr><td></td><td>F2b</td><td>base</td><td>controller-default-reviewed</td><td>next80</td><td>-</td><td>1 candidate-route ⬜</td><td>⬜</td><td>✅</td><td>✅</td><td>❌</td><td>⬜</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>stage</td><td>live-parity</td><td>⬜</td></tr>
 <tr><td></td><td>F2b</td><td>base</td><td>minimal-crds</td><td>next80</td><td>-</td><td>1 observed ✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>-</td><td>live-parity</td><td>⬜</td></tr>
 <tr><td><code>argo-cd/argocd-image-updater@1.2.2</code></td><td>F1</td><td>source</td><td>(source)</td><td>next80</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>source-lock</td><td>-</td></tr>

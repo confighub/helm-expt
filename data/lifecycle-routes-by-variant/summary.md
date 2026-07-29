@@ -10,8 +10,8 @@ Charts: 17 · with a real per-variant delta: 6 (argo-cd/argo-workflows, bitnami/
 
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
-| controller-default-reviewed@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — apply the CRDs before the workloads | prerequisite (this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform) |
-| default@1.0.14 (needs 8 CRDs) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — apply the CRDs before the workloads | prerequisite (this base does not install the 8 CRDs — apply them first through a lifecycle step or your platform) |
+| controller-default-reviewed@1.0.14 (package applies 8 CRDs first) | crd-install → `preflight-or-presync-crd-apply` | Prerequisite — run the generated package script before the workloads | packaged-action (the package carries the 8 CRDs and its generated script applies them before the workload; this base still needs its own live route receipt) |
+| default@1.0.14 (package applies 8 CRDs first) | crd-install → `preflight-or-presync-crd-apply` | Handled — the generated package script applies the CRDs first | resolved (the package carries and applies the 8 CRDs before the workload (observed live)) |
 | minimal-crds@1.0.14 | crd-install → `self-contained-crd-base` | Your applier — must apply CRDs before dependent objects | resolved (this base installs the required CRDs (observed live)) |
 
 ## bitnami/contour
@@ -31,7 +31,7 @@ Charts: 17 · with a real per-variant delta: 6 (argo-cd/argo-workflows, bitnami/
 
 | Base | Hook (route) | After deploy, who runs it? | Per-base change |
 | --- | --- | --- | --- |
-| no-crds@2.19.0 (needs 6 CRDs) | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
+| no-crds@2.19.0 (package applies 6 CRDs first) | webhook-readiness → `webhook-readiness-observation` | Your delivery waits for the controller-created or operator-supplied certificate, then checks webhook readiness | — |
 
 ## kyverno/kyverno
 

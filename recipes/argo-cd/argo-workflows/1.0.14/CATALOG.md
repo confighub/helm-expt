@@ -45,6 +45,7 @@ for exact base-variant evidence.
 | Recipe | [recipes/argo-cd/argo-workflows/1.0.14/recipe.yaml](recipe.yaml) |
 | Helm plan | [recipes/argo-cd/argo-workflows/1.0.14/helm-plan.yaml](helm-plan.yaml) |
 | Chart dossier | [recipes/argo-cd/argo-workflows/1.0.14/chart-dossier.yaml](chart-dossier.yaml) |
+| Plain-English operations guide | [docs/demo/hooks-crds/argo-workflows.md](../../../../docs/demo/hooks-crds/argo-workflows.md) |
 | Control points | [recipes/argo-cd/argo-workflows/1.0.14/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/argo-cd/argo-workflows/1.0.14/value-model.yaml](value-model.yaml) |
 | Catalog status | [recipes/argo-cd/argo-workflows/1.0.14/catalog-status.yaml](catalog-status.yaml) |

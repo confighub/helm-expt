@@ -687,7 +687,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>If no route is shown, that does not prove the upstream chart has no hooks. It means the public catalog has no chart-specific action to show yet; check the matrix or send a problem chart if hook behavior should be modeled. Direct apply, Argo CD, Flux, and upgrade implementations are tracked separately. One passing implementation does not prove the others.</p>
 
       <h4>default</h4><div class="card"><table>
-        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD</th><th>Flux</th><th>Change for this variant</th></tr></thead>
+        <thead><tr><th>Hook or setup step</th><th>Who handles it?</th><th>Argo CD mapping</th><th>Flux mapping</th><th>Change for this variant</th></tr></thead>
         <tbody><tr><td>hook-delete-policy (preserve-cleanup-policy)</td><td>Your cluster - at uninstall, automatically</td><td>none - your cluster handles it</td><td>none - your cluster handles it</td><td>-</td></tr><tr><td>hook-test (explicit-test-check)<br><span class="small">Connectivity tests are checks against the installed target, not render-time behavior.</span></td><td>Opt-in check - run from CI or on demand (tests are explicit by design)</td><td>PostSync test Job (Argo has no native helm test)</td><td>HelmRelease .spec.test.enable=true</td><td>-</td></tr></tbody>
       </table></div>
       <style>

@@ -13,34 +13,42 @@ spec:
           kind: "ClusterFeature"
           name: "CRD clusterworkflowtemplates.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD cronworkflows.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowartifactgctasks.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workfloweventbindings.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflows.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtaskresults.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtasksets.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtemplates.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/default-crds.yaml"
+          applyMode: "server-side-force-conflicts"
       name: "default"
       path: "bases/default"
     -
@@ -51,34 +59,42 @@ spec:
           kind: "ClusterFeature"
           name: "CRD clusterworkflowtemplates.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD cronworkflows.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowartifactgctasks.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workfloweventbindings.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflows.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtaskresults.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtasksets.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
         -
           kind: "ClusterFeature"
           name: "CRD workflowtemplates.argoproj.io"
           suggestedSource: "package://prerequisites/target-facts/controller-default-reviewed-crds.yaml"
+          applyMode: "server-side-force-conflicts"
       name: "controller-default-reviewed"
       path: "bases/controller-default-reviewed"
     -
@@ -86,7 +102,7 @@ spec:
       name: "minimal-crds"
       path: "bases/minimal-crds"
   collector:
+    command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    command: "/bin/sh"
     description: "Records target-fact bindings and can live-check cluster-visible requirements."

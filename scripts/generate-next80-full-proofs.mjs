@@ -365,6 +365,9 @@ function writeDefaultVariantArtifacts(chart, source, paths) {
 }
 
 function writePackageAndRunCub(chart, paths, releaseObjects, objects) {
+  const operationsGuide = chart.operationsGuide
+    ? relative(paths.packageRoot, join(repoRoot, chart.operationsGuide)).replaceAll("\\", "/")
+    : "";
   writeYaml(join(paths.packageRoot, "installer.yaml"), {
     apiVersion: "installer.confighub.com/v1alpha1",
     kind: "Package",
@@ -386,7 +389,7 @@ function writePackageAndRunCub(chart, paths, releaseObjects, objects) {
 
 This package is generated from the next80 full proof artifacts.
 
-\`\`\`sh
+${operationsGuide ? `Start with the [plain-English operations guide](${operationsGuide}). It explains why this package exists, what setup work it replaces, how to run it, and what remains unproven.\n\n` : ""}\`\`\`sh
 npm run next80:generate
 npm run next80:verify
 npm run next80:verify-packages
@@ -627,18 +630,22 @@ function writePlanAndDossier(chart, paths, features, objectFeatures, scanCounts,
       maintainedNotes: dossierNotes(chart, features, objectFeatures),
       knownControlPoints: controlPointsFor(features, objectFeatures, 0).map((point) => point.category),
       proofFocus: chart.proofFocus,
+      ...(chart.operationsGuide ? { operationsGuide: chart.operationsGuide } : {}),
     },
   });
 }
 
 function writeChartReadme(chart, paths, objects, scanCounts, packageResult) {
+  const operationsGuide = chart.operationsGuide
+    ? relative(paths.proofRoot, join(repoRoot, chart.operationsGuide)).replaceAll("\\", "/")
+    : "";
   write(
     join(paths.proofRoot, "README.md"),
     `# ${chart.ref} ${chart.version} Proof
 
 This is one of the next 80 public-chart full proofs.
 
-Variant:
+${operationsGuide ? `Start with the [plain-English operations guide](${operationsGuide}). It explains the chart-specific problem, the package's chosen route, how to repeat it, and the current limits.\n\n` : ""}Variant:
 
 - \`default\`: chart defaults under Kubernetes ${kubeVersion}; ${objects.length} Helm objects, ${packageResult.cubObjectCount} \`cub installer\` objects including allowed support objects.
 

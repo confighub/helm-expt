@@ -723,15 +723,25 @@ def target_fact_crd_docs(
             raise RuntimeError(f"invalid required CRD target fact: {crd}")
         source_variant = crd.get("sourceVariant") or "default"
         source_path = crd.get("sourcePath")
+        declared_source = (
+            (recipe_path / source_path).resolve()
+            if source_path and not Path(source_path).is_absolute()
+            else Path(source_path)
+            if source_path
+            else recipe_path / "revisions" / source_variant / "r001" / "rendered" / "release-objects.yaml"
+        )
+        if not declared_source.exists():
+            raise RuntimeError(f"required CRD source not found for {name}: {declared_source}")
+        source_sha256 = crd.get("sourceSHA256")
+        declared_source_sha256 = hashlib.sha256(declared_source.read_bytes()).hexdigest()
+        if source_sha256 and declared_source_sha256 != source_sha256:
+            raise RuntimeError(f"required CRD source SHA mismatch for {name}: {declared_source}")
         if packaged_source is not None:
             source = packaged_source
             source_kind = "installer-package"
-        elif source_path:
-            source = (recipe_path / source_path).resolve() if not Path(source_path).is_absolute() else Path(source_path)
-            source_kind = "recorded-source-path"
         else:
-            source = recipe_path / "revisions" / source_variant / "r001" / "rendered" / "release-objects.yaml"
-            source_kind = "recorded-source-variant"
+            source = declared_source
+            source_kind = "recorded-source-path" if source_path else "recorded-source-variant"
         if not source.exists():
             raise RuntimeError(f"required CRD source not found for {name}: {source}")
         matches = [doc for doc in yaml_docs(source.read_text()) if doc.get("kind") == "CustomResourceDefinition" and (doc.get("metadata") or {}).get("name") == name]
@@ -743,7 +753,14 @@ def target_fact_crd_docs(
             "sourceVariant": source_variant,
             "sourceKind": source_kind,
             "sourcePath": str(source),
+            "declaredSourcePath": str(declared_source),
+            "sourceSHA256": source_sha256 or declared_source_sha256,
+            "sourceURL": crd.get("sourceURL") or "",
+            "applyMode": crd.get("applyMode") or "server-side",
             "lane": lane,
+            **({
+                "packageBundleSHA256": hashlib.sha256(source.read_bytes()).hexdigest(),
+            } if packaged_source is not None else {}),
         })
     return docs, staged
 
@@ -1970,6 +1987,53 @@ def observe_crds(names: list[str], kubeconfig: Path, context: str) -> dict:
     }
 
 
+def compare_required_crds(
+    variant: dict,
+    helm_kubeconfig: Path,
+    helm_context: str,
+    installer_kubeconfig: Path,
+    installer_context: str,
+) -> dict:
+    required = [
+        crd
+        for crd in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredCRDs") or [])
+        if target_fact_applies(crd, "cubInstallerApply")
+        and crd.get("provisioningMode") != "operator-bootstrap"
+    ]
+    items = []
+    for crd in required:
+        name = crd.get("name")
+        if not name:
+            raise RuntimeError(f"invalid required CRD target fact: {crd}")
+        helm_payload = json.loads(kubectl_must(
+            ["get", "crd", name, "-o", "json"],
+            helm_kubeconfig,
+            helm_context,
+            f"regular Helm required CRD {name}",
+        ))
+        installer_payload = json.loads(kubectl_must(
+            ["get", "crd", name, "-o", "json"],
+            installer_kubeconfig,
+            installer_context,
+            f"cub installer required CRD {name}",
+        ))
+        helm_spec_sha256 = sha256_text(json.dumps(helm_payload.get("spec") or {}, sort_keys=True, separators=(",", ":")))
+        installer_spec_sha256 = sha256_text(json.dumps(installer_payload.get("spec") or {}, sort_keys=True, separators=(",", ":")))
+        items.append({
+            "name": name,
+            "result": "pass" if helm_spec_sha256 == installer_spec_sha256 else "blocked",
+            "regularHelmLiveSpecSHA256": helm_spec_sha256,
+            "cubInstallerLiveSpecSHA256": installer_spec_sha256,
+            "sourceSHA256": crd.get("sourceSHA256") or "",
+            "sourceURL": crd.get("sourceURL") or "",
+            "applyMode": crd.get("applyMode") or "server-side",
+        })
+    return {
+        "result": "pass" if all(item["result"] == "pass" for item in items) else "blocked",
+        "items": items,
+    }
+
+
 def target_topology(variant: dict) -> dict:
     facts = (variant.get("spec") or {}).get("targetFacts") or {}
     topology = facts.get("requiredTopology") or {}
@@ -2317,10 +2381,24 @@ def main() -> int:
             installer_crd_observation["result"],
             f"observed={sum(item['result'] == 'pass' for item in installer_crd_observation['items'])}/{len(rendered_crds)}",
         )
+        required_crd_comparison = compare_required_crds(
+            variant,
+            helm_kubeconfig,
+            helm_context,
+            installer_kubeconfig,
+            installer_context,
+        )
+        receipt["spec"].setdefault("crdObservations", {})["requiredCRDParity"] = required_crd_comparison
+        check_item(
+            "required-crd-live-parity",
+            required_crd_comparison["result"],
+            f"matching={sum(item['result'] == 'pass' for item in required_crd_comparison['items'])}/{len(required_crd_comparison['items'])}",
+        )
         installer_clean = (
             installer_operations["result"] == "pass"
             and installer_api_services["result"] == "pass"
             and installer_crd_observation["result"] == "pass"
+            and required_crd_comparison["result"] == "pass"
         )
         installer_result = "pass" if installer_clean and installer_runtime["result"] == "pass" else ("blocked" if installer_runtime["result"] == "blocked" else "watch")
         leg("cubInstallerApply",
@@ -2365,7 +2443,7 @@ def main() -> int:
         receipt["spec"]["semanticComparison"]["helmVsCubInstallerApply"] = comparison
         check_item("semantic-object-parity", comparison["result"], f"missing={len(comparison['missingFromInstaller'])} extra={comparison['extraInInstaller']} diffs={len(comparison['semanticDiffs'])}")
 
-        if comparison["result"] != "pass" or helm_result == "blocked":
+        if comparison["result"] != "pass" or required_crd_comparison["result"] != "pass" or helm_result == "blocked":
             receipt["spec"]["result"] = "blocked"
         elif installer_result == "pass" and helm_runtime["result"] == "pass":
             receipt["spec"]["result"] = "pass"

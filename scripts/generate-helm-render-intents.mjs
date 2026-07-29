@@ -394,6 +394,9 @@ function normalizeTargetRequirements(targetFacts, variantPath) {
         declarationPath: variantPath,
         sourceVariant: String(item.sourceVariant ?? ""),
         sourcePath: String(item.sourcePath ?? ""),
+        ...(item.sourceSHA256 ? { sourceSHA256: String(item.sourceSHA256) } : {}),
+        ...(item.sourceURL ? { sourceURL: String(item.sourceURL) } : {}),
+        ...(item.applyMode ? { applyMode: String(item.applyMode) } : {}),
         deliveryLanes: asStringList(item.deliveryLanes),
         evidence: uniqueStrings([
           variantPath,

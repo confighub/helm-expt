@@ -7,7 +7,7 @@ spec:
   version: 1.0.14
   base: default
   result: pass
-  observedAt: '2026-06-15T11:58:26Z'
+  observedAt: '2026-07-29T06:04:14Z'
   package:
     path: packages/argo-cd/argo-workflows/1.0.14
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-argowo-3bd21-t9i3-helm
-    installerCluster: hx-argowo-3bd21-t9i3-installer
+    helmCluster: hx-argowo-3bd21-j8id-helm
+    installerCluster: hx-argowo-3bd21-j8id-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-argowo-3bd21-t9i3-helm
+      - cluster: hx-argowo-3bd21-j8id-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-argowo-3bd21-t9i3-helm" ...
+        detail: 'Deleting cluster "hx-argowo-3bd21-j8id-helm" ...
 
-          Deleted nodes: ["hx-argowo-3bd21-t9i3-helm-control-plane"]'
-      - cluster: hx-argowo-3bd21-t9i3-installer
+          Deleted nodes: ["hx-argowo-3bd21-j8id-helm-control-plane"]'
+      - cluster: hx-argowo-3bd21-j8id-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-argowo-3bd21-t9i3-installer" ...
+        detail: 'Deleting cluster "hx-argowo-3bd21-j8id-installer" ...
 
-          Deleted nodes: ["hx-argowo-3bd21-t9i3-installer-control-plane"]'
+          Deleted nodes: ["hx-argowo-3bd21-j8id-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -40,28 +40,30 @@ spec:
     regularHelm:
       result: pass
       command: helm upgrade --install argo-workflows argo-workflows --repo https://argoproj.github.io/argo-helm
-        --version 1.0.14 --namespace default --create-namespace --values $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-default/regular-helm-values.yaml
+        --version 1.0.14 --namespace default --create-namespace --values runs/live-kind-parity/argo-cd-argo-workflows-default/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: default
       manifestSHA256: 677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc
       objectCount: 19
       liveHelmManifestSHA256: 677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc
       liveHelmManifestObjectCount: 19
-      runtimeNamespaces: &id001
+      runtimeNamespaces:
       - default
       runtime:
         result: pass
-        namespaces: *id001
+        namespaces:
+        - default
+        selfGeneratedSecrets: []
         workloads: '# default
 
-          deployment.apps/argo-workflows-server                1/1   1     1     31s
+          deployment.apps/argo-workflows-server                1/1   1     1     33s
 
-          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     31s'
+          deployment.apps/argo-workflows-workflow-controller   1/1   1     1     33s'
         pods: '# default
 
-          argo-workflows-server-68dc849dd4-7ggpv                1/1   Running   0     31s
+          argo-workflows-server-68dc849dd4-78xfw                1/1   Running   0     33s
 
-          argo-workflows-workflow-controller-5f7944bc8f-l2lll   1/1   Running   0     31s'
+          argo-workflows-workflow-controller-5f7944bc8f-s8stn   1/1   Running   0     33s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -71,8 +73,8 @@ spec:
       getManifestError: ''
     cubInstallerApply:
       result: pass
-      renderCommand: cub installer setup --pull $HOME/code/helm-expt/packages/argo-cd/argo-workflows/1.0.14
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-argowo-3bd21-t9i3-argo-workflows
+      renderCommand: cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-argowo-3bd21-j8id-argo-workflows
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -81,11 +83,13 @@ spec:
       objectCount: 20
       manifestNamespaces:
       - default
-      runtimeNamespaces: &id002
+      runtimeNamespaces:
       - default
       runtime:
         result: pass
-        namespaces: *id002
+        namespaces:
+        - default
+        selfGeneratedSecrets: []
         workloads: '# default
 
           deployment.apps/argo-workflows-server                1/1   1     1     41s
@@ -93,9 +97,9 @@ spec:
           deployment.apps/argo-workflows-workflow-controller   1/1   1     1     41s'
         pods: '# default
 
-          argo-workflows-server-68dc849dd4-p6z2c                1/1   Running   0     41s
+          argo-workflows-server-68dc849dd4-2b298                1/1   Running   0     41s
 
-          argo-workflows-workflow-controller-5f7944bc8f-cdljh   1/1   Running   0     41s'
+          argo-workflows-workflow-controller-5f7944bc8f-cpqnm   1/1   Running   0     41s'
         notReady: []
         diagnostics: []
         apiServices:
@@ -104,27 +108,39 @@ spec:
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||default
-    semanticNormalizations: &id003
+    semanticNormalizations:
     - prune-null-fields
     regularHelmRenderVsLive:
       result: pass
       helmObjectCount: 19
       installerObjectCount: 19
       missingFromInstaller: []
+      allowedMissingFromInstaller: []
+      unallowedMissingFromInstaller: []
       extraInInstaller: []
+      allowedExtraInInstaller: []
+      unallowedExtraInInstaller: []
       semanticDiffs: []
-      semanticNormalizations: *id003
-      comparisonSHA256: 6447f00d42986b74131a60cbaa6fe7cca13ba06d3d9e2b913f098ff8196d3970
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c6970c982db315d5a624e7f97901cc0ea6bb82fd430e84c297e2d9049c602f5b
+    helmManagedCRDsOmittedFromGetManifest: []
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 19
       installerObjectCount: 20
       missingFromInstaller: []
+      allowedMissingFromInstaller: []
+      unallowedMissingFromInstaller: []
       extraInInstaller:
       - v1|Namespace||default
+      allowedExtraInInstaller:
+      - v1|Namespace||default
+      unallowedExtraInInstaller: []
       semanticDiffs: []
-      semanticNormalizations: *id003
-      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: 31216e9252dd256d107d993ebd2443577592266648ffca8311c4c3aae8864792
   checks:
   - name: kind-create-helm
     result: pass
@@ -134,13 +150,16 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: secrets=0 crds=8 namespaces=0
+    detail: secrets=0 crds=0 namespaces=0
   - name: target-facts-installer
     result: pass
     detail: secrets=0 crds=8 namespaces=0
   - name: regular-helm-operating-policy
     result: pass
     detail: none
+  - name: regular-helm-rendered-crds
+    result: pass
+    detail: observed=0/0
   - name: regular-helm-render-live-parity
     result: pass
     detail: missing=0 extra=[] diffs=0
@@ -150,7 +169,7 @@ spec:
 
       NAME: argo-workflows
 
-      LAST DEPLOYED: Mon Jun 15 12:59:29 2026
+      LAST DEPLOYED: Wed Jul 29 07:05:38 2026
 
       NAMESPACE: default
 
@@ -178,6 +197,12 @@ spec:
   - name: cub-installer-operating-policy
     result: pass
     detail: none
+  - name: cub-installer-rendered-crds
+    result: pass
+    detail: observed=0/0
+  - name: required-crd-live-parity
+    result: pass
+    detail: matching=8/8
   - name: cub-installer-apply-live
     result: pass
     detail: '# default
@@ -192,65 +217,96 @@ spec:
     regularHelm:
       result: pass
       stagedSecrets: []
-      stagedCRDs:
-      - name: clusterworkflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: cronworkflows.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowartifactgctasks.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workfloweventbindings.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflows.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowtaskresults.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowtasksets.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
-      - name: workflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
-        lane: regularHelm
+      stagedCRDs: []
       stagedObjectStores: []
       stagedNamespaces: []
-      path: $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-default/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
       stagedSecrets: []
       stagedCRDs:
       - name: clusterworkflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_clusterworkflowtemplates.yaml
+        sourceSHA256: 6451671e3cca063fdc31a242d1eeedbe07240667f3801c0ece62557f71405838
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_clusterworkflowtemplates.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       - name: cronworkflows.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_cronworkflows.yaml
+        sourceSHA256: 83d3bd6dff62fce97b6db5a7413b25de26bed9f25a3f223aa4b6bf7499290fc6
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_cronworkflows.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       - name: workflowartifactgctasks.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowartifactgctasks.yaml
+        sourceSHA256: 9dd524792dfa35513afe0f754b02f76ac6e1b7488479fcd895fb08faeb8ddbd2
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowartifactgctasks.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       - name: workfloweventbindings.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workfloweventbindings.yaml
+        sourceSHA256: 0941c8fda9cde30fd320313f8c0c2f1decf323f673e73bf679614af9e815093f
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workfloweventbindings.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       - name: workflows.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflows.yaml
+        sourceSHA256: 4dea37845b8ce92a2c255f5a72a92243674d6ba9c63637146ade88d4ef03484e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflows.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       - name: workflowtaskresults.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtaskresults.yaml
+        sourceSHA256: 86fb637b4268b3993f65f240d184604b3de77ecbf803662b9393ef116bfefe04
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtaskresults.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       - name: workflowtasksets.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtasksets.yaml
+        sourceSHA256: b83e656ce12393c833c3c3356f59eb7500e96adb896c53ec0313a2a3ba8a3f8e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtasksets.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       - name: workflowtemplates.argoproj.io
-        sourceVariant: minimal-crds
+        sourceVariant: default
+        sourceKind: installer-package
+        sourcePath: packages/argo-cd/argo-workflows/1.0.14/prerequisites/target-facts/default-crds.yaml
+        declaredSourcePath: recipes/argo-cd/argo-workflows/1.0.14/upstream/full-crds/argoproj.io_workflowtemplates.yaml
+        sourceSHA256: 5aa32400ce3f1fca44c6cc6547a5f74173a9d29ec3fdb2b3da6d40f89a2ea152
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtemplates.yaml
+        applyMode: server-side-force-conflicts
         lane: cubInstallerApply
+        packageBundleSHA256: f1d2ff7b9404ba53ebdaff7b301d0ea3df1dfd7e26dfe9283083d8740cfee398
       stagedObjectStores: []
       stagedNamespaces: []
-      path: $HOME/code/helm-expt/runs/live-kind-parity/argo-cd-argo-workflows-default/target-facts-installer.yaml
+      lifecycleActions: []
     requiredValues: []
   operatingPolicy:
     regularHelm:
@@ -259,3 +315,69 @@ spec:
     cubInstallerApply:
       result: pass
       operation: none
+  crdObservations:
+    regularHelm:
+      result: pass
+      items: []
+    cubInstallerApply:
+      result: pass
+      items: []
+    requiredCRDParity:
+      result: pass
+      items:
+      - name: clusterworkflowtemplates.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: 6a6d15147c23526da59a5063cbf85344b193b4082089ae010b72e1256144c718
+        cubInstallerLiveSpecSHA256: 6a6d15147c23526da59a5063cbf85344b193b4082089ae010b72e1256144c718
+        sourceSHA256: 6451671e3cca063fdc31a242d1eeedbe07240667f3801c0ece62557f71405838
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_clusterworkflowtemplates.yaml
+        applyMode: server-side-force-conflicts
+      - name: cronworkflows.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: cca1bc57c92ed2b6a2ad2414001648e2faa97d52e00fdedb5a08df59093bd88e
+        cubInstallerLiveSpecSHA256: cca1bc57c92ed2b6a2ad2414001648e2faa97d52e00fdedb5a08df59093bd88e
+        sourceSHA256: 83d3bd6dff62fce97b6db5a7413b25de26bed9f25a3f223aa4b6bf7499290fc6
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_cronworkflows.yaml
+        applyMode: server-side-force-conflicts
+      - name: workflowartifactgctasks.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: d92af038cfa0b8466c13142848024273943fe4b85eca46d0a3b95f6dadca18be
+        cubInstallerLiveSpecSHA256: d92af038cfa0b8466c13142848024273943fe4b85eca46d0a3b95f6dadca18be
+        sourceSHA256: 9dd524792dfa35513afe0f754b02f76ac6e1b7488479fcd895fb08faeb8ddbd2
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowartifactgctasks.yaml
+        applyMode: server-side-force-conflicts
+      - name: workfloweventbindings.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: 51a6ac4413a85b49e402cd94204f7b79d1157e9223e7c98743b348ffaaf7fe4e
+        cubInstallerLiveSpecSHA256: 51a6ac4413a85b49e402cd94204f7b79d1157e9223e7c98743b348ffaaf7fe4e
+        sourceSHA256: 0941c8fda9cde30fd320313f8c0c2f1decf323f673e73bf679614af9e815093f
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workfloweventbindings.yaml
+        applyMode: server-side-force-conflicts
+      - name: workflows.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: ae213fac77f00c9292ab83e3949cfe1dcbd4cae75b7cbe49c322093a1e5ffad9
+        cubInstallerLiveSpecSHA256: ae213fac77f00c9292ab83e3949cfe1dcbd4cae75b7cbe49c322093a1e5ffad9
+        sourceSHA256: 4dea37845b8ce92a2c255f5a72a92243674d6ba9c63637146ade88d4ef03484e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflows.yaml
+        applyMode: server-side-force-conflicts
+      - name: workflowtaskresults.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: 08bdd7e2f27f4f4323560f20b99ed6d05c369d5b8a80828d1d66b84b762ff5fe
+        cubInstallerLiveSpecSHA256: 08bdd7e2f27f4f4323560f20b99ed6d05c369d5b8a80828d1d66b84b762ff5fe
+        sourceSHA256: 86fb637b4268b3993f65f240d184604b3de77ecbf803662b9393ef116bfefe04
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtaskresults.yaml
+        applyMode: server-side-force-conflicts
+      - name: workflowtasksets.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: 8f3fd6bf9751cac24ef7a53437ea275ff7ee2a2a4806bbbe0c960c76146a6f2f
+        cubInstallerLiveSpecSHA256: 8f3fd6bf9751cac24ef7a53437ea275ff7ee2a2a4806bbbe0c960c76146a6f2f
+        sourceSHA256: b83e656ce12393c833c3c3356f59eb7500e96adb896c53ec0313a2a3ba8a3f8e
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtasksets.yaml
+        applyMode: server-side-force-conflicts
+      - name: workflowtemplates.argoproj.io
+        result: pass
+        regularHelmLiveSpecSHA256: 799574be750d2fa9aca6d07729a1d0e2bfbdfaa35b3692aec1486a9c763536d3
+        cubInstallerLiveSpecSHA256: 799574be750d2fa9aca6d07729a1d0e2bfbdfaa35b3692aec1486a9c763536d3
+        sourceSHA256: 5aa32400ce3f1fca44c6cc6547a5f74173a9d29ec3fdb2b3da6d40f89a2ea152
+        sourceURL: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/charts/argo-workflows/files/crds/full/argoproj.io_workflowtemplates.yaml
+        applyMode: server-side-force-conflicts

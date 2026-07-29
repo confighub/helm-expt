@@ -146,9 +146,21 @@ function builtVariants(chart) {
   }
   return variants.sort((a, b) => a.version.localeCompare(b.version) || a.base.localeCompare(b.base));
 }
-function requiredCrds(yaml) {
+function requiredCrdFacts(yaml) {
   const r = yaml?.spec?.targetFacts?.requiredCRDs;
-  return Array.isArray(r) ? r.length : 0;
+  return Array.isArray(r) ? r : [];
+}
+
+function requiredCrds(yaml) {
+  return requiredCrdFacts(yaml).length;
+}
+
+function packagedCrds(yaml) {
+  return requiredCrdFacts(yaml).filter((crd) =>
+    crd?.sourcePath
+      && Array.isArray(crd.deliveryLanes)
+      && crd.deliveryLanes.includes("cubInstallerApply"),
+  ).length;
 }
 
 // --- Per-base route derivation ------------------------------------------------
@@ -165,7 +177,8 @@ function selectRoutesForBase(chartRoutes, base) {
 
 function routesForBase(chartRoutes, variant, matrixDisp) {
   const crdCount = requiredCrds(variant.yaml);
-  const delegatesCrds = crdCount > 0; // a base that lists requiredCRDs does not install them itself
+  const packagedCrdCount = packagedCrds(variant.yaml);
+  const delegatesCrds = crdCount > 0 && packagedCrdCount !== crdCount;
   const perBase = matrixDispToRoute(matrixDisp);
   return chartRoutes.map((route) => {
     let delta = "kept";
@@ -173,7 +186,13 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
     let disposition = perBase ?? route.disposition;
     const isCrdRoute = route.action_kind === "install-crd" || /crd/i.test(route.route_name);
     if (isCrdRoute) {
-      if (disposition === "observed") {
+      if (packagedCrdCount === crdCount && crdCount > 0 && disposition === "observed") {
+        delta = "resolved";
+        reason = `the package carries and applies the ${crdCount} CRDs before the workload (observed live)`;
+      } else if (packagedCrdCount === crdCount && crdCount > 0) {
+        delta = "packaged-action";
+        reason = `the package carries the ${crdCount} CRDs and its generated script applies them before the workload; this base still needs its own live route receipt`;
+      } else if (disposition === "observed") {
         delta = "resolved";
         reason = "this base installs the required CRDs (observed live)";
       } else if (delegatesCrds) {
@@ -195,6 +214,13 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
     const sourceDrift = variant.version && route.version !== variant.version
       ? `route source version ${route.version}; recipe version ${variant.version}`
       : route.source_drift;
+    const routeOwner = packagedCrdCount === crdCount
+      && crdCount > 0
+      && isCrdRoute
+      ? disposition === "observed"
+        ? "Handled — the generated package script applies the CRDs first"
+        : "Prerequisite — run the generated package script before the workloads"
+      : whoRuns(route.execution_mode, route.action_kind, disposition);
     return {
       route_name: route.route_name,
       quirk_class: route.quirk_class,
@@ -203,7 +229,7 @@ function routesForBase(chartRoutes, variant, matrixDisp) {
       execution_mode: route.execution_mode,
       disposition,
       automatic: false,
-      whoRuns: whoRuns(route.execution_mode, route.action_kind, disposition),
+      whoRuns: routeOwner,
       operatingDetails: route.required_target_facts,
       command: cleanCommand(route.human_command),
       delta,
@@ -246,7 +272,15 @@ function build() {
       if (variants.length === 1) entry.note = "One built base — its hook routes do not differ by variant.";
       for (const v of variants) {
         const md = matrixDisp.get(`${chart}|${v.version}|${v.base}`) ?? null;
-        entry.variants.push(emit(chart, v, selectRoutesForBase(chartRoutes, v.base), md, csvRows, requiredCrds(v.yaml)));
+        entry.variants.push(emit(
+          chart,
+          v,
+          selectRoutesForBase(chartRoutes, v.base),
+          md,
+          csvRows,
+          requiredCrds(v.yaml),
+          packagedCrds(v.yaml),
+        ));
       }
     }
     charts.push(entry);
@@ -254,7 +288,7 @@ function build() {
   return { charts, csvRows };
 }
 
-function emit(chart, variant, chartRoutes, matrixDispVal, csvRows, crdCount) {
+function emit(chart, variant, chartRoutes, matrixDispVal, csvRows, crdCount, packagedCrdCount = 0) {
   const routes = routesForBase(chartRoutes, variant, matrixDispVal);
   for (const r of routes) {
     csvRows.push({
@@ -265,7 +299,13 @@ function emit(chart, variant, chartRoutes, matrixDispVal, csvRows, crdCount) {
       evidence: r.evidence, next_action: r.nextAction, evidence_required: r.evidenceRequired, source_drift: r.sourceDrift,
     });
   }
-  return { base: variant.base, recipeVersion: variant.version, requiredCrdCount: crdCount, routes };
+  return {
+    base: variant.base,
+    recipeVersion: variant.version,
+    requiredCrdCount: crdCount,
+    packagedCrdCount,
+    routes,
+  };
 }
 
 function summaryMd(model) {
@@ -288,7 +328,12 @@ function summaryMd(model) {
     for (const v of c.variants) {
       for (const r of v.routes) {
         const change = r.delta === "kept" ? "—" : `${r.delta}${r.reason ? ` (${r.reason})` : ""}`;
-        lines.push(`| ${v.base}@${v.recipeVersion}${v.requiredCrdCount ? ` (needs ${v.requiredCrdCount} CRDs)` : ""} | ${r.quirk_class} → \`${r.route_name}\` | ${r.whoRuns} | ${change} |`);
+        const crdLabel = v.requiredCrdCount
+          ? v.packagedCrdCount === v.requiredCrdCount
+            ? ` (package applies ${v.requiredCrdCount} CRDs first)`
+            : ` (needs ${v.requiredCrdCount} CRDs)`
+          : "";
+        lines.push(`| ${v.base}@${v.recipeVersion}${crdLabel} | ${r.quirk_class} → \`${r.route_name}\` | ${r.whoRuns} | ${change} |`);
       }
     }
     lines.push("");
@@ -312,7 +357,7 @@ function whoRunsClass(whoRunsText) {
 }
 function deltaClass(delta) {
   if (delta === "resolved") return "green";
-  if (delta === "strengthened" || delta === "prerequisite") return "amber";
+  if (delta === "strengthened" || delta === "prerequisite" || delta === "packaged-action") return "amber";
   return "gray"; // kept / reduced
 }
 function esc(s) {
@@ -327,7 +372,7 @@ function summaryHtml(model) {
           <td>${r.delta === "kept" ? '<span class="muted">—</span>' : `<span class="chip ${deltaClass(r.delta)}">${esc(r.delta)}</span>${r.reason ? `<div class="reason">${esc(r.reason)}</div>` : ""}`}</td>
         </tr>`).join("\n");
     return `      <div class="base">
-        <div class="base-h">${esc(v.base)}@${esc(v.recipeVersion)}${v.requiredCrdCount ? ` <span class="muted">· needs ${v.requiredCrdCount} CRDs supplied first</span>` : ""}</div>
+        <div class="base-h">${esc(v.base)}@${esc(v.recipeVersion)}${v.requiredCrdCount ? ` <span class="muted">· ${v.packagedCrdCount === v.requiredCrdCount ? `package applies ${v.requiredCrdCount} CRDs first` : `needs ${v.requiredCrdCount} CRDs supplied first`}</span>` : ""}</div>
         <table>
           <thead><tr><th>Hook (route)</th><th>After deploy, who runs it?</th><th>Per-base change</th></tr></thead>
           <tbody>

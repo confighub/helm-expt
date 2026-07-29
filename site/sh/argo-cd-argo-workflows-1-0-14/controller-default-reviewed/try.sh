@@ -51,37 +51,8 @@ wait_for_crd() {
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
-say "Check 8 CRDs included with this package"
-missing_crds=0
-if ! kubectl get crd/clusterworkflowtemplates.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if ! kubectl get crd/cronworkflows.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if ! kubectl get crd/workflowartifactgctasks.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if ! kubectl get crd/workfloweventbindings.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if ! kubectl get crd/workflows.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if ! kubectl get crd/workflowtaskresults.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if ! kubectl get crd/workflowtasksets.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if ! kubectl get crd/workflowtemplates.argoproj.io >/dev/null 2>&1; then
-  missing_crds=1
-fi
-if [ "$missing_crds" -eq 1 ]; then
-  kubectl apply --server-side -f ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed/package/prerequisites/target-facts/controller-default-reviewed-crds.yaml
-else
-  say "The required CRDs already exist; leave them under their current owner"
-fi
+say "Apply the 8 locked CRDs before the workload"
+kubectl apply --server-side --force-conflicts -f ./argo-cd-argo-workflows-1-0-14-controller-default-reviewed/package/prerequisites/target-facts/controller-default-reviewed-crds.yaml
 wait_for_crd clusterworkflowtemplates.argoproj.io
 wait_for_crd cronworkflows.argoproj.io
 wait_for_crd workflowartifactgctasks.argoproj.io

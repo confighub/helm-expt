@@ -5,7 +5,7 @@ metadata:
 spec:
   chart: argo-cd/argo-workflows
   version: 1.0.14
-  base: default and controller-default-reviewed (current aliases; route not yet maintained)
+  base: default and controller-default-reviewed
   result: candidate-route-plan
   reviewedAt: "2026-06-12"
   hooks:
@@ -45,11 +45,12 @@ spec:
           OpenAPI schemas; this needs to be stated on the base.
         selectedRouteReceipt: data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml
       - name: target-prerequisite-full-crds
-        status: lifecycle-action-candidate
+        status: observed-for-default
         valuesBoundary: crds.full=true remains the source chart default.
-        tradeoff: The base is not self-contained; it requires the eight
-          argoproj.io CRDs to be staged or applied by a pre-sync/server-side
-          apply action before workloads are expected to converge.
+        tradeoff: The package carries the eight full CRDs and the direct script
+          applies them server-side with forced conflict resolution before the
+          workloads. Argo CD and Flux still need separate ordering proof.
+        selectedRouteReceipt: data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-default.yaml
     gitopsMapping: Argo CD PreSync or an equivalent Flux/ConfigHub lifecycle
       action that applies the full CRDs server-side before normal workloads.
   evidence:
@@ -64,6 +65,8 @@ spec:
         that must be handled separately before production.
     - path: data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-minimal-crds.yaml
       claim: The minimal-CRDs option is selected and observed; this candidate now covers only the unresolved full-CRD route.
+    - path: data/hook-route-candidates/selected-routes/argo-cd-argo-workflows-default.yaml
+      claim: The default full-CRD package route is selected and observed on separate Helm and cub installer clusters.
     - path: runs/live-helm-confighub-compare/argo-cd-argo-workflows-minimal-crds/receipt.yaml
       claim: The minimal-CRDs option reached Synced and Healthy through ConfigHub OCI and Argo CD.
     - path: runs/live-kind-parity/argo-cd-argo-workflows-minimal-crds/receipt.yaml
@@ -71,13 +74,12 @@ spec:
   execution:
     helmHooksExecutedByHarness: false
     runtimeObserved: false
-  promotionNextStep: For the default and controller-default-reviewed bases,
-    declare the full CRDs as target facts and prove a pre-sync/server-side-apply
-    action before counting either base as live-ready. The minimal-crds base has
-    its own observed route receipt.
+  promotionNextStep: Prove the full-CRD action under Argo CD and Flux, run a
+    cross-version CRD upgrade, and decide production CRD ownership. The
+    minimal-crds and direct default routes now have observed receipts.
   notClaimed:
     - production readiness
-    - hook execution
-    - live workload convergence
+    - a separate live run for controller-default-reviewed
+    - Argo CD or Flux execution of the full-CRD action
     - full CRD upgrade safety
     - semantic equivalence between minimal CRDs and full CRDs
