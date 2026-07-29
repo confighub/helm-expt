@@ -27,10 +27,10 @@
       "tool": "cub-scout",
       "version": "dev"
     },
-    "verifiedAt": "2026-07-29T09:16:32Z",
+    "verifiedAt": "2026-07-29T09:17:52Z",
     "freshness": {
-      "observedAt": "2026-07-29T09:16:32Z",
-      "expiresAt": "2026-07-29T10:16:32Z",
+      "observedAt": "2026-07-29T09:17:52Z",
+      "expiresAt": "2026-07-29T10:17:52Z",
       "ttl": "1h0m0s"
     },
     "predicateName": "object-set-matches",
@@ -133,6 +133,6 @@
         "nextSurface": "cub-scout"
       }
     ],
-    "fingerprint": "sha256:fc72200157343b96f959766b15d1602925227cce8eaba9bc438525e5d5efde13"
+    "fingerprint": "sha256:5a50be6aec6b2f042c244f00ffbc3a92d293a05628bb23ad5126c9f9f941e54d"
   }
 }

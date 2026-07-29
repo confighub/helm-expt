@@ -2124,8 +2124,8 @@ two clusters, and Flux pulls the same digest on a third cluster.
 | Publish the same configuration from ConfigHub | ${passThrough.result} | ${passThroughEvidence} |
 | Create the environment chain | ${spec.configHub.chain.result} | \`${spec.configHub.chain.path}\`. |
 | Change one reviewed field | ${spec.configHub.change.result} | Deployment replicas changed from ${spec.configHub.change.before} to ${spec.configHub.change.after}. |
-| Promote to development | ${spec.configHub.promotions.development.result} | The preview changed nothing. After promotion, development had no pending upstream change. |
-| Promote to staging | ${spec.configHub.promotions.staging.result} | The preview changed nothing. After promotion, staging had no pending upstream change. |
+| Promote to development | ${spec.configHub.promotions.development.result} | The dry run showed the replica change without applying it. The promotion then applied the change and cleared the pending update. |
+| Promote to staging | ${spec.configHub.promotions.staging.result} | The dry run showed the replica change without applying it. The promotion then applied the change and cleared the pending update. |
 | Publish the ConfigHub staging release | ${spec.delivery.stagingRelease.result} | \`${spec.delivery.stagingRelease.manifestDigest}\`. |
 | Export the portable OCI | ${spec.serverlessOutput.result} | ${spec.serverlessOutput.objectCount} objects; \`${spec.serverlessOutput.digest}\`; anonymous pull. |
 | Roll out through Argo CD | ${spec.delivery.fleet.result} | Both Argo CD controllers reported the portable OCI digest and both workloads became ready. |

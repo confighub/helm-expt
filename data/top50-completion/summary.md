@@ -11,8 +11,8 @@ Edit that source and run `npm run top50:completion`.
 ## Current State
 
 ```text
-available: 28
-partial:   20
+available: 29
+partial:   19
 planned:   2
 blocked:   0
 total:     50
@@ -97,7 +97,7 @@ The source status definitions are:
 | ID | Outcome | Status | Current evidence | Completion step |
 | --- | --- | --- | --- | --- |
 | T26 | Deliver reviewed OCI through Argo CD | available | [data/runtime-gitops/summary.md](../../data/runtime-gitops/summary.md)<br>[runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml) | Maintain fresh controller and workload receipts for every path that claims Argo CD delivery. |
-| T27 | Deliver reviewed OCI through Flux | partial | [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml)<br>[docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | Add ConfigHub-output Flux receipts for representative Helm, AICR, and lifecycle-route examples. |
+| T27 | Deliver reviewed OCI through Flux | available | [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml)<br>[runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml)<br>[docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) | Maintain the ConfigHub-output Flux receipt and add representative AICR and lifecycle-route Flux evidence. |
 | T28 | Deliver reviewed objects by direct apply | available | [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md)<br>[data/live-kind-parity/summary.md](../../data/live-kind-parity/summary.md) | Keep direct apply as a simple option while making interruptions and lifecycle ordering explicit. |
 | T29 | Record live convergence and observation freshness | partial | [data/live-e2e/summary.md](../../data/live-e2e/summary.md)<br>[docs/reference/observation-freshness-slo.md](../../docs/reference/observation-freshness-slo.md) | Store more live observations in ConfigHub and refresh receipts when target state or packages change. |
 | T30 | Roll back or unwind a reviewed change | available | [docs/user/day2-upgrade-rollback.md](../../docs/user/day2-upgrade-rollback.md)<br>[docs/reference/upgrade-rollback-receipts.md](../../docs/reference/upgrade-rollback-receipts.md)<br>[data/redis-upgrade-app-proof/summary.md](../../data/redis-upgrade-app-proof/summary.md)<br>[runs/redis-upgrade-app-proof/receipt.yaml](../../runs/redis-upgrade-app-proof/receipt.yaml) | Repeat the receipt pattern for charts with CRD changes, hooks, or data migrations whose rollback limits need a chart-specific recovery plan. |
