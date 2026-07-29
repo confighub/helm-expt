@@ -10,8 +10,8 @@ spec:
   boundaries:
     source:
       result: "pass"
-      digest: "sha256:5ca7ea87efa64f76a29cfa564a9af8e0f087c2bd638962e24a2b1b144417e261"
-      reference: "oci://127.0.0.1:32788/bitnami-nginx-http-clusterip-config:24.0.2"
+      digest: "sha256:ba9d5aa8f05766037d61f2ed04bfed5543bc5e7328cce193a3c577fe9071d714"
+      reference: "oci://127.0.0.1:32812/bitnami-nginx-http-clusterip-config:24.0.2"
       identifiers:
         - "objects:5"
       evidence:
@@ -35,11 +35,11 @@ spec:
     configHubRecord:
       result: "pass"
       digest: ""
-      reference: "space:hx-oci-flow-20260726-1oq1-staging"
+      reference: "space:hx-oci-flow-20260729-s3t-staging"
       identifiers:
         - "variant:staging"
-        - "upstream-space-id:cee89b7a-7098-45d4-844a-f4f095d3c1bf"
-        - "release-id:dc0c8c1d-d4ce-43d5-a9ac-c358cd5bf2aa"
+        - "upstream-space-id:9c0447aa-485a-4ee7-ac58-e2f64bb56e77"
+        - "release-id:63ca45b8-865b-460b-b137-c362f23be639"
       evidence:
         - "runs/oci-deploy-stage-rollout-proof/receipt.yaml"
       detail: "ConfigHub stores the base, development, and staging chain and records both promotions."
@@ -47,8 +47,8 @@ spec:
       expiresAt: ""
     outputOci:
       result: "pass"
-      digest: "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210"
-      reference: "oci://127.0.0.1:32788/reviewed-nginx-staging:latest"
+      digest: "sha256:b90a1d56c878d18040bc8a92545eed0e8a1913d64ab960a887c2fc8004e22b55"
+      reference: "oci://127.0.0.1:32812/reviewed-nginx-staging:latest"
       identifiers:
         - "objects:5"
       evidence:
@@ -58,8 +58,8 @@ spec:
       expiresAt: ""
     delivery:
       result: "pass"
-      digest: "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210"
-      reference: "oci://host.docker.internal:32788/reviewed-nginx-staging"
+      digest: "sha256:b90a1d56c878d18040bc8a92545eed0e8a1913d64ab960a887c2fc8004e22b55"
+      reference: "oci://host.docker.internal:32812/reviewed-nginx-staging"
       identifiers:
         - "consumer:Argo CD"
         - "targets:2"
@@ -70,7 +70,7 @@ spec:
       expiresAt: ""
     observation:
       result: "pass"
-      digest: "sha256:04e06df7342b396fc63292ff64bdb1fa44a4b74ed86ee53665f76906a4bf5210"
+      digest: "sha256:b90a1d56c878d18040bc8a92545eed0e8a1913d64ab960a887c2fc8004e22b55"
       reference: ""
       identifiers:
         - "targets:2"
@@ -82,8 +82,8 @@ spec:
         - "runs/oci-deploy-stage-rollout-proof/observations/target-b-object-set.json"
         - "runs/oci-deploy-stage-rollout-proof/observations/target-b-workloads.json"
       detail: "Fingerprint receipts show that both live object sets matched and both NGINX workloads converged."
-      observedAt: "2026-07-26T22:39:11.147Z"
-      expiresAt: "2026-07-26T23:47:41Z"
+      observedAt: "2026-07-29T09:08:07.903Z"
+      expiresAt: "2026-07-29T10:15:59Z"
   companionRecords:
     sourceInputs:
       - "data/base-variant-records/records/bitnami-nginx-24-0-2-http-clusterip.yaml"
@@ -103,7 +103,7 @@ status:
   claim: "One literal Kubernetes OCI can be followed through ConfigHub variants and promotion to a portable OCI consumed at the same digest by Argo CD on two observed clusters."
   limits:
     - "The input and portable output OCI packages used a temporary local registry. Public Google Artifact Registry publication is a separate receipt."
-    - "This proves one NGINX catalog configuration on two throwaway kind clusters, not every chart or production target."
+    - "This proves one NGINX catalog configuration on two throwaway Argo CD clusters and one throwaway Flux cluster, not every chart or production target."
     - "cub-scout recorded fingerprinted object-match and workload-convergence receipts locally. This test did not submit those receipts to ConfigHub observation storage."
     - "The test did not exercise hooks, CRDs, Secrets, or admission webhooks; those keep their separate lifecycle routes and receipts."
     - "ConfigHub's target-scoped OCI credential was not shared between clusters. The fleet consumed the portable anonymous OCI output instead."

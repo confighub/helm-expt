@@ -5,27 +5,29 @@ metadata:
   labels:
     app: "hooks-crds"
     chart: "prometheus-community-kube-prometheus-stack"
-    base: "default"
+    base: "no-crds"
     lifecyclePhase: "pre-apply"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
-  base: "default"
+  base: "no-crds"
   routeName: "preserve-ordering"
   quirkClass: "hook-weight-ordering"
   lifecyclePhase: "pre-apply"
   actionKind: "preserve-ordering"
-  executionMode: "target-owned"
+  executionMode: "user-executes"
   automatic: false
-  whoRuns: "Your applier — must apply CRDs before dependent objects"
+  whoRuns: "Your delivery — an explicit, receipted step"
   command: ""
   disposition: "observed"
   alternatives:
     []
   evidence:
-    - "data/hook-lifecycle/receipt-index.csv"
-    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
-    - "runs/kps-lifecycle-route-proof/receipt.yaml"
+    - "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"
+    - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    - "packages/prometheus-community/kube-prometheus-stack/85.3.3/prerequisites/kube-prometheus-stack-lifecycle/generation-receipt.yaml"
+    - "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
   evidenceRequired: "already has a live receipt; keep it fresh when chart, base, or cluster version changes"
   gitOps:
     argoCd: "no extra hook — keep CRDs before dependent objects"
@@ -34,22 +36,22 @@ spec:
     flux: "no extra hook — make sure CRDs are applied before workloads"
   origin:
     type: "helm-render-intent"
-    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
-    routeSourceVersion: "85.3.0"
+    record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml"
+    routeSourceVersion: "85.3.3"
   implementations:
     directApply:
       result: "pass"
       automatic: true
       executor: "scripts/run-kps-lifecycle-route-proof.mjs"
-      evidence: "runs/kps-lifecycle-route-proof/receipt.yaml"
+      evidence: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
       observation: "Executed CRDs, certificate creation, ordinary objects, and webhook patching in order."
     argoCd:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "No chart-specific Argo CD route receipt exists yet."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Argo CD pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks."
     flux:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "No chart-specific Flux route receipt exists yet."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Flux pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks."

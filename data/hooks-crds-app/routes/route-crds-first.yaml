@@ -5,12 +5,12 @@ metadata:
   labels:
     app: "hooks-crds"
     chart: "prometheus-community-kube-prometheus-stack"
-    base: "default"
+    base: "no-crds"
     lifecyclePhase: "pre-apply"
 spec:
   chart: "prometheus-community/kube-prometheus-stack"
   version: "85.3.3"
-  base: "default"
+  base: "no-crds"
   routeName: "crds-first"
   quirkClass: "crd-install"
   lifecyclePhase: "pre-apply"
@@ -27,7 +27,8 @@ spec:
     - "runs/crd-ordering-gap/receipt.yaml"
     - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
     - "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml"
-    - "runs/kps-lifecycle-route-proof/receipt.yaml"
+    - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
+    - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
   evidenceRequired: "Repeat the ordering and compatibility checks when the chart or target Kubernetes version changes."
   gitOps:
     emitsControllerStep: true
@@ -43,15 +44,15 @@ spec:
       result: "pass"
       automatic: true
       executor: "scripts/run-kps-lifecycle-route-proof.mjs"
-      evidence: "runs/kps-lifecycle-route-proof/receipt.yaml"
+      evidence: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
       observation: "Applied ten CRDs and waited for Established before dependent objects."
     argoCd:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "No chart-specific Argo CD route receipt exists yet."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Argo CD pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks."
     flux:
-      result: "not-run"
+      result: "pass"
       automatic: false
-      evidence: ""
-      observation: "No chart-specific Flux route receipt exists yet."
+      evidence: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+      observation: "Flux pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks."

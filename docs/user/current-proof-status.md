@@ -57,7 +57,7 @@ these frontiers remains open.
 | Field-complete provenance | Blast-radius prediction is scored by a generated accuracy harness: [13 measured cases](../../data/blast-radius-accuracy/summary.md), 13 passing, 0 failing, and 0 unmeasured value-source rows. The claim remains per measured case; not every rendered field in every chart has provenance. |
 | Full change authority | ConfigHub can record and gate operations, but the repo does not yet prove a complete per-field authority model for every agent or user. |
 | Reverse live-to-desired flow | Live observations are recorded. Authorized live fixes flowing back into desired state are still future product work. |
-| Universal hook execution | The Kube Prometheus Stack direct example now proves seven fresh-install steps, including CRD ordering and the chart's certificate Jobs. Its Argo CD, Flux, and upgrade implementations remain unproved. Other hooks are inventoried, routed, observed, refused, or marked per-target; this is not a claim that every Helm hook in the top-100 runs automatically. |
+| Universal hook execution | The Kube Prometheus Stack direct example proves seven fresh-install steps. Its `no-crds` base also proves CRD, certificate, workload, webhook patch, and runtime ordering through Argo CD and Flux. Controller cleanup and the 85.3.3 to 86.1.0 upgrade remain unproved. Other hooks still need their own route decisions and receipts; this is not a claim that every Helm hook in the top-100 runs automatically. |
 | Fleet-wide bounded propagation | Derived variants, blast-radius cases, and promotion examples exist, but a complete fleet propagation product is still being built. |
 | Signatures as trust | The [claims register](../../data/claims-register/summary.md) enforces this as reviewer discipline: no evidence means no current claim, partial stays partial, and refused claims stay visible. Signatures still prove integrity and transport only within a named signer, authority, and verification context. |
 
@@ -203,7 +203,13 @@ patch Jobs, 124 ordinary objects, readiness checks, and cleanup:
 
 [Kube Prometheus Stack Lifecycle Route Proof](../../data/kps-lifecycle-route-proof/summary.md)
 
-The receipt does not cover Argo CD, Flux, or chart upgrades.
+The `no-crds` base also has a fresh-install receipt through Argo CD and Flux.
+Both controllers pulled the same staged OCI digest and passed the recorded
+CRD, certificate, workload, webhook patch, and runtime checks:
+
+[Kube Prometheus Stack Argo CD And Flux Proof](../../data/kps-gitops-lifecycle-proof/summary.md)
+
+The controller receipt does not cover Helm hook cleanup or chart upgrades.
 
 The webhook certificate lifecycle summary tracks staged generated certificate
 material and staged CRDs for bases where render parity is not enough to prove

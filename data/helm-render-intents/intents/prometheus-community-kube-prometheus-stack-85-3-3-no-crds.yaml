@@ -47,8 +47,10 @@ spec:
     variantPromotion: "proven"
     lifecycleDirectFreshInstall: "yes"
     lifecycleDirectFreshInstallReceipt: "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
-    lifecycleArgoCd: "not-run"
-    lifecycleFlux: "not-run"
+    lifecycleArgoCd: "fresh-install-pass"
+    lifecycleFlux: "fresh-install-pass"
+    lifecycleGitOpsFreshInstallReceipt: "runs/kps-gitops-lifecycle-proof/receipt.yaml"
+    lifecycleGitOpsArtifactDigest: "sha256:6b4c294a8e4c481b4367f3386599488c149dc7baf4af0a880f0acc5ef0199234"
     lifecycleUpgrade: "not-run"
   lifecycle:
     routeContract: "yes"
@@ -93,15 +95,15 @@ spec:
             evidence:
               - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
           argoCd:
-            implementation: "PreSync · sync-wave -2 · ServerSideApply"
-            status: "mapping-only"
+            implementation: "One staged OCI root Kustomization ordered CRDs, preparation, workload, and finish with Argo CD sync waves."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
           flux:
-            implementation: "HelmRelease .spec.install.crds=Create (or apply CRDs first)"
-            status: "mapping-only"
+            implementation: "One OCIRepository fed four Flux Kustomizations ordered with dependsOn."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
       -
         routeName: "preserve-cleanup-policy"
         quirkClass: "hook-delete-policy"
@@ -179,15 +181,15 @@ spec:
             evidence:
               - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
           argoCd:
-            implementation: "PostSync"
-            status: "mapping-only"
+            implementation: "One staged OCI root Kustomization ordered CRDs, preparation, workload, and finish with Argo CD sync waves."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
           flux:
-            implementation: "post-apply Job / follow-on Kustomization"
-            status: "mapping-only"
+            implementation: "One OCIRepository fed four Flux Kustomizations ordered with dependsOn."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
       -
         routeName: "preflight-or-presync"
         quirkClass: "hook-phase"
@@ -222,15 +224,15 @@ spec:
             evidence:
               - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
           argoCd:
-            implementation: "PreSync · sync-wave -1"
-            status: "mapping-only"
+            implementation: "One staged OCI root Kustomization ordered CRDs, preparation, workload, and finish with Argo CD sync waves."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
           flux:
-            implementation: "apply before the release (Kustomization dependsOn)"
-            status: "mapping-only"
+            implementation: "One OCIRepository fed four Flux Kustomizations ordered with dependsOn."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
       -
         routeName: "upgrade-action-with-receipt"
         quirkClass: "hook-phase"
@@ -305,15 +307,15 @@ spec:
             evidence:
               - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
           argoCd:
-            implementation: "no extra hook — keep CRDs before dependent objects"
-            status: "mapping-only"
+            implementation: "One staged OCI root Kustomization ordered CRDs, preparation, workload, and finish with Argo CD sync waves."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
           flux:
-            implementation: "no extra hook — make sure CRDs are applied before workloads"
-            status: "mapping-only"
+            implementation: "One OCIRepository fed four Flux Kustomizations ordered with dependsOn."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
       -
         routeName: "target-facts-or-preflight"
         quirkClass: "target-facts"
@@ -348,15 +350,15 @@ spec:
             evidence:
               - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
           argoCd:
-            implementation: "none — supply the inputs before sync"
-            status: "mapping-only"
+            implementation: "One staged OCI root Kustomization ordered CRDs, preparation, workload, and finish with Argo CD sync waves."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
           flux:
-            implementation: "none — supply the inputs before sync"
-            status: "mapping-only"
+            implementation: "One OCIRepository fed four Flux Kustomizations ordered with dependsOn."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
       -
         routeName: "webhook-readiness-observation"
         quirkClass: "webhook-readiness"
@@ -391,15 +393,15 @@ spec:
             evidence:
               - "runs/kps-lifecycle-route-proof/no-crds-receipt.yaml"
           argoCd:
-            implementation: "wait for the certificate handoff, then observe webhook and workload health after sync"
-            status: "mapping-only"
+            implementation: "One staged OCI root Kustomization ordered CRDs, preparation, workload, and finish with Argo CD sync waves."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
           flux:
-            implementation: "wait for the certificate handoff, then run post-apply webhook and workload health checks"
-            status: "mapping-only"
+            implementation: "One OCIRepository fed four Flux Kustomizations ordered with dependsOn."
+            status: "pass"
             evidence:
-              []
+              - "runs/kps-gitops-lifecycle-proof/receipt.yaml"
     coverage:
       state: "attached"
       reason: "8 lifecycle routes attached for this exact chart version and base."

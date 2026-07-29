@@ -32,6 +32,12 @@ const kpsDirectReceiptPath = join(
   repoRoot,
   "runs",
   "kps-lifecycle-route-proof",
+  "no-crds-receipt.yaml",
+);
+const kpsGitOpsReceiptPath = join(
+  repoRoot,
+  "runs",
+  "kps-gitops-lifecycle-proof",
   "receipt.yaml",
 );
 const intentPath = join(
@@ -39,12 +45,13 @@ const intentPath = join(
   "data",
   "helm-render-intents",
   "intents",
-  "prometheus-community-kube-prometheus-stack-85-3-3-default.yaml",
+  "prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml",
 );
 
 const intent = readYaml(intentPath);
 const kpsDirectReceipt = readYaml(kpsDirectReceiptPath);
-const report = buildReport(intent, kpsDirectReceipt);
+const kpsGitOpsReceipt = readYaml(kpsGitOpsReceiptPath);
+const report = buildReport(intent, kpsDirectReceipt, kpsGitOpsReceipt);
 
 if (mode === "--self-test") {
   const badRoute = structuredClone(report.routes[0].document);
@@ -71,16 +78,18 @@ if (mode === "--generate") {
   console.log(`verified Hooks and CRDs App records (${report.routes.length} route(s))`);
 }
 
-function buildReport(renderIntent, directReceipt) {
+function buildReport(renderIntent, directReceipt, gitOpsReceipt) {
   check(renderIntent.kind === "HelmRenderIntent", "Kube Prometheus Stack render intent is missing");
   check(
     renderIntent.spec?.chart?.name === "prometheus-community/kube-prometheus-stack",
     "Hooks and CRDs App points at the wrong chart",
   );
   check(renderIntent.spec?.chart?.version === "85.3.3", "Hooks and CRDs App chart version changed");
-  check(renderIntent.spec?.baseVariant === "default", "Hooks and CRDs App base changed");
+  check(renderIntent.spec?.baseVariant === "no-crds", "Hooks and CRDs App base changed");
 
-  const chartRoutes = (renderIntent.spec?.lifecycle?.variantRoutes ?? []).map((source) => {
+  const chartRoutes = (renderIntent.spec?.lifecycle?.variantRoutes ?? [])
+    .filter((source) => source.routeName !== "preflight-or-presync-crd-apply")
+    .map((source) => {
     const document = withKpsImplementations(lifecycleRoute({
       chart: renderIntent.spec.chart.name,
       version: renderIntent.spec.chart.version,
@@ -103,7 +112,7 @@ function buildReport(renderIntent, directReceipt) {
         record: relativeRepo(intentPath),
         routeSourceVersion: source.routeSourceVersion,
       },
-    }), directReceipt);
+    }), directReceipt, gitOpsReceipt);
     return routeRecord(document, join(routesRoot, `route-${source.routeName}.yaml`), "kps");
   });
 
@@ -141,7 +150,7 @@ function buildReport(renderIntent, directReceipt) {
       record: "runs/crd-ordering-gap/receipt.yaml",
       routeSourceVersion: "85.3.3",
     },
-  }), directReceipt);
+  }), directReceipt, gitOpsReceipt);
 
   const hookProbe = lifecycleRoute({
     chart: "tests/fixtures/hook-replacement-probe",
@@ -193,7 +202,7 @@ function buildReport(renderIntent, directReceipt) {
   return { routes, summary: renderSummary(routes.map((item) => item.document)) };
 }
 
-function withKpsImplementations(route, receipt) {
+function withKpsImplementations(route, receipt, gitOpsReceipt) {
   check(
     receipt.kind === "KubePrometheusStackLifecycleRouteReceipt",
     "the Kube Prometheus Stack direct lifecycle receipt is missing or invalid",
@@ -201,13 +210,31 @@ function withKpsImplementations(route, receipt) {
   check(
     receipt.spec?.chart === "prometheus-community/kube-prometheus-stack"
       && receipt.spec?.version === "85.3.3"
-      && receipt.spec?.base === "default"
-      && receipt.spec?.deliveryPath === "direct-apply"
+      && receipt.spec?.base === "no-crds"
+      && receipt.spec?.deliveryPath === "cub-installer-package-direct-apply"
       && receipt.spec?.result === "pass",
     "the Kube Prometheus Stack direct lifecycle receipt covers the wrong source or did not pass",
   );
+  check(
+    gitOpsReceipt.kind === "KubePrometheusStackGitOpsLifecycleReceipt"
+      && gitOpsReceipt.spec?.chart === "prometheus-community/kube-prometheus-stack"
+      && gitOpsReceipt.spec?.version === "85.3.3"
+      && gitOpsReceipt.spec?.base === "no-crds"
+      && gitOpsReceipt.spec?.result === "pass",
+    "the Kube Prometheus Stack GitOps lifecycle receipt covers the wrong source or did not pass",
+  );
   const direct = receipt.spec?.routes?.[route.spec.routeName];
   check(direct, `the direct receipt has no result for ${route.spec.routeName}`);
+  const argo = kpsControllerImplementation(
+    route.spec.routeName,
+    "argo",
+    gitOpsReceipt,
+  );
+  const flux = kpsControllerImplementation(
+    route.spec.routeName,
+    "flux",
+    gitOpsReceipt,
+  );
   route.spec.implementations = {
     directApply: {
       result: direct.result,
@@ -216,23 +243,47 @@ function withKpsImplementations(route, receipt) {
       evidence: relativeRepo(kpsDirectReceiptPath),
       observation: direct.observation ?? direct.reason,
     },
-    argoCd: {
-      result: "not-run",
-      automatic: false,
-      evidence: "",
-      observation: "No chart-specific Argo CD route receipt exists yet.",
-    },
-    flux: {
-      result: "not-run",
-      automatic: false,
-      evidence: "",
-      observation: "No chart-specific Flux route receipt exists yet.",
-    },
+    argoCd: argo,
+    flux,
   };
   if (!route.spec.evidence.includes(relativeRepo(kpsDirectReceiptPath))) {
     route.spec.evidence.push(relativeRepo(kpsDirectReceiptPath));
   }
+  if (
+    (argo.result === "pass" || flux.result === "pass")
+    && !route.spec.evidence.includes(relativeRepo(kpsGitOpsReceiptPath))
+  ) {
+    route.spec.evidence.push(relativeRepo(kpsGitOpsReceiptPath));
+  }
   return route;
+}
+
+function kpsControllerImplementation(routeName, controller, receipt) {
+  const row = receipt.spec?.controllers?.[controller];
+  const requirements = {
+    "crds-first": ["crds"],
+    "preflight-or-presync": ["prepare"],
+    "postsync-check-or-observation": ["finish", "runtime"],
+    "preserve-ordering": ["crds", "prepare", "workload", "finish"],
+    "target-facts-or-preflight": ["prepare", "runtime"],
+    "webhook-readiness-observation": ["runtime"],
+  }[routeName];
+  const passed = row && requirements?.every((requirement) =>
+    requirement === "runtime"
+      ? row.runtime?.result === "pass"
+      : row.stages?.[requirement] === "pass");
+  return {
+    result: passed ? "pass" : "not-run",
+    automatic: false,
+    evidence: passed ? relativeRepo(kpsGitOpsReceiptPath) : "",
+    observation: passed
+      ? `${controller === "argo" ? "Argo CD" : "Flux"} pulled the recorded OCI digest and passed the required fresh-install stage and runtime checks.`
+      : routeName === "upgrade-action-with-receipt"
+        ? "The 85.3.3 to 86.1.0 upgrade has not run through this controller."
+        : routeName === "preserve-cleanup-policy"
+          ? "The fresh-install controller receipt does not prove Helm's hook cleanup policy."
+          : "No passing chart-specific controller result is recorded for this route.",
+  };
 }
 
 function lifecycleRoute({
@@ -329,14 +380,30 @@ function validateRoutes(routes) {
       && upgrade?.spec.implementations?.directApply?.automatic === false,
     "the Kube Prometheus Stack upgrade route must remain not-run",
   );
+  const controllerPasses = kpsRoutes.filter(
+    (route) => route.spec.implementations?.argoCd?.result === "pass"
+      && route.spec.implementations?.flux?.result === "pass",
+  );
+  check(
+    controllerPasses.length === 6,
+    `expected six passing controller lifecycle implementations, found ${controllerPasses.length}`,
+  );
   check(
     kpsRoutes.every(
-      (route) => route.spec.implementations?.argoCd?.result === "not-run"
-        && route.spec.implementations?.argoCd?.automatic === false
-        && route.spec.implementations?.flux?.result === "not-run"
+      (route) => route.spec.implementations?.argoCd?.automatic === false
         && route.spec.implementations?.flux?.automatic === false,
     ),
-    "an unproved Kube Prometheus Stack controller route changed status",
+    "a chart-specific controller route overclaims automatic selection",
+  );
+  const cleanup = kpsRoutes.find(
+    (route) => route.spec.routeName === "preserve-cleanup-policy",
+  );
+  check(
+    cleanup?.spec.implementations?.argoCd?.result === "not-run"
+      && cleanup?.spec.implementations?.flux?.result === "not-run"
+      && upgrade?.spec.implementations?.argoCd?.result === "not-run"
+      && upgrade?.spec.implementations?.flux?.result === "not-run",
+    "cleanup or upgrade gained an unsupported controller pass",
   );
 
   const automatic = routes.filter((route) => route.spec.automatic);
@@ -422,9 +489,9 @@ This example shows how ConfigHub can keep the work around a Helm chart with the 
 
 Kube Prometheus Stack 85.3.3 has ten CRDs, admission-webhook certificate setup, and checks that must happen at particular points in an install or upgrade. The ${kps.length} route records in this directory name that work. They say who runs each step and link to the receipts that support the choice.
 
-The top-level chart routes remain \`automatic: false\`: ConfigHub does not yet choose and execute them across every delivery path. The direct-install script now has a narrower result. Seven fresh-install steps ran automatically in that script, using the chart's own certificate and patch Jobs. The upgrade step is still \`not-run\`. Argo CD and Flux are still \`not-run\` for this chart-specific sequence.
+The top-level chart routes remain \`automatic: false\`: ConfigHub does not yet choose this chart-specific route for a user. Once selected, the direct script has passed seven fresh-install steps. One staged OCI has also run through Argo CD and Flux on separate fresh clusters. Both controllers passed CRD ordering, certificate preparation, workload apply, webhook patching, and runtime checks. The controller receipt does not prove Helm's hook cleanup policy, and the 85.3.3 to 86.1.0 upgrade remains \`not-run\`.
 
-That distinction matters. A passing direct implementation does not turn the Argo CD or Flux columns green. Read the [direct lifecycle receipt](../../runs/kps-lifecycle-route-proof/receipt.yaml) for the exact sequence and limits.
+Read the [direct lifecycle receipt](../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml) and [controller lifecycle receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml) for the exact sequence and limits.
 
 The smaller hook fixture is different. Its \`${fixture.spec.routeName}\` route ran from one OCI bundle through Argo CD, Flux, and direct apply, so that fixture is recorded as \`automatic: true\`. The claim applies to that fixture, not to every Helm hook.
 

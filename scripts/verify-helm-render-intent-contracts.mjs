@@ -88,11 +88,13 @@ for (const intent of intents) {
       for (const evidence of record.evidence) {
         checkRepoReference(evidence, `${name}/${route.routeName} ${runner}`);
       }
+      if (record.status === "pass") {
+        check(
+          record.evidence.some((evidence) => evidence.startsWith("runs/")),
+          `${name}/${route.routeName} ${runner} passes without a runner-specific receipt`,
+        );
+      }
     }
-    check(
-      route.runners.argoCd.status !== "pass" && route.runners.flux.status !== "pass",
-      `${name}/${route.routeName} claims controller execution without a runner-specific receipt`,
-    );
   }
 
   const targetFacts = intent.spec?.targetFacts;

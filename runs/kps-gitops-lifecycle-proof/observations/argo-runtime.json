@@ -1,0 +1,99 @@
+{
+  "result": "pass",
+  "crds": [
+    {
+      "name": "alertmanagerconfigs.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "alertmanagers.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "podmonitors.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "probes.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "prometheusagents.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "prometheuses.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "prometheusrules.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "scrapeconfigs.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "servicemonitors.monitoring.coreos.com",
+      "established": true
+    },
+    {
+      "name": "thanosrulers.monitoring.coreos.com",
+      "established": true
+    }
+  ],
+  "admissionSecret": {
+    "namespace": "monitoring",
+    "name": "kube-prometheus-stack-admission",
+    "keys": [
+      "ca",
+      "cert",
+      "key"
+    ]
+  },
+  "matchingWebhookCABundles": 3,
+  "operatorEndpointAddresses": 1,
+  "serverDryRun": "pass",
+  "jobs": {
+    "admissionCreate": true,
+    "admissionPatch": true
+  },
+  "workloads": [
+    {
+      "kind": "deployment",
+      "name": "kube-prometheus-stack-grafana",
+      "namespace": "monitoring",
+      "ready": true
+    },
+    {
+      "kind": "deployment",
+      "name": "kube-prometheus-stack-kube-state-metrics",
+      "namespace": "monitoring",
+      "ready": true
+    },
+    {
+      "kind": "deployment",
+      "name": "kube-prometheus-stack-operator",
+      "namespace": "monitoring",
+      "ready": true
+    },
+    {
+      "kind": "daemonset",
+      "name": "kube-prometheus-stack-prometheus-node-exporter",
+      "namespace": "monitoring",
+      "ready": true
+    },
+    {
+      "kind": "statefulset",
+      "name": "alertmanager-kube-prometheus-stack-alertmanager",
+      "namespace": "monitoring",
+      "ready": true
+    },
+    {
+      "kind": "statefulset",
+      "name": "prometheus-kube-prometheus-stack-prometheus",
+      "namespace": "monitoring",
+      "ready": true
+    }
+  ]
+}

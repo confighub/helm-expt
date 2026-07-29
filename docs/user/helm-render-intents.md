@@ -61,6 +61,11 @@ The `default` and `reuse-existing-secret` Redis rows are different base
 variants because they ask Helm to render different security choices. Each one
 has its own render intent and its own captured output.
 
+The Kube Prometheus Stack `no-crds` intent now links the exact fresh-install
+receipt for Argo CD and Flux. Six route behaviors passed through both
+controllers. Hook cleanup and the 85.3.3 to 86.1.0 upgrade remain `not-run`.
+[Read the controller result](../../data/kps-gitops-lifecycle-proof/summary.md).
+
 ## The Full Model Underneath
 
 ```text
