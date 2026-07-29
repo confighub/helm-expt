@@ -45,6 +45,24 @@ is the Kubernetes object output. The render intent, revision, lifecycle routes,
 target facts, receipts, and chart page explain the Helm inputs and any hook,
 CRD, setup-job, Secret, or target-prerequisite work around that output.
 
+## Values, ConfigHub Changes, And Live State
+
+Every intent has a `spec.settingSources` section:
+
+| Field | What it says |
+| --- | --- |
+| `helmValues` | Which values profile produced the base render. |
+| `configHubChanges` | The catalog base has no post-render edits. Those begin after upload and are recorded as Unit revisions or derived variants. |
+| `installWork` | How many prerequisites and lifecycle routes belong around the objects. |
+| `liveCluster` | Live state is observed separately; it is not used as desired configuration by itself. |
+| `overlapPolicy` | `review-required`: if a later Helm render and a ConfigHub revision touch the same field, review the overlap before promotion. |
+
+This is the machine-readable form of the table shown on every chart page and
+in every demo Space README. It does not claim that every rendered field can be
+traced back to one exact Helm value key; arbitrary chart templates make that
+claim unsafe. It does show which layer supplied the base and which changes
+happened later in ConfigHub.
+
 ## Render Variant Examples
 
 These examples are current catalog rows:

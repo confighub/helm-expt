@@ -17,6 +17,17 @@ ConfigHub makes the local decision visible and keeps it during upgrade.
 - Staging can carry its own change, such as a different replica count, while still receiving a base upgrade.
 - The local change is a recorded revision, not a remembered Helm flag or a local values file that can be lost.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | The upstream link points to `bitnami-redis-base`, which holds the Helm-rendered Redis objects. |
+| ConfigHub changes | This Space sets namespace `redis-staging` and records `spec.replicas: 2` on the Redis replica StatefulSet. The replica revision remains after the base is upgraded. |
+| Install work | Prerequisites come from the selected Redis base. The staging replica choice is not a Helm hook or prerequisite. |
+| Live cluster | The benchmark observed two replicas after the 27.0.0 upgrade. That observation checks the recorded setting; it is not another source of it. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README.

@@ -81,6 +81,12 @@ const DEMO_SPACES = [
       ["Benchmark: upgrade keeps edit", "data/pilot-benchmark/task1-upgrade-keeps-edit.md"],
       ["Org summary", "data/helm-org/summary.md"],
     ],
+    settingSources: {
+      startingPoint: "The base started as the recorded `bitnami/redis` default Helm render at 25.5.3, and was later refreshed from the recorded 27.0.0 render.",
+      configHub: "The base carries the shared chart output. Environment-only decisions belong in staging or production revisions, not in this base.",
+      installWork: "Use the Redis chart page for the selected base's Secret requirement and other prerequisites.",
+      liveCluster: "The upgrade proof compares the reviewed desired objects with a throwaway cluster; cluster state does not rewrite this base.",
+    },
     limits: ["The Redis demo is a worked example, not a claim that every Redis values combination has been proven."],
   },
   {
@@ -101,6 +107,12 @@ const DEMO_SPACES = [
       ["Benchmark: upgrade keeps edit", "data/pilot-benchmark/task1-upgrade-keeps-edit.md"],
       ["Promote proof notes", "runs/promote-silent-skip-proof/README.md"],
     ],
+    settingSources: {
+      startingPoint: "The upstream link points to `bitnami-redis-base`, which holds the Helm-rendered Redis objects.",
+      configHub: "This Space sets namespace `redis-staging` and records `spec.replicas: 2` on the Redis replica StatefulSet. The replica revision remains after the base is upgraded.",
+      installWork: "Prerequisites come from the selected Redis base. The staging replica choice is not a Helm hook or prerequisite.",
+      liveCluster: "The benchmark observed two replicas after the 27.0.0 upgrade. That observation checks the recorded setting; it is not another source of it.",
+    },
     limits: ["One map-shaped conflict in the promotion proof is still silent and is documented as a product issue."],
   },
   {
@@ -121,6 +133,12 @@ const DEMO_SPACES = [
       ["Benchmark: upgrade keeps edit", "data/pilot-benchmark/task1-upgrade-keeps-edit.md"],
       ["Gate-scope fix in org summary", "data/helm-org/summary.md"],
     ],
+    settingSources: {
+      startingPoint: "The upstream link points to `bitnami-redis-base`, which holds the Helm-rendered Redis objects.",
+      configHub: "This Space sets namespace `redis-prod`, records its promotion history, and carries the production approval and deletion gates. Workload fields otherwise come from the base unless a revision says differently.",
+      installWork: "Prerequisites come from the selected Redis base. Approval is a ConfigHub delivery rule, not a Helm value.",
+      liveCluster: "Open delivery evidence when you need runtime status. This demo Space is the desired record, not a claim about a customer production cluster.",
+    },
     limits: ["This is a demo production Space, not a live customer production environment."],
   },
   ...["default"].map((lane) => ({
@@ -183,6 +201,12 @@ const DEMO_SPACES = [
       ["Vault chart page", "site/charts/hashicorp-vault-0-32-0.html"],
       ["Org summary", "data/helm-org/summary.md"],
     ],
+    settingSources: {
+      startingPoint: "The recipe and render-record Units identify the Vault chart inputs that produced the starting objects.",
+      configHub: "Later base revisions add the shared telemetry and release-track annotations. Those edits are separate from the original Helm values.",
+      installWork: "The Vault chart page records prerequisites, placeholder policy, and any chart-specific setup work.",
+      liveCluster: "Live results are evidence against these Units. They do not become new desired settings automatically.",
+    },
     limits: ["The render-record pattern is shown as an example in this org, not yet one record per rendered object."],
   },
   ...["dev", "staging", "prod"].map((lane) => ({
@@ -206,6 +230,16 @@ const DEMO_SPACES = [
       ["Org summary", "data/helm-org/summary.md"],
       ["Promote proof notes", "runs/promote-silent-skip-proof/README.md"],
     ],
+    settingSources: {
+      startingPoint: "The upstream link points to `hashicorp-vault-demo-base`, whose recipe and render record identify the Helm source.",
+      configHub: lane === "dev"
+        ? "Dev records its cost annotation and real identity-provider value as local revisions, then records the shared annotations it had to reconcile explicitly."
+        : lane === "staging"
+          ? "Staging records `spec.replicas: 2` and its real identity-provider value as local revisions. Unconflicted base changes arrive through promotion."
+          : "Production records `spec.replicas: 3`, keeps its environment settings, and requires approval before apply.",
+      installWork: "The base owns the chart prerequisites. Environment values, revisions, and approval gates remain separate from that setup work.",
+      liveCluster: "Use the linked receipts to check promotion behavior. A live-only change would still be drift, not an environment setting.",
+    },
     limits: lane === "dev"
       ? ["The dev lane includes a same-map departure that needed explicit reconciliation; that is part of the lesson."]
       : ["The environment is a demo lane, not a production recommendation for Vault."],
@@ -244,6 +278,12 @@ const DEMO_SPACES = [
       ["Promoted staging deployment", "data/byo-helm-values-staging-deploy-proof/summary.md"],
       ["NGINX chart page", "site/charts/bitnami-nginx-24-0-2.html"],
     ],
+    settingSources: {
+      startingPoint: "The reviewed Helm values request three replicas and safe object settings. The linked proposed and reviewed values files show exactly what changed before import.",
+      configHub: "This base contains the five reviewed objects imported from OCI. It has no later environment edit; development and staging changes live in their own Spaces.",
+      installWork: "The `nginx/ai-provider-credentials` Secret must be supplied separately. Its value is not stored in the public package or this Space.",
+      liveCluster: "A throwaway Argo CD run observed three ready replicas. That observation checks the reviewed base; it does not set the replica count.",
+    },
     limits: [
       "The API key in the proposed values is deliberately fake.",
       "The reviewed Deployment requires the `nginx/ai-provider-credentials` Secret. The Secret was supplied separately for the live test and its value was not recorded.",
@@ -278,6 +318,12 @@ const DEMO_SPACES = [
       ["Promoted staging deployment", "data/byo-helm-values-staging-deploy-proof/summary.md"],
       ["NGINX chart page", "site/charts/bitnami-nginx-24-0-2.html"],
     ],
+    settingSources: {
+      startingPoint: "The upstream link points to the reviewed three-replica NGINX base imported from OCI.",
+      configHub: "Development changes the Deployment directly to `spec.replicas: 4` and records that edit in Unit revision history. The Helm values file is not changed or rerun.",
+      installWork: "The existing Secret requirement stays inherited from the reviewed base.",
+      liveCluster: "This development Space has not been used as a long-lived target. Its four-replica value is desired configuration, not a runtime observation.",
+    },
     limits: [
       "Four replicas are a demonstration choice, not a sizing recommendation.",
       "This development Space has not been deployed to a long-lived cluster.",
@@ -311,6 +357,12 @@ const DEMO_SPACES = [
       ["Promoted staging deployment", "data/byo-helm-values-staging-deploy-proof/summary.md"],
       ["NGINX chart page", "site/charts/bitnami-nginx-24-0-2.html"],
     ],
+    settingSources: {
+      startingPoint: "Staging began from the reviewed three-replica NGINX configuration and keeps its own namespace.",
+      configHub: "The promotion records the development change to `spec.replicas: 4` while retaining the staging namespace. Revision history identifies both sources.",
+      installWork: "The existing Secret requirement remains inherited from the reviewed base.",
+      liveCluster: "A throwaway Argo CD run observed four ready replicas after promotion. That observation checks the promoted setting; it does not create it.",
+    },
     limits: [
       "The promotion dry-run did not print a useful mutation preview. The command left stored data unchanged, but the empty output remains a product limitation.",
       "The promoted staging result reached four ready replicas through Argo CD on one throwaway kind cluster. It has not been tested on a long-lived or production target.",
@@ -614,6 +666,9 @@ function buildPresetReadme(row, guide) {
   const chartPage = guide.chart_page || chartPageForSpace(space);
   const intentPath = `data/helm-render-intents/intents/${space}.yaml`;
   const intent = existsSync(join(repoRoot, intentPath)) ? readYaml(join(repoRoot, intentPath)) : {};
+  const valuesProfile = intent.spec?.settingSources?.helmValues?.valuesProfile
+    || intent.spec?.renderInputs?.valuesProfile
+    || "";
   const renderedObjects = intent.spec?.renderOutput?.renderedObjects ?? "";
   const renderIntentUrl = githubBlob(intentPath);
   const renderedUrl = renderedObjects ? githubBlob(renderedObjects) : "";
@@ -650,13 +705,26 @@ This preset gives the team a named starting point instead of a private guess. Yo
 
 This is not a new chart language. It is a checked way to use this Helm chart, with the chosen inputs and output kept together.
 
+## Where each setting comes from
+
+There are four places to look. The public preset itself contains no ConfigHub edits: it is the recorded Helm render that later ConfigHub variants start from.
+
+| Place | What this Space records | Where to change it |
+| --- | --- | --- |
+| Helm values | ${valuesProfile ? `[The values profile](${githubBlob(valuesProfile)})` : "No values profile is recorded"} defines the \`${base}\` base together with release \`${intent.spec?.renderInputs?.releaseName || "chart default"}\` and namespace \`${intent.spec?.renderInputs?.namespace || "chart default"}\`. | Change the values and create or update a base preset when Helm needs to produce different objects. |
+| ConfigHub changes | None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant. | Edit the rendered object in ConfigHub when the base shape is right but a field needs to differ for an environment, region, customer, or policy. |
+| Install work | ${prereqSummary}; ${routeCount ? `${routeCount} hook or setup route(s) are recorded.` : "no separate hook or setup route is recorded."} | Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits. |
+| Live cluster | Live state is checked against the reviewed configuration; it does not become the desired setting by itself. | Record an intended fix in ConfigHub, or remove an unintended live change as drift. |
+
+If a later Helm render and a ConfigHub revision both change the same field, review that overlap before promotion. Do not let two layers silently own one setting.
+
 ## What to inspect in Hub
 
 1. Read this page first.
-2. Open the Kubernetes YAML to see the objects this preset manages.
-3. Open the render intent to see the Helm inputs behind those objects.
-4. Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.
-5. Open revision history when you want to see what changed over time.
+2. Open the \`recipe\` Unit for the chart version and setting-source record, then follow its values-profile path to see what Helm was given.
+3. Open the Kubernetes YAML to see what Helm produced.
+4. Open Unit revision history to see any later ConfigHub change.
+5. Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.
 
 ## Try it
 
@@ -677,6 +745,7 @@ bash <(curl -fsSL ${scriptBase}/confighub.sh)
 | Item | Link |
 | --- | --- |
 | Catalog chart page | [${chart}@${version}](${chartPage}) |
+| Helm values profile | ${valuesProfile ? `[${valuesProfile}](${githubBlob(valuesProfile)})` : "Not recorded"} |
 | Render intent | [${intentPath}](${renderIntentUrl}) |
 | Rendered YAML | ${renderedObjects ? `[${renderedObjects}](${renderedUrl})` : "Recorded in the generated guide"} |
 | Detailed guide | [${guidePath}](${githubBlob(guidePath)}) |
@@ -705,6 +774,7 @@ ${presetLimits(base, routeCount).map((item) => `- ${item}`).join("\n")}
     markdown,
     links: [
       ["Catalog chart page", chartPage],
+      ...(valuesProfile ? [["Helm values profile", githubBlob(valuesProfile)]] : []),
       ["Render intent", renderIntentUrl],
       ["Generated guide", githubBlob(guidePath)],
     ],
@@ -746,6 +816,10 @@ ${model.why.join("\n\n")}
 
 ${model.shows.map((item) => `- ${item}`).join("\n")}
 
+## Where each setting comes from
+
+${demoSettingSources(model)}
+
 ## What to inspect in Hub
 
 ${model.open.map((item) => `- ${item}`).join("\n")}
@@ -767,6 +841,30 @@ ${model.limits.map((item) => `- ${item}`).join("\n")}
     markdown,
     links,
   });
+}
+
+function demoSettingSources(model) {
+  const sources = {
+    startingPoint:
+      "Open the upstream Space or source link named on this page. That is the configuration this Space started from.",
+    configHub:
+      "Open Unit revision history. It records changes made after the starting configuration was saved.",
+    installWork:
+      "Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts.",
+    liveCluster:
+      "Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed.",
+    overlap:
+      "If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.",
+    ...(model.settingSources ?? {}),
+  };
+  return `| Place | What this Space records |
+| --- | --- |
+| Starting configuration | ${sources.startingPoint} |
+| ConfigHub changes | ${sources.configHub} |
+| Install work | ${sources.installWork} |
+| Live cluster | ${sources.liveCluster} |
+
+${sources.overlap}`;
 }
 
 function readmeModel({ space, title, kind, summary, markdown, links }) {
@@ -818,6 +916,8 @@ Generated by \`scripts/generate-helm-catalog-readmes.mjs\`.
 These are the README pages for the \`helm-catalog\` ConfigHub demo org. The rule is simple: one demo Space, one README. If the Space already has a README, the upload updates it. If it is missing a README, the upload creates one. It must not create duplicates such as \`readme-2\`.
 
 The README is for someone who starts inside [hub.confighub.com](https://hub.confighub.com), opens the demo org, and wants to understand the example without reading this repository first.
+
+Every README separates the starting Helm values or imported base, later ConfigHub changes, install work, and live observations. A user can see which layer set a field without treating cluster drift as desired configuration.
 
 ## Counts
 

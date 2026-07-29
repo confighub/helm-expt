@@ -110,6 +110,27 @@ spec:
       reason: "1 prerequisite declaration and 1 follow-up action record are attached."
       declarationSource: "recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml"
       nextAction: ""
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/hashicorp/vault/0.32.0/effective-values-ha-raft-ui.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "recorded"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 1
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2b"

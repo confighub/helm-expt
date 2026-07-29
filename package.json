@@ -247,6 +247,7 @@
     "attack-plan:verify": "node scripts/generate-attack-plan-workdown.mjs --verify",
     "helm-org:plan": "node scripts/sync-helm-org.mjs --plan",
     "helm-org:verify": "node scripts/sync-helm-org.mjs --verify",
+    "helm-org:refresh-recipes": "node scripts/sync-helm-org.mjs --refresh-recipes",
     "helm-org:policy:sync": "node scripts/sync-helm-org.mjs --policy-sync",
     "helm-org:policy:record": "node scripts/sync-helm-org.mjs --policy-record",
     "helm-org:policy:verify": "node scripts/sync-helm-org.mjs --policy-verify",

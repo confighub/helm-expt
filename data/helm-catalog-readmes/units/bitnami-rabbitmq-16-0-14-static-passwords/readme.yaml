@@ -14,6 +14,8 @@ spec:
   links:
     - label: "Catalog chart page"
       url: "https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html"
+    - label: "Helm values profile"
+      url: "https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml"
     - label: "Render intent"
       url: "https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml"
     - label: "Generated guide"
@@ -44,13 +46,26 @@ spec:
 
     This is not a new chart language. It is a checked way to use this Helm chart, with the chosen inputs and output kept together.
 
+    ## Where each setting comes from
+
+    There are four places to look. The public preset itself contains no ConfigHub edits: it is the recorded Helm render that later ConfigHub variants start from.
+
+    | Place | What this Space records | Where to change it |
+    | --- | --- | --- |
+    | Helm values | [The values profile](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml) defines the `static-passwords` base together with release `rabbitmq` and namespace `rabbitmq`. | Change the values and create or update a base preset when Helm needs to produce different objects. |
+    | ConfigHub changes | None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant. | Edit the rendered object in ConfigHub when the base shape is right but a field needs to differ for an environment, region, customer, or policy. |
+    | Install work | no chart-specific prerequisites recorded; no separate hook or setup route is recorded. | Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits. |
+    | Live cluster | Live state is checked against the reviewed configuration; it does not become the desired setting by itself. | Record an intended fix in ConfigHub, or remove an unintended live change as drift. |
+
+    If a later Helm render and a ConfigHub revision both change the same field, review that overlap before promotion. Do not let two layers silently own one setting.
+
     ## What to inspect in Hub
 
     1. Read this page first.
-    2. Open the Kubernetes YAML to see the objects this preset manages.
-    3. Open the render intent to see the Helm inputs behind those objects.
-    4. Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.
-    5. Open revision history when you want to see what changed over time.
+    2. Open the `recipe` Unit for the chart version and setting-source record, then follow its values-profile path to see what Helm was given.
+    3. Open the Kubernetes YAML to see what Helm produced.
+    4. Open Unit revision history to see any later ConfigHub change.
+    5. Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.
 
     ## Try it
 
@@ -71,6 +86,7 @@ spec:
     | Item | Link |
     | --- | --- |
     | Catalog chart page | [bitnami/rabbitmq@16.0.14](https://confighub.github.io/helm-expt/site/charts/bitnami-rabbitmq-16-0-14.html) |
+    | Helm values profile | [recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/effective-values.yaml) |
     | Render intent | [data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-rabbitmq-16-0-14-static-passwords.yaml) |
     | Rendered YAML | [recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/rendered/release-objects.yaml) |
     | Detailed guide | [data/confighub-example-guides/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/bitnami-rabbitmq-16-0-14-static-passwords/README.md) |

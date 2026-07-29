@@ -18,6 +18,17 @@ ConfigHub keeps each lane named and inspectable while preserving the shared base
 - Different lanes can receive base changes at different times.
 - This lane deliberately lags so the demo has an obvious upgrade to inspect.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | Open the upstream Space or source link named on this page. That is the configuration this Space started from. |
+| ConfigHub changes | Open Unit revision history. It records changes made after the starting configuration was saved. |
+| Install work | Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts. |
+| Live cluster | Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README.

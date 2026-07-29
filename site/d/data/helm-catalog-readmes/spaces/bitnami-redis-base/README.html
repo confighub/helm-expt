@@ -437,6 +437,12 @@
 <p>This example keeps the base chart output and the later environment changes separate enough to audit.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>A chart render can become an application base instead of a one-off install.</li><li>The base receives upstream chart refreshes. Environment Spaces can then take those refreshes without losing their local edits.</li><li>This is the beginning of the 25.5.3 to 27.0.0 Redis upgrade story.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>The base started as the recorded <code>bitnami/redis</code> default Helm render at 25.5.3, and was later refreshed from the recorded 27.0.0 render.</td></tr>
+<tr><td>ConfigHub changes</td><td>The base carries the shared chart output. Environment-only decisions belong in staging or production revisions, not in this base.</td></tr>
+<tr><td>Install work</td><td>Use the Redis chart page for the selected base's Secret requirement and other prerequisites.</td></tr>
+<tr><td>Live cluster</td><td>The upgrade proof compares the reviewed desired objects with a throwaway cluster; cluster state does not rewrite this base.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The Redis workload YAML to see the captured render.</li><li><code>bitnami-redis-staging</code> and <code>bitnami-redis-prod</code> to see environment versions.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

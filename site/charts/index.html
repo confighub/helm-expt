@@ -473,6 +473,18 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+      <h3>Helm values or a ConfigHub change?</h3>
+      <div class="card"><table>
+        <thead><tr><th>Put it here</th><th>When to use it</th><th>Where the record appears</th></tr></thead>
+        <tbody><tr><td>Helm values</td><td>The choice changes what Helm renders: components, object shape or count, storage, CRDs, ingress, Secret strategy, hooks, or topology.</td><td>The base variant's linked values profile and render intent.</td></tr><tr><td>ConfigHub change</td><td>The rendered base is right, but an exact field should differ for an environment, region, customer, policy, or later operational decision.</td><td>The Unit revision history or derived variant after upload.</td></tr><tr><td>Install work</td><td>The chart needs a Secret, CRD, hook, setup job, certificate, cloud account, or target fact.</td><td>The chart page's prerequisites and route records.</td></tr><tr><td>Live cluster</td><td>You need to check what is running.</td><td>An observation or drift result; live state does not silently become desired configuration.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The chart page links the Helm values and base output; Hub revision history shows the later ConfigHub changes.</p>
       <p>The model is deliberately chart-specific. A useful base variant for Redis is different from a useful base variant for Argo CD or kube-prometheus-stack. That is why the catalog stores evidence per chart, version, base variant, lane, and target scope. For the deeper reference, read <a href="../d/docs/user/helm-presets-and-values.html">Helm Base Variants And Values</a>.</p>
     </section>
 

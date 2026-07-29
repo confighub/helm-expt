@@ -437,6 +437,12 @@
 <p>This example separates the reviewed configuration in ConfigHub from the controller that enforces it on selected clusters.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>The <code>ClusterProfile</code> selects clusters labeled <code>environment=staging</code> and installs Kyverno chart 3.8.1 with three admission-controller replicas.</li><li>ConfigHub stores the exact reviewed profile and its revision history.</li><li>The pilot profile adds <code>rollout=pilot</code>, so only one of the two staging clusters is selected at first.</li><li>A live runner proved that both the pilot and expanded revisions were blocked before approval, packaged from approved ConfigHub data, and reconciled by Argo CD at different OCI digests.</li><li>Sveltos installed Kyverno on the pilot first, then on both clusters, and restored the replica count after it was changed by hand on each target.</li><li>This Space requires approval before apply because it changes cluster-wide admission policy.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>Open the upstream Space or source link named on this page. That is the configuration this Space started from.</td></tr>
+<tr><td>ConfigHub changes</td><td>Open Unit revision history. It records changes made after the starting configuration was saved.</td></tr>
+<tr><td>Install work</td><td>Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts.</td></tr>
+<tr><td>Live cluster</td><td>Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The <code>clusterprofile</code> Unit to inspect the source Sveltos will reconcile.</li><li>The OCI delivery receipt to see approval, package comparison, Argo CD, Sveltos, the workload, and cleanup.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

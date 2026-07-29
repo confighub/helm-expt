@@ -23,13 +23,26 @@ This preset gives the team a named starting point instead of a private guess. Yo
 
 This is not a new chart language. It is a checked way to use this Helm chart, with the chosen inputs and output kept together.
 
+## Where each setting comes from
+
+There are four places to look. The public preset itself contains no ConfigHub edits: it is the recorded Helm render that later ConfigHub variants start from.
+
+| Place | What this Space records | Where to change it |
+| --- | --- | --- |
+| Helm values | [The values profile](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml) defines the `no-crds` base together with release `kube-prometheus-stack` and namespace `monitoring`. | Change the values and create or update a base preset when Helm needs to produce different objects. |
+| ConfigHub changes | None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant. | Edit the rendered object in ConfigHub when the base shape is right but a field needs to differ for an environment, region, customer, or policy. |
+| Install work | 10 CRDs, 1 Secret; 7 hook or setup route(s) are recorded. | Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits. |
+| Live cluster | Live state is checked against the reviewed configuration; it does not become the desired setting by itself. | Record an intended fix in ConfigHub, or remove an unintended live change as drift. |
+
+If a later Helm render and a ConfigHub revision both change the same field, review that overlap before promotion. Do not let two layers silently own one setting.
+
 ## What to inspect in Hub
 
 1. Read this page first.
-2. Open the Kubernetes YAML to see the objects this preset manages.
-3. Open the render intent to see the Helm inputs behind those objects.
-4. Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.
-5. Open revision history when you want to see what changed over time.
+2. Open the `recipe` Unit for the chart version and setting-source record, then follow its values-profile path to see what Helm was given.
+3. Open the Kubernetes YAML to see what Helm produced.
+4. Open Unit revision history to see any later ConfigHub change.
+5. Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.
 
 ## Try it
 
@@ -50,6 +63,7 @@ bash <(curl -fsSL https://confighub.github.io/helm-expt/site/sh/prometheus-commu
 | Item | Link |
 | --- | --- |
 | Catalog chart page | [prometheus-community/kube-prometheus-stack@85.3.3](https://confighub.github.io/helm-expt/site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html) |
+| Helm values profile | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml) |
 | Render intent | [data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-no-crds.yaml) |
 | Rendered YAML | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml) |
 | Detailed guide | [data/confighub-example-guides/spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.md](https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.md) |

@@ -39,6 +39,17 @@ spec:
     - The base receives upstream chart refreshes. Environment Spaces can then take those refreshes without losing their local edits.
     - This is the beginning of the 25.5.3 to 27.0.0 Redis upgrade story.
 
+    ## Where each setting comes from
+
+    | Place | What this Space records |
+    | --- | --- |
+    | Starting configuration | The base started as the recorded `bitnami/redis` default Helm render at 25.5.3, and was later refreshed from the recorded 27.0.0 render. |
+    | ConfigHub changes | The base carries the shared chart output. Environment-only decisions belong in staging or production revisions, not in this base. |
+    | Install work | Use the Redis chart page for the selected base's Secret requirement and other prerequisites. |
+    | Live cluster | The upgrade proof compares the reviewed desired objects with a throwaway cluster; cluster state does not rewrite this base. |
+
+    If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
     ## What to inspect in Hub
 
     - This README.

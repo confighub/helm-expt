@@ -437,6 +437,12 @@
 <p>ConfigHub makes the local decision visible and keeps it during upgrade.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>Staging can carry its own change, such as a different replica count, while still receiving a base upgrade.</li><li>The local change is a recorded revision, not a remembered Helm flag or a local values file that can be lost.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>The upstream link points to <code>bitnami-redis-base</code>, which holds the Helm-rendered Redis objects.</td></tr>
+<tr><td>ConfigHub changes</td><td>This Space sets namespace <code>redis-staging</code> and records <code>spec.replicas: 2</code> on the Redis replica StatefulSet. The replica revision remains after the base is upgraded.</td></tr>
+<tr><td>Install work</td><td>Prerequisites come from the selected Redis base. The staging replica choice is not a Helm hook or prerequisite.</td></tr>
+<tr><td>Live cluster</td><td>The benchmark observed two replicas after the 27.0.0 upgrade. That observation checks the recorded setting; it is not another source of it.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The Redis StatefulSet YAML and its revision history.</li><li><code>bitnami-redis-base</code> for the upstream base.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

@@ -49,6 +49,17 @@ spec:
     - Argo CD and Flux installed 85.3.3, upgraded to 86.1.0, replaced both completed setup Jobs, and passed the runtime checks.
     - The top-level routes stay `automatic: false` because ConfigHub does not yet select this chart-specific plan for the user.
 
+    ## Where each setting comes from
+
+    | Place | What this Space records |
+    | --- | --- |
+    | Starting configuration | Open the upstream Space or source link named on this page. That is the configuration this Space started from. |
+    | ConfigHub changes | Open Unit revision history. It records changes made after the starting configuration was saved. |
+    | Install work | Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts. |
+    | Live cluster | Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed. |
+
+    If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
     ## What to inspect in Hub
 
     - This README.

@@ -18,6 +18,17 @@ The base is where the chart output and the recorded render context meet.
 - Environment variants can inherit from the base and add their own settings, policies, and release choices.
 - Placeholder checks prevent a known placeholder value from reaching a cluster by accident.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | The recipe and render-record Units identify the Vault chart inputs that produced the starting objects. |
+| ConfigHub changes | Later base revisions add the shared telemetry and release-track annotations. Those edits are separate from the original Helm values. |
+| Install work | The Vault chart page records prerequisites, placeholder policy, and any chart-specific setup work. |
+| Live cluster | Live results are evidence against these Units. They do not become new desired settings automatically. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README.

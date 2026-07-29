@@ -57,6 +57,17 @@ spec:
     - The Space uses the five catalog checks: schema, placeholder, and lifecycle-route checks can block an apply; image-digest and workload-probe checks report warnings.
     - A live test supplied the required Secret separately, published the configuration from ConfigHub, and brought all three NGINX replicas up through Argo CD.
 
+    ## Where each setting comes from
+
+    | Place | What this Space records |
+    | --- | --- |
+    | Starting configuration | The reviewed Helm values request three replicas and safe object settings. The linked proposed and reviewed values files show exactly what changed before import. |
+    | ConfigHub changes | This base contains the five reviewed objects imported from OCI. It has no later environment edit; development and staging changes live in their own Spaces. |
+    | Install work | The `nginx/ai-provider-credentials` Secret must be supplied separately. Its value is not stored in the public package or this Space. |
+    | Live cluster | A throwaway Argo CD run observed three ready replicas. That observation checks the reviewed base; it does not set the replica count. |
+
+    If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
     ## What to inspect in Hub
 
     - This README.

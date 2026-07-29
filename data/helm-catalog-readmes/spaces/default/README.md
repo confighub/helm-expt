@@ -17,6 +17,17 @@ This README prevents a first-time user from landing in an empty or administrativ
 - ConfigHub always has a default Space, so the demo org has one too.
 - It is not the main Helm Catalog demo. Use it as orientation, then open one of the named chart, fleet, route, or environment spaces.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | Open the upstream Space or source link named on this page. That is the configuration this Space started from. |
+| ConfigHub changes | Open Unit revision history. It records changes made after the starting configuration was saved. |
+| Install work | Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts. |
+| Live cluster | Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README first.

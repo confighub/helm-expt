@@ -439,8 +439,15 @@
 <h2 id="what-this-preset-contains">What this preset contains</h2>
 <ul><li>Preset: <code>dev-mode</code>.</li><li>Kubernetes YAML: 11 object(s), mainly Service x3, ClusterRoleBinding x2, ServiceAccount x2, ClusterRole x1, Deployment x1, MutatingWebhookConfiguration x1, StatefulSet x1.</li><li>Needs before install: no chart-specific prerequisites recorded.</li><li>Extra Helm work: no hook route is recorded for this preset.</li></ul>
 <p>This is not a new chart language. It is a checked way to use this Helm chart, with the chosen inputs and output kept together.</p>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<p>There are four places to look. The public preset itself contains no ConfigHub edits: it is the recorded Helm render that later ConfigHub variants start from.</p>
+<table><thead><tr><th>Place</th><th>What this Space records</th><th>Where to change it</th></tr></thead><tbody><tr><td>Helm values</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/effective-values-dev-mode.yaml">The values profile</a> defines the <code>dev-mode</code> base together with release <code>vault</code> and namespace <code>vault</code>.</td><td>Change the values and create or update a base preset when Helm needs to produce different objects.</td></tr>
+<tr><td>ConfigHub changes</td><td>None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant.</td><td>Edit the rendered object in ConfigHub when the base shape is right but a field needs to differ for an environment, region, customer, or policy.</td></tr>
+<tr><td>Install work</td><td>no chart-specific prerequisites recorded; no separate hook or setup route is recorded.</td><td>Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits.</td></tr>
+<tr><td>Live cluster</td><td>Live state is checked against the reviewed configuration; it does not become the desired setting by itself.</td><td>Record an intended fix in ConfigHub, or remove an unintended live change as drift.</td></tr></tbody></table>
+<p>If a later Helm render and a ConfigHub revision both change the same field, review that overlap before promotion. Do not let two layers silently own one setting.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
-<ol><li>Read this page first.</li><li>Open the Kubernetes YAML to see the objects this preset manages.</li><li>Open the render intent to see the Helm inputs behind those objects.</li><li>Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.</li><li>Open revision history when you want to see what changed over time.</li></ol>
+<ol><li>Read this page first.</li><li>Open the <code>recipe</code> Unit for the chart version and setting-source record, then follow its values-profile path to see what Helm was given.</li><li>Open the Kubernetes YAML to see what Helm produced.</li><li>Open Unit revision history to see any later ConfigHub change.</li><li>Open routes or prerequisites when the chart needs CRDs, hooks, Secrets, setup jobs, or target facts.</li></ol>
 <h2 id="try-it">Try it</h2>
 <p>Run without a ConfigHub account:</p>
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/dev-mode/try.sh)</code></pre>
@@ -448,6 +455,7 @@
 <pre><code>bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/hashicorp-vault-0-32-0/dev-mode/confighub.sh)</code></pre>
 <h2 id="evidence-and-source">Evidence and source</h2>
 <table><thead><tr><th>Item</th><th>Link</th></tr></thead><tbody><tr><td>Catalog chart page</td><td><a href="https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html">hashicorp/vault@0.32.0</a></td></tr>
+<tr><td>Helm values profile</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/effective-values-dev-mode.yaml">recipes/hashicorp/vault/0.32.0/effective-values-dev-mode.yaml</a></td></tr>
 <tr><td>Render intent</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml">data/helm-render-intents/intents/hashicorp-vault-0-32-0-dev-mode.yaml</a></td></tr>
 <tr><td>Rendered YAML</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml">recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/rendered/release-objects.yaml</a></td></tr>
 <tr><td>Detailed guide</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-dev-mode/README.md">data/confighub-example-guides/spaces/hashicorp-vault-0-32-0-dev-mode/README.md</a></td></tr>

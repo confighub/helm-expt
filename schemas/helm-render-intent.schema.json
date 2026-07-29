@@ -118,6 +118,7 @@
         "evidence",
         "lifecycle",
         "targetFacts",
+        "settingSources",
         "provenance"
       ],
       "properties": {
@@ -489,6 +490,116 @@
                 }
               },
               "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "settingSources": {
+          "type": "object",
+          "description": "A simple account of which layer owns the Helm-rendered base, later ConfigHub edits, install-time work, and observed live state.",
+          "required": [
+            "helmValues",
+            "configHubChanges",
+            "installWork",
+            "liveCluster",
+            "overlapPolicy"
+          ],
+          "properties": {
+            "helmValues": {
+              "type": "object",
+              "required": [
+                "status",
+                "valuesProfile",
+                "controls"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recorded",
+                    "not-recorded"
+                  ]
+                },
+                "valuesProfile": {
+                  "type": "string"
+                },
+                "controls": {
+                  "const": "base-render"
+                }
+              },
+              "additionalProperties": false
+            },
+            "configHubChanges": {
+              "type": "object",
+              "required": [
+                "status",
+                "controls",
+                "recordsAfterUpload"
+              ],
+              "properties": {
+                "status": {
+                  "const": "none-in-catalog-base"
+                },
+                "controls": {
+                  "const": "post-render-fields"
+                },
+                "recordsAfterUpload": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "installWork": {
+              "type": "object",
+              "required": [
+                "status",
+                "controls",
+                "targetRequirementCount",
+                "lifecycleRouteCount"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "recorded",
+                    "none-required",
+                    "review-required"
+                  ]
+                },
+                "controls": {
+                  "const": "prerequisites-and-lifecycle"
+                },
+                "targetRequirementCount": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "lifecycleRouteCount": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            },
+            "liveCluster": {
+              "type": "object",
+              "required": [
+                "status",
+                "controls"
+              ],
+              "properties": {
+                "status": {
+                  "const": "observation-only"
+                },
+                "controls": {
+                  "const": "observed-state"
+                }
+              },
+              "additionalProperties": false
+            },
+            "overlapPolicy": {
+              "const": "review-required"
             }
           },
           "additionalProperties": false

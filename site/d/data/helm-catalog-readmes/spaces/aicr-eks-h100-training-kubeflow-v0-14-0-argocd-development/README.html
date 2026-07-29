@@ -437,6 +437,12 @@
 <p>This Space makes that choice explicit without editing the AICR package or changing the other 16 Applications.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>The saved AICR base remains unchanged and records the public literal-configuration OCI digest.</li><li>Development replaces the literal Grafana admin password with a reference to the <code>aicr-grafana-admin</code> Secret.</li><li>The dry-run named one changed Application and left the stored configuration unchanged.</li><li>The same six catalog checks remain attached, including required approval for system configuration.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>Open the upstream Space or source link named on this page. That is the configuration this Space started from.</td></tr>
+<tr><td>ConfigHub changes</td><td>Open Unit revision history. It records changes made after the starting configuration was saved.</td></tr>
+<tr><td>Install work</td><td>Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts.</td></tr>
+<tr><td>Live cluster</td><td>Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The <code>aicr-eks-h100-training-kubeflow</code> Unit to inspect all 17 Applications.</li><li>The Unit revision history to see the one-Application development change.</li><li><code>aicr-eks-h100-training-kubeflow-v0-14-0-argocd</code> for the unchanged public-OCI base.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

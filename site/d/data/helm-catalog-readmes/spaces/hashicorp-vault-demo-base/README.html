@@ -437,6 +437,12 @@
 <p>The base is where the chart output and the recorded render context meet.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>A rendered chart can carry a render record next to the workload YAML.</li><li>Environment variants can inherit from the base and add their own settings, policies, and release choices.</li><li>Placeholder checks prevent a known placeholder value from reaching a cluster by accident.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>The recipe and render-record Units identify the Vault chart inputs that produced the starting objects.</td></tr>
+<tr><td>ConfigHub changes</td><td>Later base revisions add the shared telemetry and release-track annotations. Those edits are separate from the original Helm values.</td></tr>
+<tr><td>Install work</td><td>The Vault chart page records prerequisites, placeholder policy, and any chart-specific setup work.</td></tr>
+<tr><td>Live cluster</td><td>Live results are evidence against these Units. They do not become new desired settings automatically.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The render-record YAML.</li><li><code>hashicorp-vault-env-dev</code>, <code>hashicorp-vault-env-staging</code>, and <code>hashicorp-vault-env-prod</code>.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

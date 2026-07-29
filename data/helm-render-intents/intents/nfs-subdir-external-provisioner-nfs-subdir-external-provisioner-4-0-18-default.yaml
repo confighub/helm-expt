@@ -91,6 +91,27 @@ spec:
       reason: "1 observed prerequisite action record exists, but the base does not declare the prerequisite."
       declarationSource: ""
       nextAction: "Add the observed prerequisite to spec.targetFacts in the base variant, then rerun its proof."
+  settingSources:
+    helmValues:
+      status: "recorded"
+      valuesProfile: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/effective-values.yaml"
+      controls: "base-render"
+    configHubChanges:
+      status: "none-in-catalog-base"
+      controls: "post-render-fields"
+      recordsAfterUpload:
+        - "Unit revisions"
+        - "derived variants"
+        - "promotion receipts"
+    installWork:
+      status: "review-required"
+      controls: "prerequisites-and-lifecycle"
+      targetRequirementCount: 0
+      lifecycleRouteCount: 0
+    liveCluster:
+      status: "observation-only"
+      controls: "observed-state"
+    overlapPolicy: "review-required"
   provenance:
     matrixRowKind: "base"
     catalogLayer: "F2a"

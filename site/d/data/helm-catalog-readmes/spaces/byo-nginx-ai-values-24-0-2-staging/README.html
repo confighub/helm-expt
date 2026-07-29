@@ -437,6 +437,12 @@
 <p>This Space shows one concrete promotion: a tested field change moves from development to staging, while ConfigHub keeps the relationship and revision history.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
 <ul><li>Staging started as a three-replica copy of development in its own namespace.</li><li>Development changed to four replicas while staging stayed at three.</li><li>The promotion updated staging to four replicas without changing the saved base or losing the staging namespace.</li><li>The staging Unit records its upstream link and the exact promoted revision.</li></ul>
+<h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
+<table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>Staging began from the reviewed three-replica NGINX configuration and keeps its own namespace.</td></tr>
+<tr><td>ConfigHub changes</td><td>The promotion records the development change to <code>spec.replicas: 4</code> while retaining the staging namespace. Revision history identifies both sources.</td></tr>
+<tr><td>Install work</td><td>The existing Secret requirement remains inherited from the reviewed base.</td></tr>
+<tr><td>Live cluster</td><td>A throwaway Argo CD run observed four ready replicas after promotion. That observation checks the promoted setting; it does not create it.</td></tr></tbody></table>
+<p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
 <ul><li>This README.</li><li>The configuration Unit to see the four-replica staging result.</li><li>Revision history to see the <code>UpgradeUnit</code> promotion record.</li><li><code>byo-nginx-ai-values-24-0-2-development</code> for the upstream change.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>

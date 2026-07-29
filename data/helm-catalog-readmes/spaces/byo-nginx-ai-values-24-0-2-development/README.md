@@ -19,6 +19,17 @@ This Space records that change and keeps the checked base available for comparis
 - The container image stays pinned, the existing-Secret reference stays in place, and the reviewed security settings stay unchanged.
 - The catalog checks are inherited from the base.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | The upstream link points to the reviewed three-replica NGINX base imported from OCI. |
+| ConfigHub changes | Development changes the Deployment directly to `spec.replicas: 4` and records that edit in Unit revision history. The Helm values file is not changed or rerun. |
+| Install work | The existing Secret requirement stays inherited from the reviewed base. |
+| Live cluster | This development Space has not been used as a long-lived target. Its four-replica value is desired configuration, not a runtime observation. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README.

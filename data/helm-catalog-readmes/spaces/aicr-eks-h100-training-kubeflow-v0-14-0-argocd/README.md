@@ -19,6 +19,17 @@ This example keeps the AICR recipe and OCI digest connected to the exact Argo CD
 - ConfigHub imported those 17 Applications from one OCI configuration artifact without running AICR or rendering the source chart again.
 - This Space requires approval before apply because it changes cluster-wide GPU, monitoring, and training-platform configuration.
 
+## Where each setting comes from
+
+| Place | What this Space records |
+| --- | --- |
+| Starting configuration | Open the upstream Space or source link named on this page. That is the configuration this Space started from. |
+| ConfigHub changes | Open Unit revision history. It records changes made after the starting configuration was saved. |
+| Install work | Use the linked chart or route evidence for required Secrets, CRDs, hooks, setup jobs, and target facts. |
+| Live cluster | Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed. |
+
+If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.
+
 ## What to inspect in Hub
 
 - This README.
