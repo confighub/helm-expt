@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 129
+pass: 130
 watch: 3
 blocked: 46
-semantic parity pass: 154
+semantic parity pass: 155
 semantic parity defects: 16
 non-pass rows where semantic parity passed: 25
 non-pass rows with related lifecycle evidence: 0
@@ -84,6 +84,7 @@ broader support claim.
 | `bitnami/apache@11.4.29` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-apache-default/receipt.yaml |
 | `bitnami/apache@11.4.29` | legacy | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-apache-legacy/receipt.yaml |
 | `bitnami/contour@21.1.4` | default | blocked | pass | helm-hook: pre-install certificate generation failed (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-contour-default/receipt.yaml |
+| `bitnami/contour@21.1.4` | legacy | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml |
 | `bitnami/contour@21.1.4` | no-crds | blocked | defect | parity: semantic object diff |  | semantic object parity defect | runs/live-kind-parity/bitnami-contour-no-crds/receipt.yaml |
 | `bitnami/elasticsearch@22.1.6` | default | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-default/receipt.yaml |
 | `bitnami/elasticsearch@22.1.6` | ha | blocked | pass | remote-image: image pull failed or pinned image is unavailable (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/bitnami-elasticsearch-ha/receipt.yaml |

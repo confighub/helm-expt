@@ -12,14 +12,40 @@ spec:
   recipe: "../../recipe.yaml"
   namespace: "default"
   releaseName: "contour"
-  valuesProfile: "../../effective-values.yaml"
+  valuesProfile: "../../effective-values-legacy.yaml"
   capabilityProfile:
     kubeVersion: "1.30.0"
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "default"
+        name: "contourcert"
+        keys:
+          - "ca.crt"
+          - "tls.crt"
+          - "tls.key"
+        purpose: "Contour serving certificate created by the chart's pre-install certgen hook"
+        provisioningMode: "lifecycle-action"
+        suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        deliveryLanes:
+          - "cubInstallerApply"
+      -
+        namespace: "default"
+        name: "envoycert"
+        keys:
+          - "ca.crt"
+          - "tls.crt"
+          - "tls.key"
+        purpose: "Envoy client certificate created by the chart's pre-install certgen hook"
+        provisioningMode: "lifecycle-action"
+        suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        deliveryLanes:
+          - "cubInstallerApply"
   imageRemap:
-    rationale: "Bitnami moved the free docker.io/bitnami/* images to the frozen docker.io/bitnamilegacy/* namespace in Aug 2025; docker.io/bitnami/contour is no longer pullable. This variant remaps the committed default render to the verified-pullable docker.io/bitnamilegacy mirror so the local-live (L) lane can pass. The core default variant (and ha, where present) is intentionally left as an honest image-blocked watch row."
+    rationale: "Bitnami moved the free docker.io/bitnami/* images to the frozen docker.io/bitnamilegacy/* namespace in Aug 2025; docker.io/bitnami/contour is no longer pullable. This variant records equivalent Helm values and remaps the committed render to the verified-pullable docker.io/bitnamilegacy mirror so Helm and cub installer can be compared fairly. The core default variant is intentionally left as an honest image-blocked watch row."
     from: "docker.io/bitnami/"
     to: "docker.io/bitnamilegacy/"
     images:

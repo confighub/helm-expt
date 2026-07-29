@@ -116,7 +116,7 @@ spec:
     gitopsOciLive: "yes"
     liveDualParity: "yes"
     twoClusterKind: "yes"
-    variantPromotion: "proven"
+    variantPromotion: "proven-with-watch"
   operations:
     resourceClass: "not-yet-classified"
     ownerClass: "not-yet-classified"

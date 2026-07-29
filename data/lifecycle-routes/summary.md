@@ -21,7 +21,7 @@ The full field definitions and the deterministic mapping tables are in
 
 ## What This Covers
 
-38 route rows across 16 chart/version lifecycle behaviors,
+39 route rows across 18 chart/version lifecycle behaviors,
 joined from:
 
 - [data/hook-disposition/top100-hook-dispositions.csv](../hook-disposition/summary.md)
@@ -37,7 +37,7 @@ until that data exists — a small correct contract, not a broad guess.
 
 ## The Honest Headline
 
-0 of 38 rows are safe to show as automatic.
+0 of 39 rows are safe to show as automatic.
 
 Nothing the catalog renders today is auto-executed by the cub installer. Every
 route is `user-executes`, `target-owned` (a controller or GitOps engine runs
@@ -51,20 +51,20 @@ it.
 
 | Disposition | Rows |
 | --- | ---: |
-| `observed` | 28 |
+| `observed` | 29 |
 | `routed` | 5 |
 | `todo` | 4 |
 | `per-target` | 1 |
 
 | Execution mode | Rows |
 | --- | ---: |
-| `user-executes` | 21 |
+| `user-executes` | 22 |
 | `target-owned` | 10 |
 | `not-yet-executable` | 7 |
 
 | Quirk class | Rows |
 | --- | ---: |
-| `hook-phase` | 19 |
+| `hook-phase` | 20 |
 | `hook-delete-policy` | 6 |
 | `hook-test` | 4 |
 | `crd-install` | 2 |
@@ -99,6 +99,7 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | apache-airflow/airflow@1.21.0 | chart fallback | hook-phase | `recipe-time-lifecycle-verification` | todo | not-yet-executable | no |
 | argo-cd/argo-workflows@1.0.14 | chart fallback | crd-install | `preflight-or-presync-crd-apply` | todo | not-yet-executable | no |
 | argo-cd/argo-workflows@1.0.14 | minimal-crds | crd-install | `self-contained-crd-base` | observed | target-owned | no |
+| bitnami/contour@21.1.4 | legacy | hook-phase | `preflight-or-presync` | observed | user-executes | no |
 | bitnami/kafka@32.4.3 | chart fallback | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
 | bitnami/minio@17.0.21 | chart fallback | hook-phase | `explicit-managed-action` | routed | not-yet-executable | no |
 | bitnami/thanos@17.3.1 | chart fallback | hook-phase | `explicit-managed-action` | todo | not-yet-executable | no |
@@ -123,13 +124,13 @@ Take `route_name = preflight-or-presync`, `disposition = routed`,
 | kyverno/kyverno@3.8.1 | default | hook-test | `explicit-test-check` | observed | user-executes | no |
 | projectcalico/tigera-operator@v3.32.0 | default | hook-delete-policy | `explicit-delete-cleanup-action` | observed | user-executes | no |
 | projectcalico/tigera-operator@v3.32.0 | default | hook-phase | `preflight-or-presync` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `preflight-or-presync` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
-| prometheus-community/kube-prometheus-stack@85.3.3 | chart fallback | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | hook-delete-policy | `preserve-cleanup-policy` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | hook-phase | `preflight-or-presync` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | hook-weight-ordering | `preserve-ordering` | observed | target-owned | no |
+| prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | target-facts | `target-facts-or-preflight` | observed | user-executes | no |
+| prometheus-community/kube-prometheus-stack@85.3.0 | chart fallback | webhook-readiness | `webhook-readiness-observation` | observed | target-owned | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `postsync-check-or-observation` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `preflight-or-presync` | observed | user-executes | no |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | hook-phase | `upgrade-action-with-receipt` | observed | user-executes | no |

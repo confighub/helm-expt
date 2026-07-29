@@ -35,7 +35,7 @@ spec:
   origin:
     type: "helm-render-intent"
     record: "data/helm-render-intents/intents/prometheus-community-kube-prometheus-stack-85-3-3-default.yaml"
-    routeSourceVersion: "85.3.3"
+    routeSourceVersion: "85.3.0"
   implementations:
     directApply:
       result: "pass"

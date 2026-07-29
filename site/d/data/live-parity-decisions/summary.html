@@ -436,9 +436,9 @@
 <h2 id="what-watch-and-blocked-mean-here">What watch and blocked mean here</h2>
 <ul><li><b>watch</b> - known evidence with a named residue. The semantic Helm-vs-ConfigHub parity passed (the delivered objects match regular Helm); a GitOps controller-health, runtime, or operational condition still needs review. <b>Not a pass, not a failure.</b></li><li><b>blocked</b> - the row did not reach the lane result. The decision names why and who owns the fix.</li></ul>
 <h2 id="this-batch">This batch</h2>
-<p>59 non-pass rows: 51 watch, 8 blocked. 3 are resolved by the <b>user</b> (stage a prerequisite); 5 need <b>catalog/model</b> work; the rest are GitOps controller-health, runtime, or operational residues to review. In every watch row, semantic parity already passed - the residue is operational, not a config mismatch.</p>
+<p>60 non-pass rows: 52 watch, 8 blocked. 3 are resolved by the <b>user</b> (stage a prerequisite); 5 need <b>catalog/model</b> work; the rest are GitOps controller-health, runtime, or operational residues to review. In every watch row, semantic parity already passed - the residue is operational, not a config mismatch.</p>
 <table><thead><tr><th>Residue category</th><th>Rows</th></tr></thead><tbody><tr><td><code>remote-image</code></td><td>20</td></tr>
-<tr><td><code>target-runtime</code></td><td>15</td></tr>
+<tr><td><code>target-runtime</code></td><td>16</td></tr>
 <tr><td><code>gitops-runtime</code></td><td>14</td></tr>
 <tr><td><code>target-prerequisite</code></td><td>3</td></tr>
 <tr><td><code>capability-profile</code></td><td>2</td></tr>
@@ -447,7 +447,7 @@
 <tr><td><code>semantic-model-gap</code></td><td>1</td></tr>
 <tr><td><code>target-fit</code></td><td>1</td></tr></tbody></table>
 <table><thead><tr><th>Who fixes it</th><th>Rows</th></tr></thead><tbody><tr><td><code>catalog or image publisher</code></td><td>20</td></tr>
-<tr><td><code>needs runtime review</code></td><td>15</td></tr>
+<tr><td><code>needs runtime review</code></td><td>16</td></tr>
 <tr><td><code>needs GitOps controller-health review</code></td><td>14</td></tr>
 <tr><td><code>catalog</code></td><td>5</td></tr>
 <tr><td><code>user</code></td><td>3</td></tr>
@@ -459,6 +459,7 @@
 <tr><td>bitnami/apache@11.4.29</td><td>default</td><td>watch</td><td>remote-image</td><td>catalog or image publisher</td><td>watch - image reference must be resolved</td></tr>
 <tr><td>bitnami/apache@11.4.29</td><td>legacy</td><td>watch</td><td>remote-image</td><td>catalog or image publisher</td><td>watch - image reference must be resolved</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>default</td><td>watch</td><td>remote-image</td><td>catalog or image publisher</td><td>watch - image reference must be resolved</td></tr>
+<tr><td>bitnami/contour@21.1.4</td><td>legacy</td><td>watch</td><td>target-runtime</td><td>needs runtime review</td><td>watch - config correct, runtime unconfirmed</td></tr>
 <tr><td>bitnami/contour@21.1.4</td><td>no-crds</td><td>watch</td><td>remote-image</td><td>catalog or image publisher</td><td>watch - image reference must be resolved</td></tr>
 <tr><td>bitnami/elasticsearch@22.1.6</td><td>default</td><td>watch</td><td>remote-image</td><td>catalog or image publisher</td><td>watch - image reference must be resolved</td></tr>
 <tr><td>bitnami/elasticsearch@22.1.6</td><td>ha</td><td>watch</td><td>remote-image</td><td>catalog or image publisher</td><td>watch - image reference must be resolved</td></tr>

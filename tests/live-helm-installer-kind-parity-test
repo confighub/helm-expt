@@ -891,6 +891,30 @@ def target_fact_namespaces(variant: dict, lane: str) -> list[dict]:
     ]
 
 
+def verify_live_secret_keys(
+    secret: dict,
+    namespace: str,
+    kubeconfig: Path,
+    context: str,
+) -> None:
+    name = secret.get("name")
+    if not name:
+        raise RuntimeError(f"invalid required Secret target fact: {secret}")
+    output = kubectl_must(
+        ["-n", namespace, "get", "secret", name, "-o", "json"],
+        kubeconfig,
+        context,
+        f"lifecycle target fact Secret {namespace}/{name}",
+    )
+    payload = json.loads(output)
+    actual_keys = set((payload.get("data") or {}).keys())
+    missing = sorted(set(secret.get("keys") or []) - actual_keys)
+    if missing:
+        raise RuntimeError(
+            f"lifecycle action left Secret {namespace}/{name} without keys: {', '.join(missing)}"
+        )
+
+
 def minio_object_store_docs(store: dict, fallback_namespace: str) -> list[dict]:
     namespace = store.get("namespace") or fallback_namespace
     name = store.get("name") or "object-store"
@@ -988,6 +1012,14 @@ def stage_target_facts(
         for secret in (((variant.get("spec") or {}).get("targetFacts") or {}).get("requiredSecrets") or [])
         if target_fact_applies(secret, lane)
     ]
+    lifecycle_secrets = [
+        secret for secret in required_secrets
+        if secret.get("provisioningMode") == "lifecycle-action"
+    ]
+    ordinary_secrets = [
+        secret for secret in required_secrets
+        if secret.get("provisioningMode") != "lifecycle-action"
+    ]
     crd_docs, staged_crds = target_fact_crd_docs(
         variant,
         recipe_path,
@@ -1010,8 +1042,9 @@ def stage_target_facts(
     staged_secrets = []
     staged_object_stores = []
     staged_namespaces = []
+    lifecycle_actions = []
     object_store_docs = []
-    for secret in required_secrets:
+    for secret in ordinary_secrets:
         namespace = secret.get("namespace") or fallback_namespace
         name = secret.get("name")
         keys = secret.get("keys") or []
@@ -1074,6 +1107,65 @@ def stage_target_facts(
         kubectl_must(["apply", "-f", str(namespace_path)], kubeconfig, context, f"target fact namespace apply {namespace}")
         if any(item.get("name") == namespace for item in required_namespaces):
             staged_namespaces.append({"name": namespace, "lane": lane})
+    lifecycle_by_source: dict[str, list[dict]] = {}
+    for secret in lifecycle_secrets:
+        namespace = secret.get("namespace") or fallback_namespace
+        namespaces.add(namespace)
+        source = str(secret.get("suggestedSource") or "")
+        if not source.startswith("package://"):
+            raise RuntimeError(
+                f"lifecycle-action Secret {secret.get('name')} must use a package:// suggestedSource"
+            )
+        lifecycle_by_source.setdefault(source, []).append(secret)
+    for source, source_secrets in lifecycle_by_source.items():
+        if package_path is None:
+            raise RuntimeError(f"packaged lifecycle action {source} needs an installer package path")
+        relative_source = source.removeprefix("package://")
+        if not relative_source or ".." in Path(relative_source).parts:
+            raise RuntimeError(f"unsafe packaged lifecycle action path: {source}")
+        package_root = package_path.resolve()
+        action_path = (package_root / relative_source).resolve()
+        try:
+            action_path.relative_to(package_root)
+        except ValueError as exc:
+            raise RuntimeError(f"packaged lifecycle action escapes package root: {source}") from exc
+        if not action_path.is_file() or action_path.suffix != ".sh":
+            raise RuntimeError(f"packaged lifecycle action is not an executable shell script: {source}")
+        for namespace in sorted({secret.get("namespace") or fallback_namespace for secret in source_secrets}):
+            receipt_slug = re.sub(r"[^a-z0-9]+", "-", f"{label}-{namespace}-{action_path.stem}".lower()).strip("-")
+            lifecycle_receipt = run_root / f"target-facts-{receipt_slug}-receipt.yaml"
+            env = {
+                **os.environ,
+                "KUBECONFIG": str(kubeconfig),
+                "HELM_EXPT_LIFECYCLE_RECEIPT": str(lifecycle_receipt),
+            }
+            rc, out, err = sh(["bash", str(action_path), namespace], timeout=420, env=env)
+            log_path = run_root / f"target-facts-{receipt_slug}.log"
+            write_text(log_path, f"stdout:\n{out}\n\nstderr:\n{err}\n")
+            if rc != 0:
+                raise RuntimeError(
+                    f"packaged lifecycle action {source} failed in {namespace}: {(err or out)[:1000]}"
+                )
+            if not lifecycle_receipt.exists():
+                raise RuntimeError(f"packaged lifecycle action {source} did not write its receipt")
+            for secret in source_secrets:
+                if (secret.get("namespace") or fallback_namespace) != namespace:
+                    continue
+                verify_live_secret_keys(secret, namespace, kubeconfig, context)
+                staged_secrets.append({
+                    "namespace": namespace,
+                    "name": secret.get("name"),
+                    "keys": sorted(secret.get("keys") or []),
+                    "lane": lane,
+                    "provisioningMode": "lifecycle-action",
+                    "source": source,
+                })
+            lifecycle_actions.append({
+                "source": source,
+                "namespace": namespace,
+                "result": "pass",
+                "receipt": load_yaml(lifecycle_receipt),
+            })
     target_facts_path = run_root / f"target-facts-{label}.yaml"
     if secret_docs:
         private_path = None
@@ -1132,14 +1224,17 @@ def stage_target_facts(
                 f"target fact object store bucket {label}",
                 timeout=210,
             )
-    return {
+    result = {
         "result": "pass",
         "stagedSecrets": staged_secrets,
         "stagedCRDs": staged_crds,
         "stagedObjectStores": staged_object_stores,
         "stagedNamespaces": staged_namespaces,
-        "path": str(target_facts_path),
+        "lifecycleActions": lifecycle_actions,
     }
+    if secret_docs:
+        result["path"] = str(target_facts_path)
+    return result
 
 
 def self_generated_secret_names(manifest: str) -> set[str]:
@@ -1220,8 +1315,40 @@ spec:
         raise RuntimeError("repository paths must be relative in receipts")
     if portable["external"] != "$HOME/other/example.yaml":
         raise RuntimeError("home-directory paths must be portable in receipts")
+    helm_objects = """\
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example
+  namespace: default
+"""
+    installer_objects = f"""\
+{helm_objects}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+"""
+    allowed = semantic_compare(
+        helm_objects,
+        installer_objects,
+        [
+            "v1|Namespace||default",
+            "apiextensions.k8s.io/v1|CustomResourceDefinition||unused.example.com",
+        ],
+        allowed_missing=[
+            "apiextensions.k8s.io/v1|CustomResourceDefinition||also-unused.example.com",
+        ],
+    )
+    if allowed["result"] != "pass":
+        raise RuntimeError("unused allowed semantic differences must not become required differences")
+    refused = semantic_compare(helm_objects, installer_objects, [])
+    if refused["result"] != "blocked" or refused["unallowedExtraInInstaller"] != ["v1|Namespace||default"]:
+        raise RuntimeError("unallowed semantic differences must remain blockers")
     print("verified self-generated certificate Secret readiness classifier")
     print("verified portable receipt paths")
+    print("verified allowed semantic differences are permissive, not mandatory")
     return 0
 
 
@@ -1782,6 +1909,8 @@ def semantic_compare(
     installer_keys = set(installer)
     missing = sorted(helm_keys - installer_keys)
     extra = sorted(installer_keys - helm_keys)
+    unallowed_missing = sorted(set(missing) - set(allowed_missing))
+    unallowed_extra = sorted(set(extra) - set(allowed_extra))
     common = sorted(helm_keys & installer_keys)
     diffs = []
     for key in common:
@@ -1789,18 +1918,24 @@ def semantic_compare(
             continue
         diffs.append(key)
     return {
-        "result": "pass" if missing == allowed_missing and extra == allowed_extra and not diffs else "blocked",
+        "result": "pass" if not unallowed_missing and not unallowed_extra and not diffs else "blocked",
         "helmObjectCount": len(helm_keys),
         "installerObjectCount": len(installer_keys),
         "missingFromInstaller": missing,
         "allowedMissingFromInstaller": allowed_missing,
+        "unallowedMissingFromInstaller": unallowed_missing,
         "extraInInstaller": extra,
+        "allowedExtraInInstaller": sorted(allowed_extra),
+        "unallowedExtraInInstaller": unallowed_extra,
         "semanticDiffs": diffs[:50],
         "semanticNormalizations": semantic_normalizations,
         "comparisonSHA256": sha256_text(json.dumps({
             "missing": missing,
             "allowedMissing": allowed_missing,
             "extra": extra,
+            "allowedExtra": sorted(allowed_extra),
+            "unallowedMissing": unallowed_missing,
+            "unallowedExtra": unallowed_extra,
             "diffs": diffs,
             "semanticNormalizations": semantic_normalizations,
         }, sort_keys=True)),

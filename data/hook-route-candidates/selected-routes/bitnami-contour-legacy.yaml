@@ -1,0 +1,53 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteReceipt
+metadata:
+  name: bitnami-contour-legacy-certgen-route
+spec:
+  chart: bitnami/contour
+  version: 21.1.4
+  base: legacy
+  result: observed
+  selectedAt: "2026-07-29"
+  observedAt: "2026-07-29T02:48:45Z"
+  route:
+    summary: The package runs Contour's certificate-generation Job before applying the ordinary rendered objects, then checks the two TLS Secrets and removes the temporary Job and RBAC.
+    phases:
+      - hookTypes: [pre-install, pre-upgrade]
+        action: preflight-or-presync
+        reason: Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.
+  evidence:
+    - path: recipes/bitnami/contour/21.1.4/lifecycle-route.yaml
+      claim: The chart review classifies both Secrets as lifecycle-action outputs and names the remaining controller and production limits.
+    - path: recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml
+      claim: The base declares both required Secrets, their keys, and the packaged setup source.
+    - path: packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh
+      claim: The package contains the executable pre-apply action used by the proof and generated try script.
+    - path: runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml
+      claim: Separate kind clusters proved that Helm's hook and the packaged action both produced the required certificate material and converged the same workloads with no semantic object differences.
+    - path: runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml
+      claim: Direct ConfigHub apply and OCI target preparation both recorded the required Secrets; workloads converged and object parity passed, while Argo retained a named CRD ownership residue.
+  execution:
+    helmHooksExecutedByHarness: true
+    runtimeObserved: true
+    observedRoute:
+      route: preflight-or-presync
+      result: pass
+      receipts:
+        - runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml
+        - runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml
+      generatedSecrets:
+        - contourcert
+        - envoycert
+      requiredSecretKeys: 6
+      convergedWorkloads: 2
+      semanticParity: pass
+    notes:
+      - This receipt applies to the legacy proof base, whose frozen bitnamilegacy images remain pullable for testing.
+      - The package action preserves complete existing Secrets unless an operator explicitly requests replacement.
+      - The generated no-account try script runs this action before applying the rendered objects.
+      - The ConfigHub OCI lane stages the target facts before Argo delivery; it does not prove that Argo CD executed the action as a native sync hook or wave.
+      - Flux-native ordering and production certificate rotation are not proven.
+  remainingWork:
+    - Replace the frozen proof images with a maintained, reviewed source before recommending production use.
+    - Prove an Argo CD sync-wave route and a Flux ordered route separately.
+    - Record the certificate-rotation owner and recovery procedure for a production base.

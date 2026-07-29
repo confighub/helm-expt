@@ -1,30 +1,41 @@
-# bitnami/contour 21.1.4 Proof
+# Why Contour needs more than rendered YAML
 
-This is one of the next 80 public-chart full proofs.
+Contour is a useful example of work Helm performs around a chart render. The
+ordinary objects mount `contourcert` and `envoycert`, but those Secrets are not
+in the rendered object set. Helm creates them by running a certificate Job
+before the main install.
 
-Variant:
+The catalog records that dependency instead of leaving two Pods waiting for
+missing Secrets. The installer package contains the chart's ServiceAccount,
+RBAC, and certgen Job as an explicit setup action. It runs before the ordinary
+objects, checks both Secrets, records what happened, and removes the temporary
+resources.
 
-- `default`: chart defaults under Kubernetes 1.30.0; 20 Helm objects, 21 `cub installer` objects including allowed support objects.
+## Configurations
 
-What this proves:
+- `default` preserves the original chart and its now-unavailable Bitnami images.
+- `no-crds` is for platforms that already own the five Contour CRDs.
+- `legacy` records Helm values for the frozen `bitnamilegacy` images and exists
+  so the install and certificate route can still be tested.
 
-- regular Helm output is preserved by `cub installer setup`;
-- the rendered object set is digest-bound in the variant revision and receipts;
-- scan/gate findings are attached to the exact rendered object digest;
-- the installer package bundles deterministically with `cub installer package`.
+## What has been tested
 
-Current gate:
+On two fresh kind clusters, regular Helm ran its own certgen hook while the
+`cub installer` lane ran the packaged action. Both created the expected
+certificate material, both workloads became ready, all five CRDs were
+established, and the ordinary Kubernetes objects had no semantic field
+differences.
 
-```text
-high: 0
-medium: 7
-low: 0
-semantic match: 20/20
-```
+The larger ConfigHub comparison also proved direct apply, OCI publication,
+healthy workloads, and object parity. It remains `watch` because Argo CD sees
+the five CRDs left by an earlier lane and reports them OutOfSync.
 
-Useful commands:
+## What remains
 
-```sh
-npm run next80:verify
-npm run next80:verify-packages
-```
+The frozen image is not suitable for production. A production route needs a
+maintained image mirror and a certificate-rotation owner. Argo CD and Flux must
+also prove how they execute the certgen step in their own ordering models; this
+repository does not claim those controller-native routes yet.
+
+Start with `lifecycle-route.yaml`, then follow its links to the exact receipts
+and packaged action.

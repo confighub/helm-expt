@@ -4,6 +4,7 @@ apache-airflow/airflow,,(chart-level),recipe-time-lifecycle-verification,verify-
 argo-cd/argo-workflows,1.0.14,controller-default-reviewed,preflight-or-presync-crd-apply,install-crd,yes,PreSync · sync-wave -2 · ServerSideApply,HelmRelease .spec.install.crds=Create (or apply CRDs first)
 argo-cd/argo-workflows,1.0.14,default,preflight-or-presync-crd-apply,install-crd,yes,PreSync · sync-wave -2 · ServerSideApply,HelmRelease .spec.install.crds=Create (or apply CRDs first)
 argo-cd/argo-workflows,1.0.14,minimal-crds,self-contained-crd-base,preserve-ordering,no,no extra hook — keep CRDs before dependent objects,no extra hook — make sure CRDs are applied before workloads
+bitnami/contour,21.1.4,legacy,preflight-or-presync,run-preflight,yes,PreSync · sync-wave -1,apply before the release (Kustomization dependsOn)
 bitnami/kafka,,(chart-level),explicit-managed-action,run-job,yes,PostSync,post-apply Job / follow-on Kustomization
 bitnami/minio,,(chart-level),explicit-managed-action,run-job,yes,PostSync,post-apply Job / follow-on Kustomization
 bitnami/thanos,,(chart-level),explicit-managed-action,run-job,yes,PostSync,post-apply Job / follow-on Kustomization

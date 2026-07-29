@@ -90,6 +90,20 @@
     {
       "chart": "bitnami/contour",
       "version": "21.1.4",
+      "variant": "legacy",
+      "result": "watch",
+      "residue_category": "target-runtime",
+      "blocker_owner": "needs runtime review",
+      "usable_today": "watch — config correct, runtime unconfirmed",
+      "user_decision": "The rendered config matched regular Helm (semantic parity passed) but the workload did not reach the expected runtime state on the target. Runtime residue to review, not a parity defect.",
+      "next_action": "Review the runtime residue (pod errors / not ready) on the target and record a runtime-review support artifact.",
+      "reason": "watch: inspect receipt",
+      "support_artifact": "",
+      "receipt": "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/contour",
+      "version": "21.1.4",
       "variant": "no-crds",
       "result": "watch",
       "residue_category": "remote-image",

@@ -134,9 +134,9 @@ bitnami/contour@21.1.4,default,two_cluster_kind_parity,K,blocked,blocked,no,helm
 bitnami/contour@21.1.4,legacy,render_parity,R,pass,pass,no,,,
 bitnami/contour@21.1.4,legacy,in_confighub,C,pass,pass,no,,,
 bitnami/contour@21.1.4,legacy,local_live,L,blocked,blocked,no,,,
-bitnami/contour@21.1.4,legacy,gitops_oci_live,G,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/contour@21.1.4,legacy,live_helm_vs_confighub_parity,P,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
-bitnami/contour@21.1.4,legacy,two_cluster_kind_parity,K,missing,blocked,yes,upstream: single-cluster local live is blocked (missing prerequisite (mount/secret/config)),resolve the local-live prerequisite first; the live lanes inherit it,either
+bitnami/contour@21.1.4,legacy,gitops_oci_live,G,watch,watch,no,,,
+bitnami/contour@21.1.4,legacy,live_helm_vs_confighub_parity,P,watch,watch,no,,,
+bitnami/contour@21.1.4,legacy,two_cluster_kind_parity,K,pass,pass,no,live parity passed,,kind-parity
 bitnami/contour@21.1.4,no-crds,render_parity,R,pass,pass,no,,,
 bitnami/contour@21.1.4,no-crds,in_confighub,C,pass,pass,no,,,
 bitnami/contour@21.1.4,no-crds,local_live,L,blocked,blocked,no,,,

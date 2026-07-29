@@ -4,7 +4,7 @@ import { join, relative } from "node:path";
 import { check, listFiles, readYaml, repoRoot } from "./lib/proof-common.mjs";
 
 const root = join(repoRoot, "runs", "live-helm-confighub-compare");
-const receipts = listFiles(root).filter((file) => /receipt\.(json|ya?ml)$/.test(file));
+const receipts = listFiles(root).filter((file) => /(?:^|\/)receipt\.(json|ya?ml)$/.test(file));
 const trackedFiles = new Set(
   execFileSync("git", ["ls-files", "runs/live-helm-confighub-compare"], {
     cwd: repoRoot,

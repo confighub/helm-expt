@@ -46,10 +46,10 @@ spec:
     twoClusterKind: "yes"
     variantPromotion: "proven"
   lifecycle:
-    routeContract: "todo"
+    routeContract: "yes"
     routeCount: "1"
-    dispositions: "todo:1"
-    executionModes: "not-yet-executable:1"
+    dispositions: "0:routed,1"
+    executionModes: "0:not-yet-executable,1"
     safeAutomatic: "0/1"
     contractPath: "data/lifecycle-routes/summary.md"
     jsonPath: "data/lifecycle-routes/routes.json"

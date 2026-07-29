@@ -8,9 +8,9 @@
     "data/live-parity-rerun-plan/rerun-plan.csv",
     "runs/live-*/**/receipt.yaml"
   ],
-  "rowCount": 39,
+  "rowCount": 40,
   "byKind": {
-    "unknown": 21,
+    "unknown": 22,
     "crd": 6,
     "external-api": 4,
     "namespace": 4,
@@ -18,7 +18,7 @@
     "topology": 1
   },
   "byOwner": {
-    "operator-review": 26,
+    "operator-review": 27,
     "user-stage": 12,
     "target-policy": 1
   },
@@ -52,6 +52,21 @@
       "recommended_next_action": "Run on a target with the required platform identity (AWS/EKS metadata + node providerID) (e.g. AWS/EKS metadata + providerID), or use a target-scoped base.",
       "rerun_command": "npm run live-parity:run -- --recipe recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1 --base default",
       "evidence_path": "runs/live-helm-confighub-compare/aws-ebs-csi-driver-aws-ebs-csi-driver-default/receipt.yaml"
+    },
+    {
+      "chart": "bitnami/contour",
+      "version": "21.1.4",
+      "base": "legacy",
+      "lane": "G/P",
+      "result": "watch",
+      "prerequisite_kind": "unknown",
+      "prerequisite_name": "unknown",
+      "semantic_parity_passed": "unknown",
+      "owner_class": "operator-review",
+      "support_artifact": "",
+      "recommended_next_action": "Review the runtime residue on the target (pod not ready / crash loop / ContainerCreating); stage any missing dependency, then rerun.",
+      "rerun_command": "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts",
+      "evidence_path": "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
     },
     {
       "chart": "dex/dex",

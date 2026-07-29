@@ -1,0 +1,163 @@
+# Rendered from bitnami/contour@21.1.4 certgen hook templates.
+# The removed Bitnami image was remapped to the frozen bitnamilegacy image and
+# pinned to its multi-platform manifest digest for this proof route.
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: contour-contour-certgen
+  labels:
+    app.kubernetes.io/instance: contour
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: contour
+    app.kubernetes.io/version: 1.32.1
+    helm.sh/chart: contour-21.1.4
+    app.kubernetes.io/component: contour-certgen
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+automountServiceAccountToken: false
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: contour-contour-certgen
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+  labels:
+    app.kubernetes.io/instance: contour
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: contour
+    app.kubernetes.io/version: 1.32.1
+    helm.sh/chart: contour-21.1.4
+    app.kubernetes.io/component: contour-certgen
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: contour-contour-certgen
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+  labels:
+    app.kubernetes.io/instance: contour
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: contour
+    app.kubernetes.io/version: 1.32.1
+    helm.sh/chart: contour-21.1.4
+    app.kubernetes.io/component: contour-certgen
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: contour-contour-certgen
+subjects:
+  - kind: ServiceAccount
+    name: contour-contour-certgen
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: contour-contour-certgen
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "1"
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+  labels:
+    app.kubernetes.io/instance: contour
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: contour
+    app.kubernetes.io/version: 1.32.1
+    helm.sh/chart: contour-21.1.4
+    app.kubernetes.io/component: contour-certgen
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: contour
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: contour
+        app.kubernetes.io/version: 1.32.1
+        helm.sh/chart: contour-21.1.4
+        app.kubernetes.io/component: contour-certgen
+    spec:
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      containers:
+        - name: contour
+          image: docker.io/bitnamilegacy/contour@sha256:ab0665888c91c754030d46e7bbaf9a661bd1f16bbbbafcef59ce0fafdba871f1
+          imagePullPolicy: IfNotPresent
+          command:
+            - contour
+          args:
+            - certgen
+            - --kube
+            - --incluster
+            - --overwrite
+            - --secrets-format=compact
+            - --namespace=$(CONTOUR_NAMESPACE)
+            - --certificate-lifetime=365
+          env:
+            - name: CONTOUR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1001
+            runAsNonRoot: true
+            runAsUser: 1001
+            seLinuxOptions: {}
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            limits:
+              cpu: 150m
+              ephemeral-storage: 2Gi
+              memory: 192Mi
+            requests:
+              cpu: 100m
+              ephemeral-storage: 50Mi
+              memory: 128Mi
+          livenessProbe:
+            exec:
+              command:
+                - pgrep
+                - contour
+            initialDelaySeconds: 120
+            periodSeconds: 20
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+                - pgrep
+                - contour
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+      restartPolicy: Never
+      serviceAccountName: contour-contour-certgen
+      automountServiceAccountToken: true
+  parallelism: 1
+  completions: 1
+  backoffLimit: 1

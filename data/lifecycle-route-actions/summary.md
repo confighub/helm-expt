@@ -18,7 +18,7 @@ interface), field definitions in [contract.md](./contract.md).
 
 ## The honest flag
 
-0 of 38 packets are `automatic`. No route is
+0 of 39 packets are `automatic`. No route is
 executed by the product today, so `automatic` is `false` everywhere; a packet
 is a *plan*, not a claim that anything ran. `automatic` only becomes `true`
 when `execution_mode` is `product-executes` and committed evidence proves it.
@@ -27,7 +27,7 @@ when `execution_mode` is `product-executes` and committed evidence proves it.
 
 | Disposition | Packets |
 | --- | ---: |
-| `observed` | 28 |
+| `observed` | 29 |
 | `blocked` | 7 |
 | `routed` | 2 |
 | `per-target` | 1 |
@@ -36,15 +36,15 @@ when `execution_mode` is `product-executes` and committed evidence proves it.
 | --- | ---: |
 | `observe` | 12 |
 | `pre-apply` | 11 |
+| `preflight` | 8 |
 | `post-apply` | 7 |
-| `preflight` | 7 |
 | `pre-render` | 1 |
 
 | Action kind | Packets |
 | --- | ---: |
 | `run-job` | 12 |
+| `run-preflight` | 6 |
 | `accept-target-policy` | 5 |
-| `run-preflight` | 5 |
 | `run-test` | 4 |
 | `preserve-ordering` | 3 |
 | `observe-webhook` | 2 |
@@ -56,7 +56,9 @@ when `execution_mode` is `product-executes` and committed evidence proves it.
 
 ## Named source drift
 
-No source-version drift detected.
+7 packet(s) carry a source-version drift, named (not hidden):
+
+- `prometheus-community/kube-prometheus-stack`: route source version 85.3.0; catalog has 85.3.3, 86.1.0
 
 ## Not yet projected
 

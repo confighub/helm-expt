@@ -38,6 +38,46 @@ ls ./bitnami-contour-21-1-4-legacy/out/manifests
 say "Ensure the default namespace exists"
 kubectl create namespace default --dry-run=client -o yaml | kubectl apply -f -
 
+say "Check 2 Secrets required by this base"
+missing_packaged_secrets=0
+if ! kubectl -n default get secret/contourcert >/dev/null 2>&1; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n default get secret/contourcert -o "jsonpath={.data.ca\.crt}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n default get secret/contourcert -o "jsonpath={.data.tls\.crt}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n default get secret/contourcert -o "jsonpath={.data.tls\.key}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if ! kubectl -n default get secret/envoycert >/dev/null 2>&1; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n default get secret/envoycert -o "jsonpath={.data.ca\.crt}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n default get secret/envoycert -o "jsonpath={.data.tls\.crt}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ -z "$(kubectl -n default get secret/envoycert -o "jsonpath={.data.tls\.key}" 2>/dev/null)" ]; then
+  missing_packaged_secrets=1
+fi
+if [ "$missing_packaged_secrets" -eq 1 ]; then
+  bash ./bitnami-contour-21-1-4-legacy/package/prerequisites/contour-certgen/run.sh default
+else
+  say "The required Secrets already exist and contain every recorded key; leave them under their current owner"
+fi
+kubectl -n default get secret/contourcert >/dev/null
+test -n "$(kubectl -n default get secret/contourcert -o "jsonpath={.data.ca\.crt}")"
+test -n "$(kubectl -n default get secret/contourcert -o "jsonpath={.data.tls\.crt}")"
+test -n "$(kubectl -n default get secret/contourcert -o "jsonpath={.data.tls\.key}")"
+kubectl -n default get secret/envoycert >/dev/null
+test -n "$(kubectl -n default get secret/envoycert -o "jsonpath={.data.ca\.crt}")"
+test -n "$(kubectl -n default get secret/envoycert -o "jsonpath={.data.tls\.crt}")"
+test -n "$(kubectl -n default get secret/envoycert -o "jsonpath={.data.tls\.key}")"
+
 if [ -d ./bitnami-contour-21-1-4-legacy/out/secrets ]; then
   say "Apply rendered Secrets first"
   kubectl apply -f ./bitnami-contour-21-1-4-legacy/out/secrets

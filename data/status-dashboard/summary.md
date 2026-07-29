@@ -52,12 +52,12 @@ Which detailed CSV should I open next?
 | proof lanes | render parity rows | 199/199 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | in-ConfigHub proof rows | 198/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 148/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | explicit lifecycle observation rows | 19/19 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | explicit lifecycle observation rows | 20/20 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 51/51 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 139/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 139/199 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 129/178 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | two-cluster semantic parity pass rows | 154/178 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster kind parity pass rows | 130/179 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster semantic parity pass rows | 155/179 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 126/199 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 26/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 3/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
@@ -70,17 +70,17 @@ Which detailed CSV should I open next?
 | graph bridge | generated-fact graph edges | 1/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | graph bridge | rows with field reachability | 4/108 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 11/11 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
-| live evidence | selected live Helm-vs-ConfigHub parity receipts | 139/198 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster kind parity receipts | 178/178 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 107/107 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 51/107 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 38/107 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live matrix commands remaining | 143 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
+| live evidence | selected live Helm-vs-ConfigHub parity receipts | 139/199 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | two-cluster kind parity receipts | 179/179 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | live parity rerun rows needing decisions | 108/108 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 51/108 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 39/108 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live matrix commands remaining | 142 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
 | live evidence | live matrix GitOps/OCI parity commands remaining | 73 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | live matrix two-cluster kind commands remaining | 70 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
-| live evidence | GitOps aggregate health residue rows | 48/198 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
-| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/198 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster semantic parity defect receipts | 16/178 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | live matrix two-cluster kind commands remaining | 69 | gap | [data/live-matrix-burndown/work-items.csv](../../data/live-matrix-burndown/work-items.csv) |
+| live evidence | GitOps aggregate health residue rows | 49/199 | partial | [data/gitops-health-residue/residue.csv](../../data/gitops-health-residue/residue.csv) |
+| live evidence | ConfigHub/OCI semantic parity defect receipts | 0/199 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
+| live evidence | two-cluster semantic parity defect receipts | 16/179 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 19/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 1/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -104,8 +104,8 @@ Which detailed CSV should I open next?
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | secrets | top100 variants with explicit Secret disposition | 179/179 | good | [data/secret-lifecycle/variant-summary.csv](../../data/secret-lifecycle/variant-summary.csv) |
-| secrets | Secret rows needing lifecycle lane support | 8/85 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
-| secrets | target-fact Secret rows | 41/85 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | Secret rows needing lifecycle lane support | 8/91 | gap | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
+| secrets | target-fact Secret rows | 47/91 | partial | [data/secret-lifecycle/secrets.csv](../../data/secret-lifecycle/secrets.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
 | hooks | top100 source hook rows still uncovered | 0/11 | good | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -116,7 +116,7 @@ Which detailed CSV should I open next?
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 5/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook partial lifecycle observations present | 0/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
-| hooks | hook/lifecycle boundary rows | 11/11 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook/lifecycle boundary rows | 12/12 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook routes still needing execution or observation | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
@@ -194,7 +194,7 @@ considered.
 | --- | ---: | --- |
 | inspect-diff-first | 16 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 51 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 ### Active Proof Queue
@@ -211,6 +211,7 @@ needs a support artifact or a direct receipt review before rerun.
 | bitnami/apache@11.4.29 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/apache@11.4.29 | legacy | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/contour@21.1.4 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
+| bitnami/contour@21.1.4 | legacy | watch | runtime-review | - |
 | bitnami/contour@21.1.4 | no-crds | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/elasticsearch@22.1.6 | default | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | bitnami/elasticsearch@22.1.6 | ha | watch | image-retention-review | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
@@ -393,9 +394,9 @@ top-100 chart and the next command or file to open.
 | Strongest evidence | Charts |
 | --- | ---: |
 | live-helm-vs-confighub-parity | 74 |
-| in-confighub-proof | 14 |
+| in-confighub-proof | 13 |
 | local-kubernetes-live | 8 |
-| two-cluster-kind-parity | 4 |
+| two-cluster-kind-parity | 5 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
@@ -471,9 +472,9 @@ first.
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 198 | 0 | 1 | 199 |
 | local live | 148 | 51 | 0 | 199 |
-| GitOps/OCI live | 139 | 59 | 1 | 199 |
-| live Helm-vs-ConfigHub parity | 139 | 59 | 1 | 199 |
-| two-cluster kind parity | 129 | 49 | 0 | 178 |
+| GitOps/OCI live | 139 | 60 | 0 | 199 |
+| live Helm-vs-ConfigHub parity | 139 | 60 | 0 | 199 |
+| two-cluster kind parity | 130 | 49 | 0 | 179 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -482,8 +483,8 @@ parity failure.
 Current semantic parity defect receipts:
 
 ~~~text
-ConfigHub/OCI live comparison: 0/198
-two-cluster kind parity:       16/178
+ConfigHub/OCI live comparison: 0/199
+two-cluster kind parity:       16/179
 ~~~
 
 The two-cluster kind parity lane is the cleanest live comparison for chart/base
@@ -501,7 +502,7 @@ useful.
 | --- | ---: | --- |
 | inspect-diff-first | 16 | Inspect the semantic diff before another rerun. |
 | model-or-stage-first | 51 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 38 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| review-target-first | 39 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 | inspect-receipt-first | 2 | Read the receipt and classify the row before rerunning. |
 
 | Next step | Rows | Meaning |
@@ -512,7 +513,7 @@ useful.
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 | gitops-runtime-review | 14 | Inspect GitOps/controller health and rerun after target conditions or controller waits are corrected. |
-| runtime-review | 24 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| runtime-review | 25 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
 | inspect-receipt | 2 | Read the receipt and classify the row before rerunning. |
 | capability-profile-base | 2 | Read the receipt and classify the row before rerunning. |
 | image-retention-review | 30 | Read the receipt and classify the row before rerunning. |
@@ -538,6 +539,7 @@ Current ConfigHub/OCI live parity non-pass receipts:
 | bitnami/apache@11.4.29 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/apache@11.4.29 | legacy | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/contour@21.1.4 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
+| bitnami/contour@21.1.4 | legacy | watch | watch: inspect receipt |
 | bitnami/contour@21.1.4 | no-crds | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/elasticsearch@22.1.6 | default | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
 | bitnami/elasticsearch@22.1.6 | ha | watch | remote-image: image pull failed or pinned image is unavailable (parity passed) |
@@ -780,7 +782,7 @@ controller lifecycle observations:
 | --- | ---: |
 | helm-hook-lifecycle-queue | 5 |
 | hook-like-lifecycle-observation | 4 |
-| selected-hook-route | 2 |
+| selected-hook-route | 3 |
 
 Open [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) when the
 question is whether a row proves hook execution or only proves controller

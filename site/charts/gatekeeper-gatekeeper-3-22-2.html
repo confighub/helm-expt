@@ -524,7 +524,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Status</dt><dd>Available in the catalog</dd>
           <dt>How to run</dt><dd>This is the upstream chart source. Choose a base card below before running the installer.</dd>
           <dt>Evidence</dt><dd>Pinned chart source and dependency lock</dd>
-          <dt>Hooks/actions</dt><dd>4 source hook(s); observed; live: yes</dd>
+          <dt>Hooks/actions</dt><dd>4 source hooks; hook route: observed; live action receipt: yes</dd>
           <dt>Who runs actions?</dt><dd>read the route receipt before delivery</dd>
           <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
           <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
@@ -547,8 +547,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2 --base default --work-dir ./gatekeeper-gatekeeper-3-22-2-default --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/gatekeeper-gatekeeper-3-22-2/default/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/gatekeeper-gatekeeper-3-22-2/default/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>4 source hook(s); observed; live: yes; route: yes</dd>
-          <dt>Who runs actions?</dt><dd>you or your delivery pipeline (2); no step is called automatic until its run has a receipt</dd>
+          <dt>Hooks/actions</dt><dd>4 source hooks; hook route: observed; live action receipt: yes; 2 recorded lifecycle routes</dd>
+          <dt>Who runs actions?</dt><dd>You or your delivery pipeline (2); the full record shows which delivery paths have receipts</dd>
           <dt>Lifecycle record</dt><dd>2 chart-specific lifecycle routes are recorded. The full record separates direct, Argo CD, and Flux handling and says which paths have actually run. <a href="../../data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-default.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>This base has not yet been reviewed for required Secrets, CRDs, namespaces, values, storage services, external APIs, or target topology. Record what it needs, or record that nothing extra is required.</dd>
           <dt>Next</dt><dd>Run catalog promotion review</dd>
@@ -572,7 +572,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>How to run</dt><dd><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2 --base no-crds --work-dir ./gatekeeper-gatekeeper-3-22-2-no-crds --non-interactive --namespace default</code></dd>
           <dt>Scripts</dt><dd><a href="../sh/gatekeeper-gatekeeper-3-22-2/no-crds/try.sh">try.sh</a> renders, settles the prerequisites in order, and applies with kubectl; <a href="../sh/gatekeeper-gatekeeper-3-22-2/no-crds/confighub.sh">confighub.sh</a> renders and uploads to your ConfigHub Space.</dd>
           <dt>Evidence</dt><dd>Live helm vs confighub parity</dd>
-          <dt>Hooks/actions</dt><dd>4 source hook(s); observed; live: yes</dd>
+          <dt>Hooks/actions</dt><dd>4 source hooks; hook route: observed; live action receipt: yes</dd>
           <dt>Who runs actions?</dt><dd>read the route receipt before delivery</dd>
           <dt>Lifecycle record</dt><dd>4 source hooks are recorded, but this base has no attached lifecycle route. Decide how the work should run with direct commands, Argo CD, and Flux, then record the result. <a href="../../data/helm-render-intents/intents/gatekeeper-gatekeeper-3-22-2-no-crds.yaml">Open the full record.</a></dd>
           <dt>Prerequisites</dt><dd>17 prerequisites are declared for this base. Each prerequisite says whether it must be checked before render or before apply.</dd>

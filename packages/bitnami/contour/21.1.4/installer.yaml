@@ -6,15 +6,53 @@ metadata:
 spec:
   bases:
     -
+      description: "bitnami/contour legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/contour@21.1.4"
       name: "legacy"
       path: "bases/legacy"
-      description: "bitnami/contour legacy variant (docker.io/bitnami -> docker.io/bitnamilegacy image remap) rendered from bitnami/contour@21.1.4"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/contourcert keys ca.crt,tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/envoycert keys ca.crt,tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
     -
       default: true
       description: "bitnami/contour default variant rendered from bitnami/contour@21.1.4"
       name: "default"
       path: "bases/default"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/contourcert keys ca.crt,tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/envoycert keys ca.crt,tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
     -
+      description: "bitnami/contour no-crds variant rendered from bitnami/contour@21.1.4"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "bitnami/contour no-crds variant rendered from bitnami/contour@21.1.4"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/contourcert keys ca.crt,tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+        -
+          kind: "ClusterFeature"
+          name: "Secret default/envoycert keys ca.crt,tls.crt,tls.key"
+          namespace: "default"
+          suggestedSource: "package://prerequisites/contour-certgen/run.sh"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible requirements."

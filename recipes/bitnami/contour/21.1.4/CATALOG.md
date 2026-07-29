@@ -30,7 +30,7 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | limitation-decision-first |
 | User status | proof-grade-with-named-limitation |
-| Strongest evidence | in-confighub-proof |
+| Strongest evidence | two-cluster-kind-parity |
 | Proof lanes | render parity 3/3; ConfigHub 3/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | generated-secrets;crds;install-vs-upgrade;extension-slots |
 | Hard gap | existing-secret (chart ships no Secret toggle) |
@@ -58,9 +58,9 @@ for exact base-variant evidence.
 
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| default | [recipes/bitnami/contour/21.1.4/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/default](../../../../packages/bitnami/contour/21.1.4/bases/default) | [recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 20 | 21 | 20/20 | pass | warn | warn | none |
-| no-crds | [recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/no-crds](../../../../packages/bitnami/contour/21.1.4/bases/no-crds) | [recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 15 |  | 15/15 | pass |  | allow | none |
-| legacy | [recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml](variants/legacy/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/legacy](../../../../packages/bitnami/contour/21.1.4/bases/legacy) | [recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml](revisions/legacy/r001/variant-revision.yaml) | 20 | 21 | 20/20 | pass | pass | allow | none |
+| default | [recipes/bitnami/contour/21.1.4/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/default](../../../../packages/bitnami/contour/21.1.4/bases/default) | [recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 20 | 21 | 20/20 | pass | warn | warn | required Secret default/contourcert keys ca.crt,tls.crt,tls.key; required Secret default/envoycert keys ca.crt,tls.crt,tls.key |
+| no-crds | [recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/no-crds](../../../../packages/bitnami/contour/21.1.4/bases/no-crds) | [recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 15 |  | 15/15 | pass |  | allow | required Secret default/contourcert keys ca.crt,tls.crt,tls.key; required Secret default/envoycert keys ca.crt,tls.crt,tls.key |
+| legacy | [recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml](variants/legacy/variant.yaml) | [packages/bitnami/contour/21.1.4/bases/legacy](../../../../packages/bitnami/contour/21.1.4/bases/legacy) | [recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml](revisions/legacy/r001/variant-revision.yaml) | 20 | 21 | 20/20 | pass | pass | allow | required Secret default/contourcert keys ca.crt,tls.crt,tls.key; required Secret default/envoycert keys ca.crt,tls.crt,tls.key |
 
 ## Package Bases
 

@@ -658,7 +658,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -1985,10 +1985,10 @@
           "variantPromotion": "proven"
         },
         "lifecycle": {
-          "routeContract": "todo",
+          "routeContract": "yes",
           "routeCount": "1",
-          "dispositions": "todo:1",
-          "executionModes": "not-yet-executable:1",
+          "dispositions": "0:routed,1",
+          "executionModes": "0:not-yet-executable,1",
           "safeAutomatic": "0/1",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -2376,10 +2376,10 @@
           "variantPromotion": "proven"
         },
         "lifecycle": {
-          "routeContract": "todo",
+          "routeContract": "yes",
           "routeCount": "1",
-          "dispositions": "todo:1",
-          "executionModes": "not-yet-executable:1",
+          "dispositions": "0:routed,1",
+          "executionModes": "0:not-yet-executable,1",
           "safeAutomatic": "0/1",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -2769,8 +2769,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "1",
-          "dispositions": "observed:1",
-          "executionModes": "target-owned:1",
+          "dispositions": "0:observed,1",
+          "executionModes": "0:target-owned,1",
           "safeAutomatic": "0/1",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -4065,15 +4065,91 @@
           }
         },
         "targetFacts": {
-          "status": "none-declared-or-observed",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "cubInstallerApply"
+                ],
+                "keys": [
+                  "ca.crt",
+                  "tls.crt",
+                  "tls.key"
+                ],
+                "name": "contourcert",
+                "namespace": "default",
+                "provisioningMode": "lifecycle-action",
+                "purpose": "Contour serving certificate created by the chart's pre-install certgen hook",
+                "suggestedSource": "package://prerequisites/contour-certgen/run.sh"
+              },
+              {
+                "deliveryLanes": [
+                  "cubInstallerApply"
+                ],
+                "keys": [
+                  "ca.crt",
+                  "tls.crt",
+                  "tls.key"
+                ],
+                "name": "envoycert",
+                "namespace": "default",
+                "provisioningMode": "lifecycle-action",
+                "purpose": "Envoy client certificate created by the chart's pre-install certgen hook",
+                "suggestedSource": "package://prerequisites/contour-certgen/run.sh"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/contourcert",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Contour serving certificate created by the chart's pre-install certgen hook",
+              "check": "package://prerequisites/contour-certgen/run.sh",
+              "declarationPath": "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "cubInstallerApply"
+              ],
+              "evidence": [
+                "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/envoycert",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Envoy client certificate created by the chart's pre-install certgen hook",
+              "check": "package://prerequisites/contour-certgen/run.sh",
+              "declarationPath": "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "cubInstallerApply"
+              ],
+              "evidence": [
+                "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml"
+              ]
+            }
+          ],
           "actions": [],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
-            "declarationSource": "",
-            "nextAction": "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+            "state": "attached",
+            "reason": "2 target prerequisites declared by this base.",
+            "declarationSource": "recipes/bitnami/contour/21.1.4/variants/default/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -4140,7 +4216,7 @@
           "sourceLock": "recipes/bitnami/contour/21.1.4/source-lock.yaml",
           "namespace": "default",
           "releaseName": "contour",
-          "valuesProfile": "recipes/bitnami/contour/21.1.4/effective-values.yaml",
+          "valuesProfile": "recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml",
           "capabilityProfile": {
             "apiVersions": [],
             "kubeVersion": "1.30.0"
@@ -4157,38 +4233,192 @@
           "renderParity": "yes",
           "confighubScanOps": "yes",
           "localKind": "no",
-          "lifecycleObserved": "todo",
-          "gitopsOciLive": "todo",
-          "liveDualParity": "todo",
-          "twoClusterKind": "todo",
+          "lifecycleObserved": "yes",
+          "gitopsOciLive": "watch",
+          "liveDualParity": "watch",
+          "twoClusterKind": "yes",
           "variantPromotion": "proven"
         },
         "lifecycle": {
-          "routeContract": "n/a",
-          "routeCount": "0",
-          "dispositions": "n/a",
-          "executionModes": "n/a",
-          "safeAutomatic": "n/a",
-          "contractPath": "",
-          "jsonPath": "",
-          "variantRoutes": [],
+          "routeContract": "yes",
+          "routeCount": "1",
+          "dispositions": "0:observed,1",
+          "executionModes": "0:user-executes,1",
+          "safeAutomatic": "0/1",
+          "contractPath": "data/lifecycle-routes/summary.md",
+          "jsonPath": "data/lifecycle-routes/routes.json",
+          "variantRoutes": [
+            {
+              "routeName": "preflight-or-presync",
+              "quirkClass": "hook-phase",
+              "lifecyclePhase": "preflight",
+              "actionKind": "run-preflight",
+              "executionMode": "user-executes",
+              "automatic": false,
+              "whoRuns": "Your delivery — a preflight step before apply (receipted)",
+              "operatingDetails": "Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.",
+              "command": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+              "disposition": "observed",
+              "delta": "kept",
+              "reason": "",
+              "routeSourceVersion": "21.1.4",
+              "evidence": [
+                "data/hook-route-candidates/selected-routes/bitnami-contour-legacy.yaml",
+                "recipes/bitnami/contour/21.1.4/lifecycle-route.yaml",
+                "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml",
+                "packages/bitnami/contour/21.1.4/prerequisites/contour-certgen/run.sh",
+                "runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml",
+                "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+              ],
+              "nextAction": "",
+              "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
+              "sourceDrift": "",
+              "gitOps": {
+                "emitsControllerStep": true,
+                "argoCd": "PreSync · sync-wave -1",
+                "flux": "apply before the release (Kustomization dependsOn)",
+                "argoCdSnippet": "metadata:\n  annotations:\n    argocd.argoproj.io/hook: PreSync\n    argocd.argoproj.io/hook-delete-policy: HookSucceeded\n    argocd.argoproj.io/sync-wave: \"-1\""
+              },
+              "runners": {
+                "direct": {
+                  "implementation": "kubectl apply -f <preflight-job>; kubectl wait --for=condition=complete job/<name>",
+                  "status": "evidence-linked",
+                  "evidence": [
+                    "runs/live-kind-parity/bitnami-contour-legacy/receipt.yaml",
+                    "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+                  ]
+                },
+                "argoCd": {
+                  "implementation": "PreSync · sync-wave -1",
+                  "status": "mapping-only",
+                  "evidence": []
+                },
+                "flux": {
+                  "implementation": "apply before the release (Kustomization dependsOn)",
+                  "status": "mapping-only",
+                  "evidence": []
+                }
+              }
+            }
+          ],
           "coverage": {
-            "state": "no-route-required",
-            "reason": "The current catalog record has no source hook or separate lifecycle step for this base.",
-            "evidence": [],
+            "state": "attached",
+            "reason": "1 lifecycle route attached for this exact chart version and base.",
+            "evidence": [
+              "data/lifecycle-routes/summary.md",
+              "data/lifecycle-routes/routes.json"
+            ],
             "nextAction": ""
           }
         },
         "targetFacts": {
-          "status": "none-declared-or-observed",
-          "declared": {},
-          "requirements": [],
-          "actions": [],
+          "status": "declared-target-facts-and-observed-action-records",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "cubInstallerApply"
+                ],
+                "keys": [
+                  "ca.crt",
+                  "tls.crt",
+                  "tls.key"
+                ],
+                "name": "contourcert",
+                "namespace": "default",
+                "provisioningMode": "lifecycle-action",
+                "purpose": "Contour serving certificate created by the chart's pre-install certgen hook",
+                "suggestedSource": "package://prerequisites/contour-certgen/run.sh"
+              },
+              {
+                "deliveryLanes": [
+                  "cubInstallerApply"
+                ],
+                "keys": [
+                  "ca.crt",
+                  "tls.crt",
+                  "tls.key"
+                ],
+                "name": "envoycert",
+                "namespace": "default",
+                "provisioningMode": "lifecycle-action",
+                "purpose": "Envoy client certificate created by the chart's pre-install certgen hook",
+                "suggestedSource": "package://prerequisites/contour-certgen/run.sh"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/contourcert",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Contour serving certificate created by the chart's pre-install certgen hook",
+              "check": "package://prerequisites/contour-certgen/run.sh",
+              "declarationPath": "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "cubInstallerApply"
+              ],
+              "evidence": [
+                "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/envoycert",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Envoy client certificate created by the chart's pre-install certgen hook",
+              "check": "package://prerequisites/contour-certgen/run.sh",
+              "declarationPath": "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "cubInstallerApply"
+              ],
+              "evidence": [
+                "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "lane": "G/P",
+              "prerequisiteKind": "unknown",
+              "prerequisiteName": "unknown",
+              "actionKind": "operator-review",
+              "ownerClass": "operator-review",
+              "requiredInputs": "operator review of the runtime residue",
+              "evidenceRequired": "an operator decision recorded for this base/target; then a fresh G/P parity receipt for this base",
+              "automatic": false,
+              "supportArtifact": "",
+              "sourceReceipt": "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml",
+              "rerunCommand": "npm run live-parity:run -- --recipe recipes/bitnami/contour/21.1.4 --base legacy --repo-url oci://registry-1.docker.io/bitnamicharts",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "evidence": [
+                "runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml"
+              ]
+            }
+          ],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
-            "declarationSource": "",
-            "nextAction": "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+            "state": "attached-with-observed-actions",
+            "reason": "2 prerequisite declarations and 1 follow-up action record are attached.",
+            "declarationSource": "recipes/bitnami/contour/21.1.4/variants/legacy/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -4295,15 +4525,91 @@
           }
         },
         "targetFacts": {
-          "status": "none-declared-or-observed",
-          "declared": {},
-          "requirements": [],
+          "status": "declared-target-facts",
+          "declared": {
+            "requiredSecrets": [
+              {
+                "deliveryLanes": [
+                  "cubInstallerApply"
+                ],
+                "keys": [
+                  "ca.crt",
+                  "tls.crt",
+                  "tls.key"
+                ],
+                "name": "contourcert",
+                "namespace": "default",
+                "provisioningMode": "lifecycle-action",
+                "purpose": "Contour serving certificate created by the chart's pre-install certgen hook",
+                "suggestedSource": "package://prerequisites/contour-certgen/run.sh"
+              },
+              {
+                "deliveryLanes": [
+                  "cubInstallerApply"
+                ],
+                "keys": [
+                  "ca.crt",
+                  "tls.crt",
+                  "tls.key"
+                ],
+                "name": "envoycert",
+                "namespace": "default",
+                "provisioningMode": "lifecycle-action",
+                "purpose": "Envoy client certificate created by the chart's pre-install certgen hook",
+                "suggestedSource": "package://prerequisites/contour-certgen/run.sh"
+              }
+            ]
+          },
+          "requirements": [
+            {
+              "category": "secret",
+              "name": "default/contourcert",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Contour serving certificate created by the chart's pre-install certgen hook",
+              "check": "package://prerequisites/contour-certgen/run.sh",
+              "declarationPath": "recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "cubInstallerApply"
+              ],
+              "evidence": [
+                "recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml"
+              ]
+            },
+            {
+              "category": "secret",
+              "name": "default/envoycert",
+              "namespace": "default",
+              "requiredBefore": "apply",
+              "freshness": {
+                "policy": "recheck-before-apply",
+                "maxAge": "one-apply"
+              },
+              "purpose": "Envoy client certificate created by the chart's pre-install certgen hook",
+              "check": "package://prerequisites/contour-certgen/run.sh",
+              "declarationPath": "recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml",
+              "sourceVariant": "",
+              "sourcePath": "",
+              "deliveryLanes": [
+                "cubInstallerApply"
+              ],
+              "evidence": [
+                "recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml"
+              ]
+            }
+          ],
           "actions": [],
           "coverage": {
-            "state": "actionable-gap",
-            "reason": "This base has not recorded whether it needs a Secret, CRD, namespace, value, storage service, external API, or target topology.",
-            "declarationSource": "",
-            "nextAction": "Review the base and record its target prerequisites, or add an explicit empty targetFacts declaration when none are required."
+            "state": "attached",
+            "reason": "2 target prerequisites declared by this base.",
+            "declarationSource": "recipes/bitnami/contour/21.1.4/variants/no-crds/variant.yaml",
+            "nextAction": ""
           }
         },
         "provenance": {
@@ -12691,7 +12997,7 @@
           "gitopsOciLive": "no",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -14669,8 +14975,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "2",
-          "dispositions": "observed:2",
-          "executionModes": "target-owned:1; user-executes:1",
+          "dispositions": "0:observed,2",
+          "executionModes": "0:target-owned,1,1:user-executes,1",
           "safeAutomatic": "0/2",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -15020,8 +15326,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "2",
-          "dispositions": "observed:2",
-          "executionModes": "user-executes:2",
+          "dispositions": "0:observed,2",
+          "executionModes": "0:user-executes,2",
           "safeAutomatic": "0/2",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -16830,7 +17136,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -17792,7 +18098,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -18346,7 +18652,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -19379,7 +19685,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -19925,7 +20231,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -21242,7 +21548,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -22378,8 +22684,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "1",
-          "dispositions": "observed:1",
-          "executionModes": "target-owned:1",
+          "dispositions": "0:observed,1",
+          "executionModes": "0:target-owned,1",
           "safeAutomatic": "0/1",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -22802,8 +23108,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "5",
-          "dispositions": "observed:5",
-          "executionModes": "target-owned:2; user-executes:3",
+          "dispositions": "0:observed,5",
+          "executionModes": "0:target-owned,2,1:user-executes,3",
           "safeAutomatic": "0/5",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -23158,8 +23464,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "6",
-          "dispositions": "observed:6",
-          "executionModes": "target-owned:3; user-executes:3",
+          "dispositions": "0:observed,6",
+          "executionModes": "0:target-owned,3,1:user-executes,3",
           "safeAutomatic": "0/6",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -24701,7 +25007,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -24931,7 +25237,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -28385,8 +28691,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "2",
-          "dispositions": "observed:2",
-          "executionModes": "user-executes:2",
+          "dispositions": "0:observed,2",
+          "executionModes": "0:user-executes,2",
           "safeAutomatic": "0/2",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -28969,8 +29275,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "7",
-          "dispositions": "observed:7",
-          "executionModes": "target-owned:3; user-executes:4",
+          "dispositions": "0:observed,7",
+          "executionModes": "0:target-owned,3,1:user-executes,4",
           "safeAutomatic": "0/7",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -28988,14 +29294,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -29197,14 +29503,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -29244,14 +29550,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -29291,14 +29597,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
@@ -29327,13 +29633,21 @@
             }
           ],
           "coverage": {
-            "state": "attached",
-            "reason": "7 lifecycle routes attached for this exact chart version and base.",
+            "state": "actionable-gap",
+            "reason": "7 lifecycle route mappings are attached, but 4 still use evidence from 85.3.0 instead of 85.3.3.",
             "evidence": [
-              "data/lifecycle-routes/summary.md",
-              "data/lifecycle-routes/routes.json"
+              "data/hook-lifecycle/receipt-index.csv",
+              "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
+              "data/hook-lifecycle/top100-hooks.csv",
+              "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml",
+              "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml",
+              "data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml",
+              "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml",
+              "data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml",
+              "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json",
+              "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml"
             ],
-            "nextAction": ""
+            "nextAction": "Run the lifecycle proof for 85.3.3, then update the route source version and receipt."
           }
         },
         "targetFacts": {
@@ -29479,8 +29793,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "7",
-          "dispositions": "observed:7",
-          "executionModes": "target-owned:3; user-executes:4",
+          "dispositions": "0:observed,7",
+          "executionModes": "0:target-owned,3,1:user-executes,4",
           "safeAutomatic": "0/7",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -29498,14 +29812,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -29543,14 +29857,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PostSync",
@@ -29588,14 +29902,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync · sync-wave -1",
@@ -29633,14 +29947,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync",
@@ -29678,14 +29992,14 @@
               "disposition": "observed",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -29723,14 +30037,14 @@
               "disposition": "observed",
               "delta": "strengthened",
               "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -29768,14 +30082,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "",
+              "sourceDrift": "route source version 85.3.0; recipe version 85.3.3",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
@@ -29802,13 +30116,13 @@
             }
           ],
           "coverage": {
-            "state": "attached",
-            "reason": "7 lifecycle routes attached for this exact chart version and base.",
+            "state": "actionable-gap",
+            "reason": "7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.0 instead of 85.3.3.",
             "evidence": [
-              "data/lifecycle-routes/summary.md",
-              "data/lifecycle-routes/routes.json"
+              "data/hook-lifecycle/receipt-index.csv",
+              "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
             ],
-            "nextAction": ""
+            "nextAction": "Run the lifecycle proof for 85.3.3, then update the route source version and receipt."
           }
         },
         "targetFacts": {
@@ -30356,8 +30670,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "7",
-          "dispositions": "observed:7",
-          "executionModes": "target-owned:3; user-executes:4",
+          "dispositions": "0:observed,7",
+          "executionModes": "0:target-owned,3,1:user-executes,4",
           "safeAutomatic": "0/7",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -30375,14 +30689,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -30588,14 +30902,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -30633,14 +30947,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -30678,14 +30992,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
@@ -30713,7 +31027,7 @@
           ],
           "coverage": {
             "state": "actionable-gap",
-            "reason": "7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.3 instead of 86.1.0.",
+            "reason": "7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.0, 85.3.3 instead of 86.1.0.",
             "evidence": [
               "data/hook-lifecycle/receipt-index.csv",
               "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml",
@@ -30872,8 +31186,8 @@
         "lifecycle": {
           "routeContract": "yes",
           "routeCount": "7",
-          "dispositions": "observed:7",
-          "executionModes": "target-owned:3; user-executes:4",
+          "dispositions": "0:observed,7",
+          "executionModes": "0:target-owned,3,1:user-executes,4",
           "safeAutomatic": "0/7",
           "contractPath": "data/lifecycle-routes/summary.md",
           "jsonPath": "data/lifecycle-routes/routes.json",
@@ -30891,14 +31205,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — your cluster handles it",
@@ -30936,14 +31250,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PostSync",
@@ -30981,14 +31295,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync · sync-wave -1",
@@ -31026,14 +31340,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": true,
                 "argoCd": "PreSync",
@@ -31071,14 +31385,14 @@
               "disposition": "observed",
               "delta": "reduced",
               "reason": "CRD-first ordering is not needed in a base that installs no CRDs",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "no extra hook — keep CRDs before dependent objects",
@@ -31116,14 +31430,14 @@
               "disposition": "observed",
               "delta": "strengthened",
               "reason": "this base needs 10 CRDs supplied before deploy (the default base installs them for you)",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "none — supply the inputs before sync",
@@ -31161,14 +31475,14 @@
               "disposition": "observed",
               "delta": "kept",
               "reason": "",
-              "routeSourceVersion": "85.3.3",
+              "routeSourceVersion": "85.3.0",
               "evidence": [
                 "data/hook-lifecycle/receipt-index.csv",
                 "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
               ],
               "nextAction": "",
               "evidenceRequired": "already has a live receipt; keep it fresh when chart, base, or cluster version changes",
-              "sourceDrift": "route source version 85.3.3; recipe version 86.1.0",
+              "sourceDrift": "route source version 85.3.0; recipe version 86.1.0",
               "gitOps": {
                 "emitsControllerStep": false,
                 "argoCd": "wait for the certificate handoff, then observe webhook and workload health after sync",
@@ -31196,7 +31510,7 @@
           ],
           "coverage": {
             "state": "actionable-gap",
-            "reason": "7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.3 instead of 86.1.0.",
+            "reason": "7 lifecycle route mappings are attached, but 7 still use evidence from 85.3.0 instead of 86.1.0.",
             "evidence": [
               "data/hook-lifecycle/receipt-index.csv",
               "data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml"
@@ -32089,7 +32403,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "todo",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",
@@ -34433,7 +34747,7 @@
           "gitopsOciLive": "yes",
           "liveDualParity": "yes",
           "twoClusterKind": "yes",
-          "variantPromotion": "proven"
+          "variantPromotion": "proven-with-watch"
         },
         "lifecycle": {
           "routeContract": "n/a",

@@ -41,7 +41,7 @@ non-green triage (which rows are runs vs fixes vs decided) see
 | autoscaler/cluster-autoscaler@9.57.0 | controller-default-reviewed | K | generated-fact | add-target-fact-generator | recipe-generator | none |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
 | bitnami/apache@11.4.29 | legacy | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
-| bitnami/contour@21.1.4 | no-crds | K | missing-crd | design-new-base | catalog-modeling | none |
+| bitnami/contour@21.1.4 | no-crds | K | missing-crd | design-new-base | catalog-modeling | legacy (K pass) |
 | bitnami/elasticsearch@22.1.6 | legacy | K | object-set-shape | add-semantic-normalization | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | default | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |
 | bitnami/opensearch@2.0.10 | ha | K | semantic-normalization | add-semantic-normalization | catalog-modeling | none |

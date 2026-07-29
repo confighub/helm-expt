@@ -432,7 +432,7 @@
     <article class="doc-body">
 <p>This report tracks the strict live comparison lane for the selected top-20 chart/base rows and any additional committed base-variant receipts. Each completed row has a receipt under <code>runs/live-helm-confighub-compare/</code>.</p>
 <pre><code>pass: 139
-watch: 51
+watch: 52
 blocked: 8
 not-started: 0</code></pre>
 <p>Blocked rows broken down by cause (see <code>blocked-triage.md</code>):</p>
@@ -521,6 +521,7 @@ target-prerequisite: namespace missing (parity passed): 2</code></pre>
 <tr><td></td><td><code>bitnami/apache@11.4.29</code></td><td>default</td><td>watch</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>runs/live-helm-confighub-compare/bitnami-apache-default/receipt.yaml</td></tr>
 <tr><td></td><td><code>bitnami/apache@11.4.29</code></td><td>legacy</td><td>watch</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>runs/live-helm-confighub-compare/bitnami-apache-legacy/receipt.yaml</td></tr>
 <tr><td></td><td><code>bitnami/contour@21.1.4</code></td><td>default</td><td>watch</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>runs/live-helm-confighub-compare/bitnami-contour-default/receipt.yaml</td></tr>
+<tr><td></td><td><code>bitnami/contour@21.1.4</code></td><td>legacy</td><td>watch</td><td>watch: inspect receipt</td><td>runs/live-helm-confighub-compare/bitnami-contour-legacy/receipt.yaml</td></tr>
 <tr><td></td><td><code>bitnami/contour@21.1.4</code></td><td>no-crds</td><td>watch</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>runs/live-helm-confighub-compare/bitnami-contour-no-crds/receipt.yaml</td></tr>
 <tr><td></td><td><code>bitnami/elasticsearch@22.1.6</code></td><td>default</td><td>watch</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>runs/live-helm-confighub-compare/bitnami-elasticsearch-default/receipt.yaml</td></tr>
 <tr><td></td><td><code>bitnami/elasticsearch@22.1.6</code></td><td>ha</td><td>watch</td><td>remote-image: image pull failed or pinned image is unavailable (parity passed)</td><td>runs/live-helm-confighub-compare/bitnami-elasticsearch-ha/receipt.yaml</td></tr>

@@ -21,7 +21,7 @@ with none is a plain chart that needs no special playbook.
 
 | Skill | Charts |
 | --- | ---: |
-| [Live Parity](../../docs/skills/live-parity.md) | 96 |
+| [Live Parity](../../docs/skills/live-parity.md) | 97 |
 | [Target Facts And Lifecycle](../../docs/skills/target-facts-and-lifecycle.md) | 54 |
 | [Hook And Secret Lifecycle](../../docs/skills/hook-and-secret-lifecycle.md) | 41 |
 | [Large App Evidence Funnel](../../docs/skills/large-app-evidence-funnel.md) | 22 |
@@ -50,7 +50,7 @@ playbooks. A chart almost always also keeps its lifecycle-route facts in
 | autoscaler/vertical-pod-autoscaler@0.9.0 | 1 | live-parity | live |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | 0 | none | — |
 | bitnami/apache@11.4.29 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; live |
-| bitnami/contour@21.1.4 | 3 | hook-and-secret-lifecycle | generated-facts; crds; lookup |
+| bitnami/contour@21.1.4 | 4 | hook-and-secret-lifecycle | hooks:1; generated-facts; crds; lookup; live |
 | bitnami/elasticsearch@22.1.6 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/memcached@8.5.5 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |
 | bitnami/mongodb@19.0.7 | 3 | hook-and-secret-lifecycle | generated-facts; lookup; stateful-storage; live |

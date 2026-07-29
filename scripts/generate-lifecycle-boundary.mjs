@@ -176,7 +176,14 @@ function readSelectedRouteReceipts() {
         proves: status === "lifecycle-observed"
           ? "selected hook candidate route has runtime observation for this base"
           : "selected hook candidate route is recorded for this base",
-        does_not_prove: "the same route for other bases, full Helm hook execution, full CRD upgrade safety, or production support",
+        does_not_prove: [
+          "the same route for other bases",
+          spec.execution?.helmHooksExecutedByHarness === true
+            ? ""
+            : "the upstream Helm-hook path",
+          "upgrade behavior outside the observed run",
+          "production support",
+        ].filter(Boolean).join(", "),
         evidence: [path, ...evidencePaths].join(";"),
         next_action: (spec.remainingWork ?? [])[0] ?? "keep receipt fresh when chart, base, or cluster version changes",
       };
