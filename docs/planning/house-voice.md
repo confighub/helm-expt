@@ -45,6 +45,45 @@ and warmth, never ornament.
 10. **Keep the proof.** Never make the copy prettier than the evidence. Every claim stays
     backed; the voice earns trust, it does not borrow it.
 
+## Technical English
+
+Use the rules in this section for instructions, status explanations, errors, FAQ
+answers, and technical descriptions. Do not force them onto the homepage or other
+persuasive copy when they would remove a useful human voice.
+
+- Give each instruction its own sentence.
+- Aim for 20 words or fewer in instructions and 25 words or fewer in descriptions.
+- Name the actor when it matters: `cub installer` writes files, ConfigHub records a
+  revision, Argo CD applies an OCI release, and Kubernetes reports live state.
+- Put a sequence of three or more actions in a numbered or bulleted list.
+- Keep conditions next to the action they control.
+- Use active voice for instructions. Passive voice is acceptable in a description when
+  the actor is unknown or does not matter.
+- Keep required qualifiers, limits, and evidence links. Never shorten a sentence by
+  weakening the claim.
+
+Use these verbs consistently:
+
+| Term | Meaning on this site |
+| --- | --- |
+| **render** | Create Kubernetes objects from a recorded source and its inputs. |
+| **inspect** | Read objects or evidence. This is a human action. |
+| **test** | Run a defined command or procedure. |
+| **verify** | Compare a result with a recorded expectation, digest, or object set. |
+| **review** | Decide whether a known change or result is acceptable. |
+| **prove** | Produce an inspectable receipt for one scoped claim. Never use this for an unrecorded assertion. |
+| **record** | Store the source, inputs, objects, decision, or result as versioned data. |
+| **apply** | Send desired Kubernetes objects to a cluster. |
+| **deliver** | Make reviewed objects available to the controller or apply path that sends them to a cluster. |
+| **observe** | Read the live result after delivery. |
+| **promote** | Move a reviewed change to another environment while preserving its allowed local differences. |
+| **route** | Record who performs work that is not represented by ordinary Kubernetes objects, such as a hook or prerequisite. |
+
+`check` is a broad label, not a precise explanation. In a sentence, say whether a
+person inspects, a command tests, a verifier compares, or a receipt proves. Define
+project terms such as base variant, render intent, Unit, Space, route, and receipt the
+first time a page uses them.
+
 ## Front-door rewrites (ready to apply)
 
 Three real surfaces, before and after. Paste the *after* into the generator.

@@ -1,42 +1,81 @@
 # The Model And Its Words
 
-**UNOFFICIAL/EXPERIMENTAL.** One page for the whole model: the five words this catalog uses, the four stages they move through, and how the same objects look from three other points of view you may already hold.
+**UNOFFICIAL/EXPERIMENTAL.** This page defines the five main terms in the
+catalog. It also explains the four stages from a Helm source to an operated
+ConfigHub variant.
 
 ## The five words
 
-| Word | What it is | Wet or dry | Where it lives |
-| --- | --- | --- | --- |
-| **Recipe** | The source of renders: chart, version, values, declared bases, and declared routing intent. | Dry | The repo (`recipes/`) and the package. |
-| **Rendering** | The act: running the recipe once to produce exact Kubernetes objects. | The boundary | A tool run (`cub installer setup`), never inside ConfigHub. |
-| **Render record** | The evidence of one rendering: the render intent (the inputs, including routing intent) plus the rendered output (the objects, frozen with checksums). | Dry in, wet out | The repo (`data/helm-render-intents/`, revision files). |
-| **Base variant** | A recipe rendered one named way: default, no-crds, existing-secret, ha. What `--base` picks. Uploaded, it becomes a root Space. | Wet | The package (`bases/<name>`) and, after upload, a ConfigHub Space with no upstream. |
-| **Derived variant** | A Space cloned from an uploaded base for an environment, upstream link recorded. Never re-renders. | Wet | ConfigHub only. |
+| Word | What it is | Where it lives |
+| --- | --- | --- |
+| **Recipe** | The source of a render: chart, version, values, named bases, and declared routing intent. | The repo (`recipes/`) and the installer package. |
+| **Rendering** | Running the recipe once to create exact Kubernetes objects. | A tool run such as `cub installer setup`, outside ConfigHub Server. |
+| **Render record** | The evidence for one render. It joins the render intent, rendered objects, checksums, and related receipts. | The repo (`data/helm-render-intents/` and revision files). |
+| **Base variant** | One named way to render a chart, such as `default`, `no-crds`, `existing-secret`, or `ha`. The `--base` option selects it. | The package (`bases/<name>`) and, after upload, a root ConfigHub Space. |
+| **Derived variant** | A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm. | ConfigHub. |
 
-One sentence: **a recipe renders into a base variant; a base variant clones into derived variants; promotions carry reviewed changes down.**
+In one sentence: **a recipe renders into a base variant, a base variant becomes
+derived variants, and promotions carry reviewed changes between them.**
 
 ## The four stages
 
 | Stage | Name | What happens | The word |
 | --- | --- | --- | --- |
-| **F1 · source** | Recipe | Chart, version, values, and routing intent are declared and versioned. | recipe |
-| **F2 · render** | Base variant | One rendering produces the exact objects; the render record binds inputs to output. | base variant, render record |
-| **F3 · routes** | Prerequisites and routes | The work Helm leaves at the edges is named: hooks, CRDs, Secrets to stage, target facts. Recorded, not silently executed. | routing intent |
-| **F4 · operate** | Derived variants | Clones, edits with reasons, promotions, delivery through a Target to OCI and GitOps, observation. | derived variant |
+| **F1 · source** | Recipe | Record the chart, version, values, and routing intent. | recipe |
+| **F2 · render** | Base variant | Create the exact objects. The render record binds the inputs to that output. | base variant, render record |
+| **F3 · routes** | Prerequisites and routes | Record hooks, CRDs, Secrets, target facts, and other work outside ordinary objects. | routing intent |
+| **F4 · operate** | Derived variants | Clone, edit, review, promote, deliver, and observe the configuration. | derived variant |
 
-Rendering is not deployment. F2 produces config; only F4 touches live infrastructure. That boundary is why a base variant Space carries no Target until you deliver it.
+Rendering is not deployment. F2 produces configuration files. F4 can deliver
+reviewed objects to live infrastructure. A base variant Space therefore has no
+Target until you choose to deliver it.
+
+## How this guide uses action words
+
+| Word | Meaning here |
+| --- | --- |
+| **render** | Create Kubernetes objects from a recorded source and its inputs. |
+| **inspect** | Read objects or evidence. Inspection alone does not prove a claim. |
+| **test** | Run a defined command or procedure. |
+| **verify** | Compare a result with a recorded expectation, digest, or object set. |
+| **review** | Decide whether a known change or result is acceptable. |
+| **prove** | Produce an inspectable receipt for one limited claim. |
+| **apply** | Send desired Kubernetes objects to a cluster. |
+| **deliver** | Give reviewed objects to the controller or apply path that sends them to a cluster. |
+| **observe** | Read the live result after delivery. |
+| **promote** | Move a reviewed change to another environment while keeping its allowed local differences. |
+| **route** | Record who performs work outside ordinary Kubernetes objects, such as a hook or prerequisite. |
+
+The word **check** is broad. The guides use a more exact word when the
+difference matters.
 
 ## The same objects, three other ways of seeing them
 
-**If you think in plain Helm:** the recipe is your chart plus your values file, pinned. A base variant is what `helm template` would print for one values choice, kept as reviewable files instead of piped to a cluster. A derived variant is the thing Helm does not have: the same objects, owned per environment, surviving upgrades.
+**If you think in plain Helm:** the recipe is your pinned chart and values. A
+base variant is the output of `helm template` for one values choice, kept as
+reviewable files. A derived variant gives one environment its own recorded
+version of those objects and keeps its changes through upgrades.
 
-**If you think in Kustomize:** a base variant plays the role of a base, and a derived variant plays the role of an overlay, with two differences. The base here is fully rendered, not a template to patch at build time; and the overlay here is a first-class Space with revisions, gates, and an upstream link, not a directory convention.
+**If you think in Kustomize:** a base variant plays the role of a base, and a
+derived variant plays the role of an overlay. The base is already rendered
+rather than patched at build time. The derived variant is a ConfigHub Space
+with revisions, gates, and an upstream link rather than a directory convention.
 
-**If you think in source objects:** everything dry in this catalog can be written as one small YAML object per chart: repository, chart, version, values. The catalog keeps that object in the repo today. Wherever such a source object lives, the model is unchanged: it is the recipe, its rendering produces the base variant, and everything downstream is operation, not rendering.
+**If you think in source objects:** the chart source can be one small YAML
+record containing the repository, chart, version, and values. The catalog keeps
+that record in the repo today. Rendering it produces the base variant.
+ConfigHub manages the resulting objects without running Helm again.
 
 ## Where each thing is, today
 
-- Recipes and render records: this repo, versioned, linked from every chart page.
-- Base variants: the package (pull with `--base`), and as root Spaces in a ConfigHub org after upload.
-- Derived variants, promotions, delivery, observation: ConfigHub, using the walkthroughs: [variants after upload](./variants-after-upload.md) and the chart pages' evidence links.
+- Recipes and render records live in this repo. Every chart page links to them.
+- Base variants live in installer packages. Use `--base` to select one. After
+  upload, each becomes a root Space in ConfigHub.
+- Derived variants, promotions, delivery, and observations live in ConfigHub.
+  Follow [variants after upload](./variants-after-upload.md) and the evidence
+  links on each chart page.
 
-An honest note on the seam: when you browse a ConfigHub org, you see the wet half, F2 through F4: rendered Units, clones, revisions, links. The dry half, the recipe and the render record, lives in this repo and in the package. The `installer-record` Unit in each uploaded Space is the breadcrumb that ties a Space back to the package that produced it.
+When you browse a ConfigHub org, you see the rendered Units, derived Spaces,
+revisions, and links from F2 through F4. The recipe and render record remain in
+this repo and the package. Each uploaded Space has an `installer-record` Unit
+that identifies the package that produced it.

@@ -428,6 +428,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/house-voice.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> How we write every word a user reads. The standard for all tech copy on the site and in <code>docs/user/*</code>. Born from the serverless-mode rewrite, which reads at Flesch 76 (plain English) where the old site averaged ~43 (college-level).</p>
@@ -438,6 +439,23 @@
 <p><b>When they disagree, Jobs wins.</b> Dickens earns a memorable line only when it is also the plainest true one. The moment a phrase calls attention to itself as writing - a metaphor reaching for effect, a flourish you would never say aloud - cut it. The test: would Jobs say it on a stage? <i>&quot;It just works&quot;</i> - yes. <i>&quot;We pull them into the light&quot;</i> - never. Rhythm and warmth, never ornament.</p>
 <h2 id="the-rules">The rules</h2>
 <ol><li><b>One idea per sentence.</b> Keep them short. Vary the length so the page has a pulse.</li><li><b>Cap every list at three.</b> Need more? Give two examples and &quot;and more.&quot; A reader cannot hold a nine-noun pile-up; it signals breadth and informs nothing.</li><li><b>Define each coined word the first time, in the same breath.</b> Unit, render, base, variant, OCI, receipt. If the reader has to already know it, you have already lost them.</li><li><b>Benefit first, mechanism second.</b> Say what it does for them, then how it works.</li><li><b>Use the promise → fact frame.</b> Helm hides; we show. State the contrast plainly and let it carry the page.</li><li><b>Say the edges out loud.</b> A page that only flatters itself is not trusted. Name the caveat gracefully - never bury it, never drop it.</li><li><b>No build exhaust in human copy.</b> Timestamps, source-attributions, internal IDs, and raw file paths belong in a footer or nowhere. They never open a sentence.</li><li><b>No template tics.</b> Ban &quot;[concession], but X until Y,&quot; &quot;not X; it is Y,&quot; and &quot;Use it for: [noun, noun, noun].&quot; Once you see them you cannot unsee them.</li><li><b>Aim Flesch 60–70 on every lead paragraph.</b> Plain English. Measure it; do not guess.</li><li><b>Keep the proof.</b> Never make the copy prettier than the evidence. Every claim stays backed; the voice earns trust, it does not borrow it.</li></ol>
+<h2 id="technical-english">Technical English</h2>
+<p>Use the rules in this section for instructions, status explanations, errors, FAQ answers, and technical descriptions. Do not force them onto the homepage or other persuasive copy when they would remove a useful human voice.</p>
+<ul><li>Give each instruction its own sentence.</li><li>Aim for 20 words or fewer in instructions and 25 words or fewer in descriptions.</li><li>Name the actor when it matters: <code>cub installer</code> writes files, ConfigHub records a revision, Argo CD applies an OCI release, and Kubernetes reports live state.</li><li>Put a sequence of three or more actions in a numbered or bulleted list.</li><li>Keep conditions next to the action they control.</li><li>Use active voice for instructions. Passive voice is acceptable in a description when the actor is unknown or does not matter.</li><li>Keep required qualifiers, limits, and evidence links. Never shorten a sentence by weakening the claim.</li></ul>
+<p>Use these verbs consistently:</p>
+<table><thead><tr><th>Term</th><th>Meaning on this site</th></tr></thead><tbody><tr><td><b>render</b></td><td>Create Kubernetes objects from a recorded source and its inputs.</td></tr>
+<tr><td><b>inspect</b></td><td>Read objects or evidence. This is a human action.</td></tr>
+<tr><td><b>test</b></td><td>Run a defined command or procedure.</td></tr>
+<tr><td><b>verify</b></td><td>Compare a result with a recorded expectation, digest, or object set.</td></tr>
+<tr><td><b>review</b></td><td>Decide whether a known change or result is acceptable.</td></tr>
+<tr><td><b>prove</b></td><td>Produce an inspectable receipt for one scoped claim. Never use this for an unrecorded assertion.</td></tr>
+<tr><td><b>record</b></td><td>Store the source, inputs, objects, decision, or result as versioned data.</td></tr>
+<tr><td><b>apply</b></td><td>Send desired Kubernetes objects to a cluster.</td></tr>
+<tr><td><b>deliver</b></td><td>Make reviewed objects available to the controller or apply path that sends them to a cluster.</td></tr>
+<tr><td><b>observe</b></td><td>Read the live result after delivery.</td></tr>
+<tr><td><b>promote</b></td><td>Move a reviewed change to another environment while preserving its allowed local differences.</td></tr>
+<tr><td><b>route</b></td><td>Record who performs work that is not represented by ordinary Kubernetes objects, such as a hook or prerequisite.</td></tr></tbody></table>
+<p><code>check</code> is a broad label, not a precise explanation. In a sentence, say whether a person inspects, a command tests, a verifier compares, or a receipt proves. Define project terms such as base variant, render intent, Unit, Space, route, and receipt the first time a page uses them.</p>
 <h2 id="front-door-rewrites-ready-to-apply">Front-door rewrites (ready to apply)</h2>
 <p>Three real surfaces, before and after. Paste the <i>after</i> into the generator.</p>
 <h3 id="get-started-sitetryhtml">Get Started (<code>site/try.html</code>)</h3>

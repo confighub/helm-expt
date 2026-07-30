@@ -497,19 +497,19 @@
   </style>
 </head>
 <body class="calm-page">
-  <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="./testing.html">Testing</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-    <h1>The catalog, living in a ConfigHub org</h1>
-    <p class="lead">The chart pages show the evidence. The demo org shows why the evidence matters in a working ConfigHub account: one chart becomes shared configuration, environment versions, recorded promotions, live checks, and readable examples. Ten charts, chosen for the problems they explain.</p>
+    <header class="hero human-hero">
+      <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="./testing.html">Testing</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+      <h1>The catalog, living in a ConfigHub org</h1>
+      <p class="lead">The chart pages show the evidence behind each catalog choice. The demo org shows what happens after you upload a chart configuration. You can inspect shared configuration, environment versions, promotions, policy tests, and revision history. It contains ten charts chosen for the problems they explain.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="./charts/index.html">Helm Ops Catalog</a> · <a href="./how-it-works.html">How it works</a> · <a href="./journey.html">Apps</a></p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this demo org page.</p>
-    <section aria-labelledby="readmes">
-      <h2 id="readmes">Start With The README In Each Space</h2>
-      <p>The live <code>helm-catalog</code> org has one README in every current Space. Start there. The README explains why that Space exists, which Helm problem it demonstrates, what to open first, what is proven, and where the website and repo evidence live.</p>
-      <p>In Hub, open <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=demo-org-readmes">hub.confighub.com</a>, choose the <code>helm-catalog</code> org, open a Space, then open its README first.</p>
-      <p>The same README pages are rendered on this website, so you can read them before opening Hub or link them from a chart page. Start with the <a href="d/data/helm-catalog-readmes/summary.html">demo org README index</a>.</p>
+      <section aria-labelledby="readmes">
+        <h2 id="readmes">Start With The README In Each Space</h2>
+        <p>Every current Space in the live <code>helm-catalog</code> org has one README. It explains why the Space exists and which Helm problem it demonstrates. It also tells you what to open, what the example proves, and where to find supporting evidence.</p>
+        <p>Open <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=demo-org-readmes">hub.confighub.com</a> and choose the <code>helm-catalog</code> org. Open a Space, then open its README.</p>
+        <p>You can also read the same pages on this website. Start with the <a href="d/data/helm-catalog-readmes/summary.html">demo org README index</a>.</p>
       <div class="card"><table>
         <thead><tr><th>README kind</th><th>Spaces</th></tr></thead>
         <tbody><tr><td>preset</td><td>21</td></tr><tr><td>environment</td><td>11</td></tr><tr><td>fleet</td><td>5</td></tr><tr><td>pilot</td><td>1</td></tr><tr><td>route</td><td>2</td></tr><tr><td>org</td><td>2</td></tr><tr><td>total</td><td>45</td></tr></tbody>
@@ -523,16 +523,23 @@
       <p class="quiet-line">Space counts as of 2026-07-28 (UTC), from the committed README data for the <code>helm-catalog</code> org.</p>
     </section>
 
-    <section aria-labelledby="config-as-data">
-      <h2 id="config-as-data">Why This Org Matters</h2>
-      <p>A Helm chart is a program that produces Kubernetes objects. That is useful, but it makes some operational questions hard: which namespaces are missing policy, who can read Secrets, what changed between staging and production, or where a risky setting appears across a fleet?</p>
-      <p>The demo org shows the ConfigHub answer. The rendered Kubernetes YAML is stored as reviewable records in a Space. The README tells you why that Space exists and how it got there. The YAML records are what ConfigHub can search, compare, change with review, and send to the cluster.</p>
-      <p>That matters when you find a problem. With template-only config, you often have to map a live object back to a chart, values file, overlay, or repo before you can fix it. In ConfigHub, the thing you inspect is the thing you change. The change becomes a recorded revision before anything reaches a cluster.</p>
+      <section aria-labelledby="config-as-data">
+        <h2 id="config-as-data">Why This Org Matters</h2>
+        <p>A Helm chart is a program that produces Kubernetes objects. The templates can hide the final answer to ordinary operating questions.</p>
+        <ul>
+          <li>Which namespaces are missing a policy?</li>
+          <li>Who can read Secrets?</li>
+          <li>What changed between staging and production?</li>
+          <li>Where does a risky setting appear across the fleet?</li>
+        </ul>
+        <p>The demo org stores rendered Kubernetes YAML as versioned Units in a Space. ConfigHub can search, compare, review, and deliver those Units. The README explains where they came from and why the Space exists.</p>
+        <p>When you find a problem, you change the same object that you inspected. ConfigHub records that change as a revision before delivery.</p>
     </section>
 
-    <section aria-labelledby="what">
-      <h2 id="what">What is in the org</h2>
-      <p>Every base variant below is a root Space: one supported Helm render, stored as readable Kubernetes YAML. Each Space carries a README, the rendered objects, labels for component, variant, chart version and routes, and live validation checks. Some Spaces also carry recipe, render-record, route, or proof files for the deeper examples.</p>
+      <section aria-labelledby="what">
+        <h2 id="what">What is in the org</h2>
+        <p>Each base variant below is a root Space containing one supported Helm render. Its Kubernetes YAML is stored as readable Units.</p>
+        <p>Each Space has a README, rendered objects, identifying labels, route labels, and policy tests. Some deeper examples also include recipe, render-record, route, or proof Units.</p>
       <div class="card"><table>
         <thead><tr><th>Chart</th><th>Base variants</th><th>The story it tells</th></tr></thead>
         <tbody><tr><td>bitnami/redis</td><td>default, reuse-existing-secret</td><td>The version ladder: a living tree upgraded 25.5.3 to 27.0.0 through reconcile and promotion, with staging's local change preserved.</td></tr><tr><td>argo-cd/argo-cd</td><td>default, no-crds</td><td>The CRD split: the same chart with CRDs bundled or separated, side by side.</td></tr><tr><td>hashicorp/vault</td><td>dev-mode, default, ha-raft-ui</td><td>Variant diversity: three operating shapes of one chart.</td></tr><tr><td>ingress-nginx/ingress-nginx</td><td>default, internal-clusterip, admission-disabled</td><td>The admission-webhook certificate quirk, three ways.</td></tr><tr><td>prometheus-community/prometheus</td><td>default, server-only-ephemeral</td><td>The Get Started chart, as it lands in an org.</td></tr><tr><td>prometheus-community/kube-prometheus-stack</td><td>no-crds</td><td>The serious chart: eight recorded lifecycle routes in its recipe unit.</td></tr><tr><td>grafana/grafana</td><td>existing-secret-ingress, static-passwords</td><td>Secrets handled two ways.</td></tr><tr><td>bitnami/mysql</td><td>existing-secret, static-passwords</td><td>The secrets story: staged credential beside generated credential, diffable.</td></tr><tr><td>bitnami/rabbitmq</td><td>existing-secret, static-passwords</td><td>A recipe unit whose routing metadata honestly says: nothing to route.</td></tr><tr><td>bitnami/nginx</td><td>http-clusterip, existing-tls-ingress</td><td>The fleet: four environments from one base, one deliberately behind.</td></tr></tbody>
@@ -543,34 +550,39 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p class="quiet-line">Ten charts rather than a hundred, on purpose: link budget went to depth (derived variants, promotions, exhibits) instead of breadth. The full hundred-chart evidence stays on the <a href="./charts/index.html">chart pages</a>.</p>
+        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> contain evidence for all 100 charts.</p>
     </section>
 
-    <section aria-labelledby="exhibits">
-      <h2 id="exhibits">Seven things to look at</h2>
-      <p>Each exhibit proves one claim you can check yourself, in about a minute. Every exhibit names its Spaces. In the GUI, the components view groups them by chart, and each unit's Revisions tab tells the story change by change.</p>
-      <p><strong>The version ladder.</strong> <code>bitnami-redis-base</code>, <code>-staging</code>, <code>-prod</code>. Staging made a local change (2 replicas). The base was refreshed from chart 25.5.3 to 27.0.0 and promoted. Open the staging ConfigMap's revision history: the upgrade arrived, the local change survived. That is the claim Helm cannot make, recorded as revisions.</p>
-      <p><strong>The fleet.</strong> <code>bitnami-nginx-fleet-dev</code>, <code>-staging</code>, <code>-prod-us</code>, <code>-prod-eu</code>. One base change was promoted to three environments; prod-eu still reports one pending upstream Unit. Dev and staging keep their own replica count while carrying the shared image change. Both production Spaces use the approval-required policy. The base's nginx image was moved from the public registry to an internal mirror without changing its digest. The <a href="./d/docs/user/image-registry-migration.html">walkthrough and live receipt</a> show the commands, revision history, and current result. This proves the stored ConfigHub records, not delivery to a Kubernetes cluster.</p>
-      <p><strong>The secrets story.</strong> The two mysql Spaces differ in exactly one decision: a staged external credential versus a generated one. Diff any unit across the pair to see precisely what the safer choice changes.</p>
-      <p><strong>The CRD split.</strong> The two argo-cd Spaces show CRDs bundled and separated; the no-crds root is the contract that the cluster owns them. The contract's teeth were re-proven live: applying a bundle whose custom resource precedes its CRD fails with the named Kubernetes error, and the CRD-first-with-wait fix succeeds; the receipt behind the Space's <code>ProofReceipt</code> label carries today's observation.</p>
-      <p><strong>The hooks.</strong> <code>hook-probe-base</code> holds a Job whose Argo hook annotations are readable in the unit data: a routing choice as configuration, not as tribal knowledge. This is not just readable, it ran: the same fixture was published once to the org's OCI registry and pulled by Argo CD, Flux, and a no-controller direct applier on a live cluster, with the hook Job observed completing under each. All three legs pass; the Space wears the receipt pointers as <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels.</p>
-      <p><strong>How departures meet releases.</strong> <code>hashicorp-vault-demo-base</code> and its three environments, built to answer one question precisely: what happens when an environment has local changes and the base ships a release? Dev tagged itself for cost attribution, staging went to 2 replicas, prod went to 3. Then the base released a telemetry annotation and a release-track stamp, and each environment promoted. Staging and prod show the good case: the releases arrived as <code>UpgradeUnit</code> revisions and the replica departures survived. Dev shows the case to know about: its departure edited the same annotations map the releases wrote to, and on that unit promote kept dev's version and reported success, so the releases never arrived; dev adopted them with two explicit, recorded reconcile commits instead. Field-level departures merge; same-map departures are yours to reconcile, and the revision history shows exactly which happened.</p>
-      <p>The tree also carries a rehearsal of a real rollout pattern, left visible on purpose: an audience env var was set on staging first with its real value, and the base later gained the same var as <code>confighubplaceholder</code> plus a shared issuer var. Promote kept staging's real value, delivered the issuer, and <code>vet-placeholders</code> gated the base so the placeholder can never reach a cluster. Container env merges entry by entry, unlike the annotations map above. That promote also carried the base's new <code>render-record</code> unit down into staging: new base units flow downstream. The receipt for the whole rehearsal is committed at <a href="https://github.com/confighub/helm-expt/tree/main/runs/promote-silent-skip-proof"><code>runs/promote-silent-skip-proof</code></a>.</p>
-      <p><strong>The sketches of the unbuilt.</strong> Four things this catalog talks about have no product entity yet: the recipe, the act of rendering, render provenance, and lifecycle routes. The org sketches each one with today's primitives, the same move as the <code>recipe</code> unit. The two sections below explain the live runs and the sketches carefully; the short version is that <code>hashicorp-vault-demo-base</code> now records its own rendering, one Link shows provenance, and <code>route-sketch-kube-prometheus-stack</code> makes routes addressable for the first time.</p>
+      <section aria-labelledby="exhibits">
+        <h2 id="exhibits">Seven things to look at</h2>
+        <p>Each exhibit proves one limited claim. Open the named Spaces and inspect each Unit's Revisions tab. The components view groups the Spaces by chart.</p>
+        <p><strong>The version ladder.</strong> Open <code>bitnami-redis-base</code>, <code>-staging</code>, and <code>-prod</code>. Staging has a local setting of two replicas. The base moved from chart 25.5.3 to 27.0.0, then the change was promoted. The staging revision history shows both the upgrade and the retained replica setting.</p>
+        <p><strong>The fleet.</strong> Open the four <code>bitnami-nginx-fleet</code> Spaces for dev, staging, prod-us, and prod-eu. One base change was promoted to all environments. Prod-eu still reports one pending upstream Unit. Dev and staging keep local replica counts while receiving the shared image change. Both production Spaces require approval.</p>
+        <p>The base also moved its NGINX image to an internal registry without changing the digest. The <a href="./d/docs/user/image-registry-migration.html">walkthrough and receipt</a> show the commands and revision history. This proves the stored ConfigHub records. It does not prove Kubernetes delivery.</p>
+        <p><strong>The secrets story.</strong> The two mysql Spaces differ in exactly one decision: a staged external credential versus a generated one. Diff any unit across the pair to see precisely what the safer choice changes.</p>
+        <p><strong>The CRD split.</strong> The two argo-cd Spaces show the chart with and without bundled CRDs. The no-crds Space states that the cluster owns them. A live test showed that applying custom resources before their CRDs fails. Applying CRDs first and waiting for them succeeds. The Space's <code>ProofReceipt</code> label links to that result.</p>
+        <p><strong>The hooks.</strong> <code>hook-probe-base</code> contains a Job with visible Argo CD hook annotations. The same OCI fixture ran through Argo CD, Flux, and direct apply. The hook Job completed on the cluster in all three tests. The <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels link to the evidence.</p>
+        <p><strong>Local changes and new releases.</strong> Open <code>hashicorp-vault-demo-base</code> and its dev, staging, and production variants. Dev added a cost label. Staging uses two replicas, and production uses three.</p>
+        <p>The base later added telemetry and release-track annotations. Staging and production received them while keeping their replica settings. Dev had changed the same annotations map, so promotion kept the dev map and skipped the base annotations. Two recorded reconcile revisions added them afterward. The revision history shows both cases.</p>
+        <p><strong>A staged rollout.</strong> Staging first received a real audience environment variable. The base later added the same variable as <code>confighubplaceholder</code> and added a shared issuer. Promotion kept staging's real value and delivered the issuer. The <code>vet-placeholders</code> policy prevents the placeholder from reaching a cluster.</p>
+        <p>The promotion also copied the new <code>render-record</code> Unit from the base into staging. The <a href="https://github.com/confighub/helm-expt/tree/main/runs/promote-silent-skip-proof">promotion receipt</a> records the complete test.</p>
+        <p><strong>Proposals for missing product objects.</strong> ConfigHub does not yet have separate entities for recipes, render events, render provenance, or lifecycle routes. The org represents these ideas with Units, Links, and labels. The sections below identify each proposal and its limits.</p>
     </section>
 
-    <section aria-labelledby="live-proof">
-      <h2 id="live-proof">What ran live, exactly</h2>
-      <p>Three examples below make claims about behavior on a real cluster. Each was executed, observed, and recorded. Here is what happened, and what each result does and does not prove.</p>
-      <p><strong>The hook delivery proof.</strong> The claim is that ConfigHub publishes a bundle <em>once</em> to its OCI registry, and the delivery tool is a free choice, not a fork in behaviour. To test it, the hook fixture (a workload ConfigMap plus a migration Job carrying Argo hook annotations) was published from this org to the org's OCI registry, and three consumers pulled <em>the same artifact</em> on a throwaway kind cluster. Argo CD used an OCI-sourced Application. Flux used an OCIRepository and a Kustomization. A no-controller path pulled the bundle and applied it directly. Under each of the three, the workload landed <em>and the hook Job ran to completion on the cluster</em>. All three legs pass. This does not prove every chart, every hook shape, or production scale. It proves the transport claim for the routed fixture, on one rig, on the recorded day. The receipt names the rig, the times, and each observation.</p>
-      <p><strong>The CRD-ordering proof.</strong> The no-controller path has no dependency ordering, so on a first install of a bundle where a custom resource precedes its CRD, plain apply fails. The run reproduced that failure. The custom resource was refused with the named Kubernetes error and never created. The fix, CRDs first with a wait for them to establish, made the same bundle succeed. The Kube Prometheus Stack receipt then proved the chart-specific CRD-first order through Argo CD and Flux.</p>
-      <p><strong>The Kube Prometheus Stack package lifecycle.</strong> A direct run rendered the 85.3.3 catalog package, matched its chart objects with the catalog render, applied ten packaged CRDs first, ran the packaged certificate and webhook patch Jobs, checked the webhook and six workloads, and removed the temporary hook objects. Argo CD and Flux then installed the 85.3.3 no-crds staged OCI and upgraded it to 86.1.0 on separate clusters. Both controllers replaced the completed setup Jobs and passed the runtime checks after upgrade. The route is still not selected automatically by ConfigHub.</p>
+      <section aria-labelledby="live-proof">
+        <h2 id="live-proof">What ran live, exactly</h2>
+        <p>These three examples ran on real clusters. Each receipt records the command, observations, result, and limit.</p>
+        <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD, Flux, and a direct apply path pulled that same artifact on a throwaway kind cluster. Each path created the workload and completed the Job.</p>
+        <p>This test covers one routed fixture on one recorded rig. It does not cover every chart, hook type, or production environment.</p>
+        <p><strong>The CRD ordering test.</strong> Direct apply first tried to create a custom resource before its CRD was established. Kubernetes refused the custom resource with the recorded error. Applying the CRD first and waiting for it fixed the installation. A separate receipt records the chart-specific order through Argo CD and Flux.</p>
+        <p><strong>The Kube Prometheus Stack lifecycle test.</strong> A direct run rendered catalog package 85.3.3 and verified its chart objects. It applied ten CRDs first, ran the certificate and webhook Jobs, tested the webhook and six workloads, then removed temporary Jobs.</p>
+        <p>Separate clusters ran the Argo CD and Flux paths. Each installed the 85.3.3 no-crds OCI and upgraded to 86.1.0. Both controllers replaced the completed setup Jobs and passed the runtime tests after upgrade. ConfigHub does not yet select this route automatically.</p>
       <p class="quiet-line">The receipts are committed in the repo (<a href="https://github.com/confighub/helm-expt/tree/main/runs/oci-hook-delivery-proof"><code>runs/oci-hook-delivery-proof</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/crd-ordering-gap"><code>runs/crd-ordering-gap</code></a>, <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-lifecycle-route-proof"><code>runs/kps-lifecycle-route-proof</code></a>, and <a href="https://github.com/confighub/helm-expt/tree/main/runs/kps-gitops-lifecycle-proof"><code>runs/kps-gitops-lifecycle-proof</code></a>) and summarized under <code>data/</code>. Each throwaway cluster was deleted after its run.</p>
     </section>
 
-    <section aria-labelledby="sketches">
-      <h2 id="sketches">The sketches, explained</h2>
-      <p>This catalog keeps needing four ideas that the product's entity model does not have yet. Rather than leave them as words in documents, the org sketches each one using plain Units, Links, and labels, the primitives that exist today. A sketch here means a proposal you can open, query, and argue with, not a shipped feature. The point is that the design conversation gets concrete objects to point at, and the gap between the taxonomy and the product stays visible instead of buried.</p>
+      <section aria-labelledby="sketches">
+        <h2 id="sketches">The sketches, explained</h2>
+        <p>The catalog uses four ideas that are not ConfigHub entities today. The demo org represents them with ordinary Units, Links, and labels. You can open and query these proposals, but they are not shipped product features.</p>
       <div class="card"><table>
         <thead><tr><th>The idea</th><th>What the product has today</th><th>The sketch standing in for it</th><th>Where to look</th></tr></thead>
         <tbody><tr><td>A recipe, the DRY source of a base variant: chart, version, declared inputs, and routing intent</td><td>A plain Unit whose data happens to be recipe YAML; the server cannot tell it from a ConfigMap</td><td>The recipe unit in every chart Space</td><td>Any Space, unit recipe, data tab</td></tr><tr><td>The act of rendering: who rendered what, from which recipe, when, producing which units</td><td>Nothing. Rendering happens client-side in the installer; the server only sees the finished units arrive</td><td>A render-record unit stating chart, base, renderer, time, and output count, marked status: sketch</td><td>Space hashicorp-vault-demo-base, unit render-record</td></tr><tr><td>Render provenance: an edge from every rendered unit back to its recipe</td><td>Links exist, but they express apply-order dependencies between resources, not provenance</td><td>One exemplar rendered-from-recipe Link, from the statefulset to the recipe. One rather than thirteen because the org's Link quota is nearly spent; the render-record describes the full set</td><td>Space hashicorp-vault-demo-base, unit statefulset-vault-vault, links</td></tr><tr><td>A lifecycle route as a thing: an addressable decision about behaviour that config alone cannot carry</td><td>Rows in the repo's route data, labels on Spaces, annotations readable inside unit data. Real, but not product entities</td><td>Eight LifecycleRoute units: seven chart lifecycle routes plus one explicit CRD-first route. Each stores its class, phase, executor, alternatives, evidence, and per-delivery implementation results.</td><td>Space route-sketch-kube-prometheus-stack</td></tr></tbody>
@@ -581,7 +593,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>If the product later grows these entity types, every sketch collapses into the real object and this section gets shorter. Until then, each Unit mirrors committed repo data. The top-level chart route stays <code>automatic: false</code> while its direct, Argo CD, Flux, and upgrade implementations are proved separately.</p>
+        <p>Each proposal Unit mirrors committed repo data. The top-level chart route remains <code>automatic: false</code>. Direct, Argo CD, Flux, and upgrade implementations have separate evidence.</p>
       <h3 id="kps-routes">The eight kube-prometheus-stack routes, one by one</h3>
       <p>A route records work that ordinary rendered objects do not perform. Five routes come from Helm hook behavior. The remaining three cover CRD order, target facts, and webhook readiness.</p>
       <div class="card"><table>
@@ -594,19 +606,22 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p class="quiet-line">Execution modes split four <em>user-executes</em> and four <em>target-owned</em>. Seven direct fresh-install implementations passed; direct upgrade remains not run. All eight chart-specific route implementations passed through Argo CD and Flux for the recorded install-and-upgrade path. None of the eight top-level routes is marked automatic because ConfigHub does not yet select this chart-specific route for the user.</p>
+        <p class="quiet-line">Four routes are <em>user-executes</em>, and four are <em>target-owned</em>. Seven direct fresh-install implementations passed. Direct upgrade has not run. All eight chart-specific routes passed the recorded Argo CD and Flux install-and-upgrade path. ConfigHub does not yet select these routes automatically.</p>
     </section>
 
-    <section aria-labelledby="checks">
-      <h2 id="checks">The checks are live, and honest</h2>
-      <p>Every policy-covered Space has 7 common checks. Schema, placeholder, and lifecycle-route checks can stop incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration also require approval before apply. The source format does not decide the policy: the same rule works after Helm, AICR, Kubara, Sveltos, or ordinary YAML has become ConfigHub data.</p>
-      <p>The live org currently has 31 Spaces on the common checks and 9 on the approval-required policy: 4 production Spaces and 5 system-configuration Spaces. Those Spaces include AICR 3, cub installer 30, Helm 3, Kubara 1, rendered Kubernetes config 2, Sveltos 1. Each covered Space records its policy profile and starting format. <code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with the committed catalog and policy receipts.</p>
-      <p class="quiet-line">Receipts and the tool that builds all of this are committed in the repo under <a href="https://github.com/confighub/helm-expt/tree/main/data/helm-org"><code>data/helm-org/</code></a>; the org is regenerable and drift-checkable like every other catalog surface. The org is named <code>helm-catalog</code> and is member-visible today; non-members should use the committed receipts, these pages, and the walkthroughs as the public record of it.</p>
+      <section aria-labelledby="checks">
+        <h2 id="checks">The checks are live, and honest</h2>
+        <p>Every policy-covered Space has 7 common tests. Schema, placeholder, and lifecycle-route tests can stop incomplete configuration. Workloads and AICR training runtimes receive tests for the fields they use. Production releases and system configuration also require approval before apply.</p>
+        <p>The same policy can cover Helm, AICR, Kubara, Sveltos, or ordinary YAML after ConfigHub stores the objects.</p>
+        <p>The live org has 31 Spaces on common tests and 9 on the approval policy. The approval set contains 4 production Spaces and 5 system-configuration Spaces. These Spaces include AICR 3, cub installer 30, Helm 3, Kubara 1, rendered Kubernetes config 2, Sveltos 1. Each records its policy profile and starting format.</p>
+        <p><code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with committed catalog and policy receipts.</p>
+        <p class="quiet-line">The builder and receipts live under <a href="https://github.com/confighub/helm-expt/tree/main/data/helm-org"><code>data/helm-org/</code></a>. The org is named <code>helm-catalog</code> and is member-visible today. Other readers can use the committed receipts, these pages, and the walkthroughs.</p>
     </section>
 
-    <section aria-labelledby="next">
-      <h2 id="next">Do it with your own app</h2>
-      <p>The same chain works for a plain application: upload, make staging and production derived variants, promote, deliver through OCI to the GitOps controller you already run. The <a href="./d/docs/user/variants-after-upload.html">variants walkthrough</a> covers the commands with the why behind each flag, and <a href="./journey.html">Apps</a> covers bringing your own applications alongside the catalog.</p>
+      <section aria-labelledby="next">
+        <h2 id="next">Do it with your own app</h2>
+        <p>You can use the same steps for your own application. Upload it, create staging and production variants, promote a change, then deliver it through OCI. Your existing GitOps controller can apply the result.</p>
+        <p>The <a href="./d/docs/user/variants-after-upload.html">variants walkthrough</a> explains each command and flag. The <a href="./journey.html">Apps page</a> explains how to combine your applications with catalog components.</p>
     </section>
   </main>
   <footer><p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this demo org page.</p><p>Generated from committed helm-expt evidence and the committed org receipts. The demo org shows the mechanism; production claims still come only from receipts.</p></footer>
