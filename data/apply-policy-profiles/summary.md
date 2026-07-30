@@ -66,13 +66,14 @@ The source format does not decide the risk. A Helm chart, AICR package, or ordin
 
 - Every supported configuration source type is named by this profile.
 - Every live policy-covered Space records its SourceType, and the live receipt includes at least one Space for each maintained source type.
-- Every Trigger is defined here with its function, arguments, effect, and description.
+- Every Trigger is defined here with a human name, function, arguments, effect, and repair-oriented description.
 - The baseline filter selects exactly the seven baseline triggers and never selects require-approval.
 - The approval-required filter selects the same seven baseline triggers plus require-approval.
 - Production and system-configuration Spaces receive the approval-required filter.
 - Other non-production Spaces remain on the baseline filter.
 - A Space must not lose the seven baseline checks when approval is added.
 - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
+- The platform Space stores the Trigger definitions but does not apply them to its own administrative Units.
 
 The live `helm-catalog` filters and their assigned Spaces were checked on **2026-07-30**. Read the [live receipt](./live-helm-catalog.yaml).
 

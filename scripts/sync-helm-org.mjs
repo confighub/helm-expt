@@ -245,6 +245,13 @@ function cub(args, options = {}) {
   });
 }
 
+function cubWithJson(args, value) {
+  return cub([...args, "--from-stdin"], {
+    input: JSON.stringify(value),
+    stdio: ["pipe", "pipe", "pipe"],
+  });
+}
+
 function assertOrg() {
   const context = cub(["context", "get"]);
   if (!context.includes(orgArg)) {
@@ -272,6 +279,7 @@ function expectedPolicyTriggers(policySet) {
       const definition = policyTriggerDefinition(policyCheck.trigger);
       return {
         ref: policyCheck.trigger,
+        displayName: definition.displayName,
         functionName: definition.functionName,
         arguments: definition.arguments,
         description: definition.description,
@@ -286,6 +294,7 @@ function receiptPolicyTriggers(policySet) {
   return policySet.triggers
     .map((trigger) => ({
       ref: trigger.ref,
+      displayName: trigger.displayName,
       functionName: trigger.functionName,
       arguments: trigger.arguments ?? [],
       description: trigger.description,
@@ -346,6 +355,7 @@ function readPolicyFilter(policySet, name, findings) {
       const trigger = readLiveTrigger(ref);
       return {
         ref,
+        displayName: trigger.DisplayName ?? "",
         functionName: trigger.FunctionName,
         arguments: normalizedLiveArguments(trigger.Arguments),
         description: trigger.Description ?? "",
@@ -356,6 +366,11 @@ function readPolicyFilter(policySet, name, findings) {
     .sort((a, b) => a.ref.localeCompare(b.ref));
 
   if (filter.From !== "Trigger") findings.push(`${policySet.filter} reads ${filter.From}, not Trigger`);
+  if (filter.DisplayName !== policySet.displayName) {
+    findings.push(
+      `${policySet.filter} is named '${filter.DisplayName}', expected '${policySet.displayName}'`,
+    );
+  }
   if (filter.Where !== policySet.filterWhere) {
     findings.push(`${policySet.filter} selector drifted: '${filter.Where}'`);
   }
@@ -370,6 +385,7 @@ function readPolicyFilter(policySet, name, findings) {
   return {
     name,
     ref: policySet.filter,
+    displayName: filter.DisplayName,
     id: filter.FilterID,
     where: filter.Where,
     triggers,
@@ -424,8 +440,24 @@ function collectLivePolicyState() {
     "approvalRequired",
     findings,
   );
-  const rows = cubJson(["space", "list", "--select", "Labels,TriggerFilterID"]);
+  const rows = cubJson([
+    "space", "list", "--select", "Labels,TriggerFilterID,WhereTrigger",
+  ]);
   const spaces = rows.map((row) => row.Space);
+  const policySpaceSlug = applyPolicy.spec.definitionSpace.ref;
+  const policySpace = spaces.find((space) => space.Slug === policySpaceSlug);
+  if (!policySpace) {
+    findings.push(`policy definition Space ${policySpaceSlug} is missing`);
+  } else {
+    if (policySpace.WhereTrigger !== applyPolicy.spec.definitionSpace.whereTrigger) {
+      findings.push(
+        `${policySpaceSlug} administrative Trigger selector drifted: '${policySpace.WhereTrigger ?? ""}'`,
+      );
+    }
+    if (policySpace.TriggerFilterID) {
+      findings.push(`${policySpaceSlug} should not use a policy Trigger filter`);
+    }
+  }
   const baselineSpaces = spaces.filter((space) => space.TriggerFilterID === baseline.id);
   const approvalRequiredSpaces = spaces.filter(
     (space) => space.TriggerFilterID === approvalRequired.id,
@@ -534,16 +566,23 @@ function collectLivePolicyState() {
       filters: {
         baseline: {
           ref: baseline.ref,
+          displayName: baseline.displayName,
           id: baseline.id,
           where: baseline.where,
           triggers: baseline.triggers,
         },
         approvalRequired: {
           ref: approvalRequired.ref,
+          displayName: approvalRequired.displayName,
           id: approvalRequired.id,
           where: approvalRequired.where,
           triggers: approvalRequired.triggers,
         },
+      },
+      definitionSpace: {
+        ref: policySpaceSlug,
+        whereTrigger: policySpace?.WhereTrigger ?? "",
+        triggerFilterID: policySpace?.TriggerFilterID ?? null,
       },
       spaces: {
         baseline: baselineSlugs,
@@ -578,6 +617,7 @@ function receiptComparable(receipt) {
     organization: receipt.spec.organization,
     profile: receipt.spec.profile,
     filters: receipt.spec.filters,
+    definitionSpace: receipt.spec.definitionSpace,
     spaces: receipt.spec.spaces,
     result: receipt.status.result,
     findings: receipt.status.findings,
@@ -597,6 +637,19 @@ function verifyPolicyReceipt(receipt) {
   if (receipt?.spec?.profile !== applyPolicy.metadata.name) failures.push(`receipt profile is not ${applyPolicy.metadata.name}`);
   if (receipt?.status?.result !== "pass") failures.push("receipt result is not pass");
   if ((receipt?.status?.findings ?? []).length) failures.push("receipt contains findings");
+  const recordedDefinitionSpace = receipt?.spec?.definitionSpace;
+  if (recordedDefinitionSpace?.ref !== applyPolicy.spec.definitionSpace.ref) {
+    failures.push("policy definition Space reference drifted");
+  }
+  if (
+    recordedDefinitionSpace?.whereTrigger
+      !== applyPolicy.spec.definitionSpace.whereTrigger
+  ) {
+    failures.push("policy definition Space Trigger selector drifted");
+  }
+  if (recordedDefinitionSpace?.triggerFilterID !== null) {
+    failures.push("policy definition Space unexpectedly uses a Trigger filter");
+  }
 
   for (const [name, policySet] of Object.entries({
     baseline: applyPolicy.spec.baseline,
@@ -608,6 +661,9 @@ function verifyPolicyReceipt(receipt) {
       continue;
     }
     if (recorded.ref !== policySet.filter) failures.push(`${name} filter reference drifted`);
+    if (recorded.displayName !== policySet.displayName) {
+      failures.push(`${name} filter display name drifted`);
+    }
     if (recorded.where !== policySet.filterWhere) failures.push(`${name} filter selector drifted`);
     if (!sameJson(receiptPolicyTriggers(recorded), expectedPolicyTriggers(policySet))) {
       failures.push(`${name} Trigger set drifted`);
@@ -740,7 +796,7 @@ function syncPolicyTriggerDefinitions() {
       definition.functionName,
       ...(definition.arguments ?? []).map((item) => String(item.value)),
     );
-    cub(args);
+    cubWithJson(args, { DisplayName: definition.displayName });
     console.log(`${exists ? "updated" : "created"} ${definition.ref}`);
   }
   liveTriggerCache.clear();
@@ -785,13 +841,28 @@ if (mode === "--policy-receipt-verify") {
 if (mode === "--policy-sync") {
   assertOrg();
   syncPolicyTriggerDefinitions();
+  const policySpaceSlug = applyPolicy.spec.definitionSpace.ref;
+  cub([
+    "space", "update", policySpaceSlug,
+    "--where-trigger", applyPolicy.spec.definitionSpace.whereTrigger,
+    "--trigger-filter", "-",
+    "--quiet",
+  ]);
+  cub([
+    "space", "update", "--patch", policySpaceSlug,
+    "--refresh-triggers", "--quiet",
+  ]);
+  console.log(`kept ${policySpaceSlug} administrative Units outside its own apply policy`);
   for (const policySet of [applyPolicy.spec.baseline, applyPolicy.spec.approvalRequired]) {
     const [space, slug] = splitEntityRef(policySet.filter);
-    cub([
-      "filter", "update", "--space", space, slug, "Trigger",
-      "--where-field", policySet.filterWhere,
-      "--quiet",
-    ]);
+    cubWithJson(
+      [
+        "filter", "update", "--space", space, slug, "Trigger",
+        "--where-field", policySet.filterWhere,
+        "--quiet",
+      ],
+      { DisplayName: policySet.displayName },
+    );
     console.log(`updated ${policySet.filter} to its exact Trigger allow-list`);
   }
 

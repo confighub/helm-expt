@@ -1138,6 +1138,16 @@ function validatePolicy(policy) {
   check(policy.apiVersion === "catalog.confighub.com/v1alpha1", "policy apiVersion is invalid");
   check(policy.kind === "ApplyPolicyProfile", "policy kind is invalid");
   check(policy.metadata?.name === "catalog-standard", "policy name must be catalog-standard");
+  check(policy.spec?.purpose, "policy must explain what its apply gates are for");
+  check(policy.spec?.definitionSpace?.ref, "policy definition Space is missing");
+  check(
+    policy.spec?.definitionSpace?.whereTrigger,
+    "policy definition Space needs an explicit Trigger selector",
+  );
+  check(
+    policy.spec.definitionSpace.ref === "platform",
+    "policy Trigger definitions must remain in the platform Space",
+  );
   check(unique(policy.spec?.sourceTypes ?? []), "policy source types must be unique");
   check(
     sameSet(policy.spec?.sourceTypes ?? [], supportedSourceTypes),
@@ -1158,17 +1168,37 @@ function validatePolicy(policy) {
   );
   for (const definition of definitions) {
     check(/^platform\/[a-z0-9-]+$/.test(definition.ref ?? ""), `invalid Trigger reference ${definition.ref ?? ""}`);
+    check(definition.displayName, `${definition.ref} has no human display name`);
+    check(
+      /^(Block apply|Warn) - [A-Za-z0-9]/.test(definition.displayName),
+      `${definition.ref} display name must state whether it blocks or warns`,
+    );
     check(definition.event === "Mutation", `${definition.ref} must run on Mutation`);
     check(definition.toolchain === "Kubernetes/YAML", `${definition.ref} has an invalid toolchain`);
     check(definition.functionName, `${definition.ref} has no function`);
     check(["block", "warn"].includes(definition.effect), `${definition.ref} has an invalid effect`);
     check(definition.description, `${definition.ref} has no description`);
+    check(
+      definition.description.includes("catalog apply"),
+      `${definition.ref} description must explain its catalog apply role`,
+    );
+    check(
+      definition.effect === "warn"
+        ? definition.displayName.startsWith("Warn - ")
+        : definition.displayName.startsWith("Block apply - "),
+      `${definition.ref} display name disagrees with its effect`,
+    );
     check(Array.isArray(definition.arguments), `${definition.ref} arguments must be an array`);
     check(
       unique(definition.arguments.map((item) => item.name)),
       `${definition.ref} argument names must be unique`,
     );
   }
+  check(policy.spec?.baseline?.displayName, "baseline policy filter has no human display name");
+  check(
+    policy.spec?.approvalRequired?.displayName,
+    "approval-required policy filter has no human display name",
+  );
   for (const checkDefinition of [...baseline, ...approvalRequired]) {
     const definition = definitions.find((item) => item.ref === checkDefinition.trigger);
     check(

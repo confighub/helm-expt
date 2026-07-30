@@ -29784,8 +29784,8 @@
     {
       "space": "platform",
       "kind": "org",
-      "title": "Shared checks and gates for the demo org",
-      "summary": "Shared platform plumbing used by the demo Spaces: checks, gates, and filters that keep the examples honest.",
+      "title": "Checks that enforce the catalog before apply",
+      "summary": "These live checks turn catalog advice into rules before ConfigHub applies stored configuration.",
       "source_path": "data/helm-catalog-readmes/spaces/platform/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/platform/readme.yaml"
     },
