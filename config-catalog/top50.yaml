@@ -177,6 +177,8 @@ spec:
         - data/oci-inspection/summary.md
         - runs/aicr-oci-roundtrip-proof/receipt.yaml
         - runs/serverless-oci-gitops-proof/receipt.yaml
+        - runs/anonymous-oci-transform-proof/public-oci-receipt.yaml
+        - data/literal-config-examples/summary.md
       verify:
         - npm run oci:inspect:verify
         - npm run aicr-oci-roundtrip:verify
@@ -192,9 +194,11 @@ spec:
         - docs/user/transform-oci-package.md
         - data/anonymous-oci-transform-proof/summary.md
         - runs/anonymous-oci-transform-proof/receipt.yaml
+        - runs/anonymous-oci-transform-proof/public-oci-receipt.yaml
+        - runs/existing-oci-upload-proof/receipt.yaml
       verify:
         - npm run anonymous-oci-transform:verify
-      next: Add patch-file input, signature checks, and a deliberate authenticated registry-publish step.
+      next: Release cub with the merged companion-record import fix, then add patch-file input and signature checks. The worked NGINX output already has an authenticated publication receipt and anonymous pull-back check.
 
     - id: T14
       area: Source pathways
@@ -235,9 +239,13 @@ spec:
       evidence:
         - docs/user/adopting-existing-apps.md
         - docs/user/app-to-live-walkthrough.md
+        - examples/plain-yaml/acme-web/README.md
+        - runs/literal-yaml-upload-proof/receipt.yaml
+        - data/literal-config-examples/summary.md
       verify:
+        - npm run literal-config-examples:verify
         - npm run docs:verify
-      next: Add a small executable receipt that isolates literal YAML upload from the wider App walkthrough.
+      next: Continue the same four-object base through a derived variant and release only when that adds a lesson not already covered by the main ConfigHub tutorial.
 
     - id: T17
       area: ConfigHub records

@@ -1,0 +1,34 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "PublicOciReceipt"
+metadata:
+  name: "nginx-replicas-4-reviewed"
+spec:
+  verifiedAt: "2026-07-30T10:41:35.991Z"
+  registry: "Google Artifact Registry"
+  project: "nth-fort-499605-q5"
+  location: "europe-west1"
+  repository: "helm-expt"
+  role: "reviewed literal Kubernetes configuration"
+  artifact:
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4:reviewed-r001"
+    immutableReference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    digest: "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    artifactType: "application/vnd.confighub.kubernetes.config.v1"
+    objectCount: 5
+    objectSetSha256: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+    companionRecords:
+      source.json: "e14f9451fd8e653b6b4d1438e7e6b78356308f481b2f8e8bba0fdc2719850fca"
+      change.json: "fbd601ac3a9f87fb21dc2a614cf316123c244be60ea45cf33e5e0b2361fa05a1"
+      checks.json: "7a0917a1d4f4e86b3dab16a1b315abe6499f2eb6e69a55fc906310849188c48c"
+    authenticatedPush: "pass"
+    anonymousPull: "pass"
+  source:
+    localLayout: "examples/anonymous-oci-transform/output-layout"
+    reviewedFiles: "examples/anonymous-oci-transform/reviewed-output"
+    transformationReceipt: "runs/anonymous-oci-transform-proof/receipt.yaml"
+status:
+  result: "pass"
+  claim: "The reviewed five-object NGINX change is permanently available as a public OCI at the recorded digest, including its source, change, and check records."
+  limits:
+    - "This publication receipt proves artifact identity and anonymous pull-back. It does not prove cluster admission, controller reconciliation, workload health, or a signature."
+    - "The external Secret named by the NGINX Deployment is not stored in the public artifact."

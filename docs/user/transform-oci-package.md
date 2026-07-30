@@ -94,9 +94,24 @@ consequences.
 
 The [anonymous OCI-to-OCI receipt](../../data/anonymous-oci-transform-proof/summary.md)
 records the public input digest, exact replica change, check results, output
-digest, and pull-back comparison. A separate GitHub Actions job repeats the
-public pull with no ConfigHub credentials.
+digest, and pull-back comparison.
+
+That reviewed output is also published as a permanent public example:
+
+```text
+oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518
+```
+
+Read the [publication and ConfigHub import summary](../../data/literal-config-examples/summary.md)
+for the recorded digest, anonymous pull-back, companion-record checks, and
+exact ConfigHub object comparison. A separate GitHub Actions job repeats the
+public source pull with no ConfigHub credentials.
+
+Direct ConfigHub import of an OCI with companion JSON records needs the fix in
+[confighub/sdk PR #11](https://github.com/confighub/sdk/pull/11). The fix is
+merged but newer than cub v0.2.5. Until the next cub release, extract
+`manifests/release-objects.yaml` before upload.
 
 The proof does not claim cluster admission, controller reconciliation, workload
-health, or a signed provenance chain. The output is a local OCI layout until
-someone publishes it.
+health, or a signed provenance chain. Your own command still creates a local OCI
+layout until you publish it deliberately.

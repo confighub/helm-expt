@@ -463,8 +463,12 @@
 <ul><li>inspect the changed YAML and records;</li><li>push the image to a registry with an authenticated tool;</li><li>upload the literal configuration to ConfigHub as a base variant;</li><li>give a compatible deployment bundle to Argo CD or Flux; or</li><li>discard it and leave the input unchanged.</li></ul>
 <p>These are separate actions because they have different permissions and consequences.</p>
 <h2 id="proof-and-limits">Proof and limits</h2>
-<p>The <a href="../../data/anonymous-oci-transform-proof/summary.html">anonymous OCI-to-OCI receipt</a> records the public input digest, exact replica change, check results, output digest, and pull-back comparison. A separate GitHub Actions job repeats the public pull with no ConfigHub credentials.</p>
-<p>The proof does not claim cluster admission, controller reconciliation, workload health, or a signed provenance chain. The output is a local OCI layout until someone publishes it.</p>
+<p>The <a href="../../data/anonymous-oci-transform-proof/summary.html">anonymous OCI-to-OCI receipt</a> records the public input digest, exact replica change, check results, output digest, and pull-back comparison.</p>
+<p>That reviewed output is also published as a permanent public example:</p>
+<pre><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518</code></pre>
+<p>Read the <a href="../../data/literal-config-examples/summary.html">publication and ConfigHub import summary</a> for the recorded digest, anonymous pull-back, companion-record checks, and exact ConfigHub object comparison. A separate GitHub Actions job repeats the public source pull with no ConfigHub credentials.</p>
+<p>Direct ConfigHub import of an OCI with companion JSON records needs the fix in <a href="https://github.com/confighub/sdk/pull/11">confighub/sdk PR #11</a>. The fix is merged but newer than cub v0.2.5. Until the next cub release, extract <code>manifests/release-objects.yaml</code> before upload.</p>
+<p>The proof does not claim cluster admission, controller reconciliation, workload health, or a signed provenance chain. Your own command still creates a local OCI layout until you publish it deliberately.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/transform-oci-package.md</code>. The source file is the authoritative version.</p></footer>

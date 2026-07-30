@@ -69,6 +69,12 @@ const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "int
 const demoProgramPath = join(repoRoot, "data", "demo-program", "program.json");
 const helmCatalogReadmesPath = join(repoRoot, "data", "helm-catalog-readmes", "readmes.csv");
 const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
+const permanentLiteralOciReceiptPath = join(
+  repoRoot,
+  "runs",
+  "anonymous-oci-transform-proof",
+  "public-oci-receipt.yaml",
+);
 const applyPolicyProfilePath = join(repoRoot, "config-catalog", "policies", "catalog-standard.yaml");
 const applyPolicyLiveReceiptPath = join(repoRoot, "data", "apply-policy-profiles", "live-helm-catalog.yaml");
 const lifecycleByVariantJsonPath = join(repoRoot, "data", "lifecycle-routes-by-variant", "by-variant.json");
@@ -4941,6 +4947,9 @@ function catalogPathfinderHtml(root) {
 }
 
 function examplesHtml(catalog) {
+  const permanentLiteralOciReceipt = readYaml(permanentLiteralOciReceiptPath);
+  const permanentLiteralOciRef =
+    permanentLiteralOciReceipt.spec.artifact.immutableReference;
   const pathways = new Map(catalog.demoProgram.spec.pathways.map((item) => [item.id, item]));
   const apps = new Map(catalog.demoProgram.spec.apps.map((item) => [item.id, item]));
   const worked = (collection, id) => {
@@ -5026,13 +5035,13 @@ function examplesHtml(catalog) {
           "An existing OCI package",
           "Inspect its exact objects or change one named field, then pull the result back and compare it with the reviewed files.",
           `<a href="./d/docs/user/inspect-oci-package.html">Inspect OCI</a> · <a href="./d/docs/user/transform-oci-package.html">Change OCI</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/anonymous-oci-transform">GitHub source</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">Proof</a>`,
-          `The worked output OCI uses a temporary proof registry. Upload a reviewed literal configuration OCI when you want a permanent ConfigHub record.`,
+          `Permanent public OCI: <code>${permanentLiteralOciRef}</code>.<br><a href="./d/data/literal-config-examples/summary.html">Publication and exact import proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html">ConfigHub Space guide</a>`,
         ],
         [
           "Kubernetes YAML or an existing app",
-          "Inventory the objects first. Record their source and ownership before ConfigHub changes or delivers them.",
-          `<a href="./existing-apps.html">Existing-app guide</a> · <a href="https://github.com/confighub/helm-expt/blob/main/docs/user/app-to-live-walkthrough.md">GitHub source</a> · <a href="./d/docs/user/app-to-live-walkthrough.html">YAML walkthrough</a>`,
-          `No permanent public YAML fixture is claimed yet. The managed path starts when you upload the reviewed files to a ConfigHub Space.`,
+          "Upload four ordinary Kubernetes files without running Helm or another renderer. Read the four ConfigHub Units back and compare them with the source.",
+          `<a href="./existing-apps.html">Existing-app guide</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/literal-config-examples/summary.html">Exact import proof</a>`,
+          `<a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub Space guide</a>. The focused receipt stops after import; the official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
     </section>
@@ -5099,6 +5108,9 @@ function examplesHtml(catalog) {
 }
 
 function entryPathReferenceHtml(catalog) {
+  const permanentLiteralOciReceipt = readYaml(permanentLiteralOciReceiptPath);
+  const permanentLiteralOciRef =
+    permanentLiteralOciReceipt.spec.artifact.immutableReference;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -5171,13 +5183,28 @@ function entryPathReferenceHtml(catalog) {
   --value 4 \
   --output oci-layout:./changed-example:reviewed</code></pre>
       <p>The command changes only the field you name. It records the input digest, the old and new values, and every check result inside the new OCI. It then pulls the new image back and compares the files. Existing companion records are kept if you change the output again.</p>
-      <p>The <a href="../data/anonymous-oci-transform-proof/summary.md">public NGINX proof</a> pulls five objects without credentials and changes only the replica count. It names the required external Secret and verifies the output digest and object set. The output stays local until someone deliberately publishes, uploads, or deploys it.</p>
+      <p>The <a href="../data/anonymous-oci-transform-proof/summary.md">public NGINX proof</a> pulls five objects without credentials and changes only the replica count. It names the required external Secret and verifies the output digest and object set. The command first writes a local OCI. The reviewed result was then published deliberately as <code>${permanentLiteralOciRef}</code>.</p>
+      <p>The <a href="../data/literal-config-examples/summary.md">publication and import record</a> proves an anonymous pull of that digest and checks its three companion records. It also shows that ConfigHub stored the same five Kubernetes objects without rerendering Helm.</p>
+    </section>
+
+    <section aria-labelledby="plain-yaml">
+      <h2 id="plain-yaml">Start with plain Kubernetes YAML</h2>
+      <p>The <a href="../examples/plain-yaml/acme-web/README.md">plain YAML fixture</a> contains one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
+      <pre><code>cub variant upload \
+  --component plain-yaml-acme-web \
+  --variant base \
+  --space plain-yaml-acme-web-base \
+  --granularity per-resource \
+  examples/plain-yaml/acme-web</code></pre>
+      <p>The focused receipt reads the four ConfigHub Units back and compares them with the four files. The object-set hashes match. Open the <a href="../data/literal-config-examples/summary.md">plain YAML and OCI summary</a> or the <a href="../data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.md">README used inside the demo Space</a>.</p>
+      <p>This receipt stops after import. It does not claim a Kubernetes deployment or replace the official ConfigHub tutorial for variants, releases, and promotion.</p>
     </section>
 
     <section aria-labelledby="source-to-oci">
       <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
       <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package and renders one base. It tests the result and builds a literal configuration OCI. It then pulls the OCI back and verifies its objects against the reviewed files. The run needs no ConfigHub credentials.</p>
       <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="../data/byo-helm-values-review/public-and-confighub.md">Open its OCI and ConfigHub record</a>.</p>
+      <p>The reviewed OCI change is also kept as a permanent public package rather than only a temporary proof artifact. <a href="../data/literal-config-examples/summary.md">Open its publication and ConfigHub import record</a>.</p>
       <p>The AICR example publishes two artifacts because they have different jobs: Argo CD reads the generated source chart; ConfigHub imports the literal 17-Application configuration. <a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Open the public OCI receipt</a>.</p>
       <p><a href="../data/anonymous-oci-ci-proof/summary.md">Read the CI source-to-OCI proof</a>, <a href="../data/anonymous-oci-transform-proof/summary.md">the anonymous OCI-to-OCI change proof</a>, and <a href="../data/serverless-oci-gitops-proof/summary.md">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
       <p>The same building blocks work for a private chart. We do not yet provide one public service that performs the complete analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>

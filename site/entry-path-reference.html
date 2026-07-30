@@ -504,7 +504,6 @@
     <p><code>cub installer</code> reads maintained catalog packages. <code>cub helm</code> imports an arbitrary chart and values. These are preparation tools, not separate ConfigHub journeys.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <section aria-labelledby="catalog-paths">
       <h2 id="catalog-paths">Choose Your Path</h2>
       <p>Start with the configuration you already have. Each path first gives you exact Kubernetes objects to inspect.</p>
@@ -587,13 +586,24 @@
       <p>Inspect the OCI first so you know whether it contains a source chart, a cub installer package, or exact Kubernetes objects. A source package must be rendered before it can become a deployable configuration. A literal configuration can be changed directly.</p>
       <pre><code>npm run oci:transform -- oci://REGISTRY/REPOSITORY@sha256:DIGEST   --object Deployment/example   --namespace example   --field spec.replicas   --value 4   --output oci-layout:./changed-example:reviewed</code></pre>
       <p>The command changes only the field you name. It records the input digest, the old and new values, and every check result inside the new OCI. It then pulls the new image back and compares the files. Existing companion records are kept if you change the output again.</p>
-      <p>The <a href="d/data/anonymous-oci-transform-proof/summary.html">public NGINX proof</a> pulls five objects without credentials and changes only the replica count. It names the required external Secret and verifies the output digest and object set. The output stays local until someone deliberately publishes, uploads, or deploys it.</p>
+      <p>The <a href="d/data/anonymous-oci-transform-proof/summary.html">public NGINX proof</a> pulls five objects without credentials and changes only the replica count. It names the required external Secret and verifies the output digest and object set. The command first writes a local OCI. The reviewed result was then published deliberately as <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518</code>.</p>
+      <p>The <a href="d/data/literal-config-examples/summary.html">publication and import record</a> proves an anonymous pull of that digest and checks its three companion records. It also shows that ConfigHub stored the same five Kubernetes objects without rerendering Helm.</p>
+    </section>
+
+    <section aria-labelledby="plain-yaml">
+      <h2 id="plain-yaml">Start with plain Kubernetes YAML</h2>
+      <p>The <a href="d/examples/plain-yaml/acme-web/README.html">plain YAML fixture</a> contains one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
+      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>cub variant upload   --component plain-yaml-acme-web   --variant base   --space plain-yaml-acme-web-base   --granularity per-resource   examples/plain-yaml/acme-web</code></pre>
+      <p>The focused receipt reads the four ConfigHub Units back and compares them with the four files. The object-set hashes match. Open the <a href="d/data/literal-config-examples/summary.html">plain YAML and OCI summary</a> or the <a href="d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">README used inside the demo Space</a>.</p>
+      <p>This receipt stops after import. It does not claim a Kubernetes deployment or replace the official ConfigHub tutorial for variants, releases, and promotion.</p>
     </section>
 
     <section aria-labelledby="source-to-oci">
       <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
       <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package and renders one base. It tests the result and builds a literal configuration OCI. It then pulls the OCI back and verifies its objects against the reviewed files. The run needs no ConfigHub credentials.</p>
       <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="d/data/byo-helm-values-review/public-and-confighub.html">Open its OCI and ConfigHub record</a>.</p>
+      <p>The reviewed OCI change is also kept as a permanent public package rather than only a temporary proof artifact. <a href="d/data/literal-config-examples/summary.html">Open its publication and ConfigHub import record</a>.</p>
       <p>The AICR example publishes two artifacts because they have different jobs: Argo CD reads the generated source chart; ConfigHub imports the literal 17-Application configuration. <a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Open the public OCI receipt</a>.</p>
       <p><a href="d/data/anonymous-oci-ci-proof/summary.html">Read the CI source-to-OCI proof</a>, <a href="d/data/anonymous-oci-transform-proof/summary.html">the anonymous OCI-to-OCI change proof</a>, and <a href="d/data/serverless-oci-gitops-proof/summary.html">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
       <p>The same building blocks work for a private chart. We do not yet provide one public service that performs the complete analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>

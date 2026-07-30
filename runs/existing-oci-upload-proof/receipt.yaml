@@ -1,0 +1,117 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "LiteralConfigUploadReceipt"
+metadata:
+  name: "existing-oci-nginx-replicas-4"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-07-30T11:06:37.906Z"
+  command:
+    - "cub"
+    - "variant"
+    - "upload"
+    - "--component"
+    - "existing-oci-nginx"
+    - "--variant"
+    - "replicas-4"
+    - "--space"
+    - "existing-oci-nginx-replicas-4"
+    - "--granularity"
+    - "per-resource"
+    - "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+  source:
+    kind: "public literal configuration OCI"
+    reference: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    objectCount: 5
+    objectSetSha256: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+    publicReceipt: "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"
+    importer:
+      repository: "https://github.com/confighub/sdk"
+      commit: "1e63db4bc767368203660579bfb0a282443c7505"
+      pullRequest: "https://github.com/confighub/sdk/pull/11"
+      releaseStatus: "merged after v0.2.5; awaiting the next cub release"
+  space:
+    slug: "existing-oci-nginx-replicas-4"
+    id: "3eb81a1c-10bd-4e0b-bef3-1d62817a1bf5"
+    labels:
+      ApplyPolicyProfile: "catalog-standard"
+      Component: "existing-oci-nginx"
+      InputFormat: "LiteralOCI"
+      Layer: "Application"
+      Owner: "Application"
+      ResourceClass: "user-workload"
+      SourceType: "rendered-config"
+      Variant: "replicas-4"
+    externalSource: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    externalSourceDigest: "sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518"
+    externalSourceGranularity: "per-resource"
+    triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+  units:
+    -
+      slug: "nginx-deployment-nginx"
+      id: "13c999e6-61a0-4098-9052-572fb5b58b17"
+      dataHash: "8177cbfa234b3b2cf689b59a51194d144d3f38348e6942277cd1a5bbc88477e0"
+      headRevision: 1
+      objectIdentities:
+        - "apps/v1|Deployment|nginx|nginx"
+    -
+      slug: "nginx-networkpolicy-nginx"
+      id: "44b527a6-ab8f-4922-9219-daead142de72"
+      dataHash: "f63c41eddb9b0f1d97ffaedce95d315bfedee01f9a0222cf02253c7ae8438a7a"
+      headRevision: 1
+      objectIdentities:
+        - "networking.k8s.io/v1|NetworkPolicy|nginx|nginx"
+    -
+      slug: "nginx-poddisruptionbudget-nginx"
+      id: "18b0449d-ef52-49be-b284-3d2ff7564988"
+      dataHash: "9c926b94d197723760ba7e64b04c5f189fcc6f9f16a9d1dbe0c38a57e859f05b"
+      headRevision: 1
+      objectIdentities:
+        - "policy/v1|PodDisruptionBudget|nginx|nginx"
+    -
+      slug: "nginx-service-nginx"
+      id: "eedfeed8-aeeb-4dd0-9dcb-95840191f0b5"
+      dataHash: "c334178343655e49bb68a8003d7a17121a97bdc4520d57b02d38fa882fdaab69"
+      headRevision: 1
+      objectIdentities:
+        - "v1|Service|nginx|nginx"
+    -
+      slug: "nginx-serviceaccount-nginx"
+      id: "ca215571-05a8-49f4-b92a-8019a1bc5aa4"
+      dataHash: "1347583103c05a1cb7de0e7e172d63ba871486a00d22db0b68515d716420235a"
+      headRevision: 1
+      objectIdentities:
+        - "v1|ServiceAccount|nginx|nginx"
+  readme:
+    slug: "readme"
+    id: "7cd93942-8960-416d-a801-6aa4a3564ed0"
+    dataHash: "ab0abf29907e3e97fc4a305d30f2e88398954645081600e5e92499472159eb1b"
+    headRevision: 4
+    source: "data/helm-catalog-readmes/units/existing-oci-nginx-replicas-4/readme.yaml"
+  storedObjectCount: 5
+  storedObjectSetSha256: "b39636429c375b7c458b1b2cc844a00479aee23cb7442daa3342c79562179340"
+  sourceObjectsMatched: true
+  renderStep: false
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-checks"
+    filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+    filterHash: "b42dcf124959da754d5b5bac08bce74bd450d6c6d52983af134f5fc7c8434554"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
+    checks:
+      - "aicr-training-images-pinned"
+      - "aicr-training-secret-refs"
+      - "digest-pinned-images"
+      - "lifecycle-route-evidence"
+      - "probes-declared"
+      - "vet-placeholders"
+      - "vet-schemas"
+status:
+  result: "pass"
+  claim: "ConfigHub stored the five exact Kubernetes objects pulled from the public OCI, recorded its immutable source digest, and did not rerender Helm."
+  apply: "not-run"
+  delivery: "not-run"
+  observation: "not-run"
+  limits:
+    - "This receipt proves the ConfigHub import boundary. It does not claim Kubernetes apply, controller delivery, workload health, promotion, or rollback."
+    - "The README is a separate explanatory Unit and is excluded from the Kubernetes object comparison."
+    - "Direct import of OCI packages with companion JSON records used the merged SDK fix recorded in this receipt. cub v0.2.5 users must extract manifests/release-objects.yaml first or wait for the next cub release."

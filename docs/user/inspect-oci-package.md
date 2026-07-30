@@ -42,6 +42,17 @@ npm run oci:inspect -- OCI_REFERENCE --work-dir ./oci-inspection
 
 Nothing is applied to Kubernetes.
 
+The permanent public NGINX example is a literal configuration OCI. It contains
+five reviewed Kubernetes objects plus the source, change, and check records:
+
+```sh
+npm run oci:inspect -- \
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518
+```
+
+The [literal configuration examples](../../data/literal-config-examples/summary.md)
+show the anonymous pull and exact ConfigHub import at that digest.
+
 ## Inspect a cub installer package
 
 A cub installer package is a source package. It can hold several ready-made configs,

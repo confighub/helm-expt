@@ -42,7 +42,12 @@ source ~/.confighub/clusters/demo.env
 
 ## Step 2: A simple app, three manifests
 
-A Deployment (nginx serving a mounted ConfigMap), the ConfigMap (one line of content with a version marker), and a Service, all in namespace `acme`. Any plain manifests work; nothing here is chart-specific.
+A Deployment, ConfigMap, and Service, all in one namespace. Any plain manifests
+work; nothing here is chart-specific. For a committed four-object starting
+fixture and a focused upload receipt, use the
+[plain YAML example](../../examples/plain-yaml/acme-web/README.md). This longer
+walkthrough continues past import into variants, releases, GitOps delivery, and
+promotion.
 
 ## Step 3: Upload the base
 

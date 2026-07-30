@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: acme-web-content
+  namespace: acme-web
+  labels:
+    app.kubernetes.io/name: acme-web
+data:
+  welcome: "Hello from the plain YAML example"

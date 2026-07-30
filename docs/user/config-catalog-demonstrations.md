@@ -283,11 +283,33 @@ Evidence: [data/installer-oci-packages/summary.md](../../data/installer-oci-pack
 
 Current limit: An installer package OCI can contain several preset configurations. The rendered OCI contains one selected preset. --output-oci excludes separated secret files, records the source package and selected base, and checks the output object set by reading it back. A chart with hooks, CRDs, setup jobs, or target prerequisites still needs the route recorded for that preset.
 
+### Plain Kubernetes YAML to managed configuration
+
+**Worked example: working.** Four committed YAML files become four ConfigHub Units, one per object. A receipt reads the Units back and proves that the stored object set matches the supplied files.
+
+**Broader status: available.** The focused receipt proves import only. It does not claim Kubernetes apply, controller delivery, promotion, rollback, or workload health.
+
+A team may already have reviewed Kubernetes YAML and should not need to wrap it in a chart or run another renderer before ConfigHub can record it.
+
+Upload the files as exact Kubernetes objects, keep their source identity, and use the saved base for later variants, promotions, releases, and Apps.
+
+1. Start with reviewed Kubernetes YAML.
+2. Upload it without a Helm or AICR render step.
+3. Read the stored Units back and compare their object-set hash with the files.
+4. Keep one README Unit beside the configuration so a new user can understand the example.
+5. Continue with the official ConfigHub tutorial when the base needs changes, promotion, or delivery.
+
+Start with [examples/plain-yaml/acme-web/README.md](../../examples/plain-yaml/acme-web/README.md) or [docs/user/adopting-existing-apps.md](../../docs/user/adopting-existing-apps.md) or [docs/user/app-to-live-walkthrough.md](../../docs/user/app-to-live-walkthrough.md).
+
+Evidence: [runs/literal-yaml-upload-proof/receipt.yaml](../../runs/literal-yaml-upload-proof/receipt.yaml), [data/literal-config-examples/summary.md](../../data/literal-config-examples/summary.md).
+
+Current limit: The plain YAML example has no Helm parity question because there is no chart or render step. The current focused receipt stops after exact ConfigHub import and policy attachment.
+
 ### Public OCI inspection and packaging
 
-**Worked example: working.** Local and CI proofs pull a public package without ConfigHub credentials, render it, build OCI, and compare the output objects after pulling them back.
+**Worked example: working.** Local and CI proofs pull public packages without ConfigHub credentials, inspect or change exact objects, build OCI, and compare the output after pulling it back. The reviewed NGINX change is also published as a permanent public OCI and imported into a ConfigHub Space at its recorded digest.
 
-**Broader status: partial.** The hosted anonymous service is planned, and the current output OCI examples use a workflow artifact or temporary registry.
+**Broader status: partial.** The hosted anonymous service is planned. Some delivery proofs still use workflow artifacts or temporary registries and are labeled that way.
 
 A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.
 
@@ -301,9 +323,9 @@ Pull an OCI package, work with the exact objects, and produce a deployable OCI p
 
 Start with [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) or [docs/reference/config-catalog-doctrine.md](../../docs/reference/config-catalog-doctrine.md) or [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md).
 
-Evidence: [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml), [data/serverless-oci-gitops-proof/summary.md](../../data/serverless-oci-gitops-proof/summary.md), [runs/anonymous-oci-ci-proof/receipt.yaml](../../runs/anonymous-oci-ci-proof/receipt.yaml), [data/anonymous-oci-ci-proof/summary.md](../../data/anonymous-oci-ci-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
+Evidence: [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml), [data/serverless-oci-gitops-proof/summary.md](../../data/serverless-oci-gitops-proof/summary.md), [runs/anonymous-oci-ci-proof/receipt.yaml](../../runs/anonymous-oci-ci-proof/receipt.yaml), [data/anonymous-oci-ci-proof/summary.md](../../data/anonymous-oci-ci-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md), [runs/anonymous-oci-transform-proof/public-oci-receipt.yaml](../../runs/anonymous-oci-transform-proof/public-oci-receipt.yaml), [runs/existing-oci-upload-proof/receipt.yaml](../../runs/existing-oci-upload-proof/receipt.yaml), [data/literal-config-examples/summary.md](../../data/literal-config-examples/summary.md).
 
-Current limit: The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest. The CI receipt proves the same public input can be rendered, checked, packaged as OCI, and pulled back in GitHub Actions without ConfigHub credentials. The CI output is a workflow artifact containing an OCI image layout, not a public registry package. The output OCI used a temporary local registry. A hosted public workbench and public-registry receipt remain separate work.
+Current limit: The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest. The CI receipt proves the same public input can be rendered, checked, packaged as OCI, and pulled back in GitHub Actions without ConfigHub credentials. The CI output is a workflow artifact containing an OCI image layout, not a public registry package. The Flux proof used a temporary local registry. The reviewed NGINX replica change has a separate permanent public-registry receipt and exact ConfigHub import receipt. Direct import of an OCI with companion JSON records needs the merged confighub/sdk PR A hosted public workbench remains separate work.
 
 ### One reviewed bundle through Argo CD, Flux, or direct apply
 

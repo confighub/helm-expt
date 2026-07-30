@@ -55,6 +55,32 @@ team upgrade into ConfigHub gradually.
 | KRM YAML / rendered manifests | `cub unit import` or managed import workflow | resource identity, labels, target, provenance, scans |
 | Public Helm chart with no existing app | `helm template`, `cub variant upload`, or the `cub installer` catalog path | Helm baseline, ConfigHub Units, or maintained recipe/package depending on intent |
 
+## A Small Plain YAML Example
+
+The repository includes a four-object application under
+[`examples/plain-yaml/acme-web`](../../examples/plain-yaml/acme-web/README.md).
+It has one Namespace, ConfigMap, Deployment, and Service. There is no chart and
+no render step.
+
+Upload the files as one Unit per Kubernetes object:
+
+```sh
+cub variant upload \
+  --component plain-yaml-acme-web \
+  --variant base \
+  --space plain-yaml-acme-web-base \
+  --granularity per-resource \
+  examples/plain-yaml/acme-web
+```
+
+The [focused receipt](../../runs/literal-yaml-upload-proof/receipt.yaml) reads
+the four Units back and compares them with the four files. The source and stored
+object-set hashes match. The separate README Unit explains the example inside
+the `helm-catalog` demo organization.
+
+This proves the import boundary. No cluster apply, promotion, release, or
+workload observation is claimed by this receipt.
+
 ConfigHub documentation currently describes `cub gitops import` as importing
 Argo CD Applications, Flux HelmReleases, and Flux Kustomizations from a
 Kubernetes target, rendering them with a render target, and creating ConfigHub
