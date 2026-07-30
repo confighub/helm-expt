@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation Map · Config Test Centre</title>
+  <title>Documentation Map · Config Workshop</title>
   <meta name="description" content="Documentation Map: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/README.html">
-  <meta property="og:title" content="Documentation Map · Config Test Centre">
+  <meta property="og:title" content="Documentation Map · Config Workshop">
   <meta property="og:description" content="Documentation Map: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/README.html">
@@ -56,7 +56,7 @@
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -71,9 +71,20 @@
       background: var(--surface);
     }
     .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -388,6 +399,11 @@
       .topbar .brand {
         margin-bottom: 9px;
       }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
       .navlinks {
         margin-left: 0;
         display: flex;
@@ -423,13 +439,13 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../try.html">Try it</a><a href="../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../how-it-works.html">How it works</a><a href="../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../try.html">Try it</a><a href="../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../how-it-works.html">How it works</a><a href="../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Documentation Map</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../docs/README.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>EXPERIMENTAL</p>
 <p>This directory contains the manual documentation for the Helm experiment. The primary user-facing surface should stay small. Most Markdown files in the repo are generated catalog, recipe, package, proof, or run-output files.</p>
@@ -450,7 +466,7 @@
 <tr><td><a href="demo/sveltos/kyverno-fleet.html">Sveltos Kyverno fleet example</a></td><td>Two-wave example: ConfigHub approves a pilot and one selector expansion at different OCI digests; Argo CD and Sveltos deliver Kyverno to one cluster, then two, and Sveltos restores drift on each target.</td></tr>
 <tr><td><a href="demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></td><td>Plain-English Kube Prometheus Stack install order, chart-specific route records, Argo CD and Flux choices, live evidence, and the remaining manual boundary.</td></tr>
 <tr><td><a href="demo/apps/rbac-review.html">RBAC review example</a></td><td>One exact permission correction: find unnecessary Secret access, require approval, publish the reviewed objects as OCI, and let Argo CD check the result on an isolated cluster.</td></tr>
-<tr><td><a href="reference/config-catalog-doctrine.html">config-catalog-doctrine.md</a></td><td>Maintained doctrine for the anonymous-to-managed boundary, source-neutral base variants, four OCI package roles, fleet delivery, apply policy, AI use, and keeping the human and machine views aligned.</td></tr>
+<tr><td><a href="reference/config-catalog-doctrine.html">config-catalog-doctrine.md</a></td><td>Maintained doctrine for the anonymous-to-managed boundary, source-and-intent records, source-neutral base variants, four OCI package roles, fleet delivery, apply policy, AI use, and keeping the human and machine views aligned.</td></tr>
 <tr><td><a href="planning/config-catalog-demo-program.html">config-catalog-demo-program.md</a></td><td>Execution plan and acceptance criteria for the shared records, AICR, literal OCI uploads, promotions, fleet paths, and Apps.</td></tr>
 <tr><td><a href="planning/three-pillars-brief.html">three-pillars-brief.md</a></td><td>Brief behind the current website testing story: choices fixed before install, evidence users can inspect, and lifecycle work kept visible.</td></tr>
 <tr><td><a href="user/expected-results-and-clusters.html">expected-results-and-clusters.md</a></td><td>Practical guide for what users should see after each step, when they need a Kubernetes cluster, when to use kind or <code>cub cluster up</code>, and when npm verifiers are optional.</td></tr>
@@ -464,7 +480,7 @@
 <tr><td><a href="user/known-gaps-we-surface.html">known-gaps-we-surface.md</a></td><td>User-facing guide to current watch findings that the project deliberately surfaces instead of hiding.</td></tr>
 <tr><td><a href="user/serious-chart-proof.html">serious-chart-proof.md</a></td><td>Concise kube-prometheus-stack proof path for the serious chart example.</td></tr>
 <tr><td><a href="user/what-you-get.html">what-you-get.md</a></td><td>Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work.</td></tr>
-<tr><td><a href="user/helm-render-intents.html">helm-render-intents.md</a></td><td>The two-layer model, with examples and generated coverage states for render inputs, captured output, lifecycle routes, target prerequisites, runner evidence, freshness, and incomplete contracts.</td></tr>
+<tr><td><a href="user/helm-render-intents.html">helm-render-intents.md</a></td><td>The Helm-specific source-and-intent record, with examples and generated coverage states for render inputs, captured output, lifecycle routes, target prerequisites, runner evidence, freshness, and incomplete contracts.</td></tr>
 <tr><td><a href="user/helm-presets-and-values.html">helm-presets-and-values.md</a></td><td>How public presets map to repo base variants, why the catalog does not claim every values combination, and how AI helps maintain chart-specific choices.</td></tr>
 <tr><td><a href="user/verification.html">verification.md</a></td><td>Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route.</td></tr>
 <tr><td><a href="user/choosing-commands.html">choosing-commands.md</a></td><td>Guide to the distinct roles of <code>helm template</code>, <code>cub helm</code>, <code>cub installer</code>, ConfigHub upload and variant commands, and repo verifiers.</td></tr>
@@ -505,7 +521,7 @@
 <tr><td><a href="user/helm-presets-and-values.html">helm-presets-and-values.md</a></td><td>The doctrine for ready-to-use chart presets: keep Helm charts, support useful chart-specific choices, record values and render inputs, and verify the generated output.</td></tr>
 <tr><td><a href="user/helm-to-cub-migration.html">helm-to-cub-migration.md</a></td><td>Helm-fluent dev's cheat-sheet: how Helm habits (--set, -f values.yaml, --set image.tag, --set-string, release names) map to cub's declared-input / named-base model, and why the declared model catches the typo footgun Helm absorbs.</td></tr>
 <tr><td><a href="user/confighub-data-model.html">confighub-data-model.md</a></td><td>The vocabulary the model assumes - chart base, recipe, Unit, space, variant, target, worker, OCI bundle, target fact, route, receipt - and how they fit in one line.</td></tr>
-<tr><td><a href="user/model-and-vocabulary.html">model-and-vocabulary.md</a></td><td>One page for the whole model: the five words (recipe, rendering, render record, base variant, derived variant), the F1-F4 stages, the same objects seen from plain Helm, Kustomize, and source-object viewpoints, and where each artifact lives today.</td></tr>
+<tr><td><a href="user/model-and-vocabulary.html">model-and-vocabulary.md</a></td><td>One page for the source-and-intent role, the five main terms (recipe, rendering, render record, base variant, derived variant), the F1-F4 stages, and where each artifact lives today.</td></tr>
 <tr><td><a href="user/variants-after-upload.html">variants-after-upload.md</a></td><td>The step-by-step walkthrough after <code>cub installer upload</code>: why and how to run <code>cub variant create</code> (labels, namespace, gates), preview with <code>cub variant promote --dry-run -o mutations</code>, promote, and where delivery and rollback pick up. Commands verified against <code>cub --help</code>.</td></tr>
 <tr><td><a href="demo/apps/ai-change-review.html">AI change review example</a></td><td>A real AICR training object, an unsafe proposed change, the corrected candidate, and an honest receipt showing which checks and live steps did or did not run.</td></tr>
 <tr><td><a href="user/app-to-live-walkthrough.html">app-to-live-walkthrough.md</a></td><td>The full chain from plain YAML into a base Space, staging and production variants, release OCI, Argo CD delivery, and staged promotion. It links to the smaller four-object fixture when import is the only question.</td></tr>

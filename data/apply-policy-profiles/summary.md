@@ -13,7 +13,7 @@ The live receipt records at least one policy-covered Space for every maintained 
 | `cub-installer` | 30 |
 | `kubara` | 1 |
 | `sveltos` | 1 |
-| `rendered-config` | 2 |
+| `rendered-config` | 4 |
 
 ## Common checks
 
@@ -74,7 +74,7 @@ The source format does not decide the risk. A Helm chart, AICR package, or ordin
 - A Space must not lose the seven baseline checks when approval is added.
 - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
 
-The live `helm-catalog` filters and their assigned Spaces were checked on **2026-07-27**. Read the [live receipt](./live-helm-catalog.yaml).
+The live `helm-catalog` filters and their assigned Spaces were checked on **2026-07-30**. Read the [live receipt](./live-helm-catalog.yaml).
 
 The [functional proof](../apply-policy-functional-proof/summary.md) uses temporary Units to show what happens at the apply boundary. Placeholder values, invalid Kubernetes data, and unapproved system configuration are blocked. After the test approves the exact head revision, the same system-configuration dry run is allowed. An unpinned image and missing probes are reported as warnings without blocking a dry run. The separate Hooks and CRDs receipt proves that an unsupported automatic lifecycle route is blocked.
 

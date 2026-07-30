@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 647
+scripts: 648
 ```
 
 ## By Category
@@ -27,8 +27,8 @@ scripts: 647
 | `latest-version-refresh` | 18 |
 | `confighub-proof` | 16 |
 | `repo-integrity` | 15 |
+| `confighub-catalog-org` | 11 |
 | `derived-variants` | 11 |
-| `confighub-catalog-org` | 10 |
 | `local-live-evidence` | 8 |
 | `scale-proof` | 8 |
 | `user-install-verification` | 7 |
@@ -45,7 +45,7 @@ scripts: 647
 | --- | ---: |
 | `verify` | 301 |
 | `generate-or-run` | 261 |
-| `run` | 72 |
+| `run` | 73 |
 | `summary` | 7 |
 | `self-test` | 5 |
 | `full-corpus-verify` | 1 |
@@ -55,7 +55,7 @@ scripts: 647
 | External state | Scripts |
 | --- | ---: |
 | `none-for-verify` | 595 |
-| `confighub-or-live-cluster` | 20 |
+| `confighub-or-live-cluster` | 21 |
 | `local-kubernetes` | 14 |
 | `network-or-helm-repo` | 9 |
 | `user-supplied-cluster-or-confighub` | 5 |

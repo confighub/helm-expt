@@ -17,6 +17,34 @@ ConfigHub variant.
 In one sentence: **a recipe renders into a base variant, a base variant becomes
 derived variants, and promotions carry reviewed changes between them.**
 
+## The source and intent record
+
+Every maintained base needs a record that explains where its objects came from and
+which choices produced them. We call this the **source and intent record**.
+
+This is a role, not one file format. For Helm, the record is a
+`HelmRenderIntent`. For AICR, it is the recipe and bundle receipts. Existing OCI
+and plain YAML use records that name their source digest or checksums, object
+inventory, remaining inputs, prerequisites, checks, and later transformations.
+Today, that information may live in a source Unit, Space metadata plus a
+committed receipt, or a generated base-variant record.
+
+The record should let a new reader answer four questions:
+
+1. What source produced these objects?
+2. Which values or choices were used?
+3. What must exist or run before delivery?
+4. Which checks and receipts support the result?
+
+All maintained examples should answer those questions. Chart-specific records for
+hooks, CRDs, Secrets, setup jobs, and target facts are added when the configuration
+needs them; they are not copied into examples where they do not apply.
+
+An arbitrary upload does not gain facts that ConfigHub cannot know. Generic checks
+can be attached automatically. A source adapter or review must supply the source
+details and any chart-specific lifecycle work; otherwise the missing information is
+recorded as a gap.
+
 ## The four stages
 
 | Stage | Name | What happens | The word |

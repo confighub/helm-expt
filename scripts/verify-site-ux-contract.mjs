@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Simplify configuration testing and verification", "Using configuration tools can be tricky. We are here to help.", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "What you can do", "Four things you can prove before you ship", "One resource, three depths", "Config Test Centre"],
+    terms: ["Simplify configuration testing and verification", "Using configuration tools can be tricky. We are here to help.", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "What you can do", "Four things you can prove before you ship", "One resource, three depths", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/variants.html",
@@ -230,7 +230,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Test Centre", "Try it", "Catalog", "Tutorial", "How it works", "Docs", "Sign in"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Try it", "Catalog", "Tutorial", "How it works", "Docs", "Sign in"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   const rawPathLinks = [...text.matchAll(/<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]

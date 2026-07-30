@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How It Works · Config Test Centre</title>
+<title>How It Works · Config Workshop</title>
   <meta name="description" content="The recipe is your source of truth: how render, record, and route stages keep a Helm chart reviewable through changes and upgrades.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/how-it-works.html">
-  <meta property="og:title" content="How It Works · Config Test Centre">
+  <meta property="og:title" content="How It Works · Config Workshop">
   <meta property="og:description" content="The recipe is your source of truth: how render, record, and route stages keep a Helm chart reviewable through changes and upgrades.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/how-it-works.html">
@@ -56,7 +56,7 @@
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -71,9 +71,20 @@
       background: var(--surface);
     }
     .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -388,6 +399,11 @@
       .topbar .brand {
         margin-bottom: 9px;
       }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
       .navlinks {
         margin-left: 0;
         display: flex;
@@ -527,7 +543,7 @@ em{font-style:italic;color:var(--ink);}
 </head>
 <body class="calm-page">
 <header class="hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
   <div class="hero-copy">
     <h1>How it works</h1>
     <p class="lead">Helm rebuilds your whole configuration from templates every time, so any change you made by hand is wiped on the next upgrade. We render the chart once into plain files, let you change anything afterward, and put your change back on every upgrade. This page explains the complete model. It covers the catalog, the recommended patterns, your choices, and the evidence behind each claim.</p>
@@ -612,17 +628,19 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h3>Three ways to create a base variant</h3>
-  <p>ConfigHub can start from more than a Helm chart. The source stays attached to the literal configuration so a later reviewer can see what produced it and which choices remain.</p>
+  <p>ConfigHub can start from more than a Helm chart. Every maintained base has a <strong>source and intent record</strong>. It says where the objects came from and which choices produced them. It also records what remains to be supplied and which checks support the result. The role is standard, but the file matches the source instead of pretending every source is Helm.</p>
   <table class="gtable">
-    <tr><th>Starting point</th><th>What you keep</th><th>How it enters ConfigHub</th></tr>
-    <tr><td>Helm chart</td><td>The chart version, preset values, source lock, render intent, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
+    <tr><th>Starting point</th><th>Source and intent record</th><th>How it enters ConfigHub</th></tr>
+    <tr><td>Helm chart</td><td><code>HelmRenderIntent</code>: chart version, preset values, release context, source lock, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
     <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Keep the generated source package for Argo CD, and upload the separate literal configuration OCI as a base variant. The <a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
-    <tr><td>Existing Kubernetes configuration</td><td>The original files and source reference.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code> creates the base Space and Units.</td></tr>
+    <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload oci://...</code> creates the base Space and Units from the literal configuration bundle.</td></tr>
+    <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload &lt;files&gt;</code> creates the base Space and Units.</td></tr>
   </table>
   <p>The generated <a href="d/data/base-variant-records/summary.html">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
+  <p>Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format. The <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> defines the role in full.</p>
 
   <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
-  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → rendered output) and <strong>how ConfigHub operates it</strong> afterward (managing variants). The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>For Helm, the source and intent record is the <code>HelmRenderIntent</code>. A chart then has two layers. <strong>Helm renders it</strong>: recipe → base variant → render intent → rendered output. <strong>ConfigHub operates it</strong> afterward by managing variants. The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
   <p>Inspect the evidence for a base variant in this order:</p>
   <ol>
     <li>Open the full rendered YAML.</li>
@@ -716,7 +734,7 @@ em{font-style:italic;color:var(--ink);}
 
   <h3>Checks before apply</h3>
   <p>The same apply policy can protect configuration that started as Helm, AICR, <code>cub installer</code>, Kubara, Sveltos, or ordinary Kubernetes files. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary workloads and AICR training runtimes receive checks for the fields they actually use. Production releases and system configuration keep those 7 checks and add one required approval.</p>
-  <p>The source format does not decide the risk. A user workload, shared service, and cluster-wide configuration can all begin as Helm or YAML. The live demo applies 7 common tests to 31 Spaces. It adds approval to 9 Spaces: 4 production Spaces and 5 system-configuration Spaces. The receipt includes every maintained starting format: AICR 3, cub installer 30, Helm 3, Kubara 1, rendered Kubernetes config 2, Sveltos 1. Read the <a href="d/data/apply-policy-profiles/summary.html">policy profile and live receipt</a>. You can also run its verifier while logged into the <code>helm-catalog</code> org.</p>
+  <p>The source format does not decide the risk. A user workload, shared service, and cluster-wide configuration can all begin as Helm or YAML. The live demo applies 7 common tests to 33 Spaces. It adds approval to 9 Spaces: 4 production Spaces and 5 system-configuration Spaces. The receipt includes every maintained starting format: AICR 3, cub installer 30, Helm 3, Kubara 1, rendered Kubernetes config 4, Sveltos 1. Read the <a href="d/data/apply-policy-profiles/summary.html">policy profile and live receipt</a>. You can also run its verifier while logged into the <code>helm-catalog</code> org.</p>
   <p>The <a href="d/data/operational-class-examples/summary.html">three worked examples</a> show how ownership changes the policy. An application team owns and promotes NGINX. A platform team introduces Kube Prometheus Stack as a shared service. Kubara is approved as cluster-wide platform configuration. Each example names the target, tests, rollout order, current result, and receipt.</p>
 
   <h3>Worked paths and Apps</h3>
@@ -817,6 +835,6 @@ spec:
   </table>
   <p class="quiet-line"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Browse the catalog</a> · <a href="./verification.html">Read the proofs</a></p>
 </main>
-<footer><p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this how it works guide.</p><p>Generated from committed helm-expt evidence. This guide explains the public mental model; generated evidence remains the source for exact status.</p></footer>
+<footer><p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this how it works guide.</p><p>Generated from committed helm-expt evidence. This guide explains the public mental model; generated evidence remains the source for exact status.</p></footer>
 </body>
 </html>

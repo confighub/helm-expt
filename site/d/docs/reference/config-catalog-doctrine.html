@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config catalog doctrine · Config Test Centre</title>
+  <title>Config catalog doctrine · Config Workshop</title>
   <meta name="description" content="Config catalog doctrine: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/config-catalog-doctrine.html">
-  <meta property="og:title" content="Config catalog doctrine · Config Test Centre">
+  <meta property="og:title" content="Config catalog doctrine · Config Workshop">
   <meta property="og:description" content="Config catalog doctrine: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/config-catalog-doctrine.html">
@@ -56,7 +56,7 @@
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -71,9 +71,20 @@
       background: var(--surface);
     }
     .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -388,6 +399,11 @@
       .topbar .brand {
         margin-bottom: 9px;
       }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
       .navlinks {
         margin-left: 0;
         display: flex;
@@ -423,14 +439,14 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Config catalog doctrine</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/config-catalog-doctrine.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>The simplest architecture for this project is <b>OCI in, managed configuration, OCI out</b>.</p>
 <p>The <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> owns the product onboarding journey. This catalog owns source-specific preparation, public package testing, and evidence. See <a href="../planning/onboarding-and-entry-paths.html">Onboarding And Entry Paths</a>.</p>
@@ -459,10 +475,20 @@
 <p>These paths do not require a replacement chart language. Teams keep their Helm charts, AICR recipes, and existing files.</p>
 <h2 id="what-a-base-variant-records">What a base variant records</h2>
 <p>A ConfigHub base variant needs more than a directory of YAML.</p>
-<ul><li>The literal Kubernetes objects that ConfigHub can query, diff, revise, approve, and deliver.</li><li>The source record that explains how those objects were produced. For Helm this is the <code>HelmRenderIntent</code>; for AICR it is the AICR recipe and bundle receipt.</li><li>The choices fixed at build time and the small set still allowed at install time.</li><li>Prerequisites and lifecycle work such as CRDs, hooks, webhook certificates, setup jobs, Secrets, storage, namespaces, and target capabilities.</li></ul>
+<ul><li>The literal Kubernetes objects that ConfigHub can query, diff, revise, approve, and deliver.</li><li>The source and intent record that explains where the configuration came from, which choices produced these objects, and what remains to be supplied or performed.</li><li>The choices fixed at build time and the small set still allowed at install time.</li><li>Prerequisites and lifecycle work such as CRDs, hooks, webhook certificates, setup jobs, Secrets, storage, namespaces, and target capabilities.</li><li>Provenance, checksums, tests, policy results, approvals, and delivery receipts.</li><li>The operational class: user workload, system service, or system configuration, plus the owner and expected change cadence.</li></ul>
 <p>Controller requirements count as prerequisites too. For example, AICR's Flux OCI output uses <code>ArtifactGenerator</code> and <code>ExternalArtifact</code>. Its base record must therefore name the required Flux version, <code>source-watcher</code> controller, feature gate, and matching <code>OCIRepository</code>; otherwise the YAML is complete as data but cannot reconcile.</p>
-<ul><li>Provenance, checksums, tests, policy results, approvals, and delivery receipts.</li><li>The operational class: user workload, system service, or system configuration, plus the owner and expected change cadence.</li></ul>
-<p>The source record and the literal objects stay connected. A rendered YAML file on its own is useful, but it cannot explain why a hook was replaced, who owns a CRD, or which target facts were required.</p>
+<h3 id="the-source-and-intent-record">The source and intent record</h3>
+<p>Every maintained base must have a <b>source and intent record</b>. This is a document role, not one universal schema. It gives a person or tool the context needed to understand and reproduce the exact objects:</p>
+<ul><li>the source type, identity, version, and digest or checksum;</li><li>the values, selections, or other choices used to produce the objects;</li><li>the inputs that remain for the user or target;</li><li>the output object inventory and its digest;</li><li>required Secrets, CRDs, hooks, setup work, controller features, and target facts;</li><li>the checks and receipts that exist, plus any evidence that is still missing.</li></ul>
+<p>The source format determines the concrete record:</p>
+<table><thead><tr><th>Source</th><th>Source and intent record</th></tr></thead><tbody><tr><td>Helm</td><td><code>HelmRenderIntent</code>, including the chart, version, values profile, release context, source lock, output, prerequisites, and lifecycle routes</td></tr>
+<tr><td>AICR</td><td>The AICR recipe plus its generation and bundle receipts, including fixed choices, remaining inputs, controller requirements, and OCI digests</td></tr>
+<tr><td>Existing OCI</td><td>An OCI source record containing the input reference and digest, package role, object inventory, checks, and any recorded transformation</td></tr>
+<tr><td>Plain Kubernetes YAML</td><td>A source record containing the source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision</td></tr></tbody></table>
+<p>The role may be represented by a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source-and-intent entity for every format.</p>
+<p>Other formats should use the same role with fields that make sense for that source. They must not be mislabeled as Helm. A new source type is not complete until a reader can answer where the objects came from, why they have their current shape, what must happen before delivery, and which claims have evidence.</p>
+<p>This rule applies to maintained catalog examples. An arbitrary upload does not gain correct source history or chart-specific lifecycle facts automatically. Generic checks can be attached after upload. The source adapter or a reviewed catalog addition must provide the source-and-intent record and any required hook, CRD, Secret, setup, or target records. Missing facts remain an explicit gap.</p>
+<p>The source and intent record and the literal objects stay connected. A rendered YAML file on its own is useful, but it cannot explain why a hook was replaced, who owns a CRD, or which target facts were required.</p>
 <p>Every real base must also state whether those surrounding records are complete:</p>
 <ul><li>lifecycle work is either attached, explicitly unnecessary, or an actionable gap;</li><li>target prerequisites are either declared, explicitly unnecessary, or an actionable gap;</li><li>a route copied from another chart version remains a gap until the exact version has its own receipt;</li><li>an Argo CD or Flux mapping explains the intended handling, but it is not execution proof;</li><li>prerequisite checks expire at the next render or apply unless a stricter recorded rule says otherwise.</li></ul>
 <p>These states belong in the generated render intent, the master matrix, and the chart page. Missing information must not be presented as “nothing required.”</p>
@@ -505,8 +531,8 @@
 <ul><li>A Bitnami NGINX configuration is a <code>user-workload</code>, owned by an application team and promoted from development to staging before it reaches production targets.</li><li>Kube Prometheus Stack is a <code>system-service</code>, owned by the platform service team. Its fresh-install route runs first on one non-production cluster; production adds approval.</li><li>A Kubara platform configuration is <code>system-configuration</code>, owned by the platform team. It requires approval in every environment and starts on one test cluster before any fleet expansion.</li></ul>
 <p>The <a href="../../data/operational-class-examples/summary.html">operational class examples</a> record the target, checks, rollout order, current result, and receipt for each case. The generator attaches the same information to the three base-variant records. Other records remain <code>not-yet-classified</code> until those decisions have been made; the catalog does not infer ownership or risk from a chart name.</p>
 <p>The lifecycle-route check applies only when a <code>LifecycleRoute</code> is stored. It checks whether that record is complete and honest. It does not infer that a chart needs no route when none has been written. Chart-specific preset work and evidence still determine which CRD, hook, certificate, setup, and observation routes are required.</p>
-<p>The maintained profile is <a href="../../../../config-catalog/policies/catalog-standard.yaml">config-catalog/policies/catalog-standard.yaml</a>. The live <code>helm-catalog</code> filters and Space assignments were checked on 27 July 2026. The result is recorded in <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">data/apply-policy-profiles/live-helm-catalog.yaml</a>: 31 Spaces use the seven common checks and nine Spaces use those checks plus approval: four production Spaces and five system-configuration Spaces. Run <code>npm run helm-org:policy:verify</code> while logged into the org to compare the current live state with that receipt.</p>
-<p>Each covered Space also records how its configuration entered ConfigHub. The same receipt currently includes three Helm Spaces, three AICR Spaces, thirty <code>cub installer</code> Spaces, one Kubara Space, one Sveltos Space, and two rendered-config Spaces. The verifier fails if a covered Space has no source type or if any maintained source type has no live example.</p>
+<p>The maintained profile is <a href="../../../../config-catalog/policies/catalog-standard.yaml">config-catalog/policies/catalog-standard.yaml</a>. The live <code>helm-catalog</code> filters and Space assignments were checked on 30 July 2026. The result is recorded in <a href="../../../../data/apply-policy-profiles/live-helm-catalog.yaml">data/apply-policy-profiles/live-helm-catalog.yaml</a>: 33 Spaces use the seven common checks and nine Spaces use those checks plus approval: four production Spaces and five system-configuration Spaces. Run <code>npm run helm-org:policy:verify</code> while logged into the org to compare the current live state with that receipt.</p>
+<p>Each covered Space also records how its configuration entered ConfigHub. The same receipt currently includes three Helm Spaces, three AICR Spaces, thirty <code>cub installer</code> Spaces, one Kubara Space, one Sveltos Space, and four rendered-config Spaces. The verifier fails if a covered Space has no source type or if any maintained source type has no live example.</p>
 <p>The topology receipt says which checks are connected. The <a href="../../data/apply-policy-functional-proof/summary.html">functional policy proof</a> shows what they did with temporary records. ConfigHub blocked an unresolved placeholder, invalid Kubernetes data, and unapproved system configuration. It reported an unpinned image and missing health probes as warnings and still allowed the dry-run apply. The system-configuration fixture was then approved at its exact head revision, the approval gate cleared, and the same dry run was allowed. No fixture configuration was applied to Kubernetes.</p>
 <h2 id="confighub-apps">ConfigHub Apps</h2>
 <p>The catalog should lead into useful Apps rather than ending at installation.</p>

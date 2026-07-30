@@ -128,23 +128,60 @@ A ConfigHub base variant needs more than a directory of YAML.
 
 - The literal Kubernetes objects that ConfigHub can query, diff, revise, approve, and
   deliver.
-- The source record that explains how those objects were produced. For Helm this is the
-  `HelmRenderIntent`; for AICR it is the AICR recipe and bundle receipt.
+- The source and intent record that explains where the configuration came from, which
+  choices produced these objects, and what remains to be supplied or performed.
 - The choices fixed at build time and the small set still allowed at install time.
 - Prerequisites and lifecycle work such as CRDs, hooks, webhook certificates, setup
   jobs, Secrets, storage, namespaces, and target capabilities.
+- Provenance, checksums, tests, policy results, approvals, and delivery receipts.
+- The operational class: user workload, system service, or system configuration, plus
+  the owner and expected change cadence.
 
 Controller requirements count as prerequisites too. For example, AICR's Flux OCI
 output uses `ArtifactGenerator` and `ExternalArtifact`. Its base record must therefore
 name the required Flux version, `source-watcher` controller, feature gate, and matching
 `OCIRepository`; otherwise the YAML is complete as data but cannot reconcile.
-- Provenance, checksums, tests, policy results, approvals, and delivery receipts.
-- The operational class: user workload, system service, or system configuration, plus
-  the owner and expected change cadence.
 
-The source record and the literal objects stay connected. A rendered YAML file on its
-own is useful, but it cannot explain why a hook was replaced, who owns a CRD, or which
-target facts were required.
+### The source and intent record
+
+Every maintained base must have a **source and intent record**. This is a document
+role, not one universal schema. It gives a person or tool the context needed to
+understand and reproduce the exact objects:
+
+- the source type, identity, version, and digest or checksum;
+- the values, selections, or other choices used to produce the objects;
+- the inputs that remain for the user or target;
+- the output object inventory and its digest;
+- required Secrets, CRDs, hooks, setup work, controller features, and target facts;
+- the checks and receipts that exist, plus any evidence that is still missing.
+
+The source format determines the concrete record:
+
+| Source | Source and intent record |
+| --- | --- |
+| Helm | `HelmRenderIntent`, including the chart, version, values profile, release context, source lock, output, prerequisites, and lifecycle routes |
+| AICR | The AICR recipe plus its generation and bundle receipts, including fixed choices, remaining inputs, controller requirements, and OCI digests |
+| Existing OCI | An OCI source record containing the input reference and digest, package role, object inventory, checks, and any recorded transformation |
+| Plain Kubernetes YAML | A source record containing the source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision |
+
+The role may be represented by a source Unit, Space metadata plus a committed
+receipt, or a generated base-variant record. ConfigHub does not yet have one
+first-class source-and-intent entity for every format.
+
+Other formats should use the same role with fields that make sense for that source.
+They must not be mislabeled as Helm. A new source type is not complete until a reader
+can answer where the objects came from, why they have their current shape, what must
+happen before delivery, and which claims have evidence.
+
+This rule applies to maintained catalog examples. An arbitrary upload does not gain
+correct source history or chart-specific lifecycle facts automatically. Generic checks
+can be attached after upload. The source adapter or a reviewed catalog addition must
+provide the source-and-intent record and any required hook, CRD, Secret, setup, or
+target records. Missing facts remain an explicit gap.
+
+The source and intent record and the literal objects stay connected. A rendered YAML
+file on its own is useful, but it cannot explain why a hook was replaced, who owns a
+CRD, or which target facts were required.
 
 Every real base must also state whether those surrounding records are complete:
 
@@ -350,17 +387,17 @@ determine which CRD, hook, certificate, setup, and observation routes are requir
 
 The maintained profile is
 [config-catalog/policies/catalog-standard.yaml](../../config-catalog/policies/catalog-standard.yaml).
-The live `helm-catalog` filters and Space assignments were checked on 27 July 2026.
+The live `helm-catalog` filters and Space assignments were checked on 30 July 2026.
 The result is recorded in
 [data/apply-policy-profiles/live-helm-catalog.yaml](../../data/apply-policy-profiles/live-helm-catalog.yaml):
-31 Spaces use the seven common checks and nine Spaces use those checks plus approval:
+33 Spaces use the seven common checks and nine Spaces use those checks plus approval:
 four production Spaces and five system-configuration Spaces. Run
 `npm run helm-org:policy:verify` while logged into the org to
 compare the current live state with that receipt.
 
 Each covered Space also records how its configuration entered ConfigHub. The same
 receipt currently includes three Helm Spaces, three AICR Spaces, thirty `cub
-installer` Spaces, one Kubara Space, one Sveltos Space, and two rendered-config
+installer` Spaces, one Kubara Space, one Sveltos Space, and four rendered-config
 Spaces. The verifier fails if a covered Space has no source type or if any maintained
 source type has no live example.
 

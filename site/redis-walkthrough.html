@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detailed Redis Walkthrough · Config Test Centre</title>
+<title>Detailed Redis Walkthrough · Config Workshop</title>
   <meta name="description" content="Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/redis-walkthrough.html">
-  <meta property="og:title" content="Detailed Redis Walkthrough · Config Test Centre">
+  <meta property="og:title" content="Detailed Redis Walkthrough · Config Workshop">
   <meta property="og:description" content="Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/redis-walkthrough.html">
@@ -56,7 +56,7 @@
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -71,9 +71,20 @@
       background: var(--surface);
     }
     .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -388,6 +399,11 @@
       .topbar .brand {
         margin-bottom: 9px;
       }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
       .navlinks {
         margin-left: 0;
         display: flex;
@@ -517,7 +533,7 @@ em{font-style:italic;color:var(--ink);}
 </head>
 <body class="calm-page">
 <header class="hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
   <div class="hero-copy">
     <h1>Detailed Redis walkthrough</h1>
     <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in only when you want ConfigHub to keep an arbitrary object edit, promote it, and record a rollback.</p>
@@ -664,6 +680,6 @@ $ npm run redis-public-walkthrough:run</code></pre>
   <p class="closing-line">Try the public Redis walkthrough first. When you are ready to use your own example, bring a chart and values file that you or an AI produced. The <a href="./testing.html#bring-your-own">bring-your-own path</a> renders it, reports exact object and field findings, keeps the changes you actually wanted, and builds a reviewed OCI.</p>
   <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./demo-org.html">The demo org</a> · <a href="./verification.html">Open verification</a></p>
 </main>
-<footer><p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this detailed Redis walkthrough.</p><p>The public steps need no ConfigHub account. Managed changes, promotion, and rollback use ConfigHub.</p></footer>
+<footer><p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this detailed Redis walkthrough.</p><p>The public steps need no ConfigHub account. Managed changes, promotion, and rollback use ConfigHub.</p></footer>
 </body>
 </html>
