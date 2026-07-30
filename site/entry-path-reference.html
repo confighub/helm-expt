@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps Guide · Config Test Centre</title>
-  <meta name="description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/journey.html">
-  <meta property="og:title" content="Apps Guide · Config Test Centre">
-  <meta property="og:description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
+  <title>Entry Path Reference · Config Test Centre</title>
+  <meta name="description" content="Detailed entry paths for Helm, AICR, existing OCI, and Kubernetes YAML, with commands and proof links.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/entry-path-reference.html">
+  <meta property="og:title" content="Entry Path Reference · Config Test Centre">
+  <meta property="og:description" content="Detailed entry paths for Helm, AICR, existing OCI, and Kubernetes YAML, with commands and proof links.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/journey.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/entry-path-reference.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -413,21 +413,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
-    .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
-    .app-step::before { content: counter(appstep); display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 999px; background: var(--good); color: #fff; font-weight: 700; font-size: .78rem; margin-bottom: 8px; }
-    .app-step h3 { margin: 0 0 8px; }
-    .app-step p { margin: 0; font-size: .9rem; }
-    @media (max-width: 980px) { .app-flow { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 640px) {
-      .app-flow { grid-template-columns: 1fr; }
-      main table, main tbody, main tr, main td { display: block; width: 100%; white-space: normal; }
-      main thead { display: none; }
-      main tr { padding: 10px 0; border-bottom: 1px solid var(--line); }
-      main td { padding: 4px 6px; border: 0; font-size: .86rem; }
-      main td:first-child { color: var(--ink); font-weight: 700; }
-    }
-
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -514,19 +499,30 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-    <h1>Apps on ConfigHub</h1>
-    <p class="lead">An App uses configuration already saved in ConfigHub to complete a repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
-    <p>Start with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=apps">official ConfigHub tutorial</a> if you have not yet installed, changed, and promoted one component. The <a href="./testing.html">Examples page</a> covers Helm, AICR, OCI, and YAML before they are saved.</p>
-    <p>An App can then query the exact Kubernetes objects, propose a change, run the required checks, wait for approval, publish a release, and record the result. AI may help propose or explain a change. The reviewed objects and policy result still decide what can ship.</p>
-    <p class="quiet-line"><a href="./demo-org.html">The demo org</a> shows catalog configurations, variant trees, promotions, and apply gates in ConfigHub.</p>
+    <h1>Detailed entry paths</h1>
+    <p class="tagline">This reference keeps the commands and proof links for Helm, AICR, OCI, and Kubernetes YAML. Start with the shorter <a href="./testing.html">Examples page</a> if you have not chosen a path yet.</p>
+    <p><code>cub installer</code> reads maintained catalog packages. <code>cub helm</code> imports an arbitrary chart and values. These are preparation tools, not separate ConfigHub journeys.</p>
   </header>
   <main>
-    <section aria-labelledby="app-kinds">
-      <h2 id="app-kinds">What Counts As An Application?</h2>
-      <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+    <section aria-labelledby="catalog-paths">
+      <h2 id="catalog-paths">Choose Your Path</h2>
+      <p>Start with the configuration you already have. Each path first gives you exact Kubernetes objects to inspect.</p>
+      <h3 id="catalog-starting-points">What do you have?</h3>
       <div class="card"><table>
-        <thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>One public chart</td><td>A catalog chart such as Redis, Prometheus, ingress-nginx, or cert-manager that you want to install and keep updated.</td></tr><tr><td>Several charts</td><td>A group of charts that must be released together, such as an application, database, cache, and monitoring.</td></tr><tr><td>Platform services</td><td>Shared services such as ingress, certificates, policy, monitoring, logging, or identity.</td></tr><tr><td>Your own Kubernetes files</td><td>Deployments, Services, ConfigMaps, Secrets, policies, and other objects written by your team.</td></tr><tr><td>Something already running</td><td>An application that already exists in Argo, Flux, rendered YAML, a Helm release, or a live cluster.</td></tr></tbody>
+        <thead><tr><th>Starting point</th><th>What you can do first</th></tr></thead>
+        <tbody><tr><td>Helm chart and values</td><td>Choose a checked public configuration, or render your own chart and values without applying them.<br><a href="./charts/index.html#charts">Browse public charts</a> · <a href="./testing.html#bring-your-own">Review your own values</a></td></tr><tr><td>AICR recipe or bundle</td><td>Inspect the selected components and the exact Argo CD Applications before saving or promoting them.<br><a href="./testing.html#aicr-platform">Open the AICR example</a></td></tr><tr><td>Existing OCI package</td><td>Pull an OCI package, inspect or test its objects, and decide whether to build a checked replacement.<br><a href="./d/docs/user/inspect-oci-package.html">Inspect an OCI package</a> · <a href="./d/docs/user/transform-oci-package.html">Change a literal configuration OCI</a></td></tr><tr><td>Kubernetes YAML</td><td>Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="./existing-apps.html#start">Start from existing YAML</a></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <h3 id="catalog-next-jobs">What do you want to do next?</h3>
+      <div class="card"><table>
+        <thead><tr><th>Job</th><th>Where to continue</th></tr></thead>
+        <tbody><tr><td>Inspect and verify</td><td><a href="./testing.html">Inspect exact objects and inputs</a> · <a href="./verification.html">Check the evidence</a></td></tr><tr><td>Try a catalog package</td><td><a href="./try.html">Render one reviewed Redis configuration</a></td></tr><tr><td>Learn ConfigHub</td><td><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=pathfinder">Follow the official tutorial</a></td></tr><tr><td>Upload and save</td><td><a href="./variants.html#flow">Record reviewed objects in ConfigHub</a></td></tr><tr><td>Customize</td><td><a href="./d/docs/user/transform-oci-package.html">Change one field in an OCI without signing in</a> · <a href="./variants.html#choose">Choose a ConfigHub base or derived variant</a></td></tr><tr><td>Promote</td><td><a href="./variants.html#journey">Move a reviewed change through environments</a></td></tr><tr><td>Deliver</td><td><a href="./operations.html#ops">Publish OCI for Argo CD, Flux, or direct apply</a></td></tr><tr><td>Operate</td><td><a href="./operations.html#fleet-record">Track changes and live results across a fleet</a></td></tr><tr><td>Build an App</td><td><a href="./journey.html#app-program">Use saved configuration for a repeated operational job</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -535,13 +531,11 @@
         th { color: var(--muted); font-weight: 600; }
       </style>
     </section>
-
-    <section aria-labelledby="entry">
-      <h2 id="entry">Ways To Start</h2>
-      <p>Start from the thing you already have. The first step is read-only: show the sources, files, objects, namespace, and owner before changing delivery.</p>
+    <section aria-labelledby="work-mode">
+      <h2 id="work-mode">Choose where the work runs</h2>
       <div class="card"><table>
-        <thead><tr><th>Entry</th><th>First move</th><th>Use it for</th></tr></thead>
-        <tbody><tr><td>Catalog chart</td><td>Pick a chart page, choose a base variant, and render the files.</td><td>Trying a public chart first.</td></tr><tr><td>Existing Argo or Flux app</td><td>Read the source, target, rendered objects, and current status.</td><td>Teams that already use GitOps.</td></tr><tr><td>Rendered YAML</td><td>Import the files and show which objects ConfigHub would manage.</td><td>Applications already rendered by CI or Helm.</td></tr><tr><td>Live cluster</td><td>Inventory what is running before making any change.</td><td>Teams that need to understand an existing namespace.</td></tr><tr><td>Your own application</td><td>Bring your Deployments, Services, ConfigMaps, and policies beside catalog charts.</td><td>Private services and platform components.</td></tr></tbody>
+        <thead><tr><th>Choice</th><th>What it means</th><th>Status</th></tr></thead>
+        <tbody><tr><td>Local, no server</td><td>Run tools on your machine or in CI. Public package pulls need no sign-in.</td><td>Available</td></tr><tr><td>Hosted, no sign-in</td><td>Inspect and test public configuration through an anonymous service.</td><td>Planned</td></tr><tr><td>ConfigHub</td><td>Record, change, release, and promote the result. Continue with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=testing">official tutorial</a>.</td><td>Available; account required</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -549,26 +543,18 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+      <p>These choices apply before configuration is saved. Public package and registry paths work now. The hosted anonymous service does not. Managed variants, promotions, Apps, gates, and fleet examples use ConfigHub Server.</p>
     </section>
-
-    <section aria-labelledby="app-flow">
-      <h2 id="app-flow">The Normal Order</h2>
-      <p>Do not start by changing the cluster. Start by seeing the files, then group them, then make versions, then release.</p>
-      <div class="app-flow">
-        <div class="app-step"><h3>Start with something real</h3><p>Choose a catalog chart, an existing app, rendered YAML, a live namespace, or your own Kubernetes files.</p></div>
-        <div class="app-step"><h3>Show the objects first</h3><p>List the files and Kubernetes objects before ConfigHub changes how anything is delivered.</p></div>
-        <div class="app-step"><h3>Name what belongs together</h3><p>Group the objects that make up one application so a reviewer can see the whole thing.</p></div>
-        <div class="app-step"><h3>Make versions</h3><p>Create development, staging, production, region, or customer versions without copying values files by hand.</p></div>
-        <div class="app-step"><h3>Release and check it</h3><p>Send the approved files to GitOps or another delivery tool, then compare that with what the cluster reports.</p></div>
-      </div>
-    </section>
-
-    <section aria-labelledby="existing">
-      <h2 id="existing">Can I Start From An Existing App?</h2>
-      <p>Yes. Start by reading it, not by replacing it. ConfigHub should show the source, target, namespace, objects, labels, and owner before it changes delivery.</p>
+    <section aria-labelledby="bring-your-own">
+      <h2 id="bring-your-own">Bring your own chart and values</h2>
+      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. This works for values written by your team or proposed by an AI. Render them to files without applying them:</p>
+      <pre><code>helm template &lt;release&gt; &lt;chart&gt;   --version &lt;version&gt;   --namespace &lt;namespace&gt;   --values &lt;values.yaml&gt;   &gt; rendered.yaml</code></pre>
+      <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
+      <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas. It also embeds an API key, selects an unpinned image, and exposes a public LoadBalancer. Three container security settings are also weaker than the catalog baseline. The review keeps the three replicas, restores the security settings, and makes the Deployment use an existing Secret. Open the <a href="d/data/byo-helm-values-review/summary.html">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
+      <p>The proof renders the locked chart and verifies that its baseline matches the catalog. It finds the six intended problems and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="d/data/byo-helm-values-review/public-and-confighub.html">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
       <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>First action</th><th>What you see</th></tr></thead>
-        <tbody><tr><td>Argo CD app</td><td>Read or import the Argo app.</td><td>Source repo, target cluster, namespace, rendered objects, and current sync status.</td></tr><tr><td>Flux HelmRelease or Kustomization</td><td>Read or import the Flux object.</td><td>Controller source, target namespace, rendered objects, and ownership.</td></tr><tr><td>Rendered YAML</td><td>Import or preview the files.</td><td>Objects, labels, namespaces, Secrets, CRDs, and likely review points.</td></tr><tr><td>Live cluster</td><td>Inventory the namespace or selected objects.</td><td>What is running now, who appears to own it, and what would need review before adoption.</td></tr><tr><td>Platform services</td><td>Group related charts and files.</td><td>Which shared services belong with the application and which are separate platform dependencies.</td></tr></tbody>
+        <thead><tr><th>Then what?</th><th>Recorded result</th></tr></thead>
+        <tbody><tr><td>Deploy the reviewed result</td><td><a href="d/data/byo-helm-values-deploy-proof/summary.html">Argo CD synced the ConfigHub release and NGINX reached 3/3 ready replicas</a>.</td></tr><tr><td>Change development</td><td><a href="d/data/byo-helm-values-promotion-proof/summary.html">The saved base stayed at three replicas while development changed to four</a>.</td></tr><tr><td>Promote to staging</td><td><a href="d/data/byo-helm-values-promotion-proof/summary.html">ConfigHub promoted the four-replica change and preserved the staging namespace</a>.</td></tr><tr><td>Deploy staging</td><td><a href="d/data/byo-helm-values-staging-deploy-proof/summary.html">Argo CD synced the promoted ConfigHub release and NGINX reached 4/4 ready replicas</a>.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -576,25 +562,16 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <div class="card">
-        <h3>Start read-only</h3>
-        <p>These commands are preview commands. They show what ConfigHub finds or would import before anything changes in the cluster.</p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub gitops discover --space my-space my-k8s-target
-cub gitops import --space my-space my-k8s-target my-render-target \
-  --where-resource "metadata.namespace = 'argocd'"
-kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
-cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
-        <p>You see the resources, namespace, target, and source. At this stage nothing has been moved to ConfigHub delivery.</p>
-      </div>
-      <p>Only turn an existing app into a <code>cub installer</code> recipe when you want a maintained Helm render path, chart updates, and catalog-style checks. See <a href="d/docs/user/adopting-existing-apps.html">Adopting Existing Apps</a>.</p>
+      <p>The target still has to provide the <code>ai-provider-credentials</code> Secret. Both live runs supplied a fake value separately and did not record it. This exact example has not run through Flux, rollback, a chart upgrade, or a fleet rollout. It also does not claim that one check can judge every private chart or arbitrary values file.</p>
     </section>
 
-    <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
+    <section aria-labelledby="aicr-platform">
+      <h2 id="aicr-platform">Start with an AICR platform package</h2>
+      <p>AICR selected 15 versioned components for an EKS H100 training platform and generated an Argo CD source package. We published that package and a second OCI containing the 17 exact Argo CD Applications. Both are public and passed anonymous pull checks at their recorded digests.</p>
+      <p>ConfigHub imported the 17 Applications as one unchanged base. Development changes only the kube-prometheus-stack Application so Grafana reads its administrator credentials from a Secret owned by the target. A dry run named that Application and changed nothing. Staging then received the same reviewed configuration, while the other 16 Applications stayed unchanged.</p>
       <div class="card"><table>
-        <thead><tr><th>Example</th><th>What ConfigHub helps with</th></tr></thead>
-        <tbody><tr><td>Redis app</td><td>One public chart can be rendered from a base variant, checked, changed for each environment, and released again.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A chart with CRDs, webhooks, and prerequisites can use base variants that say what the target must provide before release.</td></tr><tr><td>Platform services</td><td>Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them.</td></tr><tr><td>Your service plus chart services</td><td>Your own service can sit beside a database, queue, cache, or monitoring chart.</td></tr><tr><td>Existing app</td><td>An application already in a cluster can be inventoried first, then brought under review when you are ready.</td></tr><tr><td>AI-suggested change</td><td>AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved.</td></tr></tbody>
+        <thead><tr><th>Open</th><th>What it answers</th></tr></thead>
+        <tbody><tr><td>AICR guide</td><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">How the recipe became two public OCI artifacts and three ConfigHub Spaces</a>.</td></tr><tr><td>Public OCI receipt</td><td><a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Which references and digests passed anonymous pulls</a>.</td></tr><tr><td>Promotion receipt</td><td><a href="../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml">Which Application changed, what the dry runs checked, and what reached staging</a>.</td></tr><tr><td>Live Space guides</td><td><a href="d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">Base</a> · <a href="d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.html">development</a> · <a href="d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.html">staging</a>.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -602,27 +579,61 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The <a href="d/data/redis-upgrade-app-proof/summary.html">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place, the candidate moves through development and staging, and two Argo CD clusters run both the candidate OCI and the separately published rollback OCI.</p>
-      <p>The <a href="d/data/rbac-review-live-proof/summary.html">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
-      <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
+      <p>All three Spaces keep the catalog checks and required approval. The target must provide the Grafana Secret. This example has not run the Applications through Argo CD or proved an EKS GPU workload.</p>
     </section>
 
-    <section aria-labelledby="app-program">
-      <h2 id="app-program">Five working examples</h2>
-      <p>Each row has a bounded example with committed evidence. The broader product capability remains partial until the missing work in the final column is complete.</p>
-      <div class="card"><table>
-        <thead><tr><th>App</th><th>What ran</th><th>Broader status</th><th>Still to build</th></tr></thead>
-        <tbody><tr><td>Upgrade App</td><td>Redis upgrades from chart 25.5.3 to 27.0.0 without losing a post-render replica change, moves through development and staging, reaches two Argo CD clusters, and rolls back.</td><td>partial</td><td>This is a guarded demonstration and receipt, not a finished ConfigHub App interface.</td></tr><tr><td>Hooks and CRDs App</td><td>Kube Prometheus Stack passes the recorded CRD, certificate, workload, webhook, and runtime sequence on fresh installs and on an 85.3.3 to 86.1.0 upgrade through Argo CD and Flux.</td><td>partial</td><td>ConfigHub does not yet select and execute the chart-specific route automatically.</td></tr><tr><td>RBAC Review App</td><td>One review removes unnecessary Secret access, keeps ConfigMap access, requires approval, publishes OCI, and reaches Kubernetes through Argo CD.</td><td>partial</td><td>The example does not yet build a complete RBAC binding graph across a live fleet.</td></tr><tr><td>Fleet Platform App</td><td>Kubara proves one platform target, while Sveltos proves a pilot and two-cluster expansion with separate reviewed OCI digests and drift recovery.</td><td>partial</td><td>A large mixed-source fleet rollout with failure-based pausing remains open.</td></tr><tr><td>AI Change Review App</td><td>The example finds an unpinned image and inline API key, clears the reviewed replacement, and proves that approval controls the ConfigHub apply dry-run.</td><td>partial</td><td>Kubernetes delivery, promotion, rollback, GPU workload health, and live observation have not run for this candidate.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="d/docs/user/config-catalog-demonstrations.html">Open the demonstration programme</a> for the steps, evidence, and current limit for every App.</p>
+    <section aria-labelledby="existing-oci-change">
+      <h2 id="existing-oci-change">Start with an existing OCI package</h2>
+      <p>Inspect the OCI first so you know whether it contains a source chart, a cub installer package, or exact Kubernetes objects. A source package must be rendered before it can become a deployable configuration. A literal configuration can be changed directly.</p>
+      <pre><code>npm run oci:transform -- oci://REGISTRY/REPOSITORY@sha256:DIGEST   --object Deployment/example   --namespace example   --field spec.replicas   --value 4   --output oci-layout:./changed-example:reviewed</code></pre>
+      <p>The command changes only the field you name. It records the input digest, the old and new values, and every check result inside the new OCI. It then pulls the new image back and compares the files. Existing companion records are kept if you change the output again.</p>
+      <p>The <a href="d/data/anonymous-oci-transform-proof/summary.html">public NGINX proof</a> pulls five objects without credentials and changes only the replica count. It names the required external Secret and verifies the output digest and object set. The output stays local until someone deliberately publishes, uploads, or deploys it.</p>
+    </section>
+
+    <section aria-labelledby="source-to-oci">
+      <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
+      <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package and renders one base. It tests the result and builds a literal configuration OCI. It then pulls the OCI back and verifies its objects against the reviewed files. The run needs no ConfigHub credentials.</p>
+      <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="d/data/byo-helm-values-review/public-and-confighub.html">Open its OCI and ConfigHub record</a>.</p>
+      <p>The AICR example publishes two artifacts because they have different jobs: Argo CD reads the generated source chart; ConfigHub imports the literal 17-Application configuration. <a href="../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">Open the public OCI receipt</a>.</p>
+      <p><a href="d/data/anonymous-oci-ci-proof/summary.html">Read the CI source-to-OCI proof</a>, <a href="d/data/anonymous-oci-transform-proof/summary.html">the anonymous OCI-to-OCI change proof</a>, and <a href="d/data/serverless-oci-gitops-proof/summary.html">the local OCI-to-Flux proof</a>. Each receipt records the input and output digests and the steps that ran.</p>
+      <p>The same building blocks work for a private chart. We do not yet provide one public service that performs the complete analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
+    </section>
+
+    <section aria-labelledby="pillar-fewer">
+      <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
+      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The AICR example records its remaining inputs, publishes both OCI artifacts for anonymous pull, imports the literal configuration into ConfigHub, and promotes one reviewed change. Controller delivery and a live GPU-cluster result remain open.</p>
+      <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-proof">
+      <h2 id="pillar-proof">You can read the proof before you ship</h2>
+      <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry passes every lane, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
+      <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-messy">
+      <h2 id="pillar-messy">Hooks, CRDs, and setup work are listed</h2>
+      <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records each chart-specific decision and who must perform the work. It also records the result for each delivery path. The public Kube Prometheus Stack package includes its lifecycle files. Receipts cover anonymous pull, direct fresh install, and the no-CRDs upgrade from 85.3.3 to 86.1.0 through Argo CD and Flux. ConfigHub does not yet select that route automatically, and a missing receipt remains visible.</p>
+      <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-reverse">
+      <h2 id="pillar-reverse">You can reverse a change, not only keep it</h2>
+      <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
+      <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
+    </section>
+
+    <section aria-labelledby="pillar-installer">
+      <h2 id="pillar-installer">You do not need to learn cub installer first</h2>
+      <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
+    </section>
+
+    <section aria-labelledby="pillar-policy">
+      <h2 id="pillar-policy">The checks follow the configuration</h2>
+      <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Image digest and workload probe checks warn. Production releases and system configuration keep those checks and add one approval.</p>
+      <p><a href="d/data/apply-policy-profiles/summary.html">Read the policy, resource classes, and live assignments</a>.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. This page explains applications; operations, verification, and commercial boundaries live on their own pages.</footer>
+  <footer>Every claim on this page points at committed evidence in the catalog.</footer>
 </body>
 </html>

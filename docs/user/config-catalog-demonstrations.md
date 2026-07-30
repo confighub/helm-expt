@@ -6,7 +6,7 @@ The catalog begins with Helm and adds other configuration formats without making
 
 ## OCI in, managed configuration, OCI out
 
-**Public catalog and tools:** The public catalog and tools can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.
+**Public catalog and tools:** Starting examples can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account. The result is a literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.
 
 ### Work without an account
 
@@ -31,6 +31,8 @@ Here, `work` means rendering, inspecting, explaining, testing, scanning, compari
 | Public hosted service | planned | Inspect, test, and serve public configuration without signing in, then claim it later. Anonymous use does not create private history, saved edits, variants, or approvals. |
 
 Anonymous users can build, inspect, test, pull, and serve public OCI packages. The boundary is **Claim this configuration in ConfigHub.** ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out. A team can claim at whichever OCI boundary needs managed records; claiming is not a required first step.
+
+After a configuration is claimed or uploaded, variants, promotions, releases, Apps, apply gates, and fleet examples use ConfigHub Server and require an account.
 
 **Inside ConfigHub:** ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
 
@@ -140,7 +142,7 @@ Current limit: A field that changes the Helm render belongs in a new rendered ba
 
 ### 4. Upgrade and promote through environments
 
-**Status: partial.**
+**Status: available.**
 
 Copying values or manifests between environments hides the exact change and makes upgrades hard to repeat.
 
@@ -158,7 +160,7 @@ Current limit: The current CLI dry-run does not yet print a useful human mutatio
 
 ### 5. Deliver one reviewed OCI and roll it out
 
-**Status: partial.**
+**Status: available.**
 
 A reviewed configuration is not useful until the intended controller applies the same objects and the workload becomes healthy.
 
@@ -176,7 +178,7 @@ Current limit: The current flagship receipts use small local target sets, not a 
 
 ### 6. Manage the CRDs, hooks, and setup work around a package
 
-**Status: partial.**
+**Status: available.**
 
 Some packages need CRDs, certificates, jobs, or checks in a specific order that a flat manifest bundle does not perform by itself.
 
@@ -194,7 +196,7 @@ Current limit: Seven fresh-install steps passed in the direct script. The no-crd
 
 ### 7. Use an App for a repeated operational job
 
-**Status: partial.**
+**Status: example-only.**
 
 Upgrade review, RBAC review, fleet assignment, and AI change review require several configuration operations to work together.
 
@@ -214,7 +216,9 @@ Current limit: The current Apps are reproducible demonstrations, not finished Co
 
 ### Helm chart to managed configuration
 
-**Status: available.**
+**Worked example: working.** The Redis example pulls a public package, shows the exact Helm inputs and Kubernetes objects, checks Helm parity, and can continue into ConfigHub.
+
+**Broader status: available.** The result applies to the named Redis versions and preset configurations, not every Helm chart.
 
 A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisites, and upgrade changes behind its templates.
 
@@ -234,7 +238,9 @@ Current limit: A passing render does not prove that every target prerequisite or
 
 ### AICR bundle to managed configuration
 
-**Status: partial.**
+**Worked example: working.** The AICR example publishes a source OCI and a 17-Application literal OCI, imports the literal objects into ConfigHub, and promotes one reviewed change from development to staging.
+
+**Broader status: partial.** Argo CD delivery and a live GPU workload have not run.
 
 AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.
 
@@ -257,7 +263,9 @@ Current limit: The original Git-oriented Flux bundle retains AICR's generated YO
 
 ### cub installer package to managed configuration
 
-**Status: available.**
+**Worked example: working.** Public catalog packages pull without a registry login, render locally, write one selected configuration as OCI, and verify the output by reading it back.
+
+**Broader status: available.** The lifecycle route for hooks, CRDs, setup jobs, and target prerequisites remains specific to each preset configuration.
 
 A team may need several chart-specific preset configurations and repeatable local rendering without introducing a server into the first test.
 
@@ -277,7 +285,9 @@ Current limit: An installer package OCI can contain several preset configuration
 
 ### Public OCI inspection and packaging
 
-**Status: partial.**
+**Worked example: working.** Local and CI proofs pull a public package without ConfigHub credentials, render it, build OCI, and compare the output objects after pulling them back.
+
+**Broader status: partial.** The hosted anonymous service is planned, and the current output OCI examples use a workflow artifact or temporary registry.
 
 A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.
 
@@ -297,7 +307,9 @@ Current limit: The NGINX receipt proves anonymous public installer OCI pull, loc
 
 ### One reviewed bundle through Argo CD, Flux, or direct apply
 
-**Status: partial.**
+**Worked example: working.** NGINX and the hook fixture have passed recorded OCI delivery through Argo CD, Flux, and direct apply without rerendering the reviewed objects.
+
+**Broader status: partial.** These receipts do not cover every catalog configuration.
 
 Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.
 
@@ -317,7 +329,9 @@ Current limit: The live three-consumer receipt proves this delivery mechanism wi
 
 ### Test, development, staging, and production promotions
 
-**Status: partial.**
+**Worked example: working.** Redis and NGINX examples record derived changes, promote them in order, publish reviewed OCI artifacts, and check the resulting workloads.
+
+**Broader status: partial.** The current CLI still lacks a useful human mutation preview for one promotion dry-run.
 
 Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.
 
@@ -337,7 +351,9 @@ Current limit: The older NGINX fleet receipt proves four stored environment reco
 
 ### Kubara platform configuration to a cluster fleet
 
-**Status: partial.**
+**Worked example: working.** One approved Kubara configuration passed its recorded route work, OCI delivery, Argo CD bootstrap, and a healthy Metrics Server result on one cluster.
+
+**Broader status: partial.** The example does not yet cover the full service profile or a multi-cluster rollout wave.
 
 A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.
 
@@ -359,7 +375,9 @@ Current limit: The repo now has a reproducible Kubara v0.12.0 generation, Argo C
 
 ### ConfigHub desired state delivered through Sveltos
 
-**Status: partial.**
+**Worked example: working.** A reviewed ClusterProfile moved from one pilot cluster to two staging clusters at a second OCI digest, and Sveltos restored a deliberately drifted value.
+
+**Broader status: partial.** The proof uses two local clusters and does not test a failed rollout wave.
 
 Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.
 
@@ -381,7 +399,9 @@ Current limit: The original live receipt records a manual export and kubectl app
 
 ### Upgrade App
 
-**Status: partial.**
+**Worked example: working.** Redis upgrades from chart 25.5.3 to 27.0.0 without losing a post-render replica change, moves through development and staging, reaches two Argo CD clusters, and rolls back.
+
+**Broader status: partial.** This is a guarded demonstration and receipt, not a finished ConfigHub App interface.
 
 A chart or package upgrade can change many clusters at once, and a green source diff does not show which workloads will be affected.
 
@@ -401,7 +421,9 @@ Current limit: One continuous Redis proof now imports chart 25.5.3, records a po
 
 ### Hooks and CRDs App
 
-**Status: partial.**
+**Worked example: working.** Kube Prometheus Stack passes the recorded CRD, certificate, workload, webhook, and runtime sequence on fresh installs and on an 85.3.3 to 86.1.0 upgrade through Argo CD and Flux.
+
+**Broader status: partial.** ConfigHub does not yet select and execute the chart-specific route automatically.
 
 A complex chart may need CRDs, certificate setup, jobs, and checks in a particular order. A rendered YAML bundle alone does not explain or perform that work.
 
@@ -421,7 +443,9 @@ Current limit: Seven Kube Prometheus Stack fresh-install steps passed in the dir
 
 ### RBAC Review App
 
-**Status: partial.**
+**Worked example: working.** One review removes unnecessary Secret access, keeps ConfigMap access, requires approval, publishes OCI, and reaches Kubernetes through Argo CD.
+
+**Broader status: partial.** The example does not yet build a complete RBAC binding graph across a live fleet.
 
 Risky permissions are hard to find when application configuration is split across charts, repositories, and clusters.
 
@@ -440,7 +464,9 @@ Current limit: The catalog-wide scan reads committed default renders; it does no
 
 ### Fleet Platform App
 
-**Status: partial.**
+**Worked example: working.** Kubara proves one platform target, while Sveltos proves a pilot and two-cluster expansion with separate reviewed OCI digests and drift recovery.
+
+**Broader status: partial.** A large mixed-source fleet rollout with failure-based pausing remains open.
 
 Platform teams need to assign different system configurations to cluster groups without losing a central source of record.
 
@@ -459,7 +485,9 @@ Current limit: The live NGINX fleet proves a Helm-derived base and four managed 
 
 ### AI Change Review App
 
-**Status: partial.**
+**Worked example: working.** The example finds an unpinned image and inline API key, clears the reviewed replacement, and proves that approval controls the ConfigHub apply dry-run.
+
+**Broader status: partial.** Kubernetes delivery, promotion, rollback, GPU workload health, and live observation have not run for this candidate.
 
 An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.
 

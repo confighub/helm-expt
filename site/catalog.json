@@ -28907,7 +28907,12 @@
             "Run configuration checks and selected live tests.",
             "Approve and promote in waves.",
             "Compare desired and observed state after rollout."
-          ]
+          ],
+          "workedExample": {
+            "limit": "This is a guarded demonstration and receipt, not a finished ConfigHub App interface.",
+            "result": "Redis upgrades from chart 25.5.3 to 27.0.0 without losing a post-render replica change, moves through development and staging, reaches two Argo CD clusters, and rolls back.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -28946,7 +28951,12 @@
             "Prepare the webhook certificate, apply the ordinary objects, and check readiness in the recorded order.",
             "Choose the recorded Argo CD, Flux, or direct-apply implementation for each step.",
             "Store every route as a checked LifecycleRoute and keep the execution receipts beside it."
-          ]
+          ],
+          "workedExample": {
+            "limit": "ConfigHub does not yet select and execute the chart-specific route automatically.",
+            "result": "Kube Prometheus Stack passes the recorded CRD, certificate, workload, webhook, and runtime sequence on fresh installs and on an 85.3.3 to 86.1.0 upgrade through Argo CD and Flux.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -28973,7 +28983,12 @@
             "Report broad verbs, resources, and subjects.",
             "Propose a concrete object diff.",
             "Publish the approved objects as OCI and let Argo CD deliver the correction."
-          ]
+          ],
+          "workedExample": {
+            "limit": "The example does not yet build a complete RBAC binding graph across a live fleet.",
+            "result": "One review removes unnecessary Secret access, keeps ConfigMap access, requires approval, publishes OCI, and reaches Kubernetes through Argo CD.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29006,7 +29021,12 @@
             "Select the base variant and small install-time input set for each cluster class.",
             "Preview the affected clusters.",
             "Promote in waves and observe each target."
-          ]
+          ],
+          "workedExample": {
+            "limit": "A large mixed-source fleet rollout with failure-based pausing remains open.",
+            "result": "Kubara proves one platform target, while Sveltos proves a pilot and two-cluster expansion with separate reviewed OCI digests and drift recovery.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29040,7 +29060,12 @@
             "Show the exact object and fleet diff.",
             "Run schema, placeholder, security, and target checks.",
             "Approve, promote, observe, or unwind the change."
-          ]
+          ],
+          "workedExample": {
+            "limit": "Kubernetes delivery, promotion, rollback, GPU workload health, and live observation have not run for this candidate.",
+            "result": "The example finds an unpinned image and inline API key, clears the reviewed replacement, and proves that approval controls the ConfigHub apply dry-run.",
+            "status": "working"
+          }
         }
       ],
       "architecture": {
@@ -29097,7 +29122,8 @@
           "claimBoundary": {
             "action": "Claim this configuration in ConfigHub.",
             "after": "ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out. A team can claim at whichever OCI boundary needs managed records; claiming is not a required first step.",
-            "before": "Anonymous users can build, inspect, test, pull, and serve public OCI packages."
+            "before": "Anonymous users can build, inspect, test, pull, and serve public OCI packages.",
+            "managedExamples": "After a configuration is claimed or uploaded, variants, promotions, releases, Apps, apply gates, and fleet examples use ConfigHub Server and require an account."
           },
           "executionModes": [
             {
@@ -29127,7 +29153,7 @@
           ],
           "output": "A literal configuration OCI, an inspection result, or both, plus a source record that names the inputs, prerequisites, lifecycle work, and evidence.",
           "problem": "Helm charts, AICR recipes, installer packages, existing YAML, and existing OCI packages all need useful checks or changes before teams can rely on them.",
-          "result": "The public catalog and tools can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account."
+          "result": "Starting examples can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account."
         },
         "name": "OCI in, managed configuration, OCI out"
       },
@@ -29269,7 +29295,7 @@
             "name": "Upgrade and promote through environments",
             "problem": "Copying values or manifests between environments hides the exact change and makes upgrades hard to repeat.",
             "result": "Reconcile a candidate base, keep the intended post-render changes, preview the affected variants, and promote the accepted revision in sequence.",
-            "status": "partial",
+            "status": "available",
             "steps": [
               "Compare the current and candidate source versions.",
               "Reapply the recorded derived changes to the candidate objects.",
@@ -29296,7 +29322,7 @@
             "name": "Deliver one reviewed OCI and roll it out",
             "problem": "A reviewed configuration is not useful until the intended controller applies the same objects and the workload becomes healthy.",
             "result": "Publish one immutable OCI, reconcile its digest through Argo CD or Flux, and record controller and workload results for each target.",
-            "status": "partial",
+            "status": "available",
             "steps": [
               "Publish the approved Units as one release OCI.",
               "Pin the exact digest in the delivery controller.",
@@ -29324,7 +29350,7 @@
             "name": "Manage the CRDs, hooks, and setup work around a package",
             "problem": "Some packages need CRDs, certificates, jobs, or checks in a specific order that a flat manifest bundle does not perform by itself.",
             "result": "Keep that work beside the package, name who runs each step, execute only the supported path, and retain a receipt.",
-            "status": "partial",
+            "status": "available",
             "steps": [
               "Read the chart-specific lifecycle routes.",
               "Apply CRDs and wait before dependent custom resources.",
@@ -29347,7 +29373,7 @@
             "name": "Use an App for a repeated operational job",
             "problem": "Upgrade review, RBAC review, fleet assignment, and AI change review require several configuration operations to work together.",
             "result": "Use saved configuration, checks, approvals, delivery, and observations as one repeatable operational workflow.",
-            "status": "partial",
+            "status": "example-only",
             "steps": [
               "Choose the operational question the App answers.",
               "Select the saved configurations and targets in scope.",
@@ -29386,7 +29412,12 @@
             "Inspect the objects, render intent, routes, prerequisites, and receipts.",
             "Upload the rendered files or a literal configuration OCI bundle as a base variant.",
             "Create test, development, staging, and production variants from that base."
-          ]
+          ],
+          "workedExample": {
+            "limit": "The result applies to the named Redis versions and preset configurations, not every Helm chart.",
+            "result": "The Redis example pulls a public package, shows the exact Helm inputs and Kubernetes objects, checks Helm parity, and can continue into ConfigHub.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29434,7 +29465,12 @@
             "Upload the literal bundle as a ConfigHub base variant.",
             "Confirm that the system-configuration policy stops an unapproved dry-run before any target is used.",
             "Promote derived variants only after the rendered diff and target checks pass."
-          ]
+          ],
+          "workedExample": {
+            "limit": "Argo CD delivery and a live GPU workload have not run.",
+            "result": "The AICR example publishes a source OCI and a 17-Application literal OCI, imports the literal objects into ConfigHub, and promotes one reviewed change from development to staging.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29458,7 +29494,12 @@
             "Render and inspect the package locally.",
             "Keep the result as files, or write the selected non-secret objects as OCI with cub installer setup --output-oci.",
             "Upload the chosen result when the team wants shared records and variants."
-          ]
+          ],
+          "workedExample": {
+            "limit": "The lifecycle route for hooks, CRDs, setup jobs, and target prerequisites remains specific to each preset configuration.",
+            "result": "Public catalog packages pull without a registry login, render locally, write one selected configuration as OCI, and verify the output by reading it back.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29492,7 +29533,12 @@
             "Keep the result as working files, package it as OCI, or do both.",
             "Pull the resulting package again and compare its objects with the reviewed files.",
             "Claim the configuration in ConfigHub when it needs stored operations."
-          ]
+          ],
+          "workedExample": {
+            "limit": "The hosted anonymous service is planned, and the current output OCI examples use a workflow artifact or temporary registry.",
+            "result": "Local and CI proofs pull a public package without ConfigHub credentials, render it, build OCI, and compare the output objects after pulling them back.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29525,7 +29571,12 @@
             "Publish the approved revision once as a ConfigHub release OCI.",
             "Point Argo CD, Flux, or the recorded direct-apply path at that artifact.",
             "Record controller status and workload observations for this configuration."
-          ]
+          ],
+          "workedExample": {
+            "limit": "These receipts do not cover every catalog configuration.",
+            "result": "NGINX and the hook fixture have passed recorded OCI delivery through Argo CD, Flux, and direct apply without rerendering the reviewed objects.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29557,7 +29608,12 @@
             "Preview the mutations before promotion.",
             "Promote through test, development, staging, and production.",
             "Check delivery and live observations after each rollout."
-          ]
+          ],
+          "workedExample": {
+            "limit": "The current CLI still lacks a useful human mutation preview for one promotion dry-run.",
+            "result": "Redis and NGINX examples record derived changes, promote them in order, publish reviewed OCI artifacts, and check the resulting workloads.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29595,7 +29651,12 @@
             "Run the required CRDs, target Secrets, and hook work before delivering the prepared configuration OCI.",
             "Let the delivered Kubara Argo CD assign the selected platform services.",
             "Assign derived variants to cluster groups and rollout waves."
-          ]
+          ],
+          "workedExample": {
+            "limit": "The example does not yet cover the full service profile or a multi-cluster rollout wave.",
+            "result": "One approved Kubara configuration passed its recorded route work, OCI delivery, Argo CD bootstrap, and a healthy Metrics Server result on one cluster.",
+            "status": "working"
+          }
         },
         {
           "entrypoints": [
@@ -29627,7 +29688,12 @@
             "Deliver the reviewed object to a Sveltos management cluster.",
             "Let Sveltos select matching workload clusters and install the add-on.",
             "Change a managed field and check that Sveltos restores the reviewed value."
-          ]
+          ],
+          "workedExample": {
+            "limit": "The proof uses two local clusters and does not test a failed rollout wave.",
+            "result": "A reviewed ClusterProfile moved from one pilot cluster to two staging clusters at a second OCI digest, and Sveltos restored a deliberately drifted value.",
+            "status": "working"
+          }
         }
       ],
       "reviewQuestions": {

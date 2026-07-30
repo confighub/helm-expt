@@ -33,9 +33,10 @@ reads a maintained catalog package with named configurations and recorded
 requirements. This distinction belongs in the FAQ and technical guides. It
 must not become the main public message.
 
-## Three Operating Choices
+## Three Operating Choices For Starting Examples
 
-Keep these choices separate. They make different promises.
+Show these choices when a person is trying a starting example. They make
+different promises.
 
 | Choice | ConfigHub Server | ConfigHub account | Status |
 | --- | --- | --- | --- |
@@ -49,6 +50,11 @@ the local path. They do not prove that the hosted anonymous service exists.
 Do not describe the hosted anonymous service as released until a public
 endpoint and a recorded test exist.
 
+Do not repeat these three choices throughout later examples. After a person
+claims or uploads a configuration, the variants, promotions, releases, Apps,
+apply gates, and fleet examples use ConfigHub Server and require an account.
+The official ConfigHub tutorial owns that managed journey.
+
 Use the terms precisely:
 
 - **No server** means the action does not use ConfigHub Server.
@@ -57,7 +63,7 @@ Use the terms precisely:
 
 ## Several Ways In, One Journey Afterward
 
-The catalog can have short entry paths for:
+The catalog can have short starting examples for:
 
 - a reviewed Helm catalog package;
 - a user's own Helm chart and values;
@@ -80,7 +86,8 @@ Keep source-specific information with the result:
 | `site/try.html` | Complete one local catalog-package task in three steps. |
 | `site/redis-walkthrough.html` | Keep the complete Redis parity, OCI, upgrade, promotion, and rollback example. |
 | ConfigHub tutorial | Teach the ConfigHub product journey. |
-| `site/testing.html` | Route Helm, AICR, OCI, and YAML users to a short starting path. |
+| `site/testing.html` | Index the working starting, managed, platform, and App examples. |
+| `site/entry-path-reference.html` | Keep the detailed Helm, AICR, OCI, and YAML commands and proof links. |
 | `site/how-it-works.html` | Explain the full model after the first task. |
 | `site/docs.html` | Help a technical reader find the correct guide or evidence. |
 
@@ -114,5 +121,7 @@ The site verifier must fail when:
 - the short Try page loses the official tutorial link;
 - the short Try page has more than three command blocks;
 - local and anonymous are described as the same condition;
+- a managed example presents local or anonymous operation as an alternative to
+  ConfigHub Server;
 - AICR, Helm, OCI, or Kubernetes YAML disappears from the entry-path page;
 - the detailed Redis walkthrough loses its parity, OCI, upgrade, or rollback evidence.

@@ -48,7 +48,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Docs/FAQ", "Official tutorial", "Try one catalog package", "Detailed Redis walkthrough", "Bring your configuration", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Docs/FAQ", "Official tutorial", "Try one catalog package", "Detailed Redis walkthrough", "Examples", "Detailed entry paths", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -76,7 +76,11 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Bring your configuration", "cub installer", "cub helm", "Choose where the work runs", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App"],
+    terms: ["Examples", "Starting examples", "Where a starting example can run", "Continue in ConfigHub", "Platform and fleet examples", "ConfigHub App examples", "Where the material lives", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+  },
+  {
+    file: "site/entry-path-reference.html",
+    terms: ["Detailed entry paths", "cub installer", "cub helm", "Choose where the work runs", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App"],
   },
   {
     file: "site/how-it-works.html",
@@ -117,6 +121,7 @@ const humanSplitPages = [
   "site/ai.html",
   "site/security.html",
   "site/testing.html",
+  "site/entry-path-reference.html",
   "site/future.html",
   "site/private/index.html",
 ];
@@ -140,7 +145,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/journey.html",
-    headerTerms: ["applications your team owns", "new or updated base variant", "keeps the approved changes"],
+    headerTerms: ["Apps on ConfigHub", "configuration already saved in ConfigHub", "official ConfigHub tutorial", "reviewed objects"],
   },
   {
     file: "site/operations.html",
@@ -155,6 +160,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [
   "site/try.html",
   "site/testing.html",
+  "site/entry-path-reference.html",
   "site/how-it-works.html",
   "site/docs.html",
   "site/hard-questions.html",

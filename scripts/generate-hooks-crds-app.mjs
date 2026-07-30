@@ -510,7 +510,7 @@ This example shows how ConfigHub can keep the work around a Helm chart with the 
 
 Kube Prometheus Stack 85.3.3 has ten CRDs, admission-webhook certificate setup, and checks that must happen at particular points in an install or upgrade. The ${kps.length} route records in this directory name that work. They say who runs each step and link to the receipts that support the choice.
 
-The top-level chart routes remain \`automatic: false\`: ConfigHub does not yet choose this chart-specific route for a user. Once selected, the direct script has passed seven fresh-install steps. One staged OCI has also run through Argo CD and Flux on separate fresh clusters. Both controllers passed CRD ordering, certificate preparation, workload apply, webhook patching, and runtime checks. The controller receipt does not prove Helm's hook cleanup policy, and the 85.3.3 to 86.1.0 upgrade remains \`not-run\`.
+The top-level chart routes remain \`automatic: false\`: ConfigHub does not yet choose this chart-specific route for a user. Once selected, the direct script has passed seven fresh-install steps. The direct script does not run an upgrade. Argo CD and Flux have each installed 85.3.3 on a fresh cluster and upgraded it to 86.1.0 from a staged OCI. Both controllers passed CRD ordering, certificate preparation, workload apply, webhook patching, runtime checks, and replacement of the two completed setup Jobs.
 
 Read the [direct lifecycle receipt](../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml) and [controller lifecycle receipt](../../runs/kps-gitops-lifecycle-proof/receipt.yaml) for the exact sequence and limits.
 

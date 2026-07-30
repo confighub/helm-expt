@@ -444,17 +444,18 @@
 <tr><td>Argo CD, Flux, Kubernetes</td><td>Systems that deliver configuration to clusters.</td></tr></tbody></table>
 <p>Do not present these items as competing products. A user does not need to learn their implementation differences before completing a first task.</p>
 <p><code>cub helm</code> imports an arbitrary Helm chart and its values. <code>cub installer</code> reads a maintained catalog package with named configurations and recorded requirements. This distinction belongs in the FAQ and technical guides. It must not become the main public message.</p>
-<h2 id="three-operating-choices">Three Operating Choices</h2>
-<p>Keep these choices separate. They make different promises.</p>
+<h2 id="three-operating-choices-for-starting-examples">Three Operating Choices For Starting Examples</h2>
+<p>Show these choices when a person is trying a starting example. They make different promises.</p>
 <table><thead><tr><th>Choice</th><th>ConfigHub Server</th><th>ConfigHub account</th><th>Status</th></tr></thead><tbody><tr><td>Local</td><td>No</td><td>No</td><td>Available. Pull public packages. Write files or OCI. Test them locally or in CI.</td></tr>
 <tr><td>Hosted and anonymous</td><td>Yes</td><td>No</td><td>Planned. Inspect and test public configuration without signing in.</td></tr>
 <tr><td>ConfigHub</td><td>Yes</td><td>Yes</td><td>Available. Record changes, release them, add environments, and promote them through the official tutorial.</td></tr></tbody></table>
 <p>Public package and OCI pulls already work without registry login. They support the local path. They do not prove that the hosted anonymous service exists.</p>
 <p>Do not describe the hosted anonymous service as released until a public endpoint and a recorded test exist.</p>
+<p>Do not repeat these three choices throughout later examples. After a person claims or uploads a configuration, the variants, promotions, releases, Apps, apply gates, and fleet examples use ConfigHub Server and require an account. The official ConfigHub tutorial owns that managed journey.</p>
 <p>Use the terms precisely:</p>
 <ul><li><b>No server</b> means the action does not use ConfigHub Server.</li><li><b>Anonymous</b> means the action does not require a ConfigHub account.</li><li>A local command or CI job can be both.</li></ul>
 <h2 id="several-ways-in-one-journey-afterward">Several Ways In, One Journey Afterward</h2>
-<p>The catalog can have short entry paths for:</p>
+<p>The catalog can have short starting examples for:</p>
 <ul><li>a reviewed Helm catalog package;</li><li>a user's own Helm chart and values;</li><li>AICR, existing OCI, or Kubernetes YAML.</li></ul>
 <p>Each path must end with exact Kubernetes objects that the user can inspect. The next managed step is the same for every source: continue with the official ConfigHub tutorial.</p>
 <p>Keep source-specific information with the result:</p>
@@ -463,7 +464,8 @@
 <table><thead><tr><th>Page</th><th>Job</th></tr></thead><tbody><tr><td><code>site/try.html</code></td><td>Complete one local catalog-package task in three steps.</td></tr>
 <tr><td><code>site/redis-walkthrough.html</code></td><td>Keep the complete Redis parity, OCI, upgrade, promotion, and rollback example.</td></tr>
 <tr><td>ConfigHub tutorial</td><td>Teach the ConfigHub product journey.</td></tr>
-<tr><td><code>site/testing.html</code></td><td>Route Helm, AICR, OCI, and YAML users to a short starting path.</td></tr>
+<tr><td><code>site/testing.html</code></td><td>Index the working starting, managed, platform, and App examples.</td></tr>
+<tr><td><code>site/entry-path-reference.html</code></td><td>Keep the detailed Helm, AICR, OCI, and YAML commands and proof links.</td></tr>
 <tr><td><code>site/how-it-works.html</code></td><td>Explain the full model after the first task.</td></tr>
 <tr><td><code>site/docs.html</code></td><td>Help a technical reader find the correct guide or evidence.</td></tr></tbody></table>
 <h2 id="simplified-technical-english">Simplified Technical English</h2>
@@ -473,7 +475,7 @@
 <ul><li>three numbered steps;</li><li>no more than three command blocks;</li><li>one chart and one selected configuration;</li><li>no upgrade, promotion, GitOps, or fleet tutorial on the same page;</li><li>a clear choice between local, anonymous, and ConfigHub use;</li><li>a direct link to the official ConfigHub tutorial.</li></ul>
 <h2 id="acceptance-checks">Acceptance Checks</h2>
 <p>The site verifier must fail when:</p>
-<ul><li>the short Try page loses the official tutorial link;</li><li>the short Try page has more than three command blocks;</li><li>local and anonymous are described as the same condition;</li><li>AICR, Helm, OCI, or Kubernetes YAML disappears from the entry-path page;</li><li>the detailed Redis walkthrough loses its parity, OCI, upgrade, or rollback evidence.</li></ul>
+<ul><li>the short Try page loses the official tutorial link;</li><li>the short Try page has more than three command blocks;</li><li>local and anonymous are described as the same condition;</li><li>a managed example presents local or anonymous operation as an alternative to ConfigHub Server;</li><li>AICR, Helm, OCI, or Kubernetes YAML disappears from the entry-path page;</li><li>the detailed Redis walkthrough loses its parity, OCI, upgrade, or rollback evidence.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/planning/onboarding-and-entry-paths.md</code>. The source file is the authoritative version.</p></footer>

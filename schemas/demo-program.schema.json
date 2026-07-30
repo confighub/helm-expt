@@ -33,10 +33,26 @@
     "spec": {
       "type": "object",
       "required": [
+        "architecture",
+        "catalogNavigation",
+        "reviewQuestions",
+        "exampleJourney",
         "pathways",
         "apps"
       ],
       "properties": {
+        "architecture": {
+          "type": "object"
+        },
+        "catalogNavigation": {
+          "type": "object"
+        },
+        "reviewQuestions": {
+          "type": "object"
+        },
+        "exampleJourney": {
+          "type": "object"
+        },
         "pathways": {
           "type": "array",
           "items": {
@@ -62,6 +78,7 @@
         "problem",
         "result",
         "status",
+        "workedExample",
         "steps",
         "entrypoints",
         "evidence",
@@ -87,6 +104,28 @@
             "example-only",
             "planned"
           ]
+        },
+        "workedExample": {
+          "type": "object",
+          "required": [
+            "status",
+            "result",
+            "limit"
+          ],
+          "properties": {
+            "status": {
+              "const": "working"
+            },
+            "result": {
+              "type": "string",
+              "minLength": 1
+            },
+            "limit": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
         },
         "steps": {
           "type": "array",
