@@ -1520,7 +1520,9 @@ function validateProgram(program) {
   check(
     architecture.frontDoor?.claimBoundary?.before?.includes("Anonymous users")
       && architecture.frontDoor?.claimBoundary?.action?.includes("Claim")
-      && architecture.frontDoor?.claimBoundary?.after?.includes("ConfigHub"),
+      && architecture.frontDoor?.claimBoundary?.after?.includes("ConfigHub")
+      && architecture.frontDoor?.claimBoundary?.managedExamples
+        ?.includes("use ConfigHub Server"),
     "front door must name the anonymous-to-ConfigHub claim boundary",
   );
   check(
@@ -1665,6 +1667,12 @@ function validateProgram(program) {
     ids.add(demo.id);
     check(demo.problem && demo.result, `${demo.id} needs a problem and result`);
     check(["available", "partial", "example-only", "planned"].includes(demo.status), `${demo.id} has an invalid status`);
+    check(
+      demo.workedExample?.status === "working"
+        && demo.workedExample?.result
+        && demo.workedExample?.limit,
+      `${demo.id} must distinguish its working example from broader product status`,
+    );
     check((demo.steps ?? []).length > 0, `${demo.id} needs at least one step`);
     for (const path of [...(demo.entrypoints ?? []), ...(demo.evidence ?? [])]) {
       check(existsRepo(path), `${demo.id} points at missing ${path}`);
@@ -2633,7 +2641,7 @@ function renderDemoSummary(program) {
 
 Generated from [config-catalog/program.yaml](../../config-catalog/program.yaml).
 
-This is the status index for the source pathways and ConfigHub App demonstrations. \`available\` means the committed evidence supports the described path. \`partial\`, \`example-only\`, and \`planned\` keep the missing work visible.
+This is the status index for the source pathways and ConfigHub App demonstrations. **Worked example** says whether one bounded example has run. **Broader status** says how much of the general path or product capability is supported. A working example does not turn its stated limits into a general claim.
 
 ${renderArchitecture(program.spec.architecture)}
 
@@ -2665,7 +2673,9 @@ function renderGeneratedGuide(program, policy) {
   const rendered = sections.map(([heading, demos]) => {
     const body = demos.map((demo) => `### ${demo.name}
 
-**Status: ${demo.status}.**
+**Worked example: ${demo.workedExample.status}.** ${demo.workedExample.result}
+
+**Broader status: ${demo.status}.** ${demo.workedExample.limit}
 
 ${demo.problem}
 
@@ -2765,6 +2775,8 @@ ${executionRows}
 
 ${boundary.before} The boundary is **${boundary.action}** ${boundary.after}
 
+${boundary.managedExamples}
+
 **Inside ConfigHub:** ${architecture.configHub.result}
 
 ConfigHub can join an existing delivery flow without replacing it:
@@ -2835,9 +2847,9 @@ ${examples}`;
 }
 
 function renderDemoTable(demos) {
-  return `| Demonstration | Status | Problem | Result |
-| --- | --- | --- | --- |
-${demos.map((demo) => `| ${demo.name} | ${demo.status} | ${demo.problem} | ${demo.result} |`).join("\n")}`;
+  return `| Demonstration | Worked example | Broader status | Problem | Result |
+| --- | --- | --- | --- | --- |
+${demos.map((demo) => `| ${demo.name} | ${demo.workedExample.status} | ${demo.status} | ${demo.problem} | ${demo.result} |`).join("\n")}`;
 }
 
 function renderChecksTable(checks) {

@@ -15,7 +15,8 @@ Helm charts, AICR recipes, installer packages, Kubara output, Sveltos objects, a
 existing YAML as literal configuration with recorded inputs, known prerequisites,
 lifecycle work, and evidence.
 
-That public front door must remain useful without a ConfigHub account:
+Starting examples at the public front door must remain useful without a
+ConfigHub account:
 
 - `work -> OCI`: inspect and test source material, then build a deployable OCI;
 - `OCI -> work`: pull a public OCI to explain, inspect, scan, or compare it;
@@ -40,6 +41,11 @@ These are composable options, not three separate products or a required sequence
 team can use any one by itself or combine them in a longer delivery flow. ConfigHub
 enters when the team wants to save, share, transform, approve, promote, or fan out
 the configuration; none of the three public operations requires that step.
+
+The three public options belong to starting examples. Once a configuration is
+claimed or uploaded, the variants, promotions, releases, Apps, apply gates, and
+fleet examples use ConfigHub Server. They do not need a second local or anonymous
+version.
 
 The work may run as a local command or a CI job. We also intend to offer a public
 hosted path for open configuration: inspect, test, and serve a public package without

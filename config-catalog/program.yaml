@@ -7,7 +7,7 @@ spec:
     name: OCI in, managed configuration, OCI out
     frontDoor:
       problem: Helm charts, AICR recipes, installer packages, existing YAML, and existing OCI packages all need useful checks or changes before teams can rely on them.
-      result: The public catalog and tools can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account.
+      result: Starting examples can prepare source before OCI, inspect an existing OCI, or produce a new OCI after checking or changing its contents, without requiring ConfigHub Server or an account.
       accessModel:
         serverless: The work does not depend on ConfigHub Server. It can run as a local command, in CI, or eventually as a hosted public service.
         anonymous: The work uses no ConfigHub account. Public OCI packages remain useful before anyone claims and saves a configuration.
@@ -45,6 +45,7 @@ spec:
         before: Anonymous users can build, inspect, test, pull, and serve public OCI packages.
         action: Claim this configuration in ConfigHub.
         after: ConfigHub saves the objects and their history so a team can transform, approve, promote, and roll them out. A team can claim at whichever OCI boundary needs managed records; claiming is not a required first step.
+        managedExamples: After a configuration is claimed or uploaded, variants, promotions, releases, Apps, apply gates, and fleet examples use ConfigHub Server and require an account.
     configHub:
       problem: A deployable OCI file is useful, but teams still need to share it, change it, review it, promote it, and understand where it is used.
       result: ConfigHub stores the exact objects as Units and keeps their source, variants, diffs, checks, approvals, promotions, and observations together.
@@ -193,7 +194,7 @@ spec:
       - id: upgrade-and-promote
         level: managed
         name: Upgrade and promote through environments
-        status: partial
+        status: available
         problem: Copying values or manifests between environments hides the exact change and makes upgrades hard to repeat.
         result: Reconcile a candidate base, keep the intended post-render changes, preview the affected variants, and promote the accepted revision in sequence.
         steps:
@@ -213,7 +214,7 @@ spec:
       - id: deliver-and-roll-out
         level: delivery
         name: Deliver one reviewed OCI and roll it out
-        status: partial
+        status: available
         problem: A reviewed configuration is not useful until the intended controller applies the same objects and the workload becomes healthy.
         result: Publish one immutable OCI, reconcile its digest through Argo CD or Flux, and record controller and workload results for each target.
         steps:
@@ -235,7 +236,7 @@ spec:
       - id: lifecycle-work
         level: advanced
         name: Manage the CRDs, hooks, and setup work around a package
-        status: partial
+        status: available
         problem: Some packages need CRDs, certificates, jobs, or checks in a specific order that a flat manifest bundle does not perform by itself.
         result: Keep that work beside the package, name who runs each step, execute only the supported path, and retain a receipt.
         steps:
@@ -258,7 +259,7 @@ spec:
       - id: apps
         level: apps
         name: Use an App for a repeated operational job
-        status: partial
+        status: example-only
         problem: Upgrade review, RBAC review, fleet assignment, and AI change review require several configuration operations to work together.
         result: Use saved configuration, checks, approvals, delivery, and observations as one repeatable operational workflow.
         steps:
@@ -279,6 +280,10 @@ spec:
       problem: A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisites, and upgrade changes behind its templates.
       result: Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants.
       status: available
+      workedExample:
+        status: working
+        result: The Redis example pulls a public package, shows the exact Helm inputs and Kubernetes objects, checks Helm parity, and can continue into ConfigHub.
+        limit: The result applies to the named Redis versions and preset configurations, not every Helm chart.
       steps:
         - Choose a chart and preset configuration in the Helm Ops Catalog.
         - Pull the cub installer package and render it without a ConfigHub account.
@@ -301,6 +306,10 @@ spec:
       problem: AICR can produce a versioned AI infrastructure recipe and deployment bundle, but teams still need to record which bundle and remaining inputs each cluster should run.
       result: Keep the AICR recipe, remaining inputs, generated files, and OCI digest together. Upload the literal configuration OCI as a ConfigHub base variant, then use the same policy and promotion process as other configuration sources.
       status: partial
+      workedExample:
+        status: working
+        result: The AICR example publishes a source OCI and a 17-Application literal OCI, imports the literal objects into ConfigHub, and promotes one reviewed change from development to staging.
+        limit: Argo CD delivery and a live GPU workload have not run.
       steps:
         - Generate and review an AICR recipe for a named target.
         - Build a Flux, Argo CD, or Helm bundle and record every remaining install-time input.
@@ -343,6 +352,10 @@ spec:
       problem: A team may need several chart-specific preset configurations and repeatable local rendering without introducing a server into the first test.
       result: cub installer carries the chart, preset configurations, values, and supporting files in one OCI package, then renders the selected preset locally or uploads it to ConfigHub.
       status: available
+      workedExample:
+        status: working
+        result: Public catalog packages pull without a registry login, render locally, write one selected configuration as OCI, and verify the output by reading it back.
+        limit: The lifecycle route for hooks, CRDs, setup jobs, and target prerequisites remains specific to each preset configuration.
       steps:
         - Pull a public installer package with no registry login.
         - Select one preset configuration.
@@ -361,6 +374,10 @@ spec:
       problem: A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.
       result: Pull an OCI package, work with the exact objects, and produce a deployable OCI package. Claim it in ConfigHub only when the team wants saved history, variants, approvals, promotions, or fleet rollout.
       status: partial
+      workedExample:
+        status: working
+        result: Local and CI proofs pull a public package without ConfigHub credentials, render it, build OCI, and compare the output objects after pulling them back.
+        limit: The hosted anonymous service is planned, and the current output OCI examples use a workflow artifact or temporary registry.
       steps:
         - Start with source files or an existing public OCI package.
         - Inspect and test the exact configuration objects.
@@ -389,6 +406,10 @@ spec:
       problem: Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.
       result: ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again.
       status: partial
+      workedExample:
+        status: working
+        result: NGINX and the hook fixture have passed recorded OCI delivery through Argo CD, Flux, and direct apply without rerendering the reviewed objects.
+        limit: These receipts do not cover every catalog configuration.
       steps:
         - Start with the exact Kubernetes objects held as ConfigHub Units.
         - Run the checks and approval required for that configuration.
@@ -416,6 +437,10 @@ spec:
       problem: Copying values files between environments makes it hard to tell what changed and whether production still matches the reviewed configuration.
       result: Upload one base variant, keep environment changes as derived variants, preview the exact mutations, and promote them in order with production approval.
       status: partial
+      workedExample:
+        status: working
+        result: Redis and NGINX examples record derived changes, promote them in order, publish reviewed OCI artifacts, and check the resulting workloads.
+        limit: The current CLI still lacks a useful human mutation preview for one promotion dry-run.
       steps:
         - Create environment variants from one base.
         - Make or import a reviewed change.
@@ -442,6 +467,10 @@ spec:
       problem: A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.
       result: Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups.
       status: partial
+      workedExample:
+        status: working
+        result: One approved Kubara configuration passed its recorded route work, OCI delivery, Argo CD bootstrap, and a healthy Metrics Server result on one cluster.
+        limit: The example does not yet cover the full service profile or a multi-cluster rollout wave.
       steps:
         - Generate a Kubara platform configuration for a declared cluster class.
         - Separate infrastructure creation from Kubernetes configuration.
@@ -474,6 +503,10 @@ spec:
       problem: Fleet operators need a declarative way to assign platform components to matching clusters and keep placement separate from package creation.
       result: ConfigHub manages the reviewed ClusterProfile and related configuration; Sveltos selects clusters and reconciles the declared add-ons.
       status: partial
+      workedExample:
+        status: working
+        result: A reviewed ClusterProfile moved from one pilot cluster to two staging clusters at a second OCI digest, and Sveltos restored a deliberately drifted value.
+        limit: The proof uses two local clusters and does not test a failed rollout wave.
       steps:
         - Review the ClusterProfile and the chart versions it assigns.
         - Upload it to ConfigHub and attach the standard catalog checks.
@@ -501,6 +534,10 @@ spec:
       problem: A chart or package upgrade can change many clusters at once, and a green source diff does not show which workloads will be affected.
       result: Show fleet impact, test the candidate configuration, promote it in waves, and check the rollout.
       status: partial
+      workedExample:
+        status: working
+        result: Redis upgrades from chart 25.5.3 to 27.0.0 without losing a post-render replica change, moves through development and staging, reaches two Argo CD clusters, and rolls back.
+        limit: This is a guarded demonstration and receipt, not a finished ConfigHub App interface.
       steps:
         - Compare the current and candidate base variants.
         - Find every derived variant and target that inherits the change.
@@ -526,6 +563,10 @@ spec:
       problem: A complex chart may need CRDs, certificate setup, jobs, and checks in a particular order. A rendered YAML bundle alone does not explain or perform that work.
       result: Keep the chart, record its install and upgrade sequence beside the rendered objects, block incomplete routes from apply, and keep receipts for the delivery paths that have actually run.
       status: partial
+      workedExample:
+        status: working
+        result: Kube Prometheus Stack passes the recorded CRD, certificate, workload, webhook, and runtime sequence on fresh installs and on an 85.3.3 to 86.1.0 upgrade through Argo CD and Flux.
+        limit: ConfigHub does not yet select and execute the chart-specific route automatically.
       steps:
         - Start from the Kube Prometheus Stack 85.3.3 no-crds preset and its recorded Helm inputs.
         - Apply the ten CRDs and wait for them before applying dependent custom resources.
@@ -559,6 +600,10 @@ spec:
       problem: Risky permissions are hard to find when application configuration is split across charts, repositories, and clusters.
       result: Query the imported Kubernetes objects, find broad access, and propose exact corrections for review.
       status: partial
+      workedExample:
+        status: working
+        result: One review removes unnecessary Secret access, keeps ConfigMap access, requires approval, publishes OCI, and reaches Kubernetes through Argo CD.
+        limit: The example does not yet build a complete RBAC binding graph across a live fleet.
       steps:
         - Read Role, ClusterRole, and binding Units across selected Spaces.
         - Report broad verbs, resources, and subjects.
@@ -580,6 +625,10 @@ spec:
       problem: Platform teams need to assign different system configurations to cluster groups without losing a central source of record.
       result: Assign Helm, AICR, Kubara, or Sveltos-based platform configurations to clusters and manage rollout waves from ConfigHub.
       status: partial
+      workedExample:
+        status: working
+        result: Kubara proves one platform target, while Sveltos proves a pilot and two-cluster expansion with separate reviewed OCI digests and drift recovery.
+        limit: A large mixed-source fleet rollout with failure-based pausing remains open.
       steps:
         - Classify configuration as a user workload, system service, or system configuration.
         - Select the base variant and small install-time input set for each cluster class.
@@ -607,6 +656,10 @@ spec:
       problem: An agent can change values or Kubernetes fields faster than a person can check the resulting objects and fleet impact.
       result: Turn the suggestion into exact objects and diffs, run checks, require the right approval, and keep the decision record.
       status: partial
+      workedExample:
+        status: working
+        result: The example finds an unpinned image and inline API key, clears the reviewed replacement, and proves that approval controls the ConfigHub apply dry-run.
+        limit: Kubernetes delivery, promotion, rollback, GPU workload health, and live observation have not run for this candidate.
       steps:
         - Let the agent propose values or object edits.
         - Render or apply the proposal to a derived variant.
