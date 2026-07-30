@@ -3,6 +3,10 @@ kind: ApplyPolicyProfile
 metadata:
   name: catalog-standard
 spec:
+  purpose: >-
+    Turn the catalog's advice into checks before ConfigHub applies stored
+    configuration. Definite errors block apply, context-dependent findings warn,
+    and production or system configuration requires approval.
   sourceTypes:
     - helm
     - aicr
@@ -10,13 +14,25 @@ spec:
     - kubara
     - sveltos
     - rendered-config
+  definitionSpace:
+    ref: platform
+    whereTrigger: "Slug = '__no-policy-space-trigger__'"
+    reason: >-
+      This Space stores the shared Trigger definitions. Its administrative Units
+      must not inherit those Triggers merely because they live beside them.
   triggerDefinitions:
     - ref: platform/digest-pinned-images
+      displayName: "Warn - workload image is not pinned by digest"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-cel
       effect: warn
-      description: Warn when an ordinary Kubernetes workload image is not pinned by digest.
+      description: >-
+        This catalog apply warning checks the exact Kubernetes objects stored in
+        ConfigHub before apply. It reports an ordinary workload image that is not
+        pinned by digest, because the image could change without a configuration
+        revision. It does not block apply. Pin the image by digest or review and
+        accept the warning.
       arguments:
         - name: expression
           value: >-
@@ -29,11 +45,17 @@ spec:
             r.spec.template.spec.containers.all(c,
             has(c.image) && c.image.contains("@sha256:")))
     - ref: platform/aicr-training-images-pinned
+      displayName: "Warn - AICR training image is not pinned by digest"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-cel
       effect: warn
-      description: Warn when an AICR ClusterTrainingRuntime uses an image that is not pinned by digest.
+      description: >-
+        This catalog apply warning checks an AICR ClusterTrainingRuntime before
+        apply. It reports a training image that is not pinned by digest, because
+        the image could change without a configuration revision. It does not
+        block apply. Pin the training image by digest or review and accept the
+        warning.
       arguments:
         - name: expression
           value: >-
@@ -56,11 +78,15 @@ spec:
             j.template.spec.template.spec.containers.all(c,
             has(c.image) && c.image.contains("@sha256:"))))
     - ref: platform/aicr-training-secret-refs
+      displayName: "Block apply - AICR API key must use a Secret"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-cel
       effect: block
-      description: Require an AICR ClusterTrainingRuntime AI_API_KEY environment variable to refer to a named Secret and key.
+      description: >-
+        This catalog apply gate blocks an AICR ClusterTrainingRuntime that writes
+        AI_API_KEY directly into the object. Change the environment variable to
+        refer to a named Kubernetes Secret and key, then try the apply again.
       arguments:
         - name: expression
           value: >-
@@ -91,11 +117,17 @@ spec:
             has(e.valueFrom.secretKeyRef.key) &&
             e.valueFrom.secretKeyRef.key != "")))))
     - ref: platform/lifecycle-route-evidence
+      displayName: "Block apply - lifecycle route needs evidence"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-cel
       effect: block
-      description: Require every LifecycleRoute to name its scope, executor, evidence, and whether automatic execution has been proved.
+      description: >-
+        This catalog apply gate checks a recorded LifecycleRoute before apply. It
+        blocks a route that omits its chart, version, preset, executor, disposition,
+        or evidence, and a route cannot claim automatic execution without an
+        observed receipt. Complete the route or mark the work as not yet automatic.
+        This gate does not discover missing hooks or CRDs when no route was recorded.
       arguments:
         - name: expression
           value: >-
@@ -112,11 +144,16 @@ spec:
             has(r.spec.evidence) && size(r.spec.evidence) > 0 &&
             (!r.spec.automatic || r.spec.disposition == "observed"))
     - ref: platform/probes-declared
+      displayName: "Warn - workload health probes are missing"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-cel
       effect: warn
-      description: Warn when an ordinary long-running Kubernetes workload container has no liveness or readiness probe.
+      description: >-
+        This catalog apply warning checks the exact Kubernetes objects stored in
+        ConfigHub before apply. It reports a long-running workload container that
+        has no readiness or liveness probe. It does not block apply. Add suitable
+        probes or review and accept the warning.
       arguments:
         - name: expression
           value: >-
@@ -129,30 +166,44 @@ spec:
             r.spec.template.spec.containers.all(c,
             has(c.livenessProbe) && has(c.readinessProbe)))
     - ref: platform/require-approval
+      displayName: "Block apply - approval is required"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-approvedby
       effect: block
-      description: Require one recorded approval before a controlled apply.
+      description: >-
+        This catalog apply gate is used only for production and system
+        configuration. It blocks ConfigHub apply until one person approves the
+        exact revision. Approve that revision after review, then try the apply
+        again.
       arguments:
         - name: num-approvers
           value: "1"
     - ref: platform/vet-placeholders
+      displayName: "Block apply - replace unfinished placeholders"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-placeholders
       effect: block
-      description: Block unresolved ConfigHub placeholders.
+      description: >-
+        This catalog apply gate blocks ConfigHub apply while unresolved
+        placeholders remain. Replace each placeholder with the real value or the
+        correct target-owned Secret reference, then try the apply again.
       arguments: []
     - ref: platform/vet-schemas
+      displayName: "Block apply - Kubernetes schema must be valid"
       event: Mutation
       toolchain: Kubernetes/YAML
       functionName: vet-schemas
       effect: block
-      description: Block Kubernetes data that fails its declared schema.
+      description: >-
+        This catalog apply gate checks the exact Kubernetes objects stored in
+        ConfigHub and blocks apply when data fails its declared schema. Correct
+        the reported field or type, then try the apply again.
       arguments: []
   baseline:
     filter: platform/helm-catalog-checks
+    displayName: "Catalog checks before apply"
     filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
     spaceSelector:
       labels:
@@ -188,6 +239,7 @@ spec:
         reason: Report ordinary long-running Kubernetes workload containers that have no readiness or liveness probe.
   approvalRequired:
     filter: platform/helm-catalog-prod-gates
+    displayName: "Catalog checks and approval before apply"
     filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
     spaceSelector:
       anyOf:
@@ -246,13 +298,14 @@ spec:
   scopeAssertions:
     - Every supported configuration source type is named by this profile.
     - Every live policy-covered Space records its SourceType, and the live receipt includes at least one Space for each maintained source type.
-    - Every Trigger is defined here with its function, arguments, effect, and description.
+    - Every Trigger is defined here with a human name, function, arguments, effect, and repair-oriented description.
     - The baseline filter selects exactly the seven baseline triggers and never selects require-approval.
     - The approval-required filter selects the same seven baseline triggers plus require-approval.
     - Production and system-configuration Spaces receive the approval-required filter.
     - Other non-production Spaces remain on the baseline filter.
     - A Space must not lose the seven baseline checks when approval is added.
     - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
+    - The platform Space stores the Trigger definitions but does not apply them to its own administrative Units.
 status:
   lastRecorded: "2026-07-30"
   liveReverified: true

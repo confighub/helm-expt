@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shared checks and gates for the demo org · Config Workshop</title>
-  <meta name="description" content="Shared checks and gates for the demo org: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Checks that enforce the catalog before apply · Config Workshop</title>
+  <meta name="description" content="Checks that enforce the catalog before apply: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/platform/README.html">
-  <meta property="og:title" content="Shared checks and gates for the demo org · Config Workshop">
-  <meta property="og:description" content="Shared checks and gates for the demo org: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Checks that enforce the catalog before apply · Config Workshop">
+  <meta property="og:description" content="Checks that enforce the catalog before apply: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/helm-catalog-readmes/spaces/platform/README.html">
   <style>
@@ -440,19 +440,19 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try it</a><a href="../../../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../../../../how-it-works.html">How it works</a><a href="../../../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-    <h1>Shared checks and gates for the demo org</h1>
+    <h1>Checks that enforce the catalog before apply</h1>
     <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/platform/README.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
     <article class="doc-body">
-<p>Shared platform plumbing used by the demo Spaces: checks, gates, and filters that keep the examples honest.</p>
+<p>These live checks turn catalog advice into rules before ConfigHub applies stored configuration.</p>
 <p>Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.</p>
 <h2 id="why-this-example-exists">Why this example exists</h2>
-<p>A catalog is not only rendered YAML. It also needs the rules that say when a change is safe to move.</p>
-<p>The platform Space shows those rules separately so chart examples do not hide policy decisions inside prose.</p>
+<p>A catalog recommendation is useful before upload. After upload, the same recommendation should stop a known bad apply or report a clear warning instead of remaining prose.</p>
+<p>These checks run against the exact configuration stored in ConfigHub. They make the catalog's safety advice visible at the point where a change would move.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
-<ul><li>Production releases require approval. Cluster-wide system configuration also requires approval in development and staging because one change can affect every workload.</li><li>The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.</li></ul>
+<ul><li>A gate named <code>Block apply</code> stops a definite problem: invalid Kubernetes data, an unfinished placeholder, an unsupported lifecycle claim, an inline AICR API key, or a missing required approval.</li><li>A check named <code>Warn</code> reports a possible problem without stopping apply: an unpinned image or missing health probes.</li><li>Production releases require approval. Cluster-wide system configuration also requires approval in development and staging because one change can affect every workload.</li><li>Open or hover over any live ApplyGate to read what it checks, why the catalog uses it, and how to clear it.</li></ul>
 <h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
 <table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>Open the upstream Space or source link named on this page. That is the configuration this Space started from.</td></tr>
 <tr><td>ConfigHub changes</td><td>Open Unit revision history. It records changes made after the starting configuration was saved.</td></tr>
@@ -460,11 +460,11 @@
 <tr><td>Live cluster</td><td>Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed.</td></tr></tbody></table>
 <p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
-<ul><li>This README.</li><li>The checks and filters used by the demo org.</li><li>Production Spaces such as <code>bitnami-redis-prod</code> and <code>hashicorp-vault-env-prod</code> to see where gates matter.</li></ul>
+<ul><li>This README.</li><li>The Triggers and Filters in this Space; their friendly names say whether they block or warn.</li><li>A gated Unit, then hover over its ApplyGate to read the purpose and repair.</li><li>Production Spaces such as <code>bitnami-redis-prod</code> and <code>hashicorp-vault-env-prod</code> to see where approval matters.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>
-<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-org/summary.md">Gate-scope fix in org summary</a></li><li><a href="https://confighub.github.io/helm-expt/site/verification.html">Verification landing page</a></li></ul>
+<ul><li><a href="https://github.com/confighub/helm-expt/blob/main/config-catalog/policies/catalog-standard.yaml">Maintained apply-policy definition</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/apply-policy-functional-proof/summary.md">Live functional proof</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/apply-policy-profiles/live-helm-catalog.yaml">Live filter and Space assignments</a></li></ul>
 <h2 id="limits">Limits</h2>
-<ul><li>This example explains shared demo mechanics. It is not a replacement for a company policy model.</li></ul>
+<ul><li>The lifecycle gate validates a LifecycleRoute that exists. It cannot discover an unrecorded hook, CRD, setup job, or target prerequisite.</li><li>This example explains shared demo mechanics. It is not a replacement for a company policy model.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/platform/README.md</code>. The source file is the authoritative version.</p></footer>

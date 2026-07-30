@@ -5,160 +5,181 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-07-30T12:15:46.849Z"
+  verifiedAt: "2026-07-30T13:28:35.489Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
+      displayName: "Catalog checks before apply"
       id: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
       where: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
       triggers:
         -
           ref: "platform/aicr-training-images-pinned"
+          displayName: "Warn - AICR training image is not pinned by digest"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.apiVersion) || r.apiVersion != \"trainer.kubeflow.org/v1alpha1\" || !has(r.kind) || r.kind != \"ClusterTrainingRuntime\" || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.replicatedJobs) && size(r.spec.template.spec.replicatedJobs) > 0 && r.spec.template.spec.replicatedJobs.all(j, has(j.template) && has(j.template.spec) && has(j.template.spec.template) && has(j.template.spec.template.spec) && has(j.template.spec.template.spec.containers) && size(j.template.spec.template.spec.containers) > 0 && j.template.spec.template.spec.containers.all(c, has(c.image) && c.image.contains(\"@sha256:\"))))"
-          description: "Warn when an AICR ClusterTrainingRuntime uses an image that is not pinned by digest."
+          description: "This catalog apply warning checks an AICR ClusterTrainingRuntime before apply. It reports a training image that is not pinned by digest, because the image could change without a configuration revision. It does not block apply. Pin the training image by digest or review and accept the warning."
           effect: "warn"
           validating: true
         -
           ref: "platform/aicr-training-secret-refs"
+          displayName: "Block apply - AICR API key must use a Secret"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.apiVersion) || r.apiVersion != \"trainer.kubeflow.org/v1alpha1\" || !has(r.kind) || r.kind != \"ClusterTrainingRuntime\" || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.replicatedJobs) && r.spec.template.spec.replicatedJobs.all(j, has(j.template) && has(j.template.spec) && has(j.template.spec.template) && has(j.template.spec.template.spec) && has(j.template.spec.template.spec.containers) && j.template.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || e.name != \"AI_API_KEY\" || (!has(e.value) && has(e.valueFrom) && has(e.valueFrom.secretKeyRef) && has(e.valueFrom.secretKeyRef.name) && e.valueFrom.secretKeyRef.name != \"\" && has(e.valueFrom.secretKeyRef.key) && e.valueFrom.secretKeyRef.key != \"\")))))"
-          description: "Require an AICR ClusterTrainingRuntime AI_API_KEY environment variable to refer to a named Secret and key."
+          description: "This catalog apply gate blocks an AICR ClusterTrainingRuntime that writes AI_API_KEY directly into the object. Change the environment variable to refer to a named Kubernetes Secret and key, then try the apply again."
           effect: "block"
           validating: true
         -
           ref: "platform/digest-pinned-images"
+          displayName: "Warn - workload image is not pinned by digest"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.kind) || !(r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\"]) || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.containers) && r.spec.template.spec.containers.all(c, has(c.image) && c.image.contains(\"@sha256:\")))"
-          description: "Warn when an ordinary Kubernetes workload image is not pinned by digest."
+          description: "This catalog apply warning checks the exact Kubernetes objects stored in ConfigHub before apply. It reports an ordinary workload image that is not pinned by digest, because the image could change without a configuration revision. It does not block apply. Pin the image by digest or review and accept the warning."
           effect: "warn"
           validating: true
         -
           ref: "platform/lifecycle-route-evidence"
+          displayName: "Block apply - lifecycle route needs evidence"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.kind) || r.kind != \"LifecycleRoute\" || (has(r.spec) && has(r.spec.chart) && r.spec.chart != \"\" && has(r.spec.version) && r.spec.version != \"\" && has(r.spec.base) && r.spec.base != \"\" && has(r.spec.routeName) && r.spec.routeName != \"\" && has(r.spec.executionMode) && r.spec.executionMode in [\"product-executes\", \"user-executes\", \"target-owned\", \"not-yet-executable\"] && has(r.spec.automatic) && has(r.spec.disposition) && has(r.spec.evidence) && size(r.spec.evidence) > 0 && (!r.spec.automatic || r.spec.disposition == \"observed\"))"
-          description: "Require every LifecycleRoute to name its scope, executor, evidence, and whether automatic execution has been proved."
+          description: "This catalog apply gate checks a recorded LifecycleRoute before apply. It blocks a route that omits its chart, version, preset, executor, disposition, or evidence, and a route cannot claim automatic execution without an observed receipt. Complete the route or mark the work as not yet automatic. This gate does not discover missing hooks or CRDs when no route was recorded."
           effect: "block"
           validating: true
         -
           ref: "platform/probes-declared"
+          displayName: "Warn - workload health probes are missing"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.kind) || !(r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\"]) || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.containers) && r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe)))"
-          description: "Warn when an ordinary long-running Kubernetes workload container has no liveness or readiness probe."
+          description: "This catalog apply warning checks the exact Kubernetes objects stored in ConfigHub before apply. It reports a long-running workload container that has no readiness or liveness probe. It does not block apply. Add suitable probes or review and accept the warning."
           effect: "warn"
           validating: true
         -
           ref: "platform/vet-placeholders"
+          displayName: "Block apply - replace unfinished placeholders"
           functionName: "vet-placeholders"
           arguments:
             []
-          description: "Block unresolved ConfigHub placeholders."
+          description: "This catalog apply gate blocks ConfigHub apply while unresolved placeholders remain. Replace each placeholder with the real value or the correct target-owned Secret reference, then try the apply again."
           effect: "block"
           validating: true
         -
           ref: "platform/vet-schemas"
+          displayName: "Block apply - Kubernetes schema must be valid"
           functionName: "vet-schemas"
           arguments:
             []
-          description: "Block Kubernetes data that fails its declared schema."
+          description: "This catalog apply gate checks the exact Kubernetes objects stored in ConfigHub and blocks apply when data fails its declared schema. Correct the reported field or type, then try the apply again."
           effect: "block"
           validating: true
     approvalRequired:
       ref: "platform/helm-catalog-prod-gates"
+      displayName: "Catalog checks and approval before apply"
       id: "8784a447-0e4d-4471-b924-eae5377778a2"
       where: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|require-approval|vet-placeholders|vet-schemas)$'"
       triggers:
         -
           ref: "platform/aicr-training-images-pinned"
+          displayName: "Warn - AICR training image is not pinned by digest"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.apiVersion) || r.apiVersion != \"trainer.kubeflow.org/v1alpha1\" || !has(r.kind) || r.kind != \"ClusterTrainingRuntime\" || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.replicatedJobs) && size(r.spec.template.spec.replicatedJobs) > 0 && r.spec.template.spec.replicatedJobs.all(j, has(j.template) && has(j.template.spec) && has(j.template.spec.template) && has(j.template.spec.template.spec) && has(j.template.spec.template.spec.containers) && size(j.template.spec.template.spec.containers) > 0 && j.template.spec.template.spec.containers.all(c, has(c.image) && c.image.contains(\"@sha256:\"))))"
-          description: "Warn when an AICR ClusterTrainingRuntime uses an image that is not pinned by digest."
+          description: "This catalog apply warning checks an AICR ClusterTrainingRuntime before apply. It reports a training image that is not pinned by digest, because the image could change without a configuration revision. It does not block apply. Pin the training image by digest or review and accept the warning."
           effect: "warn"
           validating: true
         -
           ref: "platform/aicr-training-secret-refs"
+          displayName: "Block apply - AICR API key must use a Secret"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.apiVersion) || r.apiVersion != \"trainer.kubeflow.org/v1alpha1\" || !has(r.kind) || r.kind != \"ClusterTrainingRuntime\" || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.replicatedJobs) && r.spec.template.spec.replicatedJobs.all(j, has(j.template) && has(j.template.spec) && has(j.template.spec.template) && has(j.template.spec.template.spec) && has(j.template.spec.template.spec.containers) && j.template.spec.template.spec.containers.all(c, !has(c.env) || c.env.all(e, !has(e.name) || e.name != \"AI_API_KEY\" || (!has(e.value) && has(e.valueFrom) && has(e.valueFrom.secretKeyRef) && has(e.valueFrom.secretKeyRef.name) && e.valueFrom.secretKeyRef.name != \"\" && has(e.valueFrom.secretKeyRef.key) && e.valueFrom.secretKeyRef.key != \"\")))))"
-          description: "Require an AICR ClusterTrainingRuntime AI_API_KEY environment variable to refer to a named Secret and key."
+          description: "This catalog apply gate blocks an AICR ClusterTrainingRuntime that writes AI_API_KEY directly into the object. Change the environment variable to refer to a named Kubernetes Secret and key, then try the apply again."
           effect: "block"
           validating: true
         -
           ref: "platform/digest-pinned-images"
+          displayName: "Warn - workload image is not pinned by digest"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.kind) || !(r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\", \"Job\"]) || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.containers) && r.spec.template.spec.containers.all(c, has(c.image) && c.image.contains(\"@sha256:\")))"
-          description: "Warn when an ordinary Kubernetes workload image is not pinned by digest."
+          description: "This catalog apply warning checks the exact Kubernetes objects stored in ConfigHub before apply. It reports an ordinary workload image that is not pinned by digest, because the image could change without a configuration revision. It does not block apply. Pin the image by digest or review and accept the warning."
           effect: "warn"
           validating: true
         -
           ref: "platform/lifecycle-route-evidence"
+          displayName: "Block apply - lifecycle route needs evidence"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.kind) || r.kind != \"LifecycleRoute\" || (has(r.spec) && has(r.spec.chart) && r.spec.chart != \"\" && has(r.spec.version) && r.spec.version != \"\" && has(r.spec.base) && r.spec.base != \"\" && has(r.spec.routeName) && r.spec.routeName != \"\" && has(r.spec.executionMode) && r.spec.executionMode in [\"product-executes\", \"user-executes\", \"target-owned\", \"not-yet-executable\"] && has(r.spec.automatic) && has(r.spec.disposition) && has(r.spec.evidence) && size(r.spec.evidence) > 0 && (!r.spec.automatic || r.spec.disposition == \"observed\"))"
-          description: "Require every LifecycleRoute to name its scope, executor, evidence, and whether automatic execution has been proved."
+          description: "This catalog apply gate checks a recorded LifecycleRoute before apply. It blocks a route that omits its chart, version, preset, executor, disposition, or evidence, and a route cannot claim automatic execution without an observed receipt. Complete the route or mark the work as not yet automatic. This gate does not discover missing hooks or CRDs when no route was recorded."
           effect: "block"
           validating: true
         -
           ref: "platform/probes-declared"
+          displayName: "Warn - workload health probes are missing"
           functionName: "vet-cel"
           arguments:
             -
               name: "expression"
               value: "!has(r.kind) || !(r.kind in [\"Deployment\", \"StatefulSet\", \"DaemonSet\", \"ReplicaSet\"]) || (has(r.spec) && has(r.spec.template) && has(r.spec.template.spec) && has(r.spec.template.spec.containers) && r.spec.template.spec.containers.all(c, has(c.livenessProbe) && has(c.readinessProbe)))"
-          description: "Warn when an ordinary long-running Kubernetes workload container has no liveness or readiness probe."
+          description: "This catalog apply warning checks the exact Kubernetes objects stored in ConfigHub before apply. It reports a long-running workload container that has no readiness or liveness probe. It does not block apply. Add suitable probes or review and accept the warning."
           effect: "warn"
           validating: true
         -
           ref: "platform/require-approval"
+          displayName: "Block apply - approval is required"
           functionName: "vet-approvedby"
           arguments:
             -
               name: "num-approvers"
               value: "1"
-          description: "Require one recorded approval before a controlled apply."
+          description: "This catalog apply gate is used only for production and system configuration. It blocks ConfigHub apply until one person approves the exact revision. Approve that revision after review, then try the apply again."
           effect: "block"
           validating: true
         -
           ref: "platform/vet-placeholders"
+          displayName: "Block apply - replace unfinished placeholders"
           functionName: "vet-placeholders"
           arguments:
             []
-          description: "Block unresolved ConfigHub placeholders."
+          description: "This catalog apply gate blocks ConfigHub apply while unresolved placeholders remain. Replace each placeholder with the real value or the correct target-owned Secret reference, then try the apply again."
           effect: "block"
           validating: true
         -
           ref: "platform/vet-schemas"
+          displayName: "Block apply - Kubernetes schema must be valid"
           functionName: "vet-schemas"
           arguments:
             []
-          description: "Block Kubernetes data that fails its declared schema."
+          description: "This catalog apply gate checks the exact Kubernetes objects stored in ConfigHub and blocks apply when data fails its declared schema. Correct the reported field or type, then try the apply again."
           effect: "block"
           validating: true
+  definitionSpace:
+    ref: "platform"
+    whereTrigger: "Slug = '__no-policy-space-trigger__'"
+    triggerFilterID: null
   spaces:
     baseline:
       - "argo-cd-argo-cd-9-5-15-default"

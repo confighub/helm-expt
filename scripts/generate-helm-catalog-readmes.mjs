@@ -43,23 +43,29 @@ const DEMO_SPACES = [
   },
   {
     space: "platform",
-    title: "Shared checks and gates for the demo org",
+    title: "Checks that enforce the catalog before apply",
     kind: "org",
-    summary: "Shared platform plumbing used by the demo Spaces: checks, gates, and filters that keep the examples honest.",
+    summary: "These live checks turn catalog advice into rules before ConfigHub applies stored configuration.",
     shows: [
+      "A gate named `Block apply` stops a definite problem: invalid Kubernetes data, an unfinished placeholder, an unsupported lifecycle claim, an inline AICR API key, or a missing required approval.",
+      "A check named `Warn` reports a possible problem without stopping apply: an unpinned image or missing health probes.",
       "Production releases require approval. Cluster-wide system configuration also requires approval in development and staging because one change can affect every workload.",
-      "The demo uses checks such as placeholder detection and vetting to keep unsafe examples out of the happy path.",
+      "Open or hover over any live ApplyGate to read what it checks, why the catalog uses it, and how to clear it.",
     ],
-    open: ["This README.", "The checks and filters used by the demo org.", "Production Spaces such as `bitnami-redis-prod` and `hashicorp-vault-env-prod` to see where gates matter."],
+    open: ["This README.", "The Triggers and Filters in this Space; their friendly names say whether they block or warn.", "A gated Unit, then hover over its ApplyGate to read the purpose and repair.", "Production Spaces such as `bitnami-redis-prod` and `hashicorp-vault-env-prod` to see where approval matters."],
     why: [
-      "A catalog is not only rendered YAML. It also needs the rules that say when a change is safe to move.",
-      "The platform Space shows those rules separately so chart examples do not hide policy decisions inside prose.",
+      "A catalog recommendation is useful before upload. After upload, the same recommendation should stop a known bad apply or report a clear warning instead of remaining prose.",
+      "These checks run against the exact configuration stored in ConfigHub. They make the catalog's safety advice visible at the point where a change would move.",
     ],
     evidence: [
-      ["Gate-scope fix in org summary", "data/helm-org/summary.md"],
-      ["Verification landing page", "site/verification.html"],
+      ["Maintained apply-policy definition", "config-catalog/policies/catalog-standard.yaml"],
+      ["Live functional proof", "data/apply-policy-functional-proof/summary.md"],
+      ["Live filter and Space assignments", "data/apply-policy-profiles/live-helm-catalog.yaml"],
     ],
-    limits: ["This example explains shared demo mechanics. It is not a replacement for a company policy model."],
+    limits: [
+      "The lifecycle gate validates a LifecycleRoute that exists. It cannot discover an unrecorded hook, CRD, setup job, or target prerequisite.",
+      "This example explains shared demo mechanics. It is not a replacement for a company policy model.",
+    ],
   },
   {
     space: "bitnami-redis-base",
