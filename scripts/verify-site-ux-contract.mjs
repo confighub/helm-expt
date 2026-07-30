@@ -27,8 +27,12 @@ const checks = [
     terms: ["Serverless mode", "Run it without ConfigHub Server", "both serverless and anonymous", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
   },
   {
+    file: "site/how-it-works.html",
+    terms: ["From source to deployment", "The short version", "Local files", "OCI to Argo CD or Flux", "ConfigHub to Argo CD or Flux", "Where a setting belongs", "Deploy from ConfigHub"],
+  },
+  {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App", "Helm values or a ConfigHub change?"],
+    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Choose what to test", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App", "Helm values or a ConfigHub change?"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -137,7 +141,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Helm rebuilds your whole configuration", "Recipe, render, record, route", "official tutorial", "short package exercise"],
+    headerTerms: ["From source to deployment", "Start with Helm, AICR", "official ConfigHub tutorial", "short package exercise"],
   },
   {
     file: "site/variants.html",
@@ -230,7 +234,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Try it", "Catalog", "Tutorial", "How it works", "Docs", "Sign in"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Try it", "Catalog", "ConfigHub", "Deployment", "Docs", "Sign in"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   const rawPathLinks = [...text.matchAll(/<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
