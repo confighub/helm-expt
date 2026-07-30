@@ -2,6 +2,12 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
+For the shortest local exercise, use
+[Try one catalog package](../../site/try.html). For the ConfigHub product
+journey, use the
+[official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/).
+This page keeps the detailed Helm parity explanation.
+
 > Want to see a real run before you start? [first-run-walkthrough.md](./first-run-walkthrough.md)
 > captures this flow end-to-end on a throwaway cluster — the actual commands,
 > output, and one honest rough edge.

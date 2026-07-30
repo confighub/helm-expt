@@ -2,8 +2,16 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-This page is a short show-and-tell path through the project. Each tutorial says
-what you are doing, what to look for, and what the result means:
+This is a detailed repository proof sequence. It is not the ConfigHub product
+tutorial.
+
+Use the
+[official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/)
+for the normal product journey. Use this page when you need the project
+commands and receipts behind the catalog examples.
+
+Each section says what you are doing, what to inspect, and what the result
+means:
 
 ```text
 what the tutorial proves

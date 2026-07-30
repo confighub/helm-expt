@@ -3,6 +3,11 @@
 The simplest architecture for this project is **OCI in, managed configuration, OCI
 out**.
 
+The [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/)
+owns the product onboarding journey. This catalog owns source-specific preparation,
+public package testing, and evidence. See
+[Onboarding And Entry Paths](../planning/onboarding-and-entry-paths.md).
+
 The website, catalog, and public tools handle useful configuration work around OCI.
 They can prepare source before the first OCI is built, inspect an existing OCI, or
 produce a new OCI after checking or changing its contents. They help people work with

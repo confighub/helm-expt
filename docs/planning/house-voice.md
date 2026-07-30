@@ -62,6 +62,11 @@ persuasive copy when they would remove a useful human voice.
 - Keep required qualifiers, limits, and evidence links. Never shorten a sentence by
   weakening the claim.
 
+For tutorials and entry paths, also follow the
+[onboarding doctrine](./onboarding-and-entry-paths.md). Give each page one job.
+Give each numbered step one result. Keep source-specific preparation separate
+from the common ConfigHub tutorial.
+
 Use these verbs consistently:
 
 | Term | Meaning on this site |

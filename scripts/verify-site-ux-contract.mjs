@@ -16,7 +16,11 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try It Now with Kubernetes", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub plugin install confighub/installer", "cub installer", "--output-oci", "No account: the package choice stays", "a reviewed object edit stays", "What is <code>--pull</code>?"],
+    terms: ["Try one catalog package", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "Local: no server", "Hosted: no sign-in", "ConfigHub: sign in", "Continue with the official tutorial", "Start with your own configuration", "AICR", "Open the detailed Redis walkthrough"],
+  },
+  {
+    file: "site/redis-walkthrough.html",
+    terms: ["Detailed Redis walkthrough", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "a reviewed object edit stays", "What is <code>--pull</code>?", "Managed upgrade and rollback"],
   },
   {
     file: "site/serverless.html",
@@ -24,7 +28,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "cub installer package", "Existing OCI package", "Kubernetes YAML", "Build an App", "Helm values or a ConfigHub change?"],
+    terms: ["id=\"chart-filter\"", "Helm Ops Catalog", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App", "Helm values or a ConfigHub change?"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -36,7 +40,7 @@ const checks = [
   },
   {
     file: "site/hard-questions.html",
-    terms: ["My Helm chart broke", "What is safe for AI to change?", "SSA conflict gap"],
+    terms: ["How is cub installer different from cub helm?", "My Helm chart broke", "What is safe for AI to change?", "SSA conflict gap"],
   },
   {
     file: "site/known-gaps.html",
@@ -44,7 +48,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Docs/FAQ", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Docs/FAQ", "Official tutorial", "Try one catalog package", "Detailed Redis walkthrough", "Bring your configuration", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -72,7 +76,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Making configuration easier to test", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "cub installer package", "Existing OCI package", "Kubernetes YAML", "Build an App"],
+    terms: ["Bring your configuration", "cub installer", "cub helm", "Choose where the work runs", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App"],
   },
   {
     file: "site/how-it-works.html",
@@ -83,6 +87,7 @@ const checks = [
 const menuGuidePages = [
   "site/index.html",
   "site/try.html",
+  "site/redis-walkthrough.html",
   "site/charts/index.html",
   "site/variants.html",
   "site/journey.html",
@@ -95,6 +100,7 @@ const menuGuidePages = [
 const humanSplitPages = [
   "site/index.html",
   "site/try.html",
+  "site/redis-walkthrough.html",
   "site/how-it-works.html",
   "site/variants.html",
   "site/journey.html",
@@ -122,11 +128,11 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["Use one Redis example", "25.5.3", "27.0.0", "Sign in only"],
+    headerTerms: ["Try one catalog package", "does not contact ConfigHub Server", "do not need a ConfigHub account"],
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Helm rebuilds your whole configuration", "Recipe, render, record, route", "Get Started"],
+    headerTerms: ["Helm rebuilds your whole configuration", "Recipe, render, record, route", "official tutorial", "short package exercise"],
   },
   {
     file: "site/variants.html",
@@ -218,7 +224,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Test Centre", "Try it", "Catalog", "Testing", "How it works", "Docs", "Sign in"]) {
+  for (const term of ["Config Test Centre", "Try it", "Catalog", "Tutorial", "How it works", "Docs", "Sign in"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   const rawPathLinks = [...text.matchAll(/<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
@@ -268,6 +274,24 @@ for (const file of technicalEnglishPages) {
         failures.push(`${file}: technical prose has ${count} words: ${JSON.stringify(sentence.slice(0, 180))}`);
       }
     }
+  }
+}
+
+const shortTryPath = path.join(root, "site/try.html");
+if (fs.existsSync(shortTryPath)) {
+  const shortTry = fs.readFileSync(shortTryPath, "utf8");
+  const commandBlocks = [...shortTry.matchAll(/<pre\b[^>]*>/g)].length;
+  if (commandBlocks > 3) {
+    failures.push(`site/try.html: short package exercise has ${commandBlocks} command blocks; maximum is 3`);
+  }
+  if (!shortTry.includes("https://docs.confighub.com/get-started/tutorial/")) {
+    failures.push("site/try.html: missing the official ConfigHub tutorial link");
+  }
+  if (!shortTry.includes("Local: no server") || !shortTry.includes("Hosted: no sign-in")) {
+    failures.push("site/try.html: local no-server and hosted no-sign-in choices must remain separate");
+  }
+  if (!shortTry.includes("anonymous service is planned") || !shortTry.includes("not released")) {
+    failures.push("site/try.html: hosted anonymous service must retain its planned status");
   }
 }
 

@@ -6,5 +6,7 @@
 - [Helm Ops Catalog](https://confighub.github.io/helm-expt/site/charts/): the catalog index, one page per chart version with base variants, rendered objects, and evidence links.
 - [Master catalog matrix](https://confighub.github.io/helm-expt/site/matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](https://confighub.github.io/helm-expt/site/generated-at.txt): the timestamp of the last site generation.
-- [Get Started](https://confighub.github.io/helm-expt/site/try.html): the no-account try path for installing catalog charts.
+- [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/): the canonical product journey from one component through release, change, production, and promotion.
+- [Try one catalog package](https://confighub.github.io/helm-expt/site/try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Detailed Redis walkthrough](https://confighub.github.io/helm-expt/site/redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.

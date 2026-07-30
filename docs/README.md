@@ -22,7 +22,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today. |
 | [reverse-reconcile-design.md](./user/reverse-reconcile-design.md) | User-facing design for the reverse live-to-desired frontier: authority policy, bounds check, fixture receipt, and the missing `cub` write-back capability. |
 | [cub-scout-diff-design.md](./user/cub-scout-diff-design.md) | User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery. |
-| [try-now.md](./user/try-now.md) | Short Redis and kube-prometheus-stack paths for first public use. |
+| [try-now.md](./user/try-now.md) | Detailed Helm parity explanation behind the short public package exercise. |
 | [installer-oci-packages.md](./user/installer-oci-packages.md) | Public installer package OCI refs, how users pull them, and how package OCI differs from ConfigHub delivery OCI. |
 | [config-catalog-demonstrations.md](./user/config-catalog-demonstrations.md) | Generated, plain-English status of the Helm, AICR, cub installer, OCI delivery, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps. |
 | [Kubara platform example](./demo/kubara/local-platform.md) | Kubara v0.12.0 source, generated Helm configuration, 77 rendered bootstrap objects, lifecycle routes, OCI layout, and current live-test boundary. |
@@ -37,7 +37,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [serverless-mode.md](./user/serverless-mode.md) | A local path that needs neither ConfigHub Server nor a ConfigHub account. It distinguishes those two choices, compares Helm install with cub render plus apply, and shows how reviewed files can become OCI for GitOps. |
 | [inspect-oci-package.md](./user/inspect-oci-package.md) | One command for identifying an OCI package, resolving its digest, listing exact Kubernetes objects and lifecycle clues, and keeping source packages separate from deployable configuration. |
 | [transform-oci-package.md](./user/transform-oci-package.md) | Change one field in a literal Kubernetes OCI, run checks, preserve the input records, and build a new local OCI without a ConfigHub account or server. |
-| [choose-your-path.md](./user/choose-your-path.md) | Quick route picker for direct render, one-shot upload, public catalog packages, and ConfigHub-managed variants/operations. |
+| [choose-your-path.md](./user/choose-your-path.md) | Route picker for Helm, AICR, OCI, or YAML; local, anonymous, or managed use; and the official ConfigHub tutorial handoff. |
 | [ai-assisted-helm-changes.md](./user/ai-assisted-helm-changes.md) | Plain-English guide to safe AI-assisted Helm changes: propose, diff, gate, approve, deliver, and observe. |
 | [broken-chart-triage.md](./user/broken-chart-triage.md) | Practical triage path for broken charts, values files, target prerequisites, lifecycle routes, image pulls, runtime failures, and model gaps. |
 | [known-gaps-we-surface.md](./user/known-gaps-we-surface.md) | User-facing guide to current watch findings that the project deliberately surfaces instead of hiding. |
@@ -46,13 +46,13 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [helm-render-intents.md](./user/helm-render-intents.md) | The two-layer model, with examples and generated coverage states for render inputs, captured output, lifecycle routes, target prerequisites, runner evidence, freshness, and incomplete contracts. |
 | [helm-presets-and-values.md](./user/helm-presets-and-values.md) | How public presets map to repo base variants, why the catalog does not claim every values combination, and how AI helps maintain chart-specific choices. |
 | [verification.md](./user/verification.md) | Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route. |
-| [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `helm template`, `cub installer`, `cub variant upload`, `cub variant create`, or repo verifiers. |
+| [choosing-commands.md](./user/choosing-commands.md) | Guide to the distinct roles of `helm template`, `cub helm`, `cub installer`, ConfigHub upload and variant commands, and repo verifiers. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
 | [../data/outcome-evidence-contract/summary.md](../data/outcome-evidence-contract/summary.md) | Generated user-outcome contract: question, status, evidence, verifier command, scope, and next action. |
 | [helm-pain-points.md](./user/helm-pain-points.md) | User-facing map from common Helm pain points to current proof, handoffs, and per-chart reports. |
 | [helm-upgrade-crash-example.md](./user/helm-upgrade-crash-example.md) | User-facing day-2 example: how an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed. |
 | [why-this-exists.md](./user/why-this-exists.md) | Skeptical entry point: why this is more than a one-shot upload or GitOps import, and what the catalog/proof path adds. |
-| [tutorial-sequence.md](./user/tutorial-sequence.md) | Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops. |
+| [tutorial-sequence.md](./user/tutorial-sequence.md) | Detailed repository proof sequence for Redis, variants, overlays, GitOps, and bulk operations; not the ConfigHub product tutorial. |
 | [current-proof-status.md](./user/current-proof-status.md) | Short guide to current proof status and the generated summaries that are authoritative. |
 | [../data/chart-use-guide/summary.md](../data/chart-use-guide/summary.md) | Generated chart-use guide: one short answer per top-100 chart for use now, promotion review, base-variant work, or limitation decision. |
 | [../data/confighub-example-guides/summary.md](../data/confighub-example-guides/summary.md) | Generated plain-English guides for each public chart preset config: what was rendered, why it is the right starting point, how to repeat it, and what prerequisites or lifecycle work remain visible. |
@@ -182,9 +182,9 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations. |
 | [offering.md](./user/offering.md) | Public overview of the Helm catalog offering and the free-to-managed adoption path. |
 | [generative-gitops-fit.md](./user/generative-gitops-fit.md) | User-facing map from generated config and AI/GitOps expectations to current helm-expt evidence and limits. |
-| [try-now.md](./user/try-now.md) | Short first-run path for Redis and kube-prometheus-stack. |
-| [choose-your-path.md](./user/choose-your-path.md) | Short first-run route picker across direct Helm, public catalog, and managed ConfigHub workflows. |
-| [tutorial-sequence.md](./user/tutorial-sequence.md) | Sequential tutorial flow with commands and expected results. |
+| [try-now.md](./user/try-now.md) | Detailed Redis Helm-parity path behind the short public package exercise. |
+| [choose-your-path.md](./user/choose-your-path.md) | Route picker across input formats and local, anonymous, or ConfigHub-managed use. |
+| [tutorial-sequence.md](./user/tutorial-sequence.md) | Detailed proof flow with commands and expected results; not the ConfigHub product tutorial. |
 | [current-proof-status.md](./user/current-proof-status.md) | User-facing entry point for current proof status. |
 | [hard-questions.md](./user/hard-questions.md) | Skeptical user route for the hard questions a Helm reviewer asks before trusting the catalog. |
 | [what-we-refuse-to-claim.md](./user/what-we-refuse-to-claim.md) | User-facing trust boundary for strict witness blocks, watchlist rows, and normalization rules. |
@@ -207,7 +207,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [verification-lanes.md](./user/verification-lanes.md) | User-facing explanation of proof lanes and command checks. |
 | [how-the-harness-works.md](./user/how-the-harness-works.md) | Lifecycle-stage explanation of the harness. |
 | [introduction-to-the-harness.md](./user/introduction-to-the-harness.md) | Detailed import workflow, recipe decisions, and hook policy. |
-| [choosing-commands.md](./user/choosing-commands.md) | User-facing command-routing guide for the Helm and ConfigHub command family. |
+| [choosing-commands.md](./user/choosing-commands.md) | User-facing guide to source, preparation, ConfigHub, delivery, and proof commands. |
 | [creating-variants.md](./user/creating-variants.md) | Simple user guide for base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation. |
 | [cub-variant-command-surface.md](./user/cub-variant-command-surface.md) | Current `cub variant` syntax for create, promote, and upload, including labels, annotations, targets, namespaces, and gates. |
 | [change-routing-before-oci.md](./user/change-routing-before-oci.md) | User-facing routing guide for presets/base variants, derived variants, and delivery prerequisites before OCI handoff. |
@@ -407,6 +407,7 @@ not the primary user path.
 | [blog-posts.md](./planning/blog-posts.md) | Public writing plan. |
 | [dedicated-website-plan.md](./planning/dedicated-website-plan.md) | Standalone website plan. |
 | [house-voice.md](./planning/house-voice.md) | The house voice for all tech copy: the Fowler/Jobs/Dickens hybrid, ten rules, ready-to-apply before/after rewrites of the front-door site surfaces (Get Started, How It Works, chart-page intro), and how to check it (Flesch 60–70). |
+| [onboarding-and-entry-paths.md](./planning/onboarding-and-entry-paths.md) | Doctrine for one canonical ConfigHub tutorial, short Helm/AICR/OCI/YAML entry paths, distinct local/anonymous/managed choices, and STE limits for the Try page. |
 | [free-path-pitch.md](./planning/free-path-pitch.md) | The free-path value proposition: lead with a "look before you install" pre-flight check, keep parity as a quiet assurance, and separate ship-now copy from future security and AI builds. |
 | [server-account-pitch.md](./planning/server-account-pitch.md) | The account value proposition: your versions, your apps, your releases, plus the shipped-versus-frontier wording that ties the homepage variant and Apps boxes together. |
 | [house-layout.md](./planning/house-layout.md) | The house layout (companion to house-voice): seven principles drawn from hall.kvick.dev — narrow prose, hairline sections, terminal-card commands, two-column hero, light card grid, one accent, restraint — plus the terminal-card pattern and where to apply it. |

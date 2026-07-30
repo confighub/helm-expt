@@ -11,6 +11,7 @@ other.
 | User goal | Use |
 | --- | --- |
 | See what a Helm chart renders, without ConfigHub state. | `helm template` |
+| Import an arbitrary Helm chart and values as a ConfigHub base. | `cub helm` plugin |
 | Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Keep one selected catalog preset as a local OCI layout or push it to a registry. | Add `--output-oci <path-or-oci-ref>` to `cub installer setup`. |
@@ -20,9 +21,13 @@ other.
 | Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model. | discover/import first, then decide whether to keep imported, create variants, or graduate to a recipe |
 | Prove a repo artifact or live lane has not drifted. | the relevant `npm run ...` verifier |
 
-The durable public catalog path starts at `cub installer`. Plain Helm remains
-the low-friction render path. `cub variant upload` is the general one-shot
-ConfigHub path for rendered files and literal OCI bundles.
+`cub helm` and `cub installer` are preparation tools. `cub helm` imports an
+arbitrary chart and values. `cub installer` reads a maintained catalog package
+with named configurations and recorded requirements.
+
+The [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/)
+teaches the product journey after configuration enters ConfigHub. New users do
+not need to compare the two plugins before following that tutorial.
 
 A one-shot render is only operationally safe if its inputs are recorded. For a
 Helm chart, that means chart source, version, release name, namespace, values
