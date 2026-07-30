@@ -449,6 +449,15 @@
 <tr><td>Route</td><td>A named path for work Helm leaves outside plain YAML, such as hooks, CRDs, setup jobs, target prerequisites, webhook certs, generated facts, or GitOps handoff.</td></tr>
 <tr><td>Receipt</td><td>Evidence that a command, render, upload, scan, delivery, or observation happened and passed a defined boundary.</td></tr>
 <tr><td>Lane</td><td>One proof category, such as render parity, ConfigHub proof, local live, GitOps/OCI live, or two-cluster parity.</td></tr>
+<tr><td>Inspect</td><td>Read objects or evidence. This is a human action and does not create proof.</td></tr>
+<tr><td>Test</td><td>Run a defined command or procedure.</td></tr>
+<tr><td>Verify</td><td>Compare a result with a recorded expectation, digest, or object set.</td></tr>
+<tr><td>Review</td><td>Decide whether a known change or result is acceptable.</td></tr>
+<tr><td>Prove</td><td>Produce an inspectable receipt for one scoped claim.</td></tr>
+<tr><td>Apply</td><td>Send desired Kubernetes objects to a cluster.</td></tr>
+<tr><td>Deliver</td><td>Make reviewed objects available to the controller or apply path that sends them to a cluster.</td></tr>
+<tr><td>Observe</td><td>Read the live result after delivery.</td></tr>
+<tr><td>Promote</td><td>Move a reviewed change to another environment while preserving its allowed local differences.</td></tr>
 <tr><td><code>pass</code></td><td>Evidence satisfies the scoped lane.</td></tr>
 <tr><td><code>watch</code></td><td>The main path may work, but something needs review or rerun before a stronger claim.</td></tr>
 <tr><td><code>blocked</code></td><td>The row cannot pass until a named problem is fixed.</td></tr>

@@ -24,6 +24,15 @@ This is a compact glossary for agents. Human explanations live in
 | Route | A named path for work Helm leaves outside plain YAML, such as hooks, CRDs, setup jobs, target prerequisites, webhook certs, generated facts, or GitOps handoff. |
 | Receipt | Evidence that a command, render, upload, scan, delivery, or observation happened and passed a defined boundary. |
 | Lane | One proof category, such as render parity, ConfigHub proof, local live, GitOps/OCI live, or two-cluster parity. |
+| Inspect | Read objects or evidence. This is a human action and does not create proof. |
+| Test | Run a defined command or procedure. |
+| Verify | Compare a result with a recorded expectation, digest, or object set. |
+| Review | Decide whether a known change or result is acceptable. |
+| Prove | Produce an inspectable receipt for one scoped claim. |
+| Apply | Send desired Kubernetes objects to a cluster. |
+| Deliver | Make reviewed objects available to the controller or apply path that sends them to a cluster. |
+| Observe | Read the live result after delivery. |
+| Promote | Move a reviewed change to another environment while preserving its allowed local differences. |
 | `pass` | Evidence satisfies the scoped lane. |
 | `watch` | The main path may work, but something needs review or rerun before a stronger claim. |
 | `blocked` | The row cannot pass until a named problem is fixed. |

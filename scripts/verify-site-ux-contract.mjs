@@ -44,7 +44,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Docs/FAQ", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Docs/FAQ", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -146,7 +146,54 @@ const guideOpeningChecks = [
   },
 ];
 
+const technicalEnglishPages = [
+  "site/try.html",
+  "site/testing.html",
+  "site/how-it-works.html",
+  "site/docs.html",
+  "site/hard-questions.html",
+  "site/demo-org.html",
+];
+
 const failures = [];
+
+function decodeBasicHtml(text) {
+  return text
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'");
+}
+
+function proseBlocks(html) {
+  return [...html.matchAll(/<(p|li)\b[^>]*>([\s\S]*?)<\/\1>/gi)].map((match) => {
+    const text = match[2]
+      .replace(/<code\b[^>]*>[\s\S]*?<\/code>/gi, " command ")
+      .replace(/<br\s*\/?>/gi, ". ")
+      .replace(/<[^>]+>/g, " ");
+    return decodeBasicHtml(text).replace(/\s+/g, " ").trim();
+  });
+}
+
+function sentences(text) {
+  const parts = [];
+  let start = 0;
+  const boundary = /[.!?]+(?=\s|$)/g;
+  for (const match of text.matchAll(boundary)) {
+    const end = match.index + match[0].length;
+    parts.push(text.slice(start, end).trim());
+    start = end;
+  }
+  const tail = text.slice(start).trim();
+  if (tail) parts.push(tail);
+  return parts.filter(Boolean);
+}
+
+function wordCount(text) {
+  return text.match(/[A-Za-z0-9][A-Za-z0-9'/:+._-]*/g)?.length ?? 0;
+}
 
 for (const check of checks) {
   const fullPath = path.join(root, check.file);
@@ -204,6 +251,23 @@ for (const check of guideOpeningChecks) {
   const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
   for (const term of check.headerTerms) {
     if (!header.includes(term)) failures.push(`${check.file}: guide opening missing ${JSON.stringify(term)}`);
+  }
+}
+
+for (const file of technicalEnglishPages) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) {
+    failures.push(`${file}: missing file`);
+    continue;
+  }
+  const html = fs.readFileSync(fullPath, "utf8");
+  for (const block of proseBlocks(html)) {
+    for (const sentence of sentences(block)) {
+      const count = wordCount(sentence);
+      if (count > 25) {
+        failures.push(`${file}: technical prose has ${count} words: ${JSON.stringify(sentence.slice(0, 180))}`);
+      }
+    }
   }
 }
 
