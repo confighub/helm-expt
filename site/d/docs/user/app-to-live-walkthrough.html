@@ -447,7 +447,7 @@
 <p>This provisions a kind cluster, installs Argo CD, creates a <code>demo-cluster</code> Space with an OCI target (<code>demo-cluster/oci</code>), installs the OCI pull credentials, and bootstraps a root Application. Load the cluster credentials in any shell that needs <code>kubectl</code>:</p>
 <pre><code>source ~/.confighub/clusters/demo.env</code></pre>
 <h2 id="step-2-a-simple-app-three-manifests">Step 2: A simple app, three manifests</h2>
-<p>A Deployment (nginx serving a mounted ConfigMap), the ConfigMap (one line of content with a version marker), and a Service, all in namespace <code>acme</code>. Any plain manifests work; nothing here is chart-specific.</p>
+<p>A Deployment, ConfigMap, and Service, all in one namespace. Any plain manifests work; nothing here is chart-specific. For a committed four-object starting fixture and a focused upload receipt, use the <a href="../../examples/plain-yaml/acme-web/README.html">plain YAML example</a>. This longer walkthrough continues past import into variants, releases, GitOps delivery, and promotion.</p>
 <h2 id="step-3-upload-the-base">Step 3: Upload the base</h2>
 <pre><code>cub variant upload --component acme-web --variant base \
   --space acme-web-base --granularity per-resource ./app</code></pre>

@@ -94,6 +94,9 @@ import?", read [Why This Exists](./why-this-exists.md).
 | 45 | [Product Support Tiers](./product-support-tiers.md) | Which scenarios fit public catalog, managed import, or commercial support. |
 | 46 | [Maintenance SLA](./maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
 | 47 | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) | Why Helm hooks need explicit lifecycle routes and receipts. |
+| 48 | [Inspect An OCI Package](./inspect-oci-package.md) | Identify an OCI package, resolve its digest, and list the exact Kubernetes objects and lifecycle clues before choosing what to do with it. |
+| 49 | [Change An OCI Package](./transform-oci-package.md) | Change one named field, keep the source and check records, and build a new OCI without a ConfigHub account or server. |
+| 50 | [Your App To Live](./app-to-live-walkthrough.md) | Continue from plain Kubernetes YAML into ConfigHub variants, releases, Argo CD delivery, and promotion. |
 
 Detailed doctrine and historical design material now lives under
 [`docs/reference`](../reference/) so it does not look like the first-run user

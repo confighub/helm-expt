@@ -205,7 +205,9 @@
           "docs/user/inspect-oci-package.md",
           "data/oci-inspection/summary.md",
           "runs/aicr-oci-roundtrip-proof/receipt.yaml",
-          "runs/serverless-oci-gitops-proof/receipt.yaml"
+          "runs/serverless-oci-gitops-proof/receipt.yaml",
+          "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+          "data/literal-config-examples/summary.md"
         ],
         "id": "T12",
         "name": "Inspect and test an existing OCI package",
@@ -223,11 +225,13 @@
         "evidence": [
           "docs/user/transform-oci-package.md",
           "data/anonymous-oci-transform-proof/summary.md",
-          "runs/anonymous-oci-transform-proof/receipt.yaml"
+          "runs/anonymous-oci-transform-proof/receipt.yaml",
+          "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+          "runs/existing-oci-upload-proof/receipt.yaml"
         ],
         "id": "T13",
         "name": "Transform OCI to OCI without requiring ConfigHub",
-        "next": "Add patch-file input, signature checks, and a deliberate authenticated registry-publish step.",
+        "next": "Release cub with the merged companion-record import fix, then add patch-file input and signature checks. The worked NGINX output already has an authenticated publication receipt and anonymous pull-back check.",
         "outcome": "An existing OCI can be checked or changed and emitted as a new immutable OCI while preserving source records.",
         "status": "available",
         "verify": [
@@ -275,14 +279,18 @@
         "area": "Source pathways",
         "evidence": [
           "docs/user/adopting-existing-apps.md",
-          "docs/user/app-to-live-walkthrough.md"
+          "docs/user/app-to-live-walkthrough.md",
+          "examples/plain-yaml/acme-web/README.md",
+          "runs/literal-yaml-upload-proof/receipt.yaml",
+          "data/literal-config-examples/summary.md"
         ],
         "id": "T16",
         "name": "Upload literal Kubernetes YAML without rerendering",
-        "next": "Add a small executable receipt that isolates literal YAML upload from the wider App walkthrough.",
+        "next": "Continue the same four-object base through a derived variant and release only when that adds a lesson not already covered by the main ConfigHub tutorial.",
         "outcome": "Existing Kubernetes YAML can become ConfigHub Units while preserving the reviewed object set.",
         "status": "available",
         "verify": [
+          "npm run literal-config-examples:verify",
           "npm run docs:verify"
         ]
       },

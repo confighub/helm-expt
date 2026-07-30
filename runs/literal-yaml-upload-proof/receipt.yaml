@@ -1,0 +1,106 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "LiteralConfigUploadReceipt"
+metadata:
+  name: "plain-yaml-acme-web-base"
+spec:
+  organization: "helm-catalog"
+  verifiedAt: "2026-07-30T11:06:22.879Z"
+  command:
+    - "cub"
+    - "variant"
+    - "upload"
+    - "--component"
+    - "plain-yaml-acme-web"
+    - "--variant"
+    - "base"
+    - "--space"
+    - "plain-yaml-acme-web-base"
+    - "--granularity"
+    - "per-resource"
+    - "examples/plain-yaml/acme-web"
+  source:
+    kind: "repository files"
+    reference: "examples/plain-yaml/acme-web"
+    objectCount: 4
+    objectSetSha256: "963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+    publicReceipt: ""
+    importer:
+      {}
+  space:
+    slug: "plain-yaml-acme-web-base"
+    id: "19301ac8-dc9d-43c5-a99e-54ca80c405e7"
+    labels:
+      ApplyPolicyProfile: "catalog-standard"
+      Component: "plain-yaml-acme-web"
+      InputFormat: "KubernetesYAML"
+      Layer: "Application"
+      Owner: "Application"
+      ResourceClass: "user-workload"
+      SourceType: "rendered-config"
+      Variant: "base"
+    externalSource: ""
+    externalSourceDigest: ""
+    externalSourceGranularity: ""
+    triggerFilterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+  units:
+    -
+      slug: "acme-web-configmap-acme-web-content"
+      id: "a7a04fd5-cdb0-40a1-b0b6-ce932e0cdfe2"
+      dataHash: "26efe42331ab5d9c6b1b555cd84e37e971de3cc3da308669317f07ea4a5b2ee5"
+      headRevision: 1
+      objectIdentities:
+        - "v1|ConfigMap|acme-web|acme-web-content"
+    -
+      slug: "acme-web-deployment-acme-web"
+      id: "eea0c333-efdb-46c7-96d7-fa94dee0684f"
+      dataHash: "198e74595410d63d9bebd0fce12affe59765bc1a76d6f74b6a229623a8939379"
+      headRevision: 1
+      objectIdentities:
+        - "apps/v1|Deployment|acme-web|acme-web"
+    -
+      slug: "acme-web-service-acme-web"
+      id: "c430aaf4-7a46-48fc-99c2-48af99840e8d"
+      dataHash: "bfe09d85a7255726741328e48554f731054daabf6eafa1946dd0c75099366a1f"
+      headRevision: 1
+      objectIdentities:
+        - "v1|Service|acme-web|acme-web"
+    -
+      slug: "namespace-acme-web"
+      id: "cd47b559-7545-4231-8794-3145f324d648"
+      dataHash: "34ceef4b9e2465cd142a006e0bbbb8c0eb65a2ee81836bc5f8a3bc851061dcb5"
+      headRevision: 1
+      objectIdentities:
+        - "v1|Namespace||acme-web"
+  readme:
+    slug: "readme"
+    id: "7d7977b9-78ca-4331-abb0-1844c941242a"
+    dataHash: "3c27f7ffc629378910927bdfa7a6a30e73c7f39ebeec6e0e208a0f5326251d80"
+    headRevision: 8
+    source: "data/helm-catalog-readmes/units/plain-yaml-acme-web-base/readme.yaml"
+  storedObjectCount: 4
+  storedObjectSetSha256: "963bf5420b78fbbfa43be7adbb1ced299edef0b2baf0f36850992a6bf66c1926"
+  sourceObjectsMatched: true
+  renderStep: false
+  policy:
+    profile: "catalog-standard"
+    filter: "platform/helm-catalog-checks"
+    filterId: "305d4b12-fd04-43ad-8aeb-be53c34a1b36"
+    filterHash: "b42dcf124959da754d5b5bac08bce74bd450d6c6d52983af134f5fc7c8434554"
+    filterWhere: "Space.Slug = 'platform' AND Slug ~ '^(aicr-training-images-pinned|aicr-training-secret-refs|digest-pinned-images|lifecycle-route-evidence|probes-declared|vet-placeholders|vet-schemas)$'"
+    checks:
+      - "aicr-training-images-pinned"
+      - "aicr-training-secret-refs"
+      - "digest-pinned-images"
+      - "lifecycle-route-evidence"
+      - "probes-declared"
+      - "vet-placeholders"
+      - "vet-schemas"
+status:
+  result: "pass"
+  claim: "ConfigHub stored the four exact Kubernetes objects supplied as plain YAML, with one Unit per object and no render step."
+  apply: "not-run"
+  delivery: "not-run"
+  observation: "not-run"
+  limits:
+    - "This receipt proves the ConfigHub import boundary. It does not claim Kubernetes apply, controller delivery, workload health, promotion, or rollback."
+    - "The README is a separate explanatory Unit and is excluded from the Kubernetes object comparison."

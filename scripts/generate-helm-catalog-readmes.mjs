@@ -245,6 +245,80 @@ const DEMO_SPACES = [
       : ["The environment is a demo lane, not a production recommendation for Vault."],
   })),
   {
+    space: "plain-yaml-acme-web-base",
+    title: "Plain Kubernetes YAML",
+    kind: "source",
+    summary: "Four ordinary Kubernetes YAML files become four ConfigHub Units without a chart or render step.",
+    shows: [
+      "The starting files contain one Namespace, ConfigMap, Deployment, and Service.",
+      "ConfigHub stores one Unit per Kubernetes object.",
+      "The source and stored object-set hashes match.",
+      "The shared catalog checks are attached after upload.",
+    ],
+    open: [
+      "This README.",
+      "The four Kubernetes Units to read the same objects as the source files.",
+      "The links between the Deployment, ConfigMap, and Service.",
+    ],
+    why: [
+      "Many teams already have reviewed Kubernetes YAML. They should not have to wrap it in a chart or run another renderer before ConfigHub can record it.",
+      "This example proves the simple import path before promotion, delivery, or fleet operations are added.",
+    ],
+    evidence: [
+      ["Source files", "examples/plain-yaml/acme-web"],
+      ["ConfigHub upload receipt", "runs/literal-yaml-upload-proof/receipt.yaml"],
+      ["Plain YAML and OCI summary", "data/literal-config-examples/summary.md"],
+    ],
+    settingSources: {
+      startingPoint: "The four files under `examples/plain-yaml/acme-web` are the complete starting configuration. No Helm values or templates are involved.",
+      configHub: "This base records the four supplied objects without a later ConfigHub edit. Any future change will appear in Unit revision history or a derived variant.",
+      installWork: "The Namespace is included. The example has no external Secret, CRD, hook, or setup Job.",
+      liveCluster: "No cluster apply or workload observation has run for this import example.",
+    },
+    limits: [
+      "This receipt proves exact ConfigHub import. It does not prove deployment, promotion, rollback, or workload health.",
+    ],
+  },
+  {
+    space: "existing-oci-nginx-replicas-4",
+    title: "Import an existing OCI",
+    kind: "source",
+    summary: "A public OCI containing five reviewed NGINX objects becomes a ConfigHub base without rerendering Helm.",
+    shows: [
+      "The public artifact is pinned by digest and pulls without registry credentials.",
+      "It contains the five Kubernetes objects plus source, change, and check records.",
+      "ConfigHub stores one Unit per Kubernetes object and records the OCI source and digest on the Space.",
+      "The source and stored object-set hashes match.",
+    ],
+    open: [
+      "This README.",
+      "The five Kubernetes Units to inspect the imported objects.",
+      "The Space annotations to see the immutable OCI source.",
+    ],
+    why: [
+      "An OCI package can already contain the exact configuration a team reviewed. ConfigHub should accept that artifact without asking the team to rerun its source tool.",
+      "This example makes the boundary visible: OCI comes in, ConfigHub records the objects, and later operations can build from that base.",
+    ],
+    evidence: [
+      ["OCI change guide", "docs/user/transform-oci-package.md"],
+      ["Local transformation proof", "data/anonymous-oci-transform-proof/summary.md"],
+      ["Permanent public OCI receipt", "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml"],
+      ["ConfigHub upload receipt", "runs/existing-oci-upload-proof/receipt.yaml"],
+      ["Plain YAML and OCI summary", "data/literal-config-examples/summary.md"],
+    ],
+    settingSources: {
+      startingPoint: "The public OCI records the reviewed NGINX objects and the one intended change: `Deployment/nginx spec.replicas` moved from three to four.",
+      configHub: "This base contains the five objects imported from the OCI. No field was changed during upload.",
+      installWork: "The Deployment still refers to `nginx/ai-provider-credentials`. Supply that Secret before deployment; it is not stored in the public artifact.",
+      liveCluster: "No cluster apply or workload observation has run for this specific imported base.",
+    },
+    limits: [
+      "The artifact is public and digest-pinned, but this example does not claim a provenance signature.",
+      "Direct import of an OCI with companion JSON records needs the merged SDK fix in confighub/sdk PR #11. It is newer than cub v0.2.5 and awaits the next cub release.",
+      "The ConfigHub receipt proves import only. Deployment, promotion, rollback, and workload health are separate examples.",
+    ],
+  },
+  {
     space: "byo-nginx-ai-values-24-0-2-reviewed",
     title: "Bring your own Helm values",
     kind: "source",
@@ -646,7 +720,7 @@ function buildReport() {
   const spaces = readmes.map((item) => item.space);
   const unique = new Set(spaces);
   check(unique.size === spaces.length, "duplicate helm-catalog README space names");
-  check(readmes.length === 45, `expected 45 helm-catalog README files, got ${readmes.length}`);
+  check(readmes.length === 47, `expected 47 helm-catalog README files, got ${readmes.length}`);
   readmes.sort((a, b) => sortKind(a.kind).localeCompare(sortKind(b.kind)) || a.space.localeCompare(b.space));
 
   return {

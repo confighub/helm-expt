@@ -15,11 +15,11 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | org | 2 |
 | preset | 21 |
 | environment | 11 |
-| source | 3 |
+| source | 5 |
 | fleet | 5 |
 | pilot | 1 |
 | route | 2 |
-| total | 45 |
+| total | 47 |
 
 ## Files
 
@@ -67,7 +67,9 @@ Every README separates the starting Helm values or imported base, later ConfigHu
 | `hashicorp-vault-env-staging` | environment | [README](spaces/hashicorp-vault-env-staging/README.md) | [readme.yaml](units/hashicorp-vault-env-staging/readme.yaml) |
 | `aicr-eks-h100-training-kubeflow-v0-14-0-argocd` | source | [README](spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md) | [readme.yaml](units/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/readme.yaml) |
 | `byo-nginx-ai-values-24-0-2-reviewed` | source | [README](spaces/byo-nginx-ai-values-24-0-2-reviewed/README.md) | [readme.yaml](units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml) |
+| `existing-oci-nginx-replicas-4` | source | [README](spaces/existing-oci-nginx-replicas-4/README.md) | [readme.yaml](units/existing-oci-nginx-replicas-4/readme.yaml) |
 | `kubara-local-platform-v0-12-0` | source | [README](spaces/kubara-local-platform-v0-12-0/README.md) | [readme.yaml](units/kubara-local-platform-v0-12-0/readme.yaml) |
+| `plain-yaml-acme-web-base` | source | [README](spaces/plain-yaml-acme-web-base/README.md) | [readme.yaml](units/plain-yaml-acme-web-base/readme.yaml) |
 | `bitnami-nginx-fleet-dev` | fleet | [README](spaces/bitnami-nginx-fleet-dev/README.md) | [readme.yaml](units/bitnami-nginx-fleet-dev/readme.yaml) |
 | `bitnami-nginx-fleet-prod-eu` | fleet | [README](spaces/bitnami-nginx-fleet-prod-eu/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-eu/readme.yaml) |
 | `bitnami-nginx-fleet-prod-us` | fleet | [README](spaces/bitnami-nginx-fleet-prod-us/README.md) | [readme.yaml](units/bitnami-nginx-fleet-prod-us/readme.yaml) |

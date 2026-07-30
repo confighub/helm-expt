@@ -445,6 +445,10 @@
 <p>Pass an empty directory when you also want to keep the pulled files:</p>
 <pre><code>npm run oci:inspect -- OCI_REFERENCE --work-dir ./oci-inspection</code></pre>
 <p>Nothing is applied to Kubernetes.</p>
+<p>The permanent public NGINX example is a literal configuration OCI. It contains five reviewed Kubernetes objects plus the source, change, and check records:</p>
+<pre><code>npm run oci:inspect -- \
+  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518</code></pre>
+<p>The <a href="../../data/literal-config-examples/summary.html">literal configuration examples</a> show the anonymous pull and exact ConfigHub import at that digest.</p>
 <h2 id="inspect-a-cub-installer-package">Inspect a cub installer package</h2>
 <p>A cub installer package is a source package. It can hold several ready-made configs, but it does not contain one final set of Kubernetes objects until you choose and render a config.</p>
 <p>Inspect and render the public NGINX package at its recorded digest:</p>

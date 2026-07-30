@@ -29503,6 +29503,38 @@
         },
         {
           "entrypoints": [
+            "examples/plain-yaml/acme-web/README.md",
+            "docs/user/adopting-existing-apps.md",
+            "docs/user/app-to-live-walkthrough.md"
+          ],
+          "evidence": [
+            "runs/literal-yaml-upload-proof/receipt.yaml",
+            "data/literal-config-examples/summary.md"
+          ],
+          "id": "literal-yaml",
+          "limits": [
+            "The plain YAML example has no Helm parity question because there is no chart or render step.",
+            "The current focused receipt stops after exact ConfigHub import and policy attachment."
+          ],
+          "name": "Plain Kubernetes YAML to managed configuration",
+          "problem": "A team may already have reviewed Kubernetes YAML and should not need to wrap it in a chart or run another renderer before ConfigHub can record it.",
+          "result": "Upload the files as exact Kubernetes objects, keep their source identity, and use the saved base for later variants, promotions, releases, and Apps.",
+          "status": "available",
+          "steps": [
+            "Start with reviewed Kubernetes YAML.",
+            "Upload it without a Helm or AICR render step.",
+            "Read the stored Units back and compare their object-set hash with the files.",
+            "Keep one README Unit beside the configuration so a new user can understand the example.",
+            "Continue with the official ConfigHub tutorial when the base needs changes, promotion, or delivery."
+          ],
+          "workedExample": {
+            "limit": "The focused receipt proves import only. It does not claim Kubernetes apply, controller delivery, promotion, rollback, or workload health.",
+            "result": "Four committed YAML files become four ConfigHub Units, one per object. A receipt reads the Units back and proves that the stored object set matches the supplied files.",
+            "status": "working"
+          }
+        },
+        {
+          "entrypoints": [
             "docs/user/serverless-mode.md",
             "docs/reference/config-catalog-doctrine.md",
             "docs/planning/config-catalog-demo-program.md"
@@ -29513,15 +29545,20 @@
             "runs/anonymous-oci-ci-proof/receipt.yaml",
             "data/anonymous-oci-ci-proof/summary.md",
             "runs/oci-deploy-stage-rollout-proof/receipt.yaml",
-            "data/oci-deploy-stage-rollout-proof/summary.md"
+            "data/oci-deploy-stage-rollout-proof/summary.md",
+            "runs/anonymous-oci-transform-proof/public-oci-receipt.yaml",
+            "runs/existing-oci-upload-proof/receipt.yaml",
+            "data/literal-config-examples/summary.md"
           ],
           "id": "anonymous-oci",
           "limits": [
             "The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest.",
             "The CI receipt proves the same public input can be rendered, checked, packaged as OCI, and pulled back in GitHub Actions without ConfigHub credentials.",
             "The CI output is a workflow artifact containing an OCI image layout, not a public registry package.",
-            "The output OCI used a temporary local registry.",
-            "A hosted public workbench and public-registry receipt remain separate work."
+            "The Flux proof used a temporary local registry.",
+            "The reviewed NGINX replica change has a separate permanent public-registry receipt and exact ConfigHub import receipt.",
+            "Direct import of an OCI with companion JSON records needs the merged confighub/sdk PR",
+            "A hosted public workbench remains separate work."
           ],
           "name": "Public OCI inspection and packaging",
           "problem": "A team may want to inspect, test, or repackage public configuration without creating an account or handing ownership to another service.",
@@ -29535,8 +29572,8 @@
             "Claim the configuration in ConfigHub when it needs stored operations."
           ],
           "workedExample": {
-            "limit": "The hosted anonymous service is planned, and the current output OCI examples use a workflow artifact or temporary registry.",
-            "result": "Local and CI proofs pull a public package without ConfigHub credentials, render it, build OCI, and compare the output objects after pulling them back.",
+            "limit": "The hosted anonymous service is planned. Some delivery proofs still use workflow artifacts or temporary registries and are labeled that way.",
+            "result": "Local and CI proofs pull public packages without ConfigHub credentials, inspect or change exact objects, build OCI, and compare the output after pulling it back. The reviewed NGINX change is also published as a permanent public OCI and imported into a ConfigHub Space at its recorded digest.",
             "status": "working"
           }
         },
@@ -30025,12 +30062,28 @@
       "unit_source_path": "data/helm-catalog-readmes/units/byo-nginx-ai-values-24-0-2-reviewed/readme.yaml"
     },
     {
+      "space": "existing-oci-nginx-replicas-4",
+      "kind": "source",
+      "title": "Import an existing OCI",
+      "summary": "A public OCI containing five reviewed NGINX objects becomes a ConfigHub base without rerendering Helm.",
+      "source_path": "data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/existing-oci-nginx-replicas-4/readme.yaml"
+    },
+    {
       "space": "kubara-local-platform-v0-12-0",
       "kind": "source",
       "title": "Kubara platform configuration",
       "summary": "Kubara generated the Helm source and cluster values for a small Kubernetes platform. ConfigHub stores the exact rendered objects as one reviewed base variant.",
       "source_path": "data/helm-catalog-readmes/spaces/kubara-local-platform-v0-12-0/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/kubara-local-platform-v0-12-0/readme.yaml"
+    },
+    {
+      "space": "plain-yaml-acme-web-base",
+      "kind": "source",
+      "title": "Plain Kubernetes YAML",
+      "summary": "Four ordinary Kubernetes YAML files become four ConfigHub Units without a chart or render step.",
+      "source_path": "data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.md",
+      "unit_source_path": "data/helm-catalog-readmes/units/plain-yaml-acme-web-base/readme.yaml"
     },
     {
       "space": "bitnami-nginx-fleet-dev",
