@@ -527,10 +527,22 @@ Evidence: [data/ai-change-review/receipt.yaml](../../data/ai-change-review/recei
 
 Current limit: The committed training-runtime example proves exact local objects, diffs, and deterministic checks. A live ConfigHub run reported the unsafe nested AICR image, blocked the inline API key, and left the reviewed candidate clear. It stored the reviewed object without changing its Kubernetes fields, blocked an OCI-target dry run until the exact head revision was approved, and allowed the same dry run after approval. The four-node capacity rule remains a repository check rather than a ConfigHub Function. The ordinary Deployment image and probe checks are limited to Kubernetes workload kinds they understand, so they do not report findings for this AICR custom resource. Kubernetes apply, promotion, rollback, GPU workload health, and live observation have not run for this candidate.
 
+## What every maintained example receives
+
+Each maintained example has one human-readable README, the exact configuration objects, identifying labels, and a **source and intent record**. The source and intent record explains where the objects came from, which choices produced them, what remains to be supplied, and which checks support the result.
+
+This is one document role, not one forced schema. Helm uses `HelmRenderIntent`. AICR uses its recipe and generation or bundle receipts. Existing OCI and plain YAML use records that name their source digest or checksums, object inventory, remaining inputs, prerequisites, and transformations. A non-Helm source is never given a fake Helm record.
+
+Hooks, CRDs, Secrets, setup jobs, and target facts are recorded when they apply to that exact configuration. A simple YAML example should remain simple. A chart with lifecycle work must name who performs it and link the evidence or state the gap.
+
+New maintained examples follow this rule. Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format.
+
+An arbitrary upload does not gain source history or chart-specific facts that ConfigHub cannot know. Generic checks can attach automatically. The source adapter or a reviewed catalog addition must supply the source-and-intent record and any required lifecycle records. Missing information remains a gap. Temporary experiments and legacy Spaces are not counted as conforming until their common and applicable helper records pass the same checks.
+
 ## The common policy
 
 Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary Kubernetes workloads and AICR training runtimes have checks for the fields they actually use. Production releases and system configuration keep the 7 common checks and add one required approval.
 
-This choice is based on what the configuration controls, not whether it started as Helm, AICR, `cub installer`, Kubara, Sveltos, or YAML. On 2026-07-27, the live `helm-catalog` org had 31 Spaces on the 7 common checks and 9 Spaces on those checks plus approval (4 production and 5 system configuration). The receipt includes every maintained starting format: helm 3, aicr 3, cub-installer 30, kubara 1, sveltos 1, rendered-config 2.
+This choice is based on what the configuration controls, not whether it started as Helm, AICR, `cub installer`, Kubara, Sveltos, or YAML. On 2026-07-30, the live `helm-catalog` org had 33 Spaces on the 7 common checks and 9 Spaces on those checks plus approval (4 production and 5 system configuration). The receipt includes every maintained starting format: helm 3, aicr 3, cub-installer 30, kubara 1, sveltos 1, rendered-config 4.
 
 The [live topology receipt](../../data/apply-policy-profiles/live-helm-catalog.yaml) records which checks are connected to which Spaces. The [functional proof](../../data/apply-policy-functional-proof/summary.md) tests the behavior with temporary records: placeholders, invalid Kubernetes data, and missing approval are blocked; the same system configuration is allowed after its exact head revision is approved; and an unpinned image and missing probes are reported without blocking a dry run. No fixture configuration was applied to Kubernetes. Rerun `npm run helm-org:policy:verify` while logged into the org to compare the current topology with its receipt.

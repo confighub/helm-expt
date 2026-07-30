@@ -5,7 +5,7 @@ metadata:
 spec:
   organization: "helm-catalog"
   profile: "catalog-standard"
-  verifiedAt: "2026-07-27T22:17:55.096Z"
+  verifiedAt: "2026-07-30T12:15:46.849Z"
   filters:
     baseline:
       ref: "platform/helm-catalog-checks"
@@ -176,6 +176,7 @@ spec:
       - "byo-nginx-ai-values-24-0-2-development"
       - "byo-nginx-ai-values-24-0-2-reviewed"
       - "byo-nginx-ai-values-24-0-2-staging"
+      - "existing-oci-nginx-replicas-4"
       - "grafana-grafana-10-5-15-existing-secret-ingress"
       - "grafana-grafana-10-5-15-static-passwords"
       - "hashicorp-vault-0-32-0-default"
@@ -188,6 +189,7 @@ spec:
       - "ingress-nginx-ingress-nginx-4-15-1-admission-disabled"
       - "ingress-nginx-ingress-nginx-4-15-1-default"
       - "ingress-nginx-ingress-nginx-4-15-1-internal-clusterip"
+      - "plain-yaml-acme-web-base"
       - "prometheus-community-kube-prometheus-stack-85-3-3-no-crds"
       - "prometheus-community-prometheus-29-8-0-default"
       - "prometheus-community-prometheus-29-8-0-server-only-ephemeral"
@@ -259,7 +261,9 @@ spec:
       sveltos:
         - "sveltos-kyverno-fleet-3-8-1-staging"
       rendered-config:
+        - "existing-oci-nginx-replicas-4"
         - "hook-probe-base"
+        - "plain-yaml-acme-web-base"
         - "route-sketch-kube-prometheus-stack"
     operationalExamples:
       nginx-user-workload:
@@ -291,7 +295,6 @@ spec:
       - "bitnami-redis-base"
       - "bitnami-redis-staging"
       - "default"
-      - "orders-api"
       - "platform"
 status:
   result: "pass"

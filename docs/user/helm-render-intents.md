@@ -2,7 +2,10 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-This page explains how the catalog records a Helm render.
+This page explains how the catalog records a Helm render. A
+`HelmRenderIntent` is the Helm-specific **source and intent record**: it says
+where the rendered objects came from, which Helm choices produced them, and
+which prerequisites or lifecycle work belong with them.
 
 If you are reading the public website, the first word you see is **preset**.
 In this repo, that same supported chart choice is usually called a **base

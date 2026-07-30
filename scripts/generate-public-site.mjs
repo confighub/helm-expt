@@ -726,17 +726,17 @@ function canonicalUrl(relPath) {
 }
 
 function pageTitle(html) {
-  return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "Config Test Centre").trim();
+  return (html.match(/<title>([^<]*)<\/title>/)?.[1] ?? "Config Workshop").trim();
 }
 
 function pageDescription(html, relPath) {
   const fromMap = PAGE_DESCRIPTIONS[relPath];
   if (fromMap) return fromMap;
-  const subject = pageTitle(html).replace(/\s*·\s*Config Test Centre$/, "");
+  const subject = pageTitle(html).replace(/\s*·\s*Config Workshop$/, "");
   if (relPath.startsWith("d/")) {
     return `${subject}: a repository document from the helm-expt proof corpus, rendered for the site.`;
   }
-  return `${subject}: chart status, base variants, rendered objects, and evidence in the Config Test Centre catalog.`;
+  return `${subject}: chart status, base variants, rendered objects, and evidence in the Config Workshop catalog.`;
 }
 
 function injectHeadMeta(html, relPath) {
@@ -774,7 +774,7 @@ function buildRobotsTxt() {
 }
 
 function buildLlmsTxt() {
-  return `# Config Test Centre (helm-expt)
+  return `# Config Workshop (helm-expt)
 
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
@@ -1031,7 +1031,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(title)} · Config Test Centre</title>
+  <title>${escapeHtml(title)} · Config Workshop</title>
   <style>${siteCss()}${docPageCss()}</style>
 </head>
 <body>
@@ -1250,7 +1250,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="${link("try.html")}">Try it</a><a href="${link("charts/index.html")}">Catalog</a><a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "site-nav")}">Tutorial</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("docs.html")}">Docs</a>${signupLink("site-nav", "Sign in")}</span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("try.html")}">Try it</a><a href="${link("charts/index.html")}">Catalog</a><a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "site-nav")}">Tutorial</a><a href="${link("how-it-works.html")}">How it works</a><a href="${link("docs.html")}">Docs</a>${signupLink("site-nav", "Sign in")}</span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1341,7 +1341,7 @@ function homeTerminalCss() {
 `;
 }
 
-// Config Test Centre homepage: the design-language home page (self-contained,
+// Config Workshop homepage: the design-language home page (self-contained,
 // theme-aware). Replaces the old light-theme parity-first homepage.
 function homeDesignCss() {
   return `
@@ -1402,8 +1402,10 @@ function homeDesignCss() {
   a { color: inherit; }
 
   nav.bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; flex-wrap: wrap; }
+  .site-identity { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
   .wordmark { font-family: var(--mono); font-size: .84rem; color: var(--ink); font-weight: 640; display: inline-flex; align-items: center; gap: 9px; text-decoration: none; }
   .wordmark .sq { width: 15px; height: 15px; border-radius: 4px; background: var(--accent); }
+  .site-purpose { font-family: var(--mono); font-size: .68rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0; }
   .navlinks { display: flex; gap: 18px; font-size: .86rem; color: var(--muted); flex-wrap: wrap; }
   .navlinks a { text-decoration: none; color: var(--muted); }
   .navlinks a:hover { color: var(--accent-ink); }
@@ -1491,7 +1493,7 @@ function configTestCentreHome(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config Test Centre &middot; Understand and test your configuration</title>
+  <title>Config Workshop &middot; Understand and test your configuration</title>
   <style>${homeDesignCss()}</style>
 </head>
 <body>
@@ -1499,7 +1501,7 @@ function configTestCentreHome(catalog) {
     <div class="page">
       <header>
         <nav class="bar">
-          <a class="wordmark" href="./index.html"><span class="sq"></span>Config Test Centre</a>
+          <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
             <a href="./try.html">Try it</a>
             <a href="./charts/index.html">Catalog</a>
@@ -1616,7 +1618,7 @@ function howItWorksHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>How It Works · Config Test Centre</title>
+<title>How It Works · Config Workshop</title>
 <style>${siteCss()}
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
 .vs .col{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--surface);}
@@ -1734,17 +1736,19 @@ em{font-style:italic;color:var(--ink);}
   </table>
 
   <h3>Three ways to create a base variant</h3>
-  <p>ConfigHub can start from more than a Helm chart. The source stays attached to the literal configuration so a later reviewer can see what produced it and which choices remain.</p>
+  <p>ConfigHub can start from more than a Helm chart. Every maintained base has a <strong>source and intent record</strong>. It says where the objects came from and which choices produced them. It also records what remains to be supplied and which checks support the result. The role is standard, but the file matches the source instead of pretending every source is Helm.</p>
   <table class="gtable">
-    <tr><th>Starting point</th><th>What you keep</th><th>How it enters ConfigHub</th></tr>
-    <tr><td>Helm chart</td><td>The chart version, preset values, source lock, render intent, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
+    <tr><th>Starting point</th><th>Source and intent record</th><th>How it enters ConfigHub</th></tr>
+    <tr><td>Helm chart</td><td><code>HelmRenderIntent</code>: chart version, preset values, release context, source lock, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
     <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Keep the generated source package for Argo CD, and upload the separate literal configuration OCI as a base variant. The <a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
-    <tr><td>Existing Kubernetes configuration</td><td>The original files and source reference.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code> creates the base Space and Units.</td></tr>
+    <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload oci://...</code> creates the base Space and Units from the literal configuration bundle.</td></tr>
+    <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload &lt;files&gt;</code> creates the base Space and Units.</td></tr>
   </table>
   <p>The generated <a href="../data/base-variant-records/summary.md">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
+  <p>Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format. The <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> defines the role in full.</p>
 
   <h2>3 · The lifecycle: recipe → render → record → route → change</h2>
-  <p>A chart runs as two layers: <strong>how Helm renders it</strong> (recipe → base variant → render intent → rendered output) and <strong>how ConfigHub operates it</strong> afterward (managing variants). The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>For Helm, the source and intent record is the <code>HelmRenderIntent</code>. A chart then has two layers. <strong>Helm renders it</strong>: recipe → base variant → render intent → rendered output. <strong>ConfigHub operates it</strong> afterward by managing variants. The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
   <p>Inspect the evidence for a base variant in this order:</p>
   <ol>
     <li>Open the full rendered YAML.</li>
@@ -2094,7 +2098,7 @@ function legacyDashboardHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config Test Centre</title>
+  <title>Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -2522,7 +2526,7 @@ function legacyOfferingHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Config Test Centre Offering</title>
+  <title>Config Workshop Offering</title>
   <style>${siteCss()}
     .hero { padding-top: 56px; }
     .hero h1 { max-width: 900px; }
@@ -2701,7 +2705,7 @@ function tryHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try One Catalog Package · Config Test Centre</title>
+<title>Try One Catalog Package · Config Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
@@ -2798,7 +2802,7 @@ function redisWalkthroughHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Detailed Redis Walkthrough · Config Test Centre</title>
+<title>Detailed Redis Walkthrough · Config Workshop</title>
 <style>${siteCss()}
 .callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--panel);padding:14px 16px;margin:16px 0;}
 .callout p{margin:0;color:var(--ink);}
@@ -2981,7 +2985,7 @@ function serverlessHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless Mode · Config Test Centre</title>
+  <title>Serverless Mode · Config Workshop</title>
   <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
@@ -3202,7 +3206,7 @@ function docsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Docs · Config Test Centre</title>
+  <title>Docs · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3325,7 +3329,7 @@ function verificationHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Verification · Config Test Centre</title>
+  <title>Verification · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3427,7 +3431,7 @@ function quirksHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Helm Quirks · Config Test Centre</title>
+  <title>Helm Quirks · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3513,7 +3517,7 @@ function proofHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Proof · Config Test Centre</title>
+  <title>Proof · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -3960,7 +3964,7 @@ function hardQuestionsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FAQ · Config Test Centre</title>
+  <title>FAQ · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4032,7 +4036,7 @@ function knownGapsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Known Gaps · Config Test Centre</title>
+  <title>Known Gaps · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4128,7 +4132,7 @@ function hooksHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./charts/index.html#actions">
-  <title>Hooks And Actions · Config Test Centre</title>
+  <title>Hooks And Actions · Config Workshop</title>
 </head>
 <body>
   <p>Hooks and lifecycle behavior are now covered on the Helm Ops Catalog page as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
@@ -4165,7 +4169,7 @@ function privateHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Private · Config Test Centre</title>
+  <title>Private · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4251,7 +4255,7 @@ function demoOrgHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Demo Org · Config Test Centre</title>
+  <title>The Demo Org · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4265,7 +4269,7 @@ function demoOrgHtml(catalog) {
     ${generatedStamp(catalog, "demo org page")}
       <section aria-labelledby="readmes">
         <h2 id="readmes">Start With The README In Each Space</h2>
-        <p>Every current Space in the live <code>helm-catalog</code> org has one README. It explains why the Space exists and which Helm problem it demonstrates. It also tells you what to open, what the example proves, and where to find supporting evidence.</p>
+        <p>Every maintained example Space in the live <code>helm-catalog</code> org has one README. It explains why the Space exists and which problem it demonstrates. It also tells you what to open, what the example proves, and where to find supporting evidence.</p>
         <p>Open ${signupLink("demo-org-readmes", "hub.confighub.com")} and choose the <code>helm-catalog</code> org. Open a Space, then open its README.</p>
         <p>You can also read the same pages on this website. Start with the <a href="../data/helm-catalog-readmes/summary.md">demo org README index</a>.</p>
       ${markdownLikeTable([
@@ -4274,6 +4278,25 @@ function demoOrgHtml(catalog) {
         ["total", String(readmeRows.length)],
       ])}
       <p class="quiet-line">Space counts as of ${escapeHtml(String(catalog.generatedAt).slice(0, 10))} (UTC), from the committed README data for the <code>helm-catalog</code> org.</p>
+    </section>
+
+      <section aria-labelledby="helpers">
+        <h2 id="helpers">What Every Maintained Example Receives</h2>
+        <p>New maintained examples follow one standard. The common records make the configuration understandable and checkable; extra records are added only when that configuration needs them.</p>
+      ${markdownLikeTable([
+        ["Helper", "What it answers", "When it is added"],
+        ["One README", "Why does this Space exist, what should I open, and what does the example prove?", "Every maintained example"],
+        ["Source and intent record", "Where did these objects come from, which choices produced them, what remains to be supplied, and which checks exist?", "Every maintained base"],
+        ["Exact configuration objects", "What would ConfigHub review, change, approve, and deliver?", "Every maintained configuration Space"],
+        ["Policy profile", "Which checks run before apply, and does this Space require approval?", "Every managed configuration Space"],
+        ["Prerequisite and lifecycle records", "Who handles Secrets, CRDs, hooks, setup jobs, controller features, or target facts?", "Only when the exact configuration needs them"],
+      ])}
+        <p>The source and intent record is a document role, not one forced schema. Helm uses <code>HelmRenderIntent</code>. AICR uses its recipe and generation or bundle receipts. Existing OCI and plain YAML use records that name their source digest or checksums, object inventory, remaining inputs, and transformations. We do not give a non-Helm source a fake Helm record.</p>
+        <p>Today, this role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format.</p>
+        <h3>What happens to future configurations?</h3>
+        <p>Every new maintained catalog example gets the common records above. It also gets the prerequisite and lifecycle records that apply to that exact configuration.</p>
+        <p>An arbitrary upload does not gain facts that ConfigHub cannot know. Generic checks can attach automatically. The source adapter or a reviewed catalog addition must supply the source details and any chart-specific lifecycle work. Missing information remains a named gap.</p>
+        <p>Temporary experiments and legacy Spaces are not counted as conforming until their common and applicable helper records pass the same checks. Read the <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> for the full rule.</p>
     </section>
 
       <section aria-labelledby="config-as-data">
@@ -4292,7 +4315,7 @@ function demoOrgHtml(catalog) {
       <section aria-labelledby="what">
         <h2 id="what">What is in the org</h2>
         <p>Each base variant below is a root Space containing one supported Helm render. Its Kubernetes YAML is stored as readable Units.</p>
-        <p>Each Space has a README, rendered objects, identifying labels, route labels, and policy tests. Some deeper examples also include recipe, render-record, route, or proof Units.</p>
+        <p>Each maintained example Space has a README, rendered objects, identifying labels, and policy tests. Helm preset Spaces also have a current <code>HelmRenderIntent</code> Unit. Deeper examples add route, render-record, or proof Units when they are useful.</p>
       ${markdownLikeTable([
         ["Chart", "Base variants", "The story it tells"],
         ...keepRows,
@@ -4357,6 +4380,13 @@ function demoOrgHtml(catalog) {
       <section aria-labelledby="checks">
         <h2 id="checks">The checks are live, and honest</h2>
         <p>Every policy-covered Space has ${policyFacts.baselineChecks} common tests. Schema, placeholder, and lifecycle-route tests can stop incomplete configuration. Workloads and AICR training runtimes receive tests for the fields they use. Production releases and system configuration also require approval before apply.</p>
+      ${markdownLikeTable([
+        ["Where", "Can block apply", "Warns without blocking"],
+        ["Every policy-covered Space", "Invalid schema; unresolved placeholder; an attached lifecycle route that lacks its required scope or evidence", "An ordinary workload image without a digest; a long-running workload without declared readiness and liveness probes"],
+        ["AICR training configuration", "An AI API key written directly instead of referring to a named Secret", "A training image without a digest"],
+        ["Production and system configuration", "All applicable checks above, plus one recorded approval", "All applicable warnings above"],
+      ])}
+        <p>The lifecycle check validates a route that is present. It does not guess that a missing route means no lifecycle work exists. The source and intent record and chart review must first identify any hooks, CRDs, setup jobs, or target prerequisites.</p>
         <p>The same policy can cover Helm, AICR, Kubara, Sveltos, or ordinary YAML after ConfigHub stores the objects.</p>
         <p>The live org has ${policyFacts.baselineSpaces} Spaces on common tests and ${policyFacts.approvalSpaces} on the approval policy. The approval set contains ${policyFacts.productionSpaces} production Spaces and ${policyFacts.systemConfigurationSpaces} system-configuration Spaces. These Spaces include ${sourceCoverage}. Each records its policy profile and starting format.</p>
         <p><code>npm run helm-org:verify</code> and <code>npm run helm-org:policy:verify</code> compare the live org with committed catalog and policy receipts.</p>
@@ -4382,7 +4412,7 @@ function tiersRedirectHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./private/">
-  <title>Private · Config Test Centre</title>
+  <title>Private · Config Workshop</title>
 </head>
 <body>
   <p>The tiers page moved to <a href="./private/">Private</a>.</p>
@@ -4419,7 +4449,7 @@ function journeyHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps Guide · Config Test Centre</title>
+  <title>Apps Guide · Config Workshop</title>
   <style>${siteCss()}
     .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
     .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
@@ -4564,7 +4594,7 @@ function variantsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Variants · Config Test Centre</title>
+  <title>Variants · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4672,7 +4702,7 @@ function customAppsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Custom Apps &amp; Stacks · Config Test Centre</title>
+  <title>Custom Apps &amp; Stacks · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4731,7 +4761,7 @@ function existingAppsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Existing Apps · Config Test Centre</title>
+  <title>Existing Apps · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4795,7 +4825,7 @@ function aiHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI And The Catalog · Config Test Centre</title>
+  <title>AI And The Catalog · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4878,7 +4908,7 @@ function securityHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Security And Provenance · Config Test Centre</title>
+  <title>Security And Provenance · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -4980,7 +5010,7 @@ function examplesHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Examples · Config Test Centre</title>
+  <title>Examples · Config Workshop</title>
   <style>${siteCss()}
     #examples-content table { white-space: normal; }
     #examples-content th, #examples-content td { min-width: 0; }
@@ -5116,7 +5146,7 @@ function entryPathReferenceHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Entry Path Reference · Config Test Centre</title>
+  <title>Entry Path Reference · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -5270,7 +5300,7 @@ function futureHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Future And Managed Ideas · Config Test Centre</title>
+  <title>Future And Managed Ideas · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -5394,7 +5424,7 @@ function operationsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ops Guide · Config Test Centre</title>
+  <title>Ops Guide · Config Workshop</title>
   <style>${siteCss()}
     .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
     .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
@@ -5464,7 +5494,7 @@ function legacyOperationsRedirectHtml() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="refresh" content="0; url=./operations.html">
-  <title>Ops · Config Test Centre</title>
+  <title>Ops · Config Workshop</title>
 </head>
 <body>
   <p>The day-1 ops page moved to <a href="./operations.html">Ops</a>.</p>
@@ -5685,7 +5715,7 @@ function chartIndexHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Helm Ops Catalog · Config Test Centre</title>
+  <title>Helm Ops Catalog · Config Workshop</title>
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 14.2857%; white-space: normal; }
@@ -6698,7 +6728,7 @@ function chartPageHtml(catalog, entry) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · Config Test Centre</title>
+  <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
@@ -8140,7 +8170,7 @@ function siteCss() {
     }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: baseline; gap: 18px;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
       max-width: 1180px; margin: 0; padding: 12px 0;
       background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--line);
@@ -8155,9 +8185,20 @@ function siteCss() {
       background: var(--surface);
     }
     .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
     .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
     .navlinks a { color: var(--muted); text-decoration: none; }
     .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
     header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
     h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
     h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
@@ -8471,6 +8512,11 @@ function siteCss() {
       }
       .topbar .brand {
         margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
       }
       .navlinks {
         margin-left: 0;

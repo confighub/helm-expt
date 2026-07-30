@@ -254,7 +254,7 @@ spec:
     - A Space must not lose the seven baseline checks when approval is added.
     - The profile is selected by labels or an explicit builder decision, not by a broad match on every platform trigger.
 status:
-  lastRecorded: "2026-07-27"
+  lastRecorded: "2026-07-30"
   liveReverified: true
   evidence:
     - data/helm-org/summary.md

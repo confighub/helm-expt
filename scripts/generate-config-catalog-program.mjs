@@ -2729,6 +2729,18 @@ ${renderExampleJourney(program.spec.exampleJourney)}
 
 ${rendered}
 
+## What every maintained example receives
+
+Each maintained example has one human-readable README, the exact configuration objects, identifying labels, and a **source and intent record**. The source and intent record explains where the objects came from, which choices produced them, what remains to be supplied, and which checks support the result.
+
+This is one document role, not one forced schema. Helm uses \`HelmRenderIntent\`. AICR uses its recipe and generation or bundle receipts. Existing OCI and plain YAML use records that name their source digest or checksums, object inventory, remaining inputs, prerequisites, and transformations. A non-Helm source is never given a fake Helm record.
+
+Hooks, CRDs, Secrets, setup jobs, and target facts are recorded when they apply to that exact configuration. A simple YAML example should remain simple. A chart with lifecycle work must name who performs it and link the evidence or state the gap.
+
+New maintained examples follow this rule. Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format.
+
+An arbitrary upload does not gain source history or chart-specific facts that ConfigHub cannot know. Generic checks can attach automatically. The source adapter or a reviewed catalog addition must supply the source-and-intent record and any required lifecycle records. Missing information remains a gap. Temporary experiments and legacy Spaces are not counted as conforming until their common and applicable helper records pass the same checks.
+
 ## The common policy
 
 Every pathway uses [the catalog-standard apply policy](../../config-catalog/policies/catalog-standard.yaml) after upload. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Ordinary Kubernetes workloads and AICR training runtimes have checks for the fields they actually use. Production releases and system configuration keep the ${baselineCheckCount} common checks and add one required approval.

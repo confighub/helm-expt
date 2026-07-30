@@ -13,6 +13,7 @@
 //   --verify  compare live org state against the plan (read-only)
 //   --refresh-recipes  update each existing base Space's recipe Unit from the
 //             generated HelmRenderIntent
+//   --relabel  reapply the labels derived from the current matrix and policy
 //   --policy-sync     reconcile Trigger definitions, filters, and Space assignments
 //   --policy-record   verify the live policy topology and write its receipt
 //   --policy-verify   compare the live topology with the profile and receipt
@@ -25,7 +26,7 @@ import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { readYaml, repoRoot, write, writeYaml } from "./lib/proof-common.mjs";
+import { readYaml, readYamlText, repoRoot, write, writeYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--plan";
 const orgArg = process.argv.includes("--org") ? process.argv[process.argv.indexOf("--org") + 1] : "helm-catalog";
@@ -56,17 +57,18 @@ function labelSafe(value) {
 
 function parseCsv(text) {
   const [headerLine, ...lines] = text.split("\n").filter(Boolean);
-  const headers = headerLine.split(",");
-  return lines.map((line) => {
-    // The matrix has no embedded commas in the columns we read; a plain split
-    // keeps this dependency-free. Guarded by --verify against the org anyway.
-    const cells = line.split(",");
+  const headers = splitCsvLine(headerLine);
+  return lines.map((line, index) => {
+    const cells = splitCsvLine(line);
+    if (cells.length !== headers.length) {
+      throw new Error(
+        `CSV row ${index + 2} has ${cells.length} cells; expected ${headers.length}`,
+      );
+    }
     return Object.fromEntries(headers.map((h, i) => [h, cells[i] ?? ""]));
   });
 }
 
-// routes.csv quotes comma-laden fields (hook_phases), so it needs a real
-// quote-aware split — the naive parseCsv above would shift its columns.
 function splitCsvLine(line) {
   const cells = [];
   let cell = "", inQuotes = false;
@@ -80,17 +82,9 @@ function splitCsvLine(line) {
     else if (ch === ",") { cells.push(cell); cell = ""; }
     else cell += ch;
   }
+  if (inQuotes) throw new Error("CSV row has an unterminated quoted field");
   cells.push(cell);
   return cells;
-}
-
-function parseCsvQuoted(text) {
-  const [headerLine, ...lines] = text.split("\n").filter(Boolean);
-  const headers = splitCsvLine(headerLine);
-  return lines.map((line) => {
-    const cells = splitCsvLine(line);
-    return Object.fromEntries(headers.map((h, i) => [h, cells[i] ?? ""]));
-  });
 }
 
 function renderRecordYaml() {
@@ -985,17 +979,23 @@ if (mode === "--verify") {
       continue;
     }
     present += 1;
+    const liveSpace = cubJson(["space", "get", item.space]).Space;
+    for (const [key, expected] of Object.entries(item.labels)) {
+      const actual = liveSpace.Labels?.[key] ?? "";
+      if (actual !== expected) {
+        failures.push(`space ${item.space} label ${key} drifted (${actual || "(missing)"} vs ${expected})`);
+      }
+    }
     const units = unitCount(item.space);
     if (units <= 0) failures.push(`space ${item.space} has no units`);
     const intent = join(repoRoot, "data", "helm-render-intents", "intents", `${item.space}.yaml`);
     if (existsSync(intent)) {
       try {
         const unitData = cub(["unit", "data", "recipe", "--space", item.space]);
-        const file = readFileSync(intent, "utf8");
-        for (const field of ["baseVariant", "name"]) {
-          const fromUnit = (unitData.match(new RegExp(`${field}: "([^"]+)"`)) || [])[1];
-          const fromFile = (file.match(new RegExp(`${field}: "([^"]+)"`)) || [])[1];
-          if (fromUnit !== fromFile) failures.push(`space ${item.space} recipe unit drifted from the intent file (${field}: ${fromUnit} vs ${fromFile})`);
+        const liveIntent = readYamlText(unitData);
+        const expectedIntent = readYaml(intent);
+        if (JSON.stringify(liveIntent) !== JSON.stringify(expectedIntent)) {
+          failures.push(`space ${item.space} recipe unit drifted from ${intent.slice(repoRoot.length + 1)}`);
         }
       } catch {
         failures.push(`space ${item.space} is missing its recipe unit`);
@@ -1209,7 +1209,7 @@ if (mode === "--exhibits") {
       "--label", "SourceType=rendered-config",
       "--label", "Exhibit=route-sketch", "--label", "Sketch=unbuilt-entity",
       "--label", "ProofReceipt=hook-lifecycle"]);
-    const routeRows = parseCsvQuoted(readFileSync(join(repoRoot, "data", "lifecycle-routes", "routes.csv"), "utf8"))
+    const routeRows = parseCsv(readFileSync(join(repoRoot, "data", "lifecycle-routes", "routes.csv"), "utf8"))
       .filter((r) => r.chart === "prometheus-community/kube-prometheus-stack");
     const stage = mkdtempSync(join(tmpdir(), "routes-"));
     try {

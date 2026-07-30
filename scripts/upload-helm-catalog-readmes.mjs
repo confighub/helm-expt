@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
+import { check, readYamlText, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--check";
 const unitsRoot = join(repoRoot, "data", "helm-catalog-readmes", "units");
@@ -72,9 +72,17 @@ function verifyLive(spaces) {
     const slugs = units.map((item) => item.Unit?.Slug).filter(Boolean);
     const readmeLike = slugs.filter((slug) => slug.toLowerCase().includes("readme"));
     check(readmeLike.length === 1 && readmeLike[0] === "readme", `${space} has readme-like Units: ${readmeLike.join(", ") || "(none)"}`);
+    const liveReadme = units.find((item) => item.Unit?.Slug === "readme")?.Unit;
+    check(liveReadme?.Data, `${space}/readme has no data`);
+    const expected = readFileSync(join(unitsRoot, space, "readme.yaml"), "utf8");
+    const actual = Buffer.from(liveReadme.Data, "base64").toString("utf8");
+    check(
+      JSON.stringify(readYamlText(actual)) === JSON.stringify(readYamlText(expected)),
+      `${space}/readme differs from its generated source`,
+    );
     checked += 1;
   }
-  console.log(`verified one README in ${checked} helm-catalog Space(s)`);
+  console.log(`verified one current README in ${checked} helm-catalog Space(s)`);
 }
 
 function unitExists(space, slug) {
