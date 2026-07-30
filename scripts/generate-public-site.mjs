@@ -3207,7 +3207,7 @@ function docsHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Docs/FAQ</h1>
-    <p class="lead">These pages are for technical users who want to try ConfigHub, understand how it works, and check the claims for themselves.</p>
+    <p class="lead">These pages are for technical users who want to try Helm and other packages with ConfigHub. They can understand how it works and check the claims for themselves.</p>
     <p>Learn ConfigHub with the official tutorial. Use this site to inspect a catalog package, bring another source, or read the evidence.</p>
     ${humanLinks([["Official tutorial", CONFIGHUB_TUTORIAL_URL], ["Try one package", "./try.html"], ["Examples", "./testing.html"], ["Verification", "./verification.html"]])}
   </header>
