@@ -498,7 +498,7 @@
 </head>
 <body class="calm-page">
 	  <header class="hero human-hero">
-	    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="./testing.html">Testing</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+	    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
 	    <h1>FAQ for skeptical Helm users.</h1>
 	    <p class="lead">This page answers the questions an engineer asks before trusting the model. What problem does it solve? What has evidence? What remains limited? When is plain Helm still the right tool?</p>
     <p>Each answer says what works today, what is still limited, and where to check the evidence.</p>
@@ -522,6 +522,14 @@
         </div>
         <p>No. We do not ask you to abandon Helm charts for a new chart language. We help you make better choices with the charts you already use.</p>
         <p class="faq-links"><a href="d/docs/user/why-this-exists.html">Why this exists</a> · <a href="d/docs/user/creating-variants.html">Creating variants</a></p>
+      </article>
+        <article class="faq-card answered">
+        <div class="faq-head">
+          <h3>How is cub installer different from cub helm?</h3>
+          <span class="faq-status">answered</span>
+        </div>
+        <p>cub helm imports an arbitrary chart and values as a ConfigHub base. cub installer reads a maintained catalog package with named configurations and requirements. They are optional preparation tools. The official tutorial teaches the ConfigHub journey after that starting point.</p>
+        <p class="faq-links"><a href="https://docs.confighub.com/get-started/tutorial/">Official tutorial</a> · <a href="https://github.com/confighub/cub-helm">cub helm plugin</a> · <a href="https://github.com/confighub/installer">cub installer plugin</a></p>
       </article>
         <article class="faq-card answered">
         <div class="faq-head">

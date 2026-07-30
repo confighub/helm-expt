@@ -423,7 +423,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Choosing Commands</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/choosing-commands.md">View source markdown</a>.</p>
   </header>
@@ -435,6 +435,7 @@
 <p>This guide explains which command path to use for a Helm chart. The commands answer different questions. They are complementary, not replacements for each other.</p>
 <h2 id="short-version">Short Version</h2>
 <table><thead><tr><th>User goal</th><th>Use</th></tr></thead><tbody><tr><td>See what a Helm chart renders, without ConfigHub state.</td><td><code>helm template</code></td></tr>
+<tr><td>Import an arbitrary Helm chart and values as a ConfigHub base.</td><td><code>cub helm</code> plugin</td></tr>
 <tr><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Use a maintained catalog entry with supported bases, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td></tr>
 <tr><td>Keep one selected catalog preset as a local OCI layout or push it to a registry.</td><td>Add <code>--output-oci &lt;path-or-oci-ref&gt;</code> to <code>cub installer setup</code>.</td></tr>
@@ -443,7 +444,8 @@
 <tr><td>Catch a derived ConfigHub variant up with its reviewed upstream Space.</td><td><code>cub variant promote --dry-run</code>, then <code>cub variant promote</code></td></tr>
 <tr><td>Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model.</td><td>discover/import first, then decide whether to keep imported, create variants, or graduate to a recipe</td></tr>
 <tr><td>Prove a repo artifact or live lane has not drifted.</td><td>the relevant <code>npm run ...</code> verifier</td></tr></tbody></table>
-<p>The durable public catalog path starts at <code>cub installer</code>. Plain Helm remains the low-friction render path. <code>cub variant upload</code> is the general one-shot ConfigHub path for rendered files and literal OCI bundles.</p>
+<p><code>cub helm</code> and <code>cub installer</code> are preparation tools. <code>cub helm</code> imports an arbitrary chart and values. <code>cub installer</code> reads a maintained catalog package with named configurations and recorded requirements.</p>
+<p>The <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> teaches the product journey after configuration enters ConfigHub. New users do not need to compare the two plugins before following that tutorial.</p>
 <p>A one-shot render is only operationally safe if its inputs are recorded. For a Helm chart, that means chart source, version, release name, namespace, values files, <code>--set</code> flags, capability assumptions, CRD choices, and generated facts. The catalog recipe path records those inputs today. A one-shot upload must keep its own source record if upgrades and reinstalls are expected to be repeatable.</p>
 <h2 id="what-to-check-next">What To Check Next</h2>
 <p>Each command path leaves the user at a different proof level. Check the matching surface before making a stronger claim.</p>

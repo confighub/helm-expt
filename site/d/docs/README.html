@@ -423,7 +423,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../try.html">Try it</a><a href="../../charts/index.html">Catalog</a><a href="../../testing.html">Testing</a><a href="../../how-it-works.html">How it works</a><a href="../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../try.html">Try it</a><a href="../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../how-it-works.html">How it works</a><a href="../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Documentation Map</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../docs/README.md">View source markdown</a>.</p>
   </header>
@@ -443,7 +443,7 @@
 <tr><td><a href="user/generative-gitops-fit.html">generative-gitops-fit.md</a></td><td>User-facing boundary between the broader Generative GitOps thesis and what helm-expt proves today.</td></tr>
 <tr><td><a href="user/reverse-reconcile-design.html">reverse-reconcile-design.md</a></td><td>User-facing design for the reverse live-to-desired frontier: authority policy, bounds check, fixture receipt, and the missing <code>cub</code> write-back capability.</td></tr>
 <tr><td><a href="user/cub-scout-diff-design.html">cub-scout-diff-design.md</a></td><td>User-facing design for one field-level desired-vs-live differ that can serve dry-run and drift across Argo, Flux, or cub-direct delivery.</td></tr>
-<tr><td><a href="user/try-now.html">try-now.md</a></td><td>Short Redis and kube-prometheus-stack paths for first public use.</td></tr>
+<tr><td><a href="user/try-now.html">try-now.md</a></td><td>Detailed Helm parity explanation behind the short public package exercise.</td></tr>
 <tr><td><a href="user/installer-oci-packages.html">installer-oci-packages.md</a></td><td>Public installer package OCI refs, how users pull them, and how package OCI differs from ConfigHub delivery OCI.</td></tr>
 <tr><td><a href="user/config-catalog-demonstrations.html">config-catalog-demonstrations.md</a></td><td>Generated, plain-English status of the Helm, AICR, cub installer, OCI delivery, promotion, Kubara, and Sveltos pathways and the five planned ConfigHub Apps.</td></tr>
 <tr><td><a href="demo/kubara/local-platform.html">Kubara platform example</a></td><td>Kubara v0.12.0 source, generated Helm configuration, 77 rendered bootstrap objects, lifecycle routes, OCI layout, and current live-test boundary.</td></tr>
@@ -458,7 +458,7 @@
 <tr><td><a href="user/serverless-mode.html">serverless-mode.md</a></td><td>A local path that needs neither ConfigHub Server nor a ConfigHub account. It distinguishes those two choices, compares Helm install with cub render plus apply, and shows how reviewed files can become OCI for GitOps.</td></tr>
 <tr><td><a href="user/inspect-oci-package.html">inspect-oci-package.md</a></td><td>One command for identifying an OCI package, resolving its digest, listing exact Kubernetes objects and lifecycle clues, and keeping source packages separate from deployable configuration.</td></tr>
 <tr><td><a href="user/transform-oci-package.html">transform-oci-package.md</a></td><td>Change one field in a literal Kubernetes OCI, run checks, preserve the input records, and build a new local OCI without a ConfigHub account or server.</td></tr>
-<tr><td><a href="user/choose-your-path.html">choose-your-path.md</a></td><td>Quick route picker for direct render, one-shot upload, public catalog packages, and ConfigHub-managed variants/operations.</td></tr>
+<tr><td><a href="user/choose-your-path.html">choose-your-path.md</a></td><td>Route picker for Helm, AICR, OCI, or YAML; local, anonymous, or managed use; and the official ConfigHub tutorial handoff.</td></tr>
 <tr><td><a href="user/ai-assisted-helm-changes.html">ai-assisted-helm-changes.md</a></td><td>Plain-English guide to safe AI-assisted Helm changes: propose, diff, gate, approve, deliver, and observe.</td></tr>
 <tr><td><a href="user/broken-chart-triage.html">broken-chart-triage.md</a></td><td>Practical triage path for broken charts, values files, target prerequisites, lifecycle routes, image pulls, runtime failures, and model gaps.</td></tr>
 <tr><td><a href="user/known-gaps-we-surface.html">known-gaps-we-surface.md</a></td><td>User-facing guide to current watch findings that the project deliberately surfaces instead of hiding.</td></tr>
@@ -467,13 +467,13 @@
 <tr><td><a href="user/helm-render-intents.html">helm-render-intents.md</a></td><td>The two-layer model, with examples and generated coverage states for render inputs, captured output, lifecycle routes, target prerequisites, runner evidence, freshness, and incomplete contracts.</td></tr>
 <tr><td><a href="user/helm-presets-and-values.html">helm-presets-and-values.md</a></td><td>How public presets map to repo base variants, why the catalog does not claim every values combination, and how AI helps maintain chart-specific choices.</td></tr>
 <tr><td><a href="user/verification.html">verification.md</a></td><td>Landing page for npm proof commands, user-side checks, committed evidence, fresh live lanes, and render-record-route.</td></tr>
-<tr><td><a href="user/choosing-commands.html">choosing-commands.md</a></td><td>Short guide for choosing <code>helm template</code>, <code>cub installer</code>, <code>cub variant upload</code>, <code>cub variant create</code>, or repo verifiers.</td></tr>
+<tr><td><a href="user/choosing-commands.html">choosing-commands.md</a></td><td>Guide to the distinct roles of <code>helm template</code>, <code>cub helm</code>, <code>cub installer</code>, ConfigHub upload and variant commands, and repo verifiers.</td></tr>
 <tr><td><a href="user/outcomes-and-tests.html">outcomes-and-tests.md</a></td><td>User-facing outcome and test map, with links to the front-door CSVs.</td></tr>
 <tr><td><a href="../data/outcome-evidence-contract/summary.html">../data/outcome-evidence-contract/summary.md</a></td><td>Generated user-outcome contract: question, status, evidence, verifier command, scope, and next action.</td></tr>
 <tr><td><a href="user/helm-pain-points.html">helm-pain-points.md</a></td><td>User-facing map from common Helm pain points to current proof, handoffs, and per-chart reports.</td></tr>
 <tr><td><a href="user/helm-upgrade-crash-example.html">helm-upgrade-crash-example.md</a></td><td>User-facing day-2 example: how an opaque Helm upgrade becomes staged, reviewed, rehearsed, gated, and observed.</td></tr>
 <tr><td><a href="user/why-this-exists.html">why-this-exists.md</a></td><td>Skeptical entry point: why this is more than a one-shot upload or GitOps import, and what the catalog/proof path adds.</td></tr>
-<tr><td><a href="user/tutorial-sequence.html">tutorial-sequence.md</a></td><td>Short show-and-tell tutorials for Redis, variants, overlays, GitOps, and bulk ops.</td></tr>
+<tr><td><a href="user/tutorial-sequence.html">tutorial-sequence.md</a></td><td>Detailed repository proof sequence for Redis, variants, overlays, GitOps, and bulk operations; not the ConfigHub product tutorial.</td></tr>
 <tr><td><a href="user/current-proof-status.html">current-proof-status.md</a></td><td>Short guide to current proof status and the generated summaries that are authoritative.</td></tr>
 <tr><td><a href="../data/chart-use-guide/summary.html">../data/chart-use-guide/summary.md</a></td><td>Generated chart-use guide: one short answer per top-100 chart for use now, promotion review, base-variant work, or limitation decision.</td></tr>
 <tr><td><a href="../data/confighub-example-guides/summary.html">../data/confighub-example-guides/summary.md</a></td><td>Generated plain-English guides for each public chart preset config: what was rendered, why it is the right starting point, how to repeat it, and what prerequisites or lifecycle work remain visible.</td></tr>
@@ -577,9 +577,9 @@
 <tr><td><a href="reference/seven-stage-helm-lifecycle.html">seven-stage-helm-lifecycle.md</a></td><td>Doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations.</td></tr>
 <tr><td><a href="user/offering.html">offering.md</a></td><td>Public overview of the Helm catalog offering and the free-to-managed adoption path.</td></tr>
 <tr><td><a href="user/generative-gitops-fit.html">generative-gitops-fit.md</a></td><td>User-facing map from generated config and AI/GitOps expectations to current helm-expt evidence and limits.</td></tr>
-<tr><td><a href="user/try-now.html">try-now.md</a></td><td>Short first-run path for Redis and kube-prometheus-stack.</td></tr>
-<tr><td><a href="user/choose-your-path.html">choose-your-path.md</a></td><td>Short first-run route picker across direct Helm, public catalog, and managed ConfigHub workflows.</td></tr>
-<tr><td><a href="user/tutorial-sequence.html">tutorial-sequence.md</a></td><td>Sequential tutorial flow with commands and expected results.</td></tr>
+<tr><td><a href="user/try-now.html">try-now.md</a></td><td>Detailed Redis Helm-parity path behind the short public package exercise.</td></tr>
+<tr><td><a href="user/choose-your-path.html">choose-your-path.md</a></td><td>Route picker across input formats and local, anonymous, or ConfigHub-managed use.</td></tr>
+<tr><td><a href="user/tutorial-sequence.html">tutorial-sequence.md</a></td><td>Detailed proof flow with commands and expected results; not the ConfigHub product tutorial.</td></tr>
 <tr><td><a href="user/current-proof-status.html">current-proof-status.md</a></td><td>User-facing entry point for current proof status.</td></tr>
 <tr><td><a href="user/hard-questions.html">hard-questions.md</a></td><td>Skeptical user route for the hard questions a Helm reviewer asks before trusting the catalog.</td></tr>
 <tr><td><a href="user/what-we-refuse-to-claim.html">what-we-refuse-to-claim.md</a></td><td>User-facing trust boundary for strict witness blocks, watchlist rows, and normalization rules.</td></tr>
@@ -602,7 +602,7 @@
 <tr><td><a href="user/verification-lanes.html">verification-lanes.md</a></td><td>User-facing explanation of proof lanes and command checks.</td></tr>
 <tr><td><a href="user/how-the-harness-works.html">how-the-harness-works.md</a></td><td>Lifecycle-stage explanation of the harness.</td></tr>
 <tr><td><a href="user/introduction-to-the-harness.html">introduction-to-the-harness.md</a></td><td>Detailed import workflow, recipe decisions, and hook policy.</td></tr>
-<tr><td><a href="user/choosing-commands.html">choosing-commands.md</a></td><td>User-facing command-routing guide for the Helm and ConfigHub command family.</td></tr>
+<tr><td><a href="user/choosing-commands.html">choosing-commands.md</a></td><td>User-facing guide to source, preparation, ConfigHub, delivery, and proof commands.</td></tr>
 <tr><td><a href="user/creating-variants.html">creating-variants.md</a></td><td>Simple user guide for base variants, derived ConfigHub variants, AI assistant tasks, and bulk creation.</td></tr>
 <tr><td><a href="user/cub-variant-command-surface.html">cub-variant-command-surface.md</a></td><td>Current <code>cub variant</code> syntax for create, promote, and upload, including labels, annotations, targets, namespaces, and gates.</td></tr>
 <tr><td><a href="user/change-routing-before-oci.html">change-routing-before-oci.md</a></td><td>User-facing routing guide for presets/base variants, derived variants, and delivery prerequisites before OCI handoff.</td></tr>
@@ -750,6 +750,7 @@
 <tr><td><a href="planning/blog-posts.html">blog-posts.md</a></td><td>Public writing plan.</td></tr>
 <tr><td><a href="planning/dedicated-website-plan.html">dedicated-website-plan.md</a></td><td>Standalone website plan.</td></tr>
 <tr><td><a href="planning/house-voice.html">house-voice.md</a></td><td>The house voice for all tech copy: the Fowler/Jobs/Dickens hybrid, ten rules, ready-to-apply before/after rewrites of the front-door site surfaces (Get Started, How It Works, chart-page intro), and how to check it (Flesch 60–70).</td></tr>
+<tr><td><a href="planning/onboarding-and-entry-paths.html">onboarding-and-entry-paths.md</a></td><td>Doctrine for one canonical ConfigHub tutorial, short Helm/AICR/OCI/YAML entry paths, distinct local/anonymous/managed choices, and STE limits for the Try page.</td></tr>
 <tr><td><a href="planning/free-path-pitch.html">free-path-pitch.md</a></td><td>The free-path value proposition: lead with a &quot;look before you install&quot; pre-flight check, keep parity as a quiet assurance, and separate ship-now copy from future security and AI builds.</td></tr>
 <tr><td><a href="planning/server-account-pitch.html">server-account-pitch.md</a></td><td>The account value proposition: your versions, your apps, your releases, plus the shipped-versus-frontier wording that ties the homepage variant and Apps boxes together.</td></tr>
 <tr><td><a href="planning/house-layout.html">house-layout.md</a></td><td>The house layout (companion to house-voice): seven principles drawn from hall.kvick.dev - narrow prose, hairline sections, terminal-card commands, two-column hero, light card grid, one accent, restraint - plus the terminal-card pattern and where to apply it.</td></tr>

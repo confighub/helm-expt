@@ -423,7 +423,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Choose Your Path</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/choose-your-path.md">View source markdown</a>.</p>
   </header>
@@ -433,10 +433,18 @@
     <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>Helm users do not all need the same first step. Pick the smallest path that answers your question, then move deeper only when you need durable proof, variants, or operations.</p>
-<p>If you are new here, try this order:</p>
-<ol><li>Browse the catalog or run <code>helm template</code> to see the rendered objects.</li><li>Try one public <code>cub installer</code> package when you want a maintained base with receipts instead of a one-off render.</li><li>Upload to ConfigHub only when the rendered objects should become managed Units for variants, approvals, policies, or team operations.</li><li>Use derived variants and GitOps/OCI operations when the value is no longer &quot;can this render?&quot; but &quot;can we promote, patch, observe, and audit the same reviewed objects safely?&quot;</li></ol>
+<p>Use the <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> to learn ConfigHub. It covers one component, a release, a change, production, and promotion.</p>
+<p>This catalog helps you prepare and inspect configuration before that journey. Choose the row that matches what you already have.</p>
+<table><thead><tr><th>What you have</th><th>First step</th></tr></thead><tbody><tr><td>A public Helm chart</td><td>Choose a reviewed catalog configuration or render your chart and values.</td></tr>
+<tr><td>An AICR package</td><td>Inspect its selected components, allowed inputs, and generated applications.</td></tr>
+<tr><td>Existing OCI or Kubernetes YAML</td><td>Inspect the exact objects and record their source.</td></tr></tbody></table>
+<p>Then choose where the work runs.</p>
+<table><thead><tr><th>Choice</th><th>ConfigHub Server</th><th>Account</th></tr></thead><tbody><tr><td>Local tools or CI</td><td>No</td><td>No</td></tr>
+<tr><td>Hosted public test service</td><td>Yes; planned</td><td>No</td></tr>
+<tr><td>Stored ConfigHub workflow</td><td>Yes</td><td>Yes</td></tr></tbody></table>
+<p>No server and no account are separate promises. Public registry pulls already work without sign-in. The hosted public test service is planned and is not released.</p>
 <table><thead><tr><th>Path</th><th>Use it when</th><th>Primary command or surface</th><th>Account boundary</th></tr></thead><tbody><tr><td>Quick render</td><td>You only want to see the Kubernetes objects a chart produces.</td><td><code>helm template</code></td><td>No ConfigHub state.</td></tr>
+<tr><td>Arbitrary Helm import</td><td>You want to import a chart and values as a ConfigHub base.</td><td><code>cub helm</code> plugin</td><td>Needs a ConfigHub account.</td></tr>
 <tr><td>One-shot upload</td><td>You want rendered files or a literal configuration OCI loaded as ConfigHub Units now.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Needs a ConfigHub account.</td></tr>
 <tr><td>Public catalog package</td><td>You want a maintained public base with render parity, receipts, scans, and proof.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>Public packages can be browsed, pulled, rendered, inspected, and verified without private ConfigHub state.</td></tr>
 <tr><td>Reviewed ConfigHub base</td><td>You want the catalog render stored as Units before creating variants or approvals.</td><td><code>cub installer upload</code></td><td>Needs a ConfigHub account.</td></tr>
@@ -451,8 +459,9 @@
 <ul><li>private charts, private values, custom catalogs, customer overlays, or wrapper charts;</li><li>environment, region, customer, target, or promotion variants;</li><li>teams, approvals, target facts, links, policies, gates, scans, and receipts;</li><li>GitOps/OCI operations, observations, audits, and rollback evidence;</li><li>bulk scan, patch, review, approve, promote, observe, and audit work;</li><li>full stacks, production support decisions, old-version support, patch and upgrade services, SLAs, and enterprise workflows.</li></ul>
 <p>The dividing line is simple: public packages help you inspect and verify public chart bases; ConfigHub manages private inputs, teams, approvals, operational state, and production workflows.</p>
 <h2 id="tutorial-routing">Tutorial Routing</h2>
-<table><thead><tr><th>If you want to see...</th><th>Start here</th><th>What it teaches</th></tr></thead><tbody><tr><td>The shortest public package render</td><td><a href="try-now.html">Try Now</a></td><td>Redis setup plus local render verification.</td></tr>
-<tr><td>The full first-run sequence</td><td><a href="tutorial-sequence.html">Tutorial Sequence</a></td><td>Redis render/upload, secret modes, Prometheus bases, promotions, overlays, GitOps/runtime proof, and bulk operations.</td></tr>
+<table><thead><tr><th>If you want to see...</th><th>Start here</th><th>What it teaches</th></tr></thead><tbody><tr><td>The ConfigHub product journey</td><td><a href="https://docs.confighub.com/get-started/tutorial/">Official ConfigHub tutorial</a></td><td>One component, release, change, production deployment, and promotion.</td></tr>
+<tr><td>The shortest public package render</td><td><a href="../../../try.html">Try one catalog package</a></td><td>Redis package pull, local render, local OCI, and inspection.</td></tr>
+<tr><td>The complete Redis evidence path</td><td><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></td><td>Helm parity, Kubernetes, OCI, upgrade, promotion, two-cluster delivery, and rollback.</td></tr>
 <tr><td>Why a values choice becomes a base</td><td><a href="tutorial-sequence.html#tutorial-3-prometheus-base-variant">Prometheus Base Variant</a></td><td>Helm render choices belong in the <code>cub installer</code> base path.</td></tr>
 <tr><td>Why a prod/customer change can avoid rerendering Helm</td><td><a href="tutorial-sequence.html#tutorial-4-prometheus-promotion-variant">Prometheus Promotion Variant</a></td><td>Derived ConfigHub variants clone reviewed Units and add operational metadata.</td></tr>
 <tr><td>How wrapper charts and customer overlays are routed</td><td><a href="custom-overlays.html">Custom Overlays</a></td><td>Private overlays and managed imports belong in ConfigHub workflows.</td></tr>
@@ -466,7 +475,7 @@
 <p>Plain Helm is enough when the only job is to render or install once. The catalog adds value before install by making the selected base explicit and reviewable. ConfigHub adds value after upload because every object is a Unit that can be diffed, scanned, gated, linked, approved, promoted, observed, and audited.</p>
 <p>The day-0 path is choosing a public base and verifying what it renders. The day-1 path is creating a derived variant for an environment, customer, region, or target without rerendering Helm. The day-2 path is operating many reviewed variants through bulk scans, patches, approvals, promotions, GitOps/OCI handoffs, observations, upgrades, rollbacks, and receipts.</p>
 <h2 id="next">Next</h2>
-<ul><li><a href="try-now.html">Try Now</a></li><li><a href="choosing-commands.html">Choosing Commands</a></li><li><a href="tutorial-sequence.html">Tutorial Sequence</a></li><li><a href="product-support-tiers.html">Product Support Tiers</a></li><li><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></li></ul>
+<ul><li><a href="https://docs.confighub.com/get-started/tutorial/">Official ConfigHub tutorial</a></li><li><a href="../../../try.html">Try one catalog package</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="choosing-commands.html">Choosing Commands</a></li><li><a href="product-support-tiers.html">Product Support Tiers</a></li><li><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/choose-your-path.md</code>. The source file is the authoritative version.</p></footer>

@@ -2,24 +2,36 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-Helm users do not all need the same first step. Pick the smallest path that
-answers your question, then move deeper only when you need durable proof,
-variants, or operations.
+Use the
+[official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/)
+to learn ConfigHub. It covers one component, a release, a change, production,
+and promotion.
 
-If you are new here, try this order:
+This catalog helps you prepare and inspect configuration before that journey.
+Choose the row that matches what you already have.
 
-1. Browse the catalog or run `helm template` to see the rendered objects.
-2. Try one public `cub installer` package when you want a maintained base with
-   receipts instead of a one-off render.
-3. Upload to ConfigHub only when the rendered objects should become managed
-   Units for variants, approvals, policies, or team operations.
-4. Use derived variants and GitOps/OCI operations when the value is no longer
-   "can this render?" but "can we promote, patch, observe, and audit the same
-   reviewed objects safely?"
+| What you have | First step |
+| --- | --- |
+| A public Helm chart | Choose a reviewed catalog configuration or render your chart and values. |
+| An AICR package | Inspect its selected components, allowed inputs, and generated applications. |
+| Existing OCI or Kubernetes YAML | Inspect the exact objects and record their source. |
+
+Then choose where the work runs.
+
+| Choice | ConfigHub Server | Account |
+| --- | --- | --- |
+| Local tools or CI | No | No |
+| Hosted public test service | Yes; planned | No |
+| Stored ConfigHub workflow | Yes | Yes |
+
+No server and no account are separate promises. Public registry pulls already
+work without sign-in. The hosted public test service is planned and is not
+released.
 
 | Path | Use it when | Primary command or surface | Account boundary |
 | --- | --- | --- | --- |
 | Quick render | You only want to see the Kubernetes objects a chart produces. | `helm template` | No ConfigHub state. |
+| Arbitrary Helm import | You want to import a chart and values as a ConfigHub base. | `cub helm` plugin | Needs a ConfigHub account. |
 | One-shot upload | You want rendered files or a literal configuration OCI loaded as ConfigHub Units now. | `cub variant upload <files-or-oci-ref>` | Needs a ConfigHub account. |
 | Public catalog package | You want a maintained public base with render parity, receipts, scans, and proof. | `cub installer setup --pull <installer OCI ref> --base <base>` | Public packages can be browsed, pulled, rendered, inspected, and verified without private ConfigHub state. |
 | Reviewed ConfigHub base | You want the catalog render stored as Units before creating variants or approvals. | `cub installer upload` | Needs a ConfigHub account. |
@@ -66,8 +78,9 @@ state, and production workflows.
 
 | If you want to see... | Start here | What it teaches |
 | --- | --- | --- |
-| The shortest public package render | [Try Now](./try-now.md) | Redis setup plus local render verification. |
-| The full first-run sequence | [Tutorial Sequence](./tutorial-sequence.md) | Redis render/upload, secret modes, Prometheus bases, promotions, overlays, GitOps/runtime proof, and bulk operations. |
+| The ConfigHub product journey | [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/) | One component, release, change, production deployment, and promotion. |
+| The shortest public package render | [Try one catalog package](../../site/try.html) | Redis package pull, local render, local OCI, and inspection. |
+| The complete Redis evidence path | [Detailed Redis walkthrough](../../site/redis-walkthrough.html) | Helm parity, Kubernetes, OCI, upgrade, promotion, two-cluster delivery, and rollback. |
 | Why a values choice becomes a base | [Prometheus Base Variant](./tutorial-sequence.md#tutorial-3-prometheus-base-variant) | Helm render choices belong in the `cub installer` base path. |
 | Why a prod/customer change can avoid rerendering Helm | [Prometheus Promotion Variant](./tutorial-sequence.md#tutorial-4-prometheus-promotion-variant) | Derived ConfigHub variants clone reviewed Units and add operational metadata. |
 | How wrapper charts and customer overlays are routed | [Custom Overlays](./custom-overlays.md) | Private overlays and managed imports belong in ConfigHub workflows. |
@@ -104,8 +117,9 @@ handoffs, observations, upgrades, rollbacks, and receipts.
 
 ## Next
 
-- [Try Now](./try-now.md)
+- [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/)
+- [Try one catalog package](../../site/try.html)
+- [Detailed Redis walkthrough](../../site/redis-walkthrough.html)
 - [Choosing Commands](./choosing-commands.md)
-- [Tutorial Sequence](./tutorial-sequence.md)
 - [Product Support Tiers](./product-support-tiers.md)
 - [What We Refuse To Claim](./what-we-refuse-to-claim.md)

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Get Started · Config Test Centre</title>
-  <meta name="description" content="Install a chart with Helm and cub side by side on a throwaway cluster, read the rendered objects first, then change a setting and keep it through upgrades.">
+<title>Try One Catalog Package · Config Test Centre</title>
+  <meta name="description" content="Render one public Redis catalog package, inspect its exact Kubernetes objects, and choose local, anonymous, or managed ConfigHub use.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/try.html">
-  <meta property="og:title" content="Get Started · Config Test Centre">
-  <meta property="og:description" content="Install a chart with Helm and cub side by side on a throwaway cluster, read the rendered objects first, then change a setting and keep it through upgrades.">
+  <meta property="og:title" content="Try One Catalog Package · Config Test Centre">
+  <meta property="og:description" content="Render one public Redis catalog package, inspect its exact Kubernetes objects, and choose local, anonymous, or managed ConfigHub use.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/try.html">
 <style>
@@ -413,25 +413,6 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-.callout{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;background:var(--panel);padding:14px 16px;margin:16px 0;}
-.callout p{margin:0;color:var(--ink);}
-.steps-line{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0;font-size:.9rem;color:var(--muted);}
-.steps-line b{color:var(--accent);}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
-.two .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);}
-.two .box h3{margin:0 0 6px;font-size:1rem;}
-.rapply{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0;}
-.rapply .box{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--surface);}
-.rapply .box .n{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--good);}
-.rapply .box h3{margin:2px 0 6px;font-size:1rem;}
-.tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);}
-.win{color:var(--good);font-weight:700;}
-.gtable{width:100%;border-collapse:collapse;margin:10px 0;font-size:.9rem;}
-.gtable th,.gtable td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top;}
-.gtable th{background:var(--panel);}
-em{font-style:italic;color:var(--ink);}
-@media(max-width:760px){.two,.rapply{grid-template-columns:1fr;}}
-
     .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
     .calm-page main section { padding-top: 8px; }
     .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
@@ -516,153 +497,87 @@ em{font-style:italic;color:var(--ink);}
   </style>
 </head>
 <body class="calm-page">
-<header class="hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="./testing.html">Testing</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-  <div class="hero-copy">
-    <h1>Try It Now with Kubernetes</h1>
-    <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in only when you want ConfigHub to keep an arbitrary object edit, promote it, and record a rollback.</p>
-    <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade without losing the choice</b> &rarr;</span> <span><b>see the managed payoff</b></span></div>
-  </div>
+<header class="hero human-hero">
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="./how-it-works.html">How it works</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+  <h1>Try one catalog package</h1>
+  <p class="lead">Render one reviewed Redis configuration. Read the Kubernetes objects before you decide where they go.</p>
+  <p>This exercise does not contact ConfigHub Server or Kubernetes. You do not need a ConfigHub account or a Google registry login.</p>
 </header>
 <main>
-  <h2 id="install-cub">Install cub and the installer plugin</h2>
-  <p>The catalog commands use <code>cub installer</code>, a released open-source plugin. Install the cub CLI, install the plugin from its GitHub release, and make sure <code>kustomize</code> is available:</p>
-  <pre><code>$ curl -fsSL https://hub.confighub.com/cub/install.sh | bash
+  <section aria-labelledby="install-cub">
+    <h2 id="install-cub">1. Install cub and the package plugin</h2>
+    <p>Install the ConfigHub CLI. Then install the plugin that reads catalog packages.</p>
+    <pre><code>$ curl -fsSL https://hub.confighub.com/cub/install.sh | bash
 $ export PATH="$HOME/.confighub/bin:$PATH"
 $ cub plugin install confighub/installer
 $ cub installer version
 $ kustomize version</code></pre>
-  <p>The cub installation script puts the CLI at <code>~/.confighub/bin/cub</code>. <code>cub plugin install</code> downloads the release for your operating system and architecture. If <code>kustomize version</code> fails, use the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official kustomize installation instructions</a>; Go is not required to install cub installer. For a later release, run <code>cub plugin upgrade installer</code>. If you installed an early source build with no recorded source, run <code>cub plugin uninstall installer</code> once, then repeat the install command above. Full cub setup notes are in the <a href="https://docs.confighub.com/get-started/setup/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub docs</a>.</p>
-  <p>No ConfigHub account is needed for the catalog paths on this page.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+    <p>The plugin release contains the program for your operating system. You do not need Go.</p>
+    <p>If <code>kustomize version</code> fails, follow the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official Kustomize installation instructions</a>.</p>
+    <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  </section>
 
-  <h2>The fastest first run</h2>
-  <p>Five steps take you through the first run. They render the recommended Redis configuration and create its required Secret separately. They then apply the files to a throwaway cluster and show you what the cluster received.</p>
-  <pre><code># 1. Install cub and its installer plugin once
-# Use the install block immediately above.
-cub installer version
+  <section aria-labelledby="render-package">
+    <h2 id="render-package">2. Render the Redis package</h2>
+    <p>The public package contains named Redis configurations. Select the configuration that uses a Secret supplied by the target.</p>
+    <pre><code>$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
+    --base reuse-existing-secret \
+    --work-dir ./redis \
+    --namespace redis \
+    --non-interactive \
+    --output-oci ./redis-25.oci</code></pre>
+    <p><code>cub installer</code> writes 14 Kubernetes objects and no Secret. It also writes a local OCI image layout.</p>
+    <p>The command reads the OCI output back and compares its object-set digest. It reports <code>pull-back: verified</code> when the comparison passes.</p>
+  </section>
 
-# 2. A throwaway cluster (needs Docker; skip if you already have one)
-kind create cluster
-
-# 3. Render Redis without putting a password in the files, then install it
-bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)
-
-# 4. It is running
-kubectl -n redis get pods
-
-# 5. It is all files you can read; this one is what the cluster received
-cat ./bitnami-redis-25-5-3-reuse-existing-secret/out/manifests/configmap-redis-redis-configuration.yaml</code></pre>
-  <p>The script says what it does at every step. It generates a fresh password locally, creates <code>redis-existing-secret</code> in the throwaway cluster, and keeps that password out of the rendered package files. Every chart page links its own <code>try.sh</code>; base variants that need target resources name them instead of guessing. Clean up with <code>kind delete cluster</code>. The longer path below shows the same process next to plain Helm.</p>
-
-  <h2 id="redis-walkthrough">1 · Pull, inspect, and verify Redis</h2>
-  <p>Start without a cluster. Pull the public Redis package, select the existing-Secret configuration, write the Kubernetes files, and write the same non-secret objects as a local OCI image layout.</p>
-  <p><code>reuse-existing-secret</code> is a <a href="./charts/index.html#base-variants">base variant</a>: a reviewed way to use the chart with its Helm inputs, rendered output, checks, and required Secret recorded together.</p>
-  <pre><code># No ConfigHub account, Google registry login, or Kubernetes cluster.
-$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-    --base reuse-existing-secret --work-dir ./redis \
-    --non-interactive --namespace redis \
-    --output-oci ./redis-25.oci
-
-# Read the files before deciding whether to deploy.
+  <section aria-labelledby="inspect-result">
+    <h2 id="inspect-result">3. Inspect the result</h2>
+    <p>Read the selected configuration and its objects. Nothing has been applied to a cluster.</p>
+    <pre><code>$ cat ./redis/out/spec/selection.yaml
 $ ls ./redis/out/manifests
-$ cat ./redis/out/spec/selection.yaml</code></pre>
-  <p>The command writes 14 Kubernetes objects and no Secret. The password remains outside the files and OCI. The output ends with <code>pull-back: verified</code> because cub reads the OCI back and compares its object-set digest before reporting success.</p>
-  <p>Open the <a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">full rendered Redis YAML</a>, the <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">recorded Helm inputs and prerequisites</a>, or the <a href="./d/data/redis-public-walkthrough-proof/summary.html">anonymous 25.5.3 to 27.0.0 walkthrough proof</a>.</p>
+$ grep -R "^kind:" ./redis/out/manifests</code></pre>
+    <p>The catalog keeps the source inputs beside the result. It also records the required Secret and the checks for this configuration.</p>
+    <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
+  </section>
 
-  <h3>Install only after you have read it</h3>
-  <p>If you want a live test, use a throwaway cluster. The generated script creates a fresh password in a separate Kubernetes Secret. It applies the 14 files, waits for Redis, and tells you how to remove the cluster afterward.</p>
-  <pre><code>$ kind create cluster
-$ bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-redis-25-5-3/reuse-existing-secret/try.sh)</code></pre>
-  <p>The <a href="./d/data/serverless-install-parity-proof/summary.html">live parity proof</a> ran normal Helm and this cub path on a clean cluster. The 13 chart objects matched field for field, cub added the explicit Namespace, and both Redis installations became ready and answered <code>PING</code>.</p>
-
-  <h3>Helm combines render and install. cub separates them.</h3>
-  <div class="rapply">
-    <div class="box"><div class="n">1 · RENDER</div><h3>Read and verify it</h3><p><code>cub installer setup</code> writes the exact files to <code>./redis/out/manifests</code>. With <code>--output-oci</code>, it also writes those non-secret objects as OCI and checks the result by pulling it back.</p></div>
-    <div class="box"><div class="n">2 · DELIVER</div><h3>Then choose where it goes</h3><p>Use <code>kubectl apply</code>, commit the files for GitOps, or push the rendered OCI for Argo CD or Flux. The separate Redis Secret remains under your normal secret-management process.</p></div>
-  </div>
-  <div class="callout"><p><strong>What is <code>--pull</code>?</strong> It points cub at an installer package. For a public chart, first check that its page links a publication receipt. Then use the package's <code>oci://</code> reference. cub pulls the package into the work directory and writes <code>out/spec</code> and <code>out/manifests</code>. Repository maintainers can use the local <code>packages/...</code> path while a reference is still marked assigned.</p></div>
-  <div class="callout"><p><strong>Registry access today.</strong> Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p></div>
-
-  <h2>2 · Upgrade the same Redis configuration</h2>
-  <p>Now move the same work directory from Redis chart 25.5.3 to 27.0.0. With no account, cub can retain the package selection and inputs it knows about. With ConfigHub, it can also retain a reviewed edit made directly to a Kubernetes object.</p>
-  <div class="two">
-    <div class="box">
-      <h3>No account: the package choice stays</h3>
-      <p class="tag">no ConfigHub account</p>
-      <pre><code># Re-enter the same work directory with the newer public package.
-$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0 \
-    --work-dir ./redis --reuse --non-interactive --namespace redis \
-    --output-oci ./redis-27.oci
-
-$ cat ./redis/out/spec/selection.yaml
-# base: reuse-existing-secret</code></pre>
-      <p>The selected existing-Secret base is retained. The newer output contains Redis 8.8.0 and chart 27.0.0, still as 14 non-secret objects, and the second OCI is pulled back and verified. This does not claim that an arbitrary hand edit survives without ConfigHub.</p>
+  <section aria-labelledby="choose-next">
+    <h2 id="choose-next">Choose what happens next</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Local: no server</h3>
+        <p>Pull public packages without signing in. Keep the files or OCI on your machine. Test them locally or in CI.</p>
+        <p><a href="./serverless.html">Read the no-server guide</a></p>
+      </div>
+      <div class="card">
+        <h3>Hosted: no sign-in</h3>
+        <p>Inspect and test public configuration through a hosted service. This anonymous service is planned and is not released.</p>
+        <p><a href="./future.html">Read the current status</a></p>
+      </div>
+      <div class="card">
+        <h3>ConfigHub: sign in</h3>
+        <p>Use ConfigHub when you want saved changes, releases, environments, and promotion.</p>
+        <p><a class="button" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">Continue with the official tutorial</a></p>
+      </div>
     </div>
-    <div class="box">
-      <h3>With a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">free account</a>: a reviewed object edit stays</h3>
-      <p class="tag"><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">free account</a></p>
-      <pre><code># Record the 25.5.3 objects.
-$ cub installer upload --work-dir ./redis --space my-redis
+    <p>Public package and OCI pulls already work without registry login. The <a href="./d/data/anonymous-oci-ci-proof/summary.html">anonymous CI result</a> records that local path.</p>
+  </section>
 
-# Change the rendered replica StatefulSet from 3 replicas to 2.
-$ edit ./redis/out/manifests/statefulset-redis-redis-replicas.yaml
-$ cub installer plan --work-dir ./redis
-$ cub installer upload --work-dir ./redis --yes
-
-# Pull 27.0.0. setup reads upload.yaml; upload performs the merge.
-$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0 \
-    --work-dir ./redis --reuse --non-interactive --namespace redis
-$ cub installer plan --work-dir ./redis
-$ cub installer upload --work-dir ./redis --yes</code></pre>
-      <p>The recorded run upgraded the chart from 25.5.3 to 27.0.0 and Redis from 8.6.3 to 8.8.0. The replica count remained two. There is no removed setup flag to remember: <code>setup</code> re-enters from <code>upload.yaml</code>, and <code>upload</code> merges the new package output with the recorded Units.</p>
+  <section aria-labelledby="other-inputs">
+    <h2 id="other-inputs">Start with your own configuration</h2>
+    <p>The same ConfigHub journey can start from other sources. Each path first gives you exact Kubernetes objects to inspect.</p>
+    <div class="grid">
+      <div class="card"><h3>Helm chart and values</h3><p>Render your chart and values without applying them. Compare the result with known catalog configurations.</p><p><a href="./testing.html#bring-your-own">Review Helm values</a></p></div>
+      <div class="card"><h3>AICR</h3><p>Inspect the selected components, allowed install settings, and generated Argo CD Applications.</p><p><a href="./testing.html#aicr-platform">Open the AICR example</a></p></div>
+      <div class="card"><h3>OCI or Kubernetes YAML</h3><p>Inspect the existing objects and record their source before you save or change them.</p><p><a href="./testing.html#catalog-starting-points">Choose an existing-config path</a></p></div>
     </div>
-  </div>
+  </section>
 
-  <h3>What the managed run did after the upgrade</h3>
-  <p>The <a href="./d/data/redis-upgrade-app-proof/summary.html">Redis upgrade and rollback proof</a> continued the same example. It identified development and staging as the affected environments and promoted them in order. It published one reviewed OCI and reconciled that digest on two Argo CD clusters. Both Redis installations became ready and answered <code>PONG</code>. It then restored the exact pre-upgrade revisions, published a rollback OCI, and verified both clusters again.</p>
-  <p>The proof also records its limits. The promotion dry run produced no readable mutation output. The portable OCI used a temporary registry. The rollback restored desired Kubernetes objects, not database data.</p>
-
-  <h2>3 · See why the Redis base matters</h2>
-  <p>The Redis <code>default</code> catalog base is retained as an explicit static-password demonstration. Its rendered YAML contains credential material, so the chart page warns against treating it as a production default. The recommended <code>reuse-existing-secret</code> base used above contains no Secret object and names the Secret that must exist at delivery time.</p>
-  <pre><code># Compare the two choices without touching a cluster.
-$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-    --base default --work-dir ./redis-static \
-    --non-interactive --namespace redis
-$ grep -R "kind: Secret" ./redis-static/out/manifests
-
-$ grep -R "kind: Secret" ./redis/out/manifests
-# no match: reuse-existing-secret keeps the credential outside the files</code></pre>
-  <p>This is the sort of choice the catalog records for people and agents. It does not pretend that every chart has one universal answer. For another common case, take a chart and values file produced by AI and <a href="./testing.html#bring-your-own">review the exact rendered objects before applying them</a>.</p>
-
-  <h2>4 · Already on Argo or Flux? Write OCI directly</h2>
-  <p>If your cluster pulls from an OCI registry, give <code>--output-oci</code> a registry reference instead of a local path. The installer pushes the same 14 non-secret Redis objects you inspected. It records the source package and selected base. It then reads the artifact back and verifies its object-set digest. Registry write access is the only additional requirement.</p>
-  <pre><code>$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
-    --base reuse-existing-secret --work-dir ./redis \
-    --non-interactive --namespace redis \
-    --output-oci oci://&lt;your-registry&gt;/redis:v1</code></pre>
-  <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
-
-  <h2>What we checked</h2>
-  <p>The Redis steps above are backed by separate receipts so one passing lane is not made to prove everything.</p>
-  <table class="gtable">
-    <tr><th>Check</th><th>What it shows</th></tr>
-    <tr><td><a href="./d/data/redis-public-walkthrough-proof/summary.html">Public Redis walkthrough</a></td><td>Anonymous pulls of 25.5.3 and 27.0.0, 14 non-secret objects at each version, the same selected base after upgrade, and both local OCI outputs pulled back and verified.</td></tr>
-    <tr><td><a href="./d/data/serverless-install-parity-proof/summary.html">Same live install as Helm</a></td><td>Helm and cub produced the same 13 Redis chart objects; cub added the explicit Namespace; both live installations became ready and answered <code>PING</code>.</td></tr>
-    <tr><td><a href="./d/data/serverless-oci-gitops-proof/summary.html">Rendered OCI reaches Flux</a></td><td>For a separate NGINX preset, <code>cub installer setup --output-oci</code> wrote and verified the artifact, Flux reconciled its digest, and the workload reached 1/1 ready replicas.</td></tr>
-    <tr><td><a href="./d/data/redis-upgrade-app-proof/summary.html">Managed upgrade and rollback</a></td><td>A post-render Redis replica edit stayed through the 25.5.3 to 27.0.0 upgrade, moved through two environments, reached two Argo CD clusters at one digest, and was restored by exact revision.</td></tr>
-  </table>
-
-  <h2>Check it yourself</h2>
-  <p>The first command checks the committed receipt. The second repeats the public no-account run against the current registry packages. Neither command touches Kubernetes.</p>
-  <pre><code>$ npm run redis-public-walkthrough:verify
-$ npm run redis-public-walkthrough:run</code></pre>
-  <p class="quiet-line">The Verification page lets you run the checks yourself, read the evidence we've recorded, or start a fresh live test.</p>
-
-  <p>Already a ConfigHub user? The product docs cover Helm charts and Variants: read the <a href="https://docs.confighub.com/guide/helm-charts/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">Helm charts guide</a> and the <a href="https://docs.confighub.com/get-started/setup/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">setup page</a>. This site is the public chart catalog and its evidence.</p>
-  <p class="closing-line">Try the public Redis walkthrough first. When you are ready to use your own example, bring a chart and values file that you or an AI produced. The <a href="./testing.html#bring-your-own">bring-your-own path</a> renders it, reports exact object and field findings, keeps the changes you actually wanted, and builds a reviewed OCI.</p>
-  <p class="quiet-line"><a href="./how-it-works.html">How it works (F1→F4)</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./demo-org.html">The demo org</a> · <a href="./verification.html">Open verification</a></p>
+  <section aria-labelledby="full-walkthrough">
+    <h2 id="full-walkthrough">Need the complete Redis example?</h2>
+    <p>The detailed walkthrough adds Helm parity, a live cluster, a major upgrade, ConfigHub promotion, two-cluster delivery, and rollback.</p>
+    <p><a class="button" href="./redis-walkthrough.html">Open the detailed Redis walkthrough</a></p>
+  </section>
 </main>
-<footer><p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this Get Started guide.</p><p>Generated from committed helm-expt evidence. Get Started is the no-account path. A <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">ConfigHub account</a> is free; connected workflows start when your desired state needs to be edited and kept, shared, and managed.</p></footer>
+<footer><p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this short catalog package guide.</p><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
 </body>
 </html>

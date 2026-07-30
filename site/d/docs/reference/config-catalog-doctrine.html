@@ -423,7 +423,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="../../../testing.html">Testing</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Test Centre</a><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Tutorial</a><a href="../../../how-it-works.html">How it works</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
     <h1>Config catalog doctrine</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/config-catalog-doctrine.md">View source markdown</a>.</p>
   </header>
@@ -433,6 +433,7 @@
     <p class="generated"><b>Generated at:</b> 2026-07-28T09:26:34.774Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>The simplest architecture for this project is <b>OCI in, managed configuration, OCI out</b>.</p>
+<p>The <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> owns the product onboarding journey. This catalog owns source-specific preparation, public package testing, and evidence. See <a href="../planning/onboarding-and-entry-paths.html">Onboarding And Entry Paths</a>.</p>
 <p>The website, catalog, and public tools handle useful configuration work around OCI. They can prepare source before the first OCI is built, inspect an existing OCI, or produce a new OCI after checking or changing its contents. They help people work with Helm charts, AICR recipes, installer packages, Kubara output, Sveltos objects, and existing YAML as literal configuration with recorded inputs, known prerequisites, lifecycle work, and evidence.</p>
 <p>That public front door must remain useful without a ConfigHub account:</p>
 <ul><li><code>work -&gt; OCI</code>: inspect and test source material, then build a deployable OCI;</li><li><code>OCI -&gt; work</code>: pull a public OCI to explain, inspect, scan, or compare it;</li><li><code>OCI -&gt; work -&gt; OCI</code>: check or change the exact objects and serve the result.</li></ul>
