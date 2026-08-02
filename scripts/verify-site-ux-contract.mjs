@@ -76,7 +76,7 @@ const checks = [
   },
   {
     file: "site/verification.html",
-    terms: ["Verification", "Start With The Question", "Product Commands And Proof Commands", "Recipe, Render, Record, Route", "Fresh Evidence And Committed Evidence", "Verify It Yourself", "NPM Script Catalog"],
+    terms: ["Check one claim", "1. Choose the question", "2. Tell product commands from project checks", "3. See what render, record, and route mean", "4. Choose saved evidence or a fresh run", "5. Open detailed instructions", "Verify It Yourself", "NPM Script Catalog"],
   },
   {
     file: "site/existing-apps.html",
@@ -191,7 +191,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/verification.html",
-    headerTerms: ["npm proof commands", "verification tools", "fresh live parity"],
+    headerTerms: ["Choose the result you want to check", "test this project's published results", "do not install your application", "create clusters and produce a new live result"],
   },
 ];
 
