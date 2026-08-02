@@ -1,10 +1,11 @@
 # Direct Cub Helm Model
 
-This note covers the optional `cub-helm` plugin command surface. The plugin is
-released separately from the core `cub` CLI. The public site does not require
-it; its front doors are Helm itself, `cub installer`, and `cub variant upload`.
+This note covers the optional `cub-helm` plugin commands. The plugin is
+released separately from the core `cub` CLI. The short Redis exercise uses
+`cub installer` and does not require this plugin. The bring-your-own Helm
+example uses it for an arbitrary chart and values.
 
-They are real and useful commands. They are not the maintained catalog recipe
+Both commands are available now. They are not the maintained catalog recipe
 path by themselves.
 
 Current command references:

@@ -5433,7 +5433,7 @@ function entryPathReferenceHtml(catalog) {
     ${topNav(".")}
     <h1>Detailed entry paths</h1>
     <p class="tagline">This reference keeps the commands and proof links for Helm, AICR, OCI, and Kubernetes YAML. Start with the shorter <a href="./testing.html">Examples page</a> if you have not chosen a path yet.</p>
-    <p><code>cub installer</code> reads maintained catalog packages. <code>cub helm</code> imports an arbitrary chart and values. These are preparation tools, not separate ConfigHub journeys.</p>
+    <p><code>cub installer</code> reads maintained catalog packages. <code>cub helm</code> works with an arbitrary chart and values. These are preparation tools, not separate ConfigHub journeys.</p>
   </header>
   <main>
     ${catalogPathfinderHtml(".")}
