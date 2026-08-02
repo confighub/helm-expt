@@ -80,7 +80,7 @@ const checks = [
   },
   {
     file: "site/existing-apps.html",
-    terms: ["Existing Apps", "Start Read-Only", "Argo or Flux app", "Live cluster"],
+    terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster"],
   },
   {
     file: "site/ai.html",
@@ -92,7 +92,7 @@ const checks = [
   },
   {
     file: "site/custom-apps.html",
-    terms: ["Custom Apps", "Agentic app or plugin", "RBAC Manager for Agents"],
+    terms: ["Combine charts and your own service", "1. Decide where each piece belongs", "2. Start new, or record what already runs", "3. Open working examples", "Purpose-built App", "RBAC Manager for Agents"],
   },
   {
     file: "site/security.html",
