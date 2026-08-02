@@ -432,13 +432,11 @@
   <header>
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try Redis</a><a href="../testing.html">Examples</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../confighub.html">ConfigHub</a><a href="../docs.html">Docs</a></span></nav></div>
     <h1>nats/nack</h1>
-    <p>This page exists so you do not have to guess your way through this Helm chart. It shows the useful ways we know how to run it, the Kubernetes YAML each choice produces, and the evidence behind the current claim.</p>
-    <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a supported Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only.</p>
-    <p>The page does not claim every values combination for this chart. It shows the supported base variants we have recorded, what problem each one solves, and the chart-specific work that still needs a decision.</p>
-    <p>Use it to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see what is proven before you install or promote anything.</p>
-    <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
+    <p class="lead">Choose a tested starting configuration for nats/nack@0.34.0. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
+    <p>Start with <strong>default</strong>. The page also shows other recorded choices, such as no-CRDs, existing Secret, HA, or server-only when they apply. It does not claim every possible values combination.</p>
+    <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
     <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=nack&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
-    <p class="tagline">proof-grade / machine-proof-only page for nats/nack@0.34.0.</p>
+    <p class="tagline">Catalog readiness: Checked; review before use.</p>
     <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0 --base default --work-dir ./nats-nack-0-34-0-default --non-interactive --namespace default</pre>
   </header>
   <main>
@@ -458,13 +456,13 @@
       <div class="grid">
         <div class="metric"><strong>default</strong><span>Recommended first base variant</span></div>
         <div class="metric"><strong>2</strong><span>Candidate base variants</span></div>
-        <div class="metric"><strong>see bases</strong><span>Start-base status</span></div>
-        <div class="metric"><strong>not-reviewed-for-production</strong><span>Production disposition</span></div>
+        <div class="metric"><strong>Status not recorded</strong><span>First-configuration status</span></div>
+        <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
       </div>
       <p>The recipe/package proof exists and useful variants exist, but this chart has not been promoted into the public catalog.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog level</td><td>proof-grade / machine-proof-only</td></tr><tr><td>Chart version</td><td>0.34.0</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>0.34.0</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default;no-crds</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; Quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -667,7 +665,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
       <div class="card"><table>
         <thead><tr><th>Fact</th><th>Current chart-level route</th></tr></thead>
-        <tbody><tr><td>User status</td><td>works-with-target-prerequisites</td></tr><tr><td>Can I use it?</td><td>not-yet-public-catalog-proof-ready</td></tr><tr><td>First base</td><td>no-crds</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0</td></tr><tr><td>Current proof</td><td>proof-grade-ready-for-promotion-review (render parity 2/2, local live 2/2, live parity 2/2)</td></tr><tr><td>Coverage</td><td>partial</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td></tr><tr><td>ConfigHub/installer absorbs</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td></tr><tr><td>Next action</td><td>run catalog promotion review</td></tr></tbody>
+        <tbody><tr><td>User status</td><td>Works with target prerequisites</td></tr><tr><td>Can I use it?</td><td>not-yet-public-catalog-proof-ready</td></tr><tr><td>First base</td><td>no-crds</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0</td></tr><tr><td>Current proof</td><td>Proof grade ready for promotion review (render parity 2/2; Local live 2/2; Live parity 2/2)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); a CRD ownership choice (crds vs no-crds base)</td></tr><tr><td>What the tools manage</td><td>exact rendered objects with render parity and receipts; CRD handling split into explicit bases; extension slots routed to reviewed bases</td></tr><tr><td>Next action</td><td>run catalog promotion review</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

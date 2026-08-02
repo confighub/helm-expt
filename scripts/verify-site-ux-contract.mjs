@@ -40,11 +40,11 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Find a tested starting configuration", "public library of checked configurations", "Search the catalog", "Missing something you need? Tell us.", "chart versions shown", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Find a tested starting configuration", "public library of checked configurations", "Search the catalog", "Readiness", "Ready to try", "Checked; review before use", "First configuration", "Missing something you need? Tell us.", "chart versions shown", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["This page exists so you do not have to guess your way through this Helm chart", "Pass means backed by evidence", "Where This Chart's Settings Come From", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
+    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -361,6 +361,9 @@ if (fs.existsSync(catalogIndexPath)) {
       failures.push(`site/charts/index.html: catalog must not contain intake or workflow copy: ${JSON.stringify(phrase)}`);
     }
   }
+  for (const machineOption of [">catalog-supported</option>", ">proof-grade / machine-proof-only</option>", ">start-here</option>", ">render-only</option>"]) {
+    if (catalogIndex.includes(machineOption)) failures.push(`site/charts/index.html: exposes internal filter label ${JSON.stringify(machineOption)}`);
+  }
 }
 
 const purposePageRules = [
@@ -435,6 +438,9 @@ if (fs.existsSync(chartCardsDir)) {
     const unresolved = [...new Set([...text.matchAll(/([a-z][a-z-]*): unknown;/g)].map((m) => m[1]))];
     if (unresolved.length) failures.push(`site/charts/${name}: unresolved action placeholder(s) ${JSON.stringify(unresolved.map((a) => `${a}: unknown`))}`);
     if (text.includes("&lt;tmp&gt;")) failures.push(`site/charts/${name}: raw <tmp> work-dir placeholder rendered in a command`);
+    if (/class="tagline">(?:catalog-supported|proof-grade \/ machine-proof-only) page/.test(text)) {
+      failures.push(`site/charts/${name}: exposes an internal catalog readiness label in the header`);
+    }
     if (name !== "index.html" && !text.includes("id=\"setting-sources\"")) {
       failures.push(`site/charts/${name}: missing the Helm values, ConfigHub changes, install work, and live state provenance view`);
     }
