@@ -1061,7 +1061,12 @@ function docTitleOf(markdown, repoPath) {
   return repoPath.split("/").pop();
 }
 
-function docPageCss() {
+function docPageCss(repoPath) {
+  const mobileTableCss = isHumanGuideDoc(repoPath) ? `    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+` : "";
   return `
     .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
     .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
@@ -1069,24 +1074,25 @@ function docPageCss() {
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-  `;
+${mobileTableCss}  `;
 }
 
 function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
   const relPath = renderedDocRelPath(repoPath);
   const base = pageBasePrefix(relPath);
   const title = docTitleOf(markdown, repoPath);
-  const body = renderMarkdownBody(markdown.replace(/^#\s+.+$/m, ""), repoPath, renderedDocs);
+  const renderedBody = renderMarkdownBody(markdown.replace(/^#\s+.+$/m, ""), repoPath, renderedDocs);
   const outDir = posix.dirname(`site/${relPath}`);
   const sourceHref = posix.relative(outDir, repoPath);
-  const lead = docPageLead(repoPath, sourceHref);
+  const { lead, body } = docPageContent(repoPath, sourceHref, renderedBody);
+  const sourceStamp = docGeneratedStamp(catalog, repoPath);
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)} · Config Workshop</title>
-  <style>${siteCss()}${docPageCss()}</style>
+  <style>${siteCss()}${docPageCss(repoPath)}</style>
 </head>
 <body>
   <header class="hero human-hero">
@@ -1095,8 +1101,7 @@ function docPageHtml(catalog, repoPath, markdown, renderedDocs) {
     <p class="lead">${lead}</p>
   </header>
   <main>
-    ${docGeneratedStamp(catalog, repoPath)}
-    <article class="doc-body">
+${sourceStamp ? `    ${sourceStamp}\n` : ""}    <article class="doc-body">
 ${body}
     </article>
   </main>
@@ -1104,6 +1109,31 @@ ${body}
 </body>
 </html>
 `;
+}
+
+function isHumanGuideDoc(repoPath) {
+  return ["docs/user/", "docs/demo/", "docs/reference/"].some((prefix) => repoPath.startsWith(prefix));
+}
+
+function docPageContent(repoPath, sourceHref, body) {
+  if (isHumanGuideDoc(repoPath)) {
+    for (const match of body.matchAll(/<p>([\s\S]*?)<\/p>/g)) {
+      const text = match[1]
+        .replace(/<[^>]+>/g, " ")
+        .replace(/&[a-z0-9#]+;/gi, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (text.length < 40) continue;
+      if (/^(unofficial|experimental|status\b|owner\b|audience\b|scope\b|generated\b)/i.test(text)) continue;
+      const start = match.index;
+      const end = start + match[0].length;
+      return {
+        lead: `${match[1]} <a href="${sourceHref}">View source markdown</a>.`,
+        body: `${body.slice(0, start)}${body.slice(end)}`,
+      };
+    }
+  }
+  return { lead: docPageLead(repoPath, sourceHref), body };
 }
 
 function docPageLead(repoPath, sourceHref) {
@@ -1123,6 +1153,7 @@ function docGeneratedLabel(repoPath) {
 }
 
 function docGeneratedStamp(catalog, repoPath) {
+  if (isHumanGuideDoc(repoPath)) return "";
   if (repoPath === "data/helm-catalog-readmes/summary.md") {
     return `<p class="generated"><b>Generated at:</b> ${escapeHtml(catalog.generatedAt)} UTC · source: generated README index for the <code>helm-catalog</code> demo org.</p>`;
   }

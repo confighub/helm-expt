@@ -433,17 +433,20 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>Coming from Helm? How your habits map to cub</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/helm-to-cub-migration.md">View source markdown</a>.</p>
+    <p class="lead">The managed setup guidance proof records five common Helm habits and the plain-language hint a user should get. This is the adoption bar: safe rejection is not enough when the user is trying something normal from Helm. <a href="../../../../docs/user/helm-to-cub-migration.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> A Helm-fluent dev's cheat-sheet. <code>cub installer</code> uses <b>declared, typed inputs</b> and <b>named bases</b> - not free-form <code>--set</code> - so a little muscle-memory translation is needed. The good news: cub <b>safely rejects</b> Helm idioms (it never silently mishandles them); the gap this page fills is the migration guidance cub's error messages don't yet give you (measured in the Helm-fluent-migrant friction lane: every Helm idiom is rejected, but with a generic &quot;unknown flag/input&quot; and no hint toward the cub way).</p>
 <h2 id="the-one-big-difference">The one big difference</h2>
@@ -458,7 +461,7 @@
 <tr><td><code>--set arr[0]=x</code> (array index)</td><td><code>unknown input &quot;arr[0]&quot;</code></td><td>set the whole structured value via a declared input, or in the base</td></tr>
 <tr><td><code>helm install NAME chart</code> (release name)</td><td>n/a - different model</td><td>cub renders into a <code>--namespace</code>; the &quot;name&quot; is the ConfigHub <b>space / unit</b>, not a Helm release</td></tr></tbody></table>
 <h2 id="what-the-managed-setup-guidance-should-say">What the managed setup guidance should say</h2>
-<p>The managed setup guidance proof records five common Helm habits and the plain-language hint a user should get. This is the adoption bar: safe rejection is not enough when the user is trying something normal from Helm.</p>
+
 <table><thead><tr><th>User tries</th><th>Better guidance</th></tr></thead><tbody><tr><td><code>--set replicaCount=2</code></td><td>cub has no <code>--set</code>. Declared values use <code>--input KEY=VALUE</code>; run <code>cub installer doc &lt;pkg&gt;</code> to see the inputs. Values that are not declared belong in a base.</td></tr>
 <tr><td><code>--values values.yaml</code> or <code>-f values.yaml</code></td><td>cub has no values-file flag. Choose, edit, or author a base variant instead of passing a Helm values file at runtime.</td></tr>
 <tr><td><code>--set-string image.tag=7.4</code></td><td>Use <code>--set-image</code> when the package declares images; otherwise make the image change in the base.</td></tr>

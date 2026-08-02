@@ -433,18 +433,21 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>Migrate a chart's image registry across a fleet</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/image-registry-migration.md">View source markdown</a>.</p>
+    <p class="lead">This example was run in the <code>helm-catalog</code> org on 4 July 2026 and checked again on 26 July. The live verifier reads the five Spaces, their variant links, revision history, images, replica counts, policy filters, and pending promotion. It checks ConfigHub's stored configuration; it does not claim that these Spaces were delivered to a Kubernetes cluster. <a href="../../../../docs/user/image-registry-migration.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This example was run in the <code>helm-catalog</code> org on 4 July 2026 and checked again on 26 July. The live verifier reads the five Spaces, their variant links, revision history, images, replica counts, policy filters, and pending promotion. It checks ConfigHub's stored configuration; it does not claim that these Spaces were delivered to a Kubernetes cluster.</p>
+
 <p>When a chart's image registry changes hands, licenses, or hosts, every environment that pulls from it has to move. This walkthrough repoints one chart's images from a public registry to an internal mirror, promotes the change across a fleet, and proves where it landed. The image digest never changes, because a digest is content-addressed: the same bytes keep the same digest at a new host.</p>
 <h2 id="the-starting-state">The starting state</h2>
 <p>The <code>bitnami-nginx</code> fleet is one base Space and four environment variants cloned from it. Every one pulls the same digest-pinned image:</p>

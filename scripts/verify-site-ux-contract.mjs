@@ -511,6 +511,37 @@ if (fs.existsSync(choosingCommandsPath)) {
   }
 }
 
+const humanDocLeadChecks = [
+  {
+    file: "site/d/docs/user/choosing-commands.html",
+    lead: "This guide explains which command path to use for a Helm chart.",
+  },
+  {
+    file: "site/d/docs/user/chart-hooks-what-happens.html",
+    lead: "Short answer: the catalog renders your chart's objects",
+  },
+  {
+    file: "site/d/docs/demo/aicr/eks-h100-training-kubeflow.html",
+    lead: "This example asks NVIDIA AICR v0.14.0",
+  },
+  {
+    file: "site/d/docs/reference/direct-cub-helm-model.html",
+    lead: "This note covers the optional",
+  },
+];
+
+for (const check of humanDocLeadChecks) {
+  const fullPath = path.join(root, check.file);
+  if (!fs.existsSync(fullPath)) continue;
+  const html = fs.readFileSync(fullPath, "utf8");
+  const headerEnd = html.indexOf("</header>");
+  const header = headerEnd >= 0 ? html.slice(0, headerEnd) : html;
+  if (!header.includes(check.lead)) failures.push(`${check.file}: header does not use the guide's opening explanation`);
+  if (header.includes("A repository document, rendered for the site")) failures.push(`${check.file}: header still uses the generic repository-document lead`);
+  if (html.includes("<b>Generated at:</b>")) failures.push(`${check.file}: human guide still shows a generated timestamp before its instructions`);
+  if (!html.includes("overflow-x: auto")) failures.push(`${check.file}: wide technical tables are not reachable on a phone-width page`);
+}
+
 function htmlFilesUnder(dir) {
   if (!fs.existsSync(dir)) return [];
   const files = [];

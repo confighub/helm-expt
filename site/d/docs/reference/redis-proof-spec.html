@@ -433,18 +433,21 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>Redis Proof Spec</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/redis-proof-spec.md">View source markdown</a>.</p>
+    <p class="lead">This spec defines the first main-path Redis proof. It must be agreed before creating <code>recipes/bitnami/redis/25.5.3/</code> artifacts. <a href="../../../../docs/reference/redis-proof-spec.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This spec defines the first main-path Redis proof. It must be agreed before creating <code>recipes/bitnami/redis/25.5.3/</code> artifacts.</p>
+
 <p>The purpose is not to prove the old top-20 archive. The old payload has been removed from the active tree. This proof renders Redis with regular Helm under pinned inputs, then verifies the current <code>cub installer</code> package against that baseline.</p>
 <h2 id="product-claim">Product Claim</h2>
 <p>For <code>bitnami/redis@25.5.3</code>, ConfigHub must prove:</p>

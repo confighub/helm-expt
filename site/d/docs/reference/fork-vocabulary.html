@@ -433,20 +433,23 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>Shared fork vocabulary + current→canonical mapping</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/fork-vocabulary.md">View source markdown</a>.</p>
+    <p class="lead">Every chart today has exactly <b>2 bases</b> (a <code>default:true</code> + one fork), but the names are ad-hoc. The same <i>dimension</i> is named many ways, so a user can't predict the menu: <a href="../../../../docs/reference/fork-vocabulary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>Status:</b> working reference. Built from the actual bases of all 20 top-20 catalog charts, not invented.</p>
 <h2 id="the-problem-in-one-table">The problem, in one table</h2>
-<p>Every chart today has exactly <b>2 bases</b> (a <code>default:true</code> + one fork), but the names are ad-hoc. The same <i>dimension</i> is named many ways, so a user can't predict the menu:</p>
+
 <ul><li><b>default role</b> is named <b>6 ways</b>: <code>default</code> (×11), <code>static-passwords</code> (×5 secret charts), <code>single-binary-filesystem</code> (loki), <code>http-clusterip</code> (nginx), <code>local-persistent</code> (tempo), <code>default-control-plane</code> (consul).</li><li><b>existing-secret</b> is named <b>5 ways</b> across 7 charts: <code>reuse-existing-secret</code>, <code>existing-secret</code>, <code>existing-secret-replicaset</code>, <code>existing-secret-ingress</code>, <code>secure-mesh-existing-secrets</code>.</li><li><b>ingress</b> is named 3 ways: <code>ui-ingress</code>, <code>existing-tls-ingress</code>, <code>…-ingress</code>.</li><li><b>no-crds</b> vs <b>crds</b>: 3 charts ship <code>no-crds</code>, cert-manager ships the inverse <code>crds-enabled</code>.</li></ul>
 <h2 id="canonical-fork-vocabulary-proposed">Canonical fork vocabulary (proposed)</h2>
 <table><thead><tr><th>dimension</th><th>meaning</th><th>composes?</th></tr></thead><tbody><tr><td><code>default</code></td><td>honest OOTB base (role = <code>default:true</code>); zero placeholders where possible</td><td>-</td></tr>

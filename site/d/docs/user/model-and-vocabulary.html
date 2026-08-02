@@ -433,17 +433,20 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>The Model And Its Words</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/model-and-vocabulary.md">View source markdown</a>.</p>
+    <p class="lead">In one sentence: <b>a recipe renders into a base variant, a base variant becomes derived variants, and promotions carry reviewed changes between them.</b> <a href="../../../../docs/user/model-and-vocabulary.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page defines the five main terms in the catalog. It also explains the four stages from a Helm source to an operated ConfigHub variant.</p>
 <h2 id="the-five-words">The five words</h2>
@@ -453,7 +456,7 @@
 <tr><td><b>Base variant</b></td><td>One named way to render a chart, such as <code>default</code>, <code>no-crds</code>, <code>existing-secret</code>, or <code>ha</code>. The <code>--base</code> option selects it.</td><td>The package (<code>bases/&lt;name&gt;</code>) and, after upload, a root ConfigHub Space.</td></tr>
 <tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 
-<p>In one sentence: <b>a recipe renders into a base variant, a base variant becomes derived variants, and promotions carry reviewed changes between them.</b></p>
+
 <h2 id="the-source-and-intent-record">The source and intent record</h2>
 <p>Every maintained base needs a record that explains where its objects came from and which choices produced them. We call this the <b>source and intent record</b>.</p>
 <p>This is a role, not one file format. For Helm, the record is a <code>HelmRenderIntent</code>. For AICR, it is the recipe and bundle receipts. Existing OCI and plain YAML use records that name their source digest or checksums, object inventory, remaining inputs, prerequisites, checks, and later transformations. Today, that information may live in a source Unit, Space metadata plus a committed receipt, or a generated base-variant record.</p>
