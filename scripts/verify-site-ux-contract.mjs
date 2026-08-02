@@ -100,7 +100,7 @@ const checks = [
   },
   {
     file: "site/demo-org.html",
-    terms: ["Explore the live ConfigHub demo", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
+    terms: ["Explore the live ConfigHub demo", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "Which source and choices produced this configuration?", "What was rendered, when, and which Units were produced?", "What must happen around the ordinary objects?", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
   },
   {
     file: "site/custom-apps.html",
@@ -421,6 +421,11 @@ const pageOwnershipRules = [
   {
     file: "site/operations.html",
     ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed"],
+  },
+  {
+    file: "site/demo-org.html",
+    ordered: ["1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "7. See how hooks, CRDs, and source records are represented", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
+    forbidden: ["The sketch standing in for it", "one routed fixture", "Each proposal Unit mirrors"],
   },
 ];
 
