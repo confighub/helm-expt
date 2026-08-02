@@ -432,8 +432,8 @@
   <header>
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try Redis</a><a href="../testing.html">Examples</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../confighub.html">ConfigHub</a><a href="../docs.html">Docs</a></span></nav></div>
     <h1>descheduler/descheduler</h1>
-    <p class="lead">Choose a tested starting configuration for descheduler/descheduler@0.36.0. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
-    <p>Start with <strong>default</strong>. The page also shows other recorded choices, such as no-CRDs, existing Secret, HA, or server-only when they apply. It does not claim every possible values combination.</p>
+    <p class="lead">Review a recorded configuration for descheduler/descheduler@0.36.0. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
+    <p>The first recorded configuration is <strong>default</strong>. Read its status before use; it is not yet a polished public example. The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
     <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=descheduler&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Catalog readiness: Checked; review before use.</p>
@@ -454,7 +454,7 @@
       <h2 id="summary">What To Use</h2>
       <p class="stat-strip">default base variant: <strong>5</strong> rendered objects · <strong>1</strong> image · <strong>0</strong> lifecycle routes · <strong>6/6</strong> proof lanes passing. Every number is extracted from committed data.</p>
       <div class="grid">
-        <div class="metric"><strong>default</strong><span>Recommended first base variant</span></div>
+        <div class="metric"><strong>default</strong><span>First recorded base variant</span></div>
         <div class="metric"><strong>1</strong><span>Candidate base variants</span></div>
         <div class="metric"><strong>Status not recorded</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
@@ -515,14 +515,14 @@
 
     <section aria-labelledby="run-this">
       <h2 id="run-this">How To Try This Chart</h2>
-      <p>Start with <strong>default</strong> unless a card below explains that another base variant is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
+      <p>Review <strong>default</strong> before use. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span></p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
-        <h3>Recommended first command</h3>
+        <h3>First recorded command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0 --base default --work-dir ./descheduler-descheduler-0-36-0-default --non-interactive --namespace default</code></p>
-        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/descheduler-descheduler-0-36-0/default/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/descheduler-descheduler-0-36-0/default/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>
+        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/descheduler-descheduler-0-36-0/default/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/descheduler-descheduler-0-36-0/default/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p>
         <h3>You should see something like this</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>

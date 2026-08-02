@@ -515,7 +515,7 @@
   <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
   <h1>Choose how to deploy it</h1>
   <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, AICR, cub installer, an OCI package, or plain YAML.</p>
-  <p>Keep the result locally, publish it as OCI, or put it in ConfigHub. These choices can be combined.</p>
+  <p>You can stop with local files, publish them directly as OCI, or save them in ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Use it for changes, approvals, promotion, release OCI, and rollout history.</p>
 </header>
 <main>
@@ -524,14 +524,16 @@
     <h3>Local files</h3>
     <p><strong>No ConfigHub account.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>No ConfigHub account.</strong> Publish the reviewed files as OCI. Argo CD or Flux can pull the same objects you inspected.</p>
+    <p><strong>No ConfigHub account.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected.</p>
     <h3>ConfigHub</h3>
-    <p>Import the files or OCI as a base configuration: the reviewed starting point for later changes. ConfigHub keeps those changes and can publish release OCI for Argo CD or Flux.</p>
+    <p>Import the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
+    <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
+    <p>These OCI artifacts have different jobs. A Catalog installer OCI is input to cub installer. A rendered OCI contains the exact local output. A ConfigHub release OCI contains reviewed revisions after required checks and approvals.</p>
   </section>
 
   <section aria-labelledby="setup">
     <h2 id="setup">2. Track required setup</h2>
-    <p>Keep a source and intent record beside the objects. It records what produced them, including the version, values, and target assumptions.</p>
+    <p>Keep a record of how the objects were produced: the source package or chart, version, values, namespace, and assumptions about the target cluster. We call this the source and intent record.</p>
     <p>Track prerequisites and lifecycle work separately, even when they are represented by Kubernetes objects. Examples include Secrets, CRDs, certificates, hooks, setup jobs, and cluster capabilities.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
     <p><a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
@@ -555,6 +557,7 @@
     <p>For a local test, apply the reviewed files with kubectl. For GitOps, let Argo CD or Flux pull the reviewed files from Git or OCI.</p>
     <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
+    <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
   </section>
 

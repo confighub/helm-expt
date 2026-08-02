@@ -24,11 +24,11 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "Choose how to deploy the reviewed result", "Continue with the full Redis walkthrough", "Choose another worked example", "Keep it in ConfigHub"],
+    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "The chart renders 13 objects", "adds one explicit Namespace", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "choose how to deploy the reviewed result", "continue the detailed Redis walkthrough", "choose another worked example", "keep the result in ConfigHub"],
   },
   {
     file: "site/confighub.html",
-    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "1. What ConfigHub adds", "2. Follow the official tutorial", "Review the tutorial", "3. Create an account", "Sign up for ConfigHub", "4. Read the background", "Read the ConfigHub blog"],
+    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "1. What ConfigHub adds", "2. Follow the official tutorial", "official tutorial", "3. Create an account", "Sign up for ConfigHub", "4. Read the background", "Read the ConfigHub blog"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -40,7 +40,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "OCI package", "ConfigHub", "2. Track required setup", "source and intent record", "3. Decide where each change belongs", "4. Deliver the reviewed result", "5. Next step"],
+    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "Catalog installer OCI", "rendered OCI", "ConfigHub release OCI", "non-conflicting recorded changes remain", "2. Track required setup", "source and intent record", "3. Decide where each change belongs", "4. Deliver the reviewed result", "kubectl apply", "pruning is enabled and tested", "5. Next step"],
   },
   {
     file: "site/deployment-reference.html",
@@ -116,7 +116,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Choose a worked example", "1. Start with a configuration", "Bring your own Helm chart and values", "cub helm template", "cub helm install", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Choose a worked example", "1. Start with a configuration", "Starting input", "First reviewed result", "Evidence and next steps", "Bring your own Helm chart and values", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/entry-path-reference.html",

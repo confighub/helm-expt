@@ -433,7 +433,7 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try Redis</a><a href="../testing.html">Examples</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../confighub.html">ConfigHub</a><a href="../docs.html">Docs</a></span></nav></div>
     <h1>ingress-nginx/ingress-nginx</h1>
     <p class="lead">Choose a tested starting configuration for ingress-nginx/ingress-nginx@4.15.1. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
-    <p>Start with <strong>internal-clusterip</strong>. The page also shows other recorded choices, such as no-CRDs, existing Secret, HA, or server-only when they apply. It does not claim every possible values combination.</p>
+    <p>Start with <strong>internal-clusterip</strong>. The page also shows other recorded choices. The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
     <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=ingress-nginx&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Catalog readiness: Ready to try.</p>
@@ -515,14 +515,14 @@
 
     <section aria-labelledby="run-this">
       <h2 id="run-this">How To Try This Chart</h2>
-      <p>Start with <strong>internal-clusterip</strong> unless a card below explains that another base variant is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
+      <p>Start with <strong>internal-clusterip</strong>. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
         <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span></p>
         <p>Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p>
         <h3>Recommended first command</h3>
         <p><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1 --base internal-clusterip --work-dir ./ingress-nginx-ingress-nginx-4-15-1-internal-clusterip --non-interactive --namespace ingress-nginx</code></p>
-        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>
+        <p>Or run the whole sequence as one script, prerequisites included: <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/try.sh">try.sh</a> (render and apply, no account) · <a href="../sh/ingress-nginx-ingress-nginx-4-15-1/internal-clusterip/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p>
         <p>This preset is also shown in the live <code>helm-catalog</code> demo org. <a href="../d/data/helm-catalog-readmes/spaces/ingress-nginx-ingress-nginx-4-15-1-internal-clusterip/README.html">Read the demo README</a> to see why that Space exists, what problem it demonstrates, and what to inspect first.</p>
         <h3>You should see something like this</h3>
         <p class="install-cub-note">New to <code>cub</code>? <a href="../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
@@ -767,7 +767,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       <p>These requirements come from the same base definition as the rendered objects. The render intent keeps the chart inputs, required Secrets or CRDs, lifecycle routes, and evidence together.</p>
       <div class="card"><table>
         <thead><tr><th>Base variant</th><th>Required resource</th><th>How to provide it</th><th>Full record</th></tr></thead>
-        <tbody><tr><td>default</td><td>Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca</td><td><code>kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=&lt;value&gt; --from-literal=key=&lt;value&gt; --from-literal=ca=&lt;value&gt;</code></td><td><a href="../../data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml">full render intent</a></td></tr></tbody>
+        <tbody><tr><td>default</td><td>Secret ingress-nginx/ingress-nginx-admission keys cert,key,ca</td><td><code>kubectl create namespace ingress-nginx --dry-run=client -o yaml | kubectl apply -f -</code><br><code>kubectl -n ingress-nginx create secret generic ingress-nginx-admission --from-literal=cert=&lt;value&gt; --from-literal=key=&lt;value&gt; --from-literal=ca=&lt;value&gt;</code></td><td><a href="../../data/helm-render-intents/intents/ingress-nginx-ingress-nginx-4-15-1-default.yaml">full render intent</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
