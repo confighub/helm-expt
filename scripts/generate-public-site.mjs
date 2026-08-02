@@ -4661,7 +4661,7 @@ function journeyHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps Guide · Config Workshop</title>
+  <title>Build a ConfigHub App · Config Workshop</title>
   <style>${siteCss()}
     .app-flow { counter-reset: appstep; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
     .app-step { counter-increment: appstep; border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--surface); }
@@ -4682,15 +4682,15 @@ function journeyHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Apps on ConfigHub</h1>
-    <p class="lead">An App uses configuration already saved in ConfigHub to complete a repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
-    <p>Start with the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official ConfigHub tutorial</a> if you have not yet installed, changed, and promoted one component. The <a href="./testing.html">Examples page</a> covers Helm, AICR, OCI, and YAML before they are saved.</p>
-    <p>An App can then query the exact Kubernetes objects, propose a change, run the required checks, wait for approval, publish a release, and record the result. AI may help propose or explain a change. The reviewed objects and policy result still decide what can ship.</p>
+    <h1>Build an App from saved configuration</h1>
+    <p class="lead">Use this page after configuration is saved in ConfigHub. An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
+    <p>New to ConfigHub? Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps")}">official tutorial</a> to install, change, and promote one component. Use the <a href="./testing.html">Examples page</a> when your starting point is Helm, AICR, OCI, or YAML.</p>
+    <p>An App reads the exact Kubernetes objects, proposes a change, runs checks, waits for approval, publishes a release, and records the result. AI can help, but the reviewed objects and policy result decide what ships.</p>
     <p class="quiet-line"><a href="./demo-org.html">The demo org</a> shows catalog configurations, variant trees, promotions, and apply gates in ConfigHub.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
-      <h2 id="app-kinds">What Counts As An Application?</h2>
+      <h2 id="app-kinds">1. Choose what the App operates</h2>
       <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
       ${markdownLikeTable([
         ["Kind", "Meaning"],
@@ -4699,7 +4699,7 @@ function journeyHtml(catalog) {
     </section>
 
     <section aria-labelledby="entry">
-      <h2 id="entry">Ways To Start</h2>
+      <h2 id="entry">2. Choose a starting point</h2>
       <p>Start from the thing you already have. The first step is read-only: show the sources, files, objects, namespace, and owner before changing delivery.</p>
       ${markdownLikeTable([
         ["Entry", "First move", "Use it for"],
@@ -4708,7 +4708,7 @@ function journeyHtml(catalog) {
     </section>
 
     <section aria-labelledby="app-flow">
-      <h2 id="app-flow">The Normal Order</h2>
+      <h2 id="app-flow">3. Follow the normal order</h2>
       <p>Do not start by changing the cluster. Start by seeing the files, then group them, then make versions, then release.</p>
       <div class="app-flow">
         ${appFlow.map(([title, body]) => `<div class="app-step"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
@@ -4716,7 +4716,7 @@ function journeyHtml(catalog) {
     </section>
 
     <section aria-labelledby="existing">
-      <h2 id="existing">Can I Start From An Existing App?</h2>
+      <h2 id="existing">4. Start from an existing application</h2>
       <p>Yes. Start by reading it, not by replacing it. ConfigHub should show the source, target, namespace, objects, labels, and owner before it changes delivery.</p>
       ${markdownLikeTable([
         ["Starting point", "First action", "What you see"],
@@ -4740,7 +4740,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
     </section>
 
     <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
+      <h2 id="examples">5. See common uses</h2>
       ${markdownLikeTable([
         ["Example", "What ConfigHub helps with"],
         ["Redis app", "One public chart can be rendered from a base variant, checked, changed for each environment, and released again."],
@@ -4756,7 +4756,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
     </section>
 
     <section aria-labelledby="app-program">
-      <h2 id="app-program">Five working examples</h2>
+      <h2 id="app-program">6. Open the working demonstrations</h2>
       <p>Each row has a bounded example with committed evidence. The broader product capability remains partial until the missing work in the final column is complete.</p>
       ${markdownLikeTable([
         ["App", "What ran", "Broader status", "Still to build"],
@@ -4806,20 +4806,20 @@ function variantsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Variants · Config Workshop</title>
+  <title>Where a change belongs · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Variants</h1>
-    <p class="lead">Most Helm work starts with a simple request: use the same chart, but change one thing. Then dev, staging, prod, regions, and customers turn into values-file sprawl and fork pressure.</p>
-    <p>ConfigHub makes those differences visible. A variant is one named configuration of the same component. It lets the team see which shape is being used, what changed, and whether the change stayed inside the approved boundary.</p>
-    <p>The first decision is simple: does this change what Helm renders? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
+    <h1>Decide where a change belongs</h1>
+    <p class="lead">Use this page after a Helm chart has become a shared base in ConfigHub. It answers one question: should a change rebuild the base, or belong to one environment?</p>
+    <p>A variant is one named configuration of the same component, such as development, staging, production, a region, or a customer.</p>
+    <p>If the change affects what Helm renders, change the Helm source and rebuild the base. If it changes one environment after render, use a derived ConfigHub variant.</p>
   </header>
   <main>
     <section aria-labelledby="model">
-      <h2 id="model">The Model In One Picture</h2>
+      <h2 id="model">1. See the model</h2>
       <p>A component is the thing being shipped. A variant is one named shape of that thing.</p>
       <pre><code>Component: payments-api
 
@@ -4837,7 +4837,7 @@ Variants:
     </section>
 
     <section aria-labelledby="choose">
-      <h2 id="choose">The One Decision That Matters</h2>
+      <h2 id="choose">2. Decide where the change belongs</h2>
       <p>Ask whether Helm would render different Kubernetes objects. That one question decides where the change belongs.</p>
       ${markdownLikeTable([
         ["Action", "Use it when", "Examples"],
@@ -4846,7 +4846,7 @@ Variants:
     </section>
 
     <section aria-labelledby="journey">
-      <h2 id="journey">A Good Variant Flow</h2>
+      <h2 id="journey">3. Follow a safe flow</h2>
       <p>A good variant flow is plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
       ${markdownLikeTable([
         ["Step", "What happens"],
@@ -4857,10 +4857,10 @@ Variants:
     </section>
 
     <section aria-labelledby="flow">
-      <h2 id="flow">The Basic Flow</h2>
-      <pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base default --work-dir .tmp/redis
-cub installer upload --work-dir .tmp/redis --space helm-redis-default
-cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
+      <h2 id="flow">4. Run the commands</h2>
+      <pre><code>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} --base reuse-existing-secret --work-dir .tmp/redis
+cub installer upload --work-dir .tmp/redis --space helm-redis-base
+cub variant create prod-us-east helm-redis-base --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
       <p>You see a base, a downstream variant, the changed paths, and a preview before promotion.</p>
       <div class="card">
@@ -4873,7 +4873,7 @@ promotion dry-run lists mutations before apply</code></pre>
     </section>
 
     <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
+      <h2 id="examples">5. Open worked examples</h2>
       <p>These examples show the same rule in different chart shapes.</p>
       ${markdownLikeTable([
         ["Example", "What it shows", "Open"],
@@ -4882,7 +4882,7 @@ promotion dry-run lists mutations before apply</code></pre>
     </section>
 
     <section aria-labelledby="more">
-      <h2 id="more">More Detail</h2>
+      <h2 id="more">6. Read the details</h2>
       <p><a href="../docs/user/creating-variants.md">Creating variants</a> explains the doctrine. <a href="../docs/user/cub-variant-command-surface.md">cub variant command surface</a> tracks the command vocabulary. <a href="../data/variant-promotion/summary.md">Variant promotion receipts</a> show the current evidence.</p>
     </section>
   </main>
@@ -5581,8 +5581,8 @@ function operationsHtml(catalog) {
     {
       title: "Diff before you ship",
       status: "available",
-      boundary: "ConfigHub · free tier",
-      action: "review the variant's object diff vs its base",
+      boundary: "ConfigHub account",
+      action: "compare a variant with its base",
       code: null,
       get: "A variant is one named configuration of an app. Its object diff shows exactly which Kubernetes objects changed before anything is delivered. This is the opposite of a values file you have to mentally render.",
       see: ["change-routing-before-oci.md"],
@@ -5590,8 +5590,8 @@ function operationsHtml(catalog) {
     {
       title: "Scan and gate",
       status: "available",
-      boundary: "free locally · paid for managed policy",
-      action: "function scans + safe-ops over rendered objects",
+      boundary: "local checks; managed policy",
+      action: "scan rendered objects and stop unsafe releases",
       code: null,
       get: "Run scans over the rendered objects for privilege, exposure, and deprecated APIs. A gate is a release stop: delivery waits until findings are accepted or waived with a named reason.",
       see: ["../data/external-scan-lane/summary.md"],
@@ -5599,8 +5599,8 @@ function operationsHtml(catalog) {
     {
       title: "Release a prepared variant",
       status: "watch",
-      boundary: "Apps SDLC · ConfigHub Server",
-      action: "cub variant promote <space>",
+      boundary: "ConfigHub Server",
+      action: "preview, then promote a variant",
       code: "cub variant promote <space> --dry-run -o mutations\ncub variant promote <space>",
       get: "Apps and Variants choose the base, derived variant, and target. We've proven this on Redis, NGINX, and kube-prometheus-stack: previewing the change, updating objects that changed, and adding new ones.",
       see: ["../data/variant-promotion/summary.md", "prometheus-overlay-promotion-example.md"],
@@ -5608,8 +5608,8 @@ function operationsHtml(catalog) {
     {
       title: "Deliver via OCI + GitOps",
       status: "available",
-      boundary: "free to run · standard Argo/Flux",
-      action: "publish content-addressed OCI; a controller reconciles",
+      boundary: "Argo CD or Flux",
+      action: "publish OCI for a GitOps controller",
       code: null,
       get: "Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle. Argo or Flux can pull that bundle and reconcile it. A green local apply is not the same as the controller reconciling; both are recorded separately.",
       see: ["chain-of-proof.md", "../data/runtime-gitops/summary.md"],
@@ -5617,8 +5617,8 @@ function operationsHtml(catalog) {
     {
       title: "Observe the live result",
       status: "available",
-      boundary: "cub-scout · bring your own cluster",
-      action: "record live evidence after delivery",
+      boundary: "your cluster",
+      action: "check the cluster after delivery",
       code: "cub-scout receipt verify \\\n  --file <rendered-objects.yaml> \\\n  --scope namespace/<namespace> \\\n  --predicate object-set-matches \\\n  --ttl 1h \\\n  --out .tmp/object-set.receipt.json\n\ncub-scout receipt validate .tmp/object-set.receipt.json",
       get: "After delivery, use observation to check what actually happened. The receipt says what was checked, when it was checked, which namespace or target was observed, and whether the desired objects matched what the cluster reported.",
       see: ["verify-it-yourself.md", "why-synced-is-not-working.md"],
@@ -5626,8 +5626,8 @@ function operationsHtml(catalog) {
     {
       title: "Rehearse rollback before you need it",
       status: "watch",
-      boundary: "ConfigHub revisions · cub-scout rehearsal",
-      action: "compare live state with a previous approved desired state",
+      boundary: "ConfigHub revisions and a live check",
+      action: "compare live state with a previous approved revision",
       code: "cub unit diff <unit> --from=PreviousLiveRevisionNum --to=LiveRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
       get: "You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.",
       see: ["day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
@@ -5656,7 +5656,7 @@ function operationsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ops Guide · Config Workshop</title>
+  <title>Operate saved configuration · Config Workshop</title>
   <style>${siteCss()}
     .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
     .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
@@ -5673,19 +5673,20 @@ function operationsHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Ops Guide</h1>
-    <p class="lead">Ops starts when an app already exists and the next change matters. The problem is unknown blast radius: what changed, who approved it, what reached the cluster, and whether the live system actually converged.</p>
-    <p>If you have not chosen a chart, base, or app shape yet, start with the catalog, variants, or apps pages. If you already have an app, use this page to review diffs, scan, gate, deliver, observe, upgrade, and recover.</p>
+    <h1>Operate saved configuration</h1>
+    <p class="lead">Use this page after an application and its target already exist. It shows how to review a change, approve it, deliver it, and check the live result.</p>
+    <p>ConfigHub keeps the desired configuration and revision history. OCI carries a reviewed release to Argo CD or Flux. Live checks show what reached the cluster.</p>
+    <p>If you have not chosen a configuration yet, start with the Catalog, Variants, or Apps pages.</p>
   </header>
   <main>
     <section aria-labelledby="before-ops">
-      <h2 id="before-ops">Before Ops</h2>
-      <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
+      <h2 id="before-ops">1. Check the starting point</h2>
+      <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
     <section aria-labelledby="fleet-record">
-      <h2 id="fleet-record">Fleet Source Of Record</h2>
-      <p>The strongest operations use case is not one person running one command for one workload. It is a platform team knowing what a whole fleet should run, then reconciling that desired record with the clusters.</p>
+      <h2 id="fleet-record">2. Keep a fleet record</h2>
+      <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
       <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
       <table>
         <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
@@ -5700,7 +5701,7 @@ function operationsHtml(catalog) {
     </section>
 
     <section aria-labelledby="ops">
-      <h2 id="ops">The operations</h2>
+      <h2 id="ops">3. Choose an operation</h2>
       <div class="card">
         <h3>Status legend</h3>
         <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
@@ -5709,7 +5710,7 @@ function operationsHtml(catalog) {
 ${cards}
     </section>
     <section aria-labelledby="next">
-      <h2 id="next">When Ops Becomes Managed Scope</h2>
+      <h2 id="next">4. Use managed ConfigHub when needed</h2>
       <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>
     </section>
   </main>
