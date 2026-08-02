@@ -536,11 +536,11 @@
   </header>
   <main>
     <section aria-labelledby="app-kinds">
-      <h2 id="app-kinds">1. Choose what the App operates</h2>
-      <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
+      <h2 id="app-kinds">1. Confirm what the App operates</h2>
+      <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or an application imported from an existing system.</p>
       <div class="card"><table>
         <thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>One public chart</td><td>A catalog chart such as Redis, Prometheus, ingress-nginx, or cert-manager that you want to install and keep updated.</td></tr><tr><td>Several charts</td><td>A group of charts that must be released together, such as an application, database, cache, and monitoring.</td></tr><tr><td>Platform services</td><td>Shared services such as ingress, certificates, policy, monitoring, logging, or identity.</td></tr><tr><td>Your own Kubernetes files</td><td>Deployments, Services, ConfigMaps, Secrets, policies, and other objects written by your team.</td></tr><tr><td>Something already running</td><td>An application that already exists in Argo, Flux, rendered YAML, a Helm release, or a live cluster.</td></tr></tbody>
+        <tbody><tr><td>One public chart</td><td>A catalog chart such as Redis, Prometheus, ingress-nginx, or cert-manager that you want to install and keep updated.</td></tr><tr><td>Several charts</td><td>A group of charts that must be released together, such as an application, database, cache, and monitoring.</td></tr><tr><td>Platform services</td><td>Shared services such as ingress, certificates, policy, monitoring, logging, or identity.</td></tr><tr><td>Your own Kubernetes files</td><td>Deployments, Services, ConfigMaps, Secrets, policies, and other objects written by your team.</td></tr><tr><td>An imported application</td><td>An application first found in Argo, Flux, rendered YAML, a Helm release, or a live cluster, then saved in ConfigHub.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -551,68 +551,26 @@
     </section>
 
     <section aria-labelledby="entry">
-      <h2 id="entry">2. Choose a starting point</h2>
-      <p>Start from the thing you already have. The first step is read-only: show the sources, files, objects, namespace, and owner before changing delivery.</p>
-      <div class="card"><table>
-        <thead><tr><th>Entry</th><th>First move</th><th>Use it for</th></tr></thead>
-        <tbody><tr><td>Catalog chart</td><td>Pick a chart page, choose a base variant, and render the files.</td><td>Trying a public chart first.</td></tr><tr><td>Existing Argo or Flux app</td><td>Read the source, target, rendered objects, and current status.</td><td>Teams that already use GitOps.</td></tr><tr><td>Rendered YAML</td><td>Import the files and show which objects ConfigHub would manage.</td><td>Applications already rendered by CI or Helm.</td></tr><tr><td>Live cluster</td><td>Inventory what is running before making any change.</td><td>Teams that need to understand an existing namespace.</td></tr><tr><td>Your own application</td><td>Bring your Deployments, Services, ConfigMaps, and policies beside catalog charts.</td><td>Private services and platform components.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+      <h2 id="entry">2. Confirm the configuration is saved</h2>
+      <p>An App operates configuration that ConfigHub already stores. You should be able to open the component, base, environment variant, and exact Kubernetes objects before the App proposes a change.</p>
+      <p>If the configuration is not saved yet, use <a href="./testing.html">Examples</a> to start from Helm, AICR, OCI, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./existing-apps.html">Record an existing application</a> to inspect it before upload.</p>
+      <p>The <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=apps-saved-config">official tutorial</a> shows the shortest ConfigHub path from one component to a promoted variant.</p>
     </section>
 
     <section aria-labelledby="app-flow">
       <h2 id="app-flow">3. Follow the normal order</h2>
-      <p>Do not start by changing the cluster. Start by seeing the files, then group them, then make versions, then release.</p>
+      <p>Start from the saved objects. Show the proposed change, run the required checks, publish the approved release, then check what happened on the cluster.</p>
       <div class="app-flow">
-        <div class="app-step"><h3>Start with something real</h3><p>Choose a catalog chart, an existing app, rendered YAML, a live namespace, or your own Kubernetes files.</p></div>
-        <div class="app-step"><h3>Show the objects first</h3><p>List the files and Kubernetes objects before ConfigHub changes how anything is delivered.</p></div>
-        <div class="app-step"><h3>Name what belongs together</h3><p>Group the objects that make up one application so a reviewer can see the whole thing.</p></div>
-        <div class="app-step"><h3>Make versions</h3><p>Create development, staging, production, region, or customer versions without copying values files by hand.</p></div>
-        <div class="app-step"><h3>Release and check it</h3><p>Send the approved files to GitOps or another delivery tool, then compare that with what the cluster reports.</p></div>
+        <div class="app-step"><h3>Choose saved configuration</h3><p>Select the component, base, and environment variant that the App will operate.</p></div>
+        <div class="app-step"><h3>Show the proposed change</h3><p>Turn the request into exact Kubernetes object changes that a reviewer can read.</p></div>
+        <div class="app-step"><h3>Run the checks</h3><p>Scan the changed objects and stop when a required check or approval is missing.</p></div>
+        <div class="app-step"><h3>Publish the release</h3><p>Create the approved OCI release for Argo CD, Flux, or another delivery path.</p></div>
+        <div class="app-step"><h3>Check the result</h3><p>Compare the desired objects with what the cluster reports and record the outcome.</p></div>
       </div>
-    </section>
-
-    <section aria-labelledby="existing">
-      <h2 id="existing">4. Start from an existing application</h2>
-      <p>Yes. Start by reading it, not by replacing it. ConfigHub should show the source, target, namespace, objects, labels, and owner before it changes delivery.</p>
-      <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>First action</th><th>What you see</th></tr></thead>
-        <tbody><tr><td>Argo CD app</td><td>Read or import the Argo app.</td><td>Source repo, target cluster, namespace, rendered objects, and current sync status.</td></tr><tr><td>Flux HelmRelease or Kustomization</td><td>Read or import the Flux object.</td><td>Controller source, target namespace, rendered objects, and ownership.</td></tr><tr><td>Rendered YAML</td><td>Import or preview the files.</td><td>Objects, labels, namespaces, Secrets, CRDs, and likely review points.</td></tr><tr><td>Live cluster</td><td>Inventory the namespace or selected objects.</td><td>What is running now, who appears to own it, and what would need review before adoption.</td></tr><tr><td>Platform services</td><td>Group related charts and files.</td><td>Which shared services belong with the application and which are separate platform dependencies.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <div class="card">
-        <h3>Start read-only</h3>
-        <p>Use the controller or Kubernetes API to read what exists. These commands do not change the cluster or upload anything to ConfigHub.</p>
-        <pre><code># Argo CD applications
-kubectl -n argocd get applications.argoproj.io -o yaml
-
-# Flux releases and kustomizations
-kubectl get helmreleases.helm.toolkit.fluxcd.io,kustomizations.kustomize.toolkit.fluxcd.io -A -o yaml
-
-# One application's ordinary Kubernetes objects
-kubectl -n payments get deployment,statefulset,service,configmap,serviceaccount,role,rolebinding -o yaml \
-  &gt; .tmp/payments.yaml</code></pre>
-        <p>Review the source, namespace, objects, owners, and Secret references. When you are ready to save the reviewed files, use a real ConfigHub upload command:</p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub variant upload --component payments --variant base \
-  --space payments-base --granularity per-resource .tmp/payments.yaml</code></pre>
-        <p>The upload creates ConfigHub records. It does not change delivery or apply anything to Kubernetes.</p>
-      </div>
-      <p>Only turn an existing app into a <code>cub installer</code> recipe when you want a maintained Helm render path, chart updates, and catalog-style checks. See <a href="d/docs/user/adopting-existing-apps.html">Adopting Existing Apps</a>.</p>
     </section>
 
     <section aria-labelledby="examples">
-      <h2 id="examples">5. See common uses</h2>
+      <h2 id="examples">4. See common uses</h2>
       <div class="card"><table>
         <thead><tr><th>Example</th><th>What ConfigHub helps with</th></tr></thead>
         <tbody><tr><td>Redis app</td><td>One public chart can be rendered from a base variant, checked, changed for each environment, and released again.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A chart with CRDs, webhooks, and prerequisites can use base variants that say what the target must provide before release.</td></tr><tr><td>Platform services</td><td>Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them.</td></tr><tr><td>Your service plus chart services</td><td>Your own service can sit beside a database, queue, cache, or monitoring chart.</td></tr><tr><td>Existing app</td><td>An application already in a cluster can be inventoried first, then brought under review when you are ready.</td></tr><tr><td>AI-suggested change</td><td>AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved.</td></tr></tbody>
@@ -629,7 +587,7 @@ kubectl -n payments get deployment,statefulset,service,configmap,serviceaccount,
     </section>
 
     <section aria-labelledby="app-program">
-      <h2 id="app-program">6. Open the working demonstrations</h2>
+      <h2 id="app-program">5. Open the working demonstrations</h2>
       <p>Each row has a bounded example with committed evidence. The broader product capability remains partial until the missing work in the final column is complete.</p>
       <div class="card"><table>
         <thead><tr><th>App</th><th>What ran</th><th>Broader status</th><th>Still to build</th></tr></thead>

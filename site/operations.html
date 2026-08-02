@@ -535,24 +535,8 @@
       <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
-    <section aria-labelledby="fleet-record">
-      <h2 id="fleet-record">2. Keep a fleet record</h2>
-      <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
-      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
-      <table>
-        <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
-        <tbody>
-          <tr><td>User workloads</td><td>Application teams</td><td>The approved app variant, target, inputs, policy gates, and release history.</td></tr>
-          <tr><td>System services</td><td>Platform operators</td><td>Shared services such as DNS, monitoring, ingress, and storage, with controlled upgrades across clusters.</td></tr>
-          <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
-        </tbody>
-      </table>
-      <p>Read the <a href="d/data/operational-class-examples/summary.html">three checked examples</a> for the exact owner, target, checks, rollout order, and current evidence for an NGINX application, Kube Prometheus Stack, and a Kubara platform configuration.</p>
-      <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
-    </section>
-
     <section aria-labelledby="ops">
-      <h2 id="ops">3. Choose an operation</h2>
+      <h2 id="ops">2. Choose an operation</h2>
       <div class="card">
         <h3>Status legend</h3>
         <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
@@ -629,6 +613,23 @@ cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
         <p class="muted">See: <a href="d/docs/user/day2-upgrade-rollback.html">day2-upgrade-rollback</a> · <a href="d/docs/user/cub-scout-diff-design.html">cub-scout-diff-design</a></p>
       </div>
     </section>
+
+    <section aria-labelledby="fleet-record">
+      <h2 id="fleet-record">3. Keep a fleet record</h2>
+      <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
+      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
+      <table>
+        <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
+        <tbody>
+          <tr><td>User workloads</td><td>Application teams</td><td>The approved app variant, target, inputs, policy gates, and release history.</td></tr>
+          <tr><td>System services</td><td>Platform operators</td><td>Shared services such as DNS, monitoring, ingress, and storage, with controlled upgrades across clusters.</td></tr>
+          <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
+        </tbody>
+      </table>
+      <p>Read the <a href="d/data/operational-class-examples/summary.html">three checked examples</a> for the exact owner, target, checks, rollout order, and current evidence for an NGINX application, Kube Prometheus Stack, and a Kubara platform configuration.</p>
+      <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
+    </section>
+
     <section aria-labelledby="next">
       <h2 id="next">4. Use managed ConfigHub when needed</h2>
       <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>

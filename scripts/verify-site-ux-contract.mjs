@@ -16,11 +16,11 @@ const checks = [
   },
   {
     file: "site/journey.html",
-    terms: ["Build an App from saved configuration", "1. Choose what the App operates", "2. Choose a starting point", "3. Follow the normal order", "4. Start from an existing application", "5. See common uses", "6. Open the working demonstrations"],
+    terms: ["Build an App from saved configuration", "1. Confirm what the App operates", "2. Confirm the configuration is saved", "3. Follow the normal order", "4. See common uses", "5. Open the working demonstrations", "Record an existing application"],
   },
   {
     file: "site/operations.html",
-    terms: ["Operate saved configuration", "1. Check the starting point", "2. Keep a fleet record", "3. Choose an operation", "4. Use managed ConfigHub when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
+    terms: ["Operate saved configuration", "1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
   },
   {
     file: "site/try.html",
@@ -44,7 +44,7 @@ const checks = [
   },
   {
     file: "site/deployment-reference.html",
-    terms: ["Technical deployment reference", "The short version", "Where a setting belongs", "The recipe: the recorded inputs", "Variants and related records", "What a direct local apply still has to handle"],
+    terms: ["Technical deployment reference", "1 · Three ConfigHub terms", "Where a setting belongs", "The recipe: the recorded inputs", "Variants and related records", "What a direct local apply still has to handle"],
   },
   {
     file: "site/charts/index.html",
@@ -100,7 +100,7 @@ const checks = [
   },
   {
     file: "site/demo-org.html",
-    terms: ["Understand one live ConfigHub example", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
+    terms: ["Explore the live ConfigHub demo", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
   },
   {
     file: "site/custom-apps.html",
@@ -402,6 +402,41 @@ if (fs.existsSync(examplesPath)) {
   }
   for (const command of ["cub helm template", "cub helm install"]) {
     if (!examples.includes(command)) failures.push(`site/testing.html: bring-your-own flow is missing ${command}`);
+  }
+}
+
+const pageOwnershipRules = [
+  {
+    file: "site/deployment-reference.html",
+    ordered: ["1 · Three ConfigHub terms", "2 · Choose a starting configuration"],
+    forbidden: ["The short version: choose a deployment path"],
+  },
+  {
+    file: "site/journey.html",
+    ordered: ["1. Confirm what the App operates", "2. Confirm the configuration is saved", "3. Follow the normal order", "4. See common uses", "5. Open the working demonstrations"],
+    forbidden: ["4. Start from an existing application", "cub variant upload --component payments"],
+  },
+  {
+    file: "site/operations.html",
+    ordered: ["1. Check the starting point", "2. Choose an operation", "3. Keep a fleet record", "4. Use managed ConfigHub when needed"],
+  },
+];
+
+for (const rule of pageOwnershipRules) {
+  const fullPath = path.join(root, rule.file);
+  if (!fs.existsSync(fullPath)) continue;
+  const html = fs.readFileSync(fullPath, "utf8");
+  let previous = -1;
+  for (const heading of rule.ordered) {
+    const position = html.indexOf(heading);
+    if (position <= previous) {
+      failures.push(`${rule.file}: sections are not ordered as ${rule.ordered.join(" -> ")}`);
+      break;
+    }
+    previous = position;
+  }
+  for (const phrase of rule.forbidden ?? []) {
+    if (html.includes(phrase)) failures.push(`${rule.file}: duplicates material owned by another guide: ${JSON.stringify(phrase)}`);
   }
 }
 
