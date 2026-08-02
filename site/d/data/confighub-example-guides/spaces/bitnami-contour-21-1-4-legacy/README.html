@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try it</a><a href="../../../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try Redis</a><a href="../../../../../testing.html">Examples</a><a href="../../../../../charts/index.html">Catalog</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="../../../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>bitnami/contour 21.1.4 - legacy</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../data/confighub-example-guides/spaces/bitnami-contour-21-1-4-legacy/README.md">View source markdown</a>.</p>
   </header>
@@ -459,11 +457,12 @@
 <p>That captured output is the render variant: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml"><code>recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml</code></a>. It contains 20 Kubernetes object(s): CustomResourceDefinition x5, NetworkPolicy x3, Service x2, ServiceAccount x2, ClusterRole x1, ClusterRoleBinding x1, ConfigMap x1, DaemonSet x1.</p>
 <p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4</code>. Users can pull it without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space <code>helm-contour-legacy</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
 <h2 id="what-to-check">What to check</h2>
-<p>The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.</p>
-<p>The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.</p>
-<p>Known limitation: existing-secret (chart ships no Secret toggle).</p>
+<p>This preset config records 2 prerequisites: 2 Secrets. The public package includes the files used to prepare them, and the generated try script applies them in the required order.</p>
+<p>The catalog records 1 extra step for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.</p>
+<ul><li><b>Before install:</b> Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.</li></ul>
+<p>At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
-<ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 20 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li></ul>
+<ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 20 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li><li>Prerequisites are named before apply, so they are not discovered after rollout.</li><li>Hook and lifecycle work is counted and linked to the route record.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
 <h2 id="repeat-it">Repeat it</h2>
 <p>Fast path with no ConfigHub account:</p>
@@ -480,22 +479,23 @@
 <tr><td>Preset config</td><td><code>legacy</code></td></tr>
 <tr><td>Namespace</td><td><code>default</code></td></tr>
 <tr><td>Release name</td><td><code>contour</code></td></tr>
-<tr><td>Values</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/effective-values.yaml"><code>recipes/bitnami/contour/21.1.4/effective-values.yaml</code></a></td></tr>
+<tr><td>Values</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml"><code>recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml</code></a></td></tr>
 <tr><td>Render intent</td><td><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-contour-21-1-4-legacy.yaml"><code>data/helm-render-intents/intents/bitnami-contour-21-1-4-legacy.yaml</code></a></td></tr>
 <tr><td>Render variant</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml"><code>recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml</code></a></td></tr>
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/contour/21.1.4/bases/legacy"><code>packages/bitnami/contour/21.1.4/bases/legacy</code></a></td></tr>
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/bitnami-contour-21-1-4/legacy/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/bitnami-contour-21-1-4/legacy/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites-and-lifecycle-steps">Prerequisites and lifecycle steps</h2>
-<table><thead><tr><th>When</th><th>What</th><th>How it is handled</th></tr></thead><tbody><tr><td>No extra step recorded</td><td>The catalog has not identified a separate prerequisite or lifecycle step for this preset.</td><td>Check the limits and evidence before production use.</td></tr></tbody></table>
+<table><thead><tr><th>When</th><th>What</th><th>How it is handled</th></tr></thead><tbody><tr><td>Before install</td><td>ClusterFeature: Secret default/contourcert keys ca.crt,tls.crt,tls.key, ClusterFeature: Secret default/envoycert keys ca.crt,tls.crt,tls.key</td><td>Included in the public package as prerequisites/contour-certgen/run.sh. The generated try script applies it and waits for the required CRD before installing the main objects.</td></tr>
+<tr><td>Before install</td><td>Prepare the target</td><td>Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>
 <tr><td>Earlier local-cluster test</td><td><code>no</code></td></tr>
-<tr><td>GitOps OCI live run</td><td><code>todo</code></td></tr>
-<tr><td>Live Helm vs ConfigHub comparison</td><td><code>todo</code></td></tr>
-<tr><td>Lifecycle routes</td><td><code>0</code></td></tr></tbody></table>
+<tr><td>GitOps OCI live run</td><td><code>watch</code></td></tr>
+<tr><td>Live Helm vs ConfigHub comparison</td><td><code>watch</code></td></tr>
+<tr><td>Lifecycle routes</td><td><code>1</code></td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
-<ul><li>Local kind evidence is no for this preset config.</li><li>GitOps OCI live evidence is todo for this preset config.</li><li>Known gap for this row: existing-secret (chart ships no Secret toggle).</li><li>Resolve the named gap first: existing-secret (chart ships no Secret toggle).</li></ul>
+<ul><li>Local kind evidence is no for this preset config.</li><li>GitOps OCI live evidence is watch for this preset config.</li><li>Known gap for this row: existing-secret (chart ships no Secret toggle).</li><li>Resolve the named gap first: existing-secret (chart ships no Secret toggle).</li></ul>
 <h2 id="source-files">Source files</h2>
 <ul><li>Chart page: <a href="https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html">https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html</a></li><li>Render intent: <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-contour-21-1-4-legacy.yaml"><code>data/helm-render-intents/intents/bitnami-contour-21-1-4-legacy.yaml</code></a></li><li>Rendered YAML: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml"><code>recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml</code></a></li><li>Package source: <a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/contour/21.1.4/bases/legacy"><code>packages/bitnami/contour/21.1.4/bases/legacy</code></a></li><li>Generated scripts: <a href="https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-contour-21-1-4/legacy"><code>site/sh/bitnami-contour-21-1-4/legacy</code></a></li><li>Preset doctrine: <a href="../../../../docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li></ul>
     </article>

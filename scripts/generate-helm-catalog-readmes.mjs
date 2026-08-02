@@ -37,7 +37,7 @@ const DEMO_SPACES = [
     ],
     evidence: [
       ["Org sync summary", "data/helm-org/summary.md"],
-      ["Helm Ops Catalog", "site/charts/index.html"],
+      ["Configuration Catalog", "site/charts/index.html"],
     ],
     limits: ["This is not a chart recipe, a rendered app, or a production example."],
   },

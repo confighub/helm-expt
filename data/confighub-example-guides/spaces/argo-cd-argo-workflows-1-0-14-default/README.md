@@ -32,7 +32,7 @@ This preset config records 8 prerequisites: 8 CRDs. The public package includes 
 
 The catalog records 1 extra step for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-- **Before install:** full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits.
+- **Before install:** The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.
 
 Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.
 
@@ -88,7 +88,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | When | What | How it is handled |
 | --- | --- | --- |
 | Before install | 8 CRDs: clusterworkflowtemplates.argoproj.io, cronworkflows.argoproj.io, workflowartifactgctasks.argoproj.io, workfloweventbindings.argoproj.io, workflows.argoproj.io, workflowtaskresults.argoproj.io, workflowtasksets.argoproj.io, workflowtemplates.argoproj.io | Included in the public package as prerequisites/target-facts/default-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
-| Before install | Install CRDs first | full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits. |
+| Before install | Install CRDs first | The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start. |
 
 ## Evidence
 

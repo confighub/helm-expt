@@ -168,7 +168,7 @@ Verification decides what can be claimed.
 - It does not claim render parity is production readiness.
 - It does not require users to abandon Helm charts.
 - It does not treat generated GitHub package folders as the catalog entry
-  point. Users should choose from the Helm Ops Catalog pages first.
+  point. Users should choose from the Configuration Catalog pages first.
 
 The goal is practical support for the way Helm is actually used: keep the chart,
 choose a useful chart preset, inspect the generated objects, record the extra work,

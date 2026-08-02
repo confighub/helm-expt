@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try One Catalog Package · Config Workshop</title>
-  <meta name="description" content="Render one public Redis catalog package, inspect its exact Kubernetes objects, and choose local, anonymous, or managed ConfigHub use.">
+<title>Try Redis · Config Workshop</title>
+  <meta name="description" content="Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/try.html">
-  <meta property="og:title" content="Try One Catalog Package · Config Workshop">
-  <meta property="og:description" content="Render one public Redis catalog package, inspect its exact Kubernetes objects, and choose local, anonymous, or managed ConfigHub use.">
+  <meta property="og:title" content="Try Redis · Config Workshop">
+  <meta property="og:description" content="Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/try.html">
 <style>
@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -514,10 +512,10 @@
 </head>
 <body class="calm-page">
 <header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-  <h1>Try one catalog package</h1>
-  <p class="lead">Render one reviewed Redis configuration. Read the Kubernetes objects before you decide where they go.</p>
-  <p>This exercise does not contact ConfigHub Server or Kubernetes. You do not need a ConfigHub account or a Google registry login.</p>
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+  <h1>Try a simple example: Redis</h1>
+  <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates.</p>
+  <p>This example runs on your machine. It does not contact ConfigHub Server or Kubernetes, and it needs no account or registry login.</p>
 </header>
 <main>
   <section aria-labelledby="install-cub">
@@ -557,42 +555,12 @@ $ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
   </section>
 
-  <section aria-labelledby="choose-next">
-    <h2 id="choose-next">Choose what happens next</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Local: no server</h3>
-        <p>Pull public packages without signing in. Keep the files or OCI on your machine. Test them locally or in CI.</p>
-        <p><a href="./serverless.html">Read the no-server guide</a></p>
-      </div>
-      <div class="card">
-        <h3>Hosted: no sign-in</h3>
-        <p>Inspect and test public configuration through a hosted service. This anonymous service is planned and is not released.</p>
-        <p><a href="./future.html">Read the current status</a></p>
-      </div>
-      <div class="card">
-        <h3>ConfigHub: sign in</h3>
-        <p>Use ConfigHub when you want saved changes, releases, environments, and promotion.</p>
-        <p><a class="button" href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">Continue with the official tutorial</a></p>
-      </div>
-    </div>
-    <p>Public package and OCI pulls already work without registry login. The <a href="./d/data/anonymous-oci-ci-proof/summary.html">anonymous CI result</a> records that local path.</p>
-  </section>
-
-  <section aria-labelledby="other-inputs">
-    <h2 id="other-inputs">Start with your own configuration</h2>
-    <p>The same ConfigHub journey can start from other sources. Each path first gives you exact Kubernetes objects to inspect.</p>
-    <div class="grid">
-      <div class="card"><h3>Helm chart and values</h3><p>Render your chart and values without applying them. Compare the result with known catalog configurations.</p><p><a href="./testing.html#bring-your-own">Review Helm values</a></p></div>
-      <div class="card"><h3>AICR</h3><p>Inspect the selected components, allowed install settings, and generated Argo CD Applications.</p><p><a href="./testing.html#aicr-platform">Open the AICR example</a></p></div>
-      <div class="card"><h3>OCI or Kubernetes YAML</h3><p>Inspect the existing objects and record their source before you save or change them.</p><p><a href="./testing.html#catalog-starting-points">Choose an existing-config path</a></p></div>
-    </div>
-  </section>
-
-  <section aria-labelledby="full-walkthrough">
-    <h2 id="full-walkthrough">Need the complete Redis example?</h2>
-    <p>The detailed walkthrough adds Helm parity, a live cluster, a major upgrade, ConfigHub promotion, two-cluster delivery, and rollback.</p>
-    <p><a class="button" href="./redis-walkthrough.html">Open the detailed Redis walkthrough</a></p>
+  <section aria-labelledby="finished">
+    <h2 id="finished">You have finished the first example</h2>
+    <p>You now have readable Kubernetes files and a local OCI image. Nothing has been applied to a cluster.</p>
+    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> to add parity checks, deployment, upgrade, promotion, and rollback.</p>
+    <p><a href="./testing.html">Choose another worked example</a> for your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
+    <p><a href="./confighub.html">Continue with ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
   </section>
 </main>
 <footer><p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this short catalog package guide.</p><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>

@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>ConfigHub Example Guides</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/confighub-example-guides/summary.md">View source markdown</a>.</p>
   </header>
@@ -456,10 +454,10 @@ What extra work, such as CRDs, Secrets, hooks, or setup jobs, is still mine to h
 <h2 id="counts">Counts</h2>
 <table><thead><tr><th>Count</th><th>Value</th></tr></thead><tbody><tr><td>Public package charts</td><td>100</td></tr>
 <tr><td>Public preset config guides</td><td>179</td></tr>
-<tr><td>Guides with prerequisites</td><td>52</td></tr>
-<tr><td>Guides with recorded lifecycle routes</td><td>11</td></tr></tbody></table>
+<tr><td>Guides with prerequisites</td><td>55</td></tr>
+<tr><td>Guides with recorded lifecycle routes</td><td>12</td></tr></tbody></table>
 <h2 id="how-to-use-this">How To Use This</h2>
-<ol><li>Start from the Helm Ops Catalog chart page.</li><li>Pick the preset config you want to try.</li><li>Open the guide for that preset config.</li><li>Run <code>try.sh</code> for a no-account test, or <code>confighub.sh</code> to upload the rendered objects into a ConfigHub Space.</li></ol>
+<ol><li>Start from the Configuration Catalog chart page.</li><li>Pick the preset config you want to try.</li><li>Open the guide for that preset config.</li><li>Run <code>try.sh</code> for a no-account test, or <code>confighub.sh</code> to upload the rendered objects into a ConfigHub Space.</li></ol>
 <p>The generated CSV is <a href="../../../../data/confighub-example-guides/guides.csv">guides.csv</a>.</p>
 <h2 id="guides">Guides</h2>
 <table><thead><tr><th>Chart</th><th>Preset config</th><th>Why this preset exists</th><th>Guide</th><th>Chart page</th></tr></thead><tbody><tr><td><code>aqua/trivy-operator@0.32.1</code></td><td><code>default</code></td><td>Use this when you want to start from the chart author's normal path, with the inputs recorded.</td><td><a href="spaces/aqua-trivy-operator-0-32-1-default/README.html">guide</a></td><td><a href="https://confighub.github.io/helm-expt/site/charts/aqua-trivy-operator-0-32-1.html">chart page</a></td></tr>

@@ -7,7 +7,7 @@ not depend on ConfigHub Server. **Anonymous** means it uses no ConfigHub account
 The example on this page is both: it runs locally, pulls a public package, and keeps
 the files and output under your control.
 
-You can use the public Helm Ops Catalog without creating a ConfigHub account. Pull a
+You can use the public Configuration Catalog without creating a ConfigHub account. Pull a
 catalog package, choose a preset configuration, and write the Kubernetes objects to
 local files. You can stop there, apply the files yourself, or package the reviewed
 files as OCI for an existing GitOps controller.

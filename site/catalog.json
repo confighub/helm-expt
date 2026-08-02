@@ -29407,7 +29407,7 @@
           "result": "Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants.",
           "status": "available",
           "steps": [
-            "Choose a chart and preset configuration in the Helm Ops Catalog.",
+            "Choose a chart and preset configuration in the Configuration Catalog.",
             "Pull the cub installer package and render it without a ConfigHub account.",
             "Inspect the objects, render intent, routes, prerequisites, and receipts.",
             "Upload the rendered files or a literal configuration OCI bundle as a base variant.",

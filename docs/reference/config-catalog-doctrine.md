@@ -109,7 +109,7 @@ evidence, and use it as the start of their own application or fleet.
 
 There are three current entry paths.
 
-1. A Helm user chooses a preset configuration from the Helm Ops Catalog. `cub
+1. A Helm user chooses a preset configuration from the Configuration Catalog. `cub
    installer` pulls the chart package, renders the chosen preset locally, and keeps the
    chart, values, source lock, and known Helm lifecycle work together.
 2. An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle,

@@ -285,7 +285,7 @@ spec:
         result: The Redis example pulls a public package, shows the exact Helm inputs and Kubernetes objects, checks Helm parity, and can continue into ConfigHub.
         limit: The result applies to the named Redis versions and preset configurations, not every Helm chart.
       steps:
-        - Choose a chart and preset configuration in the Helm Ops Catalog.
+        - Choose a chart and preset configuration in the Configuration Catalog.
         - Pull the cub installer package and render it without a ConfigHub account.
         - Inspect the objects, render intent, routes, prerequisites, and receipts.
         - Upload the rendered files or a literal configuration OCI bundle as a base variant.

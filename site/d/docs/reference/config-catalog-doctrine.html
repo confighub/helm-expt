@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Config catalog doctrine</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/config-catalog-doctrine.md">View source markdown</a>.</p>
   </header>
@@ -471,7 +469,7 @@
 <p>The immediate goal is to make Helm easier to inspect and operate. The longer-term goal is a large, useful catalog of configuration in the formats teams already use. Each entry should help a person understand what the configuration does, try it, check the evidence, and use it as the start of their own application or fleet.</p>
 <h2 id="the-ways-configuration-enters">The ways configuration enters</h2>
 <p>There are three current entry paths.</p>
-<ol><li>A Helm user chooses a preset configuration from the Helm Ops Catalog. <code>cub installer</code> pulls the chart package, renders the chosen preset locally, and keeps the chart, values, source lock, and known Helm lifecycle work together.</li><li>An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle, its checksums, OCI digest, and any controller requirements can be uploaded and recorded as a ConfigHub base variant.</li><li>A team with existing Kubernetes YAML can package the literal files as OCI, or point <code>cub variant upload</code> at files directly. This is also the path <code>cub installer</code> can use after it has rendered a selected preset.</li></ol>
+<ol><li>A Helm user chooses a preset configuration from the Configuration Catalog. <code>cub installer</code> pulls the chart package, renders the chosen preset locally, and keeps the chart, values, source lock, and known Helm lifecycle work together.</li><li>An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle, its checksums, OCI digest, and any controller requirements can be uploaded and recorded as a ConfigHub base variant.</li><li>A team with existing Kubernetes YAML can package the literal files as OCI, or point <code>cub variant upload</code> at files directly. This is also the path <code>cub installer</code> can use after it has rendered a selected preset.</li></ol>
 <p>These paths do not require a replacement chart language. Teams keep their Helm charts, AICR recipes, and existing files.</p>
 <h2 id="what-a-base-variant-records">What a base variant records</h2>
 <p>A ConfigHub base variant needs more than a directory of YAML.</p>

@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try it</a><a href="../../../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try Redis</a><a href="../../../../../testing.html">Examples</a><a href="../../../../../charts/index.html">Catalog</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="../../../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>prometheus-community/kube-prometheus-stack 85.3.3 - no-crds</h1>
     <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/prometheus-community-kube-prometheus-stack-85-3-3-no-crds/README.md">View source markdown</a>.</p>
   </header>
@@ -453,13 +451,13 @@
 <p>With plain Helm, a values file and a successful install do not explain enough later. It can be hard to tell which values, Secrets, CRDs, hooks, target assumptions, and local edits mattered. A future upgrade can also wipe changes made after install.</p>
 <p>This preset gives the team a named starting point instead of a private guess. You can test it without a ConfigHub account, upload it when you want Hub records and variants, and reuse it as a base for dev, staging, production, regions, or customers.</p>
 <h2 id="what-this-preset-contains">What this preset contains</h2>
-<ul><li>Preset: <code>no-crds</code>.</li><li>Kubernetes YAML: 114 object(s), mainly PrometheusRule x35, ConfigMap x31, ServiceMonitor x13, Service x11, ServiceAccount x6, ClusterRole x4, ClusterRoleBinding x4, Deployment x3.</li><li>Needs before install: 10 CRDs, 1 Secret.</li><li>Extra Helm work: 7 recorded route(s) for hooks or surrounding setup work.</li></ul>
+<ul><li>Preset: <code>no-crds</code>.</li><li>Kubernetes YAML: 114 object(s), mainly PrometheusRule x35, ConfigMap x31, ServiceMonitor x13, Service x11, ServiceAccount x6, ClusterRole x4, ClusterRoleBinding x4, Deployment x3.</li><li>Needs before install: 10 CRDs, 1 Secret.</li><li>Extra Helm work: 8 recorded route(s) for hooks or surrounding setup work.</li></ul>
 <p>This is not a new chart language. It is a checked way to use this Helm chart, with the chosen inputs and output kept together.</p>
 <h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
 <p>There are four places to look. The public preset itself contains no ConfigHub edits: it is the recorded Helm render that later ConfigHub variants start from.</p>
 <table><thead><tr><th>Place</th><th>What this Space records</th><th>Where to change it</th></tr></thead><tbody><tr><td>Helm values</td><td><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values-no-crds.yaml">The values profile</a> defines the <code>no-crds</code> base together with release <code>kube-prometheus-stack</code> and namespace <code>monitoring</code>.</td><td>Change the values and create or update a base preset when Helm needs to produce different objects.</td></tr>
 <tr><td>ConfigHub changes</td><td>None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant.</td><td>Edit the rendered object in ConfigHub when the base shape is right but a field needs to differ for an environment, region, customer, or policy.</td></tr>
-<tr><td>Install work</td><td>10 CRDs, 1 Secret; 7 hook or setup route(s) are recorded.</td><td>Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits.</td></tr>
+<tr><td>Install work</td><td>10 CRDs, 1 Secret; 8 hook or setup route(s) are recorded.</td><td>Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits.</td></tr>
 <tr><td>Live cluster</td><td>Live state is checked against the reviewed configuration; it does not become the desired setting by itself.</td><td>Record an intended fix in ConfigHub, or remove an unintended live change as drift.</td></tr></tbody></table>
 <p>If a later Helm render and a ConfigHub revision both change the same field, review that overlap before promotion. Do not let two layers silently own one setting.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>

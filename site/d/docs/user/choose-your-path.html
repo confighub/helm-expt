@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Choose Your Path</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/choose-your-path.md">View source markdown</a>.</p>
   </header>
@@ -476,7 +474,7 @@
 <p>The dividing line is simple: public packages help you inspect and verify public chart bases; ConfigHub manages private inputs, teams, approvals, operational state, and production workflows.</p>
 <h2 id="tutorial-routing">Tutorial Routing</h2>
 <table><thead><tr><th>If you want to see...</th><th>Start here</th><th>What it teaches</th></tr></thead><tbody><tr><td>The ConfigHub product journey</td><td><a href="https://docs.confighub.com/get-started/tutorial/">Official ConfigHub tutorial</a></td><td>One component, release, change, production deployment, and promotion.</td></tr>
-<tr><td>The shortest public package render</td><td><a href="../../../try.html">Try one catalog package</a></td><td>Redis package pull, local render, local OCI, and inspection.</td></tr>
+<tr><td>The shortest public package render</td><td><a href="../../../try.html">Try Redis</a></td><td>Redis package pull, local render, local OCI, and inspection.</td></tr>
 <tr><td>The complete Redis evidence path</td><td><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></td><td>Helm parity, Kubernetes, OCI, upgrade, promotion, two-cluster delivery, and rollback.</td></tr>
 <tr><td>Why a values choice becomes a base</td><td><a href="tutorial-sequence.html#tutorial-3-prometheus-base-variant">Prometheus Base Variant</a></td><td>Helm render choices belong in the <code>cub installer</code> base path.</td></tr>
 <tr><td>Why a prod/customer change can avoid rerendering Helm</td><td><a href="tutorial-sequence.html#tutorial-4-prometheus-promotion-variant">Prometheus Promotion Variant</a></td><td>Derived ConfigHub variants clone reviewed Units and add operational metadata.</td></tr>
@@ -491,7 +489,7 @@
 <p>Plain Helm is enough when the only job is to render or install once. The catalog adds value before install by making the selected base explicit and reviewable. ConfigHub adds value after upload because every object is a Unit that can be diffed, scanned, gated, linked, approved, promoted, observed, and audited.</p>
 <p>The day-0 path is choosing a public base and verifying what it renders. The day-1 path is creating a derived variant for an environment, customer, region, or target without rerendering Helm. The day-2 path is operating many reviewed variants through bulk scans, patches, approvals, promotions, GitOps/OCI handoffs, observations, upgrades, rollbacks, and receipts.</p>
 <h2 id="next">Next</h2>
-<ul><li><a href="https://docs.confighub.com/get-started/tutorial/">Official ConfigHub tutorial</a></li><li><a href="../../../try.html">Try one catalog package</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="choosing-commands.html">Choosing Commands</a></li><li><a href="product-support-tiers.html">Product Support Tiers</a></li><li><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></li></ul>
+<ul><li><a href="https://docs.confighub.com/get-started/tutorial/">Official ConfigHub tutorial</a></li><li><a href="../../../try.html">Try Redis</a></li><li><a href="../../../redis-walkthrough.html">Detailed Redis walkthrough</a></li><li><a href="choosing-commands.html">Choosing Commands</a></li><li><a href="product-support-tiers.html">Product Support Tiers</a></li><li><a href="what-we-refuse-to-claim.html">What We Refuse To Claim</a></li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/choose-your-path.md</code>. The source file is the authoritative version.</p></footer>

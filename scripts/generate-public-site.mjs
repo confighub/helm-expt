@@ -9,6 +9,7 @@ const chartPagesRoot = join(siteRoot, "charts");
 const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
+const configHubPath = join(siteRoot, "confighub.html");
 const redisWalkthroughPath = join(siteRoot, "redis-walkthrough.html");
 const serverlessPath = join(siteRoot, "serverless.html");
 const howItWorksPath = join(siteRoot, "how-it-works.html");
@@ -100,6 +101,7 @@ const INSTALLER_OCI_AUTH_NOTE =
   "Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.";
 const CONFIGHUB_SIGNUP_URL = "https://hub.confighub.com";
 const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
+const CONFIGHUB_BLOG_URL = "https://confighub.com/blog/";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CONFIGHUB_TUTORIAL_URL = "https://docs.confighub.com/get-started/tutorial/";
 const CONFIGHUB_COMPONENT_DOC_URL =
@@ -149,6 +151,7 @@ const SITE_PAGE_RELPATHS = {
   indexHtml: "index.html",
   offeringHtml: "offering.html",
   tryHtml: "try.html",
+  configHubHtml: "confighub.html",
   redisWalkthroughHtml: "redis-walkthrough.html",
   serverlessHtml: "serverless.html",
   howItWorksHtml: "how-it-works.html",
@@ -189,7 +192,8 @@ const PAGE_REDIRECT_TARGETS = {
 const PAGE_DESCRIPTIONS = {
   "index.html": "Inspect and test configuration from Helm, AICR, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
   "offering.html": "Public Helm charts in visible and verifiable stages: keep the chart as the source and make the rendered config reviewable and safer to operate.",
-  "try.html": "Render one public Redis catalog package, inspect its exact Kubernetes objects, and choose local, anonymous, or managed ConfigHub use.",
+  "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
+  "confighub.html": "Choose whether to create a ConfigHub account, follow the official tutorial, or read the ConfigHub blog.",
   "redis-walkthrough.html": "Follow the full Redis example through public package pulls, Helm parity, OCI output, upgrade, promotion, rollout, and rollback.",
   "serverless.html": "Run a public catalog package without ConfigHub Server. This example also needs no ConfigHub account, and keeps the rendered objects under your control.",
   "how-it-works.html": "Follow configuration from Helm, AICR, OCI, or Kubernetes YAML through inspection, review, ConfigHub, promotion, and deployment.",
@@ -198,7 +202,7 @@ const PAGE_DESCRIPTIONS = {
   "existing-apps.html": "Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.",
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
   "security.html": "Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.",
-  "testing.html": "Working examples for Helm, AICR, OCI, Kubernetes YAML, promotions, delivery, platforms, and ConfigHub Apps.",
+  "testing.html": "Choose a worked example that starts with Helm, AICR, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR, existing OCI, and Kubernetes YAML, with commands and proof links.",
   "future.html": "What exists in the public experiment today, and which managed ideas are roadmap on purpose.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
@@ -213,7 +217,7 @@ const PAGE_DESCRIPTIONS = {
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
   "private/index.html": "Upgrade to ConfigHub: the commercial edition for private charts, teams, policies, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
-  "charts/index.html": "Choose a checked configuration or bring your own, then inspect the exact objects, required setup, and checks before deployment.",
+  "charts/index.html": "Find a tested starting configuration for a public package, with its rendered objects, required setup, and evidence.",
   "demo-org.html": "The demo org: ten catalog charts living in a real ConfigHub organization, with version ladders, a fleet, secrets and CRD stories, and live checks.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
 };
@@ -229,6 +233,7 @@ if (mode === "--generate") {
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
+  write(configHubPath, site.configHubHtml);
   write(redisWalkthroughPath, site.redisWalkthroughHtml);
   write(serverlessPath, site.serverlessHtml);
   write(howItWorksPath, site.howItWorksHtml);
@@ -275,6 +280,7 @@ if (mode === "--generate") {
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
+  check(existsSync(configHubPath), "site/confighub.html is missing; run npm run site:generate");
   check(existsSync(redisWalkthroughPath), "site/redis-walkthrough.html is missing; run npm run site:generate");
   check(existsSync(serverlessPath), "site/serverless.html is missing; run npm run site:generate");
   check(existsSync(howItWorksPath), "site/how-it-works.html is missing; run npm run site:generate");
@@ -305,6 +311,7 @@ if (mode === "--generate") {
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
+  check(readFileSync(configHubPath, "utf8") === site.configHubHtml, "site/confighub.html is stale");
   check(readFileSync(redisWalkthroughPath, "utf8") === site.redisWalkthroughHtml, "site/redis-walkthrough.html is stale");
   check(readFileSync(serverlessPath, "utf8") === site.serverlessHtml, "site/serverless.html is stale");
   check(readFileSync(howItWorksPath, "utf8") === site.howItWorksHtml, "site/how-it-works.html is stale");
@@ -619,6 +626,7 @@ function buildSite(generatedAt) {
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
+    configHubHtml: calmPage(configHubHtml()),
     redisWalkthroughHtml: calmPage(redisWalkthroughHtml(catalog)),
     serverlessHtml: calmPage(serverlessHtml(catalog)),
     howItWorksHtml: calmPage(howItWorksHtml(catalog)),
@@ -789,9 +797,10 @@ function buildLlmsTxt() {
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
-- [Try one catalog package](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
+- [Try Redis](${SITE_BASE_URL}try.html): render and inspect one public Redis configuration with no ConfigHub Server or account.
 - [Detailed Redis walkthrough](${SITE_BASE_URL}redis-walkthrough.html): add Helm parity, Kubernetes, OCI, upgrade, promotion, delivery, and rollback.
 - [Examples](${SITE_BASE_URL}testing.html): working examples for starting inputs, managed operations, platforms, and ConfigHub Apps.
+- [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Detailed entry paths](${SITE_BASE_URL}entry-path-reference.html): commands and proof links for Helm, AICR, OCI, and Kubernetes YAML.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
 `;
@@ -1256,7 +1265,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("try.html")}">Try it</a><a href="${link("charts/index.html")}">Catalog</a><a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "site-nav")}">ConfigHub</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a>${signupLink("site-nav", "Sign in")}</span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("try.html")}">Try Redis</a><a href="${link("testing.html")}">Examples</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1509,12 +1518,12 @@ function configTestCentreHome(catalog) {
         <nav class="bar">
           <span class="site-identity"><a class="wordmark" href="./index.html"><span class="sq"></span>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span></span>
           <span class="navlinks">
-            <a href="./try.html">Try it</a>
+            <a href="./try.html">Try Redis</a>
+            <a href="./testing.html">Examples</a>
             <a href="./charts/index.html">Catalog</a>
-            <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "home-nav")}">ConfigHub</a>
             <a href="./how-it-works.html">Deployment</a>
             <a href="./docs.html">Docs</a>
-            ${signupLink("home-nav", "Sign in")}
+            <a href="./confighub.html">ConfigHub</a>
           </span>
         </nav>
         <div class="hero">
@@ -1708,7 +1717,7 @@ em{font-style:italic;color:var(--ink);}
     </div>
   </div>
 
-  <h3>Where a setting belongs</h3>
+  <h3 id="setting-sources">Where a setting belongs</h3>
   <p>There are four places to look. Keeping them separate answers both questions: what should control a setting, and what controls it now.</p>
   <table class="gtable">
     <tr><th>Place</th><th>Use it for</th><th>What happens on upgrade</th></tr>
@@ -2720,15 +2729,15 @@ function tryHtml(catalog) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Try One Catalog Package · Config Workshop</title>
+<title>Try Redis · Config Workshop</title>
 <style>${siteCss()}</style>
 </head>
 <body>
 <header class="hero human-hero">
   ${topNav(".")}
-  <h1>Try one catalog package</h1>
-  <p class="lead">Render one reviewed Redis configuration. Read the Kubernetes objects before you decide where they go.</p>
-  <p>This exercise does not contact ConfigHub Server or Kubernetes. You do not need a ConfigHub account or a Google registry login.</p>
+  <h1>Try a simple example: Redis</h1>
+  <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates.</p>
+  <p>This example runs on your machine. It does not contact ConfigHub Server or Kubernetes, and it needs no account or registry login.</p>
 </header>
 <main>
   <section aria-labelledby="install-cub">
@@ -2768,45 +2777,49 @@ $ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p><a href="../recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml">Read the full Kubernetes YAML</a> · <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-reuse-existing-secret.yaml">Read the recorded inputs and requirements</a> · <a href="./d/data/redis-public-walkthrough-proof/summary.html">Read the anonymous run result</a></p>
   </section>
 
-  <section aria-labelledby="choose-next">
-    <h2 id="choose-next">Choose what happens next</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Local: no server</h3>
-        <p>Pull public packages without signing in. Keep the files or OCI on your machine. Test them locally or in CI.</p>
-        <p><a href="./serverless.html">Read the no-server guide</a></p>
-      </div>
-      <div class="card">
-        <h3>Hosted: no sign-in</h3>
-        <p>Inspect and test public configuration through a hosted service. This anonymous service is planned and is not released.</p>
-        <p><a href="./future.html">Read the current status</a></p>
-      </div>
-      <div class="card">
-        <h3>ConfigHub: sign in</h3>
-        <p>Use ConfigHub when you want saved changes, releases, environments, and promotion.</p>
-        <p><a class="button" href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "try")}">Continue with the official tutorial</a></p>
-      </div>
-    </div>
-    <p>Public package and OCI pulls already work without registry login. The <a href="./d/data/anonymous-oci-ci-proof/summary.html">anonymous CI result</a> records that local path.</p>
-  </section>
-
-  <section aria-labelledby="other-inputs">
-    <h2 id="other-inputs">Start with your own configuration</h2>
-    <p>The same ConfigHub journey can start from other sources. Each path first gives you exact Kubernetes objects to inspect.</p>
-    <div class="grid">
-      <div class="card"><h3>Helm chart and values</h3><p>Render your chart and values without applying them. Compare the result with known catalog configurations.</p><p><a href="./testing.html#bring-your-own">Review Helm values</a></p></div>
-      <div class="card"><h3>AICR</h3><p>Inspect the selected components, allowed install settings, and generated Argo CD Applications.</p><p><a href="./testing.html#aicr-platform">Open the AICR example</a></p></div>
-      <div class="card"><h3>OCI or Kubernetes YAML</h3><p>Inspect the existing objects and record their source before you save or change them.</p><p><a href="./testing.html#catalog-starting-points">Choose an existing-config path</a></p></div>
-    </div>
-  </section>
-
-  <section aria-labelledby="full-walkthrough">
-    <h2 id="full-walkthrough">Need the complete Redis example?</h2>
-    <p>The detailed walkthrough adds Helm parity, a live cluster, a major upgrade, ConfigHub promotion, two-cluster delivery, and rollback.</p>
-    <p><a class="button" href="./redis-walkthrough.html">Open the detailed Redis walkthrough</a></p>
+  <section aria-labelledby="finished">
+    <h2 id="finished">You have finished the first example</h2>
+    <p>You now have readable Kubernetes files and a local OCI image. Nothing has been applied to a cluster.</p>
+    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> to add parity checks, deployment, upgrade, promotion, and rollback.</p>
+    <p><a href="./testing.html">Choose another worked example</a> for your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
+    <p><a href="./confighub.html">Continue with ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
   </section>
 </main>
 <footer>${generatedStamp(catalog, "short catalog package guide")}<p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
+</body>
+</html>
+`;
+}
+
+function configHubHtml() {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Continue With ConfigHub · Config Workshop</title>
+<style>${siteCss()}</style>
+</head>
+<body>
+<header class="hero human-hero">
+  ${topNav(".")}
+  <h1>Continue with ConfigHub</h1>
+  <p class="lead">Choose one place to start.</p>
+</header>
+<main>
+  <section aria-labelledby="create-account">
+    <h2 id="create-account"><a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Sign up for ConfigHub</a></h2>
+    <p>Create an account when you want to save configuration, make variants, promote releases, or manage delivery.</p>
+  </section>
+  <section aria-labelledby="review-tutorial">
+    <h2 id="review-tutorial"><a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Review the tutorial</a></h2>
+    <p>Follow the official tutorial for one component, one change, a production version, and a promotion.</p>
+  </section>
+  <section aria-labelledby="read-blog">
+    <h2 id="read-blog"><a href="${confighubOutboundUrl(CONFIGHUB_BLOG_URL, "confighub-page")}">Read the ConfigHub blog</a></h2>
+    <p>Read the product ideas, technical explanations, and worked stories behind ConfigHub.</p>
+  </section>
+</main>
 </body>
 </html>
 `;
@@ -3120,19 +3133,19 @@ function serverlessHtml(catalog) {
 function docsHtml(catalog) {
   const stageRows = [
     ["1. Choose", "Start with Helm, AICR, existing OCI, or Kubernetes YAML.", "<a href=\"./testing.html\">Examples</a>", "No"],
-    ["2. Inspect", "Create exact Kubernetes objects and read them before delivery.", "<a href=\"./try.html\">Try one catalog package</a>", "No"],
+    ["2. Inspect", "Create exact Kubernetes objects and read them before delivery.", "<a href=\"./try.html\">Try Redis</a>", "No"],
     ["3. Record", "Store one reviewed configuration and release it.", `<a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "docs-stages")}">Official tutorial</a>`, "Yes"],
     ["4. Change", "Add development and production configurations.", `<a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "docs-stages")}">Official tutorial</a>`, "Yes"],
     ["5. Promote", "Move a reviewed change from its base through development and production.", `<a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "docs-stages")}">Official tutorial</a>`, "Yes"],
   ];
   const startRows = [
     ["Learn ConfigHub", `<a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "docs-start")}">Official tutorial</a>`, "Set up a cluster. Install and release one component. Change it, add production, and promote the change."],
-    ["Try a package without an account", `<a href="./try.html">Try one catalog package</a>`, "Render one reviewed Redis configuration. Inspect the files and local OCI without ConfigHub Server."],
+    ["Try Redis without an account", `<a href="./try.html">Try Redis</a>`, "Render one reviewed Redis configuration. Inspect the files and local OCI without ConfigHub Server."],
     ["Follow the complete Redis example", `<a href="./redis-walkthrough.html">Detailed Redis walkthrough</a>`, "Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "Separate the bounded example that ran from the broader product status and its remaining work."],
-    ["Choose a public chart", `<a href="./charts/index.html">Helm Ops Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
+    ["Choose a public chart", `<a href="./charts/index.html">Configuration Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
     ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
     ["Use an App on ConfigHub", `<a href="./journey.html">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
     ["Verify a claim", `<a href="./verification.html">Verification</a>`, "Choose the npm command that tests the claim instead of treating every result as the same thing."],
@@ -3159,7 +3172,7 @@ function docsHtml(catalog) {
     ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A two-wave result: ConfigHub approves a pilot and one selector expansion at different OCI digests, then Argo CD and Sveltos deliver Kyverno to one staging cluster and later to both.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
-    ["Try one catalog package", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
+    ["Try Redis", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
     ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
@@ -3201,7 +3214,7 @@ function docsHtml(catalog) {
     ["Hook lifecycle strategy", "How chart hooks become visible work with status and receipts.", "../docs/user/hook-lifecycle-strategy.md"],
   ];
   const dataRows = [
-    ["Helm Ops Catalog database", "The chart and variant matrix.", "./matrix.html"],
+    ["Catalog data", "The chart and variant matrix.", "./matrix.html"],
     ["Generated data index", "The generated data catalog for this repository.", "../data/README.md"],
     ["Status dashboard", "Current aggregate status and active proof queue.", "../data/status-dashboard/summary.md"],
     ["cub adoption caveats", "The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.", "../data/cub-adoption-caveats/summary.html"],
@@ -3228,10 +3241,10 @@ function docsHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Docs/FAQ</h1>
+    <h1>Find a technical guide</h1>
     <p class="lead">These pages are for technical users who want to try Helm and other packages with ConfigHub. They can understand how it works and check the claims for themselves.</p>
     <p>Learn ConfigHub with the official tutorial. Use this site to inspect a catalog package, bring another source, or read the evidence.</p>
-    ${humanLinks([["Official tutorial", CONFIGHUB_TUTORIAL_URL], ["Try one package", "./try.html"], ["Examples", "./testing.html"], ["Verification", "./verification.html"]])}
+    ${humanLinks([["Official tutorial", CONFIGHUB_TUTORIAL_URL], ["Try Redis", "./try.html"], ["Examples", "./testing.html"], ["Verification", "./verification.html"]])}
   </header>
   <main>
     <section aria-labelledby="start-here">
@@ -3463,10 +3476,10 @@ function quirksHtml(catalog) {
       <h2 id="how">How To Use This Page</h2>
       <div class="grid">
         <div class="card"><h3>Start here</h3><p>Use this page to understand the words in the matrix. It explains what each quirk means, why it matters, and what the user or target must provide.</p></div>
-        <div class="card"><h3>Then check a chart</h3><p>Open the Helm Ops Catalog or the matrix to see whether a specific chart and base has that quirk.</p></div>
+        <div class="card"><h3>Then check a chart</h3><p>Open the Configuration Catalog or the matrix to see whether a specific chart and base has that quirk.</p></div>
         <div class="card"><h3>Then check the route</h3><p>For hooks, CRDs, webhooks, target facts, and generated facts, use the row's route, gap, and next-action fields to see what must happen before delivery.</p></div>
       </div>
-      <p><a href="./charts/index.html">Open Helm Ops Catalog</a> · <a href="./matrix.html">Open status matrix</a> · <a href="../docs/reference/helm-quirk-support-matrix.md">Read the reference matrix</a></p>
+      <p><a href="./charts/index.html">Open the Configuration Catalog</a> · <a href="./matrix.html">Open status matrix</a> · <a href="../docs/reference/helm-quirk-support-matrix.md">Read the reference matrix</a></p>
     </section>
 
     <section aria-labelledby="list">
@@ -3661,7 +3674,7 @@ function hardQuestionsHtml(catalog) {
 		          question: "Isn't that case-specific?",
 		          answer:
 		            "Yes. Helm charts differ, so the catalog records chart-specific base variants, tests, and notes. AI can help maintain those variants across chart versions. Tests and receipts determine what the catalog accepts.",
-	          links: [["Helm Ops Catalog", "./charts/index.html"], ["AI and the catalog", "./ai.html"]],
+	          links: [["Configuration Catalog", "./charts/index.html"], ["AI and the catalog", "./ai.html"]],
 	        },
 		        {
 		          status: "answered",
@@ -4151,7 +4164,7 @@ function hooksHtml() {
   <title>Hooks And Actions · Config Workshop</title>
 </head>
 <body>
-  <p>Hooks and lifecycle behavior are now covered on the Helm Ops Catalog page as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
+  <p>Hooks and lifecycle behavior are now covered in the Configuration Catalog as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
 </body>
 </html>
 `;
@@ -4562,7 +4575,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
       ])}
       <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place, the candidate moves through development and staging, and two Argo CD clusters run both the candidate OCI and the separately published rollback OCI.</p>
       <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
-      <p>Chart evidence still lives on the Helm Ops Catalog pages. This page explains how those charts become part of applications your team runs.</p>
+      <p>Chart evidence still lives in the Configuration Catalog. This page explains how those charts become part of applications your team runs.</p>
     </section>
 
     <section aria-labelledby="app-program">
@@ -5032,7 +5045,7 @@ function examplesHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Examples · Config Workshop</title>
+  <title>Worked Examples · Config Workshop</title>
   <style>${siteCss()}
     #examples-content table { white-space: normal; }
     #examples-content th, #examples-content td { min-width: 0; }
@@ -5051,9 +5064,9 @@ function examplesHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Examples</h1>
-    <p class="tagline">Start with the configuration you already have. Each starting example produces exact Kubernetes objects. Inspect them before you keep them as files or OCI, or save them in ConfigHub.</p>
-    <p>Later examples use ConfigHub Server. They show how a team changes, approves, promotes, delivers, and operates saved configuration.</p>
+    <h1>Choose a worked example</h1>
+    <p class="tagline">Start with a catalog package, your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
+    <p>Each row links to the files, commands, checks, and result for one complete example.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
@@ -5061,7 +5074,7 @@ function examplesHtml(catalog) {
     <span id="bring-your-own"></span>
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
-      <h2 id="start">Starting examples</h2>
+      <h2 id="start">1. Choose a starting point</h2>
       <p>Choose one row. You do not need to understand the rest of the catalog first.</p>
       ${markdownLikeTable([
         ["What you have", "What the example does", "Start and proof", "ConfigHub and OCI"],
@@ -5099,7 +5112,7 @@ function examplesHtml(catalog) {
     </section>
 
     <section aria-labelledby="start-modes">
-      <h2 id="start-modes">Where a starting example can run</h2>
+      <h2 id="start-modes">2. Choose where the first example runs</h2>
       ${markdownLikeTable([
         ["Choice", "Available now?", "What it means"],
         ["Local or CI", "Yes", "No ConfigHub Server and no ConfigHub account. Public package pulls also need no Google registry login."],
@@ -5110,7 +5123,7 @@ function examplesHtml(catalog) {
     </section>
 
     <section aria-labelledby="managed">
-      <h2 id="managed">Continue in ConfigHub</h2>
+      <h2 id="managed">3. Save and change it in ConfigHub</h2>
       ${markdownLikeTable([
         ["Job", "Working example", "Where to go"],
         ["Save and change", "Upload reviewed objects as a base variant. Make an exact development or customer change without changing the source chart.", `<a href="./variants.html">Variants</a> · <a href="./d/docs/user/variants-after-upload.html">Command walkthrough</a>`],
@@ -5121,7 +5134,7 @@ function examplesHtml(catalog) {
     </section>
 
     <section aria-labelledby="platforms">
-      <h2 id="platforms">Platform and fleet examples</h2>
+      <h2 id="platforms">4. Roll out a platform or fleet</h2>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
         ["Kubara", worked(pathways, "kubara").result, `<a href="./d/docs/demo/kubara/local-platform.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/local-platform">GitHub source</a> · <a href="./d/data/kubara-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/kubara-local-platform-v0-12-0/README.html">Space guide</a>`],
@@ -5130,7 +5143,7 @@ function examplesHtml(catalog) {
     </section>
 
     <section aria-labelledby="apps">
-      <h2 id="apps">ConfigHub App examples</h2>
+      <h2 id="apps">5. Use saved configuration for a repeated job</h2>
       <p>Each row has a working, bounded example. The final column says what is still missing from a general product capability.</p>
       ${markdownLikeTable([
         ["App", "Working example", "Open", "Still to build"],
@@ -5140,7 +5153,7 @@ function examplesHtml(catalog) {
     </section>
 
     <section aria-labelledby="locations">
-      <h2 id="locations">Where the material lives</h2>
+      <h2 id="locations">Technical sources</h2>
       ${markdownLikeTable([
         ["Place", "What belongs there"],
         ["This website", "Short explanations, starting points, chart pages, worked examples, and links to current proof."],
@@ -5470,7 +5483,7 @@ function operationsHtml(catalog) {
   <main>
     <section aria-labelledby="before-ops">
       <h2 id="before-ops">Before Ops</h2>
-      <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with <a href="./charts/index.html">Helm Ops Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
+      <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
     <section aria-labelledby="fleet-record">
@@ -5573,10 +5586,6 @@ function installerOciStatusText(entry) {
   return "assigned public ref; publication receipt not committed yet";
 }
 
-function installerOciCell(entry) {
-  return `<code>${escapeHtml(installerOciRefForEntry(entry))}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerOciStatusText(entry))}</span>`;
-}
-
 function firstPathCell(entry, row) {
   const variant = row?.variant && row.variant !== "(source)" ? row.variant : entry.start_variant || "choose base";
   const page = `./${chartPageFileName(entry)}#matrix-options`;
@@ -5636,51 +5645,17 @@ function isCatalogOverviewNoise(value) {
   return !text || /^None/i.test(text) || /^—/.test(text) || /curated proof lane/i.test(text) || /no open gap/i.test(text);
 }
 
-function configHubOptionsCell(entry, rows) {
+function catalogBaseOptionsCell(rows) {
   const bases = rows.filter((row) => row.row_kind === "base");
-  const candidates = rows.filter((row) => row.row_kind === "candidate" || row.row_kind === "derived");
   const visible = bases.map((row) => row.variant).filter(Boolean).slice(0, 4);
-  const baseText = bases.length
+  return bases.length
     ? `${bases.length} base option${bases.length === 1 ? "" : "s"}: ${visible.join(", ")}${bases.length > visible.length ? ", ..." : ""}`
-    : entry.supported_variants || entry.candidate_variants || "Open chart page.";
-  const suffix = candidates.length ? `<br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(candidates.length)} candidate or derived path${candidates.length === 1 ? "" : "s"} also shown.</span>` : "";
-  return `${escapeHtml(baseText)}${suffix}`;
-}
-
-function githubPackageUrlForEntry(entry, row) {
-  if (row?.github_package_base_url) return row.github_package_base_url;
-  if (entry.package_path && entry.start_variant) {
-    return `https://github.com/confighub/helm-expt/tree/main/${entry.package_path}/bases/${entry.start_variant}`;
-  }
-  if (entry.package_path) return `https://github.com/confighub/helm-expt/tree/main/${entry.package_path}`;
-  return "";
+    : "Open the chart page.";
 }
 
 function renderedObjectsPathFromRevision(revisionPath) {
   if (!revisionPath) return "";
   return revisionPath.replace(/variant-revision\.yaml$/, "rendered/release-objects.yaml");
-}
-
-function githubRenderedObjectsUrlForRow(row) {
-  const renderedPath = renderedObjectsPathFromRevision(row?.variant_revision_path);
-  return renderedPath ? `https://github.com/confighub/helm-expt/blob/main/${renderedPath}` : "";
-}
-
-function githubRecipeUrlForEntry(entry, row) {
-  if (row?.github_recipe_url) return row.github_recipe_url;
-  const recipeRoot = entry.recipe_path?.replace(/\/recipe\.yaml$/, "");
-  return recipeRoot ? `https://github.com/confighub/helm-expt/tree/main/${recipeRoot}` : "";
-}
-
-function yamlLinksCell(entry, row) {
-  const packageUrl = githubPackageUrlForEntry(entry, row);
-  const renderedUrl = githubRenderedObjectsUrlForRow(row);
-  const recipeUrl = githubRecipeUrlForEntry(entry, row);
-  const links = [installerOciCell(entry)];
-  if (renderedUrl) links.push(`<a href="${escapeHtml(renderedUrl)}" rel="noopener">full YAML</a>`);
-  if (packageUrl) links.push(`<a href="${escapeHtml(packageUrl)}" rel="noopener">source package base</a>`);
-  if (recipeUrl) links.push(`<a href="${escapeHtml(recipeUrl)}" rel="noopener">recipe</a>`);
-  return links.length ? links.join("<br>") : "Open chart page.";
 }
 
 function chartIndexHtml(catalog) {
@@ -5719,19 +5694,22 @@ function chartIndexHtml(catalog) {
         <td>${firstPathCell(entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
         <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
-        <td>${configHubOptionsCell(entry, matrixRows)}</td>
-        <td>${yamlLinksCell(entry, firstRow)}</td>
+        <td>${escapeHtml(catalogBaseOptionsCell(matrixRows))}</td>
       </tr>`;
     })
     .join("\n");
-  const lifecycleRoutes = catalog.lifecycleRoutes;
-  const lifecycleChartCount = new Set(lifecycleRoutes.map((row) => `${row.chart}@${row.version}`)).size;
-  const autoCount = lifecycleRoutes.filter((row) => isTruthyRouteFlag(row.safe_as_automatic)).length;
-  const dispositionRows = Object.entries(countBy(lifecycleRoutes, "disposition")).map(([label, count]) => [
-    label,
-    String(count),
-    dispositionMeaning(label),
-  ]);
+  const catalogContextHtml = `<section aria-labelledby="catalog-summary">
+      <h2 id="catalog-summary">What each catalog entry contains</h2>
+      <p>The catalog currently has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public installer packages. Each chart page keeps the ready-made configurations, package OCI, full YAML, source inputs, required setup, test results, and current limits together. ${publishedPackageCount} package references have publication receipts.</p>
+    </section>
+
+    <section aria-labelledby="base-variants">
+      <h2 id="base-variants">Why the catalog offers several configurations</h2>
+      <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
+      <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
+      <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
+      <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
+    </section>`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -5740,55 +5718,21 @@ function chartIndexHtml(catalog) {
   <title>Configuration Catalog · Config Workshop</title>
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
-    #chart-table th, #chart-table td { width: 14.2857%; white-space: normal; }
+    #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
   </style>
 </head>
 <body>
   <header>
     ${topNav("..")}
-    <h1>Choose what to test</h1>
-    <p class="lead">Start with a checked catalog configuration, or bring your own Helm values, AICR, OCI, or Kubernetes YAML. Inspect the exact objects and required setup, run the checks, and decide what to deploy.</p>
+    <h1>Find a tested starting configuration</h1>
+    <p class="lead">The Config Workshop Catalog is a public library of checked configurations for widely used packages.</p>
+    <p>Each entry shows what the package creates, what setup it needs, and what we tested. Search for a chart, then open its page before you deploy it.</p>
+    <p><a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
   </header>
   <main>
-    ${catalogPathfinderHtml("..")}
-
-    <section aria-labelledby="catalog-summary">
-      <h2 id="catalog-summary">What the catalog contains</h2>
-      <p><a href="../how-it-works.html">How the source, rendered objects, routes, variants, and OCI handoffs fit together</a> · <a href="../demo-org.html">Examples in the live ConfigHub demo org</a> · <a href="../../data/helm-catalog-readmes/summary.md">Demo README index</a></p>
-      <p>The catalog currently has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public installer packages. Open the chart page before using its generated files: it keeps the ready-made configurations, package OCI, full YAML, render record, hooks and CRDs, test results, and current limits together. ${publishedPackageCount} tagged package refs have publication receipts.</p>
-    </section>
-
-    <section aria-labelledby="base-variants">
-      <h2 id="base-variants">Base Variants, Not Every Values Combination</h2>
-      <p>Helm charts can expose hundreds of values. The catalog does not pretend every combination is equally useful or safe. It provides base variants for common operating choices, records the values and render inputs, captures the rendered YAML, and shows the evidence for that choice.</p>
-      <p>If your values file changes what Helm renders, it can become another base variant. If it only fills or refines already-rendered objects after upload, it belongs in a derived ConfigHub variant. If it needs a cluster, Secret, CRD owner, cloud account, or hook-like setup step, the chart page should say so before you install.</p>
-      <p>Read each base variant in this order: full YAML output first, render context second, hooks/CRDs/setup work third. The YAML shows what Kubernetes would receive; the context and routes explain how that output was produced and what has to happen around it.</p>
-      ${markdownLikeTable([
-        ["Public word", "Repo word", "Meaning"],
-        ["base variant", "Base variant", "A named Helm render choice such as default, no-CRDs, existing Secret, HA, or server-only."],
-        ["Full rendered YAML output", "rendered/release-objects.yaml", "The Kubernetes objects produced by one base variant. This is the manifest file you can open and read."],
-        ["Render context", "Render intent, revision, routes, receipts", "The inputs, checksums, hook/CRD decisions, target facts, and evidence around that YAML output."],
-        ["Chart extras", "Routes, target facts, lifecycle rows", "CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and existing cluster resources that need a decision."],
-      ])}
-      <h3>Helm values or a ConfigHub change?</h3>
-      ${markdownLikeTable([
-        ["Put it here", "When to use it", "Where the record appears"],
-        ["Helm values", "The choice changes what Helm renders: components, object shape or count, storage, CRDs, ingress, Secret strategy, hooks, or topology.", "The base variant's linked values profile and render intent."],
-        ["ConfigHub change", "The rendered base is right, but an exact field should differ for an environment, region, customer, policy, or later operational decision.", "The Unit revision history or derived variant after upload."],
-        ["Install work", "The chart needs a Secret, CRD, hook, setup job, certificate, cloud account, or target fact.", "The chart page's prerequisites and route records."],
-        ["Live cluster", "You need to check what is running.", "An observation or drift result; live state does not silently become desired configuration."],
-      ])}
-      <p>If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The chart page links the Helm values and base output; Hub revision history shows the later ConfigHub changes.</p>
-      <p>The model is deliberately chart-specific. A useful base variant for Redis is different from a useful base variant for Argo CD or kube-prometheus-stack. That is why the catalog stores evidence per chart, version, base variant, lane, and target scope. For the deeper reference, read <a href="../../docs/user/helm-presets-and-values.md">Helm Base Variants And Values</a>.</p>
-    </section>
-
     <section aria-labelledby="charts">
-      <h2 id="charts">Chart Directory</h2>
-      <div class="card">
-        <h3>How to read this table</h3>
-        <p>Pick a chart, check the pinned upstream version, then open the chart page for the exact command. The right-hand columns tell you the first base variant to try, whether this is a strong public starting point or a proof-grade entry, what to check before use, which ConfigHub options exist, and where to read the generated output.</p>
-        <p>This is not a leaderboard. A watch or blocked row can be the most useful answer when it names a prerequisite, lifecycle route, or target decision.</p>
-      </div>
+      <h2 id="charts">Search the catalog</h2>
+      <p>Pick a chart and check its pinned version. The chart page gives you the first configuration to try, the exact command, required setup, generated output, and evidence.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search charts</strong></label>
         <input id="chart-filter" type="search" placeholder="redis, crd, hook, prometheus, proof-grade..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
@@ -5801,7 +5745,7 @@ function chartIndexHtml(catalog) {
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First base variant</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>Package OCI and evidence</th></tr></thead>
+        <thead><tr><th>Chart</th><th>Version</th><th>Start here</th><th>Status</th><th>Check first</th><th>Other configurations</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
         </tbody>
@@ -5836,22 +5780,13 @@ ${chartRowsHtml}
       </script>
     </section>
 
+    ${catalogContextHtml}
+
     <section aria-labelledby="actions">
-      <h2 id="actions">Hooks, CRDs, And Other Chart Extras</h2>
+      <h2 id="actions">How the catalog handles required setup</h2>
       <p>Helm charts often include work outside the main rendered objects: CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and resources that must already exist in the target cluster.</p>
-      <p>We help you make the right choice for how to customize and adapt each chart, then track that choice with recorded inputs, generated output, tests, and receipts. The chart-specific answer may be: keep CRDs in the base variant, offer a no-CRDs base variant, run a tested setup step, use a GitOps action where evidence exists, require an existing Secret or target resource, or block the path when there is no safe default.</p>
-      <p>A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is a named piece of work and its evidence boundary. It is not an automatic execution claim unless the route says so and evidence proves it.</p>
-      ${markdownLikeTable([
-        ["Disposition", "Rows", "Meaning"],
-        ...dispositionRows,
-      ])}
-      <p>For a specific chart, open its chart page and read the action details beside the variant options. Deeper reference: <a href="../../docs/user/chart-hooks-what-happens.md">what happens to chart hooks</a> and <a href="../../docs/reference/what-hook-support-means.md">hook support vocabulary</a>.</p>
-      <div class="grid">
-        <div class="metric"><strong>${escapeHtml(lifecycleRoutes.length)}</strong><span>lifecycle route rows</span></div>
-        <div class="metric"><strong>${escapeHtml(lifecycleChartCount)}</strong><span>chart/version lifecycle behaviors represented</span></div>
-        <div class="metric"><strong>${escapeHtml(autoCount)}</strong><span>rows safe to present as automatic</span></div>
-        <div class="metric"><strong><a href="../../data/lifecycle-routes/summary.md">open</a></strong><span>machine-readable route contract</span></div>
-      </div>
+      <p>The chart page names that work before you choose a configuration. It may offer a no-CRDs option, require an existing Secret, include a tested setup step, or block an unsafe path.</p>
+      <p><a href="../../docs/user/chart-hooks-what-happens.md">Read what happens to chart hooks</a> · <a href="../../docs/reference/what-hook-support-means.md">Read the detailed support terms</a></p>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
@@ -6953,7 +6888,7 @@ ${kpsLifecycleProofPath ? `      <p><strong>Public package lifecycle:</strong> b
                   ["Modeled action area", "Current status"],
                   ...dispositionActionRows,
                 ], { rawSecondColumn: true })
-              : "<p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the Helm Ops Catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>"}
+              : "<p>No chart-specific action is attached to this page yet. That is not a claim that the upstream chart has no hooks or setup work. It means the public catalog has no per-chart-base variant action to show here; check the catalog filters, the matrix, or send a problem chart if hook behavior should be modeled.</p>"}
     </section>
 
     <section aria-labelledby="production">
@@ -7823,16 +7758,6 @@ function commandRoutes() {
   ];
 }
 
-function dispositionMeaning(value) {
-  return {
-    observed: "The selected lifecycle behavior has committed evidence.",
-    routed: "The route, executor, and off-ramp are named; automatic execution is not implied.",
-    "per-target": "The target class must choose or approve the route before a stronger claim.",
-    refused: "The catalog deliberately does not support this behavior through the current path.",
-    todo: "The behavior is known, but the route or evidence still needs work.",
-  }[value] ?? "Review the lifecycle route contract before using this row.";
-}
-
 function executionModeMeaning(value) {
   return {
     "product-executes": "The product owns the lifecycle action and evidence must prove it.",
@@ -8542,11 +8467,9 @@ function siteCss() {
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -8771,8 +8694,9 @@ npm run site:verify
 
 Open \`site/index.html\` first for the public launch front door.
 Open \`site/how-it-works.html\` for the recipe, render, record, and route model.
-Open \`site/try.html\` for the short try-now page.
+Open \`site/try.html\` for the short Redis example.
 Open \`site/testing.html\` for working starting, managed, platform, and App examples.
+Open \`site/confighub.html\` to sign up, follow the official tutorial, or read the blog.
 Open \`site/entry-path-reference.html\` for detailed Helm, AICR, OCI, and YAML commands.
 Open \`site/variants.html\` for base variants, derived variants, and promotion entry points.
 Open \`site/journey.html\` for Apps that use configuration already saved in ConfigHub.

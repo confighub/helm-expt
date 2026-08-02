@@ -224,7 +224,7 @@ A Helm chart can hide the final Kubernetes objects, risky defaults, prerequisite
 
 Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants.
 
-1. Choose a chart and preset configuration in the Helm Ops Catalog.
+1. Choose a chart and preset configuration in the Configuration Catalog.
 2. Pull the cub installer package and render it without a ConfigHub account.
 3. Inspect the objects, render intent, routes, prerequisites, and receipts.
 4. Upload the rendered files or a literal configuration OCI bundle as a base variant.

@@ -28,17 +28,18 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-This preset config records 11 prerequisites: 10 CRDs, 1 Secret. Follow the instructions below before you apply the rendered objects.
+This preset config records 11 prerequisites: 10 CRDs, 1 Secret. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-The catalog records 7 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
+The catalog records 8 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-- **Before install:** preflight-or-presync.
-- **Before install:** preserve-ordering.
-- **Before install:** target-facts-or-preflight.
-- **After install:** postsync-check-or-observation.
-- **After install:** webhook-readiness-observation.
-- **During upgrade:** upgrade-action-with-receipt.
-- **When uninstalling:** preserve-cleanup-policy.
+- **Before install:** The package runs the chart's certificate creation Job before applying the admission webhooks.
+- **Before install:** The no-crds render omits CRDs, so the package applies the locked CRDs before the workload.
+- **Before install:** The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.
+- **Before install:** The certificate Job creates the required admission Secret with ca, cert, and key.
+- **After install:** The package runs the chart's webhook patch Job after the webhook objects exist.
+- **After install:** The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.
+- **During upgrade:** Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks.
+- **When uninstalling:** The run removes both completed Jobs and their temporary RBAC objects.
 
 CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
 
@@ -93,15 +94,16 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | When | What | How it is handled |
 | --- | --- | --- |
-| Before install | ClusterFeature: Secret monitoring/kube-prometheus-stack-admission keys cert,key | kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=<value> --from-literal=key=<value> |
-| Before install | 10 CRDs: alertmanagerconfigs.monitoring.coreos.com, alertmanagers.monitoring.coreos.com, podmonitors.monitoring.coreos.com, probes.monitoring.coreos.com, prometheusagents.monitoring.coreos.com, prometheuses.monitoring.coreos.com, prometheusrules.monitoring.coreos.com, scrapeconfigs.monitoring.coreos.com, servicemonitors.monitoring.coreos.com, thanosrulers.monitoring.coreos.com | Included in the public package as prerequisites/target-facts/no-crds-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
-| Before install | Prepare the target | preflight-or-presync. |
-| Before install | Keep the required apply order | preserve-ordering. |
-| Before install | Prepare the target | target-facts-or-preflight. |
-| After install | Check the completed install | postsync-check-or-observation. |
-| After install | Wait for the webhook to be ready | webhook-readiness-observation. |
-| During upgrade | Run the upgrade step | upgrade-action-with-receipt. |
-| When uninstalling | Keep the chart's cleanup policy | preserve-cleanup-policy. |
+| Before install | 10 CRDs: alertmanagerconfigs.monitoring.coreos.com, alertmanagers.monitoring.coreos.com, podmonitors.monitoring.coreos.com, probes.monitoring.coreos.com, prometheusagents.monitoring.coreos.com, prometheuses.monitoring.coreos.com, prometheusrules.monitoring.coreos.com, scrapeconfigs.monitoring.coreos.com, servicemonitors.monitoring.coreos.com, thanosrulers.monitoring.coreos.com | Included in the public package as prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects. |
+| Before install | ClusterFeature: Secret monitoring/kube-prometheus-stack-admission keys ca,cert,key | Included in the public package as prerequisites/kube-prometheus-stack-lifecycle/prepare.sh. The generated try script applies it and waits for the required CRD before installing the main objects. |
+| Before install | Prepare the target | The package runs the chart's certificate creation Job before applying the admission webhooks. |
+| Before install | Install CRDs first | The no-crds render omits CRDs, so the package applies the locked CRDs before the workload. |
+| Before install | Keep the required apply order | The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order. |
+| Before install | Prepare the target | The certificate Job creates the required admission Secret with ca, cert, and key. |
+| After install | Check the completed install | The package runs the chart's webhook patch Job after the webhook objects exist. |
+| After install | Wait for the webhook to be ready | The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads. |
+| During upgrade | Run the upgrade step | Argo CD and Flux upgraded the no-crds preset from 85.3.3 to 86.1.0, reran the four ordered stages, replaced both hook Jobs, and passed the runtime checks. |
+| When uninstalling | Keep the chart's cleanup policy | The run removes both completed Jobs and their temporary RBAC objects. |
 
 ## Evidence
 
@@ -112,7 +114,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | Earlier local-cluster test | `yes` |
 | GitOps OCI live run | `yes` |
 | Live Helm vs ConfigHub comparison | `yes` |
-| Lifecycle routes | `7` |
+| Lifecycle routes | `8` |
 
 ## Limits
 

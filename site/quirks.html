@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -514,7 +512,7 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Helm Quirks</h1>
     <p class="lead">Render parity tells you ConfigHub preserved Helm's object set. Quirks tell you what still has to be true for those objects to work: CRDs, webhooks, generated values, cluster lookups, storage, RBAC, hooks, and target facts.</p>
     <p>This is the page for the “what will this chart assume?” question. Use it before trusting a green render or a green GitOps sync.</p>
@@ -525,10 +523,10 @@
       <h2 id="how">How To Use This Page</h2>
       <div class="grid">
         <div class="card"><h3>Start here</h3><p>Use this page to understand the words in the matrix. It explains what each quirk means, why it matters, and what the user or target must provide.</p></div>
-        <div class="card"><h3>Then check a chart</h3><p>Open the Helm Ops Catalog or the matrix to see whether a specific chart and base has that quirk.</p></div>
+        <div class="card"><h3>Then check a chart</h3><p>Open the Configuration Catalog or the matrix to see whether a specific chart and base has that quirk.</p></div>
         <div class="card"><h3>Then check the route</h3><p>For hooks, CRDs, webhooks, target facts, and generated facts, use the row's route, gap, and next-action fields to see what must happen before delivery.</p></div>
       </div>
-      <p><a href="./charts/index.html">Open Helm Ops Catalog</a> · <a href="./matrix.html">Open status matrix</a> · <a href="d/docs/reference/helm-quirk-support-matrix.html">Read the reference matrix</a></p>
+      <p><a href="./charts/index.html">Open the Configuration Catalog</a> · <a href="./matrix.html">Open status matrix</a> · <a href="d/docs/reference/helm-quirk-support-matrix.html">Read the reference matrix</a></p>
     </section>
 
     <section aria-labelledby="list">

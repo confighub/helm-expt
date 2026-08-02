@@ -320,7 +320,7 @@ What extra work, such as CRDs, Secrets, hooks, or setup jobs, is still mine to h
 
 ## How To Use This
 
-1. Start from the Helm Ops Catalog chart page.
+1. Start from the Configuration Catalog chart page.
 2. Pick the preset config you want to try.
 3. Open the guide for that preset config.
 4. Run \`try.sh\` for a no-account test, or \`confighub.sh\` to upload the rendered objects into a ConfigHub Space.
