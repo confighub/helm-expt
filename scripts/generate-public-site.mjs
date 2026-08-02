@@ -1929,7 +1929,8 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td><strong>Record</strong> (receipts, checksums)</td><td class="yes">yes</td><td class="yes">yes</td><td>Just hashing and writing committed content, no live state.</td></tr>
     <tr><td><strong>Catalog / matrix / site views</strong></td><td class="yes">yes</td><td class="yes">yes</td><td>Re-derived from the committed recipes; stable joins, stable order.</td></tr>
     <tr><td><strong>Route</strong> (hooks / CRDs / prereqs)</td><td class="part">plan: yes</td><td class="part">plan: yes · run: no</td><td>Naming and classifying is pure; <em>running</em> a route touches a cluster and may have side effects.</td></tr>
-    <tr><td><strong>Apply</strong> (kubectl / Argo / Flux)</td><td class="yes">yes, apply + prune converges</td><td class="no">no</td><td>Declarative apply converges to the same state, but it's a live action on a cluster.</td></tr>
+    <tr><td><strong>Apply</strong> (kubectl)</td><td class="part">for listed objects</td><td class="no">no</td><td>Plain apply creates or updates the objects in the files. It does not remove an object merely because that object disappeared from the files.</td></tr>
+    <tr><td><strong>Reconcile</strong> (Argo CD / Flux)</td><td class="part">when pruning is enabled</td><td class="no">no</td><td>A controller can converge additions, changes, and removals, but only with the appropriate prune setting enabled and tested.</td></tr>
     <tr><td><strong>Live proof / disposition</strong></td><td class="no">no</td><td class="no">no, not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
   </table>
   <p class="quiet-line">A <strong>rename or re-derivation regenerates offline</strong> from committed source. A <strong>fresh live result needs a cluster</strong>. Live runs are serial and use one temporary cluster at a time. <code>cub cluster up</code> creates that local kind cluster. <code>cub cluster down</code> removes it afterward. Render parity is not a live result, and a warning is not a pass.</p>
@@ -4214,8 +4215,8 @@ function hardQuestionsHtml(catalog) {
           status: "watch",
           question: "Does cub-direct remove resources that disappear during an upgrade?",
           answer:
-            "Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector/allowlist, or another explicit delete-set. Argo and Flux are not affected because they prune declaratively.",
-          links: [["Prune gap proof", "../data/prune-gap-proof/summary.md"], ["Deployment path", "../docs/user/cub-deployment-path.md"]],
+            "Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector or allowlist, or another explicit delete-set. Argo CD and Flux can remove omitted objects only when pruning is enabled. Argo CD automated pruning is off by default; a Flux Kustomization uses spec.prune: true.",
+          links: [["Prune gap proof", "../data/prune-gap-proof/summary.md"], ["Deployment path", "../docs/user/cub-deployment-path.md"], ["Argo CD pruning", "https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/#automatic-pruning"], ["Flux pruning", "https://fluxcd.io/flux/components/kustomize/kustomizations/#prune"]],
         },
         {
           status: "watch",
@@ -4309,7 +4310,7 @@ function knownGapsHtml(catalog) {
       "cub-direct no prune",
       "watch",
       "Plain apply does not remove an object when it disappears from the desired configuration.",
-      "Use Argo CD or Flux pruning, or delete the object explicitly during the upgrade.",
+      "Enable and verify pruning in Argo CD or Flux, or delete the object explicitly during the upgrade.",
       "../data/prune-gap-proof/summary.md",
     ],
     [
@@ -7960,7 +7961,7 @@ function universalCubAdoptionRows() {
     ],
     [
       "Direct-apply upgrades need an explicit prune rule",
-      `Plain <code>kubectl apply</code> leaves removed objects behind. Use Argo CD or Flux for controller-managed pruning, or use a direct path whose ownership and pruning behavior have their own receipt.`,
+      `Plain <code>kubectl apply</code> leaves removed objects behind. Enable and test pruning in Argo CD or Flux, or use a direct path whose ownership and pruning behavior have their own receipt.`,
     ],
     [
       "server-side apply conflicts need a readable choice",
@@ -7982,7 +7983,7 @@ function chartAdoptionCaveatHtml(caveat, requirements = [], routes = []) {
   if (!caveat && !packagedCrds.length && !crdRoute) {
     return `<section aria-labelledby="adoption-caveats">
       <h2 id="adoption-caveats">First-Run Caveats</h2>
-      <p>No chart-specific password or CRD caveat is recorded for this chart. For direct delivery, define how removed objects are pruned and how field conflicts are resolved. Argo CD and Flux can own those reconciliation jobs when their delivery path is recorded for the selected preset.</p>
+      <p>No chart-specific password or CRD caveat is recorded for this chart. For direct delivery, define how removed objects are pruned and how field conflicts are resolved. Argo CD and Flux can own those reconciliation jobs when their delivery path and pruning settings are recorded for the selected preset.</p>
       <p><a href="../../data/cub-adoption-caveats/summary.html">Open the all-chart adoption caveats</a> · <a href="../../docs/user/helm-to-cub-migration.md">Helm to cub migration</a></p>
     </section>`;
   }
@@ -7994,7 +7995,7 @@ function chartAdoptionCaveatHtml(caveat, requirements = [], routes = []) {
       ? `Yes. ${escapeHtml(crdRoute.operatingDetails || "Follow the recorded CRD setup step before applying the main objects.")}`
       : `Yes. ${escapeHtml(caveat?.crd_count || "Some")} CRD object(s) are recorded. Follow the preset's recorded route: apply CRDs first and wait, use a controller-specific ordering rule, or choose the separable CRD base ${caveat?.crd_separable_base ? `<code>${escapeHtml(caveat.crd_separable_base)}</code>` : "when one is available"}.`;
   const rows = [
-    ["Universal caveats", `Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path is recorded for the selected preset.`],
+    ["Universal caveats", `Use declared inputs or bases instead of Helm <code>--set</code>. For direct delivery, define pruning and field-conflict behavior. Use Argo CD or Flux when that controller path and its pruning settings are recorded for the selected preset.`],
     [
       "Shared placeholder password",
       hasPassword

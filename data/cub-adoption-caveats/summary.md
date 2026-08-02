@@ -11,13 +11,13 @@ These are the same for all 100 charts, so they are stated once here rather than 
 1. **Customize with `--input` or a base edit, not Helm's `--set`** — cub rejects `--set`/`--values` (the typo guard); declared values use `--input`, the rest by choosing/editing a kustomize base.
    - *Managed:* Guided errors + migration cheat-sheet (#1020, docs/user/helm-to-cub-migration.md).
 2. **Upgrades don't auto-delete removed objects on cub-direct** — A plain `kubectl apply` leaves orphans when an upgrade removes a resource.
-   - *Managed:* Managed applier uses `--prune` (#1019), or use a controller (Argo/Flux) which prunes natively.
+   - *Managed:* Managed applier uses `--prune` (#1019), or use Argo CD or Flux with pruning enabled and tested.
 3. **A manual `kubectl edit` conflicts on server-side re-apply** — Safer than Helm's silent overwrite, but a Helm user expects the overwrite.
    - *Managed:* Managed applier surfaces a plain-words message + `--force-conflicts` (#1019).
 
 ## Per-chart caveats (these vary by chart)
 
-**2/100 charts** still bake a shared placeholder password in their default setup; **41/100 charts** ship CRDs that need first-ordering on cub-direct. Full data for all 100 charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
+**2/100 charts** still bake a shared placeholder password in their default setup; **43/100 charts** ship CRDs that need first-ordering on cub-direct. Full data for all 100 charts: [caveats.csv](./caveats.csv) · [summary.html](./summary.html).
 
 ### Shared placeholder password (#1012) — 2 charts
 
@@ -28,7 +28,7 @@ If a chart appears here, its default base bakes a password Secret that is **the 
 | falcosecurity/falcosidekick | `default` | 1 | replace the placeholder before prod |
 | runix/pgadmin4 | `default` | 1 | replace the placeholder before prod |
 
-### CRDs need first-ordering on cub-direct (#1015) — 41 charts
+### CRDs need first-ordering on cub-direct (#1015) — 43 charts
 
 On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are established. A controller handles ordering; on cub-direct, apply CRDs first and wait, or use the managed applier (#1019).
 
@@ -53,7 +53,7 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | grafana/rollout-operator | `default` | 2 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | hashicorp/consul | `default-control-plane` | 28 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | hashicorp/terraform | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
-| jaegertracing/jaeger-operator | `default` | 1 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| jaegertracing/jaeger-operator | `default` | 3 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | jetstack/cert-manager | `default` | 6 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | jetstack/trust-manager | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | kedacore/keda | `default` | 6 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
@@ -68,6 +68,8 @@ On the bare `kubectl apply` path a chart's CRs can apply before its CRDs are est
 | percona/pg-operator | `default` | 8 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | percona/psmdb-operator | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | percona/pxc-operator | `default` | 3 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
+| projectcalico/tigera-operator | `default` | 4 | apply CRDs first + wait, or use a controller (#1015/#1019) |
+| prometheus-community/kube-prometheus-stack | `default` | 10 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |
 | rook-release/rook-ceph | `default` | 25 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | rook-release/rook-ceph-cluster | `default` | 5 | apply CRDs first + wait, or use a controller (#1015/#1019) |
 | sealed-secrets/sealed-secrets | `default` | 1 | `no-crds` base separates CRDs; apply CRDs first + wait, or use a controller (#1015/#1019) |

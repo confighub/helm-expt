@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Gap proof (live): does the cub-direct (no-controller) delivery path prune resources that an
 // upgrade REMOVES? config-as-data promises the cluster matches desired state. Argo and Flux
-// reconcile declaratively and PRUNE removed resources. But the doctrine's third delivery path
+// can prune removed resources when their prune settings are enabled. But the doctrine's third delivery path
 // — cub-direct = pull the OCI bundle + `kubectl apply` — uses plain `kubectl apply`, which
 // only creates/updates the objects you hand it. So when v2 drops a resource v1 had, plain
 // apply ORPHANS it: the cluster silently keeps a resource that is no longer in desired state.
@@ -77,14 +77,14 @@ function runProof() {
     spec: {
       observedAt: stamp,
       result: orphaned ? "watch" : orphaned === false ? "pass" : "blocked",
-      claim: "The cub-direct (no-controller) delivery path is `kubectl apply`, which does NOT prune resources removed between versions. An upgrade that drops a resource ORPHANS it — the cluster silently keeps an object no longer in desired state, breaking the config-as-data promise on this path. Argo and Flux prune natively; cub-direct must use `kubectl apply --prune` (label/allowlist) or a controller for clean upgrades.",
+      claim: "The cub-direct (no-controller) delivery path is `kubectl apply`, which does NOT prune resources removed between versions. An upgrade that drops a resource ORPHANS it — the cluster silently keeps an object no longer in desired state, breaking the config-as-data promise on this path. cub-direct must use `kubectl apply --prune` with a safe selector or allowlist, an explicit delete-set, or a controller with pruning enabled.",
       legs: {
         orphanOnPlainApply: { removedResource: "ConfigMap/extra-config", stillPresentAfterV2: orphaned, result: orphaned ? "orphaned (gap confirmed)" : "pruned" },
         pruneFlagFixes: { command: "kubectl apply --prune -l app=pruneproof", removed: prunedByFlag, result: prunedByFlag ? "pass" : "did-not-prune" },
       },
       run: { rig, cleanup: { result: clusterUp ? "pass" : "n/a" } },
       conclusion: orphaned
-        ? "Confirmed: the cub-direct path orphans removed resources on upgrade (plain kubectl apply does not prune). `--prune` removes them — so the doctrine must require `--prune` (or a controller) for the no-controller upgrade path. Argo/Flux are unaffected (they prune declaratively)."
+        ? "Confirmed: the cub-direct path orphans removed resources on upgrade (plain kubectl apply does not prune). `--prune` removes them, so the no-controller upgrade path must require `--prune` or an explicit delete-set. Argo CD and Flux can remove omitted objects only when their pruning settings are enabled."
         : "Plain apply did not orphan the removed resource in this run; see leg details.",
     },
   };
@@ -98,7 +98,7 @@ function summaryMd(r) {
 
 **Claim.** ${s.claim}
 
-config-as-data promises the cluster matches desired state. Argo and Flux reconcile and **prune**. The doctrine's third delivery path — **cub-direct** (pull the OCI bundle + \`kubectl apply\`) — uses plain apply, which only creates/updates the objects handed to it. Proven live on a throwaway kind cluster:
+config-as-data promises the cluster matches desired state. Argo CD and Flux can reconcile and prune when their pruning settings are enabled. The doctrine's third delivery path — **cub-direct** (pull the OCI bundle + \`kubectl apply\`) — uses plain apply, which only creates or updates the objects handed to it. Proven live on a throwaway kind cluster:
 
 | Step | Observation | Result |
 | --- | --- | --- |
@@ -107,7 +107,7 @@ config-as-data promises the cluster matches desired state. Argo and Flux reconci
 
 Overall: **${s.result}**. ${s.conclusion}
 
-- **Affected:** the **cub-direct / no-controller** delivery path only. **Not affected:** Argo CD and Flux, which prune declaratively.
+- **Affected:** plain **cub-direct / no-controller** upgrades. Argo CD and Flux avoid the same problem only when pruning is enabled for that application or Kustomization.
 - **The fix:** the no-controller upgrade path must use \`kubectl apply --prune\` (with a label selector / allowlist) or hand a delete-set — otherwise every upgrade that removes a resource leaves an orphan. The doctrine should say so.
 - Receipt: \`runs/prune-gap-proof/receipt.yaml\`.
 `;
@@ -137,7 +137,7 @@ function summaryHtml(r) {
   <tr><td>apply v1 → v2 (drops <code>ConfigMap/extra-config</code>), plain <code>kubectl apply</code></td><td>${yn(L.orphanOnPlainApply.stillPresentAfterV2)} (orphaned)</td></tr>
   <tr><td><code>kubectl apply --prune -l app=pruneproof</code></td><td>${yn(!L.pruneFlagFixes.removed)} (the fix)</td></tr>
   </tbody></table>
-  <footer>Affected: the cub-direct / no-controller path only. Argo CD and Flux prune declaratively and are unaffected. The no-controller upgrade path must use <code>--prune</code> or a delete-set, or every upgrade that removes a resource leaves an orphan — silently out of sync with desired state.</footer>
+  <footer>Plain cub-direct upgrades need <code>--prune</code> or an explicit delete-set. Argo CD and Flux remove omitted objects only when their pruning settings are enabled.</footer>
 </main></body></html>
 `;
 }

@@ -1,5 +1,5 @@
 chart,version,default_base,bakes_shared_password,password_keys,password_fix_base,password_fix_command,ships_crds,crd_count,crd_separable_base,universal_caveats
-aqua/trivy-operator,0.32.1,default,no,,no-crds,kubectl apply -f <crd-manifest.yaml>,yes,12,no-crds,customize;prune;ssa-conflict
+aqua/trivy-operator,0.32.1,default,no,,no-crds,package://prerequisites/target-facts/no-crds-crds.yaml,yes,12,no-crds,customize;prune;ssa-conflict
 argo-cd/argo-cd,9.5.17,default,no,,default,kubectl -n argocd create secret generic argocd-redis --from-literal=auth=<value>,yes,3,,customize;prune;ssa-conflict
 argo-cd/argo-events,2.4.21,default,no,,,,yes,3,no-crds,customize;prune;ssa-conflict
 argo-cd/argo-rollouts,2.40.9,default,no,,,,yes,5,no-crds,customize;prune;ssa-conflict
@@ -9,7 +9,7 @@ autoscaler/cluster-autoscaler,9.57.0,default,no,,,,no,0,,customize;prune;ssa-con
 autoscaler/vertical-pod-autoscaler,0.9.0,default,no,,default,Run the chart certgen lifecycle action or stage a valid vpa-tls-certs Secret before waiting for the admission controller,yes,2,no-crds,customize;prune;ssa-conflict
 aws-ebs-csi-driver/aws-ebs-csi-driver,2.60.1,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/apache,11.4.29,default,no,,,,no,0,,customize;prune;ssa-conflict
-bitnami/contour,21.1.4,default,no,,,,yes,5,,customize;prune;ssa-conflict
+bitnami/contour,21.1.4,default,no,,legacy,package://prerequisites/contour-certgen/run.sh,yes,5,,customize;prune;ssa-conflict
 bitnami/elasticsearch,22.1.6,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/memcached,8.5.5,default,no,,,,no,0,,customize;prune;ssa-conflict
 bitnami/mongodb,19.1.0,existing-secret-replicaset,no,,existing-secret-replicaset,"kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=""$(openssl rand -base64 32)"" --from-literal=mongodb-replica-set-key=""$(openssl rand -base64 48)""",no,0,,customize;prune;ssa-conflict
@@ -57,7 +57,7 @@ ingress-nginx/ingress-nginx,4.15.1,default,no,,default,kubectl -n ingress-nginx 
 istio/gateway,1.30.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 istio/istiod,1.30.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 jaegertracing/jaeger,4.8.0,default,no,,,,no,0,,customize;prune;ssa-conflict
-jaegertracing/jaeger-operator,2.57.0,default,no,,,,yes,1,,customize;prune;ssa-conflict
+jaegertracing/jaeger-operator,2.57.0,default,no,,,,yes,3,,customize;prune;ssa-conflict
 jetstack/cert-manager,v1.20.2,default,no,,,,yes,6,,customize;prune;ssa-conflict
 jetstack/cert-manager-csi-driver,v0.14.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 jetstack/trust-manager,v0.22.1,default,no,,default,kubectl -n default create secret generic trust-manager-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>,yes,3,no-crds,customize;prune;ssa-conflict
@@ -78,9 +78,9 @@ opencost/opencost,2.5.21,default,no,,,,no,0,,customize;prune;ssa-conflict
 percona/pg-operator,3.0.0,default,no,,,,yes,8,no-crds,customize;prune;ssa-conflict
 percona/psmdb-operator,1.22.0,default,no,,,,yes,3,no-crds,customize;prune;ssa-conflict
 percona/pxc-operator,1.19.1,default,no,,,,yes,3,no-crds,customize;prune;ssa-conflict
-projectcalico/tigera-operator,v3.32.0,default,no,,,,no,0,,customize;prune;ssa-conflict
+projectcalico/tigera-operator,v3.32.0,default,no,,,,yes,4,,customize;prune;ssa-conflict
 prometheus-community/alertmanager,1.37.0,default,no,,,,no,0,,customize;prune;ssa-conflict
-prometheus-community/kube-prometheus-stack,86.1.0,default,no,,,,no,0,no-crds,customize;prune;ssa-conflict
+prometheus-community/kube-prometheus-stack,86.1.0,default,no,,,,yes,10,no-crds,customize;prune;ssa-conflict
 prometheus-community/kube-state-metrics,7.4.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 prometheus-community/prometheus,29.9.0,default,no,,,,no,0,,customize;prune;ssa-conflict
 prometheus-community/prometheus-adapter,5.3.0,default,no,,,,no,0,,customize;prune;ssa-conflict

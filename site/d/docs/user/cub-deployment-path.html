@@ -497,7 +497,7 @@ spec:
 <table><thead><tr><th>Case</th><th>What a safe direct path must do</th></tr></thead><tbody><tr><td>CRDs and custom resources are in one release</td><td>Apply CRDs first, wait for them, then apply dependent objects</td></tr>
 <tr><td>An upgrade removes an object</td><td>Prune the removed object under an explicit ownership rule</td></tr>
 <tr><td>A live edit conflicts with reviewed configuration</td><td>Show the choice: keep live, accept desired, or force the reviewed change</td></tr></tbody></table>
-<p>Argo CD or Flux is the long-running path because the controller owns reconciliation and pruning. Direct apply remains useful for a controlled test or an environment that does not run a GitOps controller.</p>
+<p>Argo CD or Flux is the long-running path because the controller can own reconciliation and pruning. Pruning still has to be enabled and tested: Argo CD automated pruning is off by default, and a Flux Kustomization needs <code>spec.prune: true</code>. Direct apply remains useful for a controlled test or an environment that does not run a GitOps controller.</p>
 <h2 id="credentials">Credentials</h2>
 <p>Delivery credentials and application Secrets are separate.</p>
 <p><b>OCI pull credentials</b> let Argo CD or Flux read a private ConfigHub Space release. <code>cub cluster up</code> installs the Argo CD pull Secret. A Flux test copies the same credential into <code>flux-system</code> without printing it or placing it on a command line.</p>
