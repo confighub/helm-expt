@@ -3388,6 +3388,21 @@ function docsReferenceHtml(catalog) {
       <p><a href="../docs/agent/README.md">Open Agent And Operator Notes</a></p>
     </section>
 
+    <section aria-labelledby="example-materials">
+      <h2 id="example-materials">Where Example Materials Live</h2>
+      <p>The <a href="./testing.html">Examples page</a> explains what to run. Use this table when you need the source, stored record, or published package behind an example.</p>
+      ${markdownLikeTable([
+        ["Place", "What belongs there"],
+        ["This website", "Short explanations, worked examples, chart pages, and links to current proof."],
+        ["GitHub", "Source configuration, generators, scripts, checks, receipts, and every file used to make the website."],
+        ["The ConfigHub helm-catalog organization", `Persistent demo Spaces. Each Space has one README Unit that explains its purpose and the Units it contains. <a href="./demo-org.html">Open the demo-org guide</a>.`],
+        ["Public OCI registry", "Stable starting packages and reviewed public outputs. Each permanent artifact has a role, digest, source record, guide, and publication receipt."],
+        ["ConfigHub release OCI", "Approved outputs from managed Spaces for Argo CD, Flux, or another recorded delivery path."],
+        ["Temporary proof registry", "Short-lived artifacts used by one receipt. The site does not advertise them as permanent packages."],
+      ], { rawSecondColumn: true })}
+      <p><a href="./entry-path-reference.html">Open the detailed entry-path reference</a> for commands, OCI roles, source-to-OCI automation, hooks, CRDs, and proof links.</p>
+    </section>
+
     <section aria-labelledby="five-stages">
       <h2 id="five-stages">Five Stages</h2>
       <p>Most users start by previewing a chart. Add more when you need to save the inputs, share versions with a team, review changes, hand off to GitOps, or run releases.</p>
@@ -5237,17 +5252,16 @@ function examplesHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Choose a worked example</h1>
-    <p class="tagline">Start with a catalog package, your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
-    <p>Each row links to the files, commands, checks, and result for one complete example.</p>
+    <p class="tagline">Begin with the configuration you have. Follow one example to exact Kubernetes objects and a checked result.</p>
+    <p>The first group gets you to one result. The later groups show promotion, delivery, platforms, fleets, and ConfigHub Apps.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
     <span id="catalog-next-jobs"></span>
-    <span id="bring-your-own"></span>
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
-      <h2 id="start">1. Choose a starting point</h2>
-      <p>Choose one row. You do not need to understand the rest of the catalog first.</p>
+      <h2 id="start">1. Start with a configuration</h2>
+      <p>Choose the row that matches what you already have.</p>
       ${markdownLikeTable([
         ["What you have", "What the example does", "Start and proof", "ConfigHub and OCI"],
         [
@@ -5258,8 +5272,8 @@ function examplesHtml(catalog) {
         ],
         [
           "Your own Helm chart and values",
-          "Render the supplied chart and values without applying them. The worked review keeps the intended replica change and fixes six risky or weaker settings.",
-          `<a href="./entry-path-reference.html#bring-your-own">Worked NGINX example</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a> · <a href="./d/data/byo-helm-values-review/summary.html">Review and proof</a>`,
+          "Preview an arbitrary chart and values without applying them. The NGINX review keeps the wanted change and corrects six risky settings.",
+          `<a href="#bring-your-own">Run cub helm</a> · <a href="./d/data/byo-helm-values-review/summary.html">Open the NGINX review</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a>`,
           `Public literal configuration OCI; exact reference is in the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">publication record</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">ConfigHub Space guide</a>`,
         ],
         [
@@ -5281,21 +5295,43 @@ function examplesHtml(catalog) {
           `<a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub Space guide</a>. The focused receipt stops after import; the official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
+
+      <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
+      <p>Use <code>cub helm</code> for an arbitrary chart. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
+      <div class="terminal-card">
+        <div class="terminal-title">your chart → exact Kubernetes files</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-helm
+<span class="term-prompt">$</span> cub helm template myapp &lt;chart-ref&gt; \\
+    --version &lt;chart-version&gt; \\
+    --values ./my-values.yaml \\
+    --output-dir ./out</code></pre>
+      </div>
+      <p>Read the files in <code>./out</code>. Check images, credentials, permissions, storage, CRDs, and any hooks reported by the command.</p>
+      <p>The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values. It keeps the requested replica count and corrects six settings before deployment.</p>
+      <p>When the result is ready for a team, sign in and record it in ConfigHub:</p>
+      <pre><code>cub auth login
+cub helm install myapp &lt;chart-ref&gt; \\
+  --version &lt;chart-version&gt; \\
+  --values ./my-values.yaml</code></pre>
+      <p>This does not apply the chart to Kubernetes. ConfigHub stores the rendered objects in <code>myapp-base</code>. It stores the chart, version, and values in <code>myapp-helm</code>.</p>
+      <p>Change the Helm source when chart values should rebuild the shared base. Change a ConfigHub variant when one environment needs a field after render. Do not set the same field in both places.</p>
+      <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a> · <a href="./entry-path-reference.html#bring-your-own">Open the detailed example</a></p>
     </section>
 
     <section aria-labelledby="start-modes">
-      <h2 id="start-modes">2. Choose where the first example runs</h2>
-      ${markdownLikeTable([
-        ["Choice", "Available now?", "What it means"],
-        ["Local or CI", "Yes", "No ConfigHub Server and no ConfigHub account. Public package pulls also need no Google registry login."],
-        ["Hosted without sign-in", "Planned", "A public service will inspect open configuration without creating private history, variants, approvals, or releases."],
-        ["ConfigHub", "Yes", `Save the reviewed objects, then follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "examples")}">official tutorial</a>. An account is required.`],
-      ], { rawSecondColumn: true, rawThirdColumn: true })}
+      <h2 id="start-modes">2. Choose how to run a starting example</h2>
+      <h3>Local or CI — available now</h3>
+      <p>Use public tools and packages without ConfigHub Server or an account. Public catalog packages also need no Google registry login.</p>
+      <h3>Hosted without sign-in — planned</h3>
+      <p>A public service will inspect open configuration. It will not create private history, variants, approvals, or releases.</p>
+      <h3>ConfigHub — available now</h3>
+      <p>Save the reviewed objects and work with a team. An account is required. Follow the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "examples")}">official tutorial</a>.</p>
       <p>These three choices apply to starting examples. The examples below use ConfigHub Server because their job is to manage saved configuration.</p>
     </section>
 
     <section aria-labelledby="managed">
-      <h2 id="managed">3. Save and change it in ConfigHub</h2>
+      <h2 id="managed">3. Continue in ConfigHub</h2>
+      <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
       ${markdownLikeTable([
         ["Job", "Working example", "Where to go"],
         ["Save and change", "Upload reviewed objects as a base variant. Make an exact development or customer change without changing the source chart.", `<a href="./variants.html">Variants</a> · <a href="./d/docs/user/variants-after-upload.html">Command walkthrough</a>`],
@@ -5322,20 +5358,6 @@ function examplesHtml(catalog) {
         ...appRows,
       ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
       <p><a href="./journey.html">Read how Apps use saved configuration</a>.</p>
-    </section>
-
-    <section aria-labelledby="locations">
-      <h2 id="locations">Technical sources</h2>
-      ${markdownLikeTable([
-        ["Place", "What belongs there"],
-        ["This website", "Short explanations, starting points, chart pages, worked examples, and links to current proof."],
-        ["GitHub", "Source configuration, generators, scripts, checks, receipts, and every file used to make the website."],
-        ["The ConfigHub helm-catalog organization", `Persistent demo Spaces. Each Space has one README Unit that explains its purpose and the Units it contains. <a href="./demo-org.html">Open the demo-org guide</a>.`],
-        ["Public OCI registry", "Stable starting packages and reviewed public outputs. Each permanent artifact must have a role, digest, source record, human guide, and publication receipt."],
-        ["ConfigHub release OCI", "Approved outputs from managed Spaces for Argo CD, Flux, or another recorded delivery path."],
-        ["Temporary proof registry", "Short-lived artifacts used by a receipt. The site must not advertise them as permanent packages."],
-      ], { rawSecondColumn: true })}
-      <p><a href="./entry-path-reference.html">Open the detailed entry-path reference</a> for commands, artifact distinctions, source-to-OCI automation, hooks, CRDs, and the full set of proof links.</p>
     </section>
   </main>
   <footer>Example status is scoped to the named source, version, configuration, delivery path, and receipt.</footer>
@@ -5377,13 +5399,26 @@ function entryPathReferenceHtml(catalog) {
     </section>
     <section aria-labelledby="bring-your-own">
       <h2 id="bring-your-own">Bring your own chart and values</h2>
-      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. This works for values written by your team or proposed by an AI. Render them to files without applying them:</p>
-      <pre><code>helm template &lt;release&gt; &lt;chart&gt; \
-  --version &lt;version&gt; \
-  --namespace &lt;namespace&gt; \
-  --values &lt;values.yaml&gt; \
-  &gt; rendered.yaml</code></pre>
+      <p>Use <code>cub helm</code> when you have an arbitrary chart and values. Start with the chart version, values, namespace, and release name your team intends to use.</p>
+      <p>Install the plugin once. Then render to files without contacting ConfigHub Server or Kubernetes:</p>
+      <pre><code>cub plugin install confighub/cub-helm
+
+cub helm template &lt;release&gt; &lt;chart&gt; \\
+  --version &lt;version&gt; \\
+  --namespace &lt;namespace&gt; \\
+  --values &lt;values.yaml&gt; \\
+  --output-dir ./out</code></pre>
       <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
+      <p><code>cub helm</code> reports hooks it leaves out and writes chart CRDs as separate files. A chart that depends on live cluster lookups needs another path.</p>
+      <p>If the result is ready to share, record both the objects and their Helm inputs in ConfigHub:</p>
+      <pre><code>cub auth login
+cub helm install &lt;release&gt; &lt;chart&gt; \\
+  --version &lt;version&gt; \\
+  --namespace &lt;namespace&gt; \\
+  --values &lt;values.yaml&gt;</code></pre>
+      <p>This command does not apply to Kubernetes. It creates a base Space for the rendered objects and a Helm Space for the chart, version, namespace, and values.</p>
+      <p>Change the Helm source when chart values should rebuild the shared base. Change a ConfigHub variant when one environment needs a field after render. Do not set the same field in both places.</p>
+      <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a></p>
       <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas. It also embeds an API key, selects an unpinned image, and exposes a public LoadBalancer. Three container security settings are also weaker than the catalog baseline. The review keeps the three replicas, restores the security settings, and makes the Deployment use an existing Secret. Open the <a href="../data/byo-helm-values-review/summary.md">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
       <p>The proof renders the locked chart and verifies that its baseline matches the catalog. It finds the six intended problems and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="../data/byo-helm-values-review/public-and-confighub.md">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
       ${markdownLikeTable([
