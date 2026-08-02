@@ -673,7 +673,7 @@
       </article>
         <article class="faq-card answered">
         <div class="faq-head">
-          <h3>What if the cluster is the wrong shape?</h3>
+          <h3>What if the cluster is missing something the configuration needs?</h3>
           <span class="faq-status">answered</span>
         </div>
         <p>A green render is not enough. Some charts need CRDs, Secrets, or cloud identity that a generic cluster does not provide. When a chart needs more than a generic cluster, we mark it clearly and say what's missing.</p>
@@ -736,7 +736,7 @@
           <h3>Can I bring my own values files or overlays?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new base variant or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.</p>
+        <p>Yes, but the route matters. If a choice changes Helm inputs or the objects Helm renders, it belongs in a new base variant or import path. If it changes fields after upload, it belongs in a derived ConfigHub variant.</p>
         <p class="faq-links"><a href="d/docs/user/helm-presets-and-values.html">Helm base variants and values</a> · <a href="d/docs/user/custom-overlays.html">Custom overlays</a> · <a href="d/docs/user/change-routing-before-oci.html">Change routing before OCI</a></p>
       </article>
         <article class="faq-card answered">
@@ -785,7 +785,7 @@
           <h3>Can the catalog prove every values combination for a chart?</h3>
           <span class="faq-status">P1 backlog</span>
         </div>
-        <p>No. Claims are per chart, version, base, values path, lane, and target profile. A new values file or overlay needs its own render, scan, receipts, and live evidence.</p>
+        <p>No. Claims are per chart, version, base, values path, test, and target profile. A new values file or overlay needs its own render, scan, receipts, and live evidence.</p>
         <p class="faq-links"><a href="https://github.com/confighub/helm-expt/issues/1001">P1 backlog</a> · <a href="d/docs/user/what-we-refuse-to-claim.html">What we refuse to claim</a></p>
       </article>
         <article class="faq-card later">

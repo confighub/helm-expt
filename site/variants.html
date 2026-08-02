@@ -521,7 +521,7 @@
   <main>
     <section aria-labelledby="model">
       <h2 id="model">1. See the model</h2>
-      <p>A component is the thing being shipped. A variant is one named shape of that thing.</p>
+      <p>A component is the software being shipped. A variant is one named configuration of that component.</p>
       <pre><code>Component: payments-api
 
 Variants:
@@ -532,7 +532,7 @@ Variants:
   payments-api/prod-eu</code></pre>
       <div class="card"><table>
         <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Component</td><td>The thing you care about: Redis, ingress-nginx, payments-api, or a platform slice.</td></tr><tr><td>Variant</td><td>One named shape of that thing: base, dev, staging, prod-us, prod-eu, or customer-a.</td></tr><tr><td>Base variant</td><td>A Helm-rendered shape. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects.</td></tr><tr><td>Derived variant</td><td>A ConfigHub-managed shape made from an existing base. Use it for environment, region, target, labels, approvals, and scoped post-render changes.</td></tr><tr><td>Promotion</td><td>A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied.</td></tr></tbody>
+        <tbody><tr><td>Component</td><td>The thing you care about: Redis, ingress-nginx, payments-api, or a platform slice.</td></tr><tr><td>Variant</td><td>One named configuration of that component: base, dev, staging, prod-us, prod-eu, or customer-a.</td></tr><tr><td>Base variant</td><td>A configuration rendered from Helm. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects.</td></tr><tr><td>Derived variant</td><td>A ConfigHub configuration made from an existing base. Use it for environment, region, target, labels, approvals, and scoped post-render changes.</td></tr><tr><td>Promotion</td><td>A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -540,7 +540,7 @@ Variants:
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>This gives the team plain questions to answer: which shape are we using, where did it come from, what changed, and is it safe to promote?</p>
+      <p>This gives the team plain questions to answer: which configuration are we using, where did it come from, what changed, and is it safe to promote?</p>
     </section>
 
     <section aria-labelledby="choose">
@@ -563,7 +563,7 @@ Variants:
       <p>A good variant flow is plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
       <div class="card"><table>
         <thead><tr><th>Step</th><th>What happens</th></tr></thead>
-        <tbody><tr><td>Choose a base</td><td>Pick the closest proved install shape from the chart page.</td></tr><tr><td>Load it into ConfigHub</td><td>The rendered objects become managed config that can be named, compared, reviewed, and delivered.</td></tr><tr><td>Name the real-world variants</td><td>Create the dev, staging, prod, region, or customer versions people actually use.</td></tr><tr><td>Preview the difference</td><td>Look at the object and field changes before delivery. Small changes stay small.</td></tr><tr><td>Promote with a receipt</td><td>Move a reviewed change forward only after the preview, gates, and receipts say what will happen.</td></tr></tbody>
+        <tbody><tr><td>Choose a base</td><td>Pick the closest tested configuration from the chart page.</td></tr><tr><td>Load it into ConfigHub</td><td>The rendered objects become managed config that can be named, compared, reviewed, and delivered.</td></tr><tr><td>Name the real-world variants</td><td>Create the dev, staging, prod, region, or customer versions people actually use.</td></tr><tr><td>Preview the difference</td><td>Look at the object and field changes before delivery. Small changes stay small.</td></tr><tr><td>Promote with a receipt</td><td>Move a reviewed change forward only after the preview, gates, and receipts say what will happen.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -571,7 +571,7 @@ Variants:
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The command surface today is <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. Product screens can make this friendlier, but the same data remains available for review.</p>
+      <p>Today you use <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. The same changes remain available for review in ConfigHub.</p>
       <p>For the exact commands with the why behind each flag, read <a href="d/docs/user/variants-after-upload.html">After upload: create a variant and promote changes</a>. It starts where a base variant's <code>confighub.sh</code> ends.</p>
     </section>
 
@@ -610,7 +610,7 @@ promotion dry-run lists mutations before apply</code></pre>
 
     <section aria-labelledby="more">
       <h2 id="more">6. Read the details</h2>
-      <p><a href="d/docs/user/creating-variants.html">Creating variants</a> explains the doctrine. <a href="d/docs/user/cub-variant-command-surface.html">cub variant command surface</a> tracks the command vocabulary. <a href="d/data/variant-promotion/summary.html">Variant promotion receipts</a> show the current evidence.</p>
+      <p><a href="d/docs/user/creating-variants.html">Creating variants</a> explains the rules. <a href="d/docs/user/cub-variant-command-surface.html">cub variant commands</a> lists the current commands. <a href="d/data/variant-promotion/summary.html">Variant promotion receipts</a> show the current evidence.</p>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Base variants are render-time choices; derived variants are post-render ConfigHub refinements.</footer>

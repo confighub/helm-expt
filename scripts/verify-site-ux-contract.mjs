@@ -343,6 +343,10 @@ for (const file of humanSplitPages) {
     "The point is simple",
     "a reviewed object edit stays",
     "Argo and Flux are not affected because they prune declaratively",
+    "bounded example",
+    "public proof corpus",
+    "install-time surface",
+    "one named shape",
   ]) {
     if (text.includes(phrase)) failures.push(`${file}: contains retired or misleading prose ${JSON.stringify(phrase)}`);
   }

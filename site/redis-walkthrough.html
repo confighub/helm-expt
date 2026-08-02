@@ -661,7 +661,7 @@ $ grep -R "kind: Secret" ./redis/out/manifests
   <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
 
   <h2>What we checked</h2>
-  <p>The Redis steps above are backed by separate receipts so one passing lane is not made to prove everything.</p>
+  <p>The Redis steps above are backed by separate receipts. A render check does not stand in for a Kubernetes run, an OCI delivery, or an upgrade test.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
     <tr><td><a href="./d/data/redis-public-walkthrough-proof/summary.html">Public Redis walkthrough</a></td><td>Anonymous pulls of 25.5.3 and 27.0.0, 14 non-secret objects at each version, the same selected base after upgrade, and both local OCI outputs pulled back and verified.</td></tr>

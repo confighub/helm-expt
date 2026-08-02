@@ -3160,7 +3160,7 @@ $ grep -R "kind: Secret" ./redis/out/manifests
   <p>The <a href="./d/data/serverless-oci-gitops-proof/summary.html">live no-account NGINX proof</a> runs this exact installer output path against a temporary registry. Flux reconciled the recorded output digest and the Deployment reached its desired replica count.</p>
 
   <h2>What we checked</h2>
-  <p>The Redis steps above are backed by separate receipts so one passing lane is not made to prove everything.</p>
+  <p>The Redis steps above are backed by separate receipts. A render check does not stand in for a Kubernetes run, an OCI delivery, or an upgrade test.</p>
   <table class="gtable">
     <tr><th>Check</th><th>What it shows</th></tr>
     <tr><td><a href="./d/data/redis-public-walkthrough-proof/summary.html">Public Redis walkthrough</a></td><td>Anonymous pulls of 25.5.3 and 27.0.0, 14 non-secret objects at each version, the same selected base after upgrade, and both local OCI outputs pulled back and verified.</td></tr>
@@ -3207,7 +3207,7 @@ function serverlessHtml(catalog) {
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># before either lane: provide the password separately</span>
+        <pre class="terminal-body"><code><span class="term-comment"># before either install: provide the password separately</span>
 <span class="term-prompt">$</span> kubectl create namespace redis
 <span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \\
     --from-literal=redis-password="$(openssl rand -base64 32)"
@@ -3322,7 +3322,7 @@ function docsReferenceHtml(catalog) {
     ["Follow the complete Redis example", `<a href="./redis-walkthrough.html">Detailed Redis walkthrough</a>`, "Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
-    ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "Separate the bounded example that ran from the broader product status and its remaining work."],
+    ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public chart", `<a href="./charts/index.html">Configuration Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
     ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
     ["Use an App on ConfigHub", `<a href="./journey.html">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
@@ -3506,7 +3506,7 @@ function docsReferenceHtml(catalog) {
       <h2 id="database">Verification And Evidence</h2>
       <p>Each chart page gives the short answer: what can I try, and what should I watch first? The matrix and generated data are for review work. They show where the chart answer came from: render inputs, test results, receipts, known gaps, and claim status.</p>
       ${markdownLikeTable([
-        ["Surface", "What it helps with", "Open"],
+        ["Evidence", "What it helps with", "Open"],
         ...dataRows.map(([name, body, path]) => [name, body, `<a href="${path}">${escapeHtml(name)}</a>`]),
       ], { rawThirdColumn: true })}
     </section>
@@ -3611,7 +3611,7 @@ function verificationHtml(catalog) {
   const topicRows = [
     [`<a href="../docs/user/verification.md">Verification docs</a>`, "The canonical docs landing page for proof commands and render-record-route."],
     [`<a href="../docs/user/verify-it-yourself.md">Verify It Yourself</a>`, "The practical command list for offline checks, rendered installs, parity receipts, and cub-scout receipts."],
-    [`<a href="../docs/user/verification-lanes.md">Verification Lanes</a>`, "What each lane proves and what it does not prove."],
+    [`<a href="../docs/user/verification-lanes.md">Verification Lanes</a>`, "What each type of test proves and what it does not prove."],
     [`<a href="../docs/user/choosing-commands.md">Choosing Commands</a>`, "When to use product commands versus repo verifiers."],
     [`<a href="../docs/user/expected-results-and-clusters.md">Expected Results And Clusters</a>`, "Which steps need a cluster and what output to expect."],
     [`<a href="../docs/user/outcomes-and-tests.md">Outcomes And Tests</a>`, "Which repo promises map to which test commands and CSVs."],
@@ -3642,7 +3642,7 @@ function verificationHtml(catalog) {
       <h2 id="start-question">1. Choose the question</h2>
       <p>Use the smallest check that answers it. A generated-file check confirms repository consistency. A live check tests one recorded configuration again and may create clusters and receipts.</p>
       ${markdownLikeTable([
-        ["Question", "Command or surface", "Needs cluster?", "What it proves"],
+        ["Question", "Command or page", "Needs cluster?", "What it proves"],
         ...commandRows,
       ], { rawSecondColumn: true })}
     </section>
@@ -3793,10 +3793,10 @@ function proofHtml(catalog) {
     ["Synthetic torture suite", "Breaker charts land in named pass, refusal, or route outcomes; silent outcomes fail.", "../data/torture-suite/summary.md"],
     ["Environment matrix", "Renders are checked across timezone and locale cells for the measured corpus.", "../data/environment-matrix/summary.md"],
     ["Hook dispositions", "Hook-bearing top-100 charts have observed, routed, per-target, or recipe-needed dispositions.", "../data/hook-disposition/summary.md"],
-    ["Master matrix", "Every chart/version/base row carries lane status, source links, production scope, and next action.", "./matrix.html"],
+    ["Master matrix", "Every chart/version/base row carries test status, source links, production scope, and next action.", "./matrix.html"],
   ];
   const refusalRows = [
-    ["No blanket chart support", "Every claim names chart, version, base, lane, and target profile."],
+    ["No blanket chart support", "Every claim names chart, version, base, test, and target profile."],
     ["No whole-values-space proof", "The catalog proves named bases. Custom values must be rendered, checked, and recorded with receipts."],
     ["No universal hook execution", "Hooks are inventoried and routed; execution is claimed only with live evidence."],
     ["No production claim from render parity", "Production support requires target-scoped decisions and fresh receipts."],
@@ -3856,8 +3856,8 @@ function proofHtml(catalog) {
       <p>A breaking chart should become a repeatable test, a named limit, or a required setup step. It must not disappear into prose.</p>
       <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
       ${markdownLikeTable([
-        ["Surface", "What it answers", "Open"],
-        ...scepticRows.map(([name, body, path]) => [name, body, `<a href="${path}">${path}</a>`]),
+        ["Test or record", "What it answers", "Open"],
+        ...scepticRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
       ], { rawSecondColumn: false, rawThirdColumn: true })}
     </section>
 
@@ -4035,7 +4035,7 @@ function hardQuestionsHtml(catalog) {
         },
         {
           status: "answered",
-          question: "What if the cluster is the wrong shape?",
+          question: "What if the cluster is missing something the configuration needs?",
           answer:
             "A green render is not enough. Some charts need CRDs, Secrets, or cloud identity that a generic cluster does not provide. When a chart needs more than a generic cluster, we mark it clearly and say what's missing.",
           links: [["Before rerun", "../docs/user/target-prerequisites-before-rerun.md"], ["Reading the matrix", "../docs/user/reading-the-matrix.md"]],
@@ -4089,7 +4089,7 @@ function hardQuestionsHtml(catalog) {
           status: "answered",
           question: "Can I bring my own values files or overlays?",
           answer:
-            "Yes, but the route matters. If a choice changes Helm inputs or object shape, it belongs in a new base variant or import path. If it refines an uploaded object set, it belongs in a derived ConfigHub variant.",
+            "Yes, but the route matters. If a choice changes Helm inputs or the objects Helm renders, it belongs in a new base variant or import path. If it changes fields after upload, it belongs in a derived ConfigHub variant.",
           links: [["Helm base variants and values", "../docs/user/helm-presets-and-values.md"], ["Custom overlays", "../docs/user/custom-overlays.md"], ["Change routing before OCI", "../docs/user/change-routing-before-oci.md"]],
         },
 	        {
@@ -4134,7 +4134,7 @@ function hardQuestionsHtml(catalog) {
           status: "later",
           question: "Can the catalog prove every values combination for a chart?",
           answer:
-            "No. Claims are per chart, version, base, values path, lane, and target profile. A new values file or overlay needs its own render, scan, receipts, and live evidence.",
+            "No. Claims are per chart, version, base, values path, test, and target profile. A new values file or overlay needs its own render, scan, receipts, and live evidence.",
           links: [["P1 backlog", laterIssueUrl], ["What we refuse to claim", "../docs/user/what-we-refuse-to-claim.md"]],
         },
 	        {
@@ -4512,7 +4512,7 @@ function privateHtml(catalog) {
       </div>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Commercial features depend on product, support, policy, and SLA decisions beyond the public proof corpus.</footer>
+  <footer>Generated from helm-expt evidence. Check with ConfigHub for current product, support, policy, and service details.</footer>
 </body>
 </html>
 `;
@@ -4807,7 +4807,7 @@ function journeyHtml(catalog) {
 
     <section aria-labelledby="app-program">
       <h2 id="app-program">5. Open the working demonstrations</h2>
-      <p>Each row has a bounded example with committed evidence. The broader product capability remains partial until the missing work in the final column is complete.</p>
+      <p>Each row has one checked example with committed evidence. The final column says what is still needed before the same result can be offered more generally.</p>
       ${markdownLikeTable([
         ["App", "What ran", "Broader status", "Still to build"],
         ...appDemos.map((demo) => [
@@ -4829,13 +4829,13 @@ function journeyHtml(catalog) {
 function variantsHtml(catalog) {
   const modelRows = [
     ["Component", "The thing you care about: Redis, ingress-nginx, payments-api, or a platform slice."],
-    ["Variant", "One named shape of that thing: base, dev, staging, prod-us, prod-eu, or customer-a."],
-    ["Base variant", "A Helm-rendered shape. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects."],
-    ["Derived variant", "A ConfigHub-managed shape made from an existing base. Use it for environment, region, target, labels, approvals, and scoped post-render changes."],
+    ["Variant", "One named configuration of that component: base, dev, staging, prod-us, prod-eu, or customer-a."],
+    ["Base variant", "A configuration rendered from Helm. Use it when values, chart version, CRDs, storage, HA mode, or Secret strategy change the Kubernetes objects."],
+    ["Derived variant", "A ConfigHub configuration made from an existing base. Use it for environment, region, target, labels, approvals, and scoped post-render changes."],
     ["Promotion", "A controlled way to carry a reviewed change from one variant to another, with a preview before anything is applied."],
   ];
   const journeyRows = [
-    ["Choose a base", "Pick the closest proved install shape from the chart page."],
+    ["Choose a base", "Pick the closest tested configuration from the chart page."],
     ["Load it into ConfigHub", "The rendered objects become managed config that can be named, compared, reviewed, and delivered."],
     ["Name the real-world variants", "Create the dev, staging, prod, region, or customer versions people actually use."],
     ["Preview the difference", "Look at the object and field changes before delivery. Small changes stay small."],
@@ -4870,7 +4870,7 @@ function variantsHtml(catalog) {
   <main>
     <section aria-labelledby="model">
       <h2 id="model">1. See the model</h2>
-      <p>A component is the thing being shipped. A variant is one named shape of that thing.</p>
+      <p>A component is the software being shipped. A variant is one named configuration of that component.</p>
       <pre><code>Component: payments-api
 
 Variants:
@@ -4883,7 +4883,7 @@ Variants:
         ["Term", "Meaning"],
         ...modelRows,
       ], { rawSecondColumn: true })}
-      <p>This gives the team plain questions to answer: which shape are we using, where did it come from, what changed, and is it safe to promote?</p>
+      <p>This gives the team plain questions to answer: which configuration are we using, where did it come from, what changed, and is it safe to promote?</p>
     </section>
 
     <section aria-labelledby="choose">
@@ -4902,7 +4902,7 @@ Variants:
         ["Step", "What happens"],
         ...journeyRows,
       ])}
-      <p>The command surface today is <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. Product screens can make this friendlier, but the same data remains available for review.</p>
+      <p>Today you use <code>cub installer</code>, <code>cub variant create</code>, Unit diffs, and <code>cub variant promote</code>. The same changes remain available for review in ConfigHub.</p>
       <p>For the exact commands with the why behind each flag, read <a href="../docs/user/variants-after-upload.md">After upload: create a variant and promote changes</a>. It starts where a base variant's <code>confighub.sh</code> ends.</p>
     </section>
 
@@ -4933,7 +4933,7 @@ promotion dry-run lists mutations before apply</code></pre>
 
     <section aria-labelledby="more">
       <h2 id="more">6. Read the details</h2>
-      <p><a href="../docs/user/creating-variants.md">Creating variants</a> explains the doctrine. <a href="../docs/user/cub-variant-command-surface.md">cub variant command surface</a> tracks the command vocabulary. <a href="../data/variant-promotion/summary.md">Variant promotion receipts</a> show the current evidence.</p>
+      <p><a href="../docs/user/creating-variants.md">Creating variants</a> explains the rules. <a href="../docs/user/cub-variant-command-surface.md">cub variant commands</a> lists the current commands. <a href="../data/variant-promotion/summary.md">Variant promotion receipts</a> show the current evidence.</p>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Base variants are render-time choices; derived variants are post-render ConfigHub refinements.</footer>
@@ -4995,8 +4995,8 @@ function customAppsHtml(catalog) {
     <section aria-labelledby="proof">
       <h2 id="proof">3. Open working examples</h2>
       ${markdownLikeTable([
-        ["Surface", "What it shows", "Open"],
-        ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${path}</a>`]),
+        ["Example", "What it shows", "Open"],
+        ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">Open ${escapeHtml(name)}</a>`]),
       ], { rawThirdColumn: true })}
     </section>
   </main>
@@ -5402,7 +5402,7 @@ cub helm install myapp &lt;chart-ref&gt; \\
 
     <section aria-labelledby="apps">
       <h2 id="apps">5. Use saved configuration for a repeated job</h2>
-      <p>Each row has a working, bounded example. The final column says what is still missing from a general product capability.</p>
+      <p>Each row has a working example. The final column says what is still needed before the same result can be offered more generally.</p>
       ${markdownLikeTable([
         ["App", "Working example", "Open", "Still to build"],
         ...appRows,
@@ -5535,11 +5535,11 @@ cub helm install &lt;release&gt; &lt;chart&gt; \\
     <section aria-labelledby="shared-rules">
       <h2 id="shared-rules">8 · See what all paths have in common</h2>
       <h3 id="pillar-fewer">Most choices are made and checked before you install</h3>
-      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The AICR example records its remaining inputs, publishes both OCI artifacts for anonymous pull, imports the literal configuration into ConfigHub, and promotes one reviewed change. Controller delivery and a live GPU-cluster result remain open.</p>
+      <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward this model. The AICR example records its remaining inputs, publishes both OCI artifacts for anonymous pull, imports the literal configuration into ConfigHub, and promotes one reviewed change. Controller delivery and a live GPU-cluster result remain open.</p>
       <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
 
       <h3 id="pillar-proof">You can read the proof before you ship</h3>
-      <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry passes every lane, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
+      <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry has every test result, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
       <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
 
       <h3 id="pillar-messy">Hooks, CRDs, and setup work are listed</h3>
@@ -5685,10 +5685,22 @@ function operationsHtml(catalog) {
       see: ["day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
     },
   ];
-  const seeLink = (ref) =>
-    ref.startsWith("../")
-      ? `<a href="${ref}">${escapeHtml(ref.replace(/^\.\.\//, "").replace(/\/summary\.md$/, ""))}</a>`
-      : `<a href="../docs/user/${ref}">${escapeHtml(ref.replace(/\.md$/, ""))}</a>`;
+  const seeLabels = new Map([
+    ["change-routing-before-oci.md", "Where changes belong"],
+    ["../data/external-scan-lane/summary.md", "Security scan results"],
+    ["../data/variant-promotion/summary.md", "Promotion results"],
+    ["prometheus-overlay-promotion-example.md", "Prometheus promotion example"],
+    ["chain-of-proof.md", "How tests support each claim"],
+    ["../data/runtime-gitops/summary.md", "GitOps test results"],
+    ["verify-it-yourself.md", "Check it yourself"],
+    ["why-synced-is-not-working.md", "Why a sync check is not enough"],
+    ["day2-upgrade-rollback.md", "Upgrade and rollback guide"],
+    ["cub-scout-diff-design.md", "Three-way comparison design"],
+  ]);
+  const seeLink = (ref) => {
+    const href = ref.startsWith("../") ? ref : `../docs/user/${ref}`;
+    return `<a href="${href}">${escapeHtml(seeLabels.get(ref) ?? ref.replace(/\.md$/, ""))}</a>`;
+  };
   const cards = ops
     .map(
       (o) => `      <div class="op">
@@ -5740,7 +5752,7 @@ function operationsHtml(catalog) {
       <h2 id="ops">2. Choose an operation</h2>
       <div class="card">
         <h3>Status legend</h3>
-        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
+        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work still needs a product, policy, support, or service decision.</p>
         <p>A green GitOps sync is not the same as a working application. Use observation receipts when the claim depends on live state.</p>
       </div>
 ${cards}
@@ -5749,7 +5761,7 @@ ${cards}
     <section aria-labelledby="fleet-record">
       <h2 id="fleet-record">3. Keep a fleet record</h2>
       <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
-      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
+      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. Only a small, restricted set of settings remains at install time, so an upgrade does not become another free-form Helm exercise.</p>
       <table>
         <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
         <tbody>

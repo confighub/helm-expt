@@ -626,7 +626,7 @@
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
-        <pre class="terminal-body"><code><span class="term-comment"># before either lane: provide the password separately</span>
+        <pre class="terminal-body"><code><span class="term-comment"># before either install: provide the password separately</span>
 <span class="term-prompt">$</span> kubectl create namespace redis
 <span class="term-prompt">$</span> kubectl -n redis create secret generic redis-existing-secret \
     --from-literal=redis-password="$(openssl rand -base64 32)"

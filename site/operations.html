@@ -539,7 +539,7 @@
       <h2 id="ops">2. Choose an operation</h2>
       <div class="card">
         <h3>Status legend</h3>
-        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
+        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work still needs a product, policy, support, or service decision.</p>
         <p>A green GitOps sync is not the same as a working application. Use observation receipts when the claim depends on live state.</p>
       </div>
       <div class="op">
@@ -550,7 +550,7 @@
         <p class="opmeta"><code>compare a variant with its base</code> · <span class="muted">ConfigHub account</span></p>
         
         <p>A variant is one named configuration of an app. Its object diff shows exactly which Kubernetes objects changed before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
-        <p class="muted">See: <a href="d/docs/user/change-routing-before-oci.html">change-routing-before-oci</a></p>
+        <p class="muted">See: <a href="d/docs/user/change-routing-before-oci.html">Where changes belong</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -560,7 +560,7 @@
         <p class="opmeta"><code>scan rendered objects and stop unsafe releases</code> · <span class="muted">local checks; managed policy</span></p>
         
         <p>Run scans over the rendered objects for privilege, exposure, and deprecated APIs. A gate is a release stop: delivery waits until findings are accepted or waived with a named reason.</p>
-        <p class="muted">See: <a href="d/data/external-scan-lane/summary.html">data/external-scan-lane</a></p>
+        <p class="muted">See: <a href="d/data/external-scan-lane/summary.html">Security scan results</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -572,7 +572,7 @@
   <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
         <p>Apps and Variants choose the base, derived variant, and target. We've proven this on Redis, NGINX, and kube-prometheus-stack: previewing the change, updating objects that changed, and adding new ones.</p>
-        <p class="muted">See: <a href="d/data/variant-promotion/summary.html">data/variant-promotion</a> · <a href="d/docs/user/prometheus-overlay-promotion-example.html">prometheus-overlay-promotion-example</a></p>
+        <p class="muted">See: <a href="d/data/variant-promotion/summary.html">Promotion results</a> · <a href="d/docs/user/prometheus-overlay-promotion-example.html">Prometheus promotion example</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -582,7 +582,7 @@ cub variant promote &lt;space&gt;</code></pre>
         <p class="opmeta"><code>publish OCI for a GitOps controller</code> · <span class="muted">Argo CD or Flux</span></p>
         
         <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle. Argo or Flux can pull that bundle and reconcile it. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
-        <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">chain-of-proof</a> · <a href="d/data/runtime-gitops/summary.html">data/runtime-gitops</a></p>
+        <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">How tests support each claim</a> · <a href="d/data/runtime-gitops/summary.html">GitOps test results</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -599,7 +599,7 @@ cub variant promote &lt;space&gt;</code></pre>
 
 cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
         <p>After delivery, use observation to check what actually happened. The receipt says what was checked, when it was checked, which namespace or target was observed, and whether the desired objects matched what the cluster reported.</p>
-        <p class="muted">See: <a href="d/docs/user/verify-it-yourself.html">verify-it-yourself</a> · <a href="d/docs/user/why-synced-is-not-working.html">why-synced-is-not-working</a></p>
+        <p class="muted">See: <a href="d/docs/user/verify-it-yourself.html">Check it yourself</a> · <a href="d/docs/user/why-synced-is-not-working.html">Why a sync check is not enough</a></p>
       </div>
       <div class="op">
         <div class="ophead">
@@ -610,14 +610,14 @@ cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
         <pre><code>cub unit diff &lt;unit&gt; --from=PreviousLiveRevisionNum --to=LiveRevisionNum
 cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
         <p>You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.</p>
-        <p class="muted">See: <a href="d/docs/user/day2-upgrade-rollback.html">day2-upgrade-rollback</a> · <a href="d/docs/user/cub-scout-diff-design.html">cub-scout-diff-design</a></p>
+        <p class="muted">See: <a href="d/docs/user/day2-upgrade-rollback.html">Upgrade and rollback guide</a> · <a href="d/docs/user/cub-scout-diff-design.html">Three-way comparison design</a></p>
       </div>
     </section>
 
     <section aria-labelledby="fleet-record">
       <h2 id="fleet-record">3. Keep a fleet record</h2>
       <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
-      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
+      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. Only a small, restricted set of settings remains at install time, so an upgrade does not become another free-form Helm exercise.</p>
       <table>
         <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
         <tbody>
