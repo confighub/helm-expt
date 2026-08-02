@@ -512,25 +512,27 @@
 </head>
 <body class="calm-page">
 <header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
   <h1>Choose how to deploy it</h1>
-  <p class="lead">You have reviewed the Kubernetes objects, whether they came from Helm, AICR, cub installer, an OCI package, or plain YAML. Now choose where to keep them and how they will reach a cluster.</p>
-  <p>You can start without ConfigHub Server or an account. Add ConfigHub when the configuration needs shared history, changes, approvals, promotion, or rollout.</p>
+  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, AICR, cub installer, an OCI package, or plain YAML.</p>
+  <p>Keep the result locally, publish it as OCI, or put it in ConfigHub. These choices can be combined.</p>
+  <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Use it for changes, approvals, promotion, release OCI, and rollout history.</p>
 </header>
 <main>
   <section aria-labelledby="keep">
-    <h2 id="keep">1. Choose where the configuration lives</h2>
+    <h2 id="keep">1. Choose what happens next</h2>
     <h3>Local files</h3>
-    <p><strong>No ConfigHub account.</strong> Your source tool or cub installer writes readable Kubernetes files. Test them, use kubectl, or commit them to Git.</p>
+    <p><strong>No ConfigHub account.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>No ConfigHub account.</strong> Put the reviewed Kubernetes files in OCI. Argo CD or Flux can pull the same objects you inspected.</p>
+    <p><strong>No ConfigHub account.</strong> Publish the reviewed files as OCI. Argo CD or Flux can pull the same objects you inspected.</p>
     <h3>ConfigHub</h3>
-    <p>Upload files or a literal OCI as a base variant. ConfigHub keeps later changes, checks, approvals, promotions, and release history.</p>
+    <p>Import files or OCI as a base. ConfigHub keeps later changes and can publish release OCI for Argo CD or Flux.</p>
   </section>
 
   <section aria-labelledby="setup">
-    <h2 id="setup">2. Deal with required setup</h2>
-    <p>Kubernetes objects are not always the whole install. A package may also need a Secret, CRD, certificate, hook, setup job, or cluster capability.</p>
+    <h2 id="setup">2. Track required setup</h2>
+    <p>Keep a source and intent record beside the objects. It records what produced them, including the version, values, and target assumptions.</p>
+    <p>Track prerequisites and lifecycle work separately, even when they are represented by Kubernetes objects. Examples include Secrets, CRDs, certificates, hooks, setup jobs, and cluster capabilities.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
     <p><a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
   </section>
@@ -542,24 +544,24 @@
     <h3>ConfigHub variant</h3>
     <p>Use it when an exact field differs by environment, region, customer, policy, or another operating decision. Change the stored object and review the diff.</p>
     <h3>Deployment setup</h3>
-    <p>Keep Secrets, CRDs, hooks, certificates, jobs, and target capabilities separate from ordinary object changes. Record and check each required step.</p>
+    <p>Use this for prerequisites and lifecycle work: Secrets, CRDs, hooks, certificates, jobs, and target capabilities. Record and check each required step.</p>
     <h3>Live cluster</h3>
     <p>Observe what is running and find drift. Record an intended correction before redeploying.</p>
-    <p>One field should not have two silent owners. Review any overlap between a new source render and a later ConfigHub change.</p>
+    <p>Do not change the same field in both the source and ConfigHub. If both changed it, choose which value should be deployed.</p>
   </section>
 
   <section aria-labelledby="deliver">
     <h2 id="deliver">4. Deliver the reviewed result</h2>
     <p>For a local test, apply the reviewed files with kubectl. For GitOps, let Argo CD or Flux pull the reviewed files from Git or OCI.</p>
-    <p>With ConfigHub, publish a release OCI after checks and approval. Argo CD or Flux then pulls that release.</p>
+    <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
   </section>
 
   <section aria-labelledby="next">
-    <h2 id="next">5. Continue with the path you chose</h2>
-    <p>Open Docs for the exact instructions behind your source, setup, delivery tool, or problem.</p>
-    <p>Continue with ConfigHub when you want to keep the configuration, make variants, promote releases, or manage rollout history.</p>
+    <h2 id="next">5. Next step</h2>
+    <p>Use Docs for instructions about your source, required setup, delivery tool, or problem.</p>
+    <p>Use ConfigHub when you want shared configuration, variants, approvals, promotions, or rollout history.</p>
     <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./deployment-reference.html">Open the technical deployment reference</a></p>
   </section>
 </main>

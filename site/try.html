@@ -512,10 +512,11 @@
 </head>
 <body class="calm-page">
 <header class="hero human-hero">
-  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+  <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
   <h1>Try a simple example: Redis</h1>
   <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates.</p>
-  <p>This example runs on your machine. It does not contact ConfigHub Server or Kubernetes, and it needs no account or registry login.</p>
+  <p>You do not need ConfigHub for this test. It runs on your machine and contacts neither ConfigHub Server nor Kubernetes. No account or registry login is required.</p>
+  <p>ConfigHub becomes useful when you want to keep this result, change it with your team, or promote it between environments.</p>
 </header>
 <main>
   <section aria-labelledby="install-cub">
@@ -534,15 +535,15 @@ $ kustomize version</code></pre>
 
   <section aria-labelledby="render-package">
     <h2 id="render-package">2. Render the Redis package</h2>
-    <p>The public package contains named Redis configurations. Select the configuration that uses a Secret supplied by the target.</p>
+    <p>The public package contains named Redis configurations. Select the configuration that expects you to provide a Kubernetes Secret before deployment.</p>
     <pre><code>$ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
     --base reuse-existing-secret \
     --work-dir ./redis \
     --namespace redis \
     --non-interactive \
     --output-oci ./redis-25.oci</code></pre>
-    <p><code>cub installer</code> writes 14 Kubernetes objects and no Secret. It also writes a local OCI image layout.</p>
-    <p>The command reads the OCI output back and compares its object-set digest. It reports <code>pull-back: verified</code> when the comparison passes.</p>
+    <p><code>cub installer</code> writes 14 Kubernetes objects and no Secret. It also writes a local OCI package.</p>
+    <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
   </section>
 
   <section aria-labelledby="inspect-result">
@@ -557,10 +558,11 @@ $ grep -R "^kind:" ./redis/out/manifests</code></pre>
 
   <section aria-labelledby="finished">
     <h2 id="finished">You have finished the first example</h2>
-    <p>You now have readable Kubernetes files and a local OCI image. Nothing has been applied to a cluster.</p>
-    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> to add parity checks, deployment, upgrade, promotion, and rollback.</p>
+    <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
+    <p><a href="./how-it-works.html">Choose how to deploy the reviewed result</a>.</p>
     <p><a href="./testing.html">Choose another worked example</a> for your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
-    <p><a href="./confighub.html">Continue with ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
+    <p><a href="./confighub.html">Keep it in ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
+    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> for deployment, upgrade, promotion, and rollback.</p>
   </section>
 </main>
 <footer><p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this short catalog package guide.</p><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>

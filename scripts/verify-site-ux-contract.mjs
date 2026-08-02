@@ -16,11 +16,11 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "Continue with the full Redis walkthrough", "Choose another worked example", "Continue with ConfigHub"],
+    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "Choose how to deploy the reviewed result", "Continue with the full Redis walkthrough", "Choose another worked example", "Keep it in ConfigHub"],
   },
   {
     file: "site/confighub.html",
-    terms: ["Keep and manage your configuration with ConfigHub", "1. Create an account", "Sign up for ConfigHub", "2. Follow the official tutorial", "Review the tutorial", "3. Read the background", "Read the ConfigHub blog", "What ConfigHub adds"],
+    terms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "1. What ConfigHub adds", "2. Follow the official tutorial", "Review the tutorial", "3. Create an account", "Sign up for ConfigHub", "4. Read the background", "Read the ConfigHub blog"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -32,7 +32,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["Choose how to deploy it", "1. Choose where the configuration lives", "Local files", "OCI package", "ConfigHub", "2. Deal with required setup", "3. Decide where each change belongs", "4. Deliver the reviewed result", "5. Continue with the path you chose"],
+    terms: ["Choose how to deploy it", "Come here after you have inspected the Kubernetes objects", "1. Choose what happens next", "Local files", "OCI package", "ConfigHub", "2. Track required setup", "source and intent record", "3. Decide where each change belongs", "4. Deliver the reviewed result", "5. Next step"],
   },
   {
     file: "site/deployment-reference.html",
@@ -60,7 +60,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Find instructions for the step you are doing", "1. Start with a configuration", "2. Prepare it for deployment", "3. Change or operate it", "4. Check a result or solve a problem", "5. Continue when you need more", "Try Redis", "Configuration Catalog", "Worked Examples", "Deployment", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I verify a claim?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
+    terms: ["Find instructions for the step you are doing", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Configuration Catalog", "Worked Examples", "Deployment", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
   },
   {
     file: "site/docs-reference.html",
@@ -147,15 +147,15 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["Try a simple example: Redis", "14 Kubernetes objects", "does not contact ConfigHub Server", "needs no account"],
+    headerTerms: ["Try a simple example: Redis", "14 Kubernetes objects", "contacts neither ConfigHub Server nor Kubernetes", "No account or registry login is required"],
   },
   {
     file: "site/confighub.html",
-    headerTerms: ["Keep and manage your configuration with ConfigHub", "public Catalog and first examples work without ConfigHub"],
+    headerTerms: ["Keep and manage your configuration with ConfigHub", "ConfigHub keeps reviewed Kubernetes configuration as shared data", "public Catalog and first examples work without ConfigHub"],
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Choose how to deploy it", "reviewed the Kubernetes objects", "Helm, AICR, cub installer, an OCI package, or plain YAML", "start without ConfigHub Server or an account"],
+    headerTerms: ["Choose how to deploy it", "inspected the Kubernetes objects", "Helm, AICR, cub installer, an OCI package, or plain YAML", "ConfigHub keeps reviewed Kubernetes configuration as shared data"],
   },
   {
     file: "site/variants.html",
@@ -187,6 +187,7 @@ const technicalEnglishPages = [
 ];
 
 const failures = [];
+const expectedNavLabels = ["Try Redis", "Examples", "Catalog", "Deployment", "ConfigHub", "Docs"];
 
 function decodeBasicHtml(text) {
   return text
@@ -252,6 +253,15 @@ for (const file of menuGuidePages) {
   for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Try Redis", "Examples", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
+  let previousNavPosition = -1;
+  for (const label of expectedNavLabels) {
+    const position = header.indexOf(`>${label}</a>`);
+    if (position <= previousNavPosition) {
+      failures.push(`${file}: shared navigation is not ordered as ${expectedNavLabels.join(" -> ")}`);
+      break;
+    }
+    previousNavPosition = position;
+  }
   const rawPathLinks = [...text.matchAll(/<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
     .filter(([, , label]) => label.includes("../") || /\.md(#.*)?$/.test(label.trim()));
   for (const [, href, label] of rawPathLinks.slice(0, 5)) {
@@ -309,7 +319,7 @@ if (fs.existsSync(shortTryPath)) {
   if (commandBlocks > 3) {
     failures.push(`site/try.html: short package exercise has ${commandBlocks} command blocks; maximum is 3`);
   }
-  for (const href of ["./redis-walkthrough.html", "./testing.html", "./confighub.html"]) {
+  for (const href of ["./how-it-works.html", "./redis-walkthrough.html", "./testing.html", "./confighub.html"]) {
     if (!shortTry.includes(`href="${href}"`)) failures.push(`site/try.html: missing next-step link ${href}`);
   }
   if (shortTry.includes("Start with your own configuration")) failures.push("site/try.html: first exercise must not expand into the bring-your-own chooser");

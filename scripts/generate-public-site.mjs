@@ -1283,7 +1283,7 @@ function verifyInstallerCommandCopy() {
 
 function topNav(base = ".") {
   const link = (path) => `${base}/${path}`;
-  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("try.html")}">Try Redis</a><a href="${link("testing.html")}">Examples</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("docs.html")}">Docs</a><a href="${link("confighub.html")}">ConfigHub</a></span></nav></div>`;
+  return `<div class="site-chrome"><nav class="topbar"><a class="brand" href="${link("index.html")}" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="${link("try.html")}">Try Redis</a><a href="${link("testing.html")}">Examples</a><a href="${link("charts/index.html")}">Catalog</a><a href="${link("how-it-works.html")}">Deployment</a><a href="${link("confighub.html")}">ConfigHub</a><a href="${link("docs.html")}">Docs</a></span></nav></div>`;
 }
 
 function audienceLabel(text) {
@@ -1540,8 +1540,8 @@ function configTestCentreHome(catalog) {
             <a href="./testing.html">Examples</a>
             <a href="./charts/index.html">Catalog</a>
             <a href="./how-it-works.html">Deployment</a>
-            <a href="./docs.html">Docs</a>
             <a href="./confighub.html">ConfigHub</a>
+            <a href="./docs.html">Docs</a>
           </span>
         </nav>
         <div class="hero">
@@ -2756,7 +2756,8 @@ function tryHtml(catalog) {
   ${topNav(".")}
   <h1>Try a simple example: Redis</h1>
   <p class="lead">Render one reviewed Redis configuration and inspect the 14 Kubernetes objects it creates.</p>
-  <p>This example runs on your machine. It does not contact ConfigHub Server or Kubernetes, and it needs no account or registry login.</p>
+  <p>You do not need ConfigHub for this test. It runs on your machine and contacts neither ConfigHub Server nor Kubernetes. No account or registry login is required.</p>
+  <p>ConfigHub becomes useful when you want to keep this result, change it with your team, or promote it between environments.</p>
 </header>
 <main>
   <section aria-labelledby="install-cub">
@@ -2775,15 +2776,15 @@ $ kustomize version</code></pre>
 
   <section aria-labelledby="render-package">
     <h2 id="render-package">2. Render the Redis package</h2>
-    <p>The public package contains named Redis configurations. Select the configuration that uses a Secret supplied by the target.</p>
+    <p>The public package contains named Redis configurations. Select the configuration that expects you to provide a Kubernetes Secret before deployment.</p>
     <pre><code>$ cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base reuse-existing-secret \\
     --work-dir ./redis \\
     --namespace redis \\
     --non-interactive \\
     --output-oci ./redis-25.oci</code></pre>
-    <p><code>cub installer</code> writes 14 Kubernetes objects and no Secret. It also writes a local OCI image layout.</p>
-    <p>The command reads the OCI output back and compares its object-set digest. It reports <code>pull-back: verified</code> when the comparison passes.</p>
+    <p><code>cub installer</code> writes 14 Kubernetes objects and no Secret. It also writes a local OCI package.</p>
+    <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
   </section>
 
   <section aria-labelledby="inspect-result">
@@ -2798,10 +2799,11 @@ $ grep -R "^kind:" ./redis/out/manifests</code></pre>
 
   <section aria-labelledby="finished">
     <h2 id="finished">You have finished the first example</h2>
-    <p>You now have readable Kubernetes files and a local OCI image. Nothing has been applied to a cluster.</p>
-    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> to add parity checks, deployment, upgrade, promotion, and rollback.</p>
+    <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
+    <p><a href="./how-it-works.html">Choose how to deploy the reviewed result</a>.</p>
     <p><a href="./testing.html">Choose another worked example</a> for your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
-    <p><a href="./confighub.html">Continue with ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
+    <p><a href="./confighub.html">Keep it in ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
+    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> for deployment, upgrade, promotion, and rollback.</p>
   </section>
 </main>
 <footer>${generatedStamp(catalog, "short catalog package guide")}<p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
@@ -2823,23 +2825,25 @@ function howItWorksHtml() {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Choose how to deploy it</h1>
-  <p class="lead">You have reviewed the Kubernetes objects, whether they came from Helm, AICR, cub installer, an OCI package, or plain YAML. Now choose where to keep them and how they will reach a cluster.</p>
-  <p>You can start without ConfigHub Server or an account. Add ConfigHub when the configuration needs shared history, changes, approvals, promotion, or rollout.</p>
+  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, AICR, cub installer, an OCI package, or plain YAML.</p>
+  <p>Keep the result locally, publish it as OCI, or put it in ConfigHub. These choices can be combined.</p>
+  <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Use it for changes, approvals, promotion, release OCI, and rollout history.</p>
 </header>
 <main>
   <section aria-labelledby="keep">
-    <h2 id="keep">1. Choose where the configuration lives</h2>
+    <h2 id="keep">1. Choose what happens next</h2>
     <h3>Local files</h3>
-    <p><strong>No ConfigHub account.</strong> Your source tool or cub installer writes readable Kubernetes files. Test them, use kubectl, or commit them to Git.</p>
+    <p><strong>No ConfigHub account.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>No ConfigHub account.</strong> Put the reviewed Kubernetes files in OCI. Argo CD or Flux can pull the same objects you inspected.</p>
+    <p><strong>No ConfigHub account.</strong> Publish the reviewed files as OCI. Argo CD or Flux can pull the same objects you inspected.</p>
     <h3>ConfigHub</h3>
-    <p>Upload files or a literal OCI as a base variant. ConfigHub keeps later changes, checks, approvals, promotions, and release history.</p>
+    <p>Import files or OCI as a base. ConfigHub keeps later changes and can publish release OCI for Argo CD or Flux.</p>
   </section>
 
   <section aria-labelledby="setup">
-    <h2 id="setup">2. Deal with required setup</h2>
-    <p>Kubernetes objects are not always the whole install. A package may also need a Secret, CRD, certificate, hook, setup job, or cluster capability.</p>
+    <h2 id="setup">2. Track required setup</h2>
+    <p>Keep a source and intent record beside the objects. It records what produced them, including the version, values, and target assumptions.</p>
+    <p>Track prerequisites and lifecycle work separately, even when they are represented by Kubernetes objects. Examples include Secrets, CRDs, certificates, hooks, setup jobs, and cluster capabilities.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
     <p><a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
   </section>
@@ -2851,24 +2855,24 @@ function howItWorksHtml() {
     <h3>ConfigHub variant</h3>
     <p>Use it when an exact field differs by environment, region, customer, policy, or another operating decision. Change the stored object and review the diff.</p>
     <h3>Deployment setup</h3>
-    <p>Keep Secrets, CRDs, hooks, certificates, jobs, and target capabilities separate from ordinary object changes. Record and check each required step.</p>
+    <p>Use this for prerequisites and lifecycle work: Secrets, CRDs, hooks, certificates, jobs, and target capabilities. Record and check each required step.</p>
     <h3>Live cluster</h3>
     <p>Observe what is running and find drift. Record an intended correction before redeploying.</p>
-    <p>One field should not have two silent owners. Review any overlap between a new source render and a later ConfigHub change.</p>
+    <p>Do not change the same field in both the source and ConfigHub. If both changed it, choose which value should be deployed.</p>
   </section>
 
   <section aria-labelledby="deliver">
     <h2 id="deliver">4. Deliver the reviewed result</h2>
     <p>For a local test, apply the reviewed files with kubectl. For GitOps, let Argo CD or Flux pull the reviewed files from Git or OCI.</p>
-    <p>With ConfigHub, publish a release OCI after checks and approval. Argo CD or Flux then pulls that release.</p>
+    <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
   </section>
 
   <section aria-labelledby="next">
-    <h2 id="next">5. Continue with the path you chose</h2>
-    <p>Open Docs for the exact instructions behind your source, setup, delivery tool, or problem.</p>
-    <p>Continue with ConfigHub when you want to keep the configuration, make variants, promote releases, or manage rollout history.</p>
+    <h2 id="next">5. Next step</h2>
+    <p>Use Docs for instructions about your source, required setup, delivery tool, or problem.</p>
+    <p>Use ConfigHub when you want shared configuration, variants, approvals, promotions, or rollout history.</p>
     <p><a href="./docs.html">Find the right technical guide</a> · <a href="./confighub.html">Continue with ConfigHub</a> · <a href="./deployment-reference.html">Open the technical deployment reference</a></p>
   </section>
 </main>
@@ -2890,25 +2894,27 @@ function configHubHtml() {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Keep and manage your configuration with ConfigHub</h1>
-  <p class="lead">The public Catalog and first examples work without ConfigHub. Continue here when your team needs shared records, changes, approvals, promotion, or rollout history.</p>
+  <p class="lead">ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
+  <p>The public Catalog and first examples work without ConfigHub. Continue here when you want to keep and manage the result with a team.</p>
 </header>
 <main>
-  <section aria-labelledby="create-account">
-    <h2 id="create-account">1. Create an account</h2>
-    <p><a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Sign up for ConfigHub</a> to save a reviewed configuration and work with your team.</p>
+  <section aria-labelledby="managed-result">
+    <h2 id="managed-result">1. What ConfigHub adds</h2>
+    <p>Start from reviewed files or OCI. Store them as a base, make environment variants, review exact diffs, and promote changes.</p>
+    <p>Publish release OCI for Argo CD or Flux. Keep the source, changes, approvals, releases, and rollout history together.</p>
+    <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>
   <section aria-labelledby="review-tutorial">
     <h2 id="review-tutorial">2. Follow the official tutorial</h2>
     <p><a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Review the tutorial</a> for one component, one change, a production variant, and a promotion.</p>
   </section>
-  <section aria-labelledby="read-blog">
-    <h2 id="read-blog">3. Read the background</h2>
-    <p><a href="${confighubOutboundUrl(CONFIGHUB_BLOG_URL, "confighub-page")}">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
+  <section aria-labelledby="create-account">
+    <h2 id="create-account">3. Create an account</h2>
+    <p><a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "confighub-page")}">Sign up for ConfigHub</a> to save a reviewed configuration and work with your team.</p>
   </section>
-  <section aria-labelledby="managed-result">
-    <h2 id="managed-result">What ConfigHub adds</h2>
-    <p>Upload reviewed files or OCI as a base variant. Add environment variants, review exact diffs, promote changes, and publish release OCI for delivery.</p>
-    <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
+  <section aria-labelledby="read-blog">
+    <h2 id="read-blog">4. Read the background</h2>
+    <p><a href="${confighubOutboundUrl(CONFIGHUB_BLOG_URL, "confighub-page")}">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
   </section>
 </main>
 </body>
@@ -3428,12 +3434,12 @@ function docsHtml() {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Find instructions for the step you are doing</h1>
-    <p class="lead">Choose the question closest to your current work. Each link opens the commands, example, or evidence for that step.</p>
-    <p>These guides cover Helm and other packages, with or without ConfigHub.</p>
+    <p class="lead">Choose the question closest to your current work. Each link opens the commands, example, or evidence you need.</p>
+    <p>Docs supports the work; it is not another deployment step. These guides cover public tools and ConfigHub operations for Helm, AICR, OCI, and YAML.</p>
   </header>
   <main>
     <section aria-labelledby="start">
-      <h2 id="start">1. Start with a configuration</h2>
+      <h2 id="start">Start with a configuration</h2>
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
       <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
       <h3><a href="./charts/index.html">Which public configuration should I use?</a></h3>
@@ -3443,33 +3449,33 @@ function docsHtml() {
     </section>
 
     <section aria-labelledby="prepare">
-      <h2 id="prepare">2. Prepare it for deployment</h2>
+      <h2 id="prepare">Prepare it for deployment</h2>
       <h3><a href="./how-it-works.html">Where should the files live?</a></h3>
       <p>Deployment explains the local files, OCI, and ConfigHub choices in one sequence.</p>
       <h3><a href="./d/docs/user/chart-hooks-what-happens.html">What happens to hooks and CRDs?</a></h3>
       <p>See how required setup is recorded, ordered, tested, or blocked.</p>
-      <h3><a href="./d/docs/user/helm-presets-and-values.html">Should this be a source value or a later change?</a></h3>
+      <h3><a href="./d/docs/user/helm-presets-and-values.html">Should I change the source input or the rendered object?</a></h3>
       <p>Use the values and base variants guide for Helm inputs, base variants, and ConfigHub changes.</p>
       <h3><a href="./d/docs/user/gitops-adopter-guide.html">How do Argo CD and Flux receive it?</a></h3>
       <p>The GitOps guide explains how controllers pull reviewed Kubernetes objects from Git or OCI.</p>
     </section>
 
     <section aria-labelledby="manage">
-      <h2 id="manage">3. Change or operate it</h2>
+      <h2 id="manage">Change or operate saved configuration</h2>
       <h3><a href="./d/docs/user/variants-after-upload.html">How do I make environment variants?</a></h3>
       <p>Create, compare, and promote development and production variants.</p>
       <h3><a href="./redis-walkthrough.html">How do I upgrade and roll back?</a></h3>
       <p>The detailed Redis walkthrough shows an upgrade, promotion, rollout, and rollback.</p>
-      <h3><a href="./journey.html">How can saved configuration support repeated work?</a></h3>
+      <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>
       <p>Apps on ConfigHub includes upgrade, lifecycle, RBAC, fleet, and AI review examples.</p>
       <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
       <p>Start read-only from GitOps, YAML, Helm, or a live cluster.</p>
     </section>
 
     <section aria-labelledby="check">
-      <h2 id="check">4. Check a result or solve a problem</h2>
-      <h3><a href="./verification.html">How do I verify a claim?</a></h3>
-      <p>Choose the correct check, command, and evidence boundary.</p>
+      <h2 id="check">Check a result or solve a problem</h2>
+      <h3><a href="./verification.html">How do I check a result?</a></h3>
+      <p>Find the command that checks a generated page, a saved receipt, or a live cluster.</p>
       <h3><a href="./known-gaps.html">What is not working yet?</a></h3>
       <p>Read the named limitations and the evidence behind them.</p>
       <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
@@ -3479,7 +3485,7 @@ function docsHtml() {
     </section>
 
     <section aria-labelledby="continue">
-      <h2 id="continue">5. Continue when you need more</h2>
+      <h2 id="continue">More references</h2>
       <p><a href="./docs-reference.html">Browse all technical references</a> for every guide, evidence table, repository note, and generated data source.</p>
       <p><a href="./confighub.html">Continue with ConfigHub</a> when you want shared records, variants, approvals, promotion, and rollout history.</p>
     </section>

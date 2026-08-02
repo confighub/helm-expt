@@ -512,14 +512,14 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
     <h1>Find instructions for the step you are doing</h1>
-    <p class="lead">Choose the question closest to your current work. Each link opens the commands, example, or evidence for that step.</p>
-    <p>These guides cover Helm and other packages, with or without ConfigHub.</p>
+    <p class="lead">Choose the question closest to your current work. Each link opens the commands, example, or evidence you need.</p>
+    <p>Docs supports the work; it is not another deployment step. These guides cover public tools and ConfigHub operations for Helm, AICR, OCI, and YAML.</p>
   </header>
   <main>
     <section aria-labelledby="start">
-      <h2 id="start">1. Start with a configuration</h2>
+      <h2 id="start">Start with a configuration</h2>
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
       <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
       <h3><a href="./charts/index.html">Which public configuration should I use?</a></h3>
@@ -529,33 +529,33 @@
     </section>
 
     <section aria-labelledby="prepare">
-      <h2 id="prepare">2. Prepare it for deployment</h2>
+      <h2 id="prepare">Prepare it for deployment</h2>
       <h3><a href="./how-it-works.html">Where should the files live?</a></h3>
       <p>Deployment explains the local files, OCI, and ConfigHub choices in one sequence.</p>
       <h3><a href="./d/docs/user/chart-hooks-what-happens.html">What happens to hooks and CRDs?</a></h3>
       <p>See how required setup is recorded, ordered, tested, or blocked.</p>
-      <h3><a href="./d/docs/user/helm-presets-and-values.html">Should this be a source value or a later change?</a></h3>
+      <h3><a href="./d/docs/user/helm-presets-and-values.html">Should I change the source input or the rendered object?</a></h3>
       <p>Use the values and base variants guide for Helm inputs, base variants, and ConfigHub changes.</p>
       <h3><a href="./d/docs/user/gitops-adopter-guide.html">How do Argo CD and Flux receive it?</a></h3>
       <p>The GitOps guide explains how controllers pull reviewed Kubernetes objects from Git or OCI.</p>
     </section>
 
     <section aria-labelledby="manage">
-      <h2 id="manage">3. Change or operate it</h2>
+      <h2 id="manage">Change or operate saved configuration</h2>
       <h3><a href="./d/docs/user/variants-after-upload.html">How do I make environment variants?</a></h3>
       <p>Create, compare, and promote development and production variants.</p>
       <h3><a href="./redis-walkthrough.html">How do I upgrade and roll back?</a></h3>
       <p>The detailed Redis walkthrough shows an upgrade, promotion, rollout, and rollback.</p>
-      <h3><a href="./journey.html">How can saved configuration support repeated work?</a></h3>
+      <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>
       <p>Apps on ConfigHub includes upgrade, lifecycle, RBAC, fleet, and AI review examples.</p>
       <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
       <p>Start read-only from GitOps, YAML, Helm, or a live cluster.</p>
     </section>
 
     <section aria-labelledby="check">
-      <h2 id="check">4. Check a result or solve a problem</h2>
-      <h3><a href="./verification.html">How do I verify a claim?</a></h3>
-      <p>Choose the correct check, command, and evidence boundary.</p>
+      <h2 id="check">Check a result or solve a problem</h2>
+      <h3><a href="./verification.html">How do I check a result?</a></h3>
+      <p>Find the command that checks a generated page, a saved receipt, or a live cluster.</p>
       <h3><a href="./known-gaps.html">What is not working yet?</a></h3>
       <p>Read the named limitations and the evidence behind them.</p>
       <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
@@ -565,7 +565,7 @@
     </section>
 
     <section aria-labelledby="continue">
-      <h2 id="continue">5. Continue when you need more</h2>
+      <h2 id="continue">More references</h2>
       <p><a href="./docs-reference.html">Browse all technical references</a> for every guide, evidence table, repository note, and generated data source.</p>
       <p><a href="./confighub.html">Continue with ConfigHub</a> when you want shared records, variants, approvals, promotion, and rollout history.</p>
     </section>
