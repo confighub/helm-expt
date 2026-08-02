@@ -32,7 +32,7 @@ const checks = [
   },
   {
     file: "site/redis-walkthrough.html",
-    terms: ["Detailed Redis walkthrough", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "a reviewed object edit stays", "What is <code>--pull</code>?", "Managed upgrade and rollback"],
+    terms: ["Detailed Redis walkthrough", "Pull, inspect, and verify Redis", "reuse-existing-secret", "Redis 25.5.3", "27.0.0", "cub installer", "--output-oci", "No account: the package choice stays", "review a stored change", "What is <code>--pull</code>?", "Managed upgrade and rollback"],
   },
   {
     file: "site/serverless.html",

@@ -1720,8 +1720,8 @@ em{font-style:italic;color:var(--ink);}
       <ul>
         <li>Render once to plain YAML Units you can read.</li>
         <li>Query the same records across apps and environments, without scraping clusters or hunting through templates first.</li>
-        <li>Change <em>any</em> field afterward, by hand, a script, or an AI agent.</li>
-        <li>The next upgrade <strong>keeps</strong> your change instead of wiping it.</li>
+        <li>Change an exact field afterward, by hand, a script, or an AI agent.</li>
+        <li>On upgrade, ConfigHub keeps non-conflicting recorded changes and shows you when the new base changes the same field.</li>
       </ul>
     </div>
   </div>
@@ -1731,7 +1731,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable">
     <tr><th>Place</th><th>Use it for</th><th>What happens on upgrade</th></tr>
     <tr><td><strong>Helm values</strong></td><td>Choose the base shape: components, object count, storage mode, CRDs, ingress, Secret strategy, topology, or another choice that changes what Helm renders.</td><td>Change the recorded values and render a new base. The values profile remains linked to the objects it produced.</td></tr>
-    <tr><td><strong>ConfigHub changes</strong></td><td>Change an exact field after render when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.</td><td>The edit is a Unit revision or derived variant. It is put back when the base is upgraded.</td></tr>
+    <tr><td><strong>ConfigHub changes</strong></td><td>Change an exact field after render when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.</td><td>The edit is a Unit revision or derived variant. ConfigHub keeps it when the upgraded base does not change the same field. If both change that field, review the overlap before promotion.</td></tr>
     <tr><td><strong>Install work</strong></td><td>Provide Secrets, CRDs, target facts, hooks, setup jobs, certificates, or other work needed around the objects.</td><td>The prerequisite or route is checked again. It is not hidden as a Helm value or a ConfigHub edit.</td></tr>
     <tr><td><strong>Live cluster</strong></td><td>Observe what actually ran and compare it with the reviewed objects.</td><td>A live-only edit is drift. Record an intended fix in ConfigHub, or remove the drift.</td></tr>
   </table>
@@ -1749,11 +1749,11 @@ em{font-style:italic;color:var(--ink);}
     <div class="count"><b>8</b><span>standard base shapes</span></div>
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
   </div>
-  <p>Each chart ships a recommended <strong>default</strong> base variant plus one standard fork. The forks come from a fixed vocabulary, named by what they change, not bespoke per chart:</p>
+  <p>Each chart page names a recommended starting configuration and any reviewed alternatives. These base variants use a fixed vocabulary that says what they change:</p>
   <p>Operators choose a vetted package release and a named base variant. They set only the small number of inputs that remain at install time. The catalog does not expose every Helm value again. It provides common paths that are reviewed, repeatable, and safe to reconcile across many installs.</p>
   <table class="gtable">
     <tr><th>Base shape</th><th>What it changes</th></tr>
-    <tr><td><code>default</code></td><td>Honest out-of-the-box install; the recommended starting point.</td></tr>
+    <tr><td><code>default</code></td><td>The chart's named default render. It is a reference point, not automatically the configuration we recommend for installation.</td></tr>
     <tr><td><code>parameterized</code></td><td>Same shape as default, with fill-safe fields exposed as placeholders.</td></tr>
     <tr><td><code>existing-secret</code></td><td>Bring your own Secret instead of a generated one.</td></tr>
     <tr><td><code>no-crds</code></td><td>CRDs owned externally (by a controller or GitOps).</td></tr>
@@ -1829,8 +1829,8 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <div class="fstage star">
     <span class="ftag">CHANGE</span><span class="codetag">F4 · derived variant</span>
     <h3>Change: derive from a base, and ConfigHub manages it</h3>
-    <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or edit any field. Create one per environment from a single base.</p>
-    <p>ConfigHub reviews, promotes, approves, and delivers the change. It puts the recorded edit back after a base upgrade and can observe the live result. A base or derived variant can both be managed.</p>
+    <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or edit an exact object field. Create one per environment from a single base.</p>
+    <p>ConfigHub reviews, promotes, approves, and delivers the change. On upgrade, it keeps recorded changes that do not overlap changes in the new base. When both sides change the same field, the overlap must be reviewed before promotion.</p>
   </div>
 
   <h3>The five words: Variants, in one picture</h3>
@@ -1858,7 +1858,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <h2>4 · Understand why the records are separate</h2>
   <table class="gtable">
     <tr><th>We chose to…</th><th>…because</th></tr>
-    <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and ConfigHub puts the recorded change back after an upgrade. The desired config itself shows what should run.</td></tr>
+    <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So the desired config shows exactly what should run. You can change an exact field after install; ConfigHub keeps non-conflicting recorded changes on upgrade and shows same-field overlaps for review.</td></tr>
     <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers, with no re-render drift between review and runtime.</td></tr>
     <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per base variant.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
@@ -1871,9 +1871,9 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <table class="gtable">
     <tr><th>You want to…</th><th>Recommended path</th></tr>
     <tr><td>Just see the objects</td><td>Render and read them. No account, no cluster.</td></tr>
-    <tr><td>Install one chart</td><td>Start at the chart's <code>default</code> base: <code>cub installer setup --pull &lt;installer OCI ref&gt; --base default</code>.</td></tr>
+    <tr><td>Install one chart</td><td>Open its catalog page and use the recommended configuration shown there. Pass that base with <code>--base &lt;name&gt;</code>, or omit <code>--base</code> only when the package's selected default is the one you want.</td></tr>
     <tr><td>Run a database / anything with a password</td><td>Use the <code>existing-secret</code> base and supply the Secret yourself. Don't ship a generated one over GitOps.</td></tr>
-    <tr><td>Change something after install</td><td>Make a <strong>derived variant</strong>. It keeps your change through upgrades, no re-render.</td></tr>
+    <tr><td>Change something after install</td><td>Make a <strong>derived variant</strong>. ConfigHub keeps non-conflicting recorded changes through upgrades and asks you to review same-field overlaps.</td></tr>
     <tr><td>Run dev / staging / prod</td><td>One base → many derived variants (per environment, region, customer). The base stays single; the instances live in ConfigHub.</td></tr>
     <tr><td>Already run Argo or Flux</td><td>Keep your controller. Publish once to OCI; point Argo/Flux at the same bundle.</td></tr>
   </table>
@@ -1888,7 +1888,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
 
   <h2>6 · Make the remaining decisions</h2>
   <p>Some choices we can't make for you. They depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>
-  <div class="decide"><p><strong>Which base fits.</strong> We recommend <code>default</code>, but you know whether you need <code>ha</code>, <code>no-crds</code>, or <code>existing-secret</code>. The catalog names the trade-off; you pick.</p></div>
+  <div class="decide"><p><strong>Which base fits.</strong> The chart page recommends a starting configuration and explains alternatives such as <code>ha</code>, <code>no-crds</code>, or <code>existing-secret</code>. Read the trade-off before you choose.</p></div>
   <div class="decide"><p><strong>Namespace.</strong> Simple charts honour <code>--namespace</code>. Some complex charts embed a namespace in their objects and must install at their canonical one. The chart page says which.</p></div>
   <div class="decide"><p><strong>Image pinning.</strong> Some default bases ship a floating tag. For reproducible, digest-bound delivery, pin it: <code>--set-image NAME=repo/img@sha256:…</code>.</p></div>
   <div class="decide"><p><strong>Secrets.</strong> Bring your own via the <code>existing-secret</code> base and stage it out-of-band (ExternalSecrets, Vault, or <code>kubectl</code>). We can't invent your production secret.</p></div>
@@ -2698,13 +2698,13 @@ function legacyOfferingHtml(catalog) {
 
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
-      <p>A public catalog of maintained Helm-derived packages, plus a ${signupLink("offering", "free ConfigHub account")} that lets you edit the rendered config and keep your edits through upgrades. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
-      <p>The free lane lets you browse, inspect, template, and install catalog chart bases without a ConfigHub account. With a ${signupLink("offering", "free account")} you can also edit any rendered field and keep it through upgrades, plus basic variants, diffs, and scans. The paid lane covers private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
+      <p>A public catalog of maintained Helm-derived packages, plus a ${signupLink("offering", "free ConfigHub account")} that lets you record changes to rendered config and compare them with later upgrades. Non-conflicting changes stay; same-field changes require review. The paid tier covers private charts, teams, policies, fleet operations, and production support.</p>
+      <p>The free lane lets you browse, inspect, template, and install catalog chart bases without a ConfigHub account. With a ${signupLink("offering", "free account")} you can also record rendered-field changes, compare upgrades, and use basic variants, diffs, and scans. The paid lane covers private charts, custom catalogs, teams, policies, approvals, fleet operations, GitOps and OCI at scale, patch and upgrade services, and production support.</p>
       ${markdownLikeTable([
         ["What you get", "No account", "Free account", "Paid"],
         ["Browse, inspect, and template catalog charts", "Yes", "Yes", "Yes"],
         ["Install a chart base and read the exact objects", "Yes", "Yes", "Yes"],
-        ["Edit a rendered field and keep it through upgrades", "No", "Yes", "Yes"],
+        ["Record a rendered-field change and compare it with upgrades", "No", "Yes", "Yes"],
         ["Environment variants, diffs, and scans", "No", "Basic", "Full"],
         ["Private charts and custom catalogs", "No", "No", "Yes"],
         ["Teams, policies, and approvals", "No", "No", "Yes"],
@@ -2751,9 +2751,9 @@ function legacyOfferingHtml(catalog) {
 
     <section aria-labelledby="try">
       <h2 id="try">Try It Without A Big Commitment</h2>
-      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a catalog package and local verification. A ${signupLink("offering", "ConfigHub account")} is free: use it to edit the rendered config and keep your edits through upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
+      <p>The first path is closer to <code>helm install redis</code> than to a platform migration. Start with a catalog package and local verification. A ${signupLink("offering", "ConfigHub account")} is free: use it to record config changes and compare them with later upgrades. The paid tier is for private inputs, teams, and production workflows.</p>
       <pre>cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
-  --base default \\
+  --base reuse-existing-secret \\
   --work-dir .tmp/redis \\
   --non-interactive \\
   --namespace redis</pre>
@@ -3045,8 +3045,8 @@ em{font-style:italic;color:var(--ink);}
   ${topNav(".")}
   <div class="hero-copy">
     <h1>Detailed Redis walkthrough</h1>
-    <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in only when you want ConfigHub to keep an arbitrary object edit, promote it, and record a rollback.</p>
-    <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade without losing the choice</b> &rarr;</span> <span><b>see the managed payoff</b></span></div>
+    <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in when you want to record a change, compare it with an upgrade, promote it, and record a rollback.</p>
+    <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade the same selection</b> &rarr;</span> <span><b>review one stored change</b></span></div>
   </div>
 </header>
 <main>
@@ -3111,7 +3111,7 @@ $ bash &lt;(curl -fsSL ${SITE_BASE_URL}sh/bitnami-redis-25-5-3/reuse-existing-se
   <div class="callout"><p><strong>Registry access today.</strong> ${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p></div>
 
   <h2>2 · Upgrade the same Redis configuration</h2>
-  <p>Now move the same work directory from Redis chart 25.5.3 to 27.0.0. With no account, cub can retain the package selection and inputs it knows about. With ConfigHub, it can also retain a reviewed edit made directly to a Kubernetes object.</p>
+  <p>Now move the same work directory from Redis chart 25.5.3 to 27.0.0. With no account, cub can retain the package selection and inputs it knows about. The recorded ConfigHub proof also checks one specific post-render change: a replica count that the newer base does not change.</p>
   <div class="two">
     <div class="box">
       <h3>No account: the package choice stays</h3>
@@ -3126,22 +3126,24 @@ $ cat ./redis/out/spec/selection.yaml
       <p>The selected existing-Secret base is retained. The newer output contains Redis 8.8.0 and chart 27.0.0, still as 14 non-secret objects, and the second OCI is pulled back and verified. This does not claim that an arbitrary hand edit survives without ConfigHub.</p>
     </div>
     <div class="box">
-      <h3>With a ${signupLink("try", "free account")}: a reviewed object edit stays</h3>
+      <h3>With a ${signupLink("try", "free account")}: review a stored change</h3>
       <p class="tag">${signupLink("try", "free account")}</p>
       <pre><code># Record the 25.5.3 objects.
-$ cub installer upload --work-dir ./redis --space my-redis
+$ cub installer upload --work-dir ./redis --space my-redis \\
+    --component redis-upgrade --variant base
 
-# Change the rendered replica StatefulSet from 3 replicas to 2.
-$ edit ./redis/out/manifests/statefulset-redis-redis-replicas.yaml
-$ cub installer plan --work-dir ./redis
-$ cub installer upload --work-dir ./redis --yes
+# Record one exact change in ConfigHub: two Redis replicas.
+$ cub k8s get sts --space my-redis
+$ cub run set-replicas --space my-redis \\
+    --unit &lt;replica-statefulset-unit&gt; --replicas 2 \\
+    --change-desc "Keep two Redis replicas through chart upgrades" --wait
 
-# Pull 27.0.0. setup reads upload.yaml; upload performs the merge.
+# Pull 27.0.0. setup reads upload.yaml; plan shows the comparison.
 $ cub installer setup --pull ${REDIS_27_INSTALLER_OCI_REF} \\
     --work-dir ./redis --reuse --non-interactive --namespace redis
 $ cub installer plan --work-dir ./redis
 $ cub installer upload --work-dir ./redis --yes</code></pre>
-      <p>The recorded run upgraded the chart from 25.5.3 to 27.0.0 and Redis from 8.6.3 to 8.8.0. The replica count remained two. There is no removed setup flag to remember: <code>setup</code> re-enters from <code>upload.yaml</code>, and <code>upload</code> merges the new package output with the recorded Units.</p>
+      <p>The recorded run upgraded the chart from 25.5.3 to 27.0.0 and Redis from 8.6.3 to 8.8.0. The newer base did not change <code>spec.replicas</code>, so the recorded value remained two. A change to a field that the newer base also changes must be reviewed in the plan before upload. <code>setup</code> re-enters from <code>upload.yaml</code>, and <code>upload</code> compares the new package output with the recorded Units.</p>
     </div>
   </div>
 
@@ -4543,7 +4545,7 @@ function demoOrgHtml(catalog) {
     ["prometheus-community/prometheus", "default, server-only-ephemeral", "The Get Started chart, as it lands in an org."],
     ["prometheus-community/kube-prometheus-stack", "no-crds", "The serious chart: eight recorded lifecycle routes in its recipe unit."],
     ["grafana/grafana", "existing-secret-ingress, static-passwords", "Secrets handled two ways."],
-    ["bitnami/mysql", "existing-secret, static-passwords", "The secrets story: staged credential beside generated credential, diffable."],
+    ["bitnami/mysql", "existing-secret, static-passwords", "Compare an externally supplied Secret with the fixed shared-password demonstration. The static-passwords base is not safe for production."],
     ["bitnami/rabbitmq", "existing-secret, static-passwords", "A recipe unit whose routing metadata honestly says: nothing to route."],
     ["bitnami/nginx", "http-clusterip, existing-tls-ingress", "The fleet: four environments from one base, one deliberately behind."],
   ];
@@ -5601,7 +5603,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \\
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
 
       <h3 id="pillar-reverse">You can reverse a change, not only keep it</h3>
-      <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
+      <p>ConfigHub keeps every revision as data, so you can restore a prior desired state without rebuilding it by hand. Each base variant records the exact objects it produced. This restores Kubernetes configuration; it does not reverse database changes, migrations, or other external effects.</p>
       <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
 
       <h3 id="pillar-installer">You do not need to learn cub installer first</h3>
@@ -5630,7 +5632,7 @@ function futureHtml(catalog) {
     ["Fleet operations", "Promote, patch, scan, and observe many variants with a clear blast radius."],
     ["Accept a live fix", "Bring an authorized live change back into the saved configuration after policy and round-trip checks pass."],
     ["AI agents", "Use AI to propose app and ops changes while ConfigHub keeps evidence, gates, and rollback records."],
-    ["AICR, NIM, and stacks", "Apply the same recipe, variant, and evidence model to larger AI and platform stacks."],
+    ["Broader AICR and NIM coverage", "Extend the current AICR OCI, import, and promotion example to more recipes and a live GPU deployment."],
   ];
   return `<!doctype html>
 <html lang="en">

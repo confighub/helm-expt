@@ -655,7 +655,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
 
       <h3 id="pillar-reverse">You can reverse a change, not only keep it</h3>
-      <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
+      <p>ConfigHub keeps every revision as data, so you can restore a prior desired state without rebuilding it by hand. Each base variant records the exact objects it produced. This restores Kubernetes configuration; it does not reverse database changes, migrations, or other external effects.</p>
       <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
 
       <h3 id="pillar-installer">You do not need to learn cub installer first</h3>
