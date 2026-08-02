@@ -4667,7 +4667,7 @@ cub k8s get crd --space "*"</code></pre>
       <section aria-labelledby="what">
         <h2 id="what">4. Choose another example by problem</h2>
         <p>Each row below starts with one supported Helm configuration stored as readable Kubernetes Units. Choose the problem you want to understand, then open that Space and its README.</p>
-        <p>Each maintained example Space has a README, rendered objects, identifying labels, and policy tests. Helm preset Spaces also have a current <code>HelmRenderIntent</code> Unit. Deeper examples add route, render-record, or proof Units when they are useful.</p>
+        <p>Each maintained example Space has a README, rendered objects, identifying labels, and policy tests. Helm preset Spaces also have a current <code>HelmRenderIntent</code> Unit. An example adds prerequisite, lifecycle, render-history, or test-result Units only when they help explain that configuration.</p>
       ${markdownLikeTable([
         ["Chart", "Base variants", "What this example demonstrates"],
         ...keepRows,
@@ -4688,14 +4688,14 @@ cub k8s get crd --space "*"</code></pre>
         <p>The base later added telemetry and release-track annotations. Staging and production received them while keeping their replica settings. Dev had changed the same annotations map, so promotion kept the dev map and skipped the base annotations. Two recorded reconcile revisions added them afterward. The revision history shows both cases.</p>
         <p><strong>A staged rollout.</strong> Staging first received a real audience environment variable. The base later added the same variable as <code>confighubplaceholder</code> and added a shared issuer. Promotion kept staging's real value and delivered the issuer. The <code>vet-placeholders</code> policy prevents the placeholder from reaching a cluster.</p>
         <p>The promotion also copied the new <code>render-record</code> Unit from the base into staging. The <a href="https://github.com/confighub/helm-expt/tree/main/runs/promote-silent-skip-proof">promotion receipt</a> records the complete test.</p>
-        <p><strong>Proposals for missing product objects.</strong> ConfigHub does not yet have separate entities for recipes, render events, render provenance, or lifecycle routes. The org represents these ideas with Units, Links, and labels. The sections below identify each proposal and its limits.</p>
+        <p><strong>Records for information ConfigHub does not yet model directly.</strong> ConfigHub does not yet have separate object types for source recipes, render events, links back to source, or lifecycle routes. The org keeps this information in ordinary Units, Links, and labels. Section 7 shows exactly where to find it.</p>
     </section>
 
       <section aria-labelledby="live-proof">
         <h2 id="live-proof">6. Check what ran on Kubernetes</h2>
         <p>These three examples ran on real clusters. Each receipt records the command, observations, result, and limit.</p>
         <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD and Flux pulled that artifact on separate throwaway kind clusters and completed the Job. A separate direct local test pulled the same artifact and completed the Job.</p>
-        <p>This test covers one routed fixture on one recorded rig. It does not cover every chart, hook type, or production environment.</p>
+        <p>This test covers one setup Job on one recorded test environment. It does not cover every chart, hook type, or production environment.</p>
         <p><strong>The CRD ordering test.</strong> Direct apply first tried to create a custom resource before its CRD was established. Kubernetes refused the custom resource with the recorded error. Applying the CRD first and waiting for it fixed the installation. A separate receipt records the chart-specific order through Argo CD and Flux.</p>
         <p><strong>The Kube Prometheus Stack lifecycle test.</strong> A direct run rendered catalog package 85.3.3 and verified its chart objects. It applied ten CRDs first, ran the certificate and webhook Jobs, tested the webhook and six workloads, then removed temporary Jobs.</p>
         <p>Separate clusters ran the Argo CD and Flux paths. Each installed the 85.3.3 no-crds OCI and upgraded to 86.1.0. Both controllers replaced the completed setup Jobs and passed the runtime tests after upgrade. ConfigHub does not yet select this route automatically.</p>
@@ -4707,13 +4707,13 @@ cub k8s get crd --space "*"</code></pre>
         <p>The demo org uses ordinary Units, Links, and labels to record source details and lifecycle work. ConfigHub does not yet model these as separate product objects.</p>
         <p>You can inspect and query these records, but they are working examples rather than new ConfigHub entities.</p>
       ${markdownLikeTable([
-        ["The idea", "What the product has today", "The sketch standing in for it", "Where to look"],
-        ["A recipe, the DRY source of a base variant: chart, version, declared inputs, and routing intent", "A plain Unit whose data happens to be recipe YAML; the server cannot tell it from a ConfigMap", "The recipe unit in every chart Space", "Any Space, unit recipe, data tab"],
-        ["The act of rendering: who rendered what, from which recipe, when, producing which units", "Nothing. Rendering happens client-side in the installer; the server only sees the finished units arrive", "A render-record unit stating chart, base, renderer, time, and output count, marked status: sketch", "Space hashicorp-vault-demo-base, unit render-record"],
-        ["Render provenance: an edge from every rendered unit back to its recipe", "Links exist, but they express apply-order dependencies between resources, not provenance", "One exemplar rendered-from-recipe Link, from the statefulset to the recipe. One rather than thirteen because the org's Link quota is nearly spent; the render-record describes the full set", "Space hashicorp-vault-demo-base, unit statefulset-vault-vault, links"],
-        ["A lifecycle route as a thing: an addressable decision about behaviour that config alone cannot carry", "Rows in the repo's route data, labels on Spaces, annotations readable inside unit data. Real, but not product entities", "Eight LifecycleRoute units: seven chart lifecycle routes plus one explicit CRD-first route. Each stores its class, phase, executor, alternatives, evidence, and per-delivery implementation results.", "Space route-sketch-kube-prometheus-stack"],
+        ["Question", "What ConfigHub stores today", "Demo record", "Where to look"],
+        ["Which source and choices produced this configuration?", "An ordinary Unit containing the chart, version, values, and required setup. ConfigHub does not yet recognize it as a separate source type.", "The recipe Unit in every chart Space", "Open any chart Space, then open the recipe Unit's Data tab"],
+        ["What was rendered, when, and which Units were produced?", "The installer renders on the client, so ConfigHub receives the finished Units but no native render event.", "A render-record Unit with the chart, configuration, renderer, time, and output count", "Open the render-record Unit in hashicorp-vault-demo-base"],
+        ["How do rendered objects link back to their source?", "Links currently describe apply order, not source history.", "One example rendered-from-recipe Link. The render-record covers the full object set.", "Open the links for statefulset-vault-vault in hashicorp-vault-demo-base"],
+        ["What must happen around the ordinary objects?", "Ordinary Units and labels hold the hook, CRD, setup, and target decisions. ConfigHub has no native lifecycle-route object yet.", "Eight LifecycleRoute Units with the phase, executor, alternatives, evidence, and delivery results", "Open route-sketch-kube-prometheus-stack"],
       ])}
-        <p>Each proposal Unit mirrors committed repo data. The top-level chart route remains <code>automatic: false</code>. Direct, Argo CD, Flux, and upgrade implementations have separate evidence.</p>
+        <p>Each record matches committed repo data. The top-level chart route remains <code>automatic: false</code>. Direct, Argo CD, Flux, and upgrade implementations have separate evidence.</p>
       <h3 id="kps-routes">Eight kube-prometheus-stack lifecycle steps</h3>
       <p>A lifecycle record describes work that ordinary rendered objects do not perform. Five records come from Helm hook behavior. The remaining three cover CRD order, target facts, and webhook readiness.</p>
       ${markdownLikeTable([
