@@ -2927,7 +2927,7 @@ function howItWorksHtml() {
     <h3>OCI package</h3>
     <p><strong>No ConfigHub account.</strong> Publish the reviewed files as OCI. Argo CD or Flux can pull the same objects you inspected.</p>
     <h3>ConfigHub</h3>
-    <p>Import files or OCI as a base. ConfigHub keeps later changes and can publish release OCI for Argo CD or Flux.</p>
+    <p>Import the files or OCI as a base configuration: the reviewed starting point for later changes. ConfigHub keeps those changes and can publish release OCI for Argo CD or Flux.</p>
   </section>
 
   <section aria-labelledby="setup">
@@ -2990,7 +2990,7 @@ function configHubHtml() {
 <main>
   <section aria-labelledby="managed-result">
     <h2 id="managed-result">1. What ConfigHub adds</h2>
-    <p>Start from reviewed files or OCI. Store them as a base, make environment variants, review exact diffs, and promote changes.</p>
+    <p>Start from reviewed files or OCI. Store them as a base configuration, then make separate variants for each environment. Review exact diffs and promote approved changes.</p>
     <p>Publish release OCI for Argo CD or Flux. Keep the source, changes, approvals, releases, and rollout history together.</p>
     <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>
@@ -3561,7 +3561,7 @@ function docsHtml() {
       <h3><a href="./d/docs/user/chart-hooks-what-happens.html">What happens to hooks and CRDs?</a></h3>
       <p>See how required setup is recorded, ordered, tested, or blocked.</p>
       <h3><a href="./d/docs/user/helm-presets-and-values.html">Should I change the source input or the rendered object?</a></h3>
-      <p>Use the values and base variants guide for Helm inputs, base variants, and ConfigHub changes.</p>
+      <p>Use this guide to decide whether a change belongs in Helm values or in the stored Kubernetes objects.</p>
       <h3><a href="./d/docs/user/gitops-adopter-guide.html">How do Argo CD and Flux receive it?</a></h3>
       <p>The GitOps guide explains how controllers pull reviewed Kubernetes objects from Git or OCI.</p>
     </section>
@@ -3581,7 +3581,7 @@ function docsHtml() {
     <section aria-labelledby="check">
       <h2 id="check">Check a result or solve a problem</h2>
       <h3><a href="./verification.html">How do I check a result?</a></h3>
-      <p>Find the command that checks a generated page, a saved receipt, or a live cluster.</p>
+      <p>Find the command that checks a generated page, a saved test record, or a live cluster.</p>
       <h3><a href="./known-gaps.html">What is not working yet?</a></h3>
       <p>Read the named limitations and the evidence behind them.</p>
       <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
@@ -5364,31 +5364,31 @@ function examplesHtml(catalog) {
           "A ready-made Helm package",
           "Pull Redis, render one preset configuration, inspect its objects, and check the recorded Helm parity and install requirements.",
           `<a href="./try.html">Short example</a> · <a href="./redis-walkthrough.html">Full walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3">GitHub source</a>`,
-          `Public installer OCI. <a href="./charts/bitnami-redis-25-5-3.html">Open its reference and package details</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">ConfigHub Space guide</a>`,
+          `Public installer OCI. <a href="./charts/bitnami-redis-25-5-3.html">Open its reference and package details</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">See this example in ConfigHub</a>`,
         ],
         [
           "Your own Helm chart and values",
           "Preview an arbitrary chart and values without applying them. The NGINX review keeps the wanted change and corrects six risky settings.",
           `<a href="#bring-your-own">Run cub helm</a> · <a href="./d/data/byo-helm-values-review/summary.html">Open the NGINX review</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a>`,
-          `Public literal configuration OCI; exact reference is in the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">publication record</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">ConfigHub Space guide</a>`,
+          `Public OCI containing the exact Kubernetes objects; its reference is in the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">publication record</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">See this example in ConfigHub</a>`,
         ],
         [
           "An AICR recipe or bundle",
-          worked(pathways, "aicr").result,
+          "Publish the AICR source package and a second OCI containing 17 exact Argo CD Applications. Import those Applications into ConfigHub, change one setting in development, and promote it to staging.",
           `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr/eks-h100-training-kubeflow">GitHub source</a> · <a href="./d/data/aicr-oci-roundtrip-proof/summary.html">Round-trip proof</a>`,
-          `Public source OCI plus public literal configuration OCI; digests are in the <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">publication receipt</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">ConfigHub Space guide</a>`,
+          `Public source OCI plus a public OCI containing 17 exact Argo CD Applications; digests are in the <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">publication receipt</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">See this example in ConfigHub</a>`,
         ],
         [
           "An existing OCI package",
           "Inspect its exact objects or change one named field, then pull the result back and compare it with the reviewed files.",
           `<a href="./d/docs/user/inspect-oci-package.html">Inspect OCI</a> · <a href="./d/docs/user/transform-oci-package.html">Change OCI</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/anonymous-oci-transform">GitHub source</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">Proof</a>`,
-          `Permanent public OCI: <code>${permanentLiteralOciRef}</code>.<br><a href="./d/data/literal-config-examples/summary.html">Publication and exact import proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html">ConfigHub Space guide</a>`,
+          `Permanent public OCI: <code>${permanentLiteralOciRef}</code>.<br><a href="./d/data/literal-config-examples/summary.html">Publication and exact import proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html">See this example in ConfigHub</a>`,
         ],
         [
           "Kubernetes YAML or an existing app",
           "Upload four ordinary Kubernetes files without running Helm or another renderer. Read the four ConfigHub Units back and compare them with the source.",
           `<a href="./existing-apps.html">Existing-app guide</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/literal-config-examples/summary.html">Exact import proof</a>`,
-          `<a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub Space guide</a>. The focused receipt stops after import; the official tutorial continues into change, release, production, and promotion.`,
+          `<a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">See this example in ConfigHub</a>. The focused receipt stops after import; the official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
 
@@ -5888,7 +5888,7 @@ function firstPathCell(entry, row) {
   let note = "Open the chart page for the command and option cards.";
   if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
   else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
-  else if (row?.row_kind === "base") note = "Recommended base variant to try first.";
+  else if (row?.row_kind === "base") note = "Recommended configuration to try first.";
   return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>`;
 }
 
@@ -5945,7 +5945,7 @@ function catalogBaseOptionsCell(rows) {
   const bases = rows.filter((row) => row.row_kind === "base");
   const visible = bases.map((row) => row.variant).filter(Boolean).slice(0, 4);
   return bases.length
-    ? `${bases.length} base option${bases.length === 1 ? "" : "s"}: ${visible.join(", ")}${bases.length > visible.length ? ", ..." : ""}`
+    ? `${bases.length} configuration${bases.length === 1 ? "" : "s"}: ${visible.join(", ")}${bases.length > visible.length ? ", ..." : ""}`
     : "Open the chart page.";
 }
 
