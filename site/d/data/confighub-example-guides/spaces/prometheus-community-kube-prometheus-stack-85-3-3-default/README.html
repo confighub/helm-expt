@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try it</a><a href="../../../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try Redis</a><a href="../../../../../testing.html">Examples</a><a href="../../../../../charts/index.html">Catalog</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="../../../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>prometheus-community/kube-prometheus-stack 85.3.3 - default</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../data/confighub-example-guides/spaces/prometheus-community-kube-prometheus-stack-85-3-3-default/README.md">View source markdown</a>.</p>
   </header>
@@ -459,10 +457,10 @@
 <p>That captured output is the render variant: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"><code>recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml</code></a>. It contains 124 Kubernetes object(s): PrometheusRule x35, ConfigMap x31, ServiceMonitor x13, Service x11, CustomResourceDefinition x10, ServiceAccount x6, ClusterRole x4, ClusterRoleBinding x4.</p>
 <p>The public package is <code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3</code>. Users can pull it without cloning this repo. When someone runs <code>cub installer upload</code>, ConfigHub stores the rendered Kubernetes YAML in a Space so it can be searched, compared, reviewed, changed, and delivered. The example script defaults to Space <code>helm-kube-prometheus-stack-default</code>, but users can choose another name with <code>CUB_SPACE=...</code>.</p>
 <h2 id="what-to-check">What to check</h2>
-<p>This preset config records 1 prerequisite: 1 Secret. Follow the instructions below before you apply the rendered objects.</p>
-<p>The catalog records 7 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.</p>
-<ul><li><b>Before install:</b> The hook creates webhook patch prerequisites before admission configuration is safe to use.</li><li><b>Before install:</b> preserve-ordering.</li><li><b>Before install:</b> target-facts-or-preflight.</li><li><b>After install:</b> Webhook TLS and readiness must be observed after apply.</li><li><b>After install:</b> webhook-readiness-observation.</li><li><b>During upgrade:</b> Upgrade behavior must be recorded separately from initial render parity.</li><li><b>When uninstalling:</b> preserve-cleanup-policy.</li></ul>
-<p>At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).</p>
+<p>This preset config records 11 prerequisites: 10 CRDs, 1 Secret. The public package includes the files used to prepare them, and the generated try script applies them in the required order.</p>
+<p>The catalog records 8 extra steps for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.</p>
+<ul><li><b>Before install:</b> The package runs the chart's certificate creation Job before applying the admission webhooks.</li><li><b>Before install:</b> The package applies the locked CRDs before the chart objects that use them.</li><li><b>Before install:</b> The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.</li><li><b>Before install:</b> The certificate Job creates the required admission Secret with ca, cert, and key.</li><li><b>After install:</b> The package runs the chart's webhook patch Job after the webhook objects exist.</li><li><b>After install:</b> The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.</li><li><b>During upgrade:</b> The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.</li><li><b>When uninstalling:</b> The run removes both completed Jobs and their temporary RBAC objects.</li></ul>
+<p>Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 124 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li><li>Prerequisites are named before apply, so they are not discovered after rollout.</li><li>Hook and lifecycle work is counted and linked to the route record.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
@@ -487,21 +485,23 @@
 <tr><td>Package base</td><td><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default"><code>packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default</code></a></td></tr>
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/prometheus-community-kube-prometheus-stack-85-3-3/default/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites-and-lifecycle-steps">Prerequisites and lifecycle steps</h2>
-<table><thead><tr><th>When</th><th>What</th><th>How it is handled</th></tr></thead><tbody><tr><td>Before install</td><td>ClusterFeature: Secret monitoring/kube-prometheus-stack-admission keys cert,key</td><td>kubectl -n monitoring create secret generic kube-prometheus-stack-admission --from-literal=cert=&lt;value&gt; --from-literal=key=&lt;value&gt;</td></tr>
-<tr><td>Before install</td><td>Prepare the target</td><td>The hook creates webhook patch prerequisites before admission configuration is safe to use.</td></tr>
-<tr><td>Before install</td><td>Keep the required apply order</td><td>preserve-ordering.</td></tr>
-<tr><td>Before install</td><td>Prepare the target</td><td>target-facts-or-preflight.</td></tr>
-<tr><td>After install</td><td>Check the completed install</td><td>Webhook TLS and readiness must be observed after apply.</td></tr>
-<tr><td>After install</td><td>Wait for the webhook to be ready</td><td>webhook-readiness-observation.</td></tr>
-<tr><td>During upgrade</td><td>Run the upgrade step</td><td>Upgrade behavior must be recorded separately from initial render parity.</td></tr>
-<tr><td>When uninstalling</td><td>Keep the chart's cleanup policy</td><td>preserve-cleanup-policy.</td></tr></tbody></table>
+<table><thead><tr><th>When</th><th>What</th><th>How it is handled</th></tr></thead><tbody><tr><td>Before install</td><td>10 CRDs: alertmanagerconfigs.monitoring.coreos.com, alertmanagers.monitoring.coreos.com, podmonitors.monitoring.coreos.com, probes.monitoring.coreos.com, prometheusagents.monitoring.coreos.com, prometheuses.monitoring.coreos.com, prometheusrules.monitoring.coreos.com, scrapeconfigs.monitoring.coreos.com, servicemonitors.monitoring.coreos.com, thanosrulers.monitoring.coreos.com</td><td>Included in the public package as prerequisites/kube-prometheus-stack-lifecycle/default-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects.</td></tr>
+<tr><td>Before install</td><td>ClusterFeature: Secret monitoring/kube-prometheus-stack-admission keys ca,cert,key</td><td>Included in the public package as prerequisites/kube-prometheus-stack-lifecycle/prepare.sh. The generated try script applies it and waits for the required CRD before installing the main objects.</td></tr>
+<tr><td>Before install</td><td>Prepare the target</td><td>The package runs the chart's certificate creation Job before applying the admission webhooks.</td></tr>
+<tr><td>Before install</td><td>Install CRDs first</td><td>The package applies the locked CRDs before the chart objects that use them.</td></tr>
+<tr><td>Before install</td><td>Keep the required apply order</td><td>The direct runner applies CRDs, creates the certificate, applies the workload, and patches the webhooks in that order.</td></tr>
+<tr><td>Before install</td><td>Prepare the target</td><td>The certificate Job creates the required admission Secret with ca, cert, and key.</td></tr>
+<tr><td>After install</td><td>Check the completed install</td><td>The package runs the chart's webhook patch Job after the webhook objects exist.</td></tr>
+<tr><td>After install</td><td>Wait for the webhook to be ready</td><td>The run checks three CA bundles, the operator endpoint, a server dry-run, and six workloads.</td></tr>
+<tr><td>During upgrade</td><td>Run the upgrade step</td><td>The fresh-install receipt does not test the 85.3.3 to 86.1.0 upgrade.</td></tr>
+<tr><td>When uninstalling</td><td>Keep the chart's cleanup policy</td><td>The run removes both completed Jobs and their temporary RBAC objects.</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>
 <tr><td>Earlier local-cluster test</td><td><code>yes</code></td></tr>
 <tr><td>GitOps OCI live run</td><td><code>yes</code></td></tr>
 <tr><td>Live Helm vs ConfigHub comparison</td><td><code>yes</code></td></tr>
-<tr><td>Lifecycle routes</td><td><code>7</code></td></tr></tbody></table>
+<tr><td>Lifecycle routes</td><td><code>8</code></td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
 <ul><li>Known gap for this row: existing-secret (chart ships no Secret toggle).</li><li>Production support is target-scoped. Use production support decisions before claiming production readiness.</li></ul>
 <h2 id="source-files">Source files</h2>

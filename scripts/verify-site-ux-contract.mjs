@@ -16,7 +16,11 @@ const checks = [
   },
   {
     file: "site/try.html",
-    terms: ["Try one catalog package", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "Local: no server", "Hosted: no sign-in", "ConfigHub: sign in", "Continue with the official tutorial", "Start with your own configuration", "AICR", "Open the detailed Redis walkthrough"],
+    terms: ["Try a simple example: Redis", "14 Kubernetes objects", "1. Install cub and the package plugin", "2. Render the Redis package", "3. Inspect the result", "reuse-existing-secret", "cub plugin install confighub/installer", "kustomize version", "--output-oci", "You have finished the first example", "Continue with the full Redis walkthrough", "Choose another worked example", "Continue with ConfigHub"],
+  },
+  {
+    file: "site/confighub.html",
+    terms: ["Continue with ConfigHub", "Choose one place to start", "Sign up for ConfigHub", "Review the tutorial", "Read the ConfigHub blog"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -32,7 +36,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Choose what to test", "chart versions shown", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App", "Helm values or a ConfigHub change?"],
+    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Find a tested starting configuration", "public library of checked configurations", "Search the catalog", "Missing something you need? Tell us.", "chart versions shown", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -52,7 +56,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Docs/FAQ", "Official tutorial", "Try one catalog package", "Detailed Redis walkthrough", "Examples", "Detailed entry paths", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Find a technical guide", "Official tutorial", "Try Redis", "Detailed Redis walkthrough", "Examples", "Detailed entry paths", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -80,7 +84,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Examples", "Starting examples", "Where a starting example can run", "Continue in ConfigHub", "Platform and fleet examples", "ConfigHub App examples", "Where the material lives", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Choose a worked example", "1. Choose a starting point", "2. Choose where the first example runs", "3. Save and change it in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Technical sources", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/entry-path-reference.html",
@@ -88,13 +92,14 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["The recipe: your source of truth", "Where a setting belongs", "Variants, in one picture", "AI-assisted changes, with control", "What direct apply still has to handle", "Apply CRDs first", "Field conflicts and removals"],
+    terms: ["The recipe: your source of truth", "Where a setting belongs", "Variants, in one picture", "AI-assisted changes, with control", "What a direct local apply still has to handle", "Apply CRDs first", "Field conflicts and removals"],
   },
 ];
 
 const menuGuidePages = [
   "site/index.html",
   "site/try.html",
+  "site/confighub.html",
   "site/redis-walkthrough.html",
   "site/charts/index.html",
   "site/variants.html",
@@ -108,6 +113,7 @@ const menuGuidePages = [
 const humanSplitPages = [
   "site/index.html",
   "site/try.html",
+  "site/confighub.html",
   "site/redis-walkthrough.html",
   "site/how-it-works.html",
   "site/variants.html",
@@ -137,7 +143,11 @@ const guideOpeningChecks = [
   },
   {
     file: "site/try.html",
-    headerTerms: ["Try one catalog package", "does not contact ConfigHub Server", "do not need a ConfigHub account"],
+    headerTerms: ["Try a simple example: Redis", "14 Kubernetes objects", "does not contact ConfigHub Server", "needs no account"],
+  },
+  {
+    file: "site/confighub.html",
+    headerTerms: ["Continue with ConfigHub", "Choose one place to start"],
   },
   {
     file: "site/how-it-works.html",
@@ -163,6 +173,7 @@ const guideOpeningChecks = [
 
 const technicalEnglishPages = [
   "site/try.html",
+  "site/confighub.html",
   "site/testing.html",
   "site/entry-path-reference.html",
   "site/how-it-works.html",
@@ -234,7 +245,7 @@ for (const file of menuGuidePages) {
   if (header.includes("DRAFT WEB SITE PLEASE SEND COMMENTS TO AUTHORS")) {
     failures.push(`${file}: draft banner still appears in the hero/header`);
   }
-  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Try it", "Catalog", "ConfigHub", "Deployment", "Docs", "Sign in"]) {
+  for (const term of ["Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS", "Try Redis", "Examples", "Catalog", "Deployment", "Docs", "ConfigHub"]) {
     if (!header.includes(term)) failures.push(`${file}: shared navigation missing ${JSON.stringify(term)}`);
   }
   const rawPathLinks = [...text.matchAll(/<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
@@ -294,14 +305,40 @@ if (fs.existsSync(shortTryPath)) {
   if (commandBlocks > 3) {
     failures.push(`site/try.html: short package exercise has ${commandBlocks} command blocks; maximum is 3`);
   }
-  if (!shortTry.includes("https://docs.confighub.com/get-started/tutorial/")) {
-    failures.push("site/try.html: missing the official ConfigHub tutorial link");
+  for (const href of ["./redis-walkthrough.html", "./testing.html", "./confighub.html"]) {
+    if (!shortTry.includes(`href="${href}"`)) failures.push(`site/try.html: missing next-step link ${href}`);
   }
-  if (!shortTry.includes("Local: no server") || !shortTry.includes("Hosted: no sign-in")) {
-    failures.push("site/try.html: local no-server and hosted no-sign-in choices must remain separate");
+  if (shortTry.includes("Start with your own configuration")) failures.push("site/try.html: first exercise must not expand into the bring-your-own chooser");
+}
+
+const catalogIndexPath = path.join(root, "site/charts/index.html");
+if (fs.existsSync(catalogIndexPath)) {
+  const catalogIndex = fs.readFileSync(catalogIndexPath, "utf8");
+  if (catalogIndex.includes("id=\"catalog-starting-points\"")) {
+    failures.push("site/charts/index.html: catalog must not duplicate the multi-source example chooser");
   }
-  if (!shortTry.includes("anonymous service is planned") || !shortTry.includes("not released")) {
-    failures.push("site/try.html: hosted anonymous service must retain its planned status");
+  for (const phrase of ["bring your own", "private chart", "Package OCI and evidence", "ConfigHub options"]) {
+    if (catalogIndex.toLowerCase().includes(phrase.toLowerCase())) {
+      failures.push(`site/charts/index.html: catalog must not contain intake or workflow copy: ${JSON.stringify(phrase)}`);
+    }
+  }
+}
+
+function htmlFilesUnder(dir) {
+  if (!fs.existsSync(dir)) return [];
+  const files = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) files.push(...htmlFilesUnder(full));
+    else if (entry.isFile() && entry.name.endsWith(".html")) files.push(full);
+  }
+  return files;
+}
+
+for (const file of htmlFilesUnder(path.join(root, "site"))) {
+  const text = fs.readFileSync(file, "utf8");
+  if (/helm ops/i.test(text)) {
+    failures.push(`${path.relative(root, file)}: contains the retired \"Helm Ops\" label`);
   }
 }
 

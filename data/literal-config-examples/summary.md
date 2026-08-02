@@ -26,8 +26,8 @@ review. ConfigHub imports the same five objects into the
 
 The direct companion-record import used
 [confighub/sdk PR #11](https://github.com/confighub/sdk/pull/11), now merged at
-`1e63db4bc767368203660579bfb0a282443c7505`. It is newer than cub v0.2.5. Until the next cub release,
-extract `manifests/release-objects.yaml` before upload.
+`1e63db4bc767368203660579bfb0a282443c7505`. The fix ships in cub v0.2.6 and later.
+Run `cub upgrade` before importing this OCI with an older client.
 
 ## What is proved
 

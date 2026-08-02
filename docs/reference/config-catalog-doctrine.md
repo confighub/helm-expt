@@ -109,7 +109,7 @@ evidence, and use it as the start of their own application or fleet.
 
 There are three current entry paths.
 
-1. A Helm user chooses a preset configuration from the Helm Ops Catalog. `cub
+1. A Helm user chooses a preset configuration from the Configuration Catalog. `cub
    installer` pulls the chart package, renders the chosen preset locally, and keeps the
    chart, values, source lock, and known Helm lifecycle work together.
 2. An AICR user generates a versioned recipe and a deployer bundle. The reviewed bundle,
@@ -301,9 +301,10 @@ controllers legitimate access to one portable release artifact.
 
 The project also separates proof of the delivery mechanism from proof for a catalog
 entry. The routed-hook fixture proves that one ConfigHub release OCI can be consumed
-through Argo CD, Flux, and direct apply. A Helm base, AICR bundle, Kubara platform, or
-other catalog entry earns a delivery claim only when that exact configuration has its
-own controller and workload receipt.
+through Argo CD and Flux. A separate direct local test proves that the same artifact is
+portable; it is not a third ConfigHub managed-delivery mode. A Helm base, AICR bundle,
+Kubara platform, or other catalog entry earns a delivery claim only when that exact
+configuration has its own controller and workload receipt.
 
 The live Nginx fleet demonstrates the ConfigHub side of this model with a
 Helm-derived base and four environment variants. One digest-preserving image change

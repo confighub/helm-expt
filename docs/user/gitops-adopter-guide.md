@@ -24,19 +24,23 @@ See [cub-deployment-path](cub-deployment-path.md).
 
 ## Check the receipt for the configuration you want
 
-There are two separate questions.
+There are three separate questions.
 
-1. Can one ConfigHub release OCI be consumed by Argo CD, Flux, and direct apply?
-2. Has the configuration you want to run been delivered and observed through your controller?
+1. Can Argo CD and Flux consume a ConfigHub release OCI?
+2. Does a direct local test see the same objects in that OCI?
+3. Has the configuration you want to run been delivered and observed through
+   your controller?
 
-The first answer is yes. A small routed-hook fixture was published once and
-successfully consumed through all three paths. That proves the delivery
-mechanism.
+The first two answers are yes for a small routed-hook fixture. ConfigHub
+published it once. Argo CD and Flux reconciled it, and a separate local script
+pulled and applied the same artifact. That proves the delivery mechanism and
+the artifact's portability.
 
 The first exact catalog result is also available. The
 [`bitnami/nginx@24.0.2` `http-clusterip` receipt](../../data/catalog-oci-delivery-proof/summary.md)
-records the same release digest under Argo CD, Flux, and direct apply, with a
-ready NGINX workload under each.
+records the same release digest under Argo CD and Flux, with a ready NGINX
+workload under each. A separate direct local test records the same digest and
+workload result.
 
 Every other answer still depends on the catalog entry. Look for a delivery
 receipt on that entry's page. A receipt for the fixture or for NGINX does not
@@ -59,12 +63,13 @@ Any extra work around the chart, such as hooks or setup jobs, still needs a
 documented action, check, target fact, blocker, or refusal. Do not assume Flux
 will automatically recreate Helm hook behavior in this path.
 
-## No controller
+## Direct local use without a controller
 
 `oras` and `kubectl` can pull and apply the same Space release when you do
 not want a controller. This is useful for a one-shot apply or a CI step, but it
 also means you must be more explicit about ordering, pruning, CRDs, and setup
-work.
+work. This proves that the release OCI is portable. It is not ConfigHub's
+managed delivery path.
 
 ## vs. raw Helm-through-Argo
 

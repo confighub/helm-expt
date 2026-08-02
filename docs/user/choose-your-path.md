@@ -79,7 +79,7 @@ state, and production workflows.
 | If you want to see... | Start here | What it teaches |
 | --- | --- | --- |
 | The ConfigHub product journey | [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/) | One component, release, change, production deployment, and promotion. |
-| The shortest public package render | [Try one catalog package](../../site/try.html) | Redis package pull, local render, local OCI, and inspection. |
+| The shortest public package render | [Try Redis](../../site/try.html) | Redis package pull, local render, local OCI, and inspection. |
 | The complete Redis evidence path | [Detailed Redis walkthrough](../../site/redis-walkthrough.html) | Helm parity, Kubernetes, OCI, upgrade, promotion, two-cluster delivery, and rollback. |
 | Why a values choice becomes a base | [Prometheus Base Variant](./tutorial-sequence.md#tutorial-3-prometheus-base-variant) | Helm render choices belong in the `cub installer` base path. |
 | Why a prod/customer change can avoid rerendering Helm | [Prometheus Promotion Variant](./tutorial-sequence.md#tutorial-4-prometheus-promotion-variant) | Derived ConfigHub variants clone reviewed Units and add operational metadata. |
@@ -118,7 +118,7 @@ handoffs, observations, upgrades, rollbacks, and receipts.
 ## Next
 
 - [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/)
-- [Try one catalog package](../../site/try.html)
+- [Try Redis](../../site/try.html)
 - [Detailed Redis walkthrough](../../site/redis-walkthrough.html)
 - [Choosing Commands](./choosing-commands.md)
 - [Product Support Tiers](./product-support-tiers.md)

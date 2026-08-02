@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,20 +437,20 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try it</a><a href="../../../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try Redis</a><a href="../../../../../testing.html">Examples</a><a href="../../../../../charts/index.html">Catalog</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="../../../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>A setup job delivered three ways</h1>
     <p class="lead">This is the same README you will find in the matching demo Space in Hub. It explains why the Space exists, what problem it demonstrates, and what to inspect first. <a href="../../../../../../data/helm-catalog-readmes/spaces/hook-probe-base/README.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
     <article class="doc-body">
-<p>This small example shows the same setup job running from one OCI package through Argo CD, Flux, and direct apply.</p>
+<p>This small example shows Argo CD and Flux running the same setup job from one OCI package. A separate direct local test uses the same artifact.</p>
 <p>Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.</p>
 <h2 id="why-this-example-exists">Why this example exists</h2>
 <p>Some charts need a setup or migration Job as well as the main workload. Running that work inside one Helm command makes it difficult to see, repeat, or audit.</p>
 <p>This example moves the Job into the delivery plan. It proves the mechanism on a small fixture before we apply the same pattern to a complex chart.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
-<ul><li>The workload and setup Job are stored as ordinary, reviewable Kubernetes objects.</li><li>Argo CD, Flux, and the direct script each ran the Job and recorded its completion.</li><li>The route is marked automatic only for this tested fixture and these three delivery paths.</li></ul>
+<ul><li>The workload and setup Job are stored as ordinary, reviewable Kubernetes objects.</li><li>Argo CD and Flux each ran the Job and recorded its completion. The direct local script did the same in a separate portability test.</li><li>The route is marked automatic only for this tested fixture and the recorded paths.</li></ul>
 <h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
 <table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>Open the upstream Space or source link named on this page. That is the configuration this Space started from.</td></tr>
 <tr><td>ConfigHub changes</td><td>Open Unit revision history. It records changes made after the starting configuration was saved.</td></tr>

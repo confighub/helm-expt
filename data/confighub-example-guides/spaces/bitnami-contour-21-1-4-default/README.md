@@ -28,11 +28,11 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.
+This preset config records 2 prerequisites: 2 Secrets. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
 The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
-Known limitation: existing-secret (chart ships no Secret toggle).
+At least one Secret must be created with your values before apply. Known limitation: existing-secret (chart ships no Secret toggle).
 
 ## Why you can trust it
 
@@ -40,6 +40,7 @@ Known limitation: existing-secret (chart ships no Secret toggle).
 - The render variant is committed as YAML and contains 20 Kubernetes object(s).
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
+- Prerequisites are named before apply, so they are not discovered after rollout.
 
 This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
 
@@ -83,7 +84,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | When | What | How it is handled |
 | --- | --- | --- |
-| No extra step recorded | The catalog has not identified a separate prerequisite or lifecycle step for this preset. | Check the limits and evidence before production use. |
+| Before install | ClusterFeature: Secret default/contourcert keys ca.crt,tls.crt,tls.key, ClusterFeature: Secret default/envoycert keys ca.crt,tls.crt,tls.key | Included in the public package as prerequisites/contour-certgen/run.sh. The generated try script applies it and waits for the required CRD before installing the main objects. |
 
 ## Evidence
 

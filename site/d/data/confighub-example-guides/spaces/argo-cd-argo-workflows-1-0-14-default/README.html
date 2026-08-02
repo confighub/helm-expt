@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try it</a><a href="../../../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try Redis</a><a href="../../../../../testing.html">Examples</a><a href="../../../../../charts/index.html">Catalog</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="../../../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>argo-cd/argo-workflows 1.0.14 - default</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../../data/confighub-example-guides/spaces/argo-cd-argo-workflows-1-0-14-default/README.md">View source markdown</a>.</p>
   </header>
@@ -461,7 +459,7 @@
 <h2 id="what-to-check">What to check</h2>
 <p>This preset config records 8 prerequisites: 8 CRDs. The public package includes the files used to prepare them, and the generated try script applies them in the required order.</p>
 <p>The catalog records 1 extra step for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.</p>
-<ul><li><b>Before install:</b> full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits.</li></ul>
+<ul><li><b>Before install:</b> The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.</li></ul>
 <p>Some CRDs must already exist before the rendered objects are applied. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 19 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li><li>Prerequisites are named before apply, so they are not discovered after rollout.</li><li>Hook and lifecycle work is counted and linked to the route record.</li></ul>
@@ -488,7 +486,7 @@
 <tr><td>Scripts</td><td><a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/default/try.sh">try.sh</a> · <a href="https://confighub.github.io/helm-expt/site/sh/argo-cd-argo-workflows-1-0-14/default/confighub.sh">confighub.sh</a></td></tr></tbody></table>
 <h2 id="prerequisites-and-lifecycle-steps">Prerequisites and lifecycle steps</h2>
 <table><thead><tr><th>When</th><th>What</th><th>How it is handled</th></tr></thead><tbody><tr><td>Before install</td><td>8 CRDs: clusterworkflowtemplates.argoproj.io, cronworkflows.argoproj.io, workflowartifactgctasks.argoproj.io, workfloweventbindings.argoproj.io, workflows.argoproj.io, workflowtaskresults.argoproj.io, workflowtasksets.argoproj.io, workflowtemplates.argoproj.io</td><td>Included in the public package as prerequisites/target-facts/default-crds.yaml. The generated try script applies it and waits for the required CRD before installing the main objects.</td></tr>
-<tr><td>Before install</td><td>Install CRDs first</td><td>full CRDs required before workflow-controller and server can start; hook uses server-side apply because full CRDs exceed client-side apply annotation limits.</td></tr></tbody></table>
+<tr><td>Before install</td><td>Install CRDs first</td><td>The controller and server require the Argo Workflows APIs. Helm normally downloads and applies the full CRDs in a hook before those workloads start.</td></tr></tbody></table>
 <h2 id="evidence">Evidence</h2>
 <table><thead><tr><th>Check</th><th>Status</th></tr></thead><tbody><tr><td>Render parity</td><td><code>yes</code></td></tr>
 <tr><td>ConfigHub scan/upload proof</td><td><code>yes</code></td></tr>

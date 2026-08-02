@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -514,7 +512,7 @@
 </head>
 <body class="calm-page">
     <header class="hero human-hero">
-      <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+      <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
       <h1>The catalog, living in a ConfigHub org</h1>
       <p class="lead">The chart pages show the evidence behind each catalog choice. The demo org shows what happens after you upload a chart configuration. You can inspect shared configuration, environment versions, promotions, policy tests, and revision history. It contains ten charts chosen for the problems they explain.</p>
     <p style="margin-top:14px;font-size:.9rem"><a href="./charts/index.html">Configuration Catalog</a> · <a href="./how-it-works.html">Deployment</a> · <a href="./journey.html">Apps</a></p>
@@ -571,6 +569,12 @@
         </ul>
         <p>The demo org stores rendered Kubernetes YAML as versioned Units in a Space. ConfigHub can search, compare, review, and deliver those Units. The README explains where they came from and why the Space exists.</p>
         <p>When you find a problem, you change the same object that you inspected. ConfigHub records that change as a revision before delivery.</p>
+        <p>With cub v0.2.7 or later, you can query those stored objects across the org:</p>
+        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Sign in and select the <code>helm-catalog</code> org before you run these commands.</p>
+        <pre><code>cub k8s types --space "*"
+cub k8s get deploy --space "*"
+cub k8s get crd --space "*"</code></pre>
+        <p class="quiet-line">These commands read desired configuration in ConfigHub. They do not read live cluster state.</p>
     </section>
 
       <section aria-labelledby="what">
@@ -598,7 +602,7 @@
         <p>The base also moved its NGINX image to an internal registry without changing the digest. The <a href="./d/docs/user/image-registry-migration.html">walkthrough and receipt</a> show the commands and revision history. This proves the stored ConfigHub records. It does not prove Kubernetes delivery.</p>
         <p><strong>The secrets story.</strong> The two mysql Spaces differ in exactly one decision: a staged external credential versus a generated one. Diff any unit across the pair to see precisely what the safer choice changes.</p>
         <p><strong>The CRD split.</strong> The two argo-cd Spaces show the chart with and without bundled CRDs. The no-crds Space states that the cluster owns them. A live test showed that applying custom resources before their CRDs fails. Applying CRDs first and waiting for them succeeds. The Space's <code>ProofReceipt</code> label links to that result.</p>
-        <p><strong>The hooks.</strong> <code>hook-probe-base</code> contains a Job with visible Argo CD hook annotations. The same OCI fixture ran through Argo CD, Flux, and direct apply. The hook Job completed on the cluster in all three tests. The <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels link to the evidence.</p>
+        <p><strong>The hooks.</strong> <code>hook-probe-base</code> contains a Job with visible Argo CD hook annotations. Argo CD and Flux each pulled the same OCI fixture and completed the Job. A separate direct local test did the same. The <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels link to the evidence.</p>
         <p><strong>Local changes and new releases.</strong> Open <code>hashicorp-vault-demo-base</code> and its dev, staging, and production variants. Dev added a cost label. Staging uses two replicas, and production uses three.</p>
         <p>The base later added telemetry and release-track annotations. Staging and production received them while keeping their replica settings. Dev had changed the same annotations map, so promotion kept the dev map and skipped the base annotations. Two recorded reconcile revisions added them afterward. The revision history shows both cases.</p>
         <p><strong>A staged rollout.</strong> Staging first received a real audience environment variable. The base later added the same variable as <code>confighubplaceholder</code> and added a shared issuer. Promotion kept staging's real value and delivered the issuer. The <code>vet-placeholders</code> policy prevents the placeholder from reaching a cluster.</p>
@@ -609,7 +613,7 @@
       <section aria-labelledby="live-proof">
         <h2 id="live-proof">What ran live, exactly</h2>
         <p>These three examples ran on real clusters. Each receipt records the command, observations, result, and limit.</p>
-        <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD, Flux, and a direct apply path pulled that same artifact on a throwaway kind cluster. Each path created the workload and completed the Job.</p>
+        <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD and Flux pulled that artifact on separate throwaway kind clusters and completed the Job. A separate direct local test pulled the same artifact and completed the Job.</p>
         <p>This test covers one routed fixture on one recorded rig. It does not cover every chart, hook type, or production environment.</p>
         <p><strong>The CRD ordering test.</strong> Direct apply first tried to create a custom resource before its CRD was established. Kubernetes refused the custom resource with the recorded error. Applying the CRD first and waiting for it fixed the installation. A separate receipt records the chart-specific order through Argo CD and Flux.</p>
         <p><strong>The Kube Prometheus Stack lifecycle test.</strong> A direct run rendered catalog package 85.3.3 and verified its chart objects. It applied ten CRDs first, ran the certificate and webhook Jobs, tested the webhook and six workloads, then removed temporary Jobs.</p>

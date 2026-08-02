@@ -49,8 +49,8 @@ Seven sections down from ten. The hero stays as landed in #1098/#1099.
    This is where "variant" gets its one-sentence definition (see vocabulary).
    Keep the four cards (store, edit-and-keep, custom apps, promote) and the
    demo-org link; they are the account-tier value ladder.
-5. **The catalog** — fold the "Helm Ops Catalog" journey card and the
-   "Try It Now with our Helm Ops Catalog" section into one short section: what a
+5. **The catalog** — fold the "Configuration Catalog" journey card and the
+   "Try It Now with our Configuration Catalog" section into one short section: what a
    chart page gives you (rendered objects, render record, route information),
    one example link, one link to the catalog index.
 6. **Editing charts versus buying charts** — keep as is (landed in #1078).
@@ -88,11 +88,11 @@ concrete thing the reader is pulling.
   and `site:ux:verify`; the full verify suite is not needed for a homepage change.
 - Update the `checks` entry for `site/index.html` in
   `scripts/verify-site-ux-contract.mjs`. It currently pins "Examples",
-  "Try It Now with ConfigHub", "Try It Now with our Helm Ops Catalog", and
+  "Try It Now with ConfigHub", "Try It Now with our Configuration Catalog", and
   "Store chart configurations" — several of these headings disappear. Pick stable
   replacements from the new section names (for example "Look first",
   "Editing charts versus buying charts", "What this is").
-- The `guideOpeningChecks` header terms for `site/index.html` ("Helm Ops made
+- The `guideOpeningChecks` header terms for `site/index.html` ("Configuration work made
   simple", "AI-friendly Helm tools", "Preview your installs") describe the hero,
   which does not change; they should keep passing. `site/index.html` also sits in
   `menuGuidePages` and `humanSplitPages` — keep the nav and the human-split marker

@@ -109,8 +109,8 @@ public source pull with no ConfigHub credentials.
 
 Direct ConfigHub import of an OCI with companion JSON records needs the fix in
 [confighub/sdk PR #11](https://github.com/confighub/sdk/pull/11). The fix is
-merged but newer than cub v0.2.5. Until the next cub release, extract
-`manifests/release-objects.yaml` before upload.
+included in cub v0.2.6 and later. Run `cub upgrade` before importing this OCI
+with an older client.
 
 The proof does not claim cluster admission, controller reconciliation, workload
 health, or a signed provenance chain. Your own command still creates a local OCI

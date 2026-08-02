@@ -28,11 +28,13 @@ The public package is `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm
 
 ## What to check
 
-The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.
+This preset config records 2 prerequisites: 2 Secrets. The public package includes the files used to prepare them, and the generated try script applies them in the required order.
 
-The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
+The catalog records 1 extra step for this preset. We call these lifecycle routes because they say what must happen before, during, or after Kubernetes applies the main set of files.
 
-Known limitation: existing-secret (chart ships no Secret toggle).
+- **Before install:** Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML.
+
+At least one Secret must be created with your values before apply. Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when. Known limitation: existing-secret (chart ships no Secret toggle).
 
 ## Why you can trust it
 
@@ -40,6 +42,8 @@ Known limitation: existing-secret (chart ships no Secret toggle).
 - The render variant is committed as YAML and contains 20 Kubernetes object(s).
 - The installer package OCI ref points to the package users pull for this chart version.
 - Render parity is recorded as passing for this preset config.
+- Prerequisites are named before apply, so they are not discovered after rollout.
+- Hook and lifecycle work is counted and linked to the route record.
 
 This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.
 
@@ -73,7 +77,7 @@ After upload, create environment versions with `cub variant create` and move rev
 | Preset config | `legacy` |
 | Namespace | `default` |
 | Release name | `contour` |
-| Values | [`recipes/bitnami/contour/21.1.4/effective-values.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/effective-values.yaml) |
+| Values | [`recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/effective-values-legacy.yaml) |
 | Render intent | [`data/helm-render-intents/intents/bitnami-contour-21-1-4-legacy.yaml`](https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-contour-21-1-4-legacy.yaml) |
 | Render variant | [`recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml`](https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/revisions/legacy/r001/rendered/release-objects.yaml) |
 | Package base | [`packages/bitnami/contour/21.1.4/bases/legacy`](https://github.com/confighub/helm-expt/tree/main/packages/bitnami/contour/21.1.4/bases/legacy) |
@@ -83,7 +87,8 @@ After upload, create environment versions with `cub variant create` and move rev
 
 | When | What | How it is handled |
 | --- | --- | --- |
-| No extra step recorded | The catalog has not identified a separate prerequisite or lifecycle step for this preset. | Check the limits and evidence before production use. |
+| Before install | ClusterFeature: Secret default/contourcert keys ca.crt,tls.crt,tls.key, ClusterFeature: Secret default/envoycert keys ca.crt,tls.crt,tls.key | Included in the public package as prerequisites/contour-certgen/run.sh. The generated try script applies it and waits for the required CRD before installing the main objects. |
+| Before install | Prepare the target | Contour and Envoy cannot start until contourcert and envoycert exist; Helm normally creates them with a hook that is absent from the ordinary rendered YAML. |
 
 ## Evidence
 
@@ -92,14 +97,14 @@ After upload, create environment versions with `cub variant create` and move rev
 | Render parity | `yes` |
 | ConfigHub scan/upload proof | `yes` |
 | Earlier local-cluster test | `no` |
-| GitOps OCI live run | `todo` |
-| Live Helm vs ConfigHub comparison | `todo` |
-| Lifecycle routes | `0` |
+| GitOps OCI live run | `watch` |
+| Live Helm vs ConfigHub comparison | `watch` |
+| Lifecycle routes | `1` |
 
 ## Limits
 
 - Local kind evidence is no for this preset config.
-- GitOps OCI live evidence is todo for this preset config.
+- GitOps OCI live evidence is watch for this preset config.
 - Known gap for this row: existing-secret (chart ships no Secret toggle).
 - Resolve the named gap first: existing-secret (chart ships no Secret toggle).
 

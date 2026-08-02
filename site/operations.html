@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -525,7 +523,7 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
     <h1>Ops Guide</h1>
     <p class="lead">Ops starts when an app already exists and the next change matters. The problem is unknown blast radius: what changed, who approved it, what reached the cluster, and whether the live system actually converged.</p>
     <p>If you have not chosen a chart, base, or app shape yet, start with the catalog, variants, or apps pages. If you already have an app, use this page to review diffs, scan, gate, deliver, observe, upgrade, and recover.</p>
@@ -533,7 +531,7 @@
   <main>
     <section aria-labelledby="before-ops">
       <h2 id="before-ops">Before Ops</h2>
-      <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with <a href="./charts/index.html">Helm Ops Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
+      <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
     <section aria-labelledby="fleet-record">

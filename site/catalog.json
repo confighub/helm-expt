@@ -28938,7 +28938,7 @@
             "Seven Kube Prometheus Stack fresh-install steps passed in the direct script. The no-crds 85.3.3 to 86.1.0 upgrade passed through Argo CD and Flux.",
             "The top-level Kube Prometheus Stack routes remain automatic false because ConfigHub does not yet choose and execute them across every delivery path.",
             "The controller proof does not cover rollback, long soak, or automatic post-success removal of every temporary hook resource.",
-            "The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply.",
+            "The smaller hook fixture is automatic only because Argo CD and Flux ran the same packaged Job and a separate direct local test did the same.",
             "The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs."
           ],
           "name": "Hooks and CRDs App",
@@ -29407,7 +29407,7 @@
           "result": "Pick a reviewed chart configuration, inspect the literal objects and the Helm record, upload them as a ConfigHub base variant, then make reviewed environment variants.",
           "status": "available",
           "steps": [
-            "Choose a chart and preset configuration in the Helm Ops Catalog.",
+            "Choose a chart and preset configuration in the Configuration Catalog.",
             "Pull the cub installer package and render it without a ConfigHub account.",
             "Inspect the objects, render intent, routes, prerequisites, and receipts.",
             "Upload the rendered files or a literal configuration OCI bundle as a base variant.",
@@ -29557,7 +29557,7 @@
             "The CI output is a workflow artifact containing an OCI image layout, not a public registry package.",
             "The Flux proof used a temporary local registry.",
             "The reviewed NGINX replica change has a separate permanent public-registry receipt and exact ConfigHub import receipt.",
-            "Direct import of an OCI with companion JSON records needs the merged confighub/sdk PR",
+            "Direct import of an OCI with companion JSON records is supported in cub v0.2.6 and later. Run cub upgrade before using this path with an older client.",
             "A hosted public workbench remains separate work."
           ],
           "name": "Public OCI inspection and packaging",
@@ -29592,26 +29592,26 @@
           ],
           "id": "oci-delivery",
           "limits": [
-            "The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture.",
-            "The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI.",
+            "The routed-hook receipt proves Argo CD and Flux delivery with one small fixture; a separate direct local path consumed the same release OCI.",
+            "The NGINX receipt proves the first exact catalog base through Argo CD and Flux from one ConfigHub Space release OCI; a separate direct local test records the same digest.",
             "The combined NGINX receipt proves one OCI import, one congruent ConfigHub output with only the confighub.com/origin annotation added, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters.",
-            "These receipts do not prove that every catalog base has been delivered through all three paths.",
+            "These receipts do not prove that every catalog base has been delivered through either controller.",
             "A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt."
           ],
-          "name": "One reviewed bundle through Argo CD, Flux, or direct apply",
+          "name": "One reviewed bundle through GitOps, with a direct portability check",
           "problem": "Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.",
-          "result": "ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again.",
+          "result": "ConfigHub can publish one reviewed object set as a release OCI. Argo CD or Flux can consume the same files without rendering the chart again. A separate direct local test can check the same artifact.",
           "status": "partial",
           "steps": [
             "Start with the exact Kubernetes objects held as ConfigHub Units.",
             "Run the checks and approval required for that configuration.",
             "Publish the approved revision once as a ConfigHub release OCI.",
-            "Point Argo CD, Flux, or the recorded direct-apply path at that artifact.",
+            "Point Argo CD or Flux at that artifact. Use the direct path separately when you need a local portability test.",
             "Record controller status and workload observations for this configuration."
           ],
           "workedExample": {
             "limit": "These receipts do not cover every catalog configuration.",
-            "result": "NGINX and the hook fixture have passed recorded OCI delivery through Argo CD, Flux, and direct apply without rerendering the reviewed objects.",
+            "result": "NGINX and the hook fixture have passed recorded OCI delivery through Argo CD and Flux without rerendering the reviewed objects. Separate direct local tests consumed the same artifacts.",
             "status": "working"
           }
         },
@@ -29761,7 +29761,7 @@
           },
           {
             "question": "What happens after the first deployment?",
-            "standard": "Show how the same reviewed result can become a saved base, a development or production variant, a promotion, and an OCI delivered through Argo CD, Flux, or direct apply."
+            "standard": "Show how the same reviewed result can become a saved base, a development or production variant, a promotion, and an OCI delivered through Argo CD or Flux. Keep direct local apply as a separate portability test."
           },
           {
             "question": "What has not been proved?",
@@ -30137,7 +30137,7 @@
       "space": "hook-probe-base",
       "kind": "route",
       "title": "A setup job delivered three ways",
-      "summary": "This small example shows the same setup job running from one OCI package through Argo CD, Flux, and direct apply.",
+      "summary": "This small example shows Argo CD and Flux running the same setup job from one OCI package. A separate direct local test uses the same artifact.",
       "source_path": "data/helm-catalog-readmes/spaces/hook-probe-base/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/hook-probe-base/readme.yaml"
     },

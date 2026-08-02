@@ -9,8 +9,9 @@ npm run site:verify
 
 Open `site/index.html` first for the public launch front door.
 Open `site/how-it-works.html` for the recipe, render, record, and route model.
-Open `site/try.html` for the short try-now page.
+Open `site/try.html` for the short Redis example.
 Open `site/testing.html` for working starting, managed, platform, and App examples.
+Open `site/confighub.html` to sign up, follow the official tutorial, or read the blog.
 Open `site/entry-path-reference.html` for detailed Helm, AICR, OCI, and YAML commands.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.
 Open `site/journey.html` for Apps that use configuration already saved in ConfigHub.

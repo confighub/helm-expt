@@ -37,7 +37,7 @@ If an upstream change and a local ConfigHub revision touch the same field, revie
 ## Evidence and source
 
 - [Org sync summary](https://github.com/confighub/helm-expt/blob/main/data/helm-org/summary.md)
-- [Helm Ops Catalog](https://confighub.github.io/helm-expt/site/charts/index.html)
+- [Configuration Catalog](https://confighub.github.io/helm-expt/site/charts/index.html)
 
 ## Limits
 

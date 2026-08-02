@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Examples · Config Workshop</title>
-  <meta name="description" content="Working examples for Helm, AICR, OCI, Kubernetes YAML, promotions, delivery, platforms, and ConfigHub Apps.">
+  <title>Worked Examples · Config Workshop</title>
+  <meta name="description" content="Choose a worked example that starts with Helm, AICR, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/testing.html">
-  <meta property="og:title" content="Examples · Config Workshop">
-  <meta property="og:description" content="Working examples for Helm, AICR, OCI, Kubernetes YAML, promotions, delivery, platforms, and ConfigHub Apps.">
+  <meta property="og:title" content="Worked Examples · Config Workshop">
+  <meta property="og:description" content="Choose a worked example that starts with Helm, AICR, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/testing.html">
   <style>
@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -527,10 +525,10 @@
 </head>
 <body class="calm-page">
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try it</a><a href="./charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-    <h1>Examples</h1>
-    <p class="tagline">Start with the configuration you already have. Each starting example produces exact Kubernetes objects. Inspect them before you keep them as files or OCI, or save them in ConfigHub.</p>
-    <p>Later examples use ConfigHub Server. They show how a team changes, approves, promotes, delivers, and operates saved configuration.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Choose a worked example</h1>
+    <p class="tagline">Start with a catalog package, your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
+    <p>Each row links to the files, commands, checks, and result for one complete example.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
@@ -538,7 +536,7 @@
     <span id="bring-your-own"></span>
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
-      <h2 id="start">Starting examples</h2>
+      <h2 id="start">1. Choose a starting point</h2>
       <p>Choose one row. You do not need to understand the rest of the catalog first.</p>
       <div class="card"><table>
         <thead><tr><th>What you have</th><th>What the example does</th><th>Start and proof</th><th>ConfigHub and OCI</th></tr></thead>
@@ -553,7 +551,7 @@
     </section>
 
     <section aria-labelledby="start-modes">
-      <h2 id="start-modes">Where a starting example can run</h2>
+      <h2 id="start-modes">2. Choose where the first example runs</h2>
       <div class="card"><table>
         <thead><tr><th>Choice</th><th>Available now?</th><th>What it means</th></tr></thead>
         <tbody><tr><td>Local or CI</td><td>Yes</td><td>No ConfigHub Server and no ConfigHub account. Public package pulls also need no Google registry login.</td></tr><tr><td>Hosted without sign-in</td><td>Planned</td><td>A public service will inspect open configuration without creating private history, variants, approvals, or releases.</td></tr><tr><td>ConfigHub</td><td>Yes</td><td>Save the reviewed objects, then follow the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=examples">official tutorial</a>. An account is required.</td></tr></tbody>
@@ -568,10 +566,10 @@
     </section>
 
     <section aria-labelledby="managed">
-      <h2 id="managed">Continue in ConfigHub</h2>
+      <h2 id="managed">3. Save and change it in ConfigHub</h2>
       <div class="card"><table>
         <thead><tr><th>Job</th><th>Working example</th><th>Where to go</th></tr></thead>
-        <tbody><tr><td>Save and change</td><td>Upload reviewed objects as a base variant. Make an exact development or customer change without changing the source chart.</td><td><a href="./variants.html">Variants</a> · <a href="./d/docs/user/variants-after-upload.html">Command walkthrough</a></td></tr><tr><td>Promote</td><td>Redis and NGINX examples record derived changes, promote them in order, publish reviewed OCI artifacts, and check the resulting workloads.</td><td><a href="./d/data/byo-helm-values-promotion-proof/summary.html">BYO Helm promotion</a> · <a href="./redis-walkthrough.html">Redis promotion and rollback</a></td></tr><tr><td>Deliver through OCI</td><td>NGINX and the hook fixture have passed recorded OCI delivery through Argo CD, Flux, and direct apply without rerendering the reviewed objects.</td><td><a href="./operations.html">Delivery guide</a> · <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">Argo CD and Flux proof</a></td></tr><tr><td>Apply checks and approvals</td><td>Schema, placeholder, and lifecycle-route checks can block bad configuration. Image and probe checks warn. Selected production and system configuration also requires approval.</td><td><a href="./d/data/apply-policy-functional-proof/summary.html">Functional proof</a> · <a href="./d/data/apply-policy-profiles/summary.html">Policy assignments</a></td></tr></tbody>
+        <tbody><tr><td>Save and change</td><td>Upload reviewed objects as a base variant. Make an exact development or customer change without changing the source chart.</td><td><a href="./variants.html">Variants</a> · <a href="./d/docs/user/variants-after-upload.html">Command walkthrough</a></td></tr><tr><td>Promote</td><td>Redis and NGINX examples record derived changes, promote them in order, publish reviewed OCI artifacts, and check the resulting workloads.</td><td><a href="./d/data/byo-helm-values-promotion-proof/summary.html">BYO Helm promotion</a> · <a href="./redis-walkthrough.html">Redis promotion and rollback</a></td></tr><tr><td>Deliver through OCI</td><td>NGINX and the hook fixture have passed recorded OCI delivery through Argo CD and Flux without rerendering the reviewed objects. Separate direct local tests consumed the same artifacts.</td><td><a href="./operations.html">Delivery guide</a> · <a href="./d/data/oci-deploy-stage-rollout-proof/summary.html">Argo CD and Flux proof</a></td></tr><tr><td>Apply checks and approvals</td><td>Schema, placeholder, and lifecycle-route checks can block bad configuration. Image and probe checks warn. Selected production and system configuration also requires approval.</td><td><a href="./d/data/apply-policy-functional-proof/summary.html">Functional proof</a> · <a href="./d/data/apply-policy-profiles/summary.html">Policy assignments</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -582,7 +580,7 @@
     </section>
 
     <section aria-labelledby="platforms">
-      <h2 id="platforms">Platform and fleet examples</h2>
+      <h2 id="platforms">4. Roll out a platform or fleet</h2>
       <div class="card"><table>
         <thead><tr><th>Example</th><th>What has run</th><th>Open</th></tr></thead>
         <tbody><tr><td>Kubara</td><td>One approved Kubara configuration passed its recorded route work, OCI delivery, Argo CD bootstrap, and a healthy Metrics Server result on one cluster.</td><td><a href="./d/docs/demo/kubara/local-platform.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/local-platform">GitHub source</a> · <a href="./d/data/kubara-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/kubara-local-platform-v0-12-0/README.html">Space guide</a></td></tr><tr><td>Sveltos</td><td>A reviewed ClusterProfile moved from one pilot cluster to two staging clusters at a second OCI digest, and Sveltos restored a deliberately drifted value.</td><td><a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a></td></tr></tbody>
@@ -596,7 +594,7 @@
     </section>
 
     <section aria-labelledby="apps">
-      <h2 id="apps">ConfigHub App examples</h2>
+      <h2 id="apps">5. Use saved configuration for a repeated job</h2>
       <p>Each row has a working, bounded example. The final column says what is still missing from a general product capability.</p>
       <div class="card"><table>
         <thead><tr><th>App</th><th>Working example</th><th>Open</th><th>Still to build</th></tr></thead>
@@ -612,7 +610,7 @@
     </section>
 
     <section aria-labelledby="locations">
-      <h2 id="locations">Where the material lives</h2>
+      <h2 id="locations">Technical sources</h2>
       <div class="card"><table>
         <thead><tr><th>Place</th><th>What belongs there</th></tr></thead>
         <tbody><tr><td>This website</td><td>Short explanations, starting points, chart pages, worked examples, and links to current proof.</td></tr><tr><td>GitHub</td><td>Source configuration, generators, scripts, checks, receipts, and every file used to make the website.</td></tr><tr><td>The ConfigHub helm-catalog organization</td><td>Persistent demo Spaces. Each Space has one README Unit that explains its purpose and the Units it contains. <a href="./demo-org.html">Open the demo-org guide</a>.</td></tr><tr><td>Public OCI registry</td><td>Stable starting packages and reviewed public outputs. Each permanent artifact must have a role, digest, source record, human guide, and publication receipt.</td></tr><tr><td>ConfigHub release OCI</td><td>Approved outputs from managed Spaces for Argo CD, Flux, or another recorded delivery path.</td></tr><tr><td>Temporary proof registry</td><td>Short-lived artifacts used by a receipt. The site must not advertise them as permanent packages.</td></tr></tbody>

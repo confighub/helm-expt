@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Configuration Catalog · Config Workshop</title>
-  <meta name="description" content="Choose a checked configuration or bring your own, then inspect the exact objects, required setup, and checks before deployment.">
+  <meta name="description" content="Find a tested starting configuration for a public package, with its rendered objects, required setup, and evidence.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/">
   <meta property="og:title" content="Configuration Catalog · Config Workshop">
-  <meta property="og:description" content="Choose a checked configuration or bring your own, then inspect the exact objects, required setup, and checks before deployment.">
+  <meta property="og:description" content="Find a tested starting configuration for a public package, with its rendered objects, required setup, and evidence.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/">
   <style>
@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -430,86 +428,21 @@
     }
 
     #chart-table { table-layout: fixed; }
-    #chart-table th, #chart-table td { width: 14.2857%; white-space: normal; }
+    #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
   </style>
 </head>
 <body>
   <header>
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try it</a><a href="../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
-    <h1>Choose what to test</h1>
-    <p class="lead">Start with a checked catalog configuration, or bring your own Helm values, AICR, OCI, or Kubernetes YAML. Inspect the exact objects and required setup, run the checks, and decide what to deploy.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try Redis</a><a href="../testing.html">Examples</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Find a tested starting configuration</h1>
+    <p class="lead">The Config Workshop Catalog is a public library of checked configurations for widely used packages.</p>
+    <p>Each entry shows what the package creates, what setup it needs, and what we tested. Search for a chart, then open its page before you deploy it.</p>
+    <p><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Missing something you need? Tell us.</a></p>
   </header>
   <main>
-    <section aria-labelledby="catalog-paths">
-      <h2 id="catalog-paths">Choose Your Path</h2>
-      <p>Start with the configuration you already have. Each path first gives you exact Kubernetes objects to inspect.</p>
-      <h3 id="catalog-starting-points">What do you have?</h3>
-      <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>What you can do first</th></tr></thead>
-        <tbody><tr><td>Helm chart and values</td><td>Choose a checked public configuration, or render your own chart and values without applying them.<br><a href="../charts/index.html#charts">Browse public charts</a> · <a href="../testing.html#bring-your-own">Review your own values</a></td></tr><tr><td>AICR recipe or bundle</td><td>Inspect the selected components and the exact Argo CD Applications before saving or promoting them.<br><a href="../testing.html#aicr-platform">Open the AICR example</a></td></tr><tr><td>Existing OCI package</td><td>Pull an OCI package, inspect or test its objects, and decide whether to build a checked replacement.<br><a href="../d/docs/user/inspect-oci-package.html">Inspect an OCI package</a> · <a href="../d/docs/user/transform-oci-package.html">Change a literal configuration OCI</a></td></tr><tr><td>Kubernetes YAML</td><td>Start read-only, identify the objects that belong together, and decide what ConfigHub should manage.<br><a href="../existing-apps.html#start">Start from existing YAML</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <h3 id="catalog-next-jobs">What do you want to do next?</h3>
-      <div class="card"><table>
-        <thead><tr><th>Job</th><th>Where to continue</th></tr></thead>
-        <tbody><tr><td>Inspect and verify</td><td><a href="../testing.html">Inspect exact objects and inputs</a> · <a href="../verification.html">Check the evidence</a></td></tr><tr><td>Try a catalog package</td><td><a href="../try.html">Render one reviewed Redis configuration</a></td></tr><tr><td>Learn ConfigHub</td><td><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=pathfinder">Follow the official tutorial</a></td></tr><tr><td>Upload and save</td><td><a href="../variants.html#flow">Record reviewed objects in ConfigHub</a></td></tr><tr><td>Customize</td><td><a href="../d/docs/user/transform-oci-package.html">Change one field in an OCI without signing in</a> · <a href="../variants.html#choose">Choose a ConfigHub base or derived variant</a></td></tr><tr><td>Promote</td><td><a href="../variants.html#journey">Move a reviewed change through environments</a></td></tr><tr><td>Deliver</td><td><a href="../operations.html#ops">Publish OCI for Argo CD, Flux, or direct apply</a></td></tr><tr><td>Operate</td><td><a href="../operations.html#fleet-record">Track changes and live results across a fleet</a></td></tr><tr><td>Build an App</td><td><a href="../journey.html#app-program">Use saved configuration for a repeated operational job</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="catalog-summary">
-      <h2 id="catalog-summary">What the catalog contains</h2>
-      <p><a href="../how-it-works.html">How the source, rendered objects, routes, variants, and OCI handoffs fit together</a> · <a href="../demo-org.html">Examples in the live ConfigHub demo org</a> · <a href="../d/data/helm-catalog-readmes/summary.html">Demo README index</a></p>
-      <p>The catalog currently has 100 public chart pages and 100 public installer packages. Open the chart page before using its generated files: it keeps the ready-made configurations, package OCI, full YAML, render record, hooks and CRDs, test results, and current limits together. 110 tagged package refs have publication receipts.</p>
-    </section>
-
-    <section aria-labelledby="base-variants">
-      <h2 id="base-variants">Base Variants, Not Every Values Combination</h2>
-      <p>Helm charts can expose hundreds of values. The catalog does not pretend every combination is equally useful or safe. It provides base variants for common operating choices, records the values and render inputs, captures the rendered YAML, and shows the evidence for that choice.</p>
-      <p>If your values file changes what Helm renders, it can become another base variant. If it only fills or refines already-rendered objects after upload, it belongs in a derived ConfigHub variant. If it needs a cluster, Secret, CRD owner, cloud account, or hook-like setup step, the chart page should say so before you install.</p>
-      <p>Read each base variant in this order: full YAML output first, render context second, hooks/CRDs/setup work third. The YAML shows what Kubernetes would receive; the context and routes explain how that output was produced and what has to happen around it.</p>
-      <div class="card"><table>
-        <thead><tr><th>Public word</th><th>Repo word</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>base variant</td><td>Base variant</td><td>A named Helm render choice such as default, no-CRDs, existing Secret, HA, or server-only.</td></tr><tr><td>Full rendered YAML output</td><td>rendered/release-objects.yaml</td><td>The Kubernetes objects produced by one base variant. This is the manifest file you can open and read.</td></tr><tr><td>Render context</td><td>Render intent, revision, routes, receipts</td><td>The inputs, checksums, hook/CRD decisions, target facts, and evidence around that YAML output.</td></tr><tr><td>Chart extras</td><td>Routes, target facts, lifecycle rows</td><td>CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and existing cluster resources that need a decision.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <h3>Helm values or a ConfigHub change?</h3>
-      <div class="card"><table>
-        <thead><tr><th>Put it here</th><th>When to use it</th><th>Where the record appears</th></tr></thead>
-        <tbody><tr><td>Helm values</td><td>The choice changes what Helm renders: components, object shape or count, storage, CRDs, ingress, Secret strategy, hooks, or topology.</td><td>The base variant's linked values profile and render intent.</td></tr><tr><td>ConfigHub change</td><td>The rendered base is right, but an exact field should differ for an environment, region, customer, policy, or later operational decision.</td><td>The Unit revision history or derived variant after upload.</td></tr><tr><td>Install work</td><td>The chart needs a Secret, CRD, hook, setup job, certificate, cloud account, or target fact.</td><td>The chart page's prerequisites and route records.</td></tr><tr><td>Live cluster</td><td>You need to check what is running.</td><td>An observation or drift result; live state does not silently become desired configuration.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>If a new Helm render and a ConfigHub revision both change the same field, review the overlap before promotion. The chart page links the Helm values and base output; Hub revision history shows the later ConfigHub changes.</p>
-      <p>The model is deliberately chart-specific. A useful base variant for Redis is different from a useful base variant for Argo CD or kube-prometheus-stack. That is why the catalog stores evidence per chart, version, base variant, lane, and target scope. For the deeper reference, read <a href="../d/docs/user/helm-presets-and-values.html">Helm Base Variants And Values</a>.</p>
-    </section>
-
     <section aria-labelledby="charts">
-      <h2 id="charts">Chart Directory</h2>
-      <div class="card">
-        <h3>How to read this table</h3>
-        <p>Pick a chart, check the pinned upstream version, then open the chart page for the exact command. The right-hand columns tell you the first base variant to try, whether this is a strong public starting point or a proof-grade entry, what to check before use, which ConfigHub options exist, and where to read the generated output.</p>
-        <p>This is not a leaderboard. A watch or blocked row can be the most useful answer when it names a prerequisite, lifecycle route, or target decision.</p>
-      </div>
+      <h2 id="charts">Search the catalog</h2>
+      <p>Pick a chart and check its pinned version. The chart page gives you the first configuration to try, the exact command, required setup, generated output, and evidence.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search charts</strong></label>
         <input id="chart-filter" type="search" placeholder="redis, crd, hook, prometheus, proof-grade..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
@@ -522,7 +455,7 @@
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Chart</th><th>Version @ Public Catalog</th><th>First base variant</th><th>Can I use it today?</th><th>Watch first</th><th>ConfigHub options</th><th>Package OCI and evidence</th></tr></thead>
+        <thead><tr><th>Chart</th><th>Version</th><th>Start here</th><th>Status</th><th>Check first</th><th>Other configurations</th></tr></thead>
         <tbody>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="yes" data-search="argo-cd/argo-cd 9.5.15 catalog-supported default default;no-crds start-here ha (curated proof lane - bespoke teaching needed)">
         <td><a href="./argo-cd-argo-cd-9-5-15.html">argo-cd/argo-cd</a></td>
@@ -531,7 +464,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.15</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-cd/9.5.15/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argo-cd/9.5.15" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="render-only" data-hooks="no" data-crds="no" data-search="bitnami/mongodb 19.0.7 catalog-supported existing-secret-replicaset static-passwords;existing-secret-replicaset render-only lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./bitnami-mongodb-19-0-7.html">bitnami/mongodb</a></td>
@@ -540,7 +472,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities</td>
         <td>2 base options: existing-secret-replicaset, static-passwords</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mongodb:19.0.7</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mongodb/19.0.7" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="no" data-search="bitnami/mysql 14.0.3 catalog-supported existing-secret static-passwords;existing-secret start-here lookup;generated-facts;tpl;capabilities;stateful-storage ha (curated proof lane - bespoke teaching needed)">
         <td><a href="./bitnami-mysql-14-0-3.html">bitnami/mysql</a></td>
@@ -549,7 +480,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities</td>
         <td>2 base options: existing-secret, static-passwords</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-mysql:14.0.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/existing-secret" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/mysql/14.0.3" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="render-only" data-hooks="no" data-crds="no" data-search="bitnami/nginx 24.0.2 catalog-supported http-clusterip http-clusterip;existing-tls-ingress render-only lookup;generated-facts;tpl;capabilities existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-nginx-24-0-2.html">bitnami/nginx</a></td>
@@ -557,8 +487,7 @@
         <td><a href="./bitnami-nginx-24-0-2.html#matrix-options"><strong>http-clusterip</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
-        <td>2 base options: existing-tls-ingress, http-clusterip<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/nginx/24.0.2/bases/http-clusterip" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/nginx/24.0.2" rel="noopener">recipe</a></td>
+        <td>2 base options: existing-tls-ingress, http-clusterip</td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="render-only" data-hooks="no" data-crds="no" data-search="bitnami/postgresql 18.6.7 catalog-supported existing-secret static-passwords;existing-secret render-only lookup;generated-facts;tpl;capabilities;stateful-storage ha (curated proof lane - bespoke teaching needed)">
         <td><a href="./bitnami-postgresql-18-6-7.html">bitnami/postgresql</a></td>
@@ -567,7 +496,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities</td>
         <td>2 base options: existing-secret, static-passwords</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-postgresql:18.6.7</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/postgresql/18.6.7/bases/existing-secret" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/postgresql/18.6.7" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="no" data-search="bitnami/rabbitmq 16.0.14 catalog-supported existing-secret static-passwords;existing-secret start-here lookup;generated-facts;tpl;capabilities;stateful-storage ha (curated proof lane - bespoke teaching needed)">
         <td><a href="./bitnami-rabbitmq-16-0-14.html">bitnami/rabbitmq</a></td>
@@ -576,7 +504,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities</td>
         <td>2 base options: existing-secret, static-passwords</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-rabbitmq:16.0.14</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/rabbitmq/16.0.14/bases/existing-secret" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/rabbitmq/16.0.14" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="render-only" data-hooks="no" data-crds="no" data-search="bitnami/redis 25.5.3 catalog-supported reuse-existing-secret default;reuse-existing-secret render-only lookup;generated-facts;tpl;capabilities;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./bitnami-redis-25-5-3.html">bitnami/redis</a></td>
@@ -584,8 +511,7 @@
         <td><a href="./bitnami-redis-25-5-3.html#matrix-options"><strong>reuse-existing-secret</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities</td>
-        <td>2 base options: default, reuse-existing-secret<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/redis/25.5.3/bases/reuse-existing-secret" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3" rel="noopener">recipe</a></td>
+        <td>2 base options: default, reuse-existing-secret</td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="yes" data-search="external-secrets/external-secrets 2.5.0 catalog-supported default default;no-crds start-here - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./external-secrets-external-secrets-2-5-0.html">external-secrets/external-secrets</a></td>
@@ -594,7 +520,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.5.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/external-secrets/external-secrets/2.5.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/external-secrets/external-secrets/2.5.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="no" data-search="grafana/grafana 10.5.15 catalog-supported existing-secret-ingress static-passwords;existing-secret-ingress start-here - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./grafana-grafana-10-5-15.html">grafana/grafana</a></td>
@@ -602,8 +527,7 @@
         <td><a href="./grafana-grafana-10-5-15.html#matrix-options"><strong>existing-secret-ingress</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>No special caveat shown in the catalog row.</td>
-        <td>2 base options: existing-secret-ingress, static-passwords<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-grafana:10.5.15</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/grafana/grafana/10.5.15/bases/existing-secret-ingress" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/grafana/grafana/10.5.15" rel="noopener">recipe</a></td>
+        <td>2 base options: existing-secret-ingress, static-passwords</td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="yes" data-crds="yes" data-search="grafana/loki 7.0.0 catalog-supported single-binary-filesystem single-binary-filesystem;simple-scalable-minio start-here lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./grafana-loki-7-0-0.html">grafana/loki</a></td>
@@ -612,7 +536,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; CRDs</td>
         <td>2 base options: simple-scalable-minio, single-binary-filesystem</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.0.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/grafana/loki/7.0.0/bases/single-binary-filesystem" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/grafana/loki/7.0.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="no" data-search="grafana/tempo 1.24.4 catalog-supported local-persistent local-persistent;s3-query-observability start-here ha (tempo single-binary chart; ha is the separate tempo-distributed chart)">
         <td><a href="./grafana-tempo-1-24-4.html">grafana/tempo</a></td>
@@ -621,7 +544,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Ha (tempo single binary chart; HA is the separate tempo distributed chart)</td>
         <td>2 base options: local-persistent, s3-query-observability</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/grafana/tempo/1.24.4/bases/local-persistent" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/grafana/tempo/1.24.4" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="yes" data-crds="no" data-search="hashicorp/consul 2.0.0 catalog-supported default-control-plane default-control-plane;secure-mesh-existing-secrets start-here tpl;capabilities;cluster-rbac;webhooks;stateful-storage ha (curated proof lane - bespoke teaching needed)">
         <td><a href="./hashicorp-consul-2-0-0.html">hashicorp/consul</a></td>
@@ -630,7 +552,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC, webhooks</td>
         <td>2 base options: default-control-plane, secure-mesh-existing-secrets</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/consul/2.0.0/bases/default-control-plane" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/hashicorp/consul/2.0.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="yes" data-crds="no" data-search="hashicorp/vault 0.32.0 catalog-supported default dev-mode;default;ha-raft-ui start-here tpl;capabilities;cluster-rbac;webhooks;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./hashicorp-vault-0-32-0.html">hashicorp/vault</a></td>
@@ -638,8 +559,7 @@
         <td><a href="./hashicorp-vault-0-32-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC, webhooks</td>
-        <td>3 base options: default, dev-mode, ha-raft-ui<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-vault:0.32.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/vault/0.32.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/hashicorp/vault/0.32.0" rel="noopener">recipe</a></td>
+        <td>3 base options: default, dev-mode, ha-raft-ui</td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="yes" data-crds="no" data-search="ingress-nginx/ingress-nginx 4.15.1 catalog-supported internal-clusterip default;admission-disabled;internal-clusterip start-here tpl;capabilities;cluster-rbac;webhooks - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./ingress-nginx-ingress-nginx-4-15-1.html">ingress-nginx/ingress-nginx</a></td>
@@ -648,7 +568,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC, webhooks</td>
         <td>3 base options: default, admission-disabled, internal-clusterip</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/ingress-nginx-ingress-nginx:4.15.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/ingress-nginx/ingress-nginx/4.15.1/bases/internal-clusterip" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/ingress-nginx/ingress-nginx/4.15.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="yes" data-search="jetstack/cert-manager v1.20.2 catalog-supported crds-enabled default;crds-enabled start-here - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./jetstack-cert-manager-v1-20-2.html">jetstack/cert-manager</a></td>
@@ -657,7 +576,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, crds-enabled</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.20.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager/v1.20.2/bases/crds-enabled" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/cert-manager/v1.20.2" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="no" data-search="longhorn/longhorn 1.11.2 catalog-supported default default;ui-ingress start-here generated-facts;tpl;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./longhorn-longhorn-1-11-2.html">longhorn/longhorn</a></td>
@@ -666,7 +584,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>generated facts, tpl templates, cluster RBAC</td>
         <td>2 base options: default, ui-ingress</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.11.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/longhorn/longhorn/1.11.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/longhorn/longhorn/1.11.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/longhorn/longhorn/1.11.2" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="no" data-search="metrics-server/metrics-server 3.13.0 catalog-supported default default;external-tls-ca start-here lookup;generated-facts;capabilities;cluster-rbac existing-secret (chart ships no secret toggle)">
         <td><a href="./metrics-server-metrics-server-3-13-0.html">metrics-server/metrics-server</a></td>
@@ -674,8 +591,7 @@
         <td><a href="./metrics-server-metrics-server-3-13-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, Kubernetes API capabilities, cluster RBAC; Existing secret (chart ships no Secret toggle)</td>
-        <td>2 base options: default, external-tls-ca<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/metrics-server/metrics-server/3.13.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/metrics-server/metrics-server/3.13.0" rel="noopener">recipe</a></td>
+        <td>2 base options: default, external-tls-ca</td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="render-only" data-hooks="yes" data-crds="yes" data-search="prometheus-community/kube-prometheus-stack 85.3.3 catalog-supported default default;no-crds render-only lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./prometheus-community-kube-prometheus-stack-85-3-3.html">prometheus-community/kube-prometheus-stack</a></td>
@@ -684,7 +600,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; hooks or lifecycle actions; CRDs</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:85.3.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/kube-prometheus-stack/85.3.3" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="render-only" data-hooks="no" data-crds="no" data-search="prometheus-community/prometheus 29.8.0 catalog-supported server-only-ephemeral default;server-only-ephemeral render-only generated-facts;tpl;capabilities;cluster-rbac;stateful-storage ha (curated proof lane - bespoke teaching needed)">
         <td><a href="./prometheus-community-prometheus-29-8-0.html">prometheus-community/prometheus</a></td>
@@ -692,8 +607,7 @@
         <td><a href="./prometheus-community-prometheus-29-8-0.html#matrix-options"><strong>server-only-ephemeral</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>generated facts, tpl templates, Kubernetes API capabilities, cluster RBAC</td>
-        <td>2 base options: default, server-only-ephemeral<br><span style="color:var(--muted);font-size:.9rem">4 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus:29.8.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus/29.8.0/bases/server-only-ephemeral" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus/29.8.0" rel="noopener">recipe</a></td>
+        <td>2 base options: default, server-only-ephemeral</td>
       </tr>
 <tr data-chart-row data-level="catalog-supported" data-status="start-here" data-hooks="no" data-crds="no" data-search="secrets-store-csi-driver/secrets-store-csi-driver 1.6.0 catalog-supported default default;sync-secret-rotation start-here - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html">secrets-store-csi-driver/secrets-store-csi-driver</a></td>
@@ -702,7 +616,6 @@
         <td><strong>Ready to try</strong><br><span style="color:var(--muted);font-size:.9rem">This is one of the strongest public starting points.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, sync-secret-rotation</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/secrets-store-csi-driver-secrets-store-csi-driver:1.6.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="traefik/traefik 40.2.0 proof-grade / machine-proof-only default default;no-crds see chart page lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./traefik-traefik-40-2-0.html">traefik/traefik</a></td>
@@ -710,8 +623,7 @@
         <td><a href="./traefik-traefik-40-2-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; CRDs; Existing secret (chart ships no Secret toggle)</td>
-        <td>2 base options: default, no-crds<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/traefik/traefik/40.2.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/traefik/traefik/40.2.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/traefik/traefik/40.2.0" rel="noopener">recipe</a></td>
+        <td>2 base options: default, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="external-dns/external-dns 1.21.1 proof-grade / machine-proof-only default default;no-crds;dry-run-txt-registry see chart page tpl;crds;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./external-dns-external-dns-1-21-1.html">external-dns/external-dns</a></td>
@@ -719,8 +631,7 @@
         <td><a href="./external-dns-external-dns-1-21-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, CRDs, cluster RBAC</td>
-        <td>3 base options: default, dry-run-txt-registry, no-crds<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-dns-external-dns:1.21.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/external-dns/external-dns/1.21.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/external-dns/external-dns/1.21.1" rel="noopener">recipe</a></td>
+        <td>3 base options: default, dry-run-txt-registry, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="gitlab/gitlab-runner 0.89.0 proof-grade / machine-proof-only default default see chart page generated-facts;tpl;capabilities - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./gitlab-gitlab-runner-0-89-0.html">gitlab/gitlab-runner</a></td>
@@ -728,8 +639,7 @@
         <td><a href="./gitlab-gitlab-runner-0-89-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>generated facts, tpl templates, Kubernetes API capabilities; Target runtime: ConfigHub workload not ready (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gitlab-gitlab-runner:0.89.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/gitlab/gitlab-runner/0.89.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/gitlab/gitlab-runner/0.89.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="kyverno/kyverno 3.8.1 proof-grade / machine-proof-only default default;no-crds see chart page lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./kyverno-kyverno-3-8-1.html">kyverno/kyverno</a></td>
@@ -737,8 +647,7 @@
         <td><a href="./kyverno-kyverno-3-8-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; hooks or lifecycle actions; CRDs</td>
-        <td>2 base options: default, no-crds<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno/3.8.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/kyverno/kyverno/3.8.1" rel="noopener">recipe</a></td>
+        <td>2 base options: default, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="cloudnative-pg/cloudnative-pg 0.28.2 proof-grade / machine-proof-only default default;no-crds see chart page generated-facts;tpl;crds;cluster-rbac;webhooks - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./cloudnative-pg-cloudnative-pg-0-28-2.html">cloudnative-pg/cloudnative-pg</a></td>
@@ -747,7 +656,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>generated facts, tpl templates, CRDs, cluster RBAC</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/cloudnative-pg/cloudnative-pg/0.28.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/cloudnative-pg/cloudnative-pg/0.28.2" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="no" data-search="fluent/fluent-bit 0.57.6 proof-grade / machine-proof-only default default see chart page tpl;capabilities;hooks;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./fluent-fluent-bit-0-57-6.html">fluent/fluent-bit</a></td>
@@ -755,8 +663,7 @@
         <td><a href="./fluent-fluent-bit-0-57-6.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, hooks, cluster RBAC</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluent-bit:0.57.6</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/fluent/fluent-bit/0.57.6/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/fluent/fluent-bit/0.57.6" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="runix/pgadmin4 1.62.0 proof-grade / machine-proof-only default default see chart page tpl;capabilities;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./runix-pgadmin4-1-62-0.html">runix/pgadmin4</a></td>
@@ -764,8 +671,7 @@
         <td><a href="./runix-pgadmin4-1-62-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, stateful storage</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/runix-pgadmin4:1.62.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/runix/pgadmin4/1.62.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/runix/pgadmin4/1.62.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/runix/pgadmin4/1.62.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="nfs-subdir-external-provisioner/nfs-subdir-external-provisioner 4.0.18 proof-grade / machine-proof-only default default see chart page capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html">nfs-subdir-external-provisioner/nfs-subdir-external-provisioner</a></td>
@@ -773,8 +679,7 @@
         <td><a href="./nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Kubernetes API capabilities, cluster RBAC, stateful storage; Helm runtime: upstream leg blocked</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner:4.0.18</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="kedacore/keda 2.19.0 proof-grade / machine-proof-only default default;no-crds see chart page tpl;capabilities;crds;cluster-rbac;webhooks - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./kedacore-keda-2-19-0.html">kedacore/keda</a></td>
@@ -783,7 +688,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, CRDs, cluster RBAC; hooks or lifecycle actions</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/kedacore/keda/2.19.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/kedacore/keda/2.19.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="prometheus-community/kube-state-metrics 7.4.0 proof-grade / machine-proof-only default default;cluster-metrics-readonly see chart page generated-facts;tpl;capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./prometheus-community-kube-state-metrics-7-4-0.html">prometheus-community/kube-state-metrics</a></td>
@@ -792,7 +696,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>generated facts, tpl templates, Kubernetes API capabilities, cluster RBAC</td>
         <td>2 base options: default, cluster-metrics-readonly</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-state-metrics:7.4.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/kube-state-metrics/7.4.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/kube-state-metrics/7.4.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="elastic/eck-operator 3.4.0 proof-grade / machine-proof-only default default;ha;no-crds see chart page tpl;capabilities;cluster-rbac;webhooks;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./elastic-eck-operator-3-4-0.html">elastic/eck-operator</a></td>
@@ -801,7 +704,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC, webhooks</td>
         <td>3 base options: default, ha, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-eck-operator:3.4.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/elastic/eck-operator/3.4.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/elastic/eck-operator/3.4.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/elastic/eck-operator/3.4.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="elastic/kibana 8.5.1 proof-grade / machine-proof-only default default see chart page tpl - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./elastic-kibana-8-5-1.html">elastic/kibana</a></td>
@@ -809,8 +711,7 @@
         <td><a href="./elastic-kibana-8-5-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates; Target runtime: pod ContainerCreating (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-kibana:8.5.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/elastic/kibana/8.5.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/elastic/kibana/8.5.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/elastic/kibana/8.5.1" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="descheduler/descheduler 0.36.0 proof-grade / machine-proof-only default default see chart page tpl;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./descheduler-descheduler-0-36-0.html">descheduler/descheduler</a></td>
@@ -818,8 +719,7 @@
         <td><a href="./descheduler-descheduler-0-36-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, cluster RBAC</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/descheduler/descheduler/0.36.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/descheduler/descheduler/0.36.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/descheduler/descheduler/0.36.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="prometheus-community/prometheus-blackbox-exporter 11.10.0 proof-grade / machine-proof-only default default;cluster-metrics-readonly see chart page tpl;capabilities - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./prometheus-community-prometheus-blackbox-exporter-11-10-0.html">prometheus-community/prometheus-blackbox-exporter</a></td>
@@ -828,7 +728,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities</td>
         <td>2 base options: default, cluster-metrics-readonly</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.10.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/elasticsearch 22.1.6 proof-grade / machine-proof-only default default;ha;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-elasticsearch-22-1-6.html">bitnami/elasticsearch</a></td>
@@ -837,7 +736,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
         <td>3 base options: default, ha, legacy</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-elasticsearch:22.1.6</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/elasticsearch/22.1.6/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/elasticsearch/22.1.6" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="stakater/reloader 2.2.12 proof-grade / machine-proof-only default default;controller-default-reviewed see chart page tpl;capabilities;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./stakater-reloader-2-2-12.html">stakater/reloader</a></td>
@@ -846,7 +744,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC</td>
         <td>2 base options: default, controller-default-reviewed</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/stakater/reloader/2.2.12/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/stakater/reloader/2.2.12" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="jaegertracing/jaeger 4.8.0 proof-grade / machine-proof-only default default see chart page lookup;generated-facts;tpl;capabilities existing-secret (chart ships no secret toggle)">
         <td><a href="./jaegertracing-jaeger-4-8-0.html">jaegertracing/jaeger</a></td>
@@ -854,8 +751,7 @@
         <td><a href="./jaegertracing-jaeger-4-8-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger:4.8.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/jaegertracing/jaeger/4.8.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/jaegertracing/jaeger/4.8.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="grafana/alloy 1.8.2 proof-grade / machine-proof-only default default;no-crds see chart page tpl;capabilities;crds;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./grafana-alloy-1-8-2.html">grafana/alloy</a></td>
@@ -864,7 +760,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, CRDs, cluster RBAC</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.8.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/grafana/alloy/1.8.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/grafana/alloy/1.8.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/grafana/alloy/1.8.2" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="nats/nats 2.14.0 proof-grade / machine-proof-only default default;ha see chart page tpl - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./nats-nats-2-14-0.html">nats/nats</a></td>
@@ -873,7 +768,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates</td>
         <td>2 base options: default, ha</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nats:2.14.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/nats/nats/2.14.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/nats/nats/2.14.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/nats/nats/2.14.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="dex/dex 0.24.0 proof-grade / machine-proof-only default default see chart page tpl;capabilities;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./dex-dex-0-24-0.html">dex/dex</a></td>
@@ -881,8 +775,7 @@
         <td><a href="./dex-dex-0-24-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC; Target runtime: pod config/runtime errors (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/dex-dex:0.24.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/dex/dex/0.24.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/dex/dex/0.24.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="prometheus-community/alertmanager 1.37.0 proof-grade / machine-proof-only default default;ha see chart page tpl;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./prometheus-community-alertmanager-1-37-0.html">prometheus-community/alertmanager</a></td>
@@ -891,7 +784,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, stateful storage</td>
         <td>2 base options: default, ha</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-alertmanager:1.37.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/alertmanager/1.37.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/alertmanager/1.37.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="falcosecurity/falco 9.0.0 proof-grade / machine-proof-only default default see chart page lookup;tpl;capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./falcosecurity-falco-9-0-0.html">falcosecurity/falco</a></td>
@@ -899,8 +791,7 @@
         <td><a href="./falcosecurity-falco-9-0-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, tpl templates, Kubernetes API capabilities, cluster RBAC</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falco:9.0.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/falcosecurity/falco/9.0.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/falcosecurity/falco/9.0.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/falcosecurity/falco/9.0.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="prometheus-community/prometheus-node-exporter 4.55.0 proof-grade / machine-proof-only default default;cluster-metrics-readonly see chart page generated-facts;tpl;capabilities;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./prometheus-community-prometheus-node-exporter-4-55-0.html">prometheus-community/prometheus-node-exporter</a></td>
@@ -909,7 +800,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>generated facts, tpl templates, Kubernetes API capabilities, cluster RBAC</td>
         <td>2 base options: default, cluster-metrics-readonly</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-node-exporter:4.55.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-node-exporter/4.55.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-node-exporter/4.55.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/spark 10.0.3 proof-grade / machine-proof-only default default;ha;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-spark-10-0-3.html">bitnami/spark</a></td>
@@ -918,7 +808,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
         <td>3 base options: default, ha, legacy</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/spark/10.0.3/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/spark/10.0.3" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="elastic/logstash 8.5.1 proof-grade / machine-proof-only default default;ha see chart page tpl;capabilities;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./elastic-logstash-8-5-1.html">elastic/logstash</a></td>
@@ -927,7 +816,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, stateful storage</td>
         <td>2 base options: default, ha</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-logstash:8.5.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/elastic/logstash/8.5.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/elastic/logstash/8.5.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/elastic/logstash/8.5.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="prometheus-community/prometheus-adapter 5.3.0 proof-grade / machine-proof-only default default;apiservice-v1-capability;cluster-metrics-readonly see chart page tpl;capabilities;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./prometheus-community-prometheus-adapter-5-3-0.html">prometheus-community/prometheus-adapter</a></td>
@@ -935,8 +823,7 @@
         <td><a href="./prometheus-community-prometheus-adapter-5-3-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC; CRDs; Capability profile: rendered APIService version is not served by target Kubernetes</td>
-        <td>3 base options: default, apiservice-v1-capability, cluster-metrics-readonly<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-adapter:5.3.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-adapter/5.3.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-adapter/5.3.0" rel="noopener">recipe</a></td>
+        <td>3 base options: default, apiservice-v1-capability, cluster-metrics-readonly</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="no" data-search="projectcalico/tigera-operator v3.32.0 proof-grade / machine-proof-only default default see chart page lookup;hooks;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./projectcalico-tigera-operator-v3-32-0.html">projectcalico/tigera-operator</a></td>
@@ -944,8 +831,7 @@
         <td><a href="./projectcalico-tigera-operator-v3-32-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, hooks, cluster RBAC</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/projectcalico-tigera-operator:v3.32.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/projectcalico/tigera-operator/v3.32.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/projectcalico/tigera-operator/v3.32.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="fairwinds-stable/goldilocks 10.3.0 proof-grade / machine-proof-only default default see chart page lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks existing-secret (chart ships no secret toggle)">
         <td><a href="./fairwinds-stable-goldilocks-10-3-0.html">fairwinds-stable/goldilocks</a></td>
@@ -953,8 +839,7 @@
         <td><a href="./fairwinds-stable-goldilocks-10-3-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; CRDs; Existing secret (chart ships no Secret toggle)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-goldilocks:10.3.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/fairwinds-stable/goldilocks/10.3.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/fairwinds-stable/goldilocks/10.3.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="prometheus-community/prometheus-operator-crds 29.0.0 proof-grade / machine-proof-only default default see chart page generated-facts;crds - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./prometheus-community-prometheus-operator-crds-29-0-0.html">prometheus-community/prometheus-operator-crds</a></td>
@@ -962,8 +847,7 @@
         <td><a href="./prometheus-community-prometheus-operator-crds-29-0-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>generated facts, CRDs</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-operator-crds:29.0.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-operator-crds/29.0.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-operator-crds/29.0.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/zookeeper 13.8.7 proof-grade / machine-proof-only default default;ha;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-zookeeper-13-8-7.html">bitnami/zookeeper</a></td>
@@ -972,7 +856,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
         <td>3 base options: default, ha, legacy</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/zookeeper/13.8.7/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/zookeeper/13.8.7" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="elastic/filebeat 8.5.1 proof-grade / machine-proof-only default default;node-or-cluster-collector see chart page tpl;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./elastic-filebeat-8-5-1.html">elastic/filebeat</a></td>
@@ -980,8 +863,7 @@
         <td><a href="./elastic-filebeat-8-5-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, cluster RBAC; Target runtime: pod ContainerCreating (parity passed)</td>
-        <td>2 base options: default, node-or-cluster-collector<br><span style="color:var(--muted);font-size:.9rem">4 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-filebeat:8.5.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/elastic/filebeat/8.5.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/elastic/filebeat/8.5.1" rel="noopener">recipe</a></td>
+        <td>2 base options: default, node-or-cluster-collector</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="hashicorp/terraform 1.1.2 proof-grade / machine-proof-only default default;no-crds see chart page crds - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./hashicorp-terraform-1-1-2.html">hashicorp/terraform</a></td>
@@ -989,8 +871,7 @@
         <td><a href="./hashicorp-terraform-1-1-2.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>CRDs; Target runtime: pod ContainerCreating (parity passed)</td>
-        <td>2 base options: default, no-crds<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-terraform:1.1.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/hashicorp/terraform/1.1.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/hashicorp/terraform/1.1.2" rel="noopener">recipe</a></td>
+        <td>2 base options: default, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="coredns/coredns 1.45.2 proof-grade / machine-proof-only default default see chart page generated-facts;tpl;capabilities;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./coredns-coredns-1-45-2.html">coredns/coredns</a></td>
@@ -998,8 +879,7 @@
         <td><a href="./coredns-coredns-1-45-2.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>generated facts, tpl templates, Kubernetes API capabilities, cluster RBAC</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/coredns/coredns/1.45.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/coredns/coredns/1.45.2" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="fairwinds-stable/vpa 4.11.0 proof-grade / machine-proof-only default default;no-crds see chart page lookup;tpl;capabilities;crds;cluster-rbac;webhooks - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./fairwinds-stable-vpa-4-11-0.html">fairwinds-stable/vpa</a></td>
@@ -1008,7 +888,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, tpl templates, Kubernetes API capabilities, CRDs</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fairwinds-stable-vpa:4.11.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/fairwinds-stable/vpa/4.11.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/fairwinds-stable/vpa/4.11.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/phpmyadmin 20.0.0 proof-grade / machine-proof-only default default;legacy see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-phpmyadmin-20-0-0.html">bitnami/phpmyadmin</a></td>
@@ -1016,8 +895,7 @@
         <td><a href="./bitnami-phpmyadmin-20-0-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
-        <td>2 base options: default, legacy<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-phpmyadmin:20.0.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/phpmyadmin/20.0.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/phpmyadmin/20.0.0" rel="noopener">recipe</a></td>
+        <td>2 base options: default, legacy</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="prometheus-community/prometheus-pushgateway 3.6.0 proof-grade / machine-proof-only default default see chart page tpl;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./prometheus-community-prometheus-pushgateway-3-6-0.html">prometheus-community/prometheus-pushgateway</a></td>
@@ -1025,8 +903,7 @@
         <td><a href="./prometheus-community-prometheus-pushgateway-3-6-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, stateful storage</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-pushgateway:3.6.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/prometheus-community/prometheus-pushgateway/3.6.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/prometheus-community/prometheus-pushgateway/3.6.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="fluent/fluentd 0.5.3 proof-grade / machine-proof-only default default see chart page tpl;capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./fluent-fluentd-0-5-3.html">fluent/fluentd</a></td>
@@ -1034,8 +911,7 @@
         <td><a href="./fluent-fluentd-0-5-3.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC, stateful storage; Target runtime: pod config/runtime errors (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/fluent-fluentd:0.5.3</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/fluent/fluentd/0.5.3/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/fluent/fluentd/0.5.3/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/fluent/fluentd/0.5.3" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="jaegertracing/jaeger-operator 2.57.0 proof-grade / machine-proof-only default default;no-crds see chart page crds;webhooks - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./jaegertracing-jaeger-operator-2-57-0.html">jaegertracing/jaeger-operator</a></td>
@@ -1043,8 +919,7 @@
         <td><a href="./jaegertracing-jaeger-operator-2-57-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>CRDs, webhooks; Target prerequisite: cert manager CRDs missing</td>
-        <td>2 base options: default, no-crds<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jaegertracing-jaeger-operator:2.57.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/jaegertracing/jaeger-operator/2.57.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/jaegertracing/jaeger-operator/2.57.0" rel="noopener">recipe</a></td>
+        <td>2 base options: default, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/memcached 8.5.5 proof-grade / machine-proof-only default default see chart page lookup;generated-facts;tpl;capabilities;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-memcached-8-5-5.html">bitnami/memcached</a></td>
@@ -1052,8 +927,7 @@
         <td><a href="./bitnami-memcached-8-5-5.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-memcached:8.5.5</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/memcached/8.5.5/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/memcached/8.5.5" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="strimzi/strimzi-kafka-operator 1.0.0 proof-grade / machine-proof-only default default;no-crds see chart page tpl;capabilities;crds;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./strimzi-strimzi-kafka-operator-1-0-0.html">strimzi/strimzi-kafka-operator</a></td>
@@ -1062,7 +936,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, CRDs, cluster RBAC</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/strimzi/strimzi-kafka-operator/1.0.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="opencost/opencost 2.5.21 proof-grade / machine-proof-only default default see chart page tpl;capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./opencost-opencost-2-5-21.html">opencost/opencost</a></td>
@@ -1070,8 +943,7 @@
         <td><a href="./opencost-opencost-2-5-21.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC, stateful storage; Target runtime: pod config/runtime errors (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/opencost-opencost:2.5.21</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/opencost/opencost/2.5.21/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/opencost/opencost/2.5.21" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="gatekeeper/gatekeeper 3.22.2 proof-grade / machine-proof-only default default;no-crds see chart page capabilities;hooks;crds;cluster-rbac;webhooks - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./gatekeeper-gatekeeper-3-22-2.html">gatekeeper/gatekeeper</a></td>
@@ -1080,7 +952,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Kubernetes API capabilities, hooks, CRDs, cluster RBAC</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/gatekeeper-gatekeeper:3.22.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/gatekeeper/gatekeeper/3.22.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/gatekeeper/gatekeeper/3.22.2" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="bitnami/contour 21.1.4 proof-grade / machine-proof-only default default;no-crds;legacy see chart page lookup;generated-facts;tpl;capabilities;crds;cluster-rbac existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-contour-21-1-4.html">bitnami/contour</a></td>
@@ -1088,8 +959,7 @@
         <td><a href="./bitnami-contour-21-1-4.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; hooks or lifecycle actions; CRDs</td>
-        <td>3 base options: default, legacy, no-crds<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-contour:21.1.4</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/contour/21.1.4/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/contour/21.1.4" rel="noopener">recipe</a></td>
+        <td>3 base options: default, legacy, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="kyverno/kyverno-policies 3.8.0 proof-grade / machine-proof-only default default see chart page lookup;tpl - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./kyverno-kyverno-policies-3-8-0.html">kyverno/kyverno-policies</a></td>
@@ -1098,7 +968,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, tpl templates; Gitops runtime: ClusterPolicy OutOfSync health Healthy (parity passed)</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/kyverno/kyverno-policies/3.8.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/kyverno/kyverno-policies/3.8.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="elastic/metricbeat 8.5.1 proof-grade / machine-proof-only default default see chart page tpl;capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./elastic-metricbeat-8-5-1.html">elastic/metricbeat</a></td>
@@ -1106,8 +975,7 @@
         <td><a href="./elastic-metricbeat-8-5-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC, stateful storage; Target runtime: pod ContainerCreating (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">2 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/elastic-metricbeat:8.5.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/elastic/metricbeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/elastic/metricbeat/8.5.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/elastic/metricbeat/8.5.1" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="minio-operator/operator 7.1.1 proof-grade / machine-proof-only default default see chart page cluster-rbac no-crds (template-baked crds; no clean chart toggle yet)">
         <td><a href="./minio-operator-operator-7-1-1.html">minio-operator/operator</a></td>
@@ -1115,8 +983,7 @@
         <td><a href="./minio-operator-operator-7-1-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>cluster RBAC; No crds (template baked CRDs; No clean chart toggle yet)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-operator:7.1.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/operator/7.1.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/minio-operator/operator/7.1.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/minio-operator/operator/7.1.1" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="percona/pxc-operator 1.19.1 proof-grade / machine-proof-only default default;no-crds see chart page lookup;crds;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./percona-pxc-operator-1-19-1.html">percona/pxc-operator</a></td>
@@ -1125,7 +992,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, CRDs, cluster RBAC</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pxc-operator:1.19.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/percona/pxc-operator/1.19.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/percona/pxc-operator/1.19.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/percona/pxc-operator/1.19.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/apache 11.4.29 proof-grade / machine-proof-only default default;legacy see chart page lookup;generated-facts;tpl;capabilities existing-secret (chart ships no secret toggle)">
         <td><a href="./bitnami-apache-11-4-29.html">bitnami/apache</a></td>
@@ -1134,7 +1000,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; Existing secret (chart ships no Secret toggle)</td>
         <td>2 base options: default, legacy</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-apache:11.4.29</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/apache/11.4.29/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/apache/11.4.29/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/apache/11.4.29" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="grafana/pyroscope 2.0.2 proof-grade / machine-proof-only default default;ha;no-crds see chart page lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage existing-secret (chart ships no secret toggle)">
         <td><a href="./grafana-pyroscope-2-0-2.html">grafana/pyroscope</a></td>
@@ -1142,8 +1007,7 @@
         <td><a href="./grafana-pyroscope-2-0-2.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Helm lookup, generated facts, tpl templates, Kubernetes API capabilities; CRDs; Existing secret (chart ships no Secret toggle)</td>
-        <td>3 base options: default, ha, no-crds<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-pyroscope:2.0.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/grafana/pyroscope/2.0.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/grafana/pyroscope/2.0.2" rel="noopener">recipe</a></td>
+        <td>3 base options: default, ha, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="aws-ebs-csi-driver/aws-ebs-csi-driver 2.60.1 proof-grade / machine-proof-only default default see chart page tpl;capabilities;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html">aws-ebs-csi-driver/aws-ebs-csi-driver</a></td>
@@ -1151,8 +1015,7 @@
         <td><a href="./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>tpl templates, Kubernetes API capabilities, cluster RBAC; Target fit: AWS/EKS metadata or provider identity missing on vanilla kind (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="falcosecurity/falcosidekick 0.13.1 proof-grade / machine-proof-only default default see chart page capabilities;cluster-rbac;stateful-storage - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./falcosecurity-falcosidekick-0-13-1.html">falcosecurity/falcosidekick</a></td>
@@ -1161,7 +1024,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Kubernetes API capabilities, cluster RBAC, stateful storage</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/falcosecurity-falcosidekick:0.13.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/falcosecurity/falcosidekick/0.13.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/falcosecurity/falcosidekick/0.13.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="aqua/trivy-operator 0.32.1 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./aqua-trivy-operator-0-32-1.html">aqua/trivy-operator</a></td>
@@ -1170,7 +1032,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/aqua/trivy-operator/0.32.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/aqua/trivy-operator/0.32.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="argo-cd/argo-events 2.4.21 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./argo-cd-argo-events-2-4-21.html">argo-cd/argo-events</a></td>
@@ -1179,7 +1040,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-events/2.4.21/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argo-events/2.4.21" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="argo-cd/argo-rollouts 2.40.9 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./argo-cd-argo-rollouts-2-40-9.html">argo-cd/argo-rollouts</a></td>
@@ -1188,7 +1048,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-rollouts:2.40.9</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-rollouts/2.40.9/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argo-rollouts/2.40.9" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="argo-cd/argo-workflows 1.0.14 proof-grade / machine-proof-only default default;controller-default-reviewed;minimal-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./argo-cd-argo-workflows-1-0-14.html">argo-cd/argo-workflows</a></td>
@@ -1197,7 +1056,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>hooks or lifecycle actions</td>
         <td>3 base options: default, controller-default-reviewed, minimal-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-workflows:1.0.14</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argo-workflows/1.0.14/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argo-workflows/1.0.14" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="argo-cd/argocd-image-updater 1.2.2 proof-grade / machine-proof-only default default see chart page no-crds (template-baked crds; no clean chart toggle yet)">
         <td><a href="./argo-cd-argocd-image-updater-1-2-2.html">argo-cd/argocd-image-updater</a></td>
@@ -1206,7 +1064,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No crds (template baked CRDs; No clean chart toggle yet)</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argocd-image-updater:1.2.2</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/argo-cd/argocd-image-updater/1.2.2/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/argo-cd/argocd-image-updater/1.2.2" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="autoscaler/cluster-autoscaler 9.57.0 proof-grade / machine-proof-only default default;controller-default-reviewed see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./autoscaler-cluster-autoscaler-9-57-0.html">autoscaler/cluster-autoscaler</a></td>
@@ -1214,8 +1071,7 @@
         <td><a href="./autoscaler-cluster-autoscaler-9-57-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
-        <td>2 base options: default, controller-default-reviewed<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-cluster-autoscaler:9.57.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/autoscaler/cluster-autoscaler/9.57.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/autoscaler/cluster-autoscaler/9.57.0" rel="noopener">recipe</a></td>
+        <td>2 base options: default, controller-default-reviewed</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="autoscaler/vertical-pod-autoscaler 0.9.0 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./autoscaler-vertical-pod-autoscaler-0-9-0.html">autoscaler/vertical-pod-autoscaler</a></td>
@@ -1224,7 +1080,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/autoscaler-vertical-pod-autoscaler:0.9.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/autoscaler/vertical-pod-autoscaler/0.9.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/autoscaler/vertical-pod-autoscaler/0.9.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="bitnami/opensearch 2.0.10 proof-grade / machine-proof-only default default;ha;legacy see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./bitnami-opensearch-2-0-10.html">bitnami/opensearch</a></td>
@@ -1233,7 +1088,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Remote image: image pull failed or pinned image is unavailable (parity passed)</td>
         <td>3 base options: default, ha, legacy</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-opensearch:2.0.10</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/opensearch/2.0.10/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/opensearch/2.0.10/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/opensearch/2.0.10" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="crossplane-stable/crossplane 2.3.1 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./crossplane-stable-crossplane-2-3-1.html">crossplane-stable/crossplane</a></td>
@@ -1242,7 +1096,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/crossplane-stable/crossplane/2.3.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/crossplane-stable/crossplane/2.3.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="grafana/promtail 6.17.1 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./grafana-promtail-6-17-1.html">grafana/promtail</a></td>
@@ -1251,7 +1104,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-promtail:6.17.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/grafana/promtail/6.17.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/grafana/promtail/6.17.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="grafana/rollout-operator 0.49.0 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./grafana-rollout-operator-0-49-0.html">grafana/rollout-operator</a></td>
@@ -1260,7 +1112,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-rollout-operator:0.49.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/grafana/rollout-operator/0.49.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/grafana/rollout-operator/0.49.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="haproxytech/kubernetes-ingress 1.52.0 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./haproxytech-kubernetes-ingress-1-52-0.html">haproxytech/kubernetes-ingress</a></td>
@@ -1269,7 +1120,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/haproxytech-kubernetes-ingress:1.52.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/haproxytech/kubernetes-ingress/1.52.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/haproxytech/kubernetes-ingress/1.52.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="istio/gateway 1.30.0 proof-grade / machine-proof-only default default;controller-default-reviewed see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./istio-gateway-1-30-0.html">istio/gateway</a></td>
@@ -1278,7 +1128,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Remote image: image pull failed or pinned image is unavailable (parity passed)</td>
         <td>2 base options: default, controller-default-reviewed</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-gateway:1.30.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/istio/gateway/1.30.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/istio/gateway/1.30.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/istio/gateway/1.30.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="istio/istiod 1.30.0 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./istio-istiod-1-30-0.html">istio/istiod</a></td>
@@ -1286,8 +1135,7 @@
         <td><a href="./istio-istiod-1-30-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Target prerequisite: namespace missing (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">4 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/istio-istiod:1.30.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/istio/istiod/1.30.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/istio/istiod/1.30.0" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="jetstack/cert-manager-csi-driver v0.14.0 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./jetstack-cert-manager-csi-driver-v0-14-0.html">jetstack/cert-manager-csi-driver</a></td>
@@ -1296,7 +1144,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager-csi-driver:v0.14.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/jetstack/cert-manager-csi-driver/v0.14.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/cert-manager-csi-driver/v0.14.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="jetstack/trust-manager v0.22.1 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./jetstack-trust-manager-v0-22-1.html">jetstack/trust-manager</a></td>
@@ -1305,7 +1152,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Gitops runtime: Argo health Progressing (parity passed)</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-trust-manager:v0.22.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/jetstack/trust-manager/v0.22.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/jetstack/trust-manager/v0.22.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="linkerd/linkerd-crds 1.8.0 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./linkerd-linkerd-crds-1-8-0.html">linkerd/linkerd-crds</a></td>
@@ -1314,7 +1160,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Gitops runtime: CustomResourceDefinition OutOfSync health Healthy (parity passed)</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/linkerd-linkerd-crds:1.8.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/linkerd/linkerd-crds/1.8.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/linkerd/linkerd-crds/1.8.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="minio-operator/tenant 7.1.1 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./minio-operator-tenant-7-1-1.html">minio-operator/tenant</a></td>
@@ -1323,7 +1168,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Gitops runtime: Argo health Progressing (parity passed)</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/minio-operator-tenant:7.1.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/minio-operator/tenant/7.1.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/minio-operator/tenant/7.1.1" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="nats/nack 0.34.0 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./nats-nack-0-34-0.html">nats/nack</a></td>
@@ -1332,7 +1176,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Parity: semantic object diff</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-nack:0.34.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/nats/nack/0.34.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/nats/nack/0.34.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/nats/nack/0.34.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="nats/surveyor 0.20.9 proof-grade / machine-proof-only default default;default-reviewed see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./nats-surveyor-0-20-9.html">nats/surveyor</a></td>
@@ -1340,8 +1183,7 @@
         <td><a href="./nats-surveyor-0-20-9.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Target runtime: pod config/runtime errors (parity passed)</td>
-        <td>2 base options: default, default-reviewed<br><span style="color:var(--muted);font-size:.9rem">3 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nats-surveyor:0.20.9</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/nats/surveyor/0.20.9/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/nats/surveyor/0.20.9" rel="noopener">recipe</a></td>
+        <td>2 base options: default, default-reviewed</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="open-telemetry/opentelemetry-operator 0.114.0 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./open-telemetry-opentelemetry-operator-0-114-0.html">open-telemetry/opentelemetry-operator</a></td>
@@ -1350,7 +1192,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Gitops runtime: Argo health Progressing (parity passed)</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/open-telemetry-opentelemetry-operator:0.114.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/open-telemetry/opentelemetry-operator/0.114.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/open-telemetry/opentelemetry-operator/0.114.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="percona/pg-operator 3.0.0 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./percona-pg-operator-3-0-0.html">percona/pg-operator</a></td>
@@ -1359,7 +1200,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-pg-operator:3.0.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/percona/pg-operator/3.0.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/percona/pg-operator/3.0.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="percona/psmdb-operator 1.22.0 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./percona-psmdb-operator-1-22-0.html">percona/psmdb-operator</a></td>
@@ -1368,7 +1208,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/percona-psmdb-operator:1.22.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/percona/psmdb-operator/1.22.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/percona/psmdb-operator/1.22.0" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="rook-release/rook-ceph v1.19.5 proof-grade / machine-proof-only default default see chart page no-crds (template-baked crds; no clean chart toggle yet)">
         <td><a href="./rook-release-rook-ceph-v1-19-5.html">rook-release/rook-ceph</a></td>
@@ -1377,7 +1216,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No crds (template baked CRDs; No clean chart toggle yet)</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph:v1.19.5</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/rook-release/rook-ceph/v1.19.5/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/rook-release/rook-ceph/v1.19.5" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="rook-release/rook-ceph-cluster v1.19.5 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./rook-release-rook-ceph-cluster-v1-19-5.html">rook-release/rook-ceph-cluster</a></td>
@@ -1385,8 +1223,7 @@
         <td><a href="./rook-release-rook-ceph-cluster-v1-19-5.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Target prerequisite: namespace missing (parity passed)</td>
-        <td>1 base option: default<br><span style="color:var(--muted);font-size:.9rem">1 candidate or derived path also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/rook-release/rook-ceph-cluster/v1.19.5" rel="noopener">recipe</a></td>
+        <td>1 base option: default</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="sealed-secrets/sealed-secrets 2.18.6 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./sealed-secrets-sealed-secrets-2-18-6.html">sealed-secrets/sealed-secrets</a></td>
@@ -1395,7 +1232,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, no-crds</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/sealed-secrets-sealed-secrets:2.18.6</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/sealed-secrets/sealed-secrets/2.18.6/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/sealed-secrets/sealed-secrets/2.18.6" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="velero/velero 12.0.1 proof-grade / machine-proof-only default default;no-crds see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./velero-velero-12-0-1.html">velero/velero</a></td>
@@ -1403,8 +1239,7 @@
         <td><a href="./velero-velero-12-0-1.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Recommended base variant to try first.</span></td>
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>CRDs; Render input: required Velero provider values missing</td>
-        <td>2 base options: default, no-crds<br><span style="color:var(--muted);font-size:.9rem">4 candidate or derived paths also shown.</span></td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/velero/velero/12.0.1/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/velero/velero/12.0.1" rel="noopener">recipe</a></td>
+        <td>2 base options: default, no-crds</td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="vm/victoria-logs-single 0.12.5 proof-grade / machine-proof-only default default see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./vm-victoria-logs-single-0-12-5.html">vm/victoria-logs-single</a></td>
@@ -1413,7 +1248,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>1 base option: default</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/vm/victoria-logs-single/0.12.5/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/vm/victoria-logs-single/0.12.5" rel="noopener">recipe</a></td>
       </tr>
 <tr data-chart-row data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="vm/victoria-metrics-single 0.39.0 proof-grade / machine-proof-only default default;default-reviewed see chart page - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2)">
         <td><a href="./vm-victoria-metrics-single-0-39-0.html">vm/victoria-metrics-single</a></td>
@@ -1422,7 +1256,6 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td>2 base options: default, default-reviewed</td>
-        <td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0</code><br><span style="color:var(--muted);font-size:.9rem">publication receipt recorded</span><br><a href="https://github.com/confighub/helm-expt/blob/main/recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/rendered/release-objects.yaml" rel="noopener">full YAML</a><br><a href="https://github.com/confighub/helm-expt/tree/main/packages/vm/victoria-metrics-single/0.39.0/bases/default" rel="noopener">source package base</a><br><a href="https://github.com/confighub/helm-expt/tree/main/recipes/vm/victoria-metrics-single/0.39.0" rel="noopener">recipe</a></td>
       </tr>
         </tbody>
       </table></div>
@@ -1456,28 +1289,24 @@
       </script>
     </section>
 
+    <section aria-labelledby="catalog-summary">
+      <h2 id="catalog-summary">What each catalog entry contains</h2>
+      <p>The catalog currently has 100 public chart pages and 100 public installer packages. Each chart page keeps the ready-made configurations, package OCI, full YAML, source inputs, required setup, test results, and current limits together. 110 package references have publication receipts.</p>
+    </section>
+
+    <section aria-labelledby="base-variants">
+      <h2 id="base-variants">Why the catalog offers several configurations</h2>
+      <p>A Helm chart can expose hundreds of values. The catalog provides tested starting configurations for common choices, such as existing Secrets, high availability, or separately managed CRDs.</p>
+      <p>We call each starting configuration a base variant. Its page records the Helm values, rendered YAML, required setup, and evidence for that choice.</p>
+      <p>Useful choices differ by chart. Redis, Argo CD, and kube-prometheus-stack do not need the same starting configurations.</p>
+      <p><a href="../how-it-works.html#setting-sources">See where Helm values, later ConfigHub changes, install work, and live state belong</a>.</p>
+    </section>
+
     <section aria-labelledby="actions">
-      <h2 id="actions">Hooks, CRDs, And Other Chart Extras</h2>
+      <h2 id="actions">How the catalog handles required setup</h2>
       <p>Helm charts often include work outside the main rendered objects: CRDs, hooks, setup jobs, generated Secrets, cloud accounts, and resources that must already exist in the target cluster.</p>
-      <p>We help you make the right choice for how to customize and adapt each chart, then track that choice with recorded inputs, generated output, tests, and receipts. The chart-specific answer may be: keep CRDs in the base variant, offer a no-CRDs base variant, run a tested setup step, use a GitOps action where evidence exists, require an existing Secret or target resource, or block the path when there is no safe default.</p>
-      <p>A chart page tells you whether an action is observed, routed, per-target, blocked, refused, or still needs a recipe. A route is a named piece of work and its evidence boundary. It is not an automatic execution claim unless the route says so and evidence proves it.</p>
-      <div class="card"><table>
-        <thead><tr><th>Disposition</th><th>Rows</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>observed</td><td>42</td><td>The selected lifecycle behavior has committed evidence.</td></tr><tr><td>per-target</td><td>1</td><td>The target class must choose or approve the route before a stronger claim.</td></tr><tr><td>routed</td><td>5</td><td>The route, executor, and off-ramp are named; automatic execution is not implied.</td></tr><tr><td>todo</td><td>5</td><td>The behavior is known, but the route or evidence still needs work.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>For a specific chart, open its chart page and read the action details beside the variant options. Deeper reference: <a href="../d/docs/user/chart-hooks-what-happens.html">what happens to chart hooks</a> and <a href="../d/docs/reference/what-hook-support-means.html">hook support vocabulary</a>.</p>
-      <div class="grid">
-        <div class="metric"><strong>53</strong><span>lifecycle route rows</span></div>
-        <div class="metric"><strong>18</strong><span>chart/version lifecycle behaviors represented</span></div>
-        <div class="metric"><strong>0</strong><span>rows safe to present as automatic</span></div>
-        <div class="metric"><strong><a href="../d/data/lifecycle-routes/summary.html">open</a></strong><span>machine-readable route contract</span></div>
-      </div>
+      <p>The chart page names that work before you choose a configuration. It may offer a no-CRDs option, require an existing Secret, include a tested setup step, or block an unsafe path.</p>
+      <p><a href="../d/docs/user/chart-hooks-what-happens.html">Read what happens to chart hooks</a> · <a href="../d/docs/reference/what-hook-support-means.html">Read the detailed support terms</a></p>
     </section>
   </main>
   <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>

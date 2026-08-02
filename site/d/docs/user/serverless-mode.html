@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try it</a><a href="../../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Serverless mode</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/serverless-mode.md">View source markdown</a>.</p>
   </header>
@@ -448,7 +446,7 @@
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b></p>
 <p>Serverless and anonymous are separate choices. <b>Serverless</b> means this work does not depend on ConfigHub Server. <b>Anonymous</b> means it uses no ConfigHub account. The example on this page is both: it runs locally, pulls a public package, and keeps the files and output under your control.</p>
-<p>You can use the public Helm Ops Catalog without creating a ConfigHub account. Pull a catalog package, choose a preset configuration, and write the Kubernetes objects to local files. You can stop there, apply the files yourself, or package the reviewed files as OCI for an existing GitOps controller.</p>
+<p>You can use the public Configuration Catalog without creating a ConfigHub account. Pull a catalog package, choose a preset configuration, and write the Kubernetes objects to local files. You can stop there, apply the files yourself, or package the reviewed files as OCI for an existing GitOps controller.</p>
 <p>ConfigHub is not involved until you choose to save the configuration and use shared history, variants, approvals, promotions, releases, or fleet rollout.</p>
 <h2 id="where-this-work-can-fit">Where this work can fit</h2>
 <p>The no-account tools do not require one fixed workflow:</p>

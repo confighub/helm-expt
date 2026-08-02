@@ -2,7 +2,7 @@
 
 # A setup job delivered three ways
 
-This small example shows the same setup job running from one OCI package through Argo CD, Flux, and direct apply.
+This small example shows Argo CD and Flux running the same setup job from one OCI package. A separate direct local test uses the same artifact.
 
 Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
@@ -15,8 +15,8 @@ This example moves the Job into the delivery plan. It proves the mechanism on a 
 ## What this example shows
 
 - The workload and setup Job are stored as ordinary, reviewable Kubernetes objects.
-- Argo CD, Flux, and the direct script each ran the Job and recorded its completion.
-- The route is marked automatic only for this tested fixture and these three delivery paths.
+- Argo CD and Flux each ran the Job and recorded its completion. The direct local script did the same in a separate portability test.
+- The route is marked automatic only for this tested fixture and the recorded paths.
 
 ## Where each setting comes from
 

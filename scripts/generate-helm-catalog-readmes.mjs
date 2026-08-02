@@ -37,7 +37,7 @@ const DEMO_SPACES = [
     ],
     evidence: [
       ["Org sync summary", "data/helm-org/summary.md"],
-      ["Helm Ops Catalog", "site/charts/index.html"],
+      ["Configuration Catalog", "site/charts/index.html"],
     ],
     limits: ["This is not a chart recipe, a rendered app, or a production example."],
   },
@@ -320,7 +320,7 @@ const DEMO_SPACES = [
     },
     limits: [
       "The artifact is public and digest-pinned, but this example does not claim a provenance signature.",
-      "Direct import of an OCI with companion JSON records needs the merged SDK fix in confighub/sdk PR #11. It is newer than cub v0.2.5 and awaits the next cub release.",
+      "Direct import of an OCI with companion JSON records is supported in cub v0.2.6 and later. Run cub upgrade before using this path with an older client.",
       "The ConfigHub receipt proves import only. Deployment, promotion, rollback, and workload health are separate examples.",
     ],
   },
@@ -625,11 +625,11 @@ const DEMO_SPACES = [
     space: "hook-probe-base",
     title: "A setup job delivered three ways",
     kind: "route",
-    summary: "This small example shows the same setup job running from one OCI package through Argo CD, Flux, and direct apply.",
+    summary: "This small example shows Argo CD and Flux running the same setup job from one OCI package. A separate direct local test uses the same artifact.",
     shows: [
       "The workload and setup Job are stored as ordinary, reviewable Kubernetes objects.",
-      "Argo CD, Flux, and the direct script each ran the Job and recorded its completion.",
-      "The route is marked automatic only for this tested fixture and these three delivery paths.",
+      "Argo CD and Flux each ran the Job and recorded its completion. The direct local script did the same in a separate portability test.",
+      "The route is marked automatic only for this tested fixture and the recorded paths.",
     ],
     open: ["This README.", "The workload and setup Job Units.", "The LifecycleRoute Unit that links the delivery receipts."],
     why: [

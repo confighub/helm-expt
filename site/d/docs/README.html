@@ -407,11 +407,9 @@
       .navlinks {
         margin-left: 0;
         display: flex;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         gap: 8px;
-        overflow-x: auto;
         padding: 0 0 7px;
-        -webkit-overflow-scrolling: touch;
       }
       .navlinks a {
         flex: 0 0 auto;
@@ -439,7 +437,7 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../try.html">Try it</a><a href="../../charts/index.html">Catalog</a><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">ConfigHub</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=site-nav">Sign in</a></span></nav></div>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../try.html">Try Redis</a><a href="../../testing.html">Examples</a><a href="../../charts/index.html">Catalog</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Documentation Map</h1>
     <p class="lead">A repository document, rendered for the site. <a href="../../../docs/README.md">View source markdown</a>.</p>
   </header>
@@ -505,7 +503,7 @@
 <tr><td><a href="user/verify-it-yourself.html">verify-it-yourself.md</a></td><td>Reader verification commands for corpus checks, rendered installs, parity receipts, and cub-scout receipts.</td></tr>
 <tr><td><a href="user/production-support-decisions.html">production-support-decisions.md</a></td><td>How a review-ready chart becomes production-supported for one target scope.</td></tr>
 <tr><td><a href="user/chain-of-proof.html">chain-of-proof.md</a></td><td>Which tool proves each boundary, plus the generated source-to-observation record for Helm, AICR, cub installer, Kubara, Sveltos, and literal Kubernetes configuration.</td></tr>
-<tr><td><a href="user/cub-deployment-path.html">cub-deployment-path.md</a></td><td>How deployment works on the cub path: cub installer → ConfigHub Units → OCI bundle → Argo/Flux/cub-direct, the single-OCI-transport rationale, and how delivery credentials (OCI pull creds, copied not printed) and app secrets are handled.</td></tr>
+<tr><td><a href="user/cub-deployment-path.html">cub-deployment-path.md</a></td><td>How deployment works on the cub path: source package → ConfigHub Units → release OCI → Argo or Flux, with direct local apply kept as a portability test; also covers OCI pull credentials and application Secrets.</td></tr>
 <tr><td><a href="user/top100-readiness.html">top100-readiness.md</a></td><td>User-facing guide to the top-100 corpus buckets and generated readiness data.</td></tr>
 <tr><td><a href="user/top100-status.html">top100-status.md</a></td><td>Plain-English top-100 answers: what works today, what needs prerequisites or review, and how it differs from plain Helm.</td></tr>
 <tr><td><a href="user/serious-charts.html">serious-charts.md</a></td><td>The serious-chart packets: why kube-prometheus-stack, cert-manager, and external-secrets are the hard cases and how to read their status.</td></tr>
