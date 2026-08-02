@@ -455,8 +455,8 @@
       -&gt; upload -&gt; base Space
       -&gt; derived variants (staging, production) -&gt; promote</code></pre>
 <p>A <b>base variant</b> is a named way to render the chart's recipe, such as default, no-crds, or reuse-existing-secret; <code>--base</code> picks it. A <b>derived variant</b> is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.</p>
-<p>One boundary keeps the two straight: the package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects and an untargeted <code>installer-record</code> Unit. The source package, chart, and templates remain in the package OCI; ConfigHub does not rerender them.</p>
-<h2 id="the-one-decision-restated">The one decision, restated</h2>
+<p>Keep the two kinds of variants separate. The package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects and an untargeted <code>installer-record</code> Unit. The source package, chart, and templates remain in the package OCI; ConfigHub does not rerender them.</p>
+<h2 id="choose-the-right-kind-of-variant">Choose The Right Kind Of Variant</h2>
 <ul><li>If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with <code>--base</code>.</li><li>If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a derived variant. Nothing re-renders.</li></ul>
 <p>Why this matters: the base you reviewed stays one thing. Each environment difference becomes a recorded ConfigHub change that you can compare and promote, instead of hiding in a values-file fork.</p>
 <h2 id="how-to-tell-what-set-a-field">How To Tell What Set A Field</h2>

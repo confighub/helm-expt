@@ -18,12 +18,12 @@ chart -> base variant (chosen with --base) -> OCI package
 
 A **base variant** is a named way to render the chart's recipe, such as default, no-crds, or reuse-existing-secret; `--base` picks it. A **derived variant** is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.
 
-One boundary keeps the two straight: the package is chosen and rendered before
-upload. `cub installer upload` stores the rendered Kubernetes objects and an
-untargeted `installer-record` Unit. The source package, chart, and templates
-remain in the package OCI; ConfigHub does not rerender them.
+Keep the two kinds of variants separate. The package is chosen and rendered
+before upload. `cub installer upload` stores the rendered Kubernetes objects
+and an untargeted `installer-record` Unit. The source package, chart, and
+templates remain in the package OCI; ConfigHub does not rerender them.
 
-## The one decision, restated
+## Choose The Right Kind Of Variant
 
 - If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with `--base`.
 - If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a derived variant. Nothing re-renders.

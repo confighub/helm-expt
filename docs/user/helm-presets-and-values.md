@@ -43,7 +43,7 @@ Examples include:
 | `crds-enabled` | The package owns the CRDs for this install. |
 | `reuse-existing-secret` | Keep secret material outside the chart render. |
 | `server-only` | Run one useful component instead of the whole chart stack. |
-| `ha` | Use a reviewed high-availability shape. |
+| `ha` | Use a reviewed high-availability configuration. |
 | `internal-service` | Keep the service private to the cluster or platform. |
 
 ## Why Not Every Values Combination?

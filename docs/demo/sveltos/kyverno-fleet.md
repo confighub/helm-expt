@@ -83,9 +83,9 @@ The receipt lists the controller-managed fields added to each live
 `ClusterProfile` revision and confirms that every approved field kept its value.
 It also records the OCI digest and Kyverno result for each workload cluster.
 
-This run shows that the public work can sit at different points in the delivery
-flow. ConfigHub handled the stored review. Portable package creation was local and
-did not need ConfigHub Server. Pulling that package needed no ConfigHub account.
+The same flow does not require ConfigHub at every step. In this run, ConfigHub
+stored and approved the revisions. A local no-server step created the portable
+OCI, and the cluster pulled it without a ConfigHub account.
 
 ## What remains
 

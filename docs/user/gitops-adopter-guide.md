@@ -1,9 +1,10 @@
-# GitOps Adopter Guide
+# Use ConfigHub With Argo CD Or Flux
 
 **UNOFFICIAL/EXPERIMENTAL.**
 
-For teams already running Argo CD or Flux: what changes and what stays the same
-when ConfigHub publishes the reviewed objects as an OCI bundle.
+Use this guide when Argo CD or Flux already deploys your applications. You keep
+the controller. ConfigHub publishes the reviewed Kubernetes objects as an OCI
+image for that controller to pull.
 
 ## What stays the same
 
@@ -31,10 +32,10 @@ There are three separate questions.
 3. Has the configuration you want to run been delivered and observed through
    your controller?
 
-The first two answers are yes for a small routed-hook fixture. ConfigHub
-published it once. Argo CD and Flux reconciled it, and a separate local script
-pulled and applied the same artifact. That proves the delivery mechanism and
-the artifact's portability.
+A small tested setup Job answers the first two questions. ConfigHub published
+it once. Argo CD and Flux each reconciled it, and a separate local test pulled
+and applied the same image. This checks that the delivery method works and that
+the image can be used outside ConfigHub.
 
 The first exact catalog result is also available. The
 [`bitnami/nginx@24.0.2` `http-clusterip` receipt](../../data/catalog-oci-delivery-proof/summary.md)
@@ -71,7 +72,7 @@ also means you must be more explicit about ordering, pruning, CRDs, and setup
 work. This proves that the release OCI is portable. It is not ConfigHub's
 managed delivery path.
 
-## vs. raw Helm-through-Argo
+## When Argo CD renders Helm directly
 
 Argo's native Helm support re-renders the chart inside Argo. The ConfigHub path
 renders first, records the inputs, and sends the reviewed objects to GitOps.
