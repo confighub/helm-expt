@@ -446,9 +446,18 @@
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>EXPERIMENTAL</p>
-<p>This directory contains the manual documentation for the Helm experiment. The primary user-facing surface should stay small. Most Markdown files in the repo are generated catalog, recipe, package, proof, or run-output files.</p>
-<h2 id="primary-user-docs">Primary User Docs</h2>
-<p>These are the files a new user should be able to follow without reading the whole repo. For the single serial order through <code>docs/user/*.md</code>, start with <a href="user/README.html">user/README.md</a>.</p>
+<p>The public website is the starting point for people who want to use the project. This directory holds the detailed guides and the evidence behind that site.</p>
+<h2 id="human-route">Human Route</h2>
+<p>Use these pages in order for the shortest introduction.</p>
+<table><thead><tr><th>Page</th><th>Purpose</th></tr></thead><tbody><tr><td><a href="https://confighub.github.io/helm-expt/site/try.html">Try Redis</a></td><td>Inspect one checked package without a ConfigHub account, server, or Kubernetes cluster.</td></tr>
+<tr><td><a href="https://confighub.github.io/helm-expt/site/examples.html">Examples</a></td><td>Start from Helm, AICR, OCI, or YAML, then explore promotions, fleets, policy, and Apps.</td></tr>
+<tr><td><a href="https://confighub.github.io/helm-expt/site/charts/index.html">Catalog</a></td><td>Choose a tested starting configuration for a public Helm chart.</td></tr>
+<tr><td><a href="https://confighub.github.io/helm-expt/site/how-it-works.html">Deployment</a></td><td>Choose files, OCI, ConfigHub, Argo CD, Flux, or direct Kubernetes delivery.</td></tr>
+<tr><td><a href="https://confighub.github.io/helm-expt/site/docs.html">Docs</a></td><td>Find instructions for the current step.</td></tr>
+<tr><td><a href="https://confighub.github.io/helm-expt/site/confighub.html">ConfigHub</a></td><td>Save, change, approve, promote, and roll out reviewed configuration.</td></tr></tbody></table>
+<p>The rest of this file is a reference index. You do not need to read it from top to bottom. Most Markdown files in the repository are generated catalog, recipe, package, test, or run records.</p>
+<h2 id="user-guide-index">User Guide Index</h2>
+<p>For a guided reading order through <code>docs/user/*.md</code>, start with <a href="user/README.html">user/README.md</a>. Use the table below when you need a specific subject.</p>
 <table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="../README.html">../README.md</a></td><td>Main user introduction: why the repo exists, what is proven, and how to try it.</td></tr>
 <tr><td><a href="../CATALOG.html">../CATALOG.md</a></td><td>Generated chart catalog: charts first, recommended variants underneath.</td></tr>
 <tr><td><a href="../WEBSITE_UX_TEST.html">../WEBSITE_UX_TEST.md</a></td><td>Local static-site UX test runbook for walking a fresh user through the public website.</td></tr>
@@ -548,7 +557,7 @@
 <tr><td><a href="demo/redis/safe-ops-lane.html">demo/redis/safe-ops-lane.md</a></td><td>Redis safe operation lane.</td></tr>
 <tr><td><a href="../tests/README.html">../tests/README.md</a></td><td>Test directory map: npm verification scripts and portable runtime tests.</td></tr>
 <tr><td><a href="../tests/npm-scripts.html">../tests/npm-scripts.md</a></td><td>What each npm script family checks, why it exists, and when to run it.</td></tr></tbody></table>
-<p>This list is the intended public reading path. Generated package docs, recipe catalog pages, data summaries, and per-chart proof transcripts are corpus evidence. They should be linked when useful, but they are not the first-run documentation set.</p>
+<p>This table is a reference inventory. Generated package docs, recipe catalog pages, data summaries, and per-chart test transcripts support the public pages; they are not the first-run documentation set.</p>
 <h2 id="maintained-orientation-layer">Maintained Orientation Layer</h2>
 <p>The <a href="../knowledge/index.html">project knowledge index</a> is a short maintained orientation layer for humans and agents. It summarizes the current model and routes to authoritative evidence. It is not a second source of truth; generated data, receipts, recipes, current issues, and verifiers remain authoritative.</p>
 <h2 id="agent-and-operator-docs">Agent And Operator Docs</h2>
