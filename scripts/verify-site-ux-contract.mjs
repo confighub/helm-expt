@@ -79,6 +79,14 @@ const checks = [
     terms: ["Check one claim", "1. Choose the question", "2. Tell product commands from project checks", "3. See what render, record, and route mean", "4. Choose saved evidence or a fresh run", "5. Open detailed instructions", "Verify It Yourself", "NPM Script Catalog"],
   },
   {
+    file: "site/proof.html",
+    terms: ["See what has been tested", "1. Read the current counts", "2. See what each test covers", "3. Check the harder charts", "4. Find tests designed to expose failure", "5. See what this project does not claim", "Helm render match", "Hooks and prerequisites"],
+  },
+  {
+    file: "site/quirks.html",
+    terms: ["Find the setup a Helm chart still needs", "1. Check the chart page first", "2. Understand each extra requirement", "3. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
+  },
+  {
     file: "site/existing-apps.html",
     terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster"],
   },

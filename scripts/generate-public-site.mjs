@@ -214,8 +214,8 @@ const PAGE_DESCRIPTIONS = {
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
   "docs-reference.html": "Browse the complete technical guide and evidence index for Config Workshop and helm-expt.",
   "verification.html": "Choose one Config Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
-  "proof.html": "How to read the proof corpus: receipts, scans, render records, and live evidence for each catalog chart.",
-  "quirks.html": "Helm quirks in plain words: hooks, CRDs, generated Secrets, and the other extras charts leave around the edges.",
+  "proof.html": "See how far each Config Workshop claim was tested, from a render comparison to ConfigHub, OCI, GitOps, and live Kubernetes.",
+  "quirks.html": "Find the hooks, CRDs, Secrets, webhooks, cluster lookups, storage, and other setup a Helm chart still needs.",
   "hard-questions.html": "Hard questions answered plainly: what breaks, what is safe for AI to change, and where the gaps are.",
   "known-gaps.html": "See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.",
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
@@ -3614,15 +3614,15 @@ function quirksHtml(catalog) {
     }
   }
   const definitions = {
-    tpl: ["Template evaluation", "The chart uses Helm templating inside values or snippets. We preserve the rendered result and keep extension slots visible."],
-    capabilities: ["Kubernetes capabilities", "The render depends on Kubernetes API capabilities. The recipe pins a capability profile so the render is repeatable."],
+    tpl: ["Template evaluation", "The chart runs Helm templates inside values or snippets. The catalog keeps the final objects and any intended extension points."],
+    capabilities: ["Kubernetes capabilities", "The render changes according to the Kubernetes APIs it expects. The recorded configuration pins those API capabilities."],
     "cluster-rbac": ["Cluster RBAC", "The chart creates cluster-wide permissions. The objects are visible before delivery and can be reviewed or gated."],
     "stateful-storage": ["Stateful storage", "The chart creates StatefulSets, PVCs, or storage-related objects. These need target-fit and upgrade care."],
-    "generated-facts": ["Generated facts", "The chart or recipe needs generated values such as passwords, certs, or names. We record those as facts instead of hiding them."],
-    lookup: ["Cluster lookups", "The render can depend on live cluster data. We route that through target facts or a named limitation."],
+    "generated-facts": ["Generated values", "The chart needs a generated password, certificate, or name. The catalog records the value or says who must supply it."],
+    lookup: ["Cluster lookups", "The render reads live cluster data. The catalog records the value used, or names the limitation when it cannot."],
     crds: ["CRDs", "The chart includes custom resource definitions or depends on them. We track whether CRDs are installed, omitted, staged, or observed."],
     webhooks: ["Webhooks", "The chart installs admission or conversion webhooks. We track certificate lifecycle, readiness, and server-side behavior separately from render parity."],
-    hooks: ["Helm hooks", "The chart uses Helm hook behavior. Hooks are routed, observed, blocked, refused, or marked target-specific. They are not silently treated as ordinary static YAML."],
+    hooks: ["Helm hooks", "The chart runs work before or after normal resources. The chart page says who runs that work and whether it has been tested."],
   };
   const quirkRows = Array.from(byQuirk.entries())
     .sort((a, b) => b[1].rows - a[1].rows || a[0].localeCompare(b[0]))
@@ -3638,46 +3638,40 @@ function quirksHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Helm Quirks · Config Workshop</title>
+  <title>Helm Setup And Lifecycle Work · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Helm Quirks</h1>
-    <p class="lead">Render parity tells you ConfigHub preserved Helm's object set. Quirks tell you what still has to be true for those objects to work: CRDs, webhooks, generated values, cluster lookups, storage, RBAC, hooks, and target facts.</p>
-    <p>This is the page for the “what will this chart assume?” question. Use it before trusting a green render or a green GitOps sync.</p>
-    ${humanLinks([["Browse charts", "./charts/index.html"], ["Open matrix", "./matrix.html"]])}
+    <h1>Find the setup a Helm chart still needs</h1>
+    <p class="lead">Rendered YAML does not explain every requirement. A chart may still need CRDs, a Secret, a webhook certificate, storage, cluster data, or a hook to run at the right time.</p>
+    <p>Use this page to understand those requirements, then open the exact chart page to see what has been recorded and tested.</p>
+    ${humanLinks([["Browse charts", "./charts/index.html"], ["See hook and CRD example", "./d/docs/demo/hooks-crds/kube-prometheus-stack.html"], ["Open matrix", "./matrix.html"]])}
   </header>
   <main>
     <section aria-labelledby="how">
-      <h2 id="how">How To Use This Page</h2>
-      <div class="grid">
-        <div class="card"><h3>Start here</h3><p>Use this page to understand the words in the matrix. It explains what each quirk means, why it matters, and what the user or target must provide.</p></div>
-        <div class="card"><h3>Then check a chart</h3><p>Open the Configuration Catalog or the matrix to see whether a specific chart and base has that quirk.</p></div>
-        <div class="card"><h3>Then check the route</h3><p>For hooks, CRDs, webhooks, target facts, and generated facts, use the row's route, gap, and next-action fields to see what must happen before delivery.</p></div>
-      </div>
-      <p><a href="./charts/index.html">Open the Configuration Catalog</a> · <a href="./matrix.html">Open status matrix</a> · <a href="../docs/reference/helm-quirk-support-matrix.md">Read the reference matrix</a></p>
+      <h2 id="how">1. Check the chart page first</h2>
+      <p>Choose the chart and configuration you plan to use. Its page lists required setup, lifecycle work, current gaps, and the next action.</p>
+      <p>Use the table below when a term is unfamiliar. Use the matrix when you need the exact status for one chart version and configuration.</p>
     </section>
 
     <section aria-labelledby="list">
-      <h2 id="list">Quirk List</h2>
+      <h2 id="list">2. Understand each extra requirement</h2>
       ${markdownLikeTable([
-        ["Quirk", "What it means", "Charts", "Rows", "Example charts"],
+        ["Requirement", "What it means", "Charts", "Configurations", "Examples"],
         ...quirkRows,
       ], { rawFifthColumn: true })}
     </section>
 
     <section aria-labelledby="important">
-      <h2 id="important">Important Boundaries</h2>
-      <div class="grid">
-        <div class="card"><h3>Render parity is not enough</h3><p>A chart can render the same objects as Helm and still need CRDs, a Secret, webhook readiness, storage, cloud identity, or a controller to be ready.</p></div>
-        <div class="card"><h3>Hooks are explicit routes</h3><p>A hook route tells you what must happen. It is not a claim that every hook is automatically executed by the public catalog.</p></div>
-        <div class="card"><h3>Watch is useful</h3><p>A watch or blocked row is not hidden failure. It is the catalog saying what remains to stage, observe, or decide.</p></div>
-      </div>
+      <h2 id="important">3. Check what remains before deployment</h2>
+      <p><strong>A matching render is only the first check.</strong> The cluster may still need CRDs, a Secret, webhook readiness, storage, cloud identity, or a controller.</p>
+      <p><strong>A recorded hook does not mean it runs automatically.</strong> The chart page must say who runs it and link the result when that path has been tested.</p>
+      <p><strong>A watch or blocked result needs action.</strong> Follow the stated setup, decision, or evidence link before deployment.</p>
     </section>
   </main>
-  <footer>Generated from committed helm-expt evidence. Use the matrix for exact chart and variant status.</footer>
+  <footer>Generated from committed helm-expt evidence. Use the chart page and matrix for exact status.</footer>
 </body>
 </html>
 `;
@@ -3686,23 +3680,23 @@ function quirksHtml(catalog) {
 function proofHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const proofCounters = [
-    ["Render parity", metricValue(metric("render parity rows")), "Regular Helm output and cub installer package output match under recorded inputs."],
-    ["In-ConfigHub proof", metricValue(metric("in-ConfigHub proof rows")), "Rendered objects have been uploaded, scanned, and exercised as ConfigHub Units."],
-    ["Local live", metricValue(metric("local live rows")), "The package was applied to a local Kubernetes target and observed."],
-    ["GitOps/OCI live", metricValue(metric("GitOps/OCI live pass rows")), "ConfigHub-published OCI was pulled and reconciled by Argo in a live run."],
-    ["Live dual parity", metricValue(metric("live Helm-vs-ConfigHub parity pass rows")), "Regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo reached the same semantic object outcome."],
-    ["Two-cluster kind parity", metricValue(metric("two-cluster kind parity pass rows")), "Regular Helm and cub installer were compared on two vanilla kind clusters."],
-    ["Complete core lane", metricValue(metric("complete core lane rows")), "Rows with render, ConfigHub, local live, GitOps/OCI, live parity, and two-cluster evidence."],
-    ["Semantic defects", metricValue(metric("ConfigHub/OCI semantic parity defect receipts")), "Committed live parity rows where ConfigHub and Helm disagree semantically."],
+    ["Helm render match", metricValue(metric("render parity rows")), "Helm and cub installer produced the same objects from the recorded settings."],
+    ["Stored in ConfigHub", metricValue(metric("in-ConfigHub proof rows")), "The objects were uploaded and checked as ConfigHub Units."],
+    ["Local Kubernetes run", metricValue(metric("local live rows")), "The configuration was applied to a local Kubernetes target and observed."],
+    ["OCI through Argo CD", metricValue(metric("GitOps/OCI live pass rows")), "Argo CD pulled a ConfigHub release OCI and reconciled it in a live run."],
+    ["Helm and ConfigHub live match", metricValue(metric("live Helm-vs-ConfigHub parity pass rows")), "Helm and the ConfigHub delivery paths reached the same live object result."],
+    ["Two-cluster Helm and cub match", metricValue(metric("two-cluster kind parity pass rows")), "Helm and cub installer were compared on two new kind clusters."],
+    ["All core checks", metricValue(metric("complete core lane rows")), "The recorded configuration has render, ConfigHub, local, OCI, live comparison, and two-cluster evidence."],
+    ["Object differences found", metricValue(metric("ConfigHub/OCI semantic parity defect receipts")), "A committed live comparison found different Kubernetes object content."],
   ];
   const laneRows = [
-    ["Render parity", "Does cub installer preserve the Helm object set for this chart/version/base?", "Helm render receipt and installer comparison.", "Per chart, version, base, values, capability profile, and flag profile."],
-    ["ConfigHub proof", "Can the rendered objects become Units, scans, safe ops, and receipts?", "ConfigHub proof receipts, function scan receipts, safe-ops receipts.", "Does not prove a GitOps controller or workload health by itself."],
-    ["Local live", "Does this package apply and converge on a Kubernetes target?", "Observation receipt, workload checks, PVC/CRD/secret evidence where relevant.", "Usually local kind; target-specific production support still needs scope."],
-    ["GitOps/OCI live", "Can ConfigHub-published OCI be reconciled by Argo?", "Argo sync and health in the live parity receipt.", "A green sync is not enough unless runtime checks also pass."],
-    ["Live dual parity", "Does regular Helm reach the same live outcome as ConfigHub delivery?", "Strict live Helm-vs-ConfigHub parity receipt.", "Selected rows only; absence is backlog, not a failed chart."],
-    ["Two-cluster kind parity", "Does Helm on one vanilla kind cluster match installer output on another?", "Two-cluster parity receipt.", "Narrowest clean parity test; no ConfigHub/OCI proof unless separately recorded."],
-    ["Lifecycle observation", "Are hooks, CRDs, webhooks, generated facts, or target prerequisites observed or routed?", "Lifecycle, hook, target-fact, and serious-chart receipts.", "Partial by design; some rows are routed, blocked, per-target, or refused."],
+    ["Render comparison", "Did cub installer preserve the Helm object set?", "Helm render receipt and installer comparison.", "Applies only to the recorded chart, version, configuration, values, and Kubernetes capabilities."],
+    ["ConfigHub storage and checks", "Were the rendered objects uploaded and checked as Units?", "ConfigHub, scan, and safe-operation receipts.", "Does not prove GitOps delivery or workload health."],
+    ["Local Kubernetes run", "Did the configuration apply and become ready on Kubernetes?", "Observation and workload receipts, with PVC, CRD, or Secret checks where needed.", "Usually uses local kind; production needs its own target scope."],
+    ["Argo CD and OCI run", "Did Argo CD pull and reconcile the ConfigHub release OCI?", "Argo CD sync, health, and live observation receipt.", "A green sync is not enough unless the runtime checks also pass."],
+    ["Helm and ConfigHub live comparison", "Did Helm and ConfigHub reach the same live result?", "Live Helm-versus-ConfigHub comparison receipt.", "Available for selected configurations; no receipt means not yet tested."],
+    ["Two-cluster Helm and cub comparison", "Did Helm on one new kind cluster match cub installer on another?", "Two-cluster comparison receipt.", "Does not prove ConfigHub or OCI unless a separate result records them."],
+    ["Hooks and prerequisites", "Were hooks, CRDs, webhooks, generated values, and target requirements handled?", "Lifecycle, hook, target, and serious-chart receipts.", "Some configurations still need a user decision, a target-specific step, or more work."],
   ];
   const scepticRows = [
     ["Claims register", "Every public claim is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
@@ -3724,38 +3718,38 @@ function proofHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Proof · Config Workshop</title>
+  <title>See What Has Been Tested · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>What We Checked</h1>
-    <p class="tagline">Use this page to see which claims have evidence and which ones still need a chart, values file, or target-specific check.</p>
-    <p>First we check that cub preserves Helm's objects. Then we track scans, approvals, delivery, live checks, and limits separately.</p>
-    ${humanLinks([["Start with Verification", "./verification.html"], ["Read the matrix", "./matrix.html"], ["Read the claims register", "../data/claims-register/summary.md"]])}
+    <h1>See what has been tested</h1>
+    <p class="lead">A render comparison, a ConfigHub upload, an OCI delivery, and a live Kubernetes run answer different questions. Use this page to see how far each claim was tested.</p>
+    <p>No result covers every chart, values file, cluster, or production environment. Open the matrix for the exact configuration and the receipt for the exact test.</p>
+    ${humanLinks([["Check one claim", "./verification.html"], ["Read the matrix", "./matrix.html"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "proof page")}
     <section aria-labelledby="counters">
-      <h2 id="counters">Current Proof Counters</h2>
-      <p>These counters are not one giant green badge. Each lane checks a different question, and production use still depends on target scope and fresh evidence.</p>
+      <h2 id="counters">1. Read the current counts</h2>
+      <p>Each count answers a separate question. Production use still needs a target-specific decision and current evidence.</p>
       <div class="grid">
         ${proofCounters.map(([label, value, body]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)} · ${escapeHtml(body)}</span></div>`).join("\n        ")}
       </div>
     </section>
 
     <section aria-labelledby="lanes">
-      <h2 id="lanes">What Each Lane Proves</h2>
+      <h2 id="lanes">2. See what each test covers</h2>
       ${markdownLikeTable([
-        ["Lane", "Question", "Evidence", "Limit"],
+        ["Test", "Question", "Evidence", "Limit"],
         ...laneRows,
       ])}
       <p>Use <a href="./verification.html">Verification</a> for the command map, <a href="../docs/user/verification-lanes.md">Verification Lanes</a> for lane meanings, and <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
     </section>
 
     <section aria-labelledby="serious">
-      <h2 id="serious">Serious Charts Are The Test</h2>
+      <h2 id="serious">3. Check the harder charts</h2>
       <p>Hard charts are where mistakes hurt: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
       <p>This is the expert/SRE problem. Before a fleet change ships, someone needs to know what it touches, what the cluster must already provide, which checks passed, how it will be delivered, and what the live system reported afterward.</p>
       <p>For these charts, a green render is not enough. The page must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
@@ -3770,8 +3764,8 @@ function proofHtml(catalog) {
     </section>
 
     <section aria-labelledby="sceptic">
-      <h2 id="sceptic">Sceptic Tests</h2>
-      <p>A breaking chart is useful QA. It needs to become a test fixture, a named refusal, or a routed gap. It must not disappear into prose.</p>
+      <h2 id="sceptic">4. Find tests designed to expose failure</h2>
+      <p>A breaking chart should become a repeatable test, a named limit, or a required setup step. It must not disappear into prose.</p>
       <p>Use the <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">problem chart issue template</a> to send a public chart, values file, or catalog mismatch.</p>
       ${markdownLikeTable([
         ["Surface", "What it answers", "Open"],
@@ -3780,7 +3774,7 @@ function proofHtml(catalog) {
     </section>
 
     <section aria-labelledby="refusals">
-      <h2 id="refusals">What This Does Not Claim</h2>
+      <h2 id="refusals">5. See what this project does not claim</h2>
       ${markdownLikeTable([
         ["Refusal", "Why it matters"],
         ...refusalRows,
