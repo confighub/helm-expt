@@ -15,10 +15,20 @@ regular Helm baseline for equivalence receipts.
 `cub helm install` is the fast ConfigHub action path:
 
 ```text
-chart + values + flags -> rendered Kubernetes objects -> ConfigHub Units
+chart + values + flags
+-> <component>-helm Space with a HelmSource Unit
+-> <component>-base Space with rendered Kubernetes Units
 ```
 
-That is useful for a one-off ConfigHub load.
+That is useful for storing an arbitrary chart and its inputs without first
+building a maintained catalog package. The base is untargeted. If no namespace
+is supplied, it uses `confighubplaceholder` until a deployment variant supplies
+the real namespace.
+
+The direct command drops Helm hooks by default. `--include-hooks` keeps them as
+ordinary resources but does not run their Helm lifecycle. It includes CRDs
+unless `--skip-crds` is set. It cannot render charts that require live
+`lookup` results or non-default capability information.
 
 The maintained recipe path is different:
 
@@ -36,14 +46,14 @@ Import is the bridge between those paths. It should let a user graduate
 from "render/load this chart now" to "maintain this chart as a reusable,
 variant-aware, proof-bound catalog entry."
 
-The intended product command is:
+One possible future product command is:
 
 ```text
 cub installer import helm
 ```
 
-Until that exists, this repo uses generators and proof scripts to create the
-same import artifacts explicitly.
+That command does not exist. Today this repo uses generators and proof scripts
+to create and check maintained recipe artifacts explicitly.
 
 ## What Import Must Capture
 

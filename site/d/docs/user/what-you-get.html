@@ -457,7 +457,7 @@ Keep receipts for what was rendered, checked, uploaded, delivered, and observed.
 <p>Helm remains the chart source. <code>cub installer</code> turns a selected chart, version, values set, and capability/fact profile into a repeatable package with named base variants.</p>
 <p>ConfigHub then stores the rendered objects as Units. From there, teams can use ConfigHub labels, links, targets, gates, functions, changesets, approvals, and <code>cub variant create</code> to manage post-render variants.</p>
 <p>The practical split is:</p>
-<table><thead><tr><th>Choice</th><th>Route</th></tr></thead><tbody><tr><td>Already managed by Argo, Flux, KRM, rendered YAML, or live resources</td><td>Adopt first through <code>cub gitops discover/import</code>, <code>cub unit import</code>, or a managed import workflow.</td></tr>
+<table><thead><tr><th>Choice</th><th>Route</th></tr></thead><tbody><tr><td>Already managed by Argo, Flux, KRM, rendered YAML, or live resources</td><td>Read or export it from its current controller, then store the reviewed YAML or literal OCI with <code>cub variant upload</code>.</td></tr>
 <tr><td>Changes Helm inputs, object shape, object count, topology, CRDs, RBAC, storage, generated facts, extension slots, or lifecycle behavior</td><td>New or updated <code>cub installer</code> base variant.</td></tr>
 <tr><td>Refines already-rendered fields, target, environment, region, customer, gates, links, observation policy, or approved placeholder fills</td><td>Derived ConfigHub variant after upload.</td></tr>
 <tr><td>Requires an external runtime prerequisite</td><td>Delivery prerequisite, target fact, preflight, gate, or observation receipt.</td></tr></tbody></table>

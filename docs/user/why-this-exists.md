@@ -40,16 +40,21 @@ literal objects.
 
 ## Not A Replacement For The Fast Paths
 
-`helm template` is the fast local render path. Use it when the user wants
+`cub helm template` is the fast local render path for an arbitrary chart. Use it when the user wants
 to inspect what a chart produces, debug values, or create a regular Helm
 baseline without a ConfigHub server connection.
+
+`cub helm install` is the fast Helm-to-ConfigHub path. It stores the chart,
+values, and options in a Helm source Space and the rendered objects in a base
+Space. It does not create a maintained catalog package or apply to Kubernetes.
 
 `cub variant upload` is the fast ConfigHub action path. Use it when the user
 has rendered files or a literal configuration OCI and wants ConfigHub Units
 now.
 
-`cub gitops import` should be the natural path when the user already has a
-GitOps source and wants ConfigHub to understand or manage it.
+When a user already has a GitOps source, read its source and rendered objects
+through the current controller or Kubernetes API. Store the reviewed YAML with
+`cub variant upload`. cub v0.2.9 does not provide a one-step GitOps importer.
 
 This repo is not trying to make those flows more complicated. It is trying to
 answer a different set of questions:
@@ -67,12 +72,13 @@ Command routing:
 
 | Need | Use |
 | --- | --- |
-| Render and inspect Helm output locally. | `helm template` |
+| Render and inspect an arbitrary Helm chart locally. | `cub helm template` |
+| Store an arbitrary chart and its rendered base in ConfigHub. | `cub helm install` |
 | Load rendered files or a literal OCI bundle into ConfigHub Units now. | `cub variant upload <files-or-oci-ref>` |
 | Maintain a reviewed, variant-aware catalog entry. | `cub installer` recipe/package path |
 | Graduate a chart render into that catalog path. | future `cub installer import helm` |
-| Bring existing Argo CD or Flux apps under ConfigHub visibility. | `cub gitops discover` / `cub gitops import` |
-| Bring KRM YAML or rendered manifests under ConfigHub visibility. | `cub unit import` or managed import workflow |
+| Bring existing Argo CD or Flux apps under ConfigHub visibility. | Read or export the app, then use `cub variant upload`. |
+| Bring KRM YAML or rendered manifests under ConfigHub visibility. | `cub variant upload <files-or-oci-ref>` |
 
 ## What The Wrapper/Machinery Is For
 

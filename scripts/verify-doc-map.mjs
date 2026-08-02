@@ -95,6 +95,24 @@ for (const file of markdownFiles) {
   }
 }
 
+const currentGuideFiles = markdownFiles.filter(
+  (file) => file === 'README.md' || /^docs\/(user|reference|corpus)\//.test(file),
+);
+const unsupportedCurrentCommands = [
+  [/\bcub gitops\b/, 'cub gitops'],
+  [/\bcub unit import\b/, 'cub unit import'],
+  [/(?:^|[^A-Za-z])cub install(?:\s|`|$)/m, 'cub install'],
+  [/\bcub helm setup\b/, 'cub helm setup'],
+  [/\bctc test\b/, 'ctc test'],
+];
+
+for (const file of currentGuideFiles) {
+  const text = fs.readFileSync(path.join(ROOT, file), 'utf8');
+  for (const [pattern, command] of unsupportedCurrentCommands) {
+    if (pattern.test(text)) fail(`Current documentation names an unsupported command (${command}): ${file}`);
+  }
+}
+
 const docMap = fs.readFileSync(DOC_MAP, 'utf8');
 const topLevelDocs = markdownFiles
   .filter((file) => /^docs\/(user|planning|reference|corpus|skills|agent)\/[^/]+\.md$/.test(file))

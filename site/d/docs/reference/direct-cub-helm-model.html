@@ -450,8 +450,8 @@
 <ul><li><a href="https://docs.confighub.com/developer/cli/cub_helm_template/"><code>cub helm template</code></a></li><li><a href="https://docs.confighub.com/developer/cli/cub_helm_install/"><code>cub helm install</code></a></li></ul>
 <p>For the shorter user-facing routing guide, see <a href="../user/choosing-commands.html">Choosing Commands</a>.</p>
 <h2 id="command-roles">Command Roles</h2>
-<table><thead><tr><th>Command</th><th>Role</th><th>Use it when</th><th>What it does not try to be</th></tr></thead><tbody><tr><td><code>cub helm template</code></td><td>Local Helm renderer. It renders a chart to stdout or local files and does not require a ConfigHub server connection. It can split CRDs from regular resources.</td><td>You want quick local inspection, a baseline for comparison, or the first input to recipe analysis.</td><td>A durable ConfigHub catalog entry.</td></tr>
-<tr><td><code>cub helm install</code></td><td>Direct Helm-to-ConfigHub action. It renders a chart and creates ConfigHub Units. It handles values files, <code>--set</code>, CRD splitting, target assignment, and wait behavior.</td><td>You want a one-shot ConfigHub load from a chart, values, and flags.</td><td>A maintained recipe with supported variants, receipts, and update policy.</td></tr>
+<table><thead><tr><th>Command</th><th>Role</th><th>Use it when</th><th>What it does not try to be</th></tr></thead><tbody><tr><td><code>cub helm template</code></td><td>Local Helm renderer. It renders a chart to stdout or local files and does not require a ConfigHub server connection. It includes CRDs unless <code>--skip-crds</code> is set.</td><td>You want quick local inspection, a baseline for comparison, or the first input to recipe analysis.</td><td>A durable ConfigHub catalog entry.</td></tr>
+<tr><td><code>cub helm install</code></td><td>Direct Helm-to-ConfigHub action. It creates a base Space for rendered Units and a Helm source Space that records the chart, values, and render options.</td><td>You want to store an arbitrary chart and its inputs in ConfigHub without first building a catalog package.</td><td>A maintained recipe with supported variants, receipts, lifecycle routes, and update policy.</td></tr>
 <tr><td><code>cub installer</code> package path</td><td>Maintained catalog path. It renders from a reviewed recipe/package with named bases, receipts, scans, upload/publish evidence, and live checks.</td><td>You want repeatable, supportable, variant-aware Helm-derived configs.</td><td>The shortest one-off render/install command.</td></tr></tbody></table>
 <h2 id="direct-render">Direct Render</h2>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
@@ -465,17 +465,22 @@
 -&gt; rendered YAML</code></pre>
 <p>It is the right first tool for:</p>
 <ul><li>seeing what a chart produces;</li><li>creating a regular Helm baseline;</li><li>debugging values;</li><li>checking CRD/resource split;</li><li>feeding a future import/analyze workflow.</li></ul>
-<p>It does not create a reusable recipe, base variant, package, scan receipt, upload receipt, or maintenance record.</p>
+<p>It does not create a reusable recipe, base variant, package, scan receipt, upload receipt, or maintenance record. Hook manifests are dropped by default. <code>--include-hooks</code> keeps them as ordinary resources; it does not run Helm's hook lifecycle. Helm <code>lookup</code> returns no objects and capabilities use Helm defaults, so charts that require live-cluster data are outside this direct path.</p>
 <h2 id="direct-install">Direct Install</h2>
 <pre><code>cub helm install redis redis \
   --repo https://charts.bitnami.com/bitnami \
   --version 25.5.3 \
   --namespace redis</code></pre>
-<p>This path creates a quick ConfigHub representation:</p>
+<p>This path creates two ConfigHub Spaces:</p>
 <pre><code>Helm chart
--&gt; rendered YAML
--&gt; ConfigHub Units</code></pre>
-<p>It is a good fast path when the user wants to get a chart into ConfigHub now. It should stay simpler than the catalog path.</p>
+-&gt; &lt;component&gt;-helm: one HelmSource Unit with chart, values, and options
+-&gt; &lt;component&gt;-base: the rendered Kubernetes Units</code></pre>
+<p>The base is not assigned to a target. If <code>--namespace</code> is omitted, the chart is rendered with the <code>confighubplaceholder</code> namespace. A deployment variant later sets its real target and namespace:</p>
+<pre><code>cub variant create redis-prod redis-base \
+  --target prod/prod-cluster \
+  --namespace redis</code></pre>
+<p>The command does not apply anything to Kubernetes. Hook manifests are dropped by default. <code>--include-hooks</code> stores them as ordinary resources but does not run Helm's hook lifecycle. CRDs are included unless <code>--skip-crds</code> is set. Charts that need live <code>lookup</code> results or non-default capabilities are outside this direct path.</p>
+<p>This is the fast path when a user wants to store an arbitrary chart and its render inputs in ConfigHub. It should stay simpler than the catalog path.</p>
 <p>It does not, by itself, answer the maintained-catalog questions:</p>
 <ul><li>Which base variants are supported?</li><li>Which values, facts, capabilities, hooks, CRDs, and secrets were reviewed?</li><li>Is the output equivalent to regular Helm under recorded inputs?</li><li>Which scans, gates, promotion rules, live checks, and receipts apply?</li><li>How will future chart versions and old-version patches be maintained?</li></ul>
 <h2 id="maintained-catalog-path">Maintained Catalog Path</h2>
@@ -489,13 +494,13 @@
 -&gt; scans, gates, upload/publish receipts, live evidence</code></pre>
 <p>The paths can be used in sequence:</p>
 <table><thead><tr><th>Stage</th><th>Command path</th><th>What the user learns or gains</th></tr></thead><tbody><tr><td>Inspect</td><td><code>cub helm template</code></td><td>What Kubernetes objects the chart renders under chosen inputs.</td></tr>
-<tr><td>Adopt quickly</td><td><code>cub helm install</code></td><td>What those objects look like as ConfigHub Units.</td></tr>
+<tr><td>Adopt quickly</td><td><code>cub helm install</code></td><td>Store the rendered Units and a separate HelmSource record of the chart, values, and options.</td></tr>
 <tr><td>Standardize</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td><td>Whether a maintained recipe/base already covers the intended use case.</td></tr>
 <tr><td>Operate</td><td><code>cub installer upload</code>, <code>cub variant create</code>, ConfigHub checks, changesets, approvals, OCI/GitOps, observations</td><td>How the reviewed objects are managed, varied, promoted, delivered, and observed.</td></tr></tbody></table>
 <p>Existing Argo CD, Flux, KRM, and rendered-manifest estates should enter through their direct import paths first. A team can then decide whether to keep the imported representation, create derived ConfigHub variants, or graduate the app to a maintained <code>cub installer</code> recipe/package.</p>
-<p>The product bridge we want is:</p>
+<p>One possible future product bridge is:</p>
 <pre><code>cub installer import helm</code></pre>
-<p>That command should graduate a direct Helm render or install into a maintained recipe/package candidate. Until that product surface exists, helm-expt uses repo generators and proof scripts to build and verify the same artifact chain.</p>
+<p>This command does not exist. Such a bridge could graduate a direct Helm render or install into a maintained recipe/package candidate. Today, helm-expt uses repo generators and proof scripts to build and verify that artifact chain.</p>
 <p>The bridge should preserve the useful low-friction paths:</p>
 <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre><code>curious user
@@ -504,7 +509,7 @@
 
 fast ConfigHub user
   -&gt; cub helm install
-  -&gt; get ConfigHub Units now
+  -&gt; get a Helm source Space and rendered base Space now
 
 supported catalog user
   -&gt; cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;

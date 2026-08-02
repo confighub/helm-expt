@@ -19,8 +19,8 @@ For the shorter user-facing routing guide, see
 
 | Command | Role | Use it when | What it does not try to be |
 | --- | --- | --- | --- |
-| `cub helm template` | Local Helm renderer. It renders a chart to stdout or local files and does not require a ConfigHub server connection. It can split CRDs from regular resources. | You want quick local inspection, a baseline for comparison, or the first input to recipe analysis. | A durable ConfigHub catalog entry. |
-| `cub helm install` | Direct Helm-to-ConfigHub action. It renders a chart and creates ConfigHub Units. It handles values files, `--set`, CRD splitting, target assignment, and wait behavior. | You want a one-shot ConfigHub load from a chart, values, and flags. | A maintained recipe with supported variants, receipts, and update policy. |
+| `cub helm template` | Local Helm renderer. It renders a chart to stdout or local files and does not require a ConfigHub server connection. It includes CRDs unless `--skip-crds` is set. | You want quick local inspection, a baseline for comparison, or the first input to recipe analysis. | A durable ConfigHub catalog entry. |
+| `cub helm install` | Direct Helm-to-ConfigHub action. It creates a base Space for rendered Units and a Helm source Space that records the chart, values, and render options. | You want to store an arbitrary chart and its inputs in ConfigHub without first building a catalog package. | A maintained recipe with supported variants, receipts, lifecycle routes, and update policy. |
 | `cub installer` package path | Maintained catalog path. It renders from a reviewed recipe/package with named bases, receipts, scans, upload/publish evidence, and live checks. | You want repeatable, supportable, variant-aware Helm-derived configs. | The shortest one-off render/install command. |
 
 ## Direct Render
@@ -49,7 +49,10 @@ It is the right first tool for:
 - feeding a future import/analyze workflow.
 
 It does not create a reusable recipe, base variant, package, scan receipt,
-upload receipt, or maintenance record.
+upload receipt, or maintenance record. Hook manifests are dropped by default.
+`--include-hooks` keeps them as ordinary resources; it does not run Helm's hook
+lifecycle. Helm `lookup` returns no objects and capabilities use Helm defaults,
+so charts that require live-cluster data are outside this direct path.
 
 ## Direct Install
 
@@ -60,16 +63,32 @@ cub helm install redis redis \
   --namespace redis
 ```
 
-This path creates a quick ConfigHub representation:
+This path creates two ConfigHub Spaces:
 
 ```text
 Helm chart
--> rendered YAML
--> ConfigHub Units
+-> <component>-helm: one HelmSource Unit with chart, values, and options
+-> <component>-base: the rendered Kubernetes Units
 ```
 
-It is a good fast path when the user wants to get a chart into ConfigHub now.
-It should stay simpler than the catalog path.
+The base is not assigned to a target. If `--namespace` is omitted, the chart is
+rendered with the `confighubplaceholder` namespace. A deployment variant later
+sets its real target and namespace:
+
+```sh
+cub variant create redis-prod redis-base \
+  --target prod/prod-cluster \
+  --namespace redis
+```
+
+The command does not apply anything to Kubernetes. Hook manifests are dropped
+by default. `--include-hooks` stores them as ordinary resources but does not
+run Helm's hook lifecycle. CRDs are included unless `--skip-crds` is set.
+Charts that need live `lookup` results or non-default capabilities are outside
+this direct path.
+
+This is the fast path when a user wants to store an arbitrary chart and its
+render inputs in ConfigHub. It should stay simpler than the catalog path.
 
 It does not, by itself, answer the maintained-catalog questions:
 
@@ -97,7 +116,7 @@ The paths can be used in sequence:
 | Stage | Command path | What the user learns or gains |
 | --- | --- | --- |
 | Inspect | `cub helm template` | What Kubernetes objects the chart renders under chosen inputs. |
-| Adopt quickly | `cub helm install` | What those objects look like as ConfigHub Units. |
+| Adopt quickly | `cub helm install` | Store the rendered Units and a separate HelmSource record of the chart, values, and options. |
 | Standardize | `cub installer setup --pull <installer OCI ref> --base <base>` | Whether a maintained recipe/base already covers the intended use case. |
 | Operate | `cub installer upload`, `cub variant create`, ConfigHub checks, changesets, approvals, OCI/GitOps, observations | How the reviewed objects are managed, varied, promoted, delivered, and observed. |
 
@@ -106,15 +125,15 @@ their direct import paths first. A team can then decide whether to keep the
 imported representation, create derived ConfigHub variants, or graduate the app
 to a maintained `cub installer` recipe/package.
 
-The product bridge we want is:
+One possible future product bridge is:
 
 ```text
 cub installer import helm
 ```
 
-That command should graduate a direct Helm render or install into a maintained
-recipe/package candidate. Until that product surface exists, helm-expt uses
-repo generators and proof scripts to build and verify the same artifact chain.
+This command does not exist. Such a bridge could graduate a direct Helm render
+or install into a maintained recipe/package candidate. Today, helm-expt uses
+repo generators and proof scripts to build and verify that artifact chain.
 
 The bridge should preserve the useful low-friction paths:
 
@@ -125,7 +144,7 @@ curious user
 
 fast ConfigHub user
   -> cub helm install
-  -> get ConfigHub Units now
+  -> get a Helm source Space and rendered base Space now
 
 supported catalog user
   -> cub installer setup --pull <installer OCI ref> --base <base>
