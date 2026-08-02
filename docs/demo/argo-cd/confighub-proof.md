@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This proof lane shows the current ConfigHub path for `argo-cd/argo-cd@9.5.15`
-using real commands only: `cub installer`, `cub variant`, `cub unit`,
-`cub function`, and `cub changeset`.
+This example records `argo-cd/argo-cd@9.5.15` in ConfigHub. It shows
+the exact commands used to render the selected package, upload its
+Kubernetes objects, create a variant, run checks, and review changes.
 
 The selected happy-path install variant is `default`.
 

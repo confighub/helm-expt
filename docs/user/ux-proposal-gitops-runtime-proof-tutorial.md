@@ -4,10 +4,9 @@
 
 Companion to [Tutorial Sequence](./tutorial-sequence.md).
 
-This is a UX proposal, not a shipped GUI. It applies the same intent-first
-model to the GitOps/runtime lane: the user asks to publish and prove a reviewed
-base, while the system maps that intent to OCI, Argo/Flux, checks, and
-receipts.
+This proposal shows a simpler user flow for publishing a reviewed ConfigHub
+base to OCI, delivering it with Argo CD or Flux, and checking the running
+result. It describes a planned interface, not a shipped GUI.
 
 ## Shared Mapping
 

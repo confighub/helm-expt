@@ -3,6 +3,9 @@
 **UNOFFICIAL/EXPERIMENTAL.** These are the terms used by the catalog and the
 technical guides.
 
+This guide explains how source packages, render records, ConfigHub Units,
+variants, releases, and targets fit together.
+
 ## Before ConfigHub
 
 - **Source package** is the input you already use: a Helm chart, AICR recipe,

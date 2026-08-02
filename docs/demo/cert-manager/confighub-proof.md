@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This proof lane shows the current ConfigHub path for `jetstack/cert-manager@v1.20.2`
-using real commands only: `cub installer`, `cub variant`, `cub unit`,
-`cub function`, and `cub changeset`.
+This example records `jetstack/cert-manager@v1.20.2` in ConfigHub. It shows
+the exact commands used to render the selected package, upload its
+Kubernetes objects, create a variant, run checks, and review changes.
 
 The selected happy-path install variant is `crds-enabled`.
 

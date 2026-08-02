@@ -1117,6 +1117,12 @@ function isHumanGuideDoc(repoPath) {
 
 function docPageContent(repoPath, sourceHref, body) {
   if (isHumanGuideDoc(repoPath)) {
+    if (repoPath.endsWith("/confighub-proof-transcript.md")) {
+      return {
+        lead: `Exact commands and output from this recorded ConfigHub example. Use the transcript when you need to check what actually ran. <a href="${sourceHref}">View source markdown</a>.`,
+        body,
+      };
+    }
     for (const match of body.matchAll(/<p>([\s\S]*?)<\/p>/g)) {
       const text = match[1]
         .replace(/<[^>]+>/g, " ")

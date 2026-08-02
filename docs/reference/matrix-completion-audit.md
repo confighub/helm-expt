@@ -2,11 +2,12 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-The [matrix completion audit](../../data/matrix-completion-audit/summary.md) takes
-every **non-green / not-yet-run** cell of the
-[master catalog matrix](../../data/master-catalog-matrix/summary.md) and answers,
-per cell: what lane, what state, the product-readable reason, the next action, the
-support artifact — and which of four **completion classes** it falls into.
+This guide explains the
+[matrix completion audit](../../data/matrix-completion-audit/summary.md). It
+groups every incomplete cell in the
+[master catalog matrix](../../data/master-catalog-matrix/summary.md) by the work
+needed next, so maintainers do not rerun tests that first need a prerequisite
+or model change.
 
 It exists to finish the matrix faster by separating *the kind of work each cell
 needs*, so the next effort goes where it pays off instead of re-running rows that

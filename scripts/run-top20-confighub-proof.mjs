@@ -1185,9 +1185,9 @@ function writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, sa
 
 ## Purpose
 
-This proof lane shows the current ConfigHub path for \`${chart.chart}@${chart.chartVersion}\`
-using real commands only: \`cub installer\`, \`cub variant\`, \`cub unit\`,
-\`cub function\`, and \`cub changeset\`.
+This example records \`${chart.chart}@${chart.chartVersion}\` in ConfigHub. It shows
+the exact commands used to render the selected package, upload its
+Kubernetes objects, create a variant, run checks, and review changes.
 
 The selected happy-path install variant is \`${defaultBase}\`.
 

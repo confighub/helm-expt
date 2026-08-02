@@ -443,13 +443,14 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>Variant-Promotion Closeout</h1>
-    <p class="lead">Variant promotion is a <b>ConfigHub server value, not a helm-expt-only trick.</b> <code>cub variant promote</code> clones a Unit and promotes it server-side. The catalog's job is to prove that the promote works for each maintained variant and to record the receipt. The latest representative receipts prove the changeset-bound path on Redis, NGINX, and kube-prometheus-stack. Older watch rows remain visible until their receipts are rerun on the fixed ConfigHub server. <a href="../../../../docs/reference/variant-promotion-closeout.md">View source markdown</a>.</p>
+    <p class="lead">This guide explains which maintained configurations can be promoted now, which need a fresh test, and which are blocked by missing setup or evidence. <a href="../../../../docs/reference/variant-promotion-closeout.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 
+<p>Variant promotion runs in ConfigHub Server. <code>cub variant promote</code> clones a Unit and promotes it server-side. The catalog records receipts for maintained variants, and older <code>watch</code> rows remain visible until their tests are rerun.</p>
 <p>The <a href="../../data/variant-promotion-closeout/summary.html">variant-promotion-closeout</a> surface turns that column into an actionable queue: for every variant it says whether <code>cub variant promote</code> is <b>ready to run now</b>, <b>watch-grade pending receipt rerun</b>, or <b>blocked</b> by a proof prerequisite, with the exact next command or fix and the owner who has to act.</p>
 <h2 id="how-to-read-it">How to read it</h2>
 <table><thead><tr><th>Owner class</th><th>Meaning</th><th>What to do</th></tr></thead><tbody><tr><td><code>run-proof</code></td><td>A server-side clone exists and the base has ConfigHub upload proof (or a prerequisite ConfigHub proof can run); only the promote receipt is missing or stale.</td><td>Run or rerun the listed <code>cub variant promote</code> proof and record the receipt. Engineering/CI, no model change.</td></tr>

@@ -2,9 +2,9 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-Lane tests are core corpus evidence. Every chart-recipe-variant row should be
-tracked against the same lane set, even when the current state is `missing`.
-Missing live evidence is backlog, not invisible work.
+This document defines the tests and evidence required for each chart
+configuration. A missing result stays visible until the test runs or the
+limitation is recorded.
 
 ## Outcome Standard
 

@@ -2,6 +2,11 @@
 
 **Status:** working doctrine for catalog admission and variant routing.
 
+This document defines the rules for admitting a Helm chart configuration to
+the catalog. Each supported chart should offer a small set of named
+configurations that are honest about defaults, required input, and operational
+differences.
+
 ## Principle
 Every **catalog-supported** chart presents a small, predictable customization surface:
 
