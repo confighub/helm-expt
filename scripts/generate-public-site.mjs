@@ -3446,7 +3446,7 @@ function docsReferenceHtml(catalog) {
     ["Per-chart cub adoption caveats", "Where cub is rougher than plain Helm on first run, and how each caveat is managed.", "../data/cub-adoption-caveats/summary.html"],
     ["Custom overlays", "Wrapper charts, customer values, and changes that go beyond normal values files.", "../docs/user/custom-overlays.md"],
     ["Verify it yourself", "Practical commands for local checks, rendered installs, parity receipts, and scout receipts.", "../docs/user/verify-it-yourself.md"],
-    ["Verification lanes", "Which proof lane checks render, ConfigHub upload, delivery, live state, or two-cluster parity.", "../docs/user/verification-lanes.md"],
+    ["Verification checks", "See which checks cover rendering, ConfigHub upload, delivery, live state, or a two-cluster comparison.", "../docs/user/verification-lanes.md"],
     ["Hook lifecycle strategy", "How chart hooks become visible work with status and receipts.", "../docs/user/hook-lifecycle-strategy.md"],
   ];
   const dataRows = [
@@ -3905,7 +3905,7 @@ function proofHtml(catalog) {
         <div class="card"><h3>cert-manager and ESO</h3><p><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Lifecycle observations</a> for CRDs, webhooks, and controller-populated fields.</p></div>
         <div class="card"><h3>Argo Workflows</h3><p>Hook-delivered CRDs routed through the <a href="../data/lifecycle-boundary/summary.md">lifecycle boundary</a>.</p></div>
         <div class="card"><h3>Argo Rollouts</h3><p>Default and no-crds bases now have live Helm-vs-ConfigHub parity receipts.</p></div>
-        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook dispositions</a> separate observed, routed, per-target, and recipe-needed rows.</p></div>
+        <div class="card"><h3>Hooks</h3><p><a href="../data/hook-disposition/summary.md">Top-100 hook results</a> say whether each hook was observed, assigned to a delivery path, depends on a specific cluster, or still needs chart-specific work.</p></div>
       </div>
     </section>
 
@@ -4115,7 +4115,7 @@ function hardQuestionsHtml(catalog) {
           question: "Can I trust a green GitOps sync?",
           answer:
             "Not by itself. Sync means the controller accepted the desired state. Workload convergence, target prerequisites, controller-owned fields, and semantic parity need separate evidence.",
-          links: [["Why synced is not working", "../docs/user/why-synced-is-not-working.md"], ["Verification lanes", "../docs/user/verification-lanes.md"]],
+          links: [["Why synced is not working", "../docs/user/why-synced-is-not-working.md"], ["Verification checks", "../docs/user/verification-lanes.md"]],
         },
         {
           status: "answered",
@@ -4749,7 +4749,7 @@ cub k8s get crd --space "*"</code></pre>
       <section aria-labelledby="next">
         <h2 id="next">9. Repeat the pattern with your own app</h2>
         <p>You can use the same steps for your own application. Upload it, create staging and production variants, promote a change, then deliver it through OCI. Your existing GitOps controller can apply the result.</p>
-        <p>The <a href="./d/docs/user/variants-after-upload.html">variants walkthrough</a> explains each command and flag. The <a href="./journey.html">Apps page</a> explains how to combine your applications with catalog components.</p>
+        <p>The <a href="./variants.html">Variants page</a> explains where each change belongs. The <a href="./d/docs/user/variants-after-upload.html">command walkthrough</a> shows how to create and promote variants. The <a href="./journey.html">Apps page</a> explains how to combine your applications with catalog components.</p>
     </section>
   </main>
   <footer><p>Generated from committed helm-expt evidence and the committed org receipts. The demo org shows the mechanism; production claims still come only from receipts.</p></footer>
@@ -5198,6 +5198,7 @@ function aiHtml(catalog) {
       <h2 id="agentic-apps">5. Give AI a purpose-built App</h2>
       <p>A small domain App can give an agent named operations while ConfigHub keeps the configuration. The App supplies the domain rules, dry runs, checks, and explicit commit step.</p>
       <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> follows this pattern. It supports RBAC inventory, access queries, findings, guarded edits, fleet edits, and promotion. The agent uses these operations instead of unrestricted YAML edits.</p>
+      <p><a href="./journey.html">See five ConfigHub App examples</a>, including upgrades, hooks and CRDs, RBAC, fleet rollout, and AI change review.</p>
     </section>
 
     <section aria-labelledby="guides">
