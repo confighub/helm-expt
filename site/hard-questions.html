@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FAQ · Config Workshop</title>
-  <meta name="description" content="Hard questions answered plainly: what breaks, what is safe for AI to change, and where the gaps are.">
+  <meta name="description" content="Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/hard-questions.html">
   <meta property="og:title" content="FAQ · Config Workshop">
-  <meta property="og:description" content="Hard questions answered plainly: what breaks, what is safe for AI to change, and where the gaps are.">
+  <meta property="og:description" content="Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/hard-questions.html">
   <style>
@@ -513,20 +513,21 @@
 <body class="calm-page">
 	  <header class="hero human-hero">
 	    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-	    <h1>FAQ for skeptical Helm users.</h1>
-	    <p class="lead">This page answers the questions an engineer asks before trusting the model. What problem does it solve? What has evidence? What remains limited? When is plain Helm still the right tool?</p>
-    <p>Each answer says what works today, what is still limited, and where to check the evidence.</p>
+	    <h1>Find a direct answer</h1>
+	    <p class="lead">Use this FAQ when one question blocks your next step. It covers Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, and current limits.</p>
+    <p>Each answer says what works, what remains limited, and where to check the evidence.</p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="./try.html">Try Redis</a> · <a href="./quirks.html">Find chart setup</a> · <a href="./known-gaps.html">Read known gaps</a></p>
   </header>
   <main>
-    <section aria-labelledby="start-here">
-      <h2 id="start-here">Start Here</h2>
+    <section aria-labelledby="1-start-with-the-basics">
+      <h2 id="1-start-with-the-basics">1. Start with the basics</h2>
       <div class="faq-list">
         <article class="faq-card answered">
         <div class="faq-head">
           <h3>Is this just Helm with extra paperwork?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>No. You keep Helm charts. The catalog adds ready-to-use base variants, recorded render inputs, generated output, scans, receipts, live evidence, and ConfigHub Units when uploaded.</p>
+        <p>No. You keep your Helm charts and values. The Catalog adds tested starting configurations and shows their exact Kubernetes objects. ConfigHub stores the reviewed objects, changes, approvals, and release history.</p>
         <p class="faq-links"><a href="d/docs/user/choosing-commands.html">Choosing commands</a> · <a href="./charts/index.html">Browse charts</a></p>
       </article>
         <article class="faq-card answered">
@@ -534,7 +535,7 @@
           <h3>Do I have to rewrite my charts?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>No. We do not ask you to abandon Helm charts for a new chart language. We help you make better choices with the charts you already use.</p>
+        <p>No. Keep your charts, values, templates, and current delivery tools. This project helps you inspect and manage the objects they produce.</p>
         <p class="faq-links"><a href="d/docs/user/why-this-exists.html">Why this exists</a> · <a href="d/docs/user/creating-variants.html">Creating variants</a></p>
       </article>
         <article class="faq-card answered">
@@ -542,7 +543,7 @@
           <h3>How is cub installer different from cub helm?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>cub helm imports an arbitrary chart and values as a ConfigHub base. cub installer reads a maintained catalog package with named configurations and requirements. They are optional preparation tools. The official tutorial teaches the ConfigHub journey after that starting point.</p>
+        <p>cub helm starts with any chart and values. It can render locally or record the rendered base and Helm source in ConfigHub. cub installer starts with a maintained Catalog package containing named configurations and requirements. Both are optional preparation tools.</p>
         <p class="faq-links"><a href="https://docs.confighub.com/get-started/tutorial/">Official tutorial</a> · <a href="https://github.com/confighub/cub-helm">cub helm plugin</a> · <a href="https://github.com/confighub/installer">cub installer plugin</a></p>
       </article>
         <article class="faq-card answered">
@@ -550,7 +551,7 @@
           <h3>Do you support every Helm values combination?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>No. A chart can expose too many combinations for one tested claim. The catalog covers common operating choices with chart-specific base variants. Examples include default, no-CRDs, existing Secret, server-only, HA, and internal service.</p>
+        <p>No. A chart can expose too many combinations to test as one claim. The Catalog covers common operating choices with chart-specific base variants. Examples include no-CRDs, existing Secret, server-only, HA, and internal service.</p>
         <p class="faq-links"><a href="d/docs/user/helm-presets-and-values.html">Helm base variants and values</a> · <a href="d/docs/user/helm-render-intents.html">Helm render intents</a></p>
       </article>
         <article class="faq-card answered">
@@ -558,7 +559,7 @@
           <h3>Isn't that case-specific?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Yes. Helm charts differ, so the catalog records chart-specific base variants, tests, and notes. AI can help maintain those variants across chart versions. Tests and receipts determine what the catalog accepts.</p>
+        <p>Yes. That is deliberate because Helm charts have different operating choices. AI can help update the configurations across versions, but tests decide what the Catalog accepts.</p>
         <p class="faq-links"><a href="./charts/index.html">Configuration Catalog</a> · <a href="./ai.html">AI and the catalog</a></p>
       </article>
         <article class="faq-card answered">
@@ -566,7 +567,7 @@
           <h3>What is a base variant?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>A base variant is a supported Helm configuration for one chart version. It records the values and render inputs. It also captures the Kubernetes YAML and names any extra install work.</p>
+        <p>A base variant is one supported configuration for one chart version. It records the Helm values and render settings, keeps the Kubernetes YAML, and names extra install work.</p>
         <p class="faq-links"><a href="./charts/index.html#base-variants">Base variant explanation</a> · <a href="d/docs/user/creating-variants.html">Creating variants</a></p>
       </article>
         <article class="faq-card answered">
@@ -574,7 +575,7 @@
           <h3>Does it only work for easy charts?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.</p>
+        <p>No. Redis teaches the basic path. The kube-prometheus-stack example covers CRDs, webhooks, RBAC, generated values, cluster requirements, upgrades, and live checks.</p>
         <p class="faq-links"><a href="d/docs/user/serious-chart-proof.html">Serious chart proof</a> · <a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">kube-prometheus-stack page</a></p>
       </article>
         <article class="faq-card answered">
@@ -582,22 +583,22 @@
           <h3>What do the current generated counts say?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>The current proof counters are generated from committed evidence. They are useful for orientation, but the matrix remains the source for chart-by-chart decisions.</p>
+        <p>The counts come from committed test results. Use them for orientation, then open the matrix for the exact chart, version, and configuration.</p>
         <div class="faq-metrics"><div class="metric"><strong>199/199</strong><span>Render parity</span></div><div class="metric"><strong>198/199</strong><span>In-ConfigHub proof</span></div><div class="metric"><strong>148/199</strong><span>Local live</span></div><div class="metric"><strong>139/199</strong><span>GitOps/OCI live pass</span></div><div class="metric"><strong>139/199</strong><span>Live Helm-vs-ConfigHub parity pass</span></div><div class="metric"><strong>126/199</strong><span>Complete core lanes</span></div></div>
         <p class="faq-links"><a href="./matrix.html">Master matrix</a> · <a href="d/docs/user/current-proof-status.html">Current proof status</a></p>
       </article>
       </div>
     </section>
 
-    <section aria-labelledby="how-it-works">
-      <h2 id="how-it-works">How It Works</h2>
+    <section aria-labelledby="2-follow-the-configuration-into-confighub">
+      <h2 id="2-follow-the-configuration-into-confighub">2. Follow the configuration into ConfigHub</h2>
       <div class="faq-list">
         <article class="faq-card answered">
         <div class="faq-head">
           <h3>How does it actually work, end to end?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>Choose a chart and base variant, then record the values and render inputs. Render the YAML and handle any extra install work. Deliver the reviewed result and observe it live. Hooks, CRDs, setup jobs, Secrets, and cluster requirements remain separate decisions until evidence proves each one.</p>
+        <p>Choose a chart configuration and record its Helm values and render settings. Inspect the Kubernetes YAML and handle its required setup. ConfigHub can then store, change, approve, and release the reviewed objects. Delivery and live checks remain separate recorded steps.</p>
         <p class="faq-links"><a href="d/docs/user/how-it-works.html">How it works</a> · <a href="d/docs/user/confighub-data-model.html">The data model</a></p>
       </article>
         <article class="faq-card answered">
@@ -643,8 +644,8 @@
       </div>
     </section>
 
-    <section aria-labelledby="hooks-secrets-and-targets">
-      <h2 id="hooks-secrets-and-targets">Hooks, Secrets, And Targets</h2>
+    <section aria-labelledby="3-handle-hooks-secrets-and-cluster-requirements">
+      <h2 id="3-handle-hooks-secrets-and-cluster-requirements">3. Handle hooks, Secrets, and cluster requirements</h2>
       <div class="faq-list">
         <article class="faq-card answered">
         <div class="faq-head">
@@ -689,8 +690,8 @@
       </div>
     </section>
 
-    <section aria-labelledby="parity-gitops-and-upgrades">
-      <h2 id="parity-gitops-and-upgrades">Parity, GitOps, And Upgrades</h2>
+    <section aria-labelledby="4-check-delivery-upgrades-and-live-results">
+      <h2 id="4-check-delivery-upgrades-and-live-results">4. Check delivery, upgrades, and live results</h2>
       <div class="faq-list">
         <article class="faq-card answered">
         <div class="faq-head">
@@ -727,8 +728,8 @@
       </div>
     </section>
 
-    <section aria-labelledby="values-variants-and-catalog-scope">
-      <h2 id="values-variants-and-catalog-scope">Values, Variants, And Catalog Scope</h2>
+    <section aria-labelledby="5-understand-values-variants-and-catalog-coverage">
+      <h2 id="5-understand-values-variants-and-catalog-coverage">5. Understand values, variants, and Catalog coverage</h2>
       <div class="faq-list">
         <article class="faq-card answered">
         <div class="faq-head">
@@ -798,8 +799,8 @@
       </div>
     </section>
 
-    <section aria-labelledby="trust-free-use-and-challenges">
-      <h2 id="trust-free-use-and-challenges">Trust, Free Use, And Challenges</h2>
+    <section aria-labelledby="6-understand-free-use-and-the-evidence">
+      <h2 id="6-understand-free-use-and-the-evidence">6. Understand free use and the evidence</h2>
       <div class="faq-list">
         <article class="faq-card answered">
         <div class="faq-head">
@@ -844,8 +845,8 @@
       </div>
     </section>
 
-    <section aria-labelledby="known-footguns-we-surface">
-      <h2 id="known-footguns-we-surface">Known Footguns We Surface</h2>
+    <section aria-labelledby="7-read-current-limitations">
+      <h2 id="7-read-current-limitations">7. Read current limitations</h2>
       <div class="faq-list">
         <article class="faq-card answered">
         <div class="faq-head">
@@ -890,6 +891,6 @@
       </div>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. FAQ answers route to evidence, not slogans.</footer>
+  <footer>Generated from helm-expt proof data. Each answer links to its supporting guide, result, or current gap.</footer>
 </body>
 </html>
