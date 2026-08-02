@@ -5296,8 +5296,8 @@ function examplesHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Choose a worked example</h1>
-    <p class="tagline">Begin with the configuration you have. Follow one example to exact Kubernetes objects and a checked result.</p>
-    <p>Choose your input in section 1. After you have a checked result, continue with OCI, ConfigHub, promotion, fleets, or Apps.</p>
+    <p class="tagline">Choose the kind of configuration you have, then follow one worked example to exact Kubernetes objects and a checked result.</p>
+    <p>Advanced ConfigHub, promotion, fleet, and App demonstrations remain on this page after the starting examples.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
@@ -5305,40 +5305,30 @@ function examplesHtml(catalog) {
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
       <h2 id="start">1. Start with a configuration</h2>
-      <p>Start with the type of configuration you have. Each example shows the files, the checks, and the next step into ConfigHub or OCI.</p>
+      <p>Pick one row. The first link starts the example; the remaining links show the evidence and source.</p>
       ${markdownLikeTable([
-        ["Starting input", "First reviewed result", "Start", "Evidence and next steps"],
+        ["What you have", "Start with this example"],
         [
           "A ready-made Helm package",
-          "Pull Redis, render one preset configuration, inspect its objects, and check the recorded Helm parity and install requirements.",
-          `<a href="./try.html">Start with Redis</a><br><a href="./redis-walkthrough.html">Continue the detailed walkthrough</a>`,
-          `<a href="./charts/bitnami-redis-25-5-3.html">Package and evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">ConfigHub example</a>`,
+          `<a href="./try.html"><strong>Start with Redis.</strong></a> Render 14 objects and check the recorded Helm match and install requirements.<br><a href="./redis-walkthrough.html">Detailed walkthrough</a> · <a href="./charts/bitnami-redis-25-5-3.html">Package and evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">ConfigHub example</a>`,
         ],
         [
           "Your own Helm chart and values",
-          "Preview an arbitrary chart and values without applying them. The NGINX review keeps the wanted change and corrects six risky settings.",
-          `<a href="#bring-your-own">Start with cub helm</a>`,
-          `<a href="./d/data/byo-helm-values-review/summary.html">NGINX review</a> · <a href="./d/data/byo-helm-values-review/public-and-confighub.html">OCI publication</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">ConfigHub example</a>`,
+          `<a href="#bring-your-own"><strong>Preview it with cub helm.</strong></a> The NGINX review keeps the requested change and corrects six risky settings.<br><a href="./d/data/byo-helm-values-review/summary.html">NGINX review</a> · <a href="./d/data/byo-helm-values-review/public-and-confighub.html">OCI publication</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">ConfigHub example</a>`,
         ],
         [
           "An AICR recipe or bundle",
-          "Publish the AICR source package and a second OCI containing 17 exact Argo CD Applications. Import those Applications into ConfigHub, change one setting in development, and promote it to staging.",
-          `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">Start the AICR walkthrough</a>`,
-          `<a href="./d/data/aicr-oci-roundtrip-proof/summary.html">Round-trip proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr/eks-h100-training-kubeflow">GitHub source</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">OCI publication</a> · <a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">ConfigHub example</a>`,
+          `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html"><strong>Start the AICR walkthrough.</strong></a> Publish the source package and 17 exact Argo CD Applications, then change and promote one setting in ConfigHub.<br><a href="./d/data/aicr-oci-roundtrip-proof/summary.html">Round-trip proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr/eks-h100-training-kubeflow">GitHub source</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">OCI publication</a> · <a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">ConfigHub example</a>`,
         ],
         [
           "An existing OCI package",
-          "Inspect its exact objects or change one named field, then pull the result back and compare it with the reviewed files.",
-          `<a href="./d/docs/user/inspect-oci-package.html">Inspect OCI</a><br><a href="./d/docs/user/transform-oci-package.html">Change OCI</a>`,
-          `<a href="./d/data/anonymous-oci-transform-proof/summary.html">Transform proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/anonymous-oci-transform">GitHub source</a> · <a href="./d/data/literal-config-examples/summary.html">Publication and import proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html">ConfigHub example</a>`,
+          `<a href="./d/docs/user/inspect-oci-package.html"><strong>Inspect the OCI.</strong></a> Read its exact objects, or <a href="./d/docs/user/transform-oci-package.html">change one field</a>, then pull the result back and compare it.<br><a href="./d/data/anonymous-oci-transform-proof/summary.html">Transform proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/anonymous-oci-transform">GitHub source</a> · <a href="./d/data/literal-config-examples/summary.html">Publication and import proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html">ConfigHub example</a>`,
         ],
         [
           "Kubernetes YAML or an existing app",
-          "Upload four ordinary Kubernetes files without running Helm or another renderer. Read the four ConfigHub Units back and compare them with the source.",
-          `<a href="./existing-apps.html">Start with the existing-app guide</a>`,
-          `<a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
+          `<a href="./existing-apps.html"><strong>Start with the existing-app guide.</strong></a> Upload four ordinary Kubernetes files, read the four ConfigHub Units back, and compare them with the source.<br><a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
         ],
-      ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
+      ], { rawSecondColumn: true })}
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
       <p>Use <code>cub helm</code> for a chart that can render without live cluster lookups or target-specific Kubernetes capabilities. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
