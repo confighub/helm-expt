@@ -194,7 +194,7 @@ const PAGE_REDIRECT_TARGETS = {
 // One sentence per page, drawn from the page's lead copy. Chart pages derive
 // theirs from the page title.
 const PAGE_DESCRIPTIONS = {
-  "index.html": "Inspect and test configuration from Helm, AICR, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
+  "index.html": "Inspect and test configuration from Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML, then keep it local or manage it in ConfigHub.",
   "offering.html": "Choose local public tools, a free ConfigHub account, or the commercial product according to the configuration work you need to do.",
   "try.html": "Render one public Redis catalog package and inspect its exact Kubernetes objects without contacting ConfigHub Server or Kubernetes.",
   "confighub.html": "Use ConfigHub when you want shared configuration records, variants, approvals, promotions, and rollout history.",
@@ -207,8 +207,8 @@ const PAGE_DESCRIPTIONS = {
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
   "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
-  "testing.html": "Choose a worked example that starts with Helm, AICR, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
-  "entry-path-reference.html": "Detailed entry paths for Helm, AICR, existing OCI, and Kubernetes YAML, with commands and proof links.",
+  "testing.html": "Choose a worked example that starts with Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
+  "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
@@ -1630,7 +1630,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
             <a class="route-card mid" href="./testing.html#bring-your-own"><h3>Check your Helm values <span class="tag">your chart</span></h3><p>Preview values written by your team or AI. Review the objects, then correct the settings you do not want.</p><span class="go">Open the worked flow &rarr;</span></a>
             <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">100 charts</span></h3><p>Find a tested starting configuration. Read its inputs, output, prerequisites, hooks, CRDs, and current evidence.</p><span class="go">Choose a configuration &rarr;</span></a>
           </div>
-          <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
+          <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR recipes for AI infrastructure, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
         </section>
 
         <section class="section">
@@ -2958,7 +2958,7 @@ function howItWorksHtml() {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Choose how to deploy it</h1>
-  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, AICR, cub installer, an OCI package, or plain YAML.</p>
+  <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, an AICR recipe for AI infrastructure, cub installer, OCI, or plain YAML.</p>
   <p>You can stop with local files, publish them directly as OCI, or save them in ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Use it for changes, approvals, promotion, release OCI, and rollout history.</p>
 </header>
@@ -3599,7 +3599,7 @@ function docsHtml() {
       <h3><a href="./charts/index.html">Which public configuration should I use?</a></h3>
       <p>Use the Configuration Catalog for tested starting configurations, required setup, and evidence.</p>
       <h3><a href="./testing.html">How do I bring my own input?</a></h3>
-      <p>Worked Examples covers your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
+      <p>Worked Examples covers your own Helm values, AICR recipes for AI infrastructure, OCI, or Kubernetes YAML.</p>
     </section>
 
     <section aria-labelledby="prepare">
@@ -5375,7 +5375,7 @@ function examplesHtml(catalog) {
           `<a href="#bring-your-own"><strong>Preview it with cub helm.</strong></a> The NGINX review keeps the requested change and corrects six risky settings.<br><a href="./d/data/byo-helm-values-review/summary.html">NGINX review</a> · <a href="./d/data/byo-helm-values-review/public-and-confighub.html">OCI publication</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">ConfigHub example</a>`,
         ],
         [
-          "An AICR recipe or bundle",
+          "An AICR recipe for AI infrastructure",
           `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html"><strong>Start the AICR walkthrough.</strong></a> Publish the source package and 17 exact Argo CD Applications, then change and promote one setting in ConfigHub.<br><a href="./d/data/aicr-oci-roundtrip-proof/summary.html">Round-trip proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr/eks-h100-training-kubeflow">GitHub source</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">OCI publication</a> · <a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">ConfigHub example</a>`,
         ],
         [
@@ -5480,7 +5480,7 @@ function entryPathReferenceHtml(catalog) {
   <header class="hero human-hero">
     ${topNav(".")}
     <h1>Detailed entry paths</h1>
-    <p class="tagline">This reference keeps the commands and proof links for Helm, AICR, OCI, and Kubernetes YAML. Start with the shorter <a href="./testing.html">Examples page</a> if you have not chosen a path yet.</p>
+    <p class="tagline">This reference keeps the commands and evidence links for Helm, AICR AI-infrastructure packages, OCI, and Kubernetes YAML. Start with the shorter <a href="./testing.html">Examples page</a> if you have not chosen a path yet.</p>
     <p><code>cub installer</code> reads maintained catalog packages. <code>cub helm</code> works with an arbitrary chart and values. These are preparation tools, not separate ConfigHub journeys.</p>
   </header>
   <main>
