@@ -221,7 +221,7 @@ const PAGE_DESCRIPTIONS = {
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
   "tiers.html": "The tiers page moved: commercial options now live on the private page.",
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
-  "private/index.html": "Upgrade to ConfigHub: the commercial edition for private charts, teams, policies, fleet operations, and production support.",
+  "private/index.html": "Choose SaaS or enterprise ConfigHub for private configuration, team workflows, policy, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
   "charts/index.html": "Find a tested starting configuration for a public package, with its rendered objects, required setup, and evidence.",
   "demo-org.html": "Open one ConfigHub demo Space, read its README, inspect its Kubernetes configuration, and then explore variants, promotions, checks, hooks, and CRDs.",
@@ -4440,11 +4440,8 @@ function hooksHtml() {
 
 function privateHtml(catalog) {
   const tierRows = [
-    ["Public Helm site", "Browse chart pages, try catalog packages, inspect objects, and run public verification checks.", "No ConfigHub account needed."],
-    ["Self-sign-up SaaS", "Store team configurations, manage versions, review diffs, and connect delivery workflows.", "Hosted ConfigHub account."],
-    ["Standalone enterprise product", "Run ConfigHub for private charts, internal platforms, policy, audit, and production operations.", "Enterprise deployment and support."],
-    ["Private catalog support", "Bring private charts, wrapper charts, platform values, customer overlays, and internal stacks.", "Commercial feature."],
-    ["Production operations", "Use approvals, changesets, GitOps handoff, observations, fleet queries, and audit history.", "Commercial feature."],
+    ["Self-sign-up SaaS", "Use the hosted ConfigHub service with your team.", "Sign up online."],
+    ["Standalone enterprise", "Run ConfigHub for private platforms and production operations.", "Contact ConfigHub about deployment and support."],
   ];
   const workRows = [
     ["Teams and shared work", "Store chart configurations where teammates can find, review, and reuse them."],
@@ -4472,29 +4469,29 @@ function privateHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav("..")}
-    <h1>Upgrade to ConfigHub</h1>
-    <p class="lead">If you like ConfigHub, please use the commercial edition. It is available as a <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "private")}">standalone enterprise product</a> and as a <a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "private")}">self-sign-up SaaS</a>.</p>
-    <p>Below you will find some of the current and intended benefits of the commercial product for users of this Helm site.</p>
+    <h1>Choose SaaS or enterprise ConfigHub</h1>
+    <p class="lead">Use the public tools without ConfigHub Server for local work. Add a commercial ConfigHub product when your team needs to keep private configuration, review changes together, or operate releases over time.</p>
+    <p>ConfigHub is available as a <a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "private")}">self-sign-up SaaS</a> and as a <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "private")}">standalone enterprise product</a>.</p>
   </header>
   <main>
     ${generatedStamp(catalog, "private page")}
     <section aria-labelledby="why-upgrade">
-      <h2 id="why-upgrade">Why Upgrade?</h2>
-      <p>The public Helm site helps you try standard charts and understand what ConfigHub is doing. The commercial product is for private work: your charts, your applications, your teams, your approvals, and your production history.</p>
-      <p>Use it when one chart becomes many configurations, when several people need to review a release, or when you need a durable record of what changed and why.</p>
+      <h2 id="why-upgrade">1 · Decide whether you need an account</h2>
+      <p>You do not need an account to try public catalog packages, inspect rendered objects, or run the public checks.</p>
+      <p>Add ConfigHub when you want to save the reviewed result, share it with a team, make environment versions, approve changes, publish releases, or keep an operating history.</p>
     </section>
 
     <section aria-labelledby="tiers">
-      <h2 id="tiers">Available Options</h2>
+      <h2 id="tiers">2 · Choose SaaS or enterprise</h2>
       ${markdownLikeTable([
-        ["Option", "What it gives you", "Access"],
+        ["Option", "Use it for", "Next step"],
         ...tierRows,
       ])}
     </section>
 
     <section aria-labelledby="journey">
-      <h2 id="journey">What The Commercial Product Helps With</h2>
-      <p>Start with the free site when you want to inspect public charts. Move to ConfigHub when you want to keep those configurations, share them with a team, and manage releases over time.</p>
+      <h2 id="journey">3 · See what ConfigHub adds</h2>
+      <p>The public tools produce configuration you can inspect and keep as files or OCI. ConfigHub keeps that configuration as shared data so a team can change, approve, promote, publish, and observe it.</p>
       ${markdownLikeTable([
         ["Need", "How ConfigHub helps"],
         ...workRows,
@@ -4502,17 +4499,18 @@ function privateHtml(catalog) {
     </section>
 
     <section aria-labelledby="commercial">
-      <h2 id="commercial">Current And Intended Benefits</h2>
-      <p>These are the main areas where the commercial product is meant to add value for Helm users.</p>
+      <h2 id="commercial">4 · Review the product scope</h2>
+      <p>These are the main commercial product areas for users who start with Helm, AICR, OCI, or Kubernetes YAML.</p>
       ${markdownLikeTable([
         ["Area", "Benefit"],
         ...commercialRows,
       ])}
+      <p>Availability can differ between SaaS and enterprise editions. Check with ConfigHub for current product, support, policy, and service details.</p>
     </section>
 
     <section aria-labelledby="more">
-      <h2 id="more">More Detail</h2>
-      <p>These project notes describe the current support model, the commercial plan, and the claim boundaries behind this page.</p>
+      <h2 id="more">5 · Read the supporting detail</h2>
+      <p>These project records explain support, commercial planning, no-server work, and the limits of current claims.</p>
       <div class="grid">
         <div class="card"><h3>Support tiers</h3><p><a href="../../docs/user/product-support-tiers.md">Open product support tiers</a>.</p></div>
         <div class="card"><h3>Commercial model</h3><p><a href="../../docs/planning/verified-install-commercial-model.md">Open verified-install commercial model</a>.</p></div>
