@@ -1472,26 +1472,22 @@ function homeDesignCss() {
   .section h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); font-weight: 740; letter-spacing: -.02em; margin: 0 0 6px; }
   .section .intro { color: var(--muted); font-size: 1rem; margin: 0 0 22px; max-width: 60ch; }
 
-  .verbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-  .verb { border: 1px solid var(--line); border-radius: 13px; padding: 16px; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+  .verbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .verb { border-top: 2px solid var(--line-strong); padding: 14px 14px 0 0; display: flex; flex-direction: column; gap: 8px; }
   .verb .n { font-family: var(--mono); font-size: .66rem; color: var(--faint); letter-spacing: .05em; }
   .verb h3 { margin: 0; font-size: 1.02rem; font-weight: 700; }
   .verb p { margin: 0; font-size: .82rem; color: var(--muted); line-height: 1.4; }
   .verb .route { font-family: var(--mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent-ink); margin-top: auto; padding-top: 4px; }
 
-  .conf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .conf { border: 1px solid var(--line); border-radius: 12px; padding: 15px; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
-  .conf .badge { align-self: flex-start; font-family: var(--mono); font-size: .7rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; color: var(--pass); background: var(--pass-bg); }
-  .conf .q { font-size: .92rem; font-weight: 660; }
-  .conf .note { font-size: .8rem; color: var(--muted); line-height: 1.4; }
-
   .routes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); }
+  .route-card { border: 1px solid var(--line); border-radius: 13px; padding: 17px; background: var(--surface); box-shadow: var(--shadow); text-decoration: none; transition: border-color .15s ease; }
+  .route-card:hover { border-color: var(--accent); }
   .route-card.mid { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
   .route-card h3 { margin: 0 0 4px; font-size: .96rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
   .route-card .tag { font-family: var(--mono); font-size: .6rem; text-transform: uppercase; letter-spacing: .06em; color: var(--faint); border: 1px solid var(--line-strong); border-radius: 999px; padding: 2px 8px; }
   .route-card.mid .tag { color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
   .route-card p { margin: 6px 0 0; font-size: .84rem; color: var(--muted); line-height: 1.45; }
+  .route-card .go { display: block; margin-top: 12px; color: var(--accent-ink); font-family: var(--mono); font-size: .68rem; text-transform: uppercase; }
 
   footer.foot { border-top: 1px solid var(--line); margin-top: 20px; padding: 26px 0 50px; }
   footer.foot .flip { font-size: 1.06rem; color: var(--ink); font-weight: 600; max-width: 54ch; margin: 0 0 10px; }
@@ -1500,26 +1496,18 @@ function homeDesignCss() {
   @media (max-width: 880px) {
     .hero { grid-template-columns: 1fr; gap: 24px; }
     .verbs { grid-template-columns: repeat(2, 1fr); }
-    .conf-grid { grid-template-columns: repeat(2, 1fr); }
     .routes { grid-template-columns: 1fr; }
   }
-  @media (max-width: 520px) { .verbs { grid-template-columns: 1fr; } .conf-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .verbs { grid-template-columns: 1fr; } }
 `;
 }
 
 function configTestCentreHome(catalog) {
-  const verbs = [
-    ["01", "Understand", "Read what it installs and where it bites.", "open source"],
-    ["02", "Test", "Is my config well-formed and safe?", "open source"],
-    ["03", "Ask", "A concrete answer, cited to a receipt.", "open source"],
-    ["04", "Vary", "Make a supported variant, keep it safe.", "free account to keep"],
-    ["05", "Check my AI", "Grade what your agent produced.", "open source"],
-  ];
-  const confidences = [
-    ["Safe to deploy?", "Well-formed, scans clean, e2e green, fits your cluster."],
-    ["Deploys without disruption?", "CRDs first, hook phases, prerequisites present."],
-    ["Rollback safe, no data loss?", "What is stateful, destroy-gates, blast radius."],
-    ["Rollback will succeed?", "A prior good revision, recorded and restorable."],
+  const nextSteps = [
+    ["01", "Inspect and test", "Create the exact Kubernetes objects. Check the inputs, risky defaults, prerequisites, and chart-specific setup.", "local or CI"],
+    ["02", "Keep the result", "Keep the reviewed objects as readable files or a digest-pinned OCI package.", "same objects"],
+    ["03", "Deploy your way", "Use kubectl for a test, or give the OCI package to Argo CD or Flux.", "your delivery tool"],
+    ["04", "Manage in ConfigHub", "Save the objects as shared data. Change, approve, promote, publish, and roll out reviewed releases.", "team operations"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -1549,12 +1537,13 @@ function configTestCentreHome(catalog) {
             <span class="eyebrow">Helm &middot; AICR &middot; OCI packages</span>
             <h1>Simplify configuration testing and verification</h1>
             <p class="lead">Using configuration tools can be tricky. We are here to help.</p>
-            <p class="lead">Read and test the exact Kubernetes objects before anything runs. Keep the reviewed result as files or OCI, or save it in ConfigHub so your team can change, promote, and roll it out. Start with a catalog package, your own Helm values, AICR, or an existing OCI.</p>
+            <p class="lead">Read and test the exact Kubernetes objects before anything runs. Keep the result as files or OCI. ConfigHub stores the reviewed objects as shared data when your team needs changes, approvals, promotion, and rollout.</p>
+            <p class="lead">Start with a catalog package, your own Helm values, an AICR recipe for AI infrastructure, an existing OCI package, or Kubernetes YAML.</p>
             <div class="cta-row">
-              <a class="btn primary" href="./try.html">Run a catalog package</a>
-              <a class="btn ghost" href="./testing.html#bring-your-own">Check my config</a>
+              <a class="btn primary" href="./try.html">Try Redis</a>
+              <a class="btn ghost" href="./testing.html#bring-your-own">Check my Helm values</a>
             </div>
-            <div class="sources"><b>starts with:</b> Helm charts &middot; AICR packages &middot; OCI &middot; Kubernetes YAML</div>
+            <div class="sources"><b>start without signing in:</b> public Helm packages &middot; your Helm values &middot; AICR &middot; OCI &middot; YAML</div>
           </div>
           <div class="term" aria-label="Render a public package and write its Kubernetes objects as OCI">
             <div class="term-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">catalog package &rarr; files + OCI &middot; no cluster touched</span></div>
@@ -1575,32 +1564,33 @@ Wrote rendered OCI ./redis-rendered.oci:latest
 
       <main>
         <section class="section">
-          <span class="eyebrow">Five simple things</span>
-          <h2>What you can do</h2>
-          <p class="intro">Look at what a package does, and whether it is safe, before you install it. Each verb works on a catalog package or on your own config. Every chart has a detailed playbook.</p>
-          <div class="verbs">
-            ${verbs.map(([n, name, desc, route]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
-          </div>
-        </section>
-
-        <section class="section">
-          <span class="eyebrow">Config testing</span>
-          <h2>Four things you can prove before you ship</h2>
-          <p class="intro">Not claims &mdash; runnable checks, each recorded as a receipt you can open, and re-runnable as drift after install.</p>
-          <div class="conf-grid">
-            ${confidences.map(([q, note]) => `<div class="conf"><span class="badge">&#10003; provable</span><span class="q">${escapeHtml(q)}</span><span class="note">${escapeHtml(note)}</span></div>`).join("\n            ")}
-          </div>
-        </section>
-
-        <section class="section">
-          <span class="eyebrow">One resource, three depths</span>
-          <h2>Test locally. Keep the result in the path.</h2>
-          <p class="intro">Testing is the first step. The reviewed files can go straight to OCI for Argo CD or Flux. Put them in ConfigHub when you want a shared record that can be edited, promoted, approved, and rolled out.</p>
+          <span class="eyebrow">Choose one</span>
+          <h2>Choose where to start</h2>
+          <p class="intro">Each path gives you exact Kubernetes objects to inspect before you decide what happens next.</p>
           <div class="routes">
-            <div class="route-card"><h3>Open source <span class="tag">no server or account</span></h3><p>Inspect and test a catalog package or your own config. Keep the exact result as local files or write it to OCI for the delivery tools you already use.</p></div>
-            <div class="route-card mid"><h3>ConfigHub server <span class="tag">free account</span></h3><p>Save the reviewed objects as shared data. Make environment variants, see exact diffs, promote a change, publish OCI, and check what reached each target.</p></div>
-            <div class="route-card"><h3>Enterprise <span class="tag">paid</span></h3><p>Use private catalogs, team access, policy gates, and staged rollout across larger application and platform fleets.</p></div>
+            <a class="route-card" href="./try.html"><h3>Try Redis <span class="tag">catalog package</span></h3><p>Pull one reviewed configuration. Read its 14 objects. Build a local OCI and verify it by pulling it back.</p><span class="go">Start the short example &rarr;</span></a>
+            <a class="route-card mid" href="./testing.html#bring-your-own"><h3>Check your Helm values <span class="tag">your chart</span></h3><p>Preview values written by your team or AI. Review the objects, then correct the settings you do not want.</p><span class="go">Open the worked flow &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">100 charts</span></h3><p>Find a tested starting configuration. Read its inputs, output, prerequisites, hooks, CRDs, and current evidence.</p><span class="go">Choose a configuration &rarr;</span></a>
           </div>
+          <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">One path</span>
+          <h2>What happens next</h2>
+          <p class="intro">Start without a server or account. Add ConfigHub when the reviewed result needs to become a shared, changing record.</p>
+          <div class="verbs">
+            ${nextSteps.map(([n, name, desc, route]) => `<div class="verb"><span class="n">${n}</span><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p><span class="route">${escapeHtml(route)}</span></div>`).join("\n            ")}
+          </div>
+          <div class="cta-row" style="margin-top:22px"><a class="btn ghost" href="./how-it-works.html">Choose a deployment path</a><a class="btn ghost" href="./confighub.html">See what ConfigHub adds</a></div>
+        </section>
+
+        <section class="section">
+          <span class="eyebrow">Evidence</span>
+          <h2>Check the result and the limits</h2>
+          <p class="intro">A tested example names its source, version, objects, checks, and receipts. Depending on the example, checks cover parity, risky defaults, prerequisites, live readiness, upgrades, promotion, or rollback.</p>
+          <p class="intro">The page says which checks ran and which did not. Known gaps stay visible.</p>
+          <div class="cta-row"><a class="btn ghost" href="./verification.html">Open verification</a><a class="btn ghost" href="./known-gaps.html">Read known gaps</a></div>
         </section>
       </main>
 
