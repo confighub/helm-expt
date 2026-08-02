@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `ha` preset config for `prometheus-community/alertmanager@1.37.0`. The repo also calls this a base variant. Use this when you want the reviewed high-availability shape instead of the simplest default.
+This is the `ha` preset config for `prometheus-community/alertmanager@1.37.0`. The repo also calls this a base variant. Use this when you want the catalog's reviewed high-availability configuration.
 
 The matching catalog page is [prometheus-community/alertmanager@1.37.0](https://confighub.github.io/helm-expt/site/charts/prometheus-community-alertmanager-1-37-0.html).
 

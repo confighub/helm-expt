@@ -450,7 +450,7 @@
 <p>Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.</p>
 <p>This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.</p>
 <h2 id="what-this-is">What this is</h2>
-<p>This is the <code>ha</code> preset config for <code>bitnami/elasticsearch@22.1.6</code>. The repo also calls this a base variant. Use this when you want the reviewed high-availability shape instead of the simplest default.</p>
+<p>This is the <code>ha</code> preset config for <code>bitnami/elasticsearch@22.1.6</code>. The repo also calls this a base variant. Use this when you want the catalog's reviewed high-availability configuration.</p>
 <p>The matching catalog page is <a href="https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html">bitnami/elasticsearch@22.1.6</a>.</p>
 <h2 id="the-chart-journey">The chart journey</h2>
 <p>We keep the Helm chart. We lock <code>bitnami/elasticsearch@22.1.6</code>, choose the <code>ha</code> preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.</p>
@@ -493,7 +493,7 @@
 <tr><td>Live Helm vs ConfigHub comparison</td><td><code>watch</code></td></tr>
 <tr><td>Lifecycle routes</td><td><code>0</code></td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
-<ul><li>Local kind evidence is no for this preset config.</li><li>GitOps OCI live evidence is watch for this preset config.</li><li>Known gap for this row: existing-secret (chart ships no Secret toggle).</li><li>Resolve the named gap first: existing-secret (chart ships no Secret toggle).</li></ul>
+<ul><li>Local kind evidence is no for this preset config.</li><li>GitOps OCI live evidence is watch for this preset config.</li><li>Known limitation: existing-secret (chart ships no Secret toggle).</li><li>Resolve the named gap first: existing-secret (chart ships no Secret toggle).</li></ul>
 <h2 id="source-files">Source files</h2>
 <ul><li>Chart page: <a href="https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html">https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html</a></li><li>Render intent: <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-elasticsearch-22-1-6-ha.yaml"><code>data/helm-render-intents/intents/bitnami-elasticsearch-22-1-6-ha.yaml</code></a></li><li>Rendered YAML: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml"><code>recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml</code></a></li><li>Package source: <a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/elasticsearch/22.1.6/bases/ha"><code>packages/bitnami/elasticsearch/22.1.6/bases/ha</code></a></li><li>Generated scripts: <a href="https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-elasticsearch-22-1-6/ha"><code>site/sh/bitnami-elasticsearch-22-1-6/ha</code></a></li><li>Preset doctrine: <a href="../../../../docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li></ul>
     </article>

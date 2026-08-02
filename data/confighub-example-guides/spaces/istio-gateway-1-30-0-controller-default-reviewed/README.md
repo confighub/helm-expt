@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `controller-default-reviewed` preset config for `istio/gateway@1.30.0`. The repo also calls this a base variant. Use this when you want a catalog-reviewed starting shape instead of the raw default name.
+This is the `controller-default-reviewed` preset config for `istio/gateway@1.30.0`. The repo also calls this a base variant. Use this when you want a catalog-reviewed starting configuration instead of the chart's unreviewed default.
 
 The matching catalog page is [istio/gateway@1.30.0](https://confighub.github.io/helm-expt/site/charts/istio-gateway-1-30-0.html).
 

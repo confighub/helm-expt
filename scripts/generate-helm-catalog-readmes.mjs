@@ -19,6 +19,19 @@ const outputPaths = {
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
 const GITHUB_TREE_URL = "https://github.com/confighub/helm-expt/tree/main/";
+const FORBIDDEN_HUMAN_PHRASES = [
+  "starting shape",
+  "metrics shape",
+  "collector shape",
+  "high-availability shape",
+  "local test shape",
+  "credential shape",
+  "proves the shape",
+  "map-shaped conflict",
+  "same-map departure",
+  "curated proof lane",
+  "bespoke teaching needed",
+];
 
 const DEMO_SPACES = [
   {
@@ -119,7 +132,7 @@ const DEMO_SPACES = [
       installWork: "Prerequisites come from the selected Redis base. The staging replica choice is not a Helm hook or prerequisite.",
       liveCluster: "The benchmark observed two replicas after the 27.0.0 upgrade. That observation checks the recorded setting; it is not another source of it.",
     },
-    limits: ["One map-shaped conflict in the promotion proof is still silent and is documented as a product issue."],
+    limits: ["One conflict between changes to the same YAML object was not reported during the promotion test. The product issue is documented in the linked proof notes."],
   },
   {
     space: "bitnami-redis-prod",
@@ -147,11 +160,11 @@ const DEMO_SPACES = [
     },
     limits: ["This is a demo production Space, not a live customer production environment."],
   },
-  ...["default"].map((lane) => ({
-    space: `bitnami-redis-27-0-0-${lane}-pilot-live-20260705`,
-    title: `Redis 27.0.0 ${lane} pilot run`,
+  ...["default"].map((configuration) => ({
+    space: `bitnami-redis-27-0-0-${configuration}-pilot-live-20260705`,
+    title: `Redis 27.0.0 ${configuration} pilot run`,
     kind: "pilot",
-    summary: `A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the ${lane} lane.`,
+    summary: `A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the ${configuration} configuration.`,
     shows: [
       "The chart upgrade was tested against a real throwaway cluster.",
       "The important question was whether a local operations edit survived the chart upgrade.",
@@ -165,28 +178,28 @@ const DEMO_SPACES = [
     evidence: [["Benchmark: upgrade keeps edit", "data/pilot-benchmark/task1-upgrade-keeps-edit.md"]],
     limits: ["This is a dated pilot snapshot from 2026-07-05."],
   })),
-  ...["dev", "staging", "prod-us", "prod-eu"].map((lane) => ({
-    space: `bitnami-nginx-fleet-${lane}`,
-    title: `Nginx fleet ${lane}`,
+  ...["dev", "staging", "prod-us", "prod-eu"].map((environment) => ({
+    space: `bitnami-nginx-fleet-${environment}`,
+    title: `Nginx fleet ${environment}`,
     kind: "fleet",
-    summary: `One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.`,
+    summary: `The ${environment} configuration in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.`,
     shows: [
       "A chart can become several named application versions without forking the chart.",
-      "Different lanes can receive base changes at different times.",
-      lane === "prod-eu"
-        ? "This lane deliberately lags so the demo has an obvious upgrade to inspect."
-        : "This lane shows the normal path for carrying a reviewed base change forward.",
+      "Different environments and regions can receive base changes at different times.",
+      environment === "prod-eu"
+        ? "The prod-eu configuration deliberately lags so the demo has an obvious upgrade to inspect."
+        : "This configuration shows the normal path for carrying a reviewed base change forward.",
     ],
-    open: ["This README.", "Nginx Deployment and Service YAML.", "Sibling fleet Spaces to compare the lanes."],
+    open: ["This README.", "Nginx Deployment and Service YAML.", "Sibling fleet Spaces to compare environments and regions."],
     why: [
       "The fleet demo is about scale. Once one chart becomes dev, staging, production, regions, or customers, values files and manual notes become hard to trust.",
-      "ConfigHub keeps each lane named and inspectable while preserving the shared base.",
+      "ConfigHub keeps each environment or region named and inspectable while preserving the shared base.",
     ],
     evidence: [
       ["Nginx chart page", "site/charts/bitnami-nginx-24-0-2.html"],
       ["Org exhibit summary", "data/helm-org/exhibits.csv"],
     ],
-    limits: ["The demo proves the shape of a fleet workflow. It is not a full production rollout policy."],
+    limits: ["The demo shows a basic fleet workflow. It does not define a complete production rollout policy."],
   })),
   {
     space: "hashicorp-vault-demo-base",
@@ -215,16 +228,16 @@ const DEMO_SPACES = [
     },
     limits: ["The render-record pattern is shown as an example in this org, not yet one record per rendered object."],
   },
-  ...["dev", "staging", "prod"].map((lane) => ({
-    space: `hashicorp-vault-env-${lane}`,
-    title: `Vault ${lane} environment`,
+  ...["dev", "staging", "prod"].map((environment) => ({
+    space: `hashicorp-vault-env-${environment}`,
+    title: `Vault ${environment} environment`,
     kind: "environment",
-    summary: `The ${lane} Vault environment variant in the promotion and placeholder demo.`,
+    summary: `The ${environment} Vault environment variant in the promotion and placeholder demo.`,
     shows: [
       "The environment starts from the Vault base and can carry local choices.",
-      lane === "prod"
+      environment === "prod"
         ? "Production is wired with approval gates."
-        : "This lane can accept or test changes before production.",
+        : "This environment can accept or test changes before production.",
       "The placeholder example shows how a local real value can stay local while new safe base fields move forward.",
     ],
     open: ["This README.", "Vault StatefulSet and Service YAML.", "`hashicorp-vault-demo-base` for the upstream base."],
@@ -238,17 +251,17 @@ const DEMO_SPACES = [
     ],
     settingSources: {
       startingPoint: "The upstream link points to `hashicorp-vault-demo-base`, whose recipe and render record identify the Helm source.",
-      configHub: lane === "dev"
+      configHub: environment === "dev"
         ? "Dev records its cost annotation and real identity-provider value as local revisions, then records the shared annotations it had to reconcile explicitly."
-        : lane === "staging"
+        : environment === "staging"
           ? "Staging records `spec.replicas: 2` and its real identity-provider value as local revisions. Unconflicted base changes arrive through promotion."
           : "Production records `spec.replicas: 3`, keeps its environment settings, and requires approval before apply.",
       installWork: "The base owns the chart prerequisites. Environment values, revisions, and approval gates remain separate from that setup work.",
       liveCluster: "Use the linked receipts to check promotion behavior. A live-only change would still be drift, not an environment setting.",
     },
-    limits: lane === "dev"
-      ? ["The dev lane includes a same-map departure that needed explicit reconciliation; that is part of the lesson."]
-      : ["The environment is a demo lane, not a production recommendation for Vault."],
+    limits: environment === "dev"
+      ? ["The dev environment contains two changes to the same YAML object. The demo records the manual decision needed to reconcile them."]
+      : ["This is a demo environment, not a production recommendation for Vault."],
   })),
   {
     space: "plain-yaml-acme-web-base",
@@ -699,6 +712,7 @@ if (mode === "--generate") {
     check(readFileSync(readme.markdownPath, "utf8") === readme.markdown, `${relativeRepo(readme.markdownPath)} is stale; run npm run helm-catalog-readmes`);
     check(readFileSync(readme.unitPath, "utf8") === readme.unitYaml, `${relativeRepo(readme.unitPath)} is stale; run npm run helm-catalog-readmes`);
     verifyLocalScriptLinks(readme.markdown, readme.markdownPath);
+    verifyHumanCopy(readme.markdown, readme.markdownPath);
   }
   console.log(`verified ${report.readmes.length} Helm Catalog README file(s)`);
 } else {
@@ -876,6 +890,13 @@ function verifyLocalScriptLinks(markdown, sourcePath) {
     const localPath = join(repoRoot, "site", match[1]);
     check(existsSync(localPath), `${relativeRepo(sourcePath)} links to missing ${relativeRepo(localPath)}`);
   }
+}
+
+function verifyHumanCopy(markdown, sourcePath) {
+  for (const phrase of FORBIDDEN_HUMAN_PHRASES) {
+    check(!markdown.toLowerCase().includes(phrase), `${relativeRepo(sourcePath)} contains unclear phrase: ${phrase}`);
+  }
+  check(!/\blanes?\b/i.test(markdown), `${relativeRepo(sourcePath)} uses internal lane terminology`);
 }
 
 function buildDemoReadme(model) {

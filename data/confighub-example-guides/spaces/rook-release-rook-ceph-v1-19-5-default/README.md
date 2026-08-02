@@ -98,7 +98,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known gap for this row: no-crds (template-baked CRDs; no clean chart toggle yet).
+- Known limitation: no-crds (template-baked CRDs; no clean chart toggle yet).
 - Render parity alone is useful evidence, not a production or catalog recommendation.
 
 ## Source files

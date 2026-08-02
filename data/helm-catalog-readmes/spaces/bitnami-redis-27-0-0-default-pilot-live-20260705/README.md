@@ -2,7 +2,7 @@
 
 # Redis 27.0.0 default pilot run
 
-A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the default lane.
+A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the default configuration.
 
 Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 

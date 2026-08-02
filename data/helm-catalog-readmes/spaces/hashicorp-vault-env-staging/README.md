@@ -15,7 +15,7 @@ The important thing to inspect is how the environment records what changed and w
 ## What this example shows
 
 - The environment starts from the Vault base and can carry local choices.
-- This lane can accept or test changes before production.
+- This environment can accept or test changes before production.
 - The placeholder example shows how a local real value can stay local while new safe base fields move forward.
 
 ## Where each setting comes from
@@ -42,4 +42,4 @@ If an upstream change and a local ConfigHub revision touch the same field, revie
 
 ## Limits
 
-- The environment is a demo lane, not a production recommendation for Vault.
+- This is a demo environment, not a production recommendation for Vault.

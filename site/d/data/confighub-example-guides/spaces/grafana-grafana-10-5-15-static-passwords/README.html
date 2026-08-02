@@ -450,7 +450,7 @@
 <p>Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.</p>
 <p>This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.</p>
 <h2 id="what-this-is">What this is</h2>
-<p>This is the <code>static-passwords</code> preset config for <code>grafana/grafana@10.5.15</code>. The repo also calls this a base variant. Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.</p>
+<p>This is the <code>static-passwords</code> preset config for <code>grafana/grafana@10.5.15</code>. The repo also calls this a base variant. Use this only to inspect and compare the fixed shared password. Do not use it as a production starting configuration.</p>
 <p>The matching catalog page is <a href="https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html">grafana/grafana@10.5.15</a>.</p>
 <h2 id="the-chart-journey">The chart journey</h2>
 <p>We keep the Helm chart. We lock <code>grafana/grafana@10.5.15</code>, choose the <code>static-passwords</code> preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.</p>
@@ -459,7 +459,7 @@
 <h2 id="what-to-check">What to check</h2>
 <p>The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.</p>
 <p>The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.</p>
-<p>The fixed credential shape is kept visible so it is not mistaken for generated secret material.</p>
+<p>The fixed shared password is shown plainly so nobody mistakes it for a generated credential.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 9 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>

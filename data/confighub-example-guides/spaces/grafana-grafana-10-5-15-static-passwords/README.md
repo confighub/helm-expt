@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `static-passwords` preset config for `grafana/grafana@10.5.15`. The repo also calls this a base variant. Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.
+This is the `static-passwords` preset config for `grafana/grafana@10.5.15`. The repo also calls this a base variant. Use this only to inspect and compare the fixed shared password. Do not use it as a production starting configuration.
 
 The matching catalog page is [grafana/grafana@10.5.15](https://confighub.github.io/helm-expt/site/charts/grafana-grafana-10-5-15.html).
 
@@ -32,7 +32,7 @@ The current catalog record does not identify an extra Secret, CRD, or setup step
 
 The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
-The fixed credential shape is kept visible so it is not mistaken for generated secret material.
+The fixed shared password is shown plainly so nobody mistakes it for a generated credential.
 
 ## Why you can trust it
 

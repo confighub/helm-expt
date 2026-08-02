@@ -2,7 +2,7 @@
 
 # Nginx fleet prod-us
 
-One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.
+The prod-us configuration in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.
 
 Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.
 
@@ -10,13 +10,13 @@ Start here when you open this Space in Hub. This page explains the problem this 
 
 The fleet demo is about scale. Once one chart becomes dev, staging, production, regions, or customers, values files and manual notes become hard to trust.
 
-ConfigHub keeps each lane named and inspectable while preserving the shared base.
+ConfigHub keeps each environment or region named and inspectable while preserving the shared base.
 
 ## What this example shows
 
 - A chart can become several named application versions without forking the chart.
-- Different lanes can receive base changes at different times.
-- This lane shows the normal path for carrying a reviewed base change forward.
+- Different environments and regions can receive base changes at different times.
+- This configuration shows the normal path for carrying a reviewed base change forward.
 
 ## Where each setting comes from
 
@@ -33,7 +33,7 @@ If an upstream change and a local ConfigHub revision touch the same field, revie
 
 - This README.
 - Nginx Deployment and Service YAML.
-- Sibling fleet Spaces to compare the lanes.
+- Sibling fleet Spaces to compare environments and regions.
 
 ## Evidence and source
 
@@ -42,4 +42,4 @@ If an upstream change and a local ConfigHub revision touch the same field, revie
 
 ## Limits
 
-- The demo proves the shape of a fleet workflow. It is not a full production rollout policy.
+- The demo shows a basic fleet workflow. It does not define a complete production rollout policy.

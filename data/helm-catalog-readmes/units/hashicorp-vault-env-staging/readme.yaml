@@ -34,7 +34,7 @@ spec:
     ## What this example shows
 
     - The environment starts from the Vault base and can carry local choices.
-    - This lane can accept or test changes before production.
+    - This environment can accept or test changes before production.
     - The placeholder example shows how a local real value can stay local while new safe base fields move forward.
 
     ## Where each setting comes from
@@ -61,4 +61,4 @@ spec:
 
     ## Limits
 
-    - The environment is a demo lane, not a production recommendation for Vault.
+    - This is a demo environment, not a production recommendation for Vault.

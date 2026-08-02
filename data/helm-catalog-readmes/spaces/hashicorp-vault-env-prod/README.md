@@ -42,4 +42,4 @@ If an upstream change and a local ConfigHub revision touch the same field, revie
 
 ## Limits
 
-- The environment is a demo lane, not a production recommendation for Vault.
+- This is a demo environment, not a production recommendation for Vault.

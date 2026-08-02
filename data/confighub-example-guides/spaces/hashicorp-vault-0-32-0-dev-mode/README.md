@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `dev-mode` preset config for `hashicorp/vault@0.32.0`. The repo also calls this a base variant. Use this for a development or local test shape, not as a production claim.
+This is the `dev-mode` preset config for `hashicorp/vault@0.32.0`. The repo also calls this a base variant. Use this for development or local testing. It is not a production recommendation.
 
 The matching catalog page is [hashicorp/vault@0.32.0](https://confighub.github.io/helm-expt/site/charts/hashicorp-vault-0-32-0.html).
 

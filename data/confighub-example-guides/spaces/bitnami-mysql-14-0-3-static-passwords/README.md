@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `static-passwords` preset config for `bitnami/mysql@14.0.3`. The repo also calls this a base variant. Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.
+This is the `static-passwords` preset config for `bitnami/mysql@14.0.3`. The repo also calls this a base variant. Use this only to inspect and compare the fixed shared password. Do not use it as a production starting configuration.
 
 The matching catalog page is [bitnami/mysql@14.0.3](https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html).
 
@@ -32,7 +32,7 @@ The current catalog record does not identify an extra Secret, CRD, or setup step
 
 The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
-The fixed credential shape is kept visible so it is not mistaken for generated secret material. Known limitation: ha (curated proof lane - bespoke teaching needed).
+The fixed shared password is shown plainly so nobody mistakes it for a generated credential. The catalog has not yet tested a realistic high-availability configuration for this chart.
 
 ## Why you can trust it
 
@@ -98,7 +98,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known gap for this row: ha (curated proof lane - bespoke teaching needed).
+- The catalog has not yet tested a realistic high-availability configuration for this chart.
 - Production support is target-scoped. Use production support decisions before claiming production readiness.
 - Do not use the static-passwords preset as a production credential strategy.
 

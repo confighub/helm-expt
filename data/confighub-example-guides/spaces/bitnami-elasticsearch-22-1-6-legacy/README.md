@@ -99,7 +99,7 @@ After upload, create environment versions with `cub variant create` and move rev
 ## Limits
 
 - GitOps OCI live evidence is watch for this preset config.
-- Known gap for this row: existing-secret (chart ships no Secret toggle).
+- Known limitation: existing-secret (chart ships no Secret toggle).
 - Resolve the named gap first: existing-secret (chart ships no Secret toggle).
 
 ## Source files

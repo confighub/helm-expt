@@ -32,7 +32,7 @@ This preset config records 4 prerequisites: 3 CRDs, 1 Secret. Follow the instruc
 
 The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.
 
-CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. Known limitation: ha (curated proof lane - bespoke teaching needed).
+CRDs are made into an explicit choice instead of being mixed into the application install. CRD ownership is recorded as part of the preset config. Some CRDs must already exist before the rendered objects are applied. At least one Secret must be created with your values before apply. The catalog has not yet tested a realistic high-availability configuration for this chart.
 
 ## Why you can trust it
 
@@ -102,7 +102,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 - An older local-cluster test failed before the required setup was added. The newer end-to-end Helm and ConfigHub comparison passed with the setup described above.
 - GitOps OCI live evidence is no for this preset config.
-- Known gap for this row: ha (curated proof lane - bespoke teaching needed).
+- The catalog has not yet tested a realistic high-availability configuration for this chart.
 - Production support is target-scoped. Use production support decisions before claiming production readiness.
 
 ## Source files

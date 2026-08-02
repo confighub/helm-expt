@@ -4,7 +4,7 @@
 
 This Space exists to answer one practical question: what is a safe, repeatable way to run `grafana/grafana@10.5.15` for this operating choice?
 
-For this Space, the answer is the `static-passwords` preset. Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.
+For this Space, the answer is the `static-passwords` preset. Use this only to inspect and compare the fixed shared password. Do not use it as a production starting configuration.
 
 The preset keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence, so the team can repeat this choice later.
 

@@ -41,4 +41,4 @@ If an upstream change and a local ConfigHub revision touch the same field, revie
 
 ## Limits
 
-- One map-shaped conflict in the promotion proof is still silent and is documented as a product issue.
+- One conflict between changes to the same YAML object was not reported during the promotion test. The product issue is documented in the linked proof notes.

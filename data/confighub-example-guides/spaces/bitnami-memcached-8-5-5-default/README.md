@@ -98,7 +98,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known gap for this row: existing-secret (chart ships no Secret toggle).
+- Known limitation: existing-secret (chart ships no Secret toggle).
 - Render parity alone is useful evidence, not a production or catalog recommendation.
 
 ## Source files
