@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Future And Managed Ideas · Config Workshop</title>
-  <meta name="description" content="What exists in the public experiment today, and which managed ideas are roadmap on purpose.">
+  <title>Current Work And Planned Work · Config Workshop</title>
+  <meta name="description" content="Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/future.html">
-  <meta property="og:title" content="Future And Managed Ideas · Config Workshop">
-  <meta property="og:description" content="What exists in the public experiment today, and which managed ideas are roadmap on purpose.">
+  <meta property="og:title" content="Current Work And Planned Work · Config Workshop">
+  <meta property="og:description" content="Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/future.html">
   <style>
@@ -513,16 +513,17 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-    <h1>Future And Managed Ideas</h1>
-    <p class="tagline">This page separates what exists now from what we want to build next. The hardest problems (fleet blast radius, governed promotion, and live-to-desired reconciliation) are real, but not all fully proven here.</p>
-    <p>Use it as a roadmap boundary: useful direction, not a replacement for current evidence.</p>
+    <h1>Separate current work from planned work</h1>
+    <p class="lead">Use this page to tell which Config Workshop results you can inspect today and which ideas still need product work or broader testing.</p>
+    <p>Plans can explain the direction, but only current evidence supports a current claim.</p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="./proof.html">See current results</a> · <a href="./known-gaps.html">Read known gaps</a> · <a href="./private/">See ConfigHub options</a></p>
   </header>
   <main>
     <section aria-labelledby="now">
-      <h2 id="now">What Exists In The Public Experiment</h2>
+      <h2 id="now">1. Use what exists today</h2>
       <div class="card"><table>
         <thead><tr><th>Area</th><th>Current state</th></tr></thead>
-        <tbody><tr><td>Top-100 catalog</td><td>Public chart snapshots, chart pages, matrix rows, and per-chart caveats.</td></tr><tr><td>Variants</td><td>Base variants and derived ConfigHub variants for selected chart paths.</td></tr><tr><td>Delivery evidence</td><td>Argo OCI evidence for committed paths, plus live parity and observation lanes.</td></tr><tr><td>Sceptic tests</td><td>Known gaps, fuzzing, dry-run checks, drift findings, and refusal boundaries.</td></tr></tbody>
+        <tbody><tr><td>Top-100 catalog</td><td>Public chart snapshots, chart pages, matrix rows, and per-chart caveats.</td></tr><tr><td>Variants</td><td>Base variants and derived ConfigHub variants for selected chart paths.</td></tr><tr><td>Delivery tests</td><td>Recorded Argo CD and OCI results, plus selected live comparisons and observations.</td></tr><tr><td>Failure and limit tests</td><td>Known gaps, fuzzing, dry-run checks, drift findings, and cases this project refuses to claim.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -533,10 +534,10 @@
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">What This Points Toward</h2>
+      <h2 id="next">2. Review what remains planned</h2>
       <div class="card"><table>
         <thead><tr><th>Idea</th><th>What would make it useful</th></tr></thead>
-        <tbody><tr><td>Private catalogs</td><td>Bring private charts, wrapper charts, and customer overlays into the same model.</td></tr><tr><td>Fleet operations</td><td>Promote, patch, scan, and observe many variants with a clear blast radius.</td></tr><tr><td>Reverse reconcile</td><td>Accept an authorized live fix back into desired state only when policy and round-trip checks allow it.</td></tr><tr><td>AI agents</td><td>Use AI to propose app and ops changes while ConfigHub keeps evidence, gates, and rollback records.</td></tr><tr><td>AICR, NIM, and stacks</td><td>Apply the same recipe, variant, and evidence model to larger AI and platform stacks.</td></tr></tbody>
+        <tbody><tr><td>Private catalogs</td><td>Bring private charts, wrapper charts, and customer overlays into the same model.</td></tr><tr><td>Fleet operations</td><td>Promote, patch, scan, and observe many variants with a clear blast radius.</td></tr><tr><td>Accept a live fix</td><td>Bring an authorized live change back into the saved configuration after policy and round-trip checks pass.</td></tr><tr><td>AI agents</td><td>Use AI to propose app and ops changes while ConfigHub keeps evidence, gates, and rollback records.</td></tr><tr><td>AICR, NIM, and stacks</td><td>Apply the same recipe, variant, and evidence model to larger AI and platform stacks.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -547,9 +548,9 @@
     </section>
 
     <section aria-labelledby="guardrails">
-      <h2 id="guardrails">Guardrails</h2>
-      <p>Do not describe planned ideas as shipped behavior. The public experiment uses evidence-backed words: pass, watch, blocked, refused, not applicable, and planned.</p>
-      <p>That honesty is part of the product story: expert users need to know which claims are strong today and which still need more work.</p>
+      <h2 id="guardrails">3. Check the status before relying on a claim</h2>
+      <p>A planned idea is not shipped behavior. Current results use explicit status words: pass, watch, blocked, refused, not applicable, and planned.</p>
+      <p>Open the evidence or known gap before relying on a result for a new chart, target, or production environment.</p>
       <div class="grid">
         <div class="card"><h3>Upgrade path</h3><p><a href="./private/">Private catalogs and managed operations</a></p></div>
         <div class="card"><h3>Claims register</h3><p><a href="d/data/claims-register/summary.html">Open current claim status</a></p></div>
@@ -557,6 +558,6 @@
       </div>
     </section>
   </main>
-  <footer>Future and managed topics are useful only when they stay clearly separated from current evidence.</footer>
+  <footer>Plans describe direction. Current evidence describes what this project has tested.</footer>
 </body>
 </html>

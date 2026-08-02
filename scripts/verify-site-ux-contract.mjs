@@ -96,11 +96,11 @@ const checks = [
   },
   {
     file: "site/security.html",
-    terms: ["Security And Provenance", "Secrets", "Scans and gates", "Claims register"],
+    terms: ["Review security before release", "1. Inspect the objects and their source", "2. Apply checks before delivery", "3. Read the limits of each result", "Secrets", "Scans and gates", "Claims register"],
   },
   {
     file: "site/future.html",
-    terms: ["Future And Managed Ideas", "What Exists In The Public Experiment", "roadmap", "managed"],
+    terms: ["Separate current work from planned work", "1. Use what exists today", "2. Review what remains planned", "3. Check the status before relying on a claim", "Failure and limit tests", "Accept a live fix"],
   },
   {
     file: "site/testing.html",

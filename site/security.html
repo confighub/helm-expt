@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Security And Provenance · Config Workshop</title>
-  <meta name="description" content="Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.">
+  <title>Review Security Before Release · Config Workshop</title>
+  <meta name="description" content="Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/security.html">
-  <meta property="og:title" content="Security And Provenance · Config Workshop">
-  <meta property="og:description" content="Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.">
+  <meta property="og:title" content="Review Security Before Release · Config Workshop">
+  <meta property="og:description" content="Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/security.html">
   <style>
@@ -513,19 +513,22 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-    <h1>Security And Provenance</h1>
-    <p class="tagline">The public catalog is not a security certification. It addresses a practical review problem: prove which objects were rendered, scanned, approved, delivered, and observed.</p>
+    <h1>Review security before release</h1>
+    <p class="lead">Use this page to see where security checks fit. The public Catalog does not certify a chart as secure.</p>
+    <p>It gives you the exact Kubernetes objects, their source, the recorded checks, and the delivery result. Your team can then make and record the security decision.</p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="./known-gaps.html">Read known gaps</a> · <a href="./proof.html">See current results</a> · <a href="d/docs/user/security-end-to-end.html">Open security guide</a></p>
   </header>
   <main>
     <section aria-labelledby="why">
-      <h2 id="why">Why It Helps</h2>
-      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior. ConfigHub does not make those choices disappear. It makes them visible enough to review and attaches decisions to the rendered object set.</p>
+      <h2 id="why">1. Inspect the objects and their source</h2>
+      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior.</p>
+      <p>Review those choices in the rendered objects. ConfigHub can keep the recorded decision with the same object set.</p>
     </section>
 
     <section aria-labelledby="controls">
-      <h2 id="controls">Controls</h2>
+      <h2 id="controls">2. Apply checks before delivery</h2>
       <div class="card"><table>
-        <thead><tr><th>Area</th><th>What the model gives you</th></tr></thead>
+        <thead><tr><th>Area</th><th>What to record or check</th></tr></thead>
         <tbody><tr><td>Rendered objects</td><td>Review the actual Kubernetes objects before delivery, not only values files.</td></tr><tr><td>Secrets</td><td>Separate, reference, or require external Secrets where appropriate. Do not hide placeholder credentials.</td></tr><tr><td>Scans and gates</td><td>Run policy and security checks against explicit desired state before delivery.</td></tr><tr><td>OCI delivery</td><td>Publish a reviewed bundle so the controller pulls the same bytes that were checked.</td></tr><tr><td>Receipts</td><td>Record what was rendered, delivered, observed, accepted, blocked, or refused.</td></tr></tbody>
       </table></div>
       <style>
@@ -537,7 +540,7 @@
     </section>
 
     <section aria-labelledby="limits">
-      <h2 id="limits">Current Limits</h2>
+      <h2 id="limits">3. Read the limits of each result</h2>
       <p>Some evidence is partial by design. A digest proves integrity only inside a known trust chain. A scan finding needs a decision. A green render does not prove that the target has the right cloud identity, storage, or runtime policy.</p>
       <div class="grid">
         <div class="card"><h3>Security guide</h3><p><a href="d/docs/user/security-end-to-end.html">Open security end to end</a></p></div>
@@ -546,6 +549,6 @@
       </div>
     </section>
   </main>
-  <footer>Security claims are only as strong as the evidence chain and target scope behind them.</footer>
+  <footer>A security result applies only to the objects, checks, and target scope named by its evidence.</footer>
 </body>
 </html>

@@ -206,10 +206,10 @@ const PAGE_DESCRIPTIONS = {
   "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
   "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
-  "security.html": "Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.",
+  "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
   "testing.html": "Choose a worked example that starts with Helm, AICR, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR, existing OCI, and Kubernetes YAML, with commands and proof links.",
-  "future.html": "What exists in the public experiment today, and which managed ideas are roadmap on purpose.",
+  "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
   "docs-reference.html": "Browse the complete technical guide and evidence index for Config Workshop and helm-expt.",
@@ -5130,31 +5130,34 @@ function securityHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Security And Provenance · Config Workshop</title>
+  <title>Review Security Before Release · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Security And Provenance</h1>
-    <p class="tagline">The public catalog is not a security certification. It addresses a practical review problem: prove which objects were rendered, scanned, approved, delivered, and observed.</p>
+    <h1>Review security before release</h1>
+    <p class="lead">Use this page to see where security checks fit. The public Catalog does not certify a chart as secure.</p>
+    <p>It gives you the exact Kubernetes objects, their source, the recorded checks, and the delivery result. Your team can then make and record the security decision.</p>
+    ${humanLinks([["Read known gaps", "./known-gaps.html"], ["See current results", "./proof.html"], ["Open security guide", "../docs/user/security-end-to-end.md"]])}
   </header>
   <main>
     <section aria-labelledby="why">
-      <h2 id="why">Why It Helps</h2>
-      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior. ConfigHub does not make those choices disappear. It makes them visible enough to review and attaches decisions to the rendered object set.</p>
+      <h2 id="why">1. Inspect the objects and their source</h2>
+      <p>Helm values can hide important security choices: generated passwords, broad RBAC, privileged containers, image tags, CRDs, webhooks, and controller behavior.</p>
+      <p>Review those choices in the rendered objects. ConfigHub can keep the recorded decision with the same object set.</p>
     </section>
 
     <section aria-labelledby="controls">
-      <h2 id="controls">Controls</h2>
+      <h2 id="controls">2. Apply checks before delivery</h2>
       ${markdownLikeTable([
-        ["Area", "What the model gives you"],
+        ["Area", "What to record or check"],
         ...rows,
       ])}
     </section>
 
     <section aria-labelledby="limits">
-      <h2 id="limits">Current Limits</h2>
+      <h2 id="limits">3. Read the limits of each result</h2>
       <p>Some evidence is partial by design. A digest proves integrity only inside a known trust chain. A scan finding needs a decision. A green render does not prove that the target has the right cloud identity, storage, or runtime policy.</p>
       <div class="grid">
         <div class="card"><h3>Security guide</h3><p><a href="../docs/user/security-end-to-end.md">Open security end to end</a></p></div>
@@ -5163,7 +5166,7 @@ function securityHtml(catalog) {
       </div>
     </section>
   </main>
-  <footer>Security claims are only as strong as the evidence chain and target scope behind them.</footer>
+  <footer>A security result applies only to the objects, checks, and target scope named by its evidence.</footer>
 </body>
 </html>
 `;
@@ -5527,13 +5530,13 @@ function futureHtml(catalog) {
   const nowRows = [
     ["Top-100 catalog", "Public chart snapshots, chart pages, matrix rows, and per-chart caveats."],
     ["Variants", "Base variants and derived ConfigHub variants for selected chart paths."],
-    ["Delivery evidence", "Argo OCI evidence for committed paths, plus live parity and observation lanes."],
-    ["Sceptic tests", "Known gaps, fuzzing, dry-run checks, drift findings, and refusal boundaries."],
+    ["Delivery tests", "Recorded Argo CD and OCI results, plus selected live comparisons and observations."],
+    ["Failure and limit tests", "Known gaps, fuzzing, dry-run checks, drift findings, and cases this project refuses to claim."],
   ];
   const futureRows = [
     ["Private catalogs", "Bring private charts, wrapper charts, and customer overlays into the same model."],
     ["Fleet operations", "Promote, patch, scan, and observe many variants with a clear blast radius."],
-    ["Reverse reconcile", "Accept an authorized live fix back into desired state only when policy and round-trip checks allow it."],
+    ["Accept a live fix", "Bring an authorized live change back into the saved configuration after policy and round-trip checks pass."],
     ["AI agents", "Use AI to propose app and ops changes while ConfigHub keeps evidence, gates, and rollback records."],
     ["AICR, NIM, and stacks", "Apply the same recipe, variant, and evidence model to larger AI and platform stacks."],
   ];
@@ -5542,19 +5545,20 @@ function futureHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Future And Managed Ideas · Config Workshop</title>
+  <title>Current Work And Planned Work · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Future And Managed Ideas</h1>
-    <p class="tagline">This page separates what exists now from what we want to build next. The hardest problems (fleet blast radius, governed promotion, and live-to-desired reconciliation) are real, but not all fully proven here.</p>
-    <p>Use it as a roadmap boundary: useful direction, not a replacement for current evidence.</p>
+    <h1>Separate current work from planned work</h1>
+    <p class="lead">Use this page to tell which Config Workshop results you can inspect today and which ideas still need product work or broader testing.</p>
+    <p>Plans can explain the direction, but only current evidence supports a current claim.</p>
+    ${humanLinks([["See current results", "./proof.html"], ["Read known gaps", "./known-gaps.html"], ["See ConfigHub options", "./private/"]])}
   </header>
   <main>
     <section aria-labelledby="now">
-      <h2 id="now">What Exists In The Public Experiment</h2>
+      <h2 id="now">1. Use what exists today</h2>
       ${markdownLikeTable([
         ["Area", "Current state"],
         ...nowRows,
@@ -5562,7 +5566,7 @@ function futureHtml(catalog) {
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">What This Points Toward</h2>
+      <h2 id="next">2. Review what remains planned</h2>
       ${markdownLikeTable([
         ["Idea", "What would make it useful"],
         ...futureRows,
@@ -5570,9 +5574,9 @@ function futureHtml(catalog) {
     </section>
 
     <section aria-labelledby="guardrails">
-      <h2 id="guardrails">Guardrails</h2>
-      <p>Do not describe planned ideas as shipped behavior. The public experiment uses evidence-backed words: pass, watch, blocked, refused, not applicable, and planned.</p>
-      <p>That honesty is part of the product story: expert users need to know which claims are strong today and which still need more work.</p>
+      <h2 id="guardrails">3. Check the status before relying on a claim</h2>
+      <p>A planned idea is not shipped behavior. Current results use explicit status words: pass, watch, blocked, refused, not applicable, and planned.</p>
+      <p>Open the evidence or known gap before relying on a result for a new chart, target, or production environment.</p>
       <div class="grid">
         <div class="card"><h3>Upgrade path</h3><p><a href="./private/">Private catalogs and managed operations</a></p></div>
         <div class="card"><h3>Claims register</h3><p><a href="../data/claims-register/summary.md">Open current claim status</a></p></div>
@@ -5580,7 +5584,7 @@ function futureHtml(catalog) {
       </div>
     </section>
   </main>
-  <footer>Future and managed topics are useful only when they stay clearly separated from current evidence.</footer>
+  <footer>Plans describe direction. Current evidence describes what this project has tested.</footer>
 </body>
 </html>
 `;
