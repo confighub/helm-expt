@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Known Gaps · Config Workshop</title>
-  <meta name="description" content="The gaps we surface on purpose, from fixed placeholder credentials to SSA conflict ergonomics.">
+  <meta name="description" content="See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/known-gaps.html">
   <meta property="og:title" content="Known Gaps · Config Workshop">
-  <meta property="og:description" content="The gaps we surface on purpose, from fixed placeholder credentials to SSA conflict ergonomics.">
+  <meta property="og:description" content="See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/known-gaps.html">
   <style>
@@ -513,23 +513,18 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-    <h1>Known Gaps We Surface</h1>
-    <p class="tagline">A hidden gap is operational risk. A named gap is a decision: fix it, route it, accept it, block it, or keep using Helm for that case.</p>
+    <h1>See what is not ready yet</h1>
+    <p class="lead">Use this page before you rely on a catalog or delivery path. Each row names the current limit, explains its effect, and gives the safest next step.</p>
+    <p>A <code>watch</code> result means the path needs a decision or more work. It is not a pass, and it does not mean every use of the chart fails.</p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="./proof.html">See current results</a> · <a href="./hard-questions.html">Read FAQ</a> · <a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Report a problem chart</a></p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this known gaps page.</p>
-    <section aria-labelledby="rule">
-      <h2 id="rule">The Rule</h2>
-      <p>If a path is awkward, incomplete, target-specific, or unsafe by default, the site marks it <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> with a reason. That is more useful than a green-looking demo that hides the hard part.</p>
-      <p>This is how the catalog helps operations work: it turns uncertainty into a next action instead of asking users to trust a slogan.</p>
-      <p>Positive framing is allowed. Overclaiming is not. The evidence link is part of the product.</p>
-    </section>
-
     <section aria-labelledby="gaps">
-      <h2 id="gaps">Current Watch Findings</h2>
+      <h2 id="gaps">1. Read the current limits</h2>
       <div class="card"><table>
-        <thead><tr><th>Finding</th><th>Status</th><th>Why it matters</th><th>Evidence</th></tr></thead>
-        <tbody><tr><td>Fixed placeholder credentials</td><td>watch</td><td>Repeatable demo credentials are useful for deterministic renders, but a base must not look like it generated a production secret when it ships a fixed placeholder.</td><td><a href="d/data/default-credential-check/summary.html">../data/default-credential-check/summary.md</a></td></tr><tr><td>cub-direct no prune</td><td>watch</td><td>Plain apply does not remove objects that disappear from desired state. Argo and Flux can prune; cub-direct needs a prune/delete-set path before clean upgrades are claimed.</td><td><a href="d/data/prune-gap-proof/summary.html">../data/prune-gap-proof/summary.md</a></td></tr><tr><td>cub-direct CRD ordering</td><td>watch</td><td>A first install that contains both CRDs and custom resources needs CRDs established before custom resources are applied, or it needs a controller that handles ordering.</td><td><a href="d/data/crd-ordering-gap/summary.html">../data/crd-ordering-gap/summary.md</a></td></tr><tr><td>cub-scout drift field coverage</td><td>watch</td><td>Drift detection is useful only when field coverage is stated. The current receipt catches replica/image-style drift but misses container env-var drift.</td><td><a href="d/data/drift-detection-gap/summary.html">../data/drift-detection-gap/summary.md</a></td></tr><tr><td>SSA conflict ergonomics</td><td>watch</td><td>Server-side apply can protect a manual live edit by reporting a conflict where Helm would silently overwrite, but the product still needs a plain keep-live / accept-desired / force-with-receipt choice.</td><td><a href="d/data/ssa-conflict-gap/summary.html">../data/ssa-conflict-gap/summary.md</a></td></tr><tr><td>Helm-to-cub migration friction</td><td>watch</td><td>cub rejects normal Helm idioms safely today, but many errors are still too opaque for a Helm-fluent user. The migration guide is the current bridge.</td><td><a href="d/data/helm-habit-friction/summary.html">../data/helm-habit-friction/summary.md</a></td></tr></tbody>
+        <thead><tr><th>Problem</th><th>Status</th><th>What it means</th><th>What to do now</th><th>Evidence</th></tr></thead>
+        <tbody><tr><td>Fixed placeholder credentials</td><td>watch</td><td>Some deterministic demo renders contain a fixed placeholder. A placeholder must never be presented as a generated production credential.</td><td>Choose an existing-Secret configuration and supply your own Secret for real use.</td><td><a href="d/data/default-credential-check/summary.html">Open evidence</a></td></tr><tr><td>cub-direct no prune</td><td>watch</td><td>Plain apply does not remove an object when it disappears from the desired configuration.</td><td>Use Argo CD or Flux pruning, or delete the object explicitly during the upgrade.</td><td><a href="d/data/prune-gap-proof/summary.html">Open evidence</a></td></tr><tr><td>cub-direct CRD ordering</td><td>watch</td><td>Kubernetes must establish a CRD before it can accept objects that use that CRD.</td><td>Install and wait for the CRDs first, or use a tested Argo CD or Flux ordering path.</td><td><a href="d/data/crd-ordering-gap/summary.html">Open evidence</a></td></tr><tr><td>cub-scout drift field coverage</td><td>watch</td><td>The current drift check finds changes to replicas and images, but it does not find every container environment-variable change.</td><td>Treat the result as partial and inspect environment variables separately.</td><td><a href="d/data/drift-detection-gap/summary.html">Open evidence</a></td></tr><tr><td>SSA conflict ergonomics</td><td>watch</td><td>Server-side apply reports a conflict instead of silently overwriting a manual live edit, but the resolution workflow is still awkward.</td><td>Stop and choose whether the live or desired value should win. Record the decision before retrying.</td><td><a href="d/data/ssa-conflict-gap/summary.html">Open evidence</a></td></tr><tr><td>Helm-to-cub migration friction</td><td>watch</td><td>cub safely rejects some normal Helm usage, but several error messages still do not explain the required change clearly.</td><td>Use the migration guide. Keep using Helm for a case when the safe cub path is unclear.</td><td><a href="d/data/helm-habit-friction/summary.html">Open evidence</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -540,10 +535,11 @@
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">What A User Should Do</h2>
-      <p>Use the chart page first. If a row is watch or blocked, follow its reason and evidence link. Use <a href="./hard-questions.html">FAQ</a> for the short answer, <a href="d/docs/user/broken-chart-triage.html">Broken Chart Triage</a> for debugging, and the generated evidence when you need exact receipts.</p>
+      <h2 id="next">2. Check the exact chart and configuration</h2>
+      <p>Open the chart page and find the configuration you plan to use. Follow any <code>watch</code> or <code>blocked</code> reason before you deploy it.</p>
+      <p>Use <a href="./hard-questions.html">FAQ</a> for a short answer. Use <a href="d/docs/user/broken-chart-triage.html">Broken Chart Triage</a> when a render or install fails. Open the evidence link when you need the exact command and receipt.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Watch findings are part of the trust model.</footer>
+  <footer>Generated from helm-expt proof data. A watch finding names work or a decision that still remains.</footer>
 </body>
 </html>

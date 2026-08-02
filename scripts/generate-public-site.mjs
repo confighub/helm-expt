@@ -217,7 +217,7 @@ const PAGE_DESCRIPTIONS = {
   "proof.html": "How to read the proof corpus: receipts, scans, render records, and live evidence for each catalog chart.",
   "quirks.html": "Helm quirks in plain words: hooks, CRDs, generated Secrets, and the other extras charts leave around the edges.",
   "hard-questions.html": "Hard questions answered plainly: what breaks, what is safe for AI to change, and where the gaps are.",
-  "known-gaps.html": "The gaps we surface on purpose, from fixed placeholder credentials to SSA conflict ergonomics.",
+  "known-gaps.html": "See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.",
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
   "tiers.html": "The tiers page moved: commercial options now live on the private page.",
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
@@ -4204,37 +4204,43 @@ function knownGapsHtml(catalog) {
     [
       "Fixed placeholder credentials",
       "watch",
-      "Repeatable demo credentials are useful for deterministic renders, but a base must not look like it generated a production secret when it ships a fixed placeholder.",
+      "Some deterministic demo renders contain a fixed placeholder. A placeholder must never be presented as a generated production credential.",
+      "Choose an existing-Secret configuration and supply your own Secret for real use.",
       "../data/default-credential-check/summary.md",
     ],
     [
       "cub-direct no prune",
       "watch",
-      "Plain apply does not remove objects that disappear from desired state. Argo and Flux can prune; cub-direct needs a prune/delete-set path before clean upgrades are claimed.",
+      "Plain apply does not remove an object when it disappears from the desired configuration.",
+      "Use Argo CD or Flux pruning, or delete the object explicitly during the upgrade.",
       "../data/prune-gap-proof/summary.md",
     ],
     [
       "cub-direct CRD ordering",
       "watch",
-      "A first install that contains both CRDs and custom resources needs CRDs established before custom resources are applied, or it needs a controller that handles ordering.",
+      "Kubernetes must establish a CRD before it can accept objects that use that CRD.",
+      "Install and wait for the CRDs first, or use a tested Argo CD or Flux ordering path.",
       "../data/crd-ordering-gap/summary.md",
     ],
     [
       "cub-scout drift field coverage",
       "watch",
-      "Drift detection is useful only when field coverage is stated. The current receipt catches replica/image-style drift but misses container env-var drift.",
+      "The current drift check finds changes to replicas and images, but it does not find every container environment-variable change.",
+      "Treat the result as partial and inspect environment variables separately.",
       "../data/drift-detection-gap/summary.md",
     ],
     [
       "SSA conflict ergonomics",
       "watch",
-      "Server-side apply can protect a manual live edit by reporting a conflict where Helm would silently overwrite, but the product still needs a plain keep-live / accept-desired / force-with-receipt choice.",
+      "Server-side apply reports a conflict instead of silently overwriting a manual live edit, but the resolution workflow is still awkward.",
+      "Stop and choose whether the live or desired value should win. Record the decision before retrying.",
       "../data/ssa-conflict-gap/summary.md",
     ],
     [
       "Helm-to-cub migration friction",
       "watch",
-      "cub rejects normal Helm idioms safely today, but many errors are still too opaque for a Helm-fluent user. The migration guide is the current bridge.",
+      "cub safely rejects some normal Helm usage, but several error messages still do not explain the required change clearly.",
+      "Use the migration guide. Keep using Helm for a case when the safe cub path is unclear.",
       "../data/helm-habit-friction/summary.md",
     ],
   ];
@@ -4249,32 +4255,28 @@ function knownGapsHtml(catalog) {
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Known Gaps We Surface</h1>
-    <p class="tagline">A hidden gap is operational risk. A named gap is a decision: fix it, route it, accept it, block it, or keep using Helm for that case.</p>
+    <h1>See what is not ready yet</h1>
+    <p class="lead">Use this page before you rely on a catalog or delivery path. Each row names the current limit, explains its effect, and gives the safest next step.</p>
+    <p>A <code>watch</code> result means the path needs a decision or more work. It is not a pass, and it does not mean every use of the chart fails.</p>
+    ${humanLinks([["See current results", "./proof.html"], ["Read FAQ", "./hard-questions.html"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "known gaps page")}
-    <section aria-labelledby="rule">
-      <h2 id="rule">The Rule</h2>
-      <p>If a path is awkward, incomplete, target-specific, or unsafe by default, the site marks it <code>watch</code>, <code>blocked</code>, <code>refused</code>, or <code>n/a</code> with a reason. That is more useful than a green-looking demo that hides the hard part.</p>
-      <p>This is how the catalog helps operations work: it turns uncertainty into a next action instead of asking users to trust a slogan.</p>
-      <p>Positive framing is allowed. Overclaiming is not. The evidence link is part of the product.</p>
-    </section>
-
     <section aria-labelledby="gaps">
-      <h2 id="gaps">Current Watch Findings</h2>
+      <h2 id="gaps">1. Read the current limits</h2>
       ${markdownLikeTable([
-        ["Finding", "Status", "Why it matters", "Evidence"],
-        ...gaps.map(([name, status, body, href]) => [name, status, body, `<a href="${href}">${href}</a>`]),
-      ], { rawFourthColumn: true })}
+        ["Problem", "Status", "What it means", "What to do now", "Evidence"],
+        ...gaps.map(([name, status, body, action, href]) => [name, status, body, action, `<a href="${href}">Open evidence</a>`]),
+      ], { rawFifthColumn: true })}
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">What A User Should Do</h2>
-      <p>Use the chart page first. If a row is watch or blocked, follow its reason and evidence link. Use <a href="./hard-questions.html">FAQ</a> for the short answer, <a href="../docs/user/broken-chart-triage.md">Broken Chart Triage</a> for debugging, and the generated evidence when you need exact receipts.</p>
+      <h2 id="next">2. Check the exact chart and configuration</h2>
+      <p>Open the chart page and find the configuration you plan to use. Follow any <code>watch</code> or <code>blocked</code> reason before you deploy it.</p>
+      <p>Use <a href="./hard-questions.html">FAQ</a> for a short answer. Use <a href="../docs/user/broken-chart-triage.md">Broken Chart Triage</a> when a render or install fails. Open the evidence link when you need the exact command and receipt.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt proof data. Watch findings are part of the trust model.</footer>
+  <footer>Generated from helm-expt proof data. A watch finding names work or a decision that still remains.</footer>
 </body>
 </html>
 `;
