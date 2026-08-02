@@ -12,7 +12,15 @@ const checks = [
   },
   {
     file: "site/variants.html",
-    terms: ["The Model In One Picture", "payments-api/prod-us", "The One Decision That Matters", "A Good Variant Flow"],
+    terms: ["Decide where a change belongs", "1. See the model", "payments-api/prod-us", "2. Decide where the change belongs", "3. Follow a safe flow", "4. Run the commands", "reuse-existing-secret", "5. Open worked examples", "6. Read the details"],
+  },
+  {
+    file: "site/journey.html",
+    terms: ["Build an App from saved configuration", "1. Choose what the App operates", "2. Choose a starting point", "3. Follow the normal order", "4. Start from an existing application", "5. See common uses", "6. Open the working demonstrations"],
+  },
+  {
+    file: "site/operations.html",
+    terms: ["Operate saved configuration", "1. Check the starting point", "2. Keep a fleet record", "3. Choose an operation", "4. Use managed ConfigHub when needed", "compare a variant with its base", "publish OCI for a GitOps controller", "check the cluster after delivery"],
   },
   {
     file: "site/try.html",
@@ -159,15 +167,15 @@ const guideOpeningChecks = [
   },
   {
     file: "site/variants.html",
-    headerTerms: ["same chart, but change one thing", "does this change what Helm renders", "make a derived ConfigHub variant"],
+    headerTerms: ["Decide where a change belongs", "should a change rebuild the base, or belong to one environment", "change the Helm source and rebuild the base", "use a derived ConfigHub variant"],
   },
   {
     file: "site/journey.html",
-    headerTerms: ["Apps on ConfigHub", "configuration already saved in ConfigHub", "official ConfigHub tutorial", "reviewed objects"],
+    headerTerms: ["Build an App from saved configuration", "after configuration is saved in ConfigHub", "official tutorial", "reviewed objects and policy result decide what ships"],
   },
   {
     file: "site/operations.html",
-    headerTerms: ["Ops starts when an app already exists", "what changed", "review diffs"],
+    headerTerms: ["Operate saved configuration", "after an application and its target already exist", "review a change, approve it, deliver it, and check the live result", "OCI carries a reviewed release"],
   },
   {
     file: "site/verification.html",

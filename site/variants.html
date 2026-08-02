@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Variants · Config Workshop</title>
+  <title>Where a change belongs · Config Workshop</title>
   <meta name="description" content="Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/variants.html">
-  <meta property="og:title" content="Variants · Config Workshop">
+  <meta property="og:title" content="Where a change belongs · Config Workshop">
   <meta property="og:description" content="Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/variants.html">
@@ -513,14 +513,14 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-    <h1>Variants</h1>
-    <p class="lead">Most Helm work starts with a simple request: use the same chart, but change one thing. Then dev, staging, prod, regions, and customers turn into values-file sprawl and fork pressure.</p>
-    <p>ConfigHub makes those differences visible. A variant is one named configuration of the same component. It lets the team see which shape is being used, what changed, and whether the change stayed inside the approved boundary.</p>
-    <p>The first decision is simple: does this change what Helm renders? If yes, make a base variant. If no, make a derived ConfigHub variant from an existing base.</p>
+    <h1>Decide where a change belongs</h1>
+    <p class="lead">Use this page after a Helm chart has become a shared base in ConfigHub. It answers one question: should a change rebuild the base, or belong to one environment?</p>
+    <p>A variant is one named configuration of the same component, such as development, staging, production, a region, or a customer.</p>
+    <p>If the change affects what Helm renders, change the Helm source and rebuild the base. If it changes one environment after render, use a derived ConfigHub variant.</p>
   </header>
   <main>
     <section aria-labelledby="model">
-      <h2 id="model">The Model In One Picture</h2>
+      <h2 id="model">1. See the model</h2>
       <p>A component is the thing being shipped. A variant is one named shape of that thing.</p>
       <pre><code>Component: payments-api
 
@@ -544,7 +544,7 @@ Variants:
     </section>
 
     <section aria-labelledby="choose">
-      <h2 id="choose">The One Decision That Matters</h2>
+      <h2 id="choose">2. Decide where the change belongs</h2>
       <p>Ask whether Helm would render different Kubernetes objects. That one question decides where the change belongs.</p>
       <div class="card"><table>
         <thead><tr><th>Action</th><th>Use it when</th><th>Examples</th></tr></thead>
@@ -559,7 +559,7 @@ Variants:
     </section>
 
     <section aria-labelledby="journey">
-      <h2 id="journey">A Good Variant Flow</h2>
+      <h2 id="journey">3. Follow a safe flow</h2>
       <p>A good variant flow is plain: choose the base, name the real-world variants, preview the change, then promote only what was reviewed.</p>
       <div class="card"><table>
         <thead><tr><th>Step</th><th>What happens</th></tr></thead>
@@ -576,12 +576,12 @@ Variants:
     </section>
 
     <section aria-labelledby="flow">
-      <h2 id="flow">The Basic Flow</h2>
+      <h2 id="flow">4. Run the commands</h2>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir .tmp/redis
-cub installer upload --work-dir .tmp/redis --space helm-redis-default
-cub variant create prod-us-east helm-redis-default --environment Prod --region us-east --target prod/prod-us-east
+  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir .tmp/redis
+cub installer upload --work-dir .tmp/redis --space helm-redis-base
+cub variant create prod-us-east helm-redis-base --environment Prod --region us-east --target prod/prod-us-east
 cub variant promote prod-us-east --dry-run -o mutations</code></pre>
       <p>You see a base, a downstream variant, the changed paths, and a preview before promotion.</p>
       <div class="card">
@@ -594,7 +594,7 @@ promotion dry-run lists mutations before apply</code></pre>
     </section>
 
     <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
+      <h2 id="examples">5. Open worked examples</h2>
       <p>These examples show the same rule in different chart shapes.</p>
       <div class="card"><table>
         <thead><tr><th>Example</th><th>What it shows</th><th>Open</th></tr></thead>
@@ -609,7 +609,7 @@ promotion dry-run lists mutations before apply</code></pre>
     </section>
 
     <section aria-labelledby="more">
-      <h2 id="more">More Detail</h2>
+      <h2 id="more">6. Read the details</h2>
       <p><a href="d/docs/user/creating-variants.html">Creating variants</a> explains the doctrine. <a href="d/docs/user/cub-variant-command-surface.html">cub variant command surface</a> tracks the command vocabulary. <a href="d/data/variant-promotion/summary.html">Variant promotion receipts</a> show the current evidence.</p>
     </section>
   </main>

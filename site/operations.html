@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ops Guide · Config Workshop</title>
+  <title>Operate saved configuration · Config Workshop</title>
   <meta name="description" content="Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/operations.html">
-  <meta property="og:title" content="Ops Guide · Config Workshop">
+  <meta property="og:title" content="Operate saved configuration · Config Workshop">
   <meta property="og:description" content="Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/operations.html">
@@ -524,19 +524,20 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-    <h1>Ops Guide</h1>
-    <p class="lead">Ops starts when an app already exists and the next change matters. The problem is unknown blast radius: what changed, who approved it, what reached the cluster, and whether the live system actually converged.</p>
-    <p>If you have not chosen a chart, base, or app shape yet, start with the catalog, variants, or apps pages. If you already have an app, use this page to review diffs, scan, gate, deliver, observe, upgrade, and recover.</p>
+    <h1>Operate saved configuration</h1>
+    <p class="lead">Use this page after an application and its target already exist. It shows how to review a change, approve it, deliver it, and check the live result.</p>
+    <p>ConfigHub keeps the desired configuration and revision history. OCI carries a reviewed release to Argo CD or Flux. Live checks show what reached the cluster.</p>
+    <p>If you have not chosen a configuration yet, start with the Catalog, Variants, or Apps pages.</p>
   </header>
   <main>
     <section aria-labelledby="before-ops">
-      <h2 id="before-ops">Before Ops</h2>
-      <p>The app needs a selected chart/base, any customised variants, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
+      <h2 id="before-ops">1. Check the starting point</h2>
+      <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
     <section aria-labelledby="fleet-record">
-      <h2 id="fleet-record">Fleet Source Of Record</h2>
-      <p>The strongest operations use case is not one person running one command for one workload. It is a platform team knowing what a whole fleet should run, then reconciling that desired record with the clusters.</p>
+      <h2 id="fleet-record">2. Keep a fleet record</h2>
+      <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
       <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
       <table>
         <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
@@ -551,7 +552,7 @@
     </section>
 
     <section aria-labelledby="ops">
-      <h2 id="ops">The operations</h2>
+      <h2 id="ops">3. Choose an operation</h2>
       <div class="card">
         <h3>Status legend</h3>
         <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
@@ -562,7 +563,7 @@
           <h3>Diff before you ship</h3>
           <span class="badge now">available</span>
         </div>
-        <p class="opmeta"><code>review the variant's object diff vs its base</code> · <span class="muted">ConfigHub · free tier</span></p>
+        <p class="opmeta"><code>compare a variant with its base</code> · <span class="muted">ConfigHub account</span></p>
         
         <p>A variant is one named configuration of an app. Its object diff shows exactly which Kubernetes objects changed before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
         <p class="muted">See: <a href="d/docs/user/change-routing-before-oci.html">change-routing-before-oci</a></p>
@@ -572,7 +573,7 @@
           <h3>Scan and gate</h3>
           <span class="badge now">available</span>
         </div>
-        <p class="opmeta"><code>function scans + safe-ops over rendered objects</code> · <span class="muted">free locally · paid for managed policy</span></p>
+        <p class="opmeta"><code>scan rendered objects and stop unsafe releases</code> · <span class="muted">local checks; managed policy</span></p>
         
         <p>Run scans over the rendered objects for privilege, exposure, and deprecated APIs. A gate is a release stop: delivery waits until findings are accepted or waived with a named reason.</p>
         <p class="muted">See: <a href="d/data/external-scan-lane/summary.html">data/external-scan-lane</a></p>
@@ -582,7 +583,7 @@
           <h3>Release a prepared variant</h3>
           <span class="badge watch">watch</span>
         </div>
-        <p class="opmeta"><code>cub variant promote &lt;space&gt;</code> · <span class="muted">Apps SDLC · ConfigHub Server</span></p>
+        <p class="opmeta"><code>preview, then promote a variant</code> · <span class="muted">ConfigHub Server</span></p>
         <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
 cub variant promote &lt;space&gt;</code></pre>
@@ -594,7 +595,7 @@ cub variant promote &lt;space&gt;</code></pre>
           <h3>Deliver via OCI + GitOps</h3>
           <span class="badge now">available</span>
         </div>
-        <p class="opmeta"><code>publish content-addressed OCI; a controller reconciles</code> · <span class="muted">free to run · standard Argo/Flux</span></p>
+        <p class="opmeta"><code>publish OCI for a GitOps controller</code> · <span class="muted">Argo CD or Flux</span></p>
         
         <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle. Argo or Flux can pull that bundle and reconcile it. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
         <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">chain-of-proof</a> · <a href="d/data/runtime-gitops/summary.html">data/runtime-gitops</a></p>
@@ -604,7 +605,7 @@ cub variant promote &lt;space&gt;</code></pre>
           <h3>Observe the live result</h3>
           <span class="badge now">available</span>
         </div>
-        <p class="opmeta"><code>record live evidence after delivery</code> · <span class="muted">cub-scout · bring your own cluster</span></p>
+        <p class="opmeta"><code>check the cluster after delivery</code> · <span class="muted">your cluster</span></p>
         <pre><code>cub-scout receipt verify \
   --file &lt;rendered-objects.yaml&gt; \
   --scope namespace/&lt;namespace&gt; \
@@ -621,7 +622,7 @@ cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
           <h3>Rehearse rollback before you need it</h3>
           <span class="badge watch">watch</span>
         </div>
-        <p class="opmeta"><code>compare live state with a previous approved desired state</code> · <span class="muted">ConfigHub revisions · cub-scout rehearsal</span></p>
+        <p class="opmeta"><code>compare live state with a previous approved revision</code> · <span class="muted">ConfigHub revisions and a live check</span></p>
         <pre><code>cub unit diff &lt;unit&gt; --from=PreviousLiveRevisionNum --to=LiveRevisionNum
 cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
         <p>You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.</p>
@@ -629,7 +630,7 @@ cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
       </div>
     </section>
     <section aria-labelledby="next">
-      <h2 id="next">When Ops Becomes Managed Scope</h2>
+      <h2 id="next">4. Use managed ConfigHub when needed</h2>
       <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>
     </section>
   </main>

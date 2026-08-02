@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps Guide · Config Workshop</title>
+  <title>Build a ConfigHub App · Config Workshop</title>
   <meta name="description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/journey.html">
-  <meta property="og:title" content="Apps Guide · Config Workshop">
+  <meta property="og:title" content="Build a ConfigHub App · Config Workshop">
   <meta property="og:description" content="Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/journey.html">
@@ -528,15 +528,15 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-    <h1>Apps on ConfigHub</h1>
-    <p class="lead">An App uses configuration already saved in ConfigHub to complete a repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
-    <p>Start with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=apps">official ConfigHub tutorial</a> if you have not yet installed, changed, and promoted one component. The <a href="./testing.html">Examples page</a> covers Helm, AICR, OCI, and YAML before they are saved.</p>
-    <p>An App can then query the exact Kubernetes objects, propose a change, run the required checks, wait for approval, publish a release, and record the result. AI may help propose or explain a change. The reviewed objects and policy result still decide what can ship.</p>
+    <h1>Build an App from saved configuration</h1>
+    <p class="lead">Use this page after configuration is saved in ConfigHub. An App performs one repeated job, such as reviewing an upgrade, checking RBAC, or rolling a platform change across clusters.</p>
+    <p>New to ConfigHub? Follow the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=apps">official tutorial</a> to install, change, and promote one component. Use the <a href="./testing.html">Examples page</a> when your starting point is Helm, AICR, OCI, or YAML.</p>
+    <p>An App reads the exact Kubernetes objects, proposes a change, runs checks, waits for approval, publishes a release, and records the result. AI can help, but the reviewed objects and policy result decide what ships.</p>
     <p class="quiet-line"><a href="./demo-org.html">The demo org</a> shows catalog configurations, variant trees, promotions, and apply gates in ConfigHub.</p>
   </header>
   <main>
     <section aria-labelledby="app-kinds">
-      <h2 id="app-kinds">What Counts As An Application?</h2>
+      <h2 id="app-kinds">1. Choose what the App operates</h2>
       <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
       <div class="card"><table>
         <thead><tr><th>Kind</th><th>Meaning</th></tr></thead>
@@ -551,7 +551,7 @@
     </section>
 
     <section aria-labelledby="entry">
-      <h2 id="entry">Ways To Start</h2>
+      <h2 id="entry">2. Choose a starting point</h2>
       <p>Start from the thing you already have. The first step is read-only: show the sources, files, objects, namespace, and owner before changing delivery.</p>
       <div class="card"><table>
         <thead><tr><th>Entry</th><th>First move</th><th>Use it for</th></tr></thead>
@@ -566,7 +566,7 @@
     </section>
 
     <section aria-labelledby="app-flow">
-      <h2 id="app-flow">The Normal Order</h2>
+      <h2 id="app-flow">3. Follow the normal order</h2>
       <p>Do not start by changing the cluster. Start by seeing the files, then group them, then make versions, then release.</p>
       <div class="app-flow">
         <div class="app-step"><h3>Start with something real</h3><p>Choose a catalog chart, an existing app, rendered YAML, a live namespace, or your own Kubernetes files.</p></div>
@@ -578,7 +578,7 @@
     </section>
 
     <section aria-labelledby="existing">
-      <h2 id="existing">Can I Start From An Existing App?</h2>
+      <h2 id="existing">4. Start from an existing application</h2>
       <p>Yes. Start by reading it, not by replacing it. ConfigHub should show the source, target, namespace, objects, labels, and owner before it changes delivery.</p>
       <div class="card"><table>
         <thead><tr><th>Starting point</th><th>First action</th><th>What you see</th></tr></thead>
@@ -605,7 +605,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
     </section>
 
     <section aria-labelledby="examples">
-      <h2 id="examples">Examples</h2>
+      <h2 id="examples">5. See common uses</h2>
       <div class="card"><table>
         <thead><tr><th>Example</th><th>What ConfigHub helps with</th></tr></thead>
         <tbody><tr><td>Redis app</td><td>One public chart can be rendered from a base variant, checked, changed for each environment, and released again.</td></tr><tr><td>Prometheus or kube-prometheus-stack</td><td>A chart with CRDs, webhooks, and prerequisites can use base variants that say what the target must provide before release.</td></tr><tr><td>Platform services</td><td>Ingress, certificates, policy, monitoring, and logging can be grouped with the application that depends on them.</td></tr><tr><td>Your service plus chart services</td><td>Your own service can sit beside a database, queue, cache, or monitoring chart.</td></tr><tr><td>Existing app</td><td>An application already in a cluster can be inventoried first, then brought under review when you are ready.</td></tr><tr><td>AI-suggested change</td><td>AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved.</td></tr></tbody>
@@ -622,7 +622,7 @@ cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
     </section>
 
     <section aria-labelledby="app-program">
-      <h2 id="app-program">Five working examples</h2>
+      <h2 id="app-program">6. Open the working demonstrations</h2>
       <p>Each row has a bounded example with committed evidence. The broader product capability remains partial until the missing work in the final column is complete.</p>
       <div class="card"><table>
         <thead><tr><th>App</th><th>What ran</th><th>Broader status</th><th>Still to build</th></tr></thead>
