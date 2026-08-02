@@ -216,7 +216,7 @@ const PAGE_DESCRIPTIONS = {
   "verification.html": "Choose one Config Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
   "proof.html": "See how far each Config Workshop claim was tested, from a render comparison to ConfigHub, OCI, GitOps, and live Kubernetes.",
   "quirks.html": "Find the hooks, CRDs, Secrets, webhooks, cluster lookups, storage, and other setup a Helm chart still needs.",
-  "hard-questions.html": "Hard questions answered plainly: what breaks, what is safe for AI to change, and where the gaps are.",
+  "hard-questions.html": "Find a direct answer about Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, evidence, and current limits.",
   "known-gaps.html": "See which Config Workshop paths are not ready yet, why each limit matters, and what to do instead.",
   "hooks.html": "The hooks page moved: hook and setup work now lives on the catalog page action cards.",
   "tiers.html": "The tiers page moved: commercial options now live on the private page.",
@@ -3811,62 +3811,62 @@ function hardQuestionsHtml(catalog) {
   ];
   const faqSections = [
     {
-      title: "Start Here",
+      title: "1. Start with the basics",
       rows: [
 	        {
 	          status: "answered",
 	          question: "Is this just Helm with extra paperwork?",
 	          answer:
-	            "No. You keep Helm charts. The catalog adds ready-to-use base variants, recorded render inputs, generated output, scans, receipts, live evidence, and ConfigHub Units when uploaded.",
+	            "No. You keep your Helm charts and values. The Catalog adds tested starting configurations and shows their exact Kubernetes objects. ConfigHub stores the reviewed objects, changes, approvals, and release history.",
 	          links: [["Choosing commands", "../docs/user/choosing-commands.md"], ["Browse charts", "./charts/index.html"]],
 	        },
 	        {
 	          status: "answered",
 	          question: "Do I have to rewrite my charts?",
 	          answer:
-	            "No. We do not ask you to abandon Helm charts for a new chart language. We help you make better choices with the charts you already use.",
+	            "No. Keep your charts, values, templates, and current delivery tools. This project helps you inspect and manage the objects they produce.",
 	          links: [["Why this exists", "../docs/user/why-this-exists.md"], ["Creating variants", "../docs/user/creating-variants.md"]],
 	        },
 	        {
 	          status: "answered",
 	          question: "How is cub installer different from cub helm?",
 	          answer:
-	            "cub helm imports an arbitrary chart and values as a ConfigHub base. cub installer reads a maintained catalog package with named configurations and requirements. They are optional preparation tools. The official tutorial teaches the ConfigHub journey after that starting point.",
+	            "cub helm starts with any chart and values. It can render locally or record the rendered base and Helm source in ConfigHub. cub installer starts with a maintained Catalog package containing named configurations and requirements. Both are optional preparation tools.",
 	          links: [["Official tutorial", CONFIGHUB_TUTORIAL_URL], ["cub helm plugin", "https://github.com/confighub/cub-helm"], ["cub installer plugin", "https://github.com/confighub/installer"]],
 	        },
 		        {
 		          status: "answered",
 		          question: "Do you support every Helm values combination?",
 		          answer:
-		            "No. A chart can expose too many combinations for one tested claim. The catalog covers common operating choices with chart-specific base variants. Examples include default, no-CRDs, existing Secret, server-only, HA, and internal service.",
+		            "No. A chart can expose too many combinations to test as one claim. The Catalog covers common operating choices with chart-specific base variants. Examples include no-CRDs, existing Secret, server-only, HA, and internal service.",
 	          links: [["Helm base variants and values", "../docs/user/helm-presets-and-values.md"], ["Helm render intents", "../docs/user/helm-render-intents.md"]],
 	        },
 		        {
 		          status: "answered",
 		          question: "Isn't that case-specific?",
 		          answer:
-		            "Yes. Helm charts differ, so the catalog records chart-specific base variants, tests, and notes. AI can help maintain those variants across chart versions. Tests and receipts determine what the catalog accepts.",
+		            "Yes. That is deliberate because Helm charts have different operating choices. AI can help update the configurations across versions, but tests decide what the Catalog accepts.",
 	          links: [["Configuration Catalog", "./charts/index.html"], ["AI and the catalog", "./ai.html"]],
 	        },
 		        {
 		          status: "answered",
 		          question: "What is a base variant?",
 		          answer:
-		            "A base variant is a supported Helm configuration for one chart version. It records the values and render inputs. It also captures the Kubernetes YAML and names any extra install work.",
+		            "A base variant is one supported configuration for one chart version. It records the Helm values and render settings, keeps the Kubernetes YAML, and names extra install work.",
 	          links: [["Base variant explanation", "./charts/index.html#base-variants"], ["Creating variants", "../docs/user/creating-variants.md"]],
 	        },
 	        {
 	          status: "answered",
 	          question: "Does it only work for easy charts?",
           answer:
-            "No. Redis teaches the path, but kube-prometheus-stack is the serious proof chart. It exercises CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, upgrades, and live observations.",
+            "No. Redis teaches the basic path. The kube-prometheus-stack example covers CRDs, webhooks, RBAC, generated values, cluster requirements, upgrades, and live checks.",
           links: [["Serious chart proof", "../docs/user/serious-chart-proof.md"], ["kube-prometheus-stack page", "./charts/prometheus-community-kube-prometheus-stack-85-3-3.html"]],
         },
         {
           status: "answered",
           question: "What do the current generated counts say?",
           answer:
-            "The current proof counters are generated from committed evidence. They are useful for orientation, but the matrix remains the source for chart-by-chart decisions.",
+            "The counts come from committed test results. Use them for orientation, then open the matrix for the exact chart, version, and configuration.",
           extraHtml: `<div class="faq-metrics">${proofCounters
             .map(([label, value]) => `<div class="metric"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(label)}</span></div>`)
             .join("")}</div>`,
@@ -3875,13 +3875,13 @@ function hardQuestionsHtml(catalog) {
       ],
     },
     {
-      title: "How It Works",
+      title: "2. Follow the configuration into ConfigHub",
       rows: [
 		        {
 		          status: "answered",
 		          question: "How does it actually work, end to end?",
 		          answer:
-		            "Choose a chart and base variant, then record the values and render inputs. Render the YAML and handle any extra install work. Deliver the reviewed result and observe it live. Hooks, CRDs, setup jobs, Secrets, and cluster requirements remain separate decisions until evidence proves each one.",
+		            "Choose a chart configuration and record its Helm values and render settings. Inspect the Kubernetes YAML and handle its required setup. ConfigHub can then store, change, approve, and release the reviewed objects. Delivery and live checks remain separate recorded steps.",
 	          links: [["How it works", "../docs/user/how-it-works.md"], ["The data model", "../docs/user/confighub-data-model.md"]],
 	        },
 	        {
@@ -3922,7 +3922,7 @@ function hardQuestionsHtml(catalog) {
       ],
     },
     {
-      title: "Hooks, Secrets, And Targets",
+      title: "3. Handle hooks, Secrets, and cluster requirements",
       rows: [
 		        {
 		          status: "answered",
@@ -3962,7 +3962,7 @@ function hardQuestionsHtml(catalog) {
       ],
     },
     {
-      title: "Parity, GitOps, And Upgrades",
+      title: "4. Check delivery, upgrades, and live results",
       rows: [
         {
           status: "answered",
@@ -3995,7 +3995,7 @@ function hardQuestionsHtml(catalog) {
       ],
     },
     {
-      title: "Values, Variants, And Catalog Scope",
+      title: "5. Understand values, variants, and Catalog coverage",
       rows: [
         {
           status: "answered",
@@ -4059,7 +4059,7 @@ function hardQuestionsHtml(catalog) {
       ],
     },
     {
-      title: "Trust, Free Use, And Challenges",
+      title: "6. Understand free use and the evidence",
       rows: [
         {
           status: "answered",
@@ -4099,7 +4099,7 @@ function hardQuestionsHtml(catalog) {
       ],
     },
     {
-      title: "Known Footguns We Surface",
+      title: "7. Read current limitations",
       rows: [
 	        {
 	          status: "answered",
@@ -4171,9 +4171,10 @@ function hardQuestionsHtml(catalog) {
 <body>
 	  <header class="hero human-hero">
 	    ${topNav(".")}
-	    <h1>FAQ for skeptical Helm users.</h1>
-	    <p class="lead">This page answers the questions an engineer asks before trusting the model. What problem does it solve? What has evidence? What remains limited? When is plain Helm still the right tool?</p>
-    <p>Each answer says what works today, what is still limited, and where to check the evidence.</p>
+	    <h1>Find a direct answer</h1>
+	    <p class="lead">Use this FAQ when one question blocks your next step. It covers Helm compatibility, ConfigHub, hooks, CRDs, values, upgrades, free use, and current limits.</p>
+    <p>Each answer says what works, what remains limited, and where to check the evidence.</p>
+    ${humanLinks([["Try Redis", "./try.html"], ["Find chart setup", "./quirks.html"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
     ${faqSections
@@ -4187,7 +4188,7 @@ function hardQuestionsHtml(catalog) {
       )
       .join("\n\n    ")}
   </main>
-  <footer>Generated from helm-expt proof data. FAQ answers route to evidence, not slogans.</footer>
+  <footer>Generated from helm-expt proof data. Each answer links to its supporting guide, result, or current gap.</footer>
 </body>
 </html>
 `;
