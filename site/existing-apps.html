@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Existing Apps · Config Workshop</title>
-  <meta name="description" content="Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.">
+  <title>Understand An Existing App · Config Workshop</title>
+  <meta name="description" content="Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/existing-apps.html">
-  <meta property="og:title" content="Existing Apps · Config Workshop">
-  <meta property="og:description" content="Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.">
+  <meta property="og:title" content="Understand An Existing App · Config Workshop">
+  <meta property="og:description" content="Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/existing-apps.html">
   <style>
@@ -513,17 +513,19 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
-    <h1>Existing Apps</h1>
-    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, the first problem is ownership, not migration. Start read-only. First understand what exists. Then decide what ConfigHub will manage.</p>
+    <h1>Understand an existing app before changing it</h1>
+    <p class="lead">Use this page when an application already runs through Helm, Argo CD, Flux, or Kubernetes YAML. Start read-only and record what exists.</p>
+    <p>After the current objects and their owners are clear, decide which configuration ConfigHub should keep and which delivery system should remain in control.</p>
+    <p style="margin-top:14px;font-size:.9rem"><a href="#start">Choose a starting point</a> · <a href="./testing.html">See worked examples</a> · <a href="./confighub.html">Learn ConfigHub</a></p>
   </header>
   <main>
     <section aria-labelledby="start">
-      <h2 id="start">Start Read-Only</h2>
+      <h2 id="start">1. Start from the system that owns it today</h2>
       <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub makes those facts visible before it tries to manage them.</p>
       <p>The first safe outcome is an inventory and comparison, not a changed live deployment.</p>
       <div class="card"><table>
-        <thead><tr><th>Starting point</th><th>First route</th><th>Boundary</th></tr></thead>
-        <tbody><tr><td>Argo or Flux app</td><td>Start by reading the current source, rendered objects, target namespace, health, and sync state.</td><td>Do not change delivery yet. Compare what exists with a catalog or recipe path first.</td></tr><tr><td>Rendered YAML</td><td>Import or inspect the object set as desired state data.</td><td>Check object identity, labels, namespaces, Secrets, CRDs, and hooks before trying to manage it.</td></tr><tr><td>Live cluster</td><td>Use observation first: what is running, who owns it, what changed, and what target facts are required?</td><td>Treat live state as evidence, not automatically as desired state.</td></tr><tr><td>Helm release</td><td>Keep the chart, version, values, and release name as the starting facts.</td><td>Then decide whether the first ConfigHub base matches that release exactly or intentionally differs.</td></tr></tbody>
+        <thead><tr><th>Starting point</th><th>What to record first</th><th>What stays unchanged</th></tr></thead>
+        <tbody><tr><td>Argo CD or Flux app</td><td>Record its source, rendered objects, namespace, health, and sync state.</td><td>Keep controller delivery unchanged while you compare the saved configuration.</td></tr><tr><td>Rendered YAML</td><td>Group the files that belong to one application and list their objects.</td><td>Check names, namespaces, Secrets, CRDs, and hooks before ConfigHub manages them.</td></tr><tr><td>Live cluster</td><td>Record what is running, who owns it, what changed, and which cluster services it needs.</td><td>Treat live state as evidence. Do not automatically make it the desired configuration.</td></tr><tr><td>Helm release</td><td>Record the chart, version, values, release name, and rendered objects.</td><td>Decide whether the first ConfigHub base must match it exactly or contain an intended change.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -534,7 +536,7 @@
     </section>
 
     <section aria-labelledby="checklist">
-      <h2 id="checklist">What To Check First</h2>
+      <h2 id="checklist">2. Record the facts before making a change</h2>
       <div class="card"><table>
         <thead><tr><th>Check</th><th>Why it matters</th></tr></thead>
         <tbody><tr><td>Identity</td><td>Which chart, app, namespace, target, and owner does this belong to?</td></tr><tr><td>Object set</td><td>Which Deployments, Services, CRDs, RBAC, Secrets, ConfigMaps, and policies exist?</td></tr><tr><td>Differences</td><td>What does the catalog recipe render for the same chart and values?</td></tr><tr><td>Prerequisites</td><td>Which Secrets, storage classes, cloud identities, CRDs, and controllers must already exist?</td></tr><tr><td>Control point</td><td>What is the safest first managed change: observe only, create a base, create a derived variant, or promote a patch?</td></tr></tbody>
@@ -548,7 +550,7 @@
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">Where This Leads</h2>
+      <h2 id="next">3. Choose the first managed step</h2>
       <div class="grid">
         <div class="card"><h3>Match the current app</h3><p>Create or select a base that renders the same object set as the existing Helm release.</p><p><a href="d/docs/user/adopting-existing-apps.html">Existing app guide</a></p></div>
         <div class="card"><h3>Create a managed variant</h3><p>Once the base is trusted, use a derived variant for environment, region, customer, or target-specific refinements.</p><p><a href="./variants.html">Variants</a></p></div>
@@ -556,6 +558,6 @@
       </div>
     </section>
   </main>
-  <footer>Existing-app adoption begins with observation and comparison. Management comes after the current state is understood.</footer>
+  <footer>Record and compare the current application before ConfigHub changes or delivers it.</footer>
 </body>
 </html>

@@ -203,8 +203,8 @@ const PAGE_DESCRIPTIONS = {
   "how-it-works.html": "Choose whether reviewed Kubernetes objects stay as local files, move through OCI, or become managed configuration in ConfigHub.",
   "deployment-reference.html": "Technical details for source records, base variants, routes, checks, ConfigHub changes, OCI delivery, and deployment limits.",
   "variants.html": "Same chart, but change one thing: when a values change is a new base variant and when it belongs in a derived ConfigHub variant.",
-  "custom-apps.html": "Bring the applications your team owns alongside public charts so a release can move as one reviewed set.",
-  "existing-apps.html": "Start read-only with your existing Argo or Flux apps and live clusters, then add review and receipts around what already runs.",
+  "custom-apps.html": "Combine public charts and services your team owns, then review and release their Kubernetes configuration together.",
+  "existing-apps.html": "Understand an application that already runs through Helm, Argo CD, Flux, or Kubernetes YAML before ConfigHub changes it.",
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
   "security.html": "Security and provenance across the catalog: Secrets handling, scans and gates, and the claims register.",
   "testing.html": "Choose a worked example that starts with Helm, AICR, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
@@ -4899,12 +4899,12 @@ promotion dry-run lists mutations before apply</code></pre>
 
 function customAppsHtml(catalog) {
   const pieceRows = [
-    ["Public chart", "Start from a catalog base when a reviewed chart/version/base exists.", "Keeps the upstream Helm source visible."],
-    ["Custom app", "Represent your own service as ConfigHub Units alongside chart Units.", "Lets the stack be scanned, diffed, promoted, and delivered together."],
-    ["Wrapper chart or overlay values", "Use the recipe/import path when the overlay changes Helm render inputs.", "This creates or updates a base, not just a derived variant."],
-    ["Environment or customer refinement", "Use derived variants when the change is post-render.", "Targets, labels, approvals, links, observation policy, and selected field transforms."],
-    ["Agentic app or plugin", "Build a domain-specific tool on top of ConfigHub data when raw YAML edits are too low-level.", "The tool provides domain semantics, guardrails, dry-run output, and explicit commit steps."],
-    ["Private catalog", "Use ConfigHub-managed private paths when private sources, teams, SLAs, or production responsibility enter.", "This is the paid and managed boundary."],
+    ["Public chart", "Start from a tested Catalog configuration when one fits.", "The upstream Helm source remains visible."],
+    ["Your service", "Store its Kubernetes objects beside the chart objects.", "The complete application can be reviewed and released together."],
+    ["Wrapper chart or values overlay", "Update the recorded Helm source when it changes the render.", "ConfigHub can show which base render produced the objects."],
+    ["Environment or customer setting", "Use a ConfigHub variant when the change happens after render.", "Each environment keeps a small, visible difference from its base."],
+    ["Purpose-built App", "Use a focused tool when direct YAML editing is too broad.", "The App can provide domain checks, previews, and an explicit commit step."],
+    ["Private source", "Use a managed ConfigHub path for private inputs and production responsibility.", "Access, support, and operational history stay with the team."],
   ];
   const proofRows = [
     ["ExternalDNS overlay", "Managed overlay golden for wrapper chart plus customer values.", "../data/managed-overlay-goldens/external-dns-customer-acme-prod/README.md"],
@@ -4919,20 +4919,22 @@ function customAppsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Custom Apps &amp; Stacks · Config Workshop</title>
+  <title>Combine Charts And Your Service · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Custom Apps &amp; Stacks</h1>
-    <p class="tagline">A real app is often several Helm charts plus your own service. The problem is keeping those pieces reviewable as one release instead of scattering them across repos, values files, and hand-written YAML.</p>
+    <h1>Combine charts and your own service</h1>
+    <p class="lead">Use this page when one application includes public charts, Kubernetes objects your team owns, and settings for several environments.</p>
+    <p>ConfigHub stores those objects together. Your team can review, change, promote, and release the complete application without losing each component's source.</p>
+    ${humanLinks([["See App examples", "./testing.html#apps"], ["Build an App", "./journey.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "custom apps page")}
     <section aria-labelledby="map">
-      <h2 id="map">Where The Pieces Go</h2>
-      <p>Use the same routing rule as the README: render-changing choices become reviewed bases; post-render refinements become derived ConfigHub variants; production and private inputs belong in managed workflows.</p>
+      <h2 id="map">1. Decide where each piece belongs</h2>
+      <p>A change to Helm values belongs in the recorded Helm source and produces a new base render. A change to saved Kubernetes objects belongs in a ConfigHub variant. Keep private source and production responsibility in a managed workflow.</p>
       ${markdownLikeTable([
         ["Piece", "Where it belongs", "Why"],
         ...pieceRows,
@@ -4940,20 +4942,21 @@ function customAppsHtml(catalog) {
     </section>
 
     <section aria-labelledby="day">
-      <h2 id="day">Day 0 Or Day 1?</h2>
-      <p>For a new app, multiple charts plus a custom service is Day 0 composition: define the first desired shape, render the bases, upload Units, and create the first target variant. For an app that already exists, the same work is Day 1 change management: import or discover the current shape, compare it with the desired shape, then make controlled refinements.</p>
-      <p>An agentic custom app can sit beside this path. For example, an RBAC app can read ConfigHub Units, answer Kubernetes-specific access questions, and produce guardrailed edits without asking an agent to patch YAML by hand.</p>
+      <h2 id="day">2. Start new, or record what already runs</h2>
+      <p>For a new application, render the chart configurations, add your service objects, upload the complete set, and create the first environment variant.</p>
+      <p>For an existing application, first record its current objects and compare them with the desired configuration. Make the first managed change only after the two match or the intended difference is clear.</p>
+      <p>A purpose-built App can help with one domain. For example, an RBAC App can answer access questions and propose guarded edits without giving an agent unrestricted YAML access.</p>
     </section>
 
     <section aria-labelledby="proof">
-      <h2 id="proof">Current Evidence</h2>
+      <h2 id="proof">3. Open working examples</h2>
       ${markdownLikeTable([
         ["Surface", "What it shows", "Open"],
         ...proofRows.map(([name, body, path]) => [name, body, `<a href="${path}">${path}</a>`]),
       ], { rawThirdColumn: true })}
     </section>
   </main>
-  <footer>Generated from helm-expt catalog data. Public charts, custom apps, and private overlays can share one graph, but private sources and production responsibility belong on the managed path.</footer>
+  <footer>Generated from helm-expt catalog data. Public charts and owned services can form one release while keeping their sources visible.</footer>
 </body>
 </html>
 `;
@@ -4961,10 +4964,10 @@ function customAppsHtml(catalog) {
 
 function existingAppsHtml(catalog) {
   const routes = [
-    ["Argo or Flux app", "Start by reading the current source, rendered objects, target namespace, health, and sync state.", "Do not change delivery yet. Compare what exists with a catalog or recipe path first."],
-    ["Rendered YAML", "Import or inspect the object set as desired state data.", "Check object identity, labels, namespaces, Secrets, CRDs, and hooks before trying to manage it."],
-    ["Live cluster", "Use observation first: what is running, who owns it, what changed, and what target facts are required?", "Treat live state as evidence, not automatically as desired state."],
-    ["Helm release", "Keep the chart, version, values, and release name as the starting facts.", "Then decide whether the first ConfigHub base matches that release exactly or intentionally differs."],
+    ["Argo CD or Flux app", "Record its source, rendered objects, namespace, health, and sync state.", "Keep controller delivery unchanged while you compare the saved configuration."],
+    ["Rendered YAML", "Group the files that belong to one application and list their objects.", "Check names, namespaces, Secrets, CRDs, and hooks before ConfigHub manages them."],
+    ["Live cluster", "Record what is running, who owns it, what changed, and which cluster services it needs.", "Treat live state as evidence. Do not automatically make it the desired configuration."],
+    ["Helm release", "Record the chart, version, values, release name, and rendered objects.", "Decide whether the first ConfigHub base must match it exactly or contain an intended change."],
   ];
   const checks = [
     ["Identity", "Which chart, app, namespace, target, and owner does this belong to?"],
@@ -4978,28 +4981,30 @@ function existingAppsHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Existing Apps · Config Workshop</title>
+  <title>Understand An Existing App · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Existing Apps</h1>
-    <p class="tagline">If you already run Helm, Argo, Flux, or plain Kubernetes YAML, the first problem is ownership, not migration. Start read-only. First understand what exists. Then decide what ConfigHub will manage.</p>
+    <h1>Understand an existing app before changing it</h1>
+    <p class="lead">Use this page when an application already runs through Helm, Argo CD, Flux, or Kubernetes YAML. Start read-only and record what exists.</p>
+    <p>After the current objects and their owners are clear, decide which configuration ConfigHub should keep and which delivery system should remain in control.</p>
+    ${humanLinks([["Choose a starting point", "#start"], ["See worked examples", "./testing.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
     <section aria-labelledby="start">
-      <h2 id="start">Start Read-Only</h2>
+      <h2 id="start">1. Start from the system that owns it today</h2>
       <p>Existing systems often have history: old chart versions, local patches, hand-created Secrets, controller-generated fields, or cluster-specific assumptions. ConfigHub makes those facts visible before it tries to manage them.</p>
       <p>The first safe outcome is an inventory and comparison, not a changed live deployment.</p>
       ${markdownLikeTable([
-        ["Starting point", "First route", "Boundary"],
+        ["Starting point", "What to record first", "What stays unchanged"],
         ...routes,
       ])}
     </section>
 
     <section aria-labelledby="checklist">
-      <h2 id="checklist">What To Check First</h2>
+      <h2 id="checklist">2. Record the facts before making a change</h2>
       ${markdownLikeTable([
         ["Check", "Why it matters"],
         ...checks,
@@ -5007,7 +5012,7 @@ function existingAppsHtml(catalog) {
     </section>
 
     <section aria-labelledby="next">
-      <h2 id="next">Where This Leads</h2>
+      <h2 id="next">3. Choose the first managed step</h2>
       <div class="grid">
         <div class="card"><h3>Match the current app</h3><p>Create or select a base that renders the same object set as the existing Helm release.</p><p><a href="../docs/user/adopting-existing-apps.md">Existing app guide</a></p></div>
         <div class="card"><h3>Create a managed variant</h3><p>Once the base is trusted, use a derived variant for environment, region, customer, or target-specific refinements.</p><p><a href="./variants.html">Variants</a></p></div>
@@ -5015,7 +5020,7 @@ function existingAppsHtml(catalog) {
       </div>
     </section>
   </main>
-  <footer>Existing-app adoption begins with observation and comparison. Management comes after the current state is understood.</footer>
+  <footer>Record and compare the current application before ConfigHub changes or delivers it.</footer>
 </body>
 </html>
 `;
