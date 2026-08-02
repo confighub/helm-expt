@@ -1,11 +1,13 @@
-# How ConfigHub delivers configuration through OCI
+# Deploy ConfigHub Configuration Through OCI
 
-**UNOFFICIAL/EXPERIMENTAL.** This page explains the path from a Helm chart or
-another source package to a running Kubernetes configuration.
+**UNOFFICIAL/EXPERIMENTAL.** Use this guide to publish reviewed Kubernetes
+configuration from ConfigHub as an OCI image, then deliver it with Argo CD or
+Flux.
 
-The short version is: **source package in, managed configuration in ConfigHub,
-release OCI out**. Delivery uses the Kubernetes objects that were reviewed in
-ConfigHub. It does not render the Helm chart again.
+The input may begin as a Helm chart, an AICR recipe for AI infrastructure, a
+`cub installer` package, an existing OCI image, or Kubernetes YAML. ConfigHub
+publishes the objects that were reviewed. It does not render the source again
+during delivery.
 
 ## Three ConfigHub terms
 

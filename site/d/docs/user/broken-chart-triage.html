@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Broken Chart Triage · Config Workshop</title>
-  <meta name="description" content="Broken Chart Triage: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Find Out Why A Chart Failed · Config Workshop</title>
+  <meta name="description" content="Find Out Why A Chart Failed: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/broken-chart-triage.html">
-  <meta property="og:title" content="Broken Chart Triage · Config Workshop">
-  <meta property="og:description" content="Broken Chart Triage: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Find Out Why A Chart Failed · Config Workshop">
+  <meta property="og:description" content="Find Out Why A Chart Failed: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/broken-chart-triage.html">
   <style>
@@ -442,25 +442,25 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Broken Chart Triage</h1>
-    <p class="lead">The goal is not to argue that the chart is good or bad. The goal is to turn the failure into a named result: <code>pass</code>, <code>watch</code>, <code>blocked</code>, <code>refused</code>, or a routed gap with evidence. <a href="../../../../docs/user/broken-chart-triage.md">View source markdown</a>.</p>
+    <h1>Find Out Why A Chart Failed</h1>
+    <p class="lead">First find out whether the Kubernetes objects changed before deployment, or the expected objects reached a target and failed there. That distinction tells you where to look next. <a href="../../../../docs/user/broken-chart-triage.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Use this when a Helm chart, values file, or ConfigHub/cub installer path does not behave the way a user expected.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Use this guide when a Helm chart, values file, <code>cub installer</code> run, or ConfigHub deployment does not behave as expected.</p>
 
 <h2 id="first-question">First Question</h2>
 <pre><code>Did the desired object set differ from regular Helm, or did the target fail to
 run the same desired object set?</code></pre>
-<p>That split matters. A render mismatch is a recipe/model problem. A target failure is usually a prerequisite, lifecycle, image, controller, or runtime problem.</p>
+<p>If the objects differ, check the chart version, values, release settings, and Kubernetes capabilities used during rendering. If the objects match, check target prerequisites, install order, images, the delivery controller, and runtime health.</p>
 <h2 id="triage-path">Triage Path</h2>
-<table><thead><tr><th>Step</th><th>Ask</th><th>Where to look</th></tr></thead><tbody><tr><td>1. Render</td><td>Does <code>cub installer</code> render the same object set as Helm for the same chart, base, values, and capability profile?</td><td>chart page, render receipt, matrix <code>R</code> lane</td></tr>
-<tr><td>2. Target prerequisites</td><td>Does the target provide required CRDs, Secrets, StorageClasses, cloud identity, API capabilities, or topology?</td><td>target prerequisite docs, matrix watch/blocked reason</td></tr>
-<tr><td>3. Lifecycle actions</td><td>Did a hook, CRD install, webhook bootstrap, or post-apply observation need an explicit route?</td><td>chart actions, lifecycle route actions</td></tr>
-<tr><td>4. Images</td><td>Did an image disappear or require a mirror, digest pin, pull secret, or legacy namespace?</td><td>image workdown, chart page watch reason</td></tr>
-<tr><td>5. GitOps sync</td><td>Did the controller sync objects but the workload stayed unhealthy?</td><td>live receipts, why-synced-is-not-working</td></tr>
-<tr><td>6. Runtime health</td><td>Did pods, PVCs, Jobs, webhooks, or APIService readiness fail after apply?</td><td>local/live receipts and active proof queue</td></tr>
-<tr><td>7. Model gap</td><td>Is the base too default-shaped, missing a useful values path, or using the wrong capability profile?</td><td>chart-use guide, useful-base queue</td></tr></tbody></table>
+<table><thead><tr><th>Step</th><th>Ask</th><th>Where to look</th></tr></thead><tbody><tr><td>1. Compare the render</td><td>Does <code>cub installer</code> produce the same objects as Helm for the same chart, configuration, values, and Kubernetes capabilities?</td><td>chart page, rendered YAML, render comparison receipt</td></tr>
+<tr><td>2. Check target prerequisites</td><td>Does the target provide the required CRDs, Secrets, StorageClasses, cloud identity, APIs, and cluster features?</td><td>chart requirements and target-prerequisite guide</td></tr>
+<tr><td>3. Check install and upgrade work</td><td>Does a hook, CRD install, webhook setup, Job, or post-apply check need to run separately?</td><td>chart page, hook guide, and recorded actions</td></tr>
+<tr><td>4. Check images</td><td>Is an image missing, private, moved, or in need of a mirror, digest pin, or pull Secret?</td><td>chart page and image notes</td></tr>
+<tr><td>5. Check GitOps</td><td>Did Argo CD or Flux report a successful sync while the workload remained unhealthy?</td><td>delivery receipt and controller status</td></tr>
+<tr><td>6. Check runtime health</td><td>Did Pods, PVCs, Jobs, webhooks, or APIService readiness fail after apply?</td><td>live receipt and cluster events</td></tr>
+<tr><td>7. Check the catalog configuration</td><td>Does this use case need different values, Kubernetes capabilities, or another ready-made configuration?</td><td>chart page and catalog configuration guide</td></tr></tbody></table>
 <h2 id="what-to-send">What To Send</h2>
 <p>If you want the project to reproduce the problem, send:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
@@ -471,7 +471,7 @@ Kubernetes version if relevant
 controller path: Helm, cub installer, ConfigHub OCI, Argo, Flux, or cub-direct
 what you expected
 what happened</code></pre>
-<p>The expected response is a fixture, receipt, named refusal, route, or watch row. If the project cannot prove the claim, the answer should say so directly.</p>
+<p>A useful result includes a repeatable test, the observed failure, and the next action. The catalog records the outcome as <code>pass</code>, <code>watch</code>, <code>blocked</code>, or <code>refused</code>. If the project cannot support the path yet, the answer should say so directly.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/broken-chart-triage.md</code>. The source file is the authoritative version.</p></footer>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GitOps Adopter Guide · Config Workshop</title>
-  <meta name="description" content="GitOps Adopter Guide: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Use ConfigHub With Argo CD Or Flux · Config Workshop</title>
+  <meta name="description" content="Use ConfigHub With Argo CD Or Flux: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/user/gitops-adopter-guide.html">
-  <meta property="og:title" content="GitOps Adopter Guide · Config Workshop">
-  <meta property="og:description" content="GitOps Adopter Guide: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Use ConfigHub With Argo CD Or Flux · Config Workshop">
+  <meta property="og:description" content="Use ConfigHub With Argo CD Or Flux: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/user/gitops-adopter-guide.html">
   <style>
@@ -442,8 +442,8 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>GitOps Adopter Guide</h1>
-    <p class="lead">For teams already running Argo CD or Flux: what changes and what stays the same when ConfigHub publishes the reviewed objects as an OCI bundle. <a href="../../../../docs/user/gitops-adopter-guide.md">View source markdown</a>.</p>
+    <h1>Use ConfigHub With Argo CD Or Flux</h1>
+    <p class="lead">Use this guide when Argo CD or Flux already deploys your applications. You keep the controller. ConfigHub publishes the reviewed Kubernetes objects as an OCI image for that controller to pull. <a href="../../../../docs/user/gitops-adopter-guide.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
@@ -458,7 +458,7 @@
 <h2 id="check-the-receipt-for-the-configuration-you-want">Check the receipt for the configuration you want</h2>
 <p>There are three separate questions.</p>
 <ol><li>Can Argo CD and Flux consume a ConfigHub release OCI?</li><li>Does a direct local test see the same objects in that OCI?</li><li>Has the configuration you want to run been delivered and observed through your controller?</li></ol>
-<p>The first two answers are yes for a small routed-hook fixture. ConfigHub published it once. Argo CD and Flux reconciled it, and a separate local script pulled and applied the same artifact. That proves the delivery mechanism and the artifact's portability.</p>
+<p>A small tested setup Job answers the first two questions. ConfigHub published it once. Argo CD and Flux each reconciled it, and a separate local test pulled and applied the same image. This checks that the delivery method works and that the image can be used outside ConfigHub.</p>
 <p>The first exact catalog result is also available. The <a href="../../data/catalog-oci-delivery-proof/summary.html"><code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> receipt</a> records the same release digest under Argo CD and Flux, with a ready NGINX workload under each. A separate direct local test records the same digest and workload result.</p>
 <p>Every other answer still depends on the catalog entry. Look for a delivery receipt on that entry's page. A receipt for the fixture or for NGINX does not prove that another selected configuration reconciled successfully.</p>
 <h2 id="argo-cd">Argo CD</h2>
@@ -468,7 +468,7 @@
 <p>Any extra work around the chart, such as hooks or setup jobs, still needs a documented action, check, target fact, blocker, or refusal. Do not assume Flux will automatically recreate Helm hook behavior in this path.</p>
 <h2 id="direct-local-use-without-a-controller">Direct local use without a controller</h2>
 <p><code>oras</code> and <code>kubectl</code> can pull and apply the same Space release when you do not want a controller. This is useful for a one-shot apply or a CI step, but it also means you must be more explicit about ordering, pruning, CRDs, and setup work. This proves that the release OCI is portable. It is not ConfigHub's managed delivery path.</p>
-<h2 id="vs-raw-helm-through-argo">vs. raw Helm-through-Argo</h2>
+<h2 id="when-argo-cd-renders-helm-directly">When Argo CD renders Helm directly</h2>
 <p>Argo's native Helm support re-renders the chart inside Argo. The ConfigHub path renders first, records the inputs, and sends the reviewed objects to GitOps. That gives you one clear review point before delivery.</p>
 <p>This does not make every Helm hook automatic. Hooks and hook-like work are handled per chart: observed, routed, target-specific, blocked, or refused. See <a href="chart-hooks-what-happens.html">chart-hooks-what-happens</a>.</p>
 <h2 id="hooks-under-gitops">Hooks under GitOps</h2>
