@@ -2823,7 +2823,7 @@ function howItWorksHtml() {
 <header class="hero human-hero">
   ${topNav(".")}
   <h1>Choose how to deploy it</h1>
-  <p class="lead">You have reviewed the Kubernetes objects. Now choose where to keep them and how they will reach a cluster.</p>
+  <p class="lead">You have reviewed the Kubernetes objects, whether they came from Helm, AICR, cub installer, an OCI package, or plain YAML. Now choose where to keep them and how they will reach a cluster.</p>
   <p>You can start without ConfigHub Server or an account. Add ConfigHub when the configuration needs shared history, changes, approvals, promotion, or rollout.</p>
 </header>
 <main>

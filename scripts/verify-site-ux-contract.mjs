@@ -155,7 +155,7 @@ const guideOpeningChecks = [
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["Choose how to deploy it", "reviewed the Kubernetes objects", "start without ConfigHub Server or an account"],
+    headerTerms: ["Choose how to deploy it", "reviewed the Kubernetes objects", "Helm, AICR, cub installer, an OCI package, or plain YAML", "start without ConfigHub Server or an account"],
   },
   {
     file: "site/variants.html",
