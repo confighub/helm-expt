@@ -592,14 +592,21 @@
       </style>
       <div class="card">
         <h3>Start read-only</h3>
-        <p>These commands are preview commands. They show what ConfigHub finds or would import before anything changes in the cluster.</p>
+        <p>Use the controller or Kubernetes API to read what exists. These commands do not change the cluster or upload anything to ConfigHub.</p>
+        <pre><code># Argo CD applications
+kubectl -n argocd get applications.argoproj.io -o yaml
+
+# Flux releases and kustomizations
+kubectl get helmreleases.helm.toolkit.fluxcd.io,kustomizations.kustomize.toolkit.fluxcd.io -A -o yaml
+
+# One application's ordinary Kubernetes objects
+kubectl -n payments get deployment,statefulset,service,configmap,serviceaccount,role,rolebinding -o yaml \
+  &gt; .tmp/payments.yaml</code></pre>
+        <p>Review the source, namespace, objects, owners, and Secret references. When you are ready to save the reviewed files, use a real ConfigHub upload command:</p>
         <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub gitops discover --space my-space my-k8s-target
-cub gitops import --space my-space my-k8s-target my-render-target \
-  --where-resource "metadata.namespace = 'argocd'"
-kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
-cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
-        <p>You see the resources, namespace, target, and source. At this stage nothing has been moved to ConfigHub delivery.</p>
+  <pre><code>cub variant upload --component payments --variant base \
+  --space payments-base --granularity per-resource .tmp/payments.yaml</code></pre>
+        <p>The upload creates ConfigHub records. It does not change delivery or apply anything to Kubernetes.</p>
       </div>
       <p>Only turn an existing app into a <code>cub installer</code> recipe when you want a maintained Helm render path, chart updates, and catalog-style checks. See <a href="d/docs/user/adopting-existing-apps.html">Adopting Existing Apps</a>.</p>
     </section>

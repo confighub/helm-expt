@@ -1690,7 +1690,7 @@ em{font-style:italic;color:var(--ink);}
   <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
     <tr><th style="width:30%">Deployment choice</th><th>What happens</th></tr>
     <tr><td>Local files<br><span class="quiet-line">No account</span></td><td><code>cub installer</code> or your existing source tool creates the objects. Read and test them, then use <code>kubectl</code> or commit the files for GitOps.</td></tr>
-    <tr><td>OCI to Argo CD or Flux<br><span class="quiet-line">No account</span></td><td><code>cub installer setup</code> with <code>--output-oci</code> writes or pushes the selected objects as OCI and checks them by reading the artifact back. Your controller pulls that OCI.</td></tr>
+    <tr><td>OCI to Argo CD or Flux<br><span class="quiet-line">No ConfigHub account</span></td><td><code>cub installer setup</code> with <code>--output-oci</code> writes the selected non-secret objects as OCI and checks them by reading the artifact back. A local OCI needs no account. Pushing to a registry needs that registry's credentials. Your controller pulls the published OCI.</td></tr>
     <tr><td>ConfigHub to Argo CD or Flux<br><span class="quiet-line">ConfigHub account</span></td><td>Upload files or a literal OCI. ConfigHub keeps the objects, changes, checks, approvals, and promotions. <code>cub release publish</code> creates the deployment OCI for your controller.</td></tr>
   </table>
   <p class="quiet-line">All three paths use objects you can inspect before deployment. Start locally and add ConfigHub when you need shared history, variants, approvals, promotion, or fleet rollout.</p>
@@ -1768,8 +1768,8 @@ em{font-style:italic;color:var(--ink);}
     <tr><th>Starting point</th><th>Source and intent record</th><th>How it enters ConfigHub</th></tr>
     <tr><td>Helm chart</td><td><code>HelmRenderIntent</code>: chart version, preset values, release context, source lock, literal objects, and known hooks or CRDs.</td><td>Render a <code>cub installer</code> package. Keep the files locally, write the selected preset as OCI with <code>--output-oci</code>, or upload either form as a base variant.</td></tr>
     <tr><td>AICR</td><td>The AICR recipe, fixed component versions, remaining install-time inputs, generated bundle, checksums, and public OCI digest.</td><td>Keep the generated source package for Argo CD, and upload the separate literal configuration OCI as a base variant. The <a href="../docs/demo/aicr/eks-h100-training-kubeflow.md">AICR GPU platform example</a> shows the public packages, 17 exact Applications, development change, and staging promotion.</td></tr>
-    <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload oci://...</code> creates the base Space and Units from the literal configuration bundle.</td></tr>
-    <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload &lt;files&gt;</code> creates the base Space and Units.</td></tr>
+    <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload --component &lt;name&gt; --variant base oci://...</code> creates the base Space and Units from the configuration bundle.</td></tr>
+    <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload --component &lt;name&gt; --variant base &lt;files&gt;</code> creates the base Space and Units.</td></tr>
   </table>
   <p>The generated <a href="../data/base-variant-records/summary.md">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
   <p>Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format. The <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> defines the role in full.</p>
@@ -3232,9 +3232,9 @@ function serverlessHtml(catalog) {
 <span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
 <span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base reuse-existing-secret --namespace redis \\
-    --work-dir ./out --non-interactive \\
+    --work-dir ./redis --non-interactive \\
     --output-oci ./redis-rendered.oci
-<span class="term-prompt">$</span> kubectl apply -f ./out/manifests -n redis</code></pre>
+<span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
       </div>
     </div>
     <p class="caption">The preset's rendered objects have a committed Helm-equivalence receipt. Run the Helm and cub lanes on separate throwaway clusters when you want to compare the live result.</p>
@@ -3295,7 +3295,7 @@ function serverlessHtml(catalog) {
         <div class="terminal-title">redis → OCI</div>
         <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull ${REDIS_INSTALLER_OCI_REF} \\
     --base reuse-existing-secret --namespace redis \\
-    --work-dir ./out --non-interactive \\
+    --work-dir ./redis --non-interactive \\
     --output-oci oci://&lt;your-registry&gt;/redis:v1
 <span class="term-prompt">$</span> flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
 <span class="term-prompt">$</span> flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
@@ -4826,13 +4826,20 @@ function journeyHtml(catalog) {
       ])}
       <div class="card">
         <h3>Start read-only</h3>
-        <p>These commands are preview commands. They show what ConfigHub finds or would import before anything changes in the cluster.</p>
-        <pre><code>cub gitops discover --space my-space my-k8s-target
-cub gitops import --space my-space my-k8s-target my-render-target \\
-  --where-resource "metadata.namespace = 'argocd'"
-kubectl get all -n payments -o yaml &gt; .tmp/payments.yaml
-cub unit import payments-app .tmp/payments.yaml --dry-run</code></pre>
-        <p>You see the resources, namespace, target, and source. At this stage nothing has been moved to ConfigHub delivery.</p>
+        <p>Use the controller or Kubernetes API to read what exists. These commands do not change the cluster or upload anything to ConfigHub.</p>
+        <pre><code># Argo CD applications
+kubectl -n argocd get applications.argoproj.io -o yaml
+
+# Flux releases and kustomizations
+kubectl get helmreleases.helm.toolkit.fluxcd.io,kustomizations.kustomize.toolkit.fluxcd.io -A -o yaml
+
+# One application's ordinary Kubernetes objects
+kubectl -n payments get deployment,statefulset,service,configmap,serviceaccount,role,rolebinding -o yaml \\
+  &gt; .tmp/payments.yaml</code></pre>
+        <p>Review the source, namespace, objects, owners, and Secret references. When you are ready to save the reviewed files, use a real ConfigHub upload command:</p>
+        <pre><code>cub variant upload --component payments --variant base \\
+  --space payments-base --granularity per-resource .tmp/payments.yaml</code></pre>
+        <p>The upload creates ConfigHub records. It does not change delivery or apply anything to Kubernetes.</p>
       </div>
       <p>Only turn an existing app into a <code>cub installer</code> recipe when you want a maintained Helm render path, chart updates, and catalog-style checks. See <a href="../docs/user/adopting-existing-apps.md">Adopting Existing Apps</a>.</p>
     </section>
@@ -5393,7 +5400,7 @@ function examplesHtml(catalog) {
       ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
-      <p>Use <code>cub helm</code> for an arbitrary chart. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
+      <p>Use <code>cub helm</code> for a chart that can render without live cluster lookups or target-specific Kubernetes capabilities. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
       <div class="terminal-card">
         <div class="terminal-title">your chart → exact Kubernetes files</div>
         <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-helm
@@ -5403,6 +5410,7 @@ function examplesHtml(catalog) {
     --output-dir ./out</code></pre>
       </div>
       <p>Read the files in <code>./out</code>. Check images, credentials, permissions, storage, CRDs, and any hooks reported by the command.</p>
+      <p>Hooks are omitted unless you add <code>--include-hooks</code>. A chart that requires live <code>lookup</code> results or target-specific capabilities needs a different recorded render path.</p>
       <p>The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values. It keeps the requested replica count and corrects six settings before deployment.</p>
       <p>When the result is ready for a team, sign in and record it in ConfigHub:</p>
       <pre><code>cub auth login

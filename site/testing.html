@@ -549,7 +549,7 @@
       </style>
 
       <h3 id="bring-your-own">Bring your own Helm chart and values</h3>
-      <p>Use <code>cub helm</code> for an arbitrary chart. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
+      <p>Use <code>cub helm</code> for a chart that can render without live cluster lookups or target-specific Kubernetes capabilities. Preview it locally first. This command does not contact ConfigHub Server or Kubernetes.</p>
       <div class="terminal-card">
         <div class="terminal-title">your chart → exact Kubernetes files</div>
         <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
@@ -560,6 +560,7 @@
     --output-dir ./out</code></pre>
       </div>
       <p>Read the files in <code>./out</code>. Check images, credentials, permissions, storage, CRDs, and any hooks reported by the command.</p>
+      <p>Hooks are omitted unless you add <code>--include-hooks</code>. A chart that requires live <code>lookup</code> results or target-specific capabilities needs a different recorded render path.</p>
       <p>The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values. It keeps the requested replica count and corrects six settings before deployment.</p>
       <p>When the result is ready for a team, sign in and record it in ConfigHub:</p>
       <pre><code>cub auth login

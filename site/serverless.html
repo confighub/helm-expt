@@ -641,9 +641,9 @@
 <span class="term-comment"># or: render the reviewed package, write OCI, then apply</span>
 <span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
     --base reuse-existing-secret --namespace redis \
-    --work-dir ./out --non-interactive \
+    --work-dir ./redis --non-interactive \
     --output-oci ./redis-rendered.oci
-<span class="term-prompt">$</span> kubectl apply -f ./out/manifests -n redis</code></pre>
+<span class="term-prompt">$</span> kubectl apply -f ./redis/out/manifests -n redis</code></pre>
       </div>
     </div>
     <p class="caption">The preset's rendered objects have a committed Helm-equivalence receipt. Run the Helm and cub lanes on separate throwaway clusters when you want to compare the live result.</p>
@@ -706,7 +706,7 @@
   <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \
     --base reuse-existing-secret --namespace redis \
-    --work-dir ./out --non-interactive \
+    --work-dir ./redis --non-interactive \
     --output-oci oci://&lt;your-registry&gt;/redis:v1
 <span class="term-prompt">$</span> flux create source oci redis --url=oci://&lt;your-registry&gt;/redis --tag=v1 --interval=30s
 <span class="term-prompt">$</span> flux create kustomization redis --source=OCIRepository/redis --path=./ --prune=true</code></pre>
