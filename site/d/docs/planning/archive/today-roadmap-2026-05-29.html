@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../../docs/planning/archive/today-roadmap-2026-05-29.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This is the focused handoff plan for another AI or teammate to lead today. It turns the current thread into executable work without requiring the full conversation history.</p>
@@ -495,7 +494,8 @@ If a change mutates already-rendered Units, use ConfigHub variant creation.</cod
 <table><thead><tr><th>Mode</th><th>User shape</th><th>Product surface</th></tr></thead><tbody><tr><td>Base variant</td><td><code>redis/default</code>, <code>redis/reuse-existing-secret</code></td><td><code>cub installer setup --base ...</code></td></tr>
 <tr><td>UX-created variant</td><td><code>Creator / From: redis/default / Blueprint: Environment clone / Target variant: prod-us-east</code></td><td>Foundational user-led expression of the Variant Creator contract</td></tr>
 <tr><td>AX-created variant</td><td>structured <code>create_variant</code> task</td><td>Agent-based expression of the same artifact</td></tr>
-<tr><td>FX-created variants</td><td><code>create 100 variants from a matrix</code></td><td>Function-based expression of the same artifact over rows</td></tr></tbody></table>
+<tr><td>FX-created variants</td><td><code>create 100 variants from a matrix</code></td><td>Function-based expression of the same artifact over rows</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>Today's concrete output:</p>
 <ul><li>Keep <a href="../../reference/variant-creation-artifact.html">variant-creation-artifact.md</a> focused on the Variant Creator contract over current ConfigHub primitives.</li><li>Treat the old <code>VariantCreationPlan</code> name as a working-name ancestor, not as a new backend entity.</li><li>Keep <a href="../../reference/variant-creator-verification.html">variant-creator-verification.md</a> focused on verifying the artifact fields, previews, checks, and receipts.</li><li>Do not add a new artifact unless the plan says who consumes it.</li></ul>
 <p>Acceptance:</p>

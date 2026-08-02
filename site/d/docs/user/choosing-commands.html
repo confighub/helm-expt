@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/choosing-commands.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
@@ -457,7 +456,8 @@
 <tr><td>Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant.</td><td><code>cub variant create</code></td></tr>
 <tr><td>Catch a derived ConfigHub variant up with its reviewed upstream Space.</td><td><code>cub variant promote --dry-run</code>, then <code>cub variant promote</code></td></tr>
 <tr><td>Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model.</td><td>Read or export it from its current controller, upload the reviewed YAML with <code>cub variant upload</code>, then decide whether to keep it or build a maintained recipe.</td></tr>
-<tr><td>Prove a repo artifact or live lane has not drifted.</td><td>the relevant <code>npm run ...</code> verifier</td></tr></tbody></table>
+<tr><td>Prove a repo artifact or live lane has not drifted.</td><td>the relevant <code>npm run ...</code> verifier</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p><code>cub helm</code> and <code>cub installer</code> are preparation tools. <code>cub helm template</code> previews an arbitrary chart and values. <code>cub helm install</code> records its source and rendered base in ConfigHub. <code>cub installer</code> reads a maintained catalog package with named configurations and recorded requirements.</p>
 <p>The <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> teaches the product journey after configuration enters ConfigHub. New users do not need to compare the two plugins before following that tutorial.</p>
 <p>A one-shot render is only operationally safe if its inputs are recorded. For a Helm chart, that means chart source, version, release name, namespace, values files, <code>--set</code> flags, capability assumptions, CRD choices, and generated facts. The catalog recipe path records those inputs today. A one-shot upload must keep its own source record if upgrades and reinstalls are expected to be repeatable.</p>

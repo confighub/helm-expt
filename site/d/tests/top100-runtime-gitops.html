@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../tests/top100-runtime-gitops.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
@@ -463,7 +462,8 @@ production-supported charts: 0 / 20 top-20</code></pre>
 <tr><td>No-CRDs path</td><td>CRD-free bases where CRDs are externally owned.</td><td>Render contains no CRDs; CRD owner/precondition is recorded before workload sync.</td></tr>
 <tr><td>Hook/lifecycle charts</td><td>Charts with hook or lifecycle policy.</td><td>Hook home is explicit: blocked, ConfigHub-applied, or GitOps-controller-executed with a receipt.</td></tr>
 <tr><td>Day-2 edits</td><td>One safe edit per selected chart: image, resources, replicas, target, label, or values-driven base rerender.</td><td>Diff is explicit; apply/rollback receipts prove the intended field changed and can be reverted.</td></tr>
-<tr><td>False-green guard</td><td>Controller says synced/healthy but workload is not actually usable.</td><td>Runtime check fails; receipt records the contradiction.</td></tr></tbody></table>
+<tr><td>False-green guard</td><td>Controller says synced/healthy but workload is not actually usable.</td><td>Runtime check fails; receipt records the contradiction.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <h2 id="gitops-modes">GitOps Modes</h2>
 <p>Use both controller families over time:</p>
 <pre><code>Argo CD + ConfigHub OCI

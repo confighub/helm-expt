@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/master-catalog-matrix/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>ONE view of the whole catalog: one row per chart/version/catalog layer, including upstream sources, real installer bases, candidate paths, and downstream ConfigHub-derived variants. The translation attributes and per-lane status are joined from the committed sources below. This file invents no new truth - every cell comes from a source the verifier checks this view against.</p>
@@ -454,6 +453,7 @@
 <tr><td>⬜</td><td>not yet run - absence of evidence, not a failure</td></tr>
 <tr><td>-</td><td>not applicable - this lane does not apply to this row</td></tr></tbody></table>
 <p>Deferred accepted means the cell already has an honest disposition, usually watch or not applicable. It stays visible, but it is not where live-run time should be spent until the product scope changes.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p>Lane columns: <b>R</b> render parity (helm template vs installer setup) · <b>C</b> ConfigHub upload + scan + safe ops · <b>L</b> local kind apply · <b>Y</b> explicit lifecycle observation · <b>G</b> ConfigHub OCI + Argo live · <b>P</b> live Helm-vs-ConfigHub dual parity · <b>K</b> two-cluster kind parity · <b>V</b> server-side ConfigHub variant promotion. Hooks column: source hook count, disposition route, live-rehearsal status. <b>Route</b> is the generated lifecycle route/off-ramp contract: ✅ all route rows observed, ⚠️ route/executor named with cautions, ⬜ route work still todo, - no route row applies. <code>unrouted ⚠️</code> marks a chart whose source scan flags hooks but that has no hook-disposition row yet; <code>(from @x.y.z)</code> marks chart-family evidence taken from a different chart version's disposition row.</p>
 <h2 id="current-status">Current Status</h2>
 <table><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr><td>Chart versions</td><td>110</td></tr>

@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/blog-posts.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This is the public-facing story sequence for explaining the Helm experiment without making the reader learn the internal noun ladder first.</p>
@@ -462,7 +461,8 @@ teams often approve values files, not the exact objects those values produce.</c
   <pre><code>Start from a public Redis chart, render through cub installer, upload to
 ConfigHub, inspect Units, and verify your own install with receipts.</code></pre>
 <p>Show:</p>
-<ul><li><code>cub installer setup</code>;</li><li><code>npm run redis:verify-install:render</code>;</li><li><code>kubectl apply</code>;</li><li><code>npm run redis:verify-install:cluster</code>;</li><li><code>cub installer upload</code>;</li><li><code>npm run redis:verify-install:confighub</code>;</li><li>ConfigHub Unit list, labels, data, diff, scan, approval, and dry-run apply.</li></ul>
+<ul><li><code>cub installer setup</code>;</li><li><code>npm run redis:verify-install:render</code>;</li><li><code>kubectl apply</code>;</li><li><code>npm run redis:verify-install:cluster</code>;</li><li><code>cub installer upload</code>;</li><li><code>npm run redis:verify-install:confighub</code>;</li><li>ConfigHub Unit list, labels, data, diff, scan, approval, and dry-run apply.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>Proof links:</p>
 <ul><li><code>docs/demo/redis/demo-script.md</code></li><li><code>recipes/bitnami/redis/25.5.3/CATALOG.md</code></li><li><code>recipes/bitnami/redis/25.5.3/install-checks.yaml</code></li></ul>
 <h2 id="3-proof-not-promises-what-the-top-20-catalog-verifies">3. Proof, Not Promises: What The Top-20 Catalog Verifies</h2>

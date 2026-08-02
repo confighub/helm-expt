@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/helm-import-contract.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This repo treats Helm import as the path from a Helm render into a maintained <code>cub installer</code> recipe/package.</p>
@@ -478,7 +477,8 @@ plus values, overlays, dependency closure, and render context
 <tr><td>rendered output</td><td>rendered objects, object inventory, and immutable revision</td></tr>
 <tr><td>correctness</td><td>Helm-equivalence receipt comparing regular Helm output with <code>cub installer setup</code> output</td></tr>
 <tr><td>safety</td><td>scan receipt and install gate</td></tr>
-<tr><td>operation</td><td>ConfigHub upload/publish receipt, target facts, derived variant mapping, live or planned observation receipt</td></tr></tbody></table>
+<tr><td>operation</td><td>ConfigHub upload/publish receipt, target facts, derived variant mapping, live or planned observation receipt</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <h2 id="where-choices-go">Where Choices Go</h2>
 <table><thead><tr><th>User Choice</th><th>Route</th></tr></thead><tbody><tr><td>Helm values file or <code>--set</code> changes rendered objects</td><td>importer creates or updates a <code>cub installer</code> base variant</td></tr>
 <tr><td>Kustomize overlay changes rendered objects</td><td>importer treats it as a recipe/base overlay with a digest and rendered diff</td></tr>

@@ -726,6 +726,22 @@ function installerCommandNoteHtml() {
   return `<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> ${escapeHtml(INSTALLER_COMMAND_NOTE)} The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>`;
 }
 
+function insertNoteBeforeContainingBlock(html, needleIndex, note) {
+  const candidates = [];
+  for (const tag of ["p", "table", "ul", "ol", "dl"]) {
+    const start = html.lastIndexOf(`<${tag}`, needleIndex);
+    if (start < 0) continue;
+    const end = html.indexOf(`</${tag}>`, start);
+    if (end >= needleIndex) candidates.push({ start, end, tag });
+  }
+  if (!candidates.length) return null;
+  const container = candidates.sort((a, b) => b.start - a.start)[0];
+  const insertAt = container.tag === "p"
+    ? container.start
+    : container.end + `</${container.tag}>`.length;
+  return `${html.slice(0, insertAt)}${note}\n${html.slice(insertAt)}`;
+}
+
 // Every page that shows the cub installer command must explain that setup
 // renders locally and does not deliver to Kubernetes. Insert the note before
 // the first command block, or at the top when the mention is inline only.
@@ -738,6 +754,11 @@ function injectInstallerCommandNote(html) {
     if (match.index <= headerEnd) continue;
     if (!match[0].includes("installer setup")) continue;
     return `${html.slice(0, match.index)}${note}\n  ${html.slice(match.index)}`;
+  }
+  const inlineNeedle = html.indexOf("installer setup", headerEnd + 1);
+  if (inlineNeedle >= 0) {
+    const localInsertion = insertNoteBeforeContainingBlock(html, inlineNeedle, note);
+    if (localInsertion) return localInsertion;
   }
   const mainMatch = html.match(/<main[^>]*>/);
   if (mainMatch) {

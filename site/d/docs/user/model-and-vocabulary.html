@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/model-and-vocabulary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
@@ -452,7 +451,8 @@
 <tr><td><b>Rendering</b></td><td>Running the recipe once to create exact Kubernetes objects.</td><td>A tool run such as <code>cub installer setup</code>, outside ConfigHub Server.</td></tr>
 <tr><td><b>Render record</b></td><td>The evidence for one render. It joins the render intent, rendered objects, checksums, and related receipts.</td><td>The repo (<code>data/helm-render-intents/</code> and revision files).</td></tr>
 <tr><td><b>Base variant</b></td><td>One named way to render a chart, such as <code>default</code>, <code>no-crds</code>, <code>existing-secret</code>, or <code>ha</code>. The <code>--base</code> option selects it.</td><td>The package (<code>bases/&lt;name&gt;</code>) and, after upload, a root ConfigHub Space.</td></tr>
-<tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table>
+<tr><td><b>Derived variant</b></td><td>A ConfigHub Space cloned from an uploaded base for an environment, region, or customer. It records its upstream base and does not rerender Helm.</td><td>ConfigHub.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>In one sentence: <b>a recipe renders into a base variant, a base variant becomes derived variants, and promotions carry reviewed changes between them.</b></p>
 <h2 id="the-source-and-intent-record">The source and intent record</h2>
 <p>Every maintained base needs a record that explains where its objects came from and which choices produced them. We call this the <b>source and intent record</b>.</p>
