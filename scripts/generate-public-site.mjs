@@ -1251,8 +1251,9 @@ function finalizeSite(site, catalog) {
   return finalized;
 }
 
-// Every relative href/src in the generated site must resolve to a file or
-// directory in the repository. Raw-markdown dead ends and depth bugs fail here.
+// Every relative href/src and every absolute link back into this public site
+// must resolve to a generated file or directory. Raw-markdown dead ends, stale
+// public URLs, and depth bugs fail here.
 function verifySiteLinks() {
   const htmlFiles = [];
   const walk = (dir) => {
@@ -1270,8 +1271,13 @@ function verifySiteLinks() {
     const html = readFileSync(file, "utf8");
     for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
       const value = match[1];
-      if (isExternalHref(value)) continue;
-      const resolved = resolveRelativeHref(pageDir, value);
+      const publicSitePath = value.startsWith(SITE_BASE_URL)
+        ? value.slice(SITE_BASE_URL.length) || "index.html"
+        : null;
+      if (isExternalHref(value) && publicSitePath === null) continue;
+      const resolved = publicSitePath === null
+        ? resolveRelativeHref(pageDir, value)
+        : resolveRelativeHref(siteRoot, publicSitePath);
       if (!resolved) continue;
       if (posix.relative(repoRoot, resolved.target).startsWith("runs/")) {
         // Receipt paths under runs/ come from proof data (for example the
@@ -1287,7 +1293,7 @@ function verifySiteLinks() {
     failures.length === 0,
     `site link check failed: ${failures.length} broken relative link(s), first ${Math.min(failures.length, 20)}:\n${failures.slice(0, 20).map((failure) => `  - ${failure}`).join("\n")}`,
   );
-  console.log(`verified site relative links across ${htmlFiles.length} page(s) (${skippedRunLinks} runs/ proof pointer(s) not checked)`);
+  console.log(`verified site relative and public-site links across ${htmlFiles.length} page(s) (${skippedRunLinks} runs/ proof pointer(s) not checked)`);
 }
 
 function verifyInstallerCommandCopy() {

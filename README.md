@@ -14,7 +14,7 @@ work in front of you.
 | Page | Purpose |
 | --- | --- |
 | [Try Redis](https://confighub.github.io/helm-expt/site/try.html) | Pull, render, and inspect one checked package. This first exercise needs no ConfigHub account, server, or Kubernetes cluster. |
-| [Examples](https://confighub.github.io/helm-expt/site/examples.html) | Bring Helm values, AICR, OCI, or YAML. Then see worked promotions, fleet rollouts, policy checks, and ConfigHub Apps. |
+| [Examples](https://confighub.github.io/helm-expt/site/testing.html) | Bring Helm values, AICR, OCI, or YAML. Then see worked promotions, fleet rollouts, policy checks, and ConfigHub Apps. |
 | [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html) | Find a tested starting configuration for a public Helm chart. Each chart page shows the objects, values, setup work, tests, and known limits. |
 | [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html) | Choose where the reviewed result goes: local files, OCI, ConfigHub, Argo CD, Flux, or Kubernetes. |
 | [Docs](https://confighub.github.io/helm-expt/site/docs.html) | Find the instructions for the step you are doing. |
