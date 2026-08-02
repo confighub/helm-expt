@@ -551,7 +551,7 @@ em{font-style:italic;color:var(--ink);}
 </header>
 <main>
 
-  <h2>The short version</h2>
+  <h2>1 · The short version: choose a deployment path</h2>
   <p>Prepare the exact Kubernetes objects, check them, then choose how to deploy them.</p>
   <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
     <tr><th style="width:30%">Deployment choice</th><th>What happens</th></tr>
@@ -606,7 +606,7 @@ em{font-style:italic;color:var(--ink);}
   <h3>When this helps</h3>
   <p>This becomes useful when Helm values are not enough, an upgrade changes more than expected, or a private chart is hard to review. Keep Helm as the source. Review the exact objects, record deliberate changes, and promote the same reviewed result instead of maintaining a permanent chart fork or a hard-to-follow overlay.</p>
 
-  <h2>Choose a starting configuration</h2>
+  <h2>2 · Choose a starting configuration</h2>
   <p>The catalog covers the most-used charts. Each chart is rendered, checked against plain Helm, scanned, and given an honest status. Today's proven scope:</p>
   <div class="scope">
     <div class="count"><b>20</b><span>charts live-tested end to end</span></div>
@@ -640,7 +640,7 @@ em{font-style:italic;color:var(--ink);}
   <p>The generated <a href="d/data/base-variant-records/summary.html">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
   <p>Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format. The <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> defines the role in full.</p>
 
-  <h2>How ConfigHub keeps the result</h2>
+  <h2>3 · See what ConfigHub keeps</h2>
   <p>For Helm, the source and intent record is the <code>HelmRenderIntent</code>. A chart then has two layers. <strong>Helm renders it</strong>: recipe → base variant → render intent → rendered output. <strong>ConfigHub operates it</strong> afterward by managing variants. The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
   <p>After upload, use <code>cub k8s</code> to read the Kubernetes objects stored in ConfigHub:</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Commands that read ConfigHub Server data require you to sign in.</p>
@@ -716,7 +716,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   </table>
   <p class="quiet-line">The <code>recipe</code> unit is the future source object with the machinery removed: a plaque in the seat where the engine goes. It marks the spot; it does not run. When source objects become first-class, this catalog's hundred recipes are ready to become real ones.</p>
 
-  <h2>Why the records are separate</h2>
+  <h2>4 · Understand why the records are separate</h2>
   <table class="gtable">
     <tr><th>We chose to…</th><th>…because</th></tr>
     <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and the change survives upgrades. And the proof is the desired config itself, not a side effect of running an engine.</td></tr>
@@ -727,7 +727,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td>Offer <strong>existing-secret</strong> bases</td><td>A default that ships a generated password installs green but breaks silently over GitOps (the pod can't find the Secret while Argo still says Synced). Bring-your-own is the safe path.</td></tr>
   </table>
 
-  <h2>Recommended paths</h2>
+  <h2>5 · Follow the recommended path</h2>
   <p>Take the smallest path that does the job, and grow only when you need to:</p>
   <table class="gtable">
     <tr><th>You want to…</th><th>Recommended path</th></tr>
@@ -747,7 +747,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <h3>Worked paths and Apps</h3>
   <p>The <a href="d/docs/user/config-catalog-demonstrations.html">demonstration programme</a> tracks the Helm, AICR, cub installer, OCI, promotion, Kubara, and Sveltos paths. It also states which ConfigHub Apps work today and which remain partial or planned. The <a href="d/docs/demo/hooks-crds/kube-prometheus-stack.html">Kube Prometheus Stack example</a> gives one complete chart-specific route plan. The <a href="d/docs/demo/apps/rbac-review.html">RBAC review example</a> shows one exact permission correction. That correction is tested, approved, published as OCI, and delivered by Argo CD.</p>
 
-  <h2>Decisions you still make</h2>
+  <h2>6 · Make the remaining decisions</h2>
   <p>Some choices we can't make for you. They depend on <em>your</em> cluster, your secrets, your policy. We surface them clearly and recommend a default, but the call is yours. We guide; you decide.</p>
   <div class="decide"><p><strong>Which base fits.</strong> We recommend <code>default</code>, but you know whether you need <code>ha</code>, <code>no-crds</code>, or <code>existing-secret</code>. The catalog names the trade-off; you pick.</p></div>
   <div class="decide"><p><strong>Namespace.</strong> Simple charts honour <code>--namespace</code>. Some complex charts embed a namespace in their objects and must install at their canonical one. The chart page says which.</p></div>
@@ -756,7 +756,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <div class="decide"><p><strong>Prerequisites &amp; target facts.</strong> Some bases need a Secret, a CRD, a namespace, or a cluster value to exist <em>first</em>. Stage them before applying, or choose a base that includes them. Each one is listed, not assumed.</p></div>
   <div class="decide"><p><strong>When to use Helm directly.</strong> If a chart is not in the catalog, use <code>helm template</code> or <code>helm install</code> and record the chart, version, values, namespace, and release name. You can later upload the rendered files with <code>cub variant upload</code>.</p></div>
 
-  <h2>Check a claim</h2>
+  <h2>7 · Check a claim</h2>
   <p>When a chart page says a path passes, is blocked, or is ready to try, that claim should be backed by files you can inspect. In this repo we call those checks <strong>verification</strong>. Some checks compare generated files on your machine; some use a fresh Kubernetes cluster.</p>
   <table class="gtable">
     <tr><th>Check file</th><th>Question it answers</th></tr>
@@ -782,7 +782,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td>Run a fresh live lane (<code>npm run kind-parity:run</code> / <code>live-parity:run</code>)</td><td>Yes</td><td>Helm vs cub, and OCI→Argo/Flux, on a throwaway cluster.</td></tr>
   </table>
 
-  <h2>What can be repeated exactly</h2>
+  <h2>8 · Repeat the same result</h2>
   <p>Some catalog steps are pure computations that you can reproduce offline. Other steps touch a live cluster and cannot produce byte-identical results. The table states which type each step belongs to.</p>
   <table class="gtable">
     <tr><th>Stage</th><th>Idempotent?</th><th>Reproducible from source, no cluster?</th><th>Why</th></tr>
@@ -795,7 +795,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   </table>
   <p class="quiet-line">A <strong>rename or re-derivation regenerates offline</strong> from committed source. A <strong>fresh live result needs a cluster</strong>. Live runs are serial and use one temporary cluster at a time. <code>cub cluster up</code> creates that local kind cluster. <code>cub cluster down</code> removes it afterward. Render parity is not a live result, and a warning is not a pass.</p>
 
-  <h2>Deploy from ConfigHub</h2>
+  <h2>9 · Deploy from ConfigHub</h2>
   <p>For the managed path, set the Space's release target and publish the reviewed Units as one immutable release OCI. Argo CD or Flux pulls those files and reconciles them. Neither controller renders the chart or source package again.</p>
   <pre><code>cub space update &lt;app-space&gt; --release-target &lt;cluster-space&gt;/oci
 cub release publish &lt;app-space&gt;
@@ -825,11 +825,11 @@ spec:
     <p>The catalog records these requirements per preset. A path is called automatic only after a receipt shows that it performed the required work.</p>
   </div>
 
-  <h2>Review AI changes</h2>
+  <h2>10 · Review AI changes</h2>
   <h3>AI-assisted changes, with control</h3>
   <p>AI can make a change faster than a person can review it. An agent therefore edits the rendered files, not hidden live state. Before delivery, you inspect the exact diff, scan for secrets and bad settings, and record an approval. If a bad value gets through, you can restore an earlier revision. The AI proposes the change. A person or policy approves it. The cluster receives only the approved result.</p>
 
-  <h2>Read the status</h2>
+  <h2>11 · Read the status</h2>
   <p>This page is not a blanket promise that every chart, controller, hook, or cluster path is ready. It shows what has been checked, what still needs work, and what a user should do next.</p>
   <table class="gtable">
     <tr><th>Status or label</th><th>What it means</th></tr>
