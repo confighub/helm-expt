@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "ManagedCubDirectProofReceipt"
 metadata:
-  name: "mcd-20260621-6i"
+  name: "mcd-20260802-1ur4"
 spec:
-  observedAt: "2026-06-21T19:34:00.921Z"
+  observedAt: "2026-08-02T14:00:44.034Z"
   result: "pass"
-  claim: "The three cub-direct (no-controller) delivery rough edges — no prune (#1013), no CRD ordering (#1015), raw SSA conflict (#1017) — all come from a naive kubectl apply, NOT from recipes/variants/revisions (which cover config shape). They are solvable on the no-controller path with a small managed applier: order CRDs (apply-first + wait), prune on upgrade (--prune by label), and turn an SSA field-manager conflict into a plain-words message + a --force-conflicts resolution. A controller (Argo/Flux) already handles all three; this proves the bare path can be managed too."
+  claim: "The three cub-direct (no-controller) delivery rough edges — no prune (#1013), no CRD ordering (#1015), raw SSA conflict (#1017) — all come from a naive kubectl apply, NOT from recipes/variants/revisions (which cover config shape). They are solvable on the no-controller path with a small managed applier: order CRDs (apply-first + wait), prune on upgrade (--prune by label), and turn an SSA field-manager conflict into a plain-words message + a --force-conflicts resolution. A configured Argo CD or Flux path can own the same work, but its ordering, pruning, and conflict behavior still needs to be stated and tested."
   legs:
     crdOrdering:
       managed: "apply CRDs first, wait --for=condition=established, then the CR"
@@ -21,7 +21,7 @@ spec:
       resolved: true
       fixes: "#1017"
   run:
-    rig: "mcd-20260621-6i"
+    rig: "mcd-20260802-1ur4"
     cleanup:
       result: "pass"
   conclusion: "All three delivery rough edges are managed on the cub-direct path: CRD-bearing first install succeeds, the upgrade prunes the removed object, and the manual-edit conflict becomes a plain-words message + a clear --force-conflicts resolution. So 'cub-direct' does not have to mean 'naive kubectl apply' — and these were never recipe/variant quirks. The doctrine fix: cub-direct should either use this managed applier, or explicitly hand upgrades/CRDs to a controller."

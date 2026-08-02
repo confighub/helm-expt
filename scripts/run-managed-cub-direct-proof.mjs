@@ -2,7 +2,8 @@
 // "Manage it" proof (live): the three cub-direct (no-controller) delivery rough edges
 // — no prune (#1013), no CRD ordering (#1015), raw SSA conflict (#1017) — all stem from a
 // NAIVE `kubectl apply`. They are NOT recipe/variant/revision quirks (those cover config
-// shape); they are delivery-layer behaviors. A controller (Argo/Flux) already handles them.
+// shape); they are delivery-layer behaviors. A configured controller can own them, but the
+// controller path still needs explicit ordering, pruning, and conflict settings.
 // This proves the NO-CONTROLLER path can be managed too, with a small "managed applier":
 //   1. CRD ordering — apply CRDs first, wait for established, then the rest -> CR created.
 //   2. Prune        — on upgrade, apply with `--prune -l <label>` -> the removed object is gone.
@@ -112,7 +113,7 @@ function runProof() {
     spec: {
       observedAt: stamp,
       result: allManaged ? "pass" : "watch",
-      claim: "The three cub-direct (no-controller) delivery rough edges — no prune (#1013), no CRD ordering (#1015), raw SSA conflict (#1017) — all come from a naive kubectl apply, NOT from recipes/variants/revisions (which cover config shape). They are solvable on the no-controller path with a small managed applier: order CRDs (apply-first + wait), prune on upgrade (--prune by label), and turn an SSA field-manager conflict into a plain-words message + a --force-conflicts resolution. A controller (Argo/Flux) already handles all three; this proves the bare path can be managed too.",
+      claim: "The three cub-direct (no-controller) delivery rough edges — no prune (#1013), no CRD ordering (#1015), raw SSA conflict (#1017) — all come from a naive kubectl apply, NOT from recipes/variants/revisions (which cover config shape). They are solvable on the no-controller path with a small managed applier: order CRDs (apply-first + wait), prune on upgrade (--prune by label), and turn an SSA field-manager conflict into a plain-words message + a --force-conflicts resolution. A configured Argo CD or Flux path can own the same work, but its ordering, pruning, and conflict behavior still needs to be stated and tested.",
       legs: {
         crdOrdering: { managed: "apply CRDs first, wait --for=condition=established, then the CR", crCreated: crdManaged, fixes: "#1015" },
         prune: { managed: "kubectl apply --prune -l app=mcd on upgrade", removedObjectPruned: pruneManaged, fixes: "#1013" },
@@ -184,7 +185,7 @@ function summaryHtml(r) {
   </tbody></table>
   <div class="msg"><b>Plain-words conflict message (instead of the raw k8s wall):</b><br>${L.ssaConflict.plainMessage}</div>
   <p>Overall: ${chip(s.result)}</p>
-  <footer>These were never recipe/variant/revision quirks — they're the delivery layer. A controller (Argo/Flux) already handles them; this shows the bare cub-direct path can be managed too. Doctrine fix: cub-direct uses a managed applier (order → prune → plain-conflict), or routes upgrades + CRDs to a controller.</footer>
+  <footer>These are delivery-layer behaviors, not recipe or variant quirks. The bare cub-direct path can manage them. An Argo CD or Flux path still needs explicit, tested settings for ordering, pruning, and conflicts.</footer>
 </main></body></html>
 `;
 }

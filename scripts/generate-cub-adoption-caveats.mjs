@@ -38,7 +38,7 @@ const htmlPath = join(repoRoot, "data", "cub-adoption-caveats", "summary.html");
 
 const UNIVERSAL = [
   { id: "customize", title: "Customize with `--input` or a base edit, not Helm's `--set`", detail: "cub rejects `--set`/`--values` (the typo guard); declared values use `--input`, the rest by choosing/editing a kustomize base.", managed: "Guided errors + migration cheat-sheet (#1020, docs/user/helm-to-cub-migration.md)." },
-  { id: "prune", title: "Upgrades don't auto-delete removed objects on cub-direct", detail: "A plain `kubectl apply` leaves orphans when an upgrade removes a resource.", managed: "Managed applier uses `--prune` (#1019), or use a controller (Argo/Flux) which prunes natively." },
+  { id: "prune", title: "Upgrades don't auto-delete removed objects on cub-direct", detail: "A plain `kubectl apply` leaves orphans when an upgrade removes a resource.", managed: "Managed applier uses `--prune` (#1019), or use Argo CD or Flux with pruning enabled and tested." },
   { id: "ssa-conflict", title: "A manual `kubectl edit` conflicts on server-side re-apply", detail: "Safer than Helm's silent overwrite, but a Helm user expects the overwrite.", managed: "Managed applier surfaces a plain-words message + `--force-conflicts` (#1019)." },
 ];
 

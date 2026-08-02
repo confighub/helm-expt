@@ -140,9 +140,11 @@ upgrade case.
 | An upgrade removes an object | Prune the removed object under an explicit ownership rule |
 | A live edit conflicts with reviewed configuration | Show the choice: keep live, accept desired, or force the reviewed change |
 
-Argo CD or Flux is the long-running path because the controller owns
-reconciliation and pruning. Direct apply remains useful for a controlled test
-or an environment that does not run a GitOps controller.
+Argo CD or Flux is the long-running path because the controller can own
+reconciliation and pruning. Pruning still has to be enabled and tested: Argo
+CD automated pruning is off by default, and a Flux Kustomization needs
+`spec.prune: true`. Direct apply remains useful for a controlled test or an
+environment that does not run a GitOps controller.
 
 ## Credentials
 

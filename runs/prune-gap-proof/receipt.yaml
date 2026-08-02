@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "PruneGapProofReceipt"
 metadata:
-  name: "prunegap-20260621-1gal"
+  name: "prunegap-20260802-1ucd"
 spec:
-  observedAt: "2026-06-21T16:37:44.695Z"
+  observedAt: "2026-08-02T14:00:10.951Z"
   result: "watch"
-  claim: "The cub-direct (no-controller) delivery path is `kubectl apply`, which does NOT prune resources removed between versions. An upgrade that drops a resource ORPHANS it — the cluster silently keeps an object no longer in desired state, breaking the config-as-data promise on this path. Argo and Flux prune natively; cub-direct must use `kubectl apply --prune` (label/allowlist) or a controller for clean upgrades."
+  claim: "The cub-direct (no-controller) delivery path is `kubectl apply`, which does NOT prune resources removed between versions. An upgrade that drops a resource ORPHANS it — the cluster silently keeps an object no longer in desired state, breaking the config-as-data promise on this path. cub-direct must use `kubectl apply --prune` with a safe selector or allowlist, an explicit delete-set, or a controller with pruning enabled."
   legs:
     orphanOnPlainApply:
       removedResource: "ConfigMap/extra-config"
@@ -16,7 +16,7 @@ spec:
       removed: true
       result: "pass"
   run:
-    rig: "prunegap-20260621-1gal"
+    rig: "prunegap-20260802-1ucd"
     cleanup:
       result: "pass"
-  conclusion: "Confirmed: the cub-direct path orphans removed resources on upgrade (plain kubectl apply does not prune). `--prune` removes them — so the doctrine must require `--prune` (or a controller) for the no-controller upgrade path. Argo/Flux are unaffected (they prune declaratively)."
+  conclusion: "Confirmed: the cub-direct path orphans removed resources on upgrade (plain kubectl apply does not prune). `--prune` removes them, so the no-controller upgrade path must require `--prune` or an explicit delete-set. Argo CD and Flux can remove omitted objects only when their pruning settings are enabled."

@@ -861,8 +861,8 @@
           <h3>Does cub-direct remove resources that disappear during an upgrade?</h3>
           <span class="faq-status">watch</span>
         </div>
-        <p>Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector/allowlist, or another explicit delete-set. Argo and Flux are not affected because they prune declaratively.</p>
-        <p class="faq-links"><a href="d/data/prune-gap-proof/summary.html">Prune gap proof</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a></p>
+        <p>Plain kubectl apply does not prune. The no-controller cub-direct path can orphan removed resources unless it uses kubectl apply --prune with a safe selector or allowlist, or another explicit delete-set. Argo CD and Flux can remove omitted objects only when pruning is enabled. Argo CD automated pruning is off by default; a Flux Kustomization uses spec.prune: true.</p>
+        <p class="faq-links"><a href="d/data/prune-gap-proof/summary.html">Prune gap proof</a> · <a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="https://argo-cd.readthedocs.io/en/stable/user-guide/auto_sync/#automatic-pruning">Argo CD pruning</a> · <a href="https://fluxcd.io/flux/components/kustomize/kustomizations/#prune">Flux pruning</a></p>
       </article>
         <article class="faq-card watch">
         <div class="faq-head">
