@@ -1685,18 +1685,7 @@ em{font-style:italic;color:var(--ink);}
 </header>
 <main>
 
-  <h2>1 · The short version: choose a deployment path</h2>
-  <p>Prepare the exact Kubernetes objects, check them, then choose how to deploy them.</p>
-  <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
-    <tr><th style="width:30%">Deployment choice</th><th>What happens</th></tr>
-    <tr><td>Local files<br><span class="quiet-line">No account</span></td><td><code>cub installer</code> or your existing source tool creates the objects. Read and test them, then use <code>kubectl</code> or commit the files for GitOps.</td></tr>
-    <tr><td>OCI to Argo CD or Flux<br><span class="quiet-line">No ConfigHub account</span></td><td><code>cub installer setup</code> with <code>--output-oci</code> writes the selected non-secret objects as OCI and checks them by reading the artifact back. A local OCI needs no account. Pushing to a registry needs that registry's credentials. Your controller pulls the published OCI.</td></tr>
-    <tr><td>ConfigHub to Argo CD or Flux<br><span class="quiet-line">ConfigHub account</span></td><td>Upload files or a literal OCI. ConfigHub keeps the objects, changes, checks, approvals, and promotions. <code>cub release publish</code> creates the deployment OCI for your controller.</td></tr>
-  </table>
-  <p class="quiet-line">All three paths use objects you can inspect before deployment. Start locally and add ConfigHub when you need shared history, variants, approvals, promotion, or fleet rollout.</p>
-  ${installerCommandNoteHtml()}
-
-  <h3>Three ConfigHub terms</h3>
+  <h2>1 · Three ConfigHub terms</h2>
   <p>These terms describe what ConfigHub stores and where a configuration is intended to run.</p>
   <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
     <tr><th style="width:22%">Term</th><th>Meaning</th></tr>
@@ -4533,16 +4522,16 @@ function demoOrgHtml(catalog) {
   const policyFacts = applyPolicyFacts();
   const sourceCoverage = policySourceCoverage(policyFacts);
   const keepRows = [
-    ["bitnami/redis", "default, reuse-existing-secret", "The version ladder: a living tree upgraded 25.5.3 to 27.0.0 through reconcile and promotion, with staging's local change preserved."],
-    ["argo-cd/argo-cd", "default, no-crds", "The CRD split: the same chart with CRDs bundled or separated, side by side."],
-    ["hashicorp/vault", "dev-mode, default, ha-raft-ui", "Variant diversity: three operating shapes of one chart."],
-    ["ingress-nginx/ingress-nginx", "default, internal-clusterip, admission-disabled", "The admission-webhook certificate quirk, three ways."],
-    ["prometheus-community/prometheus", "default, server-only-ephemeral", "The Get Started chart, as it lands in an org."],
-    ["prometheus-community/kube-prometheus-stack", "no-crds", "The serious chart: eight recorded lifecycle routes in its recipe unit."],
-    ["grafana/grafana", "existing-secret-ingress, static-passwords", "Secrets handled two ways."],
+    ["bitnami/redis", "default, reuse-existing-secret", "An upgrade from 25.5.3 to 27.0.0 through reconciliation and promotion, while staging keeps its local change."],
+    ["argo-cd/argo-cd", "default, no-crds", "The same chart with CRDs included or left for the cluster or another controller to manage."],
+    ["hashicorp/vault", "dev-mode, default, ha-raft-ui", "Three operating configurations for one chart."],
+    ["ingress-nginx/ingress-nginx", "default, internal-clusterip, admission-disabled", "Three ways to handle admission webhook certificate setup."],
+    ["prometheus-community/prometheus", "default, server-only-ephemeral", "A small server-only configuration compared with the chart default."],
+    ["prometheus-community/kube-prometheus-stack", "no-crds", "A complex chart with eight recorded lifecycle routes."],
+    ["grafana/grafana", "existing-secret-ingress, static-passwords", "A target-provided Secret compared with the fixed shared-password demonstration."],
     ["bitnami/mysql", "existing-secret, static-passwords", "Compare an externally supplied Secret with the fixed shared-password demonstration. The static-passwords base is not safe for production."],
-    ["bitnami/rabbitmq", "existing-secret, static-passwords", "A recipe unit whose routing metadata honestly says: nothing to route."],
-    ["bitnami/nginx", "http-clusterip, existing-tls-ingress", "The fleet: four environments from one base, one deliberately behind."],
+    ["bitnami/rabbitmq", "existing-secret, static-passwords", "A chart configuration with no separate lifecycle action to run."],
+    ["bitnami/nginx", "http-clusterip, existing-tls-ingress", "Four environment configurations from one base, with one environment intentionally on an older version."],
   ];
   const readmeRows = catalog.helmCatalogReadmes ?? [];
   const readmeKindCounts = countBy(readmeRows, "kind");
@@ -4560,7 +4549,7 @@ function demoOrgHtml(catalog) {
 <body>
     <header class="hero human-hero">
       ${topNav(".")}
-      <h1>Understand one live ConfigHub example</h1>
+      <h1>Explore the live ConfigHub demo</h1>
       <p class="lead">Open one Space in the <code>helm-catalog</code> demo org. Read its README, inspect the Kubernetes configuration, and look at its revision history.</p>
       <p>After that first example, use this page to explore environment variants, promotions, checks, hooks, and CRDs. The org contains ten charts chosen to explain those jobs.</p>
     ${humanLinks([["Open README index", "../data/helm-catalog-readmes/summary.md"], ["Browse Catalog", "./charts/index.html"], ["Build an App", "./journey.html"]])}
@@ -4622,7 +4611,7 @@ cub k8s get crd --space "*"</code></pre>
         <p>Each row below starts with one supported Helm configuration stored as readable Kubernetes Units. Choose the problem you want to understand, then open that Space and its README.</p>
         <p>Each maintained example Space has a README, rendered objects, identifying labels, and policy tests. Helm preset Spaces also have a current <code>HelmRenderIntent</code> Unit. Deeper examples add route, render-record, or proof Units when they are useful.</p>
       ${markdownLikeTable([
-        ["Chart", "Base variants", "The story it tells"],
+        ["Chart", "Base variants", "What this example demonstrates"],
         ...keepRows,
       ])}
         <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> contain evidence for all 100 charts.</p>
@@ -4734,21 +4723,14 @@ function journeyHtml(catalog) {
     ["Several charts", "A group of charts that must be released together, such as an application, database, cache, and monitoring."],
     ["Platform services", "Shared services such as ingress, certificates, policy, monitoring, logging, or identity."],
     ["Your own Kubernetes files", "Deployments, Services, ConfigMaps, Secrets, policies, and other objects written by your team."],
-    ["Something already running", "An application that already exists in Argo, Flux, rendered YAML, a Helm release, or a live cluster."],
+    ["An imported application", "An application first found in Argo, Flux, rendered YAML, a Helm release, or a live cluster, then saved in ConfigHub."],
   ];
   const appFlow = [
-    ["Start with something real", "Choose a catalog chart, an existing app, rendered YAML, a live namespace, or your own Kubernetes files."],
-    ["Show the objects first", "List the files and Kubernetes objects before ConfigHub changes how anything is delivered."],
-    ["Name what belongs together", "Group the objects that make up one application so a reviewer can see the whole thing."],
-    ["Make versions", "Create development, staging, production, region, or customer versions without copying values files by hand."],
-    ["Release and check it", "Send the approved files to GitOps or another delivery tool, then compare that with what the cluster reports."],
-  ];
-  const entryRows = [
-    ["Catalog chart", "Pick a chart page, choose a base variant, and render the files.", "Trying a public chart first."],
-    ["Existing Argo or Flux app", "Read the source, target, rendered objects, and current status.", "Teams that already use GitOps."],
-    ["Rendered YAML", "Import the files and show which objects ConfigHub would manage.", "Applications already rendered by CI or Helm."],
-    ["Live cluster", "Inventory what is running before making any change.", "Teams that need to understand an existing namespace."],
-    ["Your own application", "Bring your Deployments, Services, ConfigMaps, and policies beside catalog charts.", "Private services and platform components."],
+    ["Choose saved configuration", "Select the component, base, and environment variant that the App will operate."],
+    ["Show the proposed change", "Turn the request into exact Kubernetes object changes that a reviewer can read."],
+    ["Run the checks", "Scan the changed objects and stop when a required check or approval is missing."],
+    ["Publish the release", "Create the approved OCI release for Argo CD, Flux, or another delivery path."],
+    ["Check the result", "Compare the desired objects with what the cluster reports and record the outcome."],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -4784,8 +4766,8 @@ function journeyHtml(catalog) {
   </header>
   <main>
     <section aria-labelledby="app-kinds">
-      <h2 id="app-kinds">1. Choose what the App operates</h2>
-      <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or something that is already running.</p>
+      <h2 id="app-kinds">1. Confirm what the App operates</h2>
+      <p>An application is the set of Kubernetes objects your team operates together. It may be one chart, several charts, your own files, or an application imported from an existing system.</p>
       ${markdownLikeTable([
         ["Kind", "Meaning"],
         ...appKinds,
@@ -4793,55 +4775,22 @@ function journeyHtml(catalog) {
     </section>
 
     <section aria-labelledby="entry">
-      <h2 id="entry">2. Choose a starting point</h2>
-      <p>Start from the thing you already have. The first step is read-only: show the sources, files, objects, namespace, and owner before changing delivery.</p>
-      ${markdownLikeTable([
-        ["Entry", "First move", "Use it for"],
-        ...entryRows,
-      ])}
+      <h2 id="entry">2. Confirm the configuration is saved</h2>
+      <p>An App operates configuration that ConfigHub already stores. You should be able to open the component, base, environment variant, and exact Kubernetes objects before the App proposes a change.</p>
+      <p>If the configuration is not saved yet, use <a href="./testing.html">Examples</a> to start from Helm, AICR, OCI, or YAML. If the application already runs in Argo CD, Flux, or a cluster, follow <a href="./existing-apps.html">Record an existing application</a> to inspect it before upload.</p>
+      <p>The <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "apps-saved-config")}">official tutorial</a> shows the shortest ConfigHub path from one component to a promoted variant.</p>
     </section>
 
     <section aria-labelledby="app-flow">
       <h2 id="app-flow">3. Follow the normal order</h2>
-      <p>Do not start by changing the cluster. Start by seeing the files, then group them, then make versions, then release.</p>
+      <p>Start from the saved objects. Show the proposed change, run the required checks, publish the approved release, then check what happened on the cluster.</p>
       <div class="app-flow">
         ${appFlow.map(([title, body]) => `<div class="app-step"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
     </section>
 
-    <section aria-labelledby="existing">
-      <h2 id="existing">4. Start from an existing application</h2>
-      <p>Yes. Start by reading it, not by replacing it. ConfigHub should show the source, target, namespace, objects, labels, and owner before it changes delivery.</p>
-      ${markdownLikeTable([
-        ["Starting point", "First action", "What you see"],
-        ["Argo CD app", "Read or import the Argo app.", "Source repo, target cluster, namespace, rendered objects, and current sync status."],
-        ["Flux HelmRelease or Kustomization", "Read or import the Flux object.", "Controller source, target namespace, rendered objects, and ownership."],
-        ["Rendered YAML", "Import or preview the files.", "Objects, labels, namespaces, Secrets, CRDs, and likely review points."],
-        ["Live cluster", "Inventory the namespace or selected objects.", "What is running now, who appears to own it, and what would need review before adoption."],
-        ["Platform services", "Group related charts and files.", "Which shared services belong with the application and which are separate platform dependencies."],
-      ])}
-      <div class="card">
-        <h3>Start read-only</h3>
-        <p>Use the controller or Kubernetes API to read what exists. These commands do not change the cluster or upload anything to ConfigHub.</p>
-        <pre><code># Argo CD applications
-kubectl -n argocd get applications.argoproj.io -o yaml
-
-# Flux releases and kustomizations
-kubectl get helmreleases.helm.toolkit.fluxcd.io,kustomizations.kustomize.toolkit.fluxcd.io -A -o yaml
-
-# One application's ordinary Kubernetes objects
-kubectl -n payments get deployment,statefulset,service,configmap,serviceaccount,role,rolebinding -o yaml \\
-  &gt; .tmp/payments.yaml</code></pre>
-        <p>Review the source, namespace, objects, owners, and Secret references. When you are ready to save the reviewed files, use a real ConfigHub upload command:</p>
-        <pre><code>cub variant upload --component payments --variant base \\
-  --space payments-base --granularity per-resource .tmp/payments.yaml</code></pre>
-        <p>The upload creates ConfigHub records. It does not change delivery or apply anything to Kubernetes.</p>
-      </div>
-      <p>Only turn an existing app into a <code>cub installer</code> recipe when you want a maintained Helm render path, chart updates, and catalog-style checks. See <a href="../docs/user/adopting-existing-apps.md">Adopting Existing Apps</a>.</p>
-    </section>
-
     <section aria-labelledby="examples">
-      <h2 id="examples">5. See common uses</h2>
+      <h2 id="examples">4. See common uses</h2>
       ${markdownLikeTable([
         ["Example", "What ConfigHub helps with"],
         ["Redis app", "One public chart can be rendered from a base variant, checked, changed for each environment, and released again."],
@@ -4857,7 +4806,7 @@ kubectl -n payments get deployment,statefulset,service,configmap,serviceaccount,
     </section>
 
     <section aria-labelledby="app-program">
-      <h2 id="app-program">6. Open the working demonstrations</h2>
+      <h2 id="app-program">5. Open the working demonstrations</h2>
       <p>Each row has a bounded example with committed evidence. The broader product capability remains partial until the missing work in the final column is complete.</p>
       ${markdownLikeTable([
         ["App", "What ran", "Broader status", "Still to build"],
@@ -5787,8 +5736,18 @@ function operationsHtml(catalog) {
       <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
+    <section aria-labelledby="ops">
+      <h2 id="ops">2. Choose an operation</h2>
+      <div class="card">
+        <h3>Status legend</h3>
+        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
+        <p>A green GitOps sync is not the same as a working application. Use observation receipts when the claim depends on live state.</p>
+      </div>
+${cards}
+    </section>
+
     <section aria-labelledby="fleet-record">
-      <h2 id="fleet-record">2. Keep a fleet record</h2>
+      <h2 id="fleet-record">3. Keep a fleet record</h2>
       <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
       <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. The install-time surface stays small and restricted, so upgrades do not become another free-form Helm exercise.</p>
       <table>
@@ -5803,15 +5762,6 @@ function operationsHtml(catalog) {
       <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
     </section>
 
-    <section aria-labelledby="ops">
-      <h2 id="ops">3. Choose an operation</h2>
-      <div class="card">
-        <h3>Status legend</h3>
-        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work needs product, key, policy, or SLA decisions beyond the public proof corpus.</p>
-        <p>A green GitOps sync is not the same as a working application. Use observation receipts when the claim depends on live state.</p>
-      </div>
-${cards}
-    </section>
     <section aria-labelledby="next">
       <h2 id="next">4. Use managed ConfigHub when needed</h2>
       <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>

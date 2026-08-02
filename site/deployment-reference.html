@@ -551,18 +551,7 @@ em{font-style:italic;color:var(--ink);}
 </header>
 <main>
 
-  <h2>1 · The short version: choose a deployment path</h2>
-  <p>Prepare the exact Kubernetes objects, check them, then choose how to deploy them.</p>
-  <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
-    <tr><th style="width:30%">Deployment choice</th><th>What happens</th></tr>
-    <tr><td>Local files<br><span class="quiet-line">No account</span></td><td><code>cub installer</code> or your existing source tool creates the objects. Read and test them, then use <code>kubectl</code> or commit the files for GitOps.</td></tr>
-    <tr><td>OCI to Argo CD or Flux<br><span class="quiet-line">No ConfigHub account</span></td><td><code>cub installer setup</code> with <code>--output-oci</code> writes the selected non-secret objects as OCI and checks them by reading the artifact back. A local OCI needs no account. Pushing to a registry needs that registry's credentials. Your controller pulls the published OCI.</td></tr>
-    <tr><td>ConfigHub to Argo CD or Flux<br><span class="quiet-line">ConfigHub account</span></td><td>Upload files or a literal OCI. ConfigHub keeps the objects, changes, checks, approvals, and promotions. <code>cub release publish</code> creates the deployment OCI for your controller.</td></tr>
-  </table>
-  <p class="quiet-line">All three paths use objects you can inspect before deployment. Start locally and add ConfigHub when you need shared history, variants, approvals, promotion, or fleet rollout.</p>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-
-  <h3>Three ConfigHub terms</h3>
+  <h2>1 · Three ConfigHub terms</h2>
   <p>These terms describe what ConfigHub stores and where a configuration is intended to run.</p>
   <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
     <tr><th style="width:22%">Term</th><th>Meaning</th></tr>
