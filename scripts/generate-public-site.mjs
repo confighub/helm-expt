@@ -1797,15 +1797,18 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
 
   <div class="fstage">
     <span class="ftag">RECIPE</span><span class="codetag">F1 · source</span>
-    <h3>The recipe: your source of truth</h3>
-    <p>A recipe is the chart and version, the values you chose, the base you picked, and the locks, kept in git. It's the one place your intent lives. Nothing is rendered yet.</p>
+    <h3>The recipe: the recorded inputs</h3>
+    <p>A recipe records the chart and version, the values you chose, the base you picked, and the source locks. It is kept in git. Nothing has been rendered yet.</p>
   </div>
 
   <div class="fstage star">
     <span class="ftag">RENDER</span><span class="codetag">F2 · base → rendered output</span>
     <h3>Render: inputs first, then the frozen objects</h3>
-    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the inputs for that choice: chart version, values profile, namespace, capabilities, source lock. Rendering those inputs once produces the <strong>rendered output</strong>: the exact Kubernetes objects, frozen with a checksum. Intent first, then the captured output. The rendered output is never re-rendered. It is what you read before install, what we compare against plain Helm, and what your controller pulls unchanged. The <em>render boundary</em> is simple. Changing the object set makes a new base variant. Changing only the operating context needs no re-render.</p>
-    <p><strong>Example:</strong> Redis <code>default</code> has a package users pull, <code>${REDIS_INSTALLER_OCI_REF}</code>; a <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> that records the Helm inputs; and a full rendered YAML output, <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a>. The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums, and the <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repo source for that base variant. Redis has no hook route; charts with hooks or CRDs carry that context in lifecycle routes and target facts. For more examples, see <a href="../data/helm-render-intents/summary.md">the render-intent summary</a>.</p>
+    <p>A <strong>base variant</strong> is a <a href="./charts/index.html#base-variants">named render choice</a> such as default, no-crds, or ha. Its <strong>render intent</strong> records the chart version, values profile, namespace, capabilities, and source lock.</p>
+    <p>Rendering those inputs produces the <strong>rendered output</strong>: exact Kubernetes objects with a checksum. This is what you read before installation, what we compare with plain Helm, and what a controller can pull unchanged.</p>
+    <p>Make a new base variant when the source inputs should produce a different object set. Use a derived ConfigHub variant when one environment needs an exact field changed after render.</p>
+    <p><strong>Redis example:</strong> the <code>default</code> base has a public package, <code>${REDIS_INSTALLER_OCI_REF}</code>. Its <a href="../data/helm-render-intents/intents/bitnami-redis-25-5-3-default.yaml">render intent</a> records the Helm inputs. Its <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml">release-objects.yaml</a> contains the full rendered output.</p>
+    <p>The <a href="../recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml">revision</a> binds that YAML to checksums. The <a href="../packages/bitnami/redis/25.5.3/bases/default/">package base</a> is the repository source for the base variant. Redis has no hook route; charts with hooks or CRDs record them in lifecycle routes and target facts. <a href="../data/helm-render-intents/summary.md">Open more render-intent examples</a>.</p>
   </div>
 
   <div class="fstage">
@@ -1818,14 +1821,16 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <span class="ftag">ROUTE</span><span class="codetag">F3 · prerequisites &amp; routes</span>
     <h3>Route: the work Helm leaves at the edges</h3>
     <p>Helm can do more than produce ordinary YAML. A chart may install CRDs, run setup jobs, or generate Secrets. It can also require cloud identity, storage, or another existing cluster resource.</p>
-    <p>We record the right choice for each chart with its inputs, output, tests, and receipts. A base can include its CRDs or leave them to the cluster. It can require a tested setup step or an existing target resource. The catalog blocks the path when no safe default exists. A route records that decision and its evidence boundary. It is automatic only when the product runs it and a receipt proves the result.</p>
+    <p>We record the chosen approach for each chart with its inputs, output, tests, and receipts. A base can include its CRDs or leave them to the cluster. It can require a tested setup step or an existing target resource.</p>
+    <p>The catalog blocks a path when no safe default exists. A route records the required work and the evidence for it. We call a route automatic only when the product runs it and a receipt proves the result.</p>
     <p>The render intent separates requirements declared by the base from follow-up actions learned in live tests. For a recorded lifecycle route, it also says what Argo CD does and what Flux does for that exact chart version and base.</p>
   </div>
 
   <div class="fstage star">
     <span class="ftag">CHANGE</span><span class="codetag">F4 · derived variant</span>
     <h3>Change: derive from a base, and ConfigHub manages it</h3>
-    <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or it can edit any field. Create one per environment from a single base. The next upgrade keeps those edits. ConfigHub manages the review, promotion, approval, and delivery. It also observes the live result. Managed is a property, not a separate kind; a base variant can also be managed. Helm cannot provide this post-render history by itself.</p>
+    <p>A <strong>derived variant</strong> changes a base after render. It can set the target, region, labels, or approvals, or edit any field. Create one per environment from a single base.</p>
+    <p>ConfigHub reviews, promotes, approves, and delivers the change. It puts the recorded edit back after a base upgrade and can observe the live result. A base or derived variant can both be managed.</p>
   </div>
 
   <h3>The five words: Variants, in one picture</h3>
@@ -1836,7 +1841,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td><strong>Rendered output</strong></td><td>The <em>frozen, checksummed objects</em> a rendering produced; with its render intent it forms the render record.</td><td>No, it's already rendered</td><td>the recipe's revisions</td></tr>
     <tr><td><strong>Derived variant</strong></td><td>A change derived from a base: per-environment context or later edits, upstream link recorded.</td><td>No</td><td>ConfigHub</td></tr>
   </table>
-  <p class="quiet-line">Any of these can be <strong>managed</strong>: that's ConfigHub operating it (compare, promote, approve, deliver, observe), a property rather than a fifth kind. One sentence for the whole picture: a recipe renders into a base variant; a base variant clones into derived variants; promotions carry reviewed changes down.</p>
+  <p class="quiet-line">A recipe renders into a base variant. A base variant can have derived variants. ConfigHub can compare, promote, approve, deliver, and observe either kind.</p>
 
   <h3>Where the recipe lives, today and next</h3>
   <p>Inside a ConfigHub org, you see Units, clones, revisions, and links. The source recipe lives in this repository and in the package. Every catalog Space also carries a plain data Unit named <code>recipe</code>. It sits beside the objects that recipe produced. The table compares the three forms.</p>
@@ -1853,7 +1858,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
   <h2>4 · Understand why the records are separate</h2>
   <table class="gtable">
     <tr><th>We chose to…</th><th>…because</th></tr>
-    <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and the change survives upgrades. And the proof is the desired config itself, not a side effect of running an engine.</td></tr>
+    <tr><td>Keep config <strong>fully rendered</strong> (not templated)</td><td>So you can change any field after install and ConfigHub puts the recorded change back after an upgrade. The desired config itself shows what should run.</td></tr>
     <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers, with no re-render drift between review and runtime.</td></tr>
     <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per base variant.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
@@ -1947,7 +1952,9 @@ spec:
   url: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
   ref:
     tag: latest</code></pre>
-  <p class="quiet-line">A small routed-hook fixture proves that Argo CD and Flux can consume one ConfigHub release OCI and complete the same setup Job. A separate direct local test consumed the same artifact. The first exact catalog result uses the real <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> preset. <code>cub installer</code> reproduced its committed objects, and ConfigHub published them once. Argo CD and Flux reported the same release digest and a ready NGINX workload; the local test recorded the same result. Read the <a href="../data/catalog-oci-delivery-proof/summary.md">plain-English result</a> or the <a href="../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">receipt</a>. Every other catalog configuration still needs its own receipt before its page can make that delivery claim.</p>
+  <p class="quiet-line">A small hook test shows that Argo CD and Flux can consume one ConfigHub release OCI and complete the same setup Job. A separate local test consumed the same artifact directly.</p>
+  <p class="quiet-line">The first exact catalog result uses the <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> base. <code>cub installer</code> reproduced its committed objects, and ConfigHub published them once. Argo CD and Flux reported the same release digest and a ready NGINX workload. The local test recorded the same result.</p>
+  <p class="quiet-line">Read the <a href="../data/catalog-oci-delivery-proof/summary.md">plain-English result</a> or the <a href="../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">receipt</a>. Every other catalog configuration still needs its own receipt before its page can make that delivery claim.</p>
   <div class="honest">
     <h3>What a direct local apply still has to handle</h3>
     <p>The recorded direct path proves a first apply for one NGINX configuration. A reusable direct-delivery path also needs explicit behavior for these cases:</p>
