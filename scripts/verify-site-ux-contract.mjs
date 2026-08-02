@@ -87,6 +87,10 @@ const checks = [
     terms: ["Find the setup a Helm chart still needs", "1. Check the chart page first", "2. Understand each extra requirement", "3. Check what remains before deployment", "Helm hooks", "CRDs", "Cluster lookups"],
   },
   {
+    file: "site/offering.html",
+    terms: ["Choose how much of ConfigHub to use", "1. Start without ConfigHub Server", "2. Add ConfigHub when the result must live and change", "3. Use the commercial product for private and production work", "4. Check what exists today", "5. Send a missing or broken public chart", "A hosted path without sign-in is planned"],
+  },
+  {
     file: "site/existing-apps.html",
     terms: ["Understand an existing app before changing it", "1. Start from the system that owns it today", "2. Record the facts before making a change", "3. Choose the first managed step", "Argo CD or Flux app", "Live cluster"],
   },
