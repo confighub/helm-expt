@@ -40,8 +40,9 @@ clusters.
 ## Free And Managed Paths
 
 The starting examples support local use with no ConfigHub Server and public
-package use without a ConfigHub account. You need an account when you want
-ConfigHub to save, share, change, approve, promote, or roll out the result.
+package use without a ConfigHub account. A hosted no-sign-in service is planned
+for public configuration checks. You need an account when you want ConfigHub to
+save, share, change, approve, promote, or roll out the result.
 
 This is not a replacement chart language. Helm users keep their charts. The
 workshop makes the output easier to inspect, test, package, and operate.
