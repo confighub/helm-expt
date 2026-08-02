@@ -2871,7 +2871,7 @@ $ kustomize version</code></pre>
     --namespace redis \\
     --non-interactive \\
     --output-oci ./redis-25.oci</code></pre>
-    <p><code>cub installer</code> writes 14 Kubernetes objects and no Secret. It also writes a local OCI package.</p>
+    <p>The chart renders 13 objects. <code>cub installer</code> adds one explicit Namespace, so the output contains 14 manifest files and no Secret. It also writes a local OCI package.</p>
     <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
   </section>
 
@@ -2888,10 +2888,8 @@ $ grep -R "^kind:" ./redis/out/manifests</code></pre>
   <section aria-labelledby="finished">
     <h2 id="finished">You have finished the first example</h2>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
-    <p><a href="./how-it-works.html">Choose how to deploy the reviewed result</a>.</p>
-    <p><a href="./testing.html">Choose another worked example</a> for your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
-    <p><a href="./confighub.html">Keep it in ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
-    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> for deployment, upgrade, promotion, and rollback.</p>
+    <p><strong>Next:</strong> <a href="./how-it-works.html">choose how to deploy the reviewed result</a>.</p>
+    <p>Other paths: <a href="./testing.html">choose another worked example</a>, <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
   </section>
 </main>
 <footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
@@ -2914,7 +2912,7 @@ function howItWorksHtml() {
   ${topNav(".")}
   <h1>Choose how to deploy it</h1>
   <p class="lead">Come here after you have inspected the Kubernetes objects. They may have come from Helm, AICR, cub installer, an OCI package, or plain YAML.</p>
-  <p>Keep the result locally, publish it as OCI, or put it in ConfigHub. These choices can be combined.</p>
+  <p>You can stop with local files, publish them directly as OCI, or save them in ConfigHub and publish a reviewed release OCI later.</p>
   <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Use it for changes, approvals, promotion, release OCI, and rollout history.</p>
 </header>
 <main>
@@ -2923,14 +2921,16 @@ function howItWorksHtml() {
     <h3>Local files</h3>
     <p><strong>No ConfigHub account.</strong> Keep readable Kubernetes files. Test them, apply them with kubectl, or commit them to Git.</p>
     <h3>OCI package</h3>
-    <p><strong>No ConfigHub account.</strong> Publish the reviewed files as OCI. Argo CD or Flux can pull the same objects you inspected.</p>
+    <p><strong>No ConfigHub account.</strong> Publish the reviewed files as a rendered OCI. Argo CD or Flux can pull the same objects you inspected.</p>
     <h3>ConfigHub</h3>
-    <p>Import the files or OCI as a base configuration: the reviewed starting point for later changes. ConfigHub keeps those changes and can publish release OCI for Argo CD or Flux.</p>
+    <p>Import the files or OCI as a base: the reviewed starting configuration. Make variants when an environment, region, or customer needs a different field.</p>
+    <p>During an upgrade, non-conflicting recorded changes remain. Review a conflict when the new source render and a ConfigHub revision change the same field.</p>
+    <p>These OCI artifacts have different jobs. A Catalog installer OCI is input to cub installer. A rendered OCI contains the exact local output. A ConfigHub release OCI contains reviewed revisions after required checks and approvals.</p>
   </section>
 
   <section aria-labelledby="setup">
     <h2 id="setup">2. Track required setup</h2>
-    <p>Keep a source and intent record beside the objects. It records what produced them, including the version, values, and target assumptions.</p>
+    <p>Keep a record of how the objects were produced: the source package or chart, version, values, namespace, and assumptions about the target cluster. We call this the source and intent record.</p>
     <p>Track prerequisites and lifecycle work separately, even when they are represented by Kubernetes objects. Examples include Secrets, CRDs, certificates, hooks, setup jobs, and cluster capabilities.</p>
     <p>A catalog page names this work before deployment. It may include a tested step, require an existing resource, offer another configuration, or block the path.</p>
     <p><a href="./d/docs/user/chart-hooks-what-happens.html">How chart hooks are handled</a> · <a href="./d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></p>
@@ -2954,6 +2954,7 @@ function howItWorksHtml() {
     <p>For a local test, apply the reviewed files with kubectl. For GitOps, let Argo CD or Flux pull the reviewed files from Git or OCI.</p>
     <p>With ConfigHub, publish a release OCI after any required checks and approvals. Argo CD or Flux then pulls that release.</p>
     <p>A ConfigHub target records where a variant should run. It does not require ConfigHub Server to connect directly to the cluster.</p>
+    <p><code>kubectl apply</code> does not delete objects omitted from a later file set. Argo CD and Flux delete omitted objects only when pruning is enabled and tested.</p>
     <p><a href="./d/docs/user/cub-deployment-path.html">Deployment commands</a> · <a href="./d/docs/user/gitops-adopter-guide.html">Argo CD and Flux guide</a> · <a href="./known-gaps.html">Current delivery gaps</a></p>
   </section>
 
@@ -2990,11 +2991,10 @@ function configHubHtml() {
     <h2 id="managed-result">1. What ConfigHub adds</h2>
     <p>Start from reviewed files or OCI. Store them as a base configuration, then make separate variants for each environment. Review exact diffs and promote approved changes.</p>
     <p>Publish release OCI for Argo CD or Flux. Keep the source, changes, approvals, releases, and rollout history together.</p>
-    <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>
   <section aria-labelledby="review-tutorial">
     <h2 id="review-tutorial">2. Follow the official tutorial</h2>
-    <p><a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">Review the tutorial</a> for one component, one change, a production variant, and a promotion.</p>
+    <p>Start with the <a href="${confighubOutboundUrl(CONFIGHUB_TUTORIAL_URL, "confighub-page")}">official tutorial</a>. It covers one component, one change, a production variant, and a promotion.</p>
   </section>
   <section aria-labelledby="create-account">
     <h2 id="create-account">3. Create an account</h2>
@@ -3003,6 +3003,7 @@ function configHubHtml() {
   <section aria-labelledby="read-blog">
     <h2 id="read-blog">4. Read the background</h2>
     <p><a href="${confighubOutboundUrl(CONFIGHUB_BLOG_URL, "confighub-page")}">Read the ConfigHub blog</a> for product ideas, technical explanations, and worked stories.</p>
+    <p><a href="./how-it-works.html">Review the deployment choices</a> · <a href="./docs.html">Find technical instructions</a></p>
   </section>
 </main>
 </body>
@@ -3541,7 +3542,7 @@ function docsHtml() {
     ${topNav(".")}
     <h1>Find instructions for the step you are doing</h1>
     <p class="lead">Choose the question closest to your current work. Each link opens the commands, example, or evidence you need.</p>
-    <p>Docs supports the work; it is not another deployment step. These guides cover public tools and ConfigHub operations for Helm, AICR, OCI, and YAML.</p>
+    <p>Use these guides for commands and detailed instructions for Helm, AICR, OCI, YAML, and ConfigHub.</p>
   </header>
   <main>
     <section aria-labelledby="start">
@@ -5296,9 +5297,6 @@ function catalogPathfinderHtml(root) {
 }
 
 function examplesHtml(catalog) {
-  const permanentLiteralOciReceipt = readYaml(permanentLiteralOciReceiptPath);
-  const permanentLiteralOciRef =
-    permanentLiteralOciReceipt.spec.artifact.immutableReference;
   const pathways = new Map(catalog.demoProgram.spec.pathways.map((item) => [item.id, item]));
   const apps = new Map(catalog.demoProgram.spec.apps.map((item) => [item.id, item]));
   const worked = (collection, id) => {
@@ -5350,7 +5348,7 @@ function examplesHtml(catalog) {
     ${topNav(".")}
     <h1>Choose a worked example</h1>
     <p class="tagline">Begin with the configuration you have. Follow one example to exact Kubernetes objects and a checked result.</p>
-    <p>The first group gets you to one result. The later groups show promotion, delivery, platforms, fleets, and ConfigHub Apps.</p>
+    <p>Choose your input in section 1. After you have a checked result, continue with OCI, ConfigHub, promotion, fleets, or Apps.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
@@ -5360,36 +5358,36 @@ function examplesHtml(catalog) {
       <h2 id="start">1. Start with a configuration</h2>
       <p>Start with the type of configuration you have. Each example shows the files, the checks, and the next step into ConfigHub or OCI.</p>
       ${markdownLikeTable([
-        ["What you have", "What the example does", "Start and proof", "ConfigHub and OCI"],
+        ["Starting input", "First reviewed result", "Start", "Evidence and next steps"],
         [
           "A ready-made Helm package",
           "Pull Redis, render one preset configuration, inspect its objects, and check the recorded Helm parity and install requirements.",
-          `<a href="./try.html">Short example</a> · <a href="./redis-walkthrough.html">Full walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3">GitHub source</a>`,
-          `Public installer OCI. <a href="./charts/bitnami-redis-25-5-3.html">Open its reference and package details</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">See this example in ConfigHub</a>`,
+          `<a href="./try.html">Start with Redis</a><br><a href="./redis-walkthrough.html">Continue the detailed walkthrough</a>`,
+          `<a href="./charts/bitnami-redis-25-5-3.html">Package and evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/recipes/bitnami/redis/25.5.3">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/bitnami-redis-25-5-3-reuse-existing-secret/README.html">ConfigHub example</a>`,
         ],
         [
           "Your own Helm chart and values",
           "Preview an arbitrary chart and values without applying them. The NGINX review keeps the wanted change and corrects six risky settings.",
-          `<a href="#bring-your-own">Run cub helm</a> · <a href="./d/data/byo-helm-values-review/summary.html">Open the NGINX review</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a>`,
-          `Public OCI containing the exact Kubernetes objects; its reference is in the <a href="./d/data/byo-helm-values-review/public-and-confighub.html">publication record</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">See this example in ConfigHub</a>`,
+          `<a href="#bring-your-own">Start with cub helm</a>`,
+          `<a href="./d/data/byo-helm-values-review/summary.html">NGINX review</a> · <a href="./d/data/byo-helm-values-review/public-and-confighub.html">OCI publication</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/byo-helm-values">GitHub source</a> · <a href="./d/data/helm-catalog-readmes/spaces/byo-nginx-ai-values-24-0-2-reviewed/README.html">ConfigHub example</a>`,
         ],
         [
           "An AICR recipe or bundle",
           "Publish the AICR source package and a second OCI containing 17 exact Argo CD Applications. Import those Applications into ConfigHub, change one setting in development, and promote it to staging.",
-          `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr/eks-h100-training-kubeflow">GitHub source</a> · <a href="./d/data/aicr-oci-roundtrip-proof/summary.html">Round-trip proof</a>`,
-          `Public source OCI plus a public OCI containing 17 exact Argo CD Applications; digests are in the <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">publication receipt</a>.<br><a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">See this example in ConfigHub</a>`,
+          `<a href="./d/docs/demo/aicr/eks-h100-training-kubeflow.html">Start the AICR walkthrough</a>`,
+          `<a href="./d/data/aicr-oci-roundtrip-proof/summary.html">Round-trip proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/aicr/eks-h100-training-kubeflow">GitHub source</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">OCI publication</a> · <a href="./d/data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.html">ConfigHub example</a>`,
         ],
         [
           "An existing OCI package",
           "Inspect its exact objects or change one named field, then pull the result back and compare it with the reviewed files.",
-          `<a href="./d/docs/user/inspect-oci-package.html">Inspect OCI</a> · <a href="./d/docs/user/transform-oci-package.html">Change OCI</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/anonymous-oci-transform">GitHub source</a> · <a href="./d/data/anonymous-oci-transform-proof/summary.html">Proof</a>`,
-          `Permanent public OCI: <code>${permanentLiteralOciRef}</code>.<br><a href="./d/data/literal-config-examples/summary.html">Publication and exact import proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html">See this example in ConfigHub</a>`,
+          `<a href="./d/docs/user/inspect-oci-package.html">Inspect OCI</a><br><a href="./d/docs/user/transform-oci-package.html">Change OCI</a>`,
+          `<a href="./d/data/anonymous-oci-transform-proof/summary.html">Transform proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/anonymous-oci-transform">GitHub source</a> · <a href="./d/data/literal-config-examples/summary.html">Publication and import proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/existing-oci-nginx-replicas-4/README.html">ConfigHub example</a>`,
         ],
         [
           "Kubernetes YAML or an existing app",
           "Upload four ordinary Kubernetes files without running Helm or another renderer. Read the four ConfigHub Units back and compare them with the source.",
-          `<a href="./existing-apps.html">Existing-app guide</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/literal-config-examples/summary.html">Exact import proof</a>`,
-          `<a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">See this example in ConfigHub</a>. The focused receipt stops after import; the official tutorial continues into change, release, production, and promotion.`,
+          `<a href="./existing-apps.html">Start with the existing-app guide</a>`,
+          `<a href="./d/data/literal-config-examples/summary.html">Exact import proof</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/plain-yaml/acme-web">GitHub fixture</a> · <a href="./d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">ConfigHub example</a>. The official tutorial continues into change, release, production, and promotion.`,
         ],
       ], { rawSecondColumn: true, rawThirdColumn: true, rawFourthColumn: true })}
 
@@ -5400,18 +5398,23 @@ function examplesHtml(catalog) {
         <pre class="terminal-body"><code><span class="term-prompt">$</span> cub plugin install confighub/cub-helm
 <span class="term-prompt">$</span> cub helm template myapp &lt;chart-ref&gt; \\
     --version &lt;chart-version&gt; \\
+    --namespace &lt;namespace&gt; \\
     --values ./my-values.yaml \\
     --output-dir ./out</code></pre>
       </div>
       <p>Read the files in <code>./out</code>. Check images, credentials, permissions, storage, CRDs, and any hooks reported by the command.</p>
+      <p>If you omit <code>--namespace</code>, cub uses <code>confighubplaceholder</code> until a deployment variant supplies the real namespace.</p>
       <p>Hooks are omitted unless you add <code>--include-hooks</code>. A chart that requires live <code>lookup</code> results or target-specific capabilities needs a different recorded render path.</p>
       <p>The <a href="./d/data/byo-helm-values-review/summary.html">worked NGINX review</a> starts with AI-written values. It keeps the requested replica count and corrects six settings before deployment.</p>
       <p>When the result is ready for a team, sign in and record it in ConfigHub:</p>
       <pre><code>cub auth login
 cub helm install myapp &lt;chart-ref&gt; \\
   --version &lt;chart-version&gt; \\
+  --namespace &lt;namespace&gt; \\
   --values ./my-values.yaml</code></pre>
       <p>This does not apply the chart to Kubernetes. ConfigHub stores the rendered objects in <code>myapp-base</code>. It stores the chart, version, and values in <code>myapp-helm</code>.</p>
+      <p><code>cub helm install</code> drops Helm hooks by default. <code>--include-hooks</code> stores them as ordinary resources, but it does not run Helm's hook lifecycle.</p>
+      <p>CRDs are included unless you use <code>--skip-crds</code>. Your delivery path must install them before resources that depend on them.</p>
       <p>Change the Helm source when chart values should rebuild the shared base. Change a ConfigHub variant when one environment needs a field after render. Do not set the same field in both places.</p>
       <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a> · <a href="./entry-path-reference.html#bring-your-own">Open the detailed example</a></p>
     </section>
@@ -5890,7 +5893,11 @@ function firstPathCell(entry, row) {
   let note = "Open the chart page for the command and option cards.";
   if (row?.row_kind === "candidate") note = "Candidate path; model the base before using it.";
   else if (row?.row_kind === "derived") note = "Derived ConfigHub variant; upload the base first.";
-  else if (row?.row_kind === "base") note = "Recommended configuration to try first.";
+  else if (row?.row_kind === "base") {
+    note = entry.proof_surface === "top20-catalog-supported"
+      ? "Recommended configuration to try first."
+      : "Available configuration. Read the chart page before use.";
+  }
   return `<a href="${escapeHtml(page)}"><strong>${escapeHtml(variant)}</strong></a><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(note)}</span>`;
 }
 
@@ -5957,8 +5964,6 @@ function renderedObjectsPathFromRevision(revisionPath) {
 }
 
 function chartIndexHtml(catalog) {
-  const publicCatalogPackageCount = catalog.installerOciPackages.filter((row) => row.public_catalog === "yes").length;
-  const publishedPackageCount = catalog.installerOciPackages.filter((row) => row.publication_status === "published-receipt").length;
   const chartRowsHtml = catalog.catalogEntries
     .map((entry) => {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
@@ -5998,7 +6003,7 @@ function chartIndexHtml(catalog) {
     .join("\n");
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
       <h2 id="catalog-summary">What each catalog entry contains</h2>
-      <p>The catalog currently has ${catalog.summary.publicCatalogCharts} public chart pages and ${publicCatalogPackageCount} public installer packages. Each chart page keeps the ready-made configurations, package OCI, full YAML, source inputs, required setup, test results, and current limits together. ${publishedPackageCount} package references have publication receipts.</p>
+      <p>The catalog has ${catalog.summary.publicCatalogCharts} chart pages. Each page links its available package, rendered YAML, source inputs, required setup, test results, and current limits.</p>
     </section>
 
     <section aria-labelledby="base-variants">
@@ -6311,10 +6316,16 @@ function packagedRequirementDescription(requirement) {
 }
 
 function requirementSourceHtml(requirement) {
-  return packagedRequirementDescription(requirement) ||
-    (requirement.suggestedSource
-      ? `<code>${escapeHtml(requirement.suggestedSource)}</code>`
-      : "Create or confirm this before apply.");
+  const packaged = packagedRequirementDescription(requirement);
+  if (packaged) return packaged;
+  const suggestedSource = String(requirement.suggestedSource ?? "").trim();
+  if (!suggestedSource) return "Create or confirm this before apply.";
+  const namespace = String(requirement.namespace ?? "").trim();
+  const namespaceStep = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/.test(namespace)
+    && suggestedSource.startsWith(`kubectl -n ${namespace} `)
+    ? `<code>kubectl create namespace ${escapeHtml(namespace)} --dry-run=client -o yaml | kubectl apply -f -</code><br>`
+    : "";
+  return `${namespaceStep}<code>${escapeHtml(suggestedSource)}</code>`;
 }
 
 function requirementSourcePlain(requirement) {
@@ -6789,6 +6800,7 @@ function gitOpsRuntimeReviewHtml(review, reviewPath) {
 
 function chartPageHtml(catalog, entry) {
   const chartKey = `${entry.chart}@${entry.version}`;
+  const isReadyToTry = entry.proof_surface === "top20-catalog-supported";
   const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
   const matrixRows = catalog.masterCatalogMatrix
     .filter((row) => row.chart === entry.chart && row.version === entry.version)
@@ -7018,8 +7030,8 @@ function chartPageHtml(catalog, entry) {
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
-    <p class="lead">Choose a tested starting configuration for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
-    <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong>. The page also shows other recorded choices, such as no-CRDs, existing Secret, HA, or server-only when they apply. It does not claim every possible values combination.</p>
+    <p class="lead">${isReadyToTry ? "Choose a tested starting configuration" : "Review a recorded configuration"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
+    <p>${isReadyToTry ? "Start with" : "The first recorded configuration is"} <strong>${escapeHtml(entry.start_variant)}</strong>. ${isReadyToTry ? "The page also shows other recorded choices." : "Read its status before use; it is not yet a polished public example."} The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
     <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
     <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
@@ -7040,7 +7052,7 @@ function chartPageHtml(catalog, entry) {
       <h2 id="summary">What To Use</h2>
       ${chartStatStrip(entry, firstRunnableRow)}
       <div class="grid">
-        <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>Recommended first base variant</span></div>
+        <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>${isReadyToTry ? "Recommended first base variant" : "First recorded base variant"}</span></div>
         <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants"}</span></div>
         <div class="metric"><strong>${escapeHtml(catalogStartStatusLabel(entry.start_base_readiness))}</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>${escapeHtml(productionStatusLabel(production?.production_support ?? entry.production_readiness))}</strong><span>Production status</span></div>
@@ -7097,14 +7109,14 @@ function chartPageHtml(catalog, entry) {
 
     <section aria-labelledby="run-this">
       <h2 id="run-this">How To Try This Chart</h2>
-      <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong> unless a card below explains that another base variant is a better first path. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
+      <p>${isReadyToTry ? `Start with <strong>${escapeHtml(entry.start_variant)}</strong>.` : `Review <strong>${escapeHtml(entry.start_variant)}</strong> before use.`} If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
         <p><code>${escapeHtml(installerPackageOciRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)}</span></p>
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
-        <h3>Recommended first command</h3>
+        <h3>${isReadyToTry ? "Recommended first command" : "First recorded command"}</h3>
         <p>${firstRunnableCommand}</p>
-        ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p>` : ""}${firstHubReadmePath ? `
+        ${firstRunnableScriptDir ? `<p>Or run the whole sequence as one script, prerequisites included: <a href="../${firstRunnableScriptDir}/try.sh">try.sh</a> (render and apply, no account) · <a href="../${firstRunnableScriptDir}/confighub.sh">confighub.sh</a> (render and upload to your ConfigHub Space).</p><p><strong>Before you run <code>try.sh</code>:</strong> it changes your current kubectl context. It runs the named prerequisites and applies the rendered objects. Read it first and use a disposable test cluster. <code>confighub.sh</code> does not apply anything to Kubernetes.</p>` : ""}${firstHubReadmePath ? `
         <p>This preset is also shown in the live <code>helm-catalog</code> demo org. <a href="../../${escapeHtml(firstHubReadmePath)}">Read the demo README</a> to see why that Space exists, what problem it demonstrates, and what to inspect first.</p>` : ""}
         <h3>You should see something like this</h3>
         <pre><code>cub installer setup ...

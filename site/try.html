@@ -542,7 +542,7 @@ $ kustomize version</code></pre>
     --namespace redis \
     --non-interactive \
     --output-oci ./redis-25.oci</code></pre>
-    <p><code>cub installer</code> writes 14 Kubernetes objects and no Secret. It also writes a local OCI package.</p>
+    <p>The chart renders 13 objects. <code>cub installer</code> adds one explicit Namespace, so the output contains 14 manifest files and no Secret. It also writes a local OCI package.</p>
     <p>The command reads the OCI package back and checks that none of the objects changed. It reports <code>pull-back: verified</code> when the comparison passes.</p>
   </section>
 
@@ -559,10 +559,8 @@ $ grep -R "^kind:" ./redis/out/manifests</code></pre>
   <section aria-labelledby="finished">
     <h2 id="finished">You have finished the first example</h2>
     <p>You now have readable Kubernetes files and a local OCI package. Nothing has been applied to a cluster.</p>
-    <p><a href="./how-it-works.html">Choose how to deploy the reviewed result</a>.</p>
-    <p><a href="./testing.html">Choose another worked example</a> for your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
-    <p><a href="./confighub.html">Keep it in ConfigHub</a> when you want to save, change, promote, or release the reviewed configuration.</p>
-    <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> for deployment, upgrade, promotion, and rollback.</p>
+    <p><strong>Next:</strong> <a href="./how-it-works.html">choose how to deploy the reviewed result</a>.</p>
+    <p>Other paths: <a href="./testing.html">choose another worked example</a>, <a href="./redis-walkthrough.html">continue the detailed Redis walkthrough</a>, or <a href="./confighub.html">keep the result in ConfigHub</a>.</p>
   </section>
 </main>
 <footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
