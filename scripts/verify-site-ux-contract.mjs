@@ -87,6 +87,10 @@ const checks = [
     terms: ["Use AI without hiding the result", "It does not decide whether a configuration is ready", "1. Use AI to maintain the Catalog", "2. Review configuration made by AI", "The agent proposes. The reviewed objects are what get released.", "3. See a checked ConfigHub example", "4. Choose a suitable AI task", "5. Give AI a purpose-built App", "6. Open guides and evidence", "RBAC Manager for Agents"],
   },
   {
+    file: "site/demo-org.html",
+    terms: ["Understand one live ConfigHub example", "1. Open one Space and read its README", "2. See the records that explain the configuration", "3. Query and change the saved Kubernetes objects", "4. Choose another example by problem", "5. Follow a change through variants and promotions", "6. Check what ran on Kubernetes", "7. See how hooks, CRDs, and source records are represented", "8. See which checks can stop an apply", "9. Repeat the pattern with your own app"],
+  },
+  {
     file: "site/custom-apps.html",
     terms: ["Custom Apps", "Agentic app or plugin", "RBAC Manager for Agents"],
   },

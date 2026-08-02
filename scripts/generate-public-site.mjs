@@ -224,7 +224,7 @@ const PAGE_DESCRIPTIONS = {
   "private/index.html": "Upgrade to ConfigHub: the commercial edition for private charts, teams, policies, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
   "charts/index.html": "Find a tested starting configuration for a public package, with its rendered objects, required setup, and evidence.",
-  "demo-org.html": "The demo org: ten catalog charts living in a real ConfigHub organization, with version ladders, a fleet, secrets and CRD stories, and live checks.",
+  "demo-org.html": "Open one ConfigHub demo Space, read its README, inspect its Kubernetes configuration, and then explore variants, promotions, checks, hooks, and CRDs.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
 };
 const mode = process.argv[2] ?? "--generate";
@@ -4462,23 +4462,24 @@ function demoOrgHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Demo Org · Config Workshop</title>
+  <title>Live ConfigHub Examples · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
     <header class="hero human-hero">
       ${topNav(".")}
-      <h1>The catalog, living in a ConfigHub org</h1>
-      <p class="lead">The chart pages show the evidence behind each catalog choice. The demo org shows what happens after you upload a chart configuration. You can inspect shared configuration, environment versions, promotions, policy tests, and revision history. It contains ten charts chosen for the problems they explain.</p>
-    ${humanLinks([["Configuration Catalog", "./charts/index.html"], ["Deployment", "./how-it-works.html"], ["Apps", "./journey.html"]])}
+      <h1>Understand one live ConfigHub example</h1>
+      <p class="lead">Open one Space in the <code>helm-catalog</code> demo org. Read its README, inspect the Kubernetes configuration, and look at its revision history.</p>
+      <p>After that first example, use this page to explore environment variants, promotions, checks, hooks, and CRDs. The org contains ten charts chosen to explain those jobs.</p>
+    ${humanLinks([["Open README index", "../data/helm-catalog-readmes/summary.md"], ["Browse Catalog", "./charts/index.html"], ["Build an App", "./journey.html"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "demo org page")}
       <section aria-labelledby="readmes">
-        <h2 id="readmes">Start With The README In Each Space</h2>
-        <p>Every maintained example Space in the live <code>helm-catalog</code> org has one README. It explains why the Space exists and which problem it demonstrates. It also tells you what to open, what the example proves, and where to find supporting evidence.</p>
-        <p>Open ${signupLink("demo-org-readmes", "hub.confighub.com")} and choose the <code>helm-catalog</code> org. Open a Space, then open its README.</p>
-        <p>You can also read the same pages on this website. Start with the <a href="../data/helm-catalog-readmes/summary.md">demo org README index</a>.</p>
+        <h2 id="readmes">1. Open one Space and read its README</h2>
+        <p>A Space holds one saved configuration and its history. Every maintained example Space has one README that explains why the example exists, what to open, what it shows, and where to find the evidence.</p>
+        <p>Open ${signupLink("demo-org-readmes", "hub.confighub.com")}, choose the <code>helm-catalog</code> org, and open a Space. Start with its README Unit.</p>
+        <p>You can read the same material without signing in through the <a href="../data/helm-catalog-readmes/summary.md">demo org README index</a>.</p>
       ${markdownLikeTable([
         ["README kind", "Spaces"],
         ...readmeCountRows,
@@ -4488,8 +4489,8 @@ function demoOrgHtml(catalog) {
     </section>
 
       <section aria-labelledby="helpers">
-        <h2 id="helpers">What Every Maintained Example Receives</h2>
-        <p>New maintained examples follow one standard. The common records make the configuration understandable and checkable; extra records are added only when that configuration needs them.</p>
+        <h2 id="helpers">2. See the records that explain the configuration</h2>
+        <p>Each maintained example includes the records needed to understand its source, inspect its Kubernetes objects, and see which checks apply. Hooks, CRDs, setup jobs, and other lifecycle records appear only when that configuration needs them.</p>
       ${markdownLikeTable([
         ["Helper", "What it answers", "When it is added"],
         ["One README", "Why does this Space exist, what should I open, and what does the example prove?", "Every maintained example"],
@@ -4498,24 +4499,24 @@ function demoOrgHtml(catalog) {
         ["Policy profile", "Which checks run before apply, and does this Space require approval?", "Every managed configuration Space"],
         ["Prerequisite and lifecycle records", "Who handles Secrets, CRDs, hooks, setup jobs, controller features, or target facts?", "Only when the exact configuration needs them"],
       ])}
-        <p>The source and intent record is a document role, not one forced schema. Helm uses <code>HelmRenderIntent</code>. AICR uses its recipe and generation or bundle receipts. Existing OCI and plain YAML use records that name their source digest or checksums, object inventory, remaining inputs, and transformations. We do not give a non-Helm source a fake Helm record.</p>
-        <p>Today, this role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format.</p>
-        <h3>What happens to future configurations?</h3>
+        <p>The source and intent record answers one question: where did this configuration come from, and which choices produced it? Helm uses <code>HelmRenderIntent</code>. AICR, OCI, and plain YAML use records suited to their own source format.</p>
+        <p>Today, that information may live in a source Unit, Space metadata with a receipt, or a generated base-variant record. ConfigHub does not yet have one source object that covers every format.</p>
+        <h3>New examples follow the same rule</h3>
         <p>Every new maintained catalog example gets the common records above. It also gets the prerequisite and lifecycle records that apply to that exact configuration.</p>
         <p>An arbitrary upload does not gain facts that ConfigHub cannot know. Generic checks can attach automatically. The source adapter or a reviewed catalog addition must supply the source details and any chart-specific lifecycle work. Missing information remains a named gap.</p>
         <p>Temporary experiments and legacy Spaces are not counted as conforming until their common and applicable helper records pass the same checks. Read the <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> for the full rule.</p>
     </section>
 
       <section aria-labelledby="config-as-data">
-        <h2 id="config-as-data">Why This Org Matters</h2>
-        <p>A Helm chart is a program that produces Kubernetes objects. The templates can hide the final answer to ordinary operating questions.</p>
+        <h2 id="config-as-data">3. Query and change the saved Kubernetes objects</h2>
+        <p>A Helm chart produces Kubernetes objects, but its templates can hide the final answer to ordinary operating questions.</p>
         <ul>
           <li>Which namespaces are missing a policy?</li>
           <li>Who can read Secrets?</li>
           <li>What changed between staging and production?</li>
           <li>Where does a risky setting appear across the fleet?</li>
         </ul>
-        <p>The demo org stores rendered Kubernetes YAML as versioned Units in a Space. ConfigHub can search, compare, review, and deliver those Units. The README explains where they came from and why the Space exists.</p>
+        <p>The demo org stores the rendered Kubernetes YAML as versioned Units in a Space. ConfigHub can search, compare, review, and deliver those Units. The README explains their source and the purpose of the Space.</p>
         <p>When you find a problem, you change the same object that you inspected. ConfigHub records that change as a revision before delivery.</p>
         <p>With cub v0.2.7 or later, you can query those stored objects across the org:</p>
         <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Sign in and select the <code>helm-catalog</code> org before you run these commands.</p>
@@ -4526,8 +4527,8 @@ cub k8s get crd --space "*"</code></pre>
     </section>
 
       <section aria-labelledby="what">
-        <h2 id="what">What is in the org</h2>
-        <p>Each base variant below is a root Space containing one supported Helm render. Its Kubernetes YAML is stored as readable Units.</p>
+        <h2 id="what">4. Choose another example by problem</h2>
+        <p>Each row below starts with one supported Helm configuration stored as readable Kubernetes Units. Choose the problem you want to understand, then open that Space and its README.</p>
         <p>Each maintained example Space has a README, rendered objects, identifying labels, and policy tests. Helm preset Spaces also have a current <code>HelmRenderIntent</code> Unit. Deeper examples add route, render-record, or proof Units when they are useful.</p>
       ${markdownLikeTable([
         ["Chart", "Base variants", "The story it tells"],
@@ -4537,8 +4538,8 @@ cub k8s get crd --space "*"</code></pre>
     </section>
 
       <section aria-labelledby="exhibits">
-        <h2 id="exhibits">Seven things to look at</h2>
-        <p>Each exhibit proves one limited claim. Open the named Spaces and inspect each Unit's Revisions tab. The components view groups the Spaces by chart.</p>
+        <h2 id="exhibits">5. Follow a change through variants and promotions</h2>
+        <p>These worked examples show how one saved configuration changes over time. Open the named Spaces and inspect each Unit's Revisions tab. The components view groups the Spaces by chart.</p>
         <p><strong>The version ladder.</strong> Open <code>bitnami-redis-base</code>, <code>-staging</code>, and <code>-prod</code>. Staging has a local setting of two replicas. The base moved from chart 25.5.3 to 27.0.0, then the change was promoted. The staging revision history shows both the upgrade and the retained replica setting.</p>
         <p><strong>The fleet.</strong> Open the four <code>bitnami-nginx-fleet</code> Spaces for dev, staging, prod-us, and prod-eu. One base change was promoted to all environments. Prod-eu still reports one pending upstream Unit. Dev and staging keep local replica counts while receiving the shared image change. Both production Spaces require approval.</p>
         <p>The base also moved its NGINX image to an internal registry without changing the digest. The <a href="./d/docs/user/image-registry-migration.html">walkthrough and receipt</a> show the commands and revision history. This proves the stored ConfigHub records. It does not prove Kubernetes delivery.</p>
@@ -4553,7 +4554,7 @@ cub k8s get crd --space "*"</code></pre>
     </section>
 
       <section aria-labelledby="live-proof">
-        <h2 id="live-proof">What ran live, exactly</h2>
+        <h2 id="live-proof">6. Check what ran on Kubernetes</h2>
         <p>These three examples ran on real clusters. Each receipt records the command, observations, result, and limit.</p>
         <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD and Flux pulled that artifact on separate throwaway kind clusters and completed the Job. A separate direct local test pulled the same artifact and completed the Job.</p>
         <p>This test covers one routed fixture on one recorded rig. It does not cover every chart, hook type, or production environment.</p>
@@ -4564,8 +4565,9 @@ cub k8s get crd --space "*"</code></pre>
     </section>
 
       <section aria-labelledby="sketches">
-        <h2 id="sketches">The sketches, explained</h2>
-        <p>The catalog uses four ideas that are not ConfigHub entities today. The demo org represents them with ordinary Units, Links, and labels. You can open and query these proposals, but they are not shipped product features.</p>
+        <h2 id="sketches">7. See how hooks, CRDs, and source records are represented</h2>
+        <p>The demo org uses ordinary Units, Links, and labels to record source details and lifecycle work. ConfigHub does not yet model these as separate product objects.</p>
+        <p>You can inspect and query these records, but they are working examples rather than new ConfigHub entities.</p>
       ${markdownLikeTable([
         ["The idea", "What the product has today", "The sketch standing in for it", "Where to look"],
         ["A recipe, the DRY source of a base variant: chart, version, declared inputs, and routing intent", "A plain Unit whose data happens to be recipe YAML; the server cannot tell it from a ConfigMap", "The recipe unit in every chart Space", "Any Space, unit recipe, data tab"],
@@ -4574,8 +4576,8 @@ cub k8s get crd --space "*"</code></pre>
         ["A lifecycle route as a thing: an addressable decision about behaviour that config alone cannot carry", "Rows in the repo's route data, labels on Spaces, annotations readable inside unit data. Real, but not product entities", "Eight LifecycleRoute units: seven chart lifecycle routes plus one explicit CRD-first route. Each stores its class, phase, executor, alternatives, evidence, and per-delivery implementation results.", "Space route-sketch-kube-prometheus-stack"],
       ])}
         <p>Each proposal Unit mirrors committed repo data. The top-level chart route remains <code>automatic: false</code>. Direct, Argo CD, Flux, and upgrade implementations have separate evidence.</p>
-      <h3 id="kps-routes">The eight kube-prometheus-stack routes, one by one</h3>
-      <p>A route records work that ordinary rendered objects do not perform. Five routes come from Helm hook behavior. The remaining three cover CRD order, target facts, and webhook readiness.</p>
+      <h3 id="kps-routes">Eight kube-prometheus-stack lifecycle steps</h3>
+      <p>A lifecycle record describes work that ordinary rendered objects do not perform. Five records come from Helm hook behavior. The remaining three cover CRD order, target facts, and webhook readiness.</p>
       ${markdownLikeTable([
         ["Route", "Quirk it routes", "What it decides", "Execution"],
         ["crds-first", "ten bundled CRDs", "Apply and establish the CRDs before the chart's custom resources", "target-owned"],
@@ -4591,8 +4593,8 @@ cub k8s get crd --space "*"</code></pre>
     </section>
 
       <section aria-labelledby="checks">
-        <h2 id="checks">The checks are live, and honest</h2>
-        <p>Every policy-covered Space has ${policyFacts.baselineChecks} common tests. Schema, placeholder, and lifecycle-route tests can stop incomplete configuration. Workloads and AICR training runtimes receive tests for the fields they use. Production releases and system configuration also require approval before apply.</p>
+        <h2 id="checks">8. See which checks can stop an apply</h2>
+        <p>Every policy-covered Space has ${policyFacts.baselineChecks} common tests. Schema, placeholder, and lifecycle tests can stop incomplete configuration. Workloads and AICR training runtimes receive tests for the fields they use. Production releases and system configuration also require approval before apply.</p>
       ${markdownLikeTable([
         ["Where", "Can block apply", "Warns without blocking"],
         ["Every policy-covered Space", "Invalid schema; unresolved placeholder; an attached lifecycle route that lacks its required scope or evidence", "An ordinary workload image without a digest; a long-running workload without declared readiness and liveness probes"],
@@ -4607,7 +4609,7 @@ cub k8s get crd --space "*"</code></pre>
     </section>
 
       <section aria-labelledby="next">
-        <h2 id="next">Do it with your own app</h2>
+        <h2 id="next">9. Repeat the pattern with your own app</h2>
         <p>You can use the same steps for your own application. Upload it, create staging and production variants, promote a change, then deliver it through OCI. Your existing GitOps controller can apply the result.</p>
         <p>The <a href="./d/docs/user/variants-after-upload.html">variants walkthrough</a> explains each command and flag. The <a href="./journey.html">Apps page</a> explains how to combine your applications with catalog components.</p>
     </section>
