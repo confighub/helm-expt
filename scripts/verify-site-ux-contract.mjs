@@ -210,7 +210,7 @@ const guideOpeningChecks = [
 const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
-const expectedNavLabels = ["Try Redis", "Examples", "Catalog", "Deployment", "ConfigHub", "Docs"];
+const expectedNavLabels = ["Try Redis", "Examples", "Catalog", "Deployment", "Docs", "ConfigHub"];
 
 function decodeBasicHtml(text) {
   return text
