@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Docs · Config Workshop</title>
-  <meta name="description" content="The docs and FAQ index: start here for guides, verification notes, technical references, and per-chart cub adoption caveats.">
+  <meta name="description" content="Find the technical instructions for the configuration or deployment step you are working on now.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/docs.html">
   <meta property="og:title" content="Docs · Config Workshop">
-  <meta property="og:description" content="The docs and FAQ index: start here for guides, verification notes, technical references, and per-chart cub adoption caveats.">
+  <meta property="og:description" content="Find the technical instructions for the configuration or deployment step you are working on now.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/docs.html">
   <style>
@@ -513,112 +513,63 @@
 <body class="calm-page">
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Find a technical guide</h1>
-    <p class="lead">These pages are for technical users who want to try Helm and other packages with ConfigHub. They can understand how it works and check the claims for themselves.</p>
-    <p>Learn ConfigHub with the official tutorial. Use this site to inspect a catalog package, bring another source, or read the evidence.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="https://docs.confighub.com/get-started/tutorial/">Official tutorial</a> · <a href="./try.html">Try Redis</a> · <a href="./testing.html">Examples</a> · <a href="./verification.html">Verification</a></p>
+    <h1>Find instructions for the step you are doing</h1>
+    <p class="lead">Choose the question closest to your current work. Each link opens the commands, example, or evidence for that step.</p>
+    <p>These guides cover Helm and other packages, with or without ConfigHub.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-    <section aria-labelledby="start-here">
-      <h2 id="start-here">Start Here</h2>
-      <p>Choose what you want to do next and open the matching page.</p>
-      <p>New to ConfigHub? Follow the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=docs">official ConfigHub tutorial</a>. It covers one component, a release, a change, production, and promotion. This site provides the public catalog and its evidence.</p>
-      <div class="card"><table>
-        <thead><tr><th>Task</th><th>Open</th><th>Why</th></tr></thead>
-        <tbody><tr><td>Learn ConfigHub</td><td><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=docs-start">Official tutorial</a></td><td>Set up a cluster. Install and release one component. Change it, add production, and promote the change.</td></tr><tr><td>Try Redis without an account</td><td><a href="./try.html">Try Redis</a></td><td>Render one reviewed Redis configuration. Inspect the files and local OCI without ConfigHub Server.</td></tr><tr><td>Follow the complete Redis example</td><td><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></td><td>Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback.</td></tr><tr><td>Choose a worked example</td><td><a href="./testing.html">Examples</a></td><td>Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations.</td></tr><tr><td>Follow configuration to deployment</td><td><a href="./how-it-works.html">Deployment</a></td><td>See where each tool fits, where settings belong, and how a reviewed result reaches a cluster.</td></tr><tr><td>See every source and App demonstration</td><td><a href="d/docs/user/config-catalog-demonstrations.html">Demonstration record</a></td><td>Separate the bounded example that ran from the broader product status and its remaining work.</td></tr><tr><td>Choose a public chart</td><td><a href="./charts/index.html">Configuration Catalog</a></td><td>Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence.</td></tr><tr><td>Open the demo org</td><td><a href="./demo-org.html">Demo org</a></td><td>See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example.</td></tr><tr><td>Use an App on ConfigHub</td><td><a href="./journey.html">Apps</a></td><td>Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review.</td></tr><tr><td>Verify a claim</td><td><a href="./verification.html">Verification</a></td><td>Choose the npm command that tests the claim instead of treating every result as the same thing.</td></tr><tr><td>Read the limits</td><td><a href="./hard-questions.html">FAQ</a></td><td>Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps.</td></tr><tr><td>Know when managed help begins</td><td><a href="./private/">Upgrade</a></td><td>Private sources, production support, teams, policies, fleet operations, and commercial boundaries.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+    <section aria-labelledby="start">
+      <h2 id="start">1. Start with a configuration</h2>
+      <h3><a href="./try.html">Can I try one simple package?</a></h3>
+      <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
+      <h3><a href="./charts/index.html">Which public configuration should I use?</a></h3>
+      <p>Use the Configuration Catalog for tested starting configurations, required setup, and evidence.</p>
+      <h3><a href="./testing.html">How do I bring my own input?</a></h3>
+      <p>Worked Examples covers your own Helm values, AICR, OCI, or Kubernetes YAML.</p>
     </section>
 
-    <section aria-labelledby="chart-evidence">
-      <h2 id="chart-evidence">How To Read Chart Evidence</h2>
-      <p>Start from the public chart page. Do not start from a generated package folder unless you already know what you are looking for.</p>
-      <div class="card"><table>
-        <thead><tr><th>Step</th><th>Open</th><th>What you learn</th></tr></thead>
-        <tbody><tr><td>1</td><td>Chart page</td><td>Which base variants are supported and what still needs work.</td></tr><tr><td>2</td><td>Full rendered YAML</td><td>The Kubernetes objects captured from one base variant. This is the output of the render.</td></tr><tr><td>3</td><td>Render intent</td><td>The Helm chart version, values, namespace, release name, capability profile, source lock, output path, and evidence links.</td></tr><tr><td>4</td><td>Hooks, CRDs, and setup work</td><td>The route decisions for chart behavior that is not just static YAML.</td></tr><tr><td>5</td><td>Verification</td><td>The commands and receipts that back a claim.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+    <section aria-labelledby="prepare">
+      <h2 id="prepare">2. Prepare it for deployment</h2>
+      <h3><a href="./how-it-works.html">Where should the files live?</a></h3>
+      <p>Deployment explains the local files, OCI, and ConfigHub choices in one sequence.</p>
+      <h3><a href="./d/docs/user/chart-hooks-what-happens.html">What happens to hooks and CRDs?</a></h3>
+      <p>See how required setup is recorded, ordered, tested, or blocked.</p>
+      <h3><a href="./d/docs/user/helm-presets-and-values.html">Should this be a source value or a later change?</a></h3>
+      <p>Use the values and base variants guide for Helm inputs, base variants, and ConfigHub changes.</p>
+      <h3><a href="./d/docs/user/gitops-adopter-guide.html">How do Argo CD and Flux receive it?</a></h3>
+      <p>The GitOps guide explains how controllers pull reviewed Kubernetes objects from Git or OCI.</p>
     </section>
 
-    <section aria-labelledby="technical-words">
-      <h2 id="technical-words">How This Site Uses Technical Words</h2>
-      <p>These words have specific jobs. Using them consistently makes the instructions and evidence easier to follow.</p>
-      <div class="card"><table>
-        <thead><tr><th>Word</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>Render</td><td>Create Kubernetes objects from a recorded source and its inputs.</td></tr><tr><td>Inspect</td><td>Read the objects or evidence.</td></tr><tr><td>Test</td><td>Run a defined command or procedure.</td></tr><tr><td>Verify</td><td>Compare a result with a recorded expectation, digest, or object set.</td></tr><tr><td>Review</td><td>Decide whether a known change or result is acceptable.</td></tr><tr><td>Prove</td><td>Produce an inspectable receipt for one scoped claim.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The <a href="./d/docs/user/model-and-vocabulary.html">model and vocabulary guide</a> defines base variants, render intents, Units, Spaces, routes, and receipts.</p>
+    <section aria-labelledby="manage">
+      <h2 id="manage">3. Change or operate it</h2>
+      <h3><a href="./d/docs/user/variants-after-upload.html">How do I make environment variants?</a></h3>
+      <p>Create, compare, and promote development and production variants.</p>
+      <h3><a href="./redis-walkthrough.html">How do I upgrade and roll back?</a></h3>
+      <p>The detailed Redis walkthrough shows an upgrade, promotion, rollout, and rollback.</p>
+      <h3><a href="./journey.html">How can saved configuration support repeated work?</a></h3>
+      <p>Apps on ConfigHub includes upgrade, lifecycle, RBAC, fleet, and AI review examples.</p>
+      <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
+      <p>Start read-only from GitOps, YAML, Helm, or a live cluster.</p>
     </section>
 
-    <section aria-labelledby="agent-notes">
-      <h2 id="agent-notes">Working In This Repository?</h2>
-      <p>If you are an AI agent or maintainer changing <code>helm-expt</code>, use the repo notes instead of the public site. They list repo commands, recovery steps, verification commands, catalog read-only rules, and the human/agent docs rule.</p>
-      <p><a href="d/docs/agent/README.html">Open Agent And Operator Notes</a></p>
+    <section aria-labelledby="check">
+      <h2 id="check">4. Check a result or solve a problem</h2>
+      <h3><a href="./verification.html">How do I verify a claim?</a></h3>
+      <p>Choose the correct check, command, and evidence boundary.</p>
+      <h3><a href="./known-gaps.html">What is not working yet?</a></h3>
+      <p>Read the named limitations and the evidence behind them.</p>
+      <h3><a href="./d/docs/user/broken-chart-triage.html">Why did a chart fail?</a></h3>
+      <p>Separate source, render, setup, target, and runtime failures.</p>
+      <h3><a href="./hard-questions.html">What are the difficult questions?</a></h3>
+      <p>The FAQ answers questions about safety, upgrades, hooks, AI, and current limits.</p>
     </section>
 
-    <section aria-labelledby="five-stages">
-      <h2 id="five-stages">Five Stages</h2>
-      <p>Most users start by previewing a chart. Add more when you need to save the inputs, share versions with a team, review changes, hand off to GitOps, or run releases.</p>
-      <div class="card"><table>
-        <thead><tr><th>Stage</th><th>What you do</th><th>Command or page</th><th>Needs ConfigHub?</th></tr></thead>
-        <tbody><tr><td>1. Choose</td><td>Start with Helm, AICR, existing OCI, or Kubernetes YAML.</td><td><a href="./testing.html">Examples</a></td><td>No</td></tr><tr><td>2. Inspect</td><td>Create exact Kubernetes objects and read them before delivery.</td><td><a href="./try.html">Try Redis</a></td><td>No</td></tr><tr><td>3. Record</td><td>Store one reviewed configuration and release it.</td><td><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=docs-stages">Official tutorial</a></td><td>Yes</td></tr><tr><td>4. Change</td><td>Add development and production configurations.</td><td><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=docs-stages">Official tutorial</a></td><td>Yes</td></tr><tr><td>5. Promote</td><td>Move a reviewed change from its base through development and production.</td><td><a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=docs-stages">Official tutorial</a></td><td>Yes</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-        th:first-child, td:first-child { min-width: 12ch; }
-      </style>
-    </section>
-
-    <section aria-labelledby="guides">
-      <h2 id="guides">Technical Guides</h2>
-      <p>Use these when you need the next level of detail after the main pages.</p>
-      <div class="card"><table>
-        <thead><tr><th>Guide</th><th>What it helps with</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Official ConfigHub tutorial</td><td>Set up a cluster, install and release one component, make a change, add production, and promote the change.</td><td><a href="https://docs.confighub.com/get-started/tutorial/">Official ConfigHub tutorial</a></td></tr><tr><td>Examples</td><td>Choose a starting input, then see working promotion, delivery, platform, policy, and App examples.</td><td><a href="./testing.html">Examples</a></td></tr><tr><td>Detailed entry paths</td><td>Commands and proof links for Helm, AICR, existing OCI, and Kubernetes YAML.</td><td><a href="./entry-path-reference.html">Detailed entry paths</a></td></tr><tr><td>Deployment</td><td>Start with Helm, AICR, OCI, or YAML, then inspect, manage, promote, and deploy the reviewed result.</td><td><a href="./how-it-works.html">Deployment</a></td></tr><tr><td>Config catalog demonstrations</td><td>The maintained paths for Helm, AICR, cub installer, public OCI work, Kubara, and Sveltos, followed by variants, promotions, policy, and five ConfigHub Apps.</td><td><a href="d/docs/user/config-catalog-demonstrations.html">Config catalog demonstrations</a></td></tr><tr><td>Config catalog doctrine</td><td>The anonymous-to-managed boundary, four OCI package roles, base variants, fleet delivery, policy rules, and AI maintenance rules.</td><td><a href="d/docs/reference/config-catalog-doctrine.html">Config catalog doctrine</a></td></tr><tr><td>Anonymous OCI work in CI</td><td>A GitHub Actions run with no ConfigHub credentials pulls a public package, renders and checks its objects, creates an OCI layout, and pulls the same objects back.</td><td><a href="d/data/anonymous-oci-ci-proof/summary.html">Anonymous OCI work in CI</a></td></tr><tr><td>Anonymous OCI change</td><td>Pull five public NGINX objects without credentials, change only the replica count, store the source and check records, and pull the new local OCI back for comparison.</td><td><a href="d/data/anonymous-oci-transform-proof/summary.html">Anonymous OCI change</a></td></tr><tr><td>Redis public walkthrough</td><td>Pull Redis 25.5.3 and 27.0.0 anonymously, retain the selected existing-Secret base, keep Secrets out of both object sets, and verify both local OCI outputs by pulling them back.</td><td><a href="d/data/redis-public-walkthrough-proof/summary.html">Redis public walkthrough</a></td></tr><tr><td>OCI import, promotion, and two-cluster rollout</td><td>One live run imports exact Kubernetes objects from OCI, promotes a change through development and staging, exports one deployable OCI, and records exact-object and convergence receipts on two Argo CD clusters.</td><td><a href="d/data/oci-deploy-stage-rollout-proof/summary.html">OCI import, promotion, and two-cluster rollout</a></td></tr><tr><td>Redis upgrade, promotion, and rollback</td><td>A live chart upgrade keeps a post-render replica change, moves through development and staging, reaches two Argo CD clusters, then restores the exact pre-upgrade revisions and checks both clusters again.</td><td><a href="d/data/redis-upgrade-app-proof/summary.html">Redis upgrade, promotion, and rollback</a></td></tr><tr><td>AICR EKS H100 example</td><td>AICR selects and orders a GPU platform. Two public OCI artifacts carry the source package and 17 exact Argo CD Applications. ConfigHub stores the Applications as a base, changes one Grafana Secret reference in development, and promotes that result to staging.</td><td><a href="d/docs/demo/aicr/eks-h100-training-kubeflow.html">AICR EKS H100 example</a></td></tr><tr><td>AICR OCI round trip</td><td>A live OCI-to-ConfigHub-to-OCI test imports 17 AICR-generated Argo CD Applications, publishes a ConfigHub release, pulls it back, and compares every object without claiming a GPU rollout.</td><td><a href="d/data/aicr-oci-roundtrip-proof/summary.html">AICR OCI round trip</a></td></tr><tr><td>AI change review proof</td><td>ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.</td><td><a href="d/data/ai-change-review-live-proof/summary.html">AI change review proof</a></td></tr><tr><td>RBAC review example</td><td>Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.</td><td><a href="d/docs/demo/apps/rbac-review.html">RBAC review example</a></td></tr><tr><td>RBAC permissions report</td><td>Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.</td><td><a href="d/data/app-readiness/summary.html">RBAC permissions report</a></td></tr><tr><td>Kubara local platform example</td><td>A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.</td><td><a href="d/docs/demo/kubara/local-platform.html">Kubara local platform example</a></td></tr><tr><td>Sveltos Kyverno fleet example</td><td>A two-wave result: ConfigHub approves a pilot and one selector expansion at different OCI digests, then Argo CD and Sveltos deliver Kyverno to one staging cluster and later to both.</td><td><a href="d/docs/demo/sveltos/kyverno-fleet.html">Sveltos Kyverno fleet example</a></td></tr><tr><td>Hooks and CRDs example</td><td>Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.</td><td><a href="d/docs/demo/hooks-crds/kube-prometheus-stack.html">Hooks and CRDs example</a></td></tr><tr><td>Try Redis</td><td>Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.</td><td><a href="./try.html">Try Redis</a></td></tr><tr><td>Detailed Redis walkthrough</td><td>Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.</td><td><a href="./redis-walkthrough.html">Detailed Redis walkthrough</a></td></tr><tr><td>Verification</td><td>A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.</td><td><a href="./verification.html">Verification</a></td></tr><tr><td>AI and the catalog</td><td>How AI helps build and test the catalog, and why tests and receipts decide what is true.</td><td><a href="./ai.html">AI and the catalog</a></td></tr><tr><td>Choose a chart</td><td>Browse public chart pages, ready-to-use base variants, known risks, and first-use advice.</td><td><a href="./charts/index.html">Choose a chart</a></td></tr><tr><td>Demo org examples</td><td>The README pages for live Hub demo Spaces. Each one says why the Space exists, what problem it shows, and what to inspect first.</td><td><a href="d/data/helm-catalog-readmes/summary.html">Demo org examples</a></td></tr><tr><td>Installer package OCI refs</td><td>The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.</td><td><a href="d/docs/user/installer-oci-packages.html">Installer package OCI refs</a></td></tr><tr><td>Inspect an OCI package</td><td>One command that identifies the package role, resolves its digest, and reports the exact Kubernetes objects and obvious lifecycle work it contains.</td><td><a href="d/docs/user/inspect-oci-package.html">Inspect an OCI package</a></td></tr><tr><td>Change an OCI package</td><td>Change one field in a literal Kubernetes OCI, run checks, keep its source records, and build a new local OCI without a ConfigHub account.</td><td><a href="d/docs/user/transform-oci-package.html">Change an OCI package</a></td></tr><tr><td>Helm base variants and values</td><td>Why the catalog supports useful chart-specific base variants instead of claiming every values combination.</td><td><a href="d/docs/user/helm-presets-and-values.html">Helm base variants and values</a></td></tr><tr><td>Helm quirks</td><td>A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.</td><td><a href="./quirks.html">Helm quirks</a></td></tr><tr><td>Create variants</td><td>When to make a new Helm-rendered base, and when to make a ConfigHub version after render.</td><td><a href="./variants.html">Create variants</a></td></tr><tr><td>Apps</td><td>Use configuration saved in ConfigHub for upgrade review, hooks and CRDs, RBAC review, fleet rollout, and AI change review.</td><td><a href="./journey.html">Apps</a></td></tr><tr><td>Application examples</td><td>Examples that combine public charts with private application pieces.</td><td><a href="./custom-apps.html">Application examples</a></td></tr><tr><td>Existing Apps</td><td>Start read-only from Argo, Flux, rendered YAML, live cluster state, or a Helm release.</td><td><a href="./existing-apps.html">Existing Apps</a></td></tr><tr><td>Ops</td><td>Release, observe, patch, and upgrade after the files are recorded.</td><td><a href="./operations.html">Ops</a></td></tr><tr><td>Security and provenance</td><td>Secrets, credentials, scans, OCI delivery, and the limits of the current evidence.</td><td><a href="./security.html">Security and provenance</a></td></tr><tr><td>Future and managed ideas</td><td>What exists now, what is roadmap, and what belongs in a managed service.</td><td><a href="./future.html">Future and managed ideas</a></td></tr><tr><td>Answer hard questions</td><td>Direct answers about hooks, upgrades, AI changes, limits, and refusals.</td><td><a href="./hard-questions.html">Answer hard questions</a></td></tr><tr><td>Known Gaps</td><td>The known problems this project names instead of hiding.</td><td><a href="./known-gaps.html">Known Gaps</a></td></tr><tr><td>Model and taxonomy</td><td>The five terms, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.</td><td><a href="d/docs/user/model-and-vocabulary.html">Model and taxonomy</a></td></tr><tr><td>The data model</td><td>Definitions for Space, Unit, target, route, and receipt.</td><td><a href="d/docs/user/confighub-data-model.html">The data model</a></td></tr><tr><td>Variants after upload</td><td>The step-by-step cub variant walkthrough: create an environment variant, preview with a dry run, then promote reviewed changes.</td><td><a href="d/docs/user/variants-after-upload.html">Variants after upload</a></td></tr><tr><td>App to live, end to end</td><td>A plain app into ConfigHub, staging and prod variants, OCI to Argo delivery, and a staged rollout: the whole chain, run live.</td><td><a href="d/docs/user/app-to-live-walkthrough.html">App to live, end to end</a></td></tr><tr><td>Image registry migration</td><td>Repoint a chart's image registry across a fleet with the digest intact, promote it environment by environment, and prove where it landed. Run live.</td><td><a href="d/docs/user/image-registry-migration.html">Image registry migration</a></td></tr><tr><td>Expected results and clusters</td><td>Which commands need a cluster and what output to expect.</td><td><a href="d/docs/user/expected-results-and-clusters.html">Expected results and clusters</a></td></tr><tr><td>Deployment path</td><td>How a cub installer package becomes files, a ConfigHub upload, an OCI bundle, or controller input.</td><td><a href="d/docs/user/cub-deployment-path.html">Deployment path</a></td></tr><tr><td>GitOps adopter guide</td><td>How Argo and Flux teams can keep their controller and consume one reviewed OCI bundle.</td><td><a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></td></tr><tr><td>Security end to end</td><td>Secrets, credentials, scan points, and what should never be printed or copied casually.</td><td><a href="d/docs/user/security-end-to-end.html">Security end to end</a></td></tr><tr><td>Day-2 upgrade and rollback</td><td>How to review and rehearse an upgrade, then observe what happened.</td><td><a href="d/docs/user/day2-upgrade-rollback.html">Day-2 upgrade and rollback</a></td></tr><tr><td>Helm render intents</td><td>The record behind a catalog base variant: chart version, values, namespace, release name, lifecycle routes, target prerequisites, and evidence links.</td><td><a href="d/docs/user/helm-render-intents.html">Helm render intents</a></td></tr><tr><td>Coming from Helm</td><td>How common Helm flags map to cub inputs.</td><td><a href="d/docs/user/helm-to-cub-migration.html">Coming from Helm</a></td></tr><tr><td>AI-assisted changes</td><td>Let AI suggest a change, then review exact files, diffs, checks, and approval records.</td><td><a href="d/docs/user/ai-assisted-helm-changes.html">AI-assisted changes</a></td></tr><tr><td>Broken chart triage</td><td>Sort a failure into render, target, lifecycle, runtime, or unsupported behavior.</td><td><a href="d/docs/user/broken-chart-triage.html">Broken chart triage</a></td></tr><tr><td>Known gaps we surface</td><td>Current watch findings and blockers before you trust a route.</td><td><a href="d/docs/user/known-gaps-we-surface.html">Known gaps we surface</a></td></tr><tr><td>Per-chart cub adoption caveats</td><td>Where cub is rougher than plain Helm on first run, and how each caveat is managed.</td><td><a href="../data/cub-adoption-caveats/summary.html">Per-chart cub adoption caveats</a></td></tr><tr><td>Custom overlays</td><td>Wrapper charts, customer values, and changes that go beyond normal values files.</td><td><a href="d/docs/user/custom-overlays.html">Custom overlays</a></td></tr><tr><td>Verify it yourself</td><td>Practical commands for local checks, rendered installs, parity receipts, and scout receipts.</td><td><a href="d/docs/user/verify-it-yourself.html">Verify it yourself</a></td></tr><tr><td>Verification lanes</td><td>Which proof lane checks render, ConfigHub upload, delivery, live state, or two-cluster parity.</td><td><a href="d/docs/user/verification-lanes.html">Verification lanes</a></td></tr><tr><td>Hook lifecycle strategy</td><td>How chart hooks become visible work with status and receipts.</td><td><a href="d/docs/user/hook-lifecycle-strategy.html">Hook lifecycle strategy</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-    </section>
-
-    <section aria-labelledby="database">
-      <h2 id="database">Verification And Evidence</h2>
-      <p>Each chart page gives the short answer: what can I try, and what should I watch first? The matrix and generated data are for review work. They show where the chart answer came from: render inputs, test results, receipts, known gaps, and claim status.</p>
-      <div class="card"><table>
-        <thead><tr><th>Surface</th><th>What it helps with</th><th>Open</th></tr></thead>
-        <tbody><tr><td>Catalog data</td><td>The chart and variant matrix.</td><td><a href="./matrix.html">Catalog data</a></td></tr><tr><td>Generated data index</td><td>The generated data catalog for this repository.</td><td><a href="d/data/README.html">Generated data index</a></td></tr><tr><td>Status dashboard</td><td>Current aggregate status and active proof queue.</td><td><a href="d/data/status-dashboard/summary.html">Status dashboard</a></td></tr><tr><td>cub adoption caveats</td><td>The 100-chart table for first-run caveats, placeholder passwords, and CRD ordering.</td><td><a href="../data/cub-adoption-caveats/summary.html">cub adoption caveats</a></td></tr><tr><td>Helm render intents</td><td>One generated render-intent object per real base variant.</td><td><a href="d/data/helm-render-intents/summary.html">Helm render intents</a></td></tr><tr><td>Base variant records</td><td>Source-neutral records joining literal objects, source inputs, routes, policy, evidence, and OCI handoffs.</td><td><a href="d/data/base-variant-records/summary.html">Base variant records</a></td></tr><tr><td>Operational class examples</td><td>Worked examples showing who owns a user workload, shared service, or system configuration, where it runs, which checks apply, and how it rolls out.</td><td><a href="d/data/operational-class-examples/summary.html">Operational class examples</a></td></tr><tr><td>Apply policy profile</td><td>The common checks, approval rules for production and system configuration, scope assertions, and self-test.</td><td><a href="d/data/apply-policy-profiles/summary.html">Apply policy profile</a></td></tr><tr><td>Hooks and CRDs App</td><td>The Kube Prometheus Stack route plan, the proven hook fixture, and the live ApplyGate rejection receipt.</td><td><a href="d/data/hooks-crds-app/summary.html">Hooks and CRDs App</a></td></tr><tr><td>Demonstration status</td><td>Current status and evidence for the source pathways and five ConfigHub App examples.</td><td><a href="d/data/demo-program/summary.html">Demonstration status</a></td></tr><tr><td>Demo org README files</td><td>The README text for each current helm-catalog demo Space, plus the generated upload YAML.</td><td><a href="d/data/helm-catalog-readmes/summary.html">Demo org README files</a></td></tr><tr><td>Installer OCI packages</td><td>One row per package ref, setup command, package path, base list, and publication status.</td><td><a href="d/data/installer-oci-packages/summary.html">Installer OCI packages</a></td></tr><tr><td>Claims register</td><td>What is backed, partial, planned, or refused.</td><td><a href="d/data/claims-register/summary.html">Claims register</a></td></tr><tr><td>Verification landing page</td><td>Choose the right npm proof command.</td><td><a href="./verification.html">Verification landing page</a></td></tr><tr><td>Deep proof page</td><td>Detailed proof lanes for reviewers who want the full evidence trail.</td><td><a href="./proof.html">Deep proof page</a></td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
+    <section aria-labelledby="continue">
+      <h2 id="continue">5. Continue when you need more</h2>
+      <p><a href="./docs-reference.html">Browse all technical references</a> for every guide, evidence table, repository note, and generated data source.</p>
+      <p><a href="./confighub.html">Continue with ConfigHub</a> when you want shared records, variants, approvals, promotion, and rollout history.</p>
     </section>
   </main>
-  <footer>Generated from helm-expt catalog data. Use the main guides first, then the matrix and generated data when you need exact status.</footer>
+  <footer>Choose the guide for the work in front of you. Use the full reference index only when you need deeper detail.</footer>
 </body>
 </html>

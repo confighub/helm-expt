@@ -8,7 +8,8 @@ npm run site:verify
 ```
 
 Open `site/index.html` first for the public launch front door.
-Open `site/how-it-works.html` for the recipe, render, record, and route model.
+Open `site/how-it-works.html` to choose where reviewed configuration lives and how it reaches Kubernetes.
+Open `site/deployment-reference.html` for the detailed source, render, route, variant, check, and delivery model.
 Open `site/try.html` for the short Redis example.
 Open `site/testing.html` for working starting, managed, platform, and App examples.
 Open `site/confighub.html` to sign up, follow the official tutorial, or read the blog.
@@ -26,7 +27,8 @@ confused with shipped public evidence.
 Open `site/operations.html` for Ops: scans, gates, delivery, observation, adoption,
 upgrades, rollback, bulk patching, and fleet questions.
 Open `site/day1-operations.html` only as a compatibility redirect to `site/operations.html`.
-Open `site/docs.html` for the public documentation hub.
+Open `site/docs.html` to find instructions for the step or problem in front of you.
+Open `site/docs-reference.html` for the complete technical guide and evidence index.
 Open `../docs/user/installer-oci-packages.md` for the catalog package OCI refs
 that users pull with `cub installer setup --pull oci://...`.
 cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery.
