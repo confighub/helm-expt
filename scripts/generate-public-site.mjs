@@ -3833,14 +3833,14 @@ function proofHtml(catalog) {
         ["Test", "Question", "Evidence", "Limit"],
         ...laneRows,
       ])}
-      <p>Use <a href="./verification.html">Check one claim</a> for the command map, <a href="../docs/user/verification-lanes.md">Verification Lanes</a> for test meanings, and <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
+      <p>Use <a href="./verification.html">Check one claim</a> for the command map. <a href="../docs/user/verification-lanes.md">Verification Lanes</a> explains test meanings. <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> separates repository, ConfigHub, GitOps, and live evidence.</p>
     </section>
 
     <section aria-labelledby="serious">
       <h2 id="serious">3. Check the harder charts</h2>
-      <p>Hard charts are where mistakes hurt: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
-      <p>This is the expert/SRE problem. Before a fleet change ships, someone needs to know what it touches, what the cluster must already provide, which checks passed, how it will be delivered, and what the live system reported afterward.</p>
-      <p>For these charts, a green render is not enough. The page must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
+      <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, hooks, CRDs, and webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
+      <p>This is the expert and SRE problem. Before a fleet change ships, someone must know what it touches and what the cluster must provide. They also need the check, delivery, and live results.</p>
+      <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle route, target observation, and production review status.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="../docs/user/prometheus-high-fanout.md">High-fanout guide</a> and <a href="../data/hard-chart-production-packets/summary.md">production packet</a>.</p></div>
         <div class="card"><h3>Upgrade crash example</h3><p><a href="../docs/user/helm-upgrade-crash-example.md">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>
@@ -4471,7 +4471,7 @@ function privateHtml(catalog) {
     <section aria-labelledby="why-upgrade">
       <h2 id="why-upgrade">1 · Decide whether you need an account</h2>
       <p>You do not need an account to try public catalog packages, inspect rendered objects, or run the public checks.</p>
-      <p>Add ConfigHub when you want to save the reviewed result, share it with a team, make environment versions, approve changes, publish releases, or keep an operating history.</p>
+      <p>Add ConfigHub when you want to save and share the reviewed result. It also adds environment versions, approvals, releases, and operating history.</p>
     </section>
 
     <section aria-labelledby="tiers">
@@ -4800,7 +4800,7 @@ function journeyHtml(catalog) {
         ["Existing app", "An application already in a cluster can be inventoried first, then brought under review when you are ready."],
         ["AI-suggested change", "AI can propose a values change or file edit. ConfigHub shows the exact diff and checks before it is approved."],
       ])}
-      <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place, the candidate moves through development and staging, and two Argo CD clusters run both the candidate OCI and the separately published rollback OCI.</p>
+      <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place while the candidate moves through development and staging. Two Argo CD clusters run the candidate and rollback OCI releases.</p>
       <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
       <p>Chart evidence still lives in the Configuration Catalog. This page explains how those charts become part of applications your team runs.</p>
     </section>
@@ -4883,7 +4883,7 @@ Variants:
         ["Term", "Meaning"],
         ...modelRows,
       ], { rawSecondColumn: true })}
-      <p>This gives the team plain questions to answer: which configuration are we using, where did it come from, what changed, and is it safe to promote?</p>
+      <p>This gives the team four questions: which configuration are we using, where did it come from, what changed, and is it safe to promote?</p>
     </section>
 
     <section aria-labelledby="choose">
@@ -5672,7 +5672,7 @@ function operationsHtml(catalog) {
       boundary: "your cluster",
       action: "check the cluster after delivery",
       code: "cub-scout receipt verify \\\n  --file <rendered-objects.yaml> \\\n  --scope namespace/<namespace> \\\n  --predicate object-set-matches \\\n  --ttl 1h \\\n  --out .tmp/object-set.receipt.json\n\ncub-scout receipt validate .tmp/object-set.receipt.json",
-      get: "After delivery, use observation to check what actually happened. The receipt says what was checked, when it was checked, which namespace or target was observed, and whether the desired objects matched what the cluster reported.",
+      get: "After delivery, check what actually happened. The receipt names the check, time, namespace or target, and whether the cluster matched the desired objects.",
       see: ["verify-it-yourself.md", "why-synced-is-not-working.md"],
     },
     {
@@ -5770,7 +5770,7 @@ ${cards}
           <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
         </tbody>
       </table>
-      <p>Read the <a href="../data/operational-class-examples/summary.md">three checked examples</a> for the exact owner, target, checks, rollout order, and current evidence for an NGINX application, Kube Prometheus Stack, and a Kubara platform configuration.</p>
+      <p>Read the <a href="../data/operational-class-examples/summary.md">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
       <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
     </section>
 

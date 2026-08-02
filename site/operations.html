@@ -598,7 +598,7 @@ cub variant promote &lt;space&gt;</code></pre>
   --out .tmp/object-set.receipt.json
 
 cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
-        <p>After delivery, use observation to check what actually happened. The receipt says what was checked, when it was checked, which namespace or target was observed, and whether the desired objects matched what the cluster reported.</p>
+        <p>After delivery, check what actually happened. The receipt names the check, time, namespace or target, and whether the cluster matched the desired objects.</p>
         <p class="muted">See: <a href="d/docs/user/verify-it-yourself.html">Check it yourself</a> · <a href="d/docs/user/why-synced-is-not-working.html">Why a sync check is not enough</a></p>
       </div>
       <div class="op">
@@ -626,7 +626,7 @@ cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
           <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
         </tbody>
       </table>
-      <p>Read the <a href="d/data/operational-class-examples/summary.html">three checked examples</a> for the exact owner, target, checks, rollout order, and current evidence for an NGINX application, Kube Prometheus Stack, and a Kubara platform configuration.</p>
+      <p>Read the <a href="d/data/operational-class-examples/summary.html">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
       <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
     </section>
 
