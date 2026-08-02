@@ -8,7 +8,7 @@ const root = process.cwd();
 const checks = [
   {
     file: "site/index.html",
-    terms: ["Simplify configuration testing and verification", "Using configuration tools can be tricky. We are here to help.", "Run a catalog package", "Check my config", "cub installer setup", "--output-oci", "Five simple things", "What you can do", "Four things you can prove before you ship", "One resource, three depths", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
+    terms: ["Simplify configuration testing and verification", "Using configuration tools can be tricky. We are here to help.", "Try Redis", "Check my Helm values", "cub installer setup", "--output-oci", "Choose where to start", "What happens next", "Check the result and the limits", "AICR recipe for AI infrastructure", "ConfigHub stores the reviewed objects as shared data", "Config Workshop", "AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS"],
   },
   {
     file: "site/variants.html",
@@ -143,7 +143,7 @@ const humanSplitPages = [
 const guideOpeningChecks = [
   {
     file: "site/index.html",
-    headerTerms: ["Simplify configuration testing and verification", "Run a catalog package", "Check my config"],
+    headerTerms: ["Simplify configuration testing and verification", "Try Redis", "Check my Helm values", "ConfigHub stores the reviewed objects as shared data"],
   },
   {
     file: "site/try.html",
@@ -336,6 +336,17 @@ if (fs.existsSync(examplesPath)) {
   }
   for (const command of ["cub helm template", "cub helm install"]) {
     if (!examples.includes(command)) failures.push(`site/testing.html: bring-your-own flow is missing ${command}`);
+  }
+}
+
+const homePath = path.join(root, "site/index.html");
+if (fs.existsSync(homePath)) {
+  const home = fs.readFileSync(homePath, "utf8");
+  for (const oldStructure of ["Five simple things", "Four things you can prove before you ship", "One resource, three depths"]) {
+    if (home.includes(oldStructure)) failures.push(`site/index.html: contains retired competing structure ${JSON.stringify(oldStructure)}`);
+  }
+  for (const href of ["./try.html", "./testing.html#bring-your-own", "./charts/index.html", "./how-it-works.html", "./confighub.html", "./verification.html", "./known-gaps.html"]) {
+    if (!home.includes(`href="${href}"`)) failures.push(`site/index.html: missing story link ${href}`);
   }
 }
 
