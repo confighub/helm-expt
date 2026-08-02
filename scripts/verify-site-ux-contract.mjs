@@ -44,7 +44,7 @@ const checks = [
   },
   {
     file: "site/deployment-reference.html",
-    terms: ["Technical deployment reference", "The short version", "Where a setting belongs", "The recipe: the recorded inputs", "Variants, in one picture", "What a direct local apply still has to handle"],
+    terms: ["Technical deployment reference", "The short version", "Where a setting belongs", "The recipe: the recorded inputs", "Variants and related records", "What a direct local apply still has to handle"],
   },
   {
     file: "site/charts/index.html",
@@ -311,9 +311,35 @@ for (const file of humanSplitPages) {
   }
   const text = fs.readFileSync(fullPath, "utf8");
   const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+  const h1Count = [...text.matchAll(/<h1\b/gi)].length;
+  if (h1Count !== 1) failures.push(`${file}: expected one h1, found ${h1Count}`);
+  if (!/<p\b[^>]*class="[^"]*(?:lead|tagline)[^"]*"/i.test(header)) {
+    failures.push(`${file}: header is missing one plain purpose statement`);
+  }
   if (header.includes("For humans")) failures.push(`${file}: hero/header must explain the page without a "For humans" label`);
   if (text.includes("Details and data")) failures.push(`${file}: should not use the old reference/details divider`);
   if (/<h2[^>]*>\s*Reference\s*<\/h2>/.test(text)) failures.push(`${file}: should not label the lower page as Reference`);
+
+  const invalidCommands = [
+    [/(?:^|[^A-Za-z])cub install(?:\s|&lt;|<)/i, "cub install"],
+    [/\bcub gitops\b/i, "cub gitops"],
+    [/\bcub unit import\b/i, "cub unit import"],
+    [/\bcub helm setup\b/i, "cub helm setup"],
+    [/\bctc test\b/i, "ctc test"],
+  ];
+  for (const [pattern, label] of invalidCommands) {
+    if (pattern.test(text)) failures.push(`${file}: contains unsupported public command ${JSON.stringify(label)}`);
+  }
+
+  for (const phrase of [
+    "a plaque in the seat where the engine goes",
+    "We guide; you decide",
+    "The point is simple",
+    "a reviewed object edit stays",
+    "Argo and Flux are not affected because they prune declaratively",
+  ]) {
+    if (text.includes(phrase)) failures.push(`${file}: contains retired or misleading prose ${JSON.stringify(phrase)}`);
+  }
 }
 
 for (const check of guideOpeningChecks) {
