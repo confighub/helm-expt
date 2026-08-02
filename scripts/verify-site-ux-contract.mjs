@@ -36,7 +36,7 @@ const checks = [
   },
   {
     file: "site/serverless.html",
-    terms: ["Serverless mode", "Run it without ConfigHub Server", "both serverless and anonymous", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
+    terms: ["Use the tools without ConfigHub Server", "no server means the command does not contact ConfigHub Server", "No account means you do not sign in", "1. Pull a public catalog package", "2. Choose a no-account task", "3. Change an existing OCI without signing in", "4. Render a Helm package before applying it", "5. Deliver the OCI with Argo CD or Flux", "6. Read the current limits", "reuse-existing-secret", "--output-oci", "redis → redis", "normal default carries password material"],
   },
   {
     file: "site/how-it-works.html",
@@ -84,7 +84,7 @@ const checks = [
   },
   {
     file: "site/ai.html",
-    terms: ["AI And The Catalog", "AI can suggest, but tests and receipts decide", "How AI Helps Build The Catalog", "Good AI Tasks", "RBAC Manager for Agents"],
+    terms: ["Use AI without hiding the result", "It does not decide whether a configuration is ready", "1. Use AI to maintain the Catalog", "2. Review configuration made by AI", "The agent proposes. The reviewed objects are what get released.", "3. See a checked ConfigHub example", "4. Choose a suitable AI task", "5. Give AI a purpose-built App", "6. Open guides and evidence", "RBAC Manager for Agents"],
   },
   {
     file: "site/custom-apps.html",
@@ -178,6 +178,14 @@ const guideOpeningChecks = [
     headerTerms: ["Operate saved configuration", "after an application and its target already exist", "review a change, approve it, deliver it, and check the live result", "OCI carries a reviewed release"],
   },
   {
+    file: "site/serverless.html",
+    headerTerms: ["Use the tools without ConfigHub Server", "no server means the command does not contact ConfigHub Server", "No account means you do not sign in", "A cluster is needed only when you choose to deploy"],
+  },
+  {
+    file: "site/ai.html",
+    headerTerms: ["Use AI without hiding the result", "It does not decide whether a configuration is ready", "exact Kubernetes objects and recorded checks decide what can proceed"],
+  },
+  {
     file: "site/verification.html",
     headerTerms: ["npm proof commands", "verification tools", "fresh live parity"],
   },
@@ -192,6 +200,8 @@ const technicalEnglishPages = [
   "site/docs.html",
   "site/hard-questions.html",
   "site/demo-org.html",
+  "site/serverless.html",
+  "site/ai.html",
 ];
 
 const failures = [];

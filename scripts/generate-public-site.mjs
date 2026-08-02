@@ -3101,7 +3101,7 @@ function serverlessHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Serverless Mode · Config Workshop</title>
+  <title>No-server tools · Config Workshop</title>
   <style>${siteCss()}${installPageCss()}</style>
 </head>
 <body>
@@ -3109,10 +3109,11 @@ function serverlessHtml(catalog) {
     ${topNav(".")}
     <div class="install-hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Serverless mode</p>
-        <h1>Run it without ConfigHub Server</h1>
-        <p class="lead">This example is both serverless and anonymous: it uses neither ConfigHub Server nor a ConfigHub account. You can inspect the rendered objects and prerequisites, then keep them as files, apply them yourself, or write the non-secret objects to OCI.</p>
-        <div class="chips" aria-label="What this path needs"><span>kind</span><span>any cluster</span><span>no ConfigHub account</span></div>
+        <p class="eyebrow">No server and no account</p>
+        <h1>Use the tools without ConfigHub Server</h1>
+        <p class="lead">Here, no server means the command does not contact ConfigHub Server. No account means you do not sign in. The first examples provide both.</p>
+        <p>Inspect the objects and prerequisites, keep them as files, or write the non-secret objects to OCI. A cluster is needed only when you choose to deploy them.</p>
+        <div class="chips" aria-label="What this path needs"><span>local or CI</span><span>no ConfigHub Server</span><span>no account</span></div>
       </div>
       <div class="terminal-card" aria-label="Redis install comparison">
         <div class="terminal-title">redis → redis</div>
@@ -3140,24 +3141,24 @@ function serverlessHtml(catalog) {
   </header>
   <main>
     <section class="narrow-section callout-section" aria-labelledby="package-note">
-      <h2 id="package-note">What is <code>--pull</code>?</h2>
+      <h2 id="package-note">1. Pull a public catalog package</h2>
       <p>It points cub at an installer package: a reviewed chart/version with bases, recorded inputs, rendered objects, and proof links. For public catalog charts, use the package's <code>oci://</code> ref after the chart page shows a publication receipt. cub pulls that package into the work directory, then writes <code>out/spec</code> and <code>out/manifests</code>. In this repo, maintainers may also use the local <code>packages/...</code> source path while a ref is still marked assigned.</p>
       <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="where-it-fits">
-      <h2 id="where-it-fits">Where the no-account tools fit</h2>
+      <h2 id="where-it-fits">2. Choose a no-account task</h2>
       <p>You can use them before an OCI package is built, after you pull one, or between an input package and an output package.</p>
       <div class="step-grid">
-        <div class="card"><h3><code>work -&gt; OCI</code></h3><p>Inspect and test a chart, recipe, installer package, or set of Kubernetes files, then build an OCI package.</p></div>
-        <div class="card"><h3><code>OCI -&gt; work</code></h3><p>Pull a public OCI package to inspect its objects, run checks, or compare it with another version.</p></div>
-        <div class="card"><h3><code>OCI -&gt; work -&gt; OCI</code></h3><p>Pull a package, test or edit the exact objects, and build a new package. Registry publication is a separate authenticated step.</p></div>
+        <div class="card"><h3>Build OCI from local configuration</h3><p>Inspect and test a chart, recipe, installer package, or set of Kubernetes files. Then build an OCI package.</p></div>
+        <div class="card"><h3>Inspect an OCI package</h3><p>Pull a public OCI package to inspect its objects, run checks, or compare it with another version.</p></div>
+        <div class="card"><h3>Change an OCI package</h3><p>Pull a package, test or edit the exact objects, and build a new package. Publishing it to a registry requires registry credentials.</p></div>
       </div>
       <p>Here, work means inspect, explain, test, scan, compare, or edit. It can run as a local command or in CI today. A public hosted service that can do this work without signing in is planned, but not yet shipped.</p>
     </section>
 
     <section class="narrow-section" aria-labelledby="change-oci">
-      <h2 id="change-oci">Change an existing OCI without signing in</h2>
+      <h2 id="change-oci">3. Change an existing OCI without signing in</h2>
       <p>When an OCI already contains exact Kubernetes objects, you can change one named field and create a checked replacement locally. This example changes only the NGINX replica count:</p>
       <div class="terminal-card">
         <div class="terminal-title">public OCI → checked local OCI</div>
@@ -3172,7 +3173,7 @@ function serverlessHtml(catalog) {
     </section>
 
     <section class="narrow-section" aria-labelledby="how">
-      <h2 id="how">Helm hides one step. cub shows it.</h2>
+      <h2 id="how">4. Render a Helm package before applying it</h2>
   <p><code>helm install</code> renders and applies the chart in one command. The cub path splits that into render, inspect, then apply. The <a href="./d/data/serverless-install-parity-proof/summary.html">live Redis comparison</a> checks all 13 chart objects field-for-field, runs both deployments, and records <code>PONG</code> from each.</p>
       <div class="step-grid">
         <div class="card">
@@ -3188,7 +3189,7 @@ function serverlessHtml(catalog) {
     </section>
 
     <section class="narrow-section" aria-labelledby="gitops">
-      <h2 id="gitops">The other delivery: GitOps via OCI</h2>
+      <h2 id="gitops">5. Deliver the OCI with Argo CD or Flux</h2>
       <p>Already running Argo CD or Flux from an OCI registry? Give <code>--output-oci</code> a registry reference. The installer pushes the non-secret objects, reads the artifact back, and checks the object-set digest before returning.</p>
       <div class="terminal-card">
         <div class="terminal-title">redis → OCI</div>
@@ -3203,7 +3204,7 @@ function serverlessHtml(catalog) {
     </section>
 
     <section class="narrow-section" aria-labelledby="edges">
-      <h2 id="edges">The edges, kept in plain sight</h2>
+      <h2 id="edges">6. Read the current limits</h2>
       <p><strong>The chart's normal default carries password material in its rendered Secret.</strong> The catalog recommends <code>reuse-existing-secret</code> instead. That preset names the Secret the target must provide, and the rendered OCI contains no password.</p>
       <p><strong><code>kubectl</code> does not wait for the namespace.</strong> Create the namespace first. A controller such as Argo or Flux can order this for you.</p>
       <p><strong><code>cub installer push</code> publishes the multi-preset source package.</strong> Users pull that package with <code>cub installer setup --pull</code>. The separate <code>--output-oci</code> artifact contains one selected preset's exact non-secret Kubernetes objects for Argo CD, Flux, or another OCI consumer.</p>
@@ -3211,7 +3212,7 @@ function serverlessHtml(catalog) {
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. Serverless means this path does not depend on ConfigHub Server; anonymous means it uses no ConfigHub account. This example is both. Claim the configuration in ${signupLink("serverless", "ConfigHub")} when it needs saved history, shared variants, approvals, promotions, or fleet rollout.</p></footer>
+  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared history, variants, approvals, promotion, or fleet rollout.</p></footer>
 </body>
 </html>
 `;
@@ -5037,20 +5038,20 @@ function aiHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI And The Catalog · Config Workshop</title>
+  <title>AI with review and evidence · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>AI And The Catalog</h1>
-    <p>AI is useful here because Helm charts are too large to inspect by hand, one value at a time. We use agents to help read charts, propose useful <a href="./charts/index.html#base-variants">base variants</a>, write checks, and explain evidence.</p>
-    <p>The rule is strict: AI can suggest, but tests and receipts decide. A catalog claim is not true because an agent wrote it; it is true when the rendered objects, generated data, and verification commands back it.</p>
-    <p>This is also why the catalog uses base variants instead of claiming every values combination. AI can help maintain chart-specific choices across versions; verification decides which choices are ready to show users.</p>
+    <h1>Use AI without hiding the result</h1>
+    <p class="lead">AI helps us read charts, propose useful configurations, write checks, and explain results. It does not decide whether a configuration is ready.</p>
+    <p>This page shows two uses: agents help maintain the public Catalog, and users bring values or patches made by AI. In both cases, exact Kubernetes objects and recorded checks decide what can proceed.</p>
+    <p>We do not claim every Helm values combination. AI helps maintain chart-specific starting configurations across versions. Verification decides which ones appear in the Catalog.</p>
   </header>
   <main>
     <section aria-labelledby="catalog">
-      <h2 id="catalog">How AI Helps Build The Catalog</h2>
+      <h2 id="catalog">1. Use AI to maintain the Catalog</h2>
       <p>The main AI use today is not autonomous production change. It is catalog work: finding what a chart does, proposing safe starting points, generating checks, and turning evidence into language people can read.</p>
       ${markdownLikeTable([
         ["AI helps with", "How we keep it honest"],
@@ -5060,22 +5061,22 @@ function aiHtml(catalog) {
     </section>
 
     <section aria-labelledby="user-agents">
-      <h2 id="user-agents">When Users Bring AI</h2>
-      <p>AI can also help a user propose Helm values, patches, variants, or fixes. ConfigHub makes that safer by turning the suggestion into exact Kubernetes objects, diffs, known extras, checks, and approvals before it reaches a cluster.</p>
-      <p>If the suggestion changes what Helm renders, it should become a new or updated recorded <a href="./charts/index.html#base-variants">base variant</a>. If it edits an already-rendered object, it should become a reviewed ConfigHub change. Either way, the user sees the diff before release.</p>
-      <p>The reviewed config remains the source of truth. AI explains and proposes; ConfigHub records and verifies.</p>
+      <h2 id="user-agents">2. Review configuration made by AI</h2>
+      <p>When an agent writes Helm values or a patch, render the result. ConfigHub can store the exact objects and show the diff, checks, and approvals before release.</p>
+      <p>If the suggestion changes Helm values, update the recorded Helm source and rebuild the base. If it changes one environment after render, record it in that ConfigHub variant.</p>
+      <p>The agent proposes. The reviewed objects are what get released.</p>
     </section>
 
     <section aria-labelledby="live-review">
-      <h2 id="live-review">A Change We Checked In ConfigHub</h2>
+      <h2 id="live-review">3. See a checked ConfigHub example</h2>
       <p>The example starts with a proposed AICR training change that asks for eight H100 nodes even though the recorded target limit is four. It also replaces a pinned image with <code>latest</code> and leaves an API key placeholder. The reviewed file fixes all three problems.</p>
       <p>In the live run, ConfigHub read the nested AICR fields. It reported the mutable image and blocked the inline API key. The reviewed version cleared both checks. Ordinary Deployment image and probe checks did not run against either custom resource.</p>
-      <p>ConfigHub stored the reviewed Kubernetes object, blocked a dry run until its exact head revision was approved, and allowed the same dry run to an OCI target after approval. Nothing was applied to Kubernetes. The four-node limit remains a separate target-specific check because the ConfigHub policy cannot yet read that recorded target fact.</p>
+      <p>ConfigHub stored the reviewed Kubernetes object. It blocked a dry run until the exact head revision was approved. After approval, the same dry run to an OCI target was allowed. Nothing was applied to Kubernetes. The four-node limit remains a separate target-specific check because the ConfigHub policy cannot yet read that recorded target fact.</p>
       <p><a href="../data/ai-change-review-live-proof/summary.md">Read the result and its limits</a>.</p>
     </section>
 
     <section aria-labelledby="tasks">
-      <h2 id="tasks">Good AI Tasks</h2>
+      <h2 id="tasks">4. Choose a suitable AI task</h2>
       ${markdownLikeTable([
         ["Task", "Fit", "Boundary"],
         ...taskRows,
@@ -5083,13 +5084,13 @@ function aiHtml(catalog) {
     </section>
 
     <section aria-labelledby="agentic-apps">
-      <h2 id="agentic-apps">Agentic Custom Apps</h2>
-      <p>A useful pattern is a small domain app that exposes higher-level operations to an agent while ConfigHub remains the configuration store. The app supplies the domain model, dry-run behavior, guardrails, and explicit commit path.</p>
-      <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> is a concrete example of that shape. It is a CLI/plugin with skills for RBAC inventory, effective-access queries, hygiene findings, guarded edits, fleet edits, and promotion. That is more differentiated than asking an agent to edit YAML directly.</p>
+      <h2 id="agentic-apps">5. Give AI a purpose-built App</h2>
+      <p>A small domain App can give an agent named operations while ConfigHub keeps the configuration. The App supplies the domain rules, dry runs, checks, and explicit commit step.</p>
+      <p>ConfigHub's <a href="https://github.com/confighub/examples/tree/main/rbac-manager-for-agents">RBAC Manager for Agents</a> follows this pattern. It supports RBAC inventory, access queries, findings, guarded edits, fleet edits, and promotion. The agent uses these operations instead of unrestricted YAML edits.</p>
     </section>
 
     <section aria-labelledby="guides">
-      <h2 id="guides">Guides And Evidence</h2>
+      <h2 id="guides">6. Open guides and evidence</h2>
       <div class="grid">
         <div class="card"><h3>Deployment</h3><p>See where each configuration tool fits and how a reviewed result reaches a cluster.</p><p><a href="./how-it-works.html">Open page</a></p></div>
         <div class="card"><h3>Verification</h3><p>Npm commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
