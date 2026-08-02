@@ -336,6 +336,15 @@ for (const file of humanSplitPages) {
     "public proof corpus",
     "install-time surface",
     "one named shape",
+    "Base shape",
+    "one common shape",
+    "honest disposition",
+    "Separate lanes make",
+    "reported one lane at a time",
+    "fresh live lane",
+    "Live proof / disposition",
+    "measured corpus",
+    "Hook dispositions",
   ]) {
     if (text.includes(phrase)) failures.push(`${file}: contains retired or misleading prose ${JSON.stringify(phrase)}`);
   }
