@@ -2,15 +2,31 @@ EXPERIMENTAL
 
 # Documentation Map
 
-This directory contains the manual documentation for the Helm experiment. The
-primary user-facing surface should stay small. Most Markdown files in the repo
-are generated catalog, recipe, package, proof, or run-output files.
+The public website is the starting point for people who want to use the project.
+This directory holds the detailed guides and the evidence behind that site.
 
-## Primary User Docs
+## Human Route
 
-These are the files a new user should be able to follow without reading the
-whole repo. For the single serial order through `docs/user/*.md`, start with
-[user/README.md](./user/README.md).
+Use these pages in order for the shortest introduction.
+
+| Page | Purpose |
+| --- | --- |
+| [Try Redis](https://confighub.github.io/helm-expt/site/try.html) | Inspect one checked package without a ConfigHub account, server, or Kubernetes cluster. |
+| [Examples](https://confighub.github.io/helm-expt/site/examples.html) | Start from Helm, AICR, OCI, or YAML, then explore promotions, fleets, policy, and Apps. |
+| [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html) | Choose a tested starting configuration for a public Helm chart. |
+| [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html) | Choose files, OCI, ConfigHub, Argo CD, Flux, or direct Kubernetes delivery. |
+| [Docs](https://confighub.github.io/helm-expt/site/docs.html) | Find instructions for the current step. |
+| [ConfigHub](https://confighub.github.io/helm-expt/site/confighub.html) | Save, change, approve, promote, and roll out reviewed configuration. |
+
+The rest of this file is a reference index. You do not need to read it from top
+to bottom. Most Markdown files in the repository are generated catalog, recipe,
+package, test, or run records.
+
+## User Guide Index
+
+For a guided reading order through `docs/user/*.md`, start with
+[user/README.md](./user/README.md). Use the table below when you need a specific
+subject.
 
 | File | Role |
 | --- | --- |
@@ -114,10 +130,9 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [../tests/README.md](../tests/README.md) | Test directory map: npm verification scripts and portable runtime tests. |
 | [../tests/npm-scripts.md](../tests/npm-scripts.md) | What each npm script family checks, why it exists, and when to run it. |
 
-This list is the intended public reading path. Generated package docs, recipe
-catalog pages, data summaries, and per-chart proof transcripts are corpus
-evidence. They should be linked when useful, but they are not the first-run
-documentation set.
+This table is a reference inventory. Generated package docs, recipe catalog
+pages, data summaries, and per-chart test transcripts support the public pages;
+they are not the first-run documentation set.
 
 ## Maintained Orientation Layer
 

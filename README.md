@@ -1,187 +1,70 @@
-# ConfigHub Helm Experiment
+# Config Workshop
 
-Use Helm charts. Make the fleet recordable.
+This repository builds an experimental public site for understanding, testing,
+and using Kubernetes configuration. It starts with Helm and also includes AICR,
+OCI packages, and plain Kubernetes YAML.
 
-Before you `helm install`, see exactly what you are installing. After you
-install, keep proof of what was rendered, checked, delivered, and observed.
+The quickest route is the [Config Workshop website](https://confighub.github.io/helm-expt/site/).
 
-This repo shows how popular public Helm charts can become `cub installer`
-packages with named base variants, exact rendered Kubernetes objects, optional
-derived ConfigHub variants, scans, gates, receipts, and live proof.
+## Start Here
 
-The simple story is not "run a better install script." The durable value is a
-declarative source of record for fleets. Most chart choices should be hardened
-into a reviewed package before install. The small set of choices that remain at
-install time should be explicit, typed, and restricted. ConfigHub can then
-record which package, preset, target, and allowed inputs each fleet member
-should run, and compare that desired record with what reached the clusters.
+Each page has one job. Follow them in order, or open the page that matches the
+work in front of you.
 
-The supported bases are intended to preserve the chart's end-to-end semantics
-while splitting the install into visible, verifiable stages. That makes changes
-safer, including AI-assisted changes, and helps keep users on the chart's
-supported path instead of accidentally driving Helm into hidden edge cases.
+| Page | Purpose |
+| --- | --- |
+| [Try Redis](https://confighub.github.io/helm-expt/site/try.html) | Pull, render, and inspect one checked package. This first exercise needs no ConfigHub account, server, or Kubernetes cluster. |
+| [Examples](https://confighub.github.io/helm-expt/site/examples.html) | Bring Helm values, AICR, OCI, or YAML. Then see worked promotions, fleet rollouts, policy checks, and ConfigHub Apps. |
+| [Catalog](https://confighub.github.io/helm-expt/site/charts/index.html) | Find a tested starting configuration for a public Helm chart. Each chart page shows the objects, values, setup work, tests, and known limits. |
+| [Deployment](https://confighub.github.io/helm-expt/site/how-it-works.html) | Choose where the reviewed result goes: local files, OCI, ConfigHub, Argo CD, Flux, or Kubernetes. |
+| [Docs](https://confighub.github.io/helm-expt/site/docs.html) | Find the instructions for the step you are doing. |
+| [ConfigHub](https://confighub.github.io/helm-expt/site/confighub.html) | Save the reviewed configuration, make variants, approve changes, promote releases, and manage rollouts. |
 
-Four standards guide every catalog entry. Each entry reports which standards
-are proven and which still need work. The Helm corpus is the mature part of the
-project. The first real AICR example now has a generated recipe, a Flux OCI
-bundle, an Argo CD source chart, 17 rendered Argo CD Applications, portable
-checksums, tested local OCI layouts, and a live ConfigHub base-variant upload.
-It remains partial until the public registry pushes and live reconciliation
-are recorded.
+## What This Project Does
 
-1. Most choices are made and checked before you install. The reviewed package
-   fixes almost everything at build time and leaves a small, typed install-time
-   surface.
-2. You can read the proof before you ship. Render parity, live install, and
-   delivery through Argo, Flux, and kubectl are recorded as receipts you can open.
-3. The messy parts are named and proven, never hidden. Hooks, CRDs, and setup
-   jobs each become a named route with a receipt and an honest automatic marker.
-4. You can reverse a change, not only keep it. Configuration is data with full
-   revision history, and each base variant records the exact objects it produced,
-   so restoring a prior state is a known, reproducible step.
+For Helm, the catalog keeps the original chart and records the values and render
+context used for each ready-made configuration. It also names work that a flat
+manifest cannot explain by itself, such as CRDs, hooks, Secrets, and setup jobs.
+The project checks that the rendered objects match Helm and links the evidence
+from each chart page.
 
-Three source paths now lead toward the same ConfigHub operations path:
+You can also bring your own chart and values, an AICR package, an existing OCI
+artifact, or Kubernetes YAML. The result can stay as files, become OCI for Argo
+CD or Flux, or enter ConfigHub.
 
-| Starting point | First result | ConfigHub entry |
-| --- | --- | --- |
-| Helm chart | A selected `cub installer` preset with its Helm render record, literal objects, and known lifecycle work | Upload the rendered files or a single-base literal OCI bundle |
-| AICR | A versioned recipe and generated deployment bundle with checksums and remaining target requirements | Upload the generated files or OCI artifact as a base variant |
-| Existing Kubernetes configuration | Reviewed YAML files, optionally packaged as OCI | `cub variant upload <files-or-oci-ref>` |
+ConfigHub is where a reviewed result becomes a shared record. Teams can change
+the real Kubernetes objects, keep those changes through upgrades, create test
+and production variants, apply policy, approve releases, and track delivery to
+clusters.
 
-After upload, derived variants hold test, development, staging, production,
-region, customer, and cluster differences. The same apply-policy profile checks
-schema, placeholders, and lifecycle-route evidence everywhere, reports image
-and probe concerns, and adds approval for production releases and configuration
-that changes how a cluster works.
+## Free And Managed Paths
 
-Read the [config catalog doctrine](./docs/reference/config-catalog-doctrine.md),
-the [demonstration programme](./docs/user/config-catalog-demonstrations.md), and
-the [generated apply-policy profile](./data/apply-policy-profiles/summary.md).
+The starting examples support local use with no ConfigHub Server and public
+package use without a ConfigHub account. You need an account when you want
+ConfigHub to save, share, change, approve, promote, or roll out the result.
+
+This is not a replacement chart language. Helm users keep their charts. The
+workshop makes the output easier to inspect, test, package, and operate.
+
+## Repository Guides
+
+- [Documentation map](./docs/README.md): human guides, technical references,
+  generated evidence, and agent/operator notes.
+- [Config catalog doctrine](./docs/reference/config-catalog-doctrine.md): rules
+  for keeping the human site, machine-readable records, and evidence aligned.
+- [Demonstration programme](./docs/user/config-catalog-demonstrations.md): status
+  of the Helm, AICR, OCI, promotion, fleet, policy, and App examples.
+- [Agent and operator notes](./docs/agent/README.md): command recipes and repo
+  maintenance guidance.
+- [Known gaps](./site/known-gaps.html): current limits with links to evidence.
+
+If a public Helm chart breaks this model, or the catalog output differs from
+what Helm produces, send it through the
+[problem chart issue template](https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml).
 
 All contents are experimental and unofficial.
 
-Public entry points:
-
-- [Offering page](./docs/user/offering.md): plain-English overview for Helm users.
-- [Generative GitOps fit](./docs/user/generative-gitops-fit.md): what this repo proves for generated config, AI-assisted change, and GitOps, and what remains product frontier.
-- [Static HTML offering page](./site/offering.html): generated page for a public site.
-- [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
-- [Installer package OCI refs](./docs/user/installer-oci-packages.md): the public package refs users pull with `cub installer setup --pull oci://...`; no ConfigHub account or Google registry login is needed for read-only public catalog use.
-- [Config catalog demonstrations](./docs/user/config-catalog-demonstrations.md): the current Helm, AICR, cub installer, promotion, Kubara, Sveltos, and ConfigHub App paths, with missing work stated.
-- [Base variant records](./data/base-variant-records/summary.md): the generated source-neutral index that joins literal configuration to source inputs, routes, policy, evidence, and OCI handoffs.
-- [Static HTML try page](./site/try.html): generated try-now page for a public site.
-- [Journey page](./site/journey.html): the path from inspect, to no-account try-out, to ConfigHub operations.
-- [Choose your path](./docs/user/choose-your-path.md): quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.
-- [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
-- [Master matrix](./site/matrix.html): one product/status view for chart versions, bases, variants, proof lanes, gaps, and next actions.
-- [Chart use guide](./data/chart-use-guide/summary.md): one short answer per top-100 chart for whether to use it now, promote it, improve its base variant, or decide a limitation first.
-- [App-readiness proof](./data/app-readiness/summary.md): a read-only RBAC app built on the held rendered objects.
-- [Hard questions](./site/hard-questions.html): skeptical questions routed to evidence and current limits.
-- [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
-- [Top-100 status](./docs/user/top100-status.md): plain-English groups for Helm users.
-- [Serious chart proof](./docs/user/serious-chart-proof.md): the kube-prometheus-stack proof path and its limits.
-- [Helm upgrade crash example](./docs/user/helm-upgrade-crash-example.md): how a risky upgrade becomes staged, rehearsed, gated, and observed.
-- [Target prerequisites](./docs/user/target-prerequisites.md): why hard charts need explicit CRDs, Secrets, lifecycle checks, and target facts beyond YAML parity.
-- [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
-
-If you have a public Helm chart that breaks this model, or a chart where the
-catalog output does not match the behavior you expect from Helm, send it as a
-test case using the
-[problem chart issue template](https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml).
-The useful response is a public fixture and a receipt: pass, watch, blocked, or
-refused with a named reason.
-
-## New Here? Start With These Five Stages
-
-If you are a Helm user, start by asking one question: do you only need to see
-what Helm renders, or do you want a reviewed package that can become managed
-ConfigHub state later?
-
-Each stage asks for more trust and gives more value. You can stop at any stage.
-
-| Stage | You want | Command or surface | Needs a ConfigHub account? |
-| --- | --- | --- | --- |
-| 1. Curious | See exactly what any chart renders. | `helm template` | No |
-| 2. Fast adoption | Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` | Yes |
-| 3. Supported catalog | A maintained package with most choices fixed, a small allowed input surface, rendered objects, receipts, scans, and live evidence. Keep the result as files or a rendered OCI. | `cub installer setup --pull <installer OCI ref> --base <base> [--output-oci <path-or-ref>]` | No ConfigHub account or registry login for public package pulls; registry write access is needed only when pushing output |
-| 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
-| 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
-
-Stages 1 and 2 are direct fast paths and skip the catalog. The separate
-`cub-helm` plugin is not the public front door in this repo; the public catalog
-path remains `cub installer setup`. Stage 3 is the
-durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to
-pay back the extra structure: the same rendered objects can be cloned into
-environment, region, customer, or target variants; compared before promotion;
-scanned and gated as exact objects; delivered through GitOps or OCI; and
-observed later with receipts.
-
-For fleet work, Stage 5 is the center of gravity. User workloads, system
-services, and cluster configuration may move on different cadences and under
-different owners. The shared need is the same: a signed or otherwise proven
-package release, a small controlled install-time surface, and a record of which
-version each fleet member should reconcile to.
-
-Free and low-friction use should cover browsing the catalog, inspecting
-rendered objects, running `helm template`, trying public `cub installer`
-packages from their `oci://` refs, writing one selected preset as a local
-rendered OCI, and verifying signatures, digests, and local receipts. The same
-`--output-oci` option can push to a registry when credentials are available.
-ConfigHub begins when the reviewed objects need saved history, shared variants,
-approval, promotion, release publication, or fleet rollout. Paid or managed use
-adds private and custom catalogs, teams, policy at scale, bulk operations,
-patch and upgrade services, and production support.
-
-For when each command fits, see [Choosing Commands](./docs/user/choosing-commands.md).
-
-Working in this repository as an agent or maintainer? Start with
-[Agent And Operator Notes](./docs/agent/README.md). Those notes keep command
-recipes, recovery steps, and repo-specific AX guidance out of the human-facing
-website.
-
-Four questions, answered up front:
-
-- **What can I try without signing up?** Browse the
-  [catalog](./CATALOG.md) and [site](./site/index.html), render any chart with
-  `helm template`, run `cub installer setup --pull oci://...` on public
-  packages, and run the repo verifiers locally. See
-  [the offering](./docs/user/offering.md).
-- **When do I need ConfigHub?** When you want rendered objects stored as Units,
-  derived environment/customer/target variants, approvals, private inputs, or
-  fleet operations. See [Product Support Tiers](./docs/user/product-support-tiers.md).
-- **What is better than Helm here?** You review exact rendered objects instead
-  of values files, changes route through named variants with receipts, and
-  failures surface as routed watch/blocked rows instead of silent drift. See
-  [Why This Exists](./docs/user/why-this-exists.md).
-- **What is not claimed yet?** The maintained hook queue has lifecycle receipts,
-  but that is not universal Helm hook support across the top-100 or top-500;
-  the GitOps/OCI runtime lane is partial; the stricter in-ConfigHub proof lane
-  covers a minority of chart/base rows; live claims are bounded to the tested
-  Kubernetes capability profile; and production support is a per-target
-  decision, never implied by a green render. Product frontiers such as
-  field-complete provenance, full change authority, reverse live-to-desired
-  flow, fleet-wide propagation, and universal hook execution remain bounded
-  claims, not finished product proof.
-  Current counts live in the
-  [status dashboard](./data/status-dashboard/summary.md); deliberate refusals
-  live in [What We Refuse To Claim](./docs/user/what-we-refuse-to-claim.md);
-  the concise frontier table is in
-  [Current Proof Status](./docs/user/current-proof-status.md#product-frontiers).
-
-Core flow:
-
-```text
-Helm chart
--> cub installer recipe/package
--> installer package OCI ref for users to pull
--> named base variants that select or change the Helm-rendered object set
--> small typed install-time inputs for the choices not hardened into the package
--> exact rendered Kubernetes objects
--> optional derived ConfigHub variants for approved post-render fields, facts, targets, gates, links, and observation policy
--> hook/lifecycle policy for cluster-dependent Helm behavior
--> Helm-equivalence proof, scans, gates, receipts
--> ConfigHub source-of-record / OCI / GitOps handoff
-```
+## Technical Detail
 
 ## The Idea
 
