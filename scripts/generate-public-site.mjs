@@ -102,6 +102,12 @@ const CONFIGHUB_SIGNUP_URL = "https://hub.confighub.com";
 const CONFIGHUB_ENTERPRISE_URL = "https://confighub.com";
 const CONFIGHUB_DOCS_SETUP_URL = "https://docs.confighub.com/get-started/setup/";
 const CONFIGHUB_TUTORIAL_URL = "https://docs.confighub.com/get-started/tutorial/";
+const CONFIGHUB_COMPONENT_DOC_URL =
+  "https://docs.confighub.com/background/concepts/component/";
+const CONFIGHUB_VARIANT_DOC_URL =
+  "https://docs.confighub.com/background/concepts/variant/";
+const CONFIGHUB_TARGET_DOC_URL =
+  "https://docs.confighub.com/background/entities/target/";
 const CUB_CLI_INSTALL_COMMAND = "curl -fsSL https://hub.confighub.com/cub/install.sh | bash";
 const INSTALLER_PLUGIN_INSTALL_COMMAND =
   "cub plugin install confighub/installer";
@@ -1672,6 +1678,15 @@ em{font-style:italic;color:var(--ink);}
   <p class="quiet-line">All three paths use objects you can inspect before deployment. Start locally and add ConfigHub when you need shared history, variants, approvals, promotion, or fleet rollout.</p>
   ${installerCommandNoteHtml()}
 
+  <h3>Three ConfigHub terms</h3>
+  <p>These terms describe what ConfigHub stores and where a configuration is intended to run.</p>
+  <table class="gtable" style="display:table;table-layout:fixed;white-space:normal">
+    <tr><th style="width:22%">Term</th><th>Meaning</th></tr>
+    <tr><td><a href="${confighubOutboundUrl(CONFIGHUB_COMPONENT_DOC_URL, "deployment-terms")}"><strong>Component</strong></a></td><td>The software and all the configurations that belong to it.</td></tr>
+    <tr><td><a href="${confighubOutboundUrl(CONFIGHUB_VARIANT_DOC_URL, "deployment-terms")}"><strong>Variant</strong></a></td><td>One complete configuration. A base is the shared starting point. A deployment variant is the configuration for an environment, region, customer, or other operating context.</td></tr>
+    <tr><td><a href="${confighubOutboundUrl(CONFIGHUB_TARGET_DOC_URL, "deployment-terms")}"><strong>Target</strong></a></td><td>Where a deployment variant is intended to run. It is a delivery address, not a connection from ConfigHub into the cluster.</td></tr>
+  </table>
+
   <h3>Why keep the rendered objects</h3>
   <div class="vs">
     <div class="col helm">
@@ -1743,6 +1758,12 @@ em{font-style:italic;color:var(--ink);}
 
   <h2>How ConfigHub keeps the result</h2>
   <p>For Helm, the source and intent record is the <code>HelmRenderIntent</code>. A chart then has two layers. <strong>Helm renders it</strong>: recipe → base variant → render intent → rendered output. <strong>ConfigHub operates it</strong> afterward by managing variants. The source-neutral base-variant record joins those layers without replacing the Helm record. Here are the steps, each named for what it does. (The small grey codes are the catalog's own labels, if you read the matrix.)</p>
+  <p>After upload, use <code>cub k8s</code> to read the Kubernetes objects stored in ConfigHub:</p>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Commands that read ConfigHub Server data require you to sign in.</p>
+  <pre><code>cub k8s types --space &lt;variant-space&gt;
+cub k8s get deploy --space &lt;variant-space&gt;
+cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
+  <p class="quiet-line">These commands read desired configuration in ConfigHub. They do not read live cluster state.</p>
   <p>Inspect the evidence for a base variant in this order:</p>
   <ol>
     <li>Open the full rendered YAML.</li>
@@ -1891,7 +1912,7 @@ em{font-style:italic;color:var(--ink);}
   <p class="quiet-line">A <strong>rename or re-derivation regenerates offline</strong> from committed source. A <strong>fresh live result needs a cluster</strong>. Live runs are serial and use one temporary cluster at a time. <code>cub cluster up</code> creates that local kind cluster. <code>cub cluster down</code> removes it afterward. Render parity is not a live result, and a warning is not a pass.</p>
 
   <h2>Deploy from ConfigHub</h2>
-  <p>For the managed path, set the Space's release target and publish the reviewed Units as one immutable release OCI. Argo CD, Flux, or a recorded direct-apply path can pull the same files. None of them renders the chart or source package again.</p>
+  <p>For the managed path, set the Space's release target and publish the reviewed Units as one immutable release OCI. Argo CD or Flux pulls those files and reconciles them. Neither controller renders the chart or source package again.</p>
   <pre><code>cub space update &lt;app-space&gt; --release-target &lt;cluster-space&gt;/oci
 cub release publish &lt;app-space&gt;
 
@@ -1908,9 +1929,9 @@ spec:
   url: oci://oci.hub.confighub.com:443/space/&lt;app-space&gt;
   ref:
     tag: latest</code></pre>
-  <p class="quiet-line">A small routed-hook fixture proves that three delivery methods can consume one ConfigHub release OCI and complete the same setup Job. The first exact catalog result uses the real <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> preset. <code>cub installer</code> reproduced its committed objects, and ConfigHub published them once. Argo CD, Flux, and direct apply reported the same release digest and a ready NGINX workload. Read the <a href="../data/catalog-oci-delivery-proof/summary.md">plain-English result</a> or the <a href="../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">receipt</a>. Every other catalog configuration still needs its own receipt before its page can make that delivery claim.</p>
+  <p class="quiet-line">A small routed-hook fixture proves that Argo CD and Flux can consume one ConfigHub release OCI and complete the same setup Job. A separate direct local test consumed the same artifact. The first exact catalog result uses the real <code>bitnami/nginx@24.0.2</code> <code>http-clusterip</code> preset. <code>cub installer</code> reproduced its committed objects, and ConfigHub published them once. Argo CD and Flux reported the same release digest and a ready NGINX workload; the local test recorded the same result. Read the <a href="../data/catalog-oci-delivery-proof/summary.md">plain-English result</a> or the <a href="../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml">receipt</a>. Every other catalog configuration still needs its own receipt before its page can make that delivery claim.</p>
   <div class="honest">
-    <h3>What direct apply still has to handle</h3>
+    <h3>What a direct local apply still has to handle</h3>
     <p>The recorded direct path proves a first apply for one NGINX configuration. A reusable direct-delivery path also needs explicit behavior for these cases:</p>
     <ul>
       <li><strong>Generated passwords.</strong> A chart default may create a Secret that should not become a shared, repeatable credential. Choose an <code>existing-secret</code> preset when the chart supports one.</li>
@@ -1932,7 +1953,7 @@ spec:
     <tr><td><code>watch</code></td><td>The path may be useful, but there is a named risk or prerequisite to read before you use it.</td></tr>
     <tr><td><code>blocked</code> or <code>refused</code></td><td>Do not use that catalog path yet. Choose another base variant, use Helm directly, or add the missing setup work.</td></tr>
     <tr><td><code>automatic</code></td><td>ConfigHub only uses this word when it runs the step and a receipt exists. Otherwise the page names who must run it.</td></tr>
-    <tr><td>GitOps delivery</td><td>The three-consumer fixture proves the OCI delivery mechanism. Each catalog configuration remains unproved for a controller until its own receipt records the sync and workload result.</td></tr>
+    <tr><td>GitOps delivery</td><td>The fixture proves that Argo CD and Flux can consume a ConfigHub release OCI. The separate direct test checks artifact portability. Each catalog configuration remains unproved for a controller until its own receipt records the sync and workload result.</td></tr>
   </table>
   <p class="quiet-line"><a href="./try.html">Get started</a> · <a href="./charts/index.html">Browse the catalog</a> · <a href="./verification.html">Read the proofs</a></p>
 </main>
@@ -2719,6 +2740,7 @@ $ ${INSTALLER_PLUGIN_INSTALL_COMMAND}
 $ cub installer version
 $ kustomize version</code></pre>
     <p>The plugin release contains the program for your operating system. You do not need Go.</p>
+    <p>If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>.</p>
     <p>If <code>kustomize version</code> fails, follow the <a href="${KUSTOMIZE_INSTALL_URL}">official Kustomize installation instructions</a>.</p>
     ${installerCommandNoteHtml()}
   </section>
@@ -2836,7 +2858,7 @@ $ export PATH="$HOME/.confighub/bin:$PATH"
 $ ${INSTALLER_PLUGIN_INSTALL_COMMAND}
 $ cub installer version
 $ kustomize version</code></pre>
-  <p>The cub installation script puts the CLI at <code>~/.confighub/bin/cub</code>. <code>cub plugin install</code> downloads the release for your operating system and architecture. If <code>kustomize version</code> fails, use the <a href="${KUSTOMIZE_INSTALL_URL}">official kustomize installation instructions</a>; Go is not required to install cub installer. For a later release, run <code>cub plugin upgrade installer</code>. If you installed an early source build with no recorded source, run <code>cub plugin uninstall installer</code> once, then repeat the install command above. Full cub setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
+  <p>The cub installation script puts the CLI at <code>~/.confighub/bin/cub</code>. <code>cub plugin install</code> downloads the release for your operating system and architecture. If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>. If <code>kustomize version</code> fails, use the <a href="${KUSTOMIZE_INSTALL_URL}">official kustomize installation instructions</a>; Go is not required to install cub installer. If you installed an early source build with no recorded source, run <code>cub plugin uninstall installer</code> once, then repeat the install command above. Full cub setup notes are in the <a href="${confighubOutboundUrl(CONFIGHUB_DOCS_SETUP_URL, "try")}">ConfigHub docs</a>.</p>
   <p>No ConfigHub account is needed for the catalog paths on this page.</p>
   ${installerCommandNoteHtml()}
 
@@ -3681,7 +3703,7 @@ function hardQuestionsHtml(catalog) {
 	          status: "answered",
 	          question: "How is config delivered, and what about OCI and credentials?",
 	          answer:
-	            "ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD, Flux, or direct apply can use it without rendering Helm again. A hook fixture proves the mechanism. An NGINX receipt proves one catalog base through all three paths at one digest. Other bases need their own receipts. cub cluster up installs the Argo CD pull credential. The Flux test copies it into flux-system without printing it.",
+	            "ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD or Flux pulls it without rendering Helm again. A separate direct local test checks that the same artifact is portable. A hook fixture proves the mechanism, and an NGINX receipt proves one catalog base at one digest. Other bases need their own receipts. cub cluster up installs the Argo CD pull credential. The Flux test copies it into flux-system without printing it.",
           links: [["Deployment path", "../docs/user/cub-deployment-path.md"], ["Exact NGINX result", "../data/catalog-oci-delivery-proof/summary.md"], ["GitOps adopter guide", "../docs/user/gitops-adopter-guide.md"]],
         },
 	        {
@@ -4304,6 +4326,12 @@ function demoOrgHtml(catalog) {
         </ul>
         <p>The demo org stores rendered Kubernetes YAML as versioned Units in a Space. ConfigHub can search, compare, review, and deliver those Units. The README explains where they came from and why the Space exists.</p>
         <p>When you find a problem, you change the same object that you inspected. ConfigHub records that change as a revision before delivery.</p>
+        <p>With cub v0.2.7 or later, you can query those stored objects across the org:</p>
+        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. Sign in and select the <code>helm-catalog</code> org before you run these commands.</p>
+        <pre><code>cub k8s types --space "*"
+cub k8s get deploy --space "*"
+cub k8s get crd --space "*"</code></pre>
+        <p class="quiet-line">These commands read desired configuration in ConfigHub. They do not read live cluster state.</p>
     </section>
 
       <section aria-labelledby="what">
@@ -4325,7 +4353,7 @@ function demoOrgHtml(catalog) {
         <p>The base also moved its NGINX image to an internal registry without changing the digest. The <a href="./d/docs/user/image-registry-migration.html">walkthrough and receipt</a> show the commands and revision history. This proves the stored ConfigHub records. It does not prove Kubernetes delivery.</p>
         <p><strong>The secrets story.</strong> The two mysql Spaces differ in exactly one decision: a staged external credential versus a generated one. Diff any unit across the pair to see precisely what the safer choice changes.</p>
         <p><strong>The CRD split.</strong> The two argo-cd Spaces show the chart with and without bundled CRDs. The no-crds Space states that the cluster owns them. A live test showed that applying custom resources before their CRDs fails. Applying CRDs first and waiting for them succeeds. The Space's <code>ProofReceipt</code> label links to that result.</p>
-        <p><strong>The hooks.</strong> <code>hook-probe-base</code> contains a Job with visible Argo CD hook annotations. The same OCI fixture ran through Argo CD, Flux, and direct apply. The hook Job completed on the cluster in all three tests. The <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels link to the evidence.</p>
+        <p><strong>The hooks.</strong> <code>hook-probe-base</code> contains a Job with visible Argo CD hook annotations. Argo CD and Flux each pulled the same OCI fixture and completed the Job. A separate direct local test did the same. The <code>ProofReceipt</code> and <code>DeliveryReceipt</code> labels link to the evidence.</p>
         <p><strong>Local changes and new releases.</strong> Open <code>hashicorp-vault-demo-base</code> and its dev, staging, and production variants. Dev added a cost label. Staging uses two replicas, and production uses three.</p>
         <p>The base later added telemetry and release-track annotations. Staging and production received them while keeping their replica settings. Dev had changed the same annotations map, so promotion kept the dev map and skipped the base annotations. Two recorded reconcile revisions added them afterward. The revision history shows both cases.</p>
         <p><strong>A staged rollout.</strong> Staging first received a real audience environment variable. The base later added the same variable as <code>confighubplaceholder</code> and added a shared issuer. Promotion kept staging's real value and delivered the issuer. The <code>vet-placeholders</code> policy prevents the placeholder from reaching a cluster.</p>
@@ -4336,7 +4364,7 @@ function demoOrgHtml(catalog) {
       <section aria-labelledby="live-proof">
         <h2 id="live-proof">What ran live, exactly</h2>
         <p>These three examples ran on real clusters. Each receipt records the command, observations, result, and limit.</p>
-        <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD, Flux, and a direct apply path pulled that same artifact on a throwaway kind cluster. Each path created the workload and completed the Job.</p>
+        <p><strong>The hook delivery test.</strong> ConfigHub published one OCI bundle containing a ConfigMap and a migration Job. Argo CD and Flux pulled that artifact on separate throwaway kind clusters and completed the Job. A separate direct local test pulled the same artifact and completed the Job.</p>
         <p>This test covers one routed fixture on one recorded rig. It does not cover every chart, hook type, or production environment.</p>
         <p><strong>The CRD ordering test.</strong> Direct apply first tried to create a custom resource before its CRD was established. Kubernetes refused the custom resource with the recorded error. Applying the CRD first and waiting for it fixed the installation. A separate receipt records the chart-specific order through Argo CD and Flux.</p>
         <p><strong>The Kube Prometheus Stack lifecycle test.</strong> A direct run rendered catalog package 85.3.3 and verified its chart objects. It applied ten CRDs first, ran the certificate and webhook Jobs, tested the webhook and six workloads, then removed temporary Jobs.</p>
@@ -4963,7 +4991,7 @@ function catalogPathfinderHtml(root) {
         ["Upload and save", `<a href="${href("variants.html#flow")}">Record reviewed objects in ConfigHub</a>`],
         ["Customize", `<a href="${href("d/docs/user/transform-oci-package.html")}">Change one field in an OCI without signing in</a> · <a href="${href("variants.html#choose")}">Choose a ConfigHub base or derived variant</a>`],
         ["Promote", `<a href="${href("variants.html#journey")}">Move a reviewed change through environments</a>`],
-        ["Deliver", `<a href="${href("operations.html#ops")}">Publish OCI for Argo CD, Flux, or direct apply</a>`],
+        ["Deliver", `<a href="${href("operations.html#ops")}">Publish OCI for Argo CD or Flux; test the same artifact locally</a>`],
         ["Operate", `<a href="${href("operations.html#fleet-record")}">Track changes and live results across a fleet</a>`],
         ["Build an App", `<a href="${href("journey.html#app-program")}">Use saved configuration for a repeated operational job</a>`],
       ], { rawSecondColumn: true })}

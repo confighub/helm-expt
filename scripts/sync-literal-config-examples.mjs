@@ -85,6 +85,7 @@ const publicOciReference = `${publicOciRepository}:reviewed-r001`;
 const ociImporterCommit =
   "1e63db4bc767368203660579bfb0a282443c7505";
 const ociImporterPullRequest = "https://github.com/confighub/sdk/pull/11";
+const ociImporterFirstRelease = "v0.2.6";
 const transformReceipt = readYaml(transformReceiptPath);
 const expectedPublicDigest = transformReceipt.spec.output.manifestDigest;
 const transformedDocs = parseDocs(
@@ -560,7 +561,7 @@ function collectHubReceipt(definition) {
             commit: ociImporterCommit,
             pullRequest: ociImporterPullRequest,
             releaseStatus:
-              "merged after v0.2.5; awaiting the next cub release",
+              `tested with the merged pre-release fix; included in cub ${ociImporterFirstRelease} and later`,
           }
           : {},
       },
@@ -612,7 +613,7 @@ function collectHubReceipt(definition) {
         "The README is a separate explanatory Unit and is excluded from the Kubernetes object comparison.",
         ...(definition.id === "existing-oci"
           ? [
-            "Direct import of OCI packages with companion JSON records used the merged SDK fix recorded in this receipt. cub v0.2.5 users must extract manifests/release-objects.yaml first or wait for the next cub release.",
+            `Direct import of OCI packages with companion JSON records is supported in cub ${ociImporterFirstRelease} and later. Run cub upgrade before using this path with an older client.`,
           ]
           : []),
       ],
@@ -842,8 +843,8 @@ review. ConfigHub imports the same five objects into the
 
 The direct companion-record import used
 [confighub/sdk PR #11](${ociImporterPullRequest}), now merged at
-\`${ociImporterCommit}\`. It is newer than cub v0.2.5. Until the next cub release,
-extract \`manifests/release-objects.yaml\` before upload.
+\`${ociImporterCommit}\`. The fix ships in cub ${ociImporterFirstRelease} and later.
+Run \`cub upgrade\` before importing this OCI with an older client.
 
 ## What is proved
 

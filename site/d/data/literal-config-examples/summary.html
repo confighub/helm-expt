@@ -444,6 +444,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/literal-config-examples/summary.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>These two examples show that ConfigHub can start from exact Kubernetes objects. Neither path rerenders Helm.</p>
@@ -454,7 +455,7 @@
 <p>The existing-OCI example starts with the reviewed NGINX replica change:</p>
 <p><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518</code></p>
 <p>The artifact is public and pulls without registry credentials. It contains five Kubernetes objects plus the source, change, and check records from the original review. ConfigHub imports the same five objects into the <code>existing-oci-nginx-replicas-4</code> Space and records the OCI source and digest.</p>
-<p>The direct companion-record import used <a href="https://github.com/confighub/sdk/pull/11">confighub/sdk PR #11</a>, now merged at <code>1e63db4bc767368203660579bfb0a282443c7505</code>. It is newer than cub v0.2.5. Until the next cub release, extract <code>manifests/release-objects.yaml</code> before upload.</p>
+<p>The direct companion-record import used <a href="https://github.com/confighub/sdk/pull/11">confighub/sdk PR #11</a>, now merged at <code>1e63db4bc767368203660579bfb0a282443c7505</code>. The fix ships in cub v0.2.6 and later. Run <code>cub upgrade</code> before importing this OCI with an older client.</p>
 <h2 id="what-is-proved">What is proved</h2>
 <table><thead><tr><th>Check</th><th>Plain YAML</th><th>Existing OCI</th></tr></thead><tbody><tr><td>Source objects stored unchanged</td><td>pass</td><td>pass</td></tr>
 <tr><td>Helm rerender during upload</td><td>no</td><td>no</td></tr>

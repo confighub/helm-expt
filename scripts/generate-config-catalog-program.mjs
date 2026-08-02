@@ -2505,8 +2505,8 @@ ${classifiedRecords.length} canonical records also name who owns the configurati
 
 ## Examples
 
-- [Redis default](${redis ? `records/${redis.metadata.name}.yaml` : ""}) connects a Helm render intent, 14 literal objects, and its revision digest without claiming a current three-consumer delivery receipt.
-- [NGINX http-clusterip](${nginxDelivery ? `records/${nginxDelivery.metadata.name}.yaml` : ""}) records the first exact catalog base published as one ConfigHub release OCI and consumed at the same digest by Argo CD, Flux, and direct apply.
+- [Redis default](${redis ? `records/${redis.metadata.name}.yaml` : ""}) connects a Helm render intent, 14 literal objects, and its revision digest without claiming a current controller-delivery receipt.
+- [NGINX http-clusterip](${nginxDelivery ? `records/${nginxDelivery.metadata.name}.yaml` : ""}) records the first exact catalog base published as one ConfigHub release OCI and consumed at the same digest by Argo CD and Flux. A separate direct local test consumed the same artifact.
 - [Argo CD no-crds](${argo ? `records/${argo.metadata.name}.yaml` : ""}) shows a base with external CRD requirements.
 - [AICR EKS H100 training for Flux](${aicrFlux ? `records/${aicrFlux.metadata.name}.yaml` : ""}) records the generated Flux objects, their controller requirements, and a locally tested OCI bundle without claiming a live upload.
 - [AICR EKS H100 training for Argo CD](${aicrArgoCd ? `records/${aicrArgoCd.metadata.name}.yaml` : ""}) connects AICR's generated Helm source package to the 17 rendered Application objects that ConfigHub can upload.

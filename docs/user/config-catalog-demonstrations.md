@@ -79,7 +79,7 @@ Every example and catalog entry must answer these questions in plain English and
 | Can I use the rendered-manifest pattern without giving up my Helm chart? | Keep the chart as source, make the literal Kubernetes objects easy to inspect and save, and explain how later edits and upgrades are handled. |
 | Can source-to-OCI be automated? | Name the repeatable command or workflow, record the source and output digests, and state which steps still require a person or target-specific input. |
 | Can I bring the chart and values my team or AI produced? | Render them without applying, compare them with known configurations, point out risky or unusual changes, and let the user deploy or save the reviewed result. |
-| What happens after the first deployment? | Show how the same reviewed result can become a saved base, a development or production variant, a promotion, and an OCI delivered through Argo CD, Flux, or direct apply. |
+| What happens after the first deployment? | Show how the same reviewed result can become a saved base, a development or production variant, a promotion, and an OCI delivered through Argo CD or Flux. Keep direct local apply as a separate portability test. |
 | What has not been proved? | Keep missing controller paths, upgrades, target checks, and product work visible. Do not turn one passing path into a general claim. |
 
 ## Examples from first deployment to Apps
@@ -325,29 +325,29 @@ Start with [docs/user/serverless-mode.md](../../docs/user/serverless-mode.md) or
 
 Evidence: [runs/serverless-oci-gitops-proof/receipt.yaml](../../runs/serverless-oci-gitops-proof/receipt.yaml), [data/serverless-oci-gitops-proof/summary.md](../../data/serverless-oci-gitops-proof/summary.md), [runs/anonymous-oci-ci-proof/receipt.yaml](../../runs/anonymous-oci-ci-proof/receipt.yaml), [data/anonymous-oci-ci-proof/summary.md](../../data/anonymous-oci-ci-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md), [runs/anonymous-oci-transform-proof/public-oci-receipt.yaml](../../runs/anonymous-oci-transform-proof/public-oci-receipt.yaml), [runs/existing-oci-upload-proof/receipt.yaml](../../runs/existing-oci-upload-proof/receipt.yaml), [data/literal-config-examples/summary.md](../../data/literal-config-examples/summary.md).
 
-Current limit: The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest. The CI receipt proves the same public input can be rendered, checked, packaged as OCI, and pulled back in GitHub Actions without ConfigHub credentials. The CI output is a workflow artifact containing an OCI image layout, not a public registry package. The Flux proof used a temporary local registry. The reviewed NGINX replica change has a separate permanent public-registry receipt and exact ConfigHub import receipt. Direct import of an OCI with companion JSON records needs the merged confighub/sdk PR A hosted public workbench remains separate work.
+Current limit: The NGINX receipt proves anonymous public installer OCI pull, local rendering with no ConfigHub token, output OCI pull-back, and Flux reconciliation at the recorded output digest. The CI receipt proves the same public input can be rendered, checked, packaged as OCI, and pulled back in GitHub Actions without ConfigHub credentials. The CI output is a workflow artifact containing an OCI image layout, not a public registry package. The Flux proof used a temporary local registry. The reviewed NGINX replica change has a separate permanent public-registry receipt and exact ConfigHub import receipt. Direct import of an OCI with companion JSON records is supported in cub v0.2.6 and later. Run cub upgrade before using this path with an older client. A hosted public workbench remains separate work.
 
-### One reviewed bundle through Argo CD, Flux, or direct apply
+### One reviewed bundle through GitOps, with a direct portability check
 
-**Worked example: working.** NGINX and the hook fixture have passed recorded OCI delivery through Argo CD, Flux, and direct apply without rerendering the reviewed objects.
+**Worked example: working.** NGINX and the hook fixture have passed recorded OCI delivery through Argo CD and Flux without rerendering the reviewed objects. Separate direct local tests consumed the same artifacts.
 
 **Broader status: partial.** These receipts do not cover every catalog configuration.
 
 Teams want to keep their delivery controller and know that it is applying the Kubernetes objects they reviewed, rather than rendering another result from Helm values.
 
-ConfigHub can publish one reviewed object set as a release OCI. Argo CD, Flux, or a recorded direct-apply path can consume the same files without rendering the chart again.
+ConfigHub can publish one reviewed object set as a release OCI. Argo CD or Flux can consume the same files without rendering the chart again. A separate direct local test can check the same artifact.
 
 1. Start with the exact Kubernetes objects held as ConfigHub Units.
 2. Run the checks and approval required for that configuration.
 3. Publish the approved revision once as a ConfigHub release OCI.
-4. Point Argo CD, Flux, or the recorded direct-apply path at that artifact.
+4. Point Argo CD or Flux at that artifact. Use the direct path separately when you need a local portability test.
 5. Record controller status and workload observations for this configuration.
 
 Start with [docs/user/gitops-adopter-guide.md](../../docs/user/gitops-adopter-guide.md) or [docs/user/cub-deployment-path.md](../../docs/user/cub-deployment-path.md).
 
 Evidence: [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/oci-hook-delivery-proof/summary.md](../../data/oci-hook-delivery-proof/summary.md), [runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml](../../runs/catalog-oci-delivery-proof/bitnami-nginx-24-0-2-http-clusterip.yaml), [data/catalog-oci-delivery-proof/summary.md](../../data/catalog-oci-delivery-proof/summary.md), [runs/oci-deploy-stage-rollout-proof/receipt.yaml](../../runs/oci-deploy-stage-rollout-proof/receipt.yaml), [data/oci-deploy-stage-rollout-proof/summary.md](../../data/oci-deploy-stage-rollout-proof/summary.md).
 
-Current limit: The live three-consumer receipt proves this delivery mechanism with one small routed-hook fixture. The NGINX receipt proves the first exact catalog base through Argo CD, Flux, and direct apply from one ConfigHub Space release OCI. The combined NGINX receipt proves one OCI import, one congruent ConfigHub output with only the confighub.com/origin annotation added, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters. These receipts do not prove that every catalog base has been delivered through all three paths. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
+Current limit: The routed-hook receipt proves Argo CD and Flux delivery with one small fixture; a separate direct local path consumed the same release OCI. The NGINX receipt proves the first exact catalog base through Argo CD and Flux from one ConfigHub Space release OCI; a separate direct local test records the same digest. The combined NGINX receipt proves one OCI import, one congruent ConfigHub output with only the confighub.com/origin annotation added, sequential development and staging promotions, a portable anonymous OCI output, and Argo CD reconciliation at one digest on two clusters. These receipts do not prove that every catalog base has been delivered through either controller. A catalog entry earns a controller-delivery claim only when that exact configuration has its own receipt.
 
 ### Test, development, staging, and production promotions
 
@@ -461,7 +461,7 @@ Start with [docs/demo/hooks-crds/kube-prometheus-stack.md](../../docs/demo/hooks
 
 Evidence: [data/hooks-crds-app/summary.md](../../data/hooks-crds-app/summary.md), [data/hooks-crds-app/live-receipt.yaml](../../data/hooks-crds-app/live-receipt.yaml), [data/kps-lifecycle-route-proof/summary.md](../../data/kps-lifecycle-route-proof/summary.md), [runs/kps-lifecycle-route-proof/receipt.yaml](../../runs/kps-lifecycle-route-proof/receipt.yaml), [data/kps-gitops-lifecycle-proof/summary.md](../../data/kps-gitops-lifecycle-proof/summary.md), [runs/kps-gitops-lifecycle-proof/receipt.yaml](../../runs/kps-gitops-lifecycle-proof/receipt.yaml), [data/lifecycle-routes/summary.md](../../data/lifecycle-routes/summary.md), [runs/crd-ordering-gap/receipt.yaml](../../runs/crd-ordering-gap/receipt.yaml), [runs/hook-execution-proof/receipt.yaml](../../runs/hook-execution-proof/receipt.yaml), [runs/oci-hook-delivery-proof/receipt.yaml](../../runs/oci-hook-delivery-proof/receipt.yaml), [data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml](../../data/hook-lifecycle/receipts/prometheus-community-kube-prometheus-stack/default/latest.yaml).
 
-Current limit: Seven Kube Prometheus Stack fresh-install steps passed in the direct script. The no-crds 85.3.3 to 86.1.0 upgrade passed through Argo CD and Flux. The top-level Kube Prometheus Stack routes remain automatic false because ConfigHub does not yet choose and execute them across every delivery path. The controller proof does not cover rollback, long soak, or automatic post-success removal of every temporary hook resource. The smaller hook fixture is automatic only because the same packaged Job ran through Argo CD, Flux, and direct apply. The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs.
+Current limit: Seven Kube Prometheus Stack fresh-install steps passed in the direct script. The no-crds 85.3.3 to 86.1.0 upgrade passed through Argo CD and Flux. The top-level Kube Prometheus Stack routes remain automatic false because ConfigHub does not yet choose and execute them across every delivery path. The controller proof does not cover rollback, long soak, or automatic post-success removal of every temporary hook resource. The smaller hook fixture is automatic only because Argo CD and Flux ran the same packaged Job and a separate direct local test did the same. The route policy rejects incomplete or unsupported automatic claims; it does not decide which routes a chart needs.
 
 ### RBAC Review App
 

@@ -444,6 +444,7 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/transform-oci-package.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b></p>
@@ -483,7 +484,7 @@
 <p>That reviewed output is also published as a permanent public example:</p>
 <pre><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nginx-replicas-4@sha256:aa58e2a9d120d09f029fdef80596225f8c44d0aa629b18766fe8b6694659f518</code></pre>
 <p>Read the <a href="../../data/literal-config-examples/summary.html">publication and ConfigHub import summary</a> for the recorded digest, anonymous pull-back, companion-record checks, and exact ConfigHub object comparison. A separate GitHub Actions job repeats the public source pull with no ConfigHub credentials.</p>
-<p>Direct ConfigHub import of an OCI with companion JSON records needs the fix in <a href="https://github.com/confighub/sdk/pull/11">confighub/sdk PR #11</a>. The fix is merged but newer than cub v0.2.5. Until the next cub release, extract <code>manifests/release-objects.yaml</code> before upload.</p>
+<p>Direct ConfigHub import of an OCI with companion JSON records needs the fix in <a href="https://github.com/confighub/sdk/pull/11">confighub/sdk PR #11</a>. The fix is included in cub v0.2.6 and later. Run <code>cub upgrade</code> before importing this OCI with an older client.</p>
 <p>The proof does not claim cluster admission, controller reconciliation, workload health, or a signed provenance chain. Your own command still creates a local OCI layout until you publish it deliberately.</p>
     </article>
   </main>

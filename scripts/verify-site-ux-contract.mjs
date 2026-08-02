@@ -88,7 +88,7 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["The recipe: your source of truth", "Where a setting belongs", "Variants, in one picture", "AI-assisted changes, with control", "What direct apply still has to handle", "Apply CRDs first", "Field conflicts and removals"],
+    terms: ["The recipe: your source of truth", "Where a setting belongs", "Variants, in one picture", "AI-assisted changes, with control", "What a direct local apply still has to handle", "Apply CRDs first", "Field conflicts and removals"],
   },
 ];
 

@@ -7,6 +7,15 @@ The short version is: **source package in, managed configuration in ConfigHub,
 release OCI out**. Delivery uses the Kubernetes objects that were reviewed in
 ConfigHub. It does not render the Helm chart again.
 
+## Three ConfigHub terms
+
+- A **Component** is the software and all the configurations that belong to it.
+- A **Variant** is one complete configuration. A base variant is the shared
+  starting point. A deployment variant is the configuration for one
+  environment, region, customer, or other operating context.
+- A **Target** says where a deployment variant is intended to run. It is an
+  address for delivery, not a connection from ConfigHub into the cluster.
+
 ## The path, end to end
 
 1. **Choose and render a source.** For Helm, `cub installer` pulls a public
@@ -14,24 +23,25 @@ ConfigHub. It does not render the Helm chart again.
    sources have their own generation step.
 2. **Check the Kubernetes objects.** The result is ordinary Kubernetes YAML.
    You can inspect it before signing up for ConfigHub.
-3. **Upload the exact objects.** Each object becomes a ConfigHub Unit. The
-   source record keeps the chart version, values, target assumptions,
-   prerequisites, and lifecycle work beside those Units.
-4. **Review and operate the configuration.** ConfigHub can show diffs, run
-   checks, require approval, create variants, and promote a revision through
-   environments.
+3. **Upload the exact objects as a base variant.** Each object becomes a
+   ConfigHub Unit. The source record keeps the chart version, values,
+   assumptions, prerequisites, and lifecycle work beside those Units.
+4. **Create and review deployment variants.** Bind each deployment variant to
+   a Target. ConfigHub can show diffs, run checks, require approval, and
+   promote a revision through environments.
 5. **Publish one release OCI.** `cub release publish <space>` packages the
    reviewed Units in that Space. The current pull URL has this form:
    `oci://oci.hub.confighub.com:443/space/<space>`.
-6. **Deliver without rendering again.** Argo CD, Flux, or a recorded direct
-   path pulls that release OCI and applies the same Kubernetes objects.
+6. **Deliver without rendering again.** Argo CD or Flux pulls that release OCI
+   and applies the same Kubernetes objects. A separate direct local test can
+   pull and apply the artifact to check that it is portable.
 
 ## The two OCI artifacts are different
 
 | Artifact | What it contains | When it is used |
 | --- | --- | --- |
 | Installer-package OCI | A chart plus preset configurations, values, and supporting files | Before ConfigHub, when a user chooses and renders a configuration |
-| ConfigHub Space release OCI | The exact reviewed Units from one ConfigHub Space | After review, when Argo CD, Flux, or direct apply delivers the configuration |
+| ConfigHub Space release OCI | The exact reviewed Units from one ConfigHub Space | After review, when Argo CD or Flux delivers the configuration; a local test can also pull it directly |
 
 An installer package may offer several preset configurations. A Space release
 contains one selected and reviewed configuration. Do not use an installer
@@ -58,6 +68,17 @@ Space's release target and publish it:
 cub space update my-app --release-target myrig-cluster/oci
 cub release publish my-app
 ```
+
+You can inspect the stored Kubernetes configuration before publishing it:
+
+```sh
+cub k8s types --space my-app
+cub k8s get deploy --space my-app
+cub k8s get all --space my-app --show data
+```
+
+These commands read the desired configuration stored in ConfigHub. They do not
+read live cluster state.
 
 Argo CD reads the published release with an OCI source:
 
@@ -106,10 +127,12 @@ repeatable.
 See [What happens to Helm hooks](chart-hooks-what-happens.md) and
 [Target prerequisites](target-prerequisites.md).
 
-## Direct apply
+## Direct local apply
 
-A plain `kubectl apply` is useful for a quick check, but it does not by itself
-solve every installation and upgrade case.
+A release OCI is portable, so `oras` and `kubectl` can consume it in a local or
+CI test. ConfigHub's managed delivery path is pull-based through Argo CD or
+Flux. A plain `kubectl apply` does not by itself solve every installation and
+upgrade case.
 
 | Case | What a safe direct path must do |
 | --- | --- |
@@ -117,10 +140,9 @@ solve every installation and upgrade case.
 | An upgrade removes an object | Prune the removed object under an explicit ownership rule |
 | A live edit conflicts with reviewed configuration | Show the choice: keep live, accept desired, or force the reviewed change |
 
-Argo CD or Flux is usually the better long-running path because a controller
-already owns reconciliation and pruning. Direct apply remains useful for a
-controlled first install and for environments that do not run a GitOps
-controller.
+Argo CD or Flux is the long-running path because the controller owns
+reconciliation and pruning. Direct apply remains useful for a controlled test
+or an environment that does not run a GitOps controller.
 
 ## Credentials
 
@@ -141,13 +163,14 @@ OCI registry login.
 Two receipts cover different claims:
 
 - The [routed-hook delivery proof](../../data/oci-hook-delivery-proof/summary.md)
-  shows that Argo CD, Flux, and direct apply can consume one ConfigHub release
-  OCI and complete the same setup Job.
+  shows that Argo CD and Flux can consume one ConfigHub release OCI and
+  complete the same setup Job. A separate direct local test consumed the same
+  artifact and completed the Job.
 - The [NGINX catalog delivery proof](../../data/catalog-oci-delivery-proof/summary.md)
   starts from the real `bitnami/nginx@24.0.2` `http-clusterip` preset. It checks
   that `cub installer` reproduces the committed objects, publishes those Units
-  once, and records the same release digest under Argo CD, Flux, and direct
-  apply.
+  once, and records the same release digest under Argo CD and Flux. A separate
+  direct local test records the same digest.
 
 The NGINX receipt is the first exact catalog-base result. It does not prove
 delivery for every chart or preset. Each additional catalog configuration

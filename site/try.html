@@ -529,6 +529,7 @@ $ cub plugin install confighub/installer
 $ cub installer version
 $ kustomize version</code></pre>
     <p>The plugin release contains the program for your operating system. You do not need Go.</p>
+    <p>If cub is already installed, run <code>cub upgrade</code> first. Upgrade the plugin separately with <code>cub plugin upgrade installer</code>.</p>
     <p>If <code>kustomize version</code> fails, follow the <a href="https://kubectl.docs.kubernetes.io/installation/kustomize/">official Kustomize installation instructions</a>.</p>
     <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   </section>

@@ -607,7 +607,7 @@
           <h3>How is config delivered, and what about OCI and credentials?</h3>
           <span class="faq-status">answered</span>
         </div>
-        <p>ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD, Flux, or direct apply can use it without rendering Helm again. A hook fixture proves the mechanism. An NGINX receipt proves one catalog base through all three paths at one digest. Other bases need their own receipts. cub cluster up installs the Argo CD pull credential. The Flux test copies it into flux-system without printing it.</p>
+        <p>ConfigHub publishes the reviewed Units in one Space as a release OCI. Argo CD or Flux pulls it without rendering Helm again. A separate direct local test checks that the same artifact is portable. A hook fixture proves the mechanism, and an NGINX receipt proves one catalog base at one digest. Other bases need their own receipts. cub cluster up installs the Argo CD pull credential. The Flux test copies it into flux-system without printing it.</p>
         <p class="faq-links"><a href="d/docs/user/cub-deployment-path.html">Deployment path</a> · <a href="d/data/catalog-oci-delivery-proof/summary.html">Exact NGINX result</a> · <a href="d/docs/user/gitops-adopter-guide.html">GitOps adopter guide</a></p>
       </article>
         <article class="faq-card answered">

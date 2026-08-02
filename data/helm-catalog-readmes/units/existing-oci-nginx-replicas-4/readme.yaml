@@ -72,5 +72,5 @@ spec:
     ## Limits
 
     - The artifact is public and digest-pinned, but this example does not claim a provenance signature.
-    - Direct import of an OCI with companion JSON records needs the merged SDK fix in confighub/sdk PR #11. It is newer than cub v0.2.5 and awaits the next cub release.
+    - Direct import of an OCI with companion JSON records is supported in cub v0.2.6 and later. Run cub upgrade before using this path with an older client.
     - The ConfigHub receipt proves import only. Deployment, promotion, rollback, and workload health are separate examples.
