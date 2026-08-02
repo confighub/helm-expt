@@ -64,7 +64,7 @@ const checks = [
   },
   {
     file: "site/docs-reference.html",
-    terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Where Example Materials Live", "Public OCI registry", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -92,7 +92,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Choose a worked example", "1. Choose a starting point", "2. Choose where the first example runs", "3. Save and change it in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Technical sources", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Choose a worked example", "1. Start with a configuration", "Bring your own Helm chart and values", "cub helm template", "cub helm install", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/entry-path-reference.html",
@@ -323,6 +323,20 @@ if (fs.existsSync(shortTryPath)) {
     if (!shortTry.includes(`href="${href}"`)) failures.push(`site/try.html: missing next-step link ${href}`);
   }
   if (shortTry.includes("Start with your own configuration")) failures.push("site/try.html: first exercise must not expand into the bring-your-own chooser");
+}
+
+const examplesPath = path.join(root, "site/testing.html");
+if (fs.existsSync(examplesPath)) {
+  const examples = fs.readFileSync(examplesPath, "utf8");
+  if (examples.includes("<h2 id=\"locations\">Technical sources</h2>")) {
+    failures.push("site/testing.html: technical source map belongs in the technical reference, not the example chooser");
+  }
+  for (const section of ["start", "start-modes", "managed", "platforms", "apps"]) {
+    if (!examples.includes(`id="${section}"`)) failures.push(`site/testing.html: missing example stage ${section}`);
+  }
+  for (const command of ["cub helm template", "cub helm install"]) {
+    if (!examples.includes(command)) failures.push(`site/testing.html: bring-your-own flow is missing ${command}`);
+  }
 }
 
 const catalogIndexPath = path.join(root, "site/charts/index.html");

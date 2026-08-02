@@ -560,9 +560,27 @@
     </section>
     <section aria-labelledby="bring-your-own">
       <h2 id="bring-your-own">Bring your own chart and values</h2>
-      <p>Start with the exact chart version, values files, namespace, release name, and Kubernetes version your team intends to use. This works for values written by your team or proposed by an AI. Render them to files without applying them:</p>
-      <pre><code>helm template &lt;release&gt; &lt;chart&gt;   --version &lt;version&gt;   --namespace &lt;namespace&gt;   --values &lt;values.yaml&gt;   &gt; rendered.yaml</code></pre>
+      <p>Use <code>cub helm</code> when you have an arbitrary chart and values. Start with the chart version, values, namespace, and release name your team intends to use.</p>
+      <p>Install the plugin once. Then render to files without contacting ConfigHub Server or Kubernetes:</p>
+      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code>cub plugin install confighub/cub-helm
+
+cub helm template &lt;release&gt; &lt;chart&gt; \
+  --version &lt;version&gt; \
+  --namespace &lt;namespace&gt; \
+  --values &lt;values.yaml&gt; \
+  --output-dir ./out</code></pre>
       <p>Read the Kubernetes objects, then compare them with the chart defaults and any matching base variants in the catalog. Check image changes, placeholder or embedded credentials, broad RBAC, privileged settings, CRDs, hooks, webhooks, storage, and required target resources before applying anything.</p>
+      <p><code>cub helm</code> reports hooks it leaves out and writes chart CRDs as separate files. A chart that depends on live cluster lookups needs another path.</p>
+      <p>If the result is ready to share, record both the objects and their Helm inputs in ConfigHub:</p>
+      <pre><code>cub auth login
+cub helm install &lt;release&gt; &lt;chart&gt; \
+  --version &lt;version&gt; \
+  --namespace &lt;namespace&gt; \
+  --values &lt;values.yaml&gt;</code></pre>
+      <p>This command does not apply to Kubernetes. It creates a base Space for the rendered objects and a Helm Space for the chart, version, namespace, and values.</p>
+      <p>Change the Helm source when chart values should rebuild the shared base. Change a ConfigHub variant when one environment needs a field after render. Do not set the same field in both places.</p>
+      <p><a href="https://github.com/confighub/cub-helm/blob/main/docs/guide.md">Read the cub helm guide</a> · <a href="./how-it-works.html#setting-sources">See where settings belong</a></p>
       <p><strong>Worked example:</strong> a supplied NGINX values file asks for three replicas. It also embeds an API key, selects an unpinned image, and exposes a public LoadBalancer. Three container security settings are also weaker than the catalog baseline. The review keeps the three replicas, restores the security settings, and makes the Deployment use an existing Secret. Open the <a href="d/data/byo-helm-values-review/summary.html">plain-English review</a>, the <a href="../examples/byo-helm-values/ai-values.yaml">supplied values</a>, the <a href="../examples/byo-helm-values/reviewed-values.yaml">reviewed values</a>, and the <a href="../data/byo-helm-values-review/reviewed-render.yaml">five reviewed Kubernetes objects</a>.</p>
       <p>The proof renders the locked chart and verifies that its baseline matches the catalog. It finds the six intended problems and packages the reviewed objects as OCI. Run it with <code>HELM_EXPT_ALLOW_BYO_HELM_VALUES_PROOF=1 npm run byo-helm-values:run</code>. The <a href="d/data/byo-helm-values-review/public-and-confighub.html">public OCI and ConfigHub record</a> shows which follow-on steps have run.</p>
       <div class="card"><table>
@@ -607,8 +625,7 @@
     <section aria-labelledby="plain-yaml">
       <h2 id="plain-yaml">Start with plain Kubernetes YAML</h2>
       <p>The <a href="d/examples/plain-yaml/acme-web/README.html">plain YAML fixture</a> contains one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
-      <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub variant upload   --component plain-yaml-acme-web   --variant base   --space plain-yaml-acme-web-base   --granularity per-resource   examples/plain-yaml/acme-web</code></pre>
+      <pre><code>cub variant upload   --component plain-yaml-acme-web   --variant base   --space plain-yaml-acme-web-base   --granularity per-resource   examples/plain-yaml/acme-web</code></pre>
       <p>The focused receipt reads the four ConfigHub Units back and compares them with the four files. The object-set hashes match. Open the <a href="d/data/literal-config-examples/summary.html">plain YAML and OCI summary</a> or the <a href="d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">README used inside the demo Space</a>.</p>
       <p>This receipt stops after import. It does not claim a Kubernetes deployment or replace the official ConfigHub tutorial for variants, releases, and promotion.</p>
     </section>

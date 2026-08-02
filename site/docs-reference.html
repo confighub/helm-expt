@@ -573,6 +573,22 @@
       <p><a href="d/docs/agent/README.html">Open Agent And Operator Notes</a></p>
     </section>
 
+    <section aria-labelledby="example-materials">
+      <h2 id="example-materials">Where Example Materials Live</h2>
+      <p>The <a href="./testing.html">Examples page</a> explains what to run. Use this table when you need the source, stored record, or published package behind an example.</p>
+      <div class="card"><table>
+        <thead><tr><th>Place</th><th>What belongs there</th></tr></thead>
+        <tbody><tr><td>This website</td><td>Short explanations, worked examples, chart pages, and links to current proof.</td></tr><tr><td>GitHub</td><td>Source configuration, generators, scripts, checks, receipts, and every file used to make the website.</td></tr><tr><td>The ConfigHub helm-catalog organization</td><td>Persistent demo Spaces. Each Space has one README Unit that explains its purpose and the Units it contains. <a href="./demo-org.html">Open the demo-org guide</a>.</td></tr><tr><td>Public OCI registry</td><td>Stable starting packages and reviewed public outputs. Each permanent artifact has a role, digest, source record, guide, and publication receipt.</td></tr><tr><td>ConfigHub release OCI</td><td>Approved outputs from managed Spaces for Argo CD, Flux, or another recorded delivery path.</td></tr><tr><td>Temporary proof registry</td><td>Short-lived artifacts used by one receipt. The site does not advertise them as permanent packages.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="./entry-path-reference.html">Open the detailed entry-path reference</a> for commands, OCI roles, source-to-OCI automation, hooks, CRDs, and proof links.</p>
+    </section>
+
     <section aria-labelledby="five-stages">
       <h2 id="five-stages">Five Stages</h2>
       <p>Most users start by previewing a chart. Add more when you need to save the inputs, share versions with a team, review changes, hand off to GitOps, or run releases.</p>
