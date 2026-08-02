@@ -3236,7 +3236,7 @@ function docsReferenceHtml(catalog) {
     ["Choose a public chart", `<a href="./charts/index.html">Configuration Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
     ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
     ["Use an App on ConfigHub", `<a href="./journey.html">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
-    ["Verify a claim", `<a href="./verification.html">Verification</a>`, "Choose the npm command that tests the claim instead of treating every result as the same thing."],
+    ["Check a claim", `<a href="./verification.html">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
     ["Read the limits", `<a href="./hard-questions.html">FAQ</a>`, "Hooks, CRDs, upgrades, generated secrets, AI changes, rollback, and current gaps."],
     ["Know when managed help begins", `<a href="./private/">Upgrade</a>`, "Private sources, production support, teams, policies, fleet operations, and commercial boundaries."],
   ];
@@ -3262,24 +3262,24 @@ function docsReferenceHtml(catalog) {
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
     ["Try Redis", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
-    ["Verification", "A landing page for npm checks, fresh live tests, committed receipts, and what each one proves.", "./verification.html"],
+    ["Check one claim", "Choose one project check, see what it proves, and learn whether it needs a cluster.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
     ["Choose a chart", "Browse public chart pages, ready-to-use base variants, known risks, and first-use advice.", "./charts/index.html"],
-    ["Demo org examples", "The README pages for live Hub demo Spaces. Each one says why the Space exists, what problem it shows, and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
+    ["Live ConfigHub example guides", "README pages for live demo Spaces. Each guide says why the Space exists and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
     ["Inspect an OCI package", "One command that identifies the package role, resolves its digest, and reports the exact Kubernetes objects and obvious lifecycle work it contains.", "../docs/user/inspect-oci-package.md"],
     ["Change an OCI package", "Change one field in a literal Kubernetes OCI, run checks, keep its source records, and build a new local OCI without a ConfigHub account.", "../docs/user/transform-oci-package.md"],
     ["Helm base variants and values", "Why the catalog supports useful chart-specific base variants instead of claiming every values combination.", "../docs/user/helm-presets-and-values.md"],
-    ["Helm quirks", "A practical list of chart behavior that needs care: hooks, CRDs, webhooks, generated values, storage, and RBAC.", "./quirks.html"],
+    ["Chart setup and lifecycle work", "Find the hooks, CRDs, webhooks, generated values, storage, and RBAC a chart still needs.", "./quirks.html"],
     ["Create variants", "When to make a new Helm-rendered base, and when to make a ConfigHub version after render.", "./variants.html"],
     ["Apps", "Use configuration saved in ConfigHub for upgrade review, hooks and CRDs, RBAC review, fleet rollout, and AI change review.", "./journey.html"],
-    ["Application examples", "Examples that combine public charts with private application pieces.", "./custom-apps.html"],
-    ["Existing Apps", "Start read-only from Argo, Flux, rendered YAML, live cluster state, or a Helm release.", "./existing-apps.html"],
+    ["Combine charts and your service", "Put public charts and services your team owns into one reviewed application release.", "./custom-apps.html"],
+    ["Understand an existing app", "Start read-only from Argo CD, Flux, rendered YAML, live cluster state, or a Helm release.", "./existing-apps.html"],
     ["Ops", "Release, observe, patch, and upgrade after the files are recorded.", "./operations.html"],
-    ["Security and provenance", "Secrets, credentials, scans, OCI delivery, and the limits of the current evidence.", "./security.html"],
-    ["Future and managed ideas", "What exists now, what is roadmap, and what belongs in a managed service.", "./future.html"],
-    ["Answer hard questions", "Direct answers about hooks, upgrades, AI changes, limits, and refusals.", "./hard-questions.html"],
-    ["Known Gaps", "The known problems this project names instead of hiding.", "./known-gaps.html"],
+    ["Review security before release", "Review exact objects, Secrets, checks, approvals, OCI delivery, and the limits of each result.", "./security.html"],
+    ["Current and planned work", "Separate results you can use today from ideas that remain planned or partly tested.", "./future.html"],
+    ["Find a direct answer", "Direct answers about hooks, upgrades, AI changes, free use, and current limits.", "./hard-questions.html"],
+    ["See what is not ready yet", "Current limitations, their effect, and the safest action available now.", "./known-gaps.html"],
     ["Model and taxonomy", "The five terms, the F1-F4 stages, and the same objects seen from plain Helm, Kustomize, and source-object viewpoints.", "../docs/user/model-and-vocabulary.md"],
     ["The data model", "Definitions for Space, Unit, target, route, and receipt.", "../docs/user/confighub-data-model.md"],
     ["Variants after upload", "The step-by-step cub variant walkthrough: create an environment variant, preview with a dry run, then promote reviewed changes.", "../docs/user/variants-after-upload.md"],
@@ -3315,8 +3315,8 @@ function docsReferenceHtml(catalog) {
     ["Demo org README files", "The README text for each current helm-catalog demo Space, plus the generated upload YAML.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer OCI packages", "One row per package ref, setup command, package path, base list, and publication status.", "../data/installer-oci-packages/summary.md"],
     ["Claims register", "What is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
-    ["Verification landing page", "Choose the right npm proof command.", "./verification.html"],
-    ["Deep proof page", "Detailed proof lanes for reviewers who want the full evidence trail.", "./proof.html"],
+    ["Check one claim", "Choose the right project command for one question.", "./verification.html"],
+    ["See what has been tested", "Compare render, ConfigHub, OCI, GitOps, and live Kubernetes test coverage.", "./proof.html"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -3332,7 +3332,7 @@ function docsReferenceHtml(catalog) {
     <h1>All technical references</h1>
     <p class="lead">This is the complete guide and evidence index. Use the shorter <a href="./docs.html">Docs page</a> when you need help with one current task.</p>
     <p>Use this index for deeper product behavior, repository work, generated evidence, and exact proof records.</p>
-    ${humanLinks([["Official tutorial", CONFIGHUB_TUTORIAL_URL], ["Try Redis", "./try.html"], ["Examples", "./testing.html"], ["Verification", "./verification.html"]])}
+    ${humanLinks([["Official tutorial", CONFIGHUB_TUTORIAL_URL], ["Try Redis", "./try.html"], ["Examples", "./testing.html"], ["Check one claim", "./verification.html"]])}
   </header>
   <main>
     <section aria-labelledby="start-here">
@@ -3354,7 +3354,7 @@ function docsReferenceHtml(catalog) {
         ["2", "Full rendered YAML", "The Kubernetes objects captured from one base variant. This is the output of the render."],
         ["3", "Render intent", "The Helm chart version, values, namespace, release name, capability profile, source lock, output path, and evidence links."],
         ["4", "Hooks, CRDs, and setup work", "The route decisions for chart behavior that is not just static YAML."],
-        ["5", "Verification", "The commands and receipts that back a claim."],
+        ["5", "Check one claim", "The commands and receipts that back a claim."],
       ])}
     </section>
 
@@ -3745,7 +3745,7 @@ function proofHtml(catalog) {
         ["Test", "Question", "Evidence", "Limit"],
         ...laneRows,
       ])}
-      <p>Use <a href="./verification.html">Verification</a> for the command map, <a href="../docs/user/verification-lanes.md">Verification Lanes</a> for lane meanings, and <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
+      <p>Use <a href="./verification.html">Check one claim</a> for the command map, <a href="../docs/user/verification-lanes.md">Verification Lanes</a> for test meanings, and <a href="../docs/user/chain-of-proof.md">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
     </section>
 
     <section aria-labelledby="serious">
@@ -3936,7 +3936,7 @@ function hardQuestionsHtml(catalog) {
 	          question: "What about CRDs?",
 	          answer:
 	            "CRDs need an ownership decision. Some base variants include them. Some base variants leave them out because the target cluster or another controller owns them. If a chart needs CRDs before custom resources apply, the chart page should say that before you install.",
-	          links: [["Helm quirks", "./quirks.html"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
+	          links: [["Chart setup and lifecycle work", "./quirks.html"], ["Target prerequisites", "../docs/user/target-prerequisites.md"]],
 	        },
         {
           status: "answered",
@@ -5097,7 +5097,7 @@ function aiHtml(catalog) {
       <h2 id="guides">6. Open guides and evidence</h2>
       <div class="grid">
         <div class="card"><h3>Deployment</h3><p>See where each configuration tool fits and how a reviewed result reaches a cluster.</p><p><a href="./how-it-works.html">Open page</a></p></div>
-        <div class="card"><h3>Verification</h3><p>Npm commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
+        <div class="card"><h3>Check one claim</h3><p>Project commands check generated pages, docs, data, render outputs, and live receipts.</p><p><a href="./verification.html">Open page</a></p></div>
         <div class="card"><h3>AI-assisted changes</h3><p>How AI can propose a Helm or ConfigHub change without bypassing review.</p><p><a href="../docs/user/ai-assisted-helm-changes.md">Open guide</a></p></div>
         <div class="card"><h3>Live change review</h3><p>A reviewed AICR object is stored in ConfigHub, blocked until approval, and dry-run again after approval.</p><p><a href="../data/ai-change-review-live-proof/summary.md">Open result</a></p></div>
         <div class="card"><h3>Broken chart triage</h3><p>How to decide whether a failure is render, target, lifecycle, runtime, or unsupported behavior.</p><p><a href="../docs/user/broken-chart-triage.md">Open guide</a></p></div>
