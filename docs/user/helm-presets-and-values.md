@@ -32,7 +32,7 @@ We claim something narrower and more practical:
   still waiting for more work.
 
 That is enough for most real cases because teams usually want recognizable
-operating shapes, not every theoretical values permutation.
+operating configurations, not every theoretical values permutation.
 
 Examples include:
 
@@ -59,8 +59,8 @@ too vague to trust.
 
 The catalog takes a different path. It chooses useful chart presets, records them,
 renders them, checks them, and keeps the result maintainable across chart
-versions. When a user needs another real operating shape, that shape can become
-another chart preset.
+versions. When a user needs another useful operating configuration, it can
+become another chart preset.
 
 ## What A Chart Preset Records
 
@@ -87,7 +87,7 @@ There are four places to look:
 
 | Place | What belongs there | How to see what is set now |
 | --- | --- | --- |
-| Helm values | Choices that change what Helm renders: components, object count or shape, storage mode, CRDs, ingress, Secret strategy, hooks, service exposure, or topology. | Open the base variant's `valuesProfile` link in its `HelmRenderIntent`, then open the rendered YAML it produced. |
+| Helm values | Choices that change what Helm renders: components, object count or fields, storage mode, CRDs, ingress, Secret strategy, hooks, service exposure, or topology. | Open the base variant's `valuesProfile` link in its `HelmRenderIntent`, then open the rendered YAML it produced. |
 | ConfigHub changes | Exact post-render edits when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ. | Open the Unit revision history or derived variant. The public catalog base itself has no ConfigHub edits. |
 | Install work | Required Secrets, CRDs, target facts, hooks, setup jobs, certificates, cloud accounts, and other work around the objects. | Open the base variant's prerequisites and lifecycle routes. These are not hidden as values or post-render edits. |
 | Live cluster | What actually ran. | Compare observations with the reviewed Units. A live-only edit is drift until it is recorded as an intended ConfigHub revision or removed. |
@@ -104,7 +104,7 @@ show the same information in plain English.
 ## What Happens When You Bring Values?
 
 If a values file changes what Helm renders, it belongs in a new or updated chart
-preset. That includes choices that change object count, object shape, CRDs,
+preset. That includes choices that change object count, object fields, CRDs,
 RBAC, storage, ingress, hooks, service exposure, generated Secrets, or topology.
 
 If a change only fills or refines already-rendered objects after upload, it can
@@ -114,7 +114,7 @@ environment, target, customer, label, approval, and policy choices.
 The rule is:
 
 ```text
-Changes Helm render inputs or object shape -> chart preset / base variant.
+Changes Helm render inputs or rendered objects -> chart preset / base variant.
 Changes the operating context after render -> derived ConfigHub variant.
 Needs a cluster or external system -> target fact, route, setup step, blocker,
 or refusal.

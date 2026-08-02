@@ -11,8 +11,10 @@ chart-specific because Helm hooks are chart-specific.
 
 A recorded route is not the same as automatic execution. The Kube Prometheus
 Stack direct example now runs seven fresh-install steps in the recorded order,
-including its certificate Jobs and CRDs. Its Argo CD, Flux, and upgrade paths
-have not run, so the chart's top-level routes remain `automatic: false`.
+including its certificate Jobs and CRDs. A separate `no-crds` example has also
+run through Argo CD and Flux from 85.3.3 to 86.1.0. ConfigHub does not yet
+choose or run this chart-specific route automatically, so the chart's
+top-level routes remain `automatic: false`.
 
 ## The Practical Choices
 
@@ -107,7 +109,7 @@ dry-run / readiness check**, and CRD ownership is a **per-target** decision (a
 base ships the CRDs, or the cluster owns them). External Secrets has no Helm
 hook, but its controller populates Secret data and a webhook CA bundle after
 apply — a post-apply observation. Both are **observed**, with receipts, in the
-[cert-manager / ESO lifecycle lane](../../data/lifecycle-observations/cert-manager-eso/summary.md).
+[cert-manager / ESO lifecycle result](../../data/lifecycle-observations/cert-manager-eso/summary.md).
 (These are not in the hook-disposition source yet, so they do not have action
 packets — they are shown here until that source is folded in.)
 

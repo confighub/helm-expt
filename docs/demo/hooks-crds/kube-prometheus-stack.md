@@ -33,7 +33,11 @@ HELM_EXPT_ALLOW_LIVE_KPS_LIFECYCLE_PROOF=1 \
 
 The script starts from the local `cub installer` package. That package was generated from the chart archive and digest recorded in `source-lock.yaml`. The default base produces 124 chart objects; the no-crds base produces 114. Each object set must match its committed catalog render exactly. The package also carries seven lifecycle objects taken from the locked chart hooks.
 
-It then runs the chart's own certificate creation and webhook patch Jobs. It does not replace them with a generic example. The final checks cover ten established CRDs, the `ca`, `cert`, and `key` Secret, three matching webhook CA bundles, a ready operator endpoint, a server-side dry run, six workloads, and the chart's hook cleanup policy.
+It then runs the chart's own certificate creation and webhook patch Jobs. It
+does not replace them with a generic example. The final checks cover ten
+established CRDs, the `ca`, `cert`, and `key` Secret, and three matching webhook
+CA bundles. They also check a ready operator endpoint, a server-side dry run,
+six workloads, and the chart's hook cleanup policy.
 
 Read the [plain result](../../../data/kps-lifecycle-route-proof/summary.md), the [default receipt](../../../runs/kps-lifecycle-route-proof/receipt.yaml), or the [no-crds receipt](../../../runs/kps-lifecycle-route-proof/no-crds-receipt.yaml). The [anonymous package proof](../../../data/kps-public-package-proof/summary.md) separately checks that the published package can be pulled without a ConfigHub or registry login and matches the committed package files.
 

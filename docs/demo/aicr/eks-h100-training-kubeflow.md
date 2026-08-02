@@ -12,10 +12,11 @@ then be kept as named variants instead of rebuilding the package by hand.
 
 ## What problem this solves
 
-The recipe pins most of the platform before installation. Four choices shape this
-example: the StorageClass, the selector for accelerated nodes, the selector for
-training workloads, and the source the delivery controller reads. The first three are
-fixed when the bundle is generated. The fourth must point at the published bundle.
+The recipe pins most of the platform before installation. Four choices remain at
+install time: the StorageClass, the selector for accelerated nodes, the selector
+for training workloads, and the source the delivery controller reads. The first
+three are fixed when the bundle is generated. The fourth must point at the
+published bundle.
 
 Keeping the recipe, those four choices, and the generated files together answers two
 practical questions later: what did we ask AICR to build, and what did each cluster

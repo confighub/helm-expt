@@ -84,6 +84,6 @@ The route work ran, 69 prepared objects were packaged as a portable OCI, bootstr
 Argo CD reconciled its exact digest, Kubara Argo CD became ready, and Kubara created
 one Metrics Server Application. That Application became Synced and Healthy.
 
-This remains a bounded example. It used one kind cluster, one selected downstream
-service, and a temporary OCI registry. It did not run the complete seven-service
-profile or a multi-cluster promotion wave.
+This example proves only one kind cluster, one selected downstream service, and
+a temporary OCI registry. It did not run the complete seven-service profile or
+a multi-cluster promotion wave.
