@@ -453,9 +453,10 @@
 <p>Parity with Helm is not the product benefit by itself. It is the migration assurance check: before ConfigHub adds value, the user needs to know that the ConfigHub path did not quietly change the starting objects. The product value is what becomes possible after that check: recorded render inputs, explicit variants, safer upgrade review, policy gates, GitOps handoff, observations, and operations on visible desired state.</p>
 <p>A one-shot upload only becomes durable when its source inputs are captured. For Helm that means chart source, version, release name, namespace, values files, <code>--set</code> flags, capability assumptions, and generated facts. For AICR it means the recipe, component versions, remaining inputs, generated bundle, and checksums. The source-neutral base-variant record keeps those facts beside the literal objects.</p>
 <h2 id="not-a-replacement-for-the-fast-paths">Not A Replacement For The Fast Paths</h2>
-<p><code>helm template</code> is the fast local render path. Use it when the user wants to inspect what a chart produces, debug values, or create a regular Helm baseline without a ConfigHub server connection.</p>
+<p><code>cub helm template</code> is the fast local render path for an arbitrary chart. Use it when the user wants to inspect what a chart produces, debug values, or create a regular Helm baseline without a ConfigHub server connection.</p>
+<p><code>cub helm install</code> is the fast Helm-to-ConfigHub path. It stores the chart, values, and options in a Helm source Space and the rendered objects in a base Space. It does not create a maintained catalog package or apply to Kubernetes.</p>
 <p><code>cub variant upload</code> is the fast ConfigHub action path. Use it when the user has rendered files or a literal configuration OCI and wants ConfigHub Units now.</p>
-<p><code>cub gitops import</code> should be the natural path when the user already has a GitOps source and wants ConfigHub to understand or manage it.</p>
+<p>When a user already has a GitOps source, read its source and rendered objects through the current controller or Kubernetes API. Store the reviewed YAML with <code>cub variant upload</code>. cub v0.2.9 does not provide a one-step GitOps importer.</p>
 <p>This repo is not trying to make those flows more complicated. It is trying to answer a different set of questions:</p>
 <pre><code>Which install shapes are recommended?
 What exactly do those shapes render?
@@ -464,12 +465,13 @@ Which changes are base variants and which are post-render variants?
 What can be promoted safely across environments?
 What was scanned, approved, applied, observed, and supported?</code></pre>
 <p>Command routing:</p>
-<table><thead><tr><th>Need</th><th>Use</th></tr></thead><tbody><tr><td>Render and inspect Helm output locally.</td><td><code>helm template</code></td></tr>
+<table><thead><tr><th>Need</th><th>Use</th></tr></thead><tbody><tr><td>Render and inspect an arbitrary Helm chart locally.</td><td><code>cub helm template</code></td></tr>
+<tr><td>Store an arbitrary chart and its rendered base in ConfigHub.</td><td><code>cub helm install</code></td></tr>
 <tr><td>Load rendered files or a literal OCI bundle into ConfigHub Units now.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Maintain a reviewed, variant-aware catalog entry.</td><td><code>cub installer</code> recipe/package path</td></tr>
 <tr><td>Graduate a chart render into that catalog path.</td><td>future <code>cub installer import helm</code></td></tr>
-<tr><td>Bring existing Argo CD or Flux apps under ConfigHub visibility.</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td></tr>
-<tr><td>Bring KRM YAML or rendered manifests under ConfigHub visibility.</td><td><code>cub unit import</code> or managed import workflow</td></tr></tbody></table>
+<tr><td>Bring existing Argo CD or Flux apps under ConfigHub visibility.</td><td>Read or export the app, then use <code>cub variant upload</code>.</td></tr>
+<tr><td>Bring KRM YAML or rendered manifests under ConfigHub visibility.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr></tbody></table>
 <h2 id="what-the-wrappermachinery-is-for">What The Wrapper/Machinery Is For</h2>
 <p>Yes, the first step often resembles <code>helm template</code>: render the Helm chart and inspect the resulting Kubernetes objects.</p>
 <p>The machinery exists because the useful product object is not a raw render. It is a reviewed model around the render:</p>

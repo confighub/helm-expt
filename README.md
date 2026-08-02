@@ -369,9 +369,10 @@ Use the shortest command that answers the question you are asking:
 
 | Goal | Command path |
 | --- | --- |
-| See what a chart renders, without ConfigHub state. | `helm template` |
+| See what an arbitrary chart and values render, without ConfigHub state. | `cub helm template` |
+| Store an arbitrary chart, its inputs, and its rendered base in ConfigHub. | `cub helm install` |
 | Load rendered files or a literal configuration OCI into ConfigHub Units. | `cub variant upload <files-or-oci-ref>` |
-| Adopt an existing Argo, Flux, KRM, or rendered-manifest app. | `cub gitops discover/import`, `cub unit import`, or a managed import workflow |
+| Adopt an existing Argo, Flux, KRM, or rendered-manifest app. | Read or export it from its current controller, then upload the reviewed YAML with `cub variant upload`. |
 | Use a maintained catalog entry with supported bases, receipts, scans, and live evidence. | `cub installer setup --pull <installer OCI ref> --base <base>` |
 | Upload a reviewed rendered base into ConfigHub. | `cub installer upload` |
 | Create an environment, region, customer, or target variant after upload. | `cub variant create` |

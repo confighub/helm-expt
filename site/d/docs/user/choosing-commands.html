@@ -448,15 +448,15 @@
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>This guide explains which command path to use for a Helm chart. The commands answer different questions. They are complementary, not replacements for each other.</p>
 <h2 id="short-version">Short Version</h2>
-<table><thead><tr><th>User goal</th><th>Use</th></tr></thead><tbody><tr><td>See what a Helm chart renders, without ConfigHub state.</td><td><code>helm template</code></td></tr>
-<tr><td>Import an arbitrary Helm chart and values as a ConfigHub base.</td><td><code>cub helm</code> plugin</td></tr>
+<table><thead><tr><th>User goal</th><th>Use</th></tr></thead><tbody><tr><td>See what an arbitrary Helm chart and values render, without ConfigHub state.</td><td><code>cub helm template</code></td></tr>
+<tr><td>Store an arbitrary Helm chart, its inputs, and its rendered base in ConfigHub.</td><td><code>cub helm install</code></td></tr>
 <tr><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>Use a maintained catalog entry with supported bases, receipts, scans, and live evidence.</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code></td></tr>
 <tr><td>Keep one selected catalog preset as a local OCI layout or push it to a registry.</td><td>Add <code>--output-oci &lt;path-or-oci-ref&gt;</code> to <code>cub installer setup</code>.</td></tr>
 <tr><td>Upload a reviewed rendered base into ConfigHub.</td><td><code>cub installer upload</code></td></tr>
 <tr><td>Clone a reviewed ConfigHub Space into an environment, region, customer, or target variant.</td><td><code>cub variant create</code></td></tr>
 <tr><td>Catch a derived ConfigHub variant up with its reviewed upstream Space.</td><td><code>cub variant promote --dry-run</code>, then <code>cub variant promote</code></td></tr>
-<tr><td>Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model.</td><td>discover/import first, then decide whether to keep imported, create variants, or graduate to a recipe</td></tr>
+<tr><td>Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model.</td><td>Read or export it from its current controller, upload the reviewed YAML with <code>cub variant upload</code>, then decide whether to keep it or build a maintained recipe.</td></tr>
 <tr><td>Prove a repo artifact or live lane has not drifted.</td><td>the relevant <code>npm run ...</code> verifier</td></tr></tbody></table>
 <p><code>cub helm</code> and <code>cub installer</code> are preparation tools. <code>cub helm</code> imports an arbitrary chart and values. <code>cub installer</code> reads a maintained catalog package with named configurations and recorded requirements.</p>
 <p>The <a href="https://docs.confighub.com/get-started/tutorial/">official ConfigHub tutorial</a> teaches the product journey after configuration enters ConfigHub. New users do not need to compare the two plugins before following that tutorial.</p>
@@ -464,7 +464,8 @@
 <h2 id="what-to-check-next">What To Check Next</h2>
 <p>Each command path leaves the user at a different proof level. Check the matching surface before making a stronger claim.</p>
 <p>If the first question is &quot;can I use this chart?&quot;, start with the generated <a href="../../data/chart-use-guide/summary.html">Chart Use Guide</a>. It tells you whether the chart is a public catalog entry, a promotion-review candidate, a better-base-variant task, or a limitation-decision row. Then choose the command path below.</p>
-<table><thead><tr><th>After this path</th><th>Check</th><th>What you can claim</th></tr></thead><tbody><tr><td><code>helm template</code></td><td>The rendered output and any local diff or schema check you ran.</td><td>You inspected a Helm render. No ConfigHub or live-cluster claim is implied.</td></tr>
+<table><thead><tr><th>After this path</th><th>Check</th><th>What you can claim</th></tr></thead><tbody><tr><td><code>cub helm template</code></td><td>The rendered output and any local diff or schema check you ran.</td><td>You inspected a Helm render. No ConfigHub or live-cluster claim is implied.</td></tr>
+<tr><td><code>cub helm install</code></td><td>The <code>&lt;component&gt;-helm</code> source Space, <code>&lt;component&gt;-base</code> rendered Space, and their Units.</td><td>ConfigHub stores the chart inputs and rendered base. No maintained catalog or Kubernetes delivery claim is implied.</td></tr>
 <tr><td><code>cub variant upload</code></td><td>ConfigHub Space and Unit list, source reference or OCI digest, labels, and diffs.</td><td>Rendered configuration became ConfigHub Units once. No maintained recipe or catalog support claim is implied.</td></tr>
 <tr><td><code>cub installer setup --pull ... --base ...</code></td><td>Per-chart <code>CATALOG.md</code>, <code>helm-equivalence-receipt.yaml</code>, and <code>data/outcome-coverage/base-outcomes.csv</code>.</td><td>The selected base has a recorded recipe/package proof and render-parity status.</td></tr>
 <tr><td><code>cub installer setup ... --output-oci ...</code></td><td>Installer pull-back check, source package digest, selected base, validator results, rendered object-set digest, and the controller receipt when one exists.</td><td>The selected preset's non-secret objects were written as OCI. Argo CD or Flux delivery is claimed only when a live receipt names that output digest.</td></tr>
@@ -475,23 +476,32 @@
 <tr><td>Two-cluster live parity</td><td><code>data/live-kind-parity/summary.md</code> and the row receipt.</td><td>Regular Helm and <code>cub installer</code> reached the recorded live outcome for that exact chart/base row.</td></tr></tbody></table>
 <h2 id="graduation-path">Graduation Path</h2>
 <p>A user can move through these paths over time. They do not need to choose the full catalog model on day one.</p>
-<table><thead><tr><th>Stage</th><th>Command path</th><th>Result</th></tr></thead><tbody><tr><td>Inspect</td><td><code>helm template</code></td><td>Render the chart locally and see the Kubernetes objects.</td></tr>
-<tr><td>Adopt quickly</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td></tr>
+<table><thead><tr><th>Stage</th><th>Command path</th><th>Result</th></tr></thead><tbody><tr><td>Inspect</td><td><code>cub helm template</code></td><td>Render an arbitrary chart locally and see the Kubernetes objects.</td></tr>
+<tr><td>Adopt an arbitrary Helm chart</td><td><code>cub helm install</code></td><td>Store a HelmSource Unit and the rendered base Units in two ConfigHub Spaces.</td></tr>
+<tr><td>Adopt files or OCI</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Load rendered files or a literal configuration OCI into ConfigHub Units.</td></tr>
 <tr><td>Use a maintained catalog entry</td><td><code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt; [--output-oci &lt;path-or-ref&gt;]</code></td><td>Start from a reviewed recipe/package base with locks, values, labels, receipts, and checks; optionally keep the selected result as OCI.</td></tr>
 <tr><td>Operate</td><td><code>cub installer upload</code>, <code>cub variant create</code>, <code>cub variant promote</code>, ConfigHub changesets, scans, approvals, OCI/GitOps, observations</td><td>Manage reviewed objects as ConfigHub Units and derived variants.</td></tr></tbody></table>
 <p>Existing apps enter through the same model without a recipe rewrite:</p>
-<table><thead><tr><th>Existing source</th><th>First command path</th><th>Next decision</th></tr></thead><tbody><tr><td>Argo CD Application</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>Keep imported, create a derived variant, or graduate to a maintained recipe.</td></tr>
-<tr><td>Flux HelmRelease or Kustomization</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>Preserve the controller source and target before changing the render path.</td></tr>
-<tr><td>Rendered KRM YAML or manifests</td><td><code>cub unit import</code> or managed import workflow</td><td>Add labels, links, scans, gates, and observations.</td></tr></tbody></table>
+<table><thead><tr><th>Existing source</th><th>First command path</th><th>Next decision</th></tr></thead><tbody><tr><td>Argo CD Application</td><td>Read the Application and rendered objects through Argo CD or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>Preserve the controller source and target before changing delivery.</td></tr>
+<tr><td>Flux HelmRelease or Kustomization</td><td>Read the source object and rendered objects through Flux or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>Preserve the controller source and target before changing delivery.</td></tr>
+<tr><td>Rendered KRM YAML or manifests</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>Add labels, links, scans, gates, and observations.</td></tr></tbody></table>
 <p>The important boundary is whether the user wants a one-time representation or a maintained artifact. Direct commands are good for one-time representation. Catalog entries are for repeatable bases, variant support, updates, patches, and proof.</p>
 <p>For concrete &quot;you should see something like this&quot; checks after each command, use <a href="expected-results-and-clusters.html">Expected Results And Clusters</a>. It also explains when users need no cluster, a local kind cluster, their own Kubernetes cluster, or a temporary cluster created by <code>cub cluster up</code>.</p>
 <h2 id="command-roles">Command Roles</h2>
-<h3 id="helm-template"><code>helm template</code></h3>
-<p>Use this when you want a fast local Helm render.</p>
+<h3 id="cub-helm-template"><code>cub helm template</code></h3>
+<p>Use this when you want a fast local Helm render through the <code>cub-helm</code> plugin.</p>
 <p>It renders a chart to stdout or files. It can use values files and <code>--set</code> flags. It does not require a ConfigHub server connection.</p>
 <p>Good for:</p>
 <ul><li>inspecting chart output;</li><li>debugging Helm values;</li><li>creating a plain Helm baseline;</li><li>checking CRD/resource split;</li><li>producing input for a future import or analysis flow.</li></ul>
 <p>It does not create a maintained recipe, supported base variants, scan receipts, upload receipts, or a ConfigHub operating record.</p>
+<p>Hook manifests are dropped by default. <code>--include-hooks</code> keeps them as ordinary resources but does not run Helm's hook lifecycle. CRDs are included unless <code>--skip-crds</code> is set. Charts that depend on live <code>lookup</code> results or non-default capabilities are outside this direct path.</p>
+<h3 id="cub-helm-install"><code>cub helm install</code></h3>
+<p>Use this when you want to store an arbitrary Helm chart and its inputs in ConfigHub without first building a maintained catalog package.</p>
+<p>The command creates two Spaces:</p>
+<pre><code>&lt;component&gt;-helm: one HelmSource Unit per release
+&lt;component&gt;-base: rendered Kubernetes Units</code></pre>
+<p>The HelmSource Unit records the chart reference, values, and render options. The base is not assigned to a target. If <code>--namespace</code> is omitted, the chart is rendered with <code>confighubplaceholder</code>; a later <code>cub variant create --namespace</code> sets the deployment namespace.</p>
+<p>This command does not apply anything to Kubernetes. Its hook, CRD, lookup, and capability limits are the same as <code>cub helm template</code>.</p>
 <h3 id="cub-variant-upload"><code>cub variant upload</code></h3>
 <p>Use this when you already have rendered Kubernetes files or a literal configuration OCI and want to create ConfigHub Units from them.</p>
 <p>It does not render a Helm chart. It reads files, directories, stdin, or an <code>oci://</code> manifest bundle. It records an OCI source reference and resolved digest when OCI is used.</p>
@@ -529,7 +539,8 @@
 <tr><td>Platform or stack</td><td>Represent multiple chart bases and app objects as one graph.</td><td>Components, labels, Spaces, targets, and links show what belongs together.</td></tr></tbody></table>
 <p>Only graduate to a <code>cub installer</code> recipe when the app needs a maintained render path, future chart refreshes, and catalog-grade proof.</p>
 <h2 id="routing-table">Routing Table</h2>
-<table><thead><tr><th>Request</th><th>Route</th></tr></thead><tbody><tr><td>&quot;Show me what this chart produces.&quot;</td><td><code>helm template</code></td></tr>
+<table><thead><tr><th>Request</th><th>Route</th></tr></thead><tbody><tr><td>&quot;Show me what this arbitrary chart and values produce.&quot;</td><td><code>cub helm template</code></td></tr>
+<tr><td>&quot;Store this arbitrary chart and values in ConfigHub.&quot;</td><td><code>cub helm install</code></td></tr>
 <tr><td>&quot;Load these rendered files or this literal OCI bundle into ConfigHub.&quot;</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td></tr>
 <tr><td>&quot;Use the supported Redis catalog entry.&quot;</td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default</code></td></tr>
 <tr><td>&quot;Use a values file that changes storage, ingress, RBAC, CRDs, components, or topology.&quot;</td><td>create or choose a <code>cub installer</code> base variant</td></tr>
@@ -542,10 +553,10 @@
 <tr><td>&quot;Publish to Argo or Flux through OCI.&quot;</td><td>publish/upload the reviewed base or derived variant, then run GitOps/runtime verification</td></tr>
 <tr><td>&quot;Prove Helm and installer reach the same live outcome.&quot;</td><td><code>npm run kind-parity:run ...</code> or the live parity lane</td></tr></tbody></table>
 <h2 id="the-proposed-bridge">The Proposed Bridge</h2>
-<p>The proposed bridge is an import command:</p>
+<p>One possible future bridge is an import command:</p>
 <pre><code>cub installer import helm ...</code></pre>
 <p>or equivalent product wording.</p>
-<p>That bridge should turn a direct Helm chart, values file, or one-shot rendered upload into a maintained recipe/package candidate. Until that exists as a product command, helm-expt uses repo generators and proof scripts to build the same artifact chain.</p>
+<p>This command does not exist. Such a bridge could turn a direct Helm chart, values file, or one-shot rendered upload into a maintained recipe/package candidate. Today, helm-expt uses repo generators and proof scripts to build the same artifact chain.</p>
 <h2 id="repo-verifiers">Repo Verifiers</h2>
 <p>The <code>npm run ...</code> commands are not product install commands. They verify the repo corpus and live-test evidence. Keep them out of the default user path unless the user is explicitly asking &quot;how do I know this claim is true?&quot;</p>
 <p>Use them when you want to check claims:</p>

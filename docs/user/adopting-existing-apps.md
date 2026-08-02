@@ -49,11 +49,11 @@ team upgrade into ConfigHub gradually.
 
 | Existing source | Current entry point | What ConfigHub should preserve |
 | --- | --- | --- |
-| Argo CD Application | `cub gitops discover` / `cub gitops import` | controller ownership, source reference, rendered resources, links, target |
-| Flux HelmRelease | `cub gitops discover` / `cub gitops import` | chart source, values source, rendered resources, links, target |
-| Flux Kustomization | `cub gitops discover` / `cub gitops import` | Kustomize source, rendered resources, links, target |
-| KRM YAML / rendered manifests | `cub unit import` or managed import workflow | resource identity, labels, target, provenance, scans |
-| Public Helm chart with no existing app | `helm template`, `cub variant upload`, or the `cub installer` catalog path | Helm baseline, ConfigHub Units, or maintained recipe/package depending on intent |
+| Argo CD Application | Read the Application and rendered objects through Argo CD or the Kubernetes API, then use `cub variant upload`. | controller ownership, source reference, rendered resources, links, target |
+| Flux HelmRelease | Read the HelmRelease and rendered objects through Flux or the Kubernetes API, then use `cub variant upload`. | chart source, values source, rendered resources, links, target |
+| Flux Kustomization | Read the Kustomization and rendered objects through Flux or the Kubernetes API, then use `cub variant upload`. | Kustomize source, rendered resources, links, target |
+| KRM YAML / rendered manifests | `cub variant upload <files-or-oci-ref>` | resource identity, labels, target, provenance, scans |
+| Public Helm chart with no existing app | `cub helm template`, `cub helm install`, or the `cub installer` catalog path | local Helm render, direct ConfigHub base, or maintained recipe/package depending on intent |
 
 ## A Small Plain YAML Example
 
@@ -81,11 +81,11 @@ the `helm-catalog` demo organization.
 This proves the import boundary. No cluster apply, promotion, release, or
 workload observation is claimed by this receipt.
 
-ConfigHub documentation currently describes `cub gitops import` as importing
-Argo CD Applications, Flux HelmReleases, and Flux Kustomizations from a
-Kubernetes target, rendering them with a render target, and creating ConfigHub
-Units and links. It also documents `cub unit import` for Kubernetes resource
-filtering and import.
+The current cub v0.2.9 command surface does not provide a one-step GitOps
+discovery/import command. Read the controller objects and desired Kubernetes
+objects first. Review their source, target, namespace, and ownership, then use
+`cub variant upload` for the YAML or literal OCI you chose to store. The upload
+creates ConfigHub records; it does not change the controller or cluster.
 
 ## Adoption Levels
 

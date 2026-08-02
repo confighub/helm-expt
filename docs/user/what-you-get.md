@@ -29,7 +29,7 @@ The practical split is:
 
 | Choice | Route |
 | --- | --- |
-| Already managed by Argo, Flux, KRM, rendered YAML, or live resources | Adopt first through `cub gitops discover/import`, `cub unit import`, or a managed import workflow. |
+| Already managed by Argo, Flux, KRM, rendered YAML, or live resources | Read or export it from its current controller, then store the reviewed YAML or literal OCI with `cub variant upload`. |
 | Changes Helm inputs, object shape, object count, topology, CRDs, RBAC, storage, generated facts, extension slots, or lifecycle behavior | New or updated `cub installer` base variant. |
 | Refines already-rendered fields, target, environment, region, customer, gates, links, observation policy, or approved placeholder fills | Derived ConfigHub variant after upload. |
 | Requires an external runtime prerequisite | Delivery prerequisite, target fact, preflight, gate, or observation receipt. |

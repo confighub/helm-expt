@@ -450,8 +450,11 @@
 <pre><code>chart + values + flags -&gt; rendered Kubernetes objects on disk/stdout</code></pre>
 <p>It is useful for inspection, debugging, CRD/resource split checks, and as the regular Helm baseline for equivalence receipts.</p>
 <p><code>cub helm install</code> is the fast ConfigHub action path:</p>
-<pre><code>chart + values + flags -&gt; rendered Kubernetes objects -&gt; ConfigHub Units</code></pre>
-<p>That is useful for a one-off ConfigHub load.</p>
+<pre><code>chart + values + flags
+-&gt; &lt;component&gt;-helm Space with a HelmSource Unit
+-&gt; &lt;component&gt;-base Space with rendered Kubernetes Units</code></pre>
+<p>That is useful for storing an arbitrary chart and its inputs without first building a maintained catalog package. The base is untargeted. If no namespace is supplied, it uses <code>confighubplaceholder</code> until a deployment variant supplies the real namespace.</p>
+<p>The direct command drops Helm hooks by default. <code>--include-hooks</code> keeps them as ordinary resources but does not run their Helm lifecycle. It includes CRDs unless <code>--skip-crds</code> is set. It cannot render charts that require live <code>lookup</code> results or non-default capability information.</p>
 <p>The maintained recipe path is different:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>chart or wrapper chart
@@ -462,9 +465,9 @@ plus values, overlays, dependency closure, and render context
 -&gt; Helm-equivalence receipts
 -&gt; scans, gates, upload/publish receipts, and live evidence</code></pre>
 <p>Import is the bridge between those paths. It should let a user graduate from &quot;render/load this chart now&quot; to &quot;maintain this chart as a reusable, variant-aware, proof-bound catalog entry.&quot;</p>
-<p>The intended product command is:</p>
+<p>One possible future product command is:</p>
 <pre><code>cub installer import helm</code></pre>
-<p>Until that exists, this repo uses generators and proof scripts to create the same import artifacts explicitly.</p>
+<p>That command does not exist. Today this repo uses generators and proof scripts to create and check maintained recipe artifacts explicitly.</p>
 <h2 id="what-import-must-capture">What Import Must Capture</h2>
 <p>Every maintained import must record:</p>
 <table><thead><tr><th>Area</th><th>Required Artifact</th></tr></thead><tbody><tr><td>chart identity</td><td>source lock with repository, chart, version, and digest</td></tr>

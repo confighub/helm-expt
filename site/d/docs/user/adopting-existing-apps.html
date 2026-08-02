@@ -465,11 +465,11 @@ maintained cub installer recipe.</code></pre>
 <ul><li>Argo CD Applications;</li><li>Flux HelmReleases;</li><li>Flux Kustomizations;</li><li>KRM YAML or Kustomize output;</li><li>rendered manifests in Git;</li><li>manually imported or live Kubernetes resources.</li></ul>
 <p>The adoption path must not say &quot;rewrite all of that first.&quot; It should let the team upgrade into ConfigHub gradually.</p>
 <h2 id="current-entry-points">Current Entry Points</h2>
-<table><thead><tr><th>Existing source</th><th>Current entry point</th><th>What ConfigHub should preserve</th></tr></thead><tbody><tr><td>Argo CD Application</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>controller ownership, source reference, rendered resources, links, target</td></tr>
-<tr><td>Flux HelmRelease</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>chart source, values source, rendered resources, links, target</td></tr>
-<tr><td>Flux Kustomization</td><td><code>cub gitops discover</code> / <code>cub gitops import</code></td><td>Kustomize source, rendered resources, links, target</td></tr>
-<tr><td>KRM YAML / rendered manifests</td><td><code>cub unit import</code> or managed import workflow</td><td>resource identity, labels, target, provenance, scans</td></tr>
-<tr><td>Public Helm chart with no existing app</td><td><code>helm template</code>, <code>cub variant upload</code>, or the <code>cub installer</code> catalog path</td><td>Helm baseline, ConfigHub Units, or maintained recipe/package depending on intent</td></tr></tbody></table>
+<table><thead><tr><th>Existing source</th><th>Current entry point</th><th>What ConfigHub should preserve</th></tr></thead><tbody><tr><td>Argo CD Application</td><td>Read the Application and rendered objects through Argo CD or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>controller ownership, source reference, rendered resources, links, target</td></tr>
+<tr><td>Flux HelmRelease</td><td>Read the HelmRelease and rendered objects through Flux or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>chart source, values source, rendered resources, links, target</td></tr>
+<tr><td>Flux Kustomization</td><td>Read the Kustomization and rendered objects through Flux or the Kubernetes API, then use <code>cub variant upload</code>.</td><td>Kustomize source, rendered resources, links, target</td></tr>
+<tr><td>KRM YAML / rendered manifests</td><td><code>cub variant upload &lt;files-or-oci-ref&gt;</code></td><td>resource identity, labels, target, provenance, scans</td></tr>
+<tr><td>Public Helm chart with no existing app</td><td><code>cub helm template</code>, <code>cub helm install</code>, or the <code>cub installer</code> catalog path</td><td>local Helm render, direct ConfigHub base, or maintained recipe/package depending on intent</td></tr></tbody></table>
 <h2 id="a-small-plain-yaml-example">A Small Plain YAML Example</h2>
 <p>The repository includes a four-object application under <a href="../../examples/plain-yaml/acme-web/README.html"><code>examples/plain-yaml/acme-web</code></a>. It has one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
 <p>Upload the files as one Unit per Kubernetes object:</p>
@@ -481,7 +481,7 @@ maintained cub installer recipe.</code></pre>
   examples/plain-yaml/acme-web</code></pre>
 <p>The <a href="../../../../runs/literal-yaml-upload-proof/receipt.yaml">focused receipt</a> reads the four Units back and compares them with the four files. The source and stored object-set hashes match. The separate README Unit explains the example inside the <code>helm-catalog</code> demo organization.</p>
 <p>This proves the import boundary. No cluster apply, promotion, release, or workload observation is claimed by this receipt.</p>
-<p>ConfigHub documentation currently describes <code>cub gitops import</code> as importing Argo CD Applications, Flux HelmReleases, and Flux Kustomizations from a Kubernetes target, rendering them with a render target, and creating ConfigHub Units and links. It also documents <code>cub unit import</code> for Kubernetes resource filtering and import.</p>
+<p>The current cub v0.2.9 command surface does not provide a one-step GitOps discovery/import command. Read the controller objects and desired Kubernetes objects first. Review their source, target, namespace, and ownership, then use <code>cub variant upload</code> for the YAML or literal OCI you chose to store. The upload creates ConfigHub records; it does not change the controller or cluster.</p>
 <h2 id="adoption-levels">Adoption Levels</h2>
 <table><thead><tr><th>Level</th><th>What happens</th><th>User value</th></tr></thead><tbody><tr><td>Observe</td><td>Import or discover the existing app and record where it came from.</td><td>The team can see and search the app in ConfigHub without changing delivery.</td></tr>
 <tr><td>Explain</td><td>Add component, chart, variant, environment, region, target, and source labels; preserve links.</td><td>The app becomes understandable and comparable.</td></tr>

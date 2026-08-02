@@ -174,8 +174,10 @@ cub installer import helm
 cub installer preflight
 ```
 
-`helm template` is the quick local render path. It is useful for inspection,
-debugging values, CRD/resource split checks, and Helm-equivalence baselines.
+`cub helm template` is the quick local render path for an arbitrary chart. It
+is useful for inspection, debugging values, CRD/resource split checks, and
+Helm-equivalence baselines. `cub helm install` records the chart inputs in a
+Helm source Space and the rendered objects in a base Space.
 
 `cub variant upload` is the quick one-shot ConfigHub load path. It is useful
 when the goal is to create ConfigHub Units from rendered files or a literal OCI
