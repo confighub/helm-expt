@@ -519,7 +519,7 @@
   </header>
   <main>
     <section aria-labelledby="catalog-paths">
-      <h2 id="catalog-paths">Choose Your Path</h2>
+      <h2 id="catalog-paths">1 · Choose your path</h2>
       <p>Start with the configuration you already have. Each path first gives you exact Kubernetes objects to inspect.</p>
       <h3 id="catalog-starting-points">What do you have?</h3>
       <div class="card"><table>
@@ -545,7 +545,7 @@
       </style>
     </section>
     <section aria-labelledby="work-mode">
-      <h2 id="work-mode">Choose where the work runs</h2>
+      <h2 id="work-mode">2 · Choose where the work runs</h2>
       <div class="card"><table>
         <thead><tr><th>Choice</th><th>What it means</th><th>Status</th></tr></thead>
         <tbody><tr><td>Local, no server</td><td>Run tools on your machine or in CI. Public package pulls need no sign-in.</td><td>Available</td></tr><tr><td>Hosted, no sign-in</td><td>Inspect and test public configuration through an anonymous service.</td><td>Planned</td></tr><tr><td>ConfigHub</td><td>Record, change, release, and promote the result. Continue with the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=testing">official tutorial</a>.</td><td>Available; account required</td></tr></tbody>
@@ -559,7 +559,7 @@
       <p>These choices apply before configuration is saved. Public package and registry paths work now. The hosted anonymous service does not. Managed variants, promotions, Apps, gates, and fleet examples use ConfigHub Server.</p>
     </section>
     <section aria-labelledby="bring-your-own">
-      <h2 id="bring-your-own">Bring your own chart and values</h2>
+      <h2 id="bring-your-own">3 · Helm: bring your own chart and values</h2>
       <p>Use <code>cub helm</code> when you have an arbitrary chart and values. Start with the chart version, values, namespace, and release name your team intends to use.</p>
       <p>Install the plugin once. Then render to files without contacting ConfigHub Server or Kubernetes:</p>
       <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
@@ -597,7 +597,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
     </section>
 
     <section aria-labelledby="aicr-platform">
-      <h2 id="aicr-platform">Start with an AICR platform package</h2>
+      <h2 id="aicr-platform">4 · AICR: start with a platform package</h2>
       <p>AICR selected 15 versioned components for an EKS H100 training platform and generated an Argo CD source package. We published that package and a second OCI containing the 17 exact Argo CD Applications. Both are public and passed anonymous pull checks at their recorded digests.</p>
       <p>ConfigHub imported the 17 Applications as one unchanged base. Development changes only the kube-prometheus-stack Application so Grafana reads its administrator credentials from a Secret owned by the target. A dry run named that Application and changed nothing. Staging then received the same reviewed configuration, while the other 16 Applications stayed unchanged.</p>
       <div class="card"><table>
@@ -614,7 +614,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
     </section>
 
     <section aria-labelledby="existing-oci-change">
-      <h2 id="existing-oci-change">Start with an existing OCI package</h2>
+      <h2 id="existing-oci-change">5 · OCI: start with an existing package</h2>
       <p>Inspect the OCI first so you know whether it contains a source chart, a cub installer package, or exact Kubernetes objects. A source package must be rendered before it can become a deployable configuration. A literal configuration can be changed directly.</p>
       <pre><code>npm run oci:transform -- oci://REGISTRY/REPOSITORY@sha256:DIGEST   --object Deployment/example   --namespace example   --field spec.replicas   --value 4   --output oci-layout:./changed-example:reviewed</code></pre>
       <p>The command changes only the field you name. It records the input digest, the old and new values, and every check result inside the new OCI. It then pulls the new image back and compares the files. Existing companion records are kept if you change the output again.</p>
@@ -623,7 +623,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
     </section>
 
     <section aria-labelledby="plain-yaml">
-      <h2 id="plain-yaml">Start with plain Kubernetes YAML</h2>
+      <h2 id="plain-yaml">6 · YAML: start with plain Kubernetes files</h2>
       <p>The <a href="d/examples/plain-yaml/acme-web/README.html">plain YAML fixture</a> contains one Namespace, ConfigMap, Deployment, and Service. There is no chart and no render step.</p>
       <pre><code>cub variant upload   --component plain-yaml-acme-web   --variant base   --space plain-yaml-acme-web-base   --granularity per-resource   examples/plain-yaml/acme-web</code></pre>
       <p>The focused receipt reads the four ConfigHub Units back and compares them with the four files. The object-set hashes match. Open the <a href="d/data/literal-config-examples/summary.html">plain YAML and OCI summary</a> or the <a href="d/data/helm-catalog-readmes/spaces/plain-yaml-acme-web-base/README.html">README used inside the demo Space</a>.</p>
@@ -631,7 +631,7 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
     </section>
 
     <section aria-labelledby="source-to-oci">
-      <h2 id="source-to-oci">Can source-to-OCI be automated?</h2>
+      <h2 id="source-to-oci">7 · Automate source-to-OCI</h2>
       <p>Yes, for catalog packages and other recorded paths. The public CI example pulls a pinned installer package and renders one base. It tests the result and builds a literal configuration OCI. It then pulls the OCI back and verifies its objects against the reviewed files. The run needs no ConfigHub credentials.</p>
       <p>The NGINX example follows the same pattern for supplied Helm values: render, review, build OCI, pull it back, and compare the exact object set. <a href="d/data/byo-helm-values-review/public-and-confighub.html">Open its OCI and ConfigHub record</a>.</p>
       <p>The reviewed OCI change is also kept as a permanent public package rather than only a temporary proof artifact. <a href="d/data/literal-config-examples/summary.html">Open its publication and ConfigHub import record</a>.</p>
@@ -640,37 +640,28 @@ cub helm install &lt;release&gt; &lt;chart&gt; \
       <p>The same building blocks work for a private chart. We do not yet provide one public service that performs the complete analysis and publication path. Target-specific Secrets, cloud accounts, storage, and lifecycle work still need explicit inputs and decisions.</p>
     </section>
 
-    <section aria-labelledby="pillar-fewer">
-      <h2 id="pillar-fewer">Most choices are made and checked before you install</h2>
+    <section aria-labelledby="shared-rules">
+      <h2 id="shared-rules">8 · See what all paths have in common</h2>
+      <h3 id="pillar-fewer">Most choices are made and checked before you install</h3>
       <p>A reviewed package fixes most settings at build time. What remains should be small, typed, and recorded. Fewer variables means fewer ways to be wrong and less to test at deployment time. The Helm catalog is moving toward that shape. The AICR example records its remaining inputs, publishes both OCI artifacts for anonymous pull, imports the literal configuration into ConfigHub, and promotes one reviewed change. Controller delivery and a live GPU-cluster result remain open.</p>
       <p><a href="./charts/bitnami-redis-25-5-3.html">See the small set of install-time values on a chart page</a>.</p>
-    </section>
 
-    <section aria-labelledby="pillar-proof">
-      <h2 id="pillar-proof">You can read the proof before you ship</h2>
+      <h3 id="pillar-proof">You can read the proof before you ship</h3>
       <p>Each catalog entry links to the evidence that exists for it: render checks, object inventories, scans, local installs, delivery receipts, and live observations. Not every entry passes every lane, so the chart page reports pass, watch, blocked, or not run separately. Bad configuration can also be caught as data before apply, using schema, placeholder, diff, and target checks.</p>
       <p><a href="./verification.html">Read the proof commands and how to run them yourself</a>.</p>
-    </section>
 
-    <section aria-labelledby="pillar-messy">
-      <h2 id="pillar-messy">Hooks, CRDs, and setup work are listed</h2>
+      <h3 id="pillar-messy">Hooks, CRDs, and setup work are listed</h3>
       <p>Hooks, CRDs, ordering, and generated Secrets do not disappear. The catalog records each chart-specific decision and who must perform the work. It also records the result for each delivery path. The public Kube Prometheus Stack package includes its lifecycle files. Receipts cover anonymous pull, direct fresh install, and the no-CRDs upgrade from 85.3.3 to 86.1.0 through Argo CD and Flux. ConfigHub does not yet select that route automatically, and a missing receipt remains visible.</p>
       <p><a href="./charts/prometheus-community-kube-prometheus-stack-85-3-3.html">See the routes on a chart that ships CRDs</a>.</p>
-    </section>
 
-    <section aria-labelledby="pillar-reverse">
-      <h2 id="pillar-reverse">You can reverse a change, not only keep it</h2>
+      <h3 id="pillar-reverse">You can reverse a change, not only keep it</h3>
       <p>ConfigHub keeps every revision as data, so you can restore a prior state without rebuilding it by hand. Each base variant records the exact objects it produced, so the state you return to is known and reproducible. Changing configuration is safe when going back is this cheap.</p>
       <p><a href="./how-it-works.html">See how configuration is kept as data you can restore</a>.</p>
-    </section>
 
-    <section aria-labelledby="pillar-installer">
-      <h2 id="pillar-installer">You do not need to learn cub installer first</h2>
+      <h3 id="pillar-installer">You do not need to learn cub installer first</h3>
       <p>cub installer is how you pull a package and write its files locally. It is one open source tool alongside Helm and OCI, and you can read everything above without it. When you want to run a package, it is there. When you only want to know whether a package is safe, the evidence stands on its own.</p>
-    </section>
 
-    <section aria-labelledby="pillar-policy">
-      <h2 id="pillar-policy">The checks follow the configuration</h2>
+      <h3 id="pillar-policy">The checks follow the configuration</h3>
       <p>After Helm, AICR, Sveltos, or existing YAML becomes ConfigHub data, one apply-policy profile can protect it. Schema, placeholder, and lifecycle-route checks block incomplete configuration. Image digest and workload probe checks warn. Production releases and system configuration keep those checks and add one approval.</p>
       <p><a href="d/data/apply-policy-profiles/summary.html">Read the policy, resource classes, and live assignments</a>.</p>
     </section>
