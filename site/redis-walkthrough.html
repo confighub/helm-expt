@@ -534,8 +534,8 @@ em{font-style:italic;color:var(--ink);}
   <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./confighub.html">ConfigHub</a><a href="./docs.html">Docs</a></span></nav></div>
   <div class="hero-copy">
     <h1>Detailed Redis walkthrough</h1>
-    <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in only when you want ConfigHub to keep an arbitrary object edit, promote it, and record a rollback.</p>
-    <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade without losing the choice</b> &rarr;</span> <span><b>see the managed payoff</b></span></div>
+    <p class="lead">Use one Redis example from first render to major upgrade. The public steps need no ConfigHub account. Pull Redis 25.5.3 and inspect its 14 Kubernetes objects. Compare them with Helm, write them as OCI, then update the selected configuration to 27.0.0. Sign in when you want to record a change, compare it with an upgrade, promote it, and record a rollback.</p>
+    <div class="steps-line">You'll: <span><b>pull Redis</b> &rarr;</span> <span><b>read and verify it</b> &rarr;</span> <span><b>write OCI</b> &rarr;</span> <span><b>upgrade the same selection</b> &rarr;</span> <span><b>review one stored change</b></span></div>
   </div>
 </header>
 <main>
@@ -600,7 +600,7 @@ $ bash &lt;(curl -fsSL https://confighub.github.io/helm-expt/site/sh/bitnami-red
   <div class="callout"><p><strong>Registry access today.</strong> Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</p></div>
 
   <h2>2 · Upgrade the same Redis configuration</h2>
-  <p>Now move the same work directory from Redis chart 25.5.3 to 27.0.0. With no account, cub can retain the package selection and inputs it knows about. With ConfigHub, it can also retain a reviewed edit made directly to a Kubernetes object.</p>
+  <p>Now move the same work directory from Redis chart 25.5.3 to 27.0.0. With no account, cub can retain the package selection and inputs it knows about. The recorded ConfigHub proof also checks one specific post-render change: a replica count that the newer base does not change.</p>
   <div class="two">
     <div class="box">
       <h3>No account: the package choice stays</h3>
@@ -615,22 +615,24 @@ $ cat ./redis/out/spec/selection.yaml
       <p>The selected existing-Secret base is retained. The newer output contains Redis 8.8.0 and chart 27.0.0, still as 14 non-secret objects, and the second OCI is pulled back and verified. This does not claim that an arbitrary hand edit survives without ConfigHub.</p>
     </div>
     <div class="box">
-      <h3>With a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">free account</a>: a reviewed object edit stays</h3>
+      <h3>With a <a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">free account</a>: review a stored change</h3>
       <p class="tag"><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=try">free account</a></p>
       <pre><code># Record the 25.5.3 objects.
-$ cub installer upload --work-dir ./redis --space my-redis
+$ cub installer upload --work-dir ./redis --space my-redis \
+    --component redis-upgrade --variant base
 
-# Change the rendered replica StatefulSet from 3 replicas to 2.
-$ edit ./redis/out/manifests/statefulset-redis-redis-replicas.yaml
-$ cub installer plan --work-dir ./redis
-$ cub installer upload --work-dir ./redis --yes
+# Record one exact change in ConfigHub: two Redis replicas.
+$ cub k8s get sts --space my-redis
+$ cub run set-replicas --space my-redis \
+    --unit &lt;replica-statefulset-unit&gt; --replicas 2 \
+    --change-desc "Keep two Redis replicas through chart upgrades" --wait
 
-# Pull 27.0.0. setup reads upload.yaml; upload performs the merge.
+# Pull 27.0.0. setup reads upload.yaml; plan shows the comparison.
 $ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:27.0.0 \
     --work-dir ./redis --reuse --non-interactive --namespace redis
 $ cub installer plan --work-dir ./redis
 $ cub installer upload --work-dir ./redis --yes</code></pre>
-      <p>The recorded run upgraded the chart from 25.5.3 to 27.0.0 and Redis from 8.6.3 to 8.8.0. The replica count remained two. There is no removed setup flag to remember: <code>setup</code> re-enters from <code>upload.yaml</code>, and <code>upload</code> merges the new package output with the recorded Units.</p>
+      <p>The recorded run upgraded the chart from 25.5.3 to 27.0.0 and Redis from 8.6.3 to 8.8.0. The newer base did not change <code>spec.replicas</code>, so the recorded value remained two. A change to a field that the newer base also changes must be reviewed in the plan before upload. <code>setup</code> re-enters from <code>upload.yaml</code>, and <code>upload</code> compares the new package output with the recorded Units.</p>
     </div>
   </div>
 
