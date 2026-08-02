@@ -20,7 +20,7 @@ const checks = [
   },
   {
     file: "site/confighub.html",
-    terms: ["Continue with ConfigHub", "Choose one place to start", "Sign up for ConfigHub", "Review the tutorial", "Read the ConfigHub blog"],
+    terms: ["Keep and manage your configuration with ConfigHub", "1. Create an account", "Sign up for ConfigHub", "2. Follow the official tutorial", "Review the tutorial", "3. Read the background", "Read the ConfigHub blog", "What ConfigHub adds"],
   },
   {
     file: "site/redis-walkthrough.html",
@@ -32,11 +32,15 @@ const checks = [
   },
   {
     file: "site/how-it-works.html",
-    terms: ["From source to deployment", "The short version", "Local files", "OCI to Argo CD or Flux", "ConfigHub to Argo CD or Flux", "Where a setting belongs", "Deploy from ConfigHub"],
+    terms: ["Choose how to deploy it", "1. Choose where the configuration lives", "Local files", "OCI package", "ConfigHub", "2. Deal with required setup", "3. Decide where each change belongs", "4. Deliver the reviewed result", "5. Continue with the path you chose"],
+  },
+  {
+    file: "site/deployment-reference.html",
+    terms: ["Technical deployment reference", "The short version", "Where a setting belongs", "The recipe: your source of truth", "Variants, in one picture", "What a direct local apply still has to handle"],
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Find a tested starting configuration", "public library of checked configurations", "Search the catalog", "Missing something you need? Tell us.", "chart versions shown", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup"],
+    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Find a tested starting configuration", "public library of checked configurations", "Search the catalog", "Missing something you need? Tell us.", "chart versions shown", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -56,7 +60,11 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Find a technical guide", "Official tutorial", "Try Redis", "Detailed Redis walkthrough", "Examples", "Detailed entry paths", "Start Here", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
+    terms: ["Find instructions for the step you are doing", "1. Start with a configuration", "2. Prepare it for deployment", "3. Change or operate it", "4. Check a result or solve a problem", "5. Continue when you need more", "Try Redis", "Configuration Catalog", "Worked Examples", "Deployment", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I verify a claim?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
+  },
+  {
+    file: "site/docs-reference.html",
+    terms: ["All technical references", "Official tutorial", "Detailed Redis walkthrough", "Detailed entry paths", "Working In This Repository?", "Agent And Operator Notes", "Five Stages", "Technical Guides", "Verification And Evidence", "How This Site Uses Technical Words", "AI and the catalog", "Existing Apps", "Security and provenance", "Future and managed ideas", "Per-chart cub adoption caveats"],
   },
   {
     file: "site/verification.html",
@@ -89,10 +97,6 @@ const checks = [
   {
     file: "site/entry-path-reference.html",
     terms: ["Detailed entry paths", "cub installer", "cub helm", "Choose where the work runs", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App"],
-  },
-  {
-    file: "site/how-it-works.html",
-    terms: ["The recipe: your source of truth", "Where a setting belongs", "Variants, in one picture", "AI-assisted changes, with control", "What a direct local apply still has to handle", "Apply CRDs first", "Field conflicts and removals"],
   },
 ];
 
@@ -147,11 +151,11 @@ const guideOpeningChecks = [
   },
   {
     file: "site/confighub.html",
-    headerTerms: ["Continue with ConfigHub", "Choose one place to start"],
+    headerTerms: ["Keep and manage your configuration with ConfigHub", "public Catalog and first examples work without ConfigHub"],
   },
   {
     file: "site/how-it-works.html",
-    headerTerms: ["From source to deployment", "Start with Helm, AICR", "official ConfigHub tutorial", "short package exercise"],
+    headerTerms: ["Choose how to deploy it", "reviewed the Kubernetes objects", "start without ConfigHub Server or an account"],
   },
   {
     file: "site/variants.html",
@@ -321,6 +325,46 @@ if (fs.existsSync(catalogIndexPath)) {
     if (catalogIndex.toLowerCase().includes(phrase.toLowerCase())) {
       failures.push(`site/charts/index.html: catalog must not contain intake or workflow copy: ${JSON.stringify(phrase)}`);
     }
+  }
+}
+
+const purposePageRules = [
+  {
+    file: "site/charts/index.html",
+    maxH2: 5,
+    requiredLinks: ["../how-it-works.html"],
+  },
+  {
+    file: "site/how-it-works.html",
+    maxH2: 5,
+    requiredLinks: ["./docs.html", "./confighub.html", "./deployment-reference.html"],
+    forbidden: ["Choose a starting configuration", "The recipe: your source of truth"],
+  },
+  {
+    file: "site/docs.html",
+    maxH2: 5,
+    requiredLinks: ["./confighub.html", "./docs-reference.html"],
+    forbidden: ["Technical Guides", "Verification And Evidence", "Five Stages"],
+  },
+  {
+    file: "site/confighub.html",
+    maxH2: 4,
+    requiredLinks: ["./how-it-works.html", "./docs.html"],
+    forbidden: ["Choose one place to start"],
+  },
+];
+
+for (const rule of purposePageRules) {
+  const fullPath = path.join(root, rule.file);
+  if (!fs.existsSync(fullPath)) continue;
+  const html = fs.readFileSync(fullPath, "utf8");
+  const h2Count = [...html.matchAll(/<h2\b/gi)].length;
+  if (h2Count > rule.maxH2) failures.push(`${rule.file}: has ${h2Count} h2 headings; purpose-page maximum is ${rule.maxH2}`);
+  for (const href of rule.requiredLinks) {
+    if (!html.includes(`href="${href}"`)) failures.push(`${rule.file}: missing next-step link ${href}`);
+  }
+  for (const phrase of rule.forbidden ?? []) {
+    if (html.includes(phrase)) failures.push(`${rule.file}: contains material assigned to a deeper reference page: ${JSON.stringify(phrase)}`);
   }
 }
 
