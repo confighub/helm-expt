@@ -1777,7 +1777,7 @@ em{font-style:italic;color:var(--ink);}
   <p>There are four places to look. Keeping them separate answers both questions: what should control a setting, and what controls it now.</p>
   <table class="gtable">
     <tr><th>Place</th><th>Use it for</th><th>What happens on upgrade</th></tr>
-    <tr><td><strong>Helm values</strong></td><td>Choose the base shape: components, object count, storage mode, CRDs, ingress, Secret strategy, topology, or another choice that changes what Helm renders.</td><td>Change the recorded values and render a new base. The values profile remains linked to the objects it produced.</td></tr>
+    <tr><td><strong>Helm values</strong></td><td>Choose the base configuration: components, object count, storage mode, CRDs, ingress, Secret strategy, topology, or another choice that changes what Helm renders.</td><td>Change the recorded values and render a new base. The values profile remains linked to the objects it produced.</td></tr>
     <tr><td><strong>ConfigHub changes</strong></td><td>Change an exact field after render when the base is right but an environment, region, customer, policy, image, label, resource, or other object field must differ.</td><td>The edit is a Unit revision or derived variant. ConfigHub keeps it when the upgraded base does not change the same field. If both change that field, review the overlap before promotion.</td></tr>
     <tr><td><strong>Install work</strong></td><td>Provide Secrets, CRDs, target facts, hooks, setup jobs, certificates, or other work needed around the objects.</td><td>The prerequisite or route is checked again. It is not hidden as a Helm value or a ConfigHub edit.</td></tr>
     <tr><td><strong>Live cluster</strong></td><td>Observe what actually ran and compare it with the reviewed objects.</td><td>A live-only edit is drift. Record an intended fix in ConfigHub, or remove the drift.</td></tr>
@@ -1799,9 +1799,9 @@ em{font-style:italic;color:var(--ink);}
   <p>Each chart page names a recommended starting configuration and any reviewed alternatives. These base variants use a fixed vocabulary that says what they change:</p>
   <p>Operators choose a vetted package release and a named base variant. They set only the small number of inputs that remain at install time. The catalog does not expose every Helm value again. It provides common paths that are reviewed, repeatable, and safe to reconcile across many installs.</p>
   <table class="gtable">
-    <tr><th>Base shape</th><th>What it changes</th></tr>
+    <tr><th>Base configuration</th><th>What it changes</th></tr>
     <tr><td><code>default</code></td><td>The chart's named default render. It is a reference point, not automatically the configuration we recommend for installation.</td></tr>
-    <tr><td><code>parameterized</code></td><td>Same shape as default, with fill-safe fields exposed as placeholders.</td></tr>
+    <tr><td><code>parameterized</code></td><td>The same object set as the default, with a small number of fields exposed as placeholders.</td></tr>
     <tr><td><code>existing-secret</code></td><td>Bring your own Secret instead of a generated one.</td></tr>
     <tr><td><code>no-crds</code></td><td>CRDs owned externally (by a controller or GitOps).</td></tr>
     <tr><td><code>ha</code></td><td>High-availability / scaled-out mode.</td></tr>
@@ -1818,7 +1818,7 @@ em{font-style:italic;color:var(--ink);}
     <tr><td>Existing OCI</td><td>The input reference and digest, package role, object inventory, checks, and any recorded transformation.</td><td><code>cub variant upload --component &lt;name&gt; --variant base oci://...</code> creates the base Space and Units from the configuration bundle.</td></tr>
     <tr><td>Existing Kubernetes YAML</td><td>The source revision or path, file checksums, object inventory, checks, and later OCI or ConfigHub revision.</td><td><code>cub variant upload --component &lt;name&gt; --variant base &lt;files&gt;</code> creates the base Space and Units.</td></tr>
   </table>
-  <p>The generated <a href="../data/base-variant-records/summary.md">base-variant records</a> use one common shape for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
+  <p>The generated <a href="../data/base-variant-records/summary.md">base-variant records</a> use one record format for these sources. The record distinguishes a multi-preset source package OCI, a single literal configuration OCI, and the later ConfigHub release OCI used for delivery.</p>
   <p>Today, the source and intent role may use a source Unit, Space metadata plus a committed receipt, or a generated base-variant record. ConfigHub does not yet have one first-class source object for every format. The <a href="./d/docs/reference/config-catalog-doctrine.html">catalog doctrine</a> defines the role in full.</p>
 
   <h2>3 · See what ConfigHub keeps</h2>
@@ -1909,7 +1909,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td><strong>Freeze</strong> the render instead of re-rendering</td><td>What you read is exactly what installs and what your controller delivers, with no re-render drift between review and runtime.</td></tr>
     <tr><td><strong>Name every route</strong> (hooks, CRDs, prereqs)</td><td>Every behaviour Helm handled outside normal objects still has to be owned, tested, skipped, or blocked. The catalog records that decision per base variant.</td></tr>
     <tr><td>Mark routes <strong>automatic: false</strong> until earned</td><td>Nothing is called automatic until the product actually runs the route and committed evidence proves it. No claim ahead of proof.</td></tr>
-    <tr><td>Report an honest <strong>disposition</strong> (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate lanes make the real problems explicit instead of hiding them behind one green tick.</td></tr>
+    <tr><td>Report each <strong>test result</strong> separately (synced ≠ working)</td><td>GitOps can say "Synced" while the workload is broken. Separate results show whether rendering, delivery, and the workload itself passed.</td></tr>
     <tr><td>Offer <strong>existing-secret</strong> bases</td><td>A default that ships a generated password installs green but breaks silently over GitOps (the pod can't find the Secret while Argo still says Synced). Bring-your-own is the safe path.</td></tr>
   </table>
 
@@ -1952,7 +1952,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td><code>install-gate</code></td><td>Is this render safe to try, does it need review, or is it blocked?</td></tr>
     <tr><td><code>object-inventory</code> · <code>variant-revision</code></td><td>Which exact Kubernetes objects and checksums belong to this render?</td></tr>
   </table>
-  <p>The model has four steps: <strong>recipe → render → record → route</strong>. Lock the inputs, render the objects, keep the check files with them, and record the extra work Helm leaves around the edges. Live results are reported one lane at a time, not as one blanket success mark:</p>
+  <p>The model has four steps: <strong>recipe → render → record → route</strong>. Lock the inputs, render the objects, keep the check files with them, and record the extra work Helm leaves around the edges. Each live test reports its own result instead of contributing to one blanket success mark:</p>
   <div class="counts">
     <div class="count pass"><b>961</b><span>pass</span></div>
     <div class="count watch"><b>116</b><span>watch</span></div>
@@ -1965,7 +1965,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><th>Way to check</th><th>Needs a cluster?</th><th>What it confirms</th></tr>
     <tr><td>Run the render check yourself (<code>npm run &lt;chart&gt;:verify-install:render</code>)</td><td>No</td><td>Your own render matches the catalog's recorded contract.</td></tr>
     <tr><td>Re-verify the committed evidence (<code>npm run verify</code>)</td><td>No</td><td>The receipts, hashes, and generated files are self-consistent.</td></tr>
-    <tr><td>Run a fresh live lane (<code>npm run kind-parity:run</code> / <code>live-parity:run</code>)</td><td>Yes</td><td>Helm vs cub, and OCI→Argo/Flux, on a throwaway cluster.</td></tr>
+    <tr><td>Run a fresh live test (<code>npm run kind-parity:run</code> / <code>live-parity:run</code>)</td><td>Yes</td><td>Helm vs cub, and OCI→Argo/Flux, on a throwaway cluster.</td></tr>
   </table>
 
   <h2>8 · Repeat the same result</h2>
@@ -1978,7 +1978,7 @@ cub k8s get all --space &lt;variant-space&gt; --show data</code></pre>
     <tr><td><strong>Route</strong> (hooks / CRDs / prereqs)</td><td class="part">plan: yes</td><td class="part">plan: yes · run: no</td><td>Naming and classifying is pure; <em>running</em> a route touches a cluster and may have side effects.</td></tr>
     <tr><td><strong>Apply</strong> (kubectl)</td><td class="part">for listed objects</td><td class="no">no</td><td>Plain apply creates or updates the objects in the files. It does not remove an object merely because that object disappeared from the files.</td></tr>
     <tr><td><strong>Reconcile</strong> (Argo CD / Flux)</td><td class="part">when pruning is enabled</td><td class="no">no</td><td>A controller can converge additions, changes, and removals, but only with the appropriate prune setting enabled and tested.</td></tr>
-    <tr><td><strong>Live proof / disposition</strong></td><td class="no">no</td><td class="no">no, not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
+    <tr><td><strong>Live cluster result</strong></td><td class="no">no</td><td class="no">no, not byte-deterministic</td><td>It observes a real cluster: pod scheduling, image pulls, controller timing. Each run is a new, point-in-time observation.</td></tr>
   </table>
   <p class="quiet-line">A <strong>rename or re-derivation regenerates offline</strong> from committed source. A <strong>fresh live result needs a cluster</strong>. Live runs are serial and use one temporary cluster at a time. <code>cub cluster up</code> creates that local kind cluster. <code>cub cluster down</code> removes it afterward. Render parity is not a live result, and a warning is not a pass.</p>
 
@@ -3849,8 +3849,8 @@ function proofHtml(catalog) {
     ["Claims register", "Every public claim is backed, partial, planned, or refused.", "../data/claims-register/summary.md"],
     ["Blast-radius accuracy", "Predicted affected objects are scored against actual rerender diffs, including published failures.", "../data/blast-radius-accuracy/summary.md"],
     ["Synthetic torture suite", "Breaker charts land in named pass, refusal, or route outcomes; silent outcomes fail.", "../data/torture-suite/summary.md"],
-    ["Environment matrix", "Renders are checked across timezone and locale cells for the measured corpus.", "../data/environment-matrix/summary.md"],
-    ["Hook dispositions", "Hook-bearing top-100 charts have observed, routed, per-target, or recipe-needed dispositions.", "../data/hook-disposition/summary.md"],
+    ["Environment checks", "The project checks whether timezone or locale changes the rendered objects in the tested examples.", "../data/environment-matrix/summary.md"],
+    ["Hook handling", "Charts with hooks show whether the hook was observed, given an explicit route, left to the target, or still needs chart-specific work.", "../data/hook-disposition/summary.md"],
     ["Master matrix", "Every chart/version/base row carries test status, source links, production scope, and next action.", "./matrix.html"],
   ];
   const refusalRows = [
