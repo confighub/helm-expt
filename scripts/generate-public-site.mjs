@@ -1983,7 +1983,7 @@ spec:
   </table>
   <p class="quiet-line"><a href="./try.html">Try Redis</a> · <a href="./charts/index.html">Browse the Catalog</a> · <a href="./verification.html">Check one claim</a></p>
 </main>
-<footer>${generatedStamp(catalog, "deployment guide")}<p>Generated from committed helm-expt evidence. This guide explains the public mental model; generated evidence remains the source for exact status.</p></footer>
+<footer><p>Generated from committed helm-expt evidence. This guide explains the public mental model; generated evidence remains the source for exact status.</p></footer>
 </body>
 </html>
 `;
@@ -2146,7 +2146,6 @@ function legacyDashboardHtml(catalog) {
   <header>
     ${topNav(".")}
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
-    ${generatedStamp(catalog, "public catalog dashboard")}
     <p class="tagline">helm-expt ports popular public Helm charts to reviewed <code>cub installer</code> packages without changing the supported end-to-end semantics. The result is explicit config: named base variants, rendered objects, target prerequisites, scans, gates, live evidence, and a receipt behind every claim.</p>
     <div class="doors">
       <div class="door">
@@ -2545,7 +2544,6 @@ function offeringHtml(catalog) {
     ${humanLinks([["Try Redis", "./try.html"], ["Choose an example", "./testing.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
-    ${generatedStamp(catalog, "offering page")}
     <section aria-labelledby="public">
       <h2 id="public">1. Start without ConfigHub Server</h2>
       <p>The local paths below do not contact ConfigHub Server. Public Catalog package pulls also need no ConfigHub account or Google registry login.</p>
@@ -2679,7 +2677,6 @@ function legacyOfferingHtml(catalog) {
     ${humanLinks([["Get started", "./try.html"], ["Choose a chart", "./charts/index.html"], ["Read how it works", "./how-it-works.html"]])}
   </header>
   <main>
-    ${generatedStamp(catalog, "offering page")}
     <section aria-labelledby="problem">
       <h2 id="problem">The Problem We Are Solving</h2>
       <p>Helm users can usually install something. The harder problem changes by audience: a new user cannot see what will land until after the install; an app team ends up with values-file sprawl and forks; a platform reviewer cannot prove blast radius, approvals, delivery, and live convergence at fleet scale.</p>
@@ -2897,7 +2894,7 @@ $ grep -R "^kind:" ./redis/out/manifests</code></pre>
     <p><a href="./redis-walkthrough.html">Continue with the full Redis walkthrough</a> for deployment, upgrade, promotion, and rollback.</p>
   </section>
 </main>
-<footer>${generatedStamp(catalog, "short catalog package guide")}<p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
+<footer><p>The first three steps use no ConfigHub Server and no ConfigHub account.</p></footer>
 </body>
 </html>
 `;
@@ -3192,7 +3189,7 @@ $ npm run redis-public-walkthrough:run</code></pre>
   <p class="closing-line">Try the public Redis walkthrough first. When you are ready to use your own example, bring a chart and values file that you or an AI produced. The <a href="./testing.html#bring-your-own">bring-your-own path</a> renders it, reports exact object and field findings, keeps the changes you actually wanted, and builds a reviewed OCI.</p>
   <p class="quiet-line"><a href="./how-it-works.html">Deployment</a> · <a href="./charts/bitnami-redis-25-5-3.html">Redis chart page</a> · <a href="./testing.html#bring-your-own">Check my config</a> · <a href="./demo-org.html">The demo org</a> · <a href="./verification.html">Open verification</a></p>
 </main>
-<footer>${generatedStamp(catalog, "detailed Redis walkthrough")}<p>The public steps need no ConfigHub account. Managed changes, promotion, and rollback use ConfigHub.</p></footer>
+<footer><p>The public steps need no ConfigHub account. Managed changes, promotion, and rollback use ConfigHub.</p></footer>
 </body>
 </html>
 `;
@@ -3315,7 +3312,7 @@ function serverlessHtml(catalog) {
       <p><a href="./try.html">Open Get Started</a> · <a href="../docs/user/serverless-mode.md">Read the source guide</a></p>
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "serverless guide")}<p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared history, variants, approvals, promotion, or fleet rollout.</p></footer>
+  <footer><p>Generated from committed helm-expt evidence. These examples need neither ConfigHub Server nor an account. ${signupLink("serverless", "Save the configuration in ConfigHub")} when it needs shared history, variants, approvals, promotion, or fleet rollout.</p></footer>
 </body>
 </html>
 `;
@@ -3651,7 +3648,6 @@ function verificationHtml(catalog) {
     ${humanLinks([["Choose a command", "#start-question"], ["See current results", "./proof.html"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
-    ${generatedStamp(catalog, "verification page")}
     <section aria-labelledby="start-question">
       <h2 id="start-question">1. Choose the question</h2>
       <p>Use the smallest check that answers it. A generated-file check confirms repository consistency. A live check tests one recorded configuration again and may create clusters and receipts.</p>
@@ -3833,7 +3829,6 @@ function proofHtml(catalog) {
     ${humanLinks([["Check one claim", "./verification.html"], ["Read the matrix", "./matrix.html"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
-    ${generatedStamp(catalog, "proof page")}
     <section aria-labelledby="counters">
       <h2 id="counters">1. Read the current counts</h2>
       <p>Each count answers a separate question. Production use still needs a target-specific decision and current evidence.</p>
@@ -4359,7 +4354,6 @@ function knownGapsHtml(catalog) {
     ${humanLinks([["See current results", "./proof.html"], ["Read FAQ", "./hard-questions.html"], ["Report a problem chart", "https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml"]])}
   </header>
   <main>
-    ${generatedStamp(catalog, "known gaps page")}
     <section aria-labelledby="gaps">
       <h2 id="gaps">1. Read the current limits</h2>
       ${markdownLikeTable([
@@ -4484,7 +4478,6 @@ function privateHtml(catalog) {
     <p>ConfigHub is available as a <a href="${confighubOutboundUrl(CONFIGHUB_SIGNUP_URL, "private")}">self-sign-up SaaS</a> and as a <a href="${confighubOutboundUrl(CONFIGHUB_ENTERPRISE_URL, "private")}">standalone enterprise product</a>.</p>
   </header>
   <main>
-    ${generatedStamp(catalog, "private page")}
     <section aria-labelledby="why-upgrade">
       <h2 id="why-upgrade">1 · Decide whether you need an account</h2>
       <p>You do not need an account to try public catalog packages, inspect rendered objects, or run the public checks.</p>
@@ -4572,7 +4565,6 @@ function demoOrgHtml(catalog) {
     ${humanLinks([["Open README index", "../data/helm-catalog-readmes/summary.md"], ["Browse Catalog", "./charts/index.html"], ["Build an App", "./journey.html"]])}
   </header>
   <main>
-    ${generatedStamp(catalog, "demo org page")}
       <section aria-labelledby="readmes">
         <h2 id="readmes">1. Open one Space and read its README</h2>
         <p>A Space holds one saved configuration and its history. Every maintained example Space has one README that explains why the example exists, what to open, what it shows, and where to find the evidence.</p>
@@ -4712,7 +4704,7 @@ cub k8s get crd --space "*"</code></pre>
         <p>The <a href="./d/docs/user/variants-after-upload.html">variants walkthrough</a> explains each command and flag. The <a href="./journey.html">Apps page</a> explains how to combine your applications with catalog components.</p>
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "demo org page")}<p>Generated from committed helm-expt evidence and the committed org receipts. The demo org shows the mechanism; production claims still come only from receipts.</p></footer>
+  <footer><p>Generated from committed helm-expt evidence and the committed org receipts. The demo org shows the mechanism; production claims still come only from receipts.</p></footer>
 </body>
 </html>
 `;
@@ -5034,7 +5026,6 @@ function customAppsHtml(catalog) {
     ${humanLinks([["See App examples", "./testing.html#apps"], ["Build an App", "./journey.html"], ["Learn ConfigHub", "./confighub.html"]])}
   </header>
   <main>
-    ${generatedStamp(catalog, "custom apps page")}
     <section aria-labelledby="map">
       <h2 id="map">1. Decide where each piece belongs</h2>
       <p>A change to Helm values belongs in the recorded Helm source and produces a new base render. A change to saved Kubernetes objects belongs in a ConfigHub variant. Keep private source and production responsibility in a managed workflow.</p>
@@ -7248,7 +7239,7 @@ ${kpsLifecycleProofPath ? `      <p><strong>Public package lifecycle:</strong> b
       ], { rawSecondColumn: true })}
     </section>
   </main>
-  <footer>${generatedStamp(catalog, "chart status page")}<p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
 </body>
 </html>
 `;

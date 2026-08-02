@@ -271,6 +271,9 @@ for (const check of checks) {
   for (const term of check.terms) {
     if (!text.includes(term)) failures.push(`${check.file}: missing ${JSON.stringify(term)}`);
   }
+  if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(text)) {
+    failures.push(`${check.file}: global generated timestamp appears on a human-facing page`);
+  }
 }
 
 for (const file of menuGuidePages) {
@@ -311,6 +314,9 @@ for (const file of humanSplitPages) {
   }
   const text = fs.readFileSync(fullPath, "utf8");
   const header = text.match(/<header[\s\S]*?<\/header>/)?.[0] ?? "";
+  if (/Generated at:\s*\d{4}-\d{2}-\d{2}T/.test(text)) {
+    failures.push(`${file}: global generated timestamp appears on a human-facing page`);
+  }
   const h1Count = [...text.matchAll(/<h1\b/gi)].length;
   if (h1Count !== 1) failures.push(`${file}: expected one h1, found ${h1Count}`);
   if (!/<p\b[^>]*class="[^"]*(?:lead|tagline)[^"]*"/i.test(header)) {
