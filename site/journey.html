@@ -581,7 +581,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The <a href="d/data/redis-upgrade-app-proof/summary.html">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place, the candidate moves through development and staging, and two Argo CD clusters run both the candidate OCI and the separately published rollback OCI.</p>
+      <p>The <a href="d/data/redis-upgrade-app-proof/summary.html">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place while the candidate moves through development and staging. Two Argo CD clusters run the candidate and rollback OCI releases.</p>
       <p>The <a href="d/data/rbac-review-live-proof/summary.html">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
       <p>Chart evidence still lives in the Configuration Catalog. This page explains how those charts become part of applications your team runs.</p>
     </section>

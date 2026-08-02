@@ -546,14 +546,14 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>Use <a href="./verification.html">Check one claim</a> for the command map, <a href="d/docs/user/verification-lanes.html">Verification Lanes</a> for test meanings, and <a href="d/docs/user/chain-of-proof.html">Chain Of Proof</a> for the boundary between repo evidence, ConfigHub, GitOps, and live observations.</p>
+      <p>Use <a href="./verification.html">Check one claim</a> for the command map. <a href="d/docs/user/verification-lanes.html">Verification Lanes</a> explains test meanings. <a href="d/docs/user/chain-of-proof.html">Chain Of Proof</a> separates repository, ConfigHub, GitOps, and live evidence.</p>
     </section>
 
     <section aria-labelledby="serious">
       <h2 id="serious">3. Check the harder charts</h2>
-      <p>Hard charts are where mistakes hurt: kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, and charts with hooks, CRDs, webhooks, generated secrets, storage, or target facts.</p>
-      <p>This is the expert/SRE problem. Before a fleet change ships, someone needs to know what it touches, what the cluster must already provide, which checks passed, how it will be delivered, and what the live system reported afterward.</p>
-      <p>For these charts, a green render is not enough. The page must say which prerequisites are required, which lifecycle route is selected, what the target observed, and whether the production scope is accepted, superseded, rejected, or still under review.</p>
+      <p>Hard charts are where mistakes hurt. Examples include kube-prometheus-stack, cert-manager, External Secrets, Argo Workflows, Argo Rollouts, stateful databases, hooks, CRDs, and webhooks. Generated Secrets, storage, and target requirements add their own risks.</p>
+      <p>This is the expert and SRE problem. Before a fleet change ships, someone must know what it touches and what the cluster must provide. They also need the check, delivery, and live results.</p>
+      <p>For these charts, a green render is not enough. The page must name the prerequisites, lifecycle route, target observation, and production review status.</p>
       <div class="grid">
         <div class="card"><h3>kube-prometheus-stack</h3><p><a href="d/docs/user/prometheus-high-fanout.html">High-fanout guide</a> and <a href="d/data/hard-chart-production-packets/summary.html">production packet</a>.</p></div>
         <div class="card"><h3>Upgrade crash example</h3><p><a href="d/docs/user/helm-upgrade-crash-example.html">How a high-risk Helm upgrade becomes staged, rehearsed, gated, and observed</a>.</p></div>

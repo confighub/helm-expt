@@ -207,18 +207,7 @@ const guideOpeningChecks = [
   },
 ];
 
-const technicalEnglishPages = [
-  "site/try.html",
-  "site/confighub.html",
-  "site/testing.html",
-  "site/entry-path-reference.html",
-  "site/how-it-works.html",
-  "site/docs.html",
-  "site/hard-questions.html",
-  "site/demo-org.html",
-  "site/serverless.html",
-  "site/ai.html",
-];
+const technicalEnglishPages = [...new Set([...humanSplitPages, "site/demo-org.html", "site/deployment-reference.html"])];
 
 const failures = [];
 const expectedNavLabels = ["Try Redis", "Examples", "Catalog", "Deployment", "ConfigHub", "Docs"];
