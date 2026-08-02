@@ -116,7 +116,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Choose a worked example", "1. Start with a configuration", "Starting input", "First reviewed result", "Evidence and next steps", "Bring your own Helm chart and values", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Choose a worked example", "1. Start with a configuration", "What you have", "Start with this example", "Advanced ConfigHub, promotion, fleet, and App demonstrations remain on this page", "Bring your own Helm chart and values", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/entry-path-reference.html",
