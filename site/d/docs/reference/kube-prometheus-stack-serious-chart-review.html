@@ -433,20 +433,23 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>kube-prometheus-stack: Serious Chart Review</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/kube-prometheus-stack-serious-chart-review.md">View source markdown</a>.</p>
+    <p class="lead">kube-prometheus-stack (<code>prometheus-community/kube-prometheus-stack@85.3.3</code>, bases <code>default</code> and <code>no-crds</code>) is the catalog's deliberately hard chart. This page maps what is proved, what is partial, and what remains - so a reviewer can probe the strongest example without mixing proof levels. Compact table: <a href="../../../../data/serious-chart-reviews/kube-prometheus-stack.csv">data/serious-chart-reviews/kube-prometheus-stack.csv</a>. <a href="../../../../docs/reference/kube-prometheus-stack-serious-chart-review.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL - reviewer-facing snapshot, 2026-07-29.</b> Counts cite generated files; re-check those files before quoting.</p>
-<p>kube-prometheus-stack (<code>prometheus-community/kube-prometheus-stack@85.3.3</code>, bases <code>default</code> and <code>no-crds</code>) is the catalog's deliberately hard chart. This page maps what is proved, what is partial, and what remains - so a reviewer can probe the strongest example without mixing proof levels. Compact table: <a href="../../../../data/serious-chart-reviews/kube-prometheus-stack.csv">data/serious-chart-reviews/kube-prometheus-stack.csv</a>.</p>
+
 <h2 id="why-this-chart-matters">Why This Chart Matters</h2>
 <p>It concentrates most quirk classes in one install: 10 CRDs, admission webhooks with hook-driven cert patching, cluster RBAC, generated facts, hooks across four phases (<code>pre-install, post-install, pre-upgrade, post-upgrade</code>), large object fanout, dependency-locked subcharts (Grafana, exporters), and real image/security surface. If the model only worked on Redis-class charts, it would prove little; this chart is where the claims earn their keep.</p>
 <h2 id="what-current-receipts-prove">What Current Receipts Prove</h2>

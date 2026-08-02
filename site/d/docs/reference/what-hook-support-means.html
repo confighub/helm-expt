@@ -433,19 +433,22 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../confighub.html">ConfigHub</a><a href="../../../docs.html">Docs</a></span></nav></div>
     <h1>What &quot;Hook Support&quot; Means Here</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/what-hook-support-means.md">View source markdown</a>.</p>
+    <p class="lead">Helm hooks are phaseful actions, not objects. Render parity proves an object set; it proves nothing about whether a pre-upgrade migration ran before the workload updated. So this repo never says a chart's hooks &quot;work.&quot; It gives every hook-bearing top-100 chart exactly one disposition, in <a href="../../data/hook-disposition/summary.html"><code>data/hook-disposition/</code></a>, enforced by a verifier that fails when a hook-bearing chart has none. <a href="../../../../docs/reference/what-hook-support-means.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
-<p>Helm hooks are phaseful actions, not objects. Render parity proves an object set; it proves nothing about whether a pre-upgrade migration ran before the workload updated. So this repo never says a chart's hooks &quot;work.&quot; It gives every hook-bearing top-100 chart exactly one disposition, in <a href="../../data/hook-disposition/summary.html"><code>data/hook-disposition/</code></a>, enforced by a verifier that fails when a hook-bearing chart has none.</p>
+
 <h2 id="the-dispositions">The Dispositions</h2>
 <table><thead><tr><th>Disposition</th><th>What it claims</th><th>What it does not claim</th></tr></thead><tbody><tr><td><code>observed</code></td><td>A maintained lifecycle receipt exists from a live run: the hook's resources were inventoried, a route was selected, and the runtime outcome was observed, with a freshness timestamp.</td><td>That the hook works on other bases, values profiles, chart versions, or cluster classes. Receipts age; the next action is always keep-fresh.</td></tr>
 <tr><td><code>routed</code></td><td>A route is selected in the lifecycle vocabulary (preflight, Argo/Flux lifecycle hook, explicit managed action, upgrade action, delete cleanup) and worked evidence exists: rendered hook resources extracted from the pinned chart, plus a live rehearsal that ran or a blocker receipt with the exact failing command output.</td><td>Any live behavior. A route is a classification with evidence, not an execution proof.</td></tr>
