@@ -6179,7 +6179,7 @@ function evidenceDepthSummary(lanes) {
   if (proven.length) parts.push(`Fully proven: ${proven.join(", ")}.`);
   if (partial.length) parts.push(`Proven on some bases: ${partial.join(", ")}.`);
   if (notYet.length) parts.push(`Not yet tested: ${notYet.join(", ")} - a fresh cluster run would prove these.`);
-  return parts.join(" ") || "No lane evidence recorded yet.";
+  return parts.join(" ") || "No test results are recorded yet.";
 }
 
 function packageRequirementsForBase(entry, variant) {
@@ -6742,7 +6742,7 @@ function countRenderedObjects(entry, variant) {
 }
 
 // One row of extracted numbers for a chart's starting base variant: rendered
-// objects, image references, lifecycle routes, and proof lanes passing. Every
+// objects, image references, lifecycle routes, and completed checks. Every
 // figure comes from committed data, so the strip renders only what exists.
 function chartStatStrip(entry, firstRunnableRow) {
   const variant = firstRunnableRow?.variant || entry.start_variant;
@@ -6757,9 +6757,9 @@ function chartStatStrip(entry, firstRunnableRow) {
   const stats = [];
   if (objects) stats.push(`<strong>${objects}</strong> rendered objects`);
   stats.push(`<strong>${images}</strong> image${images === 1 ? "" : "s"}`);
-  stats.push(`<strong>${routes}</strong> lifecycle route${routes === 1 ? "" : "s"}`);
-  if (lanesScored) stats.push(`<strong>${lanesPassing}/${lanesScored}</strong> proof lanes passing`);
-  return `<p class="stat-strip">${variant} base variant: ${stats.join(" · ")}. Every number is extracted from committed data.</p>`;
+  stats.push(`<strong>${routes}</strong> setup record${routes === 1 ? "" : "s"}`);
+  if (lanesScored) stats.push(`<strong>${lanesPassing}/${lanesScored}</strong> checks passing`);
+  return `<p class="stat-strip">${variant} configuration: ${stats.join(" · ")}. These counts come from the linked test records.</p>`;
 }
 
 function humanTargetScope(scope) {
@@ -6786,16 +6786,16 @@ function gitOpsRuntimeReviewHtml(review, reviewPath) {
     "No separate limitation is recorded in this review.";
   const rows = [
     ["Base variant", escapeHtml(spec.base || "not recorded")],
-    ["Target used", escapeHtml(targetParts.join("; ") || "not recorded")],
+    ["Target used", escapeHtml(chartPageText(targetParts.join("; ") || "not recorded"))],
     ["Observed result", `<strong>${escapeHtml(spec.observedResult || "not recorded")}</strong>`],
-    ["What passed", passed.length ? passed.map((item) => escapeHtml(item)).join("<br>") : "No passed checks listed."],
-    ["What the result means", escapeHtml(remaining)],
+    ["What passed", passed.length ? passed.map((item) => escapeHtml(chartPageText(item))).join("<br>") : "No passed checks listed."],
+    ["What the result means", escapeHtml(chartPageText(remaining))],
   ];
   if (spec.previousObservation?.detail) {
-    rows.push(["Earlier result", escapeHtml(spec.previousObservation.detail)]);
+    rows.push(["Earlier result", escapeHtml(chartPageText(spec.previousObservation.detail))]);
   }
   if (boundaries.length) {
-    rows.push(["What this does not prove", boundaries.map((item) => escapeHtml(item)).join("<br>")]);
+    rows.push(["What this does not prove", boundaries.map((item) => escapeHtml(chartPageText(item))).join("<br>")]);
   }
   rows.push(["Full review and receipt", `<a href="../../${escapeHtml(reviewPath)}">Open the runtime review</a>${spec.receipt ? ` · <a href="../../${escapeHtml(spec.receipt)}">open the live receipt</a>` : ""}`]);
   return `<section aria-labelledby="runtime-review">
@@ -6967,12 +6967,12 @@ function chartPageHtml(catalog, entry) {
     ["Package", entry.package_path],
     ["Installer OCI package catalog", "data/installer-oci-packages/summary.md"],
     ["Helm pain report", entry.helm_pain_report],
-    ["Production disposition", "data/production-disposition/summary.md"],
+    ["Production review records", "data/production-disposition/summary.md"],
     ["Support decision", support?.path ?? ""],
     [baseRows.length ? "Base readiness" : "Master matrix rows", baseRows.length ? "data/top20-base-readiness/summary.md" : "data/master-catalog-matrix/summary.md"],
     ["Chart skills", "data/chart-skills/summary.md"],
     ["Chart evidence router", "data/chart-evidence-router/summary.md"],
-    ["Current proof status", "docs/user/current-proof-status.md"],
+    ["Current test status", "docs/user/current-proof-status.md"],
     [gitOpsReview ? "Cluster runtime review" : "", gitOpsReview ? gitOpsReviewPath : ""],
     [kpsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (default)" : "", kpsLifecycleProofPath],
     [kpsNoCrdsLifecycleProofPath ? "Direct hooks and CRDs lifecycle proof (no-crds)" : "", kpsNoCrdsLifecycleProofPath],
@@ -7019,14 +7019,14 @@ function chartPageHtml(catalog, entry) {
   ]) ?? [];
   const factSheetRows = [
     ["User status", humanizeReasonToken(evidenceRoute?.user_status || userReadiness?.user_status || "Status not recorded")],
-    ["Can I use it?", cleanPageActionText(evidenceRoute?.chart_use_answer || "Check the supported base and production boundary")],
+    ["Can I use it?", chartUseMeaning(evidenceRoute?.chart_use_answer || "")],
     ["First base", evidenceRoute?.first_base || entry.start_variant],
     ["Installer package OCI", installerPackageOciRef],
-    ["Current proof", humanizeReasonList(evidenceRoute?.current_proof || entry.proof_status || "See proof lanes")],
+    ["Tests completed", chartPageText(humanizeReasonList(evidenceRoute?.current_proof || entry.proof_status || "See the test results"))],
     ["Coverage", humanizeReasonList(evidenceRoute?.coverage_status || "See coverage evidence")],
-    ["You must provide", cleanPageActionText(evidenceRoute?.user_must_provide || userReadiness?.user_must_provide || "Check target facts and base readiness")],
-    ["What the tools manage", cleanPageActionText(evidenceRoute?.routed_or_absorbed || userReadiness?.confighub_absorbs || "Rendered objects, receipts, and checks")],
-    ["Next action", cleanPageActionText(evidenceRoute?.next_action || top100?.next_action || support?.next_action || "None recorded")],
+    ["You must provide", chartPageText(cleanPageActionText(evidenceRoute?.user_must_provide || userReadiness?.user_must_provide || "Check the target requirements and configuration status"))],
+    ["What the tools record", chartPageText(cleanPageActionText(evidenceRoute?.routed_or_absorbed || userReadiness?.confighub_absorbs || "Rendered objects, test records, and checks"))],
+    ["Next action", chartPageText(cleanPageActionText(evidenceRoute?.next_action || top100?.next_action || support?.next_action || "None recorded"))],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -7043,17 +7043,17 @@ function chartPageHtml(catalog, entry) {
     <p class="lead">${isReadyToTry ? "Choose a tested starting configuration" : "Review a recorded configuration"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
     <p>${isReadyToTry ? "Start with" : "The first recorded configuration is"} <strong>${escapeHtml(entry.start_variant)}</strong>. ${isReadyToTry ? "The page also shows other recorded choices." : "Read its status before use; it is not yet a polished public example."} The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
-    <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
+    <p class="mono" style="font-size:.9rem">Upstream: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
     <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>
     <section aria-labelledby="pillars-here">
-      <h2 id="pillars-here">Three ways this page helps you test</h2>
-      <p>The same three things hold for every package in the catalog, Helm charts and OCI packages alike. <a href="../testing.html">Why this makes configuration easier to test</a>.</p>
+      <h2 id="pillars-here">What this page gives you</h2>
+      <p>Every chart page follows the same order. Choose a configuration, inspect its objects and setup work, then read the tests that have run. <a href="../testing.html">Open the worked examples</a>.</p>
       <div class="grid">
         <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
-        <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
+        <div class="card"><h3><a href="#proof">You can read the test results</a></h3><p>Open the saved results for the Helm comparison, live install, and delivery checks.</p></div>
         <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
@@ -7064,10 +7064,10 @@ function chartPageHtml(catalog, entry) {
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>${isReadyToTry ? "Recommended first base variant" : "First recorded base variant"}</span></div>
         <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants"}</span></div>
-        <div class="metric"><strong>${escapeHtml(catalogStartStatusLabel(entry.start_base_readiness))}</strong><span>First-configuration status</span></div>
+        <div class="metric"><strong>${escapeHtml(isReadyToTry ? catalogStartStatusLabel(entry.start_base_readiness) : "Review before use")}</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>${escapeHtml(productionStatusLabel(production?.production_support ?? entry.production_readiness))}</strong><span>Production status</span></div>
       </div>
-      <p>${escapeHtml(chartUse?.plain_english ?? "Use the public catalog entry, then check the exact base and proof lane before making a production claim.")}</p>
+      <p>${escapeHtml(chartPageText(chartUse?.plain_english ?? "Start with the recommended configuration. Before production, confirm that its tests cover your target."))}</p>
       ${markdownLikeTable([
         ["Question", "Answer"],
         ["Catalog readiness", catalogReadinessLabel(entry)],
@@ -7076,7 +7076,7 @@ function chartPageHtml(catalog, entry) {
         ["OCI publication status", installerPackageStatus],
         ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
         [entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
-        ["Not yet enabled", humanizeReasonList(entry.not_yet_enabled) || "None recorded"],
+        ["Not yet available", chartPageText(entry.not_yet_enabled) || "None recorded"],
         ["Namespace", entry.namespace || "chart default"],
       ])}
     </section>
@@ -7095,30 +7095,30 @@ function chartPageHtml(catalog, entry) {
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">What A Base Variant Records</h2>
-      <p>A base variant solves the first Helm problem: which chart inputs should we use, and what Kubernetes objects do they produce? Each base variant records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes.</p>
-      <p>The ${firstBaseRecordLink} joins those Helm facts to the literal objects, remaining target inputs, hooks and CRDs, apply policy, and OCI handoffs. It is the short record to open when you need the whole base rather than only its rendered YAML.</p>
-      <p>Open the ${firstRenderedObjectsLink} to read the actual manifest output. Then use the render intent, receipts, and chart-extras section to see the inputs, checks, and CRD/hook/setup decisions around it.</p>
-      <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant that can be reviewed and kept through upgrades.</p>
+      <h2 id="render-record-route">What The Starting Configuration Records</h2>
+      <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>
+      <p>The ${firstBaseRecordLink} connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
+      <p>Open the ${firstRenderedObjectsLink} to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
+      <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
       ${markdownLikeTable([
         ["Key", "Where to look first", "What it means"],
         ["Package users pull", `<code>${escapeHtml(installerPackageOciRef)}</code>`, `The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. ${INSTALLER_OCI_AUTH_NOTE}`],
         ["Required before apply", packageRequirementTableRows.map(([name, source]) => `${escapeHtml(name)}${source ? `<br>${source}` : ""}`).join("<br>"), "External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact."],
         ["Kubernetes objects", firstRenderedObjectsLink, "The full YAML captured from this base variant. It is the output of the render."],
         ["Render record", firstRenderIntentLink, "The Helm inputs and evidence links that explain how the output was produced."],
-        ["Base variant record", firstBaseRecordLink, "The source-neutral record that joins the Helm record, literal objects, remaining inputs, routes, policy, and OCI status."],
-        ["Hooks, CRDs, and setup work", `<a href="#lifecycle">this page's chart-extras section</a>`, "The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers."],
+        ["Complete starting record", firstBaseRecordLink, "The record that connects the Helm inputs, Kubernetes objects, remaining requirements, setup work, checks, and OCI status."],
+        ["Hooks, CRDs, and setup work", `<a href="#lifecycle">this page's setup section</a>`, "Instructions and decisions for hooks, CRDs, generated Secrets, setup jobs, cluster requirements, or blockers."],
       ], { rawSecondColumn: true })}
       <div class="grid">
         <div class="card"><h3>Choose base variant</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
-        <div class="card"><h3>Record inputs</h3><p>Keep the values profile, namespace, release name, source lock, ${firstRenderIntentLink}, full YAML output, package base, proof lanes, and route context together.</p></div>
+        <div class="card"><h3>Record inputs</h3><p>Keep the values, namespace, release name, source lock, ${firstRenderIntentLink}, full YAML output, package base, test results, and setup instructions together.</p></div>
         <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a base variant, some need a setup step, and some are blocked until there is a safe path.</p></div>
       </div>
       <p><a href="../../docs/user/helm-render-intents.md">How render intents work</a> · <a href="../../data/helm-render-intents/summary.md">All generated render intents</a> · <a href="../../data/base-variant-records/summary.md">All base variant records</a></p>
     </section>
 
     <section aria-labelledby="run-this">
-      <h2 id="run-this">How To Try This Chart</h2>
+      <h2 id="run-this">Try This Chart</h2>
       <p>${isReadyToTry ? `Start with <strong>${escapeHtml(entry.start_variant)}</strong>.` : `Review <strong>${escapeHtml(entry.start_variant)}</strong> before use.`} If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
@@ -7139,9 +7139,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 ${teaching ? `\n    ${teaching}\n` : ""}
 
     <section aria-labelledby="matrix-options">
-      <h2 id="matrix-options">Base Variants And Options</h2>
+      <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
-      <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
+      <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
       <p class="mono" style="font-size:.9rem">${escapeHtml(matrixRows.length)} matrix row${matrixRows.length === 1 ? "" : "s"} for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)} · <a href="../matrix.html">open the full matrix</a></p>
       ${matrixRows.length ? `<div class="matrix-row-grid">${matrixRows.map((row) => matrixRowCard(row, entry, catalog)).join("")}</div>` : "<p>No matrix rows are recorded for this chart/version.</p>"}
     </section>
@@ -7165,27 +7165,27 @@ ${teaching ? `\n    ${teaching}\n` : ""}
     ${chartAdoptionCaveatHtml(adoptionCaveat, packageRequirements, firstLifecycleRoutes)}
 
     <section aria-labelledby="playbooks">
-      <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
-      <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
+      <h2 id="playbooks">Advice And Current Status</h2>
+      <p>Use this section to see which chart-specific guides apply, what you must provide, and what work remains.</p>
       ${skillRows.length
         ? markdownLikeTable([
             ["Playbook", "Why it applies"],
             ...skillRows,
           ], { rawFirstColumn: true })
-        : "<p>No special operating playbook is assigned for this chart. Use the base readiness and proof lanes.</p>"}
+        : "<p>No special operating guide is assigned for this chart. Use the configuration status and test results on this page.</p>"}
       ${markdownLikeTable([
-        ["Fact", "Current chart-level route"],
+        ["Question", "Current answer"],
         ...factSheetRows,
       ])}
       <p>The source data lives in <a href="../../data/chart-skills/summary.md">chart skills</a> and <a href="../../data/chart-evidence-router/summary.md">chart evidence router</a>.</p>
     </section>
 
     <section aria-labelledby="proof">
-      <h2 id="proof">Proof Lanes</h2>
-      <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
+      <h2 id="proof">What Has Been Tested</h2>
+      <p>Each check answers a different question. A watch, blocked, or missing result names work that remains. It does not change a passing Helm render match.</p>
       <p><strong>How much is proven, and what more testing would add:</strong> ${evidenceDepthSummary(lanes)}</p>
       ${markdownLikeTable([
-        ["Lane", "Status across bases"],
+        ["Check", "Status across configurations"],
         ...lanes,
       ])}
       ${markdownLikeTable([
@@ -7195,15 +7195,15 @@ ${teaching ? `\n    ${teaching}\n` : ""}
     </section>${gitOpsReview ? `\n\n    ${gitOpsRuntimeReviewHtml(gitOpsReview, gitOpsReviewPath)}` : ""}
 
     <section aria-labelledby="quirks">
-      <h2 id="quirks">Quirks And Inputs</h2>
-      <p>${escapeHtml(userReadiness?.confighub_absorbs ?? "ConfigHub keeps the rendered objects, proof receipts, and support boundary explicit.")}</p>
+      <h2 id="quirks">What You Must Provide</h2>
+      <p>${escapeHtml(chartPageText(userReadiness?.confighub_absorbs ?? "ConfigHub records the rendered objects, test results, and current limits."))}</p>
       ${markdownLikeTable([
         ["Field", "Value"],
-        ["Known quirks", userReadiness?.quirks || top100?.source_features || entry.source_features || "none surfaced"],
-        ["User must provide", userReadiness?.user_must_provide || "check base readiness and target facts"],
-        ["ConfigHub absorbs", userReadiness?.confighub_absorbs || "exact rendered objects, checks, receipts, and catalog evidence"],
-        ["Extension slots", extension?.surfaces || "none surfaced in chart facts"],
-        ["Extension route", extension?.current_route || "no extension-slot route recorded"],
+        ["Known quirks", chartPageText(humanizeReasonList(userReadiness?.quirks || top100?.source_features || entry.source_features || "None identified"))],
+        ["You must provide", chartPageText(userReadiness?.user_must_provide || "Check the configuration status and target requirements")],
+        ["What ConfigHub records", chartPageText(userReadiness?.confighub_absorbs || "Exact rendered objects, checks, test results, and catalog evidence")],
+        ["Optional chart inputs", chartPageText(humanizeReasonList(extension?.surfaces || "None identified in the chart facts"))],
+        ["How optional inputs are handled", chartPageText(humanizeReasonList(extension?.current_route || "No handling rule is recorded"))],
       ])}
     </section>
 
@@ -7239,29 +7239,29 @@ ${kpsLifecycleProofPath ? `      <p><strong>Public package lifecycle:</strong> b
     </section>
 
     <section aria-labelledby="production">
-      <h2 id="production">Production Boundary</h2>
+      <h2 id="production">Before Production</h2>
       <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
       ${markdownLikeTable([
         ["Field", "Value"],
-        ["Production disposition", production?.production_support ?? entry.production_readiness],
+        ["Production review status", productionStatusLabel(production?.production_support ?? entry.production_readiness)],
         ["Target-scoped support decision", support?.decision ?? "not recorded"],
         ["Supported base", support?.supported_base ?? ""],
         ["Target scope", humanTargetScope(support?.target_scope)],
-        ["Accepted dispositions", acceptedDispositions.join("; ") || "none recorded"],
-        ["Open policy dispositions", openDispositions.join("; ") || "none recorded for this policy checklist"],
-        ["Next action", support?.next_action || production?.next_action || top100?.next_action || ""],
+        ["Accepted limits", chartPageText(acceptedDispositions.join("; ")) || "None recorded"],
+        ["Open policy decisions", chartPageText(openDispositions.join("; ")) || "None recorded for this policy checklist"],
+        ["Next action", chartPageText(support?.next_action || production?.next_action || top100?.next_action || "")],
       ])}
     </section>
 
     <section aria-labelledby="files">
-      <h2 id="files">Files To Inspect</h2>
+      <h2 id="files">Source And Evidence Files</h2>
       ${markdownLikeTable([
         ["Artifact", "Path"],
         ...artifactRows.map(([label, path]) => [label, `<a href="../../${path}">${path}</a>`]),
       ], { rawSecondColumn: true })}
     </section>
   </main>
-  <footer><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
 </body>
 </html>
 `;
@@ -7349,10 +7349,10 @@ helm install prometheus prometheus-community/prometheus --version 29.8.0 --names
         <h3>What to look for</h3>
         ${markdownLikeTable([
           ["Area", "Why it matters"],
-          ["CRDs", "Render parity is not enough; CRD lifecycle and upgrades need explicit checks."],
-          ["Webhooks", "Admission readiness and certificates are live lifecycle facts."],
-          ["Target facts", "The target cluster shape affects whether the rendered objects can run."],
-          ["Watch rows", "A non-green row can be the honest result when lifecycle evidence or target support is bounded."],
+          ["CRDs", "CRDs must be installed and upgraded in the right order. A matching render does not prove that."],
+          ["Webhooks", "Admission webhooks need working certificates and must be ready before dependent resources are applied."],
+          ["Cluster requirements", "Storage, APIs, and other cluster capabilities determine whether the objects can run."],
+          ["Watch results", "A Watch result tells you which deployment question is still open."],
         ])}
       </div>
       <p>${entry.version === "85.3.3" ? "The public package has run that full fresh-install sequence. A separate isolated client pulled the same package with no ConfigHub account or registry login and received all nine lifecycle files. The <code>no-crds</code> base also ran from one staged OCI digest through Argo CD and Flux on separate fresh clusters, then upgraded to the 86.1.0 staged digest. Both controllers reran the ordered stages, replaced the completed setup Jobs, and reached the six checked workloads after upgrade." : "The 86.1.0 public package carries its own checked CRDs and admission setup files. An isolated client pulled and rendered it without a ConfigHub account or registry login. It then served as the tested upgrade target for the 85.3.3 <code>no-crds</code> staged OCI through both Argo CD and Flux. This does not claim a standalone 86.1.0 fresh install."} ConfigHub does not yet select the route automatically, and the receipt does not prove rollback or long-running soak.</p>
@@ -7449,6 +7449,7 @@ function humanizeReasonList(value) {
 
 function humanizeReasonToken(token) {
   const labels = {
+    "ha (curated proof lane - bespoke teaching needed)": "The catalog has not yet tested a realistic high-availability configuration for this chart.",
     "namespace-mutation-not-yet-modeled": "Namespace changes are not modeled for this variant yet.",
     "redis-secret-delivery-not-yet-modeled": "Redis Secret delivery is not modeled for this variant yet.",
     "not-applicable-derived-variant": "This check does not apply to a derived variant.",
@@ -7598,7 +7599,7 @@ function matrixRowCard(row, entry, catalog) {
           </div>
           <span class="row-kind">${escapeHtml(matrixRowKindLabel(row.row_kind))}</span>
         </div>
-        <p class="row-purpose">${escapeHtml(matrixRowPurpose(row))}</p>
+        <p class="row-purpose">${escapeHtml(chartPageText(matrixRowPurpose(row)))}</p>
         <dl>
           <dt>Status</dt><dd>${escapeHtml(matrixRowStatusLabel(row))}</dd>${renderIntent ? `
           <dt>Helm values</dt><dd>${renderIntentValuesLink(renderIntent)}</dd>
@@ -7610,10 +7611,10 @@ function matrixRowCard(row, entry, catalog) {
           <dt>Who runs actions?</dt><dd>${escapeHtml(matrixActionOwnerSummary(row, packagedActions))}</dd>${renderIntent ? `
           <dt>Lifecycle record</dt><dd>${escapeHtml(lifecycleContractText(renderIntent, packagedActions))}${renderIntentLink}</dd>
           <dt>Prerequisites</dt><dd>${escapeHtml(targetContractText(renderIntent))}</dd>` : ""}
-          <dt>Next</dt><dd>${escapeHtml(humanNextAction)}</dd>
-          ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(humanReason)}</dd>` : ""}
+          <dt>Next</dt><dd>${escapeHtml(chartPageText(humanNextAction))}</dd>
+          ${humanReason ? `<dt>Reason</dt><dd>${escapeHtml(chartPageText(humanReason))}</dd>` : ""}
         </dl>
-        <div class="lane-strip" aria-label="Proof lanes for ${escapeHtml(title)}">
+        <div class="lane-strip" aria-label="Checks for ${escapeHtml(title)}">
           ${laneBadges.map(([code, label, value]) => lanePill(code, label, value)).join("")}
         </div>
         ${rowLinks.length ? `<p class="row-links">${rowLinks.join(" · ")}</p>` : ""}
@@ -7625,6 +7626,53 @@ function cleanPageActionText(value) {
     const label = UNKNOWN_ACTION_LABELS[action];
     return label ?? action.replaceAll("-", " ");
   });
+}
+
+function chartPageText(value) {
+  return String(value ?? "")
+    .replaceAll("\u2014", "-")
+    .replace(/check the exact base and lane/gi, "check the exact configuration and its tests")
+    .replace(/ha \(curated proof lane - bespoke teaching needed\)/gi, "A realistic high-availability configuration has not yet been tested for this chart")
+    .replace(/ha \(curated tests - bespoke teaching needed\)/gi, "A realistic high-availability configuration has not yet been tested for this chart")
+    .replace(/The mechanism works, but the current base is too default-shaped to be a good user offer\./gi, "The basic checks pass, but the catalog still needs a useful starting configuration for this chart.")
+    .replace(/- \(no open gap: recommended capabilities built or n\/a; quirks modeled - level 2\)/gi, "No specific missing capability is recorded. The first configuration still needs review.")
+    .replace(/proof grade ready for promotion review/gi, "Tests complete; ready for catalog review")
+    .replace(/proof grade needs user shaped variant/gi, "The basic checks passed, but this chart still needs a useful reviewed configuration")
+    .replace(/proof[- ]grade/gi, "checked")
+    .replace(/user[- ]shaped variants?/gi, (match) => match.toLowerCase().endsWith("s") ? "useful reviewed configurations" : "useful reviewed configuration")
+    .replace(/your wanted install shape/gi, "the chart settings you need")
+    .replace(/useful operating shape/gi, "useful starting configuration")
+    .replace(/normal cloud ingress controller shape/gi, "normal cloud ingress controller configuration")
+    .replace(/too default-shaped/gi, "too close to the chart default")
+    .replace(/default-shaped/gi, "close to the chart default")
+    .replace(/proof lanes?/gi, "tests")
+    .replace(/live\/e2e observation lane/gi, "live end-to-end evidence")
+    .replace(/re render via the recipe lane/gi, "render again from the recorded recipe")
+    .replace(/then realize variant\+revision\+package base/gi, "then create the configuration, revision, and package base")
+    .replace(/extension slot provenance and scan policy/gi, "optional input sources and scan policy")
+    .replace(/scan\/gate warning disposition/gi, "warning review and apply-gate policy")
+    .replace(/target fact preflight/gi, "cluster requirement checks before deployment")
+    .replace(/generated fact ownership/gi, "ownership of generated values")
+    .replace(/hook and lifecycle phase policy/gi, "hook and setup order")
+    .replace(/storage backup restore and rollback policy/gi, "storage backup, restore, and rollback policy")
+    .replace(/extension slots routed to reviewed bases/gi, "optional chart inputs handled by reviewed base configurations")
+    .replace(/extension slots/gi, "optional chart inputs")
+    .replace(/production disposition/gi, "production review")
+    .replace(/kind proof rig/gi, "kind test cluster")
+    .replace(/all three live legs/gi, "all three deployment paths")
+    .replace(/\blive legs\b/gi, "deployment paths")
+    .replace(/\blive leg\b/gi, "deployment path")
+    .replace(/\bproof rig\b/gi, "test cluster")
+    .replace(/the same runtime boundary/gi, "the same result")
+    .replace(/curated proof lane - bespoke teaching needed/gi, "a realistic high-availability configuration has not yet been tested")
+    .replace(/\bConfigHub absorbs\b/g, "ConfigHub records")
+    .replace(/\bdispositions\b/gi, "decisions")
+    .replace(/\bdisposition\b/gi, "decision")
+    .replace(/\blanes\b/gi, "tests")
+    .replace(/\blane\b/gi, "test")
+    .replace(/\bshape\b/gi, "configuration")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function matrixRowRunPath(row, entry, options = {}) {
@@ -7897,18 +7945,36 @@ function productionDispositionActionRows(production) {
   const rows = [];
   const accepted = splitDisposition(production.accepted_dispositions);
   const open = splitDisposition(production.open_dispositions);
-  if (accepted.length) rows.push(["Accepted action areas", accepted.join("; ")]);
-  if (open.length) rows.push(["Open action areas", open.join("; ")]);
+  if (accepted.length) rows.push(["Checks and policies already reviewed", accepted.map((item) => chartPageText(item)).join("; ")]);
+  if (open.length) rows.push(["Checks and policies still open", open.map((item) => chartPageText(item)).join("; ")]);
   if (production.lifecycle_policy_basis && production.lifecycle_policy_basis !== "none") {
-    rows.push(["Lifecycle basis", escapeHtml(production.lifecycle_policy_basis)]);
+    rows.push(["Why this lifecycle status is shown", lifecyclePolicyBasisText(production.lifecycle_policy_basis)]);
   }
   if (production.lifecycle_observation_receipts) {
-    rows.push(["Lifecycle observations", pathLinks(production.lifecycle_observation_receipts)]);
+    rows.push(["Lifecycle test records", namedPathLinks(production.lifecycle_observation_receipts, "Open lifecycle record")]);
   }
   if (production.production_disposition_receipts) {
-    rows.push(["Disposition receipts", pathLinks(production.production_disposition_receipts)]);
+    rows.push(["Production review records", namedPathLinks(production.production_disposition_receipts, "Open review record")]);
   }
   return rows;
+}
+
+function lifecyclePolicyBasisText(value) {
+  const text = String(value || "");
+  const noHooks = text.includes("recipe-hook-policy:no-hooks");
+  const observations = text.match(/lifecycle-observations:(\d+)\/(\d+)/);
+  if (noHooks && observations) {
+    return `The recipe records no separate Helm hooks, and ${observations[1]} of ${observations[2]} lifecycle checks passed.`;
+  }
+  if (noHooks) return "The recipe records no separate Helm hook that needs its own action.";
+  return chartPageText(humanizeReasonList(text));
+}
+
+function namedPathLinks(value, label) {
+  const paths = splitDisposition(value);
+  return paths
+    .map((path, index) => `<a href="../../${escapeHtml(path)}">${escapeHtml(`${label}${paths.length === 1 ? "" : ` ${index + 1}`}`)}</a>`)
+    .join("<br>");
 }
 
 function pathLinks(value) {
@@ -8063,9 +8129,9 @@ function hardGapBucketMeaning(bucket) {
 
 function chartUseMeaning(answer) {
   return {
-    "yes-public-catalog": "Use the public catalog entry, then check the exact base and lane.",
-    "not-yet-public-catalog-proof-ready": "Proof and useful variants exist, but catalog promotion review is not done.",
-    "not-yet-user-ready": "The current proof is too default-shaped; design a better base variant first.",
+    "yes-public-catalog": "Use the public catalog entry, then check the exact configuration and its tests.",
+    "not-yet-public-catalog-proof-ready": "Tests and useful configurations exist, but the catalog review is not finished.",
+    "not-yet-user-ready": "The current configuration is too close to the chart default; design a more useful starting configuration first.",
     "decision-needed-first": "A named capability gap must be supported, disclosed, deferred, or blocked first.",
   }[answer] ?? "Review before recommending.";
 }

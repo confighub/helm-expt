@@ -435,34 +435,34 @@
     <p class="lead">Review a recorded configuration for rook-release/rook-ceph-cluster@v1.19.5. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
     <p>The first recorded configuration is <strong>default</strong>. Read its status before use; it is not yet a polished public example. The page does not claim every possible values combination.</p>
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
-    <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=rook-ceph-cluster&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
+    <p class="mono" style="font-size:.9rem">Upstream: <a href="https://artifacthub.io/packages/search?ts_query_web=rook-ceph-cluster&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
     <p class="tagline">Catalog readiness: Checked; review before use.</p>
     <pre>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5 --base default --work-dir ./rook-release-rook-ceph-cluster-v1-19-5-default --non-interactive --namespace default</pre>
   </header>
   <main>
     <section aria-labelledby="pillars-here">
-      <h2 id="pillars-here">Three ways this page helps you test</h2>
-      <p>The same three things hold for every package in the catalog, Helm charts and OCI packages alike. <a href="../testing.html">Why this makes configuration easier to test</a>.</p>
+      <h2 id="pillars-here">What this page gives you</h2>
+      <p>Every chart page follows the same order. Choose a configuration, inspect its objects and setup work, then read the tests that have run. <a href="../testing.html">Open the worked examples</a>.</p>
       <div class="grid">
         <div class="card"><h3><a href="#render-record-route">Most choices are made before you install</a></h3><p>The package fixes and checks almost everything at build time. What you set is small and typed.</p></div>
-        <div class="card"><h3><a href="#proof">You can read the proof</a></h3><p>Render parity, live install, and delivery, recorded as receipts you can open.</p></div>
+        <div class="card"><h3><a href="#proof">You can read the test results</a></h3><p>Open the saved results for the Helm comparison, live install, and delivery checks.</p></div>
         <div class="card"><h3><a href="#lifecycle">See hooks, CRDs, and setup work</a></h3><p>The page names the work and says which delivery path has actually run.</p></div>
       </div>
     </section>
 
     <section aria-labelledby="summary">
       <h2 id="summary">What To Use</h2>
-      <p class="stat-strip">default base variant: <strong>27</strong> rendered objects · <strong>1</strong> image · <strong>0</strong> lifecycle routes · <strong>3/6</strong> proof lanes passing. Every number is extracted from committed data.</p>
+      <p class="stat-strip">default configuration: <strong>27</strong> rendered objects · <strong>1</strong> image · <strong>0</strong> setup records · <strong>3/6</strong> checks passing. These counts come from the linked test records.</p>
       <div class="grid">
         <div class="metric"><strong>default</strong><span>First recorded base variant</span></div>
         <div class="metric"><strong>1</strong><span>Candidate base variants</span></div>
-        <div class="metric"><strong>Status not recorded</strong><span>First-configuration status</span></div>
+        <div class="metric"><strong>Review before use</strong><span>First-configuration status</span></div>
         <div class="metric"><strong>Not reviewed for production</strong><span>Production status</span></div>
       </div>
-      <p>The mechanism works, but the current base is too default-shaped to be a good user offer.</p>
+      <p>The basic checks pass, but the catalog still needs a useful starting configuration for this chart.</p>
       <div class="card"><table>
         <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-        <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>v1.19.5</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet enabled</td><td>- (no open gap: recommended capabilities built or n/a; Quirks modeled - Level 2)</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
+        <tbody><tr><td>Catalog readiness</td><td>Checked; review before use</td></tr><tr><td>Chart version</td><td>v1.19.5</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</td></tr><tr><td>OCI publication status</td><td>publication receipt recorded</td></tr><tr><td>Latest upstream seen</td><td>not checked</td></tr><tr><td>Candidate base variants</td><td>default</td></tr><tr><td>Not yet available</td><td>No specific missing capability is recorded. The first configuration still needs review.</td></tr><tr><td>Namespace</td><td>default</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -490,14 +490,14 @@
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">What A Base Variant Records</h2>
-      <p>A base variant solves the first Helm problem: which chart inputs should we use, and what Kubernetes objects do they produce? Each base variant records the Helm chart version, values profile, namespace, release name, capability profile, source lock, generated output, and evidence lanes.</p>
-      <p>The <a href="../../data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default base-variant record</a> joins those Helm facts to the literal objects, remaining target inputs, hooks and CRDs, apply policy, and OCI handoffs. It is the short record to open when you need the whole base rather than only its rendered YAML.</p>
-      <p>Open the <a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output. Then use the render intent, receipts, and chart-extras section to see the inputs, checks, and CRD/hook/setup decisions around it.</p>
-      <p>If your values file creates a new useful operating shape, it should become another base variant with its own recorded inputs and checks. If it only changes an already-rendered field after upload, it belongs in a derived ConfigHub variant that can be reviewed and kept through upgrades.</p>
+      <h2 id="render-record-route">What The Starting Configuration Records</h2>
+      <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>
+      <p>The <a href="../../data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default base-variant record</a> connects those Helm inputs to the Kubernetes objects, remaining requirements, hooks, CRDs, checks, and OCI status. Open it when you need the complete starting record rather than only the rendered YAML.</p>
+      <p>Open the <a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a> to read the actual manifest output. The render record and setup section explain the inputs, tests, CRDs, hooks, and other work around it.</p>
+      <p>If new Helm values create a useful starting configuration, record another base variant with its own inputs and checks. If one environment changes a field after rendering, record that change in a ConfigHub variant.</p>
       <div class="card"><table>
         <thead><tr><th>Key</th><th>Where to look first</th><th>What it means</th></tr></thead>
-        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>5 CRDs<br>Included in the OCI package as <code>prerequisites/target-facts/default-crds.yaml</code>. It applies missing CRDs server-side. The generated try script leaves existing CRDs under their current owner and waits for them before the workload.<br>Namespace rook-ceph<br><code>kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -</code></td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Base variant record</td><td><a href="../../data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default base-variant record</a></td><td>The source-neutral record that joins the Helm record, literal objects, remaining inputs, routes, policy, and OCI status.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's chart-extras section</a></td><td>The route decisions for non-plain-YAML work: hooks, CRDs, generated Secrets, setup jobs, target facts, or blockers.</td></tr></tbody>
+        <tbody><tr><td>Package users pull</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</code></td><td>The installer package OCI ref for this chart version. After publication, it contains the available bases and package metadata. Public catalog package refs are published in Google Artifact Registry with anonymous read access. No ConfigHub account or Google registry login is needed for the local setup path.</td></tr><tr><td>Required before apply</td><td>5 CRDs<br>Included in the OCI package as <code>prerequisites/target-facts/default-crds.yaml</code>. It applies missing CRDs server-side. The generated try script leaves existing CRDs under their current owner and waits for them before the workload.<br>Namespace rook-ceph<br><code>kubectl create namespace rook-ceph --dry-run=client -o yaml | kubectl apply -f -</code></td><td>External resources the recommended base variant expects, such as an existing Secret, namespace, CRD, or target fact.</td></tr><tr><td>Kubernetes objects</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml">full rendered YAML</a></td><td>The full YAML captured from this base variant. It is the output of the render.</td></tr><tr><td>Render record</td><td><a href="../../data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default render intent</a></td><td>The Helm inputs and evidence links that explain how the output was produced.</td></tr><tr><td>Complete starting record</td><td><a href="../../data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default base-variant record</a></td><td>The record that connects the Helm inputs, Kubernetes objects, remaining requirements, setup work, checks, and OCI status.</td></tr><tr><td>Hooks, CRDs, and setup work</td><td><a href="#lifecycle">this page's setup section</a></td><td>Instructions and decisions for hooks, CRDs, generated Secrets, setup jobs, cluster requirements, or blockers.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -507,14 +507,14 @@
       </style>
       <div class="grid">
         <div class="card"><h3>Choose base variant</h3><p>Pick the supported Helm configuration for this chart: default, no-CRDs, existing Secret, HA, server-only, or another listed option.</p></div>
-        <div class="card"><h3>Record inputs</h3><p>Keep the values profile, namespace, release name, source lock, <a href="../../data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default render intent</a>, full YAML output, package base, proof lanes, and route context together.</p></div>
+        <div class="card"><h3>Record inputs</h3><p>Keep the values, namespace, release name, source lock, <a href="../../data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">default render intent</a>, full YAML output, package base, test results, and setup instructions together.</p></div>
         <div class="card"><h3>Handle chart extras</h3><p>CRDs, hooks, setup jobs, external Secrets, target facts, and webhook certificates are recorded as chart-specific choices. Some are included in a base variant, some need a setup step, and some are blocked until there is a safe path.</p></div>
       </div>
       <p><a href="../d/docs/user/helm-render-intents.html">How render intents work</a> · <a href="../d/data/helm-render-intents/summary.html">All generated render intents</a> · <a href="../d/data/base-variant-records/summary.html">All base variant records</a></p>
     </section>
 
     <section aria-labelledby="run-this">
-      <h2 id="run-this">How To Try This Chart</h2>
+      <h2 id="run-this">Try This Chart</h2>
       <p>Review <strong>default</strong> before use. If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
@@ -536,9 +536,9 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
 
 
     <section aria-labelledby="matrix-options">
-      <h2 id="matrix-options">Base Variants And Options</h2>
+      <h2 id="matrix-options">Available Configurations</h2>
       <p>Each card is one available way to use this chart in the catalog. Some cards are runnable base variants. Others are candidate paths, derived variants, or review notes that explain what still has to be prepared.</p>
-      <p class="small"><strong>Check labels:</strong> R = render parity, C = ConfigHub proof, L = local cluster, Y = lifecycle actions, G = GitOps/OCI, P = live Helm-vs-ConfigHub parity, K = two-cluster kind parity, V = variant promotion.</p>
+      <p class="small"><strong>Check labels:</strong> R = Helm render match, C = saved in ConfigHub, L = local cluster, Y = setup actions, G = GitOps/OCI, P = live Helm comparison, K = two clusters, V = promotion.</p>
       <p class="mono" style="font-size:.9rem">3 matrix rows for rook-release/rook-ceph-cluster@v1.19.5 · <a href="../matrix.html">open the full matrix</a></p>
       <div class="matrix-row-grid"><article class="matrix-row-card">
         <div class="matrix-row-head">
@@ -558,7 +558,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Next</dt><dd>Choose or create an F2 base before rendering or deploying</dd>
           <dt>Reason</dt><dd>Source rows are upstream chart inputs; Not server side promotion evidence</dd>
         </dl>
-        <div class="lane-strip" aria-label="Proof lanes for (source)">
+        <div class="lane-strip" aria-label="Checks for (source)">
           <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.html">catalog</a> · <a href="https://charts.rook.io/release" rel="noopener">source repo</a></p>
@@ -585,7 +585,7 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Next</dt><dd>Stage prerequisite</dd>
           <dt>Reason</dt><dd>Target prerequisite: namespace missing (parity passed)</dd>
         </dl>
-        <div class="lane-strip" aria-label="Proof lanes for default">
+        <div class="lane-strip" aria-label="Checks for default">
           <span class="lane-pill yes" title="Render: yes"><b>R</b><em>yes</em></span><span class="lane-pill yes" title="ConfigHub: yes"><b>C</b><em>yes</em></span><span class="lane-pill yes" title="Local: yes"><b>L</b><em>yes</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill no" title="GitOps: no"><b>G</b><em>no</em></span><span class="lane-pill no" title="Live parity: no"><b>P</b><em>no</em></span><span class="lane-pill no" title="Kind parity: no"><b>K</b><em>no</em></span><span class="lane-pill yes" title="Promotion: yes"><b>V</b><em>yes</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.html">catalog</a> · <a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/variants/default/variant.yaml">variant</a> · <a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml">full YAML</a> · <a href="../../data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">render intent</a> · <a href="../../data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">base record</a> · <a href="../../packages/rook-release/rook-ceph-cluster/v1.19.5/bases/default">package base</a> · <a href="../../runs/rook-ceph-cluster-default-confighub-proof/latest/variant-promotion-receipt.yaml">receipt</a> · <a href="https://charts.rook.io/release" rel="noopener">source repo</a></p>
@@ -604,10 +604,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
           <dt>Evidence</dt><dd>Planning evidence only</dd>
           <dt>Hooks/actions</dt><dd>No separate hook or action for this row.</dd>
           <dt>Who runs actions?</dt><dd>No separate action runner for this row.</dd>
-          <dt>Next</dt><dd>Create namespace: Namespace rook ceph; Npm run live parity:run      recipe recipes/rook release/rook ceph cluster/v1.19.5   base default</dd>
+          <dt>Next</dt><dd>Create namespace: Namespace rook ceph; Npm run live parity:run recipe recipes/rook release/rook ceph cluster/v1.19.5 base default</dd>
           <dt>Reason</dt><dd>Candidate rows are planning rows; Not server side promotion evidence</dd>
         </dl>
-        <div class="lane-strip" aria-label="Proof lanes for default + namespace">
+        <div class="lane-strip" aria-label="Checks for default + namespace">
           <span class="lane-pill na" title="Render: n/a"><b>R</b><em>n/a</em></span><span class="lane-pill na" title="ConfigHub: n/a"><b>C</b><em>n/a</em></span><span class="lane-pill na" title="Local: n/a"><b>L</b><em>n/a</em></span><span class="lane-pill na" title="Lifecycle: n/a"><b>Y</b><em>n/a</em></span><span class="lane-pill na" title="GitOps: n/a"><b>G</b><em>n/a</em></span><span class="lane-pill na" title="Live parity: n/a"><b>P</b><em>n/a</em></span><span class="lane-pill na" title="Kind parity: n/a"><b>K</b><em>n/a</em></span><span class="lane-pill na" title="Promotion: n/a"><b>V</b><em>n/a</em></span>
         </div>
         <p class="row-links"><a href="../d/recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.html">catalog</a> · <a href="../../runs/live-helm-confighub-compare/rook-release-rook-ceph-cluster-default/receipt.yaml">receipt</a> · <a href="https://charts.rook.io/release" rel="noopener">source repo</a></p>
@@ -646,8 +646,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="playbooks">
-      <h2 id="playbooks">Operator Playbooks And Fact Sheet</h2>
-      <p>This is the quick route for a human or agent: which operating playbook applies, what the current user-facing answer is, and what the next proof or product action would add.</p>
+      <h2 id="playbooks">Advice And Current Status</h2>
+      <p>Use this section to see which chart-specific guides apply, what you must provide, and what work remains.</p>
       <div class="card"><table>
         <thead><tr><th>Playbook</th><th>Why it applies</th></tr></thead>
         <tbody><tr><td><a href="../d/docs/skills/live-parity.html">Live Parity</a></td><td>has live, GitOps/OCI, or two-cluster parity work</td></tr></tbody>
@@ -659,8 +659,8 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
         th { color: var(--muted); font-weight: 600; }
       </style>
       <div class="card"><table>
-        <thead><tr><th>Fact</th><th>Current chart-level route</th></tr></thead>
-        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>not-yet-user-ready</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</td></tr><tr><td>Current proof</td><td>Proof grade needs user shaped variant (render parity 1/1; Local live 1/1; Live parity 0/1)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td></tr><tr><td>What the tools manage</td><td>exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td></tr><tr><td>Next action</td><td>add at least one user-shaped variant before catalog promotion</td></tr></tbody>
+        <thead><tr><th>Question</th><th>Current answer</th></tr></thead>
+        <tbody><tr><td>User status</td><td>Needs better base variant</td></tr><tr><td>Can I use it?</td><td>The current configuration is too close to the chart default; design a more useful starting configuration first.</td></tr><tr><td>First base</td><td>default</td></tr><tr><td>Installer package OCI</td><td>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/rook-release-rook-ceph-cluster:v1.19.5</td></tr><tr><td>Tests completed</td><td>The basic checks passed, but this chart still needs a useful reviewed configuration (render parity 1/1; Local live 1/1; Live parity 0/1)</td></tr><tr><td>Coverage</td><td>Partial</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); the chart settings you need, until a reviewed base exists</td></tr><tr><td>What the tools record</td><td>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -672,11 +672,11 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="proof">
-      <h2 id="proof">Proof Lanes</h2>
-      <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
+      <h2 id="proof">What Has Been Tested</h2>
+      <p>Each check answers a different question. A watch, blocked, or missing result names work that remains. It does not change a passing Helm render match.</p>
       <p><strong>How much is proven, and what more testing would add:</strong> Fully proven: Render parity, ConfigHub proof, Local live. Not yet tested: GitOps/OCI live, Live Helm-vs-ConfigHub, Two-cluster kind - a fresh cluster run would prove these.</p>
       <div class="card"><table>
-        <thead><tr><th>Lane</th><th>Status across bases</th></tr></thead>
+        <thead><tr><th>Check</th><th>Status across configurations</th></tr></thead>
         <tbody><tr><td>Render parity</td><td>yes: 1/1</td></tr><tr><td>ConfigHub proof</td><td>yes: 1/1</td></tr><tr><td>Local live</td><td>yes: 1/1</td></tr><tr><td>GitOps/OCI live</td><td>no: 1/1</td></tr><tr><td>Live Helm-vs-ConfigHub</td><td>no: 1/1</td></tr><tr><td>Two-cluster kind</td><td>no: 1/1</td></tr></tbody>
       </table></div>
       <style>
@@ -698,11 +698,11 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="quirks">
-      <h2 id="quirks">Quirks And Inputs</h2>
-      <p>exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</p>
+      <h2 id="quirks">What You Must Provide</h2>
+      <p>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Known quirks</td><td>existing-secret;extension-slots</td></tr><tr><td>User must provide</td><td>an existing Secret for some bases (buildable - not yet run); your wanted install shape, until a reviewed base exists</td></tr><tr><td>ConfigHub absorbs</td><td>exact rendered objects with render parity and receipts; extension slots routed to reviewed bases</td></tr><tr><td>Extension slots</td><td>tpl-powered values</td></tr><tr><td>Extension route</td><td>keep empty in supported bases, or make a reviewed installer base when populated</td></tr></tbody>
+        <tbody><tr><td>Known quirks</td><td>Existing secret; optional chart inputs</td></tr><tr><td>You must provide</td><td>an existing Secret for some bases (buildable - not yet run); the chart settings you need, until a reviewed base exists</td></tr><tr><td>What ConfigHub records</td><td>exact rendered objects with render parity and receipts; optional chart inputs handled by reviewed base configurations</td></tr><tr><td>Optional chart inputs</td><td>Tpl powered values</td></tr><tr><td>How optional inputs are handled</td><td>Keep empty in supported bases; Or make a reviewed installer base when populated</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -733,11 +733,11 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="production">
-      <h2 id="production">Production Boundary</h2>
+      <h2 id="production">Before Production</h2>
       <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Production disposition</td><td>not-reviewed-for-production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted dispositions</td><td>none recorded</td></tr><tr><td>Open policy dispositions</td><td>none recorded for this policy checklist</td></tr><tr><td>Next action</td><td>add at least one user-shaped variant before catalog promotion</td></tr></tbody>
+        <tbody><tr><td>Production review status</td><td>Not reviewed for production</td></tr><tr><td>Target-scoped support decision</td><td>not recorded</td></tr><tr><td>Supported base</td><td></td></tr><tr><td>Target scope</td><td></td></tr><tr><td>Accepted limits</td><td>None recorded</td></tr><tr><td>Open policy decisions</td><td>None recorded for this policy checklist</td></tr><tr><td>Next action</td><td>add at least one useful reviewed configuration before catalog promotion</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -748,10 +748,10 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
     </section>
 
     <section aria-labelledby="files">
-      <h2 id="files">Files To Inspect</h2>
+      <h2 id="files">Source And Evidence Files</h2>
       <div class="card"><table>
         <thead><tr><th>Artifact</th><th>Path</th></tr></thead>
-        <tbody><tr><td>Chart catalog</td><td><a href="../d/recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.html">recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../d/data/helm-render-intents/summary.html">data/helm-render-intents/summary.md</a></td></tr><tr><td>Base variant records</td><td><a href="../d/data/base-variant-records/summary.html">data/base-variant-records/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml</a></td></tr><tr><td>First base variant record</td><td><a href="../../data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml">recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/recipe.yaml">recipes/rook-release/rook-ceph-cluster/v1.19.5/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/rook-release/rook-ceph-cluster/v1.19.5">packages/rook-release/rook-ceph-cluster/v1.19.5</a></td></tr><tr><td>Installer OCI package catalog</td><td><a href="../d/data/installer-oci-packages/summary.html">data/installer-oci-packages/summary.md</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml">recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml</a></td></tr><tr><td>Production disposition</td><td><a href="../d/data/production-disposition/summary.html">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../d/data/master-catalog-matrix/summary.html">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../d/data/chart-skills/summary.html">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../d/data/chart-evidence-router/summary.html">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current proof status</td><td><a href="../d/docs/user/current-proof-status.html">docs/user/current-proof-status.md</a></td></tr></tbody>
+        <tbody><tr><td>Chart catalog</td><td><a href="../d/recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.html">recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md</a></td></tr><tr><td>Helm render intents</td><td><a href="../d/data/helm-render-intents/summary.html">data/helm-render-intents/summary.md</a></td></tr><tr><td>Base variant records</td><td><a href="../d/data/base-variant-records/summary.html">data/base-variant-records/summary.md</a></td></tr><tr><td>First render intent</td><td><a href="../../data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">data/helm-render-intents/intents/rook-release-rook-ceph-cluster-v1-19-5-default.yaml</a></td></tr><tr><td>First base variant record</td><td><a href="../../data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml">data/base-variant-records/records/rook-release-rook-ceph-cluster-v1-19-5-default.yaml</a></td></tr><tr><td>Full rendered YAML</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml">recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml</a></td></tr><tr><td>Recipe</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/recipe.yaml">recipes/rook-release/rook-ceph-cluster/v1.19.5/recipe.yaml</a></td></tr><tr><td>Package</td><td><a href="../../packages/rook-release/rook-ceph-cluster/v1.19.5">packages/rook-release/rook-ceph-cluster/v1.19.5</a></td></tr><tr><td>Installer OCI package catalog</td><td><a href="../d/data/installer-oci-packages/summary.html">data/installer-oci-packages/summary.md</a></td></tr><tr><td>Helm pain report</td><td><a href="../../recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml">recipes/rook-release/rook-ceph-cluster/v1.19.5/helm-pain-report.yaml</a></td></tr><tr><td>Production review records</td><td><a href="../d/data/production-disposition/summary.html">data/production-disposition/summary.md</a></td></tr><tr><td>Master matrix rows</td><td><a href="../d/data/master-catalog-matrix/summary.html">data/master-catalog-matrix/summary.md</a></td></tr><tr><td>Chart skills</td><td><a href="../d/data/chart-skills/summary.html">data/chart-skills/summary.md</a></td></tr><tr><td>Chart evidence router</td><td><a href="../d/data/chart-evidence-router/summary.html">data/chart-evidence-router/summary.md</a></td></tr><tr><td>Current test status</td><td><a href="../d/docs/user/current-proof-status.html">docs/user/current-proof-status.md</a></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -761,6 +761,6 @@ use the chart option cards below to check pass, watch, blocked, and prerequisite
       </style>
     </section>
   </main>
-  <footer><p>Generated from helm-expt proof data. Check current receipts before making production claims.</p></footer>
+  <footer><p>Generated from the catalog data and linked test results. Check the current evidence before using a configuration in production.</p></footer>
 </body>
 </html>

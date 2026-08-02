@@ -52,7 +52,7 @@ const checks = [
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
-    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "What A Base Variant Records", "How To Try This Chart", "redis-existing-secret"],
+    terms: ["Choose a tested starting configuration for bitnami/redis@25.5.3", "Evidence labels:", "Catalog readiness: Ready to try", "First-configuration status", "Production status", "Where This Chart's Settings Come From", "What The Starting Configuration Records", "Try This Chart", "redis-existing-secret"],
   },
   {
     file: "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html",
@@ -471,6 +471,44 @@ if (fs.existsSync(catalogIndexPath)) {
   }
   for (const machineOption of [">catalog-supported</option>", ">proof-grade / machine-proof-only</option>", ">start-here</option>", ">render-only</option>"]) {
     if (catalogIndex.includes(machineOption)) failures.push(`site/charts/index.html: exposes internal filter label ${JSON.stringify(machineOption)}`);
+  }
+}
+
+const chartPagesDir = path.join(root, "site/charts");
+if (fs.existsSync(chartPagesDir)) {
+  const chartPages = fs.readdirSync(chartPagesDir)
+    .filter((name) => name.endsWith(".html") && name !== "index.html")
+    .map((name) => path.join(chartPagesDir, name));
+  const requiredChartSections = [
+    "What this page gives you",
+    "Try This Chart",
+    "Available Configurations",
+    "What Has Been Tested",
+    "What You Must Provide",
+    "Before Production",
+    "Source And Evidence Files",
+  ];
+  const forbiddenChartCopy = [
+    "Proof Lanes",
+    "Each lane proves",
+    "useful operating shape",
+    "proof grade needs user shaped variant",
+    "wanted install shape",
+    "curated proof lane",
+    "bespoke teaching needed",
+    "Production disposition",
+    "ConfigHub absorbs",
+    "Operator Playbooks And Fact Sheet",
+  ];
+  for (const fullPath of chartPages) {
+    const html = fs.readFileSync(fullPath, "utf8");
+    const file = path.relative(root, fullPath);
+    for (const heading of requiredChartSections) {
+      if (!html.includes(heading)) failures.push(`${file}: missing plain chart section ${JSON.stringify(heading)}`);
+    }
+    for (const phrase of forbiddenChartCopy) {
+      if (html.toLowerCase().includes(phrase.toLowerCase())) failures.push(`${file}: contains internal chart wording ${JSON.stringify(phrase)}`);
+    }
   }
 }
 
