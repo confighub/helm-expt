@@ -450,7 +450,7 @@
 <p>Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.</p>
 <p>This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.</p>
 <h2 id="what-this-is">What this is</h2>
-<p>This is the <code>ha</code> preset config for <code>bitnami/opensearch@2.0.10</code>. The repo also calls this a base variant. Use this when you want the reviewed high-availability shape instead of the simplest default.</p>
+<p>This is the <code>ha</code> preset config for <code>bitnami/opensearch@2.0.10</code>. The repo also calls this a base variant. Use this when you want the catalog's reviewed high-availability configuration.</p>
 <p>The matching catalog page is <a href="https://confighub.github.io/helm-expt/site/charts/bitnami-opensearch-2-0-10.html">bitnami/opensearch@2.0.10</a>.</p>
 <h2 id="the-chart-journey">The chart journey</h2>
 <p>We keep the Helm chart. We lock <code>bitnami/opensearch@2.0.10</code>, choose the <code>ha</code> preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.</p>

@@ -27,7 +27,7 @@ spec:
 
     This Space exists to answer one practical question: what is a safe, repeatable way to run `hashicorp/vault@0.32.0` for this operating choice?
 
-    For this Space, the answer is the `ha-raft-ui` preset. Use this when you want the reviewed high-availability shape instead of the simplest default.
+    For this Space, the answer is the `ha-raft-ui` preset. Use this when you want the catalog's reviewed high-availability configuration.
 
     The preset keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence, so the team can repeat this choice later.
 

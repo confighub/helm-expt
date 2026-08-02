@@ -450,7 +450,7 @@
 <p>Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.</p>
 <p>This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.</p>
 <h2 id="what-this-is">What this is</h2>
-<p>This is the <code>static-passwords</code> preset config for <code>bitnami/mysql@14.0.3</code>. The repo also calls this a base variant. Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.</p>
+<p>This is the <code>static-passwords</code> preset config for <code>bitnami/mysql@14.0.3</code>. The repo also calls this a base variant. Use this only to inspect and compare the fixed shared password. Do not use it as a production starting configuration.</p>
 <p>The matching catalog page is <a href="https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html">bitnami/mysql@14.0.3</a>.</p>
 <h2 id="the-chart-journey">The chart journey</h2>
 <p>We keep the Helm chart. We lock <code>bitnami/mysql@14.0.3</code>, choose the <code>static-passwords</code> preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.</p>
@@ -459,7 +459,7 @@
 <h2 id="what-to-check">What to check</h2>
 <p>The current catalog record does not identify an extra Secret, CRD, or setup step that must be supplied before install.</p>
 <p>The catalog does not currently record a separate hook, setup job, or cleanup step for this preset.</p>
-<p>The fixed credential shape is kept visible so it is not mistaken for generated secret material. Known limitation: ha (curated proof lane - bespoke teaching needed).</p>
+<p>The fixed shared password is shown plainly so nobody mistakes it for a generated credential. The catalog has not yet tested a realistic high-availability configuration for this chart.</p>
 <h2 id="why-you-can-trust-it">Why you can trust it</h2>
 <ul><li>The chart version, source, namespace, release name, values, and capability profile are recorded in the render intent.</li><li>The render variant is committed as YAML and contains 8 Kubernetes object(s).</li><li>The installer package OCI ref points to the package users pull for this chart version.</li><li>Render parity is recorded as passing for this preset config.</li></ul>
 <p>This is a claim about this recorded preset config. It is not a claim that every possible values file for this chart has been checked.</p>
@@ -493,7 +493,7 @@
 <tr><td>Live Helm vs ConfigHub comparison</td><td><code>yes</code></td></tr>
 <tr><td>Lifecycle routes</td><td><code>0</code></td></tr></tbody></table>
 <h2 id="limits">Limits</h2>
-<ul><li>Known gap for this row: ha (curated proof lane - bespoke teaching needed).</li><li>Production support is target-scoped. Use production support decisions before claiming production readiness.</li><li>Do not use the static-passwords preset as a production credential strategy.</li></ul>
+<ul><li>The catalog has not yet tested a realistic high-availability configuration for this chart.</li><li>Production support is target-scoped. Use production support decisions before claiming production readiness.</li><li>Do not use the static-passwords preset as a production credential strategy.</li></ul>
 <h2 id="source-files">Source files</h2>
 <ul><li>Chart page: <a href="https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html">https://confighub.github.io/helm-expt/site/charts/bitnami-mysql-14-0-3.html</a></li><li>Render intent: <a href="https://github.com/confighub/helm-expt/blob/main/data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml"><code>data/helm-render-intents/intents/bitnami-mysql-14-0-3-static-passwords.yaml</code></a></li><li>Rendered YAML: <a href="https://github.com/confighub/helm-expt/blob/main/recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml"><code>recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/rendered/release-objects.yaml</code></a></li><li>Package source: <a href="https://github.com/confighub/helm-expt/tree/main/packages/bitnami/mysql/14.0.3/bases/static-passwords"><code>packages/bitnami/mysql/14.0.3/bases/static-passwords</code></a></li><li>Generated scripts: <a href="https://github.com/confighub/helm-expt/tree/main/site/sh/bitnami-mysql-14-0-3/static-passwords"><code>site/sh/bitnami-mysql-14-0-3/static-passwords</code></a></li><li>Preset doctrine: <a href="../../../../docs/user/helm-presets-and-values.html">Helm Chart Presets And Values</a></li></ul>
     </article>

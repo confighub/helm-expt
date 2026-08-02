@@ -19,6 +19,16 @@ const outputPaths = {
 
 const SITE_BASE_URL = "https://confighub.github.io/helm-expt/site/";
 const GITHUB_BASE_URL = "https://github.com/confighub/helm-expt/blob/main/";
+const FORBIDDEN_HUMAN_PHRASES = [
+  "starting shape",
+  "metrics shape",
+  "collector shape",
+  "high-availability shape",
+  "local test shape",
+  "credential shape",
+  "curated proof lane",
+  "bespoke teaching needed",
+];
 
 if (mode === "--generate") {
   const report = buildReport();
@@ -37,6 +47,7 @@ if (mode === "--generate") {
     check(existsSync(guide.path), `${relativeRepo(guide.path)} is missing; run npm run confighub-example-guides`);
     check(readFileSync(guide.path, "utf8") === guide.markdown, `${relativeRepo(guide.path)} is stale; run npm run confighub-example-guides`);
     verifyLocalScriptLinks(guide.markdown, guide.path);
+    verifyHumanCopy(guide.markdown, guide.path);
   }
   console.log(`verified ${report.guides.length} ConfigHub example guide(s)`);
 } else {
@@ -405,19 +416,19 @@ function presetReason(base, description) {
   if (lower.includes("no-crds")) return "Use this when your platform, GitOps bootstrap, or another chart owns the CRDs.";
   if (lower.includes("crds-enabled") || lower.includes("minimal-crds")) return "Use this when this package should bring the CRDs needed for the install.";
   if (lower.includes("existing-secret") || lower.includes("reuse-existing-secret")) return "Use this when secret material should come from a Secret you create, not from a generated chart default.";
-  if (lower.includes("static-password")) return "Use this for comparison and proof only; it preserves a fixed shared credential shape and should not be the production starting point.";
+  if (lower.includes("static-password")) return "Use this only to inspect and compare the fixed shared password. Do not use it as a production starting configuration.";
   if (lower.includes("legacy")) return "Use this when this package must use the legacy image location for the chart's containers.";
-  if (lower.includes("reviewed")) return "Use this when you want a catalog-reviewed starting shape instead of the raw default name.";
-  if (lower.includes("cluster-metrics-readonly")) return "Use this for a read-only cluster metrics shape.";
-  if (lower.includes("node-or-cluster-collector")) return "Use this for a node or cluster collector shape.";
+  if (lower.includes("reviewed")) return "Use this when you want a catalog-reviewed starting configuration instead of the chart's unreviewed default.";
+  if (lower.includes("cluster-metrics-readonly")) return "Use this when the component should read cluster metrics without modifying cluster resources.";
+  if (lower.includes("node-or-cluster-collector")) return "Use this when you need a node or cluster collector.";
   if (lower.includes("apiservice-v1-capability")) return "Use this when the target cluster serves apiregistration.k8s.io/v1.";
   if (lower.includes("sync-secret-rotation")) return "Use this when Secret sync and rotation are the operating choice you want to test.";
   if (lower.includes("external-tls-ca")) return "Use this when TLS CA material is supplied outside the chart.";
-  if (lower.includes("ha")) return "Use this when you want the reviewed high-availability shape instead of the simplest default.";
+  if (lower.includes("ha")) return "Use this when you want the catalog's reviewed high-availability configuration.";
   if (lower.includes("ingress") || lower.includes("tls")) return "Use this when service exposure, TLS, or ingress ownership is the important operating choice.";
   if (lower.includes("internal") || lower.includes("clusterip")) return "Use this when the service should stay inside the cluster or platform network.";
   if (lower.includes("server-only") || lower.includes("single") || lower.includes("ephemeral")) return "Use this when you want a smaller configuration for first tests or local use.";
-  if (lower.includes("dev")) return "Use this for a development or local test shape, not as a production claim.";
+  if (lower.includes("dev")) return "Use this for development or local testing. It is not a production recommendation.";
   if (lower === "default") return "Use this when you want to start from the chart author's normal path, with the inputs recorded.";
   if (description) return cleanSentence(description);
   return "Use this as one recorded, repeatable way to render this chart.";
@@ -428,11 +439,11 @@ function changedFromHelm(base, requirements, routeCount, matrixRow) {
   if (base.includes("no-crds")) lines.push("CRDs are made into an explicit choice instead of being mixed into the application install.");
   if (base.includes("crds")) lines.push("CRD ownership is recorded as part of the preset config.");
   if (base.includes("existing-secret") || base.includes("reuse-existing-secret")) lines.push("Secret material is kept outside the chart render and supplied by you.");
-  if (base.includes("static-password")) lines.push("The fixed credential shape is kept visible so it is not mistaken for generated secret material.");
+  if (base.includes("static-password")) lines.push("The fixed shared password is shown plainly so nobody mistakes it for a generated credential.");
   if (requirements.some((item) => item.name.startsWith("CRD "))) lines.push("Some CRDs must already exist before the rendered objects are applied.");
   if (requirements.some((item) => item.name.startsWith("Secret "))) lines.push("At least one Secret must be created with your values before apply.");
   if (routeCount > 0) lines.push("Hooks, setup jobs, and other install or upgrade steps are listed separately, so you can see what must run and when.");
-  if (matrixRow.hard_gap) lines.push(`Known limitation: ${matrixRow.hard_gap}.`);
+  if (matrixRow.hard_gap) lines.push(humanGap(matrixRow.hard_gap));
   if (!lines.length) return "For this preset, the main change from plain Helm is that the render inputs and output files are recorded before upload.";
   return lines.join(" ");
 }
@@ -546,6 +557,19 @@ function verifyLocalScriptLinks(markdown, sourcePath) {
   }
 }
 
+function verifyHumanCopy(markdown, sourcePath) {
+  for (const phrase of FORBIDDEN_HUMAN_PHRASES) {
+    check(!markdown.toLowerCase().includes(phrase), `${relativeRepo(sourcePath)} contains unclear phrase: ${phrase}`);
+  }
+}
+
+function humanGap(gap) {
+  if (gap === "ha (curated proof lane - bespoke teaching needed)") {
+    return "The catalog has not yet tested a realistic high-availability configuration for this chart.";
+  }
+  return `Known limitation: ${cleanSentence(gap)}`;
+}
+
 function preflightRoutes(routes) {
   return routes.filter((route) =>
     route.lifecyclePhase === "preflight"
@@ -612,7 +636,7 @@ function limitsFor(intent, matrixRow, chartUseRow, base) {
     }
   }
   if ((intent.spec.evidence?.gitopsOciLive ?? "") !== "yes") limits.push(`GitOps OCI live evidence is ${intent.spec.evidence?.gitopsOciLive || "not recorded"} for this preset config.`);
-  if (matrixRow.hard_gap) limits.push(`Known gap for this row: ${matrixRow.hard_gap}.`);
+  if (matrixRow.hard_gap) limits.push(humanGap(matrixRow.hard_gap));
   if (chartUseRow.production_note) limits.push(chartUseRow.production_note);
   if (base.includes("static-password")) limits.push("Do not use the static-passwords preset as a production credential strategy.");
   if (!limits.length) limits.push("No extra limit is recorded beyond the evidence table above.");

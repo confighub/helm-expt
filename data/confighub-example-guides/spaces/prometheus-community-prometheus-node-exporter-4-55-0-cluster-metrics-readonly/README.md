@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `cluster-metrics-readonly` preset config for `prometheus-community/prometheus-node-exporter@4.55.0`. The repo also calls this a base variant. Use this for a read-only cluster metrics shape.
+This is the `cluster-metrics-readonly` preset config for `prometheus-community/prometheus-node-exporter@4.55.0`. The repo also calls this a base variant. Use this when the component should read cluster metrics without modifying cluster resources.
 
 The matching catalog page is [prometheus-community/prometheus-node-exporter@4.55.0](https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-node-exporter-4-55-0.html).
 

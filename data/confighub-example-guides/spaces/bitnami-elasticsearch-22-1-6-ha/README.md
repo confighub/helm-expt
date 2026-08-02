@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `ha` preset config for `bitnami/elasticsearch@22.1.6`. The repo also calls this a base variant. Use this when you want the reviewed high-availability shape instead of the simplest default.
+This is the `ha` preset config for `bitnami/elasticsearch@22.1.6`. The repo also calls this a base variant. Use this when you want the catalog's reviewed high-availability configuration.
 
 The matching catalog page is [bitnami/elasticsearch@22.1.6](https://confighub.github.io/helm-expt/site/charts/bitnami-elasticsearch-22-1-6.html).
 
@@ -100,7 +100,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 - Local kind evidence is no for this preset config.
 - GitOps OCI live evidence is watch for this preset config.
-- Known gap for this row: existing-secret (chart ships no Secret toggle).
+- Known limitation: existing-secret (chart ships no Secret toggle).
 - Resolve the named gap first: existing-secret (chart ships no Secret toggle).
 
 ## Source files

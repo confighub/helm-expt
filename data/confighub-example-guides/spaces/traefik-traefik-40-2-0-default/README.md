@@ -98,7 +98,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known gap for this row: existing-secret (chart ships no Secret toggle).
+- Known limitation: existing-secret (chart ships no Secret toggle).
 - Resolve the named gap first: existing-secret (chart ships no Secret toggle).
 
 ## Source files

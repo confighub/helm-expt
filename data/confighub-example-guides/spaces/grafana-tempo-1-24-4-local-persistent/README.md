@@ -98,7 +98,7 @@ After upload, create environment versions with `cub variant create` and move rev
 
 ## Limits
 
-- Known gap for this row: ha (tempo single-binary chart; HA is the separate tempo-distributed chart).
+- Known limitation: ha (tempo single-binary chart; HA is the separate tempo-distributed chart).
 - Production support is target-scoped. Use production support decisions before claiming production readiness.
 
 ## Source files

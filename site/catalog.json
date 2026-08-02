@@ -30089,7 +30089,7 @@
       "space": "bitnami-nginx-fleet-dev",
       "kind": "fleet",
       "title": "Nginx fleet dev",
-      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "summary": "The dev configuration in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-dev/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-dev/readme.yaml"
     },
@@ -30097,7 +30097,7 @@
       "space": "bitnami-nginx-fleet-prod-eu",
       "kind": "fleet",
       "title": "Nginx fleet prod-eu",
-      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "summary": "The prod-eu configuration in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-prod-eu/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-prod-eu/readme.yaml"
     },
@@ -30105,7 +30105,7 @@
       "space": "bitnami-nginx-fleet-prod-us",
       "kind": "fleet",
       "title": "Nginx fleet prod-us",
-      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "summary": "The prod-us configuration in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-prod-us/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-prod-us/readme.yaml"
     },
@@ -30113,7 +30113,7 @@
       "space": "bitnami-nginx-fleet-staging",
       "kind": "fleet",
       "title": "Nginx fleet staging",
-      "summary": "One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
+      "summary": "The staging configuration in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-staging/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-nginx-fleet-staging/readme.yaml"
     },
@@ -30129,7 +30129,7 @@
       "space": "bitnami-redis-27-0-0-default-pilot-live-20260705",
       "kind": "pilot",
       "title": "Redis 27.0.0 default pilot run",
-      "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the default lane.",
+      "summary": "A live pilot snapshot from the Redis 25.5.3 to 27.0.0 upgrade test for the default configuration.",
       "source_path": "data/helm-catalog-readmes/spaces/bitnami-redis-27-0-0-default-pilot-live-20260705/README.md",
       "unit_source_path": "data/helm-catalog-readmes/units/bitnami-redis-27-0-0-default-pilot-live-20260705/readme.yaml"
     },

@@ -4,7 +4,7 @@
 
 This Space exists to answer one practical question: what is a safe, repeatable way to run `hashicorp/vault@0.32.0` for this operating choice?
 
-For this Space, the answer is the `dev-mode` preset. Use this for a development or local test shape, not as a production claim.
+For this Space, the answer is the `dev-mode` preset. Use this for development or local testing. It is not a production recommendation.
 
 The preset keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence, so the team can repeat this choice later.
 

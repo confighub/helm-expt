@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `node-or-cluster-collector` preset config for `elastic/filebeat@8.5.1`. The repo also calls this a base variant. Use this for a node or cluster collector shape.
+This is the `node-or-cluster-collector` preset config for `elastic/filebeat@8.5.1`. The repo also calls this a base variant. Use this when you need a node or cluster collector.
 
 The matching catalog page is [elastic/filebeat@8.5.1](https://confighub.github.io/helm-expt/site/charts/elastic-filebeat-8-5-1.html).
 

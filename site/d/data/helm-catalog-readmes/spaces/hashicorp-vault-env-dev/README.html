@@ -450,7 +450,7 @@
 <p>This is a careful example of custom application delivery, not just chart installation.</p>
 <p>The important thing to inspect is how the environment records what changed and why.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
-<ul><li>The environment starts from the Vault base and can carry local choices.</li><li>This lane can accept or test changes before production.</li><li>The placeholder example shows how a local real value can stay local while new safe base fields move forward.</li></ul>
+<ul><li>The environment starts from the Vault base and can carry local choices.</li><li>This environment can accept or test changes before production.</li><li>The placeholder example shows how a local real value can stay local while new safe base fields move forward.</li></ul>
 <h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
 <table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>The upstream link points to <code>hashicorp-vault-demo-base</code>, whose recipe and render record identify the Helm source.</td></tr>
 <tr><td>ConfigHub changes</td><td>Dev records its cost annotation and real identity-provider value as local revisions, then records the shared annotations it had to reconcile explicitly.</td></tr>
@@ -462,7 +462,7 @@
 <h2 id="evidence-and-source">Evidence and source</h2>
 <ul><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-org/summary.md">Org summary</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/runs/promote-silent-skip-proof/README.md">Promote proof notes</a></li></ul>
 <h2 id="limits">Limits</h2>
-<ul><li>The dev lane includes a same-map departure that needed explicit reconciliation; that is part of the lesson.</li></ul>
+<ul><li>The dev environment contains two changes to the same YAML object. The demo records the manual decision needed to reconcile them.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/hashicorp-vault-env-dev/README.md</code>. The source file is the authoritative version.</p></footer>

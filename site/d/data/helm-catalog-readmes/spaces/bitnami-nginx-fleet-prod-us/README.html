@@ -444,13 +444,13 @@
   <main>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: generated README for this demo Space, built from committed helm-expt evidence.</p>
     <article class="doc-body">
-<p>One lane in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.</p>
+<p>The prod-us configuration in the Nginx fleet demo, showing how a chart-based app can vary by environment or region.</p>
 <p>Start here when you open this Space in Hub. This page explains the problem this example is meant to show, what to inspect, why it matters, and where the evidence lives.</p>
 <h2 id="why-this-example-exists">Why this example exists</h2>
 <p>The fleet demo is about scale. Once one chart becomes dev, staging, production, regions, or customers, values files and manual notes become hard to trust.</p>
-<p>ConfigHub keeps each lane named and inspectable while preserving the shared base.</p>
+<p>ConfigHub keeps each environment or region named and inspectable while preserving the shared base.</p>
 <h2 id="what-this-example-shows">What this example shows</h2>
-<ul><li>A chart can become several named application versions without forking the chart.</li><li>Different lanes can receive base changes at different times.</li><li>This lane shows the normal path for carrying a reviewed base change forward.</li></ul>
+<ul><li>A chart can become several named application versions without forking the chart.</li><li>Different environments and regions can receive base changes at different times.</li><li>This configuration shows the normal path for carrying a reviewed base change forward.</li></ul>
 <h2 id="where-each-setting-comes-from">Where each setting comes from</h2>
 <table><thead><tr><th>Place</th><th>What this Space records</th></tr></thead><tbody><tr><td>Starting configuration</td><td>Open the upstream Space or source link named on this page. That is the configuration this Space started from.</td></tr>
 <tr><td>ConfigHub changes</td><td>Open Unit revision history. It records changes made after the starting configuration was saved.</td></tr>
@@ -458,11 +458,11 @@
 <tr><td>Live cluster</td><td>Use target observations to compare the cluster with the reviewed Units. A live-only edit is drift until it is recorded or removed.</td></tr></tbody></table>
 <p>If an upstream change and a local ConfigHub revision touch the same field, review the overlap before promotion.</p>
 <h2 id="what-to-inspect-in-hub">What to inspect in Hub</h2>
-<ul><li>This README.</li><li>Nginx Deployment and Service YAML.</li><li>Sibling fleet Spaces to compare the lanes.</li></ul>
+<ul><li>This README.</li><li>Nginx Deployment and Service YAML.</li><li>Sibling fleet Spaces to compare environments and regions.</li></ul>
 <h2 id="evidence-and-source">Evidence and source</h2>
 <ul><li><a href="https://confighub.github.io/helm-expt/site/charts/bitnami-nginx-24-0-2.html">Nginx chart page</a></li><li><a href="https://github.com/confighub/helm-expt/blob/main/data/helm-org/exhibits.csv">Org exhibit summary</a></li></ul>
 <h2 id="limits">Limits</h2>
-<ul><li>The demo proves the shape of a fleet workflow. It is not a full production rollout policy.</li></ul>
+<ul><li>The demo shows a basic fleet workflow. It does not define a complete production rollout policy.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>data/helm-catalog-readmes/spaces/bitnami-nginx-fleet-prod-us/README.md</code>. The source file is the authoritative version.</p></footer>
