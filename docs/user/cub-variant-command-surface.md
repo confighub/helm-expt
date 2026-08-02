@@ -2,8 +2,9 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-This page records the current `cub variant` surface used by the tutorial and
-Creator-style docs. Treat local CLI help as the source of truth.
+Use this page to find the current `cub variant` commands used by the tutorial
+and Creator docs. Check local CLI help for the exact flags supported by your
+installed client.
 
 Current commands:
 
@@ -19,7 +20,7 @@ Not current local command:
 cub variant release
 ```
 
-`cub variant release` may become a useful product lane, but user docs should
+`cub variant release` may become useful, but user docs should
 describe it only as planned or candidate work until the CLI exposes it.
 
 ## What Create Does

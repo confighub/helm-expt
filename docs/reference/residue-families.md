@@ -2,14 +2,9 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-When the master catalog matrix shows a row as `watch` or `blocked` instead of
-`pass`, the decision surfaces tag it with a **residue category** — the *kind* of
-gap that stopped the row from being green. This page is the plain-English
-vocabulary for those categories: what each family means for a Helm user, **who
-has to fix it**, the **next action**, and **where the rows live**.
-
-It is reference only. The authoritative per-row classifications are generated
-into the decision surfaces — this page names the families behind them.
+This guide explains why a catalog matrix row is marked `watch` or `blocked`,
+who can fix it, and what to do next. The generated decision pages remain
+authoritative for each row.
 
 - For the matrix itself (lanes, the G/P/K shorthands, the cell states), read
   [reading-the-matrix](../user/reading-the-matrix.md).

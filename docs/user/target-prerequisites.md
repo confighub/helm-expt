@@ -2,6 +2,10 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
+Some charts need cluster resources or facts that are not in the rendered YAML.
+This guide explains how catalog configurations record and check those
+requirements.
+
 Render parity is only the first question.
 
 For easy charts, proving that `cub installer` renders the same Kubernetes

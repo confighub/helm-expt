@@ -7,11 +7,9 @@ Grounded by current catalog roles, the generated data under `data/`, and the
 current package bases.
 
 ## What this is
-For each TOP20 chart, the **recommended recipe**: one honest `default`, a `parameterized` base where
-fill-safe fields exist, and the **1–4 standard forks** (from the shared vocabulary) that genuinely apply
-to that chart's role. This is the *target* surface and the **build backlog** — today every chart ships
-only 2 bases (`fork-vocabulary.md`). A recommended base becomes real only after it passes the doctrine's
-admission check: renders single-namespace, Helm-equivalent, images pinned.
+This proposal lists the recommended named configurations for each top-20
+chart. It separates real operational choices from simple value changes and
+says what must be tested before a configuration is added to the catalog.
 
 ## Method — recommend a fork only where the role makes it real (no padding)
 | dimension | recommended when the chart… |

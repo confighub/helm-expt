@@ -2,12 +2,12 @@
 
 **UNOFFICIAL/EXPERIMENTAL**
 
-Variant promotion is a **ConfigHub server value, not a helm-expt-only trick.**
-`cub variant promote` clones a Unit and promotes it server-side. The catalog's
-job is to prove that the promote works for each maintained variant and to record
-the receipt. The latest representative receipts prove the changeset-bound path
-on Redis, NGINX, and kube-prometheus-stack. Older watch rows remain visible
-until their receipts are rerun on the fixed ConfigHub server.
+This guide explains which maintained configurations can be promoted now, which
+need a fresh test, and which are blocked by missing setup or evidence.
+
+Variant promotion runs in ConfigHub Server. `cub variant promote` clones a Unit
+and promotes it server-side. The catalog records receipts for maintained
+variants, and older `watch` rows remain visible until their tests are rerun.
 
 The [variant-promotion-closeout](../../data/variant-promotion-closeout/summary.md)
 surface turns that column into an actionable queue: for every variant it says

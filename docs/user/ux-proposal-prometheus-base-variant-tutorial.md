@@ -4,9 +4,9 @@
 
 Companion to [Tutorial Sequence](./tutorial-sequence.md).
 
-This is a UX proposal, not a shipped GUI. It shows how a values choice that
-changes the Prometheus install shape can be presented as a base-variant
-creation flow.
+This proposal shows a simpler user flow for turning a Prometheus Helm values
+choice into a named base variant. It describes a planned interface, not a
+shipped GUI.
 
 ## Shared Mapping
 

@@ -3,7 +3,7 @@
 **UNOFFICIAL/EXPERIMENTAL**
 
 `prometheus-community/kube-prometheus-stack` is a useful main-chart example
-because one Helm values choice changes a large operational surface.
+because one Helm values choice changes many Kubernetes objects.
 
 Redis teaches the shortest happy path. NGINX is the simple web/live path.
 `kube-prometheus-stack` is the serious-chart proof path: it is popular, large,

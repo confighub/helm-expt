@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This lane proves that Redis operation is explicit and gated in ConfigHub. It
-does not perform a live deployment. The point is to show safe behavior when a
-target is not attached: ConfigHub must not pretend it can apply to a cluster.
+This test confirms that Redis operations are explicit and checked in
+ConfigHub. It does not perform a live deployment. When no target is attached,
+ConfigHub must not pretend it can apply to a cluster.
 
 ## Acceptance Contract
 

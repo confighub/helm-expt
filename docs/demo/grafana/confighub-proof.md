@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This proof lane shows the current ConfigHub path for `grafana/grafana@10.5.15`
-using real commands only: `cub installer`, `cub variant`, `cub unit`,
-`cub function`, and `cub changeset`.
+This example records `grafana/grafana@10.5.15` in ConfigHub. It shows
+the exact commands used to render the selected package, upload its
+Kubernetes objects, create a variant, run checks, and review changes.
 
 The selected proof install variant is `static-passwords`. The package default is now `existing-secret-ingress`, which uses an existing Secret instead of the static demo password.
 

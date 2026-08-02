@@ -2,8 +2,8 @@
 
 ## Purpose
 
-This lane proves that the Helm-derived Redis objects uploaded to ConfigHub can
-be checked with current ConfigHub function validators. It is not a replacement
+This test confirms that ConfigHub can run its built-in validators against the
+Helm-derived Redis objects. It is not a replacement
 for external scanners such as Trivy, Snyk, kube-linter, or kubeconform. It is
 the ConfigHub-native scan layer that runs against uploaded Units.
 
@@ -75,4 +75,3 @@ hazards, but they do not claim full production security approval.
 
 Production readiness still needs the external scanner and policy disposition
 already represented by the Redis recipe scan and install gate.
-
