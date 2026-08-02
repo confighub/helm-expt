@@ -447,7 +447,7 @@
   </header>
   <main>
     <article class="doc-body">
-<p><b>UNOFFICIAL/EXPERIMENTAL.</b> Commands on this page were verified against <code>cub &lt;verb&gt; --help</code> and a live end-to-end run (upload, two variants, base edit, promotions, cleanup) on 2026-07-02. The catalog's committed evidence for this flow is the master matrix's Promotion lane, which records server-side variant-promotion receipts per base variant.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> The upload and variant flow has a committed live receipt. The commands on this page were also checked against <code>cub</code> v0.2.9 on 2026-08-02.</p>
 
 <h2 id="the-whole-chain-with-the-variants-labeled">The whole chain, with the variants labeled</h2>
 <p>Variants appear at two levels, and they meet here:</p>
@@ -455,15 +455,15 @@
       -&gt; upload -&gt; base Space
       -&gt; derived variants (staging, production) -&gt; promote</code></pre>
 <p>A <b>base variant</b> is a named way to render the chart's recipe, such as default, no-crds, or reuse-existing-secret; <code>--base</code> picks it. A <b>derived variant</b> is a ConfigHub Space cloned from your uploaded base for an environment. It never re-renders Helm.</p>
-<p>One boundary keeps the two straight: the recipe lives in the package and is chosen at render time, before upload. ConfigHub never sees the recipe, only the rendered result, stored fully materialized. Templates stay outside; data lives inside.</p>
+<p>One boundary keeps the two straight: the package is chosen and rendered before upload. <code>cub installer upload</code> stores the rendered Kubernetes objects and an untargeted <code>installer-record</code> Unit. The source package, chart, and templates remain in the package OCI; ConfigHub does not rerender them.</p>
 <h2 id="the-one-decision-restated">The one decision, restated</h2>
 <ul><li>If a change alters what Helm renders (HA mode, CRDs on or off, a different Secret strategy), that is a different base variant. Go back to the chart page and pick it with <code>--base</code>.</li><li>If the rendered objects are right but need to live somewhere else (another environment, region, namespace, labels, or gates), that is a derived variant. Nothing re-renders.</li></ul>
-<p>Why this matters: the base you reviewed stays one thing. Every environment difference is explicit, diffable, and promotable, instead of hiding in a values-file fork.</p>
+<p>Why this matters: the base you reviewed stays one thing. Each environment difference becomes a recorded ConfigHub change that you can compare and promote, instead of hiding in a values-file fork.</p>
 <h2 id="how-to-tell-what-set-a-field">How To Tell What Set A Field</h2>
-<ul><li>Open the base Space's <code>readme</code> or <code>recipe</code> Unit for the recorded Helm values profile and rendered starting point.</li><li>Open the Kubernetes Unit's revision history for changes made in ConfigHub.</li><li>Open the derived Space's upstream link to see which base it started from.</li><li>Treat a value seen only in the live cluster as drift until the team records it as an intended revision or removes it.</li></ul>
+<ul><li>Open the base Space's <code>installer-record</code> Unit to see which package was uploaded. Catalog demo Spaces may also contain <code>readme</code> and render-intent Units that explain the chart, values profile, and required setup.</li><li>Open the package's Helm render-intent record to see which Helm values and render settings produced the starting objects.</li><li>Open the Kubernetes Unit's revision history for changes made in ConfigHub.</li><li>Open the derived Space's upstream link to see which base it started from.</li><li>Treat a value seen only in the live cluster as drift until the team records it as an intended revision or removes it.</li></ul>
 <p>If a new base render and a local ConfigHub revision change the same field, review that overlap before promotion. The full rule and the chart-page view are in <a href="helm-presets-and-values.html#where-each-setting-lives">Helm Chart Presets And Values</a>.</p>
 <h2 id="what-you-have-after-upload">What you have after upload</h2>
-<p>One Space holding your rendered objects as Units, one Unit per manifest. See it:</p>
+<p>One Space holding your rendered objects as Units, one Unit per manifest, plus the untargeted <code>installer-record</code> Unit. See them:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub unit list --space helm-redis-default</code></pre>
 <p>Replace <code>helm-redis-default</code> with the Space your script printed. The upload also set the Space's well-known <code>Component</code> label from the package name.</p>
@@ -489,14 +489,16 @@
 <h2 id="step-3-when-the-base-moves-preview-then-promote">Step 3: When the base moves, preview then promote</h2>
 <p>The base Space changes when you upload a newer render of the chart or edit it. Your variant does not move by itself. First preview exactly what promotion would do:</p>
 <pre><code>cub variant promote my-redis-prod --dry-run</code></pre>
-<p>This prints how many Units would be upgraded and how many would be added from upstream since the clone. Nothing re-renders. One honest note from live testing on 2026-07-02: <code>--dry-run -o mutations</code> currently prints nothing for <code>variant promote</code>, so use the plain <code>--dry-run</code> summary; to inspect exact data, read the Unit before and after with <code>cub unit get &lt;unit&gt; --space &lt;space&gt; --data-only</code>.</p>
+<p>This prints how many Units would be upgraded and how many would be added from upstream since the clone. Nothing re-renders. To see the proposed field changes, add the mutations output:</p>
+<pre><code>cub variant promote my-redis-prod --dry-run -o mutations</code></pre>
+<p>Use the plain <code>--dry-run</code> when you only need the summary.</p>
 <p>Then promote:</p>
 <pre><code>cub variant promote my-redis-prod --change-desc &quot;Pull the reviewed base forward&quot;</code></pre>
-<p>Validation triggers run on the changed Units. A failing check attaches an apply gate; fix the data or the rule rather than working around the gate. Your variant's own changes (the replicas edit above) are preserved through the merge.</p>
+<p>Validation triggers run on the changed Units. A failing check attaches an apply gate; fix the data or the rule rather than working around the gate. Recorded variant changes remain when they do not overlap the new base. If the base and the variant changed the same field, review that overlap before promotion.</p>
 <h2 id="step-4-deliver-verify-roll-back">Step 4: Deliver, verify, roll back</h2>
 <ul><li>Deliver: apply the Space to its Target, or let the Argo or Flux you already run pull it from ConfigHub's OCI endpoint. The <a href="gitops-adopter-guide.html">GitOps adopter guide</a> and <a href="serverless-mode.html">serverless mode notes</a> cover both shapes.</li><li>Verify: the chart page's evidence links show what the catalog itself checks after apply.</li><li>Roll back: every promotion is ordinary revisions. Restore the before state and apply again; the product docs cover <code>--restore</code> forms.</li></ul>
 <h2 id="honest-boundaries">Honest boundaries</h2>
-<ul><li>Only Spaces created by <code>cub variant create</code> can be promoted with <code>cub variant promote</code>. It follows the upstream link recorded at create time; a Space made any other way has no such link.</li><li>Rendered Secrets are not uploaded. Stage them out of band; the base variant's <code>try.sh</code> and chart page record what each base variant needs.</li><li><code>cub variant upload</code> also exists, as a general way to seed a base Space from any rendered manifests. The catalog path uses <code>cub installer upload</code>, which additionally records the package.</li><li>The committed proof for this flow is the <a href="../../data/master-catalog-matrix/summary.html">master catalog matrix</a> Promotion lane per base variant. This page is the user-facing walkthrough of the same mechanism, not a separate proof.</li></ul>
+<ul><li>Only Spaces created by <code>cub variant create</code> can be promoted with <code>cub variant promote</code>. It follows the upstream link recorded at create time; a Space made any other way has no such link.</li><li>Rendered Secrets are not uploaded. Stage them out of band; the base variant's <code>try.sh</code> and chart page record what each base variant needs.</li><li><code>cub variant upload</code> also exists, as a general way to seed a base Space from any rendered manifests. The catalog path uses <code>cub installer upload</code>, which additionally records the package.</li><li>The committed proof for this flow is in the promotion receipts linked from the <a href="../../data/master-catalog-matrix/summary.html">master catalog matrix</a>. This guide explains the commands behind those receipts.</li></ul>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/user/variants-after-upload.md</code>. The source file is the authoritative version.</p></footer>
