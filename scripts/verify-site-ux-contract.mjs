@@ -514,6 +514,16 @@ if (fs.existsSync(chartPagesDir)) {
 
 const purposePageRules = [
   {
+    file: "site/try.html",
+    maxH2: 4,
+    requiredLinks: ["./redis-walkthrough.html", "./how-it-works.html", "./testing.html", "./confighub.html"],
+  },
+  {
+    file: "site/testing.html",
+    maxH2: 5,
+    requiredLinks: ["./try.html", "./journey.html", "./operations.html", "./confighub.html"],
+  },
+  {
     file: "site/charts/index.html",
     maxH2: 5,
     requiredLinks: ["../how-it-works.html"],
@@ -535,6 +545,21 @@ const purposePageRules = [
     maxH2: 4,
     requiredLinks: ["./how-it-works.html", "./docs.html"],
     forbidden: ["Choose one place to start"],
+  },
+  {
+    file: "site/ai.html",
+    maxH2: 6,
+    requiredLinks: ["./journey.html", "d/data/ai-change-review-live-proof/summary.html"],
+  },
+  {
+    file: "site/journey.html",
+    maxH2: 5,
+    requiredLinks: ["./testing.html", "./demo-org.html", "d/data/redis-upgrade-app-proof/summary.html"],
+  },
+  {
+    file: "site/demo-org.html",
+    maxH2: 9,
+    requiredLinks: ["./charts/index.html", "./journey.html", "./variants.html"],
   },
 ];
 
