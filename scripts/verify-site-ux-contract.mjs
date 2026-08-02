@@ -44,7 +44,7 @@ const checks = [
   },
   {
     file: "site/deployment-reference.html",
-    terms: ["Technical deployment reference", "The short version", "Where a setting belongs", "The recipe: your source of truth", "Variants, in one picture", "What a direct local apply still has to handle"],
+    terms: ["Technical deployment reference", "The short version", "Where a setting belongs", "The recipe: the recorded inputs", "Variants, in one picture", "What a direct local apply still has to handle"],
   },
   {
     file: "site/charts/index.html",
