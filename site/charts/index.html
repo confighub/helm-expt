@@ -445,13 +445,14 @@
       <p>Pick a chart and check its pinned version. The chart page gives you the first configuration to try, the exact command, required setup, generated output, and evidence.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search charts</strong></label>
-        <input id="chart-filter" type="search" placeholder="redis, crd, hook, prometheus, proof-grade..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
+        <input id="chart-filter" type="search" placeholder="redis, CRD, hook, prometheus..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Catalog level<br><select id="level-filter"><option value="">any</option><option value="catalog-supported">catalog-supported</option><option value="proof-grade / machine-proof-only">proof-grade / machine-proof-only</option></select></label>
-          <label>Start status<br><select id="status-filter"><option value="">any</option><option value="start-here">start-here</option><option value="render-only">render-only</option><option value="see chart page">see chart page</option></select></label>
-          <label>Hooks<br><select id="hook-filter"><option value="">any</option><option value="yes">has hook/action signal</option><option value="no">no hook/action signal</option></select></label>
-          <label>CRDs<br><select id="crd-filter"><option value="">any</option><option value="yes">has CRD signal</option><option value="no">no CRD signal</option></select></label>
+          <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="catalog-supported">Ready to try</option><option value="proof-grade / machine-proof-only">Checked; review before use</option></select></label>
+          <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
+          <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
+          <label>CRDs<br><select id="crd-filter"><option value="">All</option><option value="yes">Includes or needs CRDs</option><option value="no">No CRD signal recorded</option></select></label>
         </div>
+        <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div class="card"><table id="chart-table">

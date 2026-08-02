@@ -5932,13 +5932,14 @@ function chartIndexHtml(catalog) {
       <p>Pick a chart and check its pinned version. The chart page gives you the first configuration to try, the exact command, required setup, generated output, and evidence.</p>
       <div class="card">
         <label for="chart-filter"><strong>Search charts</strong></label>
-        <input id="chart-filter" type="search" placeholder="redis, crd, hook, prometheus, proof-grade..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
+        <input id="chart-filter" type="search" placeholder="redis, CRD, hook, prometheus..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
-          <label>Catalog level<br><select id="level-filter"><option value="">any</option><option value="catalog-supported">catalog-supported</option><option value="proof-grade / machine-proof-only">proof-grade / machine-proof-only</option></select></label>
-          <label>Start status<br><select id="status-filter"><option value="">any</option><option value="start-here">start-here</option><option value="render-only">render-only</option><option value="see chart page">see chart page</option></select></label>
-          <label>Hooks<br><select id="hook-filter"><option value="">any</option><option value="yes">has hook/action signal</option><option value="no">no hook/action signal</option></select></label>
-          <label>CRDs<br><select id="crd-filter"><option value="">any</option><option value="yes">has CRD signal</option><option value="no">no CRD signal</option></select></label>
+          <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="catalog-supported">Ready to try</option><option value="proof-grade / machine-proof-only">Checked; review before use</option></select></label>
+          <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
+          <label>Hooks<br><select id="hook-filter"><option value="">All</option><option value="yes">Needs lifecycle review</option><option value="no">No hook signal recorded</option></select></label>
+          <label>CRDs<br><select id="crd-filter"><option value="">All</option><option value="yes">Includes or needs CRDs</option><option value="no">No CRD signal recorded</option></select></label>
         </div>
+        <p><strong>Ready to try</strong> entries have maintained starting configurations and stronger public examples. <strong>Checked; review before use</strong> entries have generated evidence but need more chart-specific review.</p>
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div class="card"><table id="chart-table">
@@ -6002,6 +6003,28 @@ function catalogLayerLabel(entry) {
   if (entry.proof_surface === "top20-catalog-supported") return "catalog-supported";
   if (entry.proof_surface === "next80-proof-grade") return "proof-grade / machine-proof-only";
   return entry.catalog_status || entry.proof_surface || "unknown";
+}
+
+function catalogReadinessLabel(entry) {
+  if (entry.proof_surface === "top20-catalog-supported") return "Ready to try";
+  if (entry.proof_surface === "next80-proof-grade") return "Checked; review before use";
+  return humanizeReasonToken(entry.catalog_status || entry.proof_surface || "Status not recorded");
+}
+
+function catalogStartStatusLabel(value) {
+  return {
+    "start-here": "Recommended first path",
+    "render-only": "Rendering checked; read the chart page",
+    "runtime-watch": "Use with care; check the live limits",
+    "see chart page": "Read the chart page",
+  }[value] ?? humanizeReasonToken(value || "Status not recorded");
+}
+
+function productionStatusLabel(value) {
+  return {
+    "production-review-ready": "Ready for a target-specific production review",
+    "blocked-by-current-scan-gate": "Blocked by the current scan gate",
+  }[value] ?? humanizeReasonToken(value || "Status not recorded");
 }
 
 function executionModePlain(mode) {
@@ -6872,15 +6895,15 @@ function chartPageHtml(catalog, entry) {
     skill.why,
   ]) ?? [];
   const factSheetRows = [
-    ["User status", evidenceRoute?.user_status || userReadiness?.user_status || "not recorded"],
-    ["Can I use it?", evidenceRoute?.chart_use_answer || "check the supported base and production boundary"],
+    ["User status", humanizeReasonToken(evidenceRoute?.user_status || userReadiness?.user_status || "Status not recorded")],
+    ["Can I use it?", cleanPageActionText(evidenceRoute?.chart_use_answer || "Check the supported base and production boundary")],
     ["First base", evidenceRoute?.first_base || entry.start_variant],
     ["Installer package OCI", installerPackageOciRef],
-    ["Current proof", evidenceRoute?.current_proof || entry.proof_status || "see proof lanes"],
-    ["Coverage", evidenceRoute?.coverage_status || "see coverage evidence"],
-    ["User must provide", evidenceRoute?.user_must_provide || userReadiness?.user_must_provide || "check target facts and base readiness"],
-    ["ConfigHub/installer absorbs", evidenceRoute?.routed_or_absorbed || userReadiness?.confighub_absorbs || "rendered objects, receipts, and checks"],
-    ["Next action", evidenceRoute?.next_action || top100?.next_action || support?.next_action || "none recorded"],
+    ["Current proof", humanizeReasonList(evidenceRoute?.current_proof || entry.proof_status || "See proof lanes")],
+    ["Coverage", humanizeReasonList(evidenceRoute?.coverage_status || "See coverage evidence")],
+    ["You must provide", cleanPageActionText(evidenceRoute?.user_must_provide || userReadiness?.user_must_provide || "Check target facts and base readiness")],
+    ["What the tools manage", cleanPageActionText(evidenceRoute?.routed_or_absorbed || userReadiness?.confighub_absorbs || "Rendered objects, receipts, and checks")],
+    ["Next action", cleanPageActionText(evidenceRoute?.next_action || top100?.next_action || support?.next_action || "None recorded")],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -6894,13 +6917,11 @@ function chartPageHtml(catalog, entry) {
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(entry.chart)}</h1>
-    <p>This page exists so you do not have to guess your way through this Helm chart. It shows the useful ways we know how to run it, the Kubernetes YAML each choice produces, and the evidence behind the current claim.</p>
-    <p>Start by choosing a <a href="./index.html#base-variants">base variant</a>. A base variant is a supported Helm configuration such as default, no-CRDs, existing Secret, HA, or server-only.</p>
-    <p>The page does not claim every values combination for this chart. It shows the supported base variants we have recorded, what problem each one solves, and the chart-specific work that still needs a decision.</p>
-    <p>Use it to choose the first useful base variant, read the exact objects, catch prerequisites or classic errors, and see what is proven before you install or promote anything.</p>
-    <p>Pass means backed by evidence. Watch or blocked means the limit is named so you can decide what to do next.</p>
+    <p class="lead">Choose a tested starting configuration for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}. Read its exact Kubernetes objects, required setup, and current evidence before you deploy it.</p>
+    <p>Start with <strong>${escapeHtml(entry.start_variant)}</strong>. The page also shows other recorded choices, such as no-CRDs, existing Secret, HA, or server-only when they apply. It does not claim every possible values combination.</p>
+    <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
     <p class="mono" style="font-size:.9rem">ecosystem: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm docs</a> - discovery and tooling live upstream; this page adds the proof.</p>
-    <p class="tagline">${escapeHtml(catalogLayerLabel(entry))} page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
+    <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>
@@ -6920,19 +6941,19 @@ function chartPageHtml(catalog, entry) {
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>Recommended first base variant</span></div>
         <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>${entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants"}</span></div>
-        <div class="metric"><strong>${escapeHtml(entry.start_base_readiness || "see bases")}</strong><span>Start-base status</span></div>
-        <div class="metric"><strong>${escapeHtml(production?.production_support ?? entry.production_readiness)}</strong><span>Production disposition</span></div>
+        <div class="metric"><strong>${escapeHtml(catalogStartStatusLabel(entry.start_base_readiness))}</strong><span>First-configuration status</span></div>
+        <div class="metric"><strong>${escapeHtml(productionStatusLabel(production?.production_support ?? entry.production_readiness))}</strong><span>Production status</span></div>
       </div>
       <p>${escapeHtml(chartUse?.plain_english ?? "Use the public catalog entry, then check the exact base and proof lane before making a production claim.")}</p>
       ${markdownLikeTable([
         ["Question", "Answer"],
-        ["Catalog level", catalogLayerLabel(entry)],
+        ["Catalog readiness", catalogReadinessLabel(entry)],
         ["Chart version", entry.version],
         ["Installer package OCI", installerPackageOciRef],
         ["OCI publication status", installerPackageStatus],
         ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
         [entry.proof_surface === "next80-proof-grade" ? "Candidate base variants" : "Supported base variants", entry.supported_variants || entry.candidate_variants || "see matrix rows"],
-        ["Not yet enabled", entry.not_yet_enabled || "none recorded"],
+        ["Not yet enabled", humanizeReasonList(entry.not_yet_enabled) || "None recorded"],
         ["Namespace", entry.namespace || "chart default"],
       ])}
     </section>
