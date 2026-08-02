@@ -500,6 +500,17 @@ for (const rule of purposePageRules) {
   }
 }
 
+const choosingCommandsPath = path.join(root, "site/d/docs/user/choosing-commands.html");
+if (fs.existsSync(choosingCommandsPath)) {
+  const choosingCommands = fs.readFileSync(choosingCommandsPath, "utf8");
+  const introduction = choosingCommands.indexOf("This guide explains which command path to use");
+  const commandNote = choosingCommands.indexOf("What this command does.");
+  const firstInstallerCommand = choosingCommands.indexOf("cub installer setup");
+  if (!(introduction >= 0 && firstInstallerCommand > introduction && commandNote > firstInstallerCommand)) {
+    failures.push("site/d/docs/user/choosing-commands.html: installer explanation must sit beside the first installer command, after the document introduction");
+  }
+}
+
 function htmlFilesUnder(dir) {
   if (!fs.existsSync(dir)) return [];
   const files = [];

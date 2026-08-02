@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/reference/lane-test-doctrine.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
@@ -460,7 +459,8 @@ ConfigHub-reviewable, live-cluster verified, and tied to receipts.</code></pre>
 <tr><td>Live cluster truth</td><td>local-kind or equivalent Kubernetes observation receipt that checks applied objects and meaningful runtime state, not just file generation.</td></tr>
 <tr><td>GitOps/OCI truth</td><td>ConfigHub Units published through OCI and reconciled by Argo or Flux, with sync and runtime evidence.</td></tr>
 <tr><td>Helm-vs-installer parity</td><td>required live parity: live Helm deployment on one vanilla cluster compared with live <code>cub installer</code> render/apply on a second vanilla cluster.</td></tr>
-<tr><td>ConfigHub delivery parity</td><td>live Helm deployment compared with ConfigHub delivery paths such as controller-driven OCI and kubectl/apply.</td></tr></tbody></table>
+<tr><td>ConfigHub delivery parity</td><td>live Helm deployment compared with ConfigHub delivery paths such as controller-driven OCI and kubectl/apply.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>If any required evidence is missing, the row remains useful but incomplete. The matrix should say <code>missing</code>; docs should not flatten that into &quot;verified.&quot;</p>
 <p>The generated control surface is:</p>
 <pre><code>data/lane-test-matrix/variant-lanes.csv

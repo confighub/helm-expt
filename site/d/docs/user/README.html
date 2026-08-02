@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/README.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
@@ -522,7 +521,8 @@
 <tr><td>47</td><td><a href="hook-lifecycle-strategy.html">Hook Lifecycle Strategy</a></td><td>Why Helm hooks need explicit lifecycle routes and receipts.</td></tr>
 <tr><td>48</td><td><a href="inspect-oci-package.html">Inspect An OCI Package</a></td><td>Identify an OCI package, resolve its digest, and list the exact Kubernetes objects and lifecycle clues before choosing what to do with it.</td></tr>
 <tr><td>49</td><td><a href="transform-oci-package.html">Change An OCI Package</a></td><td>Change one named field, keep the source and check records, and build a new OCI without a ConfigHub account or server.</td></tr>
-<tr><td>50</td><td><a href="app-to-live-walkthrough.html">Your App To Live</a></td><td>Continue from plain Kubernetes YAML into ConfigHub variants, releases, Argo CD delivery, and promotion.</td></tr></tbody></table>
+<tr><td>50</td><td><a href="app-to-live-walkthrough.html">Your App To Live</a></td><td>Continue from plain Kubernetes YAML into ConfigHub variants, releases, Argo CD delivery, and promotion.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>Detailed doctrine and historical design material now lives under <a href="../../../../docs/reference"><code>docs/reference</code></a> so it does not look like the first-run user flow. Use it when you need the deeper model:</p>
 <table><thead><tr><th>Reference</th><th>Read It For</th></tr></thead><tbody><tr><td><a href="../reference/seven-stage-helm-lifecycle.html">Seven-Stage Helm Lifecycle</a></td><td>The doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations.</td></tr>
 <tr><td><a href="chain-of-proof.html">Chain Of Proof</a></td><td>The user-facing boundary map for render proof, ConfigHub proof, delivery proof, and live proof.</td></tr>

@@ -442,12 +442,12 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/serverless-oci-gitops-proof/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from a live receipt. Run <code>npm run serverless-oci-gitops:proof</code> to repeat it, or <code>npm run serverless-oci-gitops:proof:verify</code> to check the committed result.</p>
 <p>This run started with the public bitnami/nginx@24.0.2 installer package. <code>cub installer</code> pulled it using an empty registry credential file and an isolated cub home with no ConfigHub token. It rendered the <code>http-clusterip</code> configuration as 6 Kubernetes objects.</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p>The same <code>cub installer setup</code> command used <code>--output-oci</code> to package those rendered files as a second OCI artifact. The installer pulled its own output back and checked the object-set digest before returning. Flux then pulled that output digest and applied it to a throwaway cluster. NGINX reached 1/1 ready replicas.</p>
 <table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Public installer OCI pulled without registry credentials</td><td>pass</td></tr>
 <tr><td>ConfigHub token present</td><td>no</td></tr>

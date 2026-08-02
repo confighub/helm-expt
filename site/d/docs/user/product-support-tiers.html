@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/product-support-tiers.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
@@ -491,7 +490,8 @@ no private repo, org, or production-state upload required</code></pre>
 <tr><td>Pull public OCI artifact</td><td>anonymous <code>cub installer setup --pull oci://...</code></td><td>Artifact Registry grants public read; writes remain private</td></tr>
 <tr><td>Verify artifact</td><td>client checks digest/signature from public catalog</td><td>signature and digest proof, no trust in transport alone</td></tr>
 <tr><td>Use Argo CD / Flux</td><td>public catalog bundles can be pulled without a registry Secret; private bundles still need one</td><td>public-read for catalog, explicit credentials for private delivery</td></tr>
-<tr><td>Create private variants or production records</td><td>full ConfigHub account/org</td><td>managed variants, approvals, receipts, scans, audit, support</td></tr></tbody></table>
+<tr><td>Create private variants or production records</td><td>full ConfigHub account/org</td><td>managed variants, approvals, receipts, scans, audit, support</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>Why not only a browser cookie? It helps the web flow, but OCI clients and GitOps controllers do not use the browser session. For the public catalog, the registry itself is public-read. For private packages, use a scoped registry credential or Kubernetes pull Secret.</p>
 <p>This tier is for first contact and trust building. It should answer:</p>
 <pre><code>Can I try this as easily as Helm?

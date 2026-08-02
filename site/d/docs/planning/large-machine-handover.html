@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/large-machine-handover.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Updated: 2026-06-08</p>
@@ -456,7 +455,8 @@
 <tr><td><code>GitOps live</code></td><td>ConfigHub Units were published through OCI and reconciled by Argo or Flux, with sync and runtime evidence.</td></tr>
 <tr><td><code>live parity</code></td><td>A live Helm deployment was compared against both ConfigHub delivery paths: controller-driven OCI and kubectl/apply.</td></tr>
 <tr><td><code>derived variant proof</code></td><td>A downstream ConfigHub Space was created from an uploaded reviewed base, with clone/link/gate/check evidence.</td></tr>
-<tr><td><code>target-bound derived variant</code></td><td>A derived variant has a real target attached and live apply evidence.</td></tr></tbody></table>
+<tr><td><code>target-bound derived variant</code></td><td>A derived variant has a real target attached and live apply evidence.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>The repo has useful proof. It does not yet have complete live proof.</p>
 <h2 id="current-honest-state">Current Honest State</h2>
 <p>Use <a href="../../data/outcome-coverage/summary.html">data/outcome-coverage/summary.md</a> as the chart-recipe-variant truth source.</p>

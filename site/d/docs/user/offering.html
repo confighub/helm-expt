@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/offering.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
@@ -466,7 +465,8 @@
 <p>For a day-2 example, see <a href="helm-upgrade-crash-example.html">Helm Upgrade Crash Example</a>. It shows how a risky chart upgrade becomes staged, reviewed, rehearsed, gated, and observed instead of being treated as one opaque production mutation.</p>
 <h2 id="what-is-free-to-try">What Is Free To Try</h2>
 <p>The public lane is for low-friction use of public chart bases:</p>
-<ul><li>browse chart versions, base variants, proof status, pain reports, and gaps;</li><li>run <code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code>;</li><li>inspect rendered objects, receipts, scans, and current proof status;</li><li>verify locally with the repo's proof and live-test commands.</li></ul>
+<ul><li>browse chart versions, base variants, proof status, pain reports, and gaps;</li><li>run <code>cub installer setup --pull &lt;installer OCI ref&gt; --base &lt;base&gt;</code>;</li><li>inspect rendered objects, receipts, scans, and current proof status;</li><li>verify locally with the repo's proof and live-test commands.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>The first path should feel closer to <code>helm install redis</code> than to a platform migration.</p>
 <p>For the short route picker across direct render, one-shot upload, public catalog packages, and ConfigHub-managed operations, see <a href="choose-your-path.html">Choose Your Path</a>.</p>
 <h2 id="when-confighub-matters">When ConfigHub Matters</h2>

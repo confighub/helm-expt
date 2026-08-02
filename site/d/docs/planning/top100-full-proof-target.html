@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/top100-full-proof-target.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
@@ -463,7 +462,8 @@ data/next80-full-proofs/summary.md
 recipes/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/
 packages/&lt;repo&gt;/&lt;chart&gt;/&lt;version&gt;/</code></pre>
 <p>Every next-80 chart must prove:</p>
-<ul><li>pinned chart source and dependency closure;</li><li>deterministic regular Helm render under Kubernetes <code>1.30.0</code>;</li><li>a Recipe, HelmPlan, ChartDossier, ValueModel, and ControlPoints file;</li><li>a default Variant and digest-bound VariantRevision;</li><li>rendered release objects and object inventory;</li><li>render, Helm-equivalence, scan, install-gate, and installer-package receipts;</li><li>deterministic <code>cub installer package</code> output;</li><li><code>cub installer setup</code> output semantically matching regular Helm output, aside from the allowed Namespace support object.</li></ul>
+<ul><li>pinned chart source and dependency closure;</li><li>deterministic regular Helm render under Kubernetes <code>1.30.0</code>;</li><li>a Recipe, HelmPlan, ChartDossier, ValueModel, and ControlPoints file;</li><li>a default Variant and digest-bound VariantRevision;</li><li>rendered release objects and object inventory;</li><li>render, Helm-equivalence, scan, install-gate, and installer-package receipts;</li><li>deterministic <code>cub installer package</code> output;</li><li><code>cub installer setup</code> output semantically matching regular Helm output, aside from the allowed Namespace support object.</li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <p>Verification:</p>
 <pre><code>npm run next80:verify
 npm run next80:verify:packages

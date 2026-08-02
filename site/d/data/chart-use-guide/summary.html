@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/chart-use-guide/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>This generated guide answers one user question:</p>
@@ -476,7 +475,8 @@
 <tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr>
 <tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td><code>default (render-only)</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr>
 <tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td><code>server-only-ephemeral (render-only)</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr>
-<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr></tbody></table>
+<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>Open the per-chart CATALOG.md, choose the recommended base, and run the cub installer setup command.</td></tr></tbody></table><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+
 <h2 id="first-promotion-wave">First Promotion Wave</h2>
 <p>These proof-ready rows are the first strict top-100 promotion-review packet. They are good candidates for turning machine proof into a public catalog offer, but they still need review, production disposition, and selected live evidence before their catalog status changes.</p>
 <table><thead><tr><th>Chart</th><th>Recommended base</th><th>Evidence</th><th>First step</th></tr></thead><tbody><tr><td><code>external-dns/external-dns@1.21.1</code></td><td><code>default</code></td><td><code>live-helm-vs-confighub-parity</code></td><td>review the existing variants, then write production disposition or support-decision artifacts before changing catalog status</td></tr>

@@ -442,7 +442,6 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/user/verification.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-07-30T12:38:02.000Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
@@ -467,6 +466,7 @@
 <tr><td>What does a lane mean?</td><td><code>npm run lane-tests:verify</code> and <a href="verification-lanes.html">Verification Lanes</a></td><td>No</td><td>The lane matrix semantics and status vocabulary are still valid.</td></tr>
 <tr><td>Can I validate a cub-scout receipt?</td><td><code>cub-scout receipt validate &lt;receipt.json&gt;</code></td><td>No</td><td>The receipt fingerprint and structure validate locally.</td></tr></tbody></table>
 <h2 id="user-side-and-maintainer-checks">User-Side And Maintainer Checks</h2>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
 <p>User-side checks answer &quot;can I inspect or compare this chart path myself?&quot; Examples are <code>cub installer setup</code>, <code>npm run redis:verify-install:render</code>, and <code>npm run kind-parity:run</code>.</p>
 <p>Maintainer checks answer &quot;is the repo still internally consistent?&quot; Examples are <code>npm run site:verify</code>, <code>npm run docs:verify</code>, <code>npm run data:index:verify</code>, and <code>npm run verify</code>.</p>
 <p>Evidence-refresh checks answer &quot;should we create new live receipts?&quot; Examples are <code>npm run live-parity:run</code>, <code>npm run outcomes:generate</code>, and <code>npm run status:dashboard</code>. Run those deliberately because they can create or refresh evidence files.</p>
