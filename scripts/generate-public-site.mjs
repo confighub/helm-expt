@@ -5318,7 +5318,7 @@ function examplesHtml(catalog) {
     ${topNav(".")}
     <h1>Choose a worked example</h1>
     <p class="tagline">Choose the kind of configuration you have, then follow one worked example to exact Kubernetes objects and a checked result.</p>
-    <p>Advanced ConfigHub, promotion, fleet, and App demonstrations remain on this page after the starting examples.</p>
+    <p>After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs.</p>
   </header>
   <main id="examples-content">
     <span id="catalog-starting-points"></span>
@@ -5326,7 +5326,7 @@ function examplesHtml(catalog) {
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
       <h2 id="start">1. Start with a configuration</h2>
-      <p>Pick one row. The first link starts the example; the remaining links show the evidence and source.</p>
+      <p>Each example includes the source files and the evidence behind its result.</p>
       ${markdownLikeTable([
         ["What you have", "Start with this example"],
         [
