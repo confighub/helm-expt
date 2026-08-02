@@ -21,9 +21,10 @@ other.
 | Bring an existing Argo, Flux, KRM, rendered-manifest, app, platform, stack, or live-cluster estate into the model. | Read or export it from its current controller, upload the reviewed YAML with `cub variant upload`, then decide whether to keep it or build a maintained recipe. |
 | Prove a repo artifact or live lane has not drifted. | the relevant `npm run ...` verifier |
 
-`cub helm` and `cub installer` are preparation tools. `cub helm` imports an
-arbitrary chart and values. `cub installer` reads a maintained catalog package
-with named configurations and recorded requirements.
+`cub helm` and `cub installer` are preparation tools. `cub helm template`
+previews an arbitrary chart and values. `cub helm install` records its source
+and rendered base in ConfigHub. `cub installer` reads a maintained catalog
+package with named configurations and recorded requirements.
 
 The [official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/)
 teaches the product journey after configuration enters ConfigHub. New users do
