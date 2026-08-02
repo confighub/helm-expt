@@ -213,7 +213,7 @@ const PAGE_DESCRIPTIONS = {
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
   "docs.html": "Find the technical instructions for the configuration or deployment step you are working on now.",
   "docs-reference.html": "Browse the complete technical guide and evidence index for Config Workshop and helm-expt.",
-  "verification.html": "Verification for the catalog: product commands and proof commands, committed evidence and fresh live parity you can run yourself.",
+  "verification.html": "Choose one Config Workshop claim, run the matching check, and understand whether it uses committed evidence or creates a fresh live result.",
   "proof.html": "How to read the proof corpus: receipts, scans, render records, and live evidence for each catalog chart.",
   "quirks.html": "Helm quirks in plain words: hooks, CRDs, generated Secrets, and the other extras charts leave around the edges.",
   "hard-questions.html": "Hard questions answered plainly: what breaks, what is safe for AI to change, and where the gaps are.",
@@ -3504,19 +3504,19 @@ function docsHtml() {
 
 function verificationHtml(catalog) {
   const commandRows = [
-    ["Generated site/docs/data", "<code>npm run site:verify</code><br><code>npm run docs:verify</code><br><code>npm run data:index:verify</code>", "No", "Generated surfaces match committed source and data."],
-    ["Rendered tutorial output", "<code>npm run redis:verify-install:render -- ...</code>", "No", "A user's workdir render matches the expected chart/base/package contract."],
-    ["Broad repo gate", "<code>npm run verify</code>", "No cluster by default", "The committed corpus, generated files, receipts, and docs are self-consistent."],
-    ["Fresh Helm-vs-cub comparison", "<code>npm run kind-parity:run -- ...</code>", "Yes, kind", "Regular Helm and cub installer are compared on two vanilla kind clusters."],
-    ["Committed kind receipts", "<code>npm run kind-parity:verify</code>", "No", "Existing two-cluster receipts and summaries remain internally consistent."],
-    ["ConfigHub/OCI live lane", "<code>npm run live-parity:run -- ...</code>", "Yes, kind plus ConfigHub and OCI path", "The stricter live path for a committed recipe/base."],
-    ["Lane semantics", "<code>npm run lane-tests:verify</code>", "No", "The lane matrix and its status vocabulary are still valid."],
-    ["cub-scout receipt", "<code>cub-scout receipt validate &lt;receipt.json&gt;</code>", "No", "A receipt fingerprint and structure validate locally."],
+    ["Are the generated pages, docs, and data current?", "<code>npm run site:verify</code><br><code>npm run docs:verify</code><br><code>npm run data:index:verify</code>", "No", "Generated files match the committed source and data."],
+    ["Does the Redis tutorial produce the expected files?", "<code>npm run redis:verify-install:render -- ...</code>", "No", "A user's local render matches the recorded chart, configuration, and package."],
+    ["Does the complete repository agree with itself?", "<code>npm run verify</code>", "No cluster by default", "The committed catalog, generated files, receipts, and docs are consistent."],
+    ["Do Helm and cub installer reach the same result?", "<code>npm run kind-parity:run -- ...</code>", "Yes, kind", "Helm and cub installer are compared on two new kind clusters."],
+    ["Are the saved two-cluster results still consistent?", "<code>npm run kind-parity:verify</code>", "No", "The committed receipts still agree with their summaries."],
+    ["Does the ConfigHub and OCI path work live?", "<code>npm run live-parity:run -- ...</code>", "Yes, kind plus ConfigHub and OCI", "One recorded configuration is tested through ConfigHub, OCI, and Kubernetes."],
+    ["Do the result labels still have the same meaning?", "<code>npm run lane-tests:verify</code>", "No", "The test matrix and its pass, watch, blocked, and not-run meanings are valid."],
+    ["Is this cub-scout receipt intact?", "<code>cub-scout receipt validate &lt;receipt.json&gt;</code>", "No", "The receipt's fingerprint and structure validate locally."],
   ];
   const routeRows = [
-    ["Render", "Turn a chart, version, values, release name, namespace, and capability profile into exact Kubernetes objects.", "Object parity checks and rendered install checks."],
-    ["Record", "Keep inputs, source lock, objects, diffs, receipts, scans, and observations with the chart configuration.", "A reviewer can see what changed and rerun the same check later."],
-    ["Route", "Name the extras Helm leaves around the edges: hooks, CRDs, webhooks, generated facts, target prerequisites, Secrets, setup jobs, and GitOps handoff.", "Each extra is applied, observed, blocked, refused, or marked target-specific."],
+    ["Render", "Turn the chart and its recorded settings into the exact Kubernetes objects.", "The object set matches the expected Helm result."],
+    ["Record", "Keep the source, settings, objects, diffs, checks, and receipts together.", "A reviewer can explain the result and repeat the check."],
+    ["Route", "State how hooks, CRDs, Secrets, setup jobs, target requirements, and GitOps delivery are handled.", "Required work is assigned, tested, blocked, or marked as not yet run."],
   ];
   const topicRows = [
     [`<a href="../docs/user/verification.md">Verification docs</a>`, "The canonical docs landing page for proof commands and render-record-route."],
@@ -3536,22 +3536,22 @@ function verificationHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Verification · Config Workshop</title>
+  <title>Check One Claim · Config Workshop</title>
   <style>${siteCss()}</style>
 </head>
 <body>
   <header class="hero human-hero">
     ${topNav(".")}
-    <h1>Verification</h1>
-    <p class="lead">Use npm proof commands to check a claim. They are verification tools for this repo, not product install commands.</p>
-    <p>Start with the question you need answered: generated site freshness, rendered tutorial output, committed receipts, or a fresh live parity run.</p>
-    ${humanLinks([["Verify it yourself", "../docs/user/verify-it-yourself.md"], ["Verification lanes", "../docs/user/verification-lanes.md"], ["Proof page", "./proof.html"]])}
+    <h1>Check one claim</h1>
+    <p class="lead">Choose the result you want to check, then run the matching command. These commands test this project's published results; they do not install your application.</p>
+    <p>Some checks read evidence already committed to the repository. Others create clusters and produce a new live result. The table tells you which kind you are about to run.</p>
+    ${humanLinks([["Choose a command", "#start-question"], ["See current results", "./proof.html"], ["Read known gaps", "./known-gaps.html"]])}
   </header>
   <main>
     ${generatedStamp(catalog, "verification page")}
     <section aria-labelledby="start-question">
-      <h2 id="start-question">Start With The Question</h2>
-      <p>Use the narrowest check that proves the claim. A passing generated-file check is useful, but it is not a fresh live test. A fresh live test is stronger for one row, but it can create clusters and receipts.</p>
+      <h2 id="start-question">1. Choose the question</h2>
+      <p>Use the smallest check that answers it. A generated-file check confirms repository consistency. A live check tests one recorded configuration again and may create clusters and receipts.</p>
       ${markdownLikeTable([
         ["Question", "Command or surface", "Needs cluster?", "What it proves"],
         ...commandRows,
@@ -3559,17 +3559,17 @@ function verificationHtml(catalog) {
     </section>
 
     <section aria-labelledby="product-vs-proof">
-      <h2 id="product-vs-proof">Product Commands And Proof Commands</h2>
+      <h2 id="product-vs-proof">2. Tell product commands from project checks</h2>
       <div class="grid">
         <div class="card"><h3>Product commands</h3><p><code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, and Flux render, install, deliver, or manage configuration.</p></div>
-        <div class="card"><h3>Npm proof commands</h3><p><code>npm run ...</code> checks repo evidence: generated files, docs, data, tutorial renders, lane receipts, and proof summaries.</p></div>
-        <div class="card"><h3>Full repo gate</h3><p><code>npm run verify</code> is a broad consistency gate. Use it before publishing or reviewing a large change, not as the first-user experience.</p></div>
+        <div class="card"><h3>Project checks</h3><p><code>npm run ...</code> checks this repository's generated files, docs, data, tutorial renders, receipts, and summaries.</p></div>
+        <div class="card"><h3>Complete project check</h3><p><code>npm run verify</code> checks the whole repository. Use it before publishing or reviewing a large change.</p></div>
       </div>
     </section>
 
     <section aria-labelledby="render-record-route">
-      <h2 id="render-record-route">Recipe, Render, Record, Route</h2>
-      <p>Flat YAML shows what would run. Verification adds the trail behind it and the routes around it, so hooks, CRDs, generated Secrets, setup jobs, and target prerequisites do not disappear.</p>
+      <h2 id="render-record-route">3. See what render, record, and route mean</h2>
+      <p>The Kubernetes YAML shows what would run. The source record explains how it was produced. Lifecycle records explain work such as hooks, CRDs, Secrets, and setup jobs.</p>
       ${markdownLikeTable([
         ["Move", "Meaning", "What gets checked"],
         ...routeRows,
@@ -3577,23 +3577,23 @@ function verificationHtml(catalog) {
     </section>
 
     <section aria-labelledby="fresh-committed">
-      <h2 id="fresh-committed">Fresh Evidence And Committed Evidence</h2>
+      <h2 id="fresh-committed">4. Choose saved evidence or a fresh run</h2>
       <div class="grid">
-        <div class="card"><h3>Committed evidence</h3><p>Already in the repo. Use it to review a claim, publish generated pages, and confirm summaries still match receipts and CSVs.</p></div>
-        <div class="card"><h3>Fresh evidence</h3><p>Created by a new run. It may create kind clusters, use ConfigHub, publish OCI artifacts, wait for Argo or Flux, or write receipts.</p></div>
-        <div class="card"><h3>Run live lanes serially</h3><p>Do not overlap fresh live lanes. Keep clusters, namespaces, credentials, and receipts isolated.</p></div>
+        <div class="card"><h3>Saved evidence</h3><p>Already in the repository. Use it to review a claim and confirm that summaries still match their receipts and data.</p></div>
+        <div class="card"><h3>Fresh evidence</h3><p>Created by a new run. It may create kind clusters, use ConfigHub, publish OCI artifacts, wait for Argo or Flux, and write receipts.</p></div>
+        <div class="card"><h3>Run live checks one at a time</h3><p>Do not overlap fresh live checks. Keep clusters, namespaces, credentials, and receipts separate.</p></div>
       </div>
     </section>
 
     <section aria-labelledby="subtopics">
-      <h2 id="subtopics">Subtopics</h2>
+      <h2 id="subtopics">5. Open detailed instructions</h2>
       ${markdownLikeTable([
         ["Topic", "Use it for"],
         ...topicRows,
       ], { rawFirstColumn: true })}
     </section>
   </main>
-  <footer>Generated from committed helm-expt evidence. Verification commands check claims; product commands perform the Helm and ConfigHub work.</footer>
+  <footer>Generated from committed helm-expt evidence. Project checks test claims; product commands perform the Helm and ConfigHub work.</footer>
 </body>
 </html>
 `;
