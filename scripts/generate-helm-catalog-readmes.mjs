@@ -792,7 +792,7 @@ There are four places to look. The public preset itself contains no ConfigHub ed
 | Place | What this Space records | Where to change it |
 | --- | --- | --- |
 | Helm values | ${valuesProfile ? `[The values profile](${githubBlob(valuesProfile)})` : "No values profile is recorded"} defines the \`${base}\` base together with release \`${intent.spec?.renderInputs?.releaseName || "chart default"}\` and namespace \`${intent.spec?.renderInputs?.namespace || "chart default"}\`. | Change the values and create or update a base preset when Helm needs to produce different objects. |
-| ConfigHub changes | None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant. | Edit the rendered object in ConfigHub when the base shape is right but a field needs to differ for an environment, region, customer, or policy. |
+| ConfigHub changes | None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant. | Edit the rendered object in ConfigHub when the base configuration is right but a field needs to differ for an environment, region, customer, or policy. |
 | Install work | ${prereqSummary}; ${routeCount ? `${routeCount} hook or setup route(s) are recorded.` : "no separate hook or setup route is recorded."} | Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits. |
 | Live cluster | Live state is checked against the reviewed configuration; it does not become the desired setting by itself. | Record an intended fix in ConfigHub, or remove an unintended live change as drift. |
 

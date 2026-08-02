@@ -416,7 +416,7 @@ function presetReason(base, description) {
   if (lower.includes("ha")) return "Use this when you want the reviewed high-availability shape instead of the simplest default.";
   if (lower.includes("ingress") || lower.includes("tls")) return "Use this when service exposure, TLS, or ingress ownership is the important operating choice.";
   if (lower.includes("internal") || lower.includes("clusterip")) return "Use this when the service should stay inside the cluster or platform network.";
-  if (lower.includes("server-only") || lower.includes("single") || lower.includes("ephemeral")) return "Use this when you want a smaller operating shape for first tests or local use.";
+  if (lower.includes("server-only") || lower.includes("single") || lower.includes("ephemeral")) return "Use this when you want a smaller configuration for first tests or local use.";
   if (lower.includes("dev")) return "Use this for a development or local test shape, not as a production claim.";
   if (lower === "default") return "Use this when you want to start from the chart author's normal path, with the inputs recorded.";
   if (description) return cleanSentence(description);

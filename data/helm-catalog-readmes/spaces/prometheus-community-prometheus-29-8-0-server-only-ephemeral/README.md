@@ -4,7 +4,7 @@
 
 This Space exists to answer one practical question: what is a safe, repeatable way to run `prometheus-community/prometheus@29.8.0` for this operating choice?
 
-For this Space, the answer is the `server-only-ephemeral` preset. Use this when you want a smaller operating shape for first tests or local use.
+For this Space, the answer is the `server-only-ephemeral` preset. Use this when you want a smaller configuration for first tests or local use.
 
 The preset keeps the upstream Helm chart. The catalog records the chart version, values, namespace, release name, Kubernetes capabilities, source lock, rendered YAML, and evidence, so the team can repeat this choice later.
 
@@ -30,7 +30,7 @@ There are four places to look. The public preset itself contains no ConfigHub ed
 | Place | What this Space records | Where to change it |
 | --- | --- | --- |
 | Helm values | [The values profile](https://github.com/confighub/helm-expt/blob/main/recipes/prometheus-community/prometheus/29.8.0/effective-values-server-only-ephemeral.yaml) defines the `server-only-ephemeral` base together with release `prometheus` and namespace `monitoring`. | Change the values and create or update a base preset when Helm needs to produce different objects. |
-| ConfigHub changes | None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant. | Edit the rendered object in ConfigHub when the base shape is right but a field needs to differ for an environment, region, customer, or policy. |
+| ConfigHub changes | None in this catalog base. After upload, an edit appears in Unit revision history or in a derived environment variant. | Edit the rendered object in ConfigHub when the base configuration is right but a field needs to differ for an environment, region, customer, or policy. |
 | Install work | no chart-specific prerequisites recorded; no separate hook or setup route is recorded. | Follow the prerequisite and route records. Secrets, CRDs, and setup jobs are not hidden as values or ConfigHub edits. |
 | Live cluster | Live state is checked against the reviewed configuration; it does not become the desired setting by itself. | Record an intended fix in ConfigHub, or remove an unintended live change as drift. |
 

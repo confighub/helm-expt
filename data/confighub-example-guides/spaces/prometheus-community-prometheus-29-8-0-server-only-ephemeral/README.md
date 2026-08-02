@@ -14,7 +14,7 @@ This preset is a named answer for one useful operating choice. It keeps the upst
 
 ## What this is
 
-This is the `server-only-ephemeral` preset config for `prometheus-community/prometheus@29.8.0`. The repo also calls this a base variant. Use this when you want a smaller operating shape for first tests or local use.
+This is the `server-only-ephemeral` preset config for `prometheus-community/prometheus@29.8.0`. The repo also calls this a base variant. Use this when you want a smaller configuration for first tests or local use.
 
 The matching catalog page is [prometheus-community/prometheus@29.8.0](https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html).
 

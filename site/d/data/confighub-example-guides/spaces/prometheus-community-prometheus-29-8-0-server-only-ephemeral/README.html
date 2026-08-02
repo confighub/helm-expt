@@ -450,7 +450,7 @@
 <p>Helm charts often expose many settings, but a values file alone does not tell the whole operations story. A team still needs to know what Kubernetes objects will be created, which Secrets or CRDs must already exist, whether hooks or setup jobs need special handling, and what evidence backs the result.</p>
 <p>This preset is a named answer for one useful operating choice. It keeps the upstream chart, records the inputs and rendered YAML, and gives the team a repeatable starting point instead of a private values-file guess.</p>
 <h2 id="what-this-is">What this is</h2>
-<p>This is the <code>server-only-ephemeral</code> preset config for <code>prometheus-community/prometheus@29.8.0</code>. The repo also calls this a base variant. Use this when you want a smaller operating shape for first tests or local use.</p>
+<p>This is the <code>server-only-ephemeral</code> preset config for <code>prometheus-community/prometheus@29.8.0</code>. The repo also calls this a base variant. Use this when you want a smaller configuration for first tests or local use.</p>
 <p>The matching catalog page is <a href="https://confighub.github.io/helm-expt/site/charts/prometheus-community-prometheus-29-8-0.html">prometheus-community/prometheus@29.8.0</a>.</p>
 <h2 id="the-chart-journey">The chart journey</h2>
 <p>We keep the Helm chart. We lock <code>prometheus-community/prometheus@29.8.0</code>, choose the <code>server-only-ephemeral</code> preset config, render it with the recorded values, namespace, release name, and Kubernetes capabilities, then save the output as files.</p>

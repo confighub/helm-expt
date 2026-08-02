@@ -14,9 +14,13 @@ const cubContext = process.env.CUB_CONTEXT ?? "";
 if (mode === "--upload") {
   const spaces = sourceSpaces();
   for (const space of spaces) {
+    const state = readmeState(space);
+    if (state.current) {
+      console.log(`current ${space}/readme`);
+      continue;
+    }
     const unitPath = join(unitsRoot, space, "readme.yaml");
-    const exists = unitExists(space, "readme");
-    const args = exists
+    const args = state.exists
       ? [
           "unit",
           "update",
@@ -46,7 +50,7 @@ if (mode === "--upload") {
           `helm-expt.confighub.com/source-space=${space}`,
         ];
     runCub(args);
-    console.log(`${exists ? "updated" : "created"} ${space}/readme`);
+    console.log(`${state.exists ? "updated" : "created"} ${space}/readme`);
   }
   verifyLive(spaces);
 } else if (mode === "--check") {
@@ -67,30 +71,40 @@ function sourceSpaces() {
 
 function verifyLive(spaces) {
   let checked = 0;
+  const failures = [];
   for (const space of spaces) {
-    const units = listUnits(space);
-    const slugs = units.map((item) => item.Unit?.Slug).filter(Boolean);
-    const readmeLike = slugs.filter((slug) => slug.toLowerCase().includes("readme"));
-    check(readmeLike.length === 1 && readmeLike[0] === "readme", `${space} has readme-like Units: ${readmeLike.join(", ") || "(none)"}`);
-    const liveReadme = units.find((item) => item.Unit?.Slug === "readme")?.Unit;
-    check(liveReadme?.Data, `${space}/readme has no data`);
-    const expected = readFileSync(join(unitsRoot, space, "readme.yaml"), "utf8");
-    const actual = Buffer.from(liveReadme.Data, "base64").toString("utf8");
-    check(
-      JSON.stringify(readYamlText(actual)) === JSON.stringify(readYamlText(expected)),
-      `${space}/readme differs from its generated source`,
-    );
-    checked += 1;
+    try {
+      const state = readmeState(space);
+      if (!state.current) failures.push(`${space}/readme differs from its generated source`);
+      else checked += 1;
+    } catch (error) {
+      failures.push(error.message);
+    }
+  }
+  if (failures.length) {
+    console.error(`README check found ${failures.length} problem(s) across ${spaces.length} helm-catalog Space(s):`);
+    for (const failure of failures) console.error(`- ${failure}`);
+    process.exitCode = 1;
+    return;
   }
   console.log(`verified one current README in ${checked} helm-catalog Space(s)`);
 }
 
-function unitExists(space, slug) {
-  const result = spawnSync("cub", [...contextArgs(), "unit", "get", "--space", space, slug, "-o", "name", "--quiet"], {
-    cwd: repoRoot,
-    encoding: "utf8",
-  });
-  return result.status === 0;
+function readmeState(space) {
+  const units = listUnits(space);
+  const slugs = units.map((item) => item.Unit?.Slug).filter(Boolean);
+  const readmeLike = slugs.filter((slug) => slug.toLowerCase().includes("readme"));
+  check(readmeLike.length <= 1, `${space} has readme-like Units: ${readmeLike.join(", ")}`);
+  if (readmeLike.length === 0) return { current: false, exists: false };
+  check(readmeLike[0] === "readme", `${space} has readme-like Unit ${readmeLike[0]} instead of readme`);
+  const liveReadme = units.find((item) => item.Unit?.Slug === "readme")?.Unit;
+  check(liveReadme?.Data, `${space}/readme has no data`);
+  const expected = readFileSync(join(unitsRoot, space, "readme.yaml"), "utf8");
+  const actual = Buffer.from(liveReadme.Data, "base64").toString("utf8");
+  return {
+    current: JSON.stringify(readYamlText(actual)) === JSON.stringify(readYamlText(expected)),
+    exists: true,
+  };
 }
 
 function listUnits(space) {
