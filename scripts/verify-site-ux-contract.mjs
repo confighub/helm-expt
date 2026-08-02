@@ -539,6 +539,66 @@ const humanDocLeadChecks = [
   },
 ];
 
+const criticalDocChecks = [
+  {
+    file: "site/d/docs/user/variants-after-upload.html",
+    required: [
+      "<code>cub</code> v0.2.9",
+      "installer-record",
+      "cub variant promote my-redis-prod --dry-run -o mutations",
+      "review that overlap before promotion",
+    ],
+    forbidden: [
+      "currently prints nothing",
+      "ConfigHub never sees the recipe",
+      "Templates stay outside; data lives inside",
+    ],
+  },
+  {
+    file: "site/d/docs/user/chart-hooks-what-happens.html",
+    required: [
+      "A separate <code>no-crds</code> example has also run through Argo CD and Flux",
+      "ConfigHub does not yet choose or run this chart-specific route automatically",
+    ],
+    forbidden: ["Its Argo CD, Flux, and upgrade paths have not run"],
+  },
+  {
+    file: "site/d/docs/user/broken-chart-triage.html",
+    required: [
+      "Find Out Why A Chart Failed",
+      "First find out whether the Kubernetes objects changed before deployment",
+      "Check target prerequisites",
+    ],
+    forbidden: ["matrix <code>R</code> lane", "default-shaped", "active proof queue"],
+  },
+  {
+    file: "site/d/docs/reference/what-hook-support-means.html",
+    required: [
+      "one status called a",
+      "what the user still has to do",
+      "Hooks from subcharts count",
+    ],
+    forbidden: ["phaseful actions", "dependency closure", "trust artifacts"],
+  },
+  {
+    file: "site/d/docs/user/cub-deployment-path.html",
+    required: [
+      "Deploy ConfigHub Configuration Through OCI",
+      "AICR recipe for AI infrastructure",
+      "It does not render the source again during delivery",
+    ],
+    forbidden: ["The short version is"],
+  },
+  {
+    file: "site/d/docs/user/gitops-adopter-guide.html",
+    required: [
+      "Use ConfigHub With Argo CD Or Flux",
+      "A small tested setup Job answers the first two questions",
+    ],
+    forbidden: ["routed-hook fixture", "vs. raw Helm-through-Argo"],
+  },
+];
+
 for (const check of humanDocLeadChecks) {
   const fullPath = path.join(root, check.file);
   if (!fs.existsSync(fullPath)) continue;
@@ -549,6 +609,21 @@ for (const check of humanDocLeadChecks) {
   if (header.includes("A repository document, rendered for the site")) failures.push(`${check.file}: header still uses the generic repository-document lead`);
   if (html.includes("<b>Generated at:</b>")) failures.push(`${check.file}: human guide still shows a generated timestamp before its instructions`);
   if (!html.includes("overflow-x: auto")) failures.push(`${check.file}: wide technical tables are not reachable on a phone-width page`);
+}
+
+for (const check of criticalDocChecks) {
+  const fullPath = path.join(root, check.file);
+  if (!fs.existsSync(fullPath)) {
+    failures.push(`${check.file}: missing file`);
+    continue;
+  }
+  const html = fs.readFileSync(fullPath, "utf8");
+  for (const term of check.required) {
+    if (!html.includes(term)) failures.push(`${check.file}: critical guide text missing ${JSON.stringify(term)}`);
+  }
+  for (const phrase of check.forbidden) {
+    if (html.includes(phrase)) failures.push(`${check.file}: contains retired guide text ${JSON.stringify(phrase)}`);
+  }
 }
 
 function htmlFilesUnder(dir) {
