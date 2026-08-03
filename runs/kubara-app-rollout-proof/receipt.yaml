@@ -84,22 +84,31 @@ spec:
     - { cluster: "prod-a",  deploy: "2/2", argo: "Synced/Healthy", sandbox: "none", note: "rolled back" }
     - { cluster: "prod-b",  deploy: "3/3", argo: "Synced/Healthy", sandbox: "none" }
   kubaraPlatform:
-    cluster: "hx-app-dev"
-    source: "Kubara-generated umbrella charts (examples/kubara/local-platform/generated), rendered and delivered via ConfigHub -> our Argo -> argobot"
+    clusters: ["hx-app-dev", "hx-app-staging", "hx-app-prod-a", "hx-app-prod-b"]
+    source: "Kubara-generated umbrella charts (examples/kubara/local-platform/generated), rendered and delivered per cluster via ConfigHub variant Spaces -> our Argo -> argobot"
+    variantSpaces:
+      cert-manager: ["hx-cm-base", "hx-cm-dev", "hx-cm-staging", "hx-cm-prod-a", "hx-cm-prod-b"]
+      traefik:      ["hx-traefik-base", "hx-traefik-dev", "hx-traefik-staging", "hx-traefik-prod-a", "hx-traefik-prod-b"]
+      app-platform: ["hx-web-platform-base", "hx-web-platform-dev", "hx-web-platform-staging", "hx-web-platform-prod-a", "hx-web-platform-prod-b"]
     servicesDelivered:
-      - { name: "cert-manager", version: "v1.21.0", state: "3/3 Deployments Running", note: "Kubara umbrella chart; ClusterIssuer + ServiceMonitor split out for CRD-before-CR ordering" }
-      - { name: "traefik",      version: "41.0.2", state: "1/1 Deployment Running, IngressClass=traefik", note: "ServiceMonitor stripped; rendered with --api-versions monitoring.coreos.com/v1 to pass the chart's monitoring guard" }
+      - { name: "cert-manager", version: "v1.21.0", state: "3/3 Deployments Running on all four clusters", note: "Kubara umbrella chart; ClusterIssuer + ServiceMonitor split out for CRD-before-CR ordering" }
+      - { name: "traefik",      version: "41.0.2", state: "1/1 Deployment Running on all four clusters, IngressClass=traefik", note: "ServiceMonitor stripped; rendered with --api-versions monitoring.coreos.com/v1 to pass the chart's monitoring guard" }
+    argoStatusNotes:
+      - "cert-manager Argo apps report OutOfSync/Healthy: cert-manager self-mutates its webhook CA bundles after apply. Pods all Running."
+      - "traefik Argo apps report Synced/Progressing: the traefik Service is type LoadBalancer, which stays pending on kind without metallb. Pod is 1/1 and serving."
     appUsesPlatform:
-      app: "hx-web (nginx, 3/3)"
-      ingress: "traefik Ingress, host hx-web.local -> Service hx-web:80"
-      tls: "cert-manager Certificate hx-web-tls, Ready=True, SAN DNS:hx-web.local, self-signed ClusterIssuer"
-      reachTest: "HTTPS through traefik returned HTTP 200 and the nginx welcome page; served cert is the cert-manager cert, not traefik's default"
+      integration: "self-signed ClusterIssuer + cert-manager Certificate hx-web-tls + traefik Ingress (host hx-web.local -> Service hx-web:80), delivered to every cluster"
+      perClusterReach:
+        - { cluster: "dev",     http: 200, body: "nginx welcome", certReady: true, certSan: "DNS:hx-web.local" }
+        - { cluster: "staging", http: 200, body: "nginx welcome", certReady: true, certSan: "DNS:hx-web.local" }
+        - { cluster: "prod-a",  http: 200, body: "nginx welcome", certReady: true, certSan: "DNS:hx-web.local" }
+        - { cluster: "prod-b",  http: 200, body: "nginx welcome", certReady: true, certSan: "DNS:hx-web.local" }
+      note: "Each cluster serves the app through traefik over HTTPS with the cert-manager certificate, not traefik's default, verified with correct SNI (curl --resolve)"
 status:
   result: "pass"
   limits:
     - "The application is a minimal nginx Deployment and Service, not a production workload."
-    - "The Kubara platform was delivered as an app-relevant subset (cert-manager, traefik) on one cluster, not all 17 services. The monitoring stack, longhorn, metallb, velero, external-dns, and oauth2-proxy were not delivered: several need real infrastructure kind does not have."
+    - "The Kubara platform was delivered as an app-relevant subset (cert-manager, traefik) on all four clusters, not all 17 services. The monitoring stack, longhorn, metallb, velero, external-dns, and oauth2-proxy were not delivered: several need real infrastructure kind does not have."
     - "Kubara's charts assume the whole platform exists: they guard ServiceMonitors behind the Prometheus-operator CRD, so monitoring CRs were stripped and charts rendered with --api-versions."
     - "Kubara's ClusterIssuer is Let's Encrypt ACME (http01), which needs a public-reachable ingress. A self-signed ClusterIssuer was used for TLS on kind instead."
-    - "The platform + app-uses-platform proof ran on the dev cluster only. The promotion and rollback proof used all four clusters."
     - "No require-approval Trigger was wired on production. Production carried delete and destroy gates only."

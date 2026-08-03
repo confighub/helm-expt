@@ -53,16 +53,18 @@ The rollout above shows delivery. This part shows the app running on an actual
 Kubara-generated platform and using it.
 
 Two Kubara platform services were rendered from Kubara's own generated umbrella
-charts and delivered to the dev cluster through the same ConfigHub path:
+charts and delivered to all four clusters through the same ConfigHub path, one
+variant Space per cluster:
 
-- **cert-manager** `v1.21.0` — three Deployments Running.
-- **traefik** `41.0.2` — one Deployment Running, with its `traefik` IngressClass.
+- **cert-manager** `v1.21.0` — three Deployments Running on each cluster.
+- **traefik** `41.0.2` — one Deployment Running on each cluster, with its
+  `traefik` IngressClass.
 
-The app then used the platform. A traefik `Ingress` routes `hx-web.local` to the
-app's Service. A cert-manager `Certificate` issued the app's TLS certificate
-(`Ready=True`, SAN `DNS:hx-web.local`). An HTTPS request through traefik returned
-`HTTP 200` and the nginx page, served with the cert-manager certificate rather
-than traefik's default.
+The app then used the platform on every cluster. A traefik `Ingress` routes
+`hx-web.local` to the app's Service. A cert-manager `Certificate` issued the
+app's TLS certificate (`Ready=True`, SAN `DNS:hx-web.local`). On all four
+clusters an HTTPS request through traefik returned `HTTP 200` and the nginx page,
+served with the cert-manager certificate rather than traefik's default.
 
 Bringing these up taught the platform's shape. Kubara's charts assume the whole
 platform exists: they guard their `ServiceMonitor` behind the Prometheus-operator
@@ -73,7 +75,7 @@ resources.
 ## What this does not prove
 
 The Kubara platform was delivered as an app-relevant subset (cert-manager,
-traefik) on one cluster, not all 17 services. The monitoring stack, longhorn,
+traefik) on all four clusters, not all 17 services. The monitoring stack, longhorn,
 metallb, velero, external-dns, and oauth2-proxy were not delivered: several need
 real infrastructure a laptop kind cluster does not have. Kubara's ClusterIssuer
 is Let's Encrypt ACME, which needs a public-reachable ingress, so a self-signed
