@@ -10,16 +10,14 @@ configuration, governed them, and delivered them through Argo CD. Two apps then
 ran on the platform. Every step below is what we actually did, including the
 fixes we had to make along the way.
 
-## The four pieces
+## The three pieces
 
-Four things combined to build it, and each did one job.
+Three things combined to build it, and each did one job.
 
-- **Kubara** generated the platform. It chose the services, pinned their
-  versions, and set the order to install them in.
-- **The catalog** is the reviewed library of charts and packages an IDP normally
-  draws from. This particular build did not pull from it: the platform came from
-  Kubara's generation, and the apps from the ConfigHub tutorial and a hand-written
-  nginx.
+- **Kubara** generated the platform. It chose the services, pinned their versions,
+  set the order to install them in, and produced a chart for each. Each chart
+  wraps a public upstream chart, such as cert-manager from jetstack or
+  kube-prometheus-stack from prometheus-community, plus Kubara's own additions.
 - **cub**, the ConfigHub command-line tool, did the hands-on work: `cub cluster
   up`, `cub installer`, `cub variant`, `cub release`, and `cub trigger`.
 - **ConfigHub** held it all as reviewed data. It stored each piece, ran its
