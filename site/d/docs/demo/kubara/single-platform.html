@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kubara platform configuration · Config Workshop</title>
-  <meta name="description" content="Kubara platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/local-platform.html">
-  <meta property="og:title" content="Kubara platform configuration · Config Workshop">
-  <meta property="og:description" content="Kubara platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>One platform from ConfigHub and Kubara, running GitOps apps · Config Workshop</title>
+  <meta name="description" content="One platform from ConfigHub and Kubara, running GitOps apps: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">
+  <meta property="og:title" content="One platform from ConfigHub and Kubara, running GitOps apps · Config Workshop">
+  <meta property="og:description" content="One platform from ConfigHub and Kubara, running GitOps apps: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/local-platform.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -442,37 +442,37 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Kubara platform configuration</h1>
-    <p class="lead">A platform team usually manages more than one Helm release. Argo CD, certificates, Secrets, ingress, monitoring, and cluster services must be chosen together and kept consistent across a fleet. Kubara provides that platform description and generates the Helm source and cluster values. <a href="../../../../../docs/demo/kubara/local-platform.md">View source markdown</a>.</p>
+    <h1>One platform from ConfigHub and Kubara, running GitOps apps</h1>
+    <p class="lead">This example builds a single platform from two tools and then runs real applications on it. Kubara describes the platform. ConfigHub stores, checks, approves, and promotes that platform as data. ConfigHub also owns the Argo CD that delivers it. Applications then run on the platform and use it. <a href="../../../../../docs/demo/kubara/single-platform.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
 
-<p>This example uses Kubara v0.12.0 to describe one local test cluster and seven enabled services. The generated Argo CD chart renders 77 Kubernetes objects, including the ApplicationSets that assign those services to matching clusters.</p>
-<p>ConfigHub adds a durable record of that result. The render can become a base variant, while development, staging, production, region, or cluster-class differences become reviewed variants. A platform change can then be compared, checked, and promoted in waves instead of being repeated as an imperative upgrade on every cluster.</p>
-<h2 id="follow-the-example">Follow the example</h2>
-<ol><li>Read the <a href="../../../../../examples/kubara/local-platform/source/config.yaml">Kubara source config</a> to see the cluster and enabled services.</li><li>Read the <a href="../../../../../examples/kubara/local-platform/source/values-homer-links.yaml">portal values override</a> for a small example of changing Kubara output through its normal values path.</li><li>Open the <a href="../../../../../examples/kubara/local-platform/generated/platform-configs/test-cluster/helm/argo-cd/values.generated.yaml">generated cluster values</a> to see what Kubara produced for Argo CD.</li><li>Inspect the <a href="../../../../../examples/kubara/local-platform/rendered/release-objects.yaml">literal Kubernetes render</a> that ConfigHub can record.</li><li>Read the <a href="../../../../../examples/kubara/local-platform/route-intent.yaml">route intent</a> for the CRDs, hook Job, Secret handling, and External Secrets prerequisite.</li><li>Check the <a href="../../../../../examples/kubara/local-platform/generation-receipt.yaml">generation receipt</a> for the exact commands, checksums, OCI digest, and live-test boundary.</li><li>Check the <a href="../../../../../examples/kubara/local-platform/confighub-upload-receipt.yaml">ConfigHub upload receipt</a> for the Space, Unit, matching object identities, omitted Secrets, and policy.</li></ol>
-<p>The <a href="../../../examples/kubara/local-platform/README.html">example README</a> explains how to regenerate and verify every committed file.</p>
-<h2 id="four-different-artifacts">Four different artifacts</h2>
-<table><thead><tr><th>Artifact</th><th>Contents</th><th>Use</th></tr></thead><tbody><tr><td>Kubara source</td><td>Platform config, generated Helm charts, and cluster values</td><td>Regenerate or change the platform</td></tr>
-<tr><td>Literal configuration OCI</td><td>The 77 rendered Kubernetes objects</td><td>Create a ConfigHub base variant</td></tr>
-<tr><td>ConfigHub release OCI</td><td>An approved revision of the stored Units</td><td>Keep a private release record or deliver through a configured controller</td></tr>
-<tr><td>Portable configuration OCI</td><td>The prepared objects after target work</td><td>Deliver to an external Argo CD or Flux without sharing a ConfigHub target credential</td></tr></tbody></table>
-<p>This example now has all four forms. ConfigHub pulled the local literal OCI and recorded the 75 non-Secret objects in one Unit. Approval was required before apply, and ConfigHub published a private release. A separate portable OCI was then delivered through Argo CD to a throwaway cluster.</p>
-<h2 id="the-work-around-the-render">The work around the render</h2>
-<p>The render includes three Argo CD CRDs. They must be installed and established before the Argo CD custom resources. It also contains four resources marked as a Helm pre-install and pre-upgrade hook; together they run the Job that creates the Redis Secret.</p>
-<p>The render also expects the External Secrets CRD, a <code>ClusterSecretStore</code>, and a remote image-pull key. Two ordinary Secret objects are present, but <code>cub variant upload</code> deliberately does not upload rendered Secrets. The route record names each case and the action an implementation must take.</p>
-<p>The live route installed the three Argo CD CRDs first, supplied the two target-owned Secrets without recording their data, and ran the Redis initializer Job. It did not apply the <code>ClusterExternalSecret</code>, because the test cluster had no External Secrets controller, <code>ClusterSecretStore</code>, or remote key. It also left out the Argo CD gRPC Ingress because the test cluster had no ingress controller.</p>
-<p>The target package added the public source repository to the AppProject, disabled Dex because no Dex login was configured, and gave Metrics Server the kind-only TLS option needed by the throwaway cluster. These changes are listed in the receipt instead of being hidden in a shell command.</p>
-<h2 id="what-has-been-checked">What has been checked</h2>
-<p><code>npm run kubara-example:verify</code> checks the pinned Kubara release, every generated file, Helm dependency lock, all 77 rendered objects, the three CRDs, four hook resources, two Secrets, repository paths, route record, and literal OCI layout.</p>
-<p>The <a href="../../../data/kubara-oci-delivery-proof/summary.html">OCI delivery proof</a> checks the next stage. ConfigHub held the exact 75-object non-Secret base and required approval. The route work ran, 69 prepared objects were packaged as a portable OCI, bootstrap Argo CD reconciled its exact digest, Kubara Argo CD became ready, and Kubara created one Metrics Server Application. That Application became Synced and Healthy.</p>
-<p>This example proves only one kind cluster, one selected downstream service, and a temporary OCI registry. It did not run the complete seven-service profile or a multi-cluster promotion wave.</p>
-<h2 id="deploy-an-app-onto-the-platform">Deploy an app onto the platform</h2>
-<p>A separate run deploys an app onto a live Kubara platform and promotes it across a fleet. See <a href="app-rollout.html">Roll out an app on a Kubara platform</a>. A larger write-up builds <a href="single-platform.html">one platform from ConfigHub and Kubara that runs GitOps apps</a>.</p>
+<p>The result is one control plane. Kubara decides what the platform contains. ConfigHub governs it and delivers it through Argo CD. The applications ride the same path as the platform.</p>
+<h2 id="the-setup">The setup</h2>
+<p><code>cub cluster up</code> created four kind clusters: <code>hx-app-dev</code>, <code>hx-app-staging</code>, <code>hx-app-prod-a</code>, and <code>hx-app-prod-b</code>. On each cluster it installed Argo CD and argobot. argobot is a ConfigHub bot that force-syncs the matching Argo CD Application the moment a release is published. So ConfigHub owns Argo CD on every cluster, and nothing else runs an Argo CD of its own.</p>
+<p>Kubara normally ships its own Argo CD and its own cluster wiring. Here that part is dropped. Kubara's job is reduced to what it is best at: choosing and configuring the platform. ConfigHub's Argo CD is the single delivery engine.</p>
+<h2 id="the-platform">The platform</h2>
+<p>Kubara generated a platform of umbrella Helm charts. Each chart wraps an upstream chart, a shared template library, and Kubara's own additions. The charts were rendered to plain Kubernetes objects and delivered to the clusters as ConfigHub Units, one variant Space per cluster, published as an OCI release that Argo CD pulls.</p>
+<p>Five Kubara services now run on the dev cluster:</p>
+<ul><li><b>cert-manager</b> issues TLS certificates.</li><li><b>traefik</b> routes ingress traffic.</li><li><b>metrics-server</b> serves resource metrics.</li><li><b>homer-dashboard</b> is a platform landing page.</li><li><b>kube-prometheus-stack</b> runs Prometheus, Alertmanager, node-exporter, kube-state-metrics, and the Prometheus operator.</li></ul>
+<h2 id="the-applications">The applications</h2>
+<p>Two GitOps applications run on the platform and use it.</p>
+<p>The first is a small nginx service. The second is <b>cubbychat</b>, the sample application from the ConfigHub tutorial: a Postgres database, a backend, and a frontend. Each application is stored in ConfigHub, delivered by argobot through Argo CD, exposed through the platform's traefik ingress, and given a TLS certificate by the platform's cert-manager.</p>
+<p>An HTTPS request to the cubbychat host through traefik returns the Cubby AI Chat page, served with the cert-manager certificate rather than traefik's default. The application is not beside the platform. It runs on it and depends on it.</p>
+<h2 id="governance-across-the-fleet">Governance across the fleet</h2>
+<p>The same platform and applications promote across the four clusters. A change is made once in a base Space and promoted development to staging to production. The two production clusters take the change as one wave.</p>
+<p>Production carries a require-approval gate. A Trigger in an <code>hx-platform</code> Space runs <code>vet-approvedby</code>, attached to the production Spaces through a Filter. When a change reaches production, <code>cub release publish</code> is refused with <code>HTTP 422</code> until every Unit in the Space is approved. After approval, argobot delivers the change. A separate rollback moves a Unit back to a prior revision and republishes.</p>
+<h2 id="what-we-learned">What we learned</h2>
+<p>Bringing a real generated platform up on a laptop taught several things that a clean demo hides. Each one is a place where storing configuration as reviewed data helps.</p>
+<ul><li><b>A pinned chart version can disappear.</b> Kubara pinned <code>kube-prometheus-stack</code> at <code>87.15.1</code>. The upstream repository had since pruned that version from its index, so the bundle no longer built. The fix was to move to the nearest surviving version in the same line, <code>87.19.0</code>. A months-old bundle can become undeployable through no change of its own.</li><li><b>Custom resources need their definitions first.</b> cert-manager's <code>ClusterIssuer</code> and the many <code>ServiceMonitor</code> objects are custom resources. They cannot apply until their CRDs exist and, for cert-manager, its webhook is ready. The bring-up order is CRDs, then controllers, then custom resources.</li><li><b>The charts assume the whole platform.</b> Several charts refuse to render their <code>ServiceMonitor</code> unless the Prometheus operator CRD is present, so they were rendered with <code>--api-versions monitoring.coreos.com/v1</code>.</li><li><b>Large CRDs break normal apply.</b> The kube-prometheus-stack CRDs are megabytes each and exceed Kubernetes' 256 KB annotation limit that client-side apply uses. The Argo CD Application needed <code>ServerSideApply=true</code> and <code>Replace=true</code> before the largest CRDs would install.</li><li><b>A rendered secret is not a secret.</b> The generated stack expected an external secret to supply Grafana's admin credentials. Without that source on kind, Grafana could not start. The credential must be supplied out of band, not carried in the delivered configuration.</li><li><b>A render can omit its namespace.</b> The homer-dashboard render left the namespace off its objects, so Argo CD could not place them. The namespace was set on the Units before delivery.</li></ul>
+<h2 id="what-this-does-not-prove">What this does not prove</h2>
+<p>The platform ran as an app-relevant subset on one cluster for the heavier services, not all seventeen Kubara services and not every service on every cluster. Longhorn, MetalLB, Velero, external-dns, and oauth2-proxy were not delivered, because they need infrastructure a laptop kind cluster does not have. Grafana is delivered but not started, pending its credential secret. The applications are a small nginx service and the cubbychat sample, not production workloads.</p>
+<h2 id="check-the-evidence">Check the evidence</h2>
+<p>The <a href="../../../../../runs/kubara-single-platform-proof/receipt.yaml">committed receipt</a> records the clusters, the platform services and their Spaces, the applications, the promotion and approval flow, and the findings above. The <a href="app-rollout.html">app-rollout walkthrough</a> covers the promotion, rollback, and approval gate in detail.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/local-platform.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/single-platform.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

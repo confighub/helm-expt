@@ -91,4 +91,6 @@ a multi-cluster promotion wave.
 ## Deploy an app onto the platform
 
 A separate run deploys an app onto a live Kubara platform and promotes it across
-a fleet. See [Roll out an app on a Kubara platform](app-rollout.md).
+a fleet. See [Roll out an app on a Kubara platform](app-rollout.md). A larger
+write-up builds
+[one platform from ConfigHub and Kubara that runs GitOps apps](single-platform.md).
