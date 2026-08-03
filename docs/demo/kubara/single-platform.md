@@ -10,15 +10,14 @@ configuration, governed them, and delivered them through Argo CD. Two apps then
 ran on the platform. Every step below is what we actually did, including the
 fixes we had to make along the way.
 
-## The four pieces
+## The three pieces
 
-Four things combined to build it, and each did one job.
+Three things combined to build it, and each did one job.
 
-- **Kubara** generated the platform. It chose the services, pinned their
-  versions, and set the order to install them in.
-- **The catalog** is the reviewed library of charts and packages an IDP draws
-  from. This build used Kubara's generated platform charts and the ConfigHub
-  tutorial's cubbychat app.
+- **Kubara** generated the platform. It chose the services, pinned their versions,
+  set the order to install them in, and produced a chart for each. Each chart
+  wraps a public upstream chart, such as cert-manager from jetstack or
+  kube-prometheus-stack from prometheus-community, plus Kubara's own additions.
 - **cub**, the ConfigHub command-line tool, did the hands-on work: `cub cluster
   up`, `cub installer`, `cub variant`, `cub release`, and `cub trigger`.
 - **ConfigHub** held it all as reviewed data. It stored each piece, ran its
@@ -74,15 +73,26 @@ generated platform.
 - **kube-prometheus-stack** was the hard one, in three parts:
   - Kubara had pinned it to version `87.15.1`, which the upstream repository had
     since removed. We moved to the nearest surviving version, `87.19.0`.
-  - Its definitions are megabytes each and exceed the size Kubernetes allows a
-    normal apply to record. We split the definitions into their own delivery and
-    told Argo CD to apply them server-side and to replace rather than patch. Then
-    they installed.
-  - Its Grafana would not start, because it expected a secret that
-    external-secrets normally provides, and we had not installed external-secrets.
-    We supplied that secret by hand, and Grafana started.
-- **external-secrets** we did not deliver. It needs a secret store that a laptop
-  cluster does not have. That is the one service of the seven left out.
+  - Its definitions are megabytes each, past the size the default apply records in
+    an annotation. `cub cluster up` installs a stock Argo CD, and Argo CD defaults
+    to that client-side apply, so the first large chart hits the limit. The fix is
+    server-side apply, which large CRDs need and which a cluster handling charts
+    like this should turn on. We set it on the Argo Application and they installed.
+  - Its Grafana would not start, because its admin secret was missing. Grafana
+    only reads a Secret; it does not depend on external-secrets. Kubara's platform
+    uses external-secrets to create that Secret from a secret store, and we had not
+    delivered external-secrets, so no Secret appeared. We supplied it directly so
+    Grafana could start.
+- **external-secrets** we did not deliver at first. Kubara installs the operator
+  but leaves the secret store as a prerequisite you provide, and a laptop cluster
+  has no such store, so we supplied Grafana's secret by hand instead of letting
+  external-secrets create it.
+
+> Note on server-side apply. `cub cluster up` installs a stock Argo CD, whose
+> default apply is client-side and cannot handle CRDs larger than 256 KB. A
+> cluster that will run charts with large CRDs, such as kube-prometheus-stack,
+> should turn on server-side apply on its Argo Applications. On a clean install
+> with it on from the start, that alone is enough.
 
 After this, five of the seven services ran on the dev cluster: cert-manager,
 traefik, metrics-server, homer-dashboard, and kube-prometheus-stack. ConfigHub's

@@ -51,14 +51,18 @@ spec:
     - id: "large-crd-annotation-limit"
       detail: >-
         kube-prometheus-stack CRDs exceed the 256 KB annotation limit that
-        client-side apply uses. The Argo CD Application needed ServerSideApply=true
-        and Replace=true before the largest CRDs would install.
-    - id: "rendered-secret-not-a-secret"
+        client-side apply uses. cub cluster up installs stock Argo CD, which
+        defaults to client-side apply, so the first large chart hits this. The fix
+        is ServerSideApply=true on the Argo Application, which large CRDs need. On a
+        clean install with SSA from the start that alone suffices; Replace=true was
+        only needed here because SSA was added mid-flight.
+    - id: "grafana-secret-source"
       detail: >-
-        The stack expected an ExternalSecret to supply Grafana's admin credentials.
-        Without external-secrets on kind, Grafana could not start. The credential
-        was supplied out of band as a plain Secret (demo credentials), after which
-        Grafana started. Configuration should reference a secret, not carry it.
+        Grafana does not depend on external-secrets. Grafana reads a Secret;
+        Kubara's platform uses external-secrets to create that Secret from a store.
+        external-secrets was not delivered in this run, so the Secret was supplied
+        by hand (demo credentials). The proper fix is to deliver external-secrets
+        and let it create the Secret, which is a separate follow-up.
     - id: "render-omits-namespace"
       detail: >-
         The homer-dashboard render left namespace off its objects, so Argo CD could
