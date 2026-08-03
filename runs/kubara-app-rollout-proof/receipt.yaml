@@ -73,6 +73,18 @@ spec:
       detail: >-
         Added an annotation in the base and promoted it into staging. Staging
         kept its SANDBOX_URL departure while adopting the upstream annotation.
+    - id: "prod-approval-gate"
+      result: "pass"
+      detail: >-
+        A require-approval Trigger (vet-approvedby 1) lives in the hx-platform
+        Space and is attached to hx-web-prod-a and hx-web-prod-b through a Filter.
+        Promoting a change to prod attached the gate, and cub release publish was
+        refused with HTTP 422 (outstanding ApplyGates) until every Unit in the
+        Space was approved. On prod-b the approved replicas=4 change then delivered
+        (3/3 -> 4/4). The gate covers every Unit in the Space, and release publish
+        bundles them all, so all must be approved. On prod-a the same promotion did
+        not change replicas: its earlier rollback left a replicas=2 departure that
+        wins the same-field merge, which is expected behavior, not a delivery fault.
   argobot:
     dev:     "Synced/Healthy"
     staging: "Synced/Healthy"
@@ -111,4 +123,4 @@ status:
     - "The Kubara platform was delivered as an app-relevant subset (cert-manager, traefik) on all four clusters, not all 17 services. The monitoring stack, longhorn, metallb, velero, external-dns, and oauth2-proxy were not delivered: several need real infrastructure kind does not have."
     - "Kubara's charts assume the whole platform exists: they guard ServiceMonitors behind the Prometheus-operator CRD, so monitoring CRs were stripped and charts rendered with --api-versions."
     - "Kubara's ClusterIssuer is Let's Encrypt ACME (http01), which needs a public-reachable ingress. A self-signed ClusterIssuer was used for TLS on kind instead."
-    - "No require-approval Trigger was wired on production. Production carried delete and destroy gates only."
+    - "Production now carries a require-approval gate (hx-platform/require-approval, vet-approvedby) on hx-web-prod-a and hx-web-prod-b, in addition to delete and destroy gates."
