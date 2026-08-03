@@ -1,14 +1,29 @@
-# AICR EKS H100 training example
+# AICR builds the AI platform. ConfigHub governs it.
+
+You do not need to know AICR to follow this. AICR is a tool from NVIDIA for
+building AI-cluster platforms. You describe the platform you want, for example an
+EKS cluster with H100 GPUs, Ubuntu, Kubeflow, and a training job. AICR then picks
+15 components, puts them in the right install order, and hands you the files to
+install them. It does not decide how your team reviews, approves, or promotes
+those files.
+
+That is where ConfigHub comes in, and the boundary is the whole point. AICR
+decides what goes in the platform. It selects the 15 components, sets the install
+order, and writes the exact files. ConfigHub then records that decision as data a
+team can govern. It stores the files, checks them, requires approval for a
+cluster-wide change, and keeps a copy per environment instead of rebuilding the
+package by hand. Argo CD or Flux install the approved files onto the cluster.
 
 This example asks NVIDIA AICR v0.14.0 for an EKS platform with H100 accelerators,
-Ubuntu, Kubeflow, and a training workload. AICR selects 15 versioned components and
-puts them in dependency order. The result includes storage, networking, certificates,
-GPU support, monitoring, scheduling, and Kubeflow training.
+Ubuntu, Kubeflow, and a training workload. The result includes storage,
+networking, certificates, GPU support, monitoring, scheduling, and Kubeflow
+training.
 
-ConfigHub does not replace AICR. AICR decides what belongs in the platform package.
-ConfigHub records that decision as configuration a team can inspect, compare, approve,
-and assign to clusters. Development, staging, production, or cluster-class changes can
-then be kept as named variants instead of rebuilding the package by hand.
+One detail shows this was operated, not just read about. AICR fixes almost the
+whole platform when it builds the files. Exactly four choices stay open: the
+storage type, the selector for GPU nodes, the selector for the training job, and
+where the installer reads the published package. The first three are set when the
+files are built. The fourth points the installer at the built package.
 
 ## What problem this solves
 

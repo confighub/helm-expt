@@ -87,3 +87,8 @@ one Metrics Server Application. That Application became Synced and Healthy.
 This example proves only one kind cluster, one selected downstream service, and
 a temporary OCI registry. It did not run the complete seven-service profile or
 a multi-cluster promotion wave.
+
+## Deploy an app onto the platform
+
+A separate run deploys an app onto a live Kubara platform and promotes it across
+a fleet. See [Roll out an app on a Kubara platform](app-rollout.md).

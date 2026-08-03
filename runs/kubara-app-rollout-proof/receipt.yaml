@@ -1,0 +1,105 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubManagedArgoAppRolloutReceipt"
+metadata:
+  name: "hx-web-fleet-dev-staging-two-prod"
+spec:
+  recordedAt: "2026-08-03T08:10:00Z"
+  intent: >-
+    Prove that ConfigHub, through "cub cluster up" and argobot, owns Argo CD on a
+    fleet of clusters and rolls out, promotes, and rolls back an application for
+    the operator; and that a real Kubara-generated platform (an app-relevant
+    subset: cert-manager and traefik) can be delivered the same way, with the app
+    actually using it through the ingress and a cert-manager certificate. Two
+    production clusters show a fan-out wave. Staging carries an optional sandbox
+    connection that development and production do not, and it survives promotion.
+  topology:
+    argoOwner: "cub cluster up: ConfigHub-owned Argo CD plus argobot on each cluster"
+    deliveryPath: "cub unit (literal YAML) -> cub release publish -> ConfigHub OCI -> Argo CD pull -> argobot force-sync -> kind cluster"
+    clusters:
+      - { name: "hx-app-dev",     role: "dev",     argoAppsSpace: "hx-app-dev-argo-apps" }
+      - { name: "hx-app-staging", role: "staging", argoAppsSpace: "hx-app-staging-argo-apps" }
+      - { name: "hx-app-prod-a",  role: "prod",    region: "us-east", argoAppsSpace: "hx-app-prod-a-argo-apps" }
+      - { name: "hx-app-prod-b",  role: "prod",    region: "us-west", argoAppsSpace: "hx-app-prod-b-argo-apps" }
+  app:
+    component: "hx-web"
+    image: "nginx:1.27"
+    granularity: "one resource per Unit"
+    resources:
+      - "v1/Namespace hx-web"
+      - "apps/v1/Deployment hx-web"
+      - "v1/Service hx-web"
+  spaces:
+    - { slug: "hx-web-base",     id: "77f0dd6c-286c-4673-9b7c-f463a2203b24", variantOf: "" }
+    - { slug: "hx-web-dev",      id: "12f64ad9-eea1-41af-a502-f021671687fd", variantOf: "hx-web-base" }
+    - { slug: "hx-web-staging",  id: "92e87bd4-f58d-4fe8-a1c2-5ab46a2b17a3", variantOf: "hx-web-dev" }
+    - { slug: "hx-web-prod-a",   id: "78f534cf-f98c-49a6-9f30-242499171392", variantOf: "hx-web-staging", gates: "prod-critical delete+destroy" }
+    - { slug: "hx-web-prod-b",   id: "dca6a284-9e58-4b04-b59a-8d8dddf97b43", variantOf: "hx-web-staging", gates: "prod-critical delete+destroy" }
+  releaseDigests:
+    hx-web-dev:     "sha256:b3c4986b773c749cbcca345f65d12590f8cb74d62cfa444bccb7f784ac6f73ce"
+    hx-web-staging: "sha256:048a1d8883df11d75b525017c102b3af50a9dda4344bb1f3b89ddb4f22f4067d"
+    hx-web-prod-a:  "sha256:bd14e5999e66acf164b5ee80029995688a1c95c617cb873ca0aadbc5097262f4"
+    hx-web-prod-b:  "sha256:09c7d175fe3b022eddbef07497ca6397f58ab1527be5e312e8048f1a0f684155"
+  steps:
+    - id: "initial-rollout"
+      result: "pass"
+      detail: >-
+        cub variant create cloned the base onto each cluster's Argo target and
+        auto-created its Argo Application; cub release publish made each live.
+        Every hx-web-<env> Argo Application reached Synced/Healthy at 2/2 pods.
+    - id: "namespace-as-config"
+      result: "pass"
+      detail: >-
+        The first sync failed with "namespaces hx-web not found". Adding a
+        Namespace Unit to the base and promoting it into dev fixed it, which also
+        demonstrated a base-to-dev promotion.
+    - id: "fleet-promotion"
+      change: "set-replicas 2 -> 3 in hx-web-base"
+      result: "pass"
+      detail: >-
+        Promoted base -> dev -> staging, then a production wave to prod-a and
+        prod-b. All four clusters reached 3/3, each delivered by argobot.
+    - id: "rollback"
+      result: "pass"
+      detail: >-
+        Restored hx-web-prod-a hx-web-deployment to its prior revision
+        (replicas 3 -> 2). prod-a returned to 2/2 while prod-b stayed at 3/3.
+    - id: "staging-sandbox-departure"
+      result: "pass"
+      detail: >-
+        Added a SANDBOX_URL env var to hx-web-staging only. It appeared on the
+        staging cluster's pods and was absent on dev, prod-a, and prod-b.
+    - id: "departure-survives-promotion"
+      result: "pass"
+      detail: >-
+        Added an annotation in the base and promoted it into staging. Staging
+        kept its SANDBOX_URL departure while adopting the upstream annotation.
+  argobot:
+    dev:     "Synced/Healthy"
+    staging: "Synced/Healthy"
+    prod-a:  "Synced/Healthy"
+    prod-b:  "Synced/Healthy"
+  finalFleetState:
+    - { cluster: "dev",     deploy: "3/3", argo: "Synced/Healthy", sandbox: "none" }
+    - { cluster: "staging", deploy: "3/3", argo: "Synced/Healthy", sandbox: "http://sandbox.hx-web.svc:8080" }
+    - { cluster: "prod-a",  deploy: "2/2", argo: "Synced/Healthy", sandbox: "none", note: "rolled back" }
+    - { cluster: "prod-b",  deploy: "3/3", argo: "Synced/Healthy", sandbox: "none" }
+  kubaraPlatform:
+    cluster: "hx-app-dev"
+    source: "Kubara-generated umbrella charts (examples/kubara/local-platform/generated), rendered and delivered via ConfigHub -> our Argo -> argobot"
+    servicesDelivered:
+      - { name: "cert-manager", version: "v1.21.0", state: "3/3 Deployments Running", note: "Kubara umbrella chart; ClusterIssuer + ServiceMonitor split out for CRD-before-CR ordering" }
+      - { name: "traefik",      version: "41.0.2", state: "1/1 Deployment Running, IngressClass=traefik", note: "ServiceMonitor stripped; rendered with --api-versions monitoring.coreos.com/v1 to pass the chart's monitoring guard" }
+    appUsesPlatform:
+      app: "hx-web (nginx, 3/3)"
+      ingress: "traefik Ingress, host hx-web.local -> Service hx-web:80"
+      tls: "cert-manager Certificate hx-web-tls, Ready=True, SAN DNS:hx-web.local, self-signed ClusterIssuer"
+      reachTest: "HTTPS through traefik returned HTTP 200 and the nginx welcome page; served cert is the cert-manager cert, not traefik's default"
+status:
+  result: "pass"
+  limits:
+    - "The application is a minimal nginx Deployment and Service, not a production workload."
+    - "The Kubara platform was delivered as an app-relevant subset (cert-manager, traefik) on one cluster, not all 17 services. The monitoring stack, longhorn, metallb, velero, external-dns, and oauth2-proxy were not delivered: several need real infrastructure kind does not have."
+    - "Kubara's charts assume the whole platform exists: they guard ServiceMonitors behind the Prometheus-operator CRD, so monitoring CRs were stripped and charts rendered with --api-versions."
+    - "Kubara's ClusterIssuer is Let's Encrypt ACME (http01), which needs a public-reachable ingress. A self-signed ClusterIssuer was used for TLS on kind instead."
+    - "The platform + app-uses-platform proof ran on the dev cluster only. The promotion and rollback proof used all four clusters."
+    - "No require-approval Trigger was wired on production. Production carried delete and destroy gates only."
