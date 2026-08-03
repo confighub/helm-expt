@@ -116,7 +116,7 @@ const checks = [
   },
   {
     file: "site/testing.html",
-    terms: ["Choose a worked example", "1. Start with a configuration", "What you have", "Start with this example", "After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe for AI infrastructure", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
+    terms: ["Choose a worked example", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "1. Start with a configuration", "What you have", "Start with this example", "After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe for AI infrastructure", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
     file: "site/entry-path-reference.html",
@@ -599,7 +599,7 @@ const humanDocLeadChecks = [
   },
   {
     file: "site/d/docs/demo/aicr/eks-h100-training-kubeflow.html",
-    lead: "This example asks NVIDIA AICR v0.14.0",
+    lead: "You do not need to know AICR to follow this",
   },
   {
     file: "site/d/docs/reference/direct-cub-helm-model.html",

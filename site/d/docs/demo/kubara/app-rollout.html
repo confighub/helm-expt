@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AICR builds the AI platform. ConfigHub governs it. · Config Workshop</title>
-  <meta name="description" content="AICR builds the AI platform. ConfigHub governs it.: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html">
-  <meta property="og:title" content="AICR builds the AI platform. ConfigHub governs it. · Config Workshop">
-  <meta property="og:description" content="AICR builds the AI platform. ConfigHub governs it.: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Roll out an app on a Kubara platform managed by ConfigHub · Config Workshop</title>
+  <meta name="description" content="Roll out an app on a Kubara platform managed by ConfigHub: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/app-rollout.html">
+  <meta property="og:title" content="Roll out an app on a Kubara platform managed by ConfigHub · Config Workshop">
+  <meta property="og:description" content="Roll out an app on a Kubara platform managed by ConfigHub: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/app-rollout.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -442,92 +442,36 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>AICR builds the AI platform. ConfigHub governs it.</h1>
-    <p class="lead">You do not need to know AICR to follow this. AICR is a tool from NVIDIA for building AI-cluster platforms. You describe the platform you want, for example an EKS cluster with H100 GPUs, Ubuntu, Kubeflow, and a training job. AICR then picks 15 components, puts them in the right install order, and hands you the files to install them. It does not decide how your team reviews, approves, or promotes those files. <a href="../../../../../docs/demo/aicr/eks-h100-training-kubeflow.md">View source markdown</a>.</p>
+    <h1>Roll out an app on a Kubara platform managed by ConfigHub</h1>
+    <p class="lead">This example shows two things. First, ConfigHub manages Argo CD across four clusters and rolls out, promotes, and rolls back an app for the operator. Second, a real Kubara-generated platform (cert-manager and traefik) is delivered the same way on one cluster, and the app runs on it and uses it: reachable through the platform's ingress with a cert-manager certificate. <code>cub cluster up</code> provides the Argo CD that owns delivery on each cluster. <a href="../../../../../docs/demo/kubara/app-rollout.md">View source markdown</a>.</p>
   </header>
   <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
 
-<p>That is where ConfigHub comes in, and the boundary is the whole point. AICR decides what goes in the platform. It selects the 15 components, sets the install order, and writes the exact files. ConfigHub then records that decision as data a team can govern. It stores the files, checks them, requires approval for a cluster-wide change, and keeps a copy per environment instead of rebuilding the package by hand. Argo CD or Flux install the approved files onto the cluster.</p>
-<p>This example asks NVIDIA AICR v0.14.0 for an EKS platform with H100 accelerators, Ubuntu, Kubeflow, and a training workload. The result includes storage, networking, certificates, GPU support, monitoring, scheduling, and Kubeflow training.</p>
-<p>One detail shows this was operated, not just read about. AICR fixes almost the whole platform when it builds the files. Exactly four choices stay open: the storage type, the selector for GPU nodes, the selector for the training job, and where the installer reads the published package. The first three are set when the files are built. The fourth points the installer at the built package.</p>
-<h2 id="what-problem-this-solves">What problem this solves</h2>
-<p>The recipe pins most of the platform before installation. Four choices remain at install time: the StorageClass, the selector for accelerated nodes, the selector for training workloads, and the source the delivery controller reads. The first three are fixed when the bundle is generated. The fourth must point at the published bundle.</p>
-<p>Keeping the recipe, those four choices, and the generated files together answers two practical questions later: what did we ask AICR to build, and what did each cluster actually receive?</p>
-<h2 id="what-is-committed">What is committed</h2>
-<ul><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/aicr.yaml">aicr.yaml</a> is the <code>AICRConfig</code> that describes the recipe and bundle commands.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/recipe.yaml">recipe.yaml</a> is the generated component recipe.</li><li><a href="../../../examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html">flux-bundle/README.md</a> describes AICR's original Git-oriented Flux resources.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/kustomization.yaml">flux-oci-bundle/kustomization.yaml</a> is the entry point for the Flux resources AICR generated for OCI delivery; its <a href="../../../../../examples/aicr/eks-h100-training-kubeflow/flux-oci-bundle/checksums.txt">checksums.txt</a> records every generated file.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/local-oci-manifest.json">local-oci-manifest.json</a> is the exact manifest from the temporary local OCI registry.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml">generation-receipt.yaml</a> records the release commit, binary checksums, criteria, options, commands, local OCI digest, Flux requirements, and current proof boundary.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/argocd-helm-bundle/Chart.yaml">argocd-helm-bundle/Chart.yaml</a> is AICR's portable Argo CD source chart.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/argocd-rendered/checksums.txt">argocd-rendered/checksums.txt</a> records the 17 concrete Argo CD <code>Application</code> objects rendered from that chart.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/argocd-oci-receipt.yaml">argocd-oci-receipt.yaml</a> joins the source chart, rendered objects, OCI layouts, and public references.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/public-oci-receipt.yaml">public-oci-receipt.yaml</a> records the public digests and anonymous pull checks for both artifacts.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/confighub-upload-receipt.yaml">confighub-upload-receipt.yaml</a> records the ConfigHub Space, Unit, source digest, policy, and exact-object comparison from the live upload.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/apply-policy-receipt.yaml">apply-policy-receipt.yaml</a> records what happened when the unapproved AICR Unit was submitted for a dry-run apply.</li><li><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml">promotion-readiness-receipt.yaml</a> records the persistent base, development, and staging Spaces and their exact configuration change.</li></ul>
-<p>The original Git-oriented bundle still contains <code>https://github.com/YOUR_ORG/YOUR_REPO.git</code>. It is kept so the limitation is visible; it is not deployable.</p>
-<p>The OCI-oriented bundle has no repository placeholder. AICR replaces its two local charts with <code>ArtifactGenerator</code> resources, and their <code>HelmRelease</code> objects refer to <code>ExternalArtifact</code> outputs. The generated <code>checksums.txt</code> originally contained the absolute output directory. The committed copy changes only those path prefixes to paths relative to the bundle root, so the checksum list is portable and does not expose a workstation path.</p>
-<h2 id="rebuild-the-example">Rebuild the example</h2>
-<p>Install AICR v0.14.0, then run these commands from the example directory:</p>
-<pre><code>aicr recipe \
-  --service eks \
-  --accelerator h100 \
-  --os ubuntu \
-  --intent training \
-  --platform kubeflow \
-  --output recipe.yaml
-
-aicr bundle \
-  --recipe recipe.yaml \
-  --deployer flux \
-  --output flux-bundle \
-  --storage-class gp3 \
-  --accelerated-node-selector nvidia.com/gpu.present=true \
-  --workload-selector app.kubernetes.io/part-of=training</code></pre>
-<p>That command reproduces the Git-oriented bundle. For a usable Git bundle, add <code>--repo https://github.com/ORG/REPOSITORY.git</code>, regenerate it, and review the resulting GitRepository and HelmRelease objects before upload.</p>
-<p>The OCI-oriented run used the same recipe and choices:</p>
-<pre><code>aicr bundle \
-  --recipe recipe.yaml \
-  --deployer flux \
-  --output oci://REGISTRY/aicr-eks-h100-training-kubeflow:v0.14.0 \
-  --image-refs oci-image-ref.txt \
-  --storage-class gp3 \
-  --accelerated-node-selector nvidia.com/gpu.present=true \
-  --workload-selector app.kubernetes.io/part-of=training</code></pre>
-<p>For a local HTTP registry, add <code>--plain-http</code>. The recorded local manifest digest is <code>sha256:b8089d6400833531c5d0d91177e70cf48f2b86896b0214c2b3318916ac4d29ba</code>. This proves local packaging and pullability. It does not prove a public registry push or a working GPU cluster.</p>
-<p>Run <code>npm run aicr-example:verify</code> to check both bundles. The verifier checks the criteria, command options, release and binary checksums, every generated file, the local OCI manifest, the two <code>ArtifactGenerator</code> resources, and the matching <code>ExternalArtifact</code> references.</p>
-<h2 id="what-flux-needs-for-the-oci-bundle">What Flux needs for the OCI bundle</h2>
-<p>AICR's OCI form requires Flux v2.7 or newer, the <code>source-watcher</code> controller, and <code>ExternalArtifact=true</code> on <code>helm-controller</code>. The target also needs an <code>OCIRepository</code> named <code>aicr-bundle</code> in <code>flux-system</code> that points at the published AICR artifact. Those are part of the operating configuration, so the receipt records them instead of leaving them as setup knowledge.</p>
-<h2 id="the-argo-cd-path">The Argo CD path</h2>
-<p>AICR can also generate an <code>argocd-helm</code> bundle. This output is a Helm chart that creates one parent Argo CD <code>Application</code> and 16 component <code>Application</code> objects. The components use sync waves 0 through 15, so storage, certificates, GPU support, monitoring, scheduling, and training are presented to Argo CD in the intended order.</p>
-<p>Two OCI artifacts have different jobs:</p>
-<table><thead><tr><th>Artifact</th><th>What it contains</th><th>Who uses it</th></tr></thead><tbody><tr><td>AICR Argo source package</td><td>The generated Helm chart, values, local chart files, and Argo CD templates</td><td>Helm and Argo CD</td></tr>
-<tr><td>Rendered Argo configuration</td><td>The 17 exact <code>Application</code> objects, one YAML layer per object</td><td>ConfigHub</td></tr></tbody></table>
-<p>Both artifacts are public in Google Artifact Registry:</p>
-<pre><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd:0.14.0
-oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0</code></pre>
-<p>The source package digest is <code>sha256:1120c9a17b23f2c885121034d55445f2d3948c95c23756d02fa2209e4baf8c2e</code>. The 17-object configuration digest is <code>sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010</code>. Both passed anonymous pull checks. The small OCI layouts are also committed, so the verifier can compare the public artifacts with the exact source and rendered files.</p>
-<p>Run <code>npm run aicr-argocd-example:verify</code> to check the source package, the 17 Applications, both OCI manifests and layouts, every file checksum, the source references, and the complete set of sync waves. Run <code>npm run aicr-argocd-example:public-verify</code> to pull both public artifacts without registry credentials and check their recorded digests.</p>
-<h2 id="the-confighub-base-variant">The ConfigHub base variant</h2>
-<p>The live demo imports the public literal configuration OCI:</p>
-<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub variant upload \
-  --component aicr-eks-h100-training-kubeflow \
-  --variant v0-14-0-argocd \
-  --space aicr-eks-h100-training-kubeflow-v0-14-0-argocd \
-  --granularity minimal \
-  oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd-config:0.14.0</code></pre>
-<p>ConfigHub pulled digest <code>sha256:dcf7feeeeaece04cb5d55cbc1106862172b3ae77718154252b39db1ad8957010</code>, created one base Space, and stored all 17 <code>Application</code> objects in one Unit. A verifier compared every live object with the committed AICR output and confirmed sync waves 0 through 15.</p>
-<p>The upload also names two requirements that must already exist: the <code>argocd</code> Namespace and the default Argo CD AppProject. The live Space records both in its README.</p>
-<p><code>cub variant upload</code> does not run AICR or render charts. It imports exact YAML and records the source reference and resolved digest on the Space. ConfigHub can then show changes to those files and manage derived variants for environments or cluster classes.</p>
-<h2 id="oci-in-confighub-oci-out">OCI in, ConfigHub, OCI out</h2>
-<p>A separate live test checked the next boundary. It imported the same 17-Application literal configuration OCI into a temporary ConfigHub base, published a ConfigHub release OCI, pulled that release back, and compared every Application with the AICR input.</p>
-<p>All 17 Applications matched. ConfigHub added its <code>confighub.com/origin</code> annotation to each object so the released configuration can be traced back to its ConfigHub record. The input and output OCI digests are different because they are different artifacts; the object comparison proves that the Kubernetes configuration stayed the same.</p>
-<p>Read the <a href="../../../data/aicr-oci-roundtrip-proof/summary.html">plain-English result</a> or the <a href="../../../../../runs/aicr-oci-roundtrip-proof/receipt.yaml">live receipt</a>. The test used a temporary local input registry and a throwaway cluster only to obtain a legitimate ConfigHub release target and scoped OCI credential. It did not apply the Applications, reconcile the AICR stack, create an EKS cluster, or run a GPU workload.</p>
-<p>The public pull does not need a Google login. Argo CD delivery and live GPU-cluster reconciliation have not run. The example proves generation, public OCI packaging, exact ConfigHub upload, policy attachment, and promotion, but it does not claim a working GPU platform.</p>
-<p>The uploaded base requires approval because it changes cluster-wide GPU, monitoring, and training-platform configuration. That rule applies before production too. A live dry-run of the exact 17-Application Unit was rejected by the required-approval gate. The Unit had no target attached, its revision and data hash stayed unchanged, and nothing was sent to Kubernetes. Run <code>npm run aicr-argocd-example:hub-policy-check</code> while authenticated to repeat that check.</p>
-<h2 id="change-it-in-development-then-promote-it">Change it in development, then promote it</h2>
-<p>The generated AICR configuration includes the example Grafana setting <code>adminPassword: admin</code> inside the <code>kube-prometheus-stack</code> Application. ConfigHub can keep the AICR output as the base, while development and staging use an existing Secret named <code>aicr-grafana-admin</code>.</p>
-<p>The persistent <code>helm-catalog</code> demo follows four steps:</p>
-<ol><li>Import the exact 17-Application OCI bundle as a base variant.</li><li>Create development from the base and staging from development.</li><li>Preview and apply the Grafana Secret change in development. Only <code>Application argocd/kube-prometheus-stack</code> changed.</li><li>Preview the staging promotion, confirm that the preview changed nothing, then run the promotion and confirm that staging matched the reviewed development config.</li></ol>
-<p><a href="../../../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml">The persistent promotion receipt</a> records the public OCI digests, three live Spaces, exact changed Application, dry-run results, promotion revision, policy checks, and required approval. Each Space has one short README that explains what to inspect.</p>
-<p>The configuration Unit is promoted by itself so development and staging can keep different README text. This is the same upstream upgrade operation used by a bulk variant promotion, scoped to the one Unit that contains the 17 Applications.</p>
-<p>Run the live check while authenticated:</p>
-<pre><code>CUB_CONTEXT=&lt;context&gt; npm run aicr-argocd-example:promotion-verify</code></pre>
-<p>A separate <a href="../../../data/aicr-variant-promotion-proof/summary.html">scratch proof</a> records an earlier temporary run of the same configuration change. Neither proof started a Kubernetes cluster, so neither claims Argo CD delivery, application health, or GPU workload health.</p>
+<h2 id="what-ran">What ran</h2>
+<p><code>cub cluster up</code> created four kind clusters: <code>hx-app-dev</code>, <code>hx-app-staging</code>, <code>hx-app-prod-a</code>, and <code>hx-app-prod-b</code>. On each cluster it installed Argo CD and argobot. argobot is a ConfigHub bot that force-syncs the matching Argo CD Application the moment a release is published. So ConfigHub owns Argo CD on every cluster.</p>
+<p>The app is a small nginx service. It is stored as three literal-YAML Units, one resource per Unit: a Namespace, a Deployment, and a Service. The base Space <code>hx-web-base</code> holds the reviewed app.</p>
+<h2 id="the-delivery-path">The delivery path</h2>
+<p>Each cluster receives the app the same way:</p>
+<ol><li><code>cub variant create</code> clones the base into a per-cluster Space bound to that cluster's Argo target, and auto-creates the cluster's Argo CD Application.</li><li><code>cub release publish</code> bundles the Space's Units as an OCI release.</li><li>Argo CD pulls that exact release, and argobot force-syncs it.</li></ol>
+<p>The promotion chain is <code>base -&gt; dev -&gt; staging -&gt; prod-a</code> and <code>prod-b</code>.</p>
+<h2 id="what-the-run-proved">What the run proved</h2>
+<ul><li><b>Initial rollout.</b> The app reached all four clusters. Every Argo CD Application reported <code>Synced/Healthy</code> at 2/2 pods.</li><li><b>Fleet promotion.</b> One change in the base, <code>set-replicas 2 -&gt; 3</code>, promoted through dev and staging, then to both production clusters as one wave. All four clusters reached 3/3.</li><li><b>Rollback.</b> A revision restore returned <code>prod-a</code> to 2/2 while <code>prod-b</code> stayed at 3/3.</li><li><b>Optional staging sandbox.</b> A <code>SANDBOX_URL</code> env var was added to staging only. It appeared on the staging cluster and was absent on dev and both production clusters.</li><li><b>Departures survive promotion.</b> A later base annotation was promoted into staging. Staging kept its <code>SANDBOX_URL</code> while adopting the annotation.</li></ul>
+<p>Production Units carry <code>prod-critical</code> delete and destroy gates.</p>
+<h2 id="the-app-on-a-real-kubara-platform">The app on a real Kubara platform</h2>
+<p>The rollout above shows delivery. This part shows the app running on an actual Kubara-generated platform and using it.</p>
+<p>Two Kubara platform services were rendered from Kubara's own generated umbrella charts and delivered to all four clusters through the same ConfigHub path, one variant Space per cluster:</p>
+<ul><li><b>cert-manager</b> <code>v1.21.0</code> - three Deployments Running on each cluster.</li><li><b>traefik</b> <code>41.0.2</code> - one Deployment Running on each cluster, with its <code>traefik</code> IngressClass.</li></ul>
+<p>The app then used the platform on every cluster. A traefik <code>Ingress</code> routes <code>hx-web.local</code> to the app's Service. A cert-manager <code>Certificate</code> issued the app's TLS certificate (<code>Ready=True</code>, SAN <code>DNS:hx-web.local</code>). On all four clusters an HTTPS request through traefik returned <code>HTTP 200</code> and the nginx page, served with the cert-manager certificate rather than traefik's default.</p>
+<p>Bringing these up taught the platform's shape. Kubara's charts assume the whole platform exists: they guard their <code>ServiceMonitor</code> behind the Prometheus-operator CRD, and cert-manager's <code>ClusterIssuer</code> is a custom resource that needs its CRD established first. So the bring-up order is CRDs, then controllers, then custom resources.</p>
+<h2 id="what-this-does-not-prove">What this does not prove</h2>
+<p>The Kubara platform was delivered as an app-relevant subset (cert-manager, traefik) on all four clusters, not all 17 services. The monitoring stack, longhorn, metallb, velero, external-dns, and oauth2-proxy were not delivered: several need real infrastructure a laptop kind cluster does not have. Kubara's ClusterIssuer is Let's Encrypt ACME, which needs a public-reachable ingress, so a self-signed issuer was used for TLS on kind. The app is a minimal nginx service, not a production workload. No require-approval Trigger was wired on production; production carried delete and destroy gates only.</p>
+<h2 id="check-the-evidence">Check the evidence</h2>
+<p>The <a href="../../../../../runs/kubara-app-rollout-proof/receipt.yaml">committed receipt</a> records the clusters, Spaces and their IDs, the OCI release digest for each cluster, the promotion and rollback steps, argobot health, and the final fleet state.</p>
+<pre><code>npm run kubara-app-rollout:verify</code></pre>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/eks-h100-training-kubeflow.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/app-rollout.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

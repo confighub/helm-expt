@@ -5370,6 +5370,26 @@ function examplesHtml(catalog) {
     <span id="aicr-platform"></span>
     <section aria-labelledby="start">
       <h2 id="start">1. Start with a configuration</h2>
+      <h3 id="see-first">See what Redis installs, before you install it</h3>
+      <p>Turn the published Redis package into the exact Kubernetes files it produces. You need no account, no login, and no cluster.</p>
+      <div class="terminal-card">
+        <div class="terminal-title">redis package &rarr; exact Kubernetes files</div>
+        <pre class="terminal-body"><code><span class="term-prompt">$</span> cub installer setup \\
+    --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 \\
+    --base reuse-existing-secret \\
+    --work-dir ./redis \\
+    --non-interactive \\
+    --namespace redis
+
+Base: reuse-existing-secret; components: []
+Namespace: redis
+Rendered 14 manifest(s) to ./redis/out/manifests
+Rendered 0 secret(s)</code></pre>
+      </div>
+      <p>Read the 14 files in <code>./redis/out/manifests</code>. The package holds no password. You supply the Secret <code>redis/redis-existing-secret</code> yourself.</p>
+      <p>These 14 files were checked against Helm's own output and matched. See the <a href="./redis-walkthrough.html">detailed Redis walkthrough</a> for the recorded parity, upgrade, and rollback evidence.</p>
+      <p>To keep an edit to the files as well, the same objects go into ConfigHub. There you change a value, move it from development to staging, and roll it back. <a href="./confighub.html">Keep the result in ConfigHub</a>.</p>
+      <p>If you do not want Redis, choose the input you have below. Every path ends with exact files and a checked result.</p>
       <p>Each example includes the source files and the evidence behind its result.</p>
       ${markdownLikeTable([
         ["What you have", "Start with this example"],
@@ -5448,11 +5468,16 @@ cub helm install myapp &lt;chart-ref&gt; \\
 
     <section aria-labelledby="platforms">
       <h2 id="platforms">4. Roll out a platform or fleet</h2>
+      <p>A platform team runs the same components on many clusters. Tools like Kubara and Sveltos build these platforms. Sveltos installs one component across a group of clusters. Kubara describes a whole platform at once and generates its files.</p>
+      <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", worked(pathways, "kubara").result, `<a href="./d/docs/demo/kubara/local-platform.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/local-platform">GitHub source</a> · <a href="./d/data/kubara-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/kubara-local-platform-v0-12-0/README.html">Space guide</a>`],
+        ["Kubara", worked(pathways, "kubara").result, `<a href="./d/docs/demo/kubara/local-platform.html">Walkthrough</a> · <a href="./d/docs/demo/kubara/app-rollout.html">App on the platform</a> · <a href="https://github.com/confighub/helm-expt/blob/main/runs/kubara-app-rollout-proof/receipt.yaml">Receipt</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/local-platform">GitHub source</a> · <a href="./d/data/kubara-oci-delivery-proof/summary.html">Delivery proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
+      <h3 id="kubara-app">An app on a real Kubara platform</h3>
+      <p>The newest Kubara proof deploys an app onto a live Kubara platform. ConfigHub delivered Kubara's cert-manager and traefik through our Argo CD on every cluster. The app is reachable through the traefik ingress with a cert-manager certificate.</p>
+      <p>The same run rolled the app out across four clusters, promoted a change from development to two production clusters, and rolled one back. The platform runs on all four clusters as an app-relevant subset, not all seventeen Kubara services.</p>
     </section>
 
     <section aria-labelledby="apps">
