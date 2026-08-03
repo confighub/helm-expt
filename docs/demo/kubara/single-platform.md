@@ -135,6 +135,24 @@ its admin credential was supplied out of band as a plain demo Secret in place of
 the ExternalSecret source. The applications are a small nginx service and the
 cubbychat sample, not production workloads.
 
+## See it in the ConfigHub GUI
+
+You can watch all of this in the ConfigHub web console, not only from the command
+line. Sign in to your ConfigHub organization at `https://hub.confighub.com` and
+open the Spaces this example created.
+
+- The cluster Spaces `hx-app-dev`, `hx-app-staging`, `hx-app-prod-a`, and
+  `hx-app-prod-b` hold each cluster's delivery target and its Argo Applications.
+- The platform Spaces such as `hx-cm-dev`, `hx-traefik-dev`, and `hx-kps-main-dev`
+  hold the Kubara services.
+- The application Spaces `hx-web-*` and `hx-cubbychat-*` hold the two apps.
+- The `hx-platform` Space holds the require-approval Trigger that gates
+  production.
+
+Each Space page shows its Units, their revision history, and what was delivered.
+From the command line, `cub space get <space> --web` opens a Space page directly,
+and `cub unit get <unit> --space <space> --web` opens a single Unit.
+
 ## Check the evidence
 
 The [committed receipt](../../../runs/kubara-single-platform-proof/receipt.yaml)
