@@ -39,8 +39,13 @@ published. So ConfigHub owns the one Argo CD on every cluster.
 
 Kubara read a description of one cluster and the capabilities it should have. It
 chose seven components, put them in dependency order, and generated a Helm chart
-for each: argo-cd, cert-manager, external-secrets, homer-dashboard,
-kube-prometheus-stack, metrics-server, and traefik. That is why there are seven.
+for each. Each one covers a common need: argo-cd delivers configuration,
+cert-manager issues certificates, external-secrets fetches secrets, traefik
+handles ingress, metrics-server serves the resource metrics that `kubectl top`
+and autoscaling read, kube-prometheus-stack runs full monitoring with Prometheus
+and Grafana, and homer-dashboard is a landing page. That is why there are seven,
+and why two of them are about metrics: metrics-server for the live resource
+numbers and kube-prometheus-stack for dashboards and history.
 
 We dropped Kubara's argo-cd, because ConfigHub's Argo CD already runs on every
 cluster. Swapping Kubara's delivery for ConfigHub's is what makes this an
@@ -85,16 +90,20 @@ Argo CD stood in for the sixth, argo-cd. Only external-secrets was missing.
 
 ### 4. Put two apps on the platform
 
-We deployed two apps. The first is a small nginx web server. The second is
-cubbychat, the sample chat app from the ConfigHub tutorial: a Postgres database,
-a backend, and a frontend.
+We deployed two apps to show how a team uses the platform. We chose two on
+purpose. The first is a small nginx web server, the simplest possible app, to
+prove the path end to end. The second is cubbychat, the sample chat app from the
+ConfigHub tutorial and a realistic three-tier app: a Postgres database, a
+backend, and a frontend. Between them they show that both a trivial app and a
+real one run the same way.
 
-Each app is stored in ConfigHub and delivered the same way as the platform. For
-each, we added a traefik Ingress to put it on the network and a cert-manager
-Certificate for its TLS. Kubara's own issuer uses a public certificate authority,
-which a laptop cluster cannot reach, so we used a self-signed issuer instead. An
-HTTPS request through traefik then returned the app's page, served with the
-cert-manager certificate rather than traefik's default.
+Using the platform is the same for both. A team stores its app in ConfigHub, adds
+a traefik Ingress to put it on the network, and adds a cert-manager Certificate
+for TLS. The platform's traefik and cert-manager do the rest; the app team does
+not install either. Kubara's own certificate issuer uses a public certificate
+authority, which a laptop cluster cannot reach, so we used a self-signed issuer
+instead. An HTTPS request through traefik then returned the app's page, served
+with the cert-manager certificate rather than traefik's default.
 
 ### 5. Promote a change, roll it back, keep a local difference
 
@@ -125,7 +134,16 @@ as its own per-cluster copy. Every cluster serves both apps over HTTPS through
 traefik with a cert-manager certificate. The heavier services (metrics-server,
 homer-dashboard, and kube-prometheus-stack) stayed on the dev cluster.
 
-### 8. See it in the ConfigHub GUI
+### 8. Label the Spaces so the console groups them
+
+ConfigHub's console groups Spaces by their `Owner` label. At first only one Space
+had that label set, so the console showed one lonely group and put everything
+else under "Unassigned". We set `Owner` on every Space so the console shows two
+clean groups: `Platform` for the Kubara services, the four clusters, and the
+delivery bots, and `Apps` for nginx and cubbychat. Within each group the console
+lists the components, such as `hx-cm`, `hx-traefik`, `hx-web`, and `hx-cubbychat`.
+
+### 9. See it in the ConfigHub GUI
 
 You can watch all of this in the ConfigHub web console, not only from the command
 line. Sign in to your ConfigHub organization at `https://hub.confighub.com` and
