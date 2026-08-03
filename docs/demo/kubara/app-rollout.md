@@ -80,8 +80,17 @@ metallb, velero, external-dns, and oauth2-proxy were not delivered: several need
 real infrastructure a laptop kind cluster does not have. Kubara's ClusterIssuer
 is Let's Encrypt ACME, which needs a public-reachable ingress, so a self-signed
 issuer was used for TLS on kind. The app is a minimal nginx service, not a
-production workload. No require-approval Trigger was wired on production;
-production carried delete and destroy gates only.
+production workload.
+
+## Production requires approval
+
+The two production clusters carry a require-approval gate. A Trigger in the
+`hx-platform` Space runs `vet-approvedby`, attached to the production Spaces
+through a Filter. When a change is promoted to production, `cub release publish`
+is refused with `HTTP 422` until every Unit in the Space is approved. After a
+`cub unit approve`, the release publishes and argobot delivers it. The gate
+covers every Unit in the Space, so a namespace or service Unit must be approved
+alongside the workload.
 
 ## Check the evidence
 
