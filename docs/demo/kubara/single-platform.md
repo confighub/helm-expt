@@ -4,147 +4,128 @@ An internal developer platform, or IDP, is the shared, self-service base that ap
 teams build and run their applications on. It bundles the common pieces every app
 needs, and it gives every team one consistent, governed way to ship.
 
-This example builds an IDP from two tools, then runs real apps on it.
+This page is the full story of building one, in order, with nothing skipped.
+Kubara chose the platform's contents. ConfigHub stored them as reviewed
+configuration, governed them, and delivered them through Argo CD. Two apps then
+ran on the platform. Every step below is what we actually did, including the
+fixes we had to make along the way.
 
-Kubara chooses what the platform is made of. ConfigHub stores that choice as plain
-configuration a team can read, check, approve, and promote, and it owns the
-delivery onto the clusters. App teams then get one path to run their apps on the
-platform: the same review, approval, and promotion the platform itself uses.
+## The four pieces
 
-One place is in charge. Kubara decides the contents. ConfigHub governs and
-delivers them. The apps travel the same path as the platform.
-
-## How we built this IDP
-
-Four pieces combined to build it, and each did one job.
+Four things combined to build it, and each did one job.
 
 - **Kubara** generated the platform. It chose the services, pinned their
   versions, and set the order to install them in.
 - **The catalog** is the reviewed library of charts and packages an IDP draws
   from. This build used Kubara's generated platform charts and the ConfigHub
   tutorial's cubbychat app.
-- **cub**, the ConfigHub command-line tool, did the hands-on work. It created the
-  clusters and their Argo CD with `cub cluster up`, pulled and rendered packages
-  with `cub installer`, and created, promoted, and approval-gated the
-  configuration with `cub variant`, `cub release`, and `cub trigger`.
+- **cub**, the ConfigHub command-line tool, did the hands-on work: `cub cluster
+  up`, `cub installer`, `cub variant`, `cub release`, and `cub trigger`.
 - **ConfigHub** held it all as reviewed data. It stored each piece, ran its
   checks, required approval for production, and delivered every change through
   Argo CD.
 
-Kubara decides, the catalog supplies, cub drives, and ConfigHub governs and
-delivers.
+## Step by step
 
-## The setup
+### 1. Set up four clusters
 
-`cub cluster up` created four local test clusters: `hx-app-dev`, `hx-app-staging`,
-`hx-app-prod-a`, and `hx-app-prod-b`. On each one it installed Argo CD, the tool
-that pulls stored configuration and applies it to the cluster, and argobot, a
-ConfigHub bot that tells Argo CD to sync the moment a release is published. So
-ConfigHub owns the one Argo CD on every cluster, and nothing else runs its own.
+`cub cluster up` created four local test clusters: `hx-app-dev`,
+`hx-app-staging`, `hx-app-prod-a`, and `hx-app-prod-b`. On each one it installed
+Argo CD, the tool that pulls stored configuration and applies it to the cluster,
+and argobot, a ConfigHub bot that tells Argo CD to sync the moment a release is
+published. So ConfigHub owns the one Argo CD on every cluster.
 
-Kubara normally ships its own Argo CD and its own cluster wiring. Here that part
-is dropped. Kubara's job is reduced to what it is best at: choosing and
-configuring the platform. ConfigHub's Argo CD is the single delivery engine.
+### 2. Let Kubara choose the platform
 
-## The platform
+Kubara read a description of one cluster and the capabilities it should have. It
+chose seven components, put them in dependency order, and generated a Helm chart
+for each: argo-cd, cert-manager, external-secrets, homer-dashboard,
+kube-prometheus-stack, metrics-server, and traefik. That is why there are seven.
 
-Kubara did not pick the services at random. The example gives Kubara a
-description of one cluster and the capabilities it should have. Kubara turned
-that into seven components, put them in dependency order, and generated a Helm
-chart for each. Each chart wraps a public upstream chart plus Kubara's own
-settings.
+We dropped Kubara's argo-cd, because ConfigHub's Argo CD already runs on every
+cluster. Swapping Kubara's delivery for ConfigHub's is what makes this an
+adapted platform.
 
-Loading the platform into ConfigHub followed one plain, repeatable path. Each
-chart was rendered to plain Kubernetes files. Those files became ConfigHub Units.
-`cub variant create` cloned the Units onto each cluster and bound them to that
-cluster's Argo CD target, and `cub release publish` handed the result to Argo CD.
-Nothing was applied to a cluster by hand.
+### 3. Load each platform service into ConfigHub and deliver it
 
-This Kubara platform has seven services. ConfigHub's own Argo CD stands in for
-Kubara's argo-cd, which is what makes the platform adapted. Five of the other six
-run on the dev cluster:
+Every service followed the same path. We rendered its chart to plain Kubernetes
+files, stored those files in ConfigHub as Units, cloned them onto the dev cluster
+with `cub variant create` (bound to the cluster's Argo CD target), and published
+with `cub release publish` so Argo CD installed them. Nothing was applied by hand.
 
-- **cert-manager** issues TLS certificates.
-- **traefik** routes ingress traffic.
-- **metrics-server** serves resource metrics.
-- **homer-dashboard** is a platform landing page.
-- **kube-prometheus-stack** runs Prometheus, Alertmanager, node-exporter,
-  kube-state-metrics, and the Prometheus operator.
+Most services needed a fix, and each fix is a real thing that happens with a
+generated platform.
 
-The sixth, **external-secrets**, is not delivered. It needs a secret store that a
-laptop kind cluster does not have, which is also why Grafana's admin credential
-was supplied out of band.
+- **cert-manager** rendered cleanly. But its ClusterIssuer and its ServiceMonitor
+  are custom resources that cannot exist until their definitions do. We delivered
+  the controllers and definitions first, then the custom resources.
+- **traefik** would not even render its ServiceMonitor unless the monitoring
+  definitions were already present. We rendered it with a flag that says those
+  definitions exist, and left the ServiceMonitor out until monitoring was
+  installed.
+- **metrics-server** was straightforward.
+- **homer-dashboard** came up empty at first. Its files carried no namespace, so
+  Argo CD could not place them. We set the namespace on the files, and it started.
+- **kube-prometheus-stack** was the hard one, in three parts:
+  - Kubara had pinned it to version `87.15.1`, which the upstream repository had
+    since removed. We moved to the nearest surviving version, `87.19.0`.
+  - Its definitions are megabytes each and exceed the size Kubernetes allows a
+    normal apply to record. We split the definitions into their own delivery and
+    told Argo CD to apply them server-side and to replace rather than patch. Then
+    they installed.
+  - Its Grafana would not start, because it expected a secret that
+    external-secrets normally provides, and we had not installed external-secrets.
+    We supplied that secret by hand, and Grafana started.
+- **external-secrets** we did not deliver. It needs a secret store that a laptop
+  cluster does not have. That is the one service of the seven left out.
 
-## The applications
+After this, five of the seven services ran on the dev cluster: cert-manager,
+traefik, metrics-server, homer-dashboard, and kube-prometheus-stack. ConfigHub's
+Argo CD stood in for the sixth, argo-cd. Only external-secrets was missing.
 
-Two applications run on the platform and use it. Both follow the same GitOps
-pattern as the platform: their configuration lives in ConfigHub, and Argo CD
-keeps each cluster matching it.
+### 4. Put two apps on the platform
 
-The first is a small nginx web server. The second is **cubbychat**, the sample
-application from the ConfigHub tutorial: a Postgres database, a backend, and a
-frontend. Each application is stored in ConfigHub, delivered onto the cluster by
-Argo CD, put on the network through the platform's traefik ingress, and given a
-TLS certificate by the platform's cert-manager.
+We deployed two apps. The first is a small nginx web server. The second is
+cubbychat, the sample chat app from the ConfigHub tutorial: a Postgres database,
+a backend, and a frontend.
 
-An HTTPS request to the cubbychat host through traefik returns the Cubby AI Chat
-page, served with the cert-manager certificate rather than traefik's default.
-The application is not beside the platform. It runs on it and depends on it.
+Each app is stored in ConfigHub and delivered the same way as the platform. For
+each, we added a traefik Ingress to put it on the network and a cert-manager
+Certificate for its TLS. Kubara's own issuer uses a public certificate authority,
+which a laptop cluster cannot reach, so we used a self-signed issuer instead. An
+HTTPS request through traefik then returned the app's page, served with the
+cert-manager certificate rather than traefik's default.
 
-Both applications run on all four clusters. cubbychat's two production Spaces
-carry the same require-approval gate as nginx, so a change to production cubbychat
-is refused until it is approved.
+### 5. Promote a change, roll it back, keep a local difference
 
-## Governance across the fleet
+We changed the nginx app once, in its base, from two copies to three. That change
+promoted from development to staging and then to both production clusters as one
+wave. All four reached three copies.
 
-The same platform and applications promote across the four clusters. A change is
-made once in a base Space and promoted development to staging to production. The
-two production clusters take the change as one wave.
+We rolled one production cluster back to two copies, and it went back while the
+other stayed at three. We also gave staging one setting the others do not have, a
+sandbox address. When the base change promoted into staging, staging kept its
+sandbox setting and took the change as well. A local difference survives a
+promotion.
 
-Production carries a require-approval gate. A Trigger in an `hx-platform` Space
-runs `vet-approvedby`, attached to the production Spaces through a Filter. When a
-change reaches production, `cub release publish` is refused with `HTTP 422` until
-every Unit in the Space is approved. After approval, argobot delivers the change.
-A separate rollback moves a Unit back to a prior revision and republishes.
+### 6. Require approval for production
 
-## What we learned
+We added a rule that production changes need a person to approve them. A Trigger
+in a `hx-platform` Space runs an approval check, attached to the production Spaces
+through a Filter. When a change reached production, `cub release publish` was
+refused with an `HTTP 422` error until every Unit in the Space was approved. After
+`cub unit approve`, the release published and argobot delivered it. The gate
+covers every Unit in a Space, so a namespace or service Unit must be approved
+alongside the workload.
 
-Bringing a real generated platform up on a laptop taught several things that a
-clean demo hides. Each one is a place where storing configuration as reviewed
-data helps.
+### 7. Roll it out across all four clusters
 
-- **A pinned chart version can disappear.** Kubara pinned
-  `kube-prometheus-stack` at `87.15.1`. The upstream repository had since pruned
-  that version from its index, so the bundle no longer built. The fix was to move
-  to the nearest surviving version in the same line, `87.19.0`. A months-old
-  bundle can become undeployable through no change of its own.
-- **Custom resources need their definitions first.** cert-manager's
-  `ClusterIssuer` and the many `ServiceMonitor` objects are custom resources.
-  They cannot apply until their CRDs exist and, for cert-manager, its webhook is
-  ready. The bring-up order is CRDs, then controllers, then custom resources.
-- **The charts assume the whole platform.** Several charts refuse to render their
-  `ServiceMonitor` unless the Prometheus operator CRD is present, so they were
-  rendered with `--api-versions monitoring.coreos.com/v1`.
-- **Large CRDs break normal apply.** The kube-prometheus-stack CRDs are megabytes
-  each and exceed Kubernetes' 256 KB annotation limit that client-side apply
-  uses. The Argo CD Application needed `ServerSideApply=true` and `Replace=true`
-  before the largest CRDs would install.
-- **A rendered secret is not a secret.** The generated stack expected an external
-  secret to supply Grafana's admin credentials. Without that source on kind,
-  Grafana could not start. The credential must be supplied out of band, not
-  carried in the delivered configuration.
-- **A render can omit its namespace.** The homer-dashboard render left the
-  namespace off its objects, so Argo CD could not place them. The namespace was
-  set on the Units before delivery.
+We delivered cert-manager and traefik, and both apps, to all four clusters, each
+as its own per-cluster copy. Every cluster serves both apps over HTTPS through
+traefik with a cert-manager certificate. The heavier services (metrics-server,
+homer-dashboard, and kube-prometheus-stack) stayed on the dev cluster.
 
-## What this does not prove
-
-The heavier services ran on the dev cluster only. cert-manager and traefik run on
-all four clusters, and both applications run on all four. The one Kubara service
-not delivered is external-secrets, covered above. The applications are a small
-nginx service and the cubbychat sample, not production workloads.
-
-## See it in the ConfigHub GUI
+### 8. See it in the ConfigHub GUI
 
 You can watch all of this in the ConfigHub web console, not only from the command
 line. Sign in to your ConfigHub organization at `https://hub.confighub.com` and
@@ -155,17 +136,23 @@ open the Spaces this example created.
 - The platform Spaces such as `hx-cm-dev`, `hx-traefik-dev`, and `hx-kps-main-dev`
   hold the Kubara services.
 - The application Spaces `hx-web-*` and `hx-cubbychat-*` hold the two apps.
-- The `hx-platform` Space holds the require-approval Trigger that gates
-  production.
+- The `hx-platform` Space holds the approval rule that gates production.
 
 Each Space page shows its Units, their revision history, and what was delivered.
 From the command line, `cub space get <space> --web` opens a Space page directly,
 and `cub unit get <unit> --space <space> --web` opens a single Unit.
 
+## What this does not prove
+
+The heavier services ran on the dev cluster only. cert-manager and traefik run on
+all four clusters, and both apps run on all four. One of the seven Kubara
+services, external-secrets, was not delivered, for the reason in step 3. The apps
+are a small nginx service and the cubbychat sample, not production workloads.
+
 ## Check the evidence
 
 The [committed receipt](../../../runs/kubara-single-platform-proof/receipt.yaml)
 records the clusters, the platform services and their Spaces, the applications,
-the promotion and approval flow, and the findings above. The
+the promotion and approval flow, and the fixes above. The
 [app-rollout walkthrough](app-rollout.md) covers the promotion, rollback, and
-approval gate in detail.
+approval gate in more detail.

@@ -76,7 +76,7 @@ resources.
 
 This proof delivered cert-manager and traefik on all four clusters. The fuller
 platform (all seven Kubara services, and monitoring) is covered in the
-[single-platform write-up](single-platform.html). Kubara's ClusterIssuer is
+[single-platform write-up](single-platform.md). Kubara's ClusterIssuer is
 Let's Encrypt ACME, which needs a public-reachable ingress, so a self-signed
 issuer was used for TLS on kind. The app is a minimal nginx service, not a
 production workload.
