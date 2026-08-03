@@ -20,19 +20,19 @@ spec:
       - { name: "homer-dashboard", state: "1/1 Running", space: "hx-homer-dev", note: "render omitted namespace; set-namespace applied before delivery" }
       - name: "kube-prometheus-stack"
         version: "87.19.0 (Kubara pinned 87.15.1, pruned upstream)"
-        state: "operator, Prometheus, Alertmanager, node-exporter, kube-state-metrics, blackbox all Running and reconciled; Grafana pending its credential secret"
-        spaces: ["hx-kps-crds-dev", "hx-kps-main-dev", "hx-kps-grafana-secret-base (blocked)"]
+        state: "operator, Prometheus, Alertmanager, node-exporter, kube-state-metrics, blackbox, and Grafana all Running and reconciled. Grafana started once the grafana-admin-credentials Secret was supplied out of band."
+        spaces: ["hx-kps-crds-dev", "hx-kps-main-dev", "hx-kps-grafana-secret-dev"]
   apps:
     - { name: "hx-web", type: "nginx", uses: "traefik ingress + cert-manager cert", space: "hx-web-*" }
     - name: "cubbychat"
       type: "3-tier sample app from the ConfigHub tutorial (postgres StatefulSet + backend + frontend)"
       source: "https://raw.githubusercontent.com/confighub/cubbychat/refs/heads/main/simple/config-data.yaml"
       uses: "traefik Ingress (host cubbychat.local) + cert-manager Certificate (SAN DNS:cubbychat.local)"
-      reachTest: "HTTPS through traefik returned HTTP 200 and the 'Cubby AI Chat' page, served with the cert-manager certificate"
-      state: "postgres, backend, frontend all 1/1 on hx-app-dev"
+      reachTest: "On all four clusters, HTTPS through traefik returned HTTP 200 and the 'Cubby AI Chat' page, served with the cert-manager certificate (SAN DNS:cubbychat.local)"
+      state: "postgres, backend, frontend all 1/1 on all four clusters (dev, staging, prod-a, prod-b)"
   governance:
     promotion: "base -> dev -> staging -> prod wave, delivered by argobot"
-    approvalGate: "hx-platform/require-approval (vet-approvedby) on hx-web-prod-a and hx-web-prod-b; release publish refused HTTP 422 until all Units approved"
+    approvalGate: "hx-platform/require-approval (vet-approvedby) attached to hx-web-prod-a, hx-web-prod-b, hx-cubbychat-prod-a, and hx-cubbychat-prod-b; release publish refused HTTP 422 until all Units in the Space are approved"
   findings:
     - id: "pinned-version-pruned"
       detail: >-
@@ -57,8 +57,8 @@ spec:
       detail: >-
         The stack expected an ExternalSecret to supply Grafana's admin credentials.
         Without external-secrets on kind, Grafana could not start. The credential
-        must be supplied out of band. Delivering it through the assistant was
-        blocked by a credential guard, which is the correct boundary.
+        was supplied out of band as a plain Secret (demo credentials), after which
+        Grafana started. Configuration should reference a secret, not carry it.
     - id: "render-omits-namespace"
       detail: >-
         The homer-dashboard render left namespace off its objects, so Argo CD could
@@ -66,7 +66,7 @@ spec:
 status:
   result: "pass-with-limits"
   limits:
-    - "Heavier platform services ran on the dev cluster only, not all four; cert-manager and traefik run on all four from the app-rollout proof."
+    - "The heavier platform services (metrics-server, homer-dashboard, kube-prometheus-stack) ran on the dev cluster only. cert-manager and traefik run on all four; both applications run on all four."
     - "Not all 17 Kubara services were delivered. Longhorn, MetalLB, Velero, external-dns, and oauth2-proxy need infrastructure a kind cluster lacks."
-    - "Grafana is delivered but not started, pending its credential secret, which must be supplied out of band."
+    - "Grafana's admin credential was a plain demo Secret supplied out of band, standing in for the ExternalSecret source that kind does not have."
     - "The applications are a minimal nginx service and the cubbychat sample, not production workloads."

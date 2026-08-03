@@ -52,6 +52,10 @@ An HTTPS request to the cubbychat host through traefik returns the Cubby AI Chat
 page, served with the cert-manager certificate rather than traefik's default.
 The application is not beside the platform. It runs on it and depends on it.
 
+Both applications run on all four clusters. cubbychat's two production Spaces
+carry the same require-approval gate as nginx, so a change to production cubbychat
+is refused until it is approved.
+
 ## Governance across the fleet
 
 The same platform and applications promote across the four clusters. A change is
@@ -96,13 +100,14 @@ data helps.
 
 ## What this does not prove
 
-The platform ran as an app-relevant subset on one cluster for the heavier
-services, not all seventeen Kubara services and not every service on every
-cluster. Longhorn, MetalLB, Velero, external-dns, and oauth2-proxy were not
-delivered, because they need infrastructure a laptop kind cluster does not have.
-Grafana is delivered but not started, pending its credential secret. The
-applications are a small nginx service and the cubbychat sample, not production
-workloads.
+The heavier services ran on the dev cluster only, not all seventeen Kubara
+services and not every service on every cluster. cert-manager and traefik run on
+all four clusters, and both applications run on all four. Longhorn, MetalLB,
+Velero, external-dns, and oauth2-proxy were not delivered, because they need
+infrastructure a laptop kind cluster does not have. Grafana runs, but only after
+its admin credential was supplied out of band as a plain demo Secret in place of
+the ExternalSecret source. The applications are a small nginx service and the
+cubbychat sample, not production workloads.
 
 ## Check the evidence
 
