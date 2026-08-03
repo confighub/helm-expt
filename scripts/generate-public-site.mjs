@@ -5472,12 +5472,13 @@ cub helm install myapp &lt;chart-ref&gt; \\
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", worked(pathways, "kubara").result, `<a href="./d/docs/demo/kubara/local-platform.html">Walkthrough</a> · <a href="./d/docs/demo/kubara/app-rollout.html">App on the platform</a> · <a href="./d/docs/demo/kubara/single-platform.html">IDP: apps on the platform</a> · <a href="https://github.com/confighub/helm-expt/blob/main/runs/kubara-app-rollout-proof/receipt.yaml">Receipt</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/local-platform">GitHub source</a>`],
+        ["Kubara", worked(pathways, "kubara").result, `<a href="./d/docs/demo/kubara/single-platform.html">IDP write-up</a> · <a href="./d/docs/demo/kubara/app-rollout.html">App rollout detail</a> · <a href="./d/docs/demo/kubara/local-platform.html">Platform walkthrough</a> · <a href="https://github.com/confighub/helm-expt/blob/main/runs/kubara-app-rollout-proof/receipt.yaml">Receipt</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/local-platform">GitHub source</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
-      <h3 id="kubara-app">An app on a real Kubara platform</h3>
-      <p>The newest Kubara proof deploys an app onto a live Kubara platform. ConfigHub delivered Kubara's cert-manager and traefik through our Argo CD on every cluster. The app is reachable through the traefik ingress with a cert-manager certificate.</p>
-      <p>The same run rolled the app out across four clusters, promoted a change from development to two production clusters, and rolled one back. The platform runs on all four clusters as an app-relevant subset, not all seventeen Kubara services.</p>
+      <h3 id="kubara-app">An internal developer platform with apps on it</h3>
+      <p>Kubara and ConfigHub together form an internal developer platform. Kubara chose the platform services. ConfigHub governs and delivers them, and app teams run their apps on the same governed path.</p>
+      <p>The platform delivered Kubara's cert-manager, traefik, and monitoring. Two apps run on it, an nginx service and cubbychat, the tutorial's chat app. Both are reachable over HTTPS through the ingress, promoted across four clusters, and gated by approval in production.</p>
+      <p><a href="./d/docs/demo/kubara/single-platform.html">Read the IDP write-up</a>.</p>
     </section>
 
     <section aria-labelledby="apps">
