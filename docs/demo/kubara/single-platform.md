@@ -1,21 +1,23 @@
 # One platform from ConfigHub and Kubara, running GitOps apps
 
-This example builds a single platform from two tools and then runs real
-applications on it. Kubara describes the platform. ConfigHub stores, checks,
-approves, and promotes that platform as data. ConfigHub also owns the Argo CD
-that delivers it. Applications then run on the platform and use it.
+This example puts two tools together to build one platform, then runs real apps
+on it.
 
-The result is one control plane. Kubara decides what the platform contains.
-ConfigHub governs it and delivers it through Argo CD. The applications ride the
-same path as the platform.
+Kubara chooses what the platform is made of. ConfigHub stores that choice as
+plain configuration a team can read, check, approve, and promote. ConfigHub also
+owns the delivery onto the clusters. The apps then run on the platform and use
+it.
+
+One place is in charge. Kubara decides the contents. ConfigHub reviews and
+delivers them. The apps travel the same path as the platform.
 
 ## The setup
 
-`cub cluster up` created four kind clusters: `hx-app-dev`, `hx-app-staging`,
-`hx-app-prod-a`, and `hx-app-prod-b`. On each cluster it installed Argo CD and
-argobot. argobot is a ConfigHub bot that force-syncs the matching Argo CD
-Application the moment a release is published. So ConfigHub owns Argo CD on every
-cluster, and nothing else runs an Argo CD of its own.
+`cub cluster up` created four local test clusters: `hx-app-dev`, `hx-app-staging`,
+`hx-app-prod-a`, and `hx-app-prod-b`. On each one it installed Argo CD, the tool
+that pulls stored configuration and applies it to the cluster, and argobot, a
+ConfigHub bot that tells Argo CD to sync the moment a release is published. So
+ConfigHub owns the one Argo CD on every cluster, and nothing else runs its own.
 
 Kubara normally ships its own Argo CD and its own cluster wiring. Here that part
 is dropped. Kubara's job is reduced to what it is best at: choosing and
@@ -23,11 +25,10 @@ configuring the platform. ConfigHub's Argo CD is the single delivery engine.
 
 ## The platform
 
-Kubara generated a platform of umbrella Helm charts. Each chart wraps an upstream
-chart, a shared template library, and Kubara's own additions. The charts were
-rendered to plain Kubernetes objects and delivered to the clusters as ConfigHub
-Units, one variant Space per cluster, published as an OCI release that Argo CD
-pulls.
+Kubara generated the platform as a set of Helm charts. Each chart wraps a public
+upstream chart plus Kubara's own settings. Those charts were turned into plain
+Kubernetes files and stored in ConfigHub, one copy per cluster. ConfigHub
+publishes each copy as a package that Argo CD pulls and installs.
 
 Five Kubara services now run on the dev cluster:
 
@@ -40,13 +41,15 @@ Five Kubara services now run on the dev cluster:
 
 ## The applications
 
-Two GitOps applications run on the platform and use it.
+Two applications run on the platform and use it. Both follow the same GitOps
+pattern as the platform: their configuration lives in ConfigHub, and Argo CD
+keeps each cluster matching it.
 
-The first is a small nginx service. The second is **cubbychat**, the sample
+The first is a small nginx web server. The second is **cubbychat**, the sample
 application from the ConfigHub tutorial: a Postgres database, a backend, and a
-frontend. Each application is stored in ConfigHub, delivered by argobot through
-Argo CD, exposed through the platform's traefik ingress, and given a TLS
-certificate by the platform's cert-manager.
+frontend. Each application is stored in ConfigHub, delivered onto the cluster by
+Argo CD, put on the network through the platform's traefik ingress, and given a
+TLS certificate by the platform's cert-manager.
 
 An HTTPS request to the cubbychat host through traefik returns the Cubby AI Chat
 page, served with the cert-manager certificate rather than traefik's default.

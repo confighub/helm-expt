@@ -443,23 +443,24 @@
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
     <h1>One platform from ConfigHub and Kubara, running GitOps apps</h1>
-    <p class="lead">This example builds a single platform from two tools and then runs real applications on it. Kubara describes the platform. ConfigHub stores, checks, approves, and promotes that platform as data. ConfigHub also owns the Argo CD that delivers it. Applications then run on the platform and use it. <a href="../../../../../docs/demo/kubara/single-platform.md">View source markdown</a>.</p>
+    <p class="lead">This example puts two tools together to build one platform, then runs real apps on it. <a href="../../../../../docs/demo/kubara/single-platform.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
 
-<p>The result is one control plane. Kubara decides what the platform contains. ConfigHub governs it and delivers it through Argo CD. The applications ride the same path as the platform.</p>
+<p>Kubara chooses what the platform is made of. ConfigHub stores that choice as plain configuration a team can read, check, approve, and promote. ConfigHub also owns the delivery onto the clusters. The apps then run on the platform and use it.</p>
+<p>One place is in charge. Kubara decides the contents. ConfigHub reviews and delivers them. The apps travel the same path as the platform.</p>
 <h2 id="the-setup">The setup</h2>
-<p><code>cub cluster up</code> created four kind clusters: <code>hx-app-dev</code>, <code>hx-app-staging</code>, <code>hx-app-prod-a</code>, and <code>hx-app-prod-b</code>. On each cluster it installed Argo CD and argobot. argobot is a ConfigHub bot that force-syncs the matching Argo CD Application the moment a release is published. So ConfigHub owns Argo CD on every cluster, and nothing else runs an Argo CD of its own.</p>
+<p><code>cub cluster up</code> created four local test clusters: <code>hx-app-dev</code>, <code>hx-app-staging</code>, <code>hx-app-prod-a</code>, and <code>hx-app-prod-b</code>. On each one it installed Argo CD, the tool that pulls stored configuration and applies it to the cluster, and argobot, a ConfigHub bot that tells Argo CD to sync the moment a release is published. So ConfigHub owns the one Argo CD on every cluster, and nothing else runs its own.</p>
 <p>Kubara normally ships its own Argo CD and its own cluster wiring. Here that part is dropped. Kubara's job is reduced to what it is best at: choosing and configuring the platform. ConfigHub's Argo CD is the single delivery engine.</p>
 <h2 id="the-platform">The platform</h2>
-<p>Kubara generated a platform of umbrella Helm charts. Each chart wraps an upstream chart, a shared template library, and Kubara's own additions. The charts were rendered to plain Kubernetes objects and delivered to the clusters as ConfigHub Units, one variant Space per cluster, published as an OCI release that Argo CD pulls.</p>
+<p>Kubara generated the platform as a set of Helm charts. Each chart wraps a public upstream chart plus Kubara's own settings. Those charts were turned into plain Kubernetes files and stored in ConfigHub, one copy per cluster. ConfigHub publishes each copy as a package that Argo CD pulls and installs.</p>
 <p>Five Kubara services now run on the dev cluster:</p>
 <ul><li><b>cert-manager</b> issues TLS certificates.</li><li><b>traefik</b> routes ingress traffic.</li><li><b>metrics-server</b> serves resource metrics.</li><li><b>homer-dashboard</b> is a platform landing page.</li><li><b>kube-prometheus-stack</b> runs Prometheus, Alertmanager, node-exporter, kube-state-metrics, and the Prometheus operator.</li></ul>
 <h2 id="the-applications">The applications</h2>
-<p>Two GitOps applications run on the platform and use it.</p>
-<p>The first is a small nginx service. The second is <b>cubbychat</b>, the sample application from the ConfigHub tutorial: a Postgres database, a backend, and a frontend. Each application is stored in ConfigHub, delivered by argobot through Argo CD, exposed through the platform's traefik ingress, and given a TLS certificate by the platform's cert-manager.</p>
+<p>Two applications run on the platform and use it. Both follow the same GitOps pattern as the platform: their configuration lives in ConfigHub, and Argo CD keeps each cluster matching it.</p>
+<p>The first is a small nginx web server. The second is <b>cubbychat</b>, the sample application from the ConfigHub tutorial: a Postgres database, a backend, and a frontend. Each application is stored in ConfigHub, delivered onto the cluster by Argo CD, put on the network through the platform's traefik ingress, and given a TLS certificate by the platform's cert-manager.</p>
 <p>An HTTPS request to the cubbychat host through traefik returns the Cubby AI Chat page, served with the cert-manager certificate rather than traefik's default. The application is not beside the platform. It runs on it and depends on it.</p>
 <p>Both applications run on all four clusters. cubbychat's two production Spaces carry the same require-approval gate as nginx, so a change to production cubbychat is refused until it is approved.</p>
 <h2 id="governance-across-the-fleet">Governance across the fleet</h2>
