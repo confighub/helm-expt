@@ -1,14 +1,17 @@
-# One platform from ConfigHub and Kubara, running GitOps apps
+# An internal developer platform from ConfigHub and Kubara
 
-This example puts two tools together to build one platform, then runs real apps
-on it.
+An internal developer platform, or IDP, is the shared, self-service base that app
+teams build and run their applications on. It bundles the common pieces every app
+needs, and it gives every team one consistent, governed way to ship.
 
-Kubara chooses what the platform is made of. ConfigHub stores that choice as
-plain configuration a team can read, check, approve, and promote. ConfigHub also
-owns the delivery onto the clusters. The apps then run on the platform and use
-it.
+This example builds an IDP from two tools, then runs real apps on it.
 
-One place is in charge. Kubara decides the contents. ConfigHub reviews and
+Kubara chooses what the platform is made of. ConfigHub stores that choice as plain
+configuration a team can read, check, approve, and promote, and it owns the
+delivery onto the clusters. App teams then get one path to run their apps on the
+platform: the same review, approval, and promotion the platform itself uses.
+
+One place is in charge. Kubara decides the contents. ConfigHub governs and
 delivers them. The apps travel the same path as the platform.
 
 ## The setup

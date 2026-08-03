@@ -5,10 +5,10 @@ metadata:
 spec:
   recordedAt: "2026-08-03T15:20:00Z"
   intent: >-
-    Build one platform from ConfigHub and an adapted Kubara (its own Argo CD
-    dropped), delivered through ConfigHub-owned Argo CD, and run GitOps apps on
-    it that use the platform. Kubara decides the platform; ConfigHub governs and
-    delivers it; the apps ride the same path.
+    Build an internal developer platform (IDP) from ConfigHub and an adapted
+    Kubara (its own Argo CD dropped), delivered through ConfigHub-owned Argo CD,
+    and run GitOps apps on it. Kubara decides the platform; ConfigHub governs and
+    delivers it; app teams run their apps on the same governed path.
   clusters: ["hx-app-dev", "hx-app-staging", "hx-app-prod-a", "hx-app-prod-b"]
   argoOwner: "cub cluster up: ConfigHub-owned Argo CD + argobot on each cluster"
   platform:
