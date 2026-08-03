@@ -48,12 +48,21 @@ configuring the platform. ConfigHub's Argo CD is the single delivery engine.
 
 ## The platform
 
-Kubara generated the platform as a set of Helm charts. Each chart wraps a public
-upstream chart plus Kubara's own settings. Those charts were turned into plain
-Kubernetes files and stored in ConfigHub, one copy per cluster. ConfigHub
-publishes each copy as a package that Argo CD pulls and installs.
+Kubara did not pick the services at random. The example gives Kubara a
+description of one cluster and the capabilities it should have. Kubara turned
+that into seven components, put them in dependency order, and generated a Helm
+chart for each. Each chart wraps a public upstream chart plus Kubara's own
+settings.
 
-Five Kubara services now run on the dev cluster:
+Loading the platform into ConfigHub followed one plain, repeatable path. Each
+chart was rendered to plain Kubernetes files. Those files became ConfigHub Units.
+`cub variant create` cloned the Units onto each cluster and bound them to that
+cluster's Argo CD target, and `cub release publish` handed the result to Argo CD.
+Nothing was applied to a cluster by hand.
+
+This Kubara platform has seven services. ConfigHub's own Argo CD stands in for
+Kubara's argo-cd, which is what makes the platform adapted. Five of the other six
+run on the dev cluster:
 
 - **cert-manager** issues TLS certificates.
 - **traefik** routes ingress traffic.
@@ -61,6 +70,10 @@ Five Kubara services now run on the dev cluster:
 - **homer-dashboard** is a platform landing page.
 - **kube-prometheus-stack** runs Prometheus, Alertmanager, node-exporter,
   kube-state-metrics, and the Prometheus operator.
+
+The sixth, **external-secrets**, is not delivered. It needs a secret store that a
+laptop kind cluster does not have, which is also why Grafana's admin credential
+was supplied out of band.
 
 ## The applications
 
@@ -126,14 +139,10 @@ data helps.
 
 ## What this does not prove
 
-The heavier services ran on the dev cluster only, not all seventeen Kubara
-services and not every service on every cluster. cert-manager and traefik run on
-all four clusters, and both applications run on all four. Longhorn, MetalLB,
-Velero, external-dns, and oauth2-proxy were not delivered, because they need
-infrastructure a laptop kind cluster does not have. Grafana runs, but only after
-its admin credential was supplied out of band as a plain demo Secret in place of
-the ExternalSecret source. The applications are a small nginx service and the
-cubbychat sample, not production workloads.
+The heavier services ran on the dev cluster only. cert-manager and traefik run on
+all four clusters, and both applications run on all four. The one Kubara service
+not delivered is external-secrets, covered above. The applications are a small
+nginx service and the cubbychat sample, not production workloads.
 
 ## See it in the ConfigHub GUI
 
