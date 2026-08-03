@@ -67,6 +67,6 @@ status:
   result: "pass-with-limits"
   limits:
     - "The heavier platform services (metrics-server, homer-dashboard, kube-prometheus-stack) ran on the dev cluster only. cert-manager and traefik run on all four; both applications run on all four."
-    - "Not all 17 Kubara services were delivered. Longhorn, MetalLB, Velero, external-dns, and oauth2-proxy need infrastructure a kind cluster lacks."
+    - "The Kubara platform for this cluster is seven services. Five run on dev (cert-manager, traefik, metrics-server, homer-dashboard, kube-prometheus-stack), ConfigHub's Argo CD replaces Kubara's argo-cd, and only external-secrets is not delivered (it needs a secret store)."
     - "Grafana's admin credential was a plain demo Secret supplied out of band, standing in for the ExternalSecret source that kind does not have."
     - "The applications are a minimal nginx service and the cubbychat sample, not production workloads."

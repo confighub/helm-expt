@@ -74,11 +74,10 @@ resources.
 
 ## What this does not prove
 
-The Kubara platform was delivered as an app-relevant subset (cert-manager,
-traefik) on all four clusters, not all 17 services. The monitoring stack, longhorn,
-metallb, velero, external-dns, and oauth2-proxy were not delivered: several need
-real infrastructure a laptop kind cluster does not have. Kubara's ClusterIssuer
-is Let's Encrypt ACME, which needs a public-reachable ingress, so a self-signed
+This proof delivered cert-manager and traefik on all four clusters. The fuller
+platform (all seven Kubara services, and monitoring) is covered in the
+[single-platform write-up](single-platform.md). Kubara's ClusterIssuer is
+Let's Encrypt ACME, which needs a public-reachable ingress, so a self-signed
 issuer was used for TLS on kind. The app is a minimal nginx service, not a
 production workload.
 
