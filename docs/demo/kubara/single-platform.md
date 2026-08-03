@@ -14,6 +14,26 @@ platform: the same review, approval, and promotion the platform itself uses.
 One place is in charge. Kubara decides the contents. ConfigHub governs and
 delivers them. The apps travel the same path as the platform.
 
+## How we built this IDP
+
+Four pieces combined to build it, and each did one job.
+
+- **Kubara** generated the platform. It chose the services, pinned their
+  versions, and set the order to install them in.
+- **The catalog** is the reviewed library of charts and packages an IDP draws
+  from. This build used Kubara's generated platform charts and the ConfigHub
+  tutorial's cubbychat app.
+- **cub**, the ConfigHub command-line tool, did the hands-on work. It created the
+  clusters and their Argo CD with `cub cluster up`, pulled and rendered packages
+  with `cub installer`, and created, promoted, and approval-gated the
+  configuration with `cub variant`, `cub release`, and `cub trigger`.
+- **ConfigHub** held it all as reviewed data. It stored each piece, ran its
+  checks, required approval for production, and delivered every change through
+  Argo CD.
+
+Kubara decides, the catalog supplies, cub drives, and ConfigHub governs and
+delivers.
+
 ## The setup
 
 `cub cluster up` created four local test clusters: `hx-app-dev`, `hx-app-staging`,
@@ -114,6 +134,24 @@ infrastructure a laptop kind cluster does not have. Grafana runs, but only after
 its admin credential was supplied out of band as a plain demo Secret in place of
 the ExternalSecret source. The applications are a small nginx service and the
 cubbychat sample, not production workloads.
+
+## See it in the ConfigHub GUI
+
+You can watch all of this in the ConfigHub web console, not only from the command
+line. Sign in to your ConfigHub organization at `https://hub.confighub.com` and
+open the Spaces this example created.
+
+- The cluster Spaces `hx-app-dev`, `hx-app-staging`, `hx-app-prod-a`, and
+  `hx-app-prod-b` hold each cluster's delivery target and its Argo Applications.
+- The platform Spaces such as `hx-cm-dev`, `hx-traefik-dev`, and `hx-kps-main-dev`
+  hold the Kubara services.
+- The application Spaces `hx-web-*` and `hx-cubbychat-*` hold the two apps.
+- The `hx-platform` Space holds the require-approval Trigger that gates
+  production.
+
+Each Space page shows its Units, their revision history, and what was delivered.
+From the command line, `cub space get <space> --web` opens a Space page directly,
+and `cub unit get <unit> --space <space> --web` opens a single Unit.
 
 ## Check the evidence
 
