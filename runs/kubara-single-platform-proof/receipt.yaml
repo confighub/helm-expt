@@ -1,0 +1,72 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "ConfigHubKubaraSinglePlatformReceipt"
+metadata:
+  name: "hx-kubara-single-platform-gitops-apps"
+spec:
+  recordedAt: "2026-08-03T15:20:00Z"
+  intent: >-
+    Build one platform from ConfigHub and an adapted Kubara (its own Argo CD
+    dropped), delivered through ConfigHub-owned Argo CD, and run GitOps apps on
+    it that use the platform. Kubara decides the platform; ConfigHub governs and
+    delivers it; the apps ride the same path.
+  clusters: ["hx-app-dev", "hx-app-staging", "hx-app-prod-a", "hx-app-prod-b"]
+  argoOwner: "cub cluster up: ConfigHub-owned Argo CD + argobot on each cluster"
+  platform:
+    scope: "Delivered on hx-app-dev in this phase. cert-manager and traefik also run on all four clusters from the app-rollout proof."
+    services:
+      - { name: "cert-manager", version: "v1.21.0", state: "3/3 Running", space: "hx-cm-*" }
+      - { name: "traefik", version: "41.0.2", state: "1/1 Running", space: "hx-traefik-*" }
+      - { name: "metrics-server", state: "1/1 Running", space: "hx-metrics-dev" }
+      - { name: "homer-dashboard", state: "1/1 Running", space: "hx-homer-dev", note: "render omitted namespace; set-namespace applied before delivery" }
+      - name: "kube-prometheus-stack"
+        version: "87.19.0 (Kubara pinned 87.15.1, pruned upstream)"
+        state: "operator, Prometheus, Alertmanager, node-exporter, kube-state-metrics, blackbox, and Grafana all Running and reconciled. Grafana started once the grafana-admin-credentials Secret was supplied out of band."
+        spaces: ["hx-kps-crds-dev", "hx-kps-main-dev", "hx-kps-grafana-secret-dev"]
+  apps:
+    - { name: "hx-web", type: "nginx", uses: "traefik ingress + cert-manager cert", space: "hx-web-*" }
+    - name: "cubbychat"
+      type: "3-tier sample app from the ConfigHub tutorial (postgres StatefulSet + backend + frontend)"
+      source: "https://raw.githubusercontent.com/confighub/cubbychat/refs/heads/main/simple/config-data.yaml"
+      uses: "traefik Ingress (host cubbychat.local) + cert-manager Certificate (SAN DNS:cubbychat.local)"
+      reachTest: "On all four clusters, HTTPS through traefik returned HTTP 200 and the 'Cubby AI Chat' page, served with the cert-manager certificate (SAN DNS:cubbychat.local)"
+      state: "postgres, backend, frontend all 1/1 on all four clusters (dev, staging, prod-a, prod-b)"
+  governance:
+    promotion: "base -> dev -> staging -> prod wave, delivered by argobot"
+    approvalGate: "hx-platform/require-approval (vet-approvedby) attached to hx-web-prod-a, hx-web-prod-b, hx-cubbychat-prod-a, and hx-cubbychat-prod-b; release publish refused HTTP 422 until all Units in the Space are approved"
+  findings:
+    - id: "pinned-version-pruned"
+      detail: >-
+        Kubara pinned kube-prometheus-stack 87.15.1. The prometheus-community
+        repository had pruned it from its index, so the bundle would not build.
+        Moved to the nearest surviving version in the same line, 87.19.0.
+    - id: "crd-before-cr"
+      detail: >-
+        cert-manager ClusterIssuer and the ServiceMonitors are custom resources
+        that need their CRDs (and cert-manager's webhook) first. Bring-up order is
+        CRDs, then controllers, then custom resources.
+    - id: "chart-assumes-whole-platform"
+      detail: >-
+        Charts refuse to render their ServiceMonitor without the Prometheus
+        operator CRD, so they were rendered with --api-versions monitoring.coreos.com/v1.
+    - id: "large-crd-annotation-limit"
+      detail: >-
+        kube-prometheus-stack CRDs exceed the 256 KB annotation limit that
+        client-side apply uses. The Argo CD Application needed ServerSideApply=true
+        and Replace=true before the largest CRDs would install.
+    - id: "rendered-secret-not-a-secret"
+      detail: >-
+        The stack expected an ExternalSecret to supply Grafana's admin credentials.
+        Without external-secrets on kind, Grafana could not start. The credential
+        was supplied out of band as a plain Secret (demo credentials), after which
+        Grafana started. Configuration should reference a secret, not carry it.
+    - id: "render-omits-namespace"
+      detail: >-
+        The homer-dashboard render left namespace off its objects, so Argo CD could
+        not place them. Namespace was set on the Units before delivery.
+status:
+  result: "pass-with-limits"
+  limits:
+    - "The heavier platform services (metrics-server, homer-dashboard, kube-prometheus-stack) ran on the dev cluster only. cert-manager and traefik run on all four; both applications run on all four."
+    - "Not all 17 Kubara services were delivered. Longhorn, MetalLB, Velero, external-dns, and oauth2-proxy need infrastructure a kind cluster lacks."
+    - "Grafana's admin credential was a plain demo Secret supplied out of band, standing in for the ExternalSecret source that kind does not have."
+    - "The applications are a minimal nginx service and the cubbychat sample, not production workloads."
