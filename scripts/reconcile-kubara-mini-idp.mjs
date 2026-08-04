@@ -74,6 +74,7 @@ const SCENARIO_VERSION = "hx-web-promotion-v1";
 const LINK_REASON_ANNOTATION = "helm-expt.confighub.com/reason";
 const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
 const ARGO_PRUNE_POLICY = "Argo may prune only resources tracked by one of the 27 exact allowlisted deployment Applications; ConfigHub objects and persistent clusters are never deleted";
+const ARGO_RETRY_POLICY = "up to four refresh-observe-sync cycles for terminal failure or terminal OutOfSync state";
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
 const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
@@ -1050,7 +1051,7 @@ function printPlan(inputs, desired) {
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
-        argoRetryPolicy: "hard-refresh and request one bounded current-revision sync when the desired Application is not accepted",
+        argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
         interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
@@ -2487,22 +2488,51 @@ function deployOne(deployment, state) {
   ) {
     publishRelease(deployment.space, state, { force: true });
   }
-  requestArgoSyncIfNeeded(deployment, state);
-  waitForApplication(deployment.cluster, deployment.space, deployment.acceptedHealth);
+  convergeDeploymentApplication(deployment, state);
 }
 
-function requestArgoSyncIfNeeded(deployment, state) {
-  const read = () => {
-    const result = kubectlTry(deployment.cluster, [
-      "get", "application", deployment.space, "-n", "argocd", "-o", "json",
-    ]);
-    check(result.ok, `${deployment.cluster}/${deployment.space}: Argo Application is unavailable before sync`);
-    return JSON.parse(result.output);
-  };
+function readLiveArgoApplication(deployment) {
+  const result = kubectlTry(deployment.cluster, [
+    "get", "application", deployment.space, "-n", "argocd", "-o", "json",
+  ]);
+  check(result.ok, `${deployment.cluster}/${deployment.space}: Argo Application is unavailable before sync`);
+  return JSON.parse(result.output);
+}
+
+function deploymentApplicationAccepted(app, deployment) {
+  return app.status?.sync?.status === "Synced"
+    && deployment.acceptedHealth.includes(app.status?.health?.status ?? "Unknown");
+}
+
+function convergeDeploymentApplication(deployment, state) {
+  let last = { sync: "Unknown", health: "Unknown", phase: "Unknown", message: "not observed" };
+  for (let cycle = 1; cycle <= 4; cycle += 1) {
+    requestArgoSyncIfNeeded(deployment, state, cycle);
+    for (let attempt = 0; attempt < 48; attempt += 1) {
+      const app = readLiveArgoApplication(deployment);
+      last = {
+        sync: app.status?.sync?.status ?? "Unknown",
+        health: app.status?.health?.status ?? "Unknown",
+        phase: app.status?.operationState?.phase ?? "Unknown",
+        message: app.status?.operationState?.message ?? app.status?.conditions?.map((item) => item.message).join("; ") ?? "",
+      };
+      if (deploymentApplicationAccepted(app, deployment)) return last;
+      const operationActive = Boolean(app.operation) || last.phase === "Running";
+      if (!operationActive && last.sync !== "Synced" && attempt >= 3) break;
+      command("sleep", ["5"]);
+    }
+  }
+  check(
+    false,
+    `${deployment.cluster}/${deployment.space}: failed four bounded Argo convergence cycles; expected Synced and health ${deployment.acceptedHealth.join("|")}, got ${stableJson(last)}`,
+  );
+}
+
+function requestArgoSyncIfNeeded(deployment, state, cycle) {
   let app = null;
   let contractError = "Application not observed";
   for (let attempt = 0; attempt < 60; attempt += 1) {
-    app = read();
+    app = readLiveArgoApplication(deployment);
     try {
       assertArgoApplicationContract(app, deployment);
       contractError = "";
@@ -2513,19 +2543,26 @@ function requestArgoSyncIfNeeded(deployment, state) {
     }
   }
   check(!contractError, `${deployment.cluster}/${deployment.space}: live Argo Application contract did not converge: ${contractError}`);
-  const accepted = app.status?.sync?.status === "Synced"
-    && deployment.acceptedHealth.includes(app.status?.health?.status ?? "Unknown");
-  if (accepted) return;
+  if (deploymentApplicationAccepted(app, deployment)) return;
   if (app.operation || app.status?.operationState?.phase === "Running") return;
 
   kubectl(deployment.cluster, [
     "annotate", "application", deployment.space, "-n", "argocd",
     "argocd.argoproj.io/refresh=hard", "--overwrite",
   ]);
-  recordAction(state, "argo-hard-refresh", `${deployment.cluster}/${deployment.space}`);
-  command("sleep", ["2"]);
-  app = read();
+  recordAction(state, "argo-hard-refresh", `${deployment.cluster}/${deployment.space}`, `convergence cycle ${cycle}`);
+  let refreshProcessed = false;
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    app = readLiveArgoApplication(deployment);
+    if (!app.metadata?.annotations?.["argocd.argoproj.io/refresh"]) {
+      refreshProcessed = true;
+      break;
+    }
+    command("sleep", ["2"]);
+  }
+  check(refreshProcessed, `${deployment.cluster}/${deployment.space}: Argo hard refresh was not processed`);
   assertArgoApplicationContract(app, deployment);
+  if (deploymentApplicationAccepted(app, deployment)) return;
   if (app.operation || app.status?.operationState?.phase === "Running") return;
 
   const operation = {
@@ -2542,7 +2579,7 @@ function requestArgoSyncIfNeeded(deployment, state) {
     "patch", "application", deployment.space, "-n", "argocd",
     "--type=merge", "--patch", JSON.stringify(operation),
   ]);
-  recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, "bounded current-revision sync with Kubara prune semantics");
+  recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, `convergence cycle ${cycle}; Kubara prune semantics`);
 }
 
 function spaceHasUnreleasedHeads(space) {
@@ -3270,7 +3307,7 @@ function buildReceipt(inputs, desired, observation, state) {
         cub: cachedCubVersions,
         delivery: "ConfigHub variant/OCI -> ConfigHub-owned Argo CD/argobot",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
-        argoRetryPolicy: "hard-refresh and request one bounded current-revision sync when the desired Application is not accepted",
+        argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
       },
@@ -3371,6 +3408,7 @@ function verifyReceipt(inputs, desired) {
     "mini-IDP receipt Argo prune boundary drifted",
   );
   check(receipt.spec?.execution?.argoPrunePolicy === ARGO_PRUNE_POLICY, "mini-IDP receipt Argo prune policy drifted");
+  check(receipt.spec?.execution?.argoRetryPolicy === ARGO_RETRY_POLICY, "mini-IDP receipt Argo retry policy drifted");
   check(stableJson(receipt.spec?.execution?.persistentClustersPreserved) === stableJson(FLEET.map((item) => item.cluster)), "persistent cluster allowlist drifted");
   check(receipt.spec?.execution?.partialClusterStatePolicy === "fail", "mini-IDP receipt no longer fails on partial persistent-cluster state");
   check(receipt.spec?.execution?.serialLiveParityLock === true, "mini-IDP receipt no longer records the shared serial live-parity lock");
