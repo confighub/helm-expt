@@ -546,7 +546,9 @@ at the desired revision produces no semantic changes. Apply refuses to start
 unless all prior qualification,
 promotion, publication, and faithful-lane gates pass. The first apply writes a
 pending-idempotence receipt. The immediately repeated apply must record zero
-actions before receipt verification can pass.
+actions before receipt verification can pass. A restarted apply also compares
+every Unit's head revision with its last applied revision, so an interrupted
+run cannot mistake an older existing release for the current desired state.
 
 The result includes every selected platform role, lifecycle and target facts,
 the platform contract, catalog-alignment evidence, matrix and wiring evidence,
