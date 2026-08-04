@@ -16,7 +16,8 @@
 // Safety properties:
 //   * live modes require the Kubara organization;
 //   * every writable Space, Unit, Trigger, Filter, and Link is allowlisted;
-//   * hx-app-* clusters are persistent and are never deleted by this script;
+//   * ConfigHub objects and hx-app-* clusters are never deleted by this script;
+//   * exact workload Applications retain Kubara's bounded Argo prune behavior;
 //   * a completely absent cluster may be created with `cub cluster up`;
 //   * partial local/ConfigHub cluster state is rejected rather than repaired
 //     destructively;
@@ -72,6 +73,7 @@ const PROD_SAFETY_GATE = "prod-critical";
 const SCENARIO_VERSION = "hx-web-promotion-v1";
 const LINK_REASON_ANNOTATION = "helm-expt.confighub.com/reason";
 const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
+const ARGO_PRUNE_POLICY = "Argo may prune only resources tracked by one of the 27 exact allowlisted deployment Applications; ConfigHub objects and persistent clusters are never deleted";
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
 const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
@@ -1040,7 +1042,7 @@ function printPlan(inputs, desired) {
         deterministic: true,
         aiRequired: false,
         mutationGuardConsulted: false,
-        destructiveOperations: [],
+        destructiveOperations: [ARGO_PRUNE_POLICY],
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
         partialClusterStatePolicy: "fail",
         serialLiveParityLock: true,
@@ -1048,7 +1050,8 @@ function printPlan(inputs, desired) {
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
-        argoRetryPolicy: "hard-refresh and request one non-pruning sync when the desired Application is not accepted",
+        argoRetryPolicy: "hard-refresh and request one bounded current-revision sync when the desired Application is not accepted",
+        argoPrunePolicy: ARGO_PRUNE_POLICY,
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
         interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
         receiptRequiresZeroActionRerun: true,
@@ -2022,13 +2025,7 @@ function ensureArgoApplication(deployment, state) {
     server: "https://kubernetes.default.svc",
     namespace: deployment.destinationNamespace,
   };
-  app.spec.syncPolicy = {
-    automated: {
-      selfHeal: true,
-      allowEmpty: true,
-    },
-    ...(deployment.serverSideApply ? { syncOptions: ["ServerSideApply=true"] } : {}),
-  };
+  app.spec.syncPolicy = applicationSyncPolicy(deployment);
   if (deployment.ignoreInjectedCertificateData) {
     app.spec.ignoreDifferences = certificateIgnoreDifferences();
   } else delete app.spec.ignoreDifferences;
@@ -2041,9 +2038,7 @@ function ensureArgoApplication(deployment, state) {
     cub([
       "unit", "update", "--space", deployment.appSpace,
       deployment.appUnit, path,
-      "--change-desc", deployment.serverSideApply
-        ? "Use server-side apply for Kubara CRDs"
-        : "Remove unsafe Argo sync options",
+      "--change-desc", "Preserve Kubara destination, prune, and bounded retry semantics",
       "--quiet",
     ]);
   } finally {
@@ -2066,6 +2061,40 @@ function certificateIgnoreDifferences() {
       jqPathExpressions: [".webhooks[]?.clientConfig.caBundle"],
     },
   ];
+}
+
+function applicationSyncOptions(deployment) {
+  return [
+    "CreateNamespace=false",
+    "PruneLast=true",
+    "FailOnSharedResource=true",
+    "RespectIgnoreDifferences=true",
+    "ApplyOutOfSyncOnly=true",
+    ...(deployment.serverSideApply ? ["ServerSideApply=true"] : []),
+  ];
+}
+
+function applicationRetryPolicy() {
+  return {
+    limit: 5,
+    backoff: {
+      duration: "5s",
+      factor: 2,
+      maxDuration: "1m",
+    },
+  };
+}
+
+function applicationSyncPolicy(deployment) {
+  return {
+    automated: {
+      prune: true,
+      selfHeal: true,
+      allowEmpty: true,
+    },
+    syncOptions: applicationSyncOptions(deployment),
+    retry: applicationRetryPolicy(),
+  };
 }
 
 function assertArgoApplicationContract(app, deployment, { allowMissingDestinationNamespace = false } = {}) {
@@ -2503,15 +2532,17 @@ function requestArgoSyncIfNeeded(deployment, state) {
     operation: {
       initiatedBy: { username: "helm-expt-kubara-mini-idp" },
       sync: {
-        ...(deployment.serverSideApply ? { syncOptions: ["ServerSideApply=true"] } : {}),
+        prune: true,
+        syncOptions: applicationSyncOptions(deployment),
       },
+      retry: applicationRetryPolicy(),
     },
   };
   kubectl(deployment.cluster, [
     "patch", "application", deployment.space, "-n", "argocd",
     "--type=merge", "--patch", JSON.stringify(operation),
   ]);
-  recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, "non-pruning current-revision sync");
+  recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, "bounded current-revision sync with Kubara prune semantics");
 }
 
 function spaceHasUnreleasedHeads(space) {
@@ -2779,12 +2810,9 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     }
     const options = app?.spec?.syncPolicy?.syncOptions ?? [];
     if (options.some((item) => String(item).startsWith("Replace="))) findings.push(`${deployment.appSpace}/${deployment.appUnit}: Replace sync option remains`);
-    if (deployment.serverSideApply && stableJson(options) !== stableJson(["ServerSideApply=true"])) findings.push(`${deployment.appSpace}/${deployment.appUnit}: expected only ServerSideApply=true`);
-    if (!deployment.serverSideApply && options.length !== 0) findings.push(`${deployment.appSpace}/${deployment.appUnit}: unexpected sync options ${stableJson(options)}`);
-    const expectedSyncPolicy = {
-      automated: { selfHeal: true, allowEmpty: true },
-      ...(deployment.serverSideApply ? { syncOptions: ["ServerSideApply=true"] } : {}),
-    };
+    const expectedOptions = applicationSyncOptions(deployment);
+    if (stableJson(options) !== stableJson(expectedOptions)) findings.push(`${deployment.appSpace}/${deployment.appUnit}: sync options drifted from ${stableJson(expectedOptions)}`);
+    const expectedSyncPolicy = applicationSyncPolicy(deployment);
     if (stableJson(app?.spec?.syncPolicy) !== stableJson(expectedSyncPolicy)) findings.push(`${deployment.appSpace}/${deployment.appUnit}: automated sync policy drifted`);
     const expectedDestination = {
       server: "https://kubernetes.default.svc",
@@ -3229,7 +3257,7 @@ function buildReceipt(inputs, desired, observation, state) {
         deterministic: true,
         aiRequired: false,
         mutationGuardConsulted: false,
-        destructiveOperations: [],
+        destructiveOperations: [ARGO_PRUNE_POLICY],
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
         partialClusterStatePolicy: "fail",
         serialLiveParityLock: true,
@@ -3242,7 +3270,8 @@ function buildReceipt(inputs, desired, observation, state) {
         cub: cachedCubVersions,
         delivery: "ConfigHub variant/OCI -> ConfigHub-owned Argo CD/argobot",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
-        argoRetryPolicy: "hard-refresh and request one non-pruning sync when the desired Application is not accepted",
+        argoRetryPolicy: "hard-refresh and request one bounded current-revision sync when the desired Application is not accepted",
+        argoPrunePolicy: ARGO_PRUNE_POLICY,
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
       },
       counts: {
@@ -3337,7 +3366,11 @@ function verifyReceipt(inputs, desired) {
   check(receipt.spec?.execution?.deterministic === true, "mini-IDP receipt must declare deterministic execution");
   check(receipt.spec?.execution?.aiRequired === false, "AI must not be required for mini-IDP reconciliation");
   check(receipt.spec?.execution?.mutationGuardConsulted === false, "mutation guard should remain outside this explicitly authorized reconciler");
-  check((receipt.spec?.execution?.destructiveOperations ?? []).length === 0, "mini-IDP receipt records a destructive operation");
+  check(
+    stableJson(receipt.spec?.execution?.destructiveOperations) === stableJson([ARGO_PRUNE_POLICY]),
+    "mini-IDP receipt Argo prune boundary drifted",
+  );
+  check(receipt.spec?.execution?.argoPrunePolicy === ARGO_PRUNE_POLICY, "mini-IDP receipt Argo prune policy drifted");
   check(stableJson(receipt.spec?.execution?.persistentClustersPreserved) === stableJson(FLEET.map((item) => item.cluster)), "persistent cluster allowlist drifted");
   check(receipt.spec?.execution?.partialClusterStatePolicy === "fail", "mini-IDP receipt no longer fails on partial persistent-cluster state");
   check(receipt.spec?.execution?.serialLiveParityLock === true, "mini-IDP receipt no longer records the shared serial live-parity lock");
