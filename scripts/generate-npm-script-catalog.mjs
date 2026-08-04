@@ -62,6 +62,7 @@ function categorize(name) {
   if (name.startsWith("production:") || name.startsWith("scan-disposition") || name.startsWith("external-scan") || name.startsWith("image-digests") || name.startsWith("kps:") || name.startsWith("eso:production-support")) return "production-support";
   if (name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("kind-parity")) return "live-parity-gitops";
   if (name.startsWith("helm-org:")) return "confighub-catalog-org";
+  if (name.startsWith("kubara-org-shape:")) return "confighub-proof";
   if (name.startsWith("ai-change-review:live:")) return "confighub-proof";
   if (name.startsWith("rbac-review:live:")) return "confighub-proof";
   if (name.startsWith("aicr-oci-roundtrip:")) return "confighub-proof";
@@ -84,6 +85,7 @@ function categorize(name) {
 
 function classifyMode(name, command) {
   if (name === "verify") return "full-corpus-verify";
+  if (name.endsWith(":receipt-verify")) return "verify";
   if (name.endsWith(":verify") || name.includes(":verify-") || name.startsWith("verify") || command.includes("--verify")) return "verify";
   if (name.endsWith(":self-test") || command.includes("self-test")) return "self-test";
   if (command.includes("--summary") || name.endsWith(":summary")) return "summary";
@@ -94,6 +96,7 @@ function classifyMode(name, command) {
 function classifyExternalState(name, command, mode) {
   if (name.includes("verify-install:cluster") || name.includes("verify-install:confighub") || name.startsWith("verify-bulk-ops:")) return "user-supplied-cluster-or-confighub";
   if (name.startsWith("helm-org:") && !name.endsWith(":plan") && !name.includes(":receipt:verify")) return "confighub-or-live-cluster";
+  if (name.startsWith("kubara-org-shape:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify")) return "confighub-or-live-cluster";
   if (name === "oci:inspect:verify-live") return "public-oci-registry";
   if (name === "oci:inspect") return "user-supplied-oci";
   if (name === "oci:transform") return "user-supplied-oci";
@@ -108,6 +111,8 @@ function classifyExternalState(name, command, mode) {
 }
 
 function classifyWritesFiles(name, command, mode) {
+  if (name === "kubara-org-shape:plan") return "no";
+  if (name === "kubara-org-shape:apply") return "receipts-or-runs";
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "no";
   if (name === "oci:transform") return "local-oci-layout";
   if (name === "anonymous-oci-transform:proof") return "proof-artifacts";
