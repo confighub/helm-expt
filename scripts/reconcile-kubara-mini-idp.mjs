@@ -1001,6 +1001,7 @@ function printPlan(inputs, desired) {
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API",
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
+        interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
         receiptRequiresZeroActionRerun: true,
         minimumCubVersion: `v${MIN_CUB_VERSION}`,
       },
@@ -1218,7 +1219,7 @@ function readSpaces() {
 function readUnitRows(space) {
   const value = cubJson([
     "unit", "list", "--space", space,
-    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,ApprovedBy,ApplyGates",
+    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
   ]);
   return unwrapRows(value, "Unit");
 }
@@ -1226,7 +1227,7 @@ function readUnitRows(space) {
 function readUnit(space, slug) {
   const result = cubTry([
     "unit", "get", "--space", space, slug,
-    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,ApprovedBy,ApplyGates",
+    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
     "-o", "json",
   ]);
   if (!result.ok) return null;
@@ -2384,14 +2385,30 @@ function approvalCount(value) {
 
 function deployOne(deployment, state) {
   ensureArgoApplication(deployment, state);
-  if (state.changedSpaces.has(deployment.appSpace) || !hasRelease(deployment.appSpace)) {
+  if (
+    state.changedSpaces.has(deployment.appSpace)
+      || spaceHasUnreleasedHeads(deployment.appSpace)
+      || !hasRelease(deployment.appSpace)
+  ) {
     publishRelease(deployment.appSpace, state, { force: true });
   }
   if (deployment.space.includes("prod-")) approveOutstanding(deployment.space, state);
-  if (state.changedSpaces.has(deployment.space) || !hasRelease(deployment.space)) {
+  if (
+    state.changedSpaces.has(deployment.space)
+      || spaceHasUnreleasedHeads(deployment.space)
+      || !hasRelease(deployment.space)
+  ) {
     publishRelease(deployment.space, state, { force: true });
   }
   waitForApplication(deployment.cluster, deployment.space, deployment.acceptedHealth);
+}
+
+function spaceHasUnreleasedHeads(space) {
+  const units = readUnitRows(space);
+  check(units.length > 0, `${space}: cannot determine release currency without Units`);
+  return units.some(
+    (unit) => Number(unit.HeadRevisionNum ?? 0) !== Number(unit.LastAppliedRevisionNum ?? 0),
+  );
 }
 
 function hasRelease(space) {
@@ -2401,7 +2418,12 @@ function hasRelease(space) {
 }
 
 function publishRelease(space, state, { force = false } = {}) {
-  if (!force && !state.changedSpaces.has(space) && hasRelease(space)) return latestRelease(space);
+  if (
+    !force
+      && !state.changedSpaces.has(space)
+      && !spaceHasUnreleasedHeads(space)
+      && hasRelease(space)
+  ) return latestRelease(space);
   const output = cub(["release", "publish", space, "-o", "json"], { timeout: 1_200_000 });
   const value = JSON.parse(output);
   const release = unwrapEntity(value, "Release");
@@ -2409,6 +2431,7 @@ function publishRelease(space, state, { force = false } = {}) {
   recordAction(state, "release-publish", space, digest);
   state.published.set(space, digest);
   state.changedSpaces.delete(space);
+  check(!spaceHasUnreleasedHeads(space), `${space}: release did not advance every Unit to its current head`);
   return release;
 }
 
@@ -3098,6 +3121,7 @@ function buildReceipt(inputs, desired, observation, state) {
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
+        interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
         receiptRequiresZeroActionRerun: true,
         cub: cachedCubVersions,
         delivery: "ConfigHub variant/OCI -> ConfigHub-owned Argo CD/argobot",
@@ -3206,6 +3230,10 @@ function verifyReceipt(inputs, desired) {
     "mini-IDP receipt no longer binds its preserved faithful proof Units exactly",
   );
   check(receipt.spec?.execution?.receiptRequiresZeroActionRerun === true, "mini-IDP receipt no longer requires a zero-action rerun");
+  check(
+    receipt.spec?.execution?.interruptedReleasePolicy === "publish whenever any Unit head differs from its last applied revision",
+    "mini-IDP receipt no longer proves restart-safe release publication",
+  );
   check(receipt.spec?.execution?.cub?.minimum === `v${MIN_CUB_VERSION}`, "mini-IDP receipt cub minimum-version contract drifted");
   check(versionAtLeast(String(receipt.spec?.execution?.cub?.client ?? "").replace(/^v/, ""), MIN_CUB_VERSION), "mini-IDP receipt cub client is too old");
   check(versionAtLeast(String(receipt.spec?.execution?.cub?.server ?? "").replace(/^v/, ""), MIN_CUB_VERSION), "mini-IDP receipt ConfigHub server is too old");
