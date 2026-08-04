@@ -539,10 +539,11 @@ npm run kubara-mini-idp:receipt-verify
 
 The reconciler is scoped to the `Kubara` organization and the exact 53-Space
 allowlist. It creates missing owned objects and converges changed owned objects,
-but performs no deletion. Clean-room safety is strict: any Space outside that
-allowlist, or any unexpected Unit or Link inside a managed Space, makes the run
-refuse rather than coexist, delete, or recreate. Re-running the accepted state
-at the desired revision produces no semantic changes. Apply refuses to start
+but never deletes ConfigHub objects or persistent clusters. Clean-room safety
+is strict: any Space outside that allowlist, or any unexpected Unit or Link
+inside a managed Space, makes the run refuse rather than coexist, delete, or
+recreate. Re-running the accepted state at the desired revision produces no
+semantic changes. Apply refuses to start
 unless all prior qualification,
 promotion, publication, and faithful-lane gates pass. The first apply writes a
 pending-idempotence receipt. The immediately repeated apply must record zero
@@ -550,8 +551,8 @@ actions before receipt verification can pass. A restarted apply also compares
 every Unit's head revision with its last applied revision, so an interrupted
 run cannot mistake an older existing release for the current desired state.
 If Argo retains a failed attempt for the same OCI revision, the reconciler
-hard-refreshes that Application and requests one current-revision sync without
-pruning. This is part of the deterministic retry path; it requires no console
+hard-refreshes that Application and requests one bounded current-revision
+sync. This is part of the deterministic retry path; it requires no console
 click and never broadens the resource allowlist.
 
 The result includes every selected platform role, lifecycle and target facts,
@@ -559,8 +560,12 @@ the platform contract, catalog-alignment evidence, matrix and wiring evidence,
 and both apps on all four targets. ConfigHub-managed Argo CD already supplies
 the adapted delivery role, so this lane does not also install the Kubara hub
 Argo chart on the same targets. Large CRD Applications use
-`ServerSideApply=true`; `Replace=true` is forbidden. External Secrets owns the
-Grafana admin Secret through the dev fake-provider target fact. Every adapted
+`ServerSideApply=true`; `Replace=true` is forbidden. Deployment Applications
+retain Kubara's `prune`, `PruneLast`, shared-resource, and bounded retry
+semantics, but only within the resources tracked by the exact 27-Application
+allowlist and after ConfigHub release/production gates. Bootstrap Applications
+remain non-pruning. External Secrets owns the Grafana admin Secret through the
+dev fake-provider target fact. Every adapted
 Argo Application also retains Kubara's generated destination namespace (the
 service name unless Kubara declares an override), so namespace-less Helm
 objects resolve exactly as they do under Kubara's ApplicationSet template.
