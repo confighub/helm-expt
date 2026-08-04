@@ -482,6 +482,37 @@
 <p>You can watch all of this in the ConfigHub web console, not only from the command line. Sign in to your ConfigHub organization at <code>https://hub.confighub.com</code> and open the Spaces this example created.</p>
 <ul><li>The cluster Spaces <code>hx-app-dev</code>, <code>hx-app-staging</code>, <code>hx-app-prod-a</code>, and <code>hx-app-prod-b</code> hold each cluster's delivery target and its Argo Applications.</li><li>The platform Spaces such as <code>hx-cm-dev</code>, <code>hx-traefik-dev</code>, <code>hx-kps-main-dev</code>, <code>hx-eso-dev</code>, <code>hx-eso-store-dev</code>, and <code>hx-eso-grafana-es-dev</code> hold the Kubara services and their cluster-specific prerequisites.</li><li>The application Spaces <code>hx-web-*</code> and <code>hx-cubbychat-*</code> hold the two apps.</li><li>The <code>hx-platform</code> Space holds the approval rule that gates production.</li></ul>
 <p>Each Space page shows its Units, their revision history, and what was delivered. From the command line, <code>cub space get &lt;space&gt; --web</code> opens a Space page directly, and <code>cub unit get &lt;unit&gt; --space &lt;space&gt; --web</code> opens a single Unit.</p>
+<h2 id="how-this-maps-to-kubara">How this maps to Kubara</h2>
+<p>If you know Kubara from its own documentation, this section is the map. The short version: ConfigHub simplifies Kubara's operating model without making it fundamentally different. Kubara's shape survives the port. What changes is where the authority lives.</p>
+<p>Kubara's article describes this flow.</p>
+<pre><code>config.yaml + effective catalog
+  -&gt; platform-components/ + platform-configs/
+  -&gt; Git review and promotion
+  -&gt; hub Argo CD + ApplicationSets
+  -&gt; hub and registered spokes</code></pre>
+<p>This implementation runs this flow.</p>
+<pre><code>Kubara contract + pinned generated snapshot
+  -&gt; rendered Kubernetes objects
+  -&gt; ConfigHub base and variant Spaces
+  -&gt; checks, approvals, OCI releases
+  -&gt; per-cluster Argo CD + argobot
+  -&gt; target clusters</code></pre>
+<p>The hub-and-spoke picture is the one to hold onto. In Kubara's terms, ConfigHub takes the hub role: it holds the desired state, the review, and the release decision for the whole fleet. Each cluster keeps a small local reconciler, Argo CD plus argobot, in the spoke role. The cognitive map is the same. Contract, generated state, review, reconcile. Only the hub's machinery moves from a cluster into ConfigHub.</p>
+<p>Concept by concept, honestly labeled.</p>
+<table><thead><tr><th>Kubara concept</th><th>In this implementation</th><th>Fidelity</th></tr></thead><tbody><tr><td><code>config.yaml</code> platform contract</td><td>Stored in ConfigHub as the <code>platform-contract</code> Unit. It describes the one-cluster specimen; the live four-cluster topology lives in Spaces and receipts, not yet in one contract.</td><td>Kept for the specimen</td></tr>
+<tr><td>Built-in and external catalog</td><td>Kubara v0.12.0's built-in catalog output, pinned by source lock and digests. No external-catalog merge is shown.</td><td>Kept, built-in only</td></tr>
+<tr><td><code>platform-components/</code></td><td>The base Spaces: one reviewed definition per service.</td><td>Kept</td></tr>
+<tr><td><code>platform-configs/&lt;cluster&gt;/</code></td><td>The per-cluster variant Spaces. Kubara stores pre-render values; ConfigHub stores the rendered objects.</td><td>Kept, different layer</td></tr>
+<tr><td><code>values-*.yaml</code> overrides</td><td>Per-Space departures that survive promotion, as the staging sandbox setting proved. Kubara's overrides survive regeneration instead; the two do not round-trip automatically.</td><td>Adapted</td></tr>
+<tr><td>Git review and promotion</td><td>Unit revisions, policy checks, the approval gate, promotion, rollback, and immutable OCI releases. The authority moves from Git to ConfigHub.</td><td>Adapted</td></tr>
+<tr><td>One Argo CD on the hub</td><td>ConfigHub is the hub; every cluster runs its own Argo CD as the spoke reconciler.</td><td>Adapted, deliberately</td></tr>
+<tr><td>ApplicationSets select clusters by label</td><td>Explicit per-cluster variants bound to targets give the same fan-out without runtime label selection.</td><td>Adapted</td></tr>
+<tr><td><code>kubara cluster add</code> spoke registration</td><td><code>cub cluster up</code> creates and wires each cluster. Registering an existing cluster is not shown.</td><td>Not yet shown</td></tr>
+<tr><td>AppProject tenant boundaries</td><td>Spaces, filters, and approval gates govern publication. Team-scoped destination boundaries are not shown.</td><td>Not yet shown</td></tr>
+<tr><td>External secret backend</td><td>Real external-secrets, with a kind-only fake store standing in for a production backend.</td><td>Adapted for kind</td></tr>
+<tr><td>Day-2 regenerate, diff, promote</td><td>ConfigHub-side change, promotion, and rollback are proven. The contract-regeneration cycle is not yet.</td><td>Not yet shown</td></tr></tbody></table>
+<p>Two implementations exist in this repository, and it is worth being plain about that. The <a href="local-platform.html">Kubara-native lane</a> preserves the article's own shape end to end on one cluster: Kubara's Argo CD, its ApplicationSets, and one downstream service reaching health. The adapted lane on this page is the live four-cluster platform. The clearest one-line description of the adapted lane: Kubara remains the platform composer, ConfigHub is the authority and release control plane, OCI is the transport, and per-cluster Argo CD is the reconciler.</p>
+<p>What the port loses today is Kubara's single regenerable contract as the authority for the live fleet: several live fixes exist as ConfigHub edits and receipts rather than as contract inputs, so a fresh Kubara generation would not reconstruct them. The <a href="../../planning/catalog-kubara-composition-strategy.html">composition strategy</a> describes the bridge that closes this, importing Kubara output into a checked composition so the contract stops being forgotten in translation.</p>
 <h2 id="what-this-does-not-prove">What this does not prove</h2>
 <p>The heavier services ran on the dev cluster only. cert-manager and traefik run on all four clusters, and both apps run on all four. external-secrets was proven on kind with its built-in fake provider and demo <code>admin/admin</code> data held in ConfigHub; this does not prove a production Vault, AWS, or other secret backend. The three external-secrets Applications and the kube-prometheus-stack CRD Application finished <code>Synced/Healthy</code>, but the cluster-wide Argo snapshot still contains unrelated pre-existing OutOfSync or Progressing aggregate state on six other Applications. The apps are a small nginx service and the cubbychat sample, not production workloads.</p>
 <h2 id="check-the-evidence">Check the evidence</h2>

@@ -39,13 +39,15 @@ were all already recorded on the recipes. Kubara's raw wrappers walked into
 each one.
 
 The comparison also found wiring defects in the generated platform that nobody
-had noticed, because nothing checks wiring today. metrics-server labels its
-ServiceMonitor with a nested `monitoring:` map while kube-prometheus-stack
-selects the flat key `monitoring.instance`, so its metrics would never be
-scraped. Grafana ships a Loki datasource while the switchboard disables Loki.
-The external-secrets config creates no ClusterSecretStore, yet three services
-reference one. Each of these is silent. The platform looks healthy while a
-declared intent quietly fails.
+had noticed, because nothing checks wiring today. metrics-server's generated
+values set ServiceMonitor labels while leaving the monitor disabled, so
+metrics-server is never scraped, and the labels themselves are a nested
+`monitoring:` map that would be rejected as invalid if anyone enabled the
+monitor, while cert-manager's values use the correct flat form. Grafana ships a
+Loki datasource while the switchboard disables Loki. The external-secrets
+config creates no ClusterSecretStore, yet three services reference one. Each of
+these is silent today. The platform looks healthy while a declared intent
+quietly fails.
 
 ## The scaling problem
 

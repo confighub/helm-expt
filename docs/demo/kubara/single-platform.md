@@ -201,6 +201,74 @@ Each Space page shows its Units, their revision history, and what was delivered.
 From the command line, `cub space get <space> --web` opens a Space page directly,
 and `cub unit get <unit> --space <space> --web` opens a single Unit.
 
+## How this maps to Kubara
+
+If you know Kubara from its own documentation, this section is the map. The
+short version: ConfigHub simplifies Kubara's operating model without making it
+fundamentally different. Kubara's shape survives the port. What changes is
+where the authority lives.
+
+Kubara's article describes this flow.
+
+```text
+config.yaml + effective catalog
+  -> platform-components/ + platform-configs/
+  -> Git review and promotion
+  -> hub Argo CD + ApplicationSets
+  -> hub and registered spokes
+```
+
+This implementation runs this flow.
+
+```text
+Kubara contract + pinned generated snapshot
+  -> rendered Kubernetes objects
+  -> ConfigHub base and variant Spaces
+  -> checks, approvals, OCI releases
+  -> per-cluster Argo CD + argobot
+  -> target clusters
+```
+
+The hub-and-spoke picture is the one to hold onto. In Kubara's terms, ConfigHub
+takes the hub role: it holds the desired state, the review, and the release
+decision for the whole fleet. Each cluster keeps a small local reconciler, Argo
+CD plus argobot, in the spoke role. The cognitive map is the same. Contract,
+generated state, review, reconcile. Only the hub's machinery moves from a
+cluster into ConfigHub.
+
+Concept by concept, honestly labeled.
+
+| Kubara concept | In this implementation | Fidelity |
+| --- | --- | --- |
+| `config.yaml` platform contract | Stored in ConfigHub as the `platform-contract` Unit. It describes the one-cluster specimen; the live four-cluster topology lives in Spaces and receipts, not yet in one contract. | Kept for the specimen |
+| Built-in and external catalog | Kubara v0.12.0's built-in catalog output, pinned by source lock and digests. No external-catalog merge is shown. | Kept, built-in only |
+| `platform-components/` | The base Spaces: one reviewed definition per service. | Kept |
+| `platform-configs/<cluster>/` | The per-cluster variant Spaces. Kubara stores pre-render values; ConfigHub stores the rendered objects. | Kept, different layer |
+| `values-*.yaml` overrides | Per-Space departures that survive promotion, as the staging sandbox setting proved. Kubara's overrides survive regeneration instead; the two do not round-trip automatically. | Adapted |
+| Git review and promotion | Unit revisions, policy checks, the approval gate, promotion, rollback, and immutable OCI releases. The authority moves from Git to ConfigHub. | Adapted |
+| One Argo CD on the hub | ConfigHub is the hub; every cluster runs its own Argo CD as the spoke reconciler. | Adapted, deliberately |
+| ApplicationSets select clusters by label | Explicit per-cluster variants bound to targets give the same fan-out without runtime label selection. | Adapted |
+| `kubara cluster add` spoke registration | `cub cluster up` creates and wires each cluster. Registering an existing cluster is not shown. | Not yet shown |
+| AppProject tenant boundaries | Spaces, filters, and approval gates govern publication. Team-scoped destination boundaries are not shown. | Not yet shown |
+| External secret backend | Real external-secrets, with a kind-only fake store standing in for a production backend. | Adapted for kind |
+| Day-2 regenerate, diff, promote | ConfigHub-side change, promotion, and rollback are proven. The contract-regeneration cycle is not yet. | Not yet shown |
+
+Two implementations exist in this repository, and it is worth being plain about
+that. The [Kubara-native lane](local-platform.md) preserves the article's own
+shape end to end on one cluster: Kubara's Argo CD, its ApplicationSets, and one
+downstream service reaching health. The adapted lane on this page is the live
+four-cluster platform. The clearest one-line description of the adapted lane:
+Kubara remains the platform composer, ConfigHub is the authority and release
+control plane, OCI is the transport, and per-cluster Argo CD is the reconciler.
+
+What the port loses today is Kubara's single regenerable contract as the
+authority for the live fleet: several live fixes exist as ConfigHub edits and
+receipts rather than as contract inputs, so a fresh Kubara generation would not
+reconstruct them. The
+[composition strategy](../../planning/catalog-kubara-composition-strategy.md)
+describes the bridge that closes this, importing Kubara output into a checked
+composition so the contract stops being forgotten in translation.
+
 ## What this does not prove
 
 The heavier services ran on the dev cluster only. cert-manager and traefik run on
