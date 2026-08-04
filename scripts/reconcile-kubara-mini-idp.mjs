@@ -2033,7 +2033,7 @@ function reconcileProdPolicies(desired, state, { requireAll = true } = {}) {
   check(trigger?.TriggerID, `${CONTROL_SPACE}/${APPROVAL_TRIGGER}: trigger ID is missing`);
   const control = unwrapEntity(cubJson(["space", "get", CONTROL_SPACE]), "Space");
   check(control?.SpaceID, `${CONTROL_SPACE}: Space ID is missing`);
-  const legacyWhere = `SpaceID = '${control.SpaceID}'`;
+  const legacyControlWhere = `SpaceID = '${control.SpaceID}'`;
   const prodSpaces = desired.spaces.filter((item) => item.prodProtected);
   const knownSpaces = readSpaces();
   for (const expected of prodSpaces) {
@@ -2047,8 +2047,15 @@ function reconcileProdPolicies(desired, state, { requireAll = true } = {}) {
     const triggerSelectionExact = stableJson(selectedTriggers) === stableJson([trigger.TriggerID]);
     const alreadyExact = ownedFilterAttached && triggerSelectionExact;
     const unconfigured = !triggerFilterID && !whereTrigger && selectedTriggers.length === 0;
+    const legacyUpstreamSpaceID = expected.upstreamSpace
+      ? knownSpaces.get(expected.upstreamSpace)?.SpaceID
+      : null;
+    const recognizedLegacyWheres = new Set([
+      legacyControlWhere,
+      ...(legacyUpstreamSpaceID ? [`SpaceID = '${legacyUpstreamSpaceID}'`] : []),
+    ]);
     const recognizedLegacy = !triggerFilterID
-      && whereTrigger === legacyWhere
+      && recognizedLegacyWheres.has(whereTrigger)
       && selectedTriggers.every((id) => id === trigger.TriggerID);
     check(
       ownedFilterAttached || unconfigured || recognizedLegacy,
