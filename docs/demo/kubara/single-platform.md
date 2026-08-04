@@ -520,8 +520,12 @@ npm run kubara-faithful-hub-spoke:verify
 This lane keeps one Git source, Kubara's hub Argo CD, its AppProject and
 ApplicationSet, an External Secrets-backed spoke registration, and the spoke
 cert-manager workload. It proves the recognizable topology before the optional
-simplified lane. The receipt also states that a ConfigHub approval attestation
-is not yet an enforced GitHub required status.
+simplified lane. The current
+[machine-generated summary](../../../data/kubara-faithful-hub-spoke/summary.md)
+records a pass for Kubara v0.13.0, catalog 1.1.0, ConfigHub plan approval,
+OpenBao-to-External-Secret registration, Synced/Healthy cert-manager delivery,
+and exact cleanup. The receipt also states that a ConfigHub approval
+attestation is not yet an enforced GitHub required status.
 
 ### 8. Reconcile and verify the complete ConfigHub mini-IDP
 
@@ -636,8 +640,10 @@ catalog-release surfaces, and public site all verify.
   controller created the object in a live cluster.
 - The platform matrix leaves current live fields unknown unless an exact live
   receipt supplies them.
-- The faithful lane is the proof of unchanged Kubara hub-and-spoke delivery. Its
-  GitHub required-status enforcement remains a named gap.
+- The current
+  [faithful-lane summary](../../../data/kubara-faithful-hub-spoke/summary.md)
+  passes the unchanged Kubara hub-and-spoke delivery proof. GitHub
+  required-status enforcement remains a named gap.
 - The simplified lane is a deliberate delivery adaptation. It must never be
   described as Kubara's native Argo ownership model.
 - The fake External Secrets provider, self-signed kind issuer, kind-only Metrics

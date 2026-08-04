@@ -15,7 +15,7 @@ spec:
     artifactIndex: "examples/kubara/current-platform/component-artifacts.yaml"
     config: "examples/kubara/current-platform/source/config.yaml"
     sourceChecksums: "data/kubara-effective-renders/current-platform/source-checksums.txt"
-    sourceChecksumsSha256: "fd56614f1326c8a29b3d2a203a886b4df3f6a38d1cb9ce1debad3d9b15fabfbb"
+    sourceChecksumsSha256: "467e7f86553964bff6ec03b5b17a895c6c24a5c231c6b0c9e4e0b08b80caebfe"
   renderProfile:
     kubeVersion: "1.35.0"
     helmVersion: "v4.1.4"

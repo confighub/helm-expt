@@ -47,12 +47,17 @@ or consume [graph.json](../../../data/kubara-wiring/graph.json) and
 [edges.csv](../../../data/kubara-wiring/edges.csv).
 
 The current [colored accessible platform matrix](../../../data/kubara-platform-matrix/matrix.html)
-contains 28 cells: seven deployable component roles across four clusters. It
-distinguishes 13 rendered instances, three hub-managed spoke Argo cells, and 12
-components disabled by the current Kubara config. Selected versions are exact;
-observed versions and sync/workload state stay `unknown` until an explicit
-current faithful-delivery receipt supplies them. Normal values overlays are
-listed as declared configuration, not mislabeled as runtime departures.
+contains 36 cells: seven deployable platform roles plus hx-web and cubbychat
+across four clusters. It distinguishes 13 rendered platform instances, three
+hub-managed spoke Argo cells, the two applications on every target, and 12
+platform cells disabled by the current Kubara config. Selected versions are
+exact. The separate
+[faithful-lane summary](../../../data/kubara-faithful-hub-spoke/summary.md)
+now proves the unchanged hub-and-spoke topology and its selected cert-manager
+witness; matrix-wide observed versions and sync/workload state stay `unknown`
+until the current mini-IDP live receipt supplies all 36 observations. Normal
+values overlays are listed as declared configuration, not mislabeled as runtime
+departures.
 Machine-readable outputs are
 [matrix.json](../../../data/kubara-platform-matrix/matrix.json) and
 [matrix.csv](../../../data/kubara-platform-matrix/matrix.csv).
