@@ -97,6 +97,8 @@ let cachedFaithfulReceipt = null;
 
 const paths = {
   config: "examples/kubara/current-platform/source/config.yaml",
+  argoValues: "examples/kubara/current-platform/generated/platform-configs/hx-app-dev/helm/argo-cd/values.generated.yaml",
+  argoAppSetTemplate: "examples/kubara/current-platform/generated/platform-components/helm/template-library/templates/argocd/_argo.appset.tpl",
   sourceLock: "examples/kubara/current-platform/source-lock.yaml",
   componentArtifacts: "examples/kubara/current-platform/component-artifacts.yaml",
   generationReceipt: "examples/kubara/current-platform/generation-receipt.yaml",
@@ -160,6 +162,7 @@ const SURFACES = [
   surface({
     prefix: "hx-kps-crds",
     component: "kube-prometheus-stack",
+    destinationNamespace: "kube-prometheus-stack",
     version: EXPECTED_VERSIONS["kube-prometheus-stack"],
     role: "Lifecycle",
     part: "crds",
@@ -171,6 +174,7 @@ const SURFACES = [
   surface({
     prefix: "hx-cm",
     component: "cert-manager",
+    destinationNamespace: "cert-manager",
     version: EXPECTED_VERSIONS["cert-manager"],
     targets: FLEET,
     sourceFor: (item) => effectiveRender(item.cluster, "cert-manager"),
@@ -181,6 +185,7 @@ const SURFACES = [
   surface({
     prefix: "hx-eso",
     component: "external-secrets",
+    destinationNamespace: "external-secrets",
     version: EXPECTED_VERSIONS["external-secrets"],
     targets: [DEV],
     sourceFor: () => effectiveRender(DEV.cluster, "external-secrets"),
@@ -190,6 +195,7 @@ const SURFACES = [
   surface({
     prefix: "hx-eso-store",
     component: "external-secrets",
+    destinationNamespace: "external-secrets",
     version: EXPECTED_VERSIONS["external-secrets"],
     role: "Prerequisite",
     part: "cluster-secret-store",
@@ -200,6 +206,8 @@ const SURFACES = [
   surface({
     prefix: "hx-eso-grafana-es",
     component: "external-secrets",
+    kubaraService: "kube-prometheus-stack",
+    destinationNamespace: "kube-prometheus-stack",
     version: EXPECTED_VERSIONS["external-secrets"],
     role: "Wiring",
     part: "grafana-admin-credentials",
@@ -212,6 +220,7 @@ const SURFACES = [
   surface({
     prefix: "hx-kps-main",
     component: "kube-prometheus-stack",
+    destinationNamespace: "kube-prometheus-stack",
     version: EXPECTED_VERSIONS["kube-prometheus-stack"],
     targets: [DEV],
     materialize: ({ kps }) => renderDocuments(
@@ -223,6 +232,7 @@ const SURFACES = [
   surface({
     prefix: "hx-metrics",
     component: "metrics-server",
+    destinationNamespace: "metrics-server",
     version: EXPECTED_VERSIONS["metrics-server"],
     targets: [DEV],
     sourceFor: () => effectiveRender(DEV.cluster, "metrics-server"),
@@ -232,6 +242,7 @@ const SURFACES = [
   surface({
     prefix: "hx-traefik",
     component: "traefik",
+    destinationNamespace: "traefik",
     version: EXPECTED_VERSIONS.traefik,
     targets: FLEET,
     sourceFor: (item) => effectiveRender(item.cluster, "traefik"),
@@ -242,6 +253,7 @@ const SURFACES = [
   surface({
     prefix: "hx-homer",
     component: "homer-dashboard",
+    destinationNamespace: "homer-dashboard",
     version: EXPECTED_VERSIONS["homer-dashboard"],
     targets: [DEV],
     sourceFor: () => effectiveRender(DEV.cluster, "homer-dashboard"),
@@ -254,6 +266,7 @@ const APP_FAMILIES = [
   appFamily({
     prefix: "hx-web",
     role: "Application",
+    destinationNamespace: "hx-web",
     units: [
       appUnit("hx-web-namespace", "examples/kubara/current-platform/apps/hx-web/base/namespace.yaml"),
       appUnit("hx-web-deployment", "examples/kubara/current-platform/apps/hx-web/base/deployment.yaml", { scenario: true }),
@@ -265,6 +278,7 @@ const APP_FAMILIES = [
   appFamily({
     prefix: "hx-web-platform",
     role: "PlatformBinding",
+    destinationNamespace: "hx-web",
     units: [appUnit("hx-web-platform", [
       "examples/kubara/current-platform/apps/hx-web/platform/certificate.yaml",
       "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml",
@@ -274,6 +288,7 @@ const APP_FAMILIES = [
   appFamily({
     prefix: "hx-cubbychat",
     role: "Application",
+    destinationNamespace: "cubbychat",
     units: [appUnit("hx-cubbychat", [
       "examples/kubara/current-platform/apps/cubbychat/base/namespace.yaml",
       "examples/kubara/current-platform/apps/cubbychat/base/credentials.yaml",
@@ -319,6 +334,7 @@ function controlUnit(slug, source, toolchain, role, requiredForApply = false) {
 function surface(definition) {
   return {
     role: "Component",
+    kubaraService: definition.component,
     acceptedHealth: ["Healthy"],
     serverSideApply: false,
     ignoreInjectedCertificateData: false,
@@ -640,6 +656,7 @@ function buildPlan(inputs) {
   }
 
   for (const item of SURFACES) {
+    check(item.destinationNamespace, `${item.prefix}: destination namespace is required`);
     const surfaceLabels = {
       KubaraComponent: item.component,
       ComponentVersion: item.version,
@@ -690,6 +707,7 @@ function buildPlan(inputs) {
         space,
         appSpace: `${fleetItem.cluster}-argo-apps`,
         appUnit: space,
+        destinationNamespace: item.destinationNamespace,
         serverSideApply: item.serverSideApply,
         ignoreInjectedCertificateData: item.ignoreInjectedCertificateData,
         acceptedHealth: item.acceptedHealth,
@@ -698,6 +716,7 @@ function buildPlan(inputs) {
   }
 
   for (const family of APP_FAMILIES) {
+    check(family.destinationNamespace, `${family.prefix}: destination namespace is required`);
     spaces.push({
       slug: `${family.prefix}-base`,
       type: "app-definition",
@@ -768,6 +787,7 @@ function buildPlan(inputs) {
         space,
         appSpace: `${fleetItem.cluster}-argo-apps`,
         appUnit: space,
+        destinationNamespace: family.destinationNamespace,
         serverSideApply: false,
         acceptedHealth: family.acceptedHealth,
       });
@@ -824,6 +844,23 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
   const hub = config.clusters.find((entry) => entry.type === "hub");
   check(hub?.name === DEV.cluster, "hx-app-dev must remain the Kubara hub");
   check(config.clusters.filter((entry) => entry.type === "spoke").length === 3, "current Kubara config must retain three spokes");
+
+  const appSetTemplate = readFileSync(absolute(paths.argoAppSetTemplate), "utf8");
+  check(
+    appSetTemplate.includes("namespace: {{ default $app.name $app.namespace }}"),
+    "Kubara ApplicationSet destination namespace default drifted",
+  );
+  const kubaraApps = readYaml(absolute(paths.argoValues))
+    .bootstrapValues?.applicationSets?.["hx-app-dev-dev"]?.apps ?? {};
+  for (const item of SURFACES) {
+    const kubaraApp = kubaraApps[item.kubaraService];
+    check(kubaraApp?.name, `${item.prefix}: Kubara service ${item.kubaraService} is missing from generated Argo values`);
+    const kubaraNamespace = kubaraApp.namespace ?? kubaraApp.name;
+    check(
+      item.destinationNamespace === kubaraNamespace,
+      `${item.prefix}: destination namespace ${item.destinationNamespace} does not match Kubara's ${kubaraNamespace}`,
+    );
+  }
 
   const artifacts = readYaml(absolute(paths.componentArtifacts));
   check(artifacts.spec?.exactVersionPolicy === "fail-if-missing", "component artifact policy must fail if an exact version is missing");
@@ -901,6 +938,15 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
   }
 
   const appDocs = APP_FAMILIES.flatMap((family) => family.units.flatMap((unit) => unit.source.flatMap((source) => parseDocs(readFileSync(absolute(source), "utf8")))));
+  for (const family of APP_FAMILIES) {
+    const docs = family.units.flatMap((unit) => unit.source.flatMap((source) => parseDocs(readFileSync(absolute(source), "utf8"))));
+    const namespaced = docs.filter((doc) => doc.metadata?.namespace);
+    check(namespaced.length > 0, `${family.prefix}: application fixture has no namespaced objects`);
+    check(
+      namespaced.every((doc) => doc.metadata.namespace === family.destinationNamespace),
+      `${family.prefix}: application fixture namespace does not match ${family.destinationNamespace}`,
+    );
+  }
   const images = appDocs.flatMap(imagesInDocument);
   check(images.length >= 4, "current app fixtures should expose four pinned workload images");
   for (const image of images) check(image.includes("@sha256:"), `app image is not digest pinned: ${image}`);
@@ -999,7 +1045,7 @@ function printPlan(inputs, desired) {
         unexpectedSpacePolicy: "fail-outside-exact-53-space-allowlist",
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
-        argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API",
+        argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
         interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
         receiptRequiresZeroActionRerun: true,
@@ -1967,9 +2013,12 @@ function ensureArgoApplication(deployment, state) {
   const docs = parseDocs(currentData);
   check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one Argo Application`);
   const app = docs[0];
-  assertArgoApplicationContract(app, deployment);
+  assertArgoApplicationContract(app, deployment, { allowMissingDestinationNamespace: true });
   app.spec ??= {};
-  app.spec.destination = { server: "https://kubernetes.default.svc" };
+  app.spec.destination = {
+    server: "https://kubernetes.default.svc",
+    namespace: deployment.destinationNamespace,
+  };
   app.spec.syncPolicy = {
     automated: {
       selfHeal: true,
@@ -2016,7 +2065,7 @@ function certificateIgnoreDifferences() {
   ];
 }
 
-function assertArgoApplicationContract(app, deployment) {
+function assertArgoApplicationContract(app, deployment, { allowMissingDestinationNamespace = false } = {}) {
   check(app.metadata?.name === deployment.appUnit, `${deployment.appSpace}/${deployment.appUnit}: Application metadata.name drifted`);
   check(app.metadata?.namespace === "argocd", `${deployment.appSpace}/${deployment.appUnit}: Application namespace is not argocd`);
   check(app.spec?.project === "default", `${deployment.appSpace}/${deployment.appUnit}: Application project is not default`);
@@ -2029,6 +2078,12 @@ function assertArgoApplicationContract(app, deployment) {
   check(
     app.spec?.destination?.server === "https://kubernetes.default.svc",
     `${deployment.appSpace}/${deployment.appUnit}: Application destination is not the cluster-local API`,
+  );
+  const actualNamespace = app.spec?.destination?.namespace;
+  check(
+    actualNamespace === deployment.destinationNamespace
+      || (allowMissingDestinationNamespace && actualNamespace == null),
+    `${deployment.appSpace}/${deployment.appUnit}: Application destination namespace is not ${deployment.destinationNamespace}`,
   );
 }
 
@@ -2675,7 +2730,11 @@ function verifyLive(inputs, desired, { state = null } = {}) {
       ...(deployment.serverSideApply ? { syncOptions: ["ServerSideApply=true"] } : {}),
     };
     if (stableJson(app?.spec?.syncPolicy) !== stableJson(expectedSyncPolicy)) findings.push(`${deployment.appSpace}/${deployment.appUnit}: automated sync policy drifted`);
-    if (stableJson(app?.spec?.destination) !== stableJson({ server: "https://kubernetes.default.svc" })) findings.push(`${deployment.appSpace}/${deployment.appUnit}: destination contract drifted`);
+    const expectedDestination = {
+      server: "https://kubernetes.default.svc",
+      namespace: deployment.destinationNamespace,
+    };
+    if (stableJson(app?.spec?.destination) !== stableJson(expectedDestination)) findings.push(`${deployment.appSpace}/${deployment.appUnit}: destination contract drifted`);
     const ignoreDifferences = app?.spec?.ignoreDifferences ?? [];
     if (deployment.ignoreInjectedCertificateData && stableJson(ignoreDifferences) !== stableJson(certificateIgnoreDifferences())) findings.push(`${deployment.appSpace}/${deployment.appUnit}: certificate ignoreDifferences drifted`);
     if (!deployment.ignoreInjectedCertificateData && ignoreDifferences.length !== 0) findings.push(`${deployment.appSpace}/${deployment.appUnit}: unexpected ignoreDifferences`);
@@ -2689,6 +2748,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     applications.push({
       cluster: deployment.cluster,
       name: deployment.space,
+      destinationNamespace: deployment.destinationNamespace,
       syncState: observed.sync,
       healthState: observed.health,
       acceptedHealth: deployment.acceptedHealth,
@@ -3125,6 +3185,7 @@ function buildReceipt(inputs, desired, observation, state) {
         receiptRequiresZeroActionRerun: true,
         cub: cachedCubVersions,
         delivery: "ConfigHub variant/OCI -> ConfigHub-owned Argo CD/argobot",
+        argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
       },
       counts: {
@@ -3297,7 +3358,11 @@ function verifyReceipt(inputs, desired) {
   for (const row of releaseRows) check(/^sha256:[0-9a-f]{64}$/.test(row.digest ?? ""), `${row.space}: release digest missing`);
   const appRows = receipt.spec?.applications ?? [];
   check(appRows.length === desired.deployments.length, "receipt Application rows are incomplete");
+  const desiredApps = new Map(desired.deployments.map((item) => [`${item.cluster}/${item.space}`, item]));
   for (const row of appRows) {
+    const expected = desiredApps.get(`${row.cluster}/${row.name}`);
+    check(expected, `${row.cluster}/${row.name}: receipt Application is not in the desired plan`);
+    check(row.destinationNamespace === expected.destinationNamespace, `${row.cluster}/${row.name}: receipt destination namespace drifted`);
     check(row.syncState === "Synced", `${row.cluster}/${row.name}: receipt sync is ${row.syncState}`);
     check((row.acceptedHealth ?? []).includes(row.healthState), `${row.cluster}/${row.name}: receipt health ${row.healthState} is outside accepted set`);
   }
