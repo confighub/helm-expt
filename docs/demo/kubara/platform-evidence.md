@@ -11,10 +11,28 @@ questions:
   maps the selected component versions and intended placement across the hub
   and three spokes, while leaving unobserved live fields explicitly unknown.
 
+To start in ConfigHub rather than in these files, switch to the `Kubara`
+organization, filter Spaces by `StartHere=true`, open `hx-platform`, and then
+open `platform-contract`. Its metadata links to the public
+[adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html),
+[36-cell matrix](https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html),
+and [full wiring graph](https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html).
+The GUI itself groups the selected reusable components under
+`Owner=KubaraGeneral`, then makes their exact versions, deployable or
+configuration surfaces, base or target variants, definition or instance
+lineage, hub or spoke placement, and cluster-local Argo delivery searchable.
+It also makes hx-web and cubbychat traceable across all four targets.
+
 The split is intentional. A committed render can prove selected desired state
 and visible dependency contracts; it cannot prove that a controller reconciled
 them. A live receipt can fill observed version, sync, and workload fields only
 when it records those fields for an exact component and cluster.
+
+There is also a deliberate GUI/evidence split. ConfigHub governs the
+desired-only platform matrix and exposes exactly 25 curated operational
+`NeedsProvides` Links. The receipt-aware public matrix and complete extracted
+wiring graph are linked evidence views; they are not presented as native live
+ConfigHub observations.
 
 ## Primary: Kubara v0.13.0 current platform
 
@@ -46,6 +64,12 @@ Open the [colored accessible wiring table](../../../data/kubara-wiring/graph.htm
 or consume [graph.json](../../../data/kubara-wiring/graph.json) and
 [edges.csv](../../../data/kubara-wiring/edges.csv).
 
+The full graph preserves every extracted rendered, runtime-declared, external,
+optional, prerequisite, and unresolved relationship. The ConfigHub GUI keeps a
+smaller, deterministic set of 25 `NeedsProvides` Links for operational
+navigation. Those Links cover the important consumer-to-provider paths without
+pretending that every extracted fact is an independently managed GUI edge.
+
 The current [colored accessible platform matrix](../../../data/kubara-platform-matrix/matrix.html)
 contains 36 cells: seven deployable platform roles plus hx-web and cubbychat
 across four clusters. It distinguishes 13 rendered platform instances, three
@@ -61,6 +85,12 @@ departures.
 Machine-readable outputs are
 [matrix.json](../../../data/kubara-platform-matrix/matrix.json) and
 [matrix.csv](../../../data/kubara-platform-matrix/matrix.csv).
+
+The desired 36-cell contract is governed in ConfigHub as
+`hx-platform/platform-matrix`. The public files above are regenerated after the
+mini-IDP receipt, so they may add exact observed version, sync, and workload
+evidence from that receipt. A missing observation remains `unknown`; ConfigHub
+desired state alone never becomes a fabricated live result.
 
 ## Secondary: historical v0.12.0 evidence
 
