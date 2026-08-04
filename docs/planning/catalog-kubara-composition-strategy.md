@@ -18,7 +18,7 @@ profile has a local catalog recipe, but only at a different version. Kubara's
 own `homer-dashboard` wrapper and `template-library` are separate first-party
 surfaces.
 
-| Chart | Catalog | Kubara |
+| Chart | Retained root versions | Kubara-selected offline candidate |
 | --- | --- | --- |
 | argo-cd | 9.5.15, 9.5.17 | 10.1.3 |
 | cert-manager | v1.20.2 | v1.21.0 |
@@ -29,11 +29,14 @@ surfaces.
 | traefik | 40.2.0 | 41.0.2 |
 
 All seven exact public artifacts were retrievable from their official sources
-when rechecked on 2026-08-04, including kube-prometheus-stack 87.15.1. None is
-yet retained as an exact local ConfigHub recipe or package. The earlier live run
+when rechecked on 2026-08-04, including kube-prometheus-stack 87.15.1. They now
+have digest-bound offline candidate recipes and packages under
+`data/kubara-catalog-refresh/candidates/`; none is root-retained, live-qualified,
+or published as a supported installer yet. Candidate generation uses exact
+artifact URLs rather than trusting a mutable Helm index. The earlier live run
 failed to resolve 87.15.1 from the then-visible upstream index and used 87.19.0;
-that remains valid historical evidence about mutable discovery, not a claim that
-87.15.1 is unavailable today.
+that remains valid historical evidence about mutable discovery, not a permissible
+version substitution.
 
 The two sides hold different kinds of knowledge. The catalog holds review: the
 [cert-manager recipe](../../recipes/jetstack/cert-manager/v1.20.2/README.md)
@@ -284,19 +287,22 @@ additive-only rule: a refresh may add a version and mark support or replacement
 status, but it never deletes an older recipe, package, receipt, candidate,
 fixture, or public path. Exact versions must enter through scoped candidate
 harnesses and version-aware assertions; blindly overriding the current proof
-scripts would turn old-version assumptions into false evidence. Also add an
-existing-secret variant for kube-prometheus-stack so configuration references
-the Grafana credential rather than carrying it, with the Secret need recorded as
-a wiring fact.
+scripts would turn old-version assumptions into false evidence. The exact
+kube-prometheus-stack candidate now includes an `existing-secret` variant that
+matches Kubara's Grafana credential reference, keeps credential material out of
+the render, and records the target Secret as a prerequisite fact.
 
-The first additive artifact is now checked in as the example's
+The alignment contract and first exact candidate set are now checked in as the
+example's
 [catalog alignment manifest](../../examples/kubara/local-platform/catalog-alignment.yaml).
-It records the eight component identities, seven verified public artifact
-digests, upstream-package gaps, missing Kubara compatibility profiles, all
-retained older versions, the first-party Homer disposition, and the required
-adapter inputs and outputs. The example verifier fails if an old retained recipe
-or package disappears or if an upstream-package status disagrees with the
-repository.
+The manifest records the eight component identities, seven verified public
+artifact digests, candidate paths, upstream-package gaps, missing Kubara
+compatibility profiles, all retained older versions, the first-party Homer
+disposition, and the required adapter inputs and outputs. The candidate-set
+receipt records exact source locks, offline render/package results, and object
+counts. Verification fails if an old retained recipe or package disappears, if
+the candidate differs from the selected artifact, or if an upstream-package
+status disagrees with the root repository.
 
 ## Risks
 
@@ -314,11 +320,14 @@ Gate-green is not works; the live lanes stay.
 
 1. **Lock the source map — done.** Keep the checked alignment manifest exact;
    nearby versions never count as matches.
-2. Build scoped, version-aware candidate harnesses for all seven public pins.
-   They must write new paths only and prove the old retained recipes still pass.
-3. Generate each exact recipe and package as a candidate. Run its offline render,
-   lifecycle, policy, and fixture checks without changing `missing` to
-   `retained` yet.
+2. **Build scoped, version-aware candidate harnesses — done.** All seven public
+   pins use reviewed version-specific assertions and exact artifact digests; the
+   harness writes only the dedicated candidate tree and verifies every old root.
+3. **Generate exact offline candidates — done.** Each selected recipe and package
+   has deterministic render, package, policy, and applicable lifecycle evidence.
+   The kube-prometheus-stack candidate also carries the Kubara-shaped Grafana
+   `existing-secret` base. Root upstream-package and complete-component statuses
+   remain `missing`.
 4. Add the first-party Homer component entry and source-lock the template library
    with its wrappers rather than publishing the library as an installer.
 5. Capture a versioned Kubara compatibility profile for each component: its

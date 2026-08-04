@@ -62,6 +62,38 @@ function stableJson(value) {
   return JSON.stringify(value);
 }
 
+function candidateSafeText(ctx, value) {
+  if (!ctx.offlineCandidate || typeof value !== "string") return value;
+  return value
+    .replaceAll("promoted proof slice", "offline candidate proof slice")
+    .replaceAll("promoted variants", "offline candidate variants")
+    .replaceAll("ready-to-use", "locally inspectable offline candidate")
+    .replaceAll("public `try.sh`", "post-qualification `try.sh`");
+}
+
+function candidateSafeValue(ctx, value) {
+  if (!ctx.offlineCandidate) return value;
+  if (Array.isArray(value)) return value.map((item) => candidateSafeValue(ctx, item));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, candidateSafeValue(ctx, item)]),
+    );
+  }
+  return candidateSafeText(ctx, value);
+}
+
+function candidateBoundary(ctx) {
+  if (!ctx.offlineCandidate) return "";
+  return "> **Offline candidate only.** This artifact is for local, deterministic evaluation. It is not root-Catalog-retained, Kubara-compatible, live-qualified, or published.\n\n";
+}
+
+function proofCommands(ctx) {
+  if (ctx.offlineCandidate) {
+    return `npm run ${ctx.scriptPrefix}:generate\nnpm run ${ctx.scriptPrefix}:verify`;
+  }
+  return `npm run ${ctx.scriptPrefix}:generate-proof\nnpm run ${ctx.scriptPrefix}:generate-package\nnpm run ${ctx.scriptPrefix}:verify-proof\nnpm run ${ctx.scriptPrefix}:verify-package\nnpm run ${ctx.scriptPrefix}:compare`;
+}
+
 // Build the immutable per-chart context derived from the spec. All chart
 // coordinates and conventional names are computed once here so the rest of the
 // kit (and chart specs) never re-derive them inconsistently.
@@ -77,6 +109,13 @@ function makeContext(spec) {
   const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
     ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
     : repoRoot;
+  const artifactURL = process.env.HELM_EXPT_CHART_ARTIFACT_URL ?? "";
+  const artifactSHA256 = (process.env.HELM_EXPT_CHART_ARTIFACT_SHA256 ?? "").replace(/^sha256:/, "");
+  const offlineCandidate = process.env.HELM_EXPT_PROOF_OFFLINE_CANDIDATE === "1";
+  check(
+    !artifactURL || /^[0-9a-f]{64}$/.test(artifactSHA256),
+    "HELM_EXPT_CHART_ARTIFACT_URL requires a 64-character HELM_EXPT_CHART_ARTIFACT_SHA256",
+  );
   const proofRoot = join(outputRoot, "recipes", chart.repository, chart.name, chart.version);
   const packageRoot = join(outputRoot, "packages", chart.repository, chart.name, chart.version);
   const ns = chart.namespace;
@@ -92,13 +131,17 @@ function makeContext(spec) {
     proofRoot,
     packageRoot,
     packageRelative: relativeRepo(packageRoot),
-    receiptPath: join(proofRoot, "publication", "installer-package-receipt.yaml"),
+    receiptPath: join(
+      proofRoot,
+      offlineCandidate ? "evaluation" : "publication",
+      "installer-package-receipt.yaml",
+    ),
     lockName: `${baseName}-${chart.version}`,
     packageName: baseName, // e.g. metrics-server-metrics-server
     chartRef: `${chart.repository}/${chart.name}`, // e.g. metrics-server/metrics-server
     helmChartRef: spec.helmChartRef ?? `${chart.repository}/${chart.name}`,
     receiptSlug: spec.receiptSlug ?? chart.name, // short name used in receipt metadata.name
-    scriptPrefix: spec.scriptPrefix ?? chart.name, // npm script namespace, e.g. `metrics-server`
+    scriptPrefix: process.env.HELM_EXPT_PROOF_SCRIPT_PREFIX ?? spec.scriptPrefix ?? chart.name,
     renderFlags: spec.renderFlags ?? DEFAULT_RENDER_FLAGS,
     expectedDependencyCount: spec.expectedDependencyCount ?? 0,
     recordChartLockDigest: spec.recordChartLockDigest ?? false,
@@ -108,6 +151,9 @@ function makeContext(spec) {
     supportObjects: spec.supportObjects ?? [`v1|Namespace||${ns}`],
     dependencyLockChart: spec.dependencyLockChart ?? `${chart.repository}/${chart.name}`,
     sourceType: spec.sourceType ?? "HelmChart",
+    artifactURL,
+    artifactSHA256,
+    offlineCandidate,
   };
 }
 
@@ -159,9 +205,23 @@ function generateProof(ctx) {
       ...(ctx.recordDeprecated ? { deprecated: Boolean(source.deprecated) } : {}),
       packageSHA256: source.packageSHA256,
       packageBytes: source.packageBytes,
-      evidence: {
-        harnessReceipt: `../../../../data/adversarial10/charts/${lockName}/render-receipt.yaml`,
-      },
+      ...(ctx.artifactURL
+        ? {
+            exactArtifact: {
+              url: ctx.artifactURL,
+              sha256: source.packageSHA256,
+              resolution: "artifact-addressed",
+            },
+          }
+        : {}),
+      evidence: ctx.offlineCandidate
+        ? {
+            candidateRenderReceipt:
+              `revisions/${variants[0].name}/r001/receipts/render-receipt.yaml`,
+          }
+        : {
+            harnessReceipt: `../../../../data/adversarial10/charts/${lockName}/render-receipt.yaml`,
+          },
     },
   });
 
@@ -188,10 +248,10 @@ function generateProof(ctx) {
     kind: "ValueModel",
     metadata: { name: lockName },
     spec: {
-      checkedValues: ctx.spec.valueModel.checkedValues,
-      unknownValues: ctx.spec.valueModel.unknownValues ?? "not-checked",
-      deadValues: ctx.spec.valueModel.deadValues ?? "not-checked",
-      ignoredValues: ctx.spec.valueModel.ignoredValues ?? "not-checked",
+      checkedValues: candidateSafeValue(ctx, ctx.spec.valueModel.checkedValues),
+      unknownValues: candidateSafeText(ctx, ctx.spec.valueModel.unknownValues ?? "not-checked"),
+      deadValues: candidateSafeText(ctx, ctx.spec.valueModel.deadValues ?? "not-checked"),
+      ignoredValues: candidateSafeText(ctx, ctx.spec.valueModel.ignoredValues ?? "not-checked"),
     },
   });
 
@@ -199,7 +259,7 @@ function generateProof(ctx) {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ControlPoints",
     metadata: { name: lockName },
-    spec: { points: ctx.spec.controlPoints },
+    spec: { points: candidateSafeValue(ctx, ctx.spec.controlPoints) },
   });
 
   writeYaml(join(proofRoot, "recipe.yaml"), {
@@ -357,7 +417,9 @@ function generateProof(ctx) {
           ...(ctx.spec.extraEquivalenceClassifications?.(variant) ?? []),
         ],
         result: "pass",
-        evidenceCommand: `npm run ${ctx.scriptPrefix}:compare`,
+        evidenceCommand: ctx.offlineCandidate
+          ? `npm run ${ctx.scriptPrefix}:verify`
+          : `npm run ${ctx.scriptPrefix}:compare`,
       },
     });
     writeYaml(join(receiptsRoot, "scan-receipt.yaml"), {
@@ -374,7 +436,19 @@ function generateProof(ctx) {
         findings: scanFindings,
       },
     });
-    const gate = ctx.spec.installGate(variant);
+    const declaredGate = ctx.spec.installGate(variant);
+    const gate = ctx.offlineCandidate
+      ? {
+          decision: "blocked",
+          allowedScopes: ["offline-local-evaluation"],
+          blockedScopes: ["live-cluster", "root-catalog-promotion", "production"],
+          reasons: [
+            ...declaredGate.reasons.map((reason) => candidateSafeText(ctx, reason)),
+            "live qualification has not run",
+            "Kubara ServiceDefinition, wrapper, defaults, and additions compatibility is incomplete",
+          ],
+        }
+      : declaredGate;
     writeYaml(join(receiptsRoot, "install-gate.yaml"), {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "InstallGate",
@@ -397,7 +471,7 @@ function generateProof(ctx) {
     metadata: { name: lockName },
     spec: {
       readiness: {
-        status: ctx.spec.plan.status,
+        status: ctx.offlineCandidate ? "offline-candidate" : ctx.spec.plan.status,
         chart: chartRef,
         version: chart.version,
         variants: variants.map((variant) => variant.name),
@@ -406,9 +480,13 @@ function generateProof(ctx) {
           summaries.map((summary) => [summary.name, summary.objects.length + ctx.supportObjects.length]),
         ),
         helmMatchByVariant: Object.fromEntries(summaries.map((summary) => [summary.name, `${summary.objects.length}/${summary.objects.length}`])),
-        scanGate: ctx.spec.plan.scanGate,
-        ...(ctx.spec.plan.extraReadiness ?? {}),
-        nextAction: ctx.spec.plan.nextAction,
+        scanGate: ctx.offlineCandidate
+          ? "offline-only-live-qualification-required"
+          : ctx.spec.plan.scanGate,
+        ...candidateSafeValue(ctx, ctx.spec.plan.extraReadiness ?? {}),
+        nextAction: ctx.offlineCandidate
+          ? "complete Kubara compatibility and serial live qualification before root Catalog promotion"
+          : ctx.spec.plan.nextAction,
       },
       receipts: summaries.flatMap((summary) => [
         `revisions/${summary.name}/r001/receipts/helm-equivalence-receipt.yaml`,
@@ -425,9 +503,9 @@ function generateProof(ctx) {
     spec: {
       chart: chartRef,
       version: chart.version,
-      ...(ctx.spec.dossier.extra ?? {}),
-      maintainedNotes: ctx.spec.dossier.maintainedNotes,
-      knownControlPoints: ctx.spec.dossier.knownControlPoints,
+      ...candidateSafeValue(ctx, ctx.spec.dossier.extra ?? {}),
+      maintainedNotes: candidateSafeValue(ctx, ctx.spec.dossier.maintainedNotes),
+      knownControlPoints: candidateSafeValue(ctx, ctx.spec.dossier.knownControlPoints),
     },
   });
   writeReadme(ctx, summaries);
@@ -487,18 +565,18 @@ function generatePackage(ctx) {
     mkdirSync(dirname(destination), { recursive: true });
     cpSync(source, destination, { recursive: true });
   }
-  write(
-    join(packageRoot, "README.md"),
-    ctx.spec.packageReadme?.({ ctx }) ?? `# ${ctx.chartRef} ${chart.version} Installer Package
+  const declaredPackageReadme = ctx.spec.packageReadme?.({ ctx }) ?? `# ${ctx.chartRef} ${chart.version} Installer Package
 
 This package is generated from the ${ctx.receiptSlug} proof artifacts.
 
 \`\`\`sh
-npm run ${ctx.scriptPrefix}:generate-package
-npm run ${ctx.scriptPrefix}:verify-package
+${proofCommands(ctx)}
 \`\`\`
-`,
-  );
+`;
+  const safePackageReadme = candidateSafeText(ctx, declaredPackageReadme);
+  const packageReadmeLines = safePackageReadme.trimEnd().split("\n");
+  if (ctx.offlineCandidate) packageReadmeLines.splice(1, 0, "", candidateBoundary(ctx).trimEnd());
+  write(join(packageRoot, "README.md"), `${packageReadmeLines.join("\n")}\n`);
   for (const variant of variants) {
     const baseRoot = join(packageRoot, "bases", variant.base);
     mkdirSync(baseRoot, { recursive: true });
@@ -612,6 +690,17 @@ function verifyProof(ctx, root = ctx.proofRoot) {
   check(sourceLock.spec.chart === chart.name, "source chart mismatch");
   check(sourceLock.spec.version === chart.version, "source version mismatch");
   check(Boolean(sourceLock.spec.packageSHA256), "source package SHA must be present");
+  if (ctx.offlineCandidate) {
+    const evidencePath = sourceLock.spec.evidence?.candidateRenderReceipt;
+    check(Boolean(evidencePath), "offline candidate source lock must name its local render receipt");
+    check(existsSync(join(root, evidencePath)), "offline candidate source-lock evidence is missing");
+    check(sourceLock.spec.evidence?.harnessReceipt == null, "offline candidate must not claim an external harness receipt");
+  }
+  if (ctx.artifactURL) {
+    check(sourceLock.spec.exactArtifact?.url === ctx.artifactURL, "exact artifact URL mismatch");
+    check(sourceLock.spec.exactArtifact?.sha256 === ctx.artifactSHA256, "exact artifact SHA mismatch");
+    check(sourceLock.spec.exactArtifact?.resolution === "artifact-addressed", "exact artifact resolution mismatch");
+  }
   if (ctx.recordDeprecated) {
     check(sourceLock.spec.deprecated === ctx.expectedDeprecated, "source deprecation marker must be recorded");
   }
@@ -650,7 +739,9 @@ function verifyProof(ctx, root = ctx.proofRoot) {
     );
     check(scan.spec.renderedObjectSetSHA256 === releaseDigest, `${variant.name} scan digest mismatch`);
     check(gate.spec.renderedObjectSetSHA256 === releaseDigest, `${variant.name} install gate digest mismatch`);
-    const expectedDecision = ctx.spec.installGate(variant).decision;
+    const expectedDecision = ctx.offlineCandidate
+      ? "blocked"
+      : ctx.spec.installGate(variant).decision;
     check(gate.spec.decision === expectedDecision, `${variant.name} install gate decision mismatch`);
     perVariant.set(variant.name, { releasePath, releaseDigest, objects, identities, inventory, revision, renderReceipt, equivalence, scan, gate });
   }
@@ -699,8 +790,11 @@ function verifyProofSelfTest(ctx) {
 function verifyPackage(ctx) {
   const { chart, variants, packageRoot, packageRelative, receiptPath } = ctx;
   verifyProof(ctx);
-  check(existsSync(packageRoot), `missing package root ${packageRelative}; run npm run ${ctx.scriptPrefix}:generate-package`);
-  check(existsSync(receiptPath), `missing installer package receipt; run npm run ${ctx.scriptPrefix}:generate-package`);
+  const generateCommand = ctx.offlineCandidate
+    ? `${ctx.scriptPrefix}:generate`
+    : `${ctx.scriptPrefix}:generate-package`;
+  check(existsSync(packageRoot), `missing package root ${packageRelative}; run npm run ${generateCommand}`);
+  check(existsSync(receiptPath), `missing installer package receipt; run npm run ${generateCommand}`);
   const installer = readYaml(join(packageRoot, "installer.yaml"));
   const receipt = readYaml(receiptPath);
   check(installer.kind === "Package", "installer.yaml must be Package");
@@ -896,11 +990,26 @@ function pullSource(ctx) {
   const { chart } = ctx;
   const tempRoot = mkdtempSync(join(tmpdir(), `${ctx.receiptSlug}-source-`));
   try {
-    command("helm", ["pull", ctx.helmChartRef, "--version", chart.version, "--destination", tempRoot]);
-    const packagePath = listFiles(tempRoot).find((path) => path.endsWith(".tgz"));
+    const packagePath = materializeChartPackage(ctx, tempRoot);
     command("tar", ["-xzf", packagePath, "-C", tempRoot]);
-    const chartRoot = join(tempRoot, chart.name);
+    const chartYamlPaths = listFiles(tempRoot).filter((path) => path.endsWith("/Chart.yaml"));
+    const matchingChartYamlPaths = chartYamlPaths.filter((path) => {
+      const metadata = readYaml(path);
+      return metadata.name === chart.name
+        && String(metadata.version) === String(chart.version);
+    });
+    check(
+      matchingChartYamlPaths.length === 1,
+      `chart archive for ${ctx.chartRef}@${chart.version} contained ${matchingChartYamlPaths.length} matching Chart.yaml files among ${chartYamlPaths.length} total`,
+    );
+    const [chartYamlPath] = matchingChartYamlPaths;
+    const chartRoot = dirname(chartYamlPath);
     const chartYaml = readYaml(join(chartRoot, "Chart.yaml"));
+    check(chartYaml.name === chart.name, `chart archive name ${chartYaml.name} does not match ${chart.name}`);
+    check(
+      String(chartYaml.version) === String(chart.version),
+      `chart archive version ${chartYaml.version} does not match ${chart.version}`,
+    );
     const chartLockPath = join(chartRoot, "Chart.lock");
     const chartLock = existsSync(chartLockPath) ? readYaml(chartLockPath) : null;
     const dependencies = chartLock?.dependencies ?? chartYaml.dependencies ?? [];
@@ -928,18 +1037,18 @@ function renderVariant(ctx, variant) {
   const { chart } = ctx;
   const tempRoot = mkdtempSync(join(tmpdir(), `${ctx.receiptSlug}-render-`));
   try {
+    const chartSource = ctx.artifactURL ? materializeChartPackage(ctx, tempRoot) : ctx.helmChartRef;
     const args = [
       "template",
       chart.releaseName,
-      ctx.helmChartRef,
-      "--version",
-      chart.version,
+      chartSource,
       "--namespace",
       chart.namespace,
       "--kube-version",
       chart.kubeVersion,
       ...ctx.renderFlags,
     ];
+    if (!ctx.artifactURL) args.splice(3, 0, "--version", chart.version);
     if (variant.valuesText) {
       const valuesPath = join(tempRoot, "values.yaml");
       write(valuesPath, variant.valuesText);
@@ -954,6 +1063,33 @@ function renderVariant(ctx, variant) {
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
+}
+
+function materializeChartPackage(ctx, tempRoot) {
+  const { chart } = ctx;
+  if (!ctx.artifactURL) {
+    command("helm", ["pull", ctx.helmChartRef, "--version", chart.version, "--destination", tempRoot]);
+  } else if (/^https?:\/\//.test(ctx.artifactURL)) {
+    const destination = join(tempRoot, `${chart.name}-${chart.version}.tgz`);
+    command("curl", ["--fail", "--location", "--retry", "3", "--silent", "--show-error", "--output", destination, ctx.artifactURL]);
+  } else if (ctx.artifactURL.startsWith("oci://")) {
+    const versionSuffix = `:${chart.version}`;
+    const artifactRef = ctx.artifactURL.endsWith(versionSuffix)
+      ? ctx.artifactURL.slice(0, -versionSuffix.length)
+      : ctx.artifactURL;
+    command("helm", ["pull", artifactRef, "--version", chart.version, "--destination", tempRoot]);
+  } else {
+    throw new Error(`unsupported exact chart artifact URL ${ctx.artifactURL}`);
+  }
+  const packagePath = listFiles(tempRoot).find((path) => path.endsWith(".tgz"));
+  check(Boolean(packagePath), `chart artifact retrieval produced no archive for ${ctx.chartRef}@${chart.version}`);
+  if (ctx.artifactSHA256) {
+    check(
+      sha256File(packagePath) === ctx.artifactSHA256,
+      `chart artifact SHA mismatch for ${ctx.chartRef}@${chart.version}`,
+    );
+  }
+  return packagePath;
 }
 
 function effectiveValuesDoc(ctx, variant, defaultValuesSHA256) {
@@ -1086,7 +1222,7 @@ function writeReadme(ctx, summaries) {
     join(ctx.proofRoot, "README.md"),
     `# ${ctx.chartRef} ${chart.version} Proof
 
-${ctx.spec.readme.intro}
+${candidateBoundary(ctx)}${candidateSafeText(ctx, ctx.spec.readme.intro)}
 
 Variants:
 
@@ -1094,16 +1230,12 @@ ${variantLines}
 
 What this proves:
 
-${provesLines}
+${candidateSafeText(ctx, provesLines)}
 
 Useful commands:
 
 \`\`\`sh
-npm run ${ctx.scriptPrefix}:generate-proof
-npm run ${ctx.scriptPrefix}:generate-package
-npm run ${ctx.scriptPrefix}:verify-proof
-npm run ${ctx.scriptPrefix}:verify-package
-npm run ${ctx.scriptPrefix}:compare
+${proofCommands(ctx)}
 \`\`\`
 `,
   );

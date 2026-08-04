@@ -8,18 +8,29 @@
 import { runProofCli } from "./lib/proof-kit.mjs";
 import { identityFor } from "./lib/proof-common.mjs";
 
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "2.5.0";
 const chart = {
   repository: "external-secrets",
   repositoryURL: "https://charts.external-secrets.io",
   name: "external-secrets",
-  version: "2.5.0",
+  version: chartVersion,
   releaseName: "external-secrets",
   namespace: "external-secrets",
   kubeVersion: "1.30.0",
 };
 
+const versionExpectations = {
+  "2.5.0": { defaultObjects: 42, noCrdsObjects: 19, crds: 23 },
+  "2.7.0": { defaultObjects: 43, noCrdsObjects: 19, crds: 24 },
+};
+const expected = versionExpectations[chart.version];
+if (!expected) throw new Error(`external-secrets ${chart.version} needs reviewed version-specific assertions`);
+
 const externalSecretsCRDs = [
   "acraccesstokens.generators.external-secrets.io",
+  ...(chart.version === "2.7.0"
+    ? ["beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io"]
+    : []),
   "cloudsmithaccesstokens.generators.external-secrets.io",
   "clusterexternalsecrets.external-secrets.io",
   "clustergenerators.generators.external-secrets.io",
@@ -52,8 +63,8 @@ const variants = [
     valuesFile: "effective-values.yaml",
     valuesText: "",
     valuesSummary: "chart defaults",
-    expectedObjectCount: 42,
-    expectedCRDCount: 23,
+    expectedObjectCount: expected.defaultObjects,
+    expectedCRDCount: expected.crds,
     expectedSecretCount: 1,
     targetFacts: {
       requiredSecrets: [
@@ -79,7 +90,7 @@ const variants = [
     valuesText: `installCRDs: false
 `,
     valuesSummary: "external-secrets CRDs disabled",
-    expectedObjectCount: 19,
+    expectedObjectCount: expected.noCrdsObjects,
     expectedCRDCount: 0,
     expectedSecretCount: 1,
     targetFacts: {

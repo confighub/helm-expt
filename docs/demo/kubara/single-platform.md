@@ -11,6 +11,12 @@ fixes made during bring-up, so it is an evidence narrative rather than a
 one-command clean-room reproduction. That linear adoption runner is the
 acceptance bar, not a claim this page makes today.
 
+> **Topology note.** This historical walkthrough demonstrates ConfigHub's
+> optional per-cluster delivery topology. Existing Kubara users can keep Git,
+> the hub Argo CD, ApplicationSets, AppProjects, and registered spokes unchanged;
+> that zero-repoint adoption path is described below. ConfigHub governance does
+> not require replacing Kubara's hub topology.
+
 ## The three pieces
 
 Three things combined to build it, and each did one job.
@@ -33,7 +39,8 @@ Three things combined to build it, and each did one job.
 `hx-app-staging`, `hx-app-prod-a`, and `hx-app-prod-b`. On each one it installed
 Argo CD, the tool that pulls stored configuration and applies it to the cluster,
 and argobot, a ConfigHub bot that tells Argo CD to sync the moment a release is
-published. So ConfigHub owns the one Argo CD on every cluster.
+published. In this optional delivery topology, each cluster runs a
+ConfigHub-managed Argo CD and argobot.
 
 ### 2. Let Kubara choose the platform
 
@@ -131,7 +138,9 @@ generated platform.
 
 After the follow-up, six of the seven Kubara services ran on the dev cluster:
 cert-manager, external-secrets, traefik, metrics-server, homer-dashboard, and
-kube-prometheus-stack. ConfigHub's Argo CD stands in for Kubara's argo-cd, so all
+kube-prometheus-stack. For this proof, ConfigHub's local Argo CD supplied the
+delivery role, so Kubara's generated hub Argo CD was omitted. That omission is
+specific to the optional delivery topology and is not required for adoption; all
 seven platform roles are accounted for.
 
 ### 4. Put two apps on the platform
@@ -365,11 +374,14 @@ valid inputs. AI wiring is only an optional future author for bespoke
 compositions; if used, it faces the same deterministic closure, parity,
 lifecycle, and policy gates and never becomes authority.
 
-This is the alignment contract, not a shipped claim. The current proof compares
-Kubara's selected components with ConfigHub Catalog and demonstrates why the
-component review is valuable, but it does not yet run the same platform through
-both component-source lanes, resolve the live platform directly from ConfigHub
-Catalog entries, or round-trip every fix into Kubara inputs.
+This is the alignment contract plus an offline candidate proof, not a shipped
+compatibility claim. All seven exact public pins now have digest-bound candidate
+recipes and installer packages, while every older retained version remains in
+place. The proof demonstrates that those exact artifacts pass the scoped offline
+render and package lanes, but it does not root-retain or publish them, run the
+same platform through both component-source lanes, resolve the live platform
+directly from ConfigHub Catalog entries, or round-trip every fix into Kubara
+inputs.
 The checked
 [catalog alignment manifest](../../../examples/kubara/local-platform/catalog-alignment.yaml)
 records all eight component mappings, seven verified public artifact digests,
@@ -401,7 +413,7 @@ Concept by concept, the adoption contract is:
 | Platform selection and wiring | The effective catalog set, `config.yaml`, and documented overrides remain authoritative. An organization-owned external catalog is optional. | A checked, diffable derivation without introducing a second platform model. | The example's built-in selection and wiring are generated; the deterministic importer is not shipped. |
 | Kubara component profile | Its `ServiceDefinition`, wrapper templates, defaults, and additions remain part of the component contract, not incidental glue. | A versioned compatibility profile lets a reviewed ConfigHub package export the same Kubara component. | Wrapper fixtures are checksum-locked; ServiceDefinitions and adapter profiles are not yet captured. |
 | `config.yaml` | Remains the cluster-specialization source in Git. | A native YAML contract mirror, revision history, and provenance. | `hx-platform/platform-contract` now mirrors the committed one-cluster source; it does not describe the four-cluster fleet. |
-| ConfigHub Catalog component | Does not replace Kubara's catalog resolution or platform composition. | Component-first retention and review; deployable variants and configurations follow. A complete mapping needs both the exact upstream package and a Kubara compatibility profile for the ServiceDefinition and wrapper additions. | Parallel upstream-package reviews exist, but none of the seven exact pins or eight complete Kubara component profiles is retained locally yet. |
+| ConfigHub Catalog component | Does not replace Kubara's catalog resolution or platform composition. | Component-first retention and review; deployable variants and configurations follow. A complete mapping needs both the exact upstream package and a Kubara compatibility profile for the ServiceDefinition and wrapper additions. | All seven exact public pins have digest-bound offline candidate recipes/packages with historical roots preserved. None is root-retained or live-qualified yet, and none of the eight complete Kubara component profiles is retained. |
 | `platform-components/` | The generated directory remains valid and regenerable. | Rendered components can be materialized as reusable base Units. | The committed generated tree and live base Spaces both exist; their content/provenance lineage has not yet been verified. |
 | `platform-configs/<cluster>/` | Generated cluster values remain valid and regenerable. | Their renders can become target-bound variants with release history. | One native cluster config and four adapted variants are proved separately. |
 | `values-*.yaml` | Remains the durable customization mechanism. | Semantic review of its effect and explicit target departures. | Native overrides and ConfigHub departures are proved; automatic round-trip is not. |

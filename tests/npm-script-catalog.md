@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 655
+scripts: 657
 ```
 
 ## By Category
@@ -25,7 +25,7 @@ scripts: 655
 | `evidence-workdown` | 26 |
 | `live-parity-gitops` | 25 |
 | `confighub-proof` | 20 |
-| `latest-version-refresh` | 18 |
+| `latest-version-refresh` | 20 |
 | `repo-integrity` | 15 |
 | `confighub-catalog-org` | 11 |
 | `derived-variants` | 11 |
@@ -43,8 +43,8 @@ scripts: 655
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 304 |
-| `generate-or-run` | 263 |
+| `verify` | 305 |
+| `generate-or-run` | 264 |
 | `run` | 75 |
 | `summary` | 7 |
 | `self-test` | 5 |
@@ -54,10 +54,10 @@ scripts: 655
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 600 |
+| `none-for-verify` | 601 |
 | `confighub-or-live-cluster` | 23 |
 | `local-kubernetes` | 14 |
-| `network-or-helm-repo` | 9 |
+| `network-or-helm-repo` | 10 |
 | `user-supplied-cluster-or-confighub` | 5 |
 | `public-oci-registry` | 2 |
 | `user-supplied-oci` | 2 |

@@ -25,9 +25,13 @@ platform configuration, even when the target is not production.
   normal `values-*.yaml` convention.
 - `catalog-alignment.yaml` maps every exact Kubara-selected public dependency
   and first-party component against the current ConfigHub Catalog. It records
-  missing upstream packages and Kubara compatibility profiles, verified upstream
-  digests, every older retained version, the future adapter contract, and the
-  additive-only rule.
+  exact offline candidate paths, root-retention and Kubara-compatibility gaps,
+  verified upstream digests, every older retained version, the future adapter
+  contract, and the additive-only rule.
+- `../../../data/kubara-catalog-refresh/candidates/` contains the seven exact,
+  digest-bound offline recipe/package candidates. Candidate verification proves
+  every older retained root remains present; it does not claim live support or
+  complete Kubara wrapper compatibility.
 - `generated/` is the Helm source and cluster values produced by Kubara v0.12.0.
 - `rendered/release-objects.yaml` is the exact 77-object render of the generated
   Argo CD chart.
@@ -64,13 +68,18 @@ Download Kubara v0.12.0 and verify the release checksum in `source-lock.yaml`.
 Then run:
 
 ```bash
+npm run kubara-catalog-candidates:generate
+npm run kubara-catalog-candidates:verify
+
 KUBARA_BIN=/path/to/kubara \
   npm run kubara-example:generate
 
 npm run kubara-example:verify
 ```
 
-The generator creates a temporary `.env`, runs `kubara generate --helm`, builds
+The first two commands reproduce and verify the seven digest-bound offline
+component candidates without changing any retained root version. The example
+generator then creates a temporary `.env`, runs `kubara generate --helm`, builds
 the pinned Argo CD chart dependencies, renders the chart, and creates the local
 OCI layout. It also renders the downstream Homer chart with both values files
 to prove that the override replaces Kubara's generated placeholder. It removes

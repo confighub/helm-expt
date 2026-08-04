@@ -1,0 +1,16 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "jetstack-cert-manager"
+  version: "v1.21.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "cert-manager default variant rendered from jetstack/cert-manager@v1.21.0"
+    -
+      name: "crds-enabled"
+      path: "bases/crds-enabled"
+      description: "cert-manager CRDs enabled variant rendered from jetstack/cert-manager@v1.21.0"
