@@ -216,3 +216,43 @@ Proof links:
 - `docs/planning/pilot-adversarial-testing.md`
 - GitHub issue `#12` for GitOps compatibility reporting
 - `https://github.com/confighub/cub-scout/tree/main/examples/helm-expt`
+
+## 9. Kubara Git To ConfigHub Without A Rewrite
+
+Audience: Kubara platform teams that want catalog retention, review, promotion,
+rollback, matrix, and wiring benefits without replacing Kubara or Argo CD.
+
+Core claim:
+
+```text
+ConfigHub simplifies Kubara without making it fundamentally different.
+Kubara composes; ConfigHub governs; Argo reconciles.
+```
+
+Show:
+
+- selection and wiring staying in Kubara `config.yaml`;
+- the Kubara-generated platform, add-ons, ApplicationSets, overrides, and
+  wiring committed at one immutable Git SHA with locks and checksums;
+- a deterministic ConfigHub importer resolving exact components against the
+  component-first Catalog;
+- one OCI release per deployable configuration plus a digest-pinned platform
+  bundle, with topology and wiring facts separate;
+- target facts and Secret values outside Git and OCI;
+- an explicit user-selected ConfigHub organization containing Spaces, Units,
+  Variants, ClusterTargets, UpgradeUnit lineage, and `NeedsProvides` Links;
+- applications promoted through ConfigHub while Argo CD remains the reconciler;
+- the honest boundary between the current four-cluster proof and the generalized
+  importer capability.
+
+Proof and source links:
+
+- `docs/planning/kubara-git-to-confighub-blog-brief.md`
+- `docs/demo/kubara/single-platform.md`
+- `examples/kubara/git-import/README.md`
+- `examples/kubara/git-import/request.example.yaml`
+- `examples/kubara/current-platform/`
+- `examples/kubara/current-platform/catalog-parity-receipt.yaml`
+- `data/kubara-platform-matrix/matrix.html`
+- `data/kubara-wiring/graph.html`
+- `data/kubara-release-acceptance/contract.yaml`

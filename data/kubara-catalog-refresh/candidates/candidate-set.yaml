@@ -5,8 +5,8 @@ metadata:
 spec:
   sourceAlignment: "examples/kubara/local-platform/catalog-alignment.yaml"
   retentionMode: "additive-only"
-  qualification: "offline-only"
-  rootRetention: "not-yet-qualified"
+  qualification: "live-qualified-root-retained"
+  rootRetention: "retained"
   candidates:
     -
       canonicalIdentity: "helm:argo-cd/argo-cd"

@@ -319,9 +319,16 @@ function currentSupportedVersions() {
 
 function verifyStatuses() {
   const roots = recipeRoots();
-  const promotedCandidates = promotedLatestCandidateCount();
-  const expectedRoots = 100 + promotedCandidates;
-  check(roots.length === expectedRoots, `expected ${expectedRoots} recipe roots, found ${roots.length}`);
+  const recipeKeys = roots.map((root) => relativeRepo(root).replace(/^recipes\//, "")).sort();
+  const packageKeys = listFiles(join(repoRoot, "packages"))
+    .filter((file) => file.endsWith("/installer.yaml"))
+    .map((file) => dirname(relativeRepo(file)).replace(/^packages\//, ""))
+    .sort();
+  check(recipeKeys.length >= 100, `expected at least 100 additive recipe roots, found ${recipeKeys.length}`);
+  check(
+    JSON.stringify(recipeKeys) === JSON.stringify(packageKeys),
+    "recipe/package version roots differ; catalog status only verifies complete additive roots",
+  );
   let supported = 0;
   const supportedCharts = new Set();
   for (const root of roots) {
@@ -351,23 +358,6 @@ function verifyStatuses() {
   for (const chart of expectedSupported) {
     check(supportedCharts.has(chart), `expected ${chart} to be catalog-supported`);
   }
-}
-
-function promotedLatestCandidateCount() {
-  const root = join(repoRoot, "data", "latest-top20-refresh", "candidates");
-  if (!existsSync(root)) return 0;
-  const promoted = new Set();
-  for (const file of listFiles(root).filter((candidateFile) => candidateFile.endsWith("/recipe.yaml"))) {
-    const candidateRoot = dirname(file);
-    const marker = "/recipes/";
-    const markerIndex = candidateRoot.indexOf(marker);
-    if (markerIndex === -1) continue;
-    const chartVersionPath = candidateRoot.slice(markerIndex + marker.length);
-    const recipePath = join(repoRoot, "recipes", chartVersionPath);
-    const packagePath = join(repoRoot, "packages", chartVersionPath);
-    if (existsSync(recipePath) && existsSync(packagePath)) promoted.add(chartVersionPath);
-  }
-  return promoted.size;
 }
 
 function listYaml(values) {

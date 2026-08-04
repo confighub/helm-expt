@@ -57,9 +57,13 @@ if (mode === "--generate") {
   node scripts/run-kubara-catalog-candidates.mjs --verify`);
 }
 
-function loadCandidates() {
+function loadAlignment() {
   const alignment = readYaml(alignmentPath);
   check(alignment.kind === "KubaraCatalogAlignment", "Kubara catalog alignment kind changed");
+  return alignment;
+}
+
+function loadCandidates(alignment = loadAlignment()) {
   const components = new Map(
     (alignment.spec?.components ?? []).map((component) => [component.canonicalIdentity, component]),
   );
@@ -104,7 +108,8 @@ function loadCandidates() {
 }
 
 function generate() {
-  const candidates = loadCandidates();
+  const alignment = loadAlignment();
+  const candidates = loadCandidates(alignment);
   mkdirSync(outputRoot, { recursive: true });
   for (const candidate of candidates) {
     console.log(`generating exact Kubara candidate ${candidate.identity}@${candidate.version}`);
@@ -113,13 +118,14 @@ function generate() {
     runProof(candidate, "--generate-package");
   }
   const rows = inspect(candidates);
-  writeOutputs(rows);
+  writeOutputs(rows, alignment);
   verify();
   console.log(`generated ${rows.length} exact Kubara catalog candidates without changing retained roots`);
 }
 
 function verify() {
-  const candidates = loadCandidates();
+  const alignment = loadAlignment();
+  const candidates = loadCandidates(alignment);
   for (const candidate of candidates) {
     for (const retained of candidate.retainedVersions) {
       check(
@@ -131,10 +137,28 @@ function verify() {
         `${candidate.identity}: historical package ${retained} is missing`,
       );
     }
-    check(candidate.upstreamPackageMatch === "missing", `${candidate.identity}: candidate lane must not claim root retention`);
-    check(candidate.componentEntryStatus === "missing", `${candidate.identity}: candidate lane must not claim complete Kubara compatibility`);
-    check(!existsSync(candidate.rootRecipePath), `${candidate.identity}: exact candidate unexpectedly overwrote the root recipe`);
-    check(!existsSync(candidate.rootPackagePath), `${candidate.identity}: exact candidate unexpectedly overwrote the root package`);
+    check(
+      ["missing", "retained"].includes(candidate.upstreamPackageMatch),
+      `${candidate.identity}: unsupported upstream package match ${candidate.upstreamPackageMatch}`,
+    );
+    check(
+      ["missing", "retained"].includes(candidate.componentEntryStatus),
+      `${candidate.identity}: unsupported component entry status ${candidate.componentEntryStatus}`,
+    );
+    if (candidate.componentEntryStatus === "retained") {
+      check(candidate.upstreamPackageMatch === "retained", `${candidate.identity}: a retained component requires a retained upstream package`);
+    }
+    if (candidate.upstreamPackageMatch === "missing") {
+      const rootRecipeExists = existsSync(candidate.rootRecipePath);
+      const rootPackageExists = existsSync(candidate.rootPackagePath);
+      check(
+        rootRecipeExists === rootPackageExists,
+        `${candidate.identity}: additive promotion is partial between the root recipe and package`,
+      );
+      if (rootRecipeExists) verifyRetainedRoot(candidate, { requireDeclaredRetained: false });
+    } else {
+      verifyRetainedRoot(candidate, { requireDeclaredRetained: true });
+    }
     runProof(candidate, "--verify-proof");
     if (candidate.lifecycle) runLifecycle(candidate, "--verify");
     runProof(candidate, "--verify-package");
@@ -144,8 +168,8 @@ function verify() {
   check(existsSync(statusPath), `${relativeRepo(statusPath)} is missing`);
   check(existsSync(readmePath), `${relativeRepo(readmePath)} is missing`);
   check(readFileSync(statusPath, "utf8") === statusCsv(rows), "Kubara candidate status CSV is stale");
-  check(readFileSync(readmePath, "utf8") === readme(rows), "Kubara candidate README is stale");
-  verifyManifest(rows);
+  check(readFileSync(readmePath, "utf8") === readme(rows, alignment), "Kubara candidate README is stale");
+  verifyManifest(rows, alignment);
   console.log(`verified ${rows.length} exact Kubara catalog candidates and all historical roots`);
 }
 
@@ -275,13 +299,77 @@ function inspect(candidates) {
   });
 }
 
-function writeOutputs(rows) {
-  writeYaml(manifestPath, manifest(rows));
-  writeFileSync(statusPath, statusCsv(rows));
-  writeFileSync(readmePath, readme(rows));
+function verifyRetainedRoot(candidate, { requireDeclaredRetained }) {
+  if (requireDeclaredRetained) {
+    check(
+      candidate.retainedVersions.map(String).includes(candidate.version),
+      `${candidate.identity}: retainedVersions omits exact retained version ${candidate.version}`,
+    );
+  }
+  check(existsSync(candidate.rootRecipePath), `${candidate.identity}: retained root recipe is missing`);
+  check(existsSync(candidate.rootPackagePath), `${candidate.identity}: retained root package is missing`);
+  const sourceLock = readYaml(join(candidate.rootRecipePath, "source-lock.yaml"));
+  check(sourceLock.spec?.version === candidate.version, `${candidate.identity}: retained source-lock version mismatch`);
+  check(sourceLock.spec?.exactArtifact?.url === candidate.artifactURL, `${candidate.identity}: retained exact artifact URL mismatch`);
+  check(sourceLock.spec?.exactArtifact?.sha256 === candidate.artifactSHA256, `${candidate.identity}: retained exact artifact SHA mismatch`);
+  check(sourceLock.spec?.packageSHA256 === candidate.artifactSHA256, `${candidate.identity}: retained package SHA mismatch`);
+  const sourceEvidence = sourceLock.spec?.evidence?.exactArtifactRenderReceipt;
+  check(Boolean(sourceEvidence), `${candidate.identity}: retained exact-artifact render evidence is missing`);
+  check(existsSync(join(candidate.rootRecipePath, sourceEvidence)), `${candidate.identity}: retained exact-artifact render evidence does not resolve`);
+  check(sourceLock.spec?.evidence?.harnessReceipt == null, `${candidate.identity}: retained source lock claims stale harness evidence`);
+  check(!existsSync(join(candidate.rootRecipePath, "evaluation")), `${candidate.identity}: retained root contains candidate evaluation residue`);
+  const publicationPath = join(candidate.rootRecipePath, "publication", "installer-package-receipt.yaml");
+  check(existsSync(publicationPath), `${candidate.identity}: retained root publication receipt is missing`);
+  const publication = readYaml(publicationPath);
+  check(
+    publication.spec?.package?.path === relativeRepo(candidate.rootPackagePath),
+    `${candidate.identity}: retained publication receipt does not point at the root package`,
+  );
+  for (const variant of candidate.variants) {
+    compareRetainedFile(
+      candidate,
+      join("revisions", variant, "r001", "rendered", "release-objects.yaml"),
+      candidate.recipePath,
+      candidate.rootRecipePath,
+    );
+    for (const file of ["kustomization.yaml", "upstream.yaml"]) {
+      compareRetainedFile(
+        candidate,
+        join("bases", variant, file),
+        candidate.packagePath,
+        candidate.rootPackagePath,
+      );
+    }
+  }
+  compareRetainedFile(candidate, "installer.yaml", candidate.packagePath, candidate.rootPackagePath);
+  for (const root of [candidate.rootRecipePath, candidate.rootPackagePath]) {
+    for (const path of listFiles(root)) {
+      const text = readFileSync(path, "utf8");
+      check(
+        !/offline(?:[- ]candidate|[- ]only|[- ]local[- ]evaluation)|live qualification has not run|root-catalog-promotion/i.test(text),
+        `${candidate.identity}: retained root has offline-candidate residue in ${relativeRepo(path)}`,
+      );
+    }
+  }
 }
 
-function manifest(rows) {
+function compareRetainedFile(candidate, file, candidateRoot, retainedRoot) {
+  const source = join(candidateRoot, file);
+  const retained = join(retainedRoot, file);
+  check(existsSync(source), `${candidate.identity}: candidate comparison file ${file} is missing`);
+  check(existsSync(retained), `${candidate.identity}: retained comparison file ${file} is missing`);
+  check(sha256File(source) === sha256File(retained), `${candidate.identity}: retained ${file} differs from the exact candidate`);
+}
+
+function writeOutputs(rows, alignment) {
+  writeYaml(manifestPath, manifest(rows, alignment));
+  writeFileSync(statusPath, statusCsv(rows));
+  writeFileSync(readmePath, readme(rows, alignment));
+}
+
+function manifest(rows, alignment) {
+  const exactSet = alignment.spec?.exactCandidateSet ?? {};
+  const retained = exactSet.rootRetention === "retained";
   return {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "KubaraCatalogCandidateSet",
@@ -289,8 +377,10 @@ function manifest(rows) {
     spec: {
       sourceAlignment: relativeRepo(alignmentPath),
       retentionMode: "additive-only",
-      qualification: "offline-only",
-      rootRetention: "not-yet-qualified",
+      qualification: retained && exactSet.liveQualification === "passed-13-of-13"
+        ? "live-qualified-root-retained"
+        : "offline-only",
+      rootRetention: exactSet.rootRetention ?? "not-yet-qualified",
       candidates: rows.map((row) => ({
         canonicalIdentity: row.identity,
         version: row.version,
@@ -313,9 +403,9 @@ function manifest(rows) {
   };
 }
 
-function verifyManifest(rows) {
+function verifyManifest(rows, alignment) {
   const actual = readYaml(manifestPath);
-  const expected = manifest(rows);
+  const expected = manifest(rows, alignment);
   check(stableJson(actual) === stableJson(expected), "Kubara candidate-set manifest is stale");
 }
 
@@ -342,18 +432,26 @@ function statusCsv(rows) {
   return `${headers.join(",")}\n${lines.join("\n")}\n`;
 }
 
-function readme(rows) {
+function readme(rows, alignment) {
+  const rootRetention = alignment.spec?.exactCandidateSet?.rootRetention ?? "not-yet-qualified";
+  const retained = rootRetention === "retained";
+  const retentionParagraph = retained
+    ? `The exact versions also have additive root recipe and package copies after
+the separately recorded live qualification passed. These candidate trees remain
+the immutable offline evaluation snapshot; root retention still does not claim
+complete Kubara ServiceDefinition or wrapper compatibility.`
+    : `No historical root recipe or package is replaced. These are offline upstream
+package candidates, not retained root Catalog entries and not complete Kubara
+components. Root retention still requires scoped live qualification; complete
+component retention additionally requires the Kubara ServiceDefinition, wrapper
+compatibility profile, adapter, and parity evidence.`;
   return `# Kubara exact-version catalog candidates
 
 These additive candidate trees capture the seven exact public chart artifacts
 selected by Kubara v0.12.0. They are artifact-addressed and digest-verified, so
 candidate generation does not depend on a mutable Helm repository index.
 
-No historical root recipe or package is replaced. These are offline upstream
-package candidates, not retained root Catalog entries and not complete Kubara
-components. Root retention still requires scoped live qualification; complete
-component retention additionally requires the Kubara ServiceDefinition, wrapper
-compatibility profile, adapter, and parity evidence.
+${retentionParagraph}
 
 | Component | Version | Variants and object counts | Status |
 | --- | --- | --- | --- |

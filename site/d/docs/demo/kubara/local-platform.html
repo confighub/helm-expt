@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kubara platform configuration · Config Workshop</title>
-  <meta name="description" content="Kubara platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Historical Kubara v0.12.0 platform configuration · Config Workshop</title>
+  <meta name="description" content="Historical Kubara v0.12.0 platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/local-platform.html">
-  <meta property="og:title" content="Kubara platform configuration · Config Workshop">
-  <meta property="og:description" content="Kubara platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Historical Kubara v0.12.0 platform configuration · Config Workshop">
+  <meta property="og:description" content="Historical Kubara v0.12.0 platform configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/local-platform.html">
   <style>
@@ -442,14 +442,15 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Kubara platform configuration</h1>
-    <p class="lead">A platform team usually manages more than one Helm release. Argo CD, certificates, Secrets, ingress, monitoring, and cluster services must be chosen together and kept consistent across a fleet. Kubara provides that platform description and generates the Helm source and cluster values. <a href="../../../../../docs/demo/kubara/local-platform.md">View source markdown</a>.</p>
+    <h1>Historical Kubara v0.12.0 platform configuration</h1>
+    <p class="lead"><b>Compatibility record.</b> This page preserves the original Kubara v0.12.0 one-cluster proof. For the current, four-cluster, reproducible Kubara v0.13.0 adoption path, start with <a href="single-platform.html">Adopt Kubara with ConfigHub</a>. Nothing in this historical fixture is removed or silently rewritten. <a href="../../../../../docs/demo/kubara/local-platform.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
-
-<p>This example uses Kubara v0.12.0 to describe one local test cluster and seven enabled services. The generated Argo CD chart renders 77 Kubernetes objects, including the ApplicationSets that assign those services to matching clusters.</p>
+<blockquote></blockquote>
+<p>A platform team usually manages more than one Helm release. Argo CD, certificates, Secrets, ingress, monitoring, and cluster services must be chosen together and kept consistent across a fleet. Kubara provides that platform description and generates the Helm source and cluster values.</p>
+<p>This historical example uses Kubara v0.12.0 to describe one local test cluster and seven enabled services. The generated Argo CD chart renders 77 Kubernetes objects, including the ApplicationSets that assign those services to matching clusters.</p>
 <p>ConfigHub adds a durable record of that result. The render can become a base variant, while development, staging, production, region, or cluster-class differences become reviewed variants. A platform change can then be compared, checked, and promoted in waves instead of being repeated as an imperative upgrade on every cluster.</p>
 <h2 id="follow-the-example">Follow the example</h2>
 <ol><li>Read the <a href="../../../../../examples/kubara/local-platform/source/config.yaml">Kubara source config</a> to see the cluster and enabled services.</li><li>Read the <a href="../../../../../examples/kubara/local-platform/source/values-homer-links.yaml">portal values override</a> for a small example of changing Kubara output through its normal values path.</li><li>Open the <a href="../../../../../examples/kubara/local-platform/generated/platform-configs/test-cluster/helm/argo-cd/values.generated.yaml">generated cluster values</a> to see what Kubara produced for Argo CD.</li><li>Inspect the <a href="../../../../../examples/kubara/local-platform/rendered/release-objects.yaml">literal Kubernetes render</a> that ConfigHub can record.</li><li>Read the <a href="../../../../../examples/kubara/local-platform/route-intent.yaml">route intent</a> for the CRDs, hook Job, Secret handling, and External Secrets prerequisite.</li><li>Check the <a href="../../../../../examples/kubara/local-platform/generation-receipt.yaml">generation receipt</a> for the exact commands, checksums, OCI digest, and live-test boundary.</li><li>Check the <a href="../../../../../examples/kubara/local-platform/confighub-upload-receipt.yaml">ConfigHub upload receipt</a> for the Space, Unit, matching object identities, omitted Secrets, and policy.</li></ol>

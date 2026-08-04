@@ -347,6 +347,8 @@ function audienceFor(path) {
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/helm-render-intents/")) return "user/front-door";
   if (path.startsWith("data/installer-oci-packages/")) return "user/front-door";
+  if (path.startsWith("data/kubara-platform-matrix/")) return "user/front-door";
+  if (path.startsWith("data/kubara-wiring/")) return "user/front-door";
   if (path.startsWith("data/oci-evidence-chains/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/local-live-triage/")) return "user/front-door";
@@ -469,6 +471,9 @@ function roleFor(path) {
   if (path === "data/lifecycle-route-actions/actions.csv") return "one row per hook/lifecycle route projected into an action packet: lifecycle phase, action kind, disposition, required target facts, evidence required, and whether the product runs it automatically (false today)";
   if (path === "data/helm-render-intents/intents.csv") return "one row per real base variant with chart/version/base, render inputs, evidence lanes, lifecycle route status, target-prerequisite action count, and source repository URL";
   if (path === "data/installer-oci-packages/packages.csv") return "one row per installer package with chart/version, package path, public package OCI ref, bases, setup command, and publication receipt status";
+  if (path.startsWith("data/kubara-platform-matrix/")) return "Kubara component-by-cluster selection, exact version, sync state, and departure matrix; current v0.13 is primary and v0.12 is retained historical evidence";
+  if (path.startsWith("data/kubara-wiring/")) return "deterministically extracted Kubara needs/provides wiring edges, unresolved needs, and provider candidates; current v0.13 is primary and v0.12 is retained historical evidence";
+  if (path.startsWith("data/kubara-catalog-refresh/")) return "exact Kubara chart-version candidate status with additive retention and source-artifact locks";
   if (path === "data/kind-parity-decisions/decisions.csv") return "one row per non-pass two-cluster kind-parity row: residue category, who fixes it (user/catalog/review), whether it is usable today, plain user decision, and next action";
   if (path === "data/live-parity-decisions/decisions.csv") return "one row per non-pass ConfigHub OCI + live Helm-vs-ConfigHub (G/P-lane) row: residue category, who fixes it, whether it is usable today, plain user decision, next action, and support artifact";
   if (path === "data/live-run-blocks/run-blocks.csv") return "one row per ready-to-run todo live row grouped into a run block: block id/goal, exact command, lane cells, predicted residue family + target profile (derived from committed evidence, never a claim) with basis and confidence, serial-safety notes, and why it matters for 99%";
@@ -624,6 +629,8 @@ function commandForPath(path, family) {
   if (path.startsWith("data/top100-promotion-wave/fast-track")) return "npm run top100:promotion-fast-track";
   if (path.startsWith("data/latest-top20-refresh/replacement-decisions/")) return "npm run top20:latest-replacement-decisions";
   if (path.startsWith("data/latest-top20-refresh/action-queue/")) return "npm run top20:latest-action-queue";
+  if (path.startsWith("data/kubara-catalog-refresh/current-candidates/")) return "npm run kubara-current-catalog-candidates:generate";
+  if (path.startsWith("data/kubara-catalog-refresh/candidates/")) return "npm run kubara-catalog-candidates:generate";
   return commandFor(family);
 }
 
@@ -633,6 +640,8 @@ function verifyForPath(path, family) {
   if (path.startsWith("data/top100-promotion-wave/fast-track")) return "npm run top100:promotion-fast-track:verify";
   if (path.startsWith("data/latest-top20-refresh/replacement-decisions/")) return "npm run top20:latest-replacement-decisions:verify";
   if (path.startsWith("data/latest-top20-refresh/action-queue/")) return "npm run top20:latest-action-queue:verify";
+  if (path.startsWith("data/kubara-catalog-refresh/current-candidates/")) return "npm run kubara-current-catalog-candidates:verify";
+  if (path.startsWith("data/kubara-catalog-refresh/candidates/")) return "npm run kubara-catalog-candidates:verify";
   return verifyFor(family);
 }
 
@@ -646,6 +655,8 @@ function commandMap() {
     "master-catalog-matrix": { generate: "npm run master-matrix", verify: "npm run master-matrix:verify" },
     "disposition-frontier": { generate: "npm run disposition-frontier", verify: "npm run disposition-frontier:verify" },
     "environment-matrix": { generate: "npm run environment-matrix", verify: "npm run environment-matrix:verify" },
+    "kubara-platform-matrix": { generate: "npm run kubara-platform-matrix:generate", verify: "npm run kubara-platform-matrix:verify" },
+    "kubara-wiring": { generate: "npm run kubara-wiring:generate", verify: "npm run kubara-wiring:verify" },
     "torture-suite": { generate: "npm run torture:suite", verify: "npm run torture:suite:verify" },
     "doc-freshness": { generate: "npm run doc-freshness", verify: "npm run doc-freshness:verify" },
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },

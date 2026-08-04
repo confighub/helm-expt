@@ -55,7 +55,14 @@ function categorize(name) {
   if (name.startsWith("verify-install:") || name.startsWith("verify-bulk-ops:")) return "user-install-verification";
   if (name.startsWith("npm-scripts:")) return "repo-integrity";
   if (name.startsWith("top20:latest")) return "latest-version-refresh";
-  if (name.startsWith("kubara-catalog-candidates:")) return "latest-version-refresh";
+  if (name.startsWith("kubara-catalog-candidates:") || name.startsWith("kubara-current-catalog-candidates:") || name.includes("kubara-current-catalog-promotion:") || name.startsWith("kubara-catalog-promotion:")) return "latest-version-refresh";
+  if (name.startsWith("kubara-catalog-release:")) return "catalog-data";
+  if (name.startsWith("kubara-catalog-oci:")) return "oci-evidence";
+  if (name.startsWith("kubara-catalog-adapter:") || name.startsWith("kubara-catalog-snapshots:") || name.startsWith("kubara-current-example:") || name.startsWith("kubara-effective-renders:")) return "catalog-data";
+  if (name.startsWith("kubara-wiring:") || name.startsWith("kubara-platform-matrix:")) return "evidence-workdown";
+  if (name.startsWith("kubara-faithful-hub-spoke:") || name.startsWith("kubara-live-qualification:") || name.startsWith("kubara-current-live-qualification:")) return "live-parity-gitops";
+  if (name.startsWith("kubara-mini-idp:")) return "confighub-proof";
+  if (name.startsWith("kubara-release:")) return "repo-integrity";
   if (name.startsWith("top20:local-e2e") || name.startsWith("top20:verify-local-e2e")) return "local-live-evidence";
   if (name.startsWith("top20:confighub-proof") || name.startsWith("top20:verify-confighub-proof")) return "confighub-proof";
   if (name.startsWith("top20:base-readiness")) return "catalog-readiness";
@@ -86,6 +93,9 @@ function categorize(name) {
 
 function classifyMode(name, command) {
   if (name === "verify") return "full-corpus-verify";
+  if (name === "kubara-catalog-snapshots:refresh") return "generate-or-run";
+  if (name === "kubara-catalog-release:generate") return "generate-or-run";
+  if (name === "kubara-release:verify-static") return "verify";
   if (name.endsWith(":receipt-verify")) return "verify";
   if (name.endsWith(":verify") || name.includes(":verify-") || name.startsWith("verify") || command.includes("--verify")) return "verify";
   if (name.endsWith(":self-test") || command.includes("self-test")) return "self-test";
@@ -98,7 +108,13 @@ function classifyExternalState(name, command, mode) {
   if (name.includes("verify-install:cluster") || name.includes("verify-install:confighub") || name.startsWith("verify-bulk-ops:")) return "user-supplied-cluster-or-confighub";
   if (name.startsWith("helm-org:") && !name.endsWith(":plan") && !name.includes(":receipt:verify")) return "confighub-or-live-cluster";
   if (name.startsWith("kubara-org-shape:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify")) return "confighub-or-live-cluster";
+  if (name.startsWith("kubara-mini-idp:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify")) return "confighub-or-live-cluster";
+  if ((name.startsWith("kubara-faithful-hub-spoke:") || name.startsWith("kubara-live-qualification:") || name.startsWith("kubara-current-live-qualification:")) && (name.endsWith(":run") || name.endsWith(":preflight"))) return "confighub-or-live-cluster";
+  if (name === "kubara-faithful-hub-spoke:rehearse") return "local-kubara-binary";
+  if ((name.startsWith("kubara-catalog-promotion:") || name.startsWith("kubara-current-catalog-promotion:")) && name.endsWith(":stage")) return "network-or-helm-repo";
   if (name === "oci:inspect:verify-live") return "public-oci-registry";
+  if (name === "kubara-catalog-oci:publish") return "authenticated-oci-registry";
+  if (name === "kubara-catalog-oci:verify" || name.startsWith("kubara-catalog-release:")) return "public-oci-registry";
   if (name === "oci:inspect") return "user-supplied-oci";
   if (name === "oci:transform") return "user-supplied-oci";
   if (name === "anonymous-oci-transform:proof") return "public-oci-registry";
@@ -108,13 +124,27 @@ function classifyExternalState(name, command, mode) {
   if (name === "pilot:switch-map" || name === "pilot:generate-variant") return "network-or-helm-repo";
   if (name.includes("confighub-proof") || name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("derived-variants:target-bound") || name.startsWith("external-scan") || name.startsWith("pilot:")) return "confighub-or-live-cluster";
   if (name.startsWith("top20:latest") || command.includes("helm pull") || command.includes("helm template")) return "network-or-helm-repo";
-  if (name === "kubara-catalog-candidates:generate") return "network-or-helm-repo";
+  if (name === "kubara-catalog-candidates:generate" || name === "kubara-current-catalog-candidates:generate" || name === "kubara-current-example:generate" || name === "kubara-effective-renders:generate") return "network-or-helm-repo";
+  if (name === "kubara-catalog-snapshots:refresh") return "network-or-git-source";
   return "none-for-verify";
 }
 
 function classifyWritesFiles(name, command, mode) {
   if (name === "kubara-org-shape:plan") return "no";
   if (name === "kubara-org-shape:apply") return "receipts-or-runs";
+  if (name === "kubara-mini-idp:plan") return "no";
+  if (name === "kubara-mini-idp:apply") return "receipts-or-runs";
+  if (name === "kubara-catalog-oci:dry-run") return "no";
+  if (name === "kubara-catalog-oci:publish") return "receipts-or-runs";
+  if (name === "kubara-catalog-release:generate") return "generated-artifacts";
+  if ((name.startsWith("kubara-catalog-promotion:") || name.startsWith("kubara-current-catalog-promotion:")) && name.endsWith(":dry-run")) return "no";
+  if ((name.startsWith("kubara-catalog-promotion:") || name.startsWith("kubara-current-catalog-promotion:")) && name.endsWith(":promote")) return "catalog-and-receipt";
+  if ((name.startsWith("kubara-catalog-promotion:") || name.startsWith("kubara-current-catalog-promotion:")) && name.endsWith(":stage:clean")) return "temporary-generated-artifacts";
+  if ((name.startsWith("kubara-live-qualification:") || name.startsWith("kubara-current-live-qualification:")) && name.endsWith(":preflight")) return "no";
+  if (name.startsWith("kubara-faithful-hub-spoke:") && name.endsWith(":run")) return "receipts-or-runs";
+  if ((name.startsWith("kubara-live-qualification:") || name.startsWith("kubara-current-live-qualification:")) && name.endsWith(":run")) return "receipts-or-runs";
+  if ((name.startsWith("kubara-catalog-promotion:") || name.startsWith("kubara-current-catalog-promotion:")) && name.endsWith(":stage")) return "temporary-generated-artifacts";
+  if (name === "kubara-catalog-snapshots:refresh") return "generated-artifacts";
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "no";
   if (name === "oci:transform") return "local-oci-layout";
   if (name === "anonymous-oci-transform:proof") return "proof-artifacts";

@@ -1,4 +1,10 @@
-# Roll out an app on a Kubara platform managed by ConfigHub
+# Historical Kubara v0.12.0 app rollout
+
+> **Compatibility record.** This page records the earlier adapted four-cluster
+> live rollout. It remains evidence for promotion, approval, rollback, and
+> target departures, but it does not establish current Kubara v0.13.0 component
+> versions. Start with the
+> [current reproducible mini-IDP guide](single-platform.md).
 
 This example shows two things. First, ConfigHub manages Argo CD across four
 clusters and rolls out, promotes, and rolls back an app for the operator. Second,

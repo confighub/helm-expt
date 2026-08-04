@@ -33,12 +33,16 @@ spec:
         sha256: "9e9b6442f769b8a02974ae801946207452f7f4990e873e007e4d32ec88d9cc09"
         bytes: 40631
       -
+        path: "collector/target-facts.sh"
+        sha256: "19b484c12c1102f9ef0e1617ed05eb1d8cad6b5b4699b6a7683ae3911500e248"
+        bytes: 4360
+      -
         path: "installer.yaml"
-        sha256: "d54755042e5de315f347fc2cec6d616b3f887ce401ab7364547468a43e4383c6"
-        bytes: 476
+        sha256: "5131ca651def25d8d5650610e8aba1a39184ff921784fc566af3c2b6ab93a8d5"
+        bytes: 1870
   deterministicBundle:
     command: "cub installer package data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0 -o <tmp>/cert-manager-v1.21.0.tgz"
-    sha256: "95a5a82a450dfb11cea5692d05fd58dc283696167c7fb02d62b603830b78af9e"
+    sha256: "1a43f5210e77061129156f0bda8c1815c31d7129b29c31c8b17d689f30278305"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
@@ -49,8 +53,8 @@ spec:
       cubInstallObjectCountIncludingSupport: 41
       semanticObjectMatches: "40/40"
       separatedSecretCount: 0
-      targetFactMode: "not-required"
-      targetFactsBound: false
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       allowedCubOnlyObjects:
         - "v1|Namespace||cert-manager"
     -

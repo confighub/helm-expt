@@ -441,19 +441,27 @@ function verifyCatalogAlignment() {
   const candidateSet = alignment.spec?.exactCandidateSet ?? {};
   check(candidateSet.status === "offline-candidate-pass", "Kubara exact candidate set status changed");
   check(candidateSet.candidateCount === 7, "Kubara exact candidate set must contain seven public pins");
-  check(candidateSet.rootRetention === "not-yet-qualified", "Kubara candidates must not overclaim root retention");
-  check(candidateSet.liveQualification === "not-run", "Kubara candidates must not overclaim live qualification");
+  check(candidateSet.rootRetention === "retained", "Kubara exact candidates are not recorded as additively retained");
+  check(candidateSet.liveQualification === "passed-13-of-13", "Kubara historical live qualification is not recorded as complete");
   const candidateSetPath = join(repoRoot, candidateSet.path ?? "");
   check(existsSync(candidateSetPath), "Kubara exact candidate-set manifest is missing");
   const candidateManifest = readYaml(candidateSetPath);
   check(candidateManifest.kind === "KubaraCatalogCandidateSet", "Kubara exact candidate-set kind changed");
+  check(candidateManifest.spec?.rootRetention === "retained", "Kubara candidate manifest does not record additive root retention");
+  const promotionReceiptPath = join(repoRoot, "data/kubara-catalog-refresh/root-promotion/receipt.yaml");
+  check(existsSync(promotionReceiptPath), "Kubara historical root-promotion receipt is missing");
+  const promotionReceipt = readYaml(promotionReceiptPath);
+  check(promotionReceipt.kind === "KubaraCatalogRootPromotionReceipt", "Kubara historical root-promotion receipt kind changed");
+  check(promotionReceipt.spec?.additionWave === "historical-7", "Kubara historical root-promotion wave changed");
+  check(promotionReceipt.spec?.additionCount === 7, "Kubara historical root-promotion count changed");
+  check(promotionReceipt.spec?.retentionMode === "additive-only-non-overwrite", "Kubara historical root promotion is not additive-only");
   const exactCandidates = new Map(
     (candidateManifest.spec?.candidates ?? []).map((candidate) => [candidate.canonicalIdentity, candidate]),
   );
   check(exactCandidates.size === 7, "Kubara exact candidate-set manifest must contain seven candidates");
   check(
-    alignment.spec?.kubaraCatalogAdapter?.status === "planned",
-    "Kubara catalog adapter status must remain honest until implemented",
+    alignment.spec?.kubaraCatalogAdapter?.status === "verified",
+    "Kubara catalog adapter is not recorded as verified",
   );
   const requiredAdapterInputs = [
     "exact-reviewed-upstream-package",
@@ -572,23 +580,25 @@ function verifyCatalogAlignment() {
       );
     }
     check(
-      catalog.kubaraCompatibility?.serviceDefinition === "not-captured",
-      `${component.canonicalIdentity}: Kubara ServiceDefinition status overclaims`,
+      catalog.kubaraCompatibility?.serviceDefinition === "byte-preserved",
+      `${component.canonicalIdentity}: Kubara ServiceDefinition is not byte-preserved`,
     );
     check(
-      catalog.kubaraCompatibility?.wrapperAdditions === "fixture-locked",
-      `${component.canonicalIdentity}: Kubara wrapper status drifted`,
+      catalog.kubaraCompatibility?.wrapperAdditions === "byte-preserved",
+      `${component.canonicalIdentity}: Kubara wrapper additions are not byte-preserved`,
     );
-    check(
-      catalog.kubaraCompatibility?.adapterProfile === "missing",
-      `${component.canonicalIdentity}: Kubara adapter profile status overclaims`,
-    );
-    check(
-      catalog.componentEntryStatus === "missing",
-      `${component.canonicalIdentity}: whole wrapped component is not retained yet`,
-    );
-    check(catalog.adapterStatus === "not-run", `${component.canonicalIdentity}: adapter status overclaims`);
-    check(catalog.parityStatus === "not-run", `${component.canonicalIdentity}: parity status overclaims`);
+    const adapterProfile = catalog.kubaraCompatibility?.adapterProfile;
+    check(adapterProfile && existsSync(join(repoRoot, adapterProfile)), `${component.canonicalIdentity}: Kubara adapter profile is missing`);
+    const profile = readYaml(join(repoRoot, adapterProfile));
+    check(profile.kind === "KubaraCompatibilityProfile", `${component.canonicalIdentity}: adapter profile kind changed`);
+    check(catalog.adapterStatus === "verified", `${component.canonicalIdentity}: adapter is not verified`);
+    if (component.canonicalIdentity.startsWith("helm:")) {
+      check(catalog.componentEntryStatus === "retained", `${component.canonicalIdentity}: exact root component is not retained`);
+      check(catalog.parityStatus === "passed-13-of-13", `${component.canonicalIdentity}: historical live parity is not recorded`);
+    } else {
+      check(catalog.componentEntryStatus === "missing", `${component.canonicalIdentity}: first-party Homer must not masquerade as a root catalog package`);
+      check(catalog.parityStatus === "deterministic-render-verified", `${component.canonicalIdentity}: first-party render verification changed`);
+    }
   }
 
   const [library] = alignment.spec?.buildDependencies ?? [];

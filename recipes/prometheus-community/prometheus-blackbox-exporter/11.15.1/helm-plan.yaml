@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "prometheus-community-prometheus-blackbox-exporter-11.15.1"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "prometheus-community/prometheus-blackbox-exporter"
+    version: "11.15.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 4
+    cubInstallObjectsByVariant:
+      default: 5
+    helmMatchByVariant:
+      default: "4/4"
+    scanGate: "warn-review-before-production"
+    nextAction: "retain additively only after the 13-lane Kubara live-qualification receipt passes; keep complete Kubara component compatibility separate"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"

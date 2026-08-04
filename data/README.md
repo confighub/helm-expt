@@ -288,6 +288,9 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `image-digest-workdown` | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | image pinning and mutable tag review |
 | `installer-oci-packages` | [installer-oci-packages/summary.md](./installer-oci-packages/summary.md) | public installer package OCI refs and consumer setup commands for chart packages |
 | `kind-parity-decisions` | [kind-parity-decisions/summary.md](./kind-parity-decisions/summary.md) | product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action |
+| `kubara-catalog-refresh` | - | supporting generated evidence |
+| `kubara-platform-matrix` | [kubara-platform-matrix/summary.md](./kubara-platform-matrix/summary.md) | supporting generated evidence |
+| `kubara-wiring` | [kubara-wiring/summary.md](./kubara-wiring/summary.md) | supporting generated evidence |
 | `large-config-operations` | [large-config-operations/summary.md](./large-config-operations/summary.md) | large ConfigHub upload/apply/GitOps operation funnel and progress-evidence gaps |
 | `latest-top20-refresh` | [latest-top20-refresh/summary.md](./latest-top20-refresh/summary.md) | latest upstream chart-version refresh candidates |
 | `legacy-patch-review` | [legacy-patch-review/summary.md](./legacy-patch-review/summary.md) | older chart-version patch support review |
@@ -362,7 +365,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 171 CSV files. Each row records the path, audience,
+It includes 177 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

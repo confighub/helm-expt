@@ -13,6 +13,7 @@ const base = optionValue("--base");
 const targetProfile = optionValue("--target-profile");
 const gitopsCanonicalizationProfile = optionValue("--gitops-canonicalization-profile");
 const repoUrlOverride = optionValue("--repo-url");
+const packageOverride = optionValue("--package");
 const namespaceOverride = optionValue("--namespace");
 const releaseOverride = optionValue("--release");
 const slugOverride = optionValue("--slug");
@@ -50,6 +51,7 @@ Options:
   --recipe <path>                       recipes/<repo>/<chart>/<version>
   --base <name>                         base variant under variants/<name>
   --repo-url <url>                      override source-lock repositoryURL
+  --package <path>                      override the package path derived from the recipe
   --namespace <namespace>               override variant namespace
   --release <name>                      override variant releaseName
   --slug <slug>                         override run slug
@@ -70,6 +72,13 @@ function preflight() {
     { name: "package", result: existsSync(join(repoRoot, target.packagePath)) ? "pass" : "blocked", detail: target.packagePath },
     { name: "values", result: existsSync(join(repoRoot, target.valuesPath)) ? "pass" : "blocked", detail: target.valuesPath },
     { name: "variant revision", result: existsSync(join(repoRoot, target.variantRevision)) ? "pass" : "blocked", detail: target.variantRevision },
+    {
+      name: "exact source artifact",
+      result: target.exactArtifactURL && target.exactArtifactSHA256 ? "pass" : "pass",
+      detail: target.exactArtifactURL
+        ? `${target.exactArtifactURL} sha256:${target.exactArtifactSHA256}`
+        : "source lock uses repository resolution",
+    },
     toolCheck("python3"),
     toolCheck("cub"),
     cubAuthCheck(),
@@ -110,6 +119,10 @@ function run() {
     "--rig", target.rig,
     "--out", target.out,
   ];
+  if (target.exactArtifactURL) {
+    command.push("--chart-artifact-url", target.exactArtifactURL);
+    command.push("--chart-artifact-sha256", target.exactArtifactSHA256);
+  }
   if (targetProfile) command.push("--target-profile", targetProfile);
   if (gitopsCanonicalizationProfile) command.push("--gitops-canonicalization-profile", gitopsCanonicalizationProfile);
   if (keep) command.push("--keep");
@@ -133,9 +146,15 @@ function resolveTarget() {
   const chart = source.spec?.ref ?? chartFromRecipe(recipe);
   const version = source.spec?.version ?? versionFromRecipe(recipe);
   const repositoryURL = repoUrlOverride ?? source.spec?.repositoryURL;
+  const exactArtifactURL = source.spec?.exactArtifact?.url ?? "";
+  const exactArtifactSHA256 = source.spec?.exactArtifact?.sha256 ?? "";
   check(chart, `${recipe}/source-lock.yaml missing spec.ref`);
   check(version, `${recipe}/source-lock.yaml missing spec.version`);
   check(repositoryURL, `${recipe}/source-lock.yaml missing spec.repositoryURL`);
+  check(
+    !exactArtifactURL || exactArtifactSHA256,
+    `${recipe}/source-lock.yaml exact artifact is missing spec.exactArtifact.sha256`,
+  );
   const valuesProfile = variant.spec?.valuesProfile;
   check(valuesProfile, `${recipe}/variants/${base}/variant.yaml missing spec.valuesProfile`);
   const namespace = namespaceOverride ?? variant.spec?.namespace ?? "default";
@@ -150,7 +169,9 @@ function resolveTarget() {
     namespace,
     releaseName,
     slug,
-    packagePath: `packages/${chart}/${version}`,
+    packagePath: packageOverride ?? packagePathFromRecipe(recipe, chart, version),
+    exactArtifactURL,
+    exactArtifactSHA256,
     valuesPath: normalizeRelative(recipe, `variants/${base}`, valuesProfile),
     variantRevision: `${recipe}/revisions/${base}/r001/variant-revision.yaml`,
     rig: rigOverride ?? `helm-expt-parity-${rigSlug(slug)}-${uniqueRunSuffix()}`,
@@ -164,10 +185,20 @@ function resolveTarget() {
 
 function defaultReceiptPath({ chart, version, base, recipe }) {
   const chartBase = `${chart.replaceAll("/", "-")}-${base}`;
-  if (!hasDuplicateChartBaseVersion({ chart, base, recipe })) {
+  if (recipe.startsWith("recipes/") && !hasDuplicateChartBaseVersion({ chart, base, recipe })) {
     return `runs/live-helm-confighub-compare/${chartBase}/receipt.yaml`;
   }
   return `runs/live-helm-confighub-compare/${chartBase}-${slugPart(version)}/receipt.yaml`;
+}
+
+function packagePathFromRecipe(recipe, chart, version) {
+  const parts = recipe.split("/");
+  const recipesIndex = parts.lastIndexOf("recipes");
+  if (recipesIndex >= 0) {
+    parts[recipesIndex] = "packages";
+    return parts.join("/");
+  }
+  return `packages/${chart}/${version}`;
 }
 
 function hasDuplicateChartBaseVersion({ chart, base, recipe }) {

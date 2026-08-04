@@ -22,13 +22,14 @@ const chart = {
 const versionExpectations = {
   "2.5.0": { defaultObjects: 42, noCrdsObjects: 19, crds: 23 },
   "2.7.0": { defaultObjects: 43, noCrdsObjects: 19, crds: 24 },
+  "2.8.0": { defaultObjects: 44, noCrdsObjects: 19, crds: 25 },
 };
 const expected = versionExpectations[chart.version];
 if (!expected) throw new Error(`external-secrets ${chart.version} needs reviewed version-specific assertions`);
 
 const externalSecretsCRDs = [
   "acraccesstokens.generators.external-secrets.io",
-  ...(chart.version === "2.7.0"
+  ...(["2.7.0", "2.8.0"].includes(chart.version)
     ? ["beyondtrustworkloadcredentialsdynamicsecrets.generators.external-secrets.io"]
     : []),
   "cloudsmithaccesstokens.generators.external-secrets.io",
@@ -42,6 +43,9 @@ const externalSecretsCRDs = [
   "gcraccesstokens.generators.external-secrets.io",
   "generatorstates.generators.external-secrets.io",
   "githubaccesstokens.generators.external-secrets.io",
+  ...(chart.version === "2.8.0"
+    ? ["gitlabdeploytokens.generators.external-secrets.io"]
+    : []),
   "grafanas.generators.external-secrets.io",
   "mfas.generators.external-secrets.io",
   "passwords.generators.external-secrets.io",
