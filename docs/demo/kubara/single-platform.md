@@ -551,9 +551,11 @@ actions before receipt verification can pass. A restarted apply also compares
 every Unit's head revision with its last applied revision, so an interrupted
 run cannot mistake an older existing release for the current desired state.
 If Argo retains a failed attempt for the same OCI revision, the reconciler
-hard-refreshes that Application and requests one bounded current-revision
-sync. This is part of the deterministic retry path; it requires no console
-click and never broadens the resource allowlist.
+hard-refreshes that Application, waits until the refresh is observed, and
+requests a bounded current-revision sync. A terminal failure or terminal
+`Succeeded`/`OutOfSync` result starts another cycle, up to four. This is part
+of the deterministic retry path; it requires no console click and never
+broadens the resource allowlist.
 
 The result includes every selected platform role, lifecycle and target facts,
 the platform contract, catalog-alignment evidence, matrix and wiring evidence,
