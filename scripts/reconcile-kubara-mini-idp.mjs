@@ -722,11 +722,16 @@ function buildPlan(inputs) {
     }
     for (let index = 0; index < family.targets.length; index += 1) {
       const fleetItem = family.targets[index];
-      const upstreamSpace = index === 0
-        ? `${family.prefix}-base`
-        : index === 1
-          ? `${family.prefix}-dev`
-          : `${family.prefix}-staging`;
+      // Only the hx-web scenario is a promotion chain. Platform bindings and
+      // ordinary applications are independent per-cluster instances of the
+      // reusable definition, matching Kubara's definition/instance shape.
+      const upstreamSpace = family.scenario
+        ? index === 0
+          ? `${family.prefix}-base`
+          : index === 1
+            ? `${family.prefix}-dev`
+            : `${family.prefix}-staging`
+        : `${family.prefix}-base`;
       const space = `${family.prefix}-${fleetItem.suffix}`;
       spaces.push({
         slug: space,
