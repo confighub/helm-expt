@@ -55,7 +55,9 @@ adapted platform.
 Every service followed the same path. We rendered its chart to plain Kubernetes
 files, stored those files in ConfigHub as Units, cloned them onto the dev cluster
 with `cub variant create` (bound to the cluster's Argo CD target), and published
-with `cub release publish` so Argo CD installed them. Nothing was applied by hand.
+with `cub release publish` so Argo CD installed them. No workload manifest was
+applied directly; the targeted Argo recovery and cleanup exceptions are called
+out below.
 
 Most services needed a fix, and each fix is a real thing that happens with a
 generated platform.
@@ -78,25 +80,53 @@ generated platform.
     to that client-side apply, so the first large chart hits the limit. The fix is
     server-side apply, which large CRDs need and which a cluster handling charts
     like this should turn on. We set it on the Argo Application and they installed.
+    A temporary `Replace=true` fallback used during bring-up was removed afterward;
+    the final application uses server-side apply only and all 10 monitoring CRDs
+    remain installed.
   - Its Grafana would not start, because its admin secret was missing. Grafana
     only reads a Secret; it does not depend on external-secrets. Kubara's platform
-    uses external-secrets to create that Secret from a secret store, and we had not
-    delivered external-secrets, so no Secret appeared. We supplied it directly so
-    Grafana could start.
-- **external-secrets** we did not deliver at first. Kubara installs the operator
-  but leaves the secret store as a prerequisite you provide, and a laptop cluster
-  has no such store, so we supplied Grafana's secret by hand instead of letting
-  external-secrets create it.
+    uses external-secrets to create that Secret from a secret store. We initially
+    supplied it directly so Grafana could start, then retired that temporary
+    delivery after external-secrets took ownership.
+- **external-secrets** was not delivered in the first pass. Kubara installs the
+  operator but deliberately leaves the secret store as a prerequisite. We later
+  delivered the pinned `2.7.0` operator through three ConfigHub Spaces: the
+  operator, a kind-only fake `ClusterSecretStore`, and Grafana's `ExternalSecret`.
+  The operator installed 24 CRDs and its controller, webhook, and cert-controller
+  all became ready. The store became `Ready=True (Valid)`, the ExternalSecret
+  became `Ready=True (SecretSynced)`, and the generated
+  `grafana-admin-credentials` Secret gained external-secrets management labels and
+  an `ExternalSecret` controller owner reference. We removed the temporary app Unit
+  and published the apps Space, but that root Application has pruning disabled, so
+  the stale child Application correctly remained. After confirming it was the only
+  extra resource and had no cascade finalizer, we deleted that one Application
+  directly, removed both manual-secret Spaces, and cleared the Secret's stale
+  tracking, origin, and last-applied annotations directly. Grafana was still
+  `1/1` after cleanup.
+
+  Two live details mattered. external-secrets `2.7.0` no longer accepts the old
+  fake-provider `valueMap` shape, so the two demo keys were encoded as one JSON
+  string in `value`, which `dataFrom.extract` decodes. Also, the rendered chart
+  included the already-shared `Namespace/default`; its Argo tracking annotations
+  conflicted with the existing Homer Application. We removed only that redundant
+  Namespace document from the external-secrets payload, leaving the namespace and
+  its workloads untouched.
 
 > Note on server-side apply. `cub cluster up` installs a stock Argo CD, whose
 > default apply is client-side and cannot handle CRDs larger than 256 KB. A
 > cluster that will run charts with large CRDs, such as kube-prometheus-stack,
 > should turn on server-side apply on its Argo Applications. On a clean install
-> with it on from the start, that alone is enough.
+> with it on when the sync operation begins, that alone is enough. The
+> external-secrets follow-up exposed a publication race: `cub variant create`
+> published the Application before its SSA edit, so the first auto-sync captured
+> the old options and failed on the two largest store CRDs. We terminated that
+> stale operation and resynced with SSA; the final Application is
+> `Synced/Healthy` with all 24 CRDs.
 
-After this, five of the seven services ran on the dev cluster: cert-manager,
-traefik, metrics-server, homer-dashboard, and kube-prometheus-stack. ConfigHub's
-Argo CD stood in for the sixth, argo-cd. Only external-secrets was missing.
+After the follow-up, six of the seven Kubara services ran on the dev cluster:
+cert-manager, external-secrets, traefik, metrics-server, homer-dashboard, and
+kube-prometheus-stack. ConfigHub's Argo CD stands in for Kubara's argo-cd, so all
+seven platform roles are accounted for.
 
 ### 4. Put two apps on the platform
 
@@ -161,8 +191,9 @@ open the Spaces this example created.
 
 - The cluster Spaces `hx-app-dev`, `hx-app-staging`, `hx-app-prod-a`, and
   `hx-app-prod-b` hold each cluster's delivery target and its Argo Applications.
-- The platform Spaces such as `hx-cm-dev`, `hx-traefik-dev`, and `hx-kps-main-dev`
-  hold the Kubara services.
+- The platform Spaces such as `hx-cm-dev`, `hx-traefik-dev`, `hx-kps-main-dev`,
+  `hx-eso-dev`, `hx-eso-store-dev`, and `hx-eso-grafana-es-dev` hold the Kubara
+  services and their cluster-specific prerequisites.
 - The application Spaces `hx-web-*` and `hx-cubbychat-*` hold the two apps.
 - The `hx-platform` Space holds the approval rule that gates production.
 
@@ -173,9 +204,14 @@ and `cub unit get <unit> --space <space> --web` opens a single Unit.
 ## What this does not prove
 
 The heavier services ran on the dev cluster only. cert-manager and traefik run on
-all four clusters, and both apps run on all four. One of the seven Kubara
-services, external-secrets, was not delivered, for the reason in step 3. The apps
-are a small nginx service and the cubbychat sample, not production workloads.
+all four clusters, and both apps run on all four. external-secrets was proven on
+kind with its built-in fake provider and demo `admin/admin` data held in
+ConfigHub; this does not prove a production Vault, AWS, or other secret backend.
+The three external-secrets Applications and the kube-prometheus-stack CRD
+Application finished `Synced/Healthy`, but the cluster-wide Argo snapshot still
+contains unrelated pre-existing OutOfSync or Progressing aggregate state on six
+other Applications. The apps are a small nginx service and the cubbychat sample,
+not production workloads.
 
 ## Check the evidence
 
