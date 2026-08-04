@@ -556,7 +556,10 @@ and both apps on all four targets. ConfigHub-managed Argo CD already supplies
 the adapted delivery role, so this lane does not also install the Kubara hub
 Argo chart on the same targets. Large CRD Applications use
 `ServerSideApply=true`; `Replace=true` is forbidden. External Secrets owns the
-Grafana admin Secret through the dev fake-provider target fact.
+Grafana admin Secret through the dev fake-provider target fact. Every adapted
+Argo Application also retains Kubara's generated destination namespace (the
+service name unless Kubara declares an override), so namespace-less Helm
+objects resolve exactly as they do under Kubara's ApplicationSet template.
 
 The accepted desired plan is explicit: 53 Spaces, 60 managed Units, 27
 deployments, 25 `NeedsProvides` Links, and 53 source/evidence payloads before
