@@ -421,6 +421,12 @@ function verifyKubaraPublicSourceContract() {
     "public matrix is regenerated from that desired state plus receipt evidence",
     "ConfigHub GUI shows 25 curated operational `NeedsProvides` Links",
     "public graph is the complete evidence view",
+    "one 90-minute overall convergence deadline",
+    "durable write-ahead operation journal",
+    "pins context/external organization ID `58b23b85-9699-4384-bd57-80ef695a1d58` and internal organization entity ID `12c33fa8-00b1-4011-ad3e-19d56458b29c`",
+    "All delivery Application Units are materialized and identity-checked before the first fleet-root release",
+    "checkpointed in the durable write-ahead operation journal",
+    "exact UID/resourceVersion",
   ]) check(adoption.includes(phrase), `Kubara adoption source must preserve boundary: ${phrase}`);
   for (const phrase of [
     "desired-only platform matrix and exposes exactly 25 curated operational",
@@ -488,6 +494,14 @@ function verifyKubaraPublicVisibility() {
     adoption.includes(`ConfigHub GUI shows ${curatedLinkCount} curated operational <code>NeedsProvides</code> Links`),
     `${paths.adoption} must identify the ${curatedLinkCount} GUI-visible curated NeedsProvides Links`,
   );
+  for (const phrase of [
+    "one 90-minute overall convergence deadline",
+    "durable write-ahead operation journal",
+    "58b23b85-9699-4384-bd57-80ef695a1d58",
+    "12c33fa8-00b1-4011-ad3e-19d56458b29c",
+    "All delivery Application Units are materialized and identity-checked before the first fleet-root release",
+    "exact UID/resourceVersion",
+  ]) check(adoption.includes(phrase), `${paths.adoption} must expose the restart-safe live contract: ${phrase}`);
   check(
     adoption.includes("ConfigHub governs the desired-only matrix")
       && adoption.includes("the public matrix is regenerated from that desired state plus receipt evidence"),
@@ -531,8 +545,12 @@ function verifyMiniIdpPlan() {
     maxBuffer: 1024 * 1024 * 100,
   }).trim();
   check(
-    selfTest === "Kubara mini-IDP release recovery self-test passed",
-    "mini-IDP release recovery self-test did not pass exactly",
+    selfTest === [
+      "Kubara mini-IDP release recovery self-test passed",
+      "Kubara mini-IDP Argo convergence self-test passed",
+      "Kubara mini-IDP scenario evidence self-test passed",
+    ].join("\n"),
+    "mini-IDP release and Argo convergence self-tests did not pass exactly",
   );
   const output = execFileSync(process.execPath, [script, "--plan"], {
     cwd: repoRoot,
@@ -543,14 +561,35 @@ function verifyMiniIdpPlan() {
   const plan = JSON.parse(output);
   check(plan.kind === "KubaraMiniIDPReconcilePlan", "mini-IDP plan kind changed");
   check(plan.spec?.organization === "Kubara", "mini-IDP plan organization changed");
+  check(plan.spec?.execution?.organizationExternalID === "58b23b85-9699-4384-bd57-80ef695a1d58", "mini-IDP plan organization external ID is not pinned");
+  check(plan.spec?.execution?.organizationEntityID === "12c33fa8-00b1-4011-ad3e-19d56458b29c", "mini-IDP plan organization entity ID is not pinned");
+  check(plan.spec?.execution?.serverURL === "https://hub.confighub.com", "mini-IDP plan ConfigHub server is not pinned");
   check(plan.spec?.execution?.deterministic === true, "mini-IDP plan is not deterministic");
   check(plan.spec?.execution?.aiRequired === false, "mini-IDP plan requires AI");
   check(plan.spec?.execution?.mutationGuardConsulted === false, "mini-IDP plan consults the ignored mutation guard");
-  check(plan.spec?.execution?.partialClusterStatePolicy === "fail", "mini-IDP plan does not fail on partial persistent-cluster state");
+  check(
+    plan.spec?.execution?.partialClusterStatePolicy === "fail-except-exact-journaled-prefix",
+    "mini-IDP plan no longer limits partial fleet recovery to an exact journaled prefix",
+  );
   check(plan.spec?.execution?.serialLiveParityLock === true, "mini-IDP plan does not require the shared serial live-parity lock");
   check(plan.spec?.execution?.unexpectedSpacePolicy === "fail-outside-exact-53-space-allowlist", "mini-IDP plan does not enforce the exact Space allowlist");
   check(plan.spec?.execution?.unexpectedManagedUnitOrLinkPolicy === "fail", "mini-IDP plan does not reject unexpected managed Units or Links");
   check(plan.spec?.execution?.receiptRequiresZeroActionRerun === true, "mini-IDP plan does not require a zero-action rerun receipt");
+  check(
+    plan.spec?.execution?.interruptedScenarioPolicy
+      === "write ahead every ordered hx-web mutation as a nested transition with exact pre/post Unit, release, provenance, and UpgradeUnit checkpoints; bind approval to the exact refused heads and rollback to the exact initial-rollout revision; resume only an exact durable prefix and fail closed on every undeclared delta",
+    "mini-IDP plan no longer binds scenario restart recovery to exact checkpoints",
+  );
+  check(
+    plan.spec?.execution?.argoRetryPolicy
+      === "persist one 90-minute convergence deadline and at most four sync-submission reservations per Application and OCI digest across restarts; observe an existing Argo operation without replacement for up to 60 minutes; wait for exact-revision health without resyncing for up to 30 minutes; reserve a new sync only after inactive terminal failure, OutOfSync, or wrong revision",
+    "mini-IDP plan no longer separates active-operation observation, health settling, and actual retries",
+  );
+  check(
+    plan.spec?.execution?.argoNamespaceMovePolicy
+      === "one declared tracked DaemonSet may be deleted with UID/resourceVersion preconditions from its obsolete namespace only at the exact expected OCI revision and after Argo marks it requiresPruning, the same desired workload exists in the Kubara namespace, both tracking IDs match, both ConfigHub origins match, and the reviewed TCP/9100 host-network binding conflicts",
+    "mini-IDP plan no longer bounds the namespace-move deadlock recovery",
+  );
   check(plan.spec?.execution?.minimumCubVersion === "v0.2.11", "mini-IDP plan cub minimum-version contract drifted");
   check(
     plan.spec?.execution?.publishedReleaseSelectionPolicy
@@ -644,6 +683,24 @@ function verifyMiniIdpPlan() {
   );
   check(plan.spec.deployments.filter((deployment) => deployment.type === "platform").length === 15, "mini-IDP plan must retain 15 platform deployments");
   check(plan.spec.deployments.filter((deployment) => deployment.type === "application").length === 12, "mini-IDP plan must retain all 12 application deployments");
+  const namespaceMoveDeployments = plan.spec.deployments.filter(
+    (deployment) => (deployment.namespaceMovePrunes ?? []).length > 0,
+  );
+  check(
+    namespaceMoveDeployments.length === 1
+      && namespaceMoveDeployments[0].space === "hx-kps-main-dev"
+      && stableJson(namespaceMoveDeployments[0].namespaceMovePrunes) === stableJson([{
+        migrationID: "hx-kps-main/node-exporter-default-to-kube-prometheus-stack/v1",
+        apiVersion: "apps/v1",
+        resource: "daemonset",
+        kind: "DaemonSet",
+        name: "kube-prometheus-stack-prometheus-node-exporter",
+        fromNamespace: "default",
+        conflictingBindings: ["TCP/9100"],
+        reason: "hostNetwork TCP/9100 prevents the Kubara-namespace replacement from becoming healthy before PruneLast",
+      }]),
+    "mini-IDP plan namespace-move recovery must remain one exact KPS DaemonSet",
+  );
   check(plan.spec.spaces.filter((space) => space.prodProtected).length === 10, "mini-IDP plan must protect all ten production app and system-service Spaces");
   check(plan.spec.units.filter((unit) => unit.prodProtected).length === 14, "mini-IDP plan must protect all fourteen production app and system-service Units");
   const deploymentBySpace = new Map(plan.spec.deployments.map((deployment) => [deployment.space, deployment]));

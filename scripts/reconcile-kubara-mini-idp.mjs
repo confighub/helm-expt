@@ -19,9 +19,11 @@
 //   * every writable Space, Unit, Trigger, Filter, and Link is allowlisted;
 //   * ConfigHub objects and hx-app-* clusters are never deleted by this script;
 //   * exact workload Applications retain Kubara's bounded Argo prune behavior;
+//   * one exact tracked namespace-move DaemonSet may be pruned only after
+//     proving the old/new tracking identities and shared host-network binding;
 //   * a completely absent cluster may be created with `cub cluster up`;
-//   * partial local/ConfigHub cluster state is rejected rather than repaired
-//     destructively;
+//   * partial state within one cluster is rejected; a complete ordered fleet
+//     prefix resumes only from the exact write-ahead bootstrap journal;
 //   * apply refuses to overlap the serial live-parity harness;
 //   * PILOT_ACTIVE and other mutation-guard environment variables are ignored,
 //     as explicitly requested for this example.
@@ -32,6 +34,7 @@ import {
   mkdirSync,
   mkdtempSync,
   readFileSync,
+  renameSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -49,7 +52,6 @@ import {
   sha256,
   sha256File,
   toYaml,
-  writeYaml,
 } from "./lib/proof-common.mjs";
 
 const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test"]);
@@ -58,9 +60,13 @@ const requestedModes = process.argv.filter((arg) => modes.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...modes].join(", ")}`);
 const mode = requestedModes[0] ?? "--plan";
 const contextValue = optionValue("--context") || process.env.CUB_CONTEXT?.trim() || "";
-const contextArgs = contextValue ? ["--context", contextValue] : [];
+let pinnedContextName = contextValue;
+let contextArgs = contextValue ? ["--context", contextValue] : [];
 
 const ORGANIZATION = "Kubara";
+const ORGANIZATION_EXTERNAL_ID = "58b23b85-9699-4384-bd57-80ef695a1d58";
+const ORGANIZATION_ENTITY_ID = "12c33fa8-00b1-4011-ad3e-19d56458b29c";
+const CONFIGHUB_SERVER_URL = "https://hub.confighub.com";
 const KUBARA_VERSION = "v0.13.0";
 const CATALOG_VERSION = "1.1.0";
 const MIN_CUB_VERSION = "0.2.11";
@@ -71,13 +77,30 @@ const APPROVAL_TRIGGER = "require-approval";
 const APPROVAL_FILTER = "prod-approval";
 const APPROVAL_GATE = `${CONTROL_SPACE}/${APPROVAL_TRIGGER}/vet-approvedby`;
 const PROD_SAFETY_GATE = "prod-critical";
-const SCENARIO_VERSION = "hx-web-promotion-v1";
+const SCENARIO_VERSION = "hx-web-promotion-v2";
+const SCENARIO_STEPS = [
+  "merge-bases-reset",
+  "initial-rollout",
+  "base-promotion",
+  "prod-approval",
+  "prod-a-rollback",
+  "staging-departure",
+  "departure-survives-promotion",
+];
 const LINK_REASON_ANNOTATION = "helm-expt.confighub.com/reason";
 const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
 const ARGO_PRUNE_POLICY = "Argo may prune only resources tracked by one of the 27 exact allowlisted deployment Applications; ConfigHub objects and persistent clusters are never deleted";
-const ARGO_RETRY_POLICY = "up to four refresh-observe-sync cycles for terminal failure or terminal OutOfSync state";
+const ARGO_NAMESPACE_MOVE_POLICY = "one declared tracked DaemonSet may be deleted with UID/resourceVersion preconditions from its obsolete namespace only at the exact expected OCI revision and after Argo marks it requiresPruning, the same desired workload exists in the Kubara namespace, both tracking IDs match, both ConfigHub origins match, and the reviewed TCP/9100 host-network binding conflicts";
+const ARGO_RETRY_POLICY = "persist one 90-minute convergence deadline and at most four sync-submission reservations per Application and OCI digest across restarts; observe an existing Argo operation without replacement for up to 60 minutes; wait for exact-revision health without resyncing for up to 30 minutes; reserve a new sync only after inactive terminal failure, OutOfSync, or wrong revision";
+const ARGO_OPERATION_TIMEOUT_MS = 60 * 60 * 1000;
+const ARGO_HEALTH_TIMEOUT_MS = 30 * 60 * 1000;
+const ARGO_CONVERGENCE_TIMEOUT_MS = 90 * 60 * 1000;
+const ARGO_MAX_SYNC_REQUESTS = 4;
+const ARGO_OBSERVE_SECONDS = 5;
+const NAMESPACE_MOVE_MIGRATION_ID = "hx-kps-main/node-exporter-default-to-kube-prometheus-stack/v1";
 const ARGO_REVISION_POLICY = "accept only the exact latest ConfigHub OCI manifest digest reported by Argo; never use the bundle content digest as an OCI revision";
 const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from its last applied revision; reuse the exact published release for metadata-only changes or ConfigHub's unchanged-bundle response; pass only the published OCI ManifestDigest to Argo";
+const INTERRUPTED_SCENARIO_POLICY = "write ahead every ordered hx-web mutation as a nested transition with exact pre/post Unit, release, provenance, and UpgradeUnit checkpoints; bind approval to the exact refused heads and rollback to the exact initial-rollout revision; resume only an exact durable prefix and fail closed on every undeclared delta";
 const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo";
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
 const GUI_IDENTITY_POLICY = "native Component, Owner, and Variant labels make the component-first Kubara catalog and definition-instance hub-spoke shape visible; public navigation annotations link complete evidence without claiming live health";
@@ -91,6 +114,7 @@ const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
 });
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
+const OPERATION_JOURNAL_PATH = join(homedir(), ".confighub", "locks", "helm-expt-kubara-operation-journal.json");
 const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
 const FAITHFUL_FAILURE_PATH = "runs/kubara-faithful-hub-spoke/failure.yaml";
 const FAITHFUL_ATTEMPT_PATH = "runs/kubara-faithful-hub-spoke/attempt.yaml";
@@ -247,6 +271,16 @@ const SURFACES = [
     ),
     order: 50,
     serverSideApply: true,
+    namespaceMovePrunes: [{
+      migrationID: NAMESPACE_MOVE_MIGRATION_ID,
+      apiVersion: "apps/v1",
+      resource: "daemonset",
+      kind: "DaemonSet",
+      name: "kube-prometheus-stack-prometheus-node-exporter",
+      fromNamespace: "default",
+      conflictingBindings: ["TCP/9100"],
+      reason: "hostNetwork TCP/9100 prevents the Kubara-namespace replacement from becoming healthy before PruneLast",
+    }],
   }),
   surface({
     prefix: "hx-metrics",
@@ -858,6 +892,17 @@ function buildPlan(inputs) {
 
   for (const item of SURFACES) {
     check(item.destinationNamespace, `${item.prefix}: destination namespace is required`);
+    for (const migration of item.namespaceMovePrunes ?? []) {
+      check(migration.apiVersion === "apps/v1", `${item.prefix}: namespace-move prune apiVersion must be apps/v1`);
+      check(migration.resource === "daemonset" && migration.kind === "DaemonSet", `${item.prefix}: only an exact DaemonSet namespace-move prune is supported`);
+      check(migration.name && migration.fromNamespace, `${item.prefix}: namespace-move prune identity is incomplete`);
+      check(migration.fromNamespace !== item.destinationNamespace, `${item.prefix}: namespace-move prune source still matches the destination namespace`);
+      check(
+        stableJson(migration.conflictingBindings) === stableJson(["TCP/9100"]),
+        `${item.prefix}: namespace-move prune must retain the reviewed TCP/9100 conflict`,
+      );
+      check(migration.reason, `${item.prefix}: namespace-move prune reason is required`);
+    }
     const surfaceLabels = {
       Component: item.component,
       ComponentSurface: item.prefix,
@@ -958,6 +1003,7 @@ function buildPlan(inputs) {
         serverSideApply: item.serverSideApply,
         ignoreInjectedCertificateData: item.ignoreInjectedCertificateData,
         acceptedHealth: item.acceptedHealth,
+        namespaceMovePrunes: item.namespaceMovePrunes ?? [],
       });
     }
   }
@@ -1077,9 +1123,14 @@ function buildPlan(inputs) {
   }
 
   const links = buildLinks();
+  const fleetOrder = new Map(FLEET.map((item, index) => [item.cluster, index]));
   spaces.sort((left, right) => left.slug.localeCompare(right.slug));
   managedUnits.sort((left, right) => `${left.space}/${left.slug}`.localeCompare(`${right.space}/${right.slug}`));
-  deployments.sort((left, right) => left.order - right.order || left.id.localeCompare(right.id));
+  deployments.sort((left, right) => (
+    left.order - right.order
+      || fleetOrder.get(left.cluster) - fleetOrder.get(right.cluster)
+      || left.id.localeCompare(right.id)
+  ));
   check(spaces.length === 53, `internal plan error: expected 53 Spaces, got ${spaces.length}`);
   check(new Set(spaces.map((item) => item.slug)).size === spaces.length, "internal plan has duplicate Spaces");
   check(new Set(managedUnits.map((item) => `${item.space}/${item.slug}`)).size === managedUnits.length, "internal plan has duplicate Units");
@@ -1357,6 +1408,8 @@ if (mode === "--plan") {
   verifyReceipt(inputs, plan);
 } else {
   selfTestReleaseRecovery();
+  selfTestArgoConvergence();
+  selfTestScenarioOperationEvidence();
 }
 
 function printPlan(inputs, desired) {
@@ -1375,12 +1428,15 @@ function printPlan(inputs, desired) {
     spec: {
       organization: ORGANIZATION,
       execution: {
+        organizationExternalID: ORGANIZATION_EXTERNAL_ID,
+        organizationEntityID: ORGANIZATION_ENTITY_ID,
+        serverURL: CONFIGHUB_SERVER_URL,
         deterministic: true,
         aiRequired: false,
         mutationGuardConsulted: false,
-        destructiveOperations: [ARGO_PRUNE_POLICY],
+        destructiveOperations: [ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY],
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
-        partialClusterStatePolicy: "fail",
+        partialClusterStatePolicy: "fail-except-exact-journaled-prefix",
         serialLiveParityLock: true,
         unexpectedSpacePolicy: "fail-outside-exact-53-space-allowlist",
         unexpectedManagedUnitOrLinkPolicy: "fail",
@@ -1388,9 +1444,10 @@ function printPlan(inputs, desired) {
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
+        argoNamespaceMovePolicy: ARGO_NAMESPACE_MOVE_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
         guiIdentityPolicy: GUI_IDENTITY_POLICY,
-        interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
+        interruptedScenarioPolicy: INTERRUPTED_SCENARIO_POLICY,
         interruptedReleasePolicy: INTERRUPTED_RELEASE_POLICY,
         publishedReleaseSelectionPolicy: PUBLISHED_RELEASE_SELECTION_POLICY,
         receiptRequiresZeroActionRerun: true,
@@ -1468,10 +1525,12 @@ function tryCommand(binary, args, options = {}) {
 }
 
 function cub(args, options = {}) {
+  revalidatePinnedCubContextBeforeMutation(args);
   return command("cub", [...contextArgs, ...args], options);
 }
 
 function cubTry(args, options = {}) {
+  revalidatePinnedCubContextBeforeMutation(args);
   return tryCommand("cub", [...contextArgs, ...args], options);
 }
 
@@ -1489,19 +1548,99 @@ function unwrapRows(value, key) {
   return list.map((row) => row?.[key] ?? row);
 }
 
+function parseCubContext(text) {
+  return {
+    name: text.match(/^Context Name\s+(\S+)\s*$/mi)?.[1] ?? "",
+    organizationExternalID: text.match(/^Organization ID\s+([0-9a-f-]+)\s*$/mi)?.[1] ?? "",
+    organizationName: text.match(/^Organization Name\s+(.+?)\s*$/mi)?.[1] ?? "",
+    serverURL: text.match(/^Server URL\s+(\S+)\s*$/mi)?.[1]?.replace(/\/$/, "") ?? "",
+  };
+}
+
+function rawPinnedCub(args, options = {}) {
+  return command("cub", [...contextArgs, ...args], options);
+}
+
+function assertPinnedKubaraTarget() {
+  check(pinnedContextName, "cub context name was not pinned before live access");
+  const coordinate = parseCubContext(rawPinnedCub(["context", "get"]));
+  check(coordinate.name === pinnedContextName, `cub context name drifted from ${pinnedContextName} to ${coordinate.name || "unknown"}`);
+  check(coordinate.organizationName === ORGANIZATION, `refusing cub organization ${coordinate.organizationName || "unknown"}; expected ${ORGANIZATION}`);
+  check(
+    coordinate.organizationExternalID === ORGANIZATION_EXTERNAL_ID,
+    `refusing ConfigHub external organization ID ${coordinate.organizationExternalID || "unknown"}; expected ${ORGANIZATION_EXTERNAL_ID}`,
+  );
+  check(coordinate.serverURL === CONFIGHUB_SERVER_URL, `refusing ConfigHub server ${coordinate.serverURL || "unknown"}; expected ${CONFIGHUB_SERVER_URL}`);
+  const organizations = JSON.parse(rawPinnedCub([
+    "organization", "list",
+    "--where", `ExternalID = '${ORGANIZATION_EXTERNAL_ID}'`,
+    "--select", "DisplayName,ExternalID,OrganizationID",
+    "-o", "json",
+  ]));
+  check(Array.isArray(organizations) && organizations.length === 1, `expected exactly one ${ORGANIZATION} Organization entity`);
+  const organization = organizations[0]?.Organization ?? organizations[0];
+  check(organization.DisplayName === ORGANIZATION, "ConfigHub Organization display name drifted");
+  check(organization.ExternalID === ORGANIZATION_EXTERNAL_ID, "ConfigHub Organization external ID drifted");
+  check(organization.OrganizationID === ORGANIZATION_ENTITY_ID, "ConfigHub Organization entity ID drifted");
+  const control = tryCommand("cub", [...contextArgs, "space", "get", CONTROL_SPACE, "-o", "json"]);
+  if (control.ok) {
+    const space = unwrapEntity(JSON.parse(control.output), "Space");
+    check(space.OrganizationID === ORGANIZATION_ENTITY_ID, `${CONTROL_SPACE}: organization entity ID drifted`);
+  } else {
+    check(/\b404\b|not[\s_-]*found/i.test(control.output), `${CONTROL_SPACE}: failed to verify organization ownership: ${control.output}`);
+  }
+  return coordinate;
+}
+
+function mutatingCubCommand(args) {
+  const [resource, verb] = args;
+  const pair = `${resource}/${verb ?? ""}`;
+  const mutations = new Set([
+    "cluster/up",
+    "filter/create", "filter/update",
+    "link/create", "link/update",
+    "release/publish",
+    "space/create", "space/update",
+    "trigger/create", "trigger/update",
+    "unit/approve", "unit/create", "unit/set-target", "unit/update",
+    "variant/create", "variant/promote",
+  ]);
+  const reads = new Set([
+    "filter/get",
+    "link/list",
+    "release/list",
+    "space/get", "space/list",
+    "target/get",
+    "trigger/get",
+    "unit/data", "unit/get", "unit/list",
+    "version/",
+  ]);
+  check(mutations.has(pair) || reads.has(pair), `unclassified cub command ${pair}; classify it before live use`);
+  return mutations.has(pair);
+}
+
+function revalidatePinnedCubContextBeforeMutation(args) {
+  if (mutatingCubCommand(args)) assertPinnedKubaraTarget();
+}
+
 function assertKubaraOrganization() {
+  const initialArgs = pinnedContextName ? ["--context", pinnedContextName] : [];
+  const initialText = command("cub", [...initialArgs, "context", "get"]);
+  const initial = parseCubContext(initialText);
+  check(initial.name, "active cub context name is unavailable");
+  if (pinnedContextName) check(initial.name === pinnedContextName, `requested cub context ${pinnedContextName} resolved as ${initial.name}`);
+  pinnedContextName = initial.name;
+  contextArgs = ["--context", pinnedContextName];
+  assertPinnedKubaraTarget();
   assertCubVersion();
-  const json = cubTry(["context", "get", "-o", "json"]);
+  const json = tryCommand("cub", [...contextArgs, "context", "get", "-o", "json"]);
   if (json.ok) {
     const value = JSON.parse(json.output);
     const name = value.metadata?.organizationName
       ?? value.OrganizationName
       ?? value.organizationName;
     check(name === ORGANIZATION, `refusing to run in organization ${name ?? "unknown"}; expected ${ORGANIZATION}`);
-    return;
   }
-  const text = cub(["context", "get"]);
-  check(/^Organization Name\s+Kubara\s*$/m.test(text), `active cub context is not the ${ORGANIZATION} organization`);
 }
 
 function assertCubVersion() {
@@ -1579,6 +1718,111 @@ function releaseSerialLiveLock(lockPath) {
   } catch {
     // Never remove a lock whose ownership cannot be proved.
   }
+}
+
+function operationJournalHeader() {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "KubaraMiniIDPOperationJournal",
+    organizationExternalID: ORGANIZATION_EXTERNAL_ID,
+    organizationEntityID: ORGANIZATION_ENTITY_ID,
+    serverURL: CONFIGHUB_SERVER_URL,
+  };
+}
+
+function operationExecutionFingerprint() {
+  const payloads = [...inputs.payloads.values()].map((item) => ({
+    key: item.key,
+    sha256: item.sha256,
+  })).sort((left, right) => left.key.localeCompare(right.key));
+  const executionContract = {
+    reconcilerSha256: `sha256:${sha256File(absolute("scripts/reconcile-kubara-mini-idp.mjs"))}`,
+    organization: {
+      externalID: ORGANIZATION_EXTERNAL_ID,
+      entityID: ORGANIZATION_ENTITY_ID,
+      serverURL: CONFIGHUB_SERVER_URL,
+    },
+    fleet: FLEET.map((item) => ({ cluster: item.cluster, suffix: item.suffix })),
+    deploymentOrder: plan.deployments.map((item) => ({
+      cluster: item.cluster,
+      space: item.space,
+      appSpace: item.appSpace,
+      appUnit: item.appUnit,
+      order: item.order,
+      destinationNamespace: item.destinationNamespace,
+    })),
+    policies: {
+      argoPrune: ARGO_PRUNE_POLICY,
+      namespaceMove: ARGO_NAMESPACE_MOVE_POLICY,
+      retry: ARGO_RETRY_POLICY,
+      revision: ARGO_REVISION_POLICY,
+      interruptedRelease: INTERRUPTED_RELEASE_POLICY,
+      interruptedScenario: INTERRUPTED_SCENARIO_POLICY,
+    },
+  };
+  return `sha256:${sha256(stableJson({ source: sourceEvidence(), payloads, executionContract }))}`;
+}
+
+function operationJournalFingerprintDisposition(journal, fingerprint) {
+  if (journal.executionFingerprint === fingerprint) return "current";
+  const convergenceInFlight = Object.keys(journal.convergence ?? {}).length > 0;
+  const namespaceMoveInFlight = ["prepared", "delete-returned"].includes(journal.namespaceMove?.state);
+  const scenarioInFlight = journal.scenario?.state === "started";
+  const fleetBootstrapInFlight = journal.fleetBootstrap?.state === "started";
+  return convergenceInFlight || namespaceMoveInFlight || scenarioInFlight || fleetBootstrapInFlight ? "blocked" : "rotate";
+}
+
+function readOperationJournal() {
+  if (!existsSync(OPERATION_JOURNAL_PATH)) {
+    return {
+      ...operationJournalHeader(),
+      executionFingerprint: operationExecutionFingerprint(),
+      convergence: {},
+      namespaceMove: null,
+      scenario: null,
+      fleetBootstrap: null,
+    };
+  }
+  let journal = null;
+  try {
+    journal = JSON.parse(readFileSync(OPERATION_JOURNAL_PATH, "utf8"));
+  } catch (error) {
+    check(false, `operation journal is unreadable at ${OPERATION_JOURNAL_PATH}: ${error.message}`);
+  }
+  const header = operationJournalHeader();
+  for (const [key, value] of Object.entries(header)) {
+    check(journal?.[key] === value, `operation journal ${key} drifted at ${OPERATION_JOURNAL_PATH}`);
+  }
+  check(journal.convergence && typeof journal.convergence === "object" && !Array.isArray(journal.convergence), "operation journal convergence map is invalid");
+  if (journal.scenario === undefined) journal.scenario = null;
+  check(journal.scenario === null || typeof journal.scenario === "object", "operation journal scenario entry is invalid");
+  if (journal.fleetBootstrap === undefined) journal.fleetBootstrap = null;
+  check(journal.fleetBootstrap === null || typeof journal.fleetBootstrap === "object", "operation journal fleet-bootstrap entry is invalid");
+  const fingerprint = operationExecutionFingerprint();
+  const disposition = operationJournalFingerprintDisposition(journal, fingerprint);
+  check(
+    disposition !== "blocked",
+    "operation inputs changed while an Argo convergence, namespace move, scenario transition, or fleet bootstrap is in flight",
+  );
+  if (disposition === "rotate") {
+    journal.executionFingerprint = fingerprint;
+    writeOperationJournal(journal);
+  }
+  return journal;
+}
+
+function writeOperationJournal(journal) {
+  mkdirSync(dirname(OPERATION_JOURNAL_PATH), { recursive: true });
+  const temp = `${OPERATION_JOURNAL_PATH}.${process.pid}.tmp`;
+  writeFileSync(temp, `${JSON.stringify(journal, null, 2)}\n`, { mode: 0o600 });
+  renameSync(temp, OPERATION_JOURNAL_PATH);
+}
+
+function updateOperationJournal(update) {
+  const journal = readOperationJournal();
+  update(journal);
+  writeOperationJournal(journal);
+  return journal;
 }
 
 function processAlive(pid) {
@@ -1928,15 +2172,38 @@ function materializePayloadFiles(inputs, root) {
 function applyPlan(inputs, desired) {
   assertKubaraOrganization();
   const lockPath = acquireSerialLiveLock();
+  const priorNamespaceMoveEvidence = validatedPriorNamespaceMoveEvidence();
+  const journalNamespaceMoveAttempt = validatedNamespaceMoveJournalAttempt();
+  const scenarioJournal = validatedScenarioJournal();
+  const fleetBootstrapJournal = validatedFleetBootstrapJournal();
+  const namespaceMoveAttempts = new Map(
+    priorNamespaceMoveEvidence.map((item) => [item.ref, { ...item, source: "receipt", state: "observed-gone" }]),
+  );
+  if (journalNamespaceMoveAttempt) {
+    const prior = namespaceMoveAttempts.get(journalNamespaceMoveAttempt.ref);
+    check(!prior || prior.uid === journalNamespaceMoveAttempt.uid, "receipt and operation journal namespace-move UIDs disagree");
+    namespaceMoveAttempts.set(journalNamespaceMoveAttempt.ref, {
+      ...journalNamespaceMoveAttempt,
+      source: "journal",
+    });
+  }
   const state = {
     actions: [],
     changedSpaces: new Set(),
     published: new Map(),
+    namespaceMoveAttempts,
+    namespaceMoveEvidence: [
+      ...priorNamespaceMoveEvidence,
+      ...(journalNamespaceMoveAttempt?.state === "observed-gone" ? [journalNamespaceMoveAttempt] : []),
+    ],
+    scenarioJournal,
+    fleetBootstrapJournal,
     scenario: { mode: "retained-proven-history", steps: [] },
   };
   let workRoot = "";
   try {
     assertSerialLiveLock();
+    preflightScenarioHistory(state);
     workRoot = mkdtempSync(join(tmpdir(), "helm-expt-kubara-mini-idp-"));
     const payloadFiles = materializePayloadFiles(inputs, workRoot);
     let spaces = readSpaces();
@@ -1947,25 +2214,58 @@ function applyPlan(inputs, desired) {
       const live = spaces.get(expected.slug);
       if (live) assertOwnedSpace(live, expected);
     }
-    ensureDefinitionSpaces(spaces, desired, state);
+    const preserveScenarioJournalState = Boolean(
+      state.scenarioJournal
+        && ["started", "completed"].includes(state.scenarioJournal.state)
+        && !scenarioReceiptProvesHistory(),
+    );
+    const inFlightScenarioSpaces = preserveScenarioJournalState
+      ? new Set(["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)])
+      : new Set();
+    ensureDefinitionSpaces(spaces, desired, state, {
+      assertOnlySpaces: inFlightScenarioSpaces,
+    });
     spaces = readSpaces();
-    reconcileSpaceLabels(spaces, desired, state, { requireAll: false });
-    reconcileApprovalPolicy(state);
+    reconcileSpaceLabels(spaces, desired, state, {
+      requireAll: false,
+      assertOnlySpaces: inFlightScenarioSpaces,
+    });
+    reconcileApprovalPolicy(state, {
+      assertOnly: preserveScenarioJournalState,
+    });
     reconcileControlUnits(inputs, payloadFiles, desired, state);
-    reconcileDeliveryApplicationMetadata(desired, state);
+    reconcileDeliveryApplicationMetadata(desired, state, {
+      assertOnlySourceSpaces: inFlightScenarioSpaces,
+    });
 
     for (const surfaceDefinition of SURFACES) {
       reconcileSurface(surfaceDefinition, inputs, payloadFiles, desired, state);
     }
-    reconcileProdPolicies(desired, state, { requireAll: false });
+    for (const family of APP_FAMILIES.filter((item) => !item.scenario)) {
+      reconcileAppFamily(family, inputs, payloadFiles, desired, state);
+    }
+    const hxWebScenarioStatus = materializeHxWebScenario(inputs, payloadFiles, desired, state);
+    reconcileSpaceLabels(readSpaces(), desired, state, {
+      assertOnlySpaces: inFlightScenarioSpaces,
+    });
+    reconcileProdPolicies(desired, state, {
+      assertOnly: preserveScenarioJournalState,
+    });
+    reconcileDeliveryApplicationMetadata(desired, state, {
+      requireAll: true,
+      assertOnlySourceSpaces: inFlightScenarioSpaces,
+    });
+    for (const fleetItem of FLEET) {
+      assertUnitAllowlist(
+        `${fleetItem.cluster}-argo-apps`,
+        expectedArgoApplicationSlugs(desired, fleetItem),
+      );
+    }
     for (const deployment of desired.deployments.filter((item) => item.type === "platform")) {
       deployOne(deployment, state);
       waitForSpecialPrerequisite(deployment);
     }
-    for (const family of APP_FAMILIES.filter((item) => !item.scenario)) {
-      reconcileAppFamily(family, inputs, payloadFiles, desired, state);
-    }
-    reconcileHxWebScenario(inputs, payloadFiles, desired, state);
+    reconcileHxWebScenario(inputs, payloadFiles, desired, state, hxWebScenarioStatus);
 
     reconcileSpaceLabels(readSpaces(), desired, state);
     reconcileProdPolicies(desired, state);
@@ -1984,7 +2284,7 @@ function applyPlan(inputs, desired) {
     assertManagedLinkInventory(desired, { requireNeedsProvides: true });
     const observation = verifyLive(inputs, desired, { state });
     const receipt = buildReceipt(inputs, desired, observation, state);
-    writeYaml(RECEIPT_PATH, receipt);
+    writeReceiptAtomically(receipt);
     if (receipt.status.idempotentRerunProven) {
       verifyReceipt(inputs, desired);
       console.log(
@@ -2033,10 +2333,73 @@ function reconcileClusters(spaces, desired, state) {
     initialStates.push({ item, absent: present === 0 });
   }
   const existingCount = initialStates.filter((entry) => !entry.absent).length;
-  if (existingCount === 0) {
-    check(!spaces.has("argobot-base"), "argobot-base exists without any complete allowlisted cluster; refusing partial repair");
+  let bootstrap = state.fleetBootstrapJournal;
+  const existingClusters = initialStates
+    .filter((entry) => !entry.absent)
+    .map((entry) => entry.item.cluster);
+  if (bootstrap?.state === "started") {
+    const allowedExisting = [
+      ...bootstrap.createdClusters,
+      ...(bootstrap.preparedCluster && existingClusters.includes(bootstrap.preparedCluster)
+        ? [bootstrap.preparedCluster]
+        : []),
+    ];
+    check(
+      stableJson(existingClusters) === stableJson(allowedExisting),
+      `fleet bootstrap live clusters are not the exact journaled prefix: journal=${allowedExisting.join(",") || "none"} live=${existingClusters.join(",") || "none"}`,
+    );
+    const guardedSpaces = desired.deployments
+      .map((deployment) => deployment.space)
+      .filter((slug, index, all) => all.indexOf(slug) === index)
+      .sort();
+    check(
+      stableJson(guardedSpaces) === stableJson(bootstrap.guardedPublishedSourceSpaces),
+      "fleet bootstrap source-Space inventory changed after the zero-release guard",
+    );
+    const activatedClusters = new Set(bootstrap.rootActivatedClusters);
+    const guardedUnactivatedSpaces = desired.deployments
+      .filter((deployment) => !activatedClusters.has(deployment.cluster))
+      .map((deployment) => deployment.space)
+      .filter((slug, index, all) => all.indexOf(slug) === index && spaces.has(slug));
+    for (const slug of guardedUnactivatedSpaces) {
+      check(
+        !hasRelease(slug),
+        `${slug}: refusing to resume partial fleet bootstrap after a source release was published`,
+      );
+    }
+    if (bootstrap.preparedCluster && existingClusters.includes(bootstrap.preparedCluster)) {
+      bootstrap = checkpointFleetBootstrapCluster(bootstrap.preparedCluster);
+      state.fleetBootstrapJournal = bootstrap;
+    }
   } else {
+    check(
+      existingCount === 0 || existingCount === FLEET.length,
+      `mixed existing/missing persistent-cluster fleet lacks an exact write-ahead bootstrap journal (${existingCount}/${FLEET.length} complete)`,
+    );
+  }
+  if (existingCount === 0 && !bootstrap) {
+    check(!spaces.has("argobot-base"), "argobot-base exists without any complete allowlisted cluster; refusing partial repair");
+    const guardedSpaces = desired.deployments
+      .map((deployment) => deployment.space)
+      .filter((slug, index, all) => all.indexOf(slug) === index)
+      .sort();
+    for (const deployment of desired.deployments) {
+      if (!spaces.has(deployment.space)) continue;
+      check(
+        !hasRelease(deployment.space),
+        `${deployment.space}: refusing zero-cluster bootstrap with a pre-existing published source release that automated child Applications could consume as :latest`,
+      );
+    }
+    bootstrap = beginFleetBootstrapJournal(guardedSpaces);
+    state.fleetBootstrapJournal = bootstrap;
+  } else if (existingCount === FLEET.length) {
     check(spaces.has("argobot-base"), "argobot-base is missing while persistent clusters exist; refusing partial repair");
+    assertDeliveryTopology(spaces, desired, {
+      fleet: initialStates.filter((entry) => !entry.absent).map((entry) => entry.item),
+    });
+  } else {
+    check(bootstrap?.state === "started", "partial fleet bootstrap lacks an active operation journal");
+    check(spaces.has("argobot-base"), "argobot-base is missing while a journaled persistent cluster exists");
     assertDeliveryTopology(spaces, desired, {
       fleet: initialStates.filter((entry) => !entry.absent).map((entry) => entry.item),
     });
@@ -2044,8 +2407,25 @@ function reconcileClusters(spaces, desired, state) {
 
   for (const { item, absent } of initialStates) {
     if (!absent) continue;
+    check(bootstrap?.state === "started", `${item.cluster}: missing cluster lacks an active fleet-bootstrap journal`);
+    bootstrap = prepareFleetBootstrapCluster(item.cluster);
+    state.fleetBootstrapJournal = bootstrap;
     cub(["cluster", "up", "--name", item.cluster, "--space", item.cluster], { timeout: 1_200_000 });
     recordAction(state, "cluster-up", item.cluster, "created persistent kind + ConfigHub Argo target; no cleanup registered");
+    const afterSpaces = readSpaces();
+    const afterLocal = new Set(kindClusters());
+    check(afterLocal.has(item.cluster), `${item.cluster}: kind cluster missing immediately after cluster up`);
+    check(existsSync(clusterKubeconfig(item.cluster)), `${item.cluster}: kubeconfig missing immediately after cluster up`);
+    check(existsSync(clusterEnv(item.cluster)), `${item.cluster}: env file missing immediately after cluster up`);
+    check(
+      afterSpaces.has(item.cluster)
+        && afterSpaces.has(`${item.cluster}-argo-apps`)
+        && afterSpaces.has(`argobot-${item.cluster}`)
+        && Boolean(readTarget(item.cluster)),
+      `${item.cluster}: ConfigHub target topology incomplete immediately after cluster up`,
+    );
+    bootstrap = checkpointFleetBootstrapCluster(item.cluster);
+    state.fleetBootstrapJournal = bootstrap;
   }
 
   const refreshed = readSpaces();
@@ -2067,11 +2447,17 @@ function reconcileClusters(spaces, desired, state) {
   }
 }
 
-function ensureDefinitionSpaces(spaces, desired, state) {
+function ensureDefinitionSpaces(
+  spaces,
+  desired,
+  state,
+  { assertOnlySpaces = new Set() } = {},
+) {
   const creatable = new Set(["control", "component-definition", "app-definition"]);
   for (const item of desired.spaces) {
     if (spaces.has(item.slug)) continue;
     if (!creatable.has(item.type)) continue;
+    check(!assertOnlySpaces.has(item.slug), `${item.slug}: definition Space is missing during an in-flight hx-web scenario`);
     cub([
       "space", "create", item.slug,
       ...labelsArgs(item.labels),
@@ -2082,7 +2468,12 @@ function ensureDefinitionSpaces(spaces, desired, state) {
   }
 }
 
-function reconcileSpaceLabels(spaces, desired, state, { requireAll = true } = {}) {
+function reconcileSpaceLabels(
+  spaces,
+  desired,
+  state,
+  { requireAll = true, assertOnlySpaces = new Set() } = {},
+) {
   for (const item of desired.spaces) {
     const live = spaces.get(item.slug);
     if (!live && !requireAll) continue;
@@ -2096,6 +2487,7 @@ function reconcileSpaceLabels(spaces, desired, state, { requireAll = true } = {}
       && mapMatches(live.Annotations, expectedAnnotations)
       && staleAnnotations.length === 0
     ) continue;
+    check(!assertOnlySpaces.has(item.slug), `${item.slug}: owned Space metadata drifted during an in-flight hx-web scenario`);
     cub([
       "space", "update", "--patch", item.slug,
       ...labelsArgs(item.labels),
@@ -2108,7 +2500,13 @@ function reconcileSpaceLabels(spaces, desired, state, { requireAll = true } = {}
   }
 }
 
-function reconcileApplicationUnitLabels(desired, fleetItem, unitSlug, state, { required = true } = {}) {
+function reconcileApplicationUnitLabels(
+  desired,
+  fleetItem,
+  unitSlug,
+  state,
+  { required = true, assertOnly = false } = {},
+) {
   const appSpace = `${fleetItem.cluster}-argo-apps`;
   const unit = readUnit(appSpace, unitSlug);
   if (!unit && !required) return false;
@@ -2116,6 +2514,7 @@ function reconcileApplicationUnitLabels(desired, fleetItem, unitSlug, state, { r
   const expected = expectedArgoApplicationLabels(desired, fleetItem, unitSlug);
   const stale = staleOwnedUnitLabels(unit.Labels, expected);
   if (mapMatches(unit.Labels, expected) && stale.length === 0) return true;
+  check(!assertOnly, `${appSpace}/${unitSlug}: delivery identity drifted during an in-flight hx-web scenario`);
   cub([
     "unit", "update", "--patch", "--space", appSpace, unitSlug,
     ...labelsArgs(expected),
@@ -2128,20 +2527,29 @@ function reconcileApplicationUnitLabels(desired, fleetItem, unitSlug, state, { r
   return true;
 }
 
-function reconcileDeliveryApplicationMetadata(desired, state, { requireAll = false } = {}) {
+function reconcileDeliveryApplicationMetadata(
+  desired,
+  state,
+  { requireAll = false, assertOnlySourceSpaces = new Set() } = {},
+) {
   for (const fleetItem of FLEET) {
     const requiredSlugs = ["root", `argobot-${fleetItem.cluster}`];
     for (const slug of expectedArgoApplicationSlugs(desired, fleetItem)) {
+      const deployment = desired.deployments.find(
+        (item) => item.cluster === fleetItem.cluster && item.appUnit === slug,
+      );
       reconcileApplicationUnitLabels(desired, fleetItem, slug, state, {
         required: requireAll || requiredSlugs.includes(slug),
+        assertOnly: Boolean(deployment && assertOnlySourceSpaces.has(deployment.space)),
       });
     }
   }
 }
 
-function reconcileApprovalPolicy(state) {
+function reconcileApprovalPolicy(state, { assertOnly = false } = {}) {
   const triggerResult = cubTry(["trigger", "get", "--space", CONTROL_SPACE, APPROVAL_TRIGGER, "-o", "json"]);
   if (!triggerResult.ok) {
+    check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_TRIGGER}: approval Trigger is missing during an in-flight hx-web scenario`);
     cub([
       "trigger", "create", "--space", CONTROL_SPACE,
       APPROVAL_TRIGGER, "Mutation", "Kubernetes/YAML", "vet-approvedby", "1",
@@ -2163,6 +2571,7 @@ function reconcileApprovalPolicy(state) {
       || trigger.Validating !== true
       || Number(trigger.FailOpenAfter ?? 0) !== 0
     ) {
+      check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_TRIGGER}: approval Trigger drifted during an in-flight hx-web scenario`);
       cub([
         "trigger", "update", "--space", CONTROL_SPACE,
         APPROVAL_TRIGGER, "Mutation", "Kubernetes/YAML", "vet-approvedby", "1",
@@ -2176,6 +2585,7 @@ function reconcileApprovalPolicy(state) {
   const where = "Space.Slug = 'hx-platform' AND FunctionName = 'vet-approvedby'";
   const filterResult = cubTry(["filter", "get", "--space", CONTROL_SPACE, APPROVAL_FILTER, "-o", "json"]);
   if (!filterResult.ok) {
+    check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_FILTER}: approval Filter is missing during an in-flight hx-web scenario`);
     cub([
       "filter", "create", "--space", CONTROL_SPACE,
       APPROVAL_FILTER, "Trigger", "--where-field", where, "--quiet",
@@ -2184,6 +2594,7 @@ function reconcileApprovalPolicy(state) {
   } else {
     const filter = unwrapEntity(JSON.parse(filterResult.output), "Filter");
     if (filter.From !== "Trigger" || filter.Where !== where) {
+      check(!assertOnly, `${CONTROL_SPACE}/${APPROVAL_FILTER}: approval Filter drifted during an in-flight hx-web scenario`);
       cub([
         "filter", "update", "--space", CONTROL_SPACE,
         APPROVAL_FILTER, "Trigger", "--where-field", where, "--quiet",
@@ -2255,13 +2666,21 @@ function reconcileAppFamily(family, inputs, payloadFiles, desired, state) {
       upsertUnit(unit, inputs, payloadFiles, state);
     }
     assertUnitAllowlist(space, family.units.map((item) => item.slug));
-    ensureArgoApplication(desired.deployments.find((item) => item.space === space), state);
+    ensureArgoApplication(
+      desired.deployments.find((item) => item.space === space),
+      state,
+    );
   }
 }
 
-function ensureVariantSpace({ space, upstreamSpace, variantName, fleetItem, prodProtected }, state) {
+function ensureVariantSpace(
+  { space, upstreamSpace, variantName, fleetItem, prodProtected },
+  state,
+  { assertOnly = false } = {},
+) {
   const existing = cubTry(["space", "get", space, "-o", "json"]);
   if (!existing.ok) {
+    check(!assertOnly, `${space}: scenario variant is missing during in-flight recovery`);
     cub([
       "variant", "create", variantName, upstreamSpace,
       "--space-pattern", `template:${space}`,
@@ -2283,6 +2702,7 @@ function ensureVariantSpace({ space, upstreamSpace, variantName, fleetItem, prod
   const target = readTarget(fleetItem.cluster);
   check(target?.TargetID, `${fleetItem.cluster}/target is missing`);
   if (live.ReleaseTargetID !== target.TargetID) {
+    check(!assertOnly, `${space}: release target drifted during an in-flight hx-web scenario`);
     cub(["space", "update", "--patch", space, "--release-target", `${fleetItem.cluster}/target`, "--quiet"]);
     recordAction(state, "space-release-target", space, `${fleetItem.cluster}/target`);
     state.changedSpaces.add(space);
@@ -2481,6 +2901,58 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
   if (expected.prodProtected) ensureUnitProtection(expected.space, expected.slug, state);
 }
 
+function upsertScenarioUnitAtomically(expected, inputs, payloadFiles, state, payloadKey) {
+  check(expected, "internal error: missing expected scenario Unit definition");
+  const ref = `${expected.space}/${expected.slug}`;
+  const payload = inputs.payloads.get(payloadKey);
+  const path = payloadFiles.get(payloadKey);
+  check(payload && path, `${ref}: scenario payload ${payloadKey} is not materialized`);
+  const live = readUnit(expected.space, expected.slug);
+  check(live, `${ref}: scenario Unit is missing`);
+  check(live.ToolchainType === expected.toolchain, `${ref}: scenario toolchain drifted`);
+  check((live.ProviderType ?? null) === (expected.provider ?? null), `${ref}: scenario provider drifted`);
+  if (expected.target) {
+    const target = readTarget(expected.target.split("/")[0]);
+    check(target?.TargetID && live.TargetID === target.TargetID, `${ref}: scenario target drifted`);
+  } else check(!live.TargetID, `${ref}: untargeted scenario Unit gained a target`);
+  if (expected.upstream) {
+    const [upstreamSpace, upstreamSlug] = expected.upstream.split("/");
+    const upstream = readUnit(upstreamSpace, upstreamSlug);
+    check(upstream?.UnitID && live.UpstreamUnitID === upstream.UnitID, `${ref}: scenario upstream drifted`);
+  } else check(!live.UpstreamUnitID, `${ref}: scenario definition gained an upstream`);
+
+  const annotations = {
+    ...sourceAnnotation(payload.value, payload.sourcePaths, payload.transform),
+    ...(expected.annotations ?? {}),
+  };
+  const staleLabels = staleOwnedUnitLabels(live.Labels, expected.labels);
+  const staleAnnotations = staleOwnedPublicAnnotations(live.Annotations, annotations);
+  const dataMatches = sameUnitData(
+    expected.toolchain,
+    cub(["unit", "data", "--space", expected.space, expected.slug]),
+    payload.value,
+  );
+  const metadataMatches = mapMatches(live.Labels, expected.labels)
+    && staleLabels.length === 0
+    && mapMatches(live.Annotations, annotations)
+    && staleAnnotations.length === 0;
+  if (dataMatches && metadataMatches) return;
+
+  cub([
+    "unit", "update", "--space", expected.space,
+    expected.slug, path,
+    ...(expected.provider ? ["--provider", expected.provider] : []),
+    ...labelsArgs(expected.labels),
+    ...staleLabels.flatMap((key) => ["--label", `${key}=-`]),
+    ...annotationsArgs(annotations),
+    ...staleAnnotations.flatMap((key) => ["--annotation", `${key}=-`]),
+    "--change-desc", `Reconcile atomic ${SCENARIO_VERSION} transition ${payloadKey}`,
+    "--quiet",
+  ], { timeout: 1_200_000 });
+  recordAction(state, "unit-data", ref, `${payloadKey}; atomic scenario data+provenance`);
+  state.changedSpaces.add(expected.space);
+}
+
 function sameUnitData(toolchain, actual, expected) {
   if (toolchain === "Kubernetes/YAML") return canonicalDocuments(actual) === canonicalDocuments(expected);
   if (toolchain === "AppConfig/JSON") return stableJson(JSON.parse(actual)) === stableJson(JSON.parse(expected));
@@ -2510,7 +2982,7 @@ function ensureUnitProtection(space, slug, state) {
   state.changedSpaces.add(space);
 }
 
-function ensureArgoApplication(deployment, state) {
+function ensureArgoApplication(deployment, state, { assertOnly = false } = {}) {
   check(deployment, "internal error: deployment definition missing");
   const existing = readUnit(deployment.appSpace, deployment.appUnit);
   check(existing, `${deployment.appSpace}/${deployment.appUnit}: Argo Application Unit missing; refusing partial variant repair`);
@@ -2519,7 +2991,7 @@ function ensureArgoApplication(deployment, state) {
   check(existing.TargetID === targetEntity.TargetID, `${deployment.appSpace}/${deployment.appUnit}: target is not ${deployment.cluster}/target`);
   const fleetItem = FLEET.find((item) => item.cluster === deployment.cluster);
   check(fleetItem, `${deployment.cluster}: fleet identity is missing`);
-  reconcileApplicationUnitLabels(plan, fleetItem, deployment.appUnit, state);
+  reconcileApplicationUnitLabels(plan, fleetItem, deployment.appUnit, state, { assertOnly });
   const currentData = cub(["unit", "data", "--space", deployment.appSpace, deployment.appUnit]);
   const docs = parseDocs(currentData);
   check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one Argo Application`);
@@ -2536,6 +3008,7 @@ function ensureArgoApplication(deployment, state) {
   } else delete app.spec.ignoreDifferences;
   const expected = renderDocuments([app]);
   if (sameUnitData("Kubernetes/YAML", currentData, expected)) return;
+  check(!assertOnly, `${deployment.appSpace}/${deployment.appUnit}: Application contract drifted during an in-flight hx-web scenario`);
   const temp = mkdtempSync(join(tmpdir(), "helm-expt-kubara-argo-app-"));
   try {
     const path = join(temp, `${deployment.appUnit}.yaml`);
@@ -2624,7 +3097,7 @@ function assertArgoApplicationContract(app, deployment, { allowMissingDestinatio
   );
 }
 
-function reconcileProdPolicies(desired, state, { requireAll = true } = {}) {
+function reconcileProdPolicies(desired, state, { requireAll = true, assertOnly = false } = {}) {
   const filter = unwrapEntity(cubJson(["filter", "get", "--space", CONTROL_SPACE, APPROVAL_FILTER]), "Filter");
   check(filter?.FilterID, `${CONTROL_SPACE}/${APPROVAL_FILTER}: filter ID is missing`);
   const trigger = unwrapEntity(cubJson(["trigger", "get", "--space", CONTROL_SPACE, APPROVAL_TRIGGER]), "Trigger");
@@ -2660,6 +3133,7 @@ function reconcileProdPolicies(desired, state, { requireAll = true } = {}) {
       `${expected.slug}: refusing to replace an unowned Trigger policy (${stableJson({ triggerFilterID, whereTrigger, selectedTriggers })})`,
     );
     if (!alreadyExact) {
+      check(!assertOnly, `${expected.slug}: production policy drifted during an in-flight hx-web scenario`);
       if (!ownedFilterAttached) {
         cub([
           "space", "update", "--patch", expected.slug,
@@ -2677,26 +3151,1028 @@ function reconcileProdPolicies(desired, state, { requireAll = true } = {}) {
     const refreshed = unwrapEntity(cubJson(["space", "get", expected.slug]), "Space");
     check(refreshed.TriggerFilterID === filter.FilterID && !(refreshed.WhereTrigger ?? ""), `${expected.slug}: production approval Filter did not attach exactly`);
     check(stableJson([...(refreshed.TriggerIDs ?? [])].sort()) === stableJson([trigger.TriggerID]), `${expected.slug}: production Trigger selection is not exactly ${CONTROL_SPACE}/${APPROVAL_TRIGGER}`);
-    for (const unit of readUnitRows(expected.slug)) ensureUnitProtection(expected.slug, unit.Slug, state);
+    for (const unit of readUnitRows(expected.slug)) {
+      if (assertOnly) {
+        check(
+          gateEnabled(unit.DeleteGates, PROD_SAFETY_GATE)
+            && gateEnabled(unit.DestroyGates, PROD_SAFETY_GATE),
+          `${expected.slug}/${unit.Slug}: production protection drifted during an in-flight hx-web scenario`,
+        );
+      } else ensureUnitProtection(expected.slug, unit.Slug, state);
+    }
   }
 }
 
-function scenarioSpacesMarked() {
+function scenarioMarkerStatus() {
   const spaces = readSpaces();
-  return ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)]
-    .every((slug) => spaces.get(slug)?.Labels?.ScenarioVersion === SCENARIO_VERSION);
+  const expected = ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)];
+  const marked = expected.filter((slug) => spaces.get(slug)?.Labels?.ScenarioVersion === SCENARIO_VERSION);
+  return { expected, marked, complete: marked.length === expected.length };
+}
+
+function scenarioSpacesMarked() {
+  return scenarioMarkerStatus().complete;
 }
 
 function readPriorReceipt() {
   if (!existsSync(RECEIPT_PATH)) return null;
   try {
     return readYaml(RECEIPT_PATH);
-  } catch {
-    // A process interruption during the local receipt write must not make the
-    // live reconciliation unrestartable. --receipt-verify still rejects a
-    // malformed receipt; --apply safely reconstructs it from live reads.
-    return null;
+  } catch (error) {
+    check(false, `prior mini-IDP receipt is unreadable at ${RECEIPT_PATH}: ${error.message}`);
   }
+}
+
+function writeReceiptAtomically(receipt) {
+  mkdirSync(dirname(RECEIPT_PATH), { recursive: true });
+  const temp = `${RECEIPT_PATH}.${process.pid}.tmp`;
+  writeFileSync(temp, toYaml(receipt), "utf8");
+  renameSync(temp, RECEIPT_PATH);
+}
+
+function assertNamespaceMoveEvidenceRow(item, prefix = "namespace-move evidence", { requireComplete = true } = {}) {
+  check(
+    item.migrationID === NAMESPACE_MOVE_MIGRATION_ID
+      && item.ref === "hx-app-dev/DaemonSet/default/kube-prometheus-stack-prometheus-node-exporter"
+      && item.application === "hx-app-dev/hx-kps-main-dev"
+      && item.apiVersion === "apps/v1"
+      && item.kind === "DaemonSet"
+      && item.name === "kube-prometheus-stack-prometheus-node-exporter"
+      && item.fromNamespace === "default"
+      && item.toNamespace === "kube-prometheus-stack",
+    `${prefix} identity drifted`,
+  );
+  check(UUID_PATTERN.test(item.uid ?? ""), `${prefix} UID is missing`);
+  const revision = item.state === "observed-gone" ? item.revisionAtDeletion : item.expectedRevision;
+  check(/^sha256:[0-9a-f]{64}$/.test(revision ?? ""), `${prefix} authorization-time revision is invalid`);
+  check(stableJson(item.conflictingBindings) === stableJson(["TCP/9100"]), `${prefix} binding drifted`);
+  check(/^\d+$/.test(String(item.resourceVersion ?? "")), `${prefix} resourceVersion is invalid`);
+  check(Number.isFinite(Date.parse(item.preparedAt ?? "")), `${prefix} preparedAt is invalid`);
+  if (item.state === "observed-gone") {
+    check(item.evidenceScope === "historical-migration-event", `${prefix} evidence scope drifted`);
+    check(/^original-uid-gone(?:-replaced-by-[0-9a-f-]+)?$/.test(item.outcome ?? ""), `${prefix} outcome is invalid`);
+    check(Number.isFinite(Date.parse(item.observedGoneAt ?? "")), `${prefix} observedGoneAt is invalid`);
+  } else if (requireComplete) check(false, `${prefix} is not completed`);
+  check(typeof item.reason === "string" && item.reason.length > 20, `${prefix} reviewed reason is missing`);
+}
+
+function validatedPriorNamespaceMoveEvidence() {
+  const receipt = readPriorReceipt();
+  if (!receipt) return [];
+  const trusted = receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt"
+    && receipt.spec?.organization?.name === ORGANIZATION
+    && receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID
+    && receipt.spec?.organization?.entityID === ORGANIZATION_ENTITY_ID
+    && receipt.spec?.organization?.serverURL === CONFIGHUB_SERVER_URL;
+  if (!trusted) return [];
+  const rows = receipt.spec?.namespaceMovePrunes ?? [];
+  check(rows.length <= 1, "prior receipt retains more than one namespace-move DaemonSet prune");
+  for (const item of rows) assertNamespaceMoveEvidenceRow(item, "prior receipt namespace-move prune");
+  return rows;
+}
+
+function validatedNamespaceMoveJournalAttempt() {
+  const item = readOperationJournal().namespaceMove;
+  if (!item) return null;
+  assertNamespaceMoveEvidenceRow(item, "operation journal namespace-move attempt", { requireComplete: false });
+  check(/^\d+$/.test(String(item.resourceVersion ?? "")), "operation journal namespace-move resourceVersion is invalid");
+  check(
+    ["prepared", "delete-returned", "observed-gone"].includes(item.state),
+    "operation journal namespace-move state is invalid",
+  );
+  check(Number.isFinite(Date.parse(item.preparedAt ?? "")), "operation journal namespace-move preparedAt is invalid");
+  return item;
+}
+
+function validatedScenarioJournal() {
+  const item = readOperationJournal().scenario;
+  if (!item) return null;
+  if (item.version !== SCENARIO_VERSION) {
+    check(item.state === "completed", "cannot migrate an in-flight hx-web scenario journal to a new version");
+    updateOperationJournal((journal) => {
+      journal.scenarioHistory ??= [];
+      journal.scenarioHistory.push(item);
+      journal.scenario = null;
+    });
+    return { state: "archived", archivedVersion: item.version, migrationApprovedByVersion: SCENARIO_VERSION };
+  }
+  check(
+    item.sourceFingerprint === scenarioSourceFingerprint(),
+    "operation journal hx-web source changed; review the new rollout contract and bump SCENARIO_VERSION before replay",
+  );
+  check(/^sha256:[0-9a-f]{64}$/.test(item.executionFingerprint ?? ""), "operation journal hx-web execution fingerprint is invalid");
+  check(["started", "completed"].includes(item.state), "operation journal hx-web scenario state is invalid");
+  check(Number.isFinite(Date.parse(item.startedAt ?? "")), "operation journal hx-web scenario start time is invalid");
+  check(Array.isArray(item.completedSteps), "operation journal hx-web completed step list is invalid");
+  check(
+    item.completedSteps.every((step, index) => step === SCENARIO_STEPS[index]),
+    "operation journal hx-web steps are not an exact ordered prefix",
+  );
+  check(Array.isArray(item.operationEvidence), "operation journal hx-web operation evidence is invalid");
+  if (item.preparedStep) {
+    check(
+      item.preparedStep.id === SCENARIO_STEPS[item.completedSteps.length]
+        && item.preparedStep.preCheckpoint
+        && Number.isFinite(Date.parse(item.preparedStep.preparedAt ?? "")),
+      "operation journal hx-web prepared step is invalid",
+    );
+    check(
+      Array.isArray(item.preparedStep.completedTransitions)
+        && item.preparedStep.completedTransitions.every((transition) => typeof transition === "string" && transition),
+      "operation journal hx-web prepared transition prefix is invalid",
+    );
+    check(
+      item.preparedStep.transitionCheckpoint && typeof item.preparedStep.transitionCheckpoint === "object",
+      "operation journal hx-web prepared transition checkpoint is missing",
+    );
+    if (item.preparedStep.preparedTransition) {
+      check(
+        typeof item.preparedStep.preparedTransition.id === "string"
+          && item.preparedStep.preparedTransition.preCheckpoint
+          && Number.isFinite(Date.parse(item.preparedStep.preparedTransition.preparedAt ?? "")),
+        "operation journal hx-web prepared nested transition is invalid",
+      );
+    }
+  }
+  check(item.checkpoint && typeof item.checkpoint === "object", "operation journal hx-web checkpoint is missing");
+  check(Array.isArray(item.checkpoints), "operation journal hx-web checkpoint history is missing");
+  check(
+    item.checkpoints[0]?.id === "materialized"
+      && item.completedSteps.every((step, index) => item.checkpoints[index + 1]?.id === step),
+    "operation journal hx-web checkpoint history does not match completed steps",
+  );
+  if (item.state === "completed") {
+    check(item.completedSteps.length === SCENARIO_STEPS.length, "completed hx-web scenario journal is missing steps");
+    check(Number.isFinite(Date.parse(item.completedAt ?? "")), "completed hx-web scenario journal timestamp is invalid");
+    check(
+      scenarioOperationProofValid(item),
+      "completed hx-web scenario journal lacks exact refusal, approval, or rollback evidence bound to its checkpoints",
+    );
+  }
+  return item;
+}
+
+function validatedFleetBootstrapJournal() {
+  const item = readOperationJournal().fleetBootstrap;
+  if (!item) return null;
+  check(["started", "completed"].includes(item.state), "operation journal fleet-bootstrap state is invalid");
+  check(
+    stableJson(item.expectedClusters) === stableJson(FLEET.map((fleetItem) => fleetItem.cluster)),
+    "operation journal fleet-bootstrap allowlist drifted",
+  );
+  check(Array.isArray(item.createdClusters), "operation journal fleet-bootstrap checkpoint list is invalid");
+  check(
+    Array.isArray(item.guardedPublishedSourceSpaces)
+      && item.guardedPublishedSourceSpaces.every((slug) => typeof slug === "string" && slug),
+    "operation journal fleet-bootstrap guarded source inventory is invalid",
+  );
+  check(
+    item.createdClusters.every((cluster, index) => cluster === item.expectedClusters[index]),
+    "operation journal fleet-bootstrap checkpoints are not an exact ordered prefix",
+  );
+  if (item.preparedCluster) {
+    check(
+      item.preparedCluster === item.expectedClusters[item.createdClusters.length],
+      "operation journal prepared fleet cluster is out of order",
+    );
+  }
+  check(Array.isArray(item.rootActivatedClusters), "operation journal fleet-root activation prefix is invalid");
+  check(
+    item.createdClusters.length === item.expectedClusters.length || item.rootActivatedClusters.length === 0,
+    "operation journal activated a fleet root before the full cluster fleet existed",
+  );
+  check(
+    item.rootActivatedClusters.every((cluster, index) => cluster === item.expectedClusters[index]),
+    "operation journal fleet-root activation checkpoints are not an exact ordered prefix",
+  );
+  check(Array.isArray(item.rootReleases), "operation journal fleet-root release evidence is invalid");
+  check(
+    item.rootReleases.length === item.rootActivatedClusters.length
+      && item.rootReleases.every((release, index) => (
+        release.cluster === item.rootActivatedClusters[index]
+          && release.appSpace === `${release.cluster}-argo-apps`
+          && Number.isInteger(release.releaseNum)
+          && /^sha256:[0-9a-f]{64}$/.test(release.bundleDigest ?? "")
+          && /^sha256:[0-9a-f]{64}$/.test(release.manifestDigest ?? "")
+      )),
+    "operation journal fleet-root release evidence does not match its activation prefix",
+  );
+  if (item.preparedRootCluster) {
+    check(
+      item.preparedRootCluster === item.expectedClusters[item.rootActivatedClusters.length],
+      "operation journal prepared fleet root is out of order",
+    );
+  }
+  check(Number.isFinite(Date.parse(item.startedAt ?? "")), "operation journal fleet-bootstrap start time is invalid");
+  if (
+    item.state === "started"
+      && item.createdClusters.length === item.expectedClusters.length
+      && !item.preparedCluster
+      && item.rootActivatedClusters.length === item.expectedClusters.length
+      && !item.preparedRootCluster
+  ) {
+    return completeFleetBootstrapJournal();
+  }
+  if (item.state === "completed") {
+    check(
+      item.createdClusters.length === item.expectedClusters.length
+        && !item.preparedCluster
+        && item.rootActivatedClusters.length === item.expectedClusters.length
+        && !item.preparedRootCluster,
+      "completed fleet-bootstrap journal is incomplete",
+    );
+    check(Number.isFinite(Date.parse(item.completedAt ?? "")), "operation journal fleet-bootstrap completion time is invalid");
+  }
+  return item;
+}
+
+function beginFleetBootstrapJournal(guardedSpaces) {
+  const journal = updateOperationJournal((current) => {
+    if (current.fleetBootstrap) return;
+    current.fleetBootstrap = {
+      state: "started",
+      expectedClusters: FLEET.map((item) => item.cluster),
+      createdClusters: [],
+      preparedCluster: null,
+      rootActivatedClusters: [],
+      preparedRootCluster: null,
+      rootReleases: [],
+      guardedPublishedSourceSpaces: [...guardedSpaces].sort(),
+      startedAt: new Date().toISOString(),
+    };
+  });
+  return journal.fleetBootstrap;
+}
+
+function prepareFleetBootstrapCluster(cluster) {
+  const journal = updateOperationJournal((current) => {
+    const bootstrap = current.fleetBootstrap;
+    check(bootstrap?.state === "started", `cannot prepare fleet bootstrap for ${cluster}`);
+    const expected = bootstrap.expectedClusters[bootstrap.createdClusters.length];
+    check(expected === cluster, `fleet bootstrap cluster ${cluster} is out of order; expected ${expected ?? "none"}`);
+    check(!bootstrap.preparedCluster || bootstrap.preparedCluster === cluster, `another fleet cluster is already prepared: ${bootstrap.preparedCluster}`);
+    bootstrap.preparedCluster = cluster;
+  });
+  return journal.fleetBootstrap;
+}
+
+function checkpointFleetBootstrapCluster(cluster) {
+  const journal = updateOperationJournal((current) => {
+    const bootstrap = current.fleetBootstrap;
+    check(bootstrap?.state === "started" && bootstrap.preparedCluster === cluster, `fleet bootstrap cluster ${cluster} lacks write-ahead intent`);
+    bootstrap.createdClusters.push(cluster);
+    bootstrap.preparedCluster = null;
+    bootstrap.updatedAt = new Date().toISOString();
+  });
+  return journal.fleetBootstrap;
+}
+
+function completeFleetBootstrapJournal() {
+  const journal = updateOperationJournal((current) => {
+    const bootstrap = current.fleetBootstrap;
+    check(bootstrap?.state === "started", "fleet-bootstrap journal is not active at completion");
+    check(
+      bootstrap.createdClusters.length === bootstrap.expectedClusters.length
+        && !bootstrap.preparedCluster
+        && bootstrap.rootActivatedClusters.length === bootstrap.expectedClusters.length
+        && !bootstrap.preparedRootCluster,
+      "fleet-bootstrap journal cannot complete before all clusters and first delivery roots are active",
+    );
+    bootstrap.state = "completed";
+    bootstrap.completedAt = new Date().toISOString();
+  });
+  return journal.fleetBootstrap;
+}
+
+function prepareFleetRootActivation(cluster) {
+  const journal = updateOperationJournal((current) => {
+    const bootstrap = current.fleetBootstrap;
+    check(bootstrap?.state === "started", `cannot prepare fleet-root activation for ${cluster}`);
+    check(bootstrap.createdClusters.length === bootstrap.expectedClusters.length, "cannot activate a fleet root before all persistent clusters exist");
+    const expected = bootstrap.expectedClusters[bootstrap.rootActivatedClusters.length];
+    check(expected === cluster, `fleet-root activation ${cluster} is out of order; expected ${expected ?? "none"}`);
+    check(!bootstrap.preparedRootCluster || bootstrap.preparedRootCluster === cluster, `another fleet root is already prepared: ${bootstrap.preparedRootCluster}`);
+    bootstrap.preparedRootCluster = cluster;
+  });
+  return journal.fleetBootstrap;
+}
+
+function checkpointFleetRootActivation(cluster, release) {
+  const validated = validatedPublishedRelease(`${cluster}-argo-apps`, release, "fleet-root activation release");
+  const evidence = {
+    cluster,
+    appSpace: `${cluster}-argo-apps`,
+    releaseNum: Number(validated.ReleaseNum),
+    bundleDigest: validated.Digest,
+    manifestDigest: validated.ManifestDigest,
+  };
+  const journal = updateOperationJournal((current) => {
+    const bootstrap = current.fleetBootstrap;
+    check(
+      bootstrap?.state === "started" && bootstrap.preparedRootCluster === cluster,
+      `fleet-root activation ${cluster} lacks write-ahead intent`,
+    );
+    bootstrap.rootActivatedClusters.push(cluster);
+    bootstrap.rootReleases.push(evidence);
+    bootstrap.preparedRootCluster = null;
+    bootstrap.updatedAt = new Date().toISOString();
+    if (bootstrap.rootActivatedClusters.length === bootstrap.expectedClusters.length) {
+      bootstrap.state = "completed";
+      bootstrap.completedAt = new Date().toISOString();
+    }
+  });
+  return journal.fleetBootstrap;
+}
+
+function beginScenarioJournal() {
+  const checkpoint = scenarioCheckpoint();
+  const journal = updateOperationJournal((current) => {
+    if (current.scenario) return;
+    current.scenario = {
+      version: SCENARIO_VERSION,
+      sourceFingerprint: scenarioSourceFingerprint(),
+      executionFingerprint: operationExecutionFingerprint(),
+      state: "started",
+      completedSteps: [],
+      operationEvidence: [],
+      checkpoint,
+      checkpoints: [{ id: "materialized", facts: checkpoint }],
+      startedAt: new Date().toISOString(),
+    };
+  });
+  return journal.scenario;
+}
+
+function scenarioSourceFingerprint() {
+  const payloads = [...inputs.payloads.values()]
+    .filter((item) => item.key.startsWith("hx-web/"))
+    .map((item) => ({ key: item.key, sha256: item.sha256 }))
+    .sort((left, right) => left.key.localeCompare(right.key));
+  const contract = {
+    version: SCENARIO_VERSION,
+    orderedSteps: SCENARIO_STEPS,
+    approval: {
+      trigger: APPROVAL_TRIGGER,
+      filter: APPROVAL_FILTER,
+      gate: APPROVAL_GATE,
+      productionProtection: PROD_SAFETY_GATE,
+      exactHeadRevision: true,
+    },
+    promotion: "explicit UpgradeUnit promotion with downstream departures preserved",
+    rollback: "prod-a exact reviewed v1 payload -> restore the exact initial-rollout revision -> exact reviewed two-replica payload",
+    stagingDeparture: "SANDBOX_URL survives promotion-v2",
+    targets: FLEET.map((item) => ({ cluster: item.cluster, suffix: item.suffix })),
+    payloads,
+  };
+  return `sha256:${sha256(stableJson(contract))}`;
+}
+
+function recordScenarioJournalStep(id, actions) {
+  const checkpoint = scenarioCheckpoint();
+  const journal = updateOperationJournal((current) => {
+    const scenario = current.scenario;
+    check(scenario?.version === SCENARIO_VERSION && scenario.state === "started", `cannot checkpoint hx-web scenario step ${id}`);
+    const expected = SCENARIO_STEPS[scenario.completedSteps.length];
+    check(expected === id, `hx-web scenario step ${id} is out of order; expected ${expected ?? "none"}`);
+    check(scenario.preparedStep?.id === id, `hx-web scenario step ${id} lacks write-ahead intent`);
+    check(!scenario.preparedStep.preparedTransition, `hx-web scenario step ${id} still has a prepared nested transition`);
+    check(
+      stableJson(checkpoint) === stableJson(scenario.preparedStep.transitionCheckpoint),
+      `hx-web scenario step ${id} ended outside its last durable nested-transition checkpoint`,
+    );
+    scenario.completedSteps.push(id);
+    scenario.checkpoint = checkpoint;
+    scenario.checkpoints.push({ id, facts: checkpoint });
+    delete scenario.preparedStep;
+    scenario.updatedAt = new Date().toISOString();
+  });
+  return journal.scenario;
+}
+
+function prepareScenarioJournalStep(id) {
+  const journal = updateOperationJournal((current) => {
+    const scenario = current.scenario;
+    check(scenario?.version === SCENARIO_VERSION && scenario.state === "started", `cannot prepare hx-web scenario step ${id}`);
+    const expected = SCENARIO_STEPS[scenario.completedSteps.length];
+    check(expected === id, `hx-web scenario step ${id} is out of order; expected ${expected ?? "none"}`);
+    if (scenario.preparedStep) {
+      check(scenario.preparedStep.id === id, `another hx-web scenario step is already prepared: ${scenario.preparedStep.id}`);
+      return;
+    }
+    scenario.preparedStep = {
+      id,
+      preCheckpoint: scenario.checkpoint,
+      transitionCheckpoint: scenario.checkpoint,
+      completedTransitions: [],
+      preparedTransition: null,
+      preparedAt: new Date().toISOString(),
+    };
+  });
+  return journal.scenario;
+}
+
+function scenarioOperationEvidence(actions) {
+  return actions.filter((item) => [
+    "variant-promote",
+    "expected-approval-block",
+    "unit-approve",
+    "rollback",
+  ].includes(item.type));
+}
+
+function runScenarioTransition(
+  state,
+  stepID,
+  transitionID,
+  mutate,
+  assertPost,
+  { recoveryEvidence = [] } = {},
+) {
+  let scenario = state.scenarioJournal;
+  const preparedStep = scenario?.preparedStep;
+  check(preparedStep?.id === stepID, `${stepID}/${transitionID}: scenario step is not prepared`);
+  const completedIndex = preparedStep.completedTransitions.indexOf(transitionID);
+  if (completedIndex >= 0) {
+    check(
+      completedIndex < preparedStep.completedTransitions.length,
+      `${stepID}/${transitionID}: invalid completed transition index`,
+    );
+    return { journal: scenario, result: null, recovered: true, skipped: true };
+  }
+  check(
+    !preparedStep.preparedTransition || preparedStep.preparedTransition.id === transitionID,
+    `${stepID}/${transitionID}: another nested transition is prepared: ${preparedStep.preparedTransition?.id}`,
+  );
+  if (!preparedStep.preparedTransition) {
+    const current = scenarioCheckpoint();
+    check(
+      stableJson(current) === stableJson(preparedStep.transitionCheckpoint),
+      `${stepID}/${transitionID}: live state changed after the last durable nested-transition checkpoint`,
+    );
+    const updated = updateOperationJournal((journal) => {
+      const step = journal.scenario?.preparedStep;
+      check(step?.id === stepID && !step.preparedTransition, `${stepID}/${transitionID}: cannot write nested-transition intent`);
+      step.preparedTransition = {
+        id: transitionID,
+        preCheckpoint: current,
+        preparedAt: new Date().toISOString(),
+      };
+    });
+    scenario = updated.scenario;
+    state.scenarioJournal = scenario;
+  }
+
+  const transition = scenario.preparedStep.preparedTransition;
+  const before = transition.preCheckpoint;
+  let current = scenarioCheckpoint();
+  let result = null;
+  let recovered = stableJson(current) !== stableJson(before);
+  const actionOffset = state.actions.length;
+  if (!recovered) {
+    result = mutate();
+    current = scenarioCheckpoint();
+  }
+  assertPost(before, current, { recovered, result });
+  const rawEvidence = recovered
+    ? (typeof recoveryEvidence === "function"
+      ? recoveryEvidence(before, current)
+      : recoveryEvidence)
+    : scenarioOperationEvidence(state.actions.slice(actionOffset));
+  const evidence = rawEvidence.map((item) => ({
+    ...item,
+    ...(recovered && !item.detail
+      ? { detail: `recovered exact ${stepID}/${transitionID} post-state from write-ahead intent` }
+      : {}),
+    transitionID: item.transitionID ?? `${stepID}/${transitionID}`,
+  }));
+  const updated = updateOperationJournal((journal) => {
+    const step = journal.scenario?.preparedStep;
+    check(
+      step?.id === stepID && step.preparedTransition?.id === transitionID,
+      `${stepID}/${transitionID}: nested-transition write-ahead intent disappeared`,
+    );
+    check(
+      stableJson(step.preparedTransition.preCheckpoint) === stableJson(before),
+      `${stepID}/${transitionID}: nested-transition pre-checkpoint changed`,
+    );
+    step.completedTransitions.push(transitionID);
+    step.transitionCheckpoint = current;
+    step.preparedTransition = null;
+    journal.scenario.operationEvidence.push(...evidence);
+    journal.scenario.updatedAt = new Date().toISOString();
+  });
+  state.scenarioJournal = updated.scenario;
+  return { journal: updated.scenario, result, recovered, skipped: false };
+}
+
+function completeScenarioJournal() {
+  const checkpoint = scenarioCheckpoint();
+  const journal = updateOperationJournal((current) => {
+    const scenario = current.scenario;
+    check(scenario?.version === SCENARIO_VERSION, "hx-web scenario journal is missing at completion");
+    check(scenario.completedSteps.length === SCENARIO_STEPS.length, "hx-web scenario cannot complete before every step");
+    scenario.state = "completed";
+    scenario.checkpoint = checkpoint;
+    const finalCheckpoint = scenario.checkpoints.find((item) => item.id === "final-normalized");
+    if (finalCheckpoint) finalCheckpoint.facts = checkpoint;
+    else scenario.checkpoints.push({ id: "final-normalized", facts: checkpoint });
+    scenario.completedAt ??= new Date().toISOString();
+  });
+  return journal.scenario;
+}
+
+function scenarioCheckpoint() {
+  const spaces = ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)];
+  const liveSpaces = readSpaces();
+  const units = [];
+  for (const space of spaces) {
+    for (const unit of readUnitRows(space).sort((left, right) => left.Slug.localeCompare(right.Slug))) {
+      units.push({
+        ref: `${space}/${unit.Slug}`,
+        id: unit.UnitID,
+        headRevisionNum: unit.HeadRevisionNum,
+        lastAppliedRevisionNum: unit.LastAppliedRevisionNum,
+        dataHash: unit.DataHash,
+        targetID: unit.TargetID ?? null,
+        upstreamUnitID: unit.UpstreamUnitID ?? null,
+        toolchain: unit.ToolchainType,
+        provider: unit.ProviderType ?? null,
+        ownedLabels: Object.fromEntries([...OWNED_UNIT_LABELS]
+          .filter((key) => unit.Labels?.[key] !== undefined)
+          .sort()
+          .map((key) => [key, unit.Labels[key]])),
+        ownedAnnotations: Object.fromEntries([...OWNED_PUBLIC_ANNOTATIONS]
+          .filter((key) => unit.Annotations?.[key] !== undefined)
+          .sort()
+          .map((key) => [key, unit.Annotations[key]])),
+        deleteGates: unit.DeleteGates ?? {},
+        destroyGates: unit.DestroyGates ?? {},
+        approvalCount: approvalCount(unit.ApprovedBy),
+        applyGates: unit.ApplyGates ?? {},
+      });
+    }
+  }
+  const releases = FLEET.map((item) => {
+    const space = `hx-web-${item.suffix}`;
+    const release = latestRelease(space);
+    return {
+      space,
+      releaseNum: release?.ReleaseNum ?? null,
+      bundleDigest: release?.Digest ?? null,
+      manifestDigest: release?.ManifestDigest ?? null,
+    };
+  });
+  const upgradeLinks = FLEET.flatMap((item) => readLinks(`hx-web-${item.suffix}`)
+    .filter((link) => link.UpdateType === "UpgradeUnit")
+    .map((link) => ({
+      ref: `hx-web-${item.suffix}/${link.Slug}`,
+      id: link.LinkID,
+      fromUnitID: link.FromUnitID,
+      toUnitID: link.ToUnitID,
+      toSpaceID: link.ToSpaceID,
+      updateType: link.UpdateType,
+      autoUpdate: link.AutoUpdate === true,
+      upstreamLastMergedRevisionNum: link.UpstreamLastMergedRevisionNum,
+      downstreamLastMergedRevisionNum: link.DownstreamLastMergedRevisionNum,
+    }))).sort((left, right) => left.ref.localeCompare(right.ref));
+  return {
+    sourceFingerprint: scenarioSourceFingerprint(),
+    units,
+    releases,
+    upgradeLinks,
+    spaceMarkers: spaces.map((slug) => ({
+      slug,
+      scenarioVersion: liveSpaces.get(slug)?.Labels?.ScenarioVersion ?? null,
+    })),
+  };
+}
+
+function assertScenarioCheckpoint(expected) {
+  check(
+    stableJson(scenarioCheckpoint()) === stableJson(expected),
+    "hx-web live Unit heads, approvals, data hashes, releases, or UpgradeUnit merge bases changed after the last durable scenario checkpoint",
+  );
+}
+
+// Preliminary ownership check only. This never authorizes a resumed mutation;
+// each prepared nested transition below must still prove its exact full pre or
+// reviewed post checkpoint before it can advance the journal.
+function assertScenarioRecoveryIdentity(expected) {
+  const current = scenarioCheckpoint();
+  const immutableUnits = (facts) => facts.units.map((unit) => ({
+    ref: unit.ref,
+    id: unit.id,
+    targetID: unit.targetID,
+    upstreamUnitID: unit.upstreamUnitID,
+    toolchain: unit.toolchain,
+    provider: unit.provider,
+    ownedLabels: unit.ownedLabels,
+  }));
+  const immutableLinks = (facts) => facts.upgradeLinks.map((link) => ({
+    ref: link.ref,
+    id: link.id,
+    fromUnitID: link.fromUnitID,
+    toUnitID: link.toUnitID,
+    toSpaceID: link.toSpaceID,
+    updateType: link.updateType,
+    autoUpdate: link.autoUpdate,
+  }));
+  check(
+    stableJson(immutableUnits(current)) === stableJson(immutableUnits(expected))
+      && stableJson(immutableLinks(current)) === stableJson(immutableLinks(expected)),
+    "hx-web immutable Unit identity, target, lineage, labels, or UpgradeUnit endpoints changed during a prepared scenario step",
+  );
+}
+
+function scenarioCheckpointMaps(checkpoint) {
+  return {
+    units: new Map(checkpoint.units.map((item) => [item.ref, item])),
+    releases: new Map(checkpoint.releases.map((item) => [item.space, item])),
+    links: new Map(checkpoint.upgradeLinks.map((item) => [item.ref, item])),
+    markers: new Map((checkpoint.spaceMarkers ?? []).map((item) => [item.slug, item])),
+  };
+}
+
+function approvalEvidenceFromCheckpoints(before, after, space) {
+  const left = scenarioCheckpointMaps(before).units;
+  const right = scenarioCheckpointMaps(after).units;
+  const approvedHeads = before.units
+    .filter((item) => item.ref.startsWith(`${space}/`) && checkpointHasApprovalGate(item))
+    .map((item) => {
+      const current = right.get(item.ref);
+      return {
+        ref: item.ref,
+        id: item.id,
+        headRevisionNum: item.headRevisionNum,
+        dataHash: item.dataHash,
+        approvalCountBefore: item.approvalCount,
+        approvalCountAfter: current?.approvalCount,
+      };
+    })
+    .sort((leftItem, rightItem) => leftItem.ref.localeCompare(rightItem.ref));
+  return { type: "unit-approve", ref: space, approvedHeads };
+}
+
+function rollbackEvidenceFromUnits(source, result, restored) {
+  return {
+    type: "rollback",
+    ref: source.ref,
+    unitID: source.id,
+    restoredRevisionNum: restored.headRevisionNum,
+    restoredDataHash: restored.dataHash,
+    sourceHeadRevisionNum: source.headRevisionNum,
+    sourceDataHash: source.dataHash,
+    resultHeadRevisionNum: result.headRevisionNum,
+    resultDataHash: result.dataHash,
+  };
+}
+
+function scenarioOperationProofValid(scenario) {
+  try {
+    const checkpoints = new Map(
+      (scenario?.checkpoints ?? []).map((item) => [item.id, item.facts]),
+    );
+    const initial = checkpoints.get("initial-rollout");
+    const approved = checkpoints.get("prod-approval");
+    const rolledBack = checkpoints.get("prod-a-rollback");
+    if (!initial || !approved || !rolledBack) return false;
+    const initialUnits = scenarioCheckpointMaps(initial).units;
+    const approvedUnits = scenarioCheckpointMaps(approved).units;
+    const rolledBackUnits = scenarioCheckpointMaps(rolledBack).units;
+    const evidence = scenario?.operationEvidence ?? [];
+    const headIdentity = (item) => ({
+      ref: item.ref,
+      id: item.id,
+      headRevisionNum: Number(item.headRevisionNum),
+      dataHash: item.dataHash,
+    });
+
+    for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
+      const refusal = evidence.find(
+        (item) => item.type === "expected-approval-block"
+          && item.ref === space
+          && item.transitionID === `base-promotion/${space}-approval-refusal`,
+      );
+      const approval = evidence.find(
+        (item) => item.type === "unit-approve"
+          && item.ref === space
+          && item.transitionID === `prod-approval/${space}-approve-v1`,
+      );
+      if (!refusal?.refusedHeads?.length || !approval?.approvedHeads?.length) return false;
+      const refusedHeads = refusal.refusedHeads.map(headIdentity).sort((a, b) => a.ref.localeCompare(b.ref));
+      const approvedHeads = approval.approvedHeads.map(headIdentity).sort((a, b) => a.ref.localeCompare(b.ref));
+      if (stableJson(approvedHeads) !== stableJson(refusedHeads)) return false;
+      for (const item of approval.approvedHeads) {
+        const checkpointUnit = approvedUnits.get(item.ref);
+        if (
+          !checkpointUnit
+            || checkpointUnit.id !== item.id
+            || Number(checkpointUnit.headRevisionNum) !== Number(item.headRevisionNum)
+            || checkpointUnit.dataHash !== item.dataHash
+            || Number(item.approvalCountAfter) !== Number(item.approvalCountBefore) + 1
+            || Number(checkpointUnit.approvalCount) !== Number(item.approvalCountAfter)
+            || checkpointHasApprovalGate(checkpointUnit)
+        ) return false;
+      }
+    }
+
+    const ref = "hx-web-prod-a/hx-web-deployment";
+    const rollback = evidence.find(
+      (item) => item.type === "rollback"
+        && item.ref === ref
+        && item.transitionID === "prod-a-rollback/prod-a-restore-previous",
+    );
+    const initialUnit = initialUnits.get(ref);
+    const sourceUnit = approvedUnits.get(ref);
+    const finalUnit = rolledBackUnits.get(ref);
+    if (!rollback || !initialUnit || !sourceUnit || !finalUnit) return false;
+    return rollback.unitID === initialUnit.id
+      && rollback.unitID === sourceUnit.id
+      && rollback.unitID === finalUnit.id
+      && Number(rollback.restoredRevisionNum) === Number(initialUnit.headRevisionNum)
+      && rollback.restoredDataHash === initialUnit.dataHash
+      && Number(rollback.sourceHeadRevisionNum) === Number(sourceUnit.headRevisionNum)
+      && rollback.sourceDataHash === sourceUnit.dataHash
+      && Number(rollback.resultHeadRevisionNum) === Number(rollback.sourceHeadRevisionNum) + 1
+      && rollback.resultDataHash === rollback.restoredDataHash
+      && Number(finalUnit.headRevisionNum) >= Number(rollback.resultHeadRevisionNum)
+      && Number(finalUnit.headRevisionNum) <= Number(rollback.resultHeadRevisionNum) + 1
+      && finalUnit.dataHash === rollback.resultDataHash;
+  } catch {
+    return false;
+  }
+}
+
+function assertScenarioDeltaScope(
+  before,
+  after,
+  { unitRefs = [], releaseSpaces = [], linkRefs = [], markerSpaces = [] } = {},
+) {
+  check(after.sourceFingerprint === before.sourceFingerprint, "hx-web scenario source fingerprint changed inside a transition");
+  const left = scenarioCheckpointMaps(before);
+  const right = scenarioCheckpointMaps(after);
+  for (const [kind, allowedValues] of [
+    ["units", unitRefs],
+    ["releases", releaseSpaces],
+    ["links", linkRefs],
+    ["markers", markerSpaces],
+  ]) {
+    const allowed = new Set(allowedValues);
+    check(
+      stableJson([...left[kind].keys()]) === stableJson([...right[kind].keys()]),
+      `hx-web ${kind} inventory changed inside a prepared transition`,
+    );
+    for (const [ref, expected] of left[kind]) {
+      if (allowed.has(ref)) continue;
+      check(
+        stableJson(right[kind].get(ref)) === stableJson(expected),
+        `${ref}: changed outside the prepared hx-web transition scope`,
+      );
+    }
+  }
+}
+
+function assertScenarioMarkerPost(before, after, space) {
+  assertScenarioDeltaScope(before, after, { markerSpaces: [space] });
+  const prior = scenarioCheckpointMaps(before).markers.get(space);
+  const current = scenarioCheckpointMaps(after).markers.get(space);
+  check(prior && current, `${space}: scenario marker checkpoint is missing`);
+  check(current.scenarioVersion === SCENARIO_VERSION, `${space}: scenario marker was not set to ${SCENARIO_VERSION}`);
+}
+
+function scenarioUnitImmutable(row) {
+  return {
+    ref: row.ref,
+    id: row.id,
+    targetID: row.targetID,
+    upstreamUnitID: row.upstreamUnitID,
+    toolchain: row.toolchain,
+    provider: row.provider,
+    ownedLabels: row.ownedLabels,
+    deleteGates: row.deleteGates,
+    destroyGates: row.destroyGates,
+  };
+}
+
+function checkpointHasApprovalGate(unit) {
+  return Object.keys(unit?.applyGates ?? {}).some(
+    (key) => key.includes("require-approval") || key === APPROVAL_GATE,
+  );
+}
+
+function assertScenarioUnitIdentity(before, after) {
+  check(
+    stableJson(scenarioUnitImmutable(after)) === stableJson(scenarioUnitImmutable(before)),
+    `${before.ref}: immutable Unit identity changed inside a prepared hx-web transition`,
+  );
+}
+
+function expectedOwnedAnnotations(expected, payloadKey) {
+  const payload = inputs.payloads.get(payloadKey);
+  check(payload, `${expected.space}/${expected.slug}: missing reviewed payload ${payloadKey}`);
+  const annotations = {
+    ...sourceAnnotation(payload.value, payload.sourcePaths, payload.transform),
+    ...(expected.annotations ?? {}),
+  };
+  return Object.fromEntries([...OWNED_PUBLIC_ANNOTATIONS]
+    .filter((key) => annotations[key] !== undefined)
+    .sort()
+    .map((key) => [key, annotations[key]]));
+}
+
+function scenarioExpectedUnit(space, slug) {
+  const expected = plan.managedUnits.find((item) => item.space === space && item.slug === slug);
+  check(expected, `${space}/${slug}: missing planned hx-web Unit`);
+  return expected;
+}
+
+function assertScenarioUpsertPost(before, after, space, slug, payloadKey) {
+  const ref = `${space}/${slug}`;
+  assertScenarioDeltaScope(before, after, { unitRefs: [ref] });
+  const left = scenarioCheckpointMaps(before).units.get(ref);
+  const right = scenarioCheckpointMaps(after).units.get(ref);
+  assertScenarioUnitIdentity(left, right);
+  const delta = Number(right.headRevisionNum) - Number(left.headRevisionNum);
+  check(delta >= 0 && delta <= 1, `${ref}: atomic reviewed upsert advanced the head by ${delta}, expected at most one exact revision`);
+  check(right.lastAppliedRevisionNum === left.lastAppliedRevisionNum, `${ref}: upsert changed the applied revision before publication`);
+  const expected = scenarioExpectedUnit(space, slug);
+  assertManagedSourceUnitContract(expected, payloadKey);
+  check(
+    stableJson(right.ownedAnnotations) === stableJson(expectedOwnedAnnotations(expected, payloadKey)),
+    `${ref}: checkpointed provenance does not match ${payloadKey}`,
+  );
+  if (delta === 0) {
+    for (const key of ["dataHash", "approvalCount", "applyGates"]) {
+      check(stableJson(right[key]) === stableJson(left[key]), `${ref}: ${key} changed during a zero-head-delta upsert`);
+    }
+  } else if (expected.prodProtected) {
+    check(
+      right.approvalCount === 0 && checkpointHasApprovalGate(right),
+      `${ref}: new production head is not bound to its approval gate`,
+    );
+  } else {
+    check(
+      right.approvalCount === 0 && !checkpointHasApprovalGate(right),
+      `${ref}: new non-production head gained unexpected approval state`,
+    );
+  }
+}
+
+function assertScenarioPromotionPost(before, after, space, deploymentPayloadKey) {
+  const unitRefs = plan.managedUnits.filter((item) => item.space === space).map((item) => `${space}/${item.slug}`);
+  const linkRefs = readLinks(space)
+    .filter((item) => item.UpdateType === "UpgradeUnit")
+    .map((item) => `${space}/${item.Slug}`);
+  assertScenarioDeltaScope(before, after, { unitRefs, linkRefs });
+  const left = scenarioCheckpointMaps(before);
+  const right = scenarioCheckpointMaps(after);
+  assertHxWebSpacePayloads(inputs, plan, space, deploymentPayloadKey);
+  for (const ref of unitRefs) {
+    const prior = left.units.get(ref);
+    const current = right.units.get(ref);
+    assertScenarioUnitIdentity(prior, current);
+    const delta = Number(current.headRevisionNum) - Number(prior.headRevisionNum);
+    check(delta >= 0 && delta <= 1, `${ref}: one promotion advanced the head by ${delta}, expected zero or one revision`);
+    check(current.lastAppliedRevisionNum === prior.lastAppliedRevisionNum, `${ref}: promotion changed the applied revision before publication`);
+    if (delta === 0) {
+      check(
+        stableJson(current) === stableJson(prior),
+        `${ref}: promotion changed Unit facts without advancing the head`,
+      );
+    }
+  }
+  const unitsByID = new Map(after.units.map((item) => [item.id, item]));
+  for (const ref of linkRefs) {
+    const prior = left.links.get(ref);
+    const current = right.links.get(ref);
+    check(prior && current, `${ref}: UpgradeUnit Link disappeared during promotion`);
+    const immutable = (item) => ({
+      ref: item.ref,
+      id: item.id,
+      fromUnitID: item.fromUnitID,
+      toUnitID: item.toUnitID,
+      toSpaceID: item.toSpaceID,
+      updateType: item.updateType,
+      autoUpdate: item.autoUpdate,
+    });
+    check(stableJson(immutable(current)) === stableJson(immutable(prior)), `${ref}: UpgradeUnit identity changed during promotion`);
+    check(
+      current.upstreamLastMergedRevisionNum === unitsByID.get(current.toUnitID)?.headRevisionNum
+        && current.downstreamLastMergedRevisionNum === unitsByID.get(current.fromUnitID)?.headRevisionNum,
+      `${ref}: promotion did not bind the merge base to the exact post-promotion heads`,
+    );
+  }
+}
+
+function assertScenarioApprovalPost(before, after, space, { allowNoop = false } = {}) {
+  const unitRefs = before.units.filter((item) => item.ref.startsWith(`${space}/`)).map((item) => item.ref);
+  assertScenarioDeltaScope(before, after, { unitRefs });
+  const left = scenarioCheckpointMaps(before).units;
+  const right = scenarioCheckpointMaps(after).units;
+  let approved = 0;
+  for (const ref of unitRefs) {
+    const prior = left.get(ref);
+    const current = right.get(ref);
+    assertScenarioUnitIdentity(prior, current);
+    for (const key of ["headRevisionNum", "lastAppliedRevisionNum", "dataHash", "ownedAnnotations"]) {
+      check(stableJson(current[key]) === stableJson(prior[key]), `${ref}: ${key} changed during approval`);
+    }
+    if (checkpointHasApprovalGate(prior)) {
+      check(!checkpointHasApprovalGate(current), `${ref}: approval gate remains after exact-head approval`);
+      check(current.approvalCount === prior.approvalCount + 1, `${ref}: approval count did not advance exactly once`);
+      approved += 1;
+    } else {
+      check(stableJson(current) === stableJson(prior), `${ref}: ungated Unit changed during approval`);
+    }
+  }
+  check(approved > 0 || (allowNoop && stableJson(after) === stableJson(before)), `${space}: approval transition had no exact gated heads`);
+}
+
+function assertScenarioReleasePost(before, after, space, sourcePayloadKeys) {
+  const unitRefs = before.units.filter((item) => item.ref.startsWith(`${space}/`)).map((item) => item.ref);
+  assertScenarioDeltaScope(before, after, { unitRefs, releaseSpaces: [space] });
+  const left = scenarioCheckpointMaps(before);
+  const right = scenarioCheckpointMaps(after);
+  const hadUnreleasedHeads = unitRefs.some((ref) => {
+    const unit = left.units.get(ref);
+    return Number(unit.headRevisionNum) !== Number(unit.lastAppliedRevisionNum);
+  });
+  for (const ref of unitRefs) {
+    const prior = left.units.get(ref);
+    const current = right.units.get(ref);
+    assertScenarioUnitIdentity(prior, current);
+    for (const key of ["headRevisionNum", "dataHash", "ownedAnnotations", "approvalCount", "applyGates"]) {
+      check(stableJson(current[key]) === stableJson(prior[key]), `${ref}: ${key} changed during publication`);
+    }
+    check(current.lastAppliedRevisionNum === current.headRevisionNum, `${ref}: publication did not apply the exact current head`);
+  }
+  const priorRelease = left.releases.get(space);
+  const currentRelease = right.releases.get(space);
+  if (hadUnreleasedHeads || !priorRelease.releaseNum) {
+    check(
+      Number(currentRelease.releaseNum) === Number(priorRelease.releaseNum ?? 0) + 1,
+      `${space}: publication did not create exactly one next release`,
+    );
+  } else {
+    check(
+      stableJson(currentRelease) === stableJson(priorRelease),
+      `${space}: reusable publication unexpectedly changed the latest release`,
+    );
+  }
+  check(/^sha256:[0-9a-f]{64}$/.test(currentRelease.bundleDigest ?? ""), `${space}: published bundle digest is invalid`);
+  check(/^sha256:[0-9a-f]{64}$/.test(currentRelease.manifestDigest ?? ""), `${space}: published manifest digest is invalid`);
+  assertReleaseBoundary(space, { sourcePayloadKeys });
+}
+
+function assertScenarioRollbackRestorePost(before, after, restoredRevision) {
+  const space = "hx-web-prod-a";
+  const slug = "hx-web-deployment";
+  const ref = `${space}/${slug}`;
+  assertScenarioDeltaScope(before, after, { unitRefs: [ref] });
+  const left = scenarioCheckpointMaps(before).units.get(ref);
+  const right = scenarioCheckpointMaps(after).units.get(ref);
+  assertScenarioUnitIdentity(left, right);
+  check(
+    restoredRevision?.id === right.id
+      && Number.isInteger(restoredRevision.headRevisionNum)
+      && restoredRevision.dataHash === right.dataHash,
+    `${ref}: rollback result is not bound to the exact initial-rollout revision and data hash`,
+  );
+  check(Number(right.headRevisionNum) === Number(left.headRevisionNum) + 1, `${ref}: rollback did not create exactly one restore revision`);
+  check(right.lastAppliedRevisionNum === left.lastAppliedRevisionNum, `${ref}: rollback changed the applied revision before publication`);
+  const expected = scenarioExpectedUnit(space, slug);
+  check(
+    hxWebUnitMatchesPayload(inputs, space, slug, "hx-web/prod-a/hx-web-deployment/final"),
+    `${ref}: rollback data is not the exact reviewed two-replica payload`,
+  );
+  check(
+    stableJson(right.ownedAnnotations) === stableJson(expectedOwnedAnnotations(expected, "hx-web/base/hx-web-deployment/initial")),
+    `${ref}: restore did not recover the exact reviewed predecessor provenance`,
+  );
+  check(right.approvalCount === 0 && checkpointHasApprovalGate(right), `${ref}: restored production head is not awaiting exact-head approval`);
+}
+
+function assertScenarioMergeCurrentPost(before, after, linkRef) {
+  assertScenarioDeltaScope(before, after, { linkRefs: [linkRef] });
+  const left = scenarioCheckpointMaps(before).links.get(linkRef);
+  const right = scenarioCheckpointMaps(after).links.get(linkRef);
+  check(left && right, `${linkRef}: UpgradeUnit Link is missing`);
+  const immutable = (item) => ({
+    ref: item.ref,
+    id: item.id,
+    fromUnitID: item.fromUnitID,
+    toUnitID: item.toUnitID,
+    toSpaceID: item.toSpaceID,
+    updateType: item.updateType,
+    autoUpdate: item.autoUpdate,
+  });
+  check(stableJson(immutable(right)) === stableJson(immutable(left)), `${linkRef}: UpgradeUnit identity changed during make-current`);
+  const unitsByID = new Map(after.units.map((item) => [item.id, item]));
+  check(
+    right.upstreamLastMergedRevisionNum === unitsByID.get(right.toUnitID)?.headRevisionNum
+      && right.downstreamLastMergedRevisionNum === unitsByID.get(right.fromUnitID)?.headRevisionNum,
+    `${linkRef}: make-current did not bind both exact Unit heads`,
+  );
 }
 
 function scenarioReceiptProvesHistory() {
@@ -2706,9 +4182,12 @@ function scenarioReceiptProvesHistory() {
     ? receipt.spec?.rolloutScenario
     : null;
   if (scenario?.version !== SCENARIO_VERSION) return false;
+  if (scenario?.sourceFingerprint !== scenarioSourceFingerprint()) return false;
   if (!["pending-idempotence", "pass"].includes(receipt.status?.result)) return false;
   const runs = receipt.spec?.reconcileRuns ?? [];
-  if (!runs.length || !runs.every((run) => run.result === "pass")) return false;
+  if (!runs.length || !runs.every(
+    (run) => run.result === "pass" && run.executionFingerprint === operationExecutionFingerprint(),
+  )) return false;
   if (!runs.some((run) => run.idempotentNoop === false && run.actionCount > 0)) return false;
   const spaces = readSpaces();
   if (receipt.spec?.organization?.entityID !== spaces.get(CONTROL_SPACE)?.OrganizationID) return false;
@@ -2720,25 +4199,70 @@ function scenarioReceiptProvesHistory() {
     const stored = receipt.spec?.source?.files?.[name];
     if (stored?.path !== evidence.path || stored?.sha256 !== evidence.sha256) return false;
   }
-  const expectedSteps = ["initial-rollout", "base-promotion", "prod-approval", "prod-a-rollback", "staging-departure", "departure-survives-promotion"];
+  const expectedSteps = SCENARIO_STEPS.slice(1);
   return expectedSteps.every((id) => (scenario.steps ?? []).some((item) => item.id === id && item.result === "pass"))
-    && ["hx-web-prod-a", "hx-web-prod-b"].every((space) => (scenario.operationEvidence ?? []).some(
-      (item) => item.type === "expected-approval-block" && item.ref === space,
-    ));
+    && scenarioOperationProofValid(scenario);
 }
 
-function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
+function preflightScenarioHistory(state) {
+  const priorReceipt = readPriorReceipt();
+  const receiptProven = scenarioReceiptProvesHistory();
+  const markerStatus = scenarioMarkerStatus();
+  const recoverableJournal = state.scenarioJournal
+    && state.scenarioJournal.version === SCENARIO_VERSION
+    && ["started", "completed"].includes(state.scenarioJournal.state);
+  const reviewedVersionMigration = state.scenarioJournal?.state === "archived";
+  check(
+    !priorReceipt || receiptProven || recoverableJournal || reviewedVersionMigration,
+    "preflight refused an existing hx-web receipt that is not trusted for the current fleet/source",
+  );
+  check(
+    markerStatus.marked.length === 0 || receiptProven || recoverableJournal || reviewedVersionMigration,
+    "preflight refused hx-web scenario markers without a trusted receipt or durable recovery journal",
+  );
+}
+
+function materializeHxWebScenario(inputs, payloadFiles, desired, state) {
   const family = APP_FAMILIES.find((item) => item.prefix === "hx-web");
   const baseSpace = "hx-web-base";
   const baseUnits = desired.managedUnits.filter((item) => item.space === baseSpace);
-  const alreadyProven = scenarioSpacesMarked() && scenarioReceiptProvesHistory();
+  const markerStatus = scenarioMarkerStatus();
+  const priorReceipt = readPriorReceipt();
+  const receiptProven = scenarioReceiptProvesHistory();
+  const recoverableJournal = state.scenarioJournal
+    && state.scenarioJournal.version === SCENARIO_VERSION
+    && ["started", "completed"].includes(state.scenarioJournal.state);
+  const reviewedVersionMigration = state.scenarioJournal?.state === "archived";
+  check(
+    markerStatus.marked.length === 0 || markerStatus.complete || receiptProven || recoverableJournal || reviewedVersionMigration,
+    `partial hx-web scenario markers found in ${markerStatus.marked.join(", ")}; refusing history replay`,
+  );
+  const alreadyProven = receiptProven;
+  check(
+    !priorReceipt || alreadyProven || recoverableJournal || reviewedVersionMigration,
+    "an existing hx-web receipt is not trusted for the current fleet/source and no durable recovery journal exists",
+  );
+  check(
+    markerStatus.marked.length === 0 || alreadyProven || recoverableJournal || reviewedVersionMigration,
+    "hx-web scenario markers exist without a trusted atomic receipt or durable journal; refusing destructive history replay",
+  );
+  const preserveJournalState = Boolean(recoverableJournal && !alreadyProven);
+  if (preserveJournalState) {
+    if (state.scenarioJournal.preparedStep) {
+      assertScenarioRecoveryIdentity(state.scenarioJournal.preparedStep.preCheckpoint);
+    } else assertScenarioCheckpoint(state.scenarioJournal.checkpoint);
+  }
 
   for (const expected of baseUnits) {
-    upsertUnit(expected, inputs, payloadFiles, state, {
-      payloadKey: alreadyProven || !expected.initialPayloadKey
-        ? expected.payloadKey
-        : expected.initialPayloadKey,
-    });
+    if (preserveJournalState) {
+      check(readUnit(expected.space, expected.slug), `${expected.space}/${expected.slug}: journaled hx-web Unit is missing`);
+    } else {
+      upsertUnit(expected, inputs, payloadFiles, state, {
+        payloadKey: alreadyProven || !expected.initialPayloadKey
+          ? expected.payloadKey
+          : expected.initialPayloadKey,
+      });
+    }
   }
   assertUnitAllowlist(baseSpace, family.units.map((item) => item.slug));
 
@@ -2756,21 +4280,32 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
       variantName: fleetItem.suffix,
       fleetItem,
       prodProtected: fleetItem.environment === "Prod",
-    }, state);
+    }, state, { assertOnly: preserveJournalState });
     for (const expected of desired.managedUnits.filter((item) => item.space === space)) {
-      upsertUnit(expected, inputs, payloadFiles, state, {
-        payloadKey: alreadyProven || !expected.initialPayloadKey
-          ? expected.payloadKey
-          : expected.initialPayloadKey,
-      });
+      if (preserveJournalState) {
+        check(readUnit(expected.space, expected.slug), `${expected.space}/${expected.slug}: journaled hx-web Unit is missing`);
+      } else {
+        upsertUnit(expected, inputs, payloadFiles, state, {
+          payloadKey: alreadyProven || !expected.initialPayloadKey
+            ? expected.payloadKey
+            : expected.initialPayloadKey,
+        });
+      }
     }
     assertUnitAllowlist(space, family.units.map((item) => item.slug));
-    ensureArgoApplication(desired.deployments.find((item) => item.space === space), state);
+    ensureArgoApplication(
+      desired.deployments.find((item) => item.space === space),
+      state,
+      { assertOnly: preserveJournalState },
+    );
   }
+  return { alreadyProven, journal: state.scenarioJournal };
+}
 
+function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioStatus) {
+  const baseUnits = desired.managedUnits.filter((item) => item.space === "hx-web-base");
+  const { alreadyProven } = scenarioStatus;
   assertManagedLinkInventory(desired);
-  if (!alreadyProven) resetHxWebScenarioMergeBases(desired, state);
-  reconcileProdPolicies(desired, state);
   if (alreadyProven) {
     state.scenario = {
       mode: "retained-proven-history",
@@ -2780,144 +4315,401 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     for (const deployment of desired.deployments.filter(
       (item) => item.type === "application" && /^hx-web-(dev|staging|prod-a|prod-b)$/.test(item.space),
     )) deployOne(deployment, state);
+    reconcileScenarioMarkers(state);
     return;
   }
 
-  state.scenario = { mode: "executed", version: SCENARIO_VERSION, steps: [] };
+  let scenarioJournal = state.scenarioJournal?.state === "archived"
+    ? beginScenarioJournal()
+    : state.scenarioJournal ?? beginScenarioJournal();
+  state.scenarioJournal = scenarioJournal;
+  state.scenario = {
+    mode: scenarioJournal.state === "completed" ? "recovered-completed-history" : "executed",
+    version: SCENARIO_VERSION,
+    steps: [],
+    operationEvidence: [...scenarioJournal.operationEvidence],
+  };
   const scenarioStep = (id, operation) => {
-    operation();
+    if (scenarioJournal.completedSteps.includes(id)) {
+      state.scenario.steps.push({ id, result: "pass", recoveredFromJournal: true });
+      return;
+    }
+    if (scenarioJournal.preparedStep) {
+      check(scenarioJournal.preparedStep.id === id, `hx-web prepared step ${scenarioJournal.preparedStep.id} does not match ${id}`);
+    } else {
+      assertScenarioCheckpoint(scenarioJournal.checkpoint);
+      scenarioJournal = prepareScenarioJournalStep(id);
+      state.scenarioJournal = scenarioJournal;
+    }
+    const actionOffset = state.actions.length;
+    let transitionCursor = 0;
+    const transition = (transitionID, mutate, assertPost, options = {}) => {
+      const completed = state.scenarioJournal.preparedStep.completedTransitions;
+      if (transitionCursor < completed.length) {
+        check(
+          completed[transitionCursor] === transitionID,
+          `${id}: nested transition order drifted at ${transitionID}; expected ${completed[transitionCursor]}`,
+        );
+      } else {
+        check(
+          transitionCursor === completed.length,
+          `${id}/${transitionID}: nested transition is not the next exact prefix entry`,
+        );
+      }
+      transitionCursor += 1;
+      const outcome = runScenarioTransition(state, id, transitionID, mutate, assertPost, options);
+      scenarioJournal = outcome.journal;
+      return outcome;
+    };
+    operation(transition);
+    check(
+      transitionCursor === state.scenarioJournal.preparedStep.completedTransitions.length,
+      `${id}: operation did not replay the complete nested-transition prefix`,
+    );
     state.scenario.steps.push({ id, result: "pass" });
+    scenarioJournal = recordScenarioJournalStep(id, state.actions.slice(actionOffset));
+    state.scenarioJournal = scenarioJournal;
+    state.scenario.operationEvidence = [...scenarioJournal.operationEvidence];
   };
 
-  scenarioStep("initial-rollout", () => {
-    for (const deployment of desired.deployments.filter(
-      (item) => item.type === "application" && /^hx-web-(dev|staging|prod-a|prod-b)$/.test(item.space),
-    )) {
-      state.changedSpaces.add(deployment.space);
-      deployOne(deployment, state);
+  const scenarioDeployments = desired.deployments.filter(
+    (item) => item.type === "application" && /^hx-web-(dev|staging|prod-a|prod-b)$/.test(item.space),
+  );
+  const deploymentFor = (space) => {
+    const deployment = scenarioDeployments.find((item) => item.space === space);
+    check(deployment, `${space}: hx-web deployment plan is missing`);
+    return deployment;
+  };
+  const assertDeliveryRootReusable = (deployment) => {
+    assertReleaseBoundary(deployment.appSpace);
+    check(!spaceHasUnreleasedHeads(deployment.appSpace), `${deployment.appSpace}: delivery root changed inside the hx-web scenario`);
+    return validatedPublishedRelease(deployment.appSpace, latestRelease(deployment.appSpace), "scenario delivery-root release");
+  };
+  const scenarioUpsert = (transition, id, space, slug, payloadKey) => transition(
+    id,
+    () => upsertScenarioUnitAtomically(
+      scenarioExpectedUnit(space, slug),
+      inputs,
+      payloadFiles,
+      state,
+      payloadKey,
+    ),
+    (before, after) => assertScenarioUpsertPost(before, after, space, slug, payloadKey),
+  );
+  const scenarioPromote = (transition, id, space, beforePayloadKey, afterPayloadKey) => transition(
+    id,
+    () => {
+      assertHxWebSpacePayloads(inputs, desired, space, beforePayloadKey);
+      cub([
+        "variant", "promote", space,
+        "--change-desc", `Promote ${SCENARIO_VERSION} while preserving downstream departures`,
+        "--quiet",
+      ], { timeout: 1_200_000 });
+      recordAction(state, "variant-promote", space);
+      state.changedSpaces.add(space);
+    },
+    (before, after) => assertScenarioPromotionPost(before, after, space, afterPayloadKey),
+    { recoveryEvidence: [{ type: "variant-promote", ref: space }] },
+  );
+  const scenarioApprove = (transition, id, space, { allowNoop = false } = {}) => transition(
+    id,
+    () => approveOutstanding(space, state),
+    (before, after) => assertScenarioApprovalPost(before, after, space, { allowNoop }),
+    {
+      recoveryEvidence: (before, after) => [approvalEvidenceFromCheckpoints(before, after, space)],
+    },
+  );
+  const scenarioPublish = (transition, id, space, deploymentPayloadKey) => {
+    const deployment = deploymentFor(space);
+    assertDeliveryRootReusable(deployment);
+    const sourcePayloadKeys = { "hx-web-deployment": deploymentPayloadKey };
+    transition(
+      id,
+      () => publishRelease(space, state, { sourcePayloadKeys }),
+      (before, after) => assertScenarioReleasePost(before, after, space, sourcePayloadKeys),
+    );
+    const release = validatedPublishedRelease(space, latestRelease(space), "scenario source release");
+    convergeDeploymentApplication(deployment, state, releaseManifestDigest(release));
+  };
+  const assertRefusedHeadsCurrent = (space) => {
+    const refusal = state.scenarioJournal.operationEvidence.findLast(
+      (item) => item.type === "expected-approval-block" && item.ref === space,
+    );
+    check(refusal?.refusedHeads?.length > 0, `${space}: exact release-refusal head evidence is missing`);
+    const currentByRef = new Map(readUnitRows(space).map((unit) => [`${space}/${unit.Slug}`, unit]));
+    for (const refused of refusal.refusedHeads) {
+      const current = currentByRef.get(refused.ref);
+      check(
+        current?.UnitID === refused.id
+          && current.HeadRevisionNum === refused.headRevisionNum
+          && current.DataHash === refused.dataHash,
+        `${refused.ref}: current head is not the exact head refused before approval`,
+      );
+    }
+  };
+
+  scenarioStep("merge-bases-reset", (transition) => {
+    for (const fleetItem of FLEET) {
+      const space = `hx-web-${fleetItem.suffix}`;
+      for (const unit of desired.managedUnits.filter((item) => item.space === space && item.upstream)) {
+        const slug = `upgrade-${unit.slug}`;
+        const ref = `${space}/${slug}`;
+        transition(
+          `${fleetItem.suffix}-${slug}`,
+          () => {
+            cub(["link", "update", slug, "--space", space, "--patch", "--make-current", "--quiet"]);
+            recordAction(state, "scenario-merge-base-reset", ref, "baseline heads marked current before deterministic replay");
+          },
+          (before, after) => assertScenarioMergeCurrentPost(before, after, ref),
+        );
+      }
     }
   });
 
-  scenarioStep("base-promotion", () => {
-    const baseDeployment = baseUnits.find((item) => item.slug === "hx-web-deployment");
-    upsertUnit(baseDeployment, inputs, payloadFiles, state, {
-      payloadKey: "hx-web/base/hx-web-deployment/v1",
-    });
-    promoteAndPublish("hx-web-dev", state, desired);
-    promoteAndPublish("hx-web-staging", state, desired);
-    promoteAndPublish("hx-web-prod-a", state, desired, { expectApprovalBlock: true });
-    promoteAndPublish("hx-web-prod-b", state, desired, { expectApprovalBlock: true });
+  scenarioStep("initial-rollout", (transition) => {
+    for (const deployment of scenarioDeployments) {
+      const { space } = deployment;
+      assertHxWebSpacePayloads(inputs, desired, space, "hx-web/base/hx-web-deployment/initial");
+      if (space.includes("prod-")) scenarioApprove(transition, `${space}-approve`, space);
+      scenarioPublish(transition, `${space}-publish`, space, "hx-web/base/hx-web-deployment/initial");
+    }
   });
 
-  scenarioStep("prod-approval", () => {
+  scenarioStep("base-promotion", (transition) => {
+    scenarioUpsert(transition, "base-v1", "hx-web-base", "hx-web-deployment", "hx-web/base/hx-web-deployment/v1");
+    for (const deployment of scenarioDeployments) {
+      const { space } = deployment;
+      scenarioPromote(
+        transition,
+        `${space}-promote-v1`,
+        space,
+        "hx-web/base/hx-web-deployment/initial",
+        "hx-web/base/hx-web-deployment/v1",
+      );
+      scenarioUpsert(transition, `${space}-v1-provenance`, space, "hx-web-deployment", "hx-web/base/hx-web-deployment/v1");
+      if (space.includes("prod-")) {
+        const sourcePayloadKeys = { "hx-web-deployment": "hx-web/base/hx-web-deployment/v1" };
+        transition(
+          `${space}-approval-refusal`,
+          () => assertReleaseBlockedByApproval(space, state, sourcePayloadKeys),
+          (before, after) => check(
+            stableJson(after) === stableJson(before),
+            `${space}: expected approval refusal changed live ConfigHub state`,
+          ),
+        );
+      } else {
+        scenarioPublish(transition, `${space}-publish-v1`, space, "hx-web/base/hx-web-deployment/v1");
+      }
+    }
+  });
+
+  scenarioStep("prod-approval", (transition) => {
     for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
-      const before = readUnitRows(space);
-      check(before.every((unit) => gateEnabled(unit.DeleteGates, PROD_SAFETY_GATE)), `${space}: delete protection is missing`);
-      const deployment = before.find((unit) => unit.Slug === "hx-web-deployment");
-      check(deployment && hasApprovalGate(deployment), `${space}: promoted deployment is not waiting at the approval gate`);
-      check(state.actions.some((item) => item.type === "expected-approval-block" && item.ref === space), `${space}: release refusal was not observed before approval`);
-      approveOutstanding(space, state);
-      const approvedDeployment = readUnitRows(space).find((unit) => unit.Slug === "hx-web-deployment");
-      check(approvalCount(approvedDeployment?.ApprovedBy) >= 1, `${space}: promoted deployment revision was not approved after the expected refusal`);
-      const release = publishRelease(space, state);
-      convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseManifestDigest(release));
+      assertRefusedHeadsCurrent(space);
+      scenarioApprove(transition, `${space}-approve-v1`, space);
+      scenarioPublish(transition, `${space}-publish-v1`, space, "hx-web/base/hx-web-deployment/v1");
     }
   });
 
-  scenarioStep("prod-a-rollback", () => {
-    cub([
-      "unit", "update", "--space", "hx-web-prod-a", "hx-web-deployment",
-      "--restore", "-1",
-      "--change-desc", "Demonstrate one-production-target rollback",
-      "--quiet",
-    ]);
-    recordAction(state, "rollback", "hx-web-prod-a/hx-web-deployment", "restore -1");
-    state.changedSpaces.add("hx-web-prod-a");
-    approveOutstanding("hx-web-prod-a", state);
-    const release = publishRelease("hx-web-prod-a", state);
-    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-prod-a"), state, releaseManifestDigest(release));
-    const docs = parseDocs(cub(["unit", "data", "--space", "hx-web-prod-a", "hx-web-deployment"]));
+  scenarioStep("prod-a-rollback", (transition) => {
+    const space = "hx-web-prod-a";
+    const initialCheckpoint = state.scenarioJournal.checkpoints.find((item) => item.id === "initial-rollout")?.facts;
+    const initialDeployment = initialCheckpoint?.units?.find((item) => item.ref === `${space}/hx-web-deployment`);
+    check(
+      initialDeployment?.id && Number.isInteger(initialDeployment.headRevisionNum),
+      "prod-a rollback lacks its durable initial-rollout Unit revision",
+    );
+    transition(
+      "prod-a-restore-previous",
+      () => {
+        check(
+          hxWebUnitMatchesPayload(inputs, space, "hx-web-deployment", "hx-web/base/hx-web-deployment/v1"),
+          "prod-a is not the exact reviewed v1 head before restore -1",
+        );
+        const sourceUnit = readUnit(space, "hx-web-deployment");
+        check(sourceUnit, `${space}/hx-web-deployment: rollback source Unit is missing`);
+        cub([
+          "unit", "update", "--space", space, "hx-web-deployment",
+          "--restore", String(initialDeployment.headRevisionNum),
+          "--change-desc", "Demonstrate one-production-target rollback",
+          "--quiet",
+        ]);
+        const restoredUnit = readUnit(space, "hx-web-deployment");
+        check(restoredUnit, `${space}/hx-web-deployment: restored Unit is missing`);
+        state.actions.push({
+          ...rollbackEvidenceFromUnits(
+            {
+              ref: `${space}/hx-web-deployment`,
+              id: sourceUnit.UnitID,
+              headRevisionNum: sourceUnit.HeadRevisionNum,
+              dataHash: sourceUnit.DataHash,
+            },
+            {
+              ref: `${space}/hx-web-deployment`,
+              id: restoredUnit.UnitID,
+              headRevisionNum: restoredUnit.HeadRevisionNum,
+              dataHash: restoredUnit.DataHash,
+            },
+            initialDeployment,
+          ),
+          detail: `restore exact initial-rollout revision ${initialDeployment.headRevisionNum} from reviewed v1 head`,
+        });
+        state.changedSpaces.add(space);
+      },
+      (before, after) => assertScenarioRollbackRestorePost(before, after, initialDeployment),
+      {
+        recoveryEvidence: (before, after) => {
+          const ref = `${space}/hx-web-deployment`;
+          return [rollbackEvidenceFromUnits(
+            scenarioCheckpointMaps(before).units.get(ref),
+            scenarioCheckpointMaps(after).units.get(ref),
+            initialDeployment,
+          )];
+        },
+      },
+    );
+    scenarioUpsert(
+      transition,
+      "prod-a-final-provenance",
+      space,
+      "hx-web-deployment",
+      "hx-web/prod-a/hx-web-deployment/final",
+    );
+    scenarioApprove(transition, "prod-a-approve-rollback", space);
+    scenarioPublish(transition, "prod-a-publish-rollback", space, "hx-web/prod-a/hx-web-deployment/final");
+    const docs = parseDocs(cub(["unit", "data", "--space", space, "hx-web-deployment"]));
     check(docs.find((doc) => doc.kind === "Deployment")?.spec?.replicas === 2, "prod-a rollback did not restore two replicas");
   });
 
-  scenarioStep("staging-departure", () => {
-    const expected = desired.managedUnits.find((item) => item.space === "hx-web-staging" && item.slug === "hx-web-deployment");
-    upsertUnit(expected, inputs, payloadFiles, state, {
-      payloadKey: "hx-web/staging/hx-web-deployment/departure",
-    });
-    const release = publishRelease("hx-web-staging", state);
-    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-staging"), state, releaseManifestDigest(release));
+  scenarioStep("staging-departure", (transition) => {
+    scenarioUpsert(
+      transition,
+      "staging-sandbox-departure",
+      "hx-web-staging",
+      "hx-web-deployment",
+      "hx-web/staging/hx-web-deployment/departure",
+    );
+    scenarioPublish(
+      transition,
+      "staging-publish-departure",
+      "hx-web-staging",
+      "hx-web/staging/hx-web-deployment/departure",
+    );
   });
 
-  scenarioStep("departure-survives-promotion", () => {
-    const baseDeployment = baseUnits.find((item) => item.slug === "hx-web-deployment");
-    upsertUnit(baseDeployment, inputs, payloadFiles, state, {
-      payloadKey: "hx-web/base/hx-web-deployment/v2",
-    });
-    promoteAndPublish("hx-web-dev", state, desired);
-    promoteAndPublish("hx-web-staging", state, desired);
+  scenarioStep("departure-survives-promotion", (transition) => {
+    scenarioUpsert(transition, "base-v2", "hx-web-base", "hx-web-deployment", "hx-web/base/hx-web-deployment/v2");
+    for (const [space, beforePayloadKey, finalPayloadKey] of [
+      ["hx-web-dev", "hx-web/base/hx-web-deployment/v1", "hx-web/dev/hx-web-deployment/final"],
+      ["hx-web-staging", "hx-web/staging/hx-web-deployment/departure", "hx-web/staging/hx-web-deployment/final"],
+    ]) {
+      scenarioPromote(transition, `${space}-promote-v2`, space, beforePayloadKey, finalPayloadKey);
+      scenarioUpsert(transition, `${space}-final-provenance`, space, "hx-web-deployment", finalPayloadKey);
+      scenarioPublish(transition, `${space}-publish-final`, space, finalPayloadKey);
+    }
     const finalSteps = verifyHxWebFinalState(inputs);
     check(finalSteps.every((item) => item.result === "pass"), "hx-web final scenario verification failed");
+
+    // The promotion transitions prove merge behavior before normalization.
+    // Normalize every committed provenance field through individually
+    // checkpointed transitions, then publish/reconcile the exact final state.
+    for (const expected of desired.managedUnits.filter(
+      (item) => item.space === "hx-web-base" || /^hx-web-(dev|staging|prod-a|prod-b)$/.test(item.space),
+    )) {
+      scenarioUpsert(
+        transition,
+        `final-normalize-${expected.space}-${expected.slug}`,
+        expected.space,
+        expected.slug,
+        expected.payloadKey,
+      );
+    }
+    for (const deployment of scenarioDeployments) {
+      if (deployment.space.includes("prod-")) {
+        scenarioApprove(transition, `final-approve-${deployment.space}`, deployment.space, { allowNoop: true });
+      }
+      scenarioPublish(
+        transition,
+        `final-publish-${deployment.space}`,
+        deployment.space,
+        `hx-web/${deployment.space.slice("hx-web-".length)}/hx-web-deployment/final`,
+      );
+    }
+    verifyHxWebFinalState(inputs);
+    for (const space of ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)]) {
+      transition(
+        `scenario-marker-${space}`,
+        () => {
+          const live = readSpaces().get(space);
+          if (live?.Labels?.ScenarioVersion === SCENARIO_VERSION) return;
+          cub(["space", "update", "--patch", space, "--label", `ScenarioVersion=${SCENARIO_VERSION}`, "--quiet"]);
+          recordAction(state, "scenario-marker", space, SCENARIO_VERSION);
+        },
+        (before, after) => assertScenarioMarkerPost(before, after, space),
+      );
+    }
   });
 
-  // Promotion deliberately tests the server-side merge before this metadata
-  // normalization. Once the departures have survived, reconcile the exact
-  // committed provenance annotations without changing the proven data.
-  for (const expected of desired.managedUnits.filter(
-    (item) => item.space === "hx-web-base" || /^hx-web-(dev|staging|prod-a|prod-b)$/.test(item.space),
-  )) upsertUnit(expected, inputs, payloadFiles, state);
-  for (const deployment of desired.deployments.filter(
-    (item) => item.type === "application" && /^hx-web-(dev|staging|prod-a|prod-b)$/.test(item.space),
-  )) deployOne(deployment, state);
+  scenarioJournal = completeScenarioJournal();
+  state.scenarioJournal = scenarioJournal;
+  state.scenario.operationEvidence = [...scenarioJournal.operationEvidence];
+}
 
+function reconcileScenarioMarkers(state) {
+  const markedSpaces = readSpaces();
   for (const slug of ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)]) {
+    if (markedSpaces.get(slug)?.Labels?.ScenarioVersion === SCENARIO_VERSION) continue;
     cub(["space", "update", "--patch", slug, "--label", `ScenarioVersion=${SCENARIO_VERSION}`, "--quiet"]);
     recordAction(state, "scenario-marker", slug, SCENARIO_VERSION);
   }
 }
 
-function resetHxWebScenarioMergeBases(desired, state) {
-  for (const fleetItem of FLEET) {
-    const space = `hx-web-${fleetItem.suffix}`;
-    const units = desired.managedUnits.filter((unit) => unit.space === space && unit.upstream);
-    for (const unit of units) {
-      const slug = `upgrade-${unit.slug}`;
-      cub([
-        "link", "update", slug, "--space", space,
-        "--patch", "--make-current", "--quiet",
-      ]);
-      recordAction(state, "scenario-merge-base-reset", `${space}/${slug}`, "baseline heads marked current before deterministic replay");
-    }
+function hxWebUnitMatchesPayload(inputs, space, slug, payloadKey) {
+  const payload = inputs.payloads.get(payloadKey);
+  check(payload, `${space}/${slug}: reviewed hx-web payload ${payloadKey} is missing`);
+  return sameUnitData(
+    "Kubernetes/YAML",
+    cub(["unit", "data", "--space", space, slug]),
+    payload.value,
+  );
+}
+
+function assertHxWebSpacePayloads(inputs, desired, space, deploymentPayloadKey) {
+  for (const expected of desired.managedUnits.filter((item) => item.space === space)) {
+    const payloadKey = expected.slug === "hx-web-deployment"
+      ? deploymentPayloadKey
+      : expected.payloadKey;
+    check(
+      hxWebUnitMatchesPayload(inputs, space, expected.slug, payloadKey),
+      `${space}/${expected.slug}: live data is not the exact reviewed payload ${payloadKey}`,
+    );
   }
 }
 
-function promoteAndPublish(space, state, desired, { expectApprovalBlock = false } = {}) {
-  cub([
-    "variant", "promote", space,
-    "--change-desc", `Promote ${SCENARIO_VERSION} while preserving downstream departures`,
-    "--quiet",
-  ], { timeout: 1_200_000 });
-  recordAction(state, "variant-promote", space);
-  state.changedSpaces.add(space);
-  if (space.includes("prod-")) {
-    if (expectApprovalBlock) {
-      assertReleaseBlockedByApproval(space, state);
-      return;
-    }
-    approveOutstanding(space, state);
-  }
-  const release = publishRelease(space, state);
-  convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseManifestDigest(release));
-}
-
-function assertReleaseBlockedByApproval(space, state) {
+function assertReleaseBlockedByApproval(space, state, sourcePayloadKeys = {}) {
+  assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "required" });
+  const refusedHeads = readUnitRows(space)
+    .filter(hasApprovalGate)
+    .map((unit) => ({
+      ref: `${space}/${unit.Slug}`,
+      id: unit.UnitID,
+      headRevisionNum: unit.HeadRevisionNum,
+      dataHash: unit.DataHash,
+    }))
+    .sort((left, right) => left.ref.localeCompare(right.ref));
+  check(refusedHeads.length > 0, `${space}: no exact gated heads exist before expected release refusal`);
   const result = cubTry(["release", "publish", space, "-o", "json"], { timeout: 1_200_000 });
   check(!result.ok, `${space}: production release unexpectedly published before approval`);
   check(
-    /approval|apply.?gate|vet-approvedby|422/i.test(result.output),
+    /approval|apply.?gate|vet-approvedby/i.test(result.output),
     `${space}: release failed before approval without naming an approval gate: ${result.output.slice(0, 800)}`,
   );
-  recordAction(state, "expected-approval-block", space, result.output.slice(0, 500));
+  state.actions.push({
+    type: "expected-approval-block",
+    ref: space,
+    detail: result.output.slice(0, 500),
+    refusedHeads,
+  });
 }
 
 function verifyHxWebFinalState(inputs) {
@@ -2956,10 +4748,27 @@ function approveOutstanding(space, state) {
     "--revision", "HeadRevisionNum",
     "--wait", "--quiet",
   ]);
-  recordAction(state, "unit-approve", space, `${outstanding.length} Unit(s)`);
   const after = readUnitRows(space);
   const outstandingSlugs = new Set(outstanding.map((unit) => unit.Slug));
   check(after.filter((unit) => outstandingSlugs.has(unit.Slug)).every((unit) => !hasApprovalGate(unit)), `${space}: approval gate remained after approval`);
+  const afterBySlug = new Map(after.map((unit) => [unit.Slug, unit]));
+  state.actions.push({
+    type: "unit-approve",
+    ref: space,
+    detail: `${outstanding.length} Unit(s)`,
+    approvedHeads: outstanding.map((unit) => {
+      const current = afterBySlug.get(unit.Slug);
+      check(current?.UnitID === unit.UnitID, `${space}/${unit.Slug}: Unit identity changed during approval`);
+      return {
+        ref: `${space}/${unit.Slug}`,
+        id: unit.UnitID,
+        headRevisionNum: unit.HeadRevisionNum,
+        dataHash: unit.DataHash,
+        approvalCountBefore: approvalCount(unit.ApprovedBy),
+        approvalCountAfter: approvalCount(current.ApprovedBy),
+      };
+    }).sort((left, right) => left.ref.localeCompare(right.ref)),
+  });
 }
 
 function hasApprovalGate(unit) {
@@ -2974,33 +4783,91 @@ function approvalCount(value) {
   return value ? 1 : 0;
 }
 
-function deployOne(deployment, state) {
+function deployOne(deployment, state, { sourcePayloadKeys = {} } = {}) {
   ensureArgoApplication(deployment, state);
-  if (
-    state.changedSpaces.has(deployment.appSpace)
-      || spaceHasUnreleasedHeads(deployment.appSpace)
-      || !hasRelease(deployment.appSpace)
-  ) {
-    publishRelease(deployment.appSpace, state);
-  }
+  // Always cross the exact release boundary, even when the latest release is
+  // reusable. That prevents an out-of-band published revision from becoming
+  // Argo's input merely because no local Unit head is currently unreleased.
+  publishDeliveryRoot(deployment, state);
   if (deployment.space.includes("prod-")) approveOutstanding(deployment.space, state);
-  let release = latestRelease(deployment.space);
-  if (
-    state.changedSpaces.has(deployment.space)
-      || spaceHasUnreleasedHeads(deployment.space)
-      || !hasRelease(deployment.space)
-  ) {
-    release = publishRelease(deployment.space, state);
-  }
+  const release = publishRelease(deployment.space, state, { sourcePayloadKeys });
   convergeDeploymentApplication(deployment, state, releaseManifestDigest(release));
 }
 
-function readLiveArgoApplication(deployment) {
+function publishDeliveryRoot(deployment, state) {
+  let bootstrap = state.fleetBootstrapJournal;
+  if (bootstrap?.state !== "started" || bootstrap.rootActivatedClusters.includes(deployment.cluster)) {
+    return publishRelease(deployment.appSpace, state);
+  }
+  const expectedCluster = bootstrap.expectedClusters[bootstrap.rootActivatedClusters.length];
+  check(
+    expectedCluster === deployment.cluster,
+    `${deployment.cluster}: first delivery-root activation is out of order; expected ${expectedCluster ?? "none"}`,
+  );
+  const sourceSpaces = plan.deployments
+    .filter((item) => item.cluster === deployment.cluster)
+    .map((item) => item.space)
+    .filter((slug, index, all) => all.indexOf(slug) === index)
+    .sort();
+  const liveSpaces = readSpaces();
+  for (const slug of sourceSpaces) {
+    check(liveSpaces.has(slug), `${deployment.cluster}: source Space ${slug} is missing before first root activation`);
+    check(
+      !hasRelease(slug),
+      `${deployment.cluster}: refusing first root activation because ${slug} already has a published :latest`,
+    );
+  }
+  if (!bootstrap.preparedRootCluster) {
+    check(
+      !hasRelease(deployment.appSpace),
+      `${deployment.appSpace}: unjournaled delivery-root release exists before first activation`,
+    );
+    bootstrap = prepareFleetRootActivation(deployment.cluster);
+    state.fleetBootstrapJournal = bootstrap;
+  } else {
+    check(
+      bootstrap.preparedRootCluster === deployment.cluster,
+      `${deployment.cluster}: another first root activation is prepared: ${bootstrap.preparedRootCluster}`,
+    );
+  }
+  const release = publishRelease(deployment.appSpace, state);
+  bootstrap = checkpointFleetRootActivation(deployment.cluster, release);
+  state.fleetBootstrapJournal = bootstrap;
+  recordAction(state, "fleet-root-activate", deployment.appSpace, `manifest=${releaseManifestDigest(release)}`);
+  return release;
+}
+
+function kubernetesResourceNotFound(output) {
+  return /Error from server \(NotFound\):[\s\S]+\bnot found\b/i.test(String(output ?? ""));
+}
+
+function readLiveArgoApplication(deployment, { allowNotFound = false } = {}) {
   const result = kubectlTry(deployment.cluster, [
     "get", "application", deployment.space, "-n", "argocd", "-o", "json",
   ]);
+  if (!result.ok && allowNotFound && kubernetesResourceNotFound(result.output)) return null;
   check(result.ok, `${deployment.cluster}/${deployment.space}: Argo Application is unavailable before sync`);
   return JSON.parse(result.output);
+}
+
+function waitForArgoApplicationContract(deployment) {
+  let app = null;
+  let contractError = "Application not observed";
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    app = readLiveArgoApplication(deployment, { allowNotFound: true });
+    if (!app) {
+      command("sleep", ["2"]);
+      continue;
+    }
+    try {
+      assertArgoApplicationContract(app, deployment);
+      return app;
+    } catch (error) {
+      contractError = error.message;
+      command("sleep", ["2"]);
+    }
+  }
+  check(false, `${deployment.cluster}/${deployment.space}: live Argo Application contract did not converge: ${contractError}`);
 }
 
 function deploymentApplicationAccepted(app, deployment, expectedRevision) {
@@ -3009,56 +4876,502 @@ function deploymentApplicationAccepted(app, deployment, expectedRevision) {
     && app.status?.sync?.revision === expectedRevision;
 }
 
+function argoConvergenceState(app, deployment, expectedRevision) {
+  const phase = app.status?.operationState?.phase ?? "Unknown";
+  if (app.operation || ["Running", "Terminating"].includes(phase)) return "active-operation";
+  if (deploymentApplicationAccepted(app, deployment, expectedRevision)) return "accepted";
+  if (
+    ["Failed", "Error"].includes(phase)
+      && operationStateRevision(app) === expectedRevision
+  ) return "retryable";
+  if (
+    app.status?.sync?.status === "Synced"
+      && app.status?.sync?.revision === expectedRevision
+  ) return "health-pending";
+  return "retryable";
+}
+
+function argoObservation(app) {
+  return {
+    sync: app.status?.sync?.status ?? "Unknown",
+    health: app.status?.health?.status ?? "Unknown",
+    phase: app.status?.operationState?.phase ?? "Unknown",
+    revision: app.status?.sync?.revision ?? "Unknown",
+    startedAt: app.status?.operationState?.startedAt ?? null,
+    finishedAt: app.status?.operationState?.finishedAt ?? null,
+    message: app.status?.operationState?.message
+      ?? app.status?.conditions?.map((item) => item.message).join("; ")
+      ?? "",
+  };
+}
+
+function observedTimestamp(value, fallback) {
+  const parsed = Date.parse(value ?? "");
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= fallback
+    ? parsed
+    : fallback;
+}
+
+function operationStateRevision(app) {
+  return app.status?.operationState?.syncResult?.revision ?? "";
+}
+
+function expectedRevisionTimestamp(app, expectedRevision, field, fallback) {
+  const statusRevision = operationStateRevision(app);
+  if (statusRevision !== expectedRevision) return fallback;
+  return observedTimestamp(app.status?.operationState?.[field], fallback);
+}
+
+function convergenceJournalKey(deployment, expectedRevision) {
+  return `${deployment.cluster}/${deployment.space}@${expectedRevision}`;
+}
+
+function beginConvergenceJournal(deployment, expectedRevision, app) {
+  const key = convergenceJournalKey(deployment, expectedRevision);
+  const now = Date.now();
+  const journal = updateOperationJournal((current) => {
+    const existing = current.convergence[key];
+    if (existing) {
+      check(existing.application === `${deployment.cluster}/${deployment.space}`, `${key}: convergence journal Application drifted`);
+      check(existing.expectedRevision === expectedRevision, `${key}: convergence journal revision drifted`);
+      check(Number.isInteger(existing.syncReservations) && existing.syncReservations >= 0, `${key}: convergence journal sync reservation count is invalid`);
+      check(Number.isFinite(Date.parse(existing.startedAt)), `${key}: convergence journal start time is invalid`);
+      return;
+    }
+    const startedAt = expectedRevisionTimestamp(app, expectedRevision, "startedAt", now);
+    current.convergence[key] = {
+      application: `${deployment.cluster}/${deployment.space}`,
+      expectedRevision,
+      startedAt: new Date(startedAt).toISOString(),
+      syncReservations: 0,
+      updatedAt: new Date(now).toISOString(),
+    };
+  });
+  return { key, ...journal.convergence[key] };
+}
+
+function reserveConvergenceSync(key) {
+  let reserved = 0;
+  updateOperationJournal((journal) => {
+    const entry = journal.convergence[key];
+    check(entry, `${key}: convergence journal entry is missing before sync reservation`);
+    check(entry.syncReservations < ARGO_MAX_SYNC_REQUESTS, `${key}: convergence journal exhausted sync reservations`);
+    entry.syncReservations += 1;
+    entry.updatedAt = new Date().toISOString();
+    reserved = entry.syncReservations;
+  });
+  return reserved;
+}
+
+function clearConvergenceJournal(key) {
+  updateOperationJournal((journal) => {
+    delete journal.convergence[key];
+  });
+}
+
+function argoTrackingID(deployment, migration, namespace) {
+  const group = migration.apiVersion.split("/")[0];
+  return `${deployment.space}:${group}/${migration.kind}:${namespace}/${migration.name}`;
+}
+
+function hostNetworkBindings(workload) {
+  const podSpec = workload.spec?.template?.spec ?? {};
+  const bindings = [];
+  for (const container of [...(podSpec.initContainers ?? []), ...(podSpec.containers ?? [])]) {
+    for (const port of container.ports ?? []) {
+      const protocol = port.protocol ?? "TCP";
+      if (Number(port.hostPort) > 0) bindings.push(`${protocol}/${port.hostPort}`);
+      if (podSpec.hostNetwork === true && Number(port.containerPort) > 0) {
+        bindings.push(`${protocol}/${port.containerPort}`);
+      }
+    }
+  }
+  return [...new Set(bindings)].sort();
+}
+
+function trackedOriginSpace(workload) {
+  try {
+    return JSON.parse(workload.metadata?.annotations?.["confighub.com/origin"] ?? "{}").spaceSlug ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function retryableKubernetesCompareAndSet(output) {
+  return /test failed|conflict|object has been modified|not[\s_-]*found/i.test(String(output ?? ""));
+}
+
+function deleteDaemonSetWithPreconditions(cluster, namespace, name, uid, resourceVersion) {
+  const config = readYaml(clusterKubeconfig(cluster));
+  const contextName = `kind-${cluster}`;
+  const context = (config.contexts ?? []).find((item) => item.name === contextName)?.context;
+  check(context?.cluster && context?.user, `${cluster}: kubeconfig context ${contextName} is incomplete`);
+  const clusterConfig = (config.clusters ?? []).find((item) => item.name === context.cluster)?.cluster;
+  const userConfig = (config.users ?? []).find((item) => item.name === context.user)?.user;
+  check(clusterConfig?.server && clusterConfig?.["certificate-authority-data"], `${cluster}: kubeconfig cluster TLS data is incomplete`);
+  const server = new URL(clusterConfig.server);
+  check(
+    server.protocol === "https:"
+      && ["127.0.0.1", "localhost", "::1"].includes(server.hostname),
+    `${cluster}: namespace-move precondition delete is restricted to a loopback kind API server`,
+  );
+  check(
+    userConfig?.["client-certificate-data"] && userConfig?.["client-key-data"],
+    `${cluster}: namespace-move precondition delete requires the declared kind client-certificate kubeconfig`,
+  );
+  const temp = mkdtempSync(join(tmpdir(), "helm-expt-kubara-delete-"));
+  try {
+    const caPath = join(temp, "ca.crt");
+    const certPath = join(temp, "client.crt");
+    const keyPath = join(temp, "client.key");
+    writeFileSync(caPath, Buffer.from(clusterConfig["certificate-authority-data"], "base64"), { mode: 0o600 });
+    writeFileSync(certPath, Buffer.from(userConfig["client-certificate-data"], "base64"), { mode: 0o600 });
+    writeFileSync(keyPath, Buffer.from(userConfig["client-key-data"], "base64"), { mode: 0o600 });
+    const endpoint = `${server.toString().replace(/\/$/, "")}/apis/apps/v1/namespaces/${encodeURIComponent(namespace)}/daemonsets/${encodeURIComponent(name)}`;
+    return tryCommand("curl", [
+      "--silent", "--show-error", "--fail-with-body",
+      "--connect-timeout", "10", "--max-time", "120",
+      "--request", "DELETE",
+      "--header", "Content-Type: application/json",
+      "--cacert", caPath,
+      "--cert", certPath,
+      "--key", keyPath,
+      "--data", JSON.stringify({
+        apiVersion: "v1",
+        kind: "DeleteOptions",
+        preconditions: { uid, resourceVersion },
+        propagationPolicy: "Background",
+      }),
+      endpoint,
+    ], { timeout: 130_000 });
+  } finally {
+    rmSync(temp, { recursive: true, force: true });
+  }
+}
+
+function writeNamespaceMoveAttempt(item) {
+  updateOperationJournal((journal) => {
+    const existing = journal.namespaceMove;
+    check(!existing || (existing.ref === item.ref && existing.uid === item.uid), "refusing to replace a different namespace-move journal attempt");
+    journal.namespaceMove = item;
+  });
+}
+
+function namespaceMoveCurrentObject(deployment, migration) {
+  const result = kubectlTry(deployment.cluster, [
+    "get", migration.resource, migration.name,
+    "-n", migration.fromNamespace, "-o", "json",
+  ]);
+  if (!result.ok && kubernetesResourceNotFound(result.output)) return null;
+  check(result.ok, `${deployment.cluster}: failed to inspect namespace-move journal resource`);
+  return JSON.parse(result.output);
+}
+
+function completeNamespaceMoveAttempt(state, attempt, outcome) {
+  const completed = {
+    ...attempt,
+    source: undefined,
+    state: "observed-gone",
+    evidenceScope: "historical-migration-event",
+    revisionAtDeletion: attempt.expectedRevision,
+    outcome,
+    observedGoneAt: new Date().toISOString(),
+  };
+  delete completed.source;
+  delete completed.expectedRevision;
+  writeNamespaceMoveAttempt(completed);
+  state.namespaceMoveAttempts.set(completed.ref, { ...completed, source: "journal" });
+  if (!state.namespaceMoveEvidence.some((item) => item.ref === completed.ref && item.uid === completed.uid)) {
+    state.namespaceMoveEvidence.push(completed);
+  }
+  return completed;
+}
+
+function recoverNamespaceMoveAttempt(deployment, migration, state) {
+  const ref = `${deployment.cluster}/${migration.kind}/${migration.fromNamespace}/${migration.name}`;
+  const attempt = state.namespaceMoveAttempts.get(ref);
+  if (!attempt || attempt.source !== "journal") return null;
+  const current = namespaceMoveCurrentObject(deployment, migration);
+  if (attempt.state === "observed-gone") {
+    check(current?.metadata?.uid !== attempt.uid, `${ref}: a UID recorded gone reappeared`);
+    return attempt;
+  }
+  if (current?.metadata?.uid === attempt.uid) {
+    return attempt;
+  }
+  const outcome = current
+    ? `original-uid-gone-replaced-by-${current.metadata?.uid ?? "unknown"}`
+    : "original-uid-gone";
+  const completed = completeNamespaceMoveAttempt(state, attempt, outcome);
+  recordAction(state, "argo-namespace-move-recovery", ref, `uid=${attempt.uid}; ${outcome}`);
+  return completed;
+}
+
+function waitForNamespaceMoveUIDGone(deployment, migration, uid) {
+  for (let attempt = 0; attempt < 120; attempt += 1) {
+    const current = namespaceMoveCurrentObject(deployment, migration);
+    if (!current || current.metadata?.uid !== uid) {
+      return current?.metadata?.uid
+        ? `original-uid-gone-replaced-by-${current.metadata.uid}`
+        : "original-uid-gone";
+    }
+    command("sleep", ["1"]);
+  }
+  check(false, `${deployment.cluster}: namespace-move UID ${uid} was not deleted within 2 minutes`);
+}
+
+function activeOperationMatchesExpectedRevision(app, expectedRevision) {
+  const phase = app.status?.operationState?.phase ?? "Unknown";
+  if (app.operation) return app.operation?.sync?.revision === expectedRevision;
+  if (!["Running", "Terminating"].includes(phase)) return true;
+  return operationStateRevision(app) === expectedRevision;
+}
+
+function pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevision) {
+  let changed = false;
+  for (const migration of deployment.namespaceMovePrunes ?? []) {
+    const ref = `${deployment.cluster}/${migration.kind}/${migration.fromNamespace}/${migration.name}`;
+    const beforeRecovery = state.namespaceMoveAttempts.get(ref)?.state ?? "";
+    const recovered = recoverNamespaceMoveAttempt(deployment, migration, state);
+    if (recovered?.state === "observed-gone" && beforeRecovery !== "observed-gone") changed = true;
+    if (
+      app.status?.sync?.revision !== expectedRevision
+        || !activeOperationMatchesExpectedRevision(app, expectedRevision)
+    ) continue;
+    const group = migration.apiVersion.split("/")[0];
+    const staleStatus = (app.status?.resources ?? []).find(
+      (item) => item.group === group
+        && item.kind === migration.kind
+        && item.namespace === migration.fromNamespace
+        && item.name === migration.name
+        && item.requiresPruning === true,
+    );
+    if (!staleStatus) continue;
+
+    const obsoleteResult = kubectlTry(deployment.cluster, [
+      "get", migration.resource, migration.name,
+      "-n", migration.fromNamespace, "-o", "json",
+    ]);
+    if (!obsoleteResult.ok && kubernetesResourceNotFound(obsoleteResult.output)) continue;
+    check(obsoleteResult.ok, `${deployment.cluster}: failed to inspect declared namespace-move blocker ${migration.fromNamespace}/${migration.name}`);
+
+    const desiredStatus = (app.status?.resources ?? []).find(
+      (item) => item.group === group
+        && item.kind === migration.kind
+        && item.namespace === deployment.destinationNamespace
+        && item.name === migration.name
+        && item.requiresPruning !== true,
+    );
+    if (!desiredStatus) continue;
+    const desiredResult = kubectlTry(deployment.cluster, [
+      "get", migration.resource, migration.name,
+      "-n", deployment.destinationNamespace, "-o", "json",
+    ]);
+    if (!desiredResult.ok && kubernetesResourceNotFound(desiredResult.output)) continue;
+    check(desiredResult.ok, `${deployment.cluster}: failed to inspect desired namespace-move replacement ${deployment.destinationNamespace}/${migration.name}`);
+
+    const obsolete = JSON.parse(obsoleteResult.output);
+    const desired = JSON.parse(desiredResult.output);
+    check(obsolete.apiVersion === migration.apiVersion && obsolete.kind === migration.kind, `${deployment.cluster}: obsolete namespace-move blocker identity drifted`);
+    check(desired.apiVersion === migration.apiVersion && desired.kind === migration.kind, `${deployment.cluster}: desired namespace-move replacement identity drifted`);
+    check(
+      obsolete.metadata?.name === migration.name
+        && obsolete.metadata?.namespace === migration.fromNamespace
+        && UUID_PATTERN.test(obsolete.metadata?.uid ?? ""),
+      `${deployment.cluster}: obsolete namespace-move blocker metadata identity drifted`,
+    );
+    check(
+      desired.metadata?.name === migration.name
+        && desired.metadata?.namespace === deployment.destinationNamespace
+        && UUID_PATTERN.test(desired.metadata?.uid ?? ""),
+      `${deployment.cluster}: desired namespace-move replacement metadata identity drifted`,
+    );
+    check(
+      obsolete.metadata?.annotations?.["argocd.argoproj.io/tracking-id"]
+        === argoTrackingID(deployment, migration, migration.fromNamespace),
+      `${deployment.cluster}: obsolete namespace-move blocker is not tracked by ${deployment.space}`,
+    );
+    check(
+      desired.metadata?.annotations?.["argocd.argoproj.io/tracking-id"]
+        === argoTrackingID(deployment, migration, deployment.destinationNamespace),
+      `${deployment.cluster}: desired namespace-move replacement is not tracked by ${deployment.space}`,
+    );
+    check(
+      trackedOriginSpace(obsolete) === deployment.space
+        && trackedOriginSpace(desired) === deployment.space,
+      `${deployment.cluster}: namespace-move resources do not share ConfigHub origin ${deployment.space}`,
+    );
+    const obsoleteBindings = hostNetworkBindings(obsolete);
+    const desiredBindings = hostNetworkBindings(desired);
+    const conflicts = obsoleteBindings.filter((binding) => desiredBindings.includes(binding));
+    check(
+      stableJson(conflicts) === stableJson(migration.conflictingBindings),
+      `${deployment.cluster}: declared namespace-move blocker binding drifted from ${migration.conflictingBindings.join(",")}`,
+    );
+
+    const priorAttempt = state.namespaceMoveAttempts.get(ref);
+    if (priorAttempt) {
+      check(priorAttempt.source === "journal" && priorAttempt.uid === obsolete.metadata.uid && priorAttempt.state !== "observed-gone", `${ref}: declared one-time namespace-move blocker was already consumed or replaced`);
+      check(priorAttempt.migrationID === migration.migrationID, `${ref}: prepared migration identity drifted`);
+      check(priorAttempt.expectedRevision === expectedRevision, `${ref}: prepared migration OCI revision drifted`);
+      check(priorAttempt.resourceVersion === obsolete.metadata.resourceVersion, `${ref}: prepared migration resourceVersion changed before deletion`);
+    }
+    check(obsolete.metadata?.resourceVersion, `${ref}: resourceVersion missing before precondition delete`);
+    let attempt = {
+      ...(priorAttempt ?? {}),
+      migrationID: migration.migrationID,
+      ref,
+      uid: obsolete.metadata.uid,
+      resourceVersion: obsolete.metadata.resourceVersion,
+      application: `${deployment.cluster}/${deployment.space}`,
+      expectedRevision,
+      apiVersion: migration.apiVersion,
+      kind: migration.kind,
+      name: migration.name,
+      fromNamespace: migration.fromNamespace,
+      toNamespace: deployment.destinationNamespace,
+      conflictingBindings: conflicts,
+      reason: migration.reason,
+      state: "prepared",
+      preparedAt: priorAttempt?.preparedAt ?? new Date().toISOString(),
+    };
+    delete attempt.source;
+    writeNamespaceMoveAttempt(attempt);
+    state.namespaceMoveAttempts.set(ref, { ...attempt, source: "journal" });
+    const deleted = deleteDaemonSetWithPreconditions(
+      deployment.cluster,
+      migration.fromNamespace,
+      migration.name,
+      obsolete.metadata.uid,
+      obsolete.metadata.resourceVersion,
+    );
+    if (!deleted.ok && retryableKubernetesCompareAndSet(deleted.output)) {
+      const current = namespaceMoveCurrentObject(deployment, migration);
+      if (!current || current.metadata?.uid !== obsolete.metadata.uid) {
+        const outcome = current?.metadata?.uid
+          ? `original-uid-gone-replaced-by-${current.metadata.uid}`
+          : "original-uid-gone";
+        attempt = completeNamespaceMoveAttempt(state, attempt, outcome);
+        recordAction(state, "argo-namespace-move-recovery", ref, `uid=${attempt.uid}; ${outcome}`);
+        changed = true;
+      }
+      continue;
+    }
+    check(deleted.ok, `${ref}: UID/resourceVersion-preconditioned namespace-move deletion failed`);
+    attempt = {
+      ...attempt,
+      state: "delete-returned",
+      deleteReturnedAt: new Date().toISOString(),
+    };
+    writeNamespaceMoveAttempt(attempt);
+    state.namespaceMoveAttempts.set(ref, { ...attempt, source: "journal" });
+    const outcome = waitForNamespaceMoveUIDGone(deployment, migration, obsolete.metadata.uid);
+    attempt = completeNamespaceMoveAttempt(state, attempt, outcome);
+    recordAction(
+      state,
+      "argo-namespace-move-prune",
+      ref,
+      `uid=${obsolete.metadata.uid}; outcome=${outcome}; ${deployment.destinationNamespace}/${migration.name}; bindings=${conflicts.join(",")}; ${migration.reason}`,
+    );
+    changed = true;
+  }
+  return changed;
+}
+
 function convergeDeploymentApplication(deployment, state, expectedRevision) {
   check(deployment, "internal error: deployment definition missing during Argo convergence");
   check(/^sha256:[0-9a-f]{64}$/.test(expectedRevision), `${deployment.space}: invalid expected ConfigHub revision ${expectedRevision}`);
+  let firstApp = waitForArgoApplicationContract(deployment);
+  const convergenceJournal = beginConvergenceJournal(deployment, expectedRevision, firstApp);
+  const firstObservedAt = Date.parse(convergenceJournal.startedAt);
+  let convergenceStartedAt = firstObservedAt;
+  let activeWaitStartedAt = null;
+  let healthWaitStartedAt = null;
+  let syncRequests = convergenceJournal.syncReservations;
   let last = { sync: "Unknown", health: "Unknown", phase: "Unknown", revision: "Unknown", message: "not observed" };
-  for (let cycle = 1; cycle <= 4; cycle += 1) {
-    requestArgoSyncIfNeeded(deployment, state, cycle, expectedRevision);
-    for (let attempt = 0; attempt < 48; attempt += 1) {
-      const app = readLiveArgoApplication(deployment);
-      last = {
-        sync: app.status?.sync?.status ?? "Unknown",
-        health: app.status?.health?.status ?? "Unknown",
-        phase: app.status?.operationState?.phase ?? "Unknown",
-        revision: app.status?.sync?.revision ?? "Unknown",
-        message: app.status?.operationState?.message ?? app.status?.conditions?.map((item) => item.message).join("; ") ?? "",
-      };
-      if (deploymentApplicationAccepted(app, deployment, expectedRevision)) return last;
-      const operationActive = Boolean(app.operation) || last.phase === "Running";
-      if (!operationActive && (last.sync !== "Synced" || last.revision !== expectedRevision) && attempt >= 3) break;
-      command("sleep", ["5"]);
+  while (true) {
+    let app = firstApp ?? readLiveArgoApplication(deployment);
+    firstApp = null;
+    assertArgoApplicationContract(app, deployment);
+    if (pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevision)) {
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+      app = readLiveArgoApplication(deployment);
+      assertArgoApplicationContract(app, deployment);
     }
+    last = argoObservation(app);
+    const disposition = argoConvergenceState(app, deployment, expectedRevision);
+    if (disposition === "accepted") {
+      clearConvergenceJournal(convergenceJournal.key);
+      return last;
+    }
+
+    const now = Date.now();
+    convergenceStartedAt = Math.min(
+      convergenceStartedAt,
+      expectedRevisionTimestamp(app, expectedRevision, "startedAt", firstObservedAt),
+    );
+    const convergenceElapsed = now - convergenceStartedAt;
+    check(
+      convergenceElapsed <= ARGO_CONVERGENCE_TIMEOUT_MS,
+      `${deployment.cluster}/${deployment.space}: overall Argo convergence exceeded ${ARGO_CONVERGENCE_TIMEOUT_MS / 60000} minutes; expected revision ${expectedRevision}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(convergenceElapsed / 1000), syncRequests })}`,
+    );
+    if (disposition === "active-operation") {
+      healthWaitStartedAt = null;
+      activeWaitStartedAt ??= now;
+      activeWaitStartedAt = Math.min(
+        activeWaitStartedAt,
+        expectedRevisionTimestamp(app, expectedRevision, "startedAt", activeWaitStartedAt),
+      );
+      const elapsed = now - activeWaitStartedAt;
+      check(
+        elapsed <= ARGO_OPERATION_TIMEOUT_MS,
+        `${deployment.cluster}/${deployment.space}: active Argo operation exceeded ${ARGO_OPERATION_TIMEOUT_MS / 60000} minutes without takeover; expected revision ${expectedRevision}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(elapsed / 1000), syncRequests })}`,
+      );
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+      continue;
+    }
+
+    activeWaitStartedAt = null;
+    if (disposition === "health-pending") {
+      healthWaitStartedAt ??= now;
+      healthWaitStartedAt = Math.min(
+        healthWaitStartedAt,
+        expectedRevisionTimestamp(app, expectedRevision, "finishedAt", healthWaitStartedAt),
+      );
+      const elapsed = now - healthWaitStartedAt;
+      check(
+        elapsed <= ARGO_HEALTH_TIMEOUT_MS,
+        `${deployment.cluster}/${deployment.space}: exact-revision health did not settle within ${ARGO_HEALTH_TIMEOUT_MS / 60000} minutes; no resync was submitted; expected health ${deployment.acceptedHealth.join("|")}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(elapsed / 1000), syncRequests })}`,
+      );
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+      continue;
+    }
+
+    healthWaitStartedAt = null;
+    check(
+      syncRequests < ARGO_MAX_SYNC_REQUESTS,
+      `${deployment.cluster}/${deployment.space}: exhausted ${ARGO_MAX_SYNC_REQUESTS} actual Argo sync requests; expected revision ${expectedRevision}, Synced, and health ${deployment.acceptedHealth.join("|")}, got ${stableJson(last)}`,
+    );
+    syncRequests = reserveConvergenceSync(convergenceJournal.key);
+    requestArgoSyncIfNeeded(
+      deployment,
+      state,
+      syncRequests,
+      expectedRevision,
+    );
+    command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
   }
-  check(
-    false,
-    `${deployment.cluster}/${deployment.space}: failed four bounded Argo convergence cycles; expected revision ${expectedRevision}, Synced, and health ${deployment.acceptedHealth.join("|")}, got ${stableJson(last)}`,
-  );
 }
 
-function requestArgoSyncIfNeeded(deployment, state, cycle, expectedRevision) {
-  let app = null;
-  let contractError = "Application not observed";
-  for (let attempt = 0; attempt < 60; attempt += 1) {
-    app = readLiveArgoApplication(deployment);
-    try {
-      assertArgoApplicationContract(app, deployment);
-      contractError = "";
-      break;
-    } catch (error) {
-      contractError = error.message;
-      command("sleep", ["2"]);
-    }
-  }
-  check(!contractError, `${deployment.cluster}/${deployment.space}: live Argo Application contract did not converge: ${contractError}`);
-  if (deploymentApplicationAccepted(app, deployment, expectedRevision)) return;
-  if (app.operation || app.status?.operationState?.phase === "Running") return;
+function requestArgoSyncIfNeeded(deployment, state, syncAttempt, expectedRevision) {
+  let app = waitForArgoApplicationContract(deployment);
+  if (argoConvergenceState(app, deployment, expectedRevision) !== "retryable") return false;
 
   kubectl(deployment.cluster, [
     "annotate", "application", deployment.space, "-n", "argocd",
     "argocd.argoproj.io/refresh=hard", "--overwrite",
   ]);
-  recordAction(state, "argo-hard-refresh", `${deployment.cluster}/${deployment.space}`, `convergence cycle ${cycle}`);
+  recordAction(state, "argo-hard-refresh", `${deployment.cluster}/${deployment.space}`, `sync attempt ${syncAttempt}`);
   let refreshProcessed = false;
   for (let attempt = 0; attempt < 60; attempt += 1) {
     app = readLiveArgoApplication(deployment);
@@ -3070,25 +5383,29 @@ function requestArgoSyncIfNeeded(deployment, state, cycle, expectedRevision) {
   }
   check(refreshProcessed, `${deployment.cluster}/${deployment.space}: Argo hard refresh was not processed`);
   assertArgoApplicationContract(app, deployment);
-  if (deploymentApplicationAccepted(app, deployment, expectedRevision)) return;
-  if (app.operation || app.status?.operationState?.phase === "Running") return;
+  if (argoConvergenceState(app, deployment, expectedRevision) !== "retryable") return false;
 
   const operation = {
-    operation: {
-      initiatedBy: { username: "helm-expt-kubara-mini-idp" },
-      sync: {
-        revision: expectedRevision,
-        prune: true,
-        syncOptions: applicationSyncOptions(deployment),
-      },
-      retry: applicationRetryPolicy(),
+    initiatedBy: { username: "helm-expt-kubara-mini-idp" },
+    sync: {
+      revision: expectedRevision,
+      prune: true,
+      syncOptions: applicationSyncOptions(deployment),
     },
+    retry: applicationRetryPolicy(),
   };
-  kubectl(deployment.cluster, [
+  check(app.metadata?.resourceVersion, `${deployment.cluster}/${deployment.space}: Application resourceVersion missing before sync compare-and-set`);
+  const submitted = kubectlTry(deployment.cluster, [
     "patch", "application", deployment.space, "-n", "argocd",
-    "--type=merge", "--patch", JSON.stringify(operation),
+    "--type=json", "--patch", JSON.stringify([
+      { op: "test", path: "/metadata/resourceVersion", value: app.metadata.resourceVersion },
+      { op: "add", path: "/operation", value: operation },
+    ]),
   ]);
-  recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, `convergence cycle ${cycle}; Kubara prune semantics`);
+  if (!submitted.ok && retryableKubernetesCompareAndSet(submitted.output)) return false;
+  check(submitted.ok, `${deployment.cluster}/${deployment.space}: failed to submit compare-and-set Argo sync operation`);
+  recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, `sync attempt ${syncAttempt}; Kubara prune semantics`);
+  return true;
 }
 
 function spaceHasUnreleasedHeads(space) {
@@ -3105,15 +5422,20 @@ function hasRelease(space) {
     "--where", "Published = true",
     "--select", "Digest,ManifestDigest,ReleaseNum,CreatedAt", "-o", "json",
   ]);
-  if (!result.ok) return false;
+  check(result.ok, `${space}: failed to inspect published releases: ${result.output}`);
   return unwrapRows(JSON.parse(result.output), "Release").length > 0;
 }
 
-function publishRelease(space, state) {
+function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
+  const boundarySnapshot = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
   const hasUnreleasedHeads = spaceHasUnreleasedHeads(space);
   const current = latestRelease(space);
   if (releasePublicationDecision({ hasUnreleasedHeads, hasPublishedRelease: Boolean(current) }) === "reuse") {
     state.changedSpaces.delete(space);
+    check(
+      stableJson(assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" })) === stableJson(boundarySnapshot),
+      `${space}: release boundary changed while reusing the published release`,
+    );
     return validatedPublishedRelease(space, current, "existing published release");
   }
   const result = cubTry(
@@ -3132,6 +5454,10 @@ function publishRelease(space, state) {
       `${space}: ConfigHub reported an unchanged bundle while Unit heads remain unreleased`,
     );
     state.changedSpaces.delete(space);
+    check(
+      stableJson(assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" })) === stableJson(boundarySnapshot),
+      `${space}: release boundary changed during unchanged-release recovery`,
+    );
     return validatedPublishedRelease(space, reused, "unchanged published release");
   }
   const value = JSON.parse(result.output);
@@ -3148,11 +5474,182 @@ function publishRelease(space, state) {
   state.published.set(space, { manifestDigest, bundleDigest });
   state.changedSpaces.delete(space);
   check(!spaceHasUnreleasedHeads(space), `${space}: release did not advance every Unit to its current head`);
+  check(
+    stableJson(assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" })) === stableJson(boundarySnapshot),
+    `${space}: release boundary changed while publishing`,
+  );
   return {
     ...(release ?? {}),
     Digest: bundleDigest,
     ManifestDigest: manifestDigest,
   };
+}
+
+function assertReleaseBoundary(space, { sourcePayloadKeys = {}, approvalMode = "clear" } = {}) {
+  const expectedManagedUnits = plan.managedUnits.filter((item) => item.space === space);
+  if (expectedManagedUnits.length > 0) {
+    assertUnitAllowlist(space, expectedManagedUnits.map((item) => item.slug));
+    const unexpectedOverrides = Object.keys(sourcePayloadKeys)
+      .filter((slug) => !expectedManagedUnits.some((item) => item.slug === slug));
+    check(
+      unexpectedOverrides.length === 0,
+      `${space}: release payload override names unknown Units: ${unexpectedOverrides.join(", ")}`,
+    );
+    for (const expected of expectedManagedUnits) {
+      assertManagedSourceUnitContract(
+        expected,
+        sourcePayloadKeys[expected.slug] ?? expected.payloadKey,
+      );
+    }
+    const liveUnits = readUnitRows(space);
+    const gated = liveUnits.filter(hasApprovalGate);
+    if (approvalMode === "required") {
+      check(gated.length > 0, `${space}: expected an exact approval gate before the refused publication`);
+    } else {
+      check(gated.length === 0, `${space}: successful publication still has ${gated.length} approval-gated head(s)`);
+    }
+    assertManagedSourceSpaceContract(space, expectedManagedUnits);
+    return releaseBoundarySnapshot(space);
+  }
+  const fleetItem = FLEET.find((item) => `${item.cluster}-argo-apps` === space);
+  check(fleetItem, `${space}: release publication is outside the managed mini-IDP Space inventory`);
+  assertUnitAllowlist(space, expectedArgoApplicationSlugs(plan, fleetItem));
+  assertDeliveryTopology(readSpaces(), plan, {
+    fleet: [fleetItem],
+    requireAllApplications: true,
+    requireApplicationMetadata: true,
+  });
+  for (const deployment of plan.deployments.filter((item) => item.cluster === fleetItem.cluster)) {
+    const docs = parseDocs(cub(["unit", "data", "--space", deployment.appSpace, deployment.appUnit]));
+    check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one release-boundary Application`);
+    const app = docs[0];
+    assertArgoApplicationContract(app, deployment);
+    check(
+      stableJson(app.spec?.syncPolicy) === stableJson(applicationSyncPolicy(deployment)),
+      `${deployment.appSpace}/${deployment.appUnit}: sync policy drifted before fleet-root publication`,
+    );
+    const expectedIgnoreDifferences = deployment.ignoreInjectedCertificateData
+      ? certificateIgnoreDifferences()
+      : undefined;
+    check(
+      stableJson(app.spec?.ignoreDifferences) === stableJson(expectedIgnoreDifferences),
+      `${deployment.appSpace}/${deployment.appUnit}: ignoreDifferences drifted before fleet-root publication`,
+    );
+  }
+  return releaseBoundarySnapshot(space);
+}
+
+function assertManagedSourceSpaceContract(space, expectedUnits) {
+  const expectedSpace = plan.spaces.find((item) => item.slug === space);
+  check(expectedSpace, `${space}: managed source Space is absent from the plan`);
+  const liveSpace = readSpaces().get(space);
+  check(liveSpace, `${space}: managed source Space is missing`);
+  if (expectedSpace.target) {
+    const target = readTarget(expectedSpace.target.split("/")[0]);
+    check(target?.TargetID, `${space}: expected release target ${expectedSpace.target} is missing`);
+    check(liveSpace.ReleaseTargetID === target.TargetID, `${space}: Space release target drifted`);
+  } else {
+    check(!liveSpace.ReleaseTargetID, `${space}: untargeted definition Space gained a release target`);
+  }
+
+  const expectedUpgrade = new Map(expectedUnits
+    .filter((unit) => unit.upstream)
+    .map((unit) => [`upgrade-${unit.slug}`, unit]));
+  const allowedNeedsProvides = new Set(plan.links.filter((link) => link.space === space).map((link) => link.slug));
+  const liveLinks = readLinks(space);
+  const unexpected = liveLinks.filter(
+    (link) => !expectedUpgrade.has(link.Slug) && !allowedNeedsProvides.has(link.Slug),
+  );
+  check(unexpected.length === 0, `${space}: unexpected Link(s) at release boundary: ${unexpected.map((item) => item.Slug).join(", ")}`);
+  for (const [slug, unit] of expectedUpgrade) {
+    const link = liveLinks.find((item) => item.Slug === slug);
+    check(link, `${space}/${slug}: required UpgradeUnit Link is missing at release boundary`);
+    const downstream = readUnit(space, unit.slug);
+    const [upstreamSpace, upstreamSlug] = unit.upstream.split("/");
+    const upstream = readUnit(upstreamSpace, upstreamSlug);
+    check(link.UpdateType === "UpgradeUnit" && link.AutoUpdate !== true, `${space}/${slug}: UpgradeUnit policy drifted`);
+    check(link.FromUnitID === downstream?.UnitID && link.ToUnitID === upstream?.UnitID, `${space}/${slug}: UpgradeUnit endpoints drifted`);
+  }
+}
+
+function assertManagedSourceUnitContract(expected, payloadKey) {
+  const ref = `${expected.space}/${expected.slug}`;
+  const payload = inputs.payloads.get(payloadKey);
+  check(payload, `${ref}: reviewed release-boundary payload ${payloadKey} is missing`);
+  const live = readUnit(expected.space, expected.slug);
+  check(live, `${ref}: managed source Unit is missing at the release boundary`);
+  check(live.ToolchainType === expected.toolchain, `${ref}: toolchain drifted at the release boundary`);
+  check(
+    (live.ProviderType ?? null) === (expected.provider ?? null),
+    `${ref}: provider drifted at the release boundary`,
+  );
+  check(
+    sameUnitData(
+      expected.toolchain,
+      cub(["unit", "data", "--space", expected.space, expected.slug]),
+      payload.value,
+    ),
+    `${ref}: data is not the exact reviewed release-boundary payload ${payloadKey}`,
+  );
+  if (expected.target) {
+    const target = readTarget(expected.target.split("/")[0]);
+    check(target?.TargetID, `${ref}: expected target ${expected.target} is missing`);
+    check(live.TargetID === target.TargetID, `${ref}: target drifted at the release boundary`);
+  } else {
+    check(!live.TargetID, `${ref}: untargeted source Unit gained a target at the release boundary`);
+  }
+  if (expected.upstream) {
+    const [upstreamSpace, upstreamSlug] = expected.upstream.split("/");
+    const upstream = readUnit(upstreamSpace, upstreamSlug);
+    check(upstream?.UnitID, `${ref}: expected upstream ${expected.upstream} is missing`);
+    check(live.UpstreamUnitID === upstream.UnitID, `${ref}: upstream drifted at the release boundary`);
+  } else {
+    check(!live.UpstreamUnitID, `${ref}: definition Unit gained an upstream at the release boundary`);
+  }
+  check(
+    mapMatches(live.Labels, expected.labels)
+      && staleOwnedUnitLabels(live.Labels, expected.labels).length === 0,
+    `${ref}: owned identity labels drifted at the release boundary`,
+  );
+  const expectedAnnotations = {
+    ...sourceAnnotation(payload.value, payload.sourcePaths, payload.transform),
+    ...(expected.annotations ?? {}),
+  };
+  check(
+    mapMatches(live.Annotations, expectedAnnotations)
+      && staleOwnedPublicAnnotations(live.Annotations, expectedAnnotations).length === 0,
+    `${ref}: owned provenance annotations drifted at the release boundary`,
+  );
+  if (expected.prodProtected) {
+    check(
+      gateEnabled(live.DeleteGates, PROD_SAFETY_GATE)
+        && gateEnabled(live.DestroyGates, PROD_SAFETY_GATE),
+      `${ref}: production delete/destroy protection drifted at the release boundary`,
+    );
+  } else {
+    check(
+      !gateEnabled(live.DeleteGates, PROD_SAFETY_GATE)
+        && !gateEnabled(live.DestroyGates, PROD_SAFETY_GATE),
+      `${ref}: non-production Unit gained the owned production safety gate`,
+    );
+  }
+}
+
+function releaseBoundarySnapshot(space) {
+  return readUnitRows(space).map((unit) => ({
+    slug: unit.Slug,
+    id: unit.UnitID,
+    headRevisionNum: unit.HeadRevisionNum,
+    dataHash: unit.DataHash,
+    targetID: unit.TargetID ?? null,
+    upstreamUnitID: unit.UpstreamUnitID ?? null,
+    toolchain: unit.ToolchainType,
+    provider: unit.ProviderType ?? null,
+    ownedLabels: Object.fromEntries([...OWNED_UNIT_LABELS]
+      .filter((key) => unit.Labels?.[key] !== undefined)
+      .sort()
+      .map((key) => [key, unit.Labels[key]])),
+  })).sort((left, right) => left.slug.localeCompare(right.slug));
 }
 
 function validatedPublishedRelease(space, release, description) {
@@ -3190,6 +5687,294 @@ function selfTestReleaseRecovery() {
     "unrelated failures or successful output must not be classified as unchanged-bundle recovery",
   );
   console.log("Kubara mini-IDP release recovery self-test passed");
+}
+
+function selfTestScenarioOperationEvidence() {
+  const refA = "hx-web-prod-a/hx-web-deployment";
+  const refB = "hx-web-prod-b/hx-web-deployment";
+  const idA = "11111111-1111-4111-8111-111111111111";
+  const idB = "22222222-2222-4222-8222-222222222222";
+  const hashInitial = "a".repeat(64);
+  const hashPromoted = "b".repeat(64);
+  const unit = (ref, id, headRevisionNum, dataHash, approvalCount = 0) => ({
+    ref,
+    id,
+    headRevisionNum,
+    lastAppliedRevisionNum: headRevisionNum,
+    dataHash,
+    approvalCount,
+    applyGates: {},
+  });
+  const facts = (units) => ({
+    sourceFingerprint: `sha256:${"c".repeat(64)}`,
+    units,
+    releases: [],
+    upgradeLinks: [],
+    spaceMarkers: [],
+  });
+  const scenario = {
+    checkpoints: [
+      { id: "initial-rollout", facts: facts([unit(refA, idA, 10, hashInitial, 1)]) },
+      {
+        id: "prod-approval",
+        facts: facts([
+          unit(refA, idA, 20, hashPromoted, 1),
+          unit(refB, idB, 30, hashPromoted, 1),
+        ]),
+      },
+      {
+        id: "prod-a-rollback",
+        facts: facts([
+          unit(refA, idA, 22, hashInitial, 1),
+          unit(refB, idB, 30, hashPromoted, 1),
+        ]),
+      },
+    ],
+    operationEvidence: [
+      {
+        type: "expected-approval-block",
+        ref: "hx-web-prod-a",
+        transitionID: "base-promotion/hx-web-prod-a-approval-refusal",
+        refusedHeads: [{ ref: refA, id: idA, headRevisionNum: 20, dataHash: hashPromoted }],
+      },
+      {
+        type: "expected-approval-block",
+        ref: "hx-web-prod-b",
+        transitionID: "base-promotion/hx-web-prod-b-approval-refusal",
+        refusedHeads: [{ ref: refB, id: idB, headRevisionNum: 30, dataHash: hashPromoted }],
+      },
+      {
+        type: "unit-approve",
+        ref: "hx-web-prod-a",
+        transitionID: "prod-approval/hx-web-prod-a-approve-v1",
+        approvedHeads: [{
+          ref: refA,
+          id: idA,
+          headRevisionNum: 20,
+          dataHash: hashPromoted,
+          approvalCountBefore: 0,
+          approvalCountAfter: 1,
+        }],
+      },
+      {
+        type: "unit-approve",
+        ref: "hx-web-prod-b",
+        transitionID: "prod-approval/hx-web-prod-b-approve-v1",
+        approvedHeads: [{
+          ref: refB,
+          id: idB,
+          headRevisionNum: 30,
+          dataHash: hashPromoted,
+          approvalCountBefore: 0,
+          approvalCountAfter: 1,
+        }],
+      },
+      {
+        type: "rollback",
+        ref: refA,
+        transitionID: "prod-a-rollback/prod-a-restore-previous",
+        unitID: idA,
+        restoredRevisionNum: 10,
+        restoredDataHash: hashInitial,
+        sourceHeadRevisionNum: 20,
+        sourceDataHash: hashPromoted,
+        resultHeadRevisionNum: 21,
+        resultDataHash: hashInitial,
+      },
+    ],
+  };
+  check(scenarioOperationProofValid(scenario), "valid exact approval and rollback evidence was rejected");
+  const drifted = JSON.parse(JSON.stringify(scenario));
+  drifted.operationEvidence.find((item) => item.type === "rollback").restoredRevisionNum = 9;
+  check(!scenarioOperationProofValid(drifted), "rollback evidence not bound to the initial-rollout revision was accepted");
+  const mismatchedApproval = JSON.parse(JSON.stringify(scenario));
+  mismatchedApproval.operationEvidence.find(
+    (item) => item.transitionID === "prod-approval/hx-web-prod-a-approve-v1",
+  ).approvedHeads[0].headRevisionNum = 19;
+  check(!scenarioOperationProofValid(mismatchedApproval), "approval evidence not bound to the refused head was accepted");
+  console.log("Kubara mini-IDP scenario evidence self-test passed");
+}
+
+function selfTestArgoConvergence() {
+  const expectedRevision = `sha256:${"a".repeat(64)}`;
+  const olderRevision = `sha256:${"b".repeat(64)}`;
+  const deployment = {
+    space: "test-app",
+    acceptedHealth: ["Healthy"],
+  };
+  check(
+    kubernetesResourceNotFound('Error from server (NotFound): applications.argoproj.io "test-app" not found')
+      && !kubernetesResourceNotFound("Unable to connect to the server: connection refused")
+      && !kubernetesResourceNotFound("the server could not find the requested resource"),
+    "the clean-room waiter must retry only an exact Kubernetes object NotFound",
+  );
+  const fingerprintA = `sha256:${"d".repeat(64)}`;
+  const fingerprintB = `sha256:${"e".repeat(64)}`;
+  check(
+    operationJournalFingerprintDisposition({ executionFingerprint: fingerprintA, convergence: {}, namespaceMove: null }, fingerprintB) === "rotate"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: { state: "observed-gone" },
+      }, fingerprintB) === "rotate"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: { active: {} },
+        namespaceMove: null,
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: { state: "prepared" },
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        scenario: { state: "started" },
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        scenario: { state: "completed" },
+      }, fingerprintB) === "rotate"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        scenario: null,
+        fleetBootstrap: { state: "started" },
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        scenario: null,
+        fleetBootstrap: { state: "completed" },
+      }, fingerprintB) === "rotate",
+    "operation-journal fingerprints must rotate only when no operation is in flight",
+  );
+  const app = ({
+    sync = "OutOfSync",
+    health = "Progressing",
+    phase = "Failed",
+    revision = olderRevision,
+    operationStateRevision = revision,
+    operation = false,
+  } = {}) => ({
+    ...(operation ? { operation: { sync: {} } } : {}),
+    status: {
+      sync: { status: sync, revision },
+      health: { status: health },
+      operationState: { phase, syncResult: { revision: operationStateRevision } },
+    },
+  });
+  check(
+    argoConvergenceState(app({ sync: "Synced", health: "Healthy", phase: "Succeeded", revision: expectedRevision }), deployment, expectedRevision) === "accepted",
+    "exact-revision healthy Argo state must be accepted",
+  );
+  check(
+    argoConvergenceState(app({
+      sync: "Synced",
+      health: "Healthy",
+      phase: "Succeeded",
+      revision: expectedRevision,
+      operation: true,
+    }), deployment, expectedRevision) === "active-operation",
+    "an active operation must take precedence over stale accepted sync and health status",
+  );
+  check(
+    argoConvergenceState(app({ phase: "Running" }), deployment, expectedRevision) === "active-operation"
+      && argoConvergenceState(app({ phase: "Terminating" }), deployment, expectedRevision) === "active-operation"
+      && argoConvergenceState(app({ phase: "Unknown", operation: true }), deployment, expectedRevision) === "active-operation",
+    "running, terminating, or submitted Argo operations must be observed without replacement",
+  );
+  check(
+    argoConvergenceState(app({ sync: "Synced", health: "Progressing", phase: "Succeeded", revision: expectedRevision }), deployment, expectedRevision) === "health-pending",
+    "exact-revision health settling must not trigger a resync",
+  );
+  check(
+    argoConvergenceState(app({ sync: "OutOfSync", phase: "Failed", revision: expectedRevision }), deployment, expectedRevision) === "retryable"
+      && argoConvergenceState(app({ sync: "Synced", health: "Progressing", phase: "Failed", revision: expectedRevision }), deployment, expectedRevision) === "retryable"
+      && argoConvergenceState(app({ sync: "Synced", health: "Progressing", phase: "Error", revision: expectedRevision }), deployment, expectedRevision) === "retryable"
+      && argoConvergenceState(app({ sync: "Synced", health: "Healthy", phase: "Succeeded", revision: olderRevision }), deployment, expectedRevision) === "retryable",
+    "inactive terminal failure, OutOfSync, or wrong-revision states must be retryable",
+  );
+  check(
+    argoConvergenceState(app({
+      sync: "Synced",
+      health: "Progressing",
+      phase: "Failed",
+      revision: expectedRevision,
+      operationStateRevision: olderRevision,
+    }), deployment, expectedRevision) === "health-pending",
+    "a historical failed operation must not resync a current exact revision that is only waiting for health",
+  );
+  const progressAccepted = { ...deployment, acceptedHealth: ["Healthy", "Progressing"] };
+  check(
+    argoConvergenceState(app({ sync: "Synced", health: "Progressing", phase: "Succeeded", revision: expectedRevision }), progressAccepted, expectedRevision) === "accepted",
+    "declared Progressing acceptance must remain immediate",
+  );
+  const oldStart = "2026-08-04T20:00:00Z";
+  const firstObservation = Date.parse("2026-08-04T20:30:00Z");
+  const futureStart = "2026-08-04T21:00:00Z";
+  check(
+    observedTimestamp(oldStart, firstObservation) === Date.parse(oldStart)
+      && observedTimestamp(futureStart, firstObservation) === firstObservation
+      && observedTimestamp("not-a-date", firstObservation) === firstObservation,
+    "Argo deadline timestamps must survive restart and reject future or invalid values",
+  );
+  const staleOperationState = {
+    operation: { sync: { revision: expectedRevision } },
+    status: {
+      operationState: {
+        startedAt: oldStart,
+        syncResult: { revision: olderRevision },
+      },
+    },
+  };
+  const matchingOperationState = {
+    status: {
+      operationState: {
+        startedAt: oldStart,
+        syncResult: { revision: expectedRevision },
+      },
+    },
+  };
+  check(
+    expectedRevisionTimestamp(staleOperationState, expectedRevision, "startedAt", firstObservation) === firstObservation
+      && expectedRevisionTimestamp(matchingOperationState, expectedRevision, "startedAt", firstObservation) === Date.parse(oldStart)
+      && expectedRevisionTimestamp(staleOperationState, `sha256:${"c".repeat(64)}`, "startedAt", firstObservation) === firstObservation,
+    "Argo deadlines must use persisted timestamps only when the observed operationState matches the expected revision",
+  );
+  check(
+    activeOperationMatchesExpectedRevision({
+      operation: { sync: { revision: expectedRevision } },
+      status: { operationState: { phase: "Running", syncResult: { revision: olderRevision } } },
+    }, expectedRevision) === true
+      && activeOperationMatchesExpectedRevision({
+        operation: { sync: { revision: olderRevision } },
+        status: { sync: { revision: expectedRevision }, operationState: { phase: "Running", syncResult: { revision: expectedRevision } } },
+      }, expectedRevision) === false
+      && activeOperationMatchesExpectedRevision({
+        operation: { sync: {} },
+        status: { sync: { revision: expectedRevision }, operationState: { phase: "Running", syncResult: { revision: expectedRevision } } },
+      }, expectedRevision) === false,
+    "namespace-move authorization must require the explicit active operation revision rather than historical sync status",
+  );
+  const workload = (namespace) => ({
+    apiVersion: "apps/v1",
+    kind: "DaemonSet",
+    metadata: { namespace },
+    spec: { template: { spec: { hostNetwork: true, containers: [{ ports: [{ protocol: "TCP", containerPort: 9100 }] }] } } },
+  });
+  check(
+    stableJson(hostNetworkBindings(workload("default"))) === stableJson(["TCP/9100"])
+      && hostNetworkBindings(workload("default")).some((binding) => hostNetworkBindings(workload("monitoring")).includes(binding)),
+    "namespace-move pruning must prove an exact shared host-network binding",
+  );
+  console.log("Kubara mini-IDP Argo convergence self-test passed");
 }
 
 function releaseManifestDigest(release) {
@@ -3304,6 +6089,8 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   assertKubaraOrganization();
   const findings = [];
   const spaces = readSpaces();
+  const controlSpace = unwrapEntity(cubJson(["space", "get", CONTROL_SPACE]), "Space");
+  check(controlSpace.OrganizationID === ORGANIZATION_ENTITY_ID, `${CONTROL_SPACE}: organization entity ID drifted from the pinned Kubara org`);
   assertSpaceAllowlist(spaces, desired, { requireAll: true });
   assertDeliveryTopology(spaces, desired, {
     requireAllApplications: true,
@@ -3508,7 +6295,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
 
   check(findings.length === 0, `Kubara mini-IDP verification failed:\n- ${findings.join("\n- ")}`);
   return {
-    organizationID: spaceRows[0]?.id ? spaces.get(CONTROL_SPACE).OrganizationID : "",
+    organizationID: controlSpace.OrganizationID,
     spaces: spaceRows,
     units: unitRows,
     preservedControlUnits,
@@ -3860,26 +6647,81 @@ function sourceEvidence() {
   }]));
 }
 
+function priorReceiptMatchesCurrentExecution(previous, currentSourceEvidence, observation) {
+  if (
+    previous?.kind !== "ConfigHubKubaraMiniIDPReconcileReceipt"
+      || previous.spec?.organization?.name !== ORGANIZATION
+      || previous.spec?.organization?.externalID !== ORGANIZATION_EXTERNAL_ID
+      || previous.spec?.organization?.entityID !== observation.organizationID
+      || previous.spec?.organization?.serverURL !== CONFIGHUB_SERVER_URL
+      || previous.spec?.rolloutScenario?.sourceFingerprint !== scenarioSourceFingerprint()
+  ) return false;
+  for (const [name, evidence] of Object.entries(currentSourceEvidence)) {
+    const stored = previous.spec?.source?.files?.[name];
+    if (stored?.path !== evidence.path || stored?.sha256 !== evidence.sha256) return false;
+  }
+  const previousSpaces = new Map((previous.spec?.spaces ?? []).map((space) => [space.slug, space.id]));
+  return observation.spaces.every((space) => previousSpaces.get(space.slug) === space.id)
+    && previousSpaces.size === observation.spaces.length;
+}
+
 function buildReceipt(inputs, desired, observation, state) {
   const previous = readPriorReceipt();
-  const previousRuns = previous?.kind === "ConfigHubKubaraMiniIDPReconcileReceipt"
-    ? previous.spec?.reconcileRuns ?? []
+  const currentSourceEvidence = sourceEvidence();
+  const trustedPrevious = priorReceiptMatchesCurrentExecution(previous, currentSourceEvidence, observation);
+  const currentExecutionFingerprint = operationExecutionFingerprint();
+  const previousRuns = trustedPrevious
+    ? (previous.spec?.reconcileRuns ?? []).filter(
+        (item) => item.executionFingerprint === currentExecutionFingerprint,
+      )
     : [];
   const run = {
     observedAt: new Date().toISOString(),
+    executionFingerprint: currentExecutionFingerprint,
     actionCount: state.actions.length,
     result: "pass",
     idempotentNoop: state.actions.length === 0,
   };
-  const allRuns = [...previousRuns, run];
+  const recoveredChangedRun = !trustedPrevious
+    && state.scenario.mode === "recovered-completed-history"
+    && state.scenarioJournal?.state === "completed"
+    && state.scenarioJournal?.executionFingerprint === currentExecutionFingerprint
+    ? {
+        observedAt: state.scenarioJournal.completedAt,
+        executionFingerprint: currentExecutionFingerprint,
+        actionCount: state.scenarioJournal.operationEvidence.length,
+        result: "pass",
+        idempotentNoop: false,
+        recoveredFromOperationJournal: true,
+      }
+    : null;
+  const allRuns = [
+    ...previousRuns,
+    ...(recoveredChangedRun ? [recoveredChangedRun] : []),
+    run,
+  ];
   const firstChangedRun = allRuns.find((item) => item.idempotentNoop === false && item.actionCount > 0) ?? null;
   const reconcileRuns = distinctRuns([
     ...(firstChangedRun ? [firstChangedRun] : []),
     ...allRuns.slice(-4),
   ]).slice(-5);
-  const idempotentRerunProven = Boolean(firstChangedRun) && reconcileRuns.length >= 2 && run.idempotentNoop;
-  const priorScenario = previous?.kind === "ConfigHubKubaraMiniIDPReconcileReceipt"
+  const currentFingerprintRuns = allRuns.filter(
+    (item) => item.result === "pass" && item.executionFingerprint === currentExecutionFingerprint,
+  );
+  const retainedNoopBaselineProven = currentFingerprintRuns.length >= 2
+    && currentFingerprintRuns.slice(-2).every(
+      (item) => item.idempotentNoop === true && item.actionCount === 0,
+    );
+  const changedThenNoopProven = Boolean(firstChangedRun) && run.idempotentNoop;
+  const idempotentRerunProven = changedThenNoopProven || retainedNoopBaselineProven;
+  const deterministicProofMode = changedThenNoopProven
+    ? "changed-then-zero-action-rerun"
+    : retainedNoopBaselineProven
+      ? "two-zero-action-retained-baseline-observations"
+      : "pending-second-observation";
+  const priorScenario = trustedPrevious
     && previous.spec?.rolloutScenario?.version === SCENARIO_VERSION
+    && previous.spec?.rolloutScenario?.sourceFingerprint === scenarioSourceFingerprint()
     ? previous.spec.rolloutScenario
     : null;
   const operationSteps = state.scenario.mode === "retained-proven-history" && priorScenario?.steps?.length
@@ -3887,37 +6729,59 @@ function buildReceipt(inputs, desired, observation, state) {
     : state.scenario.steps;
   const operationEvidence = state.scenario.mode === "retained-proven-history" && priorScenario?.operationEvidence?.length
     ? priorScenario.operationEvidence
-    : state.actions.filter((item) => [
-      "variant-promote",
-      "expected-approval-block",
-      "unit-approve",
-      "rollback",
-    ].includes(item.type));
+    : state.scenario.operationEvidence ?? state.actions.filter((item) => [
+        "variant-promote",
+        "expected-approval-block",
+        "unit-approve",
+        "rollback",
+      ].includes(item.type));
+  const scenarioCheckpoints = state.scenarioJournal?.checkpoints ?? priorScenario?.checkpoints ?? [];
+  check(
+    scenarioOperationProofValid({ checkpoints: scenarioCheckpoints, operationEvidence }),
+    "refusing to write a receipt without exact refusal, approval, and rollback evidence bound to scenario checkpoints",
+  );
+  const lastChangedActions = state.actions.length > 0
+    ? state.actions
+    : trustedPrevious ? previous.spec?.lastChangedActions ?? [] : [];
+  const namespaceMoveEvidence = [];
+  const seenNamespaceMoveUIDs = new Set();
+  for (const item of state.namespaceMoveEvidence) {
+    const key = `${item.ref ?? ""}/${item.uid ?? ""}`;
+    if (seenNamespaceMoveUIDs.has(key)) continue;
+    seenNamespaceMoveUIDs.add(key);
+    namespaceMoveEvidence.push(item);
+  }
+  check(namespaceMoveEvidence.length <= 1, "more than one namespace-move DaemonSet prune was retained");
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ConfigHubKubaraMiniIDPReconcileReceipt",
     metadata: { name: "kubara-v0-13-0-confighub-mini-idp" },
     spec: {
-      organization: { name: ORGANIZATION, entityID: observation.organizationID },
+      organization: {
+        name: ORGANIZATION,
+        externalID: ORGANIZATION_EXTERNAL_ID,
+        entityID: observation.organizationID,
+        serverURL: CONFIGHUB_SERVER_URL,
+      },
       source: {
         kubaraVersion: KUBARA_VERSION,
         catalogVersion: CATALOG_VERSION,
         exactVersionPolicy: "fail-if-missing",
         retentionPolicy: "additive-only",
-        files: sourceEvidence(),
+        files: currentSourceEvidence,
       },
       execution: {
         deterministic: true,
         aiRequired: false,
         mutationGuardConsulted: false,
-        destructiveOperations: [ARGO_PRUNE_POLICY],
+        destructiveOperations: [ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY],
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
-        partialClusterStatePolicy: "fail",
+        partialClusterStatePolicy: "fail-except-exact-journaled-prefix",
         serialLiveParityLock: true,
         unexpectedSpacePolicy: "fail-outside-exact-53-space-allowlist",
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
-        interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
+        interruptedScenarioPolicy: INTERRUPTED_SCENARIO_POLICY,
         interruptedReleasePolicy: INTERRUPTED_RELEASE_POLICY,
         publishedReleaseSelectionPolicy: PUBLISHED_RELEASE_SELECTION_POLICY,
         receiptRequiresZeroActionRerun: true,
@@ -3926,6 +6790,7 @@ function buildReceipt(inputs, desired, observation, state) {
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
+        argoNamespaceMovePolicy: ARGO_NAMESPACE_MOVE_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
         guiIdentityPolicy: GUI_IDENTITY_POLICY,
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
@@ -3943,6 +6808,7 @@ function buildReceipt(inputs, desired, observation, state) {
       clusters: observation.clusters,
       controls: observation.units.filter((item) => item.ref.startsWith(`${CONTROL_SPACE}/`)),
       preservedControlUnits: observation.preservedControlUnits,
+      namespaceMovePrunes: namespaceMoveEvidence,
       spaces: observation.spaces,
       units: observation.units,
       releases: observation.releases,
@@ -3970,9 +6836,11 @@ function buildReceipt(inputs, desired, observation, state) {
       policy: observation.policy,
       rolloutScenario: {
         version: SCENARIO_VERSION,
+        sourceFingerprint: scenarioSourceFingerprint(),
         mode: state.scenario.mode,
         steps: operationSteps,
         operationEvidence,
+        checkpoints: scenarioCheckpoints,
         finalChecks: observation.scenario,
         claims: {
           basePromotion: "pass",
@@ -3983,12 +6851,16 @@ function buildReceipt(inputs, desired, observation, state) {
       },
       liveMatrix: observation.liveMatrix,
       reconcileRuns,
+      deterministicProofMode,
       lastActions: state.actions,
+      lastChangedActions,
     },
     status: {
       result: idempotentRerunProven ? "pass" : "pending-idempotence",
       observedAt: run.observedAt,
-      cleanRoomReproducible: idempotentRerunProven,
+      cleanRoomReproducible: false,
+      cleanRoomClaim: "not asserted from this retained-org run; offline clean-room ordering is gated separately",
+      deterministicReconciliationProven: idempotentRerunProven,
       idempotentRerunProven,
       fullCurrentSelectionDelivered: true,
       applicationsDelivered: ["hx-web", "cubbychat"],
@@ -3997,6 +6869,7 @@ function buildReceipt(inputs, desired, observation, state) {
         "This is the adapted ConfigHub lane. The separate faithful-lane receipt proves Kubara's one-hub Argo topology against a spoke.",
         "ConfigHub-owned Argo CD and argobot replace Kubara's selected Argo wrapper in the adapted lane; the cluster-local reconciliation shape remains.",
         "The kind proof uses a self-signed issuer and ESO's fake provider with demo credentials. Production adoption must select public/private PKI and a real secret backend.",
+        "cub cluster up rolls back returned failures, but an abrupt process or host termination inside that multi-system command is fail-closed rather than automatically repaired; the reconciler resumes only fully complete journaled cluster prefixes and never deletes a partial persistent cluster.",
         "Traefik's LoadBalancer may remain Argo Progressing on kind without a cloud load balancer; workload readiness and sync are recorded separately.",
         "The reconciler replays promotion/rollback/departure history only for a clean or unmarked hx-web tree; marked reruns verify and reconcile the deterministic final state.",
       ],
@@ -4007,7 +6880,7 @@ function buildReceipt(inputs, desired, observation, state) {
 function distinctRuns(runs) {
   const seen = new Set();
   return runs.filter((run) => {
-    const key = `${run.observedAt ?? ""}/${run.actionCount ?? ""}/${run.idempotentNoop ?? ""}`;
+    const key = `${run.executionFingerprint ?? ""}/${run.observedAt ?? ""}/${run.actionCount ?? ""}/${run.idempotentNoop ?? ""}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -4019,7 +6892,9 @@ function verifyReceipt(inputs, desired) {
   const receipt = readYaml(RECEIPT_PATH);
   check(receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "mini-IDP receipt kind drifted");
   check(receipt.spec?.organization?.name === ORGANIZATION, "mini-IDP receipt organization drifted");
-  check(UUID_PATTERN.test(receipt.spec?.organization?.entityID ?? ""), "mini-IDP receipt organization ID is missing");
+  check(receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID, "mini-IDP receipt organization external ID drifted");
+  check(receipt.spec?.organization?.entityID === ORGANIZATION_ENTITY_ID, "mini-IDP receipt organization entity ID drifted");
+  check(receipt.spec?.organization?.serverURL === CONFIGHUB_SERVER_URL, "mini-IDP receipt ConfigHub server drifted");
   check(receipt.spec?.source?.kubaraVersion === KUBARA_VERSION, "mini-IDP receipt Kubara version drifted");
   check(receipt.spec?.source?.catalogVersion === CATALOG_VERSION, "mini-IDP receipt catalog version drifted");
   check(receipt.spec?.source?.exactVersionPolicy === "fail-if-missing", "mini-IDP exact-version policy drifted");
@@ -4037,15 +6912,20 @@ function verifyReceipt(inputs, desired) {
   check(receipt.spec?.execution?.aiRequired === false, "AI must not be required for mini-IDP reconciliation");
   check(receipt.spec?.execution?.mutationGuardConsulted === false, "mutation guard should remain outside this explicitly authorized reconciler");
   check(
-    stableJson(receipt.spec?.execution?.destructiveOperations) === stableJson([ARGO_PRUNE_POLICY]),
+    stableJson(receipt.spec?.execution?.destructiveOperations)
+      === stableJson([ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY]),
     "mini-IDP receipt Argo prune boundary drifted",
   );
   check(receipt.spec?.execution?.argoPrunePolicy === ARGO_PRUNE_POLICY, "mini-IDP receipt Argo prune policy drifted");
+  check(receipt.spec?.execution?.argoNamespaceMovePolicy === ARGO_NAMESPACE_MOVE_POLICY, "mini-IDP receipt Argo namespace-move policy drifted");
   check(receipt.spec?.execution?.argoRetryPolicy === ARGO_RETRY_POLICY, "mini-IDP receipt Argo retry policy drifted");
   check(receipt.spec?.execution?.argoRevisionPolicy === ARGO_REVISION_POLICY, "mini-IDP receipt Argo revision policy drifted");
   check(receipt.spec?.execution?.guiIdentityPolicy === GUI_IDENTITY_POLICY, "mini-IDP receipt GUI identity policy drifted");
   check(stableJson(receipt.spec?.execution?.persistentClustersPreserved) === stableJson(FLEET.map((item) => item.cluster)), "persistent cluster allowlist drifted");
-  check(receipt.spec?.execution?.partialClusterStatePolicy === "fail", "mini-IDP receipt no longer fails on partial persistent-cluster state");
+  check(
+    receipt.spec?.execution?.partialClusterStatePolicy === "fail-except-exact-journaled-prefix",
+    "mini-IDP receipt no longer limits partial fleet recovery to an exact journaled prefix",
+  );
   check(receipt.spec?.execution?.serialLiveParityLock === true, "mini-IDP receipt no longer records the shared serial live-parity lock");
   check(receipt.spec?.execution?.unexpectedSpacePolicy === "fail-outside-exact-53-space-allowlist", "mini-IDP receipt no longer enforces the exact Space allowlist");
   check(receipt.spec?.execution?.unexpectedManagedUnitOrLinkPolicy === "fail", "mini-IDP receipt no longer rejects unexpected managed Units or Links");
@@ -4057,6 +6937,10 @@ function verifyReceipt(inputs, desired) {
   check(
     receipt.spec?.execution?.interruptedReleasePolicy === INTERRUPTED_RELEASE_POLICY,
     "mini-IDP receipt no longer proves restart-safe release publication",
+  );
+  check(
+    receipt.spec?.execution?.interruptedScenarioPolicy === INTERRUPTED_SCENARIO_POLICY,
+    "mini-IDP receipt no longer proves checkpoint-bound scenario recovery",
   );
   check(
     receipt.spec?.execution?.publishedReleaseSelectionPolicy === PUBLISHED_RELEASE_SELECTION_POLICY,
@@ -4081,6 +6965,12 @@ function verifyReceipt(inputs, desired) {
   check(counts.releases === desired.deployments.length, `receipt has ${counts.releases} releases, expected ${desired.deployments.length}`);
   check(counts.needsProvidesLinks === desired.links.length, `receipt has ${counts.needsProvidesLinks} Links, expected ${desired.links.length}`);
   check(counts.liveMatrixRows === FLEET.length * 9, `receipt live matrix has ${counts.liveMatrixRows} rows, expected ${FLEET.length * 9}`);
+
+  const namespaceMoveEvidence = receipt.spec?.namespaceMovePrunes ?? [];
+  check(namespaceMoveEvidence.length <= 1, "receipt retains more than one namespace-move DaemonSet prune");
+  for (const item of namespaceMoveEvidence) {
+    assertNamespaceMoveEvidenceRow(item, "receipt namespace-move prune");
+  }
 
   const spaceRows = receipt.spec?.spaces ?? [];
   check(spaceRows.length === desired.spaces.length, "receipt Space rows are incomplete");
@@ -4198,11 +7088,34 @@ function verifyReceipt(inputs, desired) {
 
   const scenario = receipt.spec?.rolloutScenario ?? {};
   check(scenario.version === SCENARIO_VERSION, "receipt rollout scenario version drifted");
+  check(scenario.sourceFingerprint === scenarioSourceFingerprint(), "receipt rollout scenario source fingerprint drifted");
   for (const id of ["initial-rollout", "base-promotion", "prod-approval", "prod-a-rollback", "staging-departure", "departure-survives-promotion"]) {
     check((scenario.steps ?? []).some((item) => item.id === id && item.result === "pass"), `receipt rollout step ${id} is missing`);
   }
   for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
-    check((scenario.operationEvidence ?? []).some((item) => item.type === "expected-approval-block" && item.ref === space), `receipt lacks the expected pre-approval refusal for ${space}`);
+    const refusal = (scenario.operationEvidence ?? []).find(
+      (item) => item.type === "expected-approval-block" && item.ref === space,
+    );
+    check(refusal?.refusedHeads?.length > 0, `receipt lacks exact pre-approval refused heads for ${space}`);
+    for (const head of refusal.refusedHeads) {
+      check(UUID_PATTERN.test(head.id ?? "") && Number(head.headRevisionNum) > 0 && /^[a-f0-9]{64}$/.test(head.dataHash ?? ""), `${head.ref}: refused-head evidence is invalid`);
+    }
+  }
+  check(
+    scenarioOperationProofValid(scenario),
+    "receipt lacks exact refusal, approval, or rollback evidence bound to its rollout checkpoints",
+  );
+  const checkpoints = scenario.checkpoints ?? [];
+  for (const id of ["materialized", "base-promotion", "prod-approval", "prod-a-rollback", "final-normalized"]) {
+    const checkpoint = checkpoints.find((item) => item.id === id)?.facts;
+    check(checkpoint?.sourceFingerprint === scenario.sourceFingerprint, `receipt rollout checkpoint ${id} is missing or source-unbound`);
+    check(Array.isArray(checkpoint.units) && checkpoint.units.length > 0, `receipt rollout checkpoint ${id} lacks Unit facts`);
+    check(Array.isArray(checkpoint.releases) && checkpoint.releases.length === FLEET.length, `receipt rollout checkpoint ${id} lacks release facts`);
+    check(Array.isArray(checkpoint.upgradeLinks) && checkpoint.upgradeLinks.length > 0, `receipt rollout checkpoint ${id} lacks UpgradeUnit merge-base facts`);
+    for (const unit of checkpoint.units) {
+      check(UUID_PATTERN.test(unit.id ?? ""), `receipt rollout checkpoint ${id}/${unit.ref} Unit ID is invalid`);
+      check(Number(unit.headRevisionNum) > 0 && /^[a-f0-9]{64}$/.test(unit.dataHash ?? ""), `receipt rollout checkpoint ${id}/${unit.ref} revision or data hash is invalid`);
+    }
   }
   for (const [name, value] of Object.entries(scenario.claims ?? {})) check(value === "pass", `rollout claim ${name} is not pass`);
   check((scenario.finalChecks ?? []).length === 5 && scenario.finalChecks.every((item) => item.result === "pass"), "receipt final rollout checks are incomplete");
@@ -4225,10 +7138,24 @@ function verifyReceipt(inputs, desired) {
 
   const runs = receipt.spec?.reconcileRuns ?? [];
   check(runs.length >= 2 && runs.every((item) => item.result === "pass"), "receipt must contain the initial reconciliation and a zero-action rerun");
-  check(runs.some((item) => item.idempotentNoop === false && item.actionCount > 0), "receipt does not retain the state-changing reconciliation run");
+  check(runs.every((item) => item.executionFingerprint === operationExecutionFingerprint()), "receipt reconcile runs do not share the current execution fingerprint");
+  const changedThenNoop = runs.some((item) => item.idempotentNoop === false && item.actionCount > 0)
+    && runs.at(-1)?.idempotentNoop === true;
+  const retainedNoopBaseline = runs.length >= 2
+    && runs.slice(-2).every((item) => item.idempotentNoop === true && item.actionCount === 0);
+  check(changedThenNoop || retainedNoopBaseline, "receipt proves neither changed-then-noop reconciliation nor a two-observation retained no-op baseline");
   check(runs.at(-1)?.idempotentNoop === true && runs.at(-1)?.actionCount === 0, "receipt latest reconcile run is not an idempotent no-op");
+  check(
+    receipt.spec?.deterministicProofMode === (
+      changedThenNoop
+        ? "changed-then-zero-action-rerun"
+        : "two-zero-action-retained-baseline-observations"
+    ),
+    "receipt deterministic proof mode does not match its run evidence",
+  );
   check(receipt.status?.result === "pass", "mini-IDP receipt status is not pass");
-  check(receipt.status?.cleanRoomReproducible === true, "mini-IDP receipt clean-room claim is missing");
+  check(receipt.status?.cleanRoomReproducible === false, "retained-org receipt must not overclaim clean-room reproduction");
+  check(receipt.status?.deterministicReconciliationProven === true, "mini-IDP receipt deterministic reconciliation proof is missing");
   check(receipt.status?.idempotentRerunProven === true, "mini-IDP receipt does not prove a zero-action rerun");
   check(receipt.status?.fullCurrentSelectionDelivered === true, "mini-IDP receipt does not claim the full current selection");
   check((receipt.status?.limits ?? []).length >= 5, "mini-IDP receipt limits are incomplete");

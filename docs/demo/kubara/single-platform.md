@@ -592,27 +592,65 @@ npm run kubara-mini-idp:verify
 npm run kubara-mini-idp:receipt-verify
 ```
 
-The reconciler is scoped to the `Kubara` organization and the exact 53-Space
-allowlist. It creates missing owned objects and converges changed owned objects,
+The canned reconciler is scoped to the `Kubara` organization at
+`https://hub.confighub.com`, pins context/external organization ID
+`58b23b85-9699-4384-bd57-80ef695a1d58` and internal organization entity ID
+`12c33fa8-00b1-4011-ad3e-19d56458b29c`, and enforces the exact 53-Space
+allowlist. It captures the selected context name and revalidates both IDs and
+the server before every write. The generalized importer instead requires the
+user's explicitly selected organization. It creates missing owned objects and converges changed owned objects,
 but never deletes ConfigHub objects or persistent clusters. Clean-room safety
 is strict: any Space outside that allowlist, or any unexpected Unit or Link
 inside a managed Space, makes the run refuse rather than coexist, delete, or
-recreate. Re-running the accepted state at the desired revision produces no
+recreate. Partial state within one cluster is always rejected; a mixed fleet is
+resumable only when its complete clusters are the exact ordered prefix in the
+durable bootstrap journal. Re-running the accepted state at the desired revision produces no
 semantic changes. Apply refuses to start
 unless all prior qualification,
 promotion, publication, and faithful-lane gates pass. The first apply writes a
-pending-idempotence receipt. The immediately repeated apply must record zero
-actions before receipt verification can pass. A restarted apply also compares
+pending-idempotence receipt by atomic rename. All delivery Application Units
+are materialized and identity-checked before the first fleet-root release;
+workload releases then converge in Kubara dependency order. The hx-web
+promotion, approval, rollback, and departure sequence is checkpointed in the
+durable write-ahead operation journal, so a restart resumes completed steps
+instead of replaying production history from a missing receipt. Each checkpoint
+binds exact Unit heads and data hashes, approvals, releases, and UpgradeUnit
+merge bases. Every ConfigHub mutation in that rollout is a nested write-ahead
+transition with an exact pre-state and one reviewed post-state; a restart
+accepts only the durable ordered transition prefix and fails closed on any
+undeclared head, approval, release, provenance, or merge-base delta. The
+retained proof binds each production approval to the exact Unit IDs,
+revisions, and data hashes that publication refused, and binds the one-target
+rollback to the exact initial-rollout revision plus its source and result heads.
+Cluster creation is a separate prerequisite boundary: `cub cluster up` rolls back a
+returned failure, while an abrupt process or host termination inside that
+multi-system command may leave one partial cluster. The reconciler never
+deletes or guesses through that state; it refuses until cub-native or operator
+recovery restores either a fully absent or fully complete cluster. Complete
+cluster prefixes are resumed automatically from the bootstrap journal. The
+cluster bootstrap journal remains active until each cluster's first delivery
+root is published; immediately before that activation, every source Space for
+the cluster must still have no published `:latest`. A state-changing apply plus
+an immediate zero-action rerun proves convergence. When adopting an already
+exact retained organization under a newly reviewed reconciler fingerprint, two
+consecutive zero-action observations establish the retained baseline without
+inventing a change. A restarted apply also compares
 every Unit's head revision with its last applied revision, so an interrupted
 run cannot mistake an older existing release for the current desired state.
 An Application is accepted only when Argo reports the exact digest of the
 latest ConfigHub release; `Synced` on an older revision is not success.
-If Argo retains a failed attempt for the same OCI revision, the reconciler
-hard-refreshes that Application, waits until the refresh is observed, and
-requests a bounded current-revision sync. A terminal failure or terminal
-`Succeeded`/`OutOfSync` result starts another cycle, up to four. This is part
-of the deterministic retry path; it requires no console click and never
-broadens the resource allowlist.
+Each Application and OCI digest has one 90-minute overall convergence deadline
+and at most four sync-submission reservations, persisted across process
+restarts in the local operation journal. An existing
+Argo operation is observed without replacement for an explicit 60-minute
+deadline, retained across restarts from Argo's `startedAt`. An exact
+revision that is already `Synced` but still becoming healthy is observed for a
+separate 30-minute health deadline and is never resynced merely for being
+`Progressing`. Only an inactive terminal failure, `OutOfSync` state, or wrong
+revision causes a hard refresh and a new current-revision sync; no more than
+four new sync operations may be submitted. This is part of the deterministic
+retry path; it requires no console click, never takes over a running operation,
+and never broadens the resource allowlist.
 
 The result includes every selected platform role, lifecycle and target facts,
 the platform contract, catalog-alignment evidence, matrix and wiring evidence,
@@ -628,6 +666,19 @@ dev fake-provider target fact. Every adapted
 Argo Application also retains Kubara's generated destination namespace (the
 service name unless Kubara declares an override), so namespace-less Helm
 objects resolve exactly as they do under Kubara's ApplicationSet template.
+One declared migration makes that namespace contract upgrade-safe: if Argo
+proves at the exact expected OCI revision that the old `default` node-exporter
+DaemonSet is tracked by the same Application and requires pruning, the desired
+replacement already exists in `kube-prometheus-stack`, both ConfigHub origins
+and tracking IDs match, and the two copies contend for reviewed TCP/9100, the
+reconciler removes only that exact UID/resourceVersion of the obsolete
+DaemonSet before the normal `PruneLast` wave. A durable write-ahead operation
+journal prevents a crash or ambiguous API timeout from authorizing a second
+UID; restart recovery promotes the original UID's observed absence into the
+final receipt. This prevents a
+health-before-prune deadlock while leaving Kubara's ordinary prune behavior
+unchanged; the action and exact binding are retained in the reconciliation
+receipt.
 On kind, Traefik, Ingress-only platform bindings, and cubbychat may remain
 `Progressing` while their load-balancer address is intentionally absent;
 separate workload readiness checks must still pass.
