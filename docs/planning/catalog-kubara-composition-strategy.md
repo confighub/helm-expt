@@ -12,17 +12,28 @@ whole platforms.
 
 ## What the comparison showed
 
-We compared the catalog's reviewed charts with the charts Kubara generated for
-the live platform. Every chart Kubara wraps is already a catalog recipe, at a
-different version.
+We compared the catalog's reviewed components with the charts Kubara generated
+for the live platform. Every public upstream chart selected by this Kubara
+profile has a local catalog recipe, but only at a different version. Kubara's
+own `homer-dashboard` wrapper and `template-library` are separate first-party
+surfaces.
 
 | Chart | Catalog | Kubara |
 | --- | --- | --- |
+| argo-cd | 9.5.15, 9.5.17 | 10.1.3 |
 | cert-manager | v1.20.2 | v1.21.0 |
-| kube-prometheus-stack | 85.3.3, 86.1.0 | 87.15.1, pruned upstream |
+| kube-prometheus-stack | 85.3.3, 86.1.0 | 87.15.1 |
+| prometheus-blackbox-exporter | 11.10.0 | 11.15.1 |
 | external-secrets | 2.5.0 | 2.7.0 |
 | metrics-server | 3.13.0 | 3.13.1 |
 | traefik | 40.2.0 | 41.0.2 |
+
+All seven exact public artifacts were retrievable from their official sources
+when rechecked on 2026-08-04, including kube-prometheus-stack 87.15.1. None is
+yet retained as an exact local ConfigHub recipe or package. The earlier live run
+failed to resolve 87.15.1 from the then-visible upstream index and used 87.19.0;
+that remains valid historical evidence about mutable discovery, not a claim that
+87.15.1 is unavailable today.
 
 The two sides hold different kinds of knowledge. The catalog holds review: the
 [cert-manager recipe](../../recipes/jetstack/cert-manager/v1.20.2/README.md)
@@ -61,15 +72,21 @@ it would always be behind.
 
 ## The thesis
 
-Composition is generated, not curated. The catalog reviews parts and records
-small facts about each part. A machine generates the wiring on demand.
-Deterministic gates check the generated wiring against the recorded facts.
-ConfigHub records the result and delivers it. A human reviews only the
-judgment calls the gates cannot make.
+Composition is derived, not separately curated in ConfigHub. ConfigHub Catalog
+reviews bounded component parts and records small facts about each part. For a
+Kubara platform, the effective ordered catalog set, `config.yaml`, and documented
+overrides remain authoritative for selection and wiring. An organization-owned
+external catalog may package part of that architecture, but it is optional.
+Kubara generates the render, and ConfigHub will derive a checked Composition
+ledger from those inputs. Deterministic gates will check the derivation against
+component facts.
 
-This is the Pilot ad-hoc variant doctrine applied one level up. The generator
-is an author, not an authority. Parity against reviewed data is what makes
-generation safe, and the reviewed data here is the catalog's per-chart facts.
+This is the Pilot ad-hoc variant doctrine applied one level up, but it does not
+make AI part of the Kubara adoption path. The effective Kubara catalogs,
+contract, and overrides are authoritative. Generated renders and ConfigHub
+Compositions are deterministic derivations. An AI generator may optionally
+author a bespoke non-Kubara composition, but it faces the same gates and never
+becomes authority.
 
 ## How wiring works
 
@@ -120,18 +137,20 @@ extension of existing machinery, not a new system.
 
 ## How composition works
 
-A generator takes an intent, for example ingress, certificates, and monitoring
-on these four clusters with this host and this secret backend. It selects
-catalog parts by digest and emits one data object, the Composition. The
-Composition contains the selections per cluster, the edges that bind each need
-to one provider with the resolved value, a wave order derived from the edges,
-value overlays that touch only declared need paths, the target facts it assumes
-from the environment, the hook routes, and a policy exceptions list.
+For Kubara, the planned importer will take the effective ordered catalog set,
+`config.yaml`, documented overrides, source locks, and generated tree. It will
+not choose a different platform. It will emit one derived data object, the
+Composition. The Composition will record the exact selections per cluster, the
+edges already encoded by Kubara's wiring, a wave order derived from those edges
+and lifecycle facts, the target facts assumed from the environment, hook routes,
+and policy exceptions.
 
-The generator can be an AI agent, and it can be Kubara. Both write the same
-object and face the same gates.
+For a bespoke non-Kubara platform, an optional generator may start from intent
+and select parts. Whether that author is a person, an AI agent, or another
+platform tool, it writes the same object and faces the same gates. Existing
+Kubara users need no such generation or migration.
 
-Four deterministic gates then run, offline, before anything is delivered.
+Four deterministic gates will then run, offline, before anything is delivered.
 
 1. Closure. Every need is met by exactly one enabled provider on that cluster,
    or by one named target fact. Unmet needs and duplicate providers both fail.
@@ -152,12 +171,12 @@ This is how the closed vocabulary gets caught when it is incomplete, and it is
 what would have caught the metrics-server label mismatch and the undeclared
 ClusterSecretStore.
 
-Run against today's Kubara platform, the gates reproduce the real defects as
+Run against this Kubara fixture, the gates must reproduce the real defects as
 findings. That reproduction is the acceptance test for the whole mechanism.
 
-The Composition output is canonicalized, so generating the same intent twice
-produces the same object. The second use of a wiring is a lookup and a diff,
-not a regeneration.
+The implementation must canonicalize Composition output so generating the same
+intent twice produces the same object. Once that gate exists, the second use of
+a wiring will be a lookup and a diff, not a fresh authoring pass.
 
 ## What a human reviews
 
@@ -171,54 +190,113 @@ production cluster changes.
 
 ## How it lands in ConfigHub
 
-Delivery reuses the lane the live example proved. Each selection becomes a Unit
-in a per-cluster Space, published as an OCI release that Argo CD pulls and
-argobot syncs. Each edge can become a ConfigHub Link, whose direction, consumer
-to provider, matches the need-to-provide relationship one for one. The
-Composition itself is uploaded as a Unit, so the wiring ledger is diffable data
-in the same system that delivers it.
+There are two delivery modes, sharing one Kubara-authored revision.
+
+1. **Native Git mode requires no Argo source change.** ConfigHub checks, approves,
+   and attests the generated Git revision; a repository rule must require that
+   status before merge or promotion for the approval to be enforceable. The
+   existing Kubara hub Argo CD and ApplicationSets continue pulling Git. Without
+   that required-status integration, Git remains the release authority and
+   ConfigHub is an advisory governance record. The full multi-cluster loop
+   remains to be proved.
+2. **ConfigHub-delivery mode is an explicit opt-in source change.** Each
+   selection becomes a Unit in a per-cluster Space and is published as an OCI
+   release that Argo CD pulls and argobot syncs. This is the lane the live
+   four-cluster example proved.
+
+In either mode, each edge can later become a ConfigHub Link, whose direction,
+consumer to provider, matches the need-to-provide relationship one for one. The
+derived Composition itself can be uploaded as a Unit, so the wiring ledger is
+diffable data beside the delivery or attestation record.
 
 Two cautions from the Link research. Automatic needs and provides matching
 today recognizes a small set of standard attributes, so the chart-specific
-paths here each need an Attribute registration once per kind. And the committed
-composition file stays authoritative while Links remain a delivery convenience,
-with automatic updates off until the round trip is proven, including survival
-across `cub variant create`, which is currently assumed rather than proven.
+paths here each need an Attribute registration once per kind. The committed
+Composition is a derived, diffable ledger that must reproduce from the
+authoritative Kubara inputs; Links remain a delivery convenience. Automatic
+updates stay off until the round trip is proven, including survival across
+`cub variant create`, which is currently assumed rather than proven.
 
 ## What the live failures map to
 
-Every failure from the live build becomes a named gate finding rather than an
-afternoon of debugging. The pruned chart version becomes a sourcing failure,
-because parts resolve against the catalog's kept, digest-pinned packages rather
-than upstream indexes. The Grafana secret becomes an unmet Secret need naming
-its materializer. The CRD ordering and the apply mode become wave semantics.
-The hook Job shipped as a plain object becomes a missing hook route. The
-privileged namespace labels become a policy exception requiring a decision. The
-metrics-server mismatch becomes a value mismatch at compose time.
+Every failure from the live build should become a named gate finding rather than
+an afternoon of debugging. The historical 87.15.1 resolution failure would
+become a sourcing failure until the exact selected package and digest were
+retained, whether its origin were Kubara's upstream catalog or ConfigHub
+Catalog. No nearby version would be substituted. The Grafana secret would
+become an unmet Secret need naming its materializer. CRD ordering and apply mode
+would become wave semantics. The hook Job shipped as a plain object would become
+a missing hook route. Privileged namespace labels would become a policy
+exception requiring a decision. The metrics-server mismatch would become a
+value mismatch at compose time.
 
 ## Where Kubara fits
 
-Kubara stays what it is, a fast generator of a proven platform shape, and gains
-value from the catalog rather than competing with it. An importer parses a
-Kubara tree into a Composition, so today's output becomes checkable without
-Kubara changing at all. Kubara's chart dependencies then repoint at the
-catalog's kept packages, which ends the pruned-version failure mode. Longer
-term its template library can emit wiring facts natively. Kubara-authored
-charts such as homer-dashboard should become first-party catalog recipes, so
-their defects surface as chart findings rather than platform noise.
+Kubara stays the composer of the platform shape. Its upstream component catalog
+also remains a supported source; adoption does not require dependencies to be
+repointed. The planned importer will parse the resolved catalog inputs and
+generated tree into a Composition so today's output becomes checkable without
+Kubara changing at all.
+
+ConfigHub Catalog is a component catalog first, not a Kubara catalog today. An
+exact reviewed upstream chart is necessary but insufficient: Kubara's
+`ServiceDefinition`, wrapper templates, defaults, and additions are also part of
+the component's behavior. The second, optional source lane therefore requires a
+versioned Kubara compatibility profile, sourced from the resolved Kubara catalog
+until ConfigHub retains it, beside the exact reviewed upstream package. A
+deterministic adapter/export will combine them into Kubara-compatible
+`Catalog.yaml`, `services/`, `platform-components/`, and `platform-configs/`
+artifacts. Import must never rewrite a version or silently choose a nearby one.
+
+A dual-source parity lane will run two alternatives, not merge their inputs:
+lane A resolves the normal Kubara catalogs; lane B resolves the exported
+ConfigHub-backed catalog. The harness derives two config copies from one
+platform intent and changes only the non-bootstrap component-catalog references;
+cluster/service selections, service configuration, and values overrides remain
+identical. Each lane resolves in a clean work directory. Lane B replaces the
+normal component catalog rather than appending beside it, and an unexpected
+service collision fails instead of using `--catalog-overwrite`. Their outputs
+are compared for identity, version, defaults, wrapper additions, render
+capabilities, lifecycle routes, target facts, semantic object inventory, and
+live outcome. Only after that passes is the ConfigHub-backed source an equivalent
+choice.
+
+Longer term Kubara's template library can emit wiring facts natively.
+Kubara-authored charts such as homer-dashboard should gain first-party
+ConfigHub Catalog component entries so their defects surface as component
+findings rather than platform noise.
 
 ## What this means for catalog growth
 
 Grow versions demand-driven, not by chasing latest. The composers set the
-freshness bar, and today that means adding the versions Kubara pins:
-cert-manager v1.21.0, kube-prometheus-stack 87.19.x, external-secrets 2.7.0,
-traefik 41.x, metrics-server 3.13.1, plus argo-cd as a new recipe, the largest
-and hookiest part still outside the catalog. Keep older versions as kept,
-still-deployable reviews, because the pruning incident showed that retention is
-the catalog's structural advantage. And adopt the one correction Kubara taught
-us: add an existing-secret variant for kube-prometheus-stack so configuration
-references the Grafana credential rather than carrying it, with the Secret need
-recorded as a wiring fact.
+freshness bar, and today that means adding the exact versions Kubara pins:
+argo-cd 10.1.3, cert-manager v1.21.0, external-secrets 2.7.0, traefik
+41.0.2, metrics-server 3.13.1, kube-prometheus-stack 87.15.1, and its direct
+prometheus-blackbox-exporter 11.15.1 dependency. All are currently retrievable,
+but none has an exact retained local entry yet. The adapted live proof's use of
+kube-prometheus-stack 87.19.0 remains a recorded departure, not a permissible
+import substitution. `homer-dashboard` 0.1.0 needs a first-party Kubara component
+entry; `template-library` 0.2.0 is a build dependency to source-lock with the
+wrappers, not a deployable installer.
+
+Keep every older version as a retained, still-reviewable entry. This is an
+additive-only rule: a refresh may add a version and mark support or replacement
+status, but it never deletes an older recipe, package, receipt, candidate,
+fixture, or public path. Exact versions must enter through scoped candidate
+harnesses and version-aware assertions; blindly overriding the current proof
+scripts would turn old-version assumptions into false evidence. Also add an
+existing-secret variant for kube-prometheus-stack so configuration references
+the Grafana credential rather than carrying it, with the Secret need recorded as
+a wiring fact.
+
+The first additive artifact is now checked in as the example's
+[catalog alignment manifest](../../examples/kubara/local-platform/catalog-alignment.yaml).
+It records the eight component identities, seven verified public artifact
+digests, upstream-package gaps, missing Kubara compatibility profiles, all
+retained older versions, the first-party Homer disposition, and the required
+adapter inputs and outputs. The example verifier fails if an old retained recipe
+or package disappears or if an upstream-package status disagrees with the
+repository.
 
 ## Risks
 
@@ -232,28 +310,55 @@ the surface count stays minimal until the gates earn their keep. Environment
 fact checks are point-in-time, so live verification remains load-bearing.
 Gate-green is not works; the live lanes stay.
 
-## First steps
+## Linear implementation sequence
 
-1. Ship the provides extractor, generating provenance-flagged facts from each
-   variant's rendered objects.
-2. Hand-write needs for the seven platform recipes from the existing wiring
-   inventory, folding required CRDs, required Secrets, and external requires
-   into the one schema.
-3. Build the four gates plus the unreviewed-reference check, and fixture-test
-   them until they reproduce the six live failures and the three latent defects
-   as findings.
-4. Run the Kubara importer over the local-platform example and commit the
-   resulting Composition and findings as the first ledger, with
-   recorded-not-live statuses.
-5. Ship the review roll-up as markdown, CSV, and self-contained HTML, showing
-   exceptions and the closure report rather than generated YAML.
-6. Prove the ConfigHub Link round trip on the dev cluster, including survival
-   across variant creation, before any fan-out relies on it.
-7. Re-deliver the single-platform proof from the gated composition on a fresh
-   cluster and flip receipt statuses to pass on live evidence only.
-8. Wire the AI generator behind the gates last, using the Pilot parity pattern,
-   and publish the plain-English page mapping each live failure to the gate
-   finding that catches it.
+1. **Lock the source map — done.** Keep the checked alignment manifest exact;
+   nearby versions never count as matches.
+2. Build scoped, version-aware candidate harnesses for all seven public pins.
+   They must write new paths only and prove the old retained recipes still pass.
+3. Generate each exact recipe and package as a candidate. Run its offline render,
+   lifecycle, policy, and fixture checks without changing `missing` to
+   `retained` yet.
+4. Add the first-party Homer component entry and source-lock the template library
+   with its wrappers rather than publishing the library as an installer.
+5. Capture a versioned Kubara compatibility profile for each component: its
+   `ServiceDefinition`, wrapper templates, defaults, and additions. Until those
+   profiles are retained, the adapter must read the resolved Kubara catalog
+   assets rather than pretending the upstream chart is the whole component.
+6. Build the deterministic Kubara catalog adapter/export with the four required
+   artifact surfaces, then prove a normal Kubara invocation can consume it.
+7. Ship the provides extractor and hand-author the initial needs from the current
+   wiring inventory, folding CRDs, Secrets, secret stores, and external
+   requirements into one schema.
+8. Build the four gates plus the unreviewed-reference check. Fixture-test them
+   until they reproduce the six live failures and three latent defects.
+9. Build the Kubara importer over the effective catalog set, `config.yaml`,
+   overrides, locks, and generated tree; commit the canonical Composition and
+   findings with recorded-not-live statuses.
+10. Run offline dual-source parity through Kubara's own catalog resolution for
+   every exact ConfigHub match. Keep the Kubara-upstream lane authoritative for
+   each missing or failing match.
+11. Generate the platform matrix deterministically from committed ConfigHub
+    receipts and observation snapshots as Markdown, CSV, and self-contained
+    HTML, showing component version, recorded sync state, and explicit departures
+    by cluster. Offline verification never queries the live organization.
+12. Qualify the exact component candidates through their scoped live lanes,
+    preserve the resulting receipts, and only then mark the upstream packages
+    retained.
+13. Prove the faithful zero-repoint lane on a fresh hub and registered spokes:
+    Argo keeps pulling Git while ConfigHub checks, approves, and attests the same
+    revision through an enforced repository status gate.
+14. Re-deliver the optional OCI lane from the gated Composition on fresh targets,
+    then prove the ConfigHub Link round trip before any wiring fan-out relies on
+    it.
+15. Graduate a whole `componentEntryStatus` to `retained` only when its upstream
+    package is retained, its Kubara compatibility profile is captured, the
+    adapter succeeds, offline parity passes, and the required live outcome is
+    recorded. Otherwise the complete component stays `missing`, even if its
+    upstream package is retained.
+16. Put any AI author behind the deterministic gates last. It remains optional
+    and outside Kubara adoption.
 
-Steps one through five are offline and burn no quota. Steps six and seven are
-live and quota-bound, so they run serially and only after the shape is agreed.
+Steps one through eleven are offline. Steps twelve through fourteen are live and
+quota-bound, so they run serially only after their offline prerequisites pass.
+Step fifteen is the evidence-backed status transition after those lanes.

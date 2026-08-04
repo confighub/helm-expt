@@ -23,6 +23,11 @@ platform configuration, even when the target is not production.
 - `source/values-homer-links.yaml` replaces the generated portal's placeholder
   link with a useful project link. Kubara and Argo CD load it through the
   normal `values-*.yaml` convention.
+- `catalog-alignment.yaml` maps every exact Kubara-selected public dependency
+  and first-party component against the current ConfigHub Catalog. It records
+  missing upstream packages and Kubara compatibility profiles, verified upstream
+  digests, every older retained version, the future adapter contract, and the
+  additive-only rule.
 - `generated/` is the Helm source and cluster values produced by Kubara v0.12.0.
 - `rendered/release-objects.yaml` is the exact 77-object render of the generated
   Argo CD chart.
@@ -71,7 +76,30 @@ OCI layout. It also renders the downstream Homer chart with both values files
 to prove that the override replaces Kubara's generated placeholder. It removes
 the temporary directory when it finishes.
 
-## Live delivery result
+## Show the adapted four-cluster organization shape
+
+The live proof organization mirrors `source/config.yaml` as the untargeted
+`hx-platform/platform-contract` Unit. This proof does not publish its Space. An
+exact label plan groups all existing proof Spaces with `ExampleCohort`, reserves
+`KubaraVersion` for Kubara-derived surfaces, separates definitions from target
+instances, and gives lifecycle, prerequisite, wiring, and platform-binding
+surfaces distinct roles. The plan is offline; apply and live verification require
+the active `cub` context to name the `Kubara` organization.
+
+```bash
+npm run kubara-org-shape:plan
+npm run kubara-org-shape:apply
+npm run kubara-org-shape:verify
+npm run kubara-org-shape:receipt-verify
+```
+
+The script uses an explicit 53-Space allowlist and performs only Unit
+create/update and exact reconciliation of labels it owns. Re-running it makes no
+live change after convergence; each apply refreshes the observation timestamp in the
+[receipt](../../../runs/kubara-org-shape-proof/receipt.yaml). That receipt proves
+the mapping; it does not claim to rebuild the historical four-cluster platform.
+
+## Kubara-native one-cluster delivery result
 
 Generation, Helm rendering, route analysis, local OCI packaging, and ConfigHub
 upload have run. The demo org stores all 75 non-Secret objects in one Unit because

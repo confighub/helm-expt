@@ -44,6 +44,7 @@ const layoutRoot = join(root, "oci-layout");
 const manifestPath = join(root, "local-config-oci-manifest.json");
 const factsPath = join(root, "generated-facts.json");
 const sourceLockPath = join(root, "source-lock.yaml");
+const catalogAlignmentPath = join(root, "catalog-alignment.yaml");
 const routePath = join(root, "route-intent.yaml");
 const receiptPath = join(root, "generation-receipt.yaml");
 const uploadReceiptPath = join(root, "confighub-upload-receipt.yaml");
@@ -209,6 +210,7 @@ function verify() {
     generatedHomerValuesPath,
     generatedHomerOverridePath,
     sourceLockPath,
+    catalogAlignmentPath,
     routePath,
     receiptPath,
     uploadReceiptPath,
@@ -229,6 +231,7 @@ function verify() {
   check(sourceLock.spec?.source?.commit === expected.kubaraCommit, "Kubara source commit changed");
   check(sourceLock.spec?.release?.sha256 === expected.releaseAssetSha256, "Kubara release asset checksum changed");
   check(String(sourceLock.spec?.generation?.helmKubeVersion) === expected.kubeVersion, "Kubara Helm Kubernetes version changed");
+  verifyCatalogAlignment();
 
   verifyChecksums(generatedRoot, generatedChecksumsPath, "generated Kubara source");
   verifyChecksums(renderedRoot, renderedChecksumsPath, "rendered Kubara configuration");
@@ -398,9 +401,182 @@ function verify() {
     check(["not-run", "pass"].includes(receipt.status?.[field]), `Kubara receipt has invalid ${field} status`);
   }
 
+  run(process.execPath, [
+    join(repoRoot, "scripts", "sync-kubara-org-shape.mjs"),
+    "--receipt-verify",
+  ]);
+
   console.log(
     `verified Kubara ${expected.kubaraVersion} local platform (${objects.length} objects, ${crds.length} CRDs, ${hooks.length} hook resources, ${secrets.length} Secrets, 1 OCI layout)`,
   );
+}
+
+function verifyCatalogAlignment() {
+  const alignment = readYaml(catalogAlignmentPath);
+  check(alignment.kind === "KubaraCatalogAlignment", "Kubara catalog alignment kind changed");
+  check(
+    alignment.spec?.authority?.configHubCatalogRole === "component-first",
+    "ConfigHub Catalog must remain component-first",
+  );
+  check(
+    alignment.spec?.authority?.exactVersionPolicy === "fail-if-missing",
+    "Kubara catalog alignment must fail rather than substitute an exact version",
+  );
+  check(
+    alignment.spec?.retention?.mode === "additive-only",
+    "Kubara catalog retention must remain additive-only",
+  );
+  const requiredPreservation = [
+    "older-recipes",
+    "older-packages",
+    "candidates",
+    "receipts",
+    "fixtures",
+    "public-paths",
+  ];
+  check(
+    requiredPreservation.every((item) => alignment.spec.retention.preserve?.includes(item)),
+    "Kubara catalog retention no longer preserves every historical surface",
+  );
+  check(
+    alignment.spec?.kubaraCatalogAdapter?.status === "planned",
+    "Kubara catalog adapter status must remain honest until implemented",
+  );
+  const requiredAdapterInputs = [
+    "exact-reviewed-upstream-package",
+    "kubara-ServiceDefinition",
+    "kubara-wrapper-templates-defaults-and-additions",
+  ].sort();
+  check(
+    JSON.stringify([...(alignment.spec.kubaraCatalogAdapter.requiredInputs ?? [])].sort())
+      === JSON.stringify(requiredAdapterInputs),
+    "Kubara catalog adapter input contract changed",
+  );
+  const requiredAdapterOutputs = [
+    "Catalog.yaml",
+    "services/ServiceDefinition",
+    "platform-components",
+    "platform-configs",
+  ].sort();
+  check(
+    JSON.stringify([...(alignment.spec.kubaraCatalogAdapter.requiredOutputs ?? [])].sort())
+      === JSON.stringify(requiredAdapterOutputs),
+    "Kubara catalog adapter output contract changed",
+  );
+
+  const components = alignment.spec?.components ?? [];
+  check(components.length === 8, `expected eight Kubara catalog mappings, found ${components.length}`);
+  check(
+    new Set(components.map((item) => item.canonicalIdentity)).size === components.length,
+    "Kubara catalog alignment has duplicate component identities",
+  );
+  const wrapperPaths = new Set();
+  for (const component of components) {
+    const kubara = component.kubara ?? {};
+    const catalog = component.configHubCatalog ?? {};
+    check(kubara.wrapperPath, `${component.canonicalIdentity}: wrapper path is missing`);
+    const wrapperPath = join(repoRoot, kubara.wrapperPath);
+    const wrapperChartPath = join(wrapperPath, "Chart.yaml");
+    check(existsSync(wrapperChartPath), `${component.canonicalIdentity}: wrapper Chart.yaml is missing`);
+    const wrapper = readYaml(wrapperChartPath);
+    check(
+      String(wrapper.version) === String(kubara.wrapperVersion),
+      `${component.canonicalIdentity}: wrapper version drifted`,
+    );
+    wrapperPaths.add(wrapperPath);
+
+    if (component.canonicalIdentity.startsWith("helm:")) {
+      const dependencyName = component.canonicalIdentity.split("/").at(-1);
+      const dependency = wrapper.dependencies?.find((item) => item.name === dependencyName);
+      check(dependency, `${component.canonicalIdentity}: Kubara dependency is missing`);
+      check(
+        String(dependency.version) === String(kubara.selectedVersion),
+        `${component.canonicalIdentity}: selected version drifted`,
+      );
+      check(
+        dependency.repository === kubara.repository,
+        `${component.canonicalIdentity}: source repository drifted`,
+      );
+      check(
+        /^[0-9a-f]{64}$/.test(kubara.artifact?.sha256 ?? "")
+          || /^sha256:[0-9a-f]{64}$/.test(kubara.artifact?.manifestDigest ?? ""),
+        `${component.canonicalIdentity}: verified artifact digest is missing`,
+      );
+      check(kubara.artifact?.url, `${component.canonicalIdentity}: artifact source is missing`);
+      check(
+        Number.isFinite(Date.parse(kubara.artifact?.verifiedAt ?? "")),
+        `${component.canonicalIdentity}: artifact verification time is invalid`,
+      );
+    } else {
+      check(wrapper.name === "homer-dashboard", "first-party Homer component name drifted");
+      check(
+        String(wrapper.version) === String(kubara.selectedVersion),
+        "first-party Homer component version drifted",
+      );
+    }
+
+    check(catalog.recipeRoot, `${component.canonicalIdentity}: ConfigHub recipe root is missing`);
+    const exactRecipePath = join(repoRoot, catalog.recipeRoot, String(kubara.selectedVersion));
+    const packageRoot = catalog.recipeRoot.replace(/^recipes\//, "packages/");
+    check(packageRoot !== catalog.recipeRoot, `${component.canonicalIdentity}: recipe root is invalid`);
+    const exactPackagePath = join(repoRoot, packageRoot, String(kubara.selectedVersion));
+    check(["missing", "retained"].includes(catalog.componentEntryStatus),
+      `${component.canonicalIdentity}: invalid component-entry status`);
+    check(
+      ["missing", "retained", "not-applicable"].includes(catalog.upstreamPackageMatch),
+      `${component.canonicalIdentity}: invalid upstream-package status`,
+    );
+    const packageIsRetained = catalog.upstreamPackageMatch === "retained";
+    check(
+      existsSync(exactRecipePath) === packageIsRetained
+        && existsSync(exactPackagePath) === packageIsRetained,
+      `${component.canonicalIdentity}: upstream-package status disagrees with its recipe/package paths`,
+    );
+    for (const version of catalog.retainedVersions ?? []) {
+      check(
+        existsSync(join(repoRoot, catalog.recipeRoot, String(version))),
+        `${component.canonicalIdentity}: retained recipe ${version} is missing`,
+      );
+      check(
+        existsSync(join(repoRoot, packageRoot, String(version))),
+        `${component.canonicalIdentity}: retained package ${version} is missing`,
+      );
+    }
+    check(
+      catalog.kubaraCompatibility?.serviceDefinition === "not-captured",
+      `${component.canonicalIdentity}: Kubara ServiceDefinition status overclaims`,
+    );
+    check(
+      catalog.kubaraCompatibility?.wrapperAdditions === "fixture-locked",
+      `${component.canonicalIdentity}: Kubara wrapper status drifted`,
+    );
+    check(
+      catalog.kubaraCompatibility?.adapterProfile === "missing",
+      `${component.canonicalIdentity}: Kubara adapter profile status overclaims`,
+    );
+    check(
+      catalog.componentEntryStatus === "missing",
+      `${component.canonicalIdentity}: whole wrapped component is not retained yet`,
+    );
+    check(catalog.adapterStatus === "not-run", `${component.canonicalIdentity}: adapter status overclaims`);
+    check(catalog.parityStatus === "not-run", `${component.canonicalIdentity}: parity status overclaims`);
+  }
+
+  const [library] = alignment.spec?.buildDependencies ?? [];
+  check(library?.canonicalIdentity === "kubara:template-library", "Kubara template library mapping is missing");
+  const libraryChart = readYaml(join(repoRoot, library.path, "Chart.yaml"));
+  check(libraryChart.type === "library", "Kubara template library is unexpectedly deployable");
+  check(String(libraryChart.version) === String(library.version), "Kubara template library version drifted");
+  for (const wrapperPath of wrapperPaths) {
+    const wrapper = readYaml(join(wrapperPath, "Chart.yaml"));
+    const dependency = wrapper.dependencies?.find((item) => item.name === "template-library");
+    check(dependency, `${relative(repoRoot, wrapperPath)} no longer uses the Kubara template library`);
+    check(
+      dependency.repository === "file://../template-library"
+        && String(dependency.version) === String(library.version),
+      `${relative(repoRoot, wrapperPath)} template-library source drifted`,
+    );
+  }
 }
 
 function verifyLive() {
