@@ -417,11 +417,18 @@ function instanceLabels(prefix, role, item, extra = {}) {
 }
 
 function sourceAnnotation(payload, sourcePaths, transform = "none") {
-  return {
-    "confighub.com/source-path": sourcePaths.join(","),
+  const annotations = {
+    // cub's repeated --annotation flag still uses its StringSlice parser, so
+    // commas and additional equals signs inside a value are ambiguous. Keep
+    // the stored provenance readable while using unambiguous separators.
+    "confighub.com/source-path": sourcePaths.join(";"),
     "confighub.com/source-sha256": `sha256:${sha256(payload)}`,
     "confighub.com/source-transform": transform,
   };
+  for (const [key, value] of Object.entries(annotations)) {
+    assertCubAnnotationValue(key, value);
+  }
+  return annotations;
 }
 
 function materializeInputs() {
@@ -483,10 +490,10 @@ function materializeInputs() {
         value = item.materialize({ kps });
         sourcePaths = [kpsPath];
         transform = item.part === "crds"
-          ? "select-kind=CustomResourceDefinition"
+          ? "select-kind:CustomResourceDefinition"
           : item.part === "grafana-admin-credentials"
-            ? "select-kind=Namespace/kube-prometheus-stack,ExternalSecret"
-            : "exclude-kinds=CustomResourceDefinition,ExternalSecret,Namespace/kube-prometheus-stack";
+            ? "select-kind:Namespace/kube-prometheus-stack;ExternalSecret"
+            : "exclude-kinds:CustomResourceDefinition;ExternalSecret;Namespace/kube-prometheus-stack";
       } else if (item.sourceFor) {
         const source = item.sourceFor(fleetItem);
         sourcePaths = [source];
@@ -1359,7 +1366,17 @@ function labelsArgs(labels) {
 }
 
 function annotationsArgs(annotations) {
-  return Object.entries(annotations).flatMap(([key, value]) => ["--annotation", `${key}=${value}`]);
+  return Object.entries(annotations).flatMap(([key, value]) => {
+    assertCubAnnotationValue(key, value);
+    return ["--annotation", `${key}=${value}`];
+  });
+}
+
+function assertCubAnnotationValue(key, value) {
+  check(
+    !/[=,\r\n]/.test(String(value)),
+    `annotation ${key} contains a cub CLI-ambiguous value`,
+  );
 }
 
 function mapMatches(actual, expected) {
