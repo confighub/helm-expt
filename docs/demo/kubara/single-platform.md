@@ -549,6 +549,10 @@ pending-idempotence receipt. The immediately repeated apply must record zero
 actions before receipt verification can pass. A restarted apply also compares
 every Unit's head revision with its last applied revision, so an interrupted
 run cannot mistake an older existing release for the current desired state.
+If Argo retains a failed attempt for the same OCI revision, the reconciler
+hard-refreshes that Application and requests one current-revision sync without
+pruning. This is part of the deterministic retry path; it requires no console
+click and never broadens the resource allowlist.
 
 The result includes every selected platform role, lifecycle and target facts,
 the platform contract, catalog-alignment evidence, matrix and wiring evidence,
@@ -560,6 +564,9 @@ Grafana admin Secret through the dev fake-provider target fact. Every adapted
 Argo Application also retains Kubara's generated destination namespace (the
 service name unless Kubara declares an override), so namespace-less Helm
 objects resolve exactly as they do under Kubara's ApplicationSet template.
+On kind, Traefik, Ingress-only platform bindings, and cubbychat may remain
+`Progressing` while their load-balancer address is intentionally absent;
+separate workload readiness checks must still pass.
 
 The accepted desired plan is explicit: 53 Spaces, 60 managed Units, 27
 deployments, 25 `NeedsProvides` Links, and 53 source/evidence payloads before

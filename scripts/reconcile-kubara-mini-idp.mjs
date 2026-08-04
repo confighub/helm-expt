@@ -279,6 +279,7 @@ const APP_FAMILIES = [
     prefix: "hx-web-platform",
     role: "PlatformBinding",
     destinationNamespace: "hx-web",
+    acceptedHealth: ["Healthy", "Progressing"],
     units: [appUnit("hx-web-platform", [
       "examples/kubara/current-platform/apps/hx-web/platform/certificate.yaml",
       "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml",
@@ -289,6 +290,7 @@ const APP_FAMILIES = [
     prefix: "hx-cubbychat",
     role: "Application",
     destinationNamespace: "cubbychat",
+    acceptedHealth: ["Healthy", "Progressing"],
     units: [appUnit("hx-cubbychat", [
       "examples/kubara/current-platform/apps/cubbychat/base/namespace.yaml",
       "examples/kubara/current-platform/apps/cubbychat/base/credentials.yaml",
@@ -1046,6 +1048,7 @@ function printPlan(inputs, desired) {
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
+        argoRetryPolicy: "hard-refresh and request one non-pruning sync when the desired Application is not accepted",
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
         interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
         receiptRequiresZeroActionRerun: true,
@@ -2455,7 +2458,60 @@ function deployOne(deployment, state) {
   ) {
     publishRelease(deployment.space, state, { force: true });
   }
+  requestArgoSyncIfNeeded(deployment, state);
   waitForApplication(deployment.cluster, deployment.space, deployment.acceptedHealth);
+}
+
+function requestArgoSyncIfNeeded(deployment, state) {
+  const read = () => {
+    const result = kubectlTry(deployment.cluster, [
+      "get", "application", deployment.space, "-n", "argocd", "-o", "json",
+    ]);
+    check(result.ok, `${deployment.cluster}/${deployment.space}: Argo Application is unavailable before sync`);
+    return JSON.parse(result.output);
+  };
+  let app = null;
+  let contractError = "Application not observed";
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    app = read();
+    try {
+      assertArgoApplicationContract(app, deployment);
+      contractError = "";
+      break;
+    } catch (error) {
+      contractError = error.message;
+      command("sleep", ["2"]);
+    }
+  }
+  check(!contractError, `${deployment.cluster}/${deployment.space}: live Argo Application contract did not converge: ${contractError}`);
+  const accepted = app.status?.sync?.status === "Synced"
+    && deployment.acceptedHealth.includes(app.status?.health?.status ?? "Unknown");
+  if (accepted) return;
+  if (app.operation || app.status?.operationState?.phase === "Running") return;
+
+  kubectl(deployment.cluster, [
+    "annotate", "application", deployment.space, "-n", "argocd",
+    "argocd.argoproj.io/refresh=hard", "--overwrite",
+  ]);
+  recordAction(state, "argo-hard-refresh", `${deployment.cluster}/${deployment.space}`);
+  command("sleep", ["2"]);
+  app = read();
+  assertArgoApplicationContract(app, deployment);
+  if (app.operation || app.status?.operationState?.phase === "Running") return;
+
+  const operation = {
+    operation: {
+      initiatedBy: { username: "helm-expt-kubara-mini-idp" },
+      sync: {
+        ...(deployment.serverSideApply ? { syncOptions: ["ServerSideApply=true"] } : {}),
+      },
+    },
+  };
+  kubectl(deployment.cluster, [
+    "patch", "application", deployment.space, "-n", "argocd",
+    "--type=merge", "--patch", JSON.stringify(operation),
+  ]);
+  recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, "non-pruning current-revision sync");
 }
 
 function spaceHasUnreleasedHeads(space) {
@@ -3186,6 +3242,7 @@ function buildReceipt(inputs, desired, observation, state) {
         cub: cachedCubVersions,
         delivery: "ConfigHub variant/OCI -> ConfigHub-owned Argo CD/argobot",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
+        argoRetryPolicy: "hard-refresh and request one non-pruning sync when the desired Application is not accepted",
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
       },
       counts: {
