@@ -8,15 +8,24 @@
 import { runProofCli } from "./lib/proof-kit.mjs";
 import { identityFor } from "./lib/proof-common.mjs";
 
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "85.3.3";
 const chart = {
   repository: "prometheus-community",
   repositoryURL: "https://prometheus-community.github.io/helm-charts",
   name: "kube-prometheus-stack",
-  version: "85.3.3",
+  version: chartVersion,
   releaseName: "kube-prometheus-stack",
   namespace: "monitoring",
   kubeVersion: "1.30.0",
 };
+
+const versionExpectations = {
+  "85.3.3": { defaultObjects: 124, noCrdsObjects: 114 },
+  "86.1.0": { defaultObjects: 124, noCrdsObjects: 114 },
+  "87.15.1": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
+};
+const expected = versionExpectations[chart.version];
+if (!expected) throw new Error(`kube-prometheus-stack ${chart.version} needs reviewed version-specific assertions`);
 
 const prometheusOperatorCRDs = [
   "alertmanagerconfigs.monitoring.coreos.com",
@@ -64,7 +73,7 @@ const variants = [
   adminPassword: confighub-grafana-admin-password
 `,
     valuesSummary: "default stack with Grafana admin password bound as a generated fact",
-    expectedObjectCount: 124,
+    expectedObjectCount: expected.defaultObjects,
     expectedCRDCount: 10,
     expectedSecretCount: 2,
     targetFacts: {
@@ -93,7 +102,7 @@ grafana:
   adminPassword: confighub-grafana-admin-password
 `,
     valuesSummary: "CRDs disabled with Grafana admin password bound",
-    expectedObjectCount: 114,
+    expectedObjectCount: expected.noCrdsObjects,
     expectedCRDCount: 0,
     expectedSecretCount: 2,
     targetFacts: {
@@ -111,6 +120,48 @@ grafana:
     },
     targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, ServiceMonitors, the packaged CRD source, and the admission-webhook setup route",
   },
+  ...(chart.version === "87.15.1"
+    ? [
+        {
+          name: "existing-secret",
+          base: "existing-secret",
+          displayName: "Grafana credentials from an existing Secret",
+          valuesFile: "effective-values-existing-secret.yaml",
+          valuesText: `grafana:
+  admin:
+    existingSecret: grafana-admin-credentials
+    userKey: admin-user
+    passwordKey: admin-password
+`,
+          valuesSummary: "Grafana admin credentials referenced from a target Secret",
+          expectedObjectCount: expected.existingSecretObjects,
+          expectedCRDCount: 10,
+          expectedSecretCount: 1,
+          targetFacts: {
+            requiredCRDs: packagedCRDs({ forceConflicts: true }),
+            requiredSecrets: [
+              {
+                namespace: "monitoring",
+                name: "grafana-admin-credentials",
+                keys: ["admin-user", "admin-password"],
+                purpose: "Grafana admin credentials managed by the target secret backend",
+                deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+                suggestedSource: "ExternalSecret monitoring/grafana-admin-credentials or an equivalent target-owned Secret",
+              },
+              {
+                namespace: "monitoring",
+                name: "kube-prometheus-stack-admission",
+                keys: ["ca", "cert", "key"],
+                purpose: "Prometheus Operator admission webhook TLS material created by the packaged chart-specific setup Job",
+                deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+                suggestedSource: `package://${packagedLifecycleRoot}/prepare.sh`,
+              },
+            ],
+          },
+          targetFactNote: "references target-owned Grafana credentials, includes Prometheus Operator CRDs, and preserves the packaged admission-webhook setup route",
+        },
+      ]
+    : []),
 ];
 
 const scanPolicy = {
@@ -271,26 +322,27 @@ runProofCli({
   packageExtraPaths: ({ ctx }) => [
     {
       source:
-        `config-catalog/package-extras/prometheus-community/kube-prometheus-stack/${ctx.chart.version}`,
+        `${process.env.HELM_EXPT_KPS_PACKAGE_EXTRAS_ROOT ?? "config-catalog/package-extras/prometheus-community/kube-prometheus-stack"}/${ctx.chart.version}`,
       destination: packagedLifecycleRoot,
     },
   ],
   packageReadme: ({ ctx }) => `# ${ctx.chartRef} ${ctx.chart.version}
 
-This package contains two ready-to-use preset configs:
+This package contains ${variants.length} ready-to-use preset configs:
 
 - \`default\` includes the ten Prometheus Operator CRDs.
 - \`no-crds\` leaves CRD ownership with the platform.
+${ctx.chart.version === "87.15.1" ? "- `existing-secret` includes CRDs and references target-owned Grafana admin credentials.\n" : ""}
 
-Both presets carry the chart's real admission-webhook setup work. The package
+${variants.length === 2 ? "Both presets carry" : "All three presets carry"} the chart's real admission-webhook setup work. The package
 includes the CRDs, the certificate creation and webhook patch Jobs, their
 temporary RBAC, direct scripts, and a lifecycle action record under
 \`${packagedLifecycleRoot}/\`.
 
 \`cub installer setup\` renders the checked Kubernetes objects. It does not
-silently run the lifecycle actions. Use the generated public \`try.sh\`, or read
-\`${packagedLifecycleRoot}/README.md\` and run the steps with your delivery
-system.
+silently run the lifecycle actions. ${ctx.offlineCandidate
+    ? `For this offline candidate, read \`${packagedLifecycleRoot}/README.md\` and inspect the ordered steps; do not treat them as live-qualified.`
+    : `Use the generated public \`try.sh\`, or read \`${packagedLifecycleRoot}/README.md\` and run the steps with your delivery system.`}
 
 The hook image is pinned by digest. The generation receipt ties every packaged
 route file to the locked upstream chart.
@@ -311,6 +363,16 @@ route file to the locked upstream chart.
         disposition: "generated-fact-bound",
         reason: "The no-crds variant keeps Grafana enabled and binds the same generated fact before render",
       },
+      ...(chart.version === "87.15.1"
+        ? [
+            {
+              path: "grafana.admin.existingSecret",
+              variant: "existing-secret",
+              disposition: "target-secret-reference",
+              reason: "matches Kubara's reference-based Grafana credential custody without rendering the admin credential Secret",
+            },
+          ]
+        : []),
       {
         path: "crds.enabled",
         variant: "default",
@@ -366,7 +428,11 @@ route file to the locked upstream chart.
     {
       category: "crd-policy",
       status: "variant-controlled-and-target-fact",
-      variants: { default: 10, "no-crds": 0 },
+      variants: {
+        default: 10,
+        "no-crds": 0,
+        ...(chart.version === "87.15.1" ? { "existing-secret": 10 } : {}),
+      },
       note: "CRDs are ordinary rendered objects in the default variant; no-crds records those same CRDs as target prerequisites.",
     },
     {
@@ -381,8 +447,10 @@ route file to the locked upstream chart.
     {
       category: "generated-facts",
       status: "variant-controlled",
-      evidence: "grafana.adminPassword",
-      note: "Both promoted variants bind Grafana admin password before render so Helm output is deterministic.",
+      evidence: chart.version === "87.15.1" ? "grafana.adminPassword or grafana.admin.existingSecret" : "grafana.adminPassword",
+      note: chart.version === "87.15.1"
+        ? "Default and no-crds bind the password for deterministic proof; existing-secret keeps credential material in the target secret backend."
+        : "Both promoted variants bind Grafana admin password before render so Helm output is deterministic.",
     },
     { category: "cluster-rbac", status: "scan-and-review", evidence: "scan receipts" },
     {
@@ -397,6 +465,9 @@ route file to the locked upstream chart.
       "Default chart render is nondeterministic unless grafana.adminPassword is bound before render.",
       "default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs.",
       "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.",
+      ...(chart.version === "87.15.1"
+        ? ["existing-secret mirrors Kubara's Grafana credential reference and does not render the Grafana admin Secret."]
+        : []),
       "Chart declares CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies and records them in dependency-lock.yaml.",
       "Config-only delivery stages the kube-prometheus-stack-admission TLS Secret as a target fact; regular Helm creates that material through hook lifecycle.",
       "Admission webhook readiness must still be observed after apply because rendered objects plus staged Secret do not prove webhook health.",
@@ -424,6 +495,9 @@ route file to the locked upstream chart.
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart render becomes deterministic when grafana.adminPassword is bound before render;",
       "the no-crds variant deliberately removes the 10 Prometheus Operator CRDs;",
+      ...(chart.version === "87.15.1"
+        ? ["the existing-secret variant records monitoring/grafana-admin-credentials as a target fact instead of rendering admin credentials;"]
+        : []),
       "CRD lifecycle, admission webhook, generated Grafana credential, umbrella dependency, and cluster RBAC risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
   },
@@ -522,7 +596,11 @@ route file to the locked upstream chart.
       check(identities.includes("apps/v1|DaemonSet|monitoring|kube-prometheus-stack-prometheus-node-exporter"), `${variant.name} node-exporter DaemonSet missing`);
       check(identities.includes("v1|Service|monitoring|kube-prometheus-stack-operator"), `${variant.name} operator Service missing`);
       check(identities.includes("v1|Service|monitoring|kube-prometheus-stack-grafana"), `${variant.name} Grafana Service missing`);
-      check(identities.includes("v1|Secret|monitoring|kube-prometheus-stack-grafana"), `${variant.name} Grafana Secret missing`);
+      if (variant.name === "existing-secret") {
+        check(!identities.includes("v1|Secret|monitoring|kube-prometheus-stack-grafana"), "existing-secret must not render the Grafana admin Secret");
+      } else {
+        check(identities.includes("v1|Secret|monitoring|kube-prometheus-stack-grafana"), `${variant.name} Grafana Secret missing`);
+      }
       check(identities.includes("monitoring.coreos.com/v1|Prometheus|monitoring|kube-prometheus-stack-prometheus"), `${variant.name} Prometheus custom resource missing`);
       check(identities.includes("monitoring.coreos.com/v1|Alertmanager|monitoring|kube-prometheus-stack-alertmanager"), `${variant.name} Alertmanager custom resource missing`);
       check(

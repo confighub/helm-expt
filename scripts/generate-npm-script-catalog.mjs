@@ -55,6 +55,7 @@ function categorize(name) {
   if (name.startsWith("verify-install:") || name.startsWith("verify-bulk-ops:")) return "user-install-verification";
   if (name.startsWith("npm-scripts:")) return "repo-integrity";
   if (name.startsWith("top20:latest")) return "latest-version-refresh";
+  if (name.startsWith("kubara-catalog-candidates:")) return "latest-version-refresh";
   if (name.startsWith("top20:local-e2e") || name.startsWith("top20:verify-local-e2e")) return "local-live-evidence";
   if (name.startsWith("top20:confighub-proof") || name.startsWith("top20:verify-confighub-proof")) return "confighub-proof";
   if (name.startsWith("top20:base-readiness")) return "catalog-readiness";
@@ -107,6 +108,7 @@ function classifyExternalState(name, command, mode) {
   if (name === "pilot:switch-map" || name === "pilot:generate-variant") return "network-or-helm-repo";
   if (name.includes("confighub-proof") || name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("derived-variants:target-bound") || name.startsWith("external-scan") || name.startsWith("pilot:")) return "confighub-or-live-cluster";
   if (name.startsWith("top20:latest") || command.includes("helm pull") || command.includes("helm template")) return "network-or-helm-repo";
+  if (name === "kubara-catalog-candidates:generate") return "network-or-helm-repo";
   return "none-for-verify";
 }
 

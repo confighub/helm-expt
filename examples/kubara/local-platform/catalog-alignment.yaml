@@ -19,6 +19,12 @@ spec:
       - receipts
       - fixtures
       - public-paths
+  exactCandidateSet:
+    status: offline-candidate-pass
+    path: data/kubara-catalog-refresh/candidates/candidate-set.yaml
+    candidateCount: 7
+    rootRetention: not-yet-qualified
+    liveQualification: not-run
   kubaraCatalogAdapter:
     status: planned
     requiredInputs:
@@ -46,6 +52,10 @@ spec:
         recipeRoot: recipes/argo-cd/argo-cd
         componentEntryStatus: missing
         upstreamPackageMatch: missing
+        exactCandidate:
+          status: offline-candidate-pass
+          recipe: data/kubara-catalog-refresh/candidates/recipes/argo-cd/argo-cd/10.1.3
+          package: data/kubara-catalog-refresh/candidates/packages/argo-cd/argo-cd/10.1.3
         retainedVersions:
           - 9.5.15
           - 9.5.17
@@ -70,6 +80,10 @@ spec:
         recipeRoot: recipes/jetstack/cert-manager
         componentEntryStatus: missing
         upstreamPackageMatch: missing
+        exactCandidate:
+          status: offline-candidate-pass
+          recipe: data/kubara-catalog-refresh/candidates/recipes/jetstack/cert-manager/v1.21.0
+          package: data/kubara-catalog-refresh/candidates/packages/jetstack/cert-manager/v1.21.0
         retainedVersions:
           - v1.20.2
         kubaraCompatibility:
@@ -93,6 +107,10 @@ spec:
         recipeRoot: recipes/external-secrets/external-secrets
         componentEntryStatus: missing
         upstreamPackageMatch: missing
+        exactCandidate:
+          status: offline-candidate-pass
+          recipe: data/kubara-catalog-refresh/candidates/recipes/external-secrets/external-secrets/2.7.0
+          package: data/kubara-catalog-refresh/candidates/packages/external-secrets/external-secrets/2.7.0
         retainedVersions:
           - 2.5.0
         kubaraCompatibility:
@@ -137,6 +155,10 @@ spec:
         recipeRoot: recipes/prometheus-community/kube-prometheus-stack
         componentEntryStatus: missing
         upstreamPackageMatch: missing
+        exactCandidate:
+          status: offline-candidate-pass
+          recipe: data/kubara-catalog-refresh/candidates/recipes/prometheus-community/kube-prometheus-stack/87.15.1
+          package: data/kubara-catalog-refresh/candidates/packages/prometheus-community/kube-prometheus-stack/87.15.1
         retainedVersions:
           - 85.3.3
           - 86.1.0
@@ -161,6 +183,10 @@ spec:
         recipeRoot: recipes/prometheus-community/prometheus-blackbox-exporter
         componentEntryStatus: missing
         upstreamPackageMatch: missing
+        exactCandidate:
+          status: offline-candidate-pass
+          recipe: data/kubara-catalog-refresh/candidates/recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1
+          package: data/kubara-catalog-refresh/candidates/packages/prometheus-community/prometheus-blackbox-exporter/11.15.1
         retainedVersions:
           - 11.10.0
         kubaraCompatibility:
@@ -184,6 +210,10 @@ spec:
         recipeRoot: recipes/metrics-server/metrics-server
         componentEntryStatus: missing
         upstreamPackageMatch: missing
+        exactCandidate:
+          status: offline-candidate-pass
+          recipe: data/kubara-catalog-refresh/candidates/recipes/metrics-server/metrics-server/3.13.1
+          package: data/kubara-catalog-refresh/candidates/packages/metrics-server/metrics-server/3.13.1
         retainedVersions:
           - 3.13.0
         kubaraCompatibility:
@@ -208,6 +238,10 @@ spec:
         recipeRoot: recipes/traefik/traefik
         componentEntryStatus: missing
         upstreamPackageMatch: missing
+        exactCandidate:
+          status: offline-candidate-pass
+          recipe: data/kubara-catalog-refresh/candidates/recipes/traefik/traefik/41.0.2
+          package: data/kubara-catalog-refresh/candidates/packages/traefik/traefik/41.0.2
         retainedVersions:
           - 40.2.0
         kubaraCompatibility:

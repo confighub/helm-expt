@@ -19,6 +19,14 @@ const chart = {
   kubeVersion: "1.30.0",
 };
 
+const versionExpectations = {
+  "9.5.15": { defaultObjects: 49, noCrdsObjects: 46 },
+  "9.5.17": { defaultObjects: 49, noCrdsObjects: 46 },
+  "10.1.3": { defaultObjects: 55, noCrdsObjects: 52 },
+};
+const expected = versionExpectations[chart.version];
+if (!expected) throw new Error(`argo-cd ${chart.version} needs reviewed version-specific assertions`);
+
 const argoCDCRDs = [
   "applications.argoproj.io",
   "applicationsets.argoproj.io",
@@ -43,7 +51,7 @@ const variants = [
     valuesFile: "effective-values.yaml",
     valuesText: "",
     valuesSummary: "chart defaults",
-    expectedObjectCount: 49,
+    expectedObjectCount: expected.defaultObjects,
     expectedCRDCount: 3,
     expectedSecretCount: 2,
     targetFacts: {
@@ -60,7 +68,7 @@ const variants = [
   install: false
 `,
     valuesSummary: "Argo CD CRDs disabled",
-    expectedObjectCount: 46,
+    expectedObjectCount: expected.noCrdsObjects,
     expectedCRDCount: 0,
     expectedSecretCount: 2,
     targetFacts: {

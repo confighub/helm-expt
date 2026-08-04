@@ -8,15 +8,23 @@
 import { runProofCli } from "./lib/proof-kit.mjs";
 import { identityFor } from "./lib/proof-common.mjs";
 
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "v1.20.2";
 const chart = {
   repository: "jetstack",
   repositoryURL: "https://charts.jetstack.io",
   name: "cert-manager",
-  version: "v1.20.2",
+  version: chartVersion,
   releaseName: "cert-manager",
   namespace: "cert-manager",
   kubeVersion: "1.30.0",
 };
+
+const versionExpectations = {
+  "v1.20.2": { defaultObjects: 42, crdsObjects: 48 },
+  "v1.21.0": { defaultObjects: 40, crdsObjects: 46 },
+};
+const expected = versionExpectations[chart.version];
+if (!expected) throw new Error(`cert-manager ${chart.version} needs reviewed version-specific assertions`);
 
 const variants = [
   {
@@ -26,7 +34,7 @@ const variants = [
     valuesFile: "effective-values.yaml",
     valuesText: "",
     valuesSummary: "chart defaults",
-    expectedObjectCount: 42,
+    expectedObjectCount: expected.defaultObjects,
     expectedCRDCount: 0,
     targetFactNote: "keeps webhook objects and excludes the Helm startup API check hook Job from the rendered revision",
   },
@@ -39,7 +47,7 @@ const variants = [
   enabled: true
 `,
     valuesSummary: "cert-manager CRDs included",
-    expectedObjectCount: 48,
+    expectedObjectCount: expected.crdsObjects,
     expectedCRDCount: 6,
     targetFactNote: "adds the six cert-manager CRDs to the rendered revision",
   },

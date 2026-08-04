@@ -24,7 +24,15 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
-const supportedVersions = ["85.3.3", "86.1.0"];
+const rootSupportedVersions = ["85.3.3", "86.1.0"];
+const candidateSupportedVersions = ["87.15.1"];
+const proofOutputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+  : repoRoot;
+const supportedVersions = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? candidateSupportedVersions
+  : rootSupportedVersions;
+const offlineCandidate = process.env.HELM_EXPT_PROOF_OFFLINE_CANDIDATE === "1";
 const mode =
   process.argv.find((arg) => ["--generate", "--verify"].includes(arg))
   ?? "--verify";
@@ -62,11 +70,14 @@ check(
 
 const chart = "prometheus-community/kube-prometheus-stack";
 const version = requestedVersion;
+const lifecycleBaseNames = version === "87.15.1"
+  ? ["default", "no-crds", "existing-secret"]
+  : ["default", "no-crds"];
 const versionSlug = version.replaceAll(".", "-");
 const release = "kube-prometheus-stack";
 const namespace = "monitoring";
 const routeRoot = join(
-  repoRoot,
+  proofOutputRoot,
   "config-catalog",
   "package-extras",
   "prometheus-community",
@@ -74,7 +85,7 @@ const routeRoot = join(
   version,
 );
 const sourceLockPath = join(
-  repoRoot,
+  proofOutputRoot,
   "recipes",
   "prometheus-community",
   "kube-prometheus-stack",
@@ -98,13 +109,21 @@ const maintainedTemplateRoot = join(
   "package-extras",
   "prometheus-community",
   "kube-prometheus-stack",
-  supportedVersions[0],
+  rootSupportedVersions[0],
 );
 const createJobName = "kube-prometheus-stack-admission-create";
 const patchJobName = "kube-prometheus-stack-admission-patch";
-const sourceImage = "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3";
-const pinnedImage =
-  "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728";
+const hookImage = version === "87.15.1"
+  ? {
+      source: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.4",
+      pinned: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:76a2170cd0c9a7758c4ac8ac5bbe9b6f73e869a15ffb77d9f684664f7d7b96b1",
+    }
+  : {
+      source: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3",
+      pinned: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728",
+    };
+const sourceImage = hookImage.source;
+const pinnedImage = hookImage.pinned;
 
 if (mode === "--generate") generate();
 verify();
@@ -115,14 +134,33 @@ function generate() {
   const workRoot = mkdtempSync(join(tmpdir(), "helm-expt-kps-package-route-"));
   const archive = join(workRoot, `kube-prometheus-stack-${version}.tgz`);
   try {
-    must("helm", [
-      "pull",
-      chart,
-      "--version",
-      version,
-      "--destination",
-      workRoot,
-    ]);
+    const artifactURL = process.env.HELM_EXPT_CHART_ARTIFACT_URL ?? "";
+    const artifactSHA256 = (process.env.HELM_EXPT_CHART_ARTIFACT_SHA256 ?? "").replace(/^sha256:/, "");
+    if (artifactURL) {
+      check(/^https?:\/\//.test(artifactURL), "kube-prometheus-stack lifecycle candidate requires an HTTP(S) artifact URL");
+      must("curl", [
+        "--fail",
+        "--location",
+        "--retry",
+        "3",
+        "--silent",
+        "--show-error",
+        "--output",
+        archive,
+        artifactURL,
+      ]);
+      check(/^[0-9a-f]{64}$/.test(artifactSHA256), "candidate lifecycle artifact SHA is invalid");
+      check(sha256File(archive) === artifactSHA256, "candidate lifecycle artifact SHA mismatch");
+    } else {
+      must("helm", [
+        "pull",
+        chart,
+        "--version",
+        version,
+        "--destination",
+        workRoot,
+      ]);
+    }
     check(existsSync(archive), "helm pull did not produce the locked chart archive");
     check(
       sha256File(archive) === sourceLock.spec?.packageSHA256,
@@ -162,7 +200,10 @@ function generate() {
     );
     const support = hookDocs.filter((doc) => doc.kind !== "Job");
 
-    check(docs.length === 131, `expected 131 chart objects, found ${docs.length}`);
+    const expectedCounts = version === "87.15.1"
+      ? { total: 132, ordinary: 125, hooks: 7 }
+      : { total: 131, ordinary: 124, hooks: 7 };
+    check(docs.length === expectedCounts.total, `expected ${expectedCounts.total} chart objects, found ${docs.length}`);
     check(crds.length === 10, `expected ten CRDs, found ${crds.length}`);
     check(support.length === 5, `expected five support objects, found ${support.length}`);
     check(createJobs.length === 1, "expected one admission-create Job");
@@ -217,7 +258,7 @@ function generate() {
 }
 
 function materializeMaintainedFiles() {
-  if (version === supportedVersions[0]) return;
+  if (version === rootSupportedVersions[0]) return;
   for (const name of [
     "README.md",
     "prepare.sh",
@@ -225,12 +266,45 @@ function materializeMaintainedFiles() {
     "lifecycle-actions.yaml",
   ]) {
     const template = readFileSync(join(maintainedTemplateRoot, name), "utf8");
-    writeFileSync(
-      join(routeRoot, name),
-      template
-        .replaceAll(supportedVersions[0], version)
-        .replaceAll(supportedVersions[0].replaceAll(".", "-"), versionSlug),
-    );
+    const destination = join(routeRoot, name);
+    let rendered = template
+      .replaceAll(rootSupportedVersions[0], version)
+      .replaceAll(rootSupportedVersions[0].replaceAll(".", "-"), versionSlug);
+    if (version === "87.15.1" && name === "finish.sh") {
+      rendered = rendered
+        .replace(
+          'if [[ "$base" != "default" && "$base" != "no-crds" ]]; then',
+          'if [[ "$base" != "default" && "$base" != "no-crds" && "$base" != "existing-secret" ]]; then',
+        )
+        .replace(
+          "This packaged route supports the default and no-crds bases, not %s.",
+          "This packaged route supports the default, no-crds, and existing-secret bases, not %s.",
+        );
+    }
+    if (offlineCandidate && name === "README.md") {
+      rendered = rendered
+        .replaceAll("The public `try.sh`", "After qualification and promotion, a generated `try.sh`")
+        .replaceAll("ready-to-use", "locally inspectable offline candidate");
+      const lines = rendered.trimEnd().split("\n");
+      lines.splice(
+        1,
+        0,
+        "",
+        "> **Offline candidate only.** This lifecycle route is for local evaluation and has not been live-qualified or root-Catalog-retained.",
+      );
+      rendered = `${lines.join("\n")}\n`;
+    }
+    writeFileSync(destination, rendered);
+    if (version === "87.15.1" && name === "lifecycle-actions.yaml") {
+      const actions = readYaml(destination);
+      const defaultBase = actions.spec?.bases?.find((base) => base.name === "default");
+      check(Boolean(defaultBase), "maintained lifecycle actions are missing the default base");
+      actions.spec.bases.push({
+        ...structuredClone(defaultBase),
+        name: "existing-secret",
+      });
+      writeYaml(destination, actions);
+    }
   }
 }
 
@@ -249,10 +323,13 @@ function verify() {
     spec.chartPackageSha256 === sourceLock.spec?.packageSHA256,
     "the packaged lifecycle receipt is not tied to the current source lock",
   );
+  const expectedCounts = version === "87.15.1"
+    ? { total: 132, ordinary: 125, hooks: 7 }
+    : { total: 131, ordinary: 124, hooks: 7 };
   check(
-    spec.totalChartObjects === 131
-      && spec.ordinaryObjects === 124
-      && spec.hookObjects === 7,
+    spec.totalChartObjects === expectedCounts.total
+      && spec.ordinaryObjects === expectedCounts.ordinary
+      && spec.hookObjects === expectedCounts.hooks,
     "the recorded chart object counts changed",
   );
   check(
@@ -305,6 +382,13 @@ function verify() {
   }
   check(must("bash", ["-n", preparePath]).stdout === "", "prepare.sh failed bash syntax validation");
   check(must("bash", ["-n", finishPath]).stdout === "", "finish.sh failed bash syntax validation");
+  if (version === "87.15.1") {
+    const finishScript = readFileSync(finishPath, "utf8");
+    check(
+      finishScript.includes('&& "$base" != "existing-secret"'),
+      "the 87.15.1 lifecycle finish route must accept the existing-secret base",
+    );
+  }
   const actions = readYaml(lifecycleActionsPath);
   check(
     actions.kind === "PackagedLifecycleActions"
@@ -314,7 +398,7 @@ function verify() {
   );
   const bases = actions.spec?.bases ?? [];
   check(
-    sameSet(bases.map((base) => base.name), ["default", "no-crds"]),
+    sameSet(bases.map((base) => base.name), lifecycleBaseNames),
     "the packaged lifecycle action bases changed",
   );
   for (const base of bases) {

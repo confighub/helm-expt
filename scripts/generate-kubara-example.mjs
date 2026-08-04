@@ -438,6 +438,19 @@ function verifyCatalogAlignment() {
     requiredPreservation.every((item) => alignment.spec.retention.preserve?.includes(item)),
     "Kubara catalog retention no longer preserves every historical surface",
   );
+  const candidateSet = alignment.spec?.exactCandidateSet ?? {};
+  check(candidateSet.status === "offline-candidate-pass", "Kubara exact candidate set status changed");
+  check(candidateSet.candidateCount === 7, "Kubara exact candidate set must contain seven public pins");
+  check(candidateSet.rootRetention === "not-yet-qualified", "Kubara candidates must not overclaim root retention");
+  check(candidateSet.liveQualification === "not-run", "Kubara candidates must not overclaim live qualification");
+  const candidateSetPath = join(repoRoot, candidateSet.path ?? "");
+  check(existsSync(candidateSetPath), "Kubara exact candidate-set manifest is missing");
+  const candidateManifest = readYaml(candidateSetPath);
+  check(candidateManifest.kind === "KubaraCatalogCandidateSet", "Kubara exact candidate-set kind changed");
+  const exactCandidates = new Map(
+    (candidateManifest.spec?.candidates ?? []).map((candidate) => [candidate.canonicalIdentity, candidate]),
+  );
+  check(exactCandidates.size === 7, "Kubara exact candidate-set manifest must contain seven candidates");
   check(
     alignment.spec?.kubaraCatalogAdapter?.status === "planned",
     "Kubara catalog adapter status must remain honest until implemented",
@@ -507,12 +520,28 @@ function verifyCatalogAlignment() {
         Number.isFinite(Date.parse(kubara.artifact?.verifiedAt ?? "")),
         `${component.canonicalIdentity}: artifact verification time is invalid`,
       );
+      const exactCandidate = catalog.exactCandidate ?? {};
+      const candidateRecord = exactCandidates.get(component.canonicalIdentity);
+      check(exactCandidate.status === "offline-candidate-pass", `${component.canonicalIdentity}: exact candidate status changed`);
+      check(candidateRecord?.status === "offline-candidate-pass", `${component.canonicalIdentity}: candidate manifest entry is missing`);
+      check(candidateRecord.version === String(kubara.selectedVersion), `${component.canonicalIdentity}: candidate version drifted`);
+      check(candidateRecord.exactArtifact?.url === kubara.artifact.url, `${component.canonicalIdentity}: candidate artifact URL drifted`);
+      check(
+        candidateRecord.exactArtifact?.sha256
+          === String(kubara.artifact.sha256 ?? kubara.artifact.chartLayerDigest).replace(/^sha256:/, ""),
+        `${component.canonicalIdentity}: candidate artifact digest drifted`,
+      );
+      check(candidateRecord.recipe === exactCandidate.recipe, `${component.canonicalIdentity}: candidate recipe path drifted`);
+      check(candidateRecord.package === exactCandidate.package, `${component.canonicalIdentity}: candidate package path drifted`);
+      check(existsSync(join(repoRoot, exactCandidate.recipe ?? "")), `${component.canonicalIdentity}: candidate recipe is missing`);
+      check(existsSync(join(repoRoot, exactCandidate.package ?? "")), `${component.canonicalIdentity}: candidate package is missing`);
     } else {
       check(wrapper.name === "homer-dashboard", "first-party Homer component name drifted");
       check(
         String(wrapper.version) === String(kubara.selectedVersion),
         "first-party Homer component version drifted",
       );
+      check(!catalog.exactCandidate, "first-party Homer must not masquerade as a public chart candidate");
     }
 
     check(catalog.recipeRoot, `${component.canonicalIdentity}: ConfigHub recipe root is missing`);

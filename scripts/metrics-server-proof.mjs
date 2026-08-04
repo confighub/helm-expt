@@ -8,15 +8,23 @@
 
 import { runProofCli } from "./lib/proof-kit.mjs";
 
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "3.13.0";
 const chart = {
   repository: "metrics-server",
   repositoryURL: "https://kubernetes-sigs.github.io/metrics-server/",
   name: "metrics-server",
-  version: "3.13.0",
+  version: chartVersion,
   releaseName: "metrics-server",
   namespace: "kube-system",
   kubeVersion: "1.30.0",
 };
+
+const versionExpectations = {
+  "3.13.0": { defaultObjects: 9, externalTlsObjects: 9 },
+  "3.13.1": { defaultObjects: 9, externalTlsObjects: 9 },
+};
+const expected = versionExpectations[chart.version];
+if (!expected) throw new Error(`metrics-server ${chart.version} needs reviewed version-specific assertions`);
 
 const variants = [
   {
@@ -28,7 +36,7 @@ const variants = [
   - --kubelet-insecure-tls
 `,
     valuesSummary: "chart defaults plus explicit kind-compatible kubelet TLS flag",
-    expectedObjectCount: 9,
+    expectedObjectCount: expected.defaultObjects,
     targetFactNote: "uses metrics-server runtime-generated serving cert; Helm generated-cert path is inactive",
   },
   {
@@ -48,7 +56,7 @@ apiService:
   caBundle: confighub-metrics-server-ca
 `,
     valuesSummary: "target Secret plus explicit APIService CA bundle",
-    expectedObjectCount: 9,
+    expectedObjectCount: expected.externalTlsObjects,
     targetFactNote: "requires target Secret kube-system/metrics-server-tls with tls.crt and tls.key, plus an APIService caBundle that matches the Secret certificate authority",
     targetFacts: {
       requiredSecrets: [
@@ -111,7 +119,7 @@ function metricsTargetPrerequisitePlan() {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "TargetPrerequisitePlan",
     metadata: {
-      name: "metrics-server-metrics-server-3.13.0",
+      name: `metrics-server-metrics-server-${chart.version.replaceAll(".", "-")}`,
       chart: "metrics-server/metrics-server",
       version: chart.version,
     },
