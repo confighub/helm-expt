@@ -1044,7 +1044,6 @@ function upsertAndApproveAttestation({ slug, role, proofPhase, document, sourceD
         "unit", "approve",
         "--space", expected.controlSpace,
         slug,
-        "--revision", String(unit.HeadRevisionNum),
         "--wait", "--quiet",
       ], { timeout: 180_000 });
       approvalAction = "approved-head-revision";
