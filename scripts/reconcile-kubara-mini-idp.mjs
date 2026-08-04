@@ -75,6 +75,7 @@ const LINK_REASON_ANNOTATION = "helm-expt.confighub.com/reason";
 const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
 const ARGO_PRUNE_POLICY = "Argo may prune only resources tracked by one of the 27 exact allowlisted deployment Applications; ConfigHub objects and persistent clusters are never deleted";
 const ARGO_RETRY_POLICY = "up to four refresh-observe-sync cycles for terminal failure or terminal OutOfSync state";
+const ARGO_REVISION_POLICY = "accept only the exact latest ConfigHub release digest reported by Argo";
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
 const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
@@ -1053,6 +1054,7 @@ function printPlan(inputs, desired) {
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
+        argoRevisionPolicy: ARGO_REVISION_POLICY,
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
         interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
         receiptRequiresZeroActionRerun: true,
@@ -2299,10 +2301,10 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     upsertUnit(baseDeployment, inputs, payloadFiles, state, {
       payloadKey: "hx-web/base/hx-web-deployment/v1",
     });
-    promoteAndPublish("hx-web-dev", state);
-    promoteAndPublish("hx-web-staging", state);
-    promoteAndPublish("hx-web-prod-a", state, { expectApprovalBlock: true });
-    promoteAndPublish("hx-web-prod-b", state, { expectApprovalBlock: true });
+    promoteAndPublish("hx-web-dev", state, desired);
+    promoteAndPublish("hx-web-staging", state, desired);
+    promoteAndPublish("hx-web-prod-a", state, desired, { expectApprovalBlock: true });
+    promoteAndPublish("hx-web-prod-b", state, desired, { expectApprovalBlock: true });
   });
 
   scenarioStep("prod-approval", () => {
@@ -2315,8 +2317,8 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
       approveOutstanding(space, state);
       const approvedDeployment = readUnitRows(space).find((unit) => unit.Slug === "hx-web-deployment");
       check(approvalCount(approvedDeployment?.ApprovedBy) >= 1, `${space}: promoted deployment revision was not approved after the expected refusal`);
-      publishRelease(space, state, { force: true });
-      waitForApplication(FLEET.find((item) => space.endsWith(item.suffix)).cluster, space, ["Healthy"]);
+      const release = publishRelease(space, state, { force: true });
+      convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseDigest(release));
     }
   });
 
@@ -2330,8 +2332,8 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     recordAction(state, "rollback", "hx-web-prod-a/hx-web-deployment", "restore -1");
     state.changedSpaces.add("hx-web-prod-a");
     approveOutstanding("hx-web-prod-a", state);
-    publishRelease("hx-web-prod-a", state, { force: true });
-    waitForApplication("hx-app-prod-a", "hx-web-prod-a", ["Healthy"]);
+    const release = publishRelease("hx-web-prod-a", state, { force: true });
+    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-prod-a"), state, releaseDigest(release));
     const docs = parseDocs(cub(["unit", "data", "--space", "hx-web-prod-a", "hx-web-deployment"]));
     check(docs.find((doc) => doc.kind === "Deployment")?.spec?.replicas === 2, "prod-a rollback did not restore two replicas");
   });
@@ -2341,8 +2343,8 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     upsertUnit(expected, inputs, payloadFiles, state, {
       payloadKey: "hx-web/staging/hx-web-deployment/departure",
     });
-    publishRelease("hx-web-staging", state, { force: true });
-    waitForApplication("hx-app-staging", "hx-web-staging", ["Healthy"]);
+    const release = publishRelease("hx-web-staging", state, { force: true });
+    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-staging"), state, releaseDigest(release));
   });
 
   scenarioStep("departure-survives-promotion", () => {
@@ -2350,8 +2352,8 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     upsertUnit(baseDeployment, inputs, payloadFiles, state, {
       payloadKey: "hx-web/base/hx-web-deployment/v2",
     });
-    promoteAndPublish("hx-web-dev", state);
-    promoteAndPublish("hx-web-staging", state);
+    promoteAndPublish("hx-web-dev", state, desired);
+    promoteAndPublish("hx-web-staging", state, desired);
     const finalSteps = verifyHxWebFinalState(inputs);
     check(finalSteps.every((item) => item.result === "pass"), "hx-web final scenario verification failed");
   });
@@ -2387,7 +2389,7 @@ function resetHxWebScenarioMergeBases(desired, state) {
   }
 }
 
-function promoteAndPublish(space, state, { expectApprovalBlock = false } = {}) {
+function promoteAndPublish(space, state, desired, { expectApprovalBlock = false } = {}) {
   cub([
     "variant", "promote", space,
     "--change-desc", `Promote ${SCENARIO_VERSION} while preserving downstream departures`,
@@ -2402,9 +2404,8 @@ function promoteAndPublish(space, state, { expectApprovalBlock = false } = {}) {
     }
     approveOutstanding(space, state);
   }
-  publishRelease(space, state, { force: true });
-  const targetItem = FLEET.find((item) => space.endsWith(item.suffix));
-  waitForApplication(targetItem.cluster, space, ["Healthy"]);
+  const release = publishRelease(space, state, { force: true });
+  convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseDigest(release));
 }
 
 function assertReleaseBlockedByApproval(space, state) {
@@ -2481,14 +2482,15 @@ function deployOne(deployment, state) {
     publishRelease(deployment.appSpace, state, { force: true });
   }
   if (deployment.space.includes("prod-")) approveOutstanding(deployment.space, state);
+  let release = latestRelease(deployment.space);
   if (
     state.changedSpaces.has(deployment.space)
       || spaceHasUnreleasedHeads(deployment.space)
       || !hasRelease(deployment.space)
   ) {
-    publishRelease(deployment.space, state, { force: true });
+    release = publishRelease(deployment.space, state, { force: true });
   }
-  convergeDeploymentApplication(deployment, state);
+  convergeDeploymentApplication(deployment, state, releaseDigest(release));
 }
 
 function readLiveArgoApplication(deployment) {
@@ -2499,36 +2501,40 @@ function readLiveArgoApplication(deployment) {
   return JSON.parse(result.output);
 }
 
-function deploymentApplicationAccepted(app, deployment) {
+function deploymentApplicationAccepted(app, deployment, expectedRevision) {
   return app.status?.sync?.status === "Synced"
-    && deployment.acceptedHealth.includes(app.status?.health?.status ?? "Unknown");
+    && deployment.acceptedHealth.includes(app.status?.health?.status ?? "Unknown")
+    && app.status?.sync?.revision === expectedRevision;
 }
 
-function convergeDeploymentApplication(deployment, state) {
-  let last = { sync: "Unknown", health: "Unknown", phase: "Unknown", message: "not observed" };
+function convergeDeploymentApplication(deployment, state, expectedRevision) {
+  check(deployment, "internal error: deployment definition missing during Argo convergence");
+  check(/^sha256:[0-9a-f]{64}$/.test(expectedRevision), `${deployment.space}: invalid expected ConfigHub revision ${expectedRevision}`);
+  let last = { sync: "Unknown", health: "Unknown", phase: "Unknown", revision: "Unknown", message: "not observed" };
   for (let cycle = 1; cycle <= 4; cycle += 1) {
-    requestArgoSyncIfNeeded(deployment, state, cycle);
+    requestArgoSyncIfNeeded(deployment, state, cycle, expectedRevision);
     for (let attempt = 0; attempt < 48; attempt += 1) {
       const app = readLiveArgoApplication(deployment);
       last = {
         sync: app.status?.sync?.status ?? "Unknown",
         health: app.status?.health?.status ?? "Unknown",
         phase: app.status?.operationState?.phase ?? "Unknown",
+        revision: app.status?.sync?.revision ?? "Unknown",
         message: app.status?.operationState?.message ?? app.status?.conditions?.map((item) => item.message).join("; ") ?? "",
       };
-      if (deploymentApplicationAccepted(app, deployment)) return last;
+      if (deploymentApplicationAccepted(app, deployment, expectedRevision)) return last;
       const operationActive = Boolean(app.operation) || last.phase === "Running";
-      if (!operationActive && last.sync !== "Synced" && attempt >= 3) break;
+      if (!operationActive && (last.sync !== "Synced" || last.revision !== expectedRevision) && attempt >= 3) break;
       command("sleep", ["5"]);
     }
   }
   check(
     false,
-    `${deployment.cluster}/${deployment.space}: failed four bounded Argo convergence cycles; expected Synced and health ${deployment.acceptedHealth.join("|")}, got ${stableJson(last)}`,
+    `${deployment.cluster}/${deployment.space}: failed four bounded Argo convergence cycles; expected revision ${expectedRevision}, Synced, and health ${deployment.acceptedHealth.join("|")}, got ${stableJson(last)}`,
   );
 }
 
-function requestArgoSyncIfNeeded(deployment, state, cycle) {
+function requestArgoSyncIfNeeded(deployment, state, cycle, expectedRevision) {
   let app = null;
   let contractError = "Application not observed";
   for (let attempt = 0; attempt < 60; attempt += 1) {
@@ -2543,7 +2549,7 @@ function requestArgoSyncIfNeeded(deployment, state, cycle) {
     }
   }
   check(!contractError, `${deployment.cluster}/${deployment.space}: live Argo Application contract did not converge: ${contractError}`);
-  if (deploymentApplicationAccepted(app, deployment)) return;
+  if (deploymentApplicationAccepted(app, deployment, expectedRevision)) return;
   if (app.operation || app.status?.operationState?.phase === "Running") return;
 
   kubectl(deployment.cluster, [
@@ -2562,13 +2568,14 @@ function requestArgoSyncIfNeeded(deployment, state, cycle) {
   }
   check(refreshProcessed, `${deployment.cluster}/${deployment.space}: Argo hard refresh was not processed`);
   assertArgoApplicationContract(app, deployment);
-  if (deploymentApplicationAccepted(app, deployment)) return;
+  if (deploymentApplicationAccepted(app, deployment, expectedRevision)) return;
   if (app.operation || app.status?.operationState?.phase === "Running") return;
 
   const operation = {
     operation: {
       initiatedBy: { username: "helm-expt-kubara-mini-idp" },
       sync: {
+        revision: expectedRevision,
         prune: true,
         syncOptions: applicationSyncOptions(deployment),
       },
@@ -2611,7 +2618,13 @@ function publishRelease(space, state, { force = false } = {}) {
   state.published.set(space, digest);
   state.changedSpaces.delete(space);
   check(!spaceHasUnreleasedHeads(space), `${space}: release did not advance every Unit to its current head`);
-  return release;
+  return { ...(release ?? {}), Digest: digest };
+}
+
+function releaseDigest(release) {
+  const digest = release?.Digest ?? release?.Release?.Digest ?? "";
+  check(/^sha256:[0-9a-f]{64}$/.test(digest), `ConfigHub release digest is missing or invalid: ${digest || "empty"}`);
+  return digest;
 }
 
 function latestRelease(space) {
@@ -2633,24 +2646,6 @@ function kubectlTry(cluster, args, options = {}) {
     "--context", `kind-${cluster}`,
     ...args,
   ], options);
-}
-
-function waitForApplication(cluster, application, acceptedHealth) {
-  let last = { sync: "Unknown", health: "Unknown", message: "not observed" };
-  for (let attempt = 0; attempt < 120; attempt += 1) {
-    const result = kubectlTry(cluster, ["get", "application", application, "-n", "argocd", "-o", "json"]);
-    if (result.ok) {
-      const value = JSON.parse(result.output);
-      last = {
-        sync: value.status?.sync?.status ?? "Unknown",
-        health: value.status?.health?.status ?? "Unknown",
-        message: value.status?.conditions?.map((item) => item.message).join("; ") ?? "",
-      };
-      if (last.sync === "Synced" && acceptedHealth.includes(last.health)) return last;
-    }
-    command("sleep", ["5"]);
-  }
-  check(false, `${cluster}/${application}: expected Synced and health ${acceptedHealth.join("|")}, got ${stableJson(last)}`);
 }
 
 function waitForSpecialPrerequisite(deployment) {
@@ -2825,6 +2820,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   const applications = [];
   for (const deployment of desired.deployments) {
     const release = latestRelease(deployment.space);
+    const expectedRevision = release?.Digest ?? "";
     if (!release || !/^sha256:[0-9a-f]{64}$/.test(release.Digest ?? "")) {
       findings.push(`${deployment.space}: published release digest missing`);
     } else {
@@ -2865,11 +2861,14 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     } else {
       if (observed.sync !== "Synced") findings.push(`${deployment.cluster}/${deployment.space}: sync=${observed.sync}`);
       if (!deployment.acceptedHealth.includes(observed.health)) findings.push(`${deployment.cluster}/${deployment.space}: health=${observed.health}, expected ${deployment.acceptedHealth.join("|")}`);
+      if (observed.revision !== expectedRevision) findings.push(`${deployment.cluster}/${deployment.space}: revision=${observed.revision}, expected ${expectedRevision}`);
     }
     applications.push({
       cluster: deployment.cluster,
       name: deployment.space,
       destinationNamespace: deployment.destinationNamespace,
+      expectedRevision,
+      observedRevision: observed.revision,
       syncState: observed.sync,
       healthState: observed.health,
       acceptedHealth: deployment.acceptedHealth,
@@ -3056,12 +3055,13 @@ function verifyLinks(desired, findings) {
 
 function readApplication(cluster, name) {
   const result = kubectlTry(cluster, ["get", "application", name, "-n", "argocd", "-o", "json"]);
-  if (!result.ok) return { exists: false, sync: "Unknown", health: "Unknown", conditions: [result.output.slice(0, 500)] };
+  if (!result.ok) return { exists: false, sync: "Unknown", health: "Unknown", revision: "Unknown", conditions: [result.output.slice(0, 500)] };
   const value = JSON.parse(result.output);
   return {
     exists: true,
     sync: value.status?.sync?.status ?? "Unknown",
     health: value.status?.health?.status ?? "Unknown",
+    revision: value.status?.sync?.revision ?? "Unknown",
     conditions: (value.status?.conditions ?? []).map((item) => ({ type: item.type, message: item.message })),
   };
 }
@@ -3309,6 +3309,7 @@ function buildReceipt(inputs, desired, observation, state) {
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
+        argoRevisionPolicy: ARGO_REVISION_POLICY,
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
       },
       counts: {
@@ -3409,6 +3410,7 @@ function verifyReceipt(inputs, desired) {
   );
   check(receipt.spec?.execution?.argoPrunePolicy === ARGO_PRUNE_POLICY, "mini-IDP receipt Argo prune policy drifted");
   check(receipt.spec?.execution?.argoRetryPolicy === ARGO_RETRY_POLICY, "mini-IDP receipt Argo retry policy drifted");
+  check(receipt.spec?.execution?.argoRevisionPolicy === ARGO_REVISION_POLICY, "mini-IDP receipt Argo revision policy drifted");
   check(stableJson(receipt.spec?.execution?.persistentClustersPreserved) === stableJson(FLEET.map((item) => item.cluster)), "persistent cluster allowlist drifted");
   check(receipt.spec?.execution?.partialClusterStatePolicy === "fail", "mini-IDP receipt no longer fails on partial persistent-cluster state");
   check(receipt.spec?.execution?.serialLiveParityLock === true, "mini-IDP receipt no longer records the shared serial live-parity lock");
@@ -3491,6 +3493,8 @@ function verifyReceipt(inputs, desired) {
     const expected = desiredApps.get(`${row.cluster}/${row.name}`);
     check(expected, `${row.cluster}/${row.name}: receipt Application is not in the desired plan`);
     check(row.destinationNamespace === expected.destinationNamespace, `${row.cluster}/${row.name}: receipt destination namespace drifted`);
+    check(/^sha256:[0-9a-f]{64}$/.test(row.expectedRevision ?? ""), `${row.cluster}/${row.name}: receipt expected revision missing`);
+    check(row.observedRevision === row.expectedRevision, `${row.cluster}/${row.name}: receipt observed revision is not the expected ConfigHub release`);
     check(row.syncState === "Synced", `${row.cluster}/${row.name}: receipt sync is ${row.syncState}`);
     check((row.acceptedHealth ?? []).includes(row.healthState), `${row.cluster}/${row.name}: receipt health ${row.healthState} is outside accepted set`);
   }

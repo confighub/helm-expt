@@ -550,6 +550,8 @@ pending-idempotence receipt. The immediately repeated apply must record zero
 actions before receipt verification can pass. A restarted apply also compares
 every Unit's head revision with its last applied revision, so an interrupted
 run cannot mistake an older existing release for the current desired state.
+An Application is accepted only when Argo reports the exact digest of the
+latest ConfigHub release; `Synced` on an older revision is not success.
 If Argo retains a failed attempt for the same OCI revision, the reconciler
 hard-refreshes that Application, waits until the refresh is observed, and
 requests a bounded current-revision sync. A terminal failure or terminal
