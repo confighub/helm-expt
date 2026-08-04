@@ -11,7 +11,7 @@ spec:
     contractPath: "examples/kubara/local-platform/source/config.yaml"
     contractSha256: "sha256:d6b861de754b2c1e37ae1096ec5eb329a904b2756a698c1f2c0f2dd7bde5c7af"
     catalogAlignmentPath: "examples/kubara/local-platform/catalog-alignment.yaml"
-    catalogAlignmentSha256: "sha256:4b4c764b8c5f9a376a0f8c1ef7f5cc64d8e1ce8300e9e9b8548a158652ba8c8d"
+    catalogAlignmentSha256: "sha256:0e42126b7ca3c178485a40afd141ffed9dcd6db3981d0368d07158bf073eb96b"
     platformReceiptPath: "runs/kubara-single-platform-proof/receipt.yaml"
     platformReceiptSha256: "sha256:e95f2f01ff3d8a0fc5504ad96dc15823b59183c78ca15aad2533c0ee74ecbf7d"
   contractUnit:
@@ -565,7 +565,7 @@ spec:
         Role: "ApplicationInstance"
 status:
   result: "pass"
-  observedAt: "2026-08-04T10:23:39.303Z"
+  observedAt: "2026-08-04T16:22:47.895Z"
   limits:
     - "This receipt verifies the existing proof organization's conceptual labels and contract mirror; it does not reproduce the platform or its clusters."
     - "The four-cluster adapted lane is not generated from the one-cluster contract yet."

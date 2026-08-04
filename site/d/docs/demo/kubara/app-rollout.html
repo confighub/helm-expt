@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Roll out an app on a Kubara platform managed by ConfigHub · Config Workshop</title>
-  <meta name="description" content="Roll out an app on a Kubara platform managed by ConfigHub: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Historical Kubara v0.12.0 app rollout · Config Workshop</title>
+  <meta name="description" content="Historical Kubara v0.12.0 app rollout: a repository document from the helm-expt proof corpus, rendered for the site.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/app-rollout.html">
-  <meta property="og:title" content="Roll out an app on a Kubara platform managed by ConfigHub · Config Workshop">
-  <meta property="og:description" content="Roll out an app on a Kubara platform managed by ConfigHub: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:title" content="Historical Kubara v0.12.0 app rollout · Config Workshop">
+  <meta property="og:description" content="Historical Kubara v0.12.0 app rollout: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/app-rollout.html">
   <style>
@@ -442,13 +442,14 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Roll out an app on a Kubara platform managed by ConfigHub</h1>
-    <p class="lead">This example shows two things. First, ConfigHub manages Argo CD across four clusters and rolls out, promotes, and rolls back an app for the operator. Second, a real Kubara-generated platform (cert-manager and traefik) is delivered the same way on one cluster, and the app runs on it and uses it: reachable through the platform's ingress with a cert-manager certificate. <code>cub cluster up</code> provides the Argo CD that owns delivery on each cluster. <a href="../../../../../docs/demo/kubara/app-rollout.md">View source markdown</a>.</p>
+    <h1>Historical Kubara v0.12.0 app rollout</h1>
+    <p class="lead"><b>Compatibility record.</b> This page records the earlier adapted four-cluster live rollout. It remains evidence for promotion, approval, rollback, and target departures, but it does not establish current Kubara v0.13.0 component versions. Start with the <a href="single-platform.html">current reproducible mini-IDP guide</a>. <a href="../../../../../docs/demo/kubara/app-rollout.md">View source markdown</a>.</p>
   </header>
   <main>
   <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <article class="doc-body">
-
+<blockquote></blockquote>
+<p>This example shows two things. First, ConfigHub manages Argo CD across four clusters and rolls out, promotes, and rolls back an app for the operator. Second, a real Kubara-generated platform (cert-manager and traefik) is delivered the same way on one cluster, and the app runs on it and uses it: reachable through the platform's ingress with a cert-manager certificate. <code>cub cluster up</code> provides the Argo CD that owns delivery on each cluster.</p>
 <h2 id="what-ran">What ran</h2>
 <p><code>cub cluster up</code> created four kind clusters: <code>hx-app-dev</code>, <code>hx-app-staging</code>, <code>hx-app-prod-a</code>, and <code>hx-app-prod-b</code>. On each cluster it installed Argo CD and argobot. argobot is a ConfigHub bot that force-syncs the matching Argo CD Application the moment a release is published. So ConfigHub owns Argo CD on every cluster.</p>
 <p>The app is a small nginx service. It is stored as three literal-YAML Units, one resource per Unit: a Namespace, a Deployment, and a Service. The base Space <code>hx-web-base</code> holds the reviewed app.</p>

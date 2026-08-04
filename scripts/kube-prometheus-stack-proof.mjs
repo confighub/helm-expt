@@ -23,9 +23,11 @@ const versionExpectations = {
   "85.3.3": { defaultObjects: 124, noCrdsObjects: 114 },
   "86.1.0": { defaultObjects: 124, noCrdsObjects: 114 },
   "87.15.1": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
+  "87.19.2": { defaultObjects: 125, noCrdsObjects: 115, existingSecretObjects: 124 },
 };
 const expected = versionExpectations[chart.version];
 if (!expected) throw new Error(`kube-prometheus-stack ${chart.version} needs reviewed version-specific assertions`);
+const hasExistingSecretBase = ["87.15.1", "87.19.2"].includes(chart.version);
 
 const prometheusOperatorCRDs = [
   "alertmanagerconfigs.monitoring.coreos.com",
@@ -120,7 +122,7 @@ grafana:
     },
     targetFactNote: "omits Prometheus Operator CRDs while preserving Grafana, webhooks, RBAC, rules, ServiceMonitors, the packaged CRD source, and the admission-webhook setup route",
   },
-  ...(chart.version === "87.15.1"
+  ...(hasExistingSecretBase
     ? [
         {
           name: "existing-secret",
@@ -332,7 +334,7 @@ This package contains ${variants.length} ready-to-use preset configs:
 
 - \`default\` includes the ten Prometheus Operator CRDs.
 - \`no-crds\` leaves CRD ownership with the platform.
-${ctx.chart.version === "87.15.1" ? "- `existing-secret` includes CRDs and references target-owned Grafana admin credentials.\n" : ""}
+${["87.15.1", "87.19.2"].includes(ctx.chart.version) ? "- `existing-secret` includes CRDs and references target-owned Grafana admin credentials.\n" : ""}
 
 ${variants.length === 2 ? "Both presets carry" : "All three presets carry"} the chart's real admission-webhook setup work. The package
 includes the CRDs, the certificate creation and webhook patch Jobs, their
@@ -363,7 +365,7 @@ route file to the locked upstream chart.
         disposition: "generated-fact-bound",
         reason: "The no-crds variant keeps Grafana enabled and binds the same generated fact before render",
       },
-      ...(chart.version === "87.15.1"
+      ...(hasExistingSecretBase
         ? [
             {
               path: "grafana.admin.existingSecret",
@@ -431,7 +433,7 @@ route file to the locked upstream chart.
       variants: {
         default: 10,
         "no-crds": 0,
-        ...(chart.version === "87.15.1" ? { "existing-secret": 10 } : {}),
+        ...(hasExistingSecretBase ? { "existing-secret": 10 } : {}),
       },
       note: "CRDs are ordinary rendered objects in the default variant; no-crds records those same CRDs as target prerequisites.",
     },
@@ -447,8 +449,8 @@ route file to the locked upstream chart.
     {
       category: "generated-facts",
       status: "variant-controlled",
-      evidence: chart.version === "87.15.1" ? "grafana.adminPassword or grafana.admin.existingSecret" : "grafana.adminPassword",
-      note: chart.version === "87.15.1"
+      evidence: hasExistingSecretBase ? "grafana.adminPassword or grafana.admin.existingSecret" : "grafana.adminPassword",
+      note: hasExistingSecretBase
         ? "Default and no-crds bind the password for deterministic proof; existing-secret keeps credential material in the target secret backend."
         : "Both promoted variants bind Grafana admin password before render so Helm output is deterministic.",
     },
@@ -465,7 +467,7 @@ route file to the locked upstream chart.
       "Default chart render is nondeterministic unless grafana.adminPassword is bound before render.",
       "default variant binds grafana.adminPassword and renders 10 Prometheus Operator CRDs.",
       "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.",
-      ...(chart.version === "87.15.1"
+      ...(hasExistingSecretBase
         ? ["existing-secret mirrors Kubara's Grafana credential reference and does not render the Grafana admin Secret."]
         : []),
       "Chart declares CRD, kube-state-metrics, node-exporter, Grafana, and windows-exporter dependencies and records them in dependency-lock.yaml.",
@@ -495,7 +497,7 @@ route file to the locked upstream chart.
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "default chart render becomes deterministic when grafana.adminPassword is bound before render;",
       "the no-crds variant deliberately removes the 10 Prometheus Operator CRDs;",
-      ...(chart.version === "87.15.1"
+      ...(hasExistingSecretBase
         ? ["the existing-secret variant records monitoring/grafana-admin-credentials as a target fact instead of rendering admin credentials;"]
         : []),
       "CRD lifecycle, admission webhook, generated Grafana credential, umbrella dependency, and cluster RBAC risks are visible as scan/gate findings instead of hidden Helm behavior.",

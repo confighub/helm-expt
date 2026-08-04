@@ -10,57 +10,60 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 657
+scripts: 714
 ```
 
 ## By Category
 
 | Category | Scripts |
 | --- | ---: |
-| `other` | 215 |
+| `other` | 216 |
 | `top20-chart-proof` | 123 |
+| `catalog-data` | 67 |
 | `production-support` | 65 |
-| `catalog-data` | 58 |
+| `latest-version-refresh` | 38 |
+| `live-parity-gitops` | 37 |
+| `evidence-workdown` | 32 |
 | `hook-lifecycle` | 29 |
-| `evidence-workdown` | 26 |
-| `live-parity-gitops` | 25 |
-| `confighub-proof` | 20 |
-| `latest-version-refresh` | 20 |
-| `repo-integrity` | 15 |
+| `confighub-proof` | 24 |
+| `repo-integrity` | 18 |
 | `confighub-catalog-org` | 11 |
 | `derived-variants` | 11 |
 | `local-live-evidence` | 8 |
 | `scale-proof` | 8 |
 | `user-install-verification` | 7 |
+| `oci-evidence` | 6 |
 | `oci-inspection` | 4 |
 | `oci-transformation` | 4 |
 | `adversarial-live` | 2 |
 | `catalog-readiness` | 2 |
-| `oci-evidence` | 2 |
 | `pilot-variant-model` | 2 |
 
 ## By Mode
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 305 |
-| `generate-or-run` | 264 |
-| `run` | 75 |
-| `summary` | 7 |
-| `self-test` | 5 |
+| `verify` | 326 |
+| `generate-or-run` | 279 |
+| `run` | 88 |
+| `self-test` | 11 |
+| `summary` | 9 |
 | `full-corpus-verify` | 1 |
 
 ## By External State
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 601 |
-| `confighub-or-live-cluster` | 23 |
+| `none-for-verify` | 640 |
+| `confighub-or-live-cluster` | 30 |
+| `network-or-helm-repo` | 15 |
 | `local-kubernetes` | 14 |
-| `network-or-helm-repo` | 10 |
+| `public-oci-registry` | 5 |
 | `user-supplied-cluster-or-confighub` | 5 |
-| `public-oci-registry` | 2 |
 | `user-supplied-oci` | 2 |
+| `authenticated-oci-registry` | 1 |
+| `local-kubara-binary` | 1 |
+| `network-or-git-source` | 1 |
 
 ## Regenerate
 

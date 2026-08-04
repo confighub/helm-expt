@@ -65,6 +65,113 @@ def helm_chart_command_args(chart: str, repo_url: str) -> list[str]:
     return [chart_name, "--repo", repo_url]
 
 
+def discover_cluster_oci_target(rig: str) -> tuple[str, str, str, str]:
+    """Return (cluster space, target name, Argo-apps space, observation)."""
+    observations = []
+    for space in (rig, f"{rig}-cluster"):
+        rc, out, err = sh(["cub", "target", "list", "--space", space], timeout=120)
+        observations.append(f"{space}: {(out or err)[:500]}")
+        if rc != 0:
+            continue
+        for line in out.splitlines():
+            fields = line.split()
+            if not fields or fields[0] == "NAME":
+                continue
+            if "OCI" in fields:
+                target_name = fields[0]
+                argo_apps_space = f"{rig}-argo-apps"
+                target_rc, target_out, target_err = sh(
+                    ["cub", "target", "get", target_name, "--space", space, "-o", "json"],
+                    timeout=120,
+                )
+                observations.append(f"target {space}/{target_name}: {(target_out or target_err)[:500]}")
+                if target_rc == 0:
+                    target_payload = json.loads(target_out)
+                    annotations = (target_payload.get("Target") or {}).get("Annotations") or {}
+                    argo_apps_space = annotations.get("confighub.com/argo-apps-space", argo_apps_space)
+                apps_rc, apps_out, apps_err = sh(["cub", "space", "get", argo_apps_space], timeout=120)
+                observations.append(f"argo apps {argo_apps_space}: {(apps_out or apps_err)[:500]}")
+                if apps_rc != 0:
+                    raise RuntimeError(
+                        f"OCI target {space}/{target_name} names missing Argo apps Space {argo_apps_space}"
+                    )
+                return space, target_name, argo_apps_space, "\n".join(observations)
+    raise RuntimeError(
+        f"could not discover the OCI target created for cluster {rig}: "
+        + " | ".join(observations)
+    )
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def materialize_exact_chart_artifact(args: argparse.Namespace, run_root: Path) -> tuple[Path | None, dict]:
+    if not args.chart_artifact_url:
+        return None, {
+            "result": "not-requested",
+            "resolution": "repository-index",
+            "repositoryURL": args.repo_url,
+        }
+    if not args.chart_artifact_sha256:
+        raise RuntimeError("--chart-artifact-url requires --chart-artifact-sha256")
+
+    artifact_root = run_root / "exact-chart-artifact"
+    if artifact_root.exists():
+        shutil.rmtree(artifact_root)
+    artifact_root.mkdir(parents=True)
+    url = args.chart_artifact_url
+    if url.startswith(("https://", "http://")):
+        destination = artifact_root / "chart.tgz"
+        rc, out, err = sh(
+            [
+                "curl", "--fail", "--location", "--retry", "3", "--retry-all-errors",
+                "--output", str(destination), url,
+            ],
+            timeout=600,
+        )
+        command = f"curl --fail --location --retry 3 --output {destination.name} {url}"
+    elif url.startswith("oci://"):
+        ref = url
+        version_suffix = f":{args.version}"
+        if ref.rsplit("/", 1)[-1].endswith(version_suffix):
+            ref = ref[:-len(version_suffix)]
+        rc, out, err = sh(
+            ["helm", "pull", ref, "--version", args.version, "--destination", str(artifact_root)],
+            timeout=600,
+        )
+        archives = sorted(artifact_root.glob("*.tgz"))
+        destination = archives[0] if len(archives) == 1 else artifact_root / "missing-chart.tgz"
+        command = f"helm pull {ref} --version {args.version} --destination exact-chart-artifact"
+    else:
+        raise RuntimeError(f"unsupported exact chart artifact URL: {url}")
+
+    if rc != 0:
+        raise RuntimeError(f"exact chart artifact download failed: {(err or out)[:1000]}")
+    if not destination.is_file():
+        raise RuntimeError(f"exact chart artifact download did not produce one chart archive: {artifact_root}")
+    observed = sha256_file(destination)
+    expected = args.chart_artifact_sha256.removeprefix("sha256:").lower()
+    if observed != expected:
+        raise RuntimeError(
+            f"exact chart artifact digest mismatch: expected {expected}, observed {observed}"
+        )
+    return destination, {
+        "result": "pass",
+        "resolution": "artifact-addressed",
+        "url": url,
+        "expectedSHA256": expected,
+        "observedSHA256": observed,
+        "bytes": destination.stat().st_size,
+        "materializedPath": str(destination.relative_to(run_root)),
+        "command": command,
+    }
+
+
 def kind_clusters() -> list[str]:
     rc, clusters, _ = sh(["kind", "get", "clusters"], timeout=60)
     if rc != 0:
@@ -186,10 +293,13 @@ def cluster_kubeconfig_for_profile(profile: str, rig: str) -> Path:
 
 
 def teardown_rig(rig: str, manager: str = "cluster") -> tuple[bool, str]:
-    # Authoritative teardown: cub cluster down --force, then an unconditional kind/docker
-    # fallback so a stuck control-plane container cannot leak. Reports clean only if
-    # the cluster is actually gone afterward.
-    rc, out, err = sh(["cub", manager, "down", "--name", rig, "--force"], timeout=600)
+    # Authoritative teardown removes both the owned kind target and its ephemeral
+    # ConfigHub Spaces. --keep is the explicit debugging escape hatch; ordinary
+    # qualification must not leave proof clusters in the user-facing org.
+    rc, out, err = sh(
+        ["cub", manager, "down", "--name", rig, "--delete-config", "--force"],
+        timeout=600,
+    )
     detail = (err or out)[:1000]
     sh(["kind", "delete", "cluster", "--name", rig], timeout=180)
     rc_ids, ids, _ = sh(["docker", "ps", "-aq", "--filter", f"name={rig}"], timeout=60)
@@ -197,7 +307,12 @@ def teardown_rig(rig: str, manager: str = "cluster") -> tuple[bool, str]:
         sh(["docker", "rm", "-f", *ids.split()], timeout=120)
     rc_check, clusters, _ = sh(["kind", "get", "clusters"], timeout=60)
     gone = rc_check == 0 and rig not in clusters.split()
-    return (rc == 0 or gone), detail
+    rc_config, config_rows, _ = sh(["cub", manager, "list"], timeout=120)
+    config_gone = rc_config == 0 and all(
+        not line.split() or line.split()[0] != rig
+        for line in config_rows.splitlines()
+    )
+    return (rc == 0 and gone and config_gone), detail
 
 
 def sha256_text(text: str) -> str:
@@ -890,6 +1005,24 @@ def manifest_namespaces(text: str) -> list[str]:
     return sorted(namespaces)
 
 
+def release_manifest_namespaces(
+    text: str,
+    authored_namespace: str,
+    release_namespace: str,
+) -> list[str]:
+    """Project a canonical render into the namespace used by the live Helm leg.
+
+    Canonical recipe renders use the authored namespace, while the live rig runs
+    each leg in an isolated namespace. Resources templated from
+    ``.Release.Namespace`` therefore move when Helm installs the release, and
+    target facts tied to that namespace must move with them.
+    """
+    return sorted({
+        release_namespace if namespace == authored_namespace else namespace
+        for namespace in manifest_namespaces(text)
+    })
+
+
 def namespaced_cleanup_docs(text: str, namespaces: set[str]) -> list[dict]:
     docs = []
     for doc in yaml_docs(text):
@@ -912,6 +1045,28 @@ def existing_namespaced_doc_identities(docs: list[dict], kubeconfig: Path, conte
         if not kind or not namespace or not name:
             continue
         rc, _, _ = kubectl(["-n", namespace, "get", str(kind), str(name), "-o", "name"], kubeconfig, context, timeout=30)
+        if rc == 0:
+            identities.add(object_identity(doc))
+    return identities
+
+
+def existing_cluster_scoped_doc_identities(docs: list[dict], kubeconfig: Path, context: str) -> set[str]:
+    """Return rendered cluster-scoped objects that predate the current leg.
+
+    The ConfigHub cluster helper installs its own Argo CD control plane. Charts
+    such as argo-cd therefore render CRDs that already belong to that control
+    plane. Direct-apply cleanup must preserve those objects or the subsequent
+    Argo/OCI leg loses the API it needs to materialize Applications.
+    """
+    identities = set()
+    for doc in docs:
+        meta = doc.get("metadata") or {}
+        kind = doc.get("kind")
+        name = meta.get("name")
+        namespace = meta.get("namespace")
+        if not kind or not name or (isinstance(namespace, str) and namespace):
+            continue
+        rc, _, _ = kubectl(["get", str(kind), str(name), "-o", "name"], kubeconfig, context, timeout=30)
         if rc == 0:
             identities.add(object_identity(doc))
     return identities
@@ -1737,6 +1892,7 @@ def stage_target_facts(
                 "receipt": load_yaml(lifecycle_receipt),
             })
     for secret in ordinary_secrets:
+        source_namespace = secret.get("namespace")
         secret_namespaces = target_fact_secret_namespaces(
             secret,
             variant_namespace,
@@ -3031,6 +3187,8 @@ def main() -> int:
     parser.add_argument("--chart", required=True)
     parser.add_argument("--version", required=True)
     parser.add_argument("--repo-url", required=True)
+    parser.add_argument("--chart-artifact-url", default="")
+    parser.add_argument("--chart-artifact-sha256", default="")
     parser.add_argument("--release", required=True)
     parser.add_argument("--namespace", required=True)
     parser.add_argument("--package", required=True)
@@ -3077,8 +3235,9 @@ def main() -> int:
     context = f"kind-{rig}"
     cluster_manager = cluster_manager_for_profile(args.target_profile)
     kubeconfig = cluster_kubeconfig_for_profile(args.target_profile, rig)
-    cluster_space = f"{rig}-cluster"
-    target = f"{cluster_space}/oci"
+    cluster_space = ""
+    target = ""
+    argo_apps_space = ""
     workdir = Path("/tmp") / f"helm-expt-live-parity-{rig}-{args.slug}"
     wspace = f"{rig}-{args.slug}"
     child_app = f"{args.slug}-parity"
@@ -3240,6 +3399,13 @@ def main() -> int:
         canonical_helm_manifest = canonical_rendered_path.read_text()
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
+        exact_chart_path, source_artifact = materialize_exact_chart_artifact(args, run_root)
+        receipt["spec"]["sourceArtifact"] = source_artifact
+        check_item(
+            "exact-source-artifact",
+            "pass" if source_artifact["result"] in {"pass", "not-requested"} else source_artifact["result"],
+            source_artifact.get("url", source_artifact.get("repositoryURL", "")),
+        )
 
         mark_stage("cluster-up")
         prune_parity_leaks()
@@ -3262,6 +3428,14 @@ def main() -> int:
         receipt["spec"]["run"]["clusterLifecycle"] = "created"
         check_item("cluster-up", "pass", out or f"cub {cluster_manager} up passed")
 
+        mark_stage("cluster-target-discovery")
+        cluster_space, target_name, argo_apps_space, target_observation = discover_cluster_oci_target(rig)
+        target = f"{cluster_space}/{target_name}"
+        receipt["spec"]["run"]["clusterSpace"] = cluster_space
+        receipt["spec"]["run"]["argoAppsSpace"] = argo_apps_space
+        receipt["spec"]["run"]["releaseTarget"] = target
+        check_item("cluster-target-discovery", "pass", target_observation)
+
         mark_stage("target-profile")
         target_profile = install_target_profile(args.target_profile, kubeconfig, context, run_root)
         receipt["spec"]["targetProfile"] = target_profile
@@ -3278,6 +3452,7 @@ def main() -> int:
         # CRDs with Helm ownership lets the regular-Helm leg own them. CRDs that are
         # not already present are created by Helm as usual, so this is a no-op for
         # every other chart.
+        adopted_chart_crds = []
         for crd_doc in docs_matching(canonical_helm_manifest, "CustomResourceDefinition"):
             crd_name = (crd_doc.get("metadata") or {}).get("name")
             if not crd_name:
@@ -3294,6 +3469,7 @@ def main() -> int:
                 ],
                 kubeconfig, context, timeout=60,
             )
+            adopted_chart_crds.append(crd_name)
 
         helm_target_facts = stage_target_facts(
             variant,
@@ -3305,21 +3481,34 @@ def main() -> int:
             run_root,
             "regular-helm",
             "regularHelm",
-            manifest_namespaces(canonical_helm_manifest),
+            release_manifest_namespaces(
+                canonical_helm_manifest,
+                args.namespace,
+                helm_namespace,
+            ),
         )
         receipt["spec"]["targetFacts"] = {"regularHelm": helm_target_facts}
         check_item("target-facts-regular-helm", helm_target_facts["result"], f"secrets={len(helm_target_facts.get('stagedSecrets', []))} crds={len(helm_target_facts.get('stagedCRDs', []))} namespaces={len(helm_target_facts.get('stagedNamespaces', []))} objectStores={len(helm_target_facts.get('stagedObjectStores', []))}")
 
         helm_cmd = [
             "helm", "upgrade", "--install", args.release,
-            *helm_chart_command_args(args.chart, args.repo_url),
-            "--version", args.version,
+            *(
+                [str(exact_chart_path)]
+                if exact_chart_path
+                else [*helm_chart_command_args(args.chart, args.repo_url), "--version", args.version]
+            ),
             "--namespace", helm_namespace,
             "--create-namespace",
             "--values", str(helm_values_path),
             "--wait",
             "--timeout", helm_duration(args.wait),
         ]
+        # Helm 4 uses server-side apply. Ownership labels are necessary but do
+        # not transfer managedFields from the bootstrap's kubectl manager, so
+        # an adopting install must also take the exact rendered CRD fields.
+        # This is scoped only to charts whose CRDs were observed pre-existing.
+        if adopted_chart_crds:
+            helm_cmd.append("--force-conflicts")
         env = {**os.environ, "KUBECONFIG": str(kubeconfig)}
         mark_stage("regular-helm-install")
         rc, helm_out, helm_err = timed_command("regular-helm-install", helm_cmd, timeout=900, env=env)
@@ -3451,6 +3640,12 @@ def main() -> int:
             kubeconfig,
             context,
         )
+        cluster_cleanup_candidates = cluster_scoped_cleanup_docs(direct_apply_manifest)
+        preserved_cluster_identities = existing_cluster_scoped_doc_identities(
+            cluster_cleanup_candidates,
+            kubeconfig,
+            context,
+        )
         if secrets_dir.exists():
             for secret_path in sorted(secrets_dir.glob("*.yaml")):
                 apply_secret_path = namespace_secret_for_destination(
@@ -3526,7 +3721,11 @@ def main() -> int:
             "objectCount": 0,
             "preservedPreExistingObjects": sorted(preserved_retained_identities),
         }
-        apply_cluster_cleanup = {"result": "not-needed", "objectCount": 0}
+        apply_cluster_cleanup = {
+            "result": "not-needed",
+            "objectCount": 0,
+            "preservedPreExistingObjects": sorted(preserved_cluster_identities),
+        }
         leg("configHubKubectlApply",
             result=apply_result,
             renderCommand=" ".join(setup_cmd),
@@ -3546,7 +3745,10 @@ def main() -> int:
             },
         )
         check_item("confighub-kubectl-apply-live", apply_result, apply_runtime.get("workloads", ""))
-        cluster_cleanup_docs = cluster_scoped_cleanup_docs(direct_apply_manifest)
+        cluster_cleanup_docs = exclude_cleanup_identities(
+            cluster_cleanup_candidates,
+            preserved_cluster_identities,
+        )
         if cluster_cleanup_docs:
             cleanup_path = run_root / "cluster-scoped-apply-cleanup.yaml"
             write_text(cleanup_path, render_docs_to_yaml(cluster_cleanup_docs))
@@ -3559,6 +3761,7 @@ def main() -> int:
             apply_cluster_cleanup = {
                 "result": "pass" if rc == 0 else "blocked",
                 "objectCount": len(cluster_cleanup_docs),
+                "preservedPreExistingObjects": sorted(preserved_cluster_identities),
                 "manifest": str(cleanup_path.relative_to(run_root)),
                 "detail": (err or out)[:1000],
             }
@@ -3750,7 +3953,7 @@ def main() -> int:
         app_path = run_root / "argo-application.json"
         app_path.write_text(json.dumps(app, indent=2))
         rc, app_create_out, app_create_err = timed_command("configHub-oci-app-create", [
-            "cub", "unit", "create", "--space", cluster_space, f"{child_app}-app",
+            "cub", "unit", "create", "--space", argo_apps_space, f"{child_app}-app",
             str(app_path), "--target", target, "--allow-exists",
         ], timeout=180)
         if rc != 0:
@@ -3758,15 +3961,15 @@ def main() -> int:
         child_app_unit_created = True
         rc, app_apply_out, app_apply_err = timed_command(
             "configHub-oci-app-release-publish",
-            ["cub", "release", "publish", cluster_space],
+            ["cub", "release", "publish", argo_apps_space],
             timeout=360,
         )
         if rc != 0:
             raise RuntimeError(
-                f"cluster Space release publish failed: {(app_apply_err or app_apply_out)[:1000]}"
+                f"Argo apps Space release publish failed: {(app_apply_err or app_apply_out)[:1000]}"
             )
         kubectl([
-            "annotate", "application", cluster_space, "-n", "argocd",
+            "annotate", "application", argo_apps_space, "-n", "argocd",
             "argocd.argoproj.io/refresh=hard", "--overwrite",
         ], kubeconfig, context, timeout=30)
 
@@ -3820,7 +4023,7 @@ def main() -> int:
             health=health or "unknown",
         )
         child_argo_status = argo_application_status(kubeconfig, context, child_app, run_root, "child")
-        root_argo_status = argo_application_status(kubeconfig, context, cluster_space, run_root, "root")
+        root_argo_status = argo_application_status(kubeconfig, context, argo_apps_space, run_root, "root")
         mark_stage("configHub-oci-readiness")
         if child_argo_status.get("result") == "unavailable":
             oci_runtime = {
@@ -3924,7 +4127,7 @@ def main() -> int:
                 if workload_space_created:
                     cleanup_commands.append(["cub", "space", "delete", wspace, "--recursive-force"])
                 if child_app_unit_created:
-                    cleanup_commands.append(["cub", "unit", "delete", "--space", cluster_space, f"{child_app}-app"])
+                    cleanup_commands.append(["cub", "unit", "delete", "--space", argo_apps_space, f"{child_app}-app"])
                 for cmd in cleanup_commands:
                     rc, _, _ = sh(cmd, timeout=180)
                     cleanup_ok = cleanup_ok and rc == 0
@@ -3932,7 +4135,7 @@ def main() -> int:
                 cleanup_ok = cleanup_ok and down_ok
                 receipt["spec"]["run"]["clusterLifecycle"] = "cleaned-up" if down_ok else "cleanup-failed"
                 receipt["spec"]["run"]["cleanup"] = {
-                    "command": f"cub {cluster_manager} down --name {rig} --force",
+                    "command": f"cub {cluster_manager} down --name {rig} --delete-config --force",
                     "result": "pass" if cleanup_ok else "blocked",
                     "detail": down_detail,
                 }

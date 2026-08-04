@@ -88,6 +88,7 @@ function candidateBoundary(ctx) {
 }
 
 function proofCommands(ctx) {
+  if (ctx.proofCommands) return ctx.proofCommands;
   if (ctx.offlineCandidate) {
     return `npm run ${ctx.scriptPrefix}:generate\nnpm run ${ctx.scriptPrefix}:verify`;
   }
@@ -142,6 +143,7 @@ function makeContext(spec) {
     helmChartRef: spec.helmChartRef ?? `${chart.repository}/${chart.name}`,
     receiptSlug: spec.receiptSlug ?? chart.name, // short name used in receipt metadata.name
     scriptPrefix: process.env.HELM_EXPT_PROOF_SCRIPT_PREFIX ?? spec.scriptPrefix ?? chart.name,
+    proofCommands: process.env.HELM_EXPT_PROOF_COMMANDS ?? "",
     renderFlags: spec.renderFlags ?? DEFAULT_RENDER_FLAGS,
     expectedDependencyCount: spec.expectedDependencyCount ?? 0,
     recordChartLockDigest: spec.recordChartLockDigest ?? false,
@@ -219,6 +221,11 @@ function generateProof(ctx) {
             candidateRenderReceipt:
               `revisions/${variants[0].name}/r001/receipts/render-receipt.yaml`,
           }
+        : ctx.artifactURL
+          ? {
+              exactArtifactRenderReceipt:
+                `revisions/${variants[0].name}/r001/receipts/render-receipt.yaml`,
+            }
         : {
             harnessReceipt: `../../../../data/adversarial10/charts/${lockName}/render-receipt.yaml`,
           },
@@ -700,6 +707,12 @@ function verifyProof(ctx, root = ctx.proofRoot) {
     check(sourceLock.spec.exactArtifact?.url === ctx.artifactURL, "exact artifact URL mismatch");
     check(sourceLock.spec.exactArtifact?.sha256 === ctx.artifactSHA256, "exact artifact SHA mismatch");
     check(sourceLock.spec.exactArtifact?.resolution === "artifact-addressed", "exact artifact resolution mismatch");
+    const exactEvidencePath = ctx.offlineCandidate
+      ? sourceLock.spec.evidence?.candidateRenderReceipt
+      : sourceLock.spec.evidence?.exactArtifactRenderReceipt;
+    check(Boolean(exactEvidencePath), "exact artifact source lock must name its local render receipt");
+    check(existsSync(join(root, exactEvidencePath)), "exact artifact source-lock evidence is missing");
+    check(sourceLock.spec.evidence?.harnessReceipt == null, "exact artifact source lock must not claim a stale harness receipt");
   }
   if (ctx.recordDeprecated) {
     check(sourceLock.spec.deprecated === ctx.expectedDeprecated, "source deprecation marker must be recorded");

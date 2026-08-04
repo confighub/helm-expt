@@ -1,0 +1,51 @@
+apiVersion: import.confighub.com/v1alpha1
+kind: KubaraGitRevisionImport
+metadata:
+  name: acme-kubara-platform
+spec:
+  source:
+    # Replace both values. The importer accepts a full commit object only; it
+    # rejects branches, tags, dirty paths, and a checkout from another origin.
+    repository: https://github.com/acme/platform.git
+    commit: <full-lowercase-40-or-64-character-git-object-id>
+    path: platform
+  layout:
+    # All paths are relative to spec.source.path. Keep applications and target
+    # facts outside that path; they are separate adoption stages.
+    source: source
+    config: source/config.yaml
+    components: generated/platform-components/helm
+    configs: generated/platform-configs
+    renders: effective-renders
+    artifactLock: component-artifacts.yaml
+    generationReceipt: generation-receipt.yaml
+    wiringGraph: wiring/graph.json
+  destination:
+    organization: Acme Kubara
+    organizationPolicy: require-empty-or-importer-owned-identical
+    spacePrefix: acme-kubara
+    deliveryMode: confighub-managed-argo
+    # An untagged repository base. Packaging will use one immutable ref per
+    # component; a different digest at an existing ref is always a conflict.
+    catalogOCIBase: oci://ghcr.io/acme/kubara-components
+  targets:
+    hx-app-dev:
+      space: acme-target-dev
+      target: target
+      environment: Dev
+      region: local
+    hx-app-staging:
+      space: acme-target-staging
+      target: target
+      environment: Staging
+      region: local
+    hx-app-prod-a:
+      space: acme-target-prod-a
+      target: target
+      environment: Prod
+      region: us-east
+    hx-app-prod-b:
+      space: acme-target-prod-b
+      target: target
+      environment: Prod
+      region: us-west

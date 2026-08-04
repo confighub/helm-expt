@@ -26,6 +26,15 @@ const versionExpectations = {
 const expected = versionExpectations[chart.version];
 if (!expected) throw new Error(`cert-manager ${chart.version} needs reviewed version-specific assertions`);
 
+const certManagerCRDs = [
+  "challenges.acme.cert-manager.io",
+  "orders.acme.cert-manager.io",
+  "certificaterequests.cert-manager.io",
+  "certificates.cert-manager.io",
+  "clusterissuers.cert-manager.io",
+  "issuers.cert-manager.io",
+];
+
 const variants = [
   {
     name: "default",
@@ -36,7 +45,16 @@ const variants = [
     valuesSummary: "chart defaults",
     expectedObjectCount: expected.defaultObjects,
     expectedCRDCount: 0,
-    targetFactNote: "keeps webhook objects and excludes the Helm startup API check hook Job from the rendered revision",
+    targetFacts: {
+      requiredCRDs: certManagerCRDs.map((name) => ({
+        name,
+        sourceVariant: "crds-enabled",
+        purpose: "cert-manager CRD staged before the default chart and its startup API check",
+        deliveryLanes: ["regularHelm", "cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+        applyMode: "server-side",
+      })),
+    },
+    targetFactNote: "requires the six cert-manager CRDs from the reviewed crds-enabled base before applying webhook objects; excludes the Helm startup API check hook Job from the rendered revision",
   },
   {
     name: "crds-enabled",

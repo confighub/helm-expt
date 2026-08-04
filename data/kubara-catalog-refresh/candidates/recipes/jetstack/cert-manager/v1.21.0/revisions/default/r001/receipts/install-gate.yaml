@@ -18,6 +18,6 @@ spec:
     - "Admission webhook availability needs a fresh observation receipt after apply"
     - "Helm startup API check hook Job needs explicit lifecycle policy before production"
     - "Cluster-scoped RBAC needs production review"
-    - "keeps webhook objects and excludes the Helm startup API check hook Job from the rendered revision"
+    - "requires the six cert-manager CRDs from the reviewed crds-enabled base before applying webhook objects; excludes the Helm startup API check hook Job from the rendered revision"
     - "live qualification has not run"
     - "Kubara ServiceDefinition, wrapper, defaults, and additions compatibility is incomplete"

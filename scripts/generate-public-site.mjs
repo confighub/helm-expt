@@ -226,6 +226,7 @@ const PAGE_DESCRIPTIONS = {
   "charts/index.html": "Find a tested starting configuration for a public package, with its rendered objects, required setup, and evidence.",
   "demo-org.html": "Open one ConfigHub demo Space, read its README, inspect its Kubernetes configuration, and then explore variants, promotions, checks, hooks, and CRDs.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
+  "d/docs/demo/kubara/single-platform.html": "Adopt Kubara v0.13.0 with ConfigHub through a linear four-cluster mini-IDP path that preserves Kubara catalogs, config, values overlays, hub-and-spoke topology, and Argo reconciliation.",
 };
 const mode = process.argv[2] ?? "--generate";
 
@@ -841,6 +842,7 @@ function buildLlmsTxt() {
 - [All technical references](${SITE_BASE_URL}docs-reference.html): the complete guide and evidence index.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Detailed entry paths](${SITE_BASE_URL}entry-path-reference.html): commands and proof links for Helm, AICR, OCI, and Kubernetes YAML.
+- [Kubara + ConfigHub mini-IDP](${SITE_BASE_URL}d/docs/demo/kubara/single-platform.html): adopt Kubara v0.13.0 without rewriting its catalogs, config, values overlays, or Argo reconciliation model.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
 `;
 }
@@ -1797,7 +1799,7 @@ em{font-style:italic;color:var(--ink);}
   <p>The catalog covers the most-used charts. Each chart is rendered, checked against plain Helm, scanned, and given an honest status. Today's proven scope:</p>
   <div class="scope">
     <div class="count"><b>20</b><span>charts live-tested end to end</span></div>
-    <div class="count"><b>110</b><span>chart versions rendered</span></div>
+    <div class="count"><b>${catalog.installerOciPackages.length}</b><span>chart versions rendered</span></div>
     <div class="count"><b>2</b><span>reviewed bases per chart</span></div>
     <div class="count"><b>8</b><span>standard base shapes</span></div>
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
@@ -3411,7 +3413,8 @@ function docsReferenceHtml(catalog) {
     ["AI change review proof", "ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.", "../data/ai-change-review-live-proof/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
-    ["Kubara local platform example", "A real Kubara v0.12.0 generation, 77 rendered Argo CD bootstrap objects, lifecycle requirements, OCI layout, and current limits.", "../docs/demo/kubara/local-platform.md"],
+    ["Kubara + ConfigHub mini-IDP", "The primary Kubara v0.13.0 path: four clusters, seven platform roles, two apps, byte-identical upstream and ConfigHub-aligned catalog generation, matrix, wiring, faithful hub-spoke delivery, and optional ConfigHub fleet control.", "../docs/demo/kubara/single-platform.md"],
+    ["Historical Kubara v0.12.0 compatibility proof", "The retained one-cluster generation and adapted four-cluster rollout. Useful as dated live evidence, not the current adoption starting point.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A two-wave result: ConfigHub approves a pilot and one selector expansion at different OCI digests, then Argo CD and Sveltos deliver Kyverno to one staging cluster and later to both.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
     ["Try Redis", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
@@ -5472,13 +5475,13 @@ cub helm install myapp &lt;chart-ref&gt; \\
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", worked(pathways, "kubara").result, `<a href="./d/docs/demo/kubara/single-platform.html">IDP write-up</a> · <a href="./d/docs/demo/kubara/app-rollout.html">App rollout detail</a> · <a href="./d/docs/demo/kubara/local-platform.html">Platform walkthrough</a> · <a href="https://github.com/confighub/helm-expt/blob/main/runs/kubara-app-rollout-proof/receipt.yaml">Receipt</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/local-platform">GitHub source</a>`],
+        ["Kubara", `<strong>Current v0.13 offline:</strong> byte-identical generation from the upstream and ConfigHub-aligned catalogs across four clusters, with 13 effective renders plus generated matrix and wiring data. <strong>Historical v0.12 live:</strong> the retained one-cluster route, OCI delivery, Argo bootstrap, and healthy Metrics Server receipt. Current live state remains receipt-gated.`, `<a href="./d/docs/demo/kubara/single-platform.html">Current v0.13 mini-IDP guide</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Current source</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <h3 id="kubara-app">An internal developer platform with apps on it</h3>
-      <p>Kubara and ConfigHub together form an internal developer platform. Kubara chose the platform services. ConfigHub governs and delivers them, and app teams run their apps on the same governed path.</p>
-      <p>The platform delivered Kubara's cert-manager, traefik, and monitoring. Two apps run on it, an nginx service and cubbychat, the tutorial's chat app. Both are reachable over HTTPS through the ingress, promoted across four clusters, and gated by approval in production.</p>
-      <p><a href="./d/docs/demo/kubara/single-platform.html">Read the IDP write-up</a>.</p>
+      <p><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Kubara's catalogs, <code>config.yaml</code>, values overlays, generated components, and hub-and-spoke model remain recognizable. ConfigHub adds exact component retention, semantic review, approvals, promotion, rollback, a component-by-cluster matrix with explicit live or unknown state, and visible wiring. Argo CD still reconciles.</p>
+      <p>The current Kubara v0.13.0 source selects seven platform roles across one hub and three spokes. hx-web and cubbychat use the shared certificate and ingress services on all four targets. The guide proves byte-identical generation from Kubara's upstream catalog snapshot and the ConfigHub-aligned export, with no AI translation or required migration.</p>
+      <p><a href="./d/docs/demo/kubara/single-platform.html">Follow the linear mini-IDP guide</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Open the matrix and wiring evidence</a>.</p>
     </section>
 
     <section aria-labelledby="apps">

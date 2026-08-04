@@ -1,12 +1,18 @@
-# Kubara platform configuration
+# Historical Kubara v0.12.0 platform configuration
+
+> **Compatibility record.** This page preserves the original Kubara v0.12.0
+> one-cluster proof. For the current, four-cluster, reproducible Kubara v0.13.0
+> adoption path, start with
+> [Adopt Kubara with ConfigHub](single-platform.md). Nothing in this historical
+> fixture is removed or silently rewritten.
 
 A platform team usually manages more than one Helm release. Argo CD,
 certificates, Secrets, ingress, monitoring, and cluster services must be chosen
 together and kept consistent across a fleet. Kubara provides that platform
 description and generates the Helm source and cluster values.
 
-This example uses Kubara v0.12.0 to describe one local test cluster and seven
-enabled services. The generated Argo CD chart renders 77 Kubernetes objects,
+This historical example uses Kubara v0.12.0 to describe one local test cluster
+and seven enabled services. The generated Argo CD chart renders 77 Kubernetes objects,
 including the ApplicationSets that assign those services to matching clusters.
 
 ConfigHub adds a durable record of that result. The render can become a base

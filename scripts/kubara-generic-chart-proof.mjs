@@ -7,6 +7,10 @@ import { identityFor } from "./lib/proof-common.mjs";
 
 const candidateName = process.env.HELM_EXPT_KUBARA_CANDIDATE ?? "";
 const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? "";
+const rootReady = process.env.HELM_EXPT_KUBARA_ROOT_READY === "1";
+if (rootReady && process.env.HELM_EXPT_PROOF_OFFLINE_CANDIDATE === "1") {
+  throw new Error("HELM_EXPT_KUBARA_ROOT_READY cannot be combined with HELM_EXPT_PROOF_OFFLINE_CANDIDATE");
+}
 const candidates = {
   "prometheus-blackbox-exporter": {
     chart: {
@@ -23,7 +27,9 @@ const candidates = {
     knownControlPoints: ["source-lock", "dependency-lock", "capability-profile", "tpl-extension-slots"],
     notes: [
       "The exact Kubara-selected chart renders four objects with chart defaults.",
-      "This is an offline upstream-package candidate; Kubara wrapper compatibility and live qualification remain separate gates.",
+      rootReady
+        ? "This exact upstream-package proof is suitable for additive root retention after the separate live-qualification gate passes; Kubara wrapper compatibility remains separate."
+        : "This is an offline upstream-package candidate; Kubara wrapper compatibility and live qualification remain separate gates.",
     ],
   },
   traefik: {
@@ -50,7 +56,9 @@ const candidates = {
     notes: [
       "The exact Kubara OCI chart layer renders 31 objects with chart defaults, including 25 CRDs.",
       "The OCI layer digest is required because the same version from the Helm repository is a different archive.",
-      "This is an offline upstream-package candidate; CRD lifecycle, Kubara wrapper compatibility, and live qualification remain separate gates.",
+      rootReady
+        ? "This exact upstream-package proof is suitable for additive root retention after the separate live-qualification gate passes; CRD lifecycle and Kubara wrapper compatibility remain separate."
+        : "This is an offline upstream-package candidate; CRD lifecycle, Kubara wrapper compatibility, and live qualification remain separate gates.",
     ],
   },
 };
@@ -77,7 +85,9 @@ const variants = [
     valuesText: "",
     valuesSummary: "chart defaults",
     expectedObjectCount: selected.expectedObjectCount,
-    targetFactNote: "offline candidate only; target facts and live readiness remain unqualified",
+    targetFactNote: rootReady
+      ? "target facts remain explicit; root retention is gated by the separate exact-version live-qualification receipt"
+      : "offline candidate only; target facts and live readiness remain unqualified",
   },
 ];
 
@@ -107,12 +117,20 @@ runProofCli({
         path: "<chart defaults>",
         variant: "default",
         disposition: "default-render-captured",
-        reason: "the candidate binds the exact artifact and records its deterministic default render",
+        reason: rootReady
+          ? "the root-retention proof binds the exact artifact and records its deterministic default render"
+          : "the candidate binds the exact artifact and records its deterministic default render",
       },
     ],
-    unknownValues: "not-exhaustively-checked-in-offline-candidate-lane",
-    deadValues: "not-exhaustively-checked-in-offline-candidate-lane",
-    ignoredValues: "not-exhaustively-checked-in-offline-candidate-lane",
+    unknownValues: rootReady
+      ? "not-exhaustively-checked-in-root-retention-proof"
+      : "not-exhaustively-checked-in-offline-candidate-lane",
+    deadValues: rootReady
+      ? "not-exhaustively-checked-in-root-retention-proof"
+      : "not-exhaustively-checked-in-offline-candidate-lane",
+    ignoredValues: rootReady
+      ? "not-exhaustively-checked-in-root-retention-proof"
+      : "not-exhaustively-checked-in-offline-candidate-lane",
   },
   controlPoints: [
     { category: "source-lock", status: "handled", evidence: "source-lock.yaml" },
@@ -121,33 +139,53 @@ runProofCli({
     ...(selected.expectedCRDCount
       ? [{ category: "crd-lifecycle", status: "review-required", count: selected.expectedCRDCount }]
       : []),
-    { category: "candidate-boundary", status: "offline-only", note: "root retention, Kubara compatibility, and live qualification are not implied" },
+    rootReady
+      ? {
+          category: "root-retention",
+          status: "qualification-gated",
+          note: "the promotion orchestrator separately requires all exact-version live lanes before additive root copy",
+        }
+      : {
+          category: "candidate-boundary",
+          status: "offline-only",
+          note: "root retention, Kubara compatibility, and live qualification are not implied",
+        },
   ],
   dossier: {
     maintainedNotes: selected.notes,
     knownControlPoints: selected.knownControlPoints,
   },
   plan: {
-    status: "offline-candidate",
-    scanGate: "warn-production-blocked",
-    nextAction: "capture the Kubara compatibility profile and complete scoped live qualification before root retention",
+    status: rootReady ? "usable-with-controls" : "offline-candidate",
+    scanGate: rootReady ? "warn-review-before-production" : "warn-production-blocked",
+    nextAction: rootReady
+      ? "retain additively only after the 13-lane Kubara live-qualification receipt passes; keep complete Kubara component compatibility separate"
+      : "capture the Kubara compatibility profile and complete scoped live qualification before root retention",
   },
   readme: {
-    intro: `This is the exact-artifact offline candidate for ${chart.repository}/${chart.name}@${chart.version}.`,
+    intro: rootReady
+      ? `This is the exact-artifact root-retention proof for ${chart.repository}/${chart.name}@${chart.version}. It remains a catalog candidate, not a claim of production support or complete Kubara wrapper compatibility.`
+      : `This is the exact-artifact offline candidate for ${chart.repository}/${chart.name}@${chart.version}.`,
     proves: [
       "the exact upstream artifact digest is captured independently of a mutable repository index;",
       "the chart renders deterministically and the installer package preserves the rendered object set;",
-      "candidate status does not imply root Catalog retention, Kubara wrapper compatibility, or live support.",
+      rootReady
+        ? "additive root retention remains gated by the separately committed exact-version live-qualification receipt, and does not imply Kubara wrapper compatibility or production support."
+        : "candidate status does not imply root Catalog retention, Kubara wrapper compatibility, or live support.",
     ],
   },
   installGate: (variant) => ({
     decision: "warn",
-    allowedScopes: ["offline-review", "local-test"],
+    allowedScopes: rootReady ? ["local-test", "root-catalog-retention"] : ["offline-review", "local-test"],
     blockedScopes: ["production"],
     reasons: [
       `Helm equivalence passed for ${variant.name}`,
-      "the exact artifact is qualified only as an offline candidate",
-      "Kubara wrapper compatibility and live evidence remain required before retention",
+      rootReady
+        ? "the exact artifact is root-retention-ready only when the external 13-lane live-qualification receipt passes"
+        : "the exact artifact is qualified only as an offline candidate",
+      rootReady
+        ? "Kubara ServiceDefinition and wrapper compatibility remain outside upstream-package root retention"
+        : "Kubara wrapper compatibility and live evidence remain required before retention",
     ],
   }),
   scanExtra(docs) {

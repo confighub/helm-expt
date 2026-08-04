@@ -4,11 +4,10 @@ These additive candidate trees capture the seven exact public chart artifacts
 selected by Kubara v0.12.0. They are artifact-addressed and digest-verified, so
 candidate generation does not depend on a mutable Helm repository index.
 
-No historical root recipe or package is replaced. These are offline upstream
-package candidates, not retained root Catalog entries and not complete Kubara
-components. Root retention still requires scoped live qualification; complete
-component retention additionally requires the Kubara ServiceDefinition, wrapper
-compatibility profile, adapter, and parity evidence.
+The exact versions also have additive root recipe and package copies after
+the separately recorded live qualification passed. These candidate trees remain
+the immutable offline evaluation snapshot; root retention still does not claim
+complete Kubara ServiceDefinition or wrapper compatibility.
 
 | Component | Version | Variants and object counts | Status |
 | --- | --- | --- | --- |

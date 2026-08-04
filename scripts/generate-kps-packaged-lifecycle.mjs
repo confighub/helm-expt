@@ -25,7 +25,7 @@ import {
 } from "./lib/proof-common.mjs";
 
 const rootSupportedVersions = ["85.3.3", "86.1.0"];
-const candidateSupportedVersions = ["87.15.1"];
+const candidateSupportedVersions = ["87.15.1", "87.19.2"];
 const proofOutputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
   ? join(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
   : repoRoot;
@@ -70,7 +70,8 @@ check(
 
 const chart = "prometheus-community/kube-prometheus-stack";
 const version = requestedVersion;
-const lifecycleBaseNames = version === "87.15.1"
+const hasExistingSecretBase = candidateSupportedVersions.includes(version);
+const lifecycleBaseNames = hasExistingSecretBase
   ? ["default", "no-crds", "existing-secret"]
   : ["default", "no-crds"];
 const versionSlug = version.replaceAll(".", "-");
@@ -113,12 +114,17 @@ const maintainedTemplateRoot = join(
 );
 const createJobName = "kube-prometheus-stack-admission-create";
 const patchJobName = "kube-prometheus-stack-admission-patch";
-const hookImage = version === "87.15.1"
+const hookImage = version === "87.19.2"
   ? {
+      source: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.5",
+      pinned: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:d0e80b2f62fe43bb5e1b96adc692132fb4522e802f4cf673c09b1f94722b8cb6",
+    }
+  : version === "87.15.1"
+    ? {
       source: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.4",
       pinned: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:76a2170cd0c9a7758c4ac8ac5bbe9b6f73e869a15ffb77d9f684664f7d7b96b1",
-    }
-  : {
+      }
+    : {
       source: "ghcr.io/jkroepke/kube-webhook-certgen:1.8.3",
       pinned: "ghcr.io/jkroepke/kube-webhook-certgen@sha256:8ce13c365c8e9ced0aad5ef350a53c50b7ca5817f99d856b9eec895db1056728",
     };
@@ -200,7 +206,7 @@ function generate() {
     );
     const support = hookDocs.filter((doc) => doc.kind !== "Job");
 
-    const expectedCounts = version === "87.15.1"
+    const expectedCounts = hasExistingSecretBase
       ? { total: 132, ordinary: 125, hooks: 7 }
       : { total: 131, ordinary: 124, hooks: 7 };
     check(docs.length === expectedCounts.total, `expected ${expectedCounts.total} chart objects, found ${docs.length}`);
@@ -270,7 +276,7 @@ function materializeMaintainedFiles() {
     let rendered = template
       .replaceAll(rootSupportedVersions[0], version)
       .replaceAll(rootSupportedVersions[0].replaceAll(".", "-"), versionSlug);
-    if (version === "87.15.1" && name === "finish.sh") {
+    if (hasExistingSecretBase && name === "finish.sh") {
       rendered = rendered
         .replace(
           'if [[ "$base" != "default" && "$base" != "no-crds" ]]; then',
@@ -295,7 +301,7 @@ function materializeMaintainedFiles() {
       rendered = `${lines.join("\n")}\n`;
     }
     writeFileSync(destination, rendered);
-    if (version === "87.15.1" && name === "lifecycle-actions.yaml") {
+    if (hasExistingSecretBase && name === "lifecycle-actions.yaml") {
       const actions = readYaml(destination);
       const defaultBase = actions.spec?.bases?.find((base) => base.name === "default");
       check(Boolean(defaultBase), "maintained lifecycle actions are missing the default base");
@@ -323,7 +329,7 @@ function verify() {
     spec.chartPackageSha256 === sourceLock.spec?.packageSHA256,
     "the packaged lifecycle receipt is not tied to the current source lock",
   );
-  const expectedCounts = version === "87.15.1"
+  const expectedCounts = hasExistingSecretBase
     ? { total: 132, ordinary: 125, hooks: 7 }
     : { total: 131, ordinary: 124, hooks: 7 };
   check(
@@ -382,11 +388,11 @@ function verify() {
   }
   check(must("bash", ["-n", preparePath]).stdout === "", "prepare.sh failed bash syntax validation");
   check(must("bash", ["-n", finishPath]).stdout === "", "finish.sh failed bash syntax validation");
-  if (version === "87.15.1") {
+  if (hasExistingSecretBase) {
     const finishScript = readFileSync(finishPath, "utf8");
     check(
       finishScript.includes('&& "$base" != "existing-secret"'),
-      "the 87.15.1 lifecycle finish route must accept the existing-secret base",
+      `the ${version} lifecycle finish route must accept the existing-secret base`,
     );
   }
   const actions = readYaml(lifecycleActionsPath);

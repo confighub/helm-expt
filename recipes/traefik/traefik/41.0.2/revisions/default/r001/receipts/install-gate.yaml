@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "traefik-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+    - "root-catalog-retention"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "the exact artifact is root-retention-ready only when the external 13-lane live-qualification receipt passes"
+    - "Kubara ServiceDefinition and wrapper compatibility remain outside upstream-package root retention"
