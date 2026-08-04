@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { spawnSync } from "node:child_process";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import {
   cpSync,
   existsSync,
@@ -9,6 +9,7 @@ import {
   mkdtempSync,
   readFileSync,
   readdirSync,
+  renameSync,
   rmSync,
   statSync,
   writeFileSync,
@@ -85,6 +86,7 @@ const runRoot = join(repoRoot, "runs", "kubara-faithful-hub-spoke");
 const receiptPath = join(runRoot, "receipt.yaml");
 const stagePath = join(runRoot, "stage.txt");
 const failurePath = join(runRoot, "failure.yaml");
+const attemptPath = join(runRoot, "attempt.yaml");
 const dataRoot = join(repoRoot, "data", "kubara-faithful-hub-spoke");
 const summaryYamlPath = join(dataRoot, "summary.yaml");
 const summaryMarkdownPath = join(dataRoot, "summary.md");
@@ -93,6 +95,7 @@ const summarySchemaPath = join(dataRoot, "summary.schema.json");
 const contextArgs = process.env.CUB_CONTEXT
   ? ["--context", process.env.CUB_CONTEXT]
   : [];
+let activeAttempt = null;
 
 if (mode === "--rehearse") {
   const prepared = prepareSource();
@@ -327,8 +330,8 @@ function runLiveProof() {
     "set HELM_EXPT_ALLOW_LIVE_KUBARA_FAITHFUL=1 to confirm this live proof",
   );
   mkdirSync(runRoot, { recursive: true });
-  rmSync(failurePath, { force: true });
-  const lockPath = acquireLiveLock();
+  activeAttempt = beginLiveAttempt();
+  let lockPath;
   let prepared;
   let baseline = null;
   const cleanup = {
@@ -344,6 +347,10 @@ function runLiveProof() {
   let failure;
 
   try {
+    currentStage = "acquire-live-lock";
+    phase(currentStage);
+    lockPath = acquireLiveLock();
+
     baseline = kindClusters();
     assertNoForeignLiveParityProcess(baseline);
     assertKubaraOrganization();
@@ -563,26 +570,37 @@ function runLiveProof() {
   }
 
   if (failure) {
-    writeYaml(failurePath, {
+    const blocked = {
       apiVersion: "helm-expt.confighub.com/v1alpha1",
       kind: "KubaraFaithfulHubSpokeProofFailure",
       metadata: { name: "kubara-v0-13-0-faithful-hub-spoke" },
       spec: {
+        attemptId: activeAttempt.spec.attemptId,
+        attemptStartedAt: activeAttempt.spec.startedAt,
         observedAt: new Date().toISOString(),
         stage: failureStage,
         error: safeError(failure),
         cleanup,
       },
       status: { result: "blocked" },
-    });
+    };
+    writeDurableYaml(failurePath, blocked);
+    verifyBlockedFailure(readYaml(failurePath), activeAttempt);
+    clearLiveAttempt(activeAttempt);
+    activeAttempt = null;
     throw failure;
   }
 
   verifyReceipt(receipt);
   writeYaml(receiptPath, receipt);
-  writeSummaries(receipt);
+  const persistedReceipt = readYaml(receiptPath);
+  verifyReceipt(persistedReceipt);
+  writeSummaries(persistedReceipt);
+  verifySummaries(persistedReceipt);
   rmSync(failurePath, { force: true });
   phase("complete");
+  clearLiveAttempt(activeAttempt);
+  activeAttempt = null;
   console.log(`wrote ${relativeRepo(receiptPath)}`);
 }
 
@@ -1538,6 +1556,113 @@ function cleanupKindCluster({ name, creationAttempted, baseline }) {
   return Array.isArray(after) && !after.includes(name) ? "pass" : "failed";
 }
 
+function beginLiveAttempt() {
+  if (existsSync(attemptPath)) {
+    const existing = readYaml(attemptPath);
+    verifyAttemptMarker(existing);
+    const ownerPid = existing.spec.pid;
+    check(
+      ownerPid === process.pid || !processAlive(ownerPid),
+      `faithful live attempt ${existing.spec.attemptId} is still active as pid ${ownerPid}`,
+    );
+  }
+
+  const startedAt = new Date().toISOString();
+  const attempt = {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "KubaraFaithfulHubSpokeProofAttempt",
+    metadata: { name: "kubara-v0-13-0-faithful-hub-spoke" },
+    spec: {
+      attemptId: `${startedAt}-${process.pid}-${randomUUID()}`,
+      startedAt,
+      updatedAt: startedAt,
+      pid: process.pid,
+      stage: "starting",
+    },
+    status: { result: "in-progress" },
+  };
+  writeDurableYaml(attemptPath, attempt);
+  const persisted = readYaml(attemptPath);
+  verifyAttemptMarker(persisted, attempt.spec.attemptId);
+  return attempt;
+}
+
+function verifyAttemptMarker(attempt, expectedAttemptId = null) {
+  check(
+    attempt?.kind === "KubaraFaithfulHubSpokeProofAttempt"
+      && attempt?.metadata?.name === "kubara-v0-13-0-faithful-hub-spoke"
+      && attempt?.status?.result === "in-progress"
+      && typeof attempt?.spec?.attemptId === "string"
+      && attempt.spec.attemptId.length > 0
+      && Number.isInteger(attempt.spec.pid)
+      && typeof attempt.spec.startedAt === "string"
+      && Number.isFinite(Date.parse(attempt.spec.startedAt))
+      && typeof attempt.spec.updatedAt === "string"
+      && Number.isFinite(Date.parse(attempt.spec.updatedAt))
+      && typeof attempt.spec.stage === "string"
+      && attempt.spec.stage.length > 0,
+    `${relativeRepo(attemptPath)} is malformed; refusing to trust or replace it`,
+  );
+  if (expectedAttemptId !== null) {
+    check(
+      attempt.spec.attemptId === expectedAttemptId,
+      `${relativeRepo(attemptPath)} ownership changed during the live proof`,
+    );
+  }
+}
+
+function updateLiveAttemptStage(name) {
+  if (!activeAttempt) return;
+  check(
+    existsSync(attemptPath),
+    `${relativeRepo(attemptPath)} disappeared during the live proof`,
+  );
+  verifyAttemptMarker(readYaml(attemptPath), activeAttempt.spec.attemptId);
+  activeAttempt.spec.stage = name;
+  activeAttempt.spec.updatedAt = new Date().toISOString();
+  writeDurableYaml(attemptPath, activeAttempt);
+}
+
+function clearLiveAttempt(attempt) {
+  check(attempt, "missing faithful live attempt ownership");
+  check(
+    existsSync(attemptPath),
+    `${relativeRepo(attemptPath)} disappeared before the attempt was durably resolved`,
+  );
+  verifyAttemptMarker(readYaml(attemptPath), attempt.spec.attemptId);
+  rmSync(attemptPath, { force: true });
+  check(!existsSync(attemptPath), `could not clear ${relativeRepo(attemptPath)}`);
+}
+
+function verifyBlockedFailure(blocked, attempt) {
+  check(
+    blocked?.kind === "KubaraFaithfulHubSpokeProofFailure"
+      && blocked?.metadata?.name === "kubara-v0-13-0-faithful-hub-spoke"
+      && blocked?.status?.result === "blocked"
+      && blocked?.spec?.attemptId === attempt.spec.attemptId
+      && blocked?.spec?.attemptStartedAt === attempt.spec.startedAt
+      && typeof blocked?.spec?.observedAt === "string"
+      && Number.isFinite(Date.parse(blocked.spec.observedAt))
+      && typeof blocked?.spec?.stage === "string"
+      && blocked.spec.stage.length > 0,
+    `${relativeRepo(failurePath)} did not durably record the blocked live attempt`,
+  );
+}
+
+function writeDurableYaml(path, value) {
+  mkdirSync(dirname(path), { recursive: true });
+  const temporaryPath = join(
+    dirname(path),
+    `.${basename(path)}.${process.pid}.${randomUUID()}.tmp`,
+  );
+  try {
+    writeFileSync(temporaryPath, `${toYaml(value)}\n`, { mode: 0o600 });
+    renameSync(temporaryPath, path);
+  } finally {
+    rmSync(temporaryPath, { force: true });
+  }
+}
+
 function acquireLiveLock() {
   const lockPath = process.env.HELM_EXPT_LIVE_PARITY_LOCK
     ? resolve(process.env.HELM_EXPT_LIVE_PARITY_LOCK)
@@ -1623,6 +1748,7 @@ function assertNoForeignLiveParityProcess(clusters) {
 
 function phase(name) {
   if (mode === "--run") {
+    updateLiveAttemptStage(name);
     mkdirSync(dirname(stagePath), { recursive: true });
     writeFileSync(stagePath, `${name}\n`);
   }
@@ -1721,12 +1847,24 @@ function renderRehearsal(prepared) {
 
 function loadAndVerifyReceipt() {
   check(
+    !existsSync(attemptPath),
+    `${relativeRepo(attemptPath)} records an active or interrupted attempt; do not publish the pass receipt`,
+  );
+  check(
     !existsSync(failurePath),
     `${relativeRepo(failurePath)} records a blocked newer attempt; do not publish the pass receipt`,
   );
   check(existsSync(receiptPath), `${relativeRepo(receiptPath)} is missing; run the live proof`);
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt);
+  check(
+    !existsSync(attemptPath),
+    `${relativeRepo(attemptPath)} appeared while verifying the pass receipt`,
+  );
+  check(
+    !existsSync(failurePath),
+    `${relativeRepo(failurePath)} appeared while verifying the pass receipt`,
+  );
   return receipt;
 }
 

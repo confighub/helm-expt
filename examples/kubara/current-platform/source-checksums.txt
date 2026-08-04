@@ -707,7 +707,7 @@ eebfc53f58242f53319af97148296e421ad37ea2825aaba922d636002264be4d  data/kubara-ca
 989bc2269cf4eb0c94bbbdc520c4b4f34ba623cbdf36279095c0467268051c42  data/kubara-catalog-snapshots/kubara-catalogs-1.1.0-release/source/general/services/traefik.yaml
 e31e44c7da59d40f02183ae9dd4283b239bfd9c3181810ad9cf69ae7e6744901  data/kubara-catalog-snapshots/kubara-catalogs-1.1.0-release/source/general/services/velero.yaml
 3e80fb1bbd04845f0f8820282ac1a5a74625cb8fe39d0db9ab1647fcca6d0a10  examples/kubara/current-platform/component-artifacts.yaml
-989769261626c1b8c58a5025ae27aa40296259f9e1a83c5ce8d85f48405c6b7e  examples/kubara/current-platform/source-lock.yaml
+2e5c0495235e8d0b66d08845cd34b6ec54a9807ad39f5ab77519541d065fd61b  examples/kubara/current-platform/source-lock.yaml
 7260fe438066413c1bc44b5f674e4441e3ae9873146e860d4188ef518abc1211  examples/kubara/current-platform/source/config.yaml
 098ac6f8ea0c377c1140b387b2acf0e82eeb3e1d2c736f1df349d1430e8794f3  examples/kubara/current-platform/source/overrides/hx-app-dev/helm/argo-cd/values-repository-paths.yaml
 e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8  examples/kubara/current-platform/source/overrides/hx-app-dev/helm/cert-manager/values-kind.yaml

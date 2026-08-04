@@ -74,8 +74,26 @@ const LINK_REASON_ANNOTATION = "helm-expt.confighub.com/reason";
 const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
+const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
+const FAITHFUL_FAILURE_PATH = "runs/kubara-faithful-hub-spoke/failure.yaml";
+const FAITHFUL_ATTEMPT_PATH = "runs/kubara-faithful-hub-spoke/attempt.yaml";
+const PRESERVED_FAITHFUL_CONTROL_UNITS = [
+  {
+    slug: "faithful-hub-spoke-plan",
+    receiptKey: "planCheckAndApproval",
+    role: "FaithfulLanePlan",
+    proofPhase: "Plan",
+  },
+  {
+    slug: "faithful-hub-spoke-attestation",
+    receiptKey: "observedAttestation",
+    role: "FaithfulLaneAttestation",
+    proofPhase: "Observed",
+  },
+];
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 let cachedCubVersions = null;
+let cachedFaithfulReceipt = null;
 
 const paths = {
   config: "examples/kubara/current-platform/source/config.yaml",
@@ -848,6 +866,16 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
   const wiring = JSON.parse(readFileSync(absolute(paths.wiring), "utf8"));
   check(wiring.spec?.evidence?.kubaraVersion === KUBARA_VERSION, "primary wiring ledger is not current Kubara v0.13.0 evidence");
 
+  check(
+    !existsSync(absolute(FAITHFUL_FAILURE_PATH)),
+    `${FAITHFUL_FAILURE_PATH} records a newer failed proof attempt; refusing stale faithful pass evidence`,
+  );
+  check(
+    !existsSync(absolute(FAITHFUL_ATTEMPT_PATH)),
+    `${FAITHFUL_ATTEMPT_PATH} records an active proof attempt; refusing stale faithful pass evidence`,
+  );
+  if (existsSync(absolute(paths.faithfulReceipt))) verifyFaithfulProof();
+
   if (requireLiveEvidence) {
     const qualification = readYaml(absolute(paths.qualificationReceipt));
     check(qualification.kind === "KubaraLiveQualificationSetReceipt", "current qualification receipt kind drifted");
@@ -855,7 +883,7 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
     const promotion = readYaml(absolute(paths.promotionReceipt));
     check(promotion.kind === "KubaraCatalogRootPromotionReceipt", "current promotion receipt kind drifted");
     check(promotion.status?.result === "pass" && promotion.status?.historicalRootsPreserved === true, "current promotion must pass and retain historical roots");
-    const faithful = readYaml(absolute(paths.faithfulReceipt));
+    const faithful = verifyFaithfulProof();
     check(faithful.kind === "KubaraFaithfulHubSpokeProofReceipt", "faithful lane receipt kind drifted");
     check(faithful.status?.result === "pass", "faithful hub-spoke lane must pass before adapted fleet apply");
   }
@@ -866,6 +894,25 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
   for (const image of images) check(image.includes("@sha256:"), `app image is not digest pinned: ${image}`);
 
   verifyHxWebPayloadContract(inputs);
+}
+
+function verifyFaithfulProof() {
+  check(
+    !existsSync(absolute(FAITHFUL_FAILURE_PATH)),
+    `${FAITHFUL_FAILURE_PATH} records a newer failed proof attempt; refusing stale faithful pass evidence`,
+  );
+  check(
+    !existsSync(absolute(FAITHFUL_ATTEMPT_PATH)),
+    `${FAITHFUL_ATTEMPT_PATH} records an active proof attempt; refusing stale faithful pass evidence`,
+  );
+  if (cachedFaithfulReceipt) return cachedFaithfulReceipt;
+  const result = tryCommand(process.execPath, [absolute(FAITHFUL_PROOF_SCRIPT), "--verify"]);
+  check(result.ok, `full faithful hub-spoke verifier failed:\n${result.output}`);
+  const faithful = readYaml(absolute(paths.faithfulReceipt));
+  check(faithful.kind === "KubaraFaithfulHubSpokeProofReceipt", "faithful lane receipt kind drifted");
+  check(faithful.status?.result === "pass", "faithful hub-spoke lane must pass before adapted fleet apply");
+  cachedFaithfulReceipt = faithful;
+  return faithful;
 }
 
 function verifyHxWebPayloadContract(inputs) {
@@ -939,6 +986,7 @@ function printPlan(inputs, desired) {
         serialLiveParityLock: true,
         unexpectedSpacePolicy: "fail-outside-exact-53-space-allowlist",
         unexpectedManagedUnitOrLinkPolicy: "fail",
+        preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API",
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
         receiptRequiresZeroActionRerun: true,
@@ -954,6 +1002,7 @@ function printPlan(inputs, desired) {
       counts: {
         spaces: desired.spaces.length,
         managedUnits: desired.managedUnits.length,
+        preservedFaithfulControlUnits: PRESERVED_FAITHFUL_CONTROL_UNITS.length,
         deployments: desired.deployments.length,
         needsProvidesLinks: desired.links.length,
         payloads: payloadRows.length,
@@ -972,6 +1021,11 @@ function printPlan(inputs, desired) {
       ],
       spaces: desired.spaces,
       units: desired.managedUnits,
+      preservedControlUnits: PRESERVED_FAITHFUL_CONTROL_UNITS.map((item) => ({
+        ref: `${CONTROL_SPACE}/${item.slug}`,
+        owner: "faithful-hub-spoke-proof",
+        policy: "preserve-and-verify-against-current-pass-receipt",
+      })),
       deployments: desired.deployments,
       links: desired.links,
       payloads: payloadRows,
@@ -1576,17 +1630,19 @@ function reconcileApprovalPolicy(state) {
 function reconcileControlUnits(inputs, payloadFiles, desired, state) {
   const expectedUnits = desired.managedUnits.filter((item) => item.space === CONTROL_SPACE);
   const expectedSlugs = expectedUnits.map((item) => item.slug).sort();
+  const preservedSlugs = PRESERVED_FAITHFUL_CONTROL_UNITS.map((item) => item.slug).sort();
   const unexpected = readUnitRows(CONTROL_SPACE)
     .map((item) => item.Slug)
-    .filter((slug) => !expectedSlugs.includes(slug))
+    .filter((slug) => !expectedSlugs.includes(slug) && !preservedSlugs.includes(slug))
     .sort();
   check(unexpected.length === 0, `${CONTROL_SPACE}: refusing unexpected control Units: ${unexpected.join(", ")}`);
+  assertPreservedFaithfulControlUnits();
   for (const expected of expectedUnits) {
     if (expected.requiredForApply) check(expected.payloadKey, `${CONTROL_SPACE}/${expected.slug}: required evidence is missing`);
     if (!expected.payloadKey) continue;
     upsertUnit(expected, inputs, payloadFiles, state);
   }
-  assertUnitAllowlist(CONTROL_SPACE, expectedSlugs);
+  assertUnitAllowlist(CONTROL_SPACE, [...expectedSlugs, ...preservedSlugs]);
 }
 
 function reconcileSurface(surfaceDefinition, inputs, payloadFiles, desired, state) {
@@ -1673,6 +1729,63 @@ function assertUnitAllowlist(space, expectedSlugs) {
   const actual = readUnitRows(space).map((item) => item.Slug).sort();
   const expected = [...expectedSlugs].sort();
   check(stableJson(actual) === stableJson(expected), `${space}: unsafe Unit inventory; expected ${expected.join(", ")}, got ${actual.join(", ")}`);
+}
+
+function assertPreservedFaithfulControlUnits() {
+  const faithful = verifyFaithfulProof();
+  const generatedSha256 = faithful.spec?.source?.currentExample?.generatedSha256;
+  check(/^[a-f0-9]{64}$/.test(generatedSha256 ?? ""), "faithful proof generated SHA is missing");
+  const rows = [];
+  for (const expected of PRESERVED_FAITHFUL_CONTROL_UNITS) {
+    const evidence = faithful.spec?.configHub?.[expected.receiptKey];
+    const receiptUnit = evidence?.unit;
+    const receiptApproval = evidence?.approval;
+    const ref = `${CONTROL_SPACE}/${expected.slug}`;
+    check(receiptUnit?.ref === ref, `${ref}: faithful receipt ownership reference drifted`);
+    check(UUID_PATTERN.test(receiptUnit.id ?? ""), `${ref}: faithful receipt Unit ID is missing`);
+    check(Number.isInteger(receiptUnit.headRevisionNum), `${ref}: faithful receipt head revision is missing`);
+    check(/^[a-f0-9]{64}$/.test(receiptUnit.dataHash ?? ""), `${ref}: faithful receipt data hash is missing`);
+    check(
+      receiptApproval?.revision === receiptUnit.headRevisionNum
+        && Number.isInteger(receiptApproval.recordedApprovals)
+        && receiptApproval.recordedApprovals > 0,
+      `${ref}: faithful receipt approval is not bound to its recorded head revision`,
+    );
+
+    const live = readUnit(CONTROL_SPACE, expected.slug);
+    check(live, `${ref}: retained faithful proof Unit is missing`);
+    check(live.UnitID === receiptUnit.id, `${ref}: Unit ID differs from the current faithful pass receipt`);
+    check(live.HeadRevisionNum === receiptUnit.headRevisionNum, `${ref}: head revision differs from the current faithful pass receipt`);
+    check(live.DataHash === receiptUnit.dataHash, `${ref}: data hash differs from the current faithful pass receipt`);
+    check(live.ToolchainType === "AppConfig/YAML", `${ref}: toolchain must remain AppConfig/YAML`);
+    check(live.ProviderType === "None", `${ref}: provider must remain None`);
+    check(!live.TargetID && !live.UpstreamUnitID, `${ref}: faithful proof evidence must remain untargeted and without an upstream`);
+    check(
+      approvalCount(live.ApprovedBy) === receiptApproval.recordedApprovals,
+      `${ref}: live head approvals differ from the current faithful pass receipt`,
+    );
+    check(mapMatches(live.Labels, {
+      ExampleCohort: EXAMPLE_COHORT,
+      KubaraVersion: KUBARA_VERSION,
+      Role: expected.role,
+      Topology: "HubSpoke",
+      ProofPhase: expected.proofPhase,
+    }), `${ref}: faithful proof ownership labels drifted`);
+    check(mapMatches(live.Annotations, {
+      "confighub.com/source-path": paths.config,
+      "confighub.com/generated-sha256": `sha256:${generatedSha256}`,
+    }), `${ref}: faithful proof provenance annotations drifted`);
+    rows.push({
+      ref,
+      id: live.UnitID,
+      headRevisionNum: live.HeadRevisionNum,
+      dataHash: live.DataHash,
+      approvalCount: approvalCount(live.ApprovedBy),
+      owner: "faithful-hub-spoke-proof",
+      policy: "preserved",
+    });
+  }
+  return rows;
 }
 
 function assertManagedLinkInventory(desired, { requireNeedsProvides = false } = {}) {
@@ -2380,6 +2493,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   assertSpaceAllowlist(spaces, desired, { requireAll: true });
   assertDeliveryTopology(spaces, desired, { requireAllApplications: true });
   assertManagedLinkInventory(desired, { requireNeedsProvides: true });
+  const preservedControlUnits = assertPreservedFaithfulControlUnits();
   const localClusters = new Set(kindClusters());
   const targets = new Map();
   for (const item of FLEET) {
@@ -2468,7 +2582,10 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   }
   for (const [space, expectedSlugs] of expectedUnitsBySpace) {
     const actual = readUnitRows(space).map((item) => item.Slug).sort();
-    if (stableJson(actual) !== stableJson(expectedSlugs.sort())) findings.push(`${space}: unexpected managed Unit inventory ${actual.join(", ")}`);
+    const allowedSlugs = space === CONTROL_SPACE
+      ? [...expectedSlugs, ...PRESERVED_FAITHFUL_CONTROL_UNITS.map((item) => item.slug)].sort()
+      : expectedSlugs.sort();
+    if (stableJson(actual) !== stableJson(allowedSlugs)) findings.push(`${space}: unexpected managed Unit inventory ${actual.join(", ")}`);
   }
 
   const policy = verifyPolicy(desired, findings);
@@ -2548,6 +2665,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     organizationID: spaceRows[0]?.id ? spaces.get(CONTROL_SPACE).OrganizationID : "",
     spaces: spaceRows,
     units: unitRows,
+    preservedControlUnits,
     links: linkRows,
     policy,
     releases,
@@ -2949,6 +3067,7 @@ function buildReceipt(inputs, desired, observation, state) {
         serialLiveParityLock: true,
         unexpectedSpacePolicy: "fail-outside-exact-53-space-allowlist",
         unexpectedManagedUnitOrLinkPolicy: "fail",
+        preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
         receiptRequiresZeroActionRerun: true,
         cub: cachedCubVersions,
@@ -2958,6 +3077,7 @@ function buildReceipt(inputs, desired, observation, state) {
       counts: {
         spaces: observation.spaces.length,
         managedUnits: observation.units.length,
+        preservedFaithfulControlUnits: observation.preservedControlUnits.length,
         deployments: desired.deployments.length,
         releases: observation.releases.length,
         needsProvidesLinks: observation.links.length,
@@ -2965,6 +3085,7 @@ function buildReceipt(inputs, desired, observation, state) {
       },
       clusters: observation.clusters,
       controls: observation.units.filter((item) => item.ref.startsWith(`${CONTROL_SPACE}/`)),
+      preservedControlUnits: observation.preservedControlUnits,
       spaces: observation.spaces,
       units: observation.units,
       releases: observation.releases,
@@ -3051,6 +3172,10 @@ function verifyReceipt(inputs, desired) {
   check(receipt.spec?.execution?.serialLiveParityLock === true, "mini-IDP receipt no longer records the shared serial live-parity lock");
   check(receipt.spec?.execution?.unexpectedSpacePolicy === "fail-outside-exact-53-space-allowlist", "mini-IDP receipt no longer enforces the exact Space allowlist");
   check(receipt.spec?.execution?.unexpectedManagedUnitOrLinkPolicy === "fail", "mini-IDP receipt no longer rejects unexpected managed Units or Links");
+  check(
+    receipt.spec?.execution?.preservedControlUnitPolicy === "exact-receipt-bound-faithful-proof-units",
+    "mini-IDP receipt no longer binds its preserved faithful proof Units exactly",
+  );
   check(receipt.spec?.execution?.receiptRequiresZeroActionRerun === true, "mini-IDP receipt no longer requires a zero-action rerun");
   check(receipt.spec?.execution?.cub?.minimum === `v${MIN_CUB_VERSION}`, "mini-IDP receipt cub minimum-version contract drifted");
   check(versionAtLeast(String(receipt.spec?.execution?.cub?.client ?? "").replace(/^v/, ""), MIN_CUB_VERSION), "mini-IDP receipt cub client is too old");
@@ -3059,6 +3184,10 @@ function verifyReceipt(inputs, desired) {
   const counts = receipt.spec?.counts ?? {};
   check(counts.spaces === desired.spaces.length, `receipt has ${counts.spaces} Spaces, expected ${desired.spaces.length}`);
   check(counts.managedUnits === desired.managedUnits.length, `receipt has ${counts.managedUnits} Units, expected ${desired.managedUnits.length}`);
+  check(
+    counts.preservedFaithfulControlUnits === PRESERVED_FAITHFUL_CONTROL_UNITS.length,
+    `receipt has ${counts.preservedFaithfulControlUnits} preserved faithful Units, expected ${PRESERVED_FAITHFUL_CONTROL_UNITS.length}`,
+  );
   check(counts.deployments === desired.deployments.length, `receipt has ${counts.deployments} deployments, expected ${desired.deployments.length}`);
   check(counts.releases === desired.deployments.length, `receipt has ${counts.releases} releases, expected ${desired.deployments.length}`);
   check(counts.needsProvidesLinks === desired.links.length, `receipt has ${counts.needsProvidesLinks} Links, expected ${desired.links.length}`);
@@ -3085,6 +3214,25 @@ function verifyReceipt(inputs, desired) {
     check(Number(row.headRevisionNum) > 0, `${ref}: receipt head revision missing`);
     const payload = inputs.payloads.get(expected.payloadKey);
     check(row.sourceSha256 === `sha256:${payload.sha256}`, `${ref}: receipt source digest drifted`);
+  }
+
+  const faithful = verifyFaithfulProof();
+  const preservedRows = receipt.spec?.preservedControlUnits ?? [];
+  check(
+    preservedRows.length === PRESERVED_FAITHFUL_CONTROL_UNITS.length,
+    "receipt preserved faithful control Unit rows are incomplete",
+  );
+  const preservedByRef = new Map(preservedRows.map((item) => [item.ref, item]));
+  for (const expected of PRESERVED_FAITHFUL_CONTROL_UNITS) {
+    const ref = `${CONTROL_SPACE}/${expected.slug}`;
+    const evidence = faithful.spec?.configHub?.[expected.receiptKey];
+    const row = preservedByRef.get(ref);
+    check(row, `receipt is missing preserved faithful Unit ${ref}`);
+    check(row.id === evidence?.unit?.id, `${ref}: preserved Unit ID is stale`);
+    check(row.headRevisionNum === evidence?.unit?.headRevisionNum, `${ref}: preserved head revision is stale`);
+    check(row.dataHash === evidence?.unit?.dataHash, `${ref}: preserved data hash is stale`);
+    check(row.approvalCount === evidence?.approval?.recordedApprovals, `${ref}: preserved approval evidence is stale`);
+    check(row.owner === "faithful-hub-spoke-proof" && row.policy === "preserved", `${ref}: preserved ownership policy drifted`);
   }
 
   const releaseRows = receipt.spec?.releases ?? [];

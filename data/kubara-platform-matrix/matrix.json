@@ -20,10 +20,10 @@
         "artifacts": "examples/kubara/current-platform/component-artifacts.yaml",
         "appSourceLock": "examples/kubara/current-platform/apps/source-lock.yaml",
         "effectiveRenders": "data/kubara-effective-renders/current-platform/receipt.yaml",
-        "faithfulReceipt": "not-present",
+        "faithfulReceipt": "runs/kubara-faithful-hub-spoke/receipt.yaml",
         "miniIdpReceipt": "not-present"
       },
-      "faithfulReceiptStatus": "not-present",
+      "faithfulReceiptStatus": "pass",
       "miniIdpReceipt": {
         "path": "runs/kubara-mini-idp-reconcile/receipt.yaml",
         "status": "not-present",
@@ -40,7 +40,7 @@
     },
     "scope": {
       "deliveryModel": "Kubara-generated hub Argo CD with Git/ApplicationSets targeting three spokes",
-      "faithfulKubaraGitDelivery": "not-proven-currently",
+      "faithfulKubaraGitDelivery": "receipt-pass-with-recorded-scope",
       "components": 9,
       "platformComponents": 7,
       "applications": 2,

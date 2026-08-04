@@ -40,7 +40,7 @@ The non-live [desired-matrix.json](desired-matrix.json) is generated first and
 digest-pinned by the reconciliation receipt. The final matrix overlays that
 base only after the receipt proves Kubara v0.13.0, all current source digests,
 and all 36 component/application cells. The faithful-lane receipt remains
-separate topology evidence (status: `not-present`).
+separate topology evidence (status: `pass`).
 
 ## Explicit unknowns
 
