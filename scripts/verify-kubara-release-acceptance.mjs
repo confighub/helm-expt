@@ -388,6 +388,137 @@ function verifySiteConsumption() {
     "data/kubara-wiring/graph.html",
     "data/kubara-wiring/graph.json",
   ]) check(existsSync(join(repoRoot, path)), `${path} is missing`);
+  verifyKubaraPublicSourceContract();
+}
+
+function verifyKubaraPublicSourceContract() {
+  const adoption = collapseWhitespace(readFileSync(join(repoRoot, "docs/demo/kubara/single-platform.md"), "utf8"));
+  const evidence = collapseWhitespace(readFileSync(join(repoRoot, "docs/demo/kubara/platform-evidence.md"), "utf8"));
+  const matrix = JSON.parse(readFileSync(join(repoRoot, "data/kubara-platform-matrix/matrix.json"), "utf8"));
+  const graph = JSON.parse(readFileSync(join(repoRoot, "data/kubara-wiring/graph.json"), "utf8"));
+  const expected = expectedContract().spec.adoption;
+
+  check(expected.desiredMatrixRows === 36, "Kubara public source contract must retain 36 current matrix cells");
+  check(matrix.spec?.scope?.cells === expected.desiredMatrixRows, `current Kubara matrix must contain ${expected.desiredMatrixRows} cells`);
+  check(matrix.spec?.rows?.length === expected.desiredMatrixRows, `current Kubara matrix must expose ${expected.desiredMatrixRows} rows`);
+  check(expected.reconcilerPlan.needsProvidesLinks === 25, "Kubara public source contract must retain 25 curated GUI Links");
+  check(graph.spec?.summary?.needs > expected.reconcilerPlan.needsProvidesLinks, "the full extracted wiring graph must remain larger than the curated GUI Link inventory");
+
+  for (const app of ["hx-web", "cubbychat"]) {
+    check(adoption.includes(app), `Kubara adoption source must name ${app}`);
+    check(evidence.includes(app), `Kubara evidence source must name ${app}`);
+  }
+  for (const url of [
+    "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html",
+    "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html",
+    "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html",
+  ]) {
+    check(adoption.includes(url), `Kubara adoption source must retain public link ${url}`);
+    check(evidence.includes(url), `Kubara evidence source must retain public link ${url}`);
+  }
+  for (const phrase of [
+    "desired-only matrix",
+    "public matrix is regenerated from that desired state plus receipt evidence",
+    "ConfigHub GUI shows 25 curated operational `NeedsProvides` Links",
+    "public graph is the complete evidence view",
+  ]) check(adoption.includes(phrase), `Kubara adoption source must preserve boundary: ${phrase}`);
+  for (const phrase of [
+    "desired-only platform matrix and exposes exactly 25 curated operational",
+    "The receipt-aware public matrix and complete extracted",
+    "contains 36 cells: seven deployable platform roles plus hx-web and cubbychat",
+    "The full graph preserves every extracted",
+  ]) check(evidence.includes(phrase), `Kubara evidence source must preserve boundary: ${phrase}`);
+  check(!evidence.includes("contains 28 cells"), "Kubara evidence source must not retain the pre-application 28-cell matrix claim");
+}
+
+function verifyKubaraPublicVisibility() {
+  const paths = {
+    adoption: "site/d/docs/demo/kubara/single-platform.html",
+    evidence: "site/d/docs/demo/kubara/platform-evidence.html",
+    examples: "site/testing.html",
+  };
+  for (const path of Object.values(paths)) check(existsSync(join(repoRoot, path)), `${path} is missing from the generated public site`);
+
+  const adoption = collapseWhitespace(readFileSync(join(repoRoot, paths.adoption), "utf8"));
+  const evidence = collapseWhitespace(readFileSync(join(repoRoot, paths.evidence), "utf8"));
+  const examples = collapseWhitespace(readFileSync(join(repoRoot, paths.examples), "utf8"));
+  const matrix = JSON.parse(readFileSync(join(repoRoot, "data/kubara-platform-matrix/matrix.json"), "utf8"));
+  const graph = JSON.parse(readFileSync(join(repoRoot, "data/kubara-wiring/graph.json"), "utf8"));
+  const expected = expectedContract().spec.adoption;
+
+  check(expected.desiredMatrixRows === 36, "Kubara public visibility contract must retain 36 current matrix cells");
+  check(matrix.spec?.scope?.cells === expected.desiredMatrixRows, `current Kubara matrix must contain ${expected.desiredMatrixRows} cells`);
+  check(matrix.spec?.rows?.length === expected.desiredMatrixRows, `current Kubara matrix must expose ${expected.desiredMatrixRows} rows`);
+  check(
+    evidence.includes(`contains ${expected.desiredMatrixRows} cells: seven deployable platform roles plus hx-web and cubbychat`),
+    `${paths.evidence} must state that the current matrix contains ${expected.desiredMatrixRows} cells`,
+  );
+  check(!evidence.includes("contains 28 cells"), `${paths.evidence} must not retain the pre-application 28-cell matrix claim`);
+
+  for (const app of ["hx-web", "cubbychat"]) {
+    check(adoption.includes(app), `${paths.adoption} must name ${app}`);
+    check(evidence.includes(app), `${paths.evidence} must name ${app}`);
+    check(examples.includes(app), `${paths.examples} must name ${app}`);
+  }
+
+  check(
+    examples.includes('href="./d/docs/demo/kubara/single-platform.html"'),
+    `${paths.examples} must link the Kubara adoption example`,
+  );
+  check(
+    examples.includes('href="./d/docs/demo/kubara/platform-evidence.html"'),
+    `${paths.examples} must link the Kubara matrix and wiring evidence guide`,
+  );
+  check(
+    adoption.includes('href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html"')
+      && adoption.includes('href="https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html"')
+      && adoption.includes('href="https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html"'),
+    `${paths.adoption} must link the public adoption example, matrix, and full wiring graph`,
+  );
+  check(
+    evidence.includes('href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html"')
+      && evidence.includes('href="https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html"')
+      && evidence.includes('href="https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html"'),
+    `${paths.evidence} must link the public adoption example, matrix, and full wiring graph`,
+  );
+
+  const curatedLinkCount = expected.reconcilerPlan.needsProvidesLinks;
+  check(curatedLinkCount === 25, "Kubara public visibility contract must retain 25 curated GUI Links");
+  check(
+    adoption.includes(`ConfigHub GUI shows ${curatedLinkCount} curated operational <code>NeedsProvides</code> Links`),
+    `${paths.adoption} must identify the ${curatedLinkCount} GUI-visible curated NeedsProvides Links`,
+  );
+  check(
+    adoption.includes("ConfigHub governs the desired-only matrix")
+      && adoption.includes("the public matrix is regenerated from that desired state plus receipt evidence"),
+    `${paths.adoption} must distinguish the desired-only governed matrix from receipt-aware public evidence`,
+  );
+  check(
+    adoption.includes("the public graph is the complete evidence view"),
+    `${paths.adoption} must distinguish GUI-visible Links from their full extracted wiring source`,
+  );
+  check(
+    graph.spec?.summary?.needs > curatedLinkCount,
+    "the full extracted Kubara wiring graph must remain larger than the curated GUI Link inventory",
+  );
+  check(
+    evidence.includes("desired-only platform matrix and exposes exactly 25 curated operational")
+      && evidence.includes("The receipt-aware public matrix and complete extracted wiring graph are linked evidence views")
+      && evidence.includes("they are not presented as native live ConfigHub observations"),
+    `${paths.evidence} must preserve the GUI desired-state versus derived-evidence boundary`,
+  );
+
+  check(
+    adoption.includes("The public 36-cell matrix is regenerated from that state and the exact live receipt")
+      && adoption.includes("it leaves current live fields unknown unless the receipt supplies them"),
+    `${paths.adoption} must describe the matrix as receipt-derived live evidence`,
+  );
+  check(
+    evidence.includes("The desired 36-cell contract is governed in ConfigHub")
+      && evidence.includes("public files above are regenerated after the mini-IDP receipt")
+      && evidence.includes("A missing observation remains <code>unknown</code>"),
+    `${paths.evidence} must preserve the desired-state versus receipt-derived live-matrix boundary`,
+  );
 }
 
 function verifyMiniIdpPlan() {
@@ -411,6 +542,11 @@ function verifyMiniIdpPlan() {
   check(plan.spec?.execution?.unexpectedManagedUnitOrLinkPolicy === "fail", "mini-IDP plan does not reject unexpected managed Units or Links");
   check(plan.spec?.execution?.receiptRequiresZeroActionRerun === true, "mini-IDP plan does not require a zero-action rerun receipt");
   check(plan.spec?.execution?.minimumCubVersion === "v0.2.11", "mini-IDP plan cub minimum-version contract drifted");
+  check(
+    plan.spec?.execution?.publishedReleaseSelectionPolicy
+      === "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo",
+    "mini-IDP plan no longer excludes withdrawn releases server-side",
+  );
   const expected = expectedContract().spec.adoption.reconcilerPlan;
   for (const name of ["spaces", "managedUnits", "deployments", "needsProvidesLinks"]) {
     check(plan.spec?.counts?.[name] === expected[name], `mini-IDP plan ${name} changed from ${expected[name]}`);
@@ -426,6 +562,64 @@ function verifyMiniIdpPlan() {
   check(plan.spec?.deployments?.length === expected.deployments, "mini-IDP plan deployment inventory is incomplete");
   check(plan.spec?.links?.length === expected.needsProvidesLinks, "mini-IDP plan Link inventory is incomplete");
   check(plan.spec?.payloads?.length === expectedPayloads, "mini-IDP plan payload inventory is incomplete");
+  const componentSpaces = plan.spec.spaces.filter((space) => space.labels?.Component);
+  check(
+    componentSpaces.every((space) => space.labels.Owner && space.labels.Variant && space.labels.ComponentVersion),
+    "every GUI-visible Component Space must expose Owner, Variant, and exact ComponentVersion",
+  );
+  check(
+    new Set(componentSpaces.map((space) => `${space.labels.Component}/${space.labels.Variant}`)).size
+      === componentSpaces.length,
+    "every GUI-visible Component/Variant card identity must be unique",
+  );
+  const ownersByComponent = new Map();
+  for (const space of componentSpaces) {
+    if (!ownersByComponent.has(space.labels.Component)) ownersByComponent.set(space.labels.Component, new Set());
+    ownersByComponent.get(space.labels.Component).add(space.labels.Owner);
+  }
+  check(
+    [...ownersByComponent.values()].every((owners) => owners.size === 1),
+    "each GUI Component must remain in exactly one Owner catalog bucket",
+  );
+  const spacesBySlug = new Map(plan.spec.spaces.map((space) => [space.slug, space]));
+  check(
+    componentSpaces.filter((space) => space.upstreamSpace).every((space) =>
+      spacesBySlug.get(space.upstreamSpace)?.labels?.Component === space.labels.Component),
+    "every GUI Component deployment lineage must resolve to an upstream Space in the same Component",
+  );
+  check(
+    !plan.spec.spaces.find((space) => space.slug === "hx-platform")?.labels?.Component
+      && !plan.spec.spaces.some((space) => /^hx-app-(dev|staging|prod-a|prod-b)$/.test(space.slug)
+        && space.labels?.Component),
+    "pure control and ClusterTarget Spaces must not pollute the Components GUI",
+  );
+  const kubaraCatalogComponents = [...new Set(componentSpaces
+    .filter((space) => space.labels.Owner === "KubaraGeneral")
+    .map((space) => space.labels.Component))].sort();
+  check(
+    stableJson(kubaraCatalogComponents) === stableJson([
+      "cert-manager",
+      "external-secrets",
+      "homer-dashboard",
+      "kube-prometheus-stack",
+      "metrics-server",
+      "traefik",
+    ]),
+    "Components GUI must group the selected Kubara catalog components under KubaraGeneral",
+  );
+  check(
+    componentSpaces.some((space) => space.labels.Component === "kube-prometheus-stack"
+      && space.labels.BundledCatalogComponent === "prometheus-blackbox-exporter"
+      && space.labels.BundledComponentVersion === "11.15.1"),
+    "Components GUI metadata must expose the exact bundled blackbox exporter selection",
+  );
+  check(
+    componentSpaces.some((space) => space.slug === "hx-web-platform-base"
+      && space.labels.Component === "hx-web"
+      && space.labels.ComponentSurface === "hx-web-platform")
+      && componentSpaces.some((space) => space.labels.Component === "cubbychat"),
+    "Components GUI must group hx-web's platform binding with hx-web and expose cubbychat",
+  );
   for (const key of ["hx-platform/catalog-adapter-receipt", "hx-platform/catalog-root-promotion"]) {
     check(plan.spec.payloads.some((payload) => payload.key === key), `mini-IDP plan is missing governed evidence payload ${key}`);
   }
@@ -446,12 +640,12 @@ function verifyMiniIdpPlan() {
   const secretPayload = plan.spec.payloads.find((payload) => payload.key === "hx-eso-grafana-es/dev");
   check(
     secretPayload?.objectCount === 2
-      && secretPayload?.transform === "select-kind=Namespace/kube-prometheus-stack,ExternalSecret",
+      && secretPayload?.transform === "select-kind:Namespace/kube-prometheus-stack;ExternalSecret",
     "mini-IDP Grafana wiring payload must own exactly the Namespace and ExternalSecret",
   );
   const kpsMainPayload = plan.spec.payloads.find((payload) => payload.key === "hx-kps-main/dev");
   check(
-    kpsMainPayload?.transform === "exclude-kinds=CustomResourceDefinition,ExternalSecret,Namespace/kube-prometheus-stack",
+    kpsMainPayload?.transform === "exclude-kinds:CustomResourceDefinition;ExternalSecret;Namespace/kube-prometheus-stack",
     "mini-IDP KPS main payload overlaps a lifecycle or secret-wiring prerequisite",
   );
   check(stableJson(plan.spec?.phases) === stableJson([
@@ -476,6 +670,7 @@ function verifyMiniIdpPlan() {
 }
 
 function verifyFinalState() {
+  verifyKubaraPublicVisibility();
   for (const rootName of ["recipes", "packages"]) {
     const roots = versionRoots(rootName);
     check(roots.length === baseline.count + additions.length, `${rootName}: final additive total must be 120, found ${roots.length}`);
@@ -534,6 +729,10 @@ function run(item) {
 
 function stableJson(value) {
   return JSON.stringify(sortDeep(value));
+}
+
+function collapseWhitespace(value) {
+  return value.replace(/\s+/g, " ").trim();
 }
 
 function sortDeep(value) {

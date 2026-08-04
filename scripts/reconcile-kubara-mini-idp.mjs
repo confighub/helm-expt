@@ -75,7 +75,18 @@ const LINK_REASON_ANNOTATION = "helm-expt.confighub.com/reason";
 const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
 const ARGO_PRUNE_POLICY = "Argo may prune only resources tracked by one of the 27 exact allowlisted deployment Applications; ConfigHub objects and persistent clusters are never deleted";
 const ARGO_RETRY_POLICY = "up to four refresh-observe-sync cycles for terminal failure or terminal OutOfSync state";
-const ARGO_REVISION_POLICY = "accept only the exact latest ConfigHub release digest reported by Argo";
+const ARGO_REVISION_POLICY = "accept only the exact latest ConfigHub OCI manifest digest reported by Argo; never use the bundle content digest as an OCI revision";
+const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from its last applied revision; pass only the published OCI ManifestDigest to Argo";
+const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo";
+const GUI_IDENTITY_POLICY = "native Component, Owner, and Variant labels make the component-first Kubara catalog and definition-instance hub-spoke shape visible; public navigation annotations link complete evidence without claiming live health";
+const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
+const PUBLIC_MATRIX_URL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
+const PUBLIC_WIRING_URL = "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html";
+const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
+  "URL-Guide": PUBLIC_GUIDE_URL,
+  "URL-Matrix": PUBLIC_MATRIX_URL,
+  "URL-Wiring": PUBLIC_WIRING_URL,
+});
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
 const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
@@ -124,10 +135,10 @@ const requiredApplyEvidence = [
 ];
 
 const FLEET = [
-  target("dev", "hx-app-dev", "Dev", "local"),
-  target("staging", "hx-app-staging", "Staging", "local"),
-  target("prod-a", "hx-app-prod-a", "Prod", "us-east"),
-  target("prod-b", "hx-app-prod-b", "Prod", "us-west"),
+  target("dev", "hx-app-dev", "Dev", "local", "dev", "Hub"),
+  target("staging", "hx-app-staging", "Staging", "local", "staging", "Spoke"),
+  target("prod-a", "hx-app-prod-a", "Prod", "us-east", "prod", "Spoke"),
+  target("prod-b", "hx-app-prod-b", "Prod", "us-west", "prod", "Spoke"),
 ];
 const DEV = FLEET[0];
 
@@ -224,6 +235,8 @@ const SURFACES = [
   surface({
     prefix: "hx-kps-main",
     component: "kube-prometheus-stack",
+    bundledCatalogComponent: "prometheus-blackbox-exporter",
+    bundledComponentVersion: EXPECTED_VERSIONS["prometheus-blackbox-exporter"],
     destinationNamespace: "kube-prometheus-stack",
     version: EXPECTED_VERSIONS["kube-prometheus-stack"],
     targets: [DEV],
@@ -270,6 +283,8 @@ const APP_FAMILIES = [
   appFamily({
     prefix: "hx-web",
     role: "Application",
+    catalog: "ConfigHubApplications",
+    version: "6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
     destinationNamespace: "hx-web",
     units: [
       appUnit("hx-web-namespace", "examples/kubara/current-platform/apps/hx-web/base/namespace.yaml"),
@@ -281,7 +296,11 @@ const APP_FAMILIES = [
   }),
   appFamily({
     prefix: "hx-web-platform",
+    component: "hx-web",
+    part: "platform-binding",
     role: "PlatformBinding",
+    catalog: "ConfigHubApplications",
+    version: KUBARA_VERSION,
     destinationNamespace: "hx-web",
     acceptedHealth: ["Healthy", "Progressing"],
     units: [appUnit("hx-web-platform", [
@@ -292,7 +311,10 @@ const APP_FAMILIES = [
   }),
   appFamily({
     prefix: "hx-cubbychat",
+    component: "cubbychat",
     role: "Application",
+    catalog: "ConfigHubApplications",
+    version: "e9e76a076924d95897c3ede7a0f21cec523c4f6f",
     destinationNamespace: "cubbychat",
     acceptedHealth: ["Healthy", "Progressing"],
     units: [appUnit("hx-cubbychat", [
@@ -322,15 +344,53 @@ const OWNED_SPACE_LABELS = new Set([
   "Scope",
   "DefinitionScope",
   "Component",
+  "ComponentSurface",
+  "Owner",
   "KubaraComponent",
   "ComponentVersion",
   "Part",
   "Layer",
   "SourceType",
+  "Variant",
+  "InstanceOf",
+  "DefinitionSpace",
+  "ClusterRole",
+  "KubaraStage",
+  "DeliveryMode",
+  "Reconciler",
+  "ControlPlane",
+  "Catalog",
+  "CatalogComponent",
+  "BundledCatalogComponent",
+  "BundledComponentVersion",
+  "StartHere",
 ]);
 
-function target(suffix, cluster, environment, region) {
-  return { suffix, cluster, environment, region };
+const OWNED_UNIT_LABELS = new Set([
+  ...OWNED_SPACE_LABELS,
+  "ApplicationKind",
+  "SourceSpace",
+]);
+
+const OWNED_LINK_LABELS = new Set([
+  "ExampleCohort",
+  "KubaraVersion",
+  "CatalogVersion",
+  "Relationship",
+  "ConsumerComponent",
+  "ProviderComponent",
+]);
+
+const OWNED_PUBLIC_ANNOTATIONS = new Set(Object.keys(PUBLIC_NAVIGATION_ANNOTATIONS));
+const START_HERE_CONTROL_UNITS = new Set([
+  "platform-contract",
+  "component-catalog-selection",
+  "platform-matrix",
+  "wiring-ledger",
+]);
+
+function target(suffix, cluster, environment, region, kubaraStage, clusterRole) {
+  return { suffix, cluster, environment, region, kubaraStage, clusterRole };
 }
 
 function controlUnit(slug, source, toolchain, role, requiredForApply = false) {
@@ -353,7 +413,23 @@ function appUnit(slug, source, extra = {}) {
 }
 
 function appFamily(definition) {
-  return { targets: FLEET, acceptedHealth: ["Healthy"], ...definition };
+  return {
+    targets: FLEET,
+    component: definition.prefix,
+    part: "application",
+    acceptedHealth: ["Healthy"],
+    ...definition,
+  };
+}
+
+function surfaceVariant(definition, targetVariant) {
+  return definition.part ? `${definition.part}-${targetVariant}` : targetVariant;
+}
+
+function appFamilyVariant(definition, targetVariant) {
+  return definition.part === "application"
+    ? targetVariant
+    : `${definition.part}-${targetVariant}`;
 }
 
 function effectiveRender(cluster, service) {
@@ -415,13 +491,35 @@ function expectedLabels(extra = {}) {
   };
 }
 
+function clusterIdentityLabels(item) {
+  return {
+    Cluster: item.cluster,
+    Environment: item.environment,
+    Region: item.region,
+    ClusterRole: item.clusterRole,
+    KubaraStage: item.kubaraStage,
+  };
+}
+
+function deliveryIdentityLabels() {
+  return {
+    DeliveryMode: "ConfigHubOCI",
+    Reconciler: "ClusterLocalArgo",
+    ControlPlane: "ConfigHub",
+  };
+}
+
 function definitionLabels(prefix, role, extra = {}) {
   return expectedLabels({
     Component: prefix,
+    CatalogComponent: extra.CatalogComponent ?? extra.KubaraComponent ?? prefix,
+    ...(extra.Catalog ? { Owner: extra.Owner ?? extra.Catalog } : {}),
     Layer: role.includes("Application") ? "App" : "Platform",
     Scope: "Fleet",
     DefinitionScope: "Base",
     Role: `${role}Definition`,
+    Variant: "base",
+    ControlPlane: "ConfigHub",
     ...extra,
   });
 }
@@ -429,11 +527,63 @@ function definitionLabels(prefix, role, extra = {}) {
 function instanceLabels(prefix, role, item, extra = {}) {
   return expectedLabels({
     Component: prefix,
+    CatalogComponent: extra.CatalogComponent ?? extra.KubaraComponent ?? prefix,
+    ...(extra.Catalog ? { Owner: extra.Owner ?? extra.Catalog } : {}),
     Layer: role.includes("Application") ? "App" : "Platform",
-    Cluster: item.cluster,
-    Environment: item.environment,
-    Region: item.region,
+    ...clusterIdentityLabels(item),
     Role: `${role}Instance`,
+    Variant: item.suffix,
+    InstanceOf: prefix,
+    DefinitionSpace: `${prefix}-base`,
+    ...deliveryIdentityLabels(),
+    ...extra,
+  });
+}
+
+function controlUnitNavigation(slug) {
+  if (!START_HERE_CONTROL_UNITS.has(slug)) return { labels: {}, annotations: {} };
+  if (slug === "platform-matrix") {
+    return {
+      labels: { StartHere: "true" },
+      annotations: { "URL-Guide": PUBLIC_GUIDE_URL, "URL-Matrix": PUBLIC_MATRIX_URL },
+    };
+  }
+  if (slug === "wiring-ledger") {
+    return {
+      labels: { StartHere: "true" },
+      annotations: { "URL-Guide": PUBLIC_GUIDE_URL, "URL-Wiring": PUBLIC_WIRING_URL },
+    };
+  }
+  return {
+    labels: { StartHere: "true" },
+    annotations: slug === "platform-contract"
+      ? PUBLIC_NAVIGATION_ANNOTATIONS
+      : { "URL-Guide": PUBLIC_GUIDE_URL },
+  };
+}
+
+function managedUnitLabels({
+  role,
+  component,
+  kubaraComponent = component,
+  catalogComponent = kubaraComponent,
+  componentVersion,
+  catalog,
+  variant,
+  fleetItem = null,
+  extra = {},
+}) {
+  return expectedLabels({
+    Role: role,
+    Component: component,
+    KubaraComponent: kubaraComponent,
+    CatalogComponent: catalogComponent,
+    ComponentVersion: componentVersion,
+    Catalog: catalog,
+    Owner: catalog,
+    Variant: variant,
+    ControlPlane: "ConfigHub",
+    ...(fleetItem ? { ...clusterIdentityLabels(fleetItem), ...deliveryIdentityLabels() } : {}),
     ...extra,
   });
 }
@@ -607,47 +757,77 @@ function buildPlan(inputs) {
     slug: CONTROL_SPACE,
     type: "control",
     labels: expectedLabels({
-      Component: "platform-control",
+      CatalogComponent: "platform-control",
+      ComponentSurface: "platform-control",
+      ComponentVersion: KUBARA_VERSION,
       Layer: "Platform",
       Scope: "Fleet",
       Role: "PlatformControl",
       SourceType: "Kubara+ConfigHub",
+      Variant: "base",
+      ControlPlane: "ConfigHub",
+      Catalog: "ConfigHubControl",
+      Owner: "ConfigHubControl",
+      StartHere: "true",
     }),
+    annotations: PUBLIC_NAVIGATION_ANNOTATIONS,
   });
   for (const item of FLEET) {
     spaces.push({
       slug: item.cluster,
       type: "cluster-target",
       labels: expectedLabels({
-        Component: "cluster-target",
+        CatalogComponent: "cluster-target",
+        ComponentSurface: "cluster-target",
+        ComponentVersion: KUBARA_VERSION,
         Layer: "Platform",
-        Cluster: item.cluster,
-        Environment: item.environment,
-        Region: item.region,
+        ...clusterIdentityLabels(item),
         Role: "ClusterTarget",
+        Variant: item.suffix,
+        Catalog: "ConfigHubControl",
+        Owner: "ConfigHubControl",
+        ...deliveryIdentityLabels(),
       }),
     });
     spaces.push({
       slug: `${item.cluster}-argo-apps`,
       type: "delivery-instance",
-      labels: instanceLabels("argocd-delivery", "Delivery", item),
+      labels: instanceLabels("argocd-delivery", "Delivery", item, {
+        Component: "argo-cd",
+        ComponentSurface: "argocd-delivery",
+        InstanceOf: "kubara-argo-definition",
+        DefinitionSpace: CONTROL_SPACE,
+        KubaraComponent: "argo-cd",
+        ComponentVersion: EXPECTED_VERSIONS["argo-cd"],
+        Catalog: "KubaraBootstrap",
+      }),
     });
   }
   spaces.push({
     slug: "argobot-base",
     type: "delivery-definition",
-    labels: definitionLabels("argobot", "Delivery"),
+    labels: definitionLabels("argobot", "Delivery", {
+      ComponentSurface: "argobot",
+      ComponentVersion: KUBARA_VERSION,
+      Catalog: "ConfigHubDelivery",
+    }),
   });
   for (const item of FLEET) {
     spaces.push({
       slug: `argobot-${item.cluster}`,
       type: "delivery-instance",
-      labels: instanceLabels("argobot", "Delivery", item),
+      labels: instanceLabels("argobot", "Delivery", item, {
+        ComponentSurface: "argobot",
+        ComponentVersion: KUBARA_VERSION,
+        Catalog: "ConfigHubDelivery",
+      }),
     });
   }
 
   for (const control of CONTROL_UNITS) {
     const content = inputs.payloads.get(`${CONTROL_SPACE}/${control.slug}`);
+    const navigation = controlUnitNavigation(control.slug);
+    const kubaraArgo = control.slug === "kubara-argo-definition";
     managedUnits.push({
       space: CONTROL_SPACE,
       slug: control.slug,
@@ -657,21 +837,46 @@ function buildPlan(inputs) {
       provider: "None",
       target: null,
       requiredForApply: control.requiredForApply,
-      labels: expectedLabels({ Role: control.role, SourceType: "CommittedEvidence" }),
+      labels: managedUnitLabels({
+        role: control.role,
+        component: kubaraArgo ? "argo-cd" : control.slug,
+        kubaraComponent: kubaraArgo ? "argo-cd" : control.slug,
+        componentVersion: kubaraArgo ? EXPECTED_VERSIONS["argo-cd"] : KUBARA_VERSION,
+        catalog: kubaraArgo ? "KubaraBootstrap" : "ConfigHubControl",
+        variant: "base",
+        extra: {
+          ComponentSurface: control.slug,
+          SourceType: "CommittedEvidence",
+          ...navigation.labels,
+        },
+      }),
+      annotations: navigation.annotations,
     });
   }
 
   for (const item of SURFACES) {
     check(item.destinationNamespace, `${item.prefix}: destination namespace is required`);
     const surfaceLabels = {
+      Component: item.component,
+      ComponentSurface: item.prefix,
       KubaraComponent: item.component,
+      CatalogComponent: item.component,
       ComponentVersion: item.version,
+      Catalog: "KubaraGeneral",
+      Owner: "KubaraGeneral",
+      ...(item.bundledCatalogComponent ? {
+        BundledCatalogComponent: item.bundledCatalogComponent,
+        BundledComponentVersion: item.bundledComponentVersion,
+      } : {}),
       ...(item.part ? { Part: item.part } : {}),
     };
     spaces.push({
       slug: `${item.prefix}-base`,
       type: "component-definition",
-      labels: definitionLabels(item.prefix, item.role, surfaceLabels),
+      labels: definitionLabels(item.prefix, item.role, {
+        ...surfaceLabels,
+        Variant: surfaceVariant(item, "base"),
+      }),
     });
     managedUnits.push({
       space: `${item.prefix}-base`,
@@ -681,7 +886,22 @@ function buildPlan(inputs) {
       toolchain: "Kubernetes/YAML",
       provider: null,
       target: null,
-      labels: expectedLabels({ Role: `${item.role}Definition`, KubaraComponent: item.component }),
+      labels: managedUnitLabels({
+        role: `${item.role}Definition`,
+        component: item.component,
+        kubaraComponent: item.component,
+        componentVersion: item.version,
+        catalog: "KubaraGeneral",
+        variant: surfaceVariant(item, "base"),
+        extra: {
+          ComponentSurface: item.prefix,
+          ...(item.part ? { Part: item.part } : {}),
+          ...(item.bundledCatalogComponent ? {
+            BundledCatalogComponent: item.bundledCatalogComponent,
+            BundledComponentVersion: item.bundledComponentVersion,
+          } : {}),
+        },
+      }),
     });
     for (const fleetItem of item.targets) {
       const space = `${item.prefix}-${fleetItem.suffix}`;
@@ -691,7 +911,10 @@ function buildPlan(inputs) {
         upstreamSpace: `${item.prefix}-base`,
         target: `${fleetItem.cluster}/target`,
         prodProtected: fleetItem.environment === "Prod",
-        labels: instanceLabels(item.prefix, item.role, fleetItem, surfaceLabels),
+        labels: instanceLabels(item.prefix, item.role, fleetItem, {
+          ...surfaceLabels,
+          Variant: surfaceVariant(item, fleetItem.suffix),
+        }),
       });
       managedUnits.push({
         space,
@@ -703,7 +926,23 @@ function buildPlan(inputs) {
         target: `${fleetItem.cluster}/target`,
         upstream: `${item.prefix}-base/${item.prefix}`,
         prodProtected: fleetItem.environment === "Prod",
-        labels: expectedLabels({ Role: `${item.role}Instance`, KubaraComponent: item.component }),
+        labels: managedUnitLabels({
+          role: `${item.role}Instance`,
+          component: item.component,
+          kubaraComponent: item.component,
+          componentVersion: item.version,
+          catalog: "KubaraGeneral",
+          variant: surfaceVariant(item, fleetItem.suffix),
+          fleetItem,
+          extra: {
+            ComponentSurface: item.prefix,
+            ...(item.part ? { Part: item.part } : {}),
+            ...(item.bundledCatalogComponent ? {
+              BundledCatalogComponent: item.bundledCatalogComponent,
+              BundledComponentVersion: item.bundledComponentVersion,
+            } : {}),
+          },
+        }),
       });
       deployments.push({
         id: space,
@@ -726,7 +965,15 @@ function buildPlan(inputs) {
     spaces.push({
       slug: `${family.prefix}-base`,
       type: "app-definition",
-      labels: definitionLabels(family.prefix, family.role),
+      labels: definitionLabels(family.prefix, family.role, {
+        Component: family.component,
+        ComponentSurface: family.prefix,
+        KubaraComponent: family.component,
+        CatalogComponent: family.component,
+        ComponentVersion: family.version,
+        Catalog: family.catalog,
+        Variant: appFamilyVariant(family, "base"),
+      }),
     });
     for (const unit of family.units) {
       managedUnits.push({
@@ -742,7 +989,16 @@ function buildPlan(inputs) {
         toolchain: "Kubernetes/YAML",
         provider: null,
         target: null,
-        labels: expectedLabels({ Role: `${family.role}Definition` }),
+        labels: managedUnitLabels({
+          role: `${family.role}Definition`,
+          component: family.component,
+          kubaraComponent: family.component,
+          catalogComponent: family.component,
+          componentVersion: family.version,
+          catalog: family.catalog,
+          variant: appFamilyVariant(family, "base"),
+          extra: { ComponentSurface: family.prefix },
+        }),
       });
     }
     for (let index = 0; index < family.targets.length; index += 1) {
@@ -764,7 +1020,15 @@ function buildPlan(inputs) {
         upstreamSpace,
         target: `${fleetItem.cluster}/target`,
         prodProtected: fleetItem.environment === "Prod",
-        labels: instanceLabels(family.prefix, family.role, fleetItem),
+        labels: instanceLabels(family.prefix, family.role, fleetItem, {
+          Component: family.component,
+          ComponentSurface: family.prefix,
+          KubaraComponent: family.component,
+          CatalogComponent: family.component,
+          ComponentVersion: family.version,
+          Catalog: family.catalog,
+          Variant: appFamilyVariant(family, fleetItem.suffix),
+        }),
       });
       for (const unit of family.units) {
         managedUnits.push({
@@ -782,7 +1046,17 @@ function buildPlan(inputs) {
           target: `${fleetItem.cluster}/target`,
           upstream: `${upstreamSpace}/${unit.slug}`,
           prodProtected: fleetItem.environment === "Prod",
-          labels: expectedLabels({ Role: `${family.role}Instance` }),
+          labels: managedUnitLabels({
+            role: `${family.role}Instance`,
+            component: family.component,
+            kubaraComponent: family.component,
+            catalogComponent: family.component,
+            componentVersion: family.version,
+            catalog: family.catalog,
+            variant: appFamilyVariant(family, fleetItem.suffix),
+            fleetItem,
+            extra: { ComponentSurface: family.prefix },
+          }),
         });
       }
       deployments.push({
@@ -808,27 +1082,83 @@ function buildPlan(inputs) {
   check(new Set(spaces.map((item) => item.slug)).size === spaces.length, "internal plan has duplicate Spaces");
   check(new Set(managedUnits.map((item) => `${item.space}/${item.slug}`)).size === managedUnits.length, "internal plan has duplicate Units");
   check(new Set(links.map((item) => `${item.space}/${item.slug}`)).size === links.length, "internal plan has duplicate Links");
-  return { spaces, managedUnits, deployments, links };
+  const plan = { spaces, managedUnits, deployments, links };
+  assertAppFamilyPlanConsistency(plan);
+  return plan;
 }
 
 function buildLinks() {
   const links = [];
-  const add = (space, slug, fromUnit, toSpace, toUnit, reason) => {
-    links.push({ space, slug, fromUnit, toSpace, toUnit, updateType: "NeedsProvides", autoUpdate: false, reason });
+  const add = (
+    space,
+    slug,
+    fromUnit,
+    toSpace,
+    toUnit,
+    consumerComponent,
+    providerComponent,
+    reason,
+  ) => {
+    links.push({
+      space,
+      slug,
+      fromUnit,
+      toSpace,
+      toUnit,
+      updateType: "NeedsProvides",
+      autoUpdate: false,
+      reason,
+      labels: expectedLabels({
+        Relationship: "NeedsProvides",
+        ConsumerComponent: consumerComponent,
+        ProviderComponent: providerComponent,
+      }),
+    });
   };
   for (const item of FLEET) {
-    add(`hx-web-${item.suffix}`, "needs-platform-binding", "hx-web-deployment", `hx-web-platform-${item.suffix}`, "hx-web-platform", "workload uses its reviewed Certificate and Ingress binding");
-    add(`hx-web-platform-${item.suffix}`, "needs-cert-manager", "hx-web-platform", `hx-cm-${item.suffix}`, "hx-cm", "Certificate requires cert-manager and ClusterIssuer");
-    add(`hx-web-platform-${item.suffix}`, "needs-traefik", "hx-web-platform", `hx-traefik-${item.suffix}`, "hx-traefik", "Ingress selects the traefik ingress class");
-    add(`hx-cubbychat-${item.suffix}`, "needs-cert-manager", "hx-cubbychat", `hx-cm-${item.suffix}`, "hx-cm", "Certificate requires cert-manager and ClusterIssuer");
-    add(`hx-cubbychat-${item.suffix}`, "needs-traefik", "hx-cubbychat", `hx-traefik-${item.suffix}`, "hx-traefik", "Ingress selects the traefik ingress class");
+    add(`hx-web-${item.suffix}`, "needs-platform-binding", "hx-web-deployment", `hx-web-platform-${item.suffix}`, "hx-web-platform", "hx-web", "hx-web-platform", "workload uses its reviewed Certificate and Ingress binding");
+    add(`hx-web-platform-${item.suffix}`, "needs-cert-manager", "hx-web-platform", `hx-cm-${item.suffix}`, "hx-cm", "hx-web-platform", "cert-manager", "Certificate requires cert-manager and ClusterIssuer");
+    add(`hx-web-platform-${item.suffix}`, "needs-traefik", "hx-web-platform", `hx-traefik-${item.suffix}`, "hx-traefik", "hx-web-platform", "traefik", "Ingress selects the traefik ingress class");
+    add(`hx-cubbychat-${item.suffix}`, "needs-cert-manager", "hx-cubbychat", `hx-cm-${item.suffix}`, "hx-cm", "cubbychat", "cert-manager", "Certificate requires cert-manager and ClusterIssuer");
+    add(`hx-cubbychat-${item.suffix}`, "needs-traefik", "hx-cubbychat", `hx-traefik-${item.suffix}`, "hx-traefik", "cubbychat", "traefik", "Ingress selects the traefik ingress class");
   }
-  add("hx-eso-store-dev", "needs-external-secrets", "hx-eso-store", "hx-eso-dev", "hx-eso", "ClusterSecretStore requires the ESO API and controller");
-  add("hx-eso-grafana-es-dev", "needs-secret-store", "hx-eso-grafana-es", "hx-eso-store-dev", "hx-eso-store", "Grafana ExternalSecret reads from the cluster store");
-  add("hx-eso-grafana-es-dev", "needs-external-secrets", "hx-eso-grafana-es", "hx-eso-dev", "hx-eso", "ExternalSecret requires the ESO API and controller");
-  add("hx-kps-main-dev", "needs-monitoring-crds", "hx-kps-main", "hx-kps-crds-dev", "hx-kps-crds", "monitoring resources require their lifecycle CRDs first");
-  add("hx-kps-main-dev", "needs-grafana-secret", "hx-kps-main", "hx-eso-grafana-es-dev", "hx-eso-grafana-es", "Grafana consumes the ESO-owned admin Secret");
+  add("hx-eso-store-dev", "needs-external-secrets", "hx-eso-store", "hx-eso-dev", "hx-eso", "external-secrets-store", "external-secrets", "ClusterSecretStore requires the ESO API and controller");
+  add("hx-eso-grafana-es-dev", "needs-secret-store", "hx-eso-grafana-es", "hx-eso-store-dev", "hx-eso-store", "grafana-external-secret", "external-secrets-store", "Grafana ExternalSecret reads from the cluster store");
+  add("hx-eso-grafana-es-dev", "needs-external-secrets", "hx-eso-grafana-es", "hx-eso-dev", "hx-eso", "grafana-external-secret", "external-secrets", "ExternalSecret requires the ESO API and controller");
+  add("hx-kps-main-dev", "needs-monitoring-crds", "hx-kps-main", "hx-kps-crds-dev", "hx-kps-crds", "kube-prometheus-stack", "monitoring-crds", "monitoring resources require their lifecycle CRDs first");
+  add("hx-kps-main-dev", "needs-grafana-secret", "hx-kps-main", "hx-eso-grafana-es-dev", "hx-eso-grafana-es", "kube-prometheus-stack", "grafana-external-secret", "Grafana consumes the ESO-owned admin Secret");
   return links;
+}
+
+function assertAppFamilyPlanConsistency(desired, familyFilter = APP_FAMILIES) {
+  for (const family of familyFilter) {
+    const baseSpace = `${family.prefix}-base`;
+    for (let index = 0; index < family.targets.length; index += 1) {
+      const fleetItem = family.targets[index];
+      const space = `${family.prefix}-${fleetItem.suffix}`;
+      const plannedSpace = desired.spaces.find((item) => item.slug === space);
+      check(plannedSpace, `${space}: app-family Space is missing from the plan`);
+      const expectedUpstream = family.scenario
+        ? index === 0
+          ? baseSpace
+          : index === 1
+            ? `${family.prefix}-dev`
+            : `${family.prefix}-staging`
+        : baseSpace;
+      check(
+        plannedSpace.upstreamSpace === expectedUpstream,
+        `${space}: planned upstream ${plannedSpace.upstreamSpace ?? "missing"} differs from ${expectedUpstream}`,
+      );
+      const plannedUnits = desired.managedUnits.filter((item) => item.space === space);
+      check(plannedUnits.length === family.units.length, `${space}: planned Unit inventory differs from the app family`);
+      for (const unit of plannedUnits) {
+        check(
+          unit.upstream === `${expectedUpstream}/${unit.slug}`,
+          `${space}/${unit.slug}: planned Unit upstream ${unit.upstream ?? "missing"} differs from ${expectedUpstream}/${unit.slug}`,
+        );
+      }
+    }
+  }
 }
 
 function verifyLocalContract(inputs, { requireLiveEvidence }) {
@@ -1055,8 +1385,10 @@ function printPlan(inputs, desired) {
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
+        guiIdentityPolicy: GUI_IDENTITY_POLICY,
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
-        interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
+        interruptedReleasePolicy: INTERRUPTED_RELEASE_POLICY,
+        publishedReleaseSelectionPolicy: PUBLISHED_RELEASE_SELECTION_POLICY,
         receiptRequiresZeroActionRerun: true,
         minimumCubVersion: `v${MIN_CUB_VERSION}`,
       },
@@ -1072,6 +1404,7 @@ function printPlan(inputs, desired) {
         managedUnits: desired.managedUnits.length,
         preservedFaithfulControlUnits: PRESERVED_FAITHFUL_CONTROL_UNITS.length,
         deployments: desired.deployments.length,
+        deliveryApplicationUnits: desired.deployments.length + (FLEET.length * 2),
         needsProvidesLinks: desired.links.length,
         payloads: payloadRows.length,
       },
@@ -1095,6 +1428,7 @@ function printPlan(inputs, desired) {
         policy: "preserve-and-verify-against-current-pass-receipt",
       })),
       deployments: desired.deployments,
+      deliveryApplicationUnits: plannedDeliveryApplicationIdentity(desired),
       links: desired.links,
       payloads: payloadRows,
     },
@@ -1312,7 +1646,86 @@ function expectedArgoApplicationSlugs(desired, fleetItem) {
   ].sort();
 }
 
-function assertDeliveryTopology(spaces, desired, { requireAllApplications = false, fleet = FLEET } = {}) {
+function plannedDeliveryApplicationIdentity(desired) {
+  return FLEET.flatMap((fleetItem) => expectedArgoApplicationSlugs(desired, fleetItem).map((slug) => ({
+    ref: `${fleetItem.cluster}-argo-apps/${slug}`,
+    labels: expectedArgoApplicationLabels(desired, fleetItem, slug),
+  })));
+}
+
+function expectedArgoApplicationLabels(desired, fleetItem, unitSlug) {
+  const appsSpace = `${fleetItem.cluster}-argo-apps`;
+  if (unitSlug === "root") {
+    return managedUnitLabels({
+      role: "DeliveryApplication",
+      component: "argo-cd",
+      kubaraComponent: "argo-cd",
+      componentVersion: EXPECTED_VERSIONS["argo-cd"],
+      catalog: "KubaraBootstrap",
+      variant: fleetItem.suffix,
+      fleetItem,
+      extra: {
+        ComponentSurface: "argocd-delivery",
+        ApplicationKind: "ClusterRoot",
+        SourceSpace: appsSpace,
+        InstanceOf: "kubara-argo-definition",
+        DefinitionSpace: CONTROL_SPACE,
+      },
+    });
+  }
+  if (unitSlug === `argobot-${fleetItem.cluster}`) {
+    return managedUnitLabels({
+      role: "DeliveryApplication",
+      component: "argobot",
+      componentVersion: KUBARA_VERSION,
+      catalog: "ConfigHubDelivery",
+      variant: fleetItem.suffix,
+      fleetItem,
+      extra: {
+        ComponentSurface: "argobot",
+        ApplicationKind: "Argobot",
+        SourceSpace: `argobot-${fleetItem.cluster}`,
+        InstanceOf: "argobot",
+        DefinitionSpace: "argobot-base",
+      },
+    });
+  }
+  const deployment = desired.deployments.find(
+    (item) => item.cluster === fleetItem.cluster && item.appUnit === unitSlug,
+  );
+  check(deployment, `${appsSpace}/${unitSlug}: no planned deployment owns this Argo Application Unit`);
+  const sourceSpace = desired.spaces.find((item) => item.slug === deployment.space);
+  check(sourceSpace, `${appsSpace}/${unitSlug}: source Space ${deployment.space} is missing from the plan`);
+  return managedUnitLabels({
+    role: "DeliveryApplication",
+    component: sourceSpace.labels.Component,
+    kubaraComponent: sourceSpace.labels.KubaraComponent ?? sourceSpace.labels.Component,
+    catalogComponent: sourceSpace.labels.CatalogComponent ?? sourceSpace.labels.KubaraComponent ?? sourceSpace.labels.Component,
+    componentVersion: sourceSpace.labels.ComponentVersion ?? KUBARA_VERSION,
+    catalog: sourceSpace.labels.Catalog ?? "ConfigHubDelivery",
+    variant: sourceSpace.labels.Variant ?? fleetItem.suffix,
+    fleetItem,
+    extra: {
+      ...(sourceSpace.labels.ComponentSurface ? {
+        ComponentSurface: sourceSpace.labels.ComponentSurface,
+      } : {}),
+      ApplicationKind: deployment.type === "platform" ? "PlatformComponent" : "Application",
+      SourceSpace: deployment.space,
+      InstanceOf: sourceSpace.labels.InstanceOf ?? sourceSpace.labels.Component,
+      DefinitionSpace: sourceSpace.upstreamSpace ?? sourceSpace.labels.DefinitionSpace,
+      ...(sourceSpace.labels.BundledCatalogComponent ? {
+        BundledCatalogComponent: sourceSpace.labels.BundledCatalogComponent,
+        BundledComponentVersion: sourceSpace.labels.BundledComponentVersion,
+      } : {}),
+    },
+  });
+}
+
+function assertDeliveryTopology(
+  spaces,
+  desired,
+  { requireAllApplications = false, requireApplicationMetadata = false, fleet = FLEET } = {},
+) {
   const argobotBaseRows = readUnitRows("argobot-base");
   check(
     stableJson(argobotBaseRows.map((unit) => unit.Slug).sort()) === stableJson(["argobot"]),
@@ -1362,6 +1775,14 @@ function assertDeliveryTopology(spaces, desired, { requireAllApplications = fals
       check(unit.ToolchainType === "Kubernetes/YAML", `${appsSpaceSlug}/${unit.Slug}: expected Kubernetes/YAML`);
       check(!unit.ProviderType, `${appsSpaceSlug}/${unit.Slug}: provider must remain the default`);
       check(unit.TargetID === targetEntity.TargetID, `${appsSpaceSlug}/${unit.Slug}: target is not ${fleetItem.cluster}/target`);
+      if (requireApplicationMetadata) {
+        const expectedLabels = expectedArgoApplicationLabels(desired, fleetItem, unit.Slug);
+        check(mapMatches(unit.Labels, expectedLabels), `${appsSpaceSlug}/${unit.Slug}: semantic delivery labels drifted`);
+        check(
+          staleOwnedUnitLabels(unit.Labels, expectedLabels).length === 0,
+          `${appsSpaceSlug}/${unit.Slug}: stale owned semantic delivery labels remain`,
+        );
+      }
     }
     assertBootstrapApplication(
       appsSpaceSlug,
@@ -1444,8 +1865,24 @@ function mapMatches(actual, expected) {
   return Object.entries(expected).every(([key, value]) => actual?.[key] === value);
 }
 
+function staleOwnedEntries(actual, expected, ownedKeys) {
+  return [...ownedKeys].filter((key) => actual?.[key] !== undefined && expected[key] === undefined);
+}
+
 function staleOwnedLabels(actual, expected) {
-  return [...OWNED_SPACE_LABELS].filter((key) => actual?.[key] !== undefined && expected[key] === undefined);
+  return staleOwnedEntries(actual, expected, OWNED_SPACE_LABELS);
+}
+
+function staleOwnedUnitLabels(actual, expected) {
+  return staleOwnedEntries(actual, expected, OWNED_UNIT_LABELS);
+}
+
+function staleOwnedLinkLabels(actual, expected) {
+  return staleOwnedEntries(actual, expected, OWNED_LINK_LABELS);
+}
+
+function staleOwnedPublicAnnotations(actual, expected) {
+  return staleOwnedEntries(actual, expected, OWNED_PUBLIC_ANNOTATIONS);
 }
 
 function assertOwnedSpace(space, expected) {
@@ -1511,6 +1948,7 @@ function applyPlan(inputs, desired) {
     reconcileSpaceLabels(spaces, desired, state, { requireAll: false });
     reconcileApprovalPolicy(state);
     reconcileControlUnits(inputs, payloadFiles, desired, state);
+    reconcileDeliveryApplicationMetadata(desired, state);
 
     for (const surfaceDefinition of SURFACES) {
       reconcileSurface(surfaceDefinition, inputs, payloadFiles, desired, state);
@@ -1537,6 +1975,7 @@ function applyPlan(inputs, desired) {
       (item) => item.space.startsWith("hx-web-platform-"),
     )) deployOne(deployment, state);
 
+    reconcileDeliveryApplicationMetadata(desired, state, { requireAll: true });
     reconcileLinks(desired, state);
     assertManagedLinkInventory(desired, { requireNeedsProvides: true });
     const observation = verifyLive(inputs, desired, { state });
@@ -1629,7 +2068,12 @@ function ensureDefinitionSpaces(spaces, desired, state) {
   for (const item of desired.spaces) {
     if (spaces.has(item.slug)) continue;
     if (!creatable.has(item.type)) continue;
-    cub(["space", "create", item.slug, ...labelsArgs(item.labels), "--quiet"]);
+    cub([
+      "space", "create", item.slug,
+      ...labelsArgs(item.labels),
+      ...annotationsArgs(item.annotations ?? {}),
+      "--quiet",
+    ]);
     recordAction(state, "space-create", item.slug);
   }
 }
@@ -1639,15 +2083,55 @@ function reconcileSpaceLabels(spaces, desired, state, { requireAll = true } = {}
     const live = spaces.get(item.slug);
     if (!live && !requireAll) continue;
     check(live, `${item.slug}: expected Space is missing`);
-    const stale = staleOwnedLabels(live.Labels, item.labels);
-    if (mapMatches(live.Labels, item.labels) && stale.length === 0) continue;
+    const expectedAnnotations = item.annotations ?? {};
+    const staleLabels = staleOwnedLabels(live.Labels, item.labels);
+    const staleAnnotations = staleOwnedPublicAnnotations(live.Annotations, expectedAnnotations);
+    if (
+      mapMatches(live.Labels, item.labels)
+      && staleLabels.length === 0
+      && mapMatches(live.Annotations, expectedAnnotations)
+      && staleAnnotations.length === 0
+    ) continue;
     cub([
       "space", "update", "--patch", item.slug,
       ...labelsArgs(item.labels),
-      ...stale.flatMap((key) => ["--label", `${key}=-`]),
+      ...staleLabels.flatMap((key) => ["--label", `${key}=-`]),
+      ...annotationsArgs(expectedAnnotations),
+      ...staleAnnotations.flatMap((key) => ["--annotation", `${key}=-`]),
       "--quiet",
     ]);
-    recordAction(state, "space-label", item.slug);
+    recordAction(state, "space-metadata", item.slug);
+  }
+}
+
+function reconcileApplicationUnitLabels(desired, fleetItem, unitSlug, state, { required = true } = {}) {
+  const appSpace = `${fleetItem.cluster}-argo-apps`;
+  const unit = readUnit(appSpace, unitSlug);
+  if (!unit && !required) return false;
+  check(unit, `${appSpace}/${unitSlug}: Argo Application Unit is missing`);
+  const expected = expectedArgoApplicationLabels(desired, fleetItem, unitSlug);
+  const stale = staleOwnedUnitLabels(unit.Labels, expected);
+  if (mapMatches(unit.Labels, expected) && stale.length === 0) return true;
+  cub([
+    "unit", "update", "--patch", "--space", appSpace, unitSlug,
+    ...labelsArgs(expected),
+    ...stale.flatMap((key) => ["--label", `${key}=-`]),
+    "--change-desc", `Reconcile ${KUBARA_VERSION} delivery identity`,
+    "--quiet",
+  ]);
+  recordAction(state, "argo-application-metadata", `${appSpace}/${unitSlug}`);
+  state.changedSpaces.add(appSpace);
+  return true;
+}
+
+function reconcileDeliveryApplicationMetadata(desired, state, { requireAll = false } = {}) {
+  for (const fleetItem of FLEET) {
+    const requiredSlugs = ["root", `argobot-${fleetItem.cluster}`];
+    for (const slug of expectedArgoApplicationSlugs(desired, fleetItem)) {
+      reconcileApplicationUnitLabels(desired, fleetItem, slug, state, {
+        required: requireAll || requiredSlugs.includes(slug),
+      });
+    }
   }
 }
 
@@ -1745,19 +2229,17 @@ function reconcileSurface(surfaceDefinition, inputs, payloadFiles, desired, stat
 }
 
 function reconcileAppFamily(family, inputs, payloadFiles, desired, state) {
+  assertAppFamilyPlanConsistency(desired, [family]);
   const baseSpace = `${family.prefix}-base`;
   for (const unit of desired.managedUnits.filter((item) => item.space === baseSpace)) {
     upsertUnit(unit, inputs, payloadFiles, state);
   }
   assertUnitAllowlist(baseSpace, family.units.map((item) => item.slug));
-  for (let index = 0; index < family.targets.length; index += 1) {
-    const fleetItem = family.targets[index];
-    const upstreamSpace = index === 0
-      ? baseSpace
-      : index === 1
-        ? `${family.prefix}-dev`
-        : `${family.prefix}-staging`;
+  for (const fleetItem of family.targets) {
     const space = `${family.prefix}-${fleetItem.suffix}`;
+    const plannedSpace = desired.spaces.find((item) => item.slug === space);
+    check(plannedSpace?.upstreamSpace, `${space}: planned upstream Space is missing`);
+    const upstreamSpace = plannedSpace.upstreamSpace;
     ensureVariantSpace({
       space,
       upstreamSpace,
@@ -1907,7 +2389,10 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
   const payload = inputs.payloads.get(payloadKey);
   check(payload, `${expected.space}/${expected.slug}: payload ${payloadKey} is missing`);
   const path = payloadFiles.get(payloadKey);
-  const annotations = sourceAnnotation(payload.value, payload.sourcePaths, payload.transform);
+  const annotations = {
+    ...sourceAnnotation(payload.value, payload.sourcePaths, payload.transform),
+    ...(expected.annotations ?? {}),
+  };
   const existing = readUnit(expected.space, expected.slug);
   if (!existing) {
     check(!expected.upstream, `${expected.space}/${expected.slug}: variant Unit is missing; refusing partial clone repair`);
@@ -1949,13 +2434,23 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
       state.changedSpaces.add(expected.space);
     }
     const refreshed = readUnit(expected.space, expected.slug);
-    if (!mapMatches(refreshed.Labels, expected.labels) || !mapMatches(refreshed.Annotations, annotations) || (expected.provider && refreshed.ProviderType !== expected.provider)) {
+    const staleLabels = staleOwnedUnitLabels(refreshed.Labels, expected.labels);
+    const staleAnnotations = staleOwnedPublicAnnotations(refreshed.Annotations, annotations);
+    if (
+      !mapMatches(refreshed.Labels, expected.labels)
+      || staleLabels.length > 0
+      || !mapMatches(refreshed.Annotations, annotations)
+      || staleAnnotations.length > 0
+      || (expected.provider && refreshed.ProviderType !== expected.provider)
+    ) {
       cub([
         "unit", "update", "--patch", "--space", expected.space,
         expected.slug,
         ...(expected.provider ? ["--provider", expected.provider] : []),
         ...labelsArgs(expected.labels),
+        ...staleLabels.flatMap((key) => ["--label", `${key}=-`]),
         ...annotationsArgs(annotations),
+        ...staleAnnotations.flatMap((key) => ["--annotation", `${key}=-`]),
         "--change-desc", `Reconcile ${KUBARA_VERSION} mini-IDP provenance`,
         "--quiet",
       ]);
@@ -2018,6 +2513,9 @@ function ensureArgoApplication(deployment, state) {
   const targetEntity = readTarget(deployment.cluster);
   check(targetEntity?.TargetID, `${deployment.cluster}/target: target is missing`);
   check(existing.TargetID === targetEntity.TargetID, `${deployment.appSpace}/${deployment.appUnit}: target is not ${deployment.cluster}/target`);
+  const fleetItem = FLEET.find((item) => item.cluster === deployment.cluster);
+  check(fleetItem, `${deployment.cluster}: fleet identity is missing`);
+  reconcileApplicationUnitLabels(plan, fleetItem, deployment.appUnit, state);
   const currentData = cub(["unit", "data", "--space", deployment.appSpace, deployment.appUnit]);
   const docs = parseDocs(currentData);
   check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one Argo Application`);
@@ -2318,7 +2816,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
       const approvedDeployment = readUnitRows(space).find((unit) => unit.Slug === "hx-web-deployment");
       check(approvalCount(approvedDeployment?.ApprovedBy) >= 1, `${space}: promoted deployment revision was not approved after the expected refusal`);
       const release = publishRelease(space, state, { force: true });
-      convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseDigest(release));
+      convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseManifestDigest(release));
     }
   });
 
@@ -2333,7 +2831,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     state.changedSpaces.add("hx-web-prod-a");
     approveOutstanding("hx-web-prod-a", state);
     const release = publishRelease("hx-web-prod-a", state, { force: true });
-    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-prod-a"), state, releaseDigest(release));
+    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-prod-a"), state, releaseManifestDigest(release));
     const docs = parseDocs(cub(["unit", "data", "--space", "hx-web-prod-a", "hx-web-deployment"]));
     check(docs.find((doc) => doc.kind === "Deployment")?.spec?.replicas === 2, "prod-a rollback did not restore two replicas");
   });
@@ -2344,7 +2842,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
       payloadKey: "hx-web/staging/hx-web-deployment/departure",
     });
     const release = publishRelease("hx-web-staging", state, { force: true });
-    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-staging"), state, releaseDigest(release));
+    convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-staging"), state, releaseManifestDigest(release));
   });
 
   scenarioStep("departure-survives-promotion", () => {
@@ -2405,7 +2903,7 @@ function promoteAndPublish(space, state, desired, { expectApprovalBlock = false 
     approveOutstanding(space, state);
   }
   const release = publishRelease(space, state, { force: true });
-  convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseDigest(release));
+  convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseManifestDigest(release));
 }
 
 function assertReleaseBlockedByApproval(space, state) {
@@ -2490,7 +2988,7 @@ function deployOne(deployment, state) {
   ) {
     release = publishRelease(deployment.space, state, { force: true });
   }
-  convergeDeploymentApplication(deployment, state, releaseDigest(release));
+  convergeDeploymentApplication(deployment, state, releaseManifestDigest(release));
 }
 
 function readLiveArgoApplication(deployment) {
@@ -2598,7 +3096,11 @@ function spaceHasUnreleasedHeads(space) {
 }
 
 function hasRelease(space) {
-  const result = cubTry(["release", "list", "--space", space, "--select", "Digest,CreatedAt", "-o", "json"]);
+  const result = cubTry([
+    "release", "list", "--space", space,
+    "--where", "Published = true",
+    "--select", "Digest,ManifestDigest,ReleaseNum,CreatedAt", "-o", "json",
+  ]);
   if (!result.ok) return false;
   return unwrapRows(JSON.parse(result.output), "Release").length > 0;
 }
@@ -2613,23 +3115,48 @@ function publishRelease(space, state, { force = false } = {}) {
   const output = cub(["release", "publish", space, "-o", "json"], { timeout: 1_200_000 });
   const value = JSON.parse(output);
   const release = unwrapEntity(value, "Release");
-  const digest = release?.Digest ?? release?.Release?.Digest ?? latestRelease(space)?.Digest ?? "";
-  recordAction(state, "release-publish", space, digest);
-  state.published.set(space, digest);
+  const fallback = latestRelease(space);
+  const bundleDigest = release?.Digest ?? release?.Release?.Digest ?? fallback?.Digest ?? "";
+  const manifestDigest = release?.ManifestDigest
+    ?? release?.Release?.ManifestDigest
+    ?? fallback?.ManifestDigest
+    ?? "";
+  check(/^sha256:[0-9a-f]{64}$/.test(bundleDigest), `${space}: published bundle content digest is missing or invalid`);
+  check(/^sha256:[0-9a-f]{64}$/.test(manifestDigest), `${space}: published OCI manifest digest is missing or invalid`);
+  recordAction(state, "release-publish", space, `manifest=${manifestDigest}; bundle=${bundleDigest}`);
+  state.published.set(space, { manifestDigest, bundleDigest });
   state.changedSpaces.delete(space);
   check(!spaceHasUnreleasedHeads(space), `${space}: release did not advance every Unit to its current head`);
-  return { ...(release ?? {}), Digest: digest };
+  return {
+    ...(release ?? {}),
+    Digest: bundleDigest,
+    ManifestDigest: manifestDigest,
+  };
 }
 
-function releaseDigest(release) {
-  const digest = release?.Digest ?? release?.Release?.Digest ?? "";
-  check(/^sha256:[0-9a-f]{64}$/.test(digest), `ConfigHub release digest is missing or invalid: ${digest || "empty"}`);
-  return digest;
+function releaseManifestDigest(release) {
+  const bundleDigest = release?.Digest ?? release?.Release?.Digest ?? "";
+  const manifestDigest = release?.ManifestDigest ?? release?.Release?.ManifestDigest ?? "";
+  check(
+    /^sha256:[0-9a-f]{64}$/.test(bundleDigest),
+    `ConfigHub bundle content digest is missing or invalid: ${bundleDigest || "empty"}`,
+  );
+  check(
+    /^sha256:[0-9a-f]{64}$/.test(manifestDigest),
+    `ConfigHub OCI manifest digest is missing or invalid: ${manifestDigest || "empty"}`,
+  );
+  return manifestDigest;
 }
 
 function latestRelease(space) {
-  const rows = unwrapRows(cubJson(["release", "list", "--space", space, "--select", "Digest,CreatedAt"]), "Release");
-  return rows.sort((left, right) => String(right.CreatedAt ?? "").localeCompare(String(left.CreatedAt ?? "")))[0] ?? null;
+  const rows = unwrapRows(cubJson([
+    "release", "list", "--space", space,
+    "--where", "Published = true",
+    "--select", "Digest,ManifestDigest,ReleaseNum,CreatedAt",
+  ]), "Release");
+  return rows
+    .sort((left, right) => Number(right.ReleaseNum ?? 0) - Number(left.ReleaseNum ?? 0)
+      || String(right.CreatedAt ?? "").localeCompare(String(left.CreatedAt ?? "")))[0] ?? null;
 }
 
 function kubectl(cluster, args, options = {}) {
@@ -2678,7 +3205,7 @@ function reconcileLinks(desired, state) {
         "--make-current",
         "--no-auto-update",
         "--annotation", `${LINK_REASON_ANNOTATION}=${expected.reason}`,
-        "--label", `ExampleCohort=${EXAMPLE_COHORT}`,
+        ...labelsArgs(expected.labels),
         "--wait", "--quiet",
       ]);
       recordAction(state, "link-create", `${expected.space}/${expected.slug}`, `${expected.toSpace}/${expected.toUnit}`);
@@ -2694,7 +3221,8 @@ function reconcileLinks(desired, state) {
       || existing.ToSpaceID !== toSpace.SpaceID
       || existing.UpdateType !== "NeedsProvides"
       || existing.AutoUpdate === true
-      || existing.Labels?.ExampleCohort !== EXAMPLE_COHORT
+      || !mapMatches(existing.Labels, expected.labels)
+      || staleOwnedLinkLabels(existing.Labels, expected.labels).length > 0
       || existing.Annotations?.[LINK_REASON_ANNOTATION] !== expected.reason
     ) {
       cub([
@@ -2704,7 +3232,9 @@ function reconcileLinks(desired, state) {
         "--make-current",
         "--no-auto-update",
         "--annotation", `${LINK_REASON_ANNOTATION}=${expected.reason}`,
-        "--label", `ExampleCohort=${EXAMPLE_COHORT}`,
+        ...labelsArgs(expected.labels),
+        ...staleOwnedLinkLabels(existing.Labels, expected.labels)
+          .flatMap((key) => ["--label", `${key}=-`]),
         "--wait", "--quiet",
       ]);
       recordAction(state, "link-update", `${expected.space}/${expected.slug}`, `${expected.toSpace}/${expected.toUnit}`);
@@ -2717,7 +3247,10 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   const findings = [];
   const spaces = readSpaces();
   assertSpaceAllowlist(spaces, desired, { requireAll: true });
-  assertDeliveryTopology(spaces, desired, { requireAllApplications: true });
+  assertDeliveryTopology(spaces, desired, {
+    requireAllApplications: true,
+    requireApplicationMetadata: true,
+  });
   assertManagedLinkInventory(desired, { requireNeedsProvides: true });
   const preservedControlUnits = assertPreservedFaithfulControlUnits();
   const localClusters = new Set(kindClusters());
@@ -2742,11 +3275,17 @@ function verifyLive(inputs, desired, { state = null } = {}) {
       if (live.Labels?.[key] !== value) findings.push(`${expected.slug}: label ${key}=${JSON.stringify(live.Labels?.[key])}, expected ${JSON.stringify(value)}`);
     }
     for (const key of staleOwnedLabels(live.Labels, expected.labels)) findings.push(`${expected.slug}: stale owned label ${key}`);
+    const expectedAnnotations = expected.annotations ?? {};
+    for (const [key, value] of Object.entries(expectedAnnotations)) {
+      if (live.Annotations?.[key] !== value) findings.push(`${expected.slug}: annotation ${key} drifted`);
+    }
+    for (const key of staleOwnedPublicAnnotations(live.Annotations, expectedAnnotations)) findings.push(`${expected.slug}: stale owned navigation annotation ${key}`);
     spaceRows.push({
       slug: expected.slug,
       id: live.SpaceID,
       type: expected.type,
       labels: expected.labels,
+      annotations: expectedAnnotations,
       releaseTargetID: live.ReleaseTargetID ?? null,
       triggerFilterID: live.TriggerFilterID ?? null,
     });
@@ -2774,8 +3313,13 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     if (live.ToolchainType !== expected.toolchain) findings.push(`${expected.space}/${expected.slug}: toolchain ${live.ToolchainType}, expected ${expected.toolchain}`);
     if ((live.ProviderType ?? null) !== (expected.provider ?? null)) findings.push(`${expected.space}/${expected.slug}: provider ${live.ProviderType ?? "default"}, expected ${expected.provider ?? "default"}`);
     if (!mapMatches(live.Labels, expected.labels)) findings.push(`${expected.space}/${expected.slug}: labels drifted`);
-    const annotations = sourceAnnotation(payload.value, payload.sourcePaths, payload.transform);
+    for (const key of staleOwnedUnitLabels(live.Labels, expected.labels)) findings.push(`${expected.space}/${expected.slug}: stale owned label ${key}`);
+    const annotations = {
+      ...sourceAnnotation(payload.value, payload.sourcePaths, payload.transform),
+      ...(expected.annotations ?? {}),
+    };
     if (!mapMatches(live.Annotations, annotations)) findings.push(`${expected.space}/${expected.slug}: source annotations drifted`);
+    for (const key of staleOwnedPublicAnnotations(live.Annotations, annotations)) findings.push(`${expected.space}/${expected.slug}: stale owned navigation annotation ${key}`);
     const liveData = cub(["unit", "data", "--space", expected.space, expected.slug]);
     if (!sameUnitData(expected.toolchain, liveData, payload.value)) findings.push(`${expected.space}/${expected.slug}: data drifted from ${expected.payloadKey}`);
     if (expected.target) {
@@ -2804,6 +3348,8 @@ function verifyLive(inputs, desired, { state = null } = {}) {
       headRevisionNum: live.HeadRevisionNum,
       dataHash: live.DataHash,
       sourceSha256: `sha256:${payload.sha256}`,
+      labels: expected.labels,
+      navigationAnnotations: expected.annotations ?? {},
     });
   }
   for (const [space, expectedSlugs] of expectedUnitsBySpace) {
@@ -2820,11 +3366,21 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   const applications = [];
   for (const deployment of desired.deployments) {
     const release = latestRelease(deployment.space);
-    const expectedRevision = release?.Digest ?? "";
-    if (!release || !/^sha256:[0-9a-f]{64}$/.test(release.Digest ?? "")) {
-      findings.push(`${deployment.space}: published release digest missing`);
+    const bundleDigest = release?.Digest ?? "";
+    const manifestDigest = release?.ManifestDigest ?? "";
+    const expectedRevision = manifestDigest;
+    if (!release || !/^sha256:[0-9a-f]{64}$/.test(bundleDigest)) {
+      findings.push(`${deployment.space}: published bundle content digest missing`);
+    } else if (!/^sha256:[0-9a-f]{64}$/.test(manifestDigest)) {
+      findings.push(`${deployment.space}: published OCI manifest digest missing`);
     } else {
-      releases.push({ space: deployment.space, id: release.ReleaseID, digest: release.Digest, createdAt: release.CreatedAt });
+      releases.push({
+        space: deployment.space,
+        id: release.ReleaseID,
+        bundleDigest,
+        manifestDigest,
+        createdAt: release.CreatedAt,
+      });
     }
     const appUnit = readUnit(deployment.appSpace, deployment.appUnit);
     if (!appUnit) {
@@ -3038,7 +3594,8 @@ function verifyLinks(desired, findings) {
     if (!from || !to || !toSpace || live.FromUnitID !== from.UnitID || live.ToUnitID !== to.UnitID || live.ToSpaceID !== toSpace.SpaceID) findings.push(`${expected.space}/${expected.slug}: Link endpoint drifted`);
     if (live.UpdateType !== "NeedsProvides") findings.push(`${expected.space}/${expected.slug}: UpdateType=${live.UpdateType}`);
     if (live.AutoUpdate === true) findings.push(`${expected.space}/${expected.slug}: AutoUpdate must be false`);
-    if (live.Labels?.ExampleCohort !== EXAMPLE_COHORT) findings.push(`${expected.space}/${expected.slug}: ExampleCohort label drifted`);
+    if (!mapMatches(live.Labels, expected.labels)) findings.push(`${expected.space}/${expected.slug}: semantic Link labels drifted`);
+    for (const key of staleOwnedLinkLabels(live.Labels, expected.labels)) findings.push(`${expected.space}/${expected.slug}: stale owned Link label ${key}`);
     if (live.Annotations?.[LINK_REASON_ANNOTATION] !== expected.reason) findings.push(`${expected.space}/${expected.slug}: wiring reason drifted`);
     rows.push({
       ref: `${expected.space}/${expected.slug}`,
@@ -3048,6 +3605,7 @@ function verifyLinks(desired, findings) {
       updateType: live.UpdateType,
       autoUpdate: live.AutoUpdate === true,
       reason: expected.reason,
+      labels: expected.labels,
     });
   }
   return rows;
@@ -3302,7 +3860,8 @@ function buildReceipt(inputs, desired, observation, state) {
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         interruptedScenarioPolicy: "reset UpgradeUnit merge bases to the committed initial payloads, then replay",
-        interruptedReleasePolicy: "publish whenever any Unit head differs from its last applied revision",
+        interruptedReleasePolicy: INTERRUPTED_RELEASE_POLICY,
+        publishedReleaseSelectionPolicy: PUBLISHED_RELEASE_SELECTION_POLICY,
         receiptRequiresZeroActionRerun: true,
         cub: cachedCubVersions,
         delivery: "ConfigHub variant/OCI -> ConfigHub-owned Argo CD/argobot",
@@ -3310,6 +3869,7 @@ function buildReceipt(inputs, desired, observation, state) {
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
+        guiIdentityPolicy: GUI_IDENTITY_POLICY,
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
       },
       counts: {
@@ -3317,6 +3877,7 @@ function buildReceipt(inputs, desired, observation, state) {
         managedUnits: observation.units.length,
         preservedFaithfulControlUnits: observation.preservedControlUnits.length,
         deployments: desired.deployments.length,
+        deliveryApplicationUnits: desired.deployments.length + (FLEET.length * 2),
         releases: observation.releases.length,
         needsProvidesLinks: observation.links.length,
         liveMatrixRows: observation.liveMatrix.rowCount,
@@ -3328,6 +3889,19 @@ function buildReceipt(inputs, desired, observation, state) {
       units: observation.units,
       releases: observation.releases,
       applications: observation.applications,
+      deliveryApplicationUnits: plannedDeliveryApplicationIdentity(desired),
+      guiNavigation: {
+        scope: "identity-and-navigation-only",
+        startHereSpace: CONTROL_SPACE,
+        startHereControlUnits: [...START_HERE_CONTROL_UNITS].sort(),
+        publicURLs: PUBLIC_NAVIGATION_ANNOTATIONS,
+        ownedSpaceLabels: [...OWNED_SPACE_LABELS].sort(),
+        ownedUnitLabels: [...OWNED_UNIT_LABELS].sort(),
+        ownedLinkLabels: [...OWNED_LINK_LABELS].sort(),
+        declaredNeedsProvidesLinks: observation.links.length,
+        completeWiringGraphClaim: false,
+        liveHealthClaim: false,
+      },
       wiring: {
         sourceLedger: paths.wiring,
         updateType: "NeedsProvides",
@@ -3411,6 +3985,7 @@ function verifyReceipt(inputs, desired) {
   check(receipt.spec?.execution?.argoPrunePolicy === ARGO_PRUNE_POLICY, "mini-IDP receipt Argo prune policy drifted");
   check(receipt.spec?.execution?.argoRetryPolicy === ARGO_RETRY_POLICY, "mini-IDP receipt Argo retry policy drifted");
   check(receipt.spec?.execution?.argoRevisionPolicy === ARGO_REVISION_POLICY, "mini-IDP receipt Argo revision policy drifted");
+  check(receipt.spec?.execution?.guiIdentityPolicy === GUI_IDENTITY_POLICY, "mini-IDP receipt GUI identity policy drifted");
   check(stableJson(receipt.spec?.execution?.persistentClustersPreserved) === stableJson(FLEET.map((item) => item.cluster)), "persistent cluster allowlist drifted");
   check(receipt.spec?.execution?.partialClusterStatePolicy === "fail", "mini-IDP receipt no longer fails on partial persistent-cluster state");
   check(receipt.spec?.execution?.serialLiveParityLock === true, "mini-IDP receipt no longer records the shared serial live-parity lock");
@@ -3422,8 +3997,12 @@ function verifyReceipt(inputs, desired) {
   );
   check(receipt.spec?.execution?.receiptRequiresZeroActionRerun === true, "mini-IDP receipt no longer requires a zero-action rerun");
   check(
-    receipt.spec?.execution?.interruptedReleasePolicy === "publish whenever any Unit head differs from its last applied revision",
+    receipt.spec?.execution?.interruptedReleasePolicy === INTERRUPTED_RELEASE_POLICY,
     "mini-IDP receipt no longer proves restart-safe release publication",
+  );
+  check(
+    receipt.spec?.execution?.publishedReleaseSelectionPolicy === PUBLISHED_RELEASE_SELECTION_POLICY,
+    "mini-IDP receipt no longer excludes withdrawn releases server-side",
   );
   check(receipt.spec?.execution?.cub?.minimum === `v${MIN_CUB_VERSION}`, "mini-IDP receipt cub minimum-version contract drifted");
   check(versionAtLeast(String(receipt.spec?.execution?.cub?.client ?? "").replace(/^v/, ""), MIN_CUB_VERSION), "mini-IDP receipt cub client is too old");
@@ -3437,6 +4016,10 @@ function verifyReceipt(inputs, desired) {
     `receipt has ${counts.preservedFaithfulControlUnits} preserved faithful Units, expected ${PRESERVED_FAITHFUL_CONTROL_UNITS.length}`,
   );
   check(counts.deployments === desired.deployments.length, `receipt has ${counts.deployments} deployments, expected ${desired.deployments.length}`);
+  check(
+    counts.deliveryApplicationUnits === desired.deployments.length + (FLEET.length * 2),
+    "receipt delivery Application Unit count drifted",
+  );
   check(counts.releases === desired.deployments.length, `receipt has ${counts.releases} releases, expected ${desired.deployments.length}`);
   check(counts.needsProvidesLinks === desired.links.length, `receipt has ${counts.needsProvidesLinks} Links, expected ${desired.links.length}`);
   check(counts.liveMatrixRows === FLEET.length * 9, `receipt live matrix has ${counts.liveMatrixRows} rows, expected ${FLEET.length * 9}`);
@@ -3449,6 +4032,7 @@ function verifyReceipt(inputs, desired) {
     check(row, `receipt is missing Space ${expected.slug}`);
     check(UUID_PATTERN.test(row.id ?? ""), `${expected.slug}: receipt Space ID missing`);
     check(stableJson(row.labels) === stableJson(expected.labels), `${expected.slug}: receipt labels drifted`);
+    check(stableJson(row.annotations ?? {}) === stableJson(expected.annotations ?? {}), `${expected.slug}: receipt navigation annotations drifted`);
   }
 
   const unitRows = receipt.spec?.units ?? [];
@@ -3462,6 +4046,11 @@ function verifyReceipt(inputs, desired) {
     check(Number(row.headRevisionNum) > 0, `${ref}: receipt head revision missing`);
     const payload = inputs.payloads.get(expected.payloadKey);
     check(row.sourceSha256 === `sha256:${payload.sha256}`, `${ref}: receipt source digest drifted`);
+    check(stableJson(row.labels) === stableJson(expected.labels), `${ref}: receipt Unit identity labels drifted`);
+    check(
+      stableJson(row.navigationAnnotations ?? {}) === stableJson(expected.annotations ?? {}),
+      `${ref}: receipt Unit navigation annotations drifted`,
+    );
   }
 
   const faithful = verifyFaithfulProof();
@@ -3485,7 +4074,11 @@ function verifyReceipt(inputs, desired) {
 
   const releaseRows = receipt.spec?.releases ?? [];
   check(releaseRows.length === desired.deployments.length, "receipt release rows are incomplete");
-  for (const row of releaseRows) check(/^sha256:[0-9a-f]{64}$/.test(row.digest ?? ""), `${row.space}: release digest missing`);
+  for (const row of releaseRows) {
+    check(/^sha256:[0-9a-f]{64}$/.test(row.bundleDigest ?? ""), `${row.space}: bundle content digest missing`);
+    check(/^sha256:[0-9a-f]{64}$/.test(row.manifestDigest ?? ""), `${row.space}: OCI manifest digest missing`);
+  }
+  const releasesBySpace = new Map(releaseRows.map((row) => [row.space, row]));
   const appRows = receipt.spec?.applications ?? [];
   check(appRows.length === desired.deployments.length, "receipt Application rows are incomplete");
   const desiredApps = new Map(desired.deployments.map((item) => [`${item.cluster}/${item.space}`, item]));
@@ -3494,17 +4087,40 @@ function verifyReceipt(inputs, desired) {
     check(expected, `${row.cluster}/${row.name}: receipt Application is not in the desired plan`);
     check(row.destinationNamespace === expected.destinationNamespace, `${row.cluster}/${row.name}: receipt destination namespace drifted`);
     check(/^sha256:[0-9a-f]{64}$/.test(row.expectedRevision ?? ""), `${row.cluster}/${row.name}: receipt expected revision missing`);
+    check(
+      row.expectedRevision === releasesBySpace.get(row.name)?.manifestDigest,
+      `${row.cluster}/${row.name}: receipt expected revision is not the release OCI ManifestDigest`,
+    );
     check(row.observedRevision === row.expectedRevision, `${row.cluster}/${row.name}: receipt observed revision is not the expected ConfigHub release`);
     check(row.syncState === "Synced", `${row.cluster}/${row.name}: receipt sync is ${row.syncState}`);
     check((row.acceptedHealth ?? []).includes(row.healthState), `${row.cluster}/${row.name}: receipt health ${row.healthState} is outside accepted set`);
   }
+  check(
+    stableJson(receipt.spec?.deliveryApplicationUnits ?? [])
+      === stableJson(plannedDeliveryApplicationIdentity(desired)),
+    "receipt delivery Application Unit identity metadata drifted",
+  );
 
   const links = receipt.spec?.wiring?.links ?? [];
   check(links.length === desired.links.length, "receipt Link rows are incomplete");
   for (const row of links) {
     check(UUID_PATTERN.test(row.id ?? ""), `${row.ref}: receipt Link ID missing`);
     check(row.updateType === "NeedsProvides" && row.autoUpdate === false, `${row.ref}: receipt Link semantics drifted`);
+    const expected = desired.links.find((item) => `${item.space}/${item.slug}` === row.ref);
+    check(expected, `${row.ref}: receipt Link is not planned`);
+    check(stableJson(row.labels) === stableJson(expected.labels), `${row.ref}: receipt Link identity labels drifted`);
   }
+  const guiNavigation = receipt.spec?.guiNavigation ?? {};
+  check(guiNavigation.scope === "identity-and-navigation-only", "receipt GUI navigation scope overclaims evidence");
+  check(guiNavigation.startHereSpace === CONTROL_SPACE, "receipt GUI start Space drifted");
+  check(
+    stableJson(guiNavigation.startHereControlUnits) === stableJson([...START_HERE_CONTROL_UNITS].sort()),
+    "receipt GUI start Unit set drifted",
+  );
+  check(stableJson(guiNavigation.publicURLs) === stableJson(PUBLIC_NAVIGATION_ANNOTATIONS), "receipt public GUI URLs drifted");
+  check(guiNavigation.declaredNeedsProvidesLinks === desired.links.length, "receipt declared GUI Link count drifted");
+  check(guiNavigation.completeWiringGraphClaim === false, "receipt must not claim a complete GUI wiring graph");
+  check(guiNavigation.liveHealthClaim === false, "receipt GUI metadata must not claim live health");
   const grafanaSecret = receipt.spec?.wiring?.grafanaSecret;
   check(grafanaSecret?.store?.name === "hx-app-dev-dev" && grafanaSecret.store.ready === true, "receipt does not prove the Grafana ClusterSecretStore ready");
   check(

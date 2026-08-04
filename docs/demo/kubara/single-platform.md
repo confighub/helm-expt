@@ -9,6 +9,11 @@ An existing Kubara user can adopt it by updating normal catalog references,
 `general:1.1.0` catalogs remain valid inputs, and no permanent chart fork is
 part of the path.
 
+That is the adoption promise: Kubara's documentation and generated shape stay
+useful, while ConfigHub adds searchable component identity, governed variants,
+approval and release history, and operational wiring. The result is a stronger
+way to operate Kubara, not a replacement platform that requires a rewrite.
+
 The boundary is intentionally simple:
 
 > **Kubara composes; ConfigHub governs; Argo reconciles.**
@@ -64,6 +69,39 @@ Two applications are defined to use those services on the same four targets:
 The committed cubbychat credential is deliberately demo-only. A real adopter
 must replace it with an ExternalSecret or another target-owned Secret.
 
+## Start Here in the ConfigHub GUI
+
+In the `Kubara` organization, filter Spaces by `StartHere=true`, open
+`hx-platform`, and then open its `platform-contract` Unit. That is the stable
+entry point for the example; it links the governed platform contract to these
+public views:
+
+- [adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html);
+- [36-cell component × cluster matrix](https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html);
+- [full extracted wiring graph](https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html).
+
+The GUI labels make the Kubara shape searchable instead of hiding it in folder
+names. The native Components view is component-first: `Owner=KubaraGeneral`
+groups the selected Kubara catalog and `Component` names the reusable catalog
+component. `ComponentSurface` names a deployable or configuration surface,
+while `Variant` shows its base or target specialization.
+`CatalogComponent`/`KubaraComponent` and `ComponentVersion` retain source
+identity and the exact selection. `Role`, `DefinitionSpace`, and `InstanceOf`
+expose definition-to-instance lineage.
+Pure platform-control and ClusterTarget Spaces deliberately stay out of the
+Components view; they remain visible through `StartHere`, `Role`, `Cluster`,
+and `ClusterRole` searches in Spaces.
+`ClusterRole` exposes hub versus spoke, while `Reconciler`, `DeliveryMode`, and
+`ControlPlane` make the simplified lane explicit: ConfigHub is the control
+plane, and each target keeps a cluster-local Argo reconciler. Search for
+`Component=hx-web` or `Component=cubbychat` to follow either application
+from its definition to all four target instances.
+
+This is the useful continuity for an adopter: the same hub, spokes, components,
+applications, and Argo reconciliation remain recognizable, while ConfigHub
+adds a component-first and queryable operating model that plain Kubara does not
+provide on its own.
+
 ## The two delivery lanes preserve the same Kubara shape
 
 The example proves two ways to operate one generated platform. They are delivery
@@ -116,7 +154,8 @@ platform configurations; that package remains intact here.
 | Exact reusable component | ConfigHub Catalog | One reviewed chart or first-party component version, its source digest, rendered bases, lifecycle routes, target facts, and retained history. Deployable variants and configurations follow the component; they do not replace it. |
 | Kubara compatibility profile | Kubara plus the deterministic adapter | The matching `ServiceDefinition`, wrapper templates, defaults, additions, and `platform-configs` templates needed to reproduce Kubara behavior from that exact component. |
 | Per-platform package, selection, and wiring | Kubara | The effective ordered catalogs and `config.yaml` select services for each hub or spoke and specialize them with normal values overrides. |
-| Fleet state and change history | ConfigHub | Definition and instance Units, releases, checks, approvals, promotions, rollbacks, departures, matrix cells, and wiring links. |
+| Fleet desired state and change history | ConfigHub | Searchable definition and instance Units, variants, releases, checks, approvals, promotions, rollbacks, departures, a governed desired matrix, and 25 curated operational wiring Links. |
+| Derived public evidence | Deterministic generators plus exact receipts | The 36-cell receipt-aware matrix and the full extracted wiring graph. These views link from the ConfigHub Start Here Unit but are not mislabeled as native GUI observations. |
 
 The adapter retains all four Kubara catalog surfaces: `Catalog.yaml`,
 `services/`, `platform-components/`, and `platform-configs/`. The current 1.1.0
@@ -263,6 +302,15 @@ Spaces, Units and Variants, ClusterTargets, UpgradeUnit lineage, and visible
 Git and OCI payloads. Repeating the same revision and request yields the same
 plan and no semantic changes.
 
+The materialized labels make the component-first catalog, exact version,
+deployable/configuration surface, base or target variant, definition or
+instance role, hub or spoke placement, and cluster-local Argo delivery
+searchable in the ConfigHub GUI. The 25 `NeedsProvides` Links are a
+curated operational subset: they expose the relationships an operator must
+follow during delivery, while the complete extracted graph remains separately
+available as linked deterministic evidence. The importer does not flatten the
+complete graph into hundreds of noisy operational Links.
+
 ### 6. Promote applications through ConfigHub; let Argo reconcile
 
 Applications are a subsequent hand-off, not something the platform importer
@@ -408,19 +456,26 @@ node scripts/generate-kubara-platform-matrix.mjs --self-test
 
 Open the
 [colored component × cluster matrix](../../../data/kubara-platform-matrix/matrix.html)
-to see exact selected versions, placement, sync state, and departures in one
-view. Open the
+to see exact selected versions, placement, departures, and any sync or workload
+observations supplied by the exact current receipt. ConfigHub governs the
+desired-only matrix in `hx-platform/platform-matrix`; the public matrix is
+regenerated from that desired state plus receipt evidence and leaves any
+unobserved field `unknown`. Open the
 [wiring graph](../../../data/kubara-wiring/graph.html)
-to see component-to-component needs and provides, including ApplicationSet to
-cluster-registration edges, CRD dependencies, Secret production, issuer and
-IngressClass references, and unresolved target facts. Machine-readable CSV and
-JSON live beside both HTML reports.
+to see the complete extracted set of component-to-component needs and provides,
+including ApplicationSet to cluster-registration edges, CRD dependencies,
+Secret production, issuer and IngressClass references, and unresolved target
+facts. The ConfigHub GUI shows 25 curated operational `NeedsProvides` Links;
+the public graph is the complete evidence view. Machine-readable CSV and JSON
+live beside both HTML reports.
 
 These views are stronger than a static platform diagram because they are
-regenerated from the committed platform data. They also stay honest: a desired
-render is not a live observation. Until a receipt records an observed version,
-sync state, or workload state for an exact cell, the matrix says `unknown`.
-The [evidence guide](platform-evidence.md) explains every status.
+regenerated from the committed platform data and exact receipts. They also stay
+honest: a desired render or ConfigHub Unit is not a live cluster observation.
+Until a receipt records an observed version, sync state, or workload state for
+an exact cell, the public matrix says `unknown`. The
+[evidence guide](platform-evidence.md) explains every status and the boundary
+between governed GUI state and derived public evidence.
 
 ## Run the audited release sequence exactly in this order
 
@@ -591,9 +646,16 @@ The final state must show more than pods:
 4. Production publish is refused until every Unit in scope is approved.
 5. One production target can roll back without rolling back its peer.
 6. A staging-only departure survives a later base promotion.
-7. Platform, application, lifecycle, target, and wiring roles are queryable.
-8. Wiring Links expose consumer-to-provider relationships while the generated
-   wiring ledger remains their deterministic source.
+7. Catalog owner, component, exact version, deployable/configuration surface,
+   variant, definition or instance, hub or spoke, delivery mode, and local-Argo
+   roles are queryable in the ConfigHub GUI.
+8. hx-web and cubbychat are each traceable from their definition through all
+   four target instances and their desired Argo Applications.
+9. Exactly 25 curated operational Wiring Links expose consumer-to-provider
+   relationships in the GUI, while the full extracted graph remains linked
+   deterministic evidence.
+10. The desired matrix remains governed in ConfigHub; the public live-aware
+    matrix gains observations only from the exact mini-IDP receipt.
 
 On a clean, unmarked fleet the reconciler executes that operation sequence and
 writes its scenario marker only after every check passes. Later runs reconcile
@@ -658,9 +720,12 @@ catalog-release surfaces, and public site all verify.
   evidence. They prove deterministic desired state, not cluster health.
 - The wiring graph includes rendered and controller-declared relationships.
   `resolved-runtime` means a controller contract exists; it does not claim the
-  controller created the object in a live cluster.
-- The platform matrix leaves current live fields unknown unless an exact live
-  receipt supplies them.
+  controller created the object in a live cluster. ConfigHub exposes 25 curated
+  operational `NeedsProvides` Links, not every extracted graph edge.
+- The ConfigHub `platform-matrix` Unit is desired-only governed evidence. The
+  public 36-cell matrix is regenerated from that state and the exact live
+  receipt; it leaves current live fields unknown unless the receipt supplies
+  them.
 - The current
   [faithful-lane summary](../../../data/kubara-faithful-hub-spoke/summary.md)
   passes the unchanged Kubara hub-and-spoke delivery proof. GitHub
