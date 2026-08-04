@@ -12,6 +12,7 @@
 //   --apply           reconcile the allowlisted live state and write a receipt
 //   --verify          read-only comparison of live state with the plan
 //   --receipt-verify  verify the committed live receipt without a login
+//   --self-test       exercise restart-safe release decisions without live I/O
 //
 // Safety properties:
 //   * live modes require the Kubara organization;
@@ -51,7 +52,7 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 
-const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify"]);
+const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test"]);
 validateCliArgs();
 const requestedModes = process.argv.filter((arg) => modes.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...modes].join(", ")}`);
@@ -76,8 +77,9 @@ const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
 const ARGO_PRUNE_POLICY = "Argo may prune only resources tracked by one of the 27 exact allowlisted deployment Applications; ConfigHub objects and persistent clusters are never deleted";
 const ARGO_RETRY_POLICY = "up to four refresh-observe-sync cycles for terminal failure or terminal OutOfSync state";
 const ARGO_REVISION_POLICY = "accept only the exact latest ConfigHub OCI manifest digest reported by Argo; never use the bundle content digest as an OCI revision";
-const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from its last applied revision; pass only the published OCI ManifestDigest to Argo";
+const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from its last applied revision; reuse the exact published release for metadata-only changes or ConfigHub's unchanged-bundle response; pass only the published OCI ManifestDigest to Argo";
 const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo";
+const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
 const GUI_IDENTITY_POLICY = "native Component, Owner, and Variant labels make the component-first Kubara catalog and definition-instance hub-spoke shape visible; public navigation annotations link complete evidence without claiming live health";
 const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
 const PUBLIC_MATRIX_URL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
@@ -1351,8 +1353,10 @@ if (mode === "--plan") {
   verifyLocalContract(inputs, { requireLiveEvidence: true });
   const observation = verifyLive(inputs, plan);
   console.log(`verified Kubara mini-IDP: ${observation.spaces.length} Spaces, ${observation.units.length} managed Units, ${observation.links.length} NeedsProvides Links`);
-} else {
+} else if (mode === "--receipt-verify") {
   verifyReceipt(inputs, plan);
+} else {
+  selfTestReleaseRecovery();
 }
 
 function printPlan(inputs, desired) {
@@ -2815,7 +2819,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
       approveOutstanding(space, state);
       const approvedDeployment = readUnitRows(space).find((unit) => unit.Slug === "hx-web-deployment");
       check(approvalCount(approvedDeployment?.ApprovedBy) >= 1, `${space}: promoted deployment revision was not approved after the expected refusal`);
-      const release = publishRelease(space, state, { force: true });
+      const release = publishRelease(space, state);
       convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseManifestDigest(release));
     }
   });
@@ -2830,7 +2834,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     recordAction(state, "rollback", "hx-web-prod-a/hx-web-deployment", "restore -1");
     state.changedSpaces.add("hx-web-prod-a");
     approveOutstanding("hx-web-prod-a", state);
-    const release = publishRelease("hx-web-prod-a", state, { force: true });
+    const release = publishRelease("hx-web-prod-a", state);
     convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-prod-a"), state, releaseManifestDigest(release));
     const docs = parseDocs(cub(["unit", "data", "--space", "hx-web-prod-a", "hx-web-deployment"]));
     check(docs.find((doc) => doc.kind === "Deployment")?.spec?.replicas === 2, "prod-a rollback did not restore two replicas");
@@ -2841,7 +2845,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state) {
     upsertUnit(expected, inputs, payloadFiles, state, {
       payloadKey: "hx-web/staging/hx-web-deployment/departure",
     });
-    const release = publishRelease("hx-web-staging", state, { force: true });
+    const release = publishRelease("hx-web-staging", state);
     convergeDeploymentApplication(desired.deployments.find((item) => item.space === "hx-web-staging"), state, releaseManifestDigest(release));
   });
 
@@ -2902,7 +2906,7 @@ function promoteAndPublish(space, state, desired, { expectApprovalBlock = false 
     }
     approveOutstanding(space, state);
   }
-  const release = publishRelease(space, state, { force: true });
+  const release = publishRelease(space, state);
   convergeDeploymentApplication(desired.deployments.find((item) => item.space === space), state, releaseManifestDigest(release));
 }
 
@@ -2977,7 +2981,7 @@ function deployOne(deployment, state) {
       || spaceHasUnreleasedHeads(deployment.appSpace)
       || !hasRelease(deployment.appSpace)
   ) {
-    publishRelease(deployment.appSpace, state, { force: true });
+    publishRelease(deployment.appSpace, state);
   }
   if (deployment.space.includes("prod-")) approveOutstanding(deployment.space, state);
   let release = latestRelease(deployment.space);
@@ -2986,7 +2990,7 @@ function deployOne(deployment, state) {
       || spaceHasUnreleasedHeads(deployment.space)
       || !hasRelease(deployment.space)
   ) {
-    release = publishRelease(deployment.space, state, { force: true });
+    release = publishRelease(deployment.space, state);
   }
   convergeDeploymentApplication(deployment, state, releaseManifestDigest(release));
 }
@@ -3105,15 +3109,32 @@ function hasRelease(space) {
   return unwrapRows(JSON.parse(result.output), "Release").length > 0;
 }
 
-function publishRelease(space, state, { force = false } = {}) {
-  if (
-    !force
-      && !state.changedSpaces.has(space)
-      && !spaceHasUnreleasedHeads(space)
-      && hasRelease(space)
-  ) return latestRelease(space);
-  const output = cub(["release", "publish", space, "-o", "json"], { timeout: 1_200_000 });
-  const value = JSON.parse(output);
+function publishRelease(space, state) {
+  const hasUnreleasedHeads = spaceHasUnreleasedHeads(space);
+  const current = latestRelease(space);
+  if (releasePublicationDecision({ hasUnreleasedHeads, hasPublishedRelease: Boolean(current) }) === "reuse") {
+    state.changedSpaces.delete(space);
+    return validatedPublishedRelease(space, current, "existing published release");
+  }
+  const result = cubTry(
+    ["release", "publish", space, "-o", "json"],
+    { timeout: 1_200_000 },
+  );
+  if (!result.ok) {
+    check(
+      isUnchangedReleaseResponse(result),
+      `cub release publish ${space} failed: ${result.output}`,
+    );
+    const reused = latestRelease(space);
+    check(reused, `${space}: ConfigHub reported an unchanged bundle but no published release exists`);
+    check(
+      !spaceHasUnreleasedHeads(space),
+      `${space}: ConfigHub reported an unchanged bundle while Unit heads remain unreleased`,
+    );
+    state.changedSpaces.delete(space);
+    return validatedPublishedRelease(space, reused, "unchanged published release");
+  }
+  const value = JSON.parse(result.output);
   const release = unwrapEntity(value, "Release");
   const fallback = latestRelease(space);
   const bundleDigest = release?.Digest ?? release?.Release?.Digest ?? fallback?.Digest ?? "";
@@ -3132,6 +3153,43 @@ function publishRelease(space, state, { force = false } = {}) {
     Digest: bundleDigest,
     ManifestDigest: manifestDigest,
   };
+}
+
+function validatedPublishedRelease(space, release, description) {
+  check(release, `${space}: ${description} is missing`);
+  releaseManifestDigest(release);
+  return release;
+}
+
+function releasePublicationDecision({ hasUnreleasedHeads, hasPublishedRelease }) {
+  return !hasUnreleasedHeads && hasPublishedRelease ? "reuse" : "publish";
+}
+
+function isUnchangedReleaseResponse(result) {
+  return result?.ok === false && String(result.output ?? "").includes(UNCHANGED_RELEASE_ERROR);
+}
+
+function selfTestReleaseRecovery() {
+  check(
+    releasePublicationDecision({ hasUnreleasedHeads: false, hasPublishedRelease: true }) === "reuse",
+    "metadata-only changes must reuse the current published release",
+  );
+  for (const scenario of [
+    { hasUnreleasedHeads: true, hasPublishedRelease: true },
+    { hasUnreleasedHeads: false, hasPublishedRelease: false },
+  ]) {
+    check(releasePublicationDecision(scenario) === "publish", `release decision should publish: ${stableJson(scenario)}`);
+  }
+  check(
+    isUnchangedReleaseResponse({ ok: false, output: `HTTP 400: ${UNCHANGED_RELEASE_ERROR}` }),
+    "the exact ConfigHub unchanged-bundle response must be recoverable",
+  );
+  check(
+    !isUnchangedReleaseResponse({ ok: false, output: "HTTP 500: registry unavailable" })
+      && !isUnchangedReleaseResponse({ ok: true, output: UNCHANGED_RELEASE_ERROR }),
+    "unrelated failures or successful output must not be classified as unchanged-bundle recovery",
+  );
+  console.log("Kubara mini-IDP release recovery self-test passed");
 }
 
 function releaseManifestDigest(release) {

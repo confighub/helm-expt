@@ -524,6 +524,16 @@ function verifyKubaraPublicVisibility() {
 function verifyMiniIdpPlan() {
   const script = "scripts/reconcile-kubara-mini-idp.mjs";
   check(existsSync(join(repoRoot, script)), `${script} is missing`);
+  const selfTest = execFileSync(process.execPath, [script, "--self-test"], {
+    cwd: repoRoot,
+    env: process.env,
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024 * 100,
+  }).trim();
+  check(
+    selfTest === "Kubara mini-IDP release recovery self-test passed",
+    "mini-IDP release recovery self-test did not pass exactly",
+  );
   const output = execFileSync(process.execPath, [script, "--plan"], {
     cwd: repoRoot,
     env: process.env,
@@ -546,6 +556,11 @@ function verifyMiniIdpPlan() {
     plan.spec?.execution?.publishedReleaseSelectionPolicy
       === "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo",
     "mini-IDP plan no longer excludes withdrawn releases server-side",
+  );
+  check(
+    plan.spec?.execution?.interruptedReleasePolicy
+      === "publish whenever any Unit head differs from its last applied revision; reuse the exact published release for metadata-only changes or ConfigHub's unchanged-bundle response; pass only the published OCI ManifestDigest to Argo",
+    "mini-IDP plan no longer treats metadata-only and unchanged-bundle release attempts as idempotent reuse",
   );
   const expected = expectedContract().spec.adoption.reconcilerPlan;
   for (const name of ["spaces", "managedUnits", "deployments", "needsProvidesLinks"]) {
