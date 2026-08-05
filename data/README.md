@@ -288,6 +288,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `image-digest-workdown` | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | image pinning and mutable tag review |
 | `installer-oci-packages` | [installer-oci-packages/summary.md](./installer-oci-packages/summary.md) | public installer package OCI refs and consumer setup commands for chart packages |
 | `kind-parity-decisions` | [kind-parity-decisions/summary.md](./kind-parity-decisions/summary.md) | product-readable decisions for non-pass two-cluster kind-parity rows: residue category, who owns the fix, usable-today answer, and next action |
+| `kubara-catalog-1.1-full-coverage` | - | supporting generated evidence |
 | `kubara-catalog-refresh` | - | supporting generated evidence |
 | `kubara-platform-matrix` | [kubara-platform-matrix/summary.md](./kubara-platform-matrix/summary.md) | supporting generated evidence |
 | `kubara-wiring` | [kubara-wiring/summary.md](./kubara-wiring/summary.md) | supporting generated evidence |
@@ -365,7 +366,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 177 CSV files. Each row records the path, audience,
+It includes 178 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

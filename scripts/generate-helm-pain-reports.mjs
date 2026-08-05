@@ -1,6 +1,10 @@
-import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
+import { existsSync } from "node:fs";
+import { join, relative } from "node:path";
 import { readYaml, repoRoot, writeYaml } from "./lib/proof-common.mjs";
+import {
+  catalogDerivedPath,
+  recipeRoots,
+} from "./lib/catalog-derived-views.mjs";
 
 const args = process.argv.slice(2);
 const generate = args.includes("--generate");
@@ -14,21 +18,8 @@ function check(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-function walk(root, predicate, result = []) {
-  for (const entry of readdirSync(root, { withFileTypes: true })) {
-    const fullPath = join(root, entry.name);
-    if (entry.isDirectory()) walk(fullPath, predicate, result);
-    else if (predicate(fullPath)) result.push(fullPath);
-  }
-  return result.sort();
-}
-
 function relativeRepo(path) {
   return relative(repoRoot, path).replaceAll("\\", "/");
-}
-
-function chartRootFromStatus(path) {
-  return dirname(path);
 }
 
 function slug(value) {
@@ -43,8 +34,9 @@ function firstExisting(root, candidates) {
 }
 
 function allCharts() {
-  return walk(join(repoRoot, "recipes"), (path) => path.endsWith("/catalog-status.yaml"))
-    .map((statusPath) => ({ statusPath, root: chartRootFromStatus(statusPath), status: readYaml(statusPath) }))
+  return recipeRoots()
+    .map((root) => ({ root, statusPath: catalogDerivedPath(root, "catalog-status.yaml") }))
+    .map(({ root, statusPath }) => ({ statusPath, root, status: readYaml(statusPath) }))
     .sort((left, right) => `${left.status.spec.chart}@${left.status.spec.version}`.localeCompare(`${right.status.spec.chart}@${right.status.spec.version}`));
 }
 
@@ -236,7 +228,7 @@ function main() {
   const failures = [];
   for (const item of charts) {
     const report = buildReport(item);
-    const reportPath = join(item.root, "helm-pain-report.yaml");
+    const reportPath = catalogDerivedPath(item.root, "helm-pain-report.yaml");
     if (generate) {
       writeYaml(reportPath, report);
       continue;

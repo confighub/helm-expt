@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: argo-cd-argo-cd-10.2.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1
+  package:
+    path: packages/argo-cd/argo-cd/10.2.1
+    sha256: 41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88
+    sourceTreeSHA256: d7dd6a4e597b67028396f9def4c653fd6994825bcc9813ef0ad495a6768cac5c
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/argo-cd/argo-cd/10.2.1 -o <tmp>/argo-cd-argo-cd-10.2.1.tgz"
+    push: "cub installer push <tmp>/argo-cd-argo-cd-10.2.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1 --json"
+  outputs:
+    manifestDigest: sha256:8a651b909262f4d33cae5c2454ba3a6b89b6fcf79434544cfc71d4c221f227ad
+    layerDigest: sha256:41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88
+    package: |
+      Bundled argo-cd-argo-cd@10.2.1
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-DyQNV6/argo-cd-argo-cd-10.2.1.tgz
+        files:  7
+        size:   113085 bytes
+        digest: sha256:41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1
+        manifest: sha256:8a651b909262f4d33cae5c2454ba3a6b89b6fcf79434544cfc71d4c221f227ad
+        layer:    sha256:41de728b947ec43c78e7b5dbc38eed77577b0486483ca0cfbdff3c95d8450e88 (113085 bytes, 7 files)
+    inspectJSONSHA256: aaa5020f55f2fee64df9bbdb46ca9d3767b54f5feb996d914acf4beef2566ec6
+    inspectJSONCanonicalSHA256: bb38d1a33f09699781fc4404506cdf6a64de77061f6a68e584720b96b329bed4

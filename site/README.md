@@ -51,7 +51,7 @@ Open `site/tiers.html` only as a compatibility redirect to `site/private/index.h
 Open `site/offering.html` for the longer public offering page.
 Open `docs/user/choose-your-path.md` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.
-Open `site/charts/index.html` for the generated per-chart catalog pages.
+Open `site/charts/index.html` for the Component Catalog and all retained package-version pages.
 Open `docs/user/production-support-decisions.md` for the plain-English
 boundary between production-review-ready and production-supported.
 

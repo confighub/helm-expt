@@ -30,6 +30,11 @@ import {
   KUBARA_CURRENT_ADDITIONS,
   KUBARA_HISTORICAL_ADDITIONS,
 } from "./lib/kubara-catalog-release.mjs";
+import {
+  KUBARA_CATALOG_1_1_ADDITIONS,
+  KUBARA_CATALOG_1_1_BASELINE,
+  KUBARA_CATALOG_1_1_FINAL,
+} from "./lib/kubara-catalog-1-1-full-coverage.mjs";
 
 const mode = process.argv[2] ?? "--help";
 const current = process.argv.includes("--current");
@@ -817,7 +822,8 @@ function verifyBaselineCatalogRoots() {
   for (const rootName of ["recipes", "packages"]) {
     const roots = catalogVersionRoots(rootName);
     const additions = new Set(KUBARA_CATALOG_ADDITIONS.map((path) => `${rootName}/${path}`));
-    const baselineRoots = roots.filter((path) => !additions.has(path));
+    const fullCoverageAdditions = new Set(KUBARA_CATALOG_1_1_ADDITIONS.map((item) => `${rootName}/${item.canonicalIdentity}/${item.version}`));
+    const baselineRoots = roots.filter((path) => !additions.has(path) && !fullCoverageAdditions.has(path));
     check(
       baselineRoots.length === KUBARA_CATALOG_BASELINE.versionCount,
       `${rootName}: expected ${KUBARA_CATALOG_BASELINE.versionCount} immutable baseline roots, found ${baselineRoots.length}`,
@@ -826,7 +832,18 @@ function verifyBaselineCatalogRoots() {
       ? KUBARA_CATALOG_BASELINE.recipesTreeSHA256
       : KUBARA_CATALOG_BASELINE.packagesTreeSHA256;
     check(catalogTreeSetDigest(baselineRoots) === expectedDigest, `${rootName}: an immutable baseline root was removed or changed`);
-    check(roots.length <= KUBARA_CATALOG_BASELINE.versionCount + KUBARA_CATALOG_ADDITIONS.length, `${rootName}: undeclared catalog roots exceed the 120-version release scope`);
+    const retained120 = roots.filter((path) => !fullCoverageAdditions.has(path));
+    const expected120 = rootName === "recipes"
+      ? KUBARA_CATALOG_1_1_BASELINE.recipesTreeSHA256
+      : KUBARA_CATALOG_1_1_BASELINE.packagesTreeSHA256;
+    check(
+      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount
+        && catalogTreeSetDigest(retained120) === expected120,
+      `${rootName}: the immutable 120-root intermediate Catalog changed`,
+    );
+    const declared = new Set([...baselineRoots, ...additions, ...fullCoverageAdditions]);
+    check(roots.every((path) => declared.has(path)), `${rootName}: undeclared catalog root exists`);
+    check(roots.length <= KUBARA_CATALOG_1_1_FINAL.versionCount, `${rootName}: undeclared catalog roots exceed the ${KUBARA_CATALOG_1_1_FINAL.versionCount}-version release scope`);
   }
 }
 

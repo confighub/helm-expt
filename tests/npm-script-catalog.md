@@ -10,14 +10,14 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 714
+scripts: 728
 ```
 
 ## By Category
 
 | Category | Scripts |
 | --- | ---: |
-| `other` | 216 |
+| `other` | 231 |
 | `top20-chart-proof` | 123 |
 | `catalog-data` | 67 |
 | `production-support` | 65 |
@@ -25,7 +25,7 @@ scripts: 714
 | `live-parity-gitops` | 37 |
 | `evidence-workdown` | 32 |
 | `hook-lifecycle` | 29 |
-| `confighub-proof` | 24 |
+| `confighub-proof` | 23 |
 | `repo-integrity` | 18 |
 | `confighub-catalog-org` | 11 |
 | `derived-variants` | 11 |
@@ -43,10 +43,10 @@ scripts: 714
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 326 |
-| `generate-or-run` | 279 |
-| `run` | 88 |
-| `self-test` | 11 |
+| `verify` | 330 |
+| `generate-or-run` | 284 |
+| `run` | 90 |
+| `self-test` | 14 |
 | `summary` | 9 |
 | `full-corpus-verify` | 1 |
 
@@ -54,8 +54,8 @@ scripts: 714
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 640 |
-| `confighub-or-live-cluster` | 30 |
+| `none-for-verify` | 656 |
+| `confighub-or-live-cluster` | 28 |
 | `network-or-helm-repo` | 15 |
 | `local-kubernetes` | 14 |
 | `public-oci-registry` | 5 |

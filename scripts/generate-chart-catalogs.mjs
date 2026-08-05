@@ -12,6 +12,7 @@ import {
   writeYaml,
 } from "./lib/proof-common.mjs";
 import { installerOciRef } from "./lib/installer-oci.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const args = process.argv.slice(2);
 const verify = args.includes("--verify");
@@ -66,6 +67,11 @@ function buildChartCatalog(root, context) {
     check(existsSync(path), `${relativeRepo(root)} missing ${relativePath}`);
     return path;
   };
+  const requiredDerived = (fileName) => {
+    const path = catalogDerivedPath(root, fileName);
+    check(existsSync(path), `${relativeRepo(root)} missing generated view ${relativeRepo(path)}`);
+    return path;
+  };
 
   const recipe = readYaml(required("recipe.yaml"));
   const sourceLock = readYaml(required("source-lock.yaml"));
@@ -74,7 +80,8 @@ function buildChartCatalog(root, context) {
   const chartDossier = readYaml(required("chart-dossier.yaml"));
   const controlPoints = readYaml(required("control-points.yaml"));
   readYaml(required("value-model.yaml"));
-  const catalogStatus = readYaml(required("catalog-status.yaml"));
+  const catalogStatusPath = requiredDerived("catalog-status.yaml");
+  const catalogStatus = readYaml(catalogStatusPath);
   const packageReceipt = readYaml(required("publication/installer-package-receipt.yaml"));
 
   const chartRef =
@@ -89,8 +96,8 @@ function buildChartCatalog(root, context) {
   check(packagePath, `${relativeRepo(root)} publication receipt missing package path`);
   const packageRoot = join(repoRoot, packagePath);
   const installerPath = join(packageRoot, "installer.yaml");
-  const weirdnessPath = join(root, "weirdness-and-mitigations.md");
-  const painReportPath = join(root, "helm-pain-report.yaml");
+  const weirdnessPath = catalogDerivedPath(root, "weirdness-and-mitigations.md");
+  const painReportPath = catalogDerivedPath(root, "helm-pain-report.yaml");
   const valueSourceMapPath = join(root, "value-source-map.yaml");
   check(existsSync(installerPath), `${relativeRepo(root)} package installer missing: ${packagePath}/installer.yaml`);
   const installer = readYaml(installerPath);
@@ -150,7 +157,7 @@ function buildChartCatalog(root, context) {
         controlPointCategories,
       },
       catalogStatus: {
-        path: relativeRepo(join(root, "catalog-status.yaml")),
+        path: relativeRepo(catalogStatusPath),
         status: catalogStatus.spec?.status ?? "",
         supportLevel: catalogStatus.spec?.supportLevel ?? "",
         supportedScopes: catalogStatus.spec?.supportedScopes ?? [],
@@ -175,12 +182,14 @@ function buildChartCatalog(root, context) {
     },
   };
 
+  const indexPath = catalogDerivedPath(root, "artifact-index.yaml");
+  const catalogPath = catalogDerivedPath(root, "CATALOG.md");
   return {
-    indexPath: join(root, "artifact-index.yaml"),
-    catalogPath: join(root, "CATALOG.md"),
+    indexPath,
+    catalogPath,
     index,
     indexYaml: `${toComparableYaml(index)}\n`,
-    catalogMarkdown: buildCatalogMarkdown({ root, index }),
+    catalogMarkdown: buildCatalogMarkdown({ root: dirname(catalogPath), recipeRoot: root, index }),
   };
 }
 
@@ -320,7 +329,7 @@ function receiptIndex(path, receipt, extra) {
   };
 }
 
-function optionalArtifactRows(root) {
+function optionalArtifactRows(root, recipeRoot) {
   const artifacts = [
     { label: "Operating policy", path: "operating-policy.yaml" },
     { label: "Runtime review", path: "runtime-review.yaml" },
@@ -332,8 +341,8 @@ function optionalArtifactRows(root) {
     { label: "Render blocker", path: "default-render-blocker.yaml" },
   ];
   const rows = artifacts
-    .filter((artifact) => existsSync(join(root, artifact.path)))
-    .map((artifact) => `| ${artifact.label} | ${linkFrom(root, relativeRepo(join(root, artifact.path)))} |`);
+    .filter((artifact) => existsSync(join(recipeRoot, artifact.path)))
+    .map((artifact) => `| ${artifact.label} | ${linkFrom(root, relativeRepo(join(recipeRoot, artifact.path)))} |`);
   return rows.length ? `${rows.join("\n")}\n` : "";
 }
 
@@ -369,7 +378,7 @@ function targetFactSummary(targetFacts) {
   return bits.length ? bits.join("; ") : "see variant targetFacts";
 }
 
-function buildCatalogMarkdown({ root, index }) {
+function buildCatalogMarkdown({ root, recipeRoot, index }) {
   const chart = index.spec.chart;
   const recipe = index.spec.recipe;
   const status = index.spec.catalogStatus;
@@ -429,11 +438,11 @@ for exact base-variant evidence.
 | Chart dossier | ${linkFrom(root, recipe.chartDossier)} |
 ${recipe.operationsGuide ? `| Plain-English operations guide | ${linkFrom(root, recipe.operationsGuide)} |\n` : ""}| Control points | ${linkFrom(root, recipe.controlPoints)} |
 | Value model | ${linkFrom(root, recipe.valueModel)} |
-${recipe.valueSourceMap ? `| Value source map | ${linkFrom(root, recipe.valueSourceMap)} |\n` : ""}${optionalArtifactRows(root)}${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
+${recipe.valueSourceMap ? `| Value source map | ${linkFrom(root, recipe.valueSourceMap)} |\n` : ""}${optionalArtifactRows(root, recipeRoot)}${recipe.weirdnessAndMitigations ? `| Weirdness and mitigations | ${linkFrom(root, recipe.weirdnessAndMitigations)} |\n` : ""}| Catalog status | ${linkFrom(root, status.path)} |
 ${recipe.helmPainReport ? `| Helm pain report | ${linkFrom(root, recipe.helmPainReport)} |\n` : ""}| Installer package OCI | \`${packageInfo.ociRef}\` |
 | Installer package source | ${linkFrom(root, packageInfo.path)} |
 | Installer package receipt | ${linkFrom(root, packageInfo.receipt)} |
-| Machine index | ${linkFrom(root, relativeRepo(join(root, "artifact-index.yaml")))} |
+| Machine index | ${linkFrom(root, relativeRepo(catalogDerivedPath(recipeRoot, "artifact-index.yaml")))} |
 
 ## Variants
 

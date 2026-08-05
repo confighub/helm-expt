@@ -2,8 +2,8 @@
 
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
-- [Catalog JSON](https://confighub.github.io/helm-expt/site/catalog.json): machine-readable summary of the catalog: charts, base variants, packages, counts, and the repo data paths they come from.
-- [Configuration Catalog](https://confighub.github.io/helm-expt/site/charts/): tested starting configurations and one evidence page per public Helm chart version.
+- [Catalog JSON](https://confighub.github.io/helm-expt/site/catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
+- [Component Catalog](https://confighub.github.io/helm-expt/site/charts/): 103 components, all 130 retained published package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](https://confighub.github.io/helm-expt/site/matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](https://confighub.github.io/helm-expt/site/generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/): the canonical product journey from one component through release, change, production, and promotion.

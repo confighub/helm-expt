@@ -15,28 +15,28 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 110
-machine checks pass: 110
+recipes reviewed: 130
+machine checks pass: 130
 machine checks fail: 0
-proof-grade: 80
-catalog-candidate: 10
+proof-grade: 92
+catalog-candidate: 18
 catalog-supported: 20
 blocked: 0
-default-only recipes: 33
-multi-variant recipes: 77
-recipes with warning gates: 96
+default-only recipes: 45
+multi-variant recipes: 85
+recipes with warning gates: 116
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 30
+- `bespoke-top20`: 50
 - `next80-full`: 80
 
 ## Support Levels
 
-- `machine-proof-only`: 80
-- `promotion-review-needed`: 10
+- `machine-proof-only`: 92
+- `promotion-review-needed`: 18
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -47,6 +47,8 @@ proof work.
 
 | Chart | Variants | Gate | Recommendation |
 | --- | ---: | --- | --- |
+| `argo-cd/argo-cd@10.1.3` | 2 | warn | run human catalog promotion review |
+| `argo-cd/argo-cd@10.2.1` | 2 | warn | run human catalog promotion review |
 | `argo-cd/argo-cd@9.5.17` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.0.9` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.1.0` | 2 | warn | run human catalog promotion review |
@@ -55,7 +57,13 @@ proof work.
 | `bitnami/postgresql@18.6.10` | 2 | warn | run human catalog promotion review |
 | `bitnami/postgresql@18.7.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/redis@27.0.0` | 2 | warn | run human catalog promotion review |
+| `external-secrets/external-secrets@2.7.0` | 2 | warn | run human catalog promotion review |
+| `external-secrets/external-secrets@2.8.0` | 2 | warn | run human catalog promotion review |
+| `jetstack/cert-manager@v1.21.0` | 2 | warn | run human catalog promotion review |
+| `metrics-server/metrics-server@3.13.1` | 2 | warn | run human catalog promotion review |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | warn | run human catalog promotion review |
+| `prometheus-community/kube-prometheus-stack@87.15.1` | 3 | warn | run human catalog promotion review |
+| `prometheus-community/kube-prometheus-stack@87.19.2` | 3 | warn | run human catalog promotion review |
 | `prometheus-community/prometheus@29.9.0` | 2 | warn | run human catalog promotion review |
 
 ## Main Gaps

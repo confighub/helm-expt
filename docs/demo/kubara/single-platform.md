@@ -77,8 +77,16 @@ entry point for the example; it links the governed platform contract to these
 public views:
 
 - [adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html);
+- [component-first Catalog with every retained version](https://confighub.github.io/helm-expt/site/charts/);
 - [36-cell component × cluster matrix](https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html);
 - [full extracted wiring graph](https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html).
+
+Open the adjacent `component-catalog-coverage` Unit to see the Catalog promise
+inside the GUI itself: `CatalogComponents=103`, `CatalogVersions=130`,
+`KubaraSelections=18`, and `Retention=AdditiveOnly`. Its payload is the exact
+passing full-coverage receipt, and `URL-CatalogCoverage` opens that receipt
+directly. The `component-catalog-selection` Unit remains the platform-specific
+view of what this four-cluster platform actually chose.
 
 The GUI labels make the Kubara shape searchable instead of hiding it in folder
 names. The native Components view is component-first: `Owner=KubaraGeneral`
@@ -88,14 +96,52 @@ while `Variant` shows its base or target specialization.
 `CatalogComponent`/`KubaraComponent` and `ComponentVersion` retain source
 identity and the exact selection. `Role`, `DefinitionSpace`, and `InstanceOf`
 expose definition-to-instance lineage.
+The Components view shows the exact versions selected for this platform; follow
+`URL-Catalog` to browse the full additive Catalog, including all 130 retained
+versions rather than mistaking this platform selection for the whole catalog.
 Pure platform-control and ClusterTarget Spaces deliberately stay out of the
 Components view; they remain visible through `StartHere`, `Role`, `Cluster`,
 and `ClusterRole` searches in Spaces.
 `ClusterRole` exposes hub versus spoke, while `Reconciler`, `DeliveryMode`, and
 `ControlPlane` make the simplified lane explicit: ConfigHub is the control
 plane, and each target keeps a cluster-local Argo reconciler. Search for
+`Component=argo-cd` to see two deliberately separate cards and lineages:
+`hx-argo-base` is `Owner=KubaraBootstrap`, `Lane=Faithful`, chart 10.2.1 to
+runtime v3.4.5; `hx-argo-runtime-base` is `Owner=ConfigHubBootstrap`,
+`Lane=Adapted`, runtime v3.4.6, and is the definition for the four delivery
+instances. The target instances are not children of Kubara's faithful chart
+definition. Search for
+`Component=argobot` to see the exact ConfigHub delivery helper at v0.1.6 and
+its four target instances; its version is kept separate from Kubara's version.
+Search for
 `Component=hx-web` or `Component=cubbychat` to follow either application
 from its definition to all four target instances.
+
+The shortest complete GUI tour uses native pages and repeatable searches:
+
+1. Open **Components**. Expand `KubaraBootstrap` and
+   `ConfigHubBootstrap`: the former contains the faithful Kubara Argo
+   definition; the latter contains the adapted runtime and its four cluster
+   deployment cards. Their Space and Unit metadata shows `Lane=Faithful` and
+   `Lane=Adapted` respectively.
+2. Expand `ConfigHubApplications`, open `hx-web`, and use **Auto** layout. The
+   page shows the reusable workload and platform-binding bases, all four target
+   deployments, their release numbers, Argo health/sync state, and the actual
+   promotion topology. Open `cubbychat` to repeat the same four-target check for
+   the second application.
+3. From `hx-web`, open the `dev` workload, select `hx-web-deployment`, and open
+   **Links**. The table must show both its `UpgradeUnit` lineage and
+   `needs-platform-binding` as `NeedsProvides`; every curated wiring Link also
+   carries `Relationship=NeedsProvides` for a direct GUI filter. Then open
+   `hx-web-platform-dev/hx-web-platform`; its **Links** table shows the
+   cert-manager and Traefik requirements. These are the native GUI proof of the
+   curated wiring, while `URL-Wiring` opens the complete extracted graph.
+4. Filter Spaces by `Environment=Prod`, open `hx-web-prod-a` and
+   `hx-web-prod-b`, then inspect their revisions and approvals to see promotion,
+   refusal, approval, rollback, and retained history.
+5. Filter by `DeliveryMode=ConfigHubOCI`, open a source Space and its
+   **Releases**, and inspect the exact published OCI manifest digest that its
+   Argo Application reconciles.
 
 This is the useful continuity for an adopter: the same hub, spokes, components,
 applications, and Argo reconciliation remain recognizable, while ConfigHub
@@ -208,168 +254,187 @@ Generated trees, checksums, matrices, wiring graphs, and receipts are outputs.
 Regenerate them after changing the inputs; do not maintain a second hand-edited
 copy.
 
-## From Kubara's Git revision to ConfigHub in six deterministic steps
+## From Kubara's Git revision to ConfigHub in seven deterministic steps
 
-This is the approved general adoption architecture. It starts from Kubara's
-normal Git workflow and adds a deterministic ConfigHub import boundary; it does
-not ask an AI or a migration project to rediscover the platform.
+The general importer now implements the complete reusable boundary. It is a
+semantic port of Kubara's generated result, not a source rewrite: the same
+catalog selections, hub/spoke placement, per-cluster specialization, rendered
+objects, namespaces, and wiring remain identifiable throughout.
 
 ```text
-config.yaml + Kubara catalogs
-  -> generated platform, add-ons, ApplicationSets, overrides, and wiring
-  -> one immutable Git revision with locks and checksums
-  -> deterministic ConfigHub import and component resolution
-  -> per-config OCI artifacts + digest-pinned platform bundle
-  -> explicit ConfigHub organization with topology and target bindings
-  -> ConfigHub promotion; Argo CD reconciliation
+config.yaml + ordered Kubara catalogs
+  -> generated platform + add-ons + ApplicationSets + wiring
+  -> deterministic preparer + reviewed exact artifact lock
+  -> separate clean hand-off subtree
+  -> immutable, pushed Git revision + locks + external scan receipt
+  -> target-neutral component/config OCI set + platform content lock
+  -> selected ConfigHub organization + separate destination binding lock
+  -> governed app releases -> cluster-local Argo reconciliation
 ```
 
 ### 1. Select and wire the platform in Kubara
 
-The platform team keeps using `config.yaml` to name the hub and spokes, enable
-or disable services, select per-cluster configuration, and express the wiring
-Kubara understands. Kubara's effective ordered catalog set and normal
-`values-*.yaml` overrides remain authoring inputs. ConfigHub does not choose a
-different platform.
+Keep using Kubara's `config.yaml`, effective ordered catalogs, normal
+`values-*.yaml` overrides, and familiar service definitions. The official
+catalog and the byte-preserving ConfigHub-aligned export produce the same 131
+generated files for this example. ConfigHub does not choose a different
+platform or require AI to reconstruct the intent.
 
 ### 2. Let Kubara generate the complete platform tree
 
-Kubara generates `platform-components/`, `platform-configs/`, add-ons,
-AppProjects, ApplicationSets, documented overrides, and wiring. The generated
-tree is treated as one coherent platform revision, while each deployable
-component instance remains separately identifiable.
+Retain `platform-components/`, `platform-configs/`, add-ons, AppProjects,
+ApplicationSets, documented overrides, effective renders, and wiring. The
+importer treats them as one coherent platform revision while keeping every
+reusable definition and effective component/config instance separately
+packageable and reviewable.
 
-### 3. Commit the source and generated evidence to Git
+### 3. Prepare a clean, deterministic hand-off subtree
 
-Commit `config.yaml`, the generated tree, exact artifact and dependency locks,
-documented overrides, source checksums, the generation receipt with effective
-render checksums and object counts, and the wiring ledger together. The import
-request names one immutable commit SHA and one selected path; a moving branch
-name is not an acceptable source identity.
+Run the hand-off preparer after Kubara's normal generation command. It does not
+run or emulate Kubara, rearrange the existing source tree, consult a cluster,
+or use AI. A reviewed request maps the ordinary Kubara paths, pins the exact
+Kubara binary, Helm build, render capabilities, and component artifacts, and
+writes a separate clean subtree atomically:
 
-Git remains the auditable hand-off from Kubara. A checkout with changed files,
-a ref that resolves to a different commit, a missing lock, or a checksum drift
-must fail before ConfigHub state is planned.
+```sh
+node scripts/prepare-kubara-git-handoff.mjs --generate \
+  --request /absolute/path/to/checkout/examples/kubara/git-import/current-platform.prepare.yaml \
+  --checkout /absolute/path/to/checkout \
+  --kubara-bin /absolute/path/to/sha-pinned-kubara
+```
 
-### 4. Import that exact revision and package deployable configuration
+For this example the output is
+`examples/kubara/prepared-current-platform`: 159 checked files containing the
+copied source/config and reviewed generated tree, 13 deterministic effective
+renders, exact locks, generation and preparation receipts, checksums, and the
+offline wiring graph. The preparer refuses a missing or ambiguous exact
+component artifact, copied-input drift, credential-shaped material, dotenv and
+target-fact files, symlinks, pre-vendored chart archives, and a concurrent input
+change. It keeps applications, destination facts, and secret values outside the
+platform hand-off.
 
-A deterministic importer reads the clean checkout at the requested SHA and
-resolves every selected Kubara component against ConfigHub's component-first
-Catalog. Resolution includes canonical identity, exact version and digest, the
-Kubara compatibility profile, and lifecycle facts. A missing exact match,
-duplicate provider, unexpected secret value, or conflicting identity fails;
-the importer never picks a nearby version.
+### 4. Commit, push, and offline-verify the exact hand-off
 
-The compiler cross-checks every component-instance render digest and object
-count, and every dependency SHA, against the committed generation receipt. It
-also requires the wiring graph's component, version, and object inventories to
-match those same instances. A self-consistent-looking but stale subset cannot
-be imported.
+Commit and push the source config, complete generated tree, reviewed
+preparation request, exact artifact and dependency locks, separate prepared
+subtree, source/render checksums, generation and preparation receipts, and
+wiring ledger together. The import request pins one HTTPS `.git` remote, full
+immutable commit object, and selected prepared path. A mutable ref, wrong
+origin, dirty or untracked file, symlink, checksum drift, or selected byte
+changing during compile is refused.
 
-The importer produces three deliberately separate outputs:
+In a clean checkout of the pushed commit, verify that the raw Kubara inputs and
+prepared subtree still match byte for byte. This command is offline and must
+leave the checkout unchanged:
 
-- one configuration Unit and one immutable deployable-configuration OCI
-  package/release for each component instance, so a cluster or component can be
-  reviewed, promoted, and rolled back independently;
-- one digest-pinned platform bundle that indexes those exact OCI digests and
-  their platform revision, rather than hiding the fleet in one opaque YAML
-  blob;
-- separate topology and wiring facts for hub/spoke placement, enabled and
-  disabled services, upgrade lineage, and consumer-to-provider edges.
+```sh
+npm run kubara-git-handoff:verify-current
+```
 
-Target Secret values and environment-owned target facts do not enter Git or
-those OCI artifacts. They are declared as requirements and bound at target or
-apply time.
+Then run a pinned external secret scanner over that exact commit and selected
+path, retain its report outside the tree, and explicitly review opaque files.
+The importer also applies a conservative credential-shaped-material check, but
+does not pretend either mechanism can prove arbitrary bytes secret-free.
 
-The present laptop proof has one explicit test-only departure: its kind fake
-provider and demo Grafana value are committed under `target-facts/` so the
-fixture can be reproduced without a real secret backend. The generalized
-importer must not ingest or publish that file. Its production proof must supply
-the target fact and secret value through the separately authorized target
-binding.
+The reusable request, path rules, and exact command sequence are in the
+[Git-revision hand-off guide](../../../examples/kubara/git-import/README.md).
 
-### 5. Materialize the plan in an explicit ConfigHub organization
+### 5. Inspect, compile, verify, and package
 
-The user selects the destination organization explicitly; the importer must not
-guess from an ambient default. It may initialize a new empty organization, or
-reconcile an importer-owned platform with the same platform digest. An
-unrelated object, conflicting owner, changed source revision, or ambiguous
-partial cluster state fails without deletion.
+The user first selects and bootstraps the destination organization, Targets,
+and ConfigHub-managed cluster-local Argo roots. The importer never guesses an
+ambient organization and never creates an organization or Target. Its
+read-only `--inspect-destination` mode pins the exact context/server,
+organization entity, Space/Target/Unit IDs, Unit data hashes, argobot source,
+published workload heads, and separately observed delivery-runtime version and
+image without copying live Unit data or evidence contents into the request.
 
-The plan creates component-definition and per-cluster component-instance
-Spaces, Units and Variants, ClusterTargets, UpgradeUnit lineage, and visible
-`NeedsProvides` Links. Target facts and secret references bind here, outside the
-Git and OCI payloads. Repeating the same revision and request yields the same
-plan and no semantic changes.
+`--compile` and `--verify` then cross-check the complete Git inventory, exact
+component artifacts, effective-render hashes and object counts, generation
+receipt, and wiring ledger. `--package` publishes one target-neutral immutable
+OCI layer per component definition, one per effective component/config set,
+and one platform index. Under the required exclusive single-writer gate for the
+selected OCI repository base, existing exact artifacts are reused and an
+observed conflicting layer or media contract is refused.
 
-The materialized labels make the component-first catalog, exact version,
-deployable/configuration surface, base or target variant, definition or
-instance role, hub or spoke placement, and cluster-local Argo delivery
-searchable in the ConfigHub GUI. The 25 `NeedsProvides` Links are a
-curated operational subset: they expose the relationships an operator must
-follow during delivery, while the complete extracted graph remains separately
-available as linked deterministic evidence. The importer does not flatten the
-complete graph into hundreds of noisy operational Links.
+The portable `PlatformDigest` excludes all destination facts. A separate
+`BindingDigest` covers the organization, targets, runtime observations,
+workload pins, and navigation. Consequently the same Kubara revision produces
+the same component payloads and platform digest in two organizations, while
+each organization receives its own binding lock. The binding lock and target
+facts are explicitly excluded from OCI.
 
-### 6. Promote applications through ConfigHub; let Argo reconcile
+### 6. Apply to the selected organization and verify twice
 
-Applications are a subsequent hand-off, not something the platform importer
-silently invents. Teams create or retain application bases and target variants,
-promote approved revisions across development, staging, and production, and
-keep target departures and rollback history. ConfigHub governs those revisions
-and publishes their exact releases; Argo CD remains the continuous reconciler.
+An operator completes the generated, secret-free target-fact attestation from
+external evidence. `--apply` pulls and verifies every exact OCI layer before
+mutation, then materializes definition/instance Spaces and Units, target
+metadata, `UpgradeUnit` lineage, curated `NeedsProvides` Links, platform Argo
+Applications, apps-root releases, and source releases in deterministic order.
+Each run requires serialized control of that importer-managed topology and its
+request-pinned bootstrap/workload heads because `cub` mutations are not one
+cross-client conditional transaction; unrelated app source Spaces stay outside
+that operational lock.
 
-### What is proved now, and what the generalized importer must still prove
+The first apply records changes. An immediate identical second apply must
+record zero actions before `apply-receipt.json` passes. That receipt is a
+deterministic continuity record, not a server-signed or cryptographically
+tamper-proof attestation. The importer itself issues no delete operation;
+generated Argo Applications disclose and retain pruning, so removals in a later
+reviewed source release can be deleted from a cluster after sync. Argo sync and
+cluster health are verified separately at the receipt's exact release digests.
 
-| Surface | Current four-cluster proof | Generalized Git importer capability |
+The request exposes two Argo identities rather than conflating them:
+`hx-argo-base` is Kubara's **Faithful** chart 10.2.1 definition, whose current
+render contains Argo CD v3.4.5; `hx-argo-runtime-base` is the **Adapted**
+ConfigHub delivery-runtime definition, bound to the externally observed local
+runtime (v3.4.6 in this example). The faithful hub executor remains a separate
+proved lane; the general importer materializes the ConfigHub-managed local-Argo
+lane without changing the platform selection.
+
+### 7. Deploy and promote applications
+
+Teams use the normal ConfigHub application workflow for app definitions,
+target variants, checks, approvals, promotions, rollbacks, departures, and
+releases. Argo remains the continuous cluster reconciler. The platform importer
+does not invent app code or flatten applications into its platform index.
+
+Existing workload Applications can be request-pinned and preserved exactly.
+Adding those pins changes `BindingDigest`, not `PlatformDigest` or component
+OCI. A later Kubara content revision requires a separately preserved passing
+receipt and an explicit additive transition: the importer can resume an exact
+authorized partial run, but cannot silently remove or rename managed topology,
+drop a workload pin, rebind a Target or upstream, or rewire a Link.
+
+### Implemented versus separately proved
+
+| Surface | Current four-cluster evidence | General importer implementation |
 | --- | --- | --- |
-| Kubara selection and generation | Current v0.13.0 config generates 131 byte-identical files from both catalog lanes and 13 deterministic effective renders. | Accept an arbitrary supported Kubara tree without changing its selections or wiring. |
-| Git evidence | The fixture retains source locks, checksums, generated files, effective renders, and wiring data. | Require a clean checkout at one immutable SHA and emit a receipt bound to that revision; do not fake such a receipt while the fixture is uncommitted. |
-| Component resolution and packaging | Exact component candidates, additive Catalog retention, catalog OCI publication, and purpose-built per-Space releases are separately gated. | Compile one general plan, emit one deployable configuration OCI per component instance, and emit a digest-pinned platform bundle without an opaque fleet blob. |
-| Target facts and Secrets | The kind fixture commits a fake-provider target fact with demo-only data for reproducibility; it is an explicit test departure. | Keep target facts and all Secret values outside the imported Git tree and OCI artifacts, then bind them through separately authorized target inputs. |
-| ConfigHub shape | The purpose-built mini-IDP reconciler plans the explicit `Kubara` organization, definition and instance Units, targets, upgrade lineage, and `NeedsProvides` Links. Its live claim depends on its receipt. | Support an explicitly selected new-empty or same-import-owned organization with deterministic conflict and no-delete rules. |
-| Applications and reconciliation | hx-web and cubbychat, promotion, approval, rollback, departures, and Argo reconciliation are acceptance-gated in the current mini-IDP lane; older v0.12 receipts remain historical evidence. | Hand off to the ordinary ConfigHub application workflow after platform import; never synthesize applications from guesses. |
+| Kubara selection and generation | Kubara v0.13.0 generates 131 byte-identical files from both catalog lanes and 13 deterministic effective renders. | Accepts the complete supported Kubara tree without changing selections, topology, namespaces, or wiring. |
+| Git and security boundary | Committed locks, checksums, generated files, renders, and wiring remain reviewable. | Requires an exact clean pushed revision, inventories every selected path, requires an external scanner attestation, and keeps target facts outside Git/OCI. |
+| Component-first OCI | The Catalog retains all 130 versions across 103 components while this platform selects seven roles. | Under exclusive single-writer publication control, publishes reusable definition and effective-config packages plus a target-neutral digest index; exact observed remote layers are reused and conflicts are refused. |
+| ConfigHub shape | The purpose-built mini-IDP's live claim depends on its exact receipt. | Applies to an explicitly selected existing context with pre-existing targets/bootstrap; allows only an identical current digest or exact prior-receipt-authorized additive transition, and proves a second zero-action run in its isolated acceptance suite. |
+| Wiring and delivery | The GUI has 25 curated `NeedsProvides` Links and the public graph retains the full extracted evidence. | Materializes exact Links and Applications from a versioned contract; publishes apps-root releases before source releases and verifies pulled payload bytes. |
+| Applications | hx-web and cubbychat exercise promotion, approval, rollback, departures, release, and reconciliation in the mini-IDP lane. | Preserves explicitly pinned existing workload Applications, then hands new application delivery to the ordinary ConfigHub workflow. |
 
-The accepted shared importer interface is an offline plan compiler and
-byte-for-byte verifier. Start with its
-[request contract and walkthrough](../../../examples/kubara/git-import/README.md),
-then run the adversarial fixture test:
+Use the copyable, fully linear
+[request contract and walkthrough](../../../examples/kubara/git-import/README.md)
+and its schema-complete
+[`request.example.yaml`](https://github.com/confighub/helm-expt/blob/main/examples/kubara/git-import/request.example.yaml).
+The general importer modes are implemented: `--inspect-destination`, `--plan`,
+`--compile`, `--verify`, `--package`, and `--apply`. Its isolated acceptance
+suite covers two destination organizations, OCI publication and pulled-layer
+verification, exact bootstrap and workload pins, interruption/resume, additive
+next-revision transitions, adversarial refusals, and the required second
+zero-action run:
 
 ```bash
 npm run kubara-git-import:self-test
 ```
 
-For a real detached checkout, copy the
-[`request.example.yaml`](https://github.com/confighub/helm-expt/blob/main/examples/kubara/git-import/request.example.yaml),
-replace every example identity, and keep the output outside the checkout:
-
-```bash
-node scripts/import-kubara-git-revision.mjs --compile \
-  --request /absolute/path/to/request.yaml \
-  --checkout /absolute/path/to/clean-checkout \
-  --output /absolute/path/to/import-plan
-
-node scripts/import-kubara-git-revision.mjs --verify \
-  --request /absolute/path/to/request.yaml \
-  --checkout /absolute/path/to/clean-checkout \
-  --output /absolute/path/to/import-plan
-```
-
-`--plan` prints the same deterministic plan without writing it. The compiler
-scans the complete selected Git path and refuses `target-facts/`, symlinks,
-untracked or dirty input, non-exact locks, and credential-shaped material. The
-self-test first proves that the current fixture's fake-provider test departure
-and cubbychat application credential are rejected, then externalizes target
-facts and apps and proves one hub, three spokes, seven deployable definitions,
-and 13 component-instance release plans.
-
-`--package` and `--apply` deliberately fail: generic OCI publication and
-explicit-organization reconciliation are not shipped yet. The four-cluster
-reconciler remains the concrete current implementation until an immutable-Git
-importer receipt, OCI package set, platform-bundle digest, target binding, and
-clean-room organization reconciliation all pass. Faithful Kubara-hub execution
-also remains the separate topology proof lane; this compiler currently accepts
-only the ConfigHub-managed Argo delivery plan.
+This self-test does not contact a live ConfigHub organization, registry, or
+cluster. The canned four-cluster reconciler below remains the separate live
+proof and website source of truth.
 
 ## Prepare the deterministic inputs
 
@@ -547,8 +612,10 @@ npm run kubara-current-catalog-promotion:verify
 ```
 
 Both promotion gates refuse a pre-existing destination, preserve the immutable
-110-version baseline, and only add the ten qualified versions. The expected
-root total is 120; no older recipe, package, receipt, or path is removed.
+110-version baseline, and only add the ten qualified versions. Their
+intermediate root total is 120; no older recipe, package, receipt, or path is
+removed. The next gate retains that complete 120-root state byte-for-byte while
+adding the remaining Kubara catalogs 1.1.0 selections.
 
 ### 6. Publish and verify the ten exact catalog OCI additions
 
@@ -562,7 +629,32 @@ Publication is deliberately after both root promotions. It addresses the exact
 ten approved packages and records immutable digests; a local candidate or root
 path alone is not a publication claim.
 
-### 7. Prove the faithful Kubara hub-and-spoke lane
+### 7. Complete every Kubara catalogs 1.1.0 component selection
+
+Kubara's pinned bootstrap and general wrapper catalogs contain 21 dependency
+occurrences and 18 unique exact component/version selections. Ten were not yet
+version roots in ConfigHub's Catalog. Generate and verify those candidates,
+perform the no-write source/registry preflight, promote them additively, then
+publish only their ten exact OCI refs:
+
+```bash
+npm run kubara-catalog-full-coverage:generate
+npm run kubara-catalog-full-coverage:verify-candidates
+npm run kubara-catalog-full-coverage:preflight
+npm run kubara-catalog-full-coverage:promote
+npm run kubara-catalog-full-coverage:publish
+npm run kubara-catalog-full-coverage:verify
+```
+
+This gate increases the component-first Catalog from 100 components and 120
+versions to 103 components and 130 versions. It byte-locks every older root,
+refuses an existing different remote layer, records the exact URL and SHA-256
+for each selected source, and keeps external-dns 1.21.1 and Traefik 41.0.2 as
+separate supplemental source locks because their existing package roots do not
+need to change. Publication proof does not by itself claim target-specific
+runtime health or production readiness.
+
+### 8. Prove the faithful Kubara hub-and-spoke lane
 
 ```bash
 export KUBARA_BIN=/absolute/path/to/kubara
@@ -582,7 +674,7 @@ OpenBao-to-External-Secret registration, Synced/Healthy cert-manager delivery,
 and exact cleanup. The receipt also states that a ConfigHub approval
 attestation is not yet an enforced GitHub required status.
 
-### 8. Reconcile and verify the complete ConfigHub mini-IDP
+### 9. Reconcile and verify the complete ConfigHub mini-IDP
 
 ```bash
 npm run kubara-mini-idp:plan
@@ -595,7 +687,7 @@ npm run kubara-mini-idp:receipt-verify
 The canned reconciler is scoped to the `Kubara` organization at
 `https://hub.confighub.com`, pins context/external organization ID
 `58b23b85-9699-4384-bd57-80ef695a1d58` and internal organization entity ID
-`12c33fa8-00b1-4011-ad3e-19d56458b29c`, and enforces the exact 53-Space
+`12c33fa8-00b1-4011-ad3e-19d56458b29c`, and enforces the exact 55-Space
 allowlist. It captures the selected context name and revalidates both IDs and
 the server before every write. The generalized importer instead requires the
 user's explicitly selected organization. It creates missing owned objects and converges changed owned objects,
@@ -683,11 +775,13 @@ On kind, Traefik, Ingress-only platform bindings, and cubbychat may remain
 `Progressing` while their load-balancer address is intentionally absent;
 separate workload readiness checks must still pass.
 
-The accepted desired plan is explicit: 53 Spaces, 60 managed Units, 27
-deployments, 25 `NeedsProvides` Links, and 53 source/evidence payloads before
-the faithful-lane receipt exists. That receipt becomes the 54th governed
-payload in the apply-ready plan. Those are plan and allowlist counts, not a
-substitute for the live mini-IDP receipt.
+The accepted desired plan is explicit: 55 Spaces, 63 managed Units, 27
+deployments, and 25 `NeedsProvides` Links. The two Argo definitions are both
+present: `hx-argo-base` retains Kubara's chart/runtime evidence and
+`hx-argo-runtime-base` describes ConfigHub's independently observed delivery
+runtime. Exact governed payload membership is recorded in the current plan and
+receipt rather than inferred from these counts. Plan and allowlist counts are
+not a substitute for the live mini-IDP receipt.
 
 The final state must show more than pods:
 
@@ -716,7 +810,7 @@ promotions. The receipt distinguishes `executed` from
 `runs/kubara-mini-idp-reconcile/receipt.yaml` reports `pass` and receipt
 verification succeeds.
 
-### 9. Regenerate the matrix from the exact live receipt
+### 10. Regenerate the matrix from the exact live receipt
 
 ```bash
 npm run kubara-platform-matrix:generate
@@ -727,7 +821,7 @@ Generation happens after the mini-IDP receipt so each component-by-cluster cell
 can use exact observed evidence where it exists and remain `unknown` where it
 does not. The generated JSON, CSV, Markdown, and colored HTML must agree.
 
-### 10. Regenerate and verify every catalog and website release surface
+### 11. Regenerate and verify every catalog and website release surface
 
 ```bash
 npm run kubara-catalog-release:generate
@@ -738,7 +832,7 @@ This refreshes the catalog status, chart catalogs, root catalog, promotion
 review, installer OCI index, npm command catalog, and public site from the
 promoted, published, reconciled, and freshly generated matrix state.
 
-### 11. Pass the umbrella release verifier
+### 12. Pass the umbrella release verifier
 
 ```bash
 npm run kubara-release:verify

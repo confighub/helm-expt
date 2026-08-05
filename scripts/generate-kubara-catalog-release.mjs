@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-// Regenerate the catalog surfaces whose inputs change when the ten qualified
-// Kubara versions become retained roots. Publication verification is first, so
-// no derived file is changed unless both promotion waves and all ten remote OCI
-// artifacts verify.
+// Regenerate the catalog surfaces after both additive Kubara waves. Publication
+// verification is first, so no derived file is changed unless the immutable
+// 120-root intermediate Catalog, the ten full-coverage additions, and all exact
+// remote OCI artifacts verify.
 
 import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync } from "node:fs";
@@ -12,8 +12,11 @@ import { join } from "node:path";
 import { check, repoRoot } from "./lib/proof-common.mjs";
 import {
   KUBARA_CATALOG_ADDITIONS,
-  KUBARA_CATALOG_BASELINE,
 } from "./lib/kubara-catalog-release.mjs";
+import {
+  KUBARA_CATALOG_1_1_ADDITIONS,
+  KUBARA_CATALOG_1_1_FINAL,
+} from "./lib/kubara-catalog-1-1-full-coverage.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 if (!["--generate", "--verify"].includes(mode)) {
@@ -25,6 +28,7 @@ if (!["--generate", "--verify"].includes(mode)) {
 
 verifyFinalRootScope();
 run("scripts/publish-kubara-catalog-additions.mjs", "--verify");
+run("scripts/complete-kubara-catalog-1-1-coverage.mjs", "--verify");
 
 const derived = [
   "scripts/generate-catalog-status.mjs",
@@ -44,15 +48,19 @@ const derived = [
 for (const script of derived) run(script, mode);
 if (mode === "--verify") run("scripts/verify-site-ux-contract.mjs");
 
-console.log(`${mode === "--generate" ? "generated" : "verified"} the 120-version additive Kubara catalog and public release surfaces`);
+console.log(`${mode === "--generate" ? "generated" : "verified"} the ${KUBARA_CATALOG_1_1_FINAL.componentCount}-component/${KUBARA_CATALOG_1_1_FINAL.versionCount}-version additive Kubara catalog and public release surfaces`);
 
 function verifyFinalRootScope() {
   for (const rootName of ["recipes", "packages"]) {
     const roots = versionRoots(rootName);
-    const expectedCount = KUBARA_CATALOG_BASELINE.versionCount + KUBARA_CATALOG_ADDITIONS.length;
+    const expectedCount = KUBARA_CATALOG_1_1_FINAL.versionCount;
     check(roots.length === expectedCount, `${rootName}: Kubara catalog release requires exactly ${expectedCount} retained version roots, found ${roots.length}`);
     for (const path of KUBARA_CATALOG_ADDITIONS) {
       check(roots.includes(`${rootName}/${path}`), `${rootName}/${path} is missing from the final additive release scope`);
+    }
+    for (const item of KUBARA_CATALOG_1_1_ADDITIONS) {
+      const path = `${item.canonicalIdentity}/${item.version}`;
+      check(roots.includes(`${rootName}/${path}`), `${rootName}/${path} is missing from the full Kubara catalogs 1.1.0 release scope`);
     }
   }
 }

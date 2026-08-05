@@ -107,7 +107,7 @@ function classifyMode(name, command) {
 function classifyExternalState(name, command, mode) {
   if (name.includes("verify-install:cluster") || name.includes("verify-install:confighub") || name.startsWith("verify-bulk-ops:")) return "user-supplied-cluster-or-confighub";
   if (name.startsWith("helm-org:") && !name.endsWith(":plan") && !name.includes(":receipt:verify")) return "confighub-or-live-cluster";
-  if (name.startsWith("kubara-org-shape:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify")) return "confighub-or-live-cluster";
+  if (name.startsWith("kubara-org-shape:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify") && !name.endsWith(":self-test")) return "confighub-or-live-cluster";
   if (name.startsWith("kubara-mini-idp:") && !name.endsWith(":plan") && !name.endsWith(":receipt-verify")) return "confighub-or-live-cluster";
   if ((name.startsWith("kubara-faithful-hub-spoke:") || name.startsWith("kubara-live-qualification:") || name.startsWith("kubara-current-live-qualification:")) && (name.endsWith(":run") || name.endsWith(":preflight"))) return "confighub-or-live-cluster";
   if (name === "kubara-faithful-hub-spoke:rehearse") return "local-kubara-binary";
@@ -131,7 +131,6 @@ function classifyExternalState(name, command, mode) {
 
 function classifyWritesFiles(name, command, mode) {
   if (name === "kubara-org-shape:plan") return "no";
-  if (name === "kubara-org-shape:apply") return "receipts-or-runs";
   if (name === "kubara-mini-idp:plan") return "no";
   if (name === "kubara-mini-idp:apply") return "receipts-or-runs";
   if (name === "kubara-catalog-oci:dry-run") return "no";

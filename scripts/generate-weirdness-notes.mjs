@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { join } from "node:path";
+import { check, readYaml, relativeRepo, write } from "./lib/proof-common.mjs";
+import { catalogDerivedPath, recipeRoots } from "./lib/catalog-derived-views.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 
@@ -23,18 +24,16 @@ if (mode === "--generate") {
 }
 
 function eligibleRecipeRoots() {
-  return listFiles(join(repoRoot, "recipes"))
-    .filter((file) => file.endsWith("/catalog-status.yaml"))
-    .map((file) => dirname(file))
+  return recipeRoots()
     .filter((root) => {
-      const status = readYaml(join(root, "catalog-status.yaml"));
+      const status = readYaml(catalogDerivedPath(root, "catalog-status.yaml"));
       return status.spec?.status === "catalog-supported";
     })
     .sort();
 }
 
 function buildNote(root) {
-  const status = readYaml(join(root, "catalog-status.yaml"));
+  const status = readYaml(catalogDerivedPath(root, "catalog-status.yaml"));
   const dossier = readYaml(join(root, "chart-dossier.yaml"));
   const controlPoints = readYaml(join(root, "control-points.yaml"));
   const recipe = readYaml(join(root, "recipe.yaml"));
@@ -95,7 +94,7 @@ ${bulletList(controlPointNames)}
 - Chart dossier: [chart-dossier.yaml](chart-dossier.yaml)
 `;
 
-  return { path: join(root, "weirdness-and-mitigations.md"), markdown };
+  return { path: catalogDerivedPath(root, "weirdness-and-mitigations.md"), markdown };
 }
 
 function listInline(values) {

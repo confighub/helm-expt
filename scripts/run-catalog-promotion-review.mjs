@@ -9,6 +9,7 @@ import {
   sha256File,
   write,
 } from "./lib/proof-common.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "catalog-promotion-review");
 const reviewCsvPath = join(outputRoot, "review.csv");
@@ -53,7 +54,7 @@ function reviewRecipe(root) {
   const sourceLock = readYaml(join(root, "source-lock.yaml"));
   const controlPoints = readYaml(join(root, "control-points.yaml"));
   const valueModel = readYaml(join(root, "value-model.yaml"));
-  const catalogStatusPath = join(root, "catalog-status.yaml");
+  const catalogStatusPath = catalogDerivedPath(root, "catalog-status.yaml");
   const catalogStatus = existsSync(catalogStatusPath) ? readYaml(catalogStatusPath) : null;
   const packageReceiptPath = join(root, "publication", "installer-package-receipt.yaml");
   const packageReceipt = existsSync(packageReceiptPath) ? readYaml(packageReceiptPath) : null;

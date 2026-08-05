@@ -7,7 +7,7 @@
 // stays unresolved.
 
 import { existsSync, readFileSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, resolve } from "node:path";
 
 import {
   check,
@@ -111,7 +111,17 @@ const REFERENCEABLE_KINDS = new Set([
   "StorageClass",
 ]);
 
-if (["--generate", "--verify"].includes(mode)) {
+if (["--handoff-generate", "--handoff-verify"].includes(mode)) {
+  const profile = loadPreparedHandoffProfile();
+  const report = buildReport(profile);
+  const output = profile.graphOutput;
+  if (mode === "--handoff-generate") write(output, report.graph);
+  else {
+    check(existsSync(output), `${profileLabel(profile, output)} is missing; generate the prepared handoff wiring graph`);
+    check(readFileSync(output, "utf8") === report.graph, `${profileLabel(profile, output)} is stale; regenerate the prepared handoff wiring graph`);
+  }
+  console.log(`${mode === "--handoff-generate" ? "wrote" : "verified"} prepared Kubara handoff wiring graph: ${report.document.spec.summary.needs} needs, ${report.document.spec.summary.unresolved} unresolved`);
+} else if (["--generate", "--verify"].includes(mode)) {
   selfTest();
   for (const profileName of requestedProfiles) {
     const profile = loadProfile(profileName);
@@ -133,7 +143,33 @@ if (["--generate", "--verify"].includes(mode)) {
   console.log(`Usage:
   node scripts/generate-kubara-wiring.mjs --generate [--profile current|historical-v0.12.0|--all]
   node scripts/generate-kubara-wiring.mjs --verify   [--profile current|historical-v0.12.0|--all]
+  node scripts/generate-kubara-wiring.mjs --handoff-generate --root <prepared-output-root> --artifact-index <exact-lock> --output <graph.json> --name <slug>
+  node scripts/generate-kubara-wiring.mjs --handoff-verify   --root <prepared-output-root> --artifact-index <exact-lock> --output <graph.json> --name <slug>
   node scripts/generate-kubara-wiring.mjs --self-test`);
+}
+
+function loadPreparedHandoffProfile() {
+  const root = resolve(requiredOption("--root"));
+  const artifactIndex = resolve(requiredOption("--artifact-index"));
+  const graphOutput = resolve(requiredOption("--output"));
+  const name = requiredOption("--name");
+  check(/^[a-z0-9](?:[a-z0-9.-]{0,61}[a-z0-9])?$/.test(name), "prepared handoff --name must be a lowercase DNS-style slug");
+  const renderReceiptPath = join(root, "generation-receipt.yaml");
+  check(existsSync(renderReceiptPath), `${renderReceiptPath} is missing`);
+  check(existsSync(artifactIndex), `${artifactIndex} is missing`);
+  check(relative(root, graphOutput) === "wiring/graph.json", "prepared handoff graph output must be <root>/wiring/graph.json");
+  return {
+    id: name,
+    role: "prepared-git-handoff",
+    preparedHandoff: true,
+    pathRoot: root,
+    renderRoot: join(root, "effective-renders"),
+    renderReceiptPath,
+    artifactIndex,
+    artifactIndexLabel: "component-artifacts.yaml",
+    outputRoot: join(root, "wiring"),
+    graphOutput,
+  };
 }
 
 function loadProfile(name) {
@@ -185,10 +221,10 @@ function buildReport(profile) {
       evidence: {
         mode: "offline-effective-render",
         profileRole: profile.role,
-        kubaraVersion: receipt.spec?.source?.kubaraVersion ?? "unknown",
-        catalogVersion: receipt.spec?.source?.catalogVersion ?? "unknown",
-        renderReceipt: relativeRepo(profile.renderReceiptPath),
-        artifactIndex: relativeRepo(profile.artifactIndex),
+        kubaraVersion: receipt.spec?.source?.kubaraVersion ?? receipt.spec?.tools?.kubaraVersion ?? "unknown",
+        catalogVersion: receipt.spec?.source?.catalogVersion ?? receipt.spec?.tools?.catalogVersion ?? "unknown",
+        renderReceipt: profileLabel(profile, profile.renderReceiptPath),
+        artifactIndex: profile.artifactIndexLabel ?? profileLabel(profile, profile.artifactIndex),
         clusters: [...new Set(corpus.map((entry) => entry.cluster))].sort(),
         liveReads: [],
       },
@@ -232,13 +268,16 @@ function buildReport(profile) {
         ambiguous: statuses.ambiguous ?? 0,
       },
       claimBoundary: [
-        "The graph is mechanically derived from committed effective renders, not inferred from chart names or intended values branches.",
+        profile.preparedHandoff
+          ? "The graph is mechanically derived from prepared effective renders; the final Git commit and external credential scan are bound later."
+          : "The graph is mechanically derived from committed effective renders, not inferred from chart names or intended values branches.",
         "Resolved-runtime means a controller contract is rendered; it is not live evidence that the target object exists.",
         "Unresolved means absent from this aggregate render. A separately managed cluster prerequisite may still satisfy it.",
         "Disabled or non-rendering values branches do not appear as wiring edges.",
       ],
     },
   };
+  if (profile.preparedHandoff) rewritePreparedEvidenceLanguage(graph);
   const csv = edgesCsv(graph.spec.edges, analysis.facts);
   const summary = markdownSummary(graph, needs, crossComponent, applicationDeliveries, profile);
   const html = htmlReport(graph, needs);
@@ -251,6 +290,18 @@ function buildReport(profile) {
   };
 }
 
+function rewritePreparedEvidenceLanguage(value) {
+  if (!value || typeof value !== "object") return;
+  for (const [key, nested] of Object.entries(value)) {
+    if (typeof nested === "string") {
+      value[key] = nested
+        .replaceAll("committed effective render", "prepared effective render")
+        .replaceAll("committed aggregate render", "prepared aggregate render")
+        .replaceAll("committed desired state", "prepared desired state");
+    } else rewritePreparedEvidenceLanguage(nested);
+  }
+}
+
 function writeOutputs(report, outputs) {
   write(outputs.graph, report.graph);
   write(outputs.csv, report.csv);
@@ -260,9 +311,13 @@ function writeOutputs(report, outputs) {
 
 function loadCorpus(profile) {
   const receipt = readYaml(profile.renderReceiptPath);
-  const instances = receipt.spec?.instances ?? receipt.spec?.components ?? [];
+  const instances = profile.preparedHandoff
+    ? receipt.spec?.outputs?.renders ?? []
+    : receipt.spec?.instances ?? receipt.spec?.components ?? [];
   const corpus = instances.map((instance) => {
-    const path = join(repoRoot, instance.output);
+    const path = profile.preparedHandoff
+      ? safePreparedPath(profile.pathRoot, instance.output, "prepared handoff render output")
+      : join(repoRoot, instance.output);
     check(existsSync(path), `${instance.output} is missing`);
     const text = readFileSync(path, "utf8");
     check(sha256(text) === instance.sha256, `${instance.output} does not match the effective-render receipt`);
@@ -270,8 +325,8 @@ function loadCorpus(profile) {
     check(docs.length === instance.objectCount, `${instance.output} object count does not match the effective-render receipt`);
     return {
       cluster: instance.cluster ?? "test-cluster",
-      component: instance.component ?? instance.name,
-      kubaraService: instance.kubaraService,
+      component: instance.component ?? instance.service ?? instance.name,
+      kubaraService: instance.kubaraService ?? instance.service,
       releaseNamespace: instance.namespace,
       source: instance.output,
       docs,
@@ -281,6 +336,21 @@ function loadCorpus(profile) {
 }
 
 function selectedVersions(profile) {
+  if (profile.preparedHandoff) {
+    const receipt = readYaml(profile.renderReceiptPath);
+    const result = new Map();
+    for (const row of receipt.spec?.outputs?.renders ?? []) {
+      const service = normalizeService(row.service ?? "");
+      check(service, "prepared handoff render row has no service");
+      const versions = [...(row.selectedVersions ?? [])]
+        .map((entry) => ({ identity: entry.identity, version: String(entry.version) }))
+        .sort((left, right) => left.identity.localeCompare(right.identity));
+      const prior = result.get(service);
+      check(!prior || JSON.stringify(prior) === JSON.stringify(versions), `${service}: prepared handoff selected versions differ across clusters`);
+      result.set(service, versions);
+    }
+    return result;
+  }
   const index = readYaml(profile.artifactIndex);
   const result = new Map();
   const rows = index.kind === "KubaraComponentArtifactSet"
@@ -300,6 +370,19 @@ function selectedVersions(profile) {
   }
   for (const entries of result.values()) entries.sort((left, right) => left.identity.localeCompare(right.identity));
   return result;
+}
+
+function profileLabel(profile, path) {
+  if (profile.preparedHandoff) return relative(profile.pathRoot, path).replaceAll("\\", "/");
+  return relativeRepo(path);
+}
+
+function safePreparedPath(root, value, label) {
+  check(typeof value === "string" && value.length > 0 && !value.startsWith("/") && !value.split(/[\\/]/).includes("..") && !value.includes("\0"), `${label} must be a safe handoff-relative path`);
+  const path = resolve(root, value);
+  const rel = relative(root, path);
+  check(rel !== ".." && !rel.startsWith(`..${process.platform === "win32" ? "\\" : "/"}`), `${label} escapes the prepared handoff root`);
+  return path;
 }
 
 function scopeAnalysis(analysis, cluster) {
@@ -1061,6 +1144,9 @@ ${graph.spec.evidence.kubaraVersion} across ${s.clusters} cluster(s). It records
 object references and selector matches visible in those manifests. It performs
 no live reads and does not claim live reconciliation.
 
+[Return to the Kubara adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html)
+· [Browse the component-first Catalog](https://confighub.github.io/helm-expt/site/charts/)
+
 Colored, accessible table: [graph.html](graph.html). Machine-readable forms:
 [graph.json](graph.json) and [edges.csv](edges.csv). Render provenance:
 [effective-render receipt](${receiptLink}).
@@ -1169,6 +1255,7 @@ function htmlReport(graph, needs) {
 <body>
 <main>
 <h1>Kubara effective-render wiring</h1>
+<nav aria-label="Kubara example navigation"><a href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">Adoption guide</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Component Catalog</a></nav>
 <p class="lede">${graph.spec.summary.needs} mechanically extracted needs across ${graph.spec.summary.componentInstances} component instances on ${graph.spec.summary.clusters} clusters. Status is always written as text and symbol; color is supplementary.</p>
 <div class="legend" aria-label="Resolution legend"><span class="key rendered">✓ resolved-rendered</span><span class="key runtime">◐ resolved-runtime</span><span class="key external">↗ external / target prerequisite</span><span class="key optional">○ optional-unprovided</span><span class="key unresolved">! unresolved</span><span class="key ambiguous">? ambiguous</span></div>
 <p class="boundary"><strong>Boundary:</strong> rendered means present in committed desired state. Runtime means a rendered controller contract declares the output. Neither is a live-health assertion.</p>
@@ -1179,6 +1266,7 @@ function htmlReport(graph, needs) {
 ${rows}
 </tbody>
 </table>
+<p><a href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">Return to the adoption guide</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Browse every retained component version</a></p>
 </main>
 </body>
 </html>
@@ -1213,6 +1301,12 @@ function escapeMd(value) {
 function option(name) {
   const index = process.argv.indexOf(name);
   return index === -1 ? null : process.argv[index + 1];
+}
+
+function requiredOption(name) {
+  const value = option(name);
+  check(value, `${name} is required`);
+  return value;
 }
 
 function selfTest() {

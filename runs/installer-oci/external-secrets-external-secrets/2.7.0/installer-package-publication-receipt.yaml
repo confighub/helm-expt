@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: external-secrets-external-secrets-2.7.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0
+  package:
+    path: packages/external-secrets/external-secrets/2.7.0
+    sha256: 42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4
+    sourceTreeSHA256: 0b404e58608ac27734f7ec42037251fe8f94d1bfd0aa37862b59588d23752a6f
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/external-secrets/external-secrets/2.7.0 -o <tmp>/external-secrets-external-secrets-2.7.0.tgz"
+    push: "cub installer push <tmp>/external-secrets-external-secrets-2.7.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0 --json"
+  outputs:
+    manifestDigest: sha256:ee514659892b2222b8173cde2a1a39f2e9ec80c15862a7bd30b36c44fc8f24cb
+    layerDigest: sha256:42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4
+    package: |
+      Bundled external-secrets-external-secrets@2.7.0
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-PSdMGF/external-secrets-external-secrets-2.7.0.tgz
+        files:  7
+        size:   157436 bytes
+        digest: sha256:42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0
+        manifest: sha256:ee514659892b2222b8173cde2a1a39f2e9ec80c15862a7bd30b36c44fc8f24cb
+        layer:    sha256:42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4 (157436 bytes, 7 files)
+    inspectJSONSHA256: 1dde4b191ac62a0a50e783c52511989af53bf2b301a6d78ea6a9f66f76b06402
+    inspectJSONCanonicalSHA256: ce861b639529c85cfe15761ec007b6bb210f9a009c6affa69a94eb82be4f2052

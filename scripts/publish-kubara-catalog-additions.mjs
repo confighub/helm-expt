@@ -17,6 +17,11 @@ import {
   KUBARA_OCI_PACKAGES,
   KUBARA_PROMOTION_RECEIPTS,
 } from "./lib/kubara-catalog-release.mjs";
+import {
+  KUBARA_CATALOG_1_1_ADDITIONS,
+  KUBARA_CATALOG_1_1_BASELINE,
+  KUBARA_CATALOG_1_1_FINAL,
+} from "./lib/kubara-catalog-1-1-full-coverage.mjs";
 
 const mode = process.argv[2] ?? "--dry-run";
 if (!["--dry-run", "--publish", "--verify"].includes(mode)) {
@@ -159,11 +164,23 @@ function verifyStaticScope() {
       .map((path) => relativePath(path).replace(new RegExp(`/${marker.replace(".", "\\.")}$`), ""))
       .sort();
     const additions = new Set(KUBARA_CATALOG_ADDITIONS.map((path) => `${rootName}/${path}`));
-    const baselineRoots = roots.filter((path) => !additions.has(path));
+    const fullCoverageAdditions = new Set(KUBARA_CATALOG_1_1_ADDITIONS.map((item) => `${rootName}/${item.canonicalIdentity}/${item.version}`));
+    const baselineRoots = roots.filter((path) => !additions.has(path) && !fullCoverageAdditions.has(path));
     check(baselineRoots.length === KUBARA_CATALOG_BASELINE.versionCount, `${rootName}: immutable baseline root count changed`);
     const expectedDigest = rootName === "recipes" ? KUBARA_CATALOG_BASELINE.recipesTreeSHA256 : KUBARA_CATALOG_BASELINE.packagesTreeSHA256;
     check(treeSetDigest(baselineRoots) === expectedDigest, `${rootName}: an immutable baseline root was removed or changed`);
-    check(roots.length <= KUBARA_CATALOG_BASELINE.versionCount + packages.length, `${rootName}: release scope exceeds 120 retained versions`);
+    const retained120 = roots.filter((path) => !fullCoverageAdditions.has(path));
+    const expected120 = rootName === "recipes"
+      ? KUBARA_CATALOG_1_1_BASELINE.recipesTreeSHA256
+      : KUBARA_CATALOG_1_1_BASELINE.packagesTreeSHA256;
+    check(
+      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount
+        && treeSetDigest(retained120) === expected120,
+      `${rootName}: the immutable 120-root intermediate Catalog changed`,
+    );
+    const declared = new Set([...baselineRoots, ...additions, ...fullCoverageAdditions]);
+    check(roots.every((path) => declared.has(path)), `${rootName}: undeclared retained version root exists`);
+    check(roots.length <= KUBARA_CATALOG_1_1_FINAL.versionCount, `${rootName}: release scope exceeds ${KUBARA_CATALOG_1_1_FINAL.versionCount} retained versions`);
   }
 }
 
@@ -172,16 +189,19 @@ function verifyReceiptInventory() {
     .filter((path) => basename(path) === "installer.yaml")
     .map((path) => relativePath(path).replace(/\/installer\.yaml$/, ""))
     .sort();
-  check(rootPackages.length === KUBARA_CATALOG_BASELINE.versionCount + packages.length, `expected exactly 120 additive package roots, found ${rootPackages.length}`);
+  const fullCoveragePackageRoots = new Set(KUBARA_CATALOG_1_1_ADDITIONS.map((item) => item.packagePath));
+  const retained120 = rootPackages.filter((path) => !fullCoveragePackageRoots.has(path));
+  check(retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount, `expected the immutable 120-package intermediate Catalog, found ${retained120.length}`);
+  check(rootPackages.length <= KUBARA_CATALOG_1_1_FINAL.versionCount, `retained package inventory exceeds ${KUBARA_CATALOG_1_1_FINAL.versionCount} declared versions`);
   const receiptPaths = listFiles(join(repoRoot, "runs", "installer-oci"))
     .filter((path) => path.endsWith("installer-package-publication-receipt.yaml"));
   const receipts = receiptPaths.map((path) => readYaml(path));
   const receiptPackages = receipts.map((receipt) => receipt.spec?.package?.path).sort();
   const receiptRefs = receipts.map((receipt) => receipt.spec?.ref);
-  check(receipts.length === rootPackages.length, `expected one publication receipt per retained package root, found ${receipts.length}`);
   check(new Set(receiptPackages).size === receiptPackages.length, "publication receipts contain duplicate package paths");
   check(new Set(receiptRefs).size === receiptRefs.length, "publication receipts contain duplicate OCI refs");
-  check(stableJson(receiptPackages) === stableJson(rootPackages), "publication receipt inventory differs from the retained package roots");
+  check(receiptPackages.every((path) => rootPackages.includes(path)), "publication receipt exists for an undeclared retained package root");
+  check(retained120.every((path) => receiptPackages.includes(path)), "the immutable 120-package Catalog is missing a publication receipt");
 }
 
 function verifyDeterministicArchive(packagePath, expectedSHA256) {

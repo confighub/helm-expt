@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: grafana-alloy-1.11.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0
+  package:
+    path: packages/grafana/alloy/1.11.0
+    sha256: 1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b
+    sourceTreeSHA256: 176b56fcd0cca6d795b0d442d3bc1fc437915d082f6ff6d46b07a95a68298737
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/grafana/alloy/1.11.0 -o <tmp>/grafana-alloy-1.11.0.tgz"
+    push: "cub installer push <tmp>/grafana-alloy-1.11.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0 --json"
+  outputs:
+    manifestDigest: sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305
+    layerDigest: sha256:1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b
+    package: |
+      Bundled grafana-alloy@1.11.0
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-sGbq47/grafana-alloy-1.11.0.tgz
+        files:  4
+        size:   3801 bytes
+        digest: sha256:1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0
+        manifest: sha256:29de0719bc9bc52e2ad47616af1542ef4e9d1b79734ce33c224555a518efe305
+        layer:    sha256:1c852abf30f2d7c4e801f923f8feab4c620e51603c4a00a57f3fb3a99dd0112b (3801 bytes, 4 files)
+    inspectJSONSHA256: f5dd1ddd9e5d06636d1193a5714b2c9bcdaa16a98dc6a07fa876c747c752b04d
+    inspectJSONCanonicalSHA256: c468f08ef15ee65b2661a780dce7fb15b35c4add1dc8f8d33fc36fda836deaf9

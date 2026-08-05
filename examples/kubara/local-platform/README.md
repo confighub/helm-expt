@@ -85,28 +85,30 @@ OCI layout. It also renders the downstream Homer chart with both values files
 to prove that the override replaces Kubara's generated placeholder. It removes
 the temporary directory when it finishes.
 
-## Show the adapted four-cluster organization shape
+## Inspect the retained v0.12 organization-shape record
 
-The live proof organization mirrors `source/config.yaml` as the untargeted
-`hx-platform/platform-contract` Unit. This proof does not publish its Space. An
-exact label plan groups all existing proof Spaces with `ExampleCohort`, reserves
-`KubaraVersion` for Kubara-derived surfaces, separates definitions from target
-instances, and gives lifecycle, prerequisite, wiring, and platform-binding
-surfaces distinct roles. The plan is offline; apply and live verification require
-the active `cub` context to name the `Kubara` organization.
+The historical proof mirrored `source/config.yaml` as the untargeted
+`hx-platform/platform-contract` Unit. Its exact 53-Space label plan and committed
+receipt remain available as dated evidence. They are not the desired state of
+the current Kubara v0.13.0 organization.
+
+Only the offline plan, receipt verification, and retirement self-test are
+supported:
 
 ```bash
 npm run kubara-org-shape:plan
-npm run kubara-org-shape:apply
-npm run kubara-org-shape:verify
 npm run kubara-org-shape:receipt-verify
+node scripts/sync-kubara-org-shape.mjs --self-test
 ```
 
-The script uses an explicit 53-Space allowlist and performs only Unit
-create/update and exact reconciliation of labels it owns. Re-running it makes no
-live change after convergence; each apply refreshes the observation timestamp in the
-[receipt](../../../runs/kubara-org-shape-proof/receipt.yaml). That receipt proves
-the mapping; it does not claim to rebuild the historical four-cluster platform.
+The retired `--apply` and live `--verify` modes fail before reading or writing
+ConfigHub. Do not use this fixture to reconcile the current `Kubara`
+organization: follow the
+[current v0.13.0 mini-IDP guide](../../../docs/demo/kubara/single-platform.md)
+and its `kubara-mini-idp:*` commands instead. The retained
+[receipt](../../../runs/kubara-org-shape-proof/receipt.yaml) proves only the
+historical mapping; it does not claim to rebuild or govern the current
+four-cluster platform.
 
 ## Kubara-native one-cluster delivery result
 

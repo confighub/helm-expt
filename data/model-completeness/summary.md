@@ -14,31 +14,33 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 ## Headline
 
 ```text
-charts: 110
-supported (Level 2, all 6): 108
-not yet supported: 2
-variant-rich (enhancement, >1 variant): 77
+charts: 130
+supported (Level 2, all 6): 126
+not yet supported: 4
+variant-rich (enhancement, >1 variant): 85
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
 
-- `render_equivalent`: 110/110
-- `behaviorally_complete`: 108/110
-- `readable`: 110/110
-- `usable`: 110/110
-- `verifiable`: 110/110
-- `honestly_scoped`: 110/110
-- _enhancement_ `variant_complete`: 77/110  (not a support criterion)
+- `render_equivalent`: 130/130
+- `behaviorally_complete`: 126/130
+- `readable`: 130/130
+- `usable`: 130/130
+- `verifiable`: 130/130
+- `honestly_scoped`: 130/130
+- _enhancement_ `variant_complete`: 85/130  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 
-- `behaviorally_complete`: 2
+- `behaviorally_complete`: 4
 
 ## Not yet supported (the work queue)
 
 | Chart | Score | Missing support criteria |
 | --- | ---: | --- |
 | `external-secrets/external-secrets@2.5.0` | 5/6 | behaviorally_complete |
+| `external-secrets/external-secrets@2.7.0` | 5/6 | behaviorally_complete |
+| `external-secrets/external-secrets@2.8.0` | 5/6 | behaviorally_complete |
 | `jetstack/cert-manager@v1.20.2` | 5/6 | behaviorally_complete |
 
 ## Notes

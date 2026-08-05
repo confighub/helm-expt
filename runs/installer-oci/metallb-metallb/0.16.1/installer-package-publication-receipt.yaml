@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: metallb-metallb-0.16.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1
+  package:
+    path: packages/metallb/metallb/0.16.1
+    sha256: a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070
+    sourceTreeSHA256: 0a26e41e69e0f3b597bf398b9d599833f2a95bfb66aa60a691c8e3e8d290f66e
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/metallb/metallb/0.16.1 -o <tmp>/metallb-metallb-0.16.1.tgz"
+    push: "cub installer push <tmp>/metallb-metallb-0.16.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1 --json"
+  outputs:
+    manifestDigest: sha256:9889faee92425826615cec041c02335349bb843268cbef1114312dc8b15e252d
+    layerDigest: sha256:a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070
+    package: |
+      Bundled metallb-metallb@0.16.1
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-kAlTTv/metallb-metallb-0.16.1.tgz
+        files:  4
+        size:   18752 bytes
+        digest: sha256:a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1
+        manifest: sha256:9889faee92425826615cec041c02335349bb843268cbef1114312dc8b15e252d
+        layer:    sha256:a8dda85492c18543c1f541be8a6e803a270f89bc7d9001c87bbabe4bdd6b7070 (18752 bytes, 4 files)
+    inspectJSONSHA256: 194fcf0b8c316d393f109d91f28203867777a5d982b0569065055bbc67defa5f
+    inspectJSONCanonicalSHA256: 7abee17f8fd6ada91638e381f4d859977625450f2ccf9507c15119a9446e9a36

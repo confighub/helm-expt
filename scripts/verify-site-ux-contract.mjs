@@ -4,6 +4,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
+const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
+const PUBLIC_CATALOG_COMPONENT_COUNT = 103;
+const PUBLIC_CATALOG_VERSION_COUNT = 130;
 
 const checks = [
   {
@@ -48,7 +51,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Configuration Catalog", "Find a tested starting configuration", "public library of checked configurations", "Search the catalog", "Readiness", "Ready to try", "Checked; review before use", "First configuration", "Missing something you need? Tell us.", "chart versions shown", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 130 retained published package versions", "103 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "components shown; 130 retained published package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -68,7 +71,7 @@ const checks = [
   },
   {
     file: "site/docs.html",
-    terms: ["Find instructions for the step you are doing", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Configuration Catalog", "Worked Examples", "Deployment", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
+    terms: ["Find instructions for the step you are doing", "Start with a configuration", "Prepare it for deployment", "Change or operate saved configuration", "Check a result or solve a problem", "More references", "Try Redis", "Component Catalog", "Worked Examples", "Deployment", "What happens to hooks and CRDs?", "How do I make environment variants?", "How do I check a result?", "What is not working yet?", "Browse all technical references", "Continue with ConfigHub"],
   },
   {
     file: "site/docs-reference.html",
@@ -472,6 +475,19 @@ if (fs.existsSync(catalogIndexPath)) {
   for (const machineOption of [">catalog-supported</option>", ">proof-grade / machine-proof-only</option>", ">start-here</option>", ">render-only</option>"]) {
     if (catalogIndex.includes(machineOption)) failures.push(`site/charts/index.html: exposes internal filter label ${JSON.stringify(machineOption)}`);
   }
+  const componentRows = [...catalogIndex.matchAll(/<tr data-chart-row\b/g)].length;
+  const readinessComponentRows = [...catalogIndex.matchAll(/data-evidence-surface="readiness-evidence"/g)].length;
+  const publicationOnlyComponentRows = [...catalogIndex.matchAll(/data-evidence-surface="publication-only"/g)].length;
+  const retainedVersionLinks = [...catalogIndex.matchAll(/data-retained-version="[^"]+"\s+href="\.\/[^\"]+\.html"/g)].length;
+  const publicationReceiptLinks = [...catalogIndex.matchAll(/data-publication-receipt="[^"]+"/g)].length;
+  const packagedConfigurationRecords = [...catalogIndex.matchAll(/data-packaged-configurations="[^"]+"/g)].length;
+  if (componentRows !== PUBLIC_CATALOG_COMPONENT_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_COMPONENT_COUNT} component rows, found ${componentRows}`);
+  if (readinessComponentRows !== TOP100_EVIDENCE_COMPONENT_COUNT) failures.push(`site/charts/index.html: expected ${TOP100_EVIDENCE_COMPONENT_COUNT} Top-100 readiness component rows, found ${readinessComponentRows}`);
+  if (publicationOnlyComponentRows !== PUBLIC_CATALOG_COMPONENT_COUNT - TOP100_EVIDENCE_COMPONENT_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_COMPONENT_COUNT - TOP100_EVIDENCE_COMPONENT_COUNT} honest publication-only component rows, found ${publicationOnlyComponentRows}`);
+  if (retainedVersionLinks !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} local retained-version links, found ${retainedVersionLinks}`);
+  if (publicationReceiptLinks !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} publication-receipt links, found ${publicationReceiptLinks}`);
+  if (packagedConfigurationRecords !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} per-version configuration records, found ${packagedConfigurationRecords}`);
+  if (catalogIndex.includes("Search charts")) failures.push("site/charts/index.html: filter still uses chart-first naming");
 }
 
 const chartPagesDir = path.join(root, "site/charts");
@@ -479,6 +495,8 @@ if (fs.existsSync(chartPagesDir)) {
   const chartPages = fs.readdirSync(chartPagesDir)
     .filter((name) => name.endsWith(".html") && name !== "index.html")
     .map((name) => path.join(chartPagesDir, name));
+  if (chartPages.length !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts: expected ${PUBLIC_CATALOG_VERSION_COUNT} retained package-version pages, found ${chartPages.length}`);
+  let retainedOnlyPages = 0;
   const requiredChartSections = [
     "What this page gives you",
     "Try This Chart",
@@ -503,13 +521,26 @@ if (fs.existsSync(chartPagesDir)) {
   for (const fullPath of chartPages) {
     const html = fs.readFileSync(fullPath, "utf8");
     const file = path.relative(root, fullPath);
+    if (html.includes("data-retained-only-version=")) {
+      retainedOnlyPages += 1;
+      for (const phrase of [
+        "Publication proof: recorded · runtime proof: not inherited.",
+        "It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.",
+        "No version-specific runtime result is claimed here.",
+      ]) {
+        if (!html.includes(phrase)) failures.push(`${file}: retained-only page is missing proof boundary ${JSON.stringify(phrase)}`);
+      }
+    }
     for (const heading of requiredChartSections) {
       if (!html.includes(heading)) failures.push(`${file}: missing plain chart section ${JSON.stringify(heading)}`);
     }
     for (const phrase of forbiddenChartCopy) {
       if (html.toLowerCase().includes(phrase.toLowerCase())) failures.push(`${file}: contains internal chart wording ${JSON.stringify(phrase)}`);
     }
+    if (!html.toLowerCase().includes("publication receipt")) failures.push(`${file}: does not expose its version-specific publication receipt`);
   }
+  const expectedRetainedOnlyPages = PUBLIC_CATALOG_VERSION_COUNT - TOP100_EVIDENCE_COMPONENT_COUNT;
+  if (retainedOnlyPages !== expectedRetainedOnlyPages) failures.push(`site/charts: expected ${expectedRetainedOnlyPages} retained-only detail pages, found ${retainedOnlyPages}`);
 }
 
 const purposePageRules = [

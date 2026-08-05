@@ -103,12 +103,16 @@ const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from 
 const INTERRUPTED_SCENARIO_POLICY = "write ahead every ordered hx-web mutation as a nested transition with exact pre/post Unit, release, provenance, and UpgradeUnit checkpoints; bind approval to the exact refused heads and rollback to the exact initial-rollout revision; resume only an exact durable prefix and fail closed on every undeclared delta";
 const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo";
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
-const GUI_IDENTITY_POLICY = "native Component, Owner, and Variant labels make the component-first Kubara catalog and definition-instance hub-spoke shape visible; public navigation annotations link complete evidence without claiming live health";
+const GUI_IDENTITY_POLICY = "native Component, Owner, Variant, and Lane labels make the component-first Kubara catalog, faithful/adapted delivery choice, and definition-instance hub-spoke shape visible; the component-catalog-coverage Unit exposes the additive 103-component/130-version scope and all 18 Kubara selections; Kubara hub Argo and ConfigHub cluster-bootstrap Argo retain separate exact version provenance; public navigation annotations link complete evidence without claiming live health";
 const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
+const PUBLIC_CATALOG_URL = "https://confighub.github.io/helm-expt/site/charts/";
+const PUBLIC_CATALOG_COVERAGE_URL = "https://confighub.github.io/helm-expt/data/kubara-catalog-1.1-full-coverage/receipt.yaml";
 const PUBLIC_MATRIX_URL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
 const PUBLIC_WIRING_URL = "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html";
 const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
   "URL-Guide": PUBLIC_GUIDE_URL,
+  "URL-Catalog": PUBLIC_CATALOG_URL,
+  "URL-CatalogCoverage": PUBLIC_CATALOG_COVERAGE_URL,
   "URL-Matrix": PUBLIC_MATRIX_URL,
   "URL-Wiring": PUBLIC_WIRING_URL,
 });
@@ -142,6 +146,7 @@ const paths = {
   argoAppSetTemplate: "examples/kubara/current-platform/generated/platform-components/helm/template-library/templates/argocd/_argo.appset.tpl",
   sourceLock: "examples/kubara/current-platform/source-lock.yaml",
   componentArtifacts: "examples/kubara/current-platform/component-artifacts.yaml",
+  catalogFullCoverageReceipt: "data/kubara-catalog-1.1-full-coverage/receipt.yaml",
   generationReceipt: "examples/kubara/current-platform/generation-receipt.yaml",
   appSourceLock: "examples/kubara/current-platform/apps/source-lock.yaml",
   adapterOutput: "data/kubara-catalog-adapter/adapter-output.yaml",
@@ -157,6 +162,7 @@ const paths = {
 const requiredApplyEvidence = [
   paths.qualificationReceipt,
   paths.promotionReceipt,
+  paths.catalogFullCoverageReceipt,
   paths.faithfulReceipt,
 ];
 
@@ -178,10 +184,37 @@ const EXPECTED_VERSIONS = {
   "metrics-server": "3.13.1",
   traefik: "41.0.2",
 };
+const ARGOBOT_VERSION = "v0.1.6";
+const ARGOBOT_IMAGE = `ghcr.io/confighub/argobot:${ARGOBOT_VERSION}`;
+const ARGOBOT_SOURCE_REF = "oci://ghcr.io/confighub/configs/argobot";
+const ARGOBOT_SOURCE_DIGEST = "sha256:59962c4e80bccac0b69330ff2bec0bf0be8aa5e953bdcb6edf00387f1bcd0fce";
+
+const ARGO_CD_DEFINITION_SPACE = "hx-argo-base";
+const ARGO_CD_DEFINITION_UNIT = "argo-cd";
+const ARGO_CD_EVIDENCE_UNIT = "kubara-argo-definition";
+const ARGO_CD_PAYLOAD_KEY = `${CONTROL_SPACE}/${ARGO_CD_EVIDENCE_UNIT}`;
+const KUBARA_ARGO_RUNTIME_VERSION = "v3.4.5";
+const KUBARA_ARGO_RUNTIME_IMAGE = `quay.io/argoproj/argocd:${KUBARA_ARGO_RUNTIME_VERSION}`;
+const ARGO_CD_RUNTIME_SPACE = "hx-argo-runtime-base";
+const ARGO_CD_RUNTIME_UNIT = "argo-cd-runtime";
+const ARGO_CD_RUNTIME_VERSION = "v3.4.6";
+const ARGO_CD_RUNTIME_IMAGE = `quay.io/argoproj/argocd:${ARGO_CD_RUNTIME_VERSION}`;
+const ARGO_CD_RUNTIME_PAYLOAD_KEY = `${ARGO_CD_RUNTIME_SPACE}/${ARGO_CD_RUNTIME_UNIT}`;
+const ARGO_CD_RUNTIME_CONTAINER_PAIRS = Object.freeze([
+  ["argocd-application-controller", "argocd-application-controller"],
+  ["argocd-applicationset-controller", "argocd-applicationset-controller"],
+  ["argocd-dex-server", "copyutil"],
+  ["argocd-notifications-controller", "argocd-notifications-controller"],
+  ["argocd-redis", "secret-init"],
+  ["argocd-repo-server", "argocd-repo-server"],
+  ["argocd-repo-server", "copyutil"],
+  ["argocd-server", "argocd-server"],
+]);
 
 const CONTROL_UNITS = [
   controlUnit("platform-contract", paths.config, "AppConfig/YAML", "PlatformContract"),
   controlUnit("component-catalog-selection", paths.componentArtifacts, "AppConfig/YAML", "ComponentCatalogSelection"),
+  controlUnit("component-catalog-coverage", paths.catalogFullCoverageReceipt, "AppConfig/YAML", "ComponentCatalogCoverage", true),
   controlUnit("catalog-adapter", paths.adapterOutput, "AppConfig/YAML", "CatalogAdapter"),
   controlUnit("catalog-adapter-receipt", paths.adapterReceipt, "AppConfig/YAML", "CatalogAdapterReceipt"),
   controlUnit("platform-matrix", paths.desiredMatrix, "AppConfig/JSON", "PlatformMatrixDesired"),
@@ -191,7 +224,7 @@ const CONTROL_UNITS = [
   controlUnit("catalog-root-promotion", paths.promotionReceipt, "AppConfig/YAML", "CatalogPromotionReceipt", true),
   controlUnit("faithful-hub-spoke-receipt", paths.faithfulReceipt, "AppConfig/YAML", "FaithfulLaneReceipt", true),
   {
-    slug: "kubara-argo-definition",
+    slug: ARGO_CD_EVIDENCE_UNIT,
     source: "examples/kubara/current-platform/effective-renders/hx-app-dev/argo-cd/release-objects.yaml",
     toolchain: "Kubernetes/YAML",
     role: "KubaraDeliveryDefinition",
@@ -384,6 +417,8 @@ const OWNED_SPACE_LABELS = new Set([
   "Owner",
   "KubaraComponent",
   "ComponentVersion",
+  "RuntimeVersion",
+  "RuntimeImage",
   "Part",
   "Layer",
   "SourceType",
@@ -400,12 +435,18 @@ const OWNED_SPACE_LABELS = new Set([
   "BundledCatalogComponent",
   "BundledComponentVersion",
   "StartHere",
+  "Lane",
 ]);
 
 const OWNED_UNIT_LABELS = new Set([
   ...OWNED_SPACE_LABELS,
   "ApplicationKind",
+  "CatalogComponents",
+  "CatalogVersions",
+  "KubaraSelections",
+  "Retention",
   "SourceSpace",
+  "PromotionUpstreamSpace",
 ]);
 
 const OWNED_LINK_LABELS = new Set([
@@ -421,8 +462,15 @@ const OWNED_PUBLIC_ANNOTATIONS = new Set(Object.keys(PUBLIC_NAVIGATION_ANNOTATIO
 const START_HERE_CONTROL_UNITS = new Set([
   "platform-contract",
   "component-catalog-selection",
+  "component-catalog-coverage",
   "platform-matrix",
   "wiring-ledger",
+  "faithful-hub-spoke-receipt",
+]);
+
+const FAITHFUL_LANE_CONTROL_UNITS = new Set([
+  "faithful-hub-spoke-receipt",
+  ARGO_CD_EVIDENCE_UNIT,
 ]);
 
 function target(suffix, cluster, environment, region, kubaraStage, clusterRole) {
@@ -539,6 +587,7 @@ function clusterIdentityLabels(item) {
 
 function deliveryIdentityLabels() {
   return {
+    Lane: "Adapted",
     DeliveryMode: "ConfigHubOCI",
     Reconciler: "ClusterLocalArgo",
     ControlPlane: "ConfigHub",
@@ -578,6 +627,28 @@ function instanceLabels(prefix, role, item, extra = {}) {
 
 function controlUnitNavigation(slug) {
   if (!START_HERE_CONTROL_UNITS.has(slug)) return { labels: {}, annotations: {} };
+  if (slug === "component-catalog-selection") {
+    return {
+      labels: { StartHere: "true" },
+      annotations: { "URL-Guide": PUBLIC_GUIDE_URL, "URL-Catalog": PUBLIC_CATALOG_URL },
+    };
+  }
+  if (slug === "component-catalog-coverage") {
+    return {
+      labels: {
+        StartHere: "true",
+        CatalogComponents: "103",
+        CatalogVersions: "130",
+        KubaraSelections: "18",
+        Retention: "AdditiveOnly",
+      },
+      annotations: {
+        "URL-Guide": PUBLIC_GUIDE_URL,
+        "URL-Catalog": PUBLIC_CATALOG_URL,
+        "URL-CatalogCoverage": PUBLIC_CATALOG_COVERAGE_URL,
+      },
+    };
+  }
   if (slug === "platform-matrix") {
     return {
       labels: { StartHere: "true" },
@@ -612,7 +683,7 @@ function managedUnitLabels({
   return expectedLabels({
     Role: role,
     Component: component,
-    KubaraComponent: kubaraComponent,
+    ...(kubaraComponent ? { KubaraComponent: kubaraComponent } : {}),
     CatalogComponent: catalogComponent,
     ComponentVersion: componentVersion,
     Catalog: catalog,
@@ -637,6 +708,32 @@ function sourceAnnotation(payload, sourcePaths, transform = "none") {
     assertCubAnnotationValue(key, value);
   }
   return annotations;
+}
+
+function argoCdRuntimeContract() {
+  return `${toYaml({
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "DeliveryRuntimeContract",
+    metadata: { name: ARGO_CD_RUNTIME_UNIT },
+    spec: {
+      component: "argo-cd",
+      lane: "Adapted",
+      installedBy: "cub cluster up",
+      scope: "cluster-local",
+      runtimeVersion: ARGO_CD_RUNTIME_VERSION,
+      runtimeImage: ARGO_CD_RUNTIME_IMAGE,
+      targets: FLEET.map((item) => item.cluster),
+      kubaraFaithfulDefinition: {
+        space: ARGO_CD_DEFINITION_SPACE,
+        unit: ARGO_CD_DEFINITION_UNIT,
+        chartVersion: EXPECTED_VERSIONS["argo-cd"],
+        runtimeVersion: KUBARA_ARGO_RUNTIME_VERSION,
+        runtimeImage: KUBARA_ARGO_RUNTIME_IMAGE,
+      },
+      lineagePolicy: "cluster-local delivery is not an instance of the Kubara hub chart render",
+      verificationPolicy: "the exact eight reviewed Argo CD workload/container pairs in every pinned target must equal runtimeImage",
+    },
+  })}\n`;
 }
 
 function materializeInputs() {
@@ -747,6 +844,14 @@ function materializeInputs() {
     payload(`${CONTROL_SPACE}/${control.slug}`, value, [control.source], control.toolchain);
   }
 
+  payload(
+    ARGO_CD_RUNTIME_PAYLOAD_KEY,
+    argoCdRuntimeContract(),
+    ["scripts/reconcile-kubara-mini-idp.mjs"],
+    "AppConfig/YAML",
+    "embedded-reviewed-runtime-contract",
+  );
+
   return { missing: [...new Set(missing)].sort(), kps, payloads };
 }
 
@@ -808,6 +913,31 @@ function buildPlan(inputs) {
     }),
     annotations: PUBLIC_NAVIGATION_ANNOTATIONS,
   });
+  spaces.push({
+    slug: ARGO_CD_DEFINITION_SPACE,
+    type: "component-definition",
+    labels: definitionLabels("argo-cd", "Component", {
+      ComponentSurface: "argocd-delivery",
+      KubaraComponent: "argo-cd",
+      ComponentVersion: EXPECTED_VERSIONS["argo-cd"],
+      RuntimeVersion: KUBARA_ARGO_RUNTIME_VERSION,
+      RuntimeImage: KUBARA_ARGO_RUNTIME_IMAGE,
+      Catalog: "KubaraBootstrap",
+      Lane: "Faithful",
+    }),
+  });
+  spaces.push({
+    slug: ARGO_CD_RUNTIME_SPACE,
+    type: "delivery-runtime-definition",
+    labels: definitionLabels("argo-cd", "DeliveryRuntime", {
+      ComponentSurface: "argocd-delivery-runtime",
+      ComponentVersion: ARGO_CD_RUNTIME_VERSION,
+      RuntimeVersion: ARGO_CD_RUNTIME_VERSION,
+      RuntimeImage: ARGO_CD_RUNTIME_IMAGE,
+      Catalog: "ConfigHubBootstrap",
+      Lane: "Adapted",
+    }),
+  });
   for (const item of FLEET) {
     spaces.push({
       slug: item.cluster,
@@ -831,11 +961,13 @@ function buildPlan(inputs) {
       labels: instanceLabels("argocd-delivery", "Delivery", item, {
         Component: "argo-cd",
         ComponentSurface: "argocd-delivery",
-        InstanceOf: "kubara-argo-definition",
-        DefinitionSpace: CONTROL_SPACE,
-        KubaraComponent: "argo-cd",
-        ComponentVersion: EXPECTED_VERSIONS["argo-cd"],
-        Catalog: "KubaraBootstrap",
+        InstanceOf: ARGO_CD_RUNTIME_UNIT,
+        DefinitionSpace: ARGO_CD_RUNTIME_SPACE,
+        CatalogComponent: "argo-cd",
+        ComponentVersion: ARGO_CD_RUNTIME_VERSION,
+        RuntimeVersion: ARGO_CD_RUNTIME_VERSION,
+        RuntimeImage: ARGO_CD_RUNTIME_IMAGE,
+        Catalog: "ConfigHubBootstrap",
       }),
     });
   }
@@ -844,7 +976,7 @@ function buildPlan(inputs) {
     type: "delivery-definition",
     labels: definitionLabels("argobot", "Delivery", {
       ComponentSurface: "argobot",
-      ComponentVersion: KUBARA_VERSION,
+      ComponentVersion: ARGOBOT_VERSION,
       Catalog: "ConfigHubDelivery",
     }),
   });
@@ -854,7 +986,7 @@ function buildPlan(inputs) {
       type: "delivery-instance",
       labels: instanceLabels("argobot", "Delivery", item, {
         ComponentSurface: "argobot",
-        ComponentVersion: KUBARA_VERSION,
+        ComponentVersion: ARGOBOT_VERSION,
         Catalog: "ConfigHubDelivery",
       }),
     });
@@ -863,7 +995,7 @@ function buildPlan(inputs) {
   for (const control of CONTROL_UNITS) {
     const content = inputs.payloads.get(`${CONTROL_SPACE}/${control.slug}`);
     const navigation = controlUnitNavigation(control.slug);
-    const kubaraArgo = control.slug === "kubara-argo-definition";
+    const kubaraArgo = control.slug === ARGO_CD_EVIDENCE_UNIT;
     managedUnits.push({
       space: CONTROL_SPACE,
       slug: control.slug,
@@ -883,12 +1015,63 @@ function buildPlan(inputs) {
         extra: {
           ComponentSurface: control.slug,
           SourceType: "CommittedEvidence",
+          ...(FAITHFUL_LANE_CONTROL_UNITS.has(control.slug) ? { Lane: "Faithful" } : {}),
           ...navigation.labels,
         },
       }),
       annotations: navigation.annotations,
     });
   }
+
+  managedUnits.push({
+    space: ARGO_CD_DEFINITION_SPACE,
+    slug: ARGO_CD_DEFINITION_UNIT,
+    role: "ComponentDefinition",
+    payloadKey: ARGO_CD_PAYLOAD_KEY,
+    toolchain: "Kubernetes/YAML",
+    provider: null,
+    target: null,
+    labels: managedUnitLabels({
+      role: "ComponentDefinition",
+      component: "argo-cd",
+      componentVersion: EXPECTED_VERSIONS["argo-cd"],
+      catalog: "KubaraBootstrap",
+      variant: "base",
+      extra: {
+        ComponentSurface: "argocd-delivery",
+        SourceType: "CommittedEvidence",
+        RuntimeVersion: KUBARA_ARGO_RUNTIME_VERSION,
+        RuntimeImage: KUBARA_ARGO_RUNTIME_IMAGE,
+        Lane: "Faithful",
+      },
+    }),
+  });
+
+  managedUnits.push({
+    space: ARGO_CD_RUNTIME_SPACE,
+    slug: ARGO_CD_RUNTIME_UNIT,
+    role: "DeliveryRuntimeDefinition",
+    payloadKey: ARGO_CD_RUNTIME_PAYLOAD_KEY,
+    toolchain: "AppConfig/YAML",
+    provider: "None",
+    target: null,
+    labels: managedUnitLabels({
+      role: "DeliveryRuntimeDefinition",
+      component: "argo-cd",
+      kubaraComponent: null,
+      catalogComponent: "argo-cd",
+      componentVersion: ARGO_CD_RUNTIME_VERSION,
+      catalog: "ConfigHubBootstrap",
+      variant: "base",
+      extra: {
+        ComponentSurface: "argocd-delivery-runtime",
+        SourceType: "ReviewedRuntimeContract",
+        RuntimeVersion: ARGO_CD_RUNTIME_VERSION,
+        RuntimeImage: ARGO_CD_RUNTIME_IMAGE,
+        Lane: "Adapted",
+      },
+    }),
+  });
 
   for (const item of SURFACES) {
     check(item.destinationNamespace, `${item.prefix}: destination namespace is required`);
@@ -1131,7 +1314,7 @@ function buildPlan(inputs) {
       || fleetOrder.get(left.cluster) - fleetOrder.get(right.cluster)
       || left.id.localeCompare(right.id)
   ));
-  check(spaces.length === 53, `internal plan error: expected 53 Spaces, got ${spaces.length}`);
+  check(spaces.length === 55, `internal plan error: expected 55 Spaces, got ${spaces.length}`);
   check(new Set(spaces.map((item) => item.slug)).size === spaces.length, "internal plan has duplicate Spaces");
   check(new Set(managedUnits.map((item) => `${item.space}/${item.slug}`)).size === managedUnits.length, "internal plan has duplicate Units");
   check(new Set(links.map((item) => `${item.space}/${item.slug}`)).size === links.length, "internal plan has duplicate Links");
@@ -1266,6 +1449,17 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
   for (const [name, version] of Object.entries(EXPECTED_VERSIONS)) {
     check(actualVersions.get(name) === version, `${name} must remain selected at ${version}`);
   }
+
+  const fullCatalogCoverage = readYaml(absolute(paths.catalogFullCoverageReceipt));
+  check(
+    fullCatalogCoverage.kind === "KubaraCatalogFullCoverageReceipt"
+      && fullCatalogCoverage.spec?.finalCatalog?.componentCount === 103
+      && fullCatalogCoverage.spec?.finalCatalog?.versionCount === 130
+      && fullCatalogCoverage.spec?.selections?.length === 18
+      && fullCatalogCoverage.status?.result === "pass"
+      && fullCatalogCoverage.status?.oldRootsByteIdentical === true,
+    "full Kubara catalogs 1.1.0 component coverage must remain a passing additive 103-component/130-version receipt",
+  );
 
   const generation = readYaml(absolute(paths.generationReceipt));
   check(
@@ -1410,6 +1604,7 @@ if (mode === "--plan") {
   selfTestReleaseRecovery();
   selfTestArgoConvergence();
   selfTestScenarioOperationEvidence();
+  selfTestReceiptLinkEvidence(plan);
 }
 
 function printPlan(inputs, desired) {
@@ -1418,6 +1613,7 @@ function printPlan(inputs, desired) {
     key: item.key,
     sha256: item.sha256,
     objectCount: item.objectCount,
+    toolchain: item.toolchain,
     sourcePaths: item.sourcePaths,
     transform: item.transform,
   })).sort((left, right) => left.key.localeCompare(right.key));
@@ -1438,7 +1634,7 @@ function printPlan(inputs, desired) {
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
         partialClusterStatePolicy: "fail-except-exact-journaled-prefix",
         serialLiveParityLock: true,
-        unexpectedSpacePolicy: "fail-outside-exact-53-space-allowlist",
+        unexpectedSpacePolicy: "fail-outside-exact-55-space-allowlist",
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
@@ -1907,17 +2103,20 @@ function expectedArgoApplicationLabels(desired, fleetItem, unitSlug) {
     return managedUnitLabels({
       role: "DeliveryApplication",
       component: "argo-cd",
-      kubaraComponent: "argo-cd",
-      componentVersion: EXPECTED_VERSIONS["argo-cd"],
-      catalog: "KubaraBootstrap",
+      kubaraComponent: null,
+      catalogComponent: "argo-cd",
+      componentVersion: ARGO_CD_RUNTIME_VERSION,
+      catalog: "ConfigHubBootstrap",
       variant: fleetItem.suffix,
       fleetItem,
       extra: {
         ComponentSurface: "argocd-delivery",
         ApplicationKind: "ClusterRoot",
         SourceSpace: appsSpace,
-        InstanceOf: "kubara-argo-definition",
-        DefinitionSpace: CONTROL_SPACE,
+        InstanceOf: ARGO_CD_RUNTIME_UNIT,
+        DefinitionSpace: ARGO_CD_RUNTIME_SPACE,
+        RuntimeVersion: ARGO_CD_RUNTIME_VERSION,
+        RuntimeImage: ARGO_CD_RUNTIME_IMAGE,
       },
     });
   }
@@ -1925,7 +2124,7 @@ function expectedArgoApplicationLabels(desired, fleetItem, unitSlug) {
     return managedUnitLabels({
       role: "DeliveryApplication",
       component: "argobot",
-      componentVersion: KUBARA_VERSION,
+      componentVersion: ARGOBOT_VERSION,
       catalog: "ConfigHubDelivery",
       variant: fleetItem.suffix,
       fleetItem,
@@ -1960,7 +2159,8 @@ function expectedArgoApplicationLabels(desired, fleetItem, unitSlug) {
       ApplicationKind: deployment.type === "platform" ? "PlatformComponent" : "Application",
       SourceSpace: deployment.space,
       InstanceOf: sourceSpace.labels.InstanceOf ?? sourceSpace.labels.Component,
-      DefinitionSpace: sourceSpace.upstreamSpace ?? sourceSpace.labels.DefinitionSpace,
+      DefinitionSpace: sourceSpace.labels.DefinitionSpace ?? sourceSpace.upstreamSpace,
+      ...(sourceSpace.upstreamSpace ? { PromotionUpstreamSpace: sourceSpace.upstreamSpace } : {}),
       ...(sourceSpace.labels.BundledCatalogComponent ? {
         BundledCatalogComponent: sourceSpace.labels.BundledCatalogComponent,
         BundledComponentVersion: sourceSpace.labels.BundledComponentVersion,
@@ -1984,6 +2184,25 @@ function assertDeliveryTopology(
   check(!argobotBase.ProviderType, "argobot-base/argobot: provider must remain the default");
   check(!argobotBase.TargetID && !argobotBase.UpstreamUnitID, "argobot-base/argobot: base delivery Unit unexpectedly has a target or upstream");
   check(readLinks("argobot-base").length === 0, "argobot-base: unexpected Links present");
+  let argobotSources = null;
+  try {
+    argobotSources = JSON.parse(spaces.get("argobot-base")?.Annotations?.["confighub.com/external-source"] ?? "null");
+  } catch {
+    check(false, "argobot-base: external-source annotation is not valid JSON");
+  }
+  check(
+    Array.isArray(argobotSources)
+      && argobotSources.length === 1
+      && argobotSources[0]?.ref === ARGOBOT_SOURCE_REF
+      && argobotSources[0]?.digest === ARGOBOT_SOURCE_DIGEST,
+    "argobot-base: source OCI ref/digest differs from the exact reviewed delivery helper",
+  );
+  const argobotDeployment = parseDocs(cub(["unit", "data", "--space", "argobot-base", "argobot"]))
+    .find((doc) => doc.kind === "Deployment" && doc.metadata?.name === "argobot");
+  check(
+    argobotDeployment?.spec?.template?.spec?.containers?.some((container) => container.image === ARGOBOT_IMAGE),
+    `argobot-base/argobot: expected exact image ${ARGOBOT_IMAGE}`,
+  );
 
   for (const fleetItem of fleet) {
     const clusterSpace = spaces.get(fleetItem.cluster);
@@ -2151,7 +2370,7 @@ function assertOwnedSpace(space, expected) {
 function assertSpaceAllowlist(spaces, desired, { requireAll = false } = {}) {
   const allowed = new Set(desired.spaces.map((space) => space.slug));
   const unexpected = [...spaces.keys()].filter((slug) => !allowed.has(slug)).sort();
-  check(unexpected.length === 0, `refusing unexpected ConfigHub Spaces outside the 53-Space mini-IDP allowlist: ${unexpected.join(", ")}`);
+  check(unexpected.length === 0, `refusing unexpected ConfigHub Spaces outside the 55-Space mini-IDP allowlist: ${unexpected.join(", ")}`);
   if (requireAll) {
     const missing = [...allowed].filter((slug) => !spaces.has(slug)).sort();
     check(missing.length === 0, `expected ConfigHub Spaces are missing: ${missing.join(", ")}`);
@@ -2234,6 +2453,7 @@ function applyPlan(inputs, desired) {
       assertOnly: preserveScenarioJournalState,
     });
     reconcileControlUnits(inputs, payloadFiles, desired, state);
+    reconcileArgoCdDefinitions(inputs, payloadFiles, desired, state);
     reconcileDeliveryApplicationMetadata(desired, state, {
       assertOnlySourceSpaces: inFlightScenarioSpaces,
     });
@@ -2444,6 +2664,7 @@ function reconcileClusters(spaces, desired, state) {
   for (const item of FLEET) {
     const reachable = kubectlTry(item.cluster, ["get", "namespace", "kube-system", "-o", "name"]);
     check(reachable.ok && /namespace\/kube-system/.test(reachable.output), `${item.cluster}: kubeconfig/context does not reach the expected persistent kind cluster`);
+    observeClusterLocalArgoRuntime(item.cluster);
   }
 }
 
@@ -2453,7 +2674,7 @@ function ensureDefinitionSpaces(
   state,
   { assertOnlySpaces = new Set() } = {},
 ) {
-  const creatable = new Set(["control", "component-definition", "app-definition"]);
+  const creatable = new Set(["control", "component-definition", "delivery-runtime-definition", "app-definition"]);
   for (const item of desired.spaces) {
     if (spaces.has(item.slug)) continue;
     if (!creatable.has(item.type)) continue;
@@ -2620,6 +2841,18 @@ function reconcileControlUnits(inputs, payloadFiles, desired, state) {
     upsertUnit(expected, inputs, payloadFiles, state);
   }
   assertUnitAllowlist(CONTROL_SPACE, [...expectedSlugs, ...preservedSlugs]);
+}
+
+function reconcileArgoCdDefinitions(inputs, payloadFiles, desired, state) {
+  for (const [space, slug] of [
+    [ARGO_CD_DEFINITION_SPACE, ARGO_CD_DEFINITION_UNIT],
+    [ARGO_CD_RUNTIME_SPACE, ARGO_CD_RUNTIME_UNIT],
+  ]) {
+    const expected = desired.managedUnits.find((item) => item.space === space && item.slug === slug);
+    check(expected, `${space}/${slug}: definition is missing from the plan`);
+    upsertUnit(expected, inputs, payloadFiles, state);
+    assertUnitAllowlist(space, [slug]);
+  }
 }
 
 function reconcileSurface(surfaceDefinition, inputs, payloadFiles, desired, state) {
@@ -5795,6 +6028,56 @@ function selfTestScenarioOperationEvidence() {
   console.log("Kubara mini-IDP scenario evidence self-test passed");
 }
 
+function selfTestReceiptLinkEvidence(desired) {
+  const rows = desired.links.map((expected, index) => ({
+    ref: `${expected.space}/${expected.slug}`,
+    id: `00000000-0000-4000-8000-${String(index + 1).padStart(12, "0")}`,
+    from: `${expected.space}/${expected.fromUnit}`,
+    to: `${expected.toSpace}/${expected.toUnit}`,
+    updateType: expected.updateType,
+    autoUpdate: expected.autoUpdate,
+    reason: expected.reason,
+    labels: expected.labels,
+  }));
+  assertReceiptLinkEvidence(rows, desired.links);
+
+  const expectRefusal = (mutate, pattern, description) => {
+    const candidate = JSON.parse(JSON.stringify(rows));
+    mutate(candidate);
+    let error = null;
+    try {
+      assertReceiptLinkEvidence(candidate, desired.links);
+    } catch (caught) {
+      error = caught;
+    }
+    check(error && pattern.test(error.message), `${description}: expected ${pattern}, got ${error?.message ?? "success"}`);
+  };
+  const workloadRef = "hx-web-dev/needs-platform-binding";
+  const platformCertRef = "hx-web-platform-dev/needs-cert-manager";
+  const platformIngressRef = "hx-web-platform-dev/needs-traefik";
+  expectRefusal(
+    (candidate) => { candidate.find((row) => row.ref === workloadRef).from = "hx-web-dev/wrong-workload"; },
+    /downstream endpoint drifted/,
+    "receipt workload-to-platform downstream endpoint mutation",
+  );
+  expectRefusal(
+    (candidate) => { candidate.find((row) => row.ref === platformCertRef).to = "hx-traefik-dev/hx-traefik"; },
+    /upstream endpoint drifted/,
+    "receipt platform-to-cert-manager endpoint mutation",
+  );
+  expectRefusal(
+    (candidate) => { candidate.find((row) => row.ref === platformIngressRef).reason = "generic dependency"; },
+    /reason drifted/,
+    "receipt platform-to-traefik reason mutation",
+  );
+  expectRefusal(
+    (candidate) => { candidate[1] = { ...candidate[0], id: candidate[1].id }; },
+    /duplicate Link/,
+    "receipt duplicate Link mutation",
+  );
+  console.log("Kubara mini-IDP receipt Link evidence self-test passed");
+}
+
 function selfTestArgoConvergence() {
   const expectedRevision = `sha256:${"a".repeat(64)}`;
   const olderRevision = `sha256:${"b".repeat(64)}`;
@@ -5974,6 +6257,42 @@ function selfTestArgoConvergence() {
       && hostNetworkBindings(workload("default")).some((binding) => hostNetworkBindings(workload("monitoring")).includes(binding)),
     "namespace-move pruning must prove an exact shared host-network binding",
   );
+  const runtimeFixture = {
+    items: [...new Set(ARGO_CD_RUNTIME_CONTAINER_PAIRS.map(([name]) => name))].map((name) => ({
+      metadata: { name },
+      spec: {
+        template: {
+          spec: {
+            containers: ARGO_CD_RUNTIME_CONTAINER_PAIRS
+              .filter(([workloadName]) => workloadName === name)
+              .map(([, container]) => ({ name: container, image: ARGO_CD_RUNTIME_IMAGE })),
+          },
+        },
+      },
+    })),
+  };
+  const runtimeObservation = validateClusterLocalArgoRuntime("self-test", runtimeFixture);
+  check(
+    stableJson(runtimeObservation.references.map((row) => [row.workload, row.container]))
+      === stableJson(ARGO_CD_RUNTIME_CONTAINER_PAIRS),
+    "cluster-local Argo runtime evidence must retain the exact reviewed workload/container pairs",
+  );
+  const wrongRegistryFixture = JSON.parse(JSON.stringify(runtimeFixture));
+  wrongRegistryFixture.items
+    .find((item) => item.metadata.name === "argocd-repo-server")
+    .spec.template.spec.containers
+    .find((container) => container.name === "copyutil").image = "example.invalid/argocd:v3.4.6";
+  let wrongRegistryError = null;
+  try {
+    validateClusterLocalArgoRuntime("self-test", wrongRegistryFixture);
+  } catch (error) {
+    wrongRegistryError = error;
+  }
+  check(
+    wrongRegistryError?.message.includes("argocd-repo-server/copyutil")
+      && wrongRegistryError.message.includes(ARGO_CD_RUNTIME_IMAGE),
+    "cluster-local Argo runtime evidence must refuse a named container that drifts outside the expected registry",
+  );
   console.log("Kubara mini-IDP Argo convergence self-test passed");
 }
 
@@ -6016,6 +6335,63 @@ function kubectlTry(cluster, args, options = {}) {
     "--context", `kind-${cluster}`,
     ...args,
   ], options);
+}
+
+function observeClusterLocalArgoRuntime(cluster) {
+  const workloads = JSON.parse(kubectl(cluster, [
+    "get", "deployment,statefulset", "-n", "argocd", "-o", "json",
+  ]));
+  return validateClusterLocalArgoRuntime(cluster, workloads);
+}
+
+function validateClusterLocalArgoRuntime(cluster, workloads) {
+  const allContainers = [];
+  for (const item of workloads.items ?? []) {
+    for (const container of [
+      ...(item.spec?.template?.spec?.initContainers ?? []),
+      ...(item.spec?.template?.spec?.containers ?? []),
+    ]) {
+      allContainers.push({
+        workload: item.metadata?.name,
+        container: container.name,
+        image: container.image,
+      });
+    }
+  }
+  const expectedWorkloads = [...new Set(ARGO_CD_RUNTIME_CONTAINER_PAIRS.map(([workload]) => workload))].sort();
+  const observedWorkloads = [...new Set((workloads.items ?? []).map((item) => item.metadata?.name))].sort();
+  check(
+    stableJson(observedWorkloads) === stableJson(expectedWorkloads),
+    `${cluster}: Argo CD workload inventory drifted: ${observedWorkloads.join(", ")}`,
+  );
+  const containersByPair = new Map();
+  for (const item of allContainers) {
+    const key = `${item.workload}/${item.container}`;
+    check(!containersByPair.has(key), `${cluster}: duplicate Argo CD workload/container pair ${key}`);
+    containersByPair.set(key, item);
+  }
+  const expectedPairKeys = new Set(ARGO_CD_RUNTIME_CONTAINER_PAIRS.map(([workload, container]) => `${workload}/${container}`));
+  const references = ARGO_CD_RUNTIME_CONTAINER_PAIRS.map(([workload, container]) => {
+    const key = `${workload}/${container}`;
+    const item = containersByPair.get(key);
+    check(item, `${cluster}: expected Argo CD workload/container pair ${key} is missing`);
+    check(item.image === ARGO_CD_RUNTIME_IMAGE, `${cluster}: ${key} is ${item.image ?? "missing"}, expected ${ARGO_CD_RUNTIME_IMAGE}`);
+    return item;
+  });
+  const unexpectedRuntimePairs = allContainers
+    .filter((item) => String(item.image ?? "").startsWith("quay.io/argoproj/argocd:")
+      && !expectedPairKeys.has(`${item.workload}/${item.container}`));
+  check(
+    unexpectedRuntimePairs.length === 0,
+    `${cluster}: unexpected Argo CD runtime workload/container pairs: ${unexpectedRuntimePairs.map((item) => `${item.workload}/${item.container}`).join(", ")}`,
+  );
+  return {
+    cluster,
+    installedBy: "cub cluster up",
+    version: ARGO_CD_RUNTIME_VERSION,
+    image: ARGO_CD_RUNTIME_IMAGE,
+    references,
+  };
 }
 
 function waitForSpecialPrerequisite(deployment) {
@@ -6100,10 +6476,18 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   const preservedControlUnits = assertPreservedFaithfulControlUnits();
   const localClusters = new Set(kindClusters());
   const targets = new Map();
+  const deliveryRuntimes = [];
   for (const item of FLEET) {
     if (!localClusters.has(item.cluster)) findings.push(`${item.cluster}: kind cluster missing`);
     if (!existsSync(clusterKubeconfig(item.cluster))) findings.push(`${item.cluster}: kubeconfig missing`);
     if (!existsSync(clusterEnv(item.cluster))) findings.push(`${item.cluster}: env file missing`);
+    if (localClusters.has(item.cluster) && existsSync(clusterKubeconfig(item.cluster))) {
+      try {
+        deliveryRuntimes.push(observeClusterLocalArgoRuntime(item.cluster));
+      } catch (error) {
+        findings.push(error.message);
+      }
+    }
     const targetEntity = readTarget(item.cluster);
     if (!targetEntity) findings.push(`${item.cluster}/target: missing`);
     else targets.set(item.cluster, targetEntity);
@@ -6303,6 +6687,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     policy,
     releases,
     applications,
+    deliveryRuntimes,
     scenario,
     secretWiring,
     liveMatrix,
@@ -6630,7 +7015,7 @@ function distinct(values) {
 
 function departureReason(id) {
   return {
-    "configHub-owned-argo-substitutes-kubara-wrapper": "ConfigHub takes the hub role; each cluster keeps its familiar local Argo reconciler.",
+    "configHub-owned-argo-substitutes-kubara-wrapper": `ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo ${ARGO_CD_RUNTIME_VERSION}, explicitly separate from Kubara chart ${EXPECTED_VERSIONS["argo-cd"]} and its ${KUBARA_ARGO_RUNTIME_VERSION} render.`,
     "kind-self-signed-cluster-issuer": "The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME.",
     "kind-fake-provider-target-fact": "The demo uses ESO's fake provider; production must select a real backend without changing the wiring contract.",
     "crds-and-eso-secret-wiring-are-explicit-spaces": "CRD lifecycle and Grafana secret production are separately governed and visibly linked.",
@@ -6778,7 +7163,7 @@ function buildReceipt(inputs, desired, observation, state) {
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
         partialClusterStatePolicy: "fail-except-exact-journaled-prefix",
         serialLiveParityLock: true,
-        unexpectedSpacePolicy: "fail-outside-exact-53-space-allowlist",
+        unexpectedSpacePolicy: "fail-outside-exact-55-space-allowlist",
         unexpectedManagedUnitOrLinkPolicy: "fail",
         preservedControlUnitPolicy: "exact-receipt-bound-faithful-proof-units",
         interruptedScenarioPolicy: INTERRUPTED_SCENARIO_POLICY,
@@ -6786,7 +7171,7 @@ function buildReceipt(inputs, desired, observation, state) {
         publishedReleaseSelectionPolicy: PUBLISHED_RELEASE_SELECTION_POLICY,
         receiptRequiresZeroActionRerun: true,
         cub: cachedCubVersions,
-        delivery: "ConfigHub variant/OCI -> ConfigHub-owned Argo CD/argobot",
+        delivery: `ConfigHub variant/OCI -> ConfigHub cluster-bootstrap Argo CD ${ARGO_CD_RUNTIME_VERSION}/argobot`,
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
@@ -6813,6 +7198,7 @@ function buildReceipt(inputs, desired, observation, state) {
       units: observation.units,
       releases: observation.releases,
       applications: observation.applications,
+      deliveryRuntimes: observation.deliveryRuntimes,
       deliveryApplicationUnits: plannedDeliveryApplicationIdentity(desired),
       guiNavigation: {
         scope: "identity-and-navigation-only",
@@ -6867,7 +7253,7 @@ function buildReceipt(inputs, desired, observation, state) {
       historicalCatalogRootsPreserved: true,
       limits: [
         "This is the adapted ConfigHub lane. The separate faithful-lane receipt proves Kubara's one-hub Argo topology against a spoke.",
-        "ConfigHub-owned Argo CD and argobot replace Kubara's selected Argo wrapper in the adapted lane; the cluster-local reconciliation shape remains.",
+        `ConfigHub cluster-bootstrap Argo CD ${ARGO_CD_RUNTIME_VERSION} and argobot replace Kubara's selected Argo chart ${EXPECTED_VERSIONS["argo-cd"]} (runtime ${KUBARA_ARGO_RUNTIME_VERSION}) in the adapted lane; the cluster-local reconciliation shape remains.`,
         "The kind proof uses a self-signed issuer and ESO's fake provider with demo credentials. Production adoption must select public/private PKI and a real secret backend.",
         "cub cluster up rolls back returned failures, but an abrupt process or host termination inside that multi-system command is fail-closed rather than automatically repaired; the reconciler resumes only fully complete journaled cluster prefixes and never deletes a partial persistent cluster.",
         "Traefik's LoadBalancer may remain Argo Progressing on kind without a cloud load balancer; workload readiness and sync are recorded separately.",
@@ -6885,6 +7271,47 @@ function distinctRuns(runs) {
     seen.add(key);
     return true;
   });
+}
+
+function assertReceiptLinkEvidence(rows, expectedLinks) {
+  check(rows.length === expectedLinks.length, "receipt Link rows are incomplete");
+  const rowsByRef = new Map();
+  for (const row of rows) {
+    check(!rowsByRef.has(row.ref), `${row.ref}: receipt contains a duplicate Link`);
+    rowsByRef.set(row.ref, row);
+  }
+  for (const expected of expectedLinks) {
+    const ref = `${expected.space}/${expected.slug}`;
+    const row = rowsByRef.get(ref);
+    check(row, `receipt is missing Link ${ref}`);
+    check(UUID_PATTERN.test(row.id ?? ""), `${ref}: receipt Link ID missing`);
+    check(row.updateType === "NeedsProvides" && row.autoUpdate === false, `${ref}: receipt Link semantics drifted`);
+    check(row.from === `${expected.space}/${expected.fromUnit}`, `${ref}: receipt downstream endpoint drifted`);
+    check(row.to === `${expected.toSpace}/${expected.toUnit}`, `${ref}: receipt upstream endpoint drifted`);
+    check(row.reason === expected.reason, `${ref}: receipt wiring reason drifted`);
+    check(stableJson(row.labels) === stableJson(expected.labels), `${ref}: receipt Link identity labels drifted`);
+  }
+
+  for (const item of FLEET) {
+    const workload = rowsByRef.get(`hx-web-${item.suffix}/needs-platform-binding`);
+    check(
+      workload?.from === `hx-web-${item.suffix}/hx-web-deployment`
+        && workload.to === `hx-web-platform-${item.suffix}/hx-web-platform`,
+      `${item.cluster}: receipt must visibly bind hx-web to its reviewed platform Certificate/Ingress Unit`,
+    );
+    const certificate = rowsByRef.get(`hx-web-platform-${item.suffix}/needs-cert-manager`);
+    check(
+      certificate?.from === `hx-web-platform-${item.suffix}/hx-web-platform`
+        && certificate.to === `hx-cm-${item.suffix}/hx-cm`,
+      `${item.cluster}: receipt must visibly bind hx-web platform wiring to cert-manager`,
+    );
+    const ingress = rowsByRef.get(`hx-web-platform-${item.suffix}/needs-traefik`);
+    check(
+      ingress?.from === `hx-web-platform-${item.suffix}/hx-web-platform`
+        && ingress.to === `hx-traefik-${item.suffix}/hx-traefik`,
+      `${item.cluster}: receipt must visibly bind hx-web platform wiring to traefik`,
+    );
+  }
 }
 
 function verifyReceipt(inputs, desired) {
@@ -6927,7 +7354,7 @@ function verifyReceipt(inputs, desired) {
     "mini-IDP receipt no longer limits partial fleet recovery to an exact journaled prefix",
   );
   check(receipt.spec?.execution?.serialLiveParityLock === true, "mini-IDP receipt no longer records the shared serial live-parity lock");
-  check(receipt.spec?.execution?.unexpectedSpacePolicy === "fail-outside-exact-53-space-allowlist", "mini-IDP receipt no longer enforces the exact Space allowlist");
+  check(receipt.spec?.execution?.unexpectedSpacePolicy === "fail-outside-exact-55-space-allowlist", "mini-IDP receipt no longer enforces the exact Space allowlist");
   check(receipt.spec?.execution?.unexpectedManagedUnitOrLinkPolicy === "fail", "mini-IDP receipt no longer rejects unexpected managed Units or Links");
   check(
     receipt.spec?.execution?.preservedControlUnitPolicy === "exact-receipt-bound-faithful-proof-units",
@@ -6965,6 +7392,21 @@ function verifyReceipt(inputs, desired) {
   check(counts.releases === desired.deployments.length, `receipt has ${counts.releases} releases, expected ${desired.deployments.length}`);
   check(counts.needsProvidesLinks === desired.links.length, `receipt has ${counts.needsProvidesLinks} Links, expected ${desired.links.length}`);
   check(counts.liveMatrixRows === FLEET.length * 9, `receipt live matrix has ${counts.liveMatrixRows} rows, expected ${FLEET.length * 9}`);
+
+  const deliveryRuntimes = receipt.spec?.deliveryRuntimes ?? [];
+  check(deliveryRuntimes.length === FLEET.length, "receipt cluster-local Argo runtime observations are incomplete");
+  for (const item of FLEET) {
+    const runtime = deliveryRuntimes.find((row) => row.cluster === item.cluster);
+    check(runtime?.installedBy === "cub cluster up", `${item.cluster}: receipt Argo installer provenance drifted`);
+    check(runtime?.version === ARGO_CD_RUNTIME_VERSION, `${item.cluster}: receipt Argo runtime version drifted`);
+    check(runtime?.image === ARGO_CD_RUNTIME_IMAGE, `${item.cluster}: receipt Argo runtime image drifted`);
+    check(
+      stableJson((runtime?.references ?? []).map((row) => [row.workload, row.container]))
+        === stableJson(ARGO_CD_RUNTIME_CONTAINER_PAIRS)
+        && runtime.references.every((row) => row.image === ARGO_CD_RUNTIME_IMAGE),
+      `${item.cluster}: receipt does not bind the exact eight reviewed Argo workload/container pairs to ${ARGO_CD_RUNTIME_IMAGE}`,
+    );
+  }
 
   const namespaceMoveEvidence = receipt.spec?.namespaceMovePrunes ?? [];
   check(namespaceMoveEvidence.length <= 1, "receipt retains more than one namespace-move DaemonSet prune");
@@ -7050,14 +7492,7 @@ function verifyReceipt(inputs, desired) {
   );
 
   const links = receipt.spec?.wiring?.links ?? [];
-  check(links.length === desired.links.length, "receipt Link rows are incomplete");
-  for (const row of links) {
-    check(UUID_PATTERN.test(row.id ?? ""), `${row.ref}: receipt Link ID missing`);
-    check(row.updateType === "NeedsProvides" && row.autoUpdate === false, `${row.ref}: receipt Link semantics drifted`);
-    const expected = desired.links.find((item) => `${item.space}/${item.slug}` === row.ref);
-    check(expected, `${row.ref}: receipt Link is not planned`);
-    check(stableJson(row.labels) === stableJson(expected.labels), `${row.ref}: receipt Link identity labels drifted`);
-  }
+  assertReceiptLinkEvidence(links, desired.links);
   const guiNavigation = receipt.spec?.guiNavigation ?? {};
   check(guiNavigation.scope === "identity-and-navigation-only", "receipt GUI navigation scope overclaims evidence");
   check(guiNavigation.startHereSpace === CONTROL_SPACE, "receipt GUI start Space drifted");
