@@ -5138,9 +5138,9 @@ function argoObservation(app) {
   };
 }
 
-function observedTimestamp(value, fallback) {
+function observedTimestamp(value, fallback, observedAt = fallback) {
   const parsed = Date.parse(value ?? "");
-  return Number.isFinite(parsed) && parsed >= 0 && parsed <= fallback
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= observedAt
     ? parsed
     : fallback;
 }
@@ -5149,36 +5149,64 @@ function operationStateRevision(app) {
   return app.status?.operationState?.syncResult?.revision ?? "";
 }
 
-function expectedRevisionTimestamp(app, expectedRevision, field, fallback) {
+function expectedRevisionTimestamp(app, expectedRevision, field, fallback, observedAt = fallback) {
   const statusRevision = operationStateRevision(app);
   if (statusRevision !== expectedRevision) return fallback;
-  return observedTimestamp(app.status?.operationState?.[field], fallback);
+  return observedTimestamp(app.status?.operationState?.[field], fallback, observedAt);
+}
+
+function convergencePhaseStartedAt(app, expectedRevision, field, firstObservedAt, previousStartedAt, observedAt) {
+  const controllerStartedAt = expectedRevisionTimestamp(
+    app,
+    expectedRevision,
+    field,
+    firstObservedAt,
+    observedAt,
+  );
+  return Math.max(firstObservedAt, previousStartedAt ?? firstObservedAt, controllerStartedAt);
+}
+
+function withinDeadline(startedAt, observedAt, timeout) {
+  return Number.isFinite(startedAt)
+    && Number.isFinite(observedAt)
+    && Number.isFinite(timeout)
+    && timeout >= 0
+    && observedAt >= startedAt
+    && observedAt - startedAt <= timeout;
 }
 
 function convergenceJournalKey(deployment, expectedRevision) {
   return `${deployment.cluster}/${deployment.space}@${expectedRevision}`;
 }
 
-function beginConvergenceJournal(deployment, expectedRevision, app) {
+function convergenceJournalEntry(deployment, expectedRevision, now, existing = null) {
+  const key = convergenceJournalKey(deployment, expectedRevision);
+  if (existing) {
+    check(existing.application === `${deployment.cluster}/${deployment.space}`, `${key}: convergence journal Application drifted`);
+    check(existing.expectedRevision === expectedRevision, `${key}: convergence journal revision drifted`);
+    check(Number.isInteger(existing.syncReservations) && existing.syncReservations >= 0, `${key}: convergence journal sync reservation count is invalid`);
+    check(Number.isFinite(Date.parse(existing.startedAt)), `${key}: convergence journal start time is invalid`);
+    return existing;
+  }
+  return {
+    application: `${deployment.cluster}/${deployment.space}`,
+    expectedRevision,
+    startedAt: new Date(now).toISOString(),
+    syncReservations: 0,
+    updatedAt: new Date(now).toISOString(),
+  };
+}
+
+function beginConvergenceJournal(deployment, expectedRevision) {
   const key = convergenceJournalKey(deployment, expectedRevision);
   const now = Date.now();
   const journal = updateOperationJournal((current) => {
-    const existing = current.convergence[key];
-    if (existing) {
-      check(existing.application === `${deployment.cluster}/${deployment.space}`, `${key}: convergence journal Application drifted`);
-      check(existing.expectedRevision === expectedRevision, `${key}: convergence journal revision drifted`);
-      check(Number.isInteger(existing.syncReservations) && existing.syncReservations >= 0, `${key}: convergence journal sync reservation count is invalid`);
-      check(Number.isFinite(Date.parse(existing.startedAt)), `${key}: convergence journal start time is invalid`);
-      return;
-    }
-    const startedAt = expectedRevisionTimestamp(app, expectedRevision, "startedAt", now);
-    current.convergence[key] = {
-      application: `${deployment.cluster}/${deployment.space}`,
+    current.convergence[key] = convergenceJournalEntry(
+      deployment,
       expectedRevision,
-      startedAt: new Date(startedAt).toISOString(),
-      syncReservations: 0,
-      updatedAt: new Date(now).toISOString(),
-    };
+      now,
+      current.convergence[key],
+    );
   });
   return { key, ...journal.convergence[key] };
 }
@@ -5196,9 +5224,13 @@ function reserveConvergenceSync(key) {
   return reserved;
 }
 
+function clearConvergenceJournalEntry(journal, key) {
+  delete journal.convergence[key];
+}
+
 function clearConvergenceJournal(key) {
   updateOperationJournal((journal) => {
-    delete journal.convergence[key];
+    clearConvergenceJournalEntry(journal, key);
   });
 }
 
@@ -5515,9 +5547,9 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
   check(deployment, "internal error: deployment definition missing during Argo convergence");
   check(/^sha256:[0-9a-f]{64}$/.test(expectedRevision), `${deployment.space}: invalid expected ConfigHub revision ${expectedRevision}`);
   let firstApp = waitForArgoApplicationContract(deployment);
-  const convergenceJournal = beginConvergenceJournal(deployment, expectedRevision, firstApp);
+  const convergenceJournal = beginConvergenceJournal(deployment, expectedRevision);
   const firstObservedAt = Date.parse(convergenceJournal.startedAt);
-  let convergenceStartedAt = firstObservedAt;
+  const convergenceStartedAt = firstObservedAt;
   let activeWaitStartedAt = null;
   let healthWaitStartedAt = null;
   let syncRequests = convergenceJournal.syncReservations;
@@ -5539,25 +5571,24 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
     }
 
     const now = Date.now();
-    convergenceStartedAt = Math.min(
-      convergenceStartedAt,
-      expectedRevisionTimestamp(app, expectedRevision, "startedAt", firstObservedAt),
-    );
     const convergenceElapsed = now - convergenceStartedAt;
     check(
-      convergenceElapsed <= ARGO_CONVERGENCE_TIMEOUT_MS,
+      withinDeadline(convergenceStartedAt, now, ARGO_CONVERGENCE_TIMEOUT_MS),
       `${deployment.cluster}/${deployment.space}: overall Argo convergence exceeded ${ARGO_CONVERGENCE_TIMEOUT_MS / 60000} minutes; expected revision ${expectedRevision}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(convergenceElapsed / 1000), syncRequests })}`,
     );
     if (disposition === "active-operation") {
       healthWaitStartedAt = null;
-      activeWaitStartedAt ??= now;
-      activeWaitStartedAt = Math.min(
+      activeWaitStartedAt = convergencePhaseStartedAt(
+        app,
+        expectedRevision,
+        "startedAt",
+        firstObservedAt,
         activeWaitStartedAt,
-        expectedRevisionTimestamp(app, expectedRevision, "startedAt", activeWaitStartedAt),
+        now,
       );
       const elapsed = now - activeWaitStartedAt;
       check(
-        elapsed <= ARGO_OPERATION_TIMEOUT_MS,
+        withinDeadline(activeWaitStartedAt, now, ARGO_OPERATION_TIMEOUT_MS),
         `${deployment.cluster}/${deployment.space}: active Argo operation exceeded ${ARGO_OPERATION_TIMEOUT_MS / 60000} minutes without takeover; expected revision ${expectedRevision}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(elapsed / 1000), syncRequests })}`,
       );
       command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
@@ -5566,14 +5597,17 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
 
     activeWaitStartedAt = null;
     if (disposition === "health-pending") {
-      healthWaitStartedAt ??= now;
-      healthWaitStartedAt = Math.min(
+      healthWaitStartedAt = convergencePhaseStartedAt(
+        app,
+        expectedRevision,
+        "finishedAt",
+        firstObservedAt,
         healthWaitStartedAt,
-        expectedRevisionTimestamp(app, expectedRevision, "finishedAt", healthWaitStartedAt),
+        now,
       );
       const elapsed = now - healthWaitStartedAt;
       check(
-        elapsed <= ARGO_HEALTH_TIMEOUT_MS,
+        withinDeadline(healthWaitStartedAt, now, ARGO_HEALTH_TIMEOUT_MS),
         `${deployment.cluster}/${deployment.space}: exact-revision health did not settle within ${ARGO_HEALTH_TIMEOUT_MS / 60000} minutes; no resync was submitted; expected health ${deployment.acceptedHealth.join("|")}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(elapsed / 1000), syncRequests })}`,
       );
       command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
@@ -6153,8 +6187,9 @@ function selfTestArgoConvergence() {
       operationState: { phase, syncResult: { revision: operationStateRevision } },
     },
   });
+  const acceptedApp = app({ sync: "Synced", health: "Healthy", phase: "Succeeded", revision: expectedRevision });
   check(
-    argoConvergenceState(app({ sync: "Synced", health: "Healthy", phase: "Succeeded", revision: expectedRevision }), deployment, expectedRevision) === "accepted",
+    argoConvergenceState(acceptedApp, deployment, expectedRevision) === "accepted",
     "exact-revision healthy Argo state must be accepted",
   );
   check(
@@ -6201,35 +6236,95 @@ function selfTestArgoConvergence() {
   );
   const oldStart = "2026-08-04T20:00:00Z";
   const firstObservation = Date.parse("2026-08-04T20:30:00Z");
+  const secondObservation = Date.parse("2026-08-04T20:45:00Z");
+  const validLaterStart = "2026-08-04T20:40:00Z";
   const futureStart = "2026-08-04T21:00:00Z";
   check(
     observedTimestamp(oldStart, firstObservation) === Date.parse(oldStart)
       && observedTimestamp(futureStart, firstObservation) === firstObservation
+      && observedTimestamp(validLaterStart, firstObservation, secondObservation) === Date.parse(validLaterStart)
+      && observedTimestamp(futureStart, firstObservation, secondObservation) === firstObservation
       && observedTimestamp("not-a-date", firstObservation) === firstObservation,
-    "Argo deadline timestamps must survive restart and reject future or invalid values",
+    "Argo controller timestamps must be bounded by their observation and reject future or invalid values",
   );
-  const staleOperationState = {
-    operation: { sync: { revision: expectedRevision } },
+  const operationAt = (revision, timestamp) => ({
     status: {
       operationState: {
-        startedAt: oldStart,
-        syncResult: { revision: olderRevision },
+        startedAt: timestamp,
+        finishedAt: timestamp,
+        syncResult: { revision },
       },
     },
-  };
-  const matchingOperationState = {
-    status: {
-      operationState: {
-        startedAt: oldStart,
-        syncResult: { revision: expectedRevision },
-      },
+  });
+  const wrongRevisionOperation = operationAt(olderRevision, oldStart);
+  const oldOperation = operationAt(expectedRevision, oldStart);
+  const laterOperation = operationAt(expectedRevision, validLaterStart);
+  const futureOperation = operationAt(expectedRevision, futureStart);
+  check(
+    expectedRevisionTimestamp(wrongRevisionOperation, expectedRevision, "startedAt", firstObservation) === firstObservation
+      && expectedRevisionTimestamp(oldOperation, expectedRevision, "startedAt", firstObservation) === Date.parse(oldStart)
+      && expectedRevisionTimestamp(laterOperation, expectedRevision, "startedAt", firstObservation, secondObservation) === Date.parse(validLaterStart)
+      && expectedRevisionTimestamp(futureOperation, expectedRevision, "startedAt", firstObservation, secondObservation) === firstObservation,
+    "Argo controller timestamps must be accepted only for the expected revision and at or before the current observation",
+  );
+  const phaseStart = (state, previous = null, field = "startedAt") => convergencePhaseStartedAt(
+    state, expectedRevision, field, firstObservation, previous, secondObservation,
+  );
+  const firstPhaseStart = phaseStart(oldOperation);
+  const laterPhaseStart = phaseStart(laterOperation, firstPhaseStart);
+  check(
+    firstPhaseStart === firstObservation
+      && laterPhaseStart === Date.parse(validLaterStart)
+      && phaseStart(futureOperation, laterPhaseStart) === laterPhaseStart
+      && phaseStart(wrongRevisionOperation, laterPhaseStart) === laterPhaseStart
+      && phaseStart(laterOperation, null, "finishedAt") === Date.parse(validLaterStart),
+    "phase clocks must not predate persisted observation or move for future and wrong-revision controller timestamps",
+  );
+  const journalDeployment = { cluster: "test-cluster", space: "test-app" };
+  const firstJournalEntry = convergenceJournalEntry(journalDeployment, expectedRevision, firstObservation);
+  const restartedJournalEntry = convergenceJournalEntry(
+    journalDeployment,
+    expectedRevision,
+    secondObservation,
+    { ...firstJournalEntry, syncReservations: 2, updatedAt: new Date(secondObservation).toISOString() },
+  );
+  const persistedStartedAt = Date.parse(restartedJournalEntry.startedAt);
+  check(
+    Date.parse(firstJournalEntry.startedAt) === firstObservation
+      && Date.parse(firstJournalEntry.startedAt) !== Date.parse(oldStart)
+      && persistedStartedAt === firstObservation
+      && restartedJournalEntry.syncReservations === 2,
+    "convergence journals must start at first reconciler observation and retain that clock and reservations across restarts",
+  );
+  check(
+    withinDeadline(persistedStartedAt, persistedStartedAt + ARGO_CONVERGENCE_TIMEOUT_MS, ARGO_CONVERGENCE_TIMEOUT_MS)
+      && !withinDeadline(persistedStartedAt, persistedStartedAt + ARGO_CONVERGENCE_TIMEOUT_MS + 1, ARGO_CONVERGENCE_TIMEOUT_MS)
+      && !withinDeadline(persistedStartedAt, persistedStartedAt - 1, ARGO_CONVERGENCE_TIMEOUT_MS)
+      && withinDeadline(firstPhaseStart, secondObservation, ARGO_OPERATION_TIMEOUT_MS),
+    "persisted convergence and phase deadlines must include the exact boundary and fail closed beyond it",
+  );
+  const acceptedKey = convergenceJournalKey(journalDeployment, expectedRevision);
+  const survivorKey = "survivor";
+  const acceptedCleanupJournal = {
+    convergence: {
+      [acceptedKey]: { ...firstJournalEntry, startedAt: new Date(firstObservation - ARGO_CONVERGENCE_TIMEOUT_MS - 1).toISOString() },
+      [survivorKey]: { application: "test-cluster/survivor" },
     },
   };
   check(
-    expectedRevisionTimestamp(staleOperationState, expectedRevision, "startedAt", firstObservation) === firstObservation
-      && expectedRevisionTimestamp(matchingOperationState, expectedRevision, "startedAt", firstObservation) === Date.parse(oldStart)
-      && expectedRevisionTimestamp(staleOperationState, `sha256:${"c".repeat(64)}`, "startedAt", firstObservation) === firstObservation,
-    "Argo deadlines must use persisted timestamps only when the observed operationState matches the expected revision",
+    argoConvergenceState(acceptedApp, deployment, expectedRevision) === "accepted"
+      && !withinDeadline(
+        Date.parse(acceptedCleanupJournal.convergence[acceptedKey].startedAt),
+        firstObservation,
+        ARGO_CONVERGENCE_TIMEOUT_MS,
+      ),
+    "accepted exact state must remain recognizable even after its persisted deadline",
+  );
+  clearConvergenceJournalEntry(acceptedCleanupJournal, acceptedKey);
+  check(
+    !Object.hasOwn(acceptedCleanupJournal.convergence, acceptedKey)
+      && Object.hasOwn(acceptedCleanupJournal.convergence, survivorKey),
+    "accepted-state cleanup must remove only its exact convergence journal entry",
   );
   check(
     activeOperationMatchesExpectedRevision({
