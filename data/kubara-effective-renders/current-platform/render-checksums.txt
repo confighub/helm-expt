@@ -1,12 +1,12 @@
-06f38501bc7febca6d22f07c9d1061cafee2a58b763470e7f4e5d4bbe671679a  data/kubara-effective-renders/current-platform/hx-app-staging/traefik.yaml
 0810f86226a13a70f24a345af9560536f773f054fb75a7cbaf2202ab64858d2d  data/kubara-effective-renders/current-platform/hx-app-dev/homer-dashboard.yaml
-0842ac08229ad48c1b7fcdfc18711187be8cc53b755f015a03d83b051e61ef24  data/kubara-effective-renders/current-platform/hx-app-prod-b/traefik.yaml
+21a886ba8fcb6a46ed46ea7e4e0d155d7abccd09d7e29235d8f61f4ee9bbddfe  data/kubara-effective-renders/current-platform/hx-app-prod-a/traefik.yaml
 27f69adde8d447b0294205f65d9d19685c987a4b2ad573271e3edbb239f0a75a  data/kubara-effective-renders/current-platform/hx-app-prod-a/cert-manager.yaml
 3881930e58f377be7074eda757a17e304825a3104183f477cfadb4cb87c57bb8  data/kubara-effective-renders/current-platform/hx-app-dev/argo-cd.yaml
-a266f954eb80d0f34e5ace2536152fac50dea1d88d41a2d72c004bd8accd7f63  data/kubara-effective-renders/current-platform/hx-app-prod-a/traefik.yaml
+48f908d388a3f2e895502ecb16e06bca58e451439a6cb6809e45cfc596d52de2  data/kubara-effective-renders/current-platform/hx-app-prod-b/traefik.yaml
+a6470e92c0251603847dc1271634178254384ac2df4352092d063a82f2b7cf49  data/kubara-effective-renders/current-platform/hx-app-dev/traefik.yaml
 a9c778d0a46b42a05f4296c6ab34fc75c62a5fb1efd5e1906ab10a7a25edaf92  data/kubara-effective-renders/current-platform/hx-app-dev/kube-prometheus-stack.yaml
 b90bd5215ed87a67cd9b2754f04865a20e40b805fe1349e93de25770b0a69292  data/kubara-effective-renders/current-platform/hx-app-dev/external-secrets.yaml
-d148dd3c8957c90d601a84d48a1d2755ea610312c4a985f8b4808b95bcfbf897  data/kubara-effective-renders/current-platform/hx-app-dev/traefik.yaml
+c447e04f08a7a3bf4de0f04bf05bea56cf4966294954c1b5546484d91becfcdc  data/kubara-effective-renders/current-platform/hx-app-staging/traefik.yaml
 d42bd87d5d10982edf3d3c308769c3fba802df70bfca68e10600a76114e95ee7  data/kubara-effective-renders/current-platform/hx-app-dev/cert-manager.yaml
 d7cc5ad406be55803cc8c8f267631812051d82dd649863a89f87c2db0ed0690d  data/kubara-effective-renders/current-platform/hx-app-staging/cert-manager.yaml
 da40e4395191e57b4a67b579a9b9e171461e960d9df22ae108bf2d262fa65f69  data/kubara-effective-renders/current-platform/hx-app-dev/metrics-server.yaml

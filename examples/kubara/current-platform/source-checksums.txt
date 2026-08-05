@@ -713,7 +713,11 @@ e31e44c7da59d40f02183ae9dd4283b239bfd9c3181810ad9cf69ae7e6744901  data/kubara-ca
 e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8  examples/kubara/current-platform/source/overrides/hx-app-dev/helm/cert-manager/values-kind.yaml
 9539796ad6952e0999448bb4c89b1cb7aeb982f5511d63498abdb00a170d8e7f  examples/kubara/current-platform/source/overrides/hx-app-dev/helm/homer-dashboard/values-project-links.yaml
 ce8c2f62991eac0097f1d0bcb566f302ebc5cc06a034ac7afbc35c19d6d3b3c2  examples/kubara/current-platform/source/overrides/hx-app-dev/helm/metrics-server/values-kind.yaml
+2fd27345ed3497b0e9726c70f790e8ba289afe406a4f273cd43b03db799ad8bd  examples/kubara/current-platform/source/overrides/hx-app-dev/helm/traefik/values-kind.yaml
 e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8  examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/cert-manager/values-kind.yaml
+1e037d64fdda5c9bd0361ca31d628c63af4e7358f1312f5bd445049b40065d95  examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/traefik/values-kind.yaml
 e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8  examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/cert-manager/values-kind.yaml
+05a357411fccd6eddd3f13d9e794f173a76024c47ce8d04de1ea3604b4da26ae  examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/traefik/values-kind.yaml
 e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8  examples/kubara/current-platform/source/overrides/hx-app-staging/helm/cert-manager/values-kind.yaml
-ddb32a37f1ce47929355ad6a82c7bfca970b7df456db093bd77d9181bfa96b0c  scripts/generate-kubara-current-example.mjs
+ba87b2ce88f12392844b19ac26198634ec762a1566d22b9c81ea9fb64bf5da73  examples/kubara/current-platform/source/overrides/hx-app-staging/helm/traefik/values-kind.yaml
+5bda31ac9e6936175a907845c31cb9e73126d77f0c6f70df6b3ee9d243d6725c  scripts/generate-kubara-current-example.mjs

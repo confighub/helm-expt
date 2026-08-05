@@ -1112,9 +1112,11 @@
         "departure": null,
         "departures": "none recorded",
         "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "declaredOverrides": [],
+        "declaredOverrides": [
+          "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/traefik/values-kind.yaml"
+        ],
         "renderObjectCount": 33,
-        "renderSha256": "d148dd3c8957c90d601a84d48a1d2755ea610312c4a985f8b4808b95bcfbf897",
+        "renderSha256": "a6470e92c0251603847dc1271634178254384ac2df4352092d063a82f2b7cf49",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
@@ -1149,9 +1151,11 @@
         "departure": null,
         "departures": "none recorded",
         "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "declaredOverrides": [],
+        "declaredOverrides": [
+          "examples/kubara/current-platform/source/overrides/hx-app-staging/helm/traefik/values-kind.yaml"
+        ],
         "renderObjectCount": 32,
-        "renderSha256": "06f38501bc7febca6d22f07c9d1061cafee2a58b763470e7f4e5d4bbe671679a",
+        "renderSha256": "c447e04f08a7a3bf4de0f04bf05bea56cf4966294954c1b5546484d91becfcdc",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
@@ -1186,9 +1190,11 @@
         "departure": null,
         "departures": "none recorded",
         "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "declaredOverrides": [],
+        "declaredOverrides": [
+          "examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/traefik/values-kind.yaml"
+        ],
         "renderObjectCount": 32,
-        "renderSha256": "a266f954eb80d0f34e5ace2536152fac50dea1d88d41a2d72c004bd8accd7f63",
+        "renderSha256": "21a886ba8fcb6a46ed46ea7e4e0d155d7abccd09d7e29235d8f61f4ee9bbddfe",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
@@ -1223,9 +1229,11 @@
         "departure": null,
         "departures": "none recorded",
         "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "declaredOverrides": [],
+        "declaredOverrides": [
+          "examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/traefik/values-kind.yaml"
+        ],
         "renderObjectCount": 32,
-        "renderSha256": "0842ac08229ad48c1b7fcdfc18711187be8cc53b755f015a03d83b051e61ef24",
+        "renderSha256": "48f908d388a3f2e895502ecb16e06bca58e451439a6cb6809e45cfc596d52de2",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",

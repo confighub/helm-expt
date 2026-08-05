@@ -13,13 +13,13 @@ It is not a live-health receipt.
 | hx-app-dev | homer-dashboard | homer-dashboard | 8 | `0810f86226a1` |
 | hx-app-dev | kube-prometheus-stack | kube-prometheus-stack | 116 | `a9c778d0a46b` |
 | hx-app-dev | metrics-server | metrics-server | 10 | `da40e4395191` |
-| hx-app-dev | traefik | traefik | 33 | `d148dd3c8957` |
+| hx-app-dev | traefik | traefik | 33 | `a6470e92c025` |
 | hx-app-prod-a | cert-manager | cert-manager | 52 | `27f69adde8d4` |
-| hx-app-prod-a | traefik | traefik | 32 | `a266f954eb80` |
+| hx-app-prod-a | traefik | traefik | 32 | `21a886ba8fcb` |
 | hx-app-prod-b | cert-manager | cert-manager | 52 | `ddab0a44c5ef` |
-| hx-app-prod-b | traefik | traefik | 32 | `0842ac08229a` |
+| hx-app-prod-b | traefik | traefik | 32 | `48f908d388a3` |
 | hx-app-staging | cert-manager | cert-manager | 52 | `d7cc5ad406be` |
-| hx-app-staging | traefik | traefik | 32 | `06f38501bc7f` |
+| hx-app-staging | traefik | traefik | 32 | `c447e04f08a7` |
 
 Render profile: Kubernetes 1.35.0, Helm v4.1.4, CRDs and
 hooks included, tests skipped, and cross-component API versions listed in

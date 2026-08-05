@@ -219,12 +219,12 @@ same config.yaml and values overrides
                                                         v
                                           kubara v0.13.0 generate
                                                         |
-                                      131 identical files, no diffs
+                                      135 identical files, no diffs
 ```
 
 The
 [`catalog-parity-receipt.yaml`](../../../examples/kubara/current-platform/catalog-parity-receipt.yaml)
-records path-and-byte-for-byte equality across all 131 generated files. The
+records path-and-byte-for-byte equality across all 135 generated files. The
 adapter receipt separately proves that the complete catalog export matches the
 pinned upstream release tree. This is a deterministic export, not an AI
 translation. The committed source config continues to name Kubara's official
@@ -276,7 +276,7 @@ config.yaml + ordered Kubara catalogs
 
 Keep using Kubara's `config.yaml`, effective ordered catalogs, normal
 `values-*.yaml` overrides, and familiar service definitions. The official
-catalog and the byte-preserving ConfigHub-aligned export produce the same 131
+catalog and the byte-preserving ConfigHub-aligned export produce the same 135
 generated files for this example. ConfigHub does not choose a different
 platform or require AI to reconstruct the intent.
 
@@ -304,7 +304,7 @@ node scripts/prepare-kubara-git-handoff.mjs --generate \
 ```
 
 For this example the output is
-`examples/kubara/prepared-current-platform`: 159 checked files containing the
+`examples/kubara/prepared-current-platform`: 167 checked files containing the
 copied source/config and reviewed generated tree, 13 deterministic effective
 renders, exact locks, generation and preparation receipts, checksums, and the
 offline wiring graph. The preparer refuses a missing or ambiguous exact
@@ -410,7 +410,7 @@ drop a workload pin, rebind a Target or upstream, or rewire a Link.
 
 | Surface | Current four-cluster evidence | General importer implementation |
 | --- | --- | --- |
-| Kubara selection and generation | Kubara v0.13.0 generates 131 byte-identical files from both catalog lanes and 13 deterministic effective renders. | Accepts the complete supported Kubara tree without changing selections, topology, namespaces, or wiring. |
+| Kubara selection and generation | Kubara v0.13.0 generates 135 byte-identical files from both catalog lanes and 13 deterministic effective renders. | Accepts the complete supported Kubara tree without changing selections, topology, namespaces, or wiring. |
 | Git and security boundary | Committed locks, checksums, generated files, renders, and wiring remain reviewable. | Requires an exact clean pushed revision, inventories every selected path, requires an external scanner attestation, and keeps target facts outside Git/OCI. |
 | Component-first OCI | The Catalog retains all 130 versions across 103 components while this platform selects seven roles. | Under exclusive single-writer publication control, publishes reusable definition and effective-config packages plus a target-neutral digest index; exact observed remote layers are reused and conflicts are refused. |
 | ConfigHub shape | The purpose-built mini-IDP's live claim depends on its exact receipt. | Applies to an explicitly selected existing context with pre-existing targets/bootstrap; allows only an identical current digest or exact prior-receipt-authorized additive transition, and proves a second zero-action run in its isolated acceptance suite. |
@@ -493,7 +493,7 @@ node scripts/generate-kubara-current-example.mjs --verify
 ```
 
 Generation checks the Kubara binary, both pinned catalog trees, all seven public
-artifacts, documented overrides, 131 generated files, and 13 effective renders.
+artifacts, documented overrides, 135 generated files, and 13 effective renders.
 It renders each component twice and requires deterministic bytes. Verification
 is network-free and does not require Kubara, Helm, a registry, ConfigHub, or a
 cluster. The complete outcome is in
@@ -502,8 +502,35 @@ cluster. The complete outcome is in
 The normal overrides remain in the familiar Kubara hierarchy:
 `source/overrides/<cluster>/helm/<service>/values-*.yaml`. They record the kind
 self-signed issuer, the Metrics Server kind TLS setting, the Homer links, and
-the hub Git/AppProject paths. These are authoring inputs, not hidden
-post-render patches.
+the hub Git/AppProject paths. Each cluster also has a Traefik kind variant that
+uses cub's existing NodePort window and publishes the cluster's configured
+`dnsName` into Ingress status. The local proof therefore uses standard Argo
+health without installing a load-balancer controller; production targets omit
+that kind-only values file and retain their normal LoadBalancer configuration.
+These are authoring inputs, not hidden post-render patches.
+
+The committed kind exposure is deliberately explicit:
+
+| Cluster | HTTP NodePort | HTTPS NodePort | Ingress status hostname |
+| --- | ---: | ---: | --- |
+| `hx-app-dev` | 30000 | 30001 | `hx-app-dev.traefik.me` |
+| `hx-app-staging` | 30010 | 30011 | `hx-app-staging.traefik.me` |
+| `hx-app-prod-a` | 30020 | 30021 | `hx-app-prod-a.traefik.me` |
+| `hx-app-prod-b` | 30030 | 30031 | `hx-app-prod-b.traefik.me` |
+
+The mini-IDP preflight must reserve and verify those four cub port windows
+before it publishes target releases. Once the live receipt passes, a user can
+exercise either application through any cluster without adding a load-balancer
+controller:
+
+```bash
+curl -H 'Host: hx-web.local' http://127.0.0.1:30000/
+curl --insecure --resolve cubbychat.local:30001:127.0.0.1 \
+  https://cubbychat.local:30001/
+```
+
+Use the corresponding port pair for staging, prod-a, or prod-b. `--insecure`
+is appropriate only for this explicitly self-signed local proof.
 
 ### Materialize the current matrix and wiring views
 
@@ -682,7 +709,46 @@ npm run kubara-mini-idp:apply
 npm run kubara-mini-idp:apply
 npm run kubara-mini-idp:verify
 npm run kubara-mini-idp:receipt-verify
+npm run kubara-mini-idp:orphan-plan
+npm run kubara-mini-idp:orphan-audit:self-test
+npm run kubara-mini-idp:orphan-audit
+npm run kubara-mini-idp:orphan-audit:receipt-verify
 ```
+
+The [measured reconciliation cost model](reconciliation-performance.md)
+explains why Unit count is not request count, which N+1 reads were removed,
+what the receipt measures before first Argo convergence, and which safety
+checks remain deliberately serial.
+
+Run the orphan audit only after the second apply and ordinary live verification
+have completed. It consumes the reconciler's exact plan rather than a separate
+hand-maintained topology, takes the shared serial live lock, and refuses an
+in-flight convergence, namespace migration, scenario or fleet-bootstrap
+journal. Its live commands are read-only. For the current plan it requires
+exactly 55 Spaces, 105 total allowed Units, 64 UpgradeUnit/NeedsProvides Links,
+four Targets and the 35 Argo Applications declared by the delivery Units. Every
+live Application must use the latest published manifest digest and no
+`status.resources[].requiresPruning` entry may remain. The protected
+`default`, `kube-system`, `kube-public` and `kube-node-lease` Namespaces must
+remain present while carrying no stale Argo tracking or ConfigHub origin
+metadata; `default` must also carry neither of the two reviewed legacy
+`project-name`/`stage` labels. Older releases in an allowed stream and additive catalog/proof
+packages are classified as retained history, not orphans; the audit never
+deletes them. The passing evidence is written to
+`runs/kubara-mini-idp-reconcile/orphan-audit.yaml`.
+
+The same audit bulk-reads every Deployment, StatefulSet, DaemonSet, CronJob and
+Job in every cluster. Each durable workload must be one of three things: an
+exact desired key in one of those 35 Applications' current `status.resources`;
+one of the 11 exact cluster-bootstrap workloads (`kindnet`, `kube-proxy`,
+`coredns`, `local-path-provisioner`, or one of the seven reviewed Argo CD
+v3.4.6 runtime workloads); or a controller-generated object whose direct
+ownerReference is a current desired root. The last case covers, for example,
+Prometheus/Alertmanager-generated StatefulSets and Jobs generated by a desired
+CronJob. A workload carrying `argocd.argoproj.io/tracking-id` whose exact key is
+absent from every expected Application status always fails, even if it names a
+valid owner. The receipt records every workload and requires both the
+unclassified and dangling-tracking counters to be zero.
 
 The canned reconciler is scoped to the `Kubara` organization at
 `https://hub.confighub.com`, pins context/external organization ID
@@ -771,9 +837,16 @@ final receipt. This prevents a
 health-before-prune deadlock while leaving Kubara's ordinary prune behavior
 unchanged; the action and exact binding are retained in the reconciliation
 receipt.
-On kind, Traefik, Ingress-only platform bindings, and cubbychat may remain
-`Progressing` while their load-balancer address is intentionally absent;
-separate workload readiness checks must still pass.
+On kind, Traefik uses the explicitly reviewed NodePorts already reserved by
+`cub cluster up`. Its configured `ingressEndpoint.hostname` populates Ingress
+status, so Traefik, hx-web, and cubbychat must all reach `Synced/Healthy`; a
+permanent `Progressing` health exception is not an accepted result.
+Four exact `default`-Namespace ownership migrations retain each protected
+Namespace UID and remove only the reviewed stale tracking/origin and
+`project-name`/`stage` fields after the replacement Namespace is proven at the
+expected revision. The operation journal and receipt distinguish a guarded
+patch from an already-clean retained Namespace; deletion or recreation is
+never authorized.
 
 The accepted desired plan is explicit: 55 Spaces, 63 managed Units, 27
 deployments, and 25 `NeedsProvides` Links. The two Argo definitions are both
@@ -878,7 +951,7 @@ catalog-release surfaces, and public site all verify.
 - The simplified lane is a deliberate delivery adaptation. It must never be
   described as Kubara's native Argo ownership model.
 - The fake External Secrets provider, self-signed kind issuer, kind-only Metrics
-  Server TLS setting, and Traefik LoadBalancer behavior are test-target facts,
+  Server TLS setting, and Traefik NodePort exposure are test-target facts,
   not production recommendations.
 - The v0.12.0
   [single-platform](../../../runs/kubara-single-platform-proof/receipt.yaml) and

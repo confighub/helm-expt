@@ -284,7 +284,7 @@ function expectedContract() {
           "kubara-catalog-full-coverage:verify-candidates",
           "kubara-catalog-full-coverage:verify",
         ]),
-        gate("current-example", "Kubara v0.13.0 generates the same 131 files from upstream and ConfigHub-aligned catalogs and yields 13 exact effective renders.", [
+        gate("current-example", "Kubara v0.13.0 generates the same 135 files from upstream and ConfigHub-aligned catalogs and yields 13 exact effective renders, including explicit healthy kind Traefik exposure.", [
           "kubara-current-example:verify",
           "kubara-effective-renders:verify",
         ]),
@@ -433,7 +433,7 @@ function verifyCurrentShape() {
   check(config.clusters.filter((cluster) => cluster.type === "spoke").length === 3, "current example must retain exactly three spokes");
   const selectedServices = new Set(config.clusters.flatMap((cluster) => Object.entries(cluster.services ?? {}).filter(([, service]) => service.status === "enabled").map(([name]) => name)));
   check(selectedServices.size === 6 && config.clusters.some((cluster) => cluster.argocd?.selfManaged === "enabled"), "current example must retain seven selected platform roles including hub Argo CD");
-  check(generation.spec?.outputs?.generatedFileCount === 131, "current example generated file count changed");
+  check(generation.spec?.outputs?.generatedFileCount === 135, "current example generated file count changed");
   check(generation.spec?.platform?.renderCount === 13, "current example effective render count changed");
   check(parity.status?.generatedTrees === "byte-for-byte-equal", "current example catalog generation parity is not byte-for-byte");
   check(apps.kind === "KubaraMiniIDPApplicationSourceLock", "mini-IDP application source lock kind changed");

@@ -19,18 +19,18 @@ spec:
       name: "kubara-release-snapshot"
       catalogRoot: "data/kubara-catalog-snapshots/kubara-catalogs-1.1.0-release/source"
       catalogTreeSha256: "25470fa8da444c2eafd078e1d9daab6734afbc6fafb66d0a6a7a4f6c162a62fa"
-      generatedFileCount: 131
-      outputTreeSha256: "2b1369e3f79a5738f792d8983c9cdd6ee5162799a46a0b2c6cdc075f49b3351d"
+      generatedFileCount: 135
+      outputTreeSha256: "a30a78dfd45653a939b16ab7631142daf1757ac2b3e5b5a26e46a171bc52c1b2"
     -
       name: "confighub-aligned-export"
       catalogRoot: "data/kubara-catalog-adapter/exports/kubara-catalogs-1.1.0-release"
       catalogTreeSha256: "25470fa8da444c2eafd078e1d9daab6734afbc6fafb66d0a6a7a4f6c162a62fa"
-      generatedFileCount: 131
-      outputTreeSha256: "2b1369e3f79a5738f792d8983c9cdd6ee5162799a46a0b2c6cdc075f49b3351d"
+      generatedFileCount: 135
+      outputTreeSha256: "a30a78dfd45653a939b16ab7631142daf1757ac2b3e5b5a26e46a171bc52c1b2"
   comparison:
     mode: "path-and-byte-for-byte"
-    fileCount: 131
-    outputTreeSha256: "2b1369e3f79a5738f792d8983c9cdd6ee5162799a46a0b2c6cdc075f49b3351d"
+    fileCount: 135
+    outputTreeSha256: "a30a78dfd45653a939b16ab7631142daf1757ac2b3e5b5a26e46a171bc52c1b2"
     differences:
       []
 status:

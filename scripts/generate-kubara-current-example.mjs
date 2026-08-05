@@ -108,6 +108,13 @@ const EXPECTED_ENABLED = new Map([
   ["hx-app-prod-b", ["cert-manager", "traefik"]],
 ]);
 
+const KIND_TRAEFIK = new Map([
+  ["hx-app-dev", { httpNodePort: 30000, httpsNodePort: 30001, hostname: "hx-app-dev.traefik.me" }],
+  ["hx-app-staging", { httpNodePort: 30010, httpsNodePort: 30011, hostname: "hx-app-staging.traefik.me" }],
+  ["hx-app-prod-a", { httpNodePort: 30020, httpsNodePort: 30021, hostname: "hx-app-prod-a.traefik.me" }],
+  ["hx-app-prod-b", { httpNodePort: 30030, httpsNodePort: 30031, hostname: "hx-app-prod-b.traefik.me" }],
+]);
+
 // One hub Argo render + cert-manager and Traefik on four clusters + four
 // additional hub services. That arithmetic is 13, despite an earlier planning
 // note calling the same set "12".
@@ -152,6 +159,11 @@ const SOURCE_OVERRIDES = [
     source: join(sourceRoot, "overrides", cluster, "helm", "cert-manager", "values-kind.yaml"),
     cluster,
     service: "cert-manager",
+  })),
+  ...[...KIND_TRAEFIK.keys()].map((cluster) => ({
+    source: join(sourceRoot, "overrides", cluster, "helm", "traefik", "values-kind.yaml"),
+    cluster,
+    service: "traefik",
   })),
 ];
 
@@ -441,6 +453,16 @@ function verifySourceContract() {
     const enabled = Object.entries(cluster.services ?? {}).filter(([, value]) => value.status === "enabled").map(([name]) => name).sort();
     check(JSON.stringify(enabled) === JSON.stringify([...EXPECTED_ENABLED.get(cluster.name)].sort()), `${cluster.name} enabled-service set changed`);
     check(Object.entries(cluster.services).every(([name, value]) => value.status === (EXPECTED_ENABLED.get(cluster.name).includes(name) ? "enabled" : "disabled")), `${cluster.name} contains an ambiguous service status`);
+    const expectedTraefik = KIND_TRAEFIK.get(cluster.name);
+    check(expectedTraefik, `${cluster.name} has no local-kind Traefik exposure contract`);
+    check(cluster.dnsName === expectedTraefik.hostname, `${cluster.name} Traefik status hostname differs from config.yaml dnsName`);
+    const traefikValuesPath = join(sourceRoot, "overrides", cluster.name, "helm", "traefik", "values-kind.yaml");
+    const traefikValues = readYaml(traefikValuesPath).traefik;
+    check(traefikValues?.service?.spec?.type === "NodePort", `${cluster.name} kind Traefik Service must use NodePort`);
+    check(traefikValues?.ports?.web?.nodePort === expectedTraefik.httpNodePort, `${cluster.name} Traefik HTTP NodePort changed`);
+    check(traefikValues?.ports?.websecure?.nodePort === expectedTraefik.httpsNodePort, `${cluster.name} Traefik HTTPS NodePort changed`);
+    check(traefikValues?.providers?.kubernetesIngress?.publishedService?.enabled === false, `${cluster.name} Traefik publishedService must be disabled on kind`);
+    check(traefikValues?.providers?.kubernetesIngress?.ingressEndpoint?.hostname === expectedTraefik.hostname, `${cluster.name} Traefik ingress hostname changed`);
   }
   check(config.clusters[0].argocd.selfManaged === "enabled", "hub self-managed Argo must remain enabled");
   check(config.clusters.slice(1).every((cluster) => cluster.argocd.selfManaged === "disabled"), "spoke self-managed Argo must remain disabled");
@@ -667,7 +689,28 @@ function verifyOverrideCopies() {
     check(issuers[0].metadata?.name === "selfsigned-root-issuer", `${cluster} does not use the deterministic kind issuer`);
     check(Boolean(issuers[0].spec?.selfSigned), `${cluster} kind issuer is not self-signed`);
     check(!issuers[0].spec?.acme, `${cluster} effective cert-manager desired state still uses public ACME`);
+    const traefikRender = readFileSync(join(renderRoot, cluster, "traefik", "release-objects.yaml"), "utf8");
+    assertKindTraefikRender(cluster, kubernetesDocs(traefikRender));
   }
+}
+
+function assertKindTraefikRender(cluster, docs) {
+  const expected = KIND_TRAEFIK.get(cluster);
+  check(expected, `${cluster} has no expected kind Traefik exposure`);
+  const services = docs.filter((doc) => doc.kind === "Service" && doc.metadata?.namespace === "traefik" && doc.metadata?.name === "traefik");
+  check(services.length === 1, `${cluster} must render exactly one traefik/traefik Service`);
+  const service = services[0];
+  check(service.spec?.type === "NodePort", `${cluster} Traefik effective Service is not NodePort`);
+  check(service.spec?.loadBalancerClass === undefined, `${cluster} Traefik kind Service must not declare loadBalancerClass`);
+  const web = (service.spec?.ports ?? []).find((port) => port.name === "web");
+  const websecure = (service.spec?.ports ?? []).find((port) => port.name === "websecure");
+  check(web?.port === 80 && web?.nodePort === expected.httpNodePort, `${cluster} Traefik web port is not 80:${expected.httpNodePort}`);
+  check(websecure?.port === 443 && websecure?.nodePort === expected.httpsNodePort, `${cluster} Traefik websecure port is not 443:${expected.httpsNodePort}`);
+  const deployments = docs.filter((doc) => doc.kind === "Deployment" && doc.metadata?.namespace === "traefik" && doc.metadata?.name === "traefik");
+  check(deployments.length === 1, `${cluster} must render exactly one traefik/traefik Deployment`);
+  const args = deployments[0].spec?.template?.spec?.containers?.find((container) => container.name === "traefik")?.args ?? [];
+  check(args.includes(`--providers.kubernetesingress.ingressendpoint.hostname=${expected.hostname}`), `${cluster} Traefik does not publish the configured ingress hostname`);
+  check(!args.some((arg) => String(arg).toLowerCase().includes("publishedservice")), `${cluster} Traefik still derives ingress status from a LoadBalancer Service`);
 }
 
 function verifyPortableGeneratedTree() {
@@ -876,6 +919,31 @@ them.
   self-signed issuer for the local proof instead of contacting public ACME.
 - \`overrides/hx-app-dev/helm/metrics-server/values-kind.yaml\` records the local-kind kubelet TLS
   departure rather than hiding it in a one-off command.
+- Each cluster's \`helm/traefik/values-kind.yaml\` uses cub's reserved NodePort
+  window and publishes that cluster's existing \`dnsName\` into Ingress status.
+  This makes the local apps reachable and keeps standard Argo health honest
+  without adding a load-balancer controller. Production targets omit this
+  kind-only override and retain their normal LoadBalancer configuration.
+
+| Cluster | HTTP NodePort | HTTPS NodePort | Ingress status hostname |
+| --- | ---: | ---: | --- |
+| \`hx-app-dev\` | 30000 | 30001 | \`hx-app-dev.traefik.me\` |
+| \`hx-app-staging\` | 30010 | 30011 | \`hx-app-staging.traefik.me\` |
+| \`hx-app-prod-a\` | 30020 | 30021 | \`hx-app-prod-a.traefik.me\` |
+| \`hx-app-prod-b\` | 30030 | 30031 | \`hx-app-prod-b.traefik.me\` |
+
+The mini-IDP preflight must reserve and verify these four cub port windows
+before publishing the target-specific releases. For example, after
+reconciliation:
+
+~~~sh
+curl -H 'Host: hx-web.local' http://127.0.0.1:30000/
+curl --insecure --resolve cubbychat.local:30001:127.0.0.1 \\
+  https://cubbychat.local:30001/
+~~~
+
+Use each cluster's corresponding port pair. \`--insecure\` is appropriate only
+for this explicitly self-signed local proof.
 
 \`source/overrides/<cluster>/helm/<service>/\` is the single canonical override
 input hierarchy. The generator copies those files beside \`values.generated.yaml\`, exactly where
