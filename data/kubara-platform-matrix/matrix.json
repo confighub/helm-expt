@@ -26,9 +26,7 @@
       },
       "faithfulReceiptStatus": "stale-source",
       "faithfulReceiptReasons": [
-        "receipt generated count 131 does not match current 135",
         "receipt generated digest does not match the current catalog-parity digest",
-        "remote-main generated count 131 does not match current 135",
         "remote-main generated digest does not match the current catalog-parity digest"
       ],
       "miniIdpReceipt": {
