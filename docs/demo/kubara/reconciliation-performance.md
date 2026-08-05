@@ -30,7 +30,9 @@ eventual-consistency optimization target.
 
 The organization-wide shape probe observed 105 Units, 39 Links, 35 published
 releases, and 4 targets. The target-list duration was not isolated, so no
-target-list latency is claimed here.
+target-list latency is claimed here. The Link sample predates the 25
+NeedsProvides Links in the completed 64-Link organization and must be
+remeasured before it is used as a current Link-list baseline.
 
 The pre-change offline runs on the same host were 8.72 s, 8.57 s, and 8.58 s
 for `--plan`, and 7.83 s for `--self-test`. Instrumented process profiles ranged
@@ -93,16 +95,38 @@ The apply path also removes three separate multipliers:
   cluster's first source Application converges. The previous implementation
   republished and fully revalidated the same cluster root for every one of 27
   deployments. Static accounting falls from about 1,302 reads for that repeated
-  root path to 186 for four root publications plus the closing currency checks.
+  root path to 182 for four root publications plus the closing currency checks.
 
-Even after those changes, static steady-state accounting gives a lower bound of
-at least 483 ConfigHub reads before the first Argo convergence starts: 196 for
+Source-release checks now use a boundary-local read snapshot. Each independent
+opening and closing boundary still reads every exact Unit body, Space, target,
+Link inventory, source Unit inventory, and upstream Unit inventory, but all
+assertions inside that boundary reuse those observations. No snapshot survives
+a release mutation. Across the 27 source Spaces, the steady-state release path
+falls from 798 reads to 367: 23 one-Unit Spaces fall from 26 to 13 reads each,
+and four three-Unit `hx-web` Spaces fall from 50 to 17 reads each. That is 431
+fewer reads (54.0%) while retaining independent opening and closing evidence.
+
+After those changes, static steady-state accounting gives a lower bound of at
+least 469 ConfigHub reads before the first Argo convergence starts: 196 for
 managed-Unit comparison, 81 for Application materialization, 54 list/allowlist
-reads, 70 variant Space/Target reads, 56 for the first cluster's delivery-root
-boundary, and 26 for the first source release. Preflight and several
-Space/policy reads are additional, so 483 is deliberately a lower bound rather
+reads, 70 variant Space/Target reads, 55 for the first cluster's delivery-root
+boundary, and 13 for the first source release. Preflight and several
+Space/policy reads are additional, so 469 is deliberately a lower bound rather
 than a promised total. The original “well over 100” statement is true but not
 specific enough for capacity or latency planning.
+
+These are API-backed `cub` reads, not literal wire round trips. A read-only
+client trace showed that space-scoped `unit list`, `unit get`, and `unit data`
+each issue two authenticated application requests: one resolves the Space and
+one queries the Unit endpoint. The organization-wide Unit snapshot issues one.
+The corresponding application-request count is therefore in the high hundreds
+and may approach twice the CLI-read count, but an exact full-run wire count is
+not claimed. The current `cub --debug` output is unsuitable for receipts or CI
+because raw debug traces can contain sensitive headers and request/response
+bodies. Safe instrumentation must count sanitized route templates and
+status/latency in the
+client transport, and use wire-level hooks separately for transmitted attempts,
+connection reuse, and TLS cost.
 
 The receipt records a dedicated
 `apply-start-to-first-argo-convergence` phase. That measurement matters because
@@ -178,6 +202,10 @@ In priority order for this example:
 9. **GUI query shape.** Component matrices, wiring Links, history, and health
    views should query by indexed labels and page/batch results. Rendering every
    revision or edge eagerly would move the same N+1 problem into the browser.
+10. **Source and catalog hand-off.** Kubara generation, Git fetch/checkout,
+    lock and checksum verification, exact catalog-version resolution, and CI
+    gates add deterministic latency before import. Cache by Git revision and
+    catalog lock, but never replace exact-version failure with a silent upgrade.
 
 ## Performance guardrails
 
@@ -187,6 +215,9 @@ These are regression budgets for this implementation, not user-facing SLAs:
   resource: one opening and one closing Unit, Link, release, and target list;
 - active verification must issue no per-Unit metadata get or per-Space Unit
   inventory list; Unit data reads remain explicit;
+- each source-release boundary reads the source Unit inventory and each unique
+  upstream inventory once, issues no point Unit metadata gets, and clears its
+  cache before any release mutation;
 - mutations remain serial and keep full target-pin validation;
 - the opening and closing fingerprint must match before evidence can say
   `stability: pass`;

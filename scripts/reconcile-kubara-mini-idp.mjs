@@ -168,6 +168,7 @@ const canonicalYamlPerformance = {
   parseMs: 0,
 };
 let activeVerificationReadSnapshot = null;
+let activeSourceReleaseBoundarySnapshot = null;
 
 process.once("exit", () => {
   const evidence = performanceEvidence(`${mode.replace(/^--/, "")}-process-exit`);
@@ -2007,6 +2008,7 @@ function selfTestPerformanceInstrumentation() {
     { SpaceID: "space-b", UnitID: "unit-b", Slug: "b" },
   ], ["SpaceID", "UnitID", "Slug"]);
   check(stableJson(left) === stableJson(right), "performance self-test: snapshot canonicalization depends on row order");
+  selfTestVerificationReadSnapshotLifecycle();
   const resources = ["link", "release", "target", "unit"].map((resource) => ({
     resource,
     rows: 1,
@@ -2031,6 +2033,44 @@ function selfTestPerformanceInstrumentation() {
     }],
   }, "performance self-test evidence");
   console.log("Kubara mini-IDP performance instrumentation self-test passed");
+}
+
+function selfTestVerificationReadSnapshotLifecycle() {
+  check(!activeVerificationReadSnapshot, "performance self-test: verification snapshot unexpectedly active");
+  const fingerprint = `sha256:${"a".repeat(64)}`;
+  const opening = () => ({
+    fingerprint,
+    evidence: {
+      mode: "bracketed-organization-wide-read-only",
+      stability: "pending-final-snapshot",
+      resources: [{ resource: "unit", rows: 1, listCalls: 1, servedReads: 0 }],
+    },
+  });
+
+  try {
+    activeVerificationReadSnapshot = opening();
+    const evidence = finishVerificationReadSnapshot(new Map(), () => ({
+      fingerprint,
+      rowCounts: { unit: 1 },
+      listCalls: { unit: 1 },
+    }));
+    check(evidence.stability === "pass", "performance self-test: stable snapshot did not pass");
+    check(!activeVerificationReadSnapshot, "performance self-test: successful snapshot remained active");
+
+    activeVerificationReadSnapshot = opening();
+    let failure = null;
+    try {
+      finishVerificationReadSnapshot(new Map(), () => {
+        throw new Error("injected final snapshot capture failure");
+      });
+    } catch (error) {
+      failure = error;
+    }
+    check(failure?.message === "injected final snapshot capture failure", "performance self-test: snapshot failure was not preserved");
+    check(!activeVerificationReadSnapshot, "performance self-test: failed snapshot remained active");
+  } finally {
+    activeVerificationReadSnapshot = null;
+  }
 }
 
 function tryCommand(binary, args, options = {}) {
@@ -2414,6 +2454,9 @@ function observeKindTraefikDockerBindings() {
 }
 
 function readSpaces() {
+  if (activeSourceReleaseBoundarySnapshot) {
+    return new Map(activeSourceReleaseBoundarySnapshot.spaces);
+  }
   return new Map(unwrapRows(cubJson(["space", "list", "--select", "Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates"]), "Space")
     .map((space) => [space.Slug, space]));
 }
@@ -2422,6 +2465,13 @@ function readUnitRows(space) {
   if (activeVerificationReadSnapshot) {
     activeVerificationReadSnapshot.evidenceByResource.get("unit").servedReads += 1;
     return [...(activeVerificationReadSnapshot.unitsBySpace.get(space) ?? [])];
+  }
+  if (activeSourceReleaseBoundarySnapshot) {
+    check(
+      activeSourceReleaseBoundarySnapshot.unitsBySpace.has(space),
+      `${space}: source release boundary did not preload Unit inventory`,
+    );
+    return [...activeSourceReleaseBoundarySnapshot.unitsBySpace.get(space)];
   }
   const value = cubJson([
     "unit", "list", "--space", space,
@@ -2434,6 +2484,14 @@ function readUnit(space, slug) {
   if (activeVerificationReadSnapshot) {
     activeVerificationReadSnapshot.evidenceByResource.get("unit").servedReads += 1;
     return activeVerificationReadSnapshot.unitsByRef.get(`${space}/${slug}`) ?? null;
+  }
+  if (activeSourceReleaseBoundarySnapshot) {
+    check(
+      activeSourceReleaseBoundarySnapshot.unitsBySpace.has(space),
+      `${space}: source release boundary did not preload Unit inventory`,
+    );
+    return activeSourceReleaseBoundarySnapshot.unitsBySpace.get(space)
+      .find((unit) => unit.Slug === slug) ?? null;
   }
   const result = cubTry([
     "unit", "get", "--space", space, slug,
@@ -2449,6 +2507,13 @@ function readTarget(space) {
     activeVerificationReadSnapshot.evidenceByResource.get("target").servedReads += 1;
     return activeVerificationReadSnapshot.targetsBySpace.get(space) ?? null;
   }
+  if (activeSourceReleaseBoundarySnapshot) {
+    check(
+      activeSourceReleaseBoundarySnapshot.targetsBySpace.has(space),
+      `${space}: source release boundary did not preload target`,
+    );
+    return activeSourceReleaseBoundarySnapshot.targetsBySpace.get(space);
+  }
   const result = cubTry(["target", "get", "--space", space, "target", "-o", "json"]);
   return result.ok ? unwrapEntity(JSON.parse(result.output), "Target") : null;
 }
@@ -2458,11 +2523,47 @@ function readLinks(space) {
     activeVerificationReadSnapshot.evidenceByResource.get("link").servedReads += 1;
     return [...(activeVerificationReadSnapshot.linksBySpace.get(space) ?? [])];
   }
+  if (activeSourceReleaseBoundarySnapshot) {
+    check(
+      activeSourceReleaseBoundarySnapshot.linksBySpace.has(space),
+      `${space}: source release boundary did not preload Links`,
+    );
+    return [...activeSourceReleaseBoundarySnapshot.linksBySpace.get(space)];
+  }
   const result = cubJson([
     "link", "list", "--space", space,
     "--select", "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum",
   ]);
   return unwrapRows(result, "Link");
+}
+
+function withSourceReleaseBoundarySnapshot(space, expectedUnits, verify) {
+  check(!activeVerificationReadSnapshot, `${space}: source release boundary cannot overlap live verification`);
+  check(!activeSourceReleaseBoundarySnapshot, `${space}: source release boundary snapshot is already active`);
+
+  const spaces = readSpaces();
+  const unitsBySpace = new Map([[space, readUnitRows(space)]]);
+  const upstreamSpaces = [...new Set(expectedUnits
+    .map((unit) => unit.upstream?.split("/")[0])
+    .filter(Boolean))]
+    .sort();
+  for (const upstreamSpace of upstreamSpaces) {
+    if (!unitsBySpace.has(upstreamSpace)) unitsBySpace.set(upstreamSpace, readUnitRows(upstreamSpace));
+  }
+  const targetsBySpace = new Map();
+  const targetSpaces = [...new Set(expectedUnits
+    .map((unit) => unit.target?.split("/")[0])
+    .filter(Boolean))]
+    .sort();
+  for (const targetSpace of targetSpaces) targetsBySpace.set(targetSpace, readTarget(targetSpace));
+  const linksBySpace = new Map([[space, readLinks(space)]]);
+  const snapshot = { spaces, unitsBySpace, targetsBySpace, linksBySpace };
+  activeSourceReleaseBoundarySnapshot = snapshot;
+  try {
+    return verify();
+  } finally {
+    if (activeSourceReleaseBoundarySnapshot === snapshot) activeSourceReleaseBoundarySnapshot = null;
+  }
 }
 
 function beginVerificationReadSnapshot(spaces) {
@@ -2486,22 +2587,25 @@ function beginVerificationReadSnapshot(spaces) {
   return activeVerificationReadSnapshot;
 }
 
-function finishVerificationReadSnapshot(spaces) {
+function finishVerificationReadSnapshot(spaces, capture = captureOrganizationReadSnapshot) {
   check(activeVerificationReadSnapshot, "verification read snapshot is not active");
   const opening = activeVerificationReadSnapshot;
-  const final = captureOrganizationReadSnapshot(spaces);
-  activeVerificationReadSnapshot = null;
-  for (const resource of opening.evidence.resources) {
-    resource.listCalls += final.listCalls[resource.resource];
-    check(
-      resource.rows === final.rowCounts[resource.resource],
-      `${resource.resource} organization-wide snapshot row count changed during verification`,
-    );
+  try {
+    const final = capture(spaces);
+    for (const resource of opening.evidence.resources) {
+      resource.listCalls += final.listCalls[resource.resource];
+      check(
+        resource.rows === final.rowCounts[resource.resource],
+        `${resource.resource} organization-wide snapshot row count changed during verification`,
+      );
+    }
+    const stable = opening.fingerprint === final.fingerprint;
+    opening.evidence.stability = stable ? "pass" : "changed-during-verification";
+    check(stable, "Unit, release, Link, or target state changed during read-only verification; retry against a quiescent organization");
+    return opening.evidence;
+  } finally {
+    if (activeVerificationReadSnapshot === opening) activeVerificationReadSnapshot = null;
   }
-  const stable = opening.fingerprint === final.fingerprint;
-  opening.evidence.stability = stable ? "pass" : "changed-during-verification";
-  check(stable, "Unit, release, Link, or target state changed during read-only verification; retry against a quiescent organization");
-  return opening.evidence;
 }
 
 function captureOrganizationReadSnapshot(spaces) {
@@ -6606,13 +6710,15 @@ function hasRelease(space) {
 
 function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
   const boundarySnapshot = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
-  const hasUnreleasedHeads = spaceHasUnreleasedHeads(space);
+  const hasUnreleasedHeads = releaseBoundaryHasUnreleasedHeads(space, boundarySnapshot);
   const current = latestRelease(space);
   if (releasePublicationDecision({ hasUnreleasedHeads, hasPublishedRelease: Boolean(current) }) === "reuse") {
     state.changedSpaces.delete(space);
-    check(
-      stableJson(assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" })) === stableJson(boundarySnapshot),
-      `${space}: release boundary changed while reusing the published release`,
+    assertReleaseBoundaryTransition(
+      space,
+      boundarySnapshot,
+      assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" }),
+      { publicationAttempted: false },
     );
     return validatedPublishedRelease(space, current, "existing published release");
   }
@@ -6627,14 +6733,12 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
     );
     const reused = latestRelease(space);
     check(reused, `${space}: ConfigHub reported an unchanged bundle but no published release exists`);
-    check(
-      !spaceHasUnreleasedHeads(space),
-      `${space}: ConfigHub reported an unchanged bundle while Unit heads remain unreleased`,
-    );
     state.changedSpaces.delete(space);
-    check(
-      stableJson(assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" })) === stableJson(boundarySnapshot),
-      `${space}: release boundary changed during unchanged-release recovery`,
+    assertReleaseBoundaryTransition(
+      space,
+      boundarySnapshot,
+      assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" }),
+      { publicationAttempted: true },
     );
     return validatedPublishedRelease(space, reused, "unchanged published release");
   }
@@ -6651,10 +6755,11 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
   recordAction(state, "release-publish", space, `manifest=${manifestDigest}; bundle=${bundleDigest}`);
   state.published.set(space, { manifestDigest, bundleDigest });
   state.changedSpaces.delete(space);
-  check(!spaceHasUnreleasedHeads(space), `${space}: release did not advance every Unit to its current head`);
-  check(
-    stableJson(assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" })) === stableJson(boundarySnapshot),
-    `${space}: release boundary changed while publishing`,
+  assertReleaseBoundaryTransition(
+    space,
+    boundarySnapshot,
+    assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" }),
+    { publicationAttempted: true },
   );
   return {
     ...(release ?? {}),
@@ -6666,28 +6771,30 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
 function assertReleaseBoundary(space, { sourcePayloadKeys = {}, approvalMode = "clear" } = {}) {
   const expectedManagedUnits = plan.managedUnits.filter((item) => item.space === space);
   if (expectedManagedUnits.length > 0) {
-    assertUnitAllowlist(space, expectedManagedUnits.map((item) => item.slug));
-    const unexpectedOverrides = Object.keys(sourcePayloadKeys)
-      .filter((slug) => !expectedManagedUnits.some((item) => item.slug === slug));
-    check(
-      unexpectedOverrides.length === 0,
-      `${space}: release payload override names unknown Units: ${unexpectedOverrides.join(", ")}`,
-    );
-    for (const expected of expectedManagedUnits) {
-      assertManagedSourceUnitContract(
-        expected,
-        sourcePayloadKeys[expected.slug] ?? expected.payloadKey,
+    return withSourceReleaseBoundarySnapshot(space, expectedManagedUnits, () => {
+      assertUnitAllowlist(space, expectedManagedUnits.map((item) => item.slug));
+      const unexpectedOverrides = Object.keys(sourcePayloadKeys)
+        .filter((slug) => !expectedManagedUnits.some((item) => item.slug === slug));
+      check(
+        unexpectedOverrides.length === 0,
+        `${space}: release payload override names unknown Units: ${unexpectedOverrides.join(", ")}`,
       );
-    }
-    const liveUnits = readUnitRows(space);
-    const gated = liveUnits.filter(hasApprovalGate);
-    if (approvalMode === "required") {
-      check(gated.length > 0, `${space}: expected an exact approval gate before the refused publication`);
-    } else {
-      check(gated.length === 0, `${space}: successful publication still has ${gated.length} approval-gated head(s)`);
-    }
-    assertManagedSourceSpaceContract(space, expectedManagedUnits);
-    return releaseBoundarySnapshot(space);
+      for (const expected of expectedManagedUnits) {
+        assertManagedSourceUnitContract(
+          expected,
+          sourcePayloadKeys[expected.slug] ?? expected.payloadKey,
+        );
+      }
+      const liveUnits = readUnitRows(space);
+      const gated = liveUnits.filter(hasApprovalGate);
+      if (approvalMode === "required") {
+        check(gated.length > 0, `${space}: expected an exact approval gate before the refused publication`);
+      } else {
+        check(gated.length === 0, `${space}: successful publication still has ${gated.length} approval-gated head(s)`);
+      }
+      assertManagedSourceSpaceContract(space, expectedManagedUnits);
+      return releaseBoundarySnapshot(space);
+    });
   }
   const fleetItem = FLEET.find((item) => `${item.cluster}-argo-apps` === space);
   check(fleetItem, `${space}: release publication is outside the managed mini-IDP Space inventory`);
@@ -6818,6 +6925,7 @@ function releaseBoundarySnapshot(space) {
     slug: unit.Slug,
     id: unit.UnitID,
     headRevisionNum: unit.HeadRevisionNum,
+    lastAppliedRevisionNum: unit.LastAppliedRevisionNum,
     dataHash: unit.DataHash,
     targetID: unit.TargetID ?? null,
     upstreamUnitID: unit.UpstreamUnitID ?? null,
@@ -6828,6 +6936,35 @@ function releaseBoundarySnapshot(space) {
       .sort()
       .map((key) => [key, unit.Labels[key]])),
   })).sort((left, right) => left.slug.localeCompare(right.slug));
+}
+
+function releaseBoundaryHasUnreleasedHeads(space, snapshot) {
+  check(snapshot.length > 0, `${space}: cannot determine release currency without Units`);
+  return snapshot.some(
+    (unit) => Number(unit.headRevisionNum ?? 0) !== Number(unit.lastAppliedRevisionNum ?? 0),
+  );
+}
+
+function releaseBoundaryStableShape(snapshot) {
+  return snapshot.map(({ lastAppliedRevisionNum: _lastAppliedRevisionNum, ...unit }) => unit);
+}
+
+function assertReleaseBoundaryTransition(space, opening, closing, { publicationAttempted }) {
+  check(
+    stableJson(releaseBoundaryStableShape(closing)) === stableJson(releaseBoundaryStableShape(opening)),
+    `${space}: release boundary changed ${publicationAttempted ? "while publishing" : "while reusing the published release"}`,
+  );
+  if (publicationAttempted) {
+    check(
+      !releaseBoundaryHasUnreleasedHeads(space, closing),
+      `${space}: release publication did not advance every Unit to its current head`,
+    );
+  } else {
+    check(
+      stableJson(closing) === stableJson(opening),
+      `${space}: release currency changed while reusing the published release`,
+    );
+  }
 }
 
 function validatedPublishedRelease(space, release, description) {
@@ -6864,6 +7001,30 @@ function selfTestReleaseRecovery() {
       && !isUnchangedReleaseResponse({ ok: true, output: UNCHANGED_RELEASE_ERROR }),
     "unrelated failures or successful output must not be classified as unchanged-bundle recovery",
   );
+  const opening = [{
+    slug: "fixture",
+    id: "11111111-1111-4111-8111-111111111111",
+    headRevisionNum: 2,
+    lastAppliedRevisionNum: 1,
+    dataHash: "a".repeat(64),
+  }];
+  const published = [{ ...opening[0], lastAppliedRevisionNum: 2 }];
+  check(releaseBoundaryHasUnreleasedHeads("fixture", opening), "fixture opening release must have an unreleased head");
+  check(!releaseBoundaryHasUnreleasedHeads("fixture", published), "fixture published release must be current");
+  assertReleaseBoundaryTransition("fixture", opening, published, { publicationAttempted: true });
+  assertReleaseBoundaryTransition("fixture", published, published, { publicationAttempted: false });
+  let driftFailure = null;
+  try {
+    assertReleaseBoundaryTransition(
+      "fixture",
+      opening,
+      [{ ...published[0], dataHash: "b".repeat(64) }],
+      { publicationAttempted: true },
+    );
+  } catch (error) {
+    driftFailure = error;
+  }
+  check(driftFailure?.message.includes("release boundary changed"), "release-boundary content drift must fail closed");
   console.log("Kubara mini-IDP release recovery self-test passed");
 }
 
@@ -7493,7 +7654,8 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   assertKubaraOrganization();
   const findings = [];
   const spaces = readSpaces();
-  beginVerificationReadSnapshot(spaces);
+  const verificationReadSnapshot = beginVerificationReadSnapshot(spaces);
+  try {
   const controlSpace = unwrapEntity(cubJson(["space", "get", CONTROL_SPACE]), "Space");
   check(controlSpace.OrganizationID === ORGANIZATION_ENTITY_ID, `${CONTROL_SPACE}: organization entity ID drifted from the pinned Kubara org`);
   assertSpaceAllowlist(spaces, desired, { requireAll: true });
@@ -7744,6 +7906,9 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     })),
     actionCount: state?.actions.length ?? 0,
   };
+  } finally {
+    if (activeVerificationReadSnapshot === verificationReadSnapshot) activeVerificationReadSnapshot = null;
+  }
 }
 
 function observeProtectedNamespacePostconditions(findings) {
