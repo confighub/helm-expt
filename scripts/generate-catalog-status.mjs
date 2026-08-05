@@ -8,6 +8,10 @@ import {
   repoRoot,
   write,
 } from "./lib/proof-common.mjs";
+import {
+  catalogDerivedPath,
+  recipeRoots,
+} from "./lib/catalog-derived-views.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 
@@ -235,13 +239,6 @@ if (mode === "--generate") {
   node scripts/generate-catalog-status.mjs --verify`);
 }
 
-function recipeRoots() {
-  return listFiles(join(repoRoot, "recipes"))
-    .filter((file) => file.endsWith("/recipe.yaml"))
-    .map((file) => dirname(file))
-    .sort();
-}
-
 function buildStatus(root) {
   const recipe = readYaml(join(root, "recipe.yaml"));
   const sourceLock = readYaml(join(root, "source-lock.yaml"));
@@ -272,7 +269,7 @@ function buildStatus(root) {
         : ["Machine proof exists; catalog support is not claimed until variant and product review are complete."];
 
   return {
-    path: join(root, "catalog-status.yaml"),
+    path: catalogDerivedPath(root, "catalog-status.yaml"),
     yaml: `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: CatalogStatus
 metadata:
@@ -334,8 +331,8 @@ function verifyStatuses() {
   for (const root of roots) {
     const recipe = readYaml(join(root, "recipe.yaml"));
     const variantNames = new Set((recipe.spec?.variants ?? []).map((path) => dirname(path).split("/").at(-1)));
-    const statusPath = join(root, "catalog-status.yaml");
-    check(existsSync(statusPath), `${relativeRepo(root)} missing catalog-status.yaml`);
+    const statusPath = catalogDerivedPath(root, "catalog-status.yaml");
+    check(existsSync(statusPath), `${relativeRepo(root)} missing generated view ${relativeRepo(statusPath)}`);
     const status = readYaml(statusPath);
     check(status.kind === "CatalogStatus", `${relativeRepo(statusPath)} kind must be CatalogStatus`);
     check(

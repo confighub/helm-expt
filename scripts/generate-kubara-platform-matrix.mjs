@@ -196,7 +196,7 @@ function currentDocument({ config, sourceLock, components, clusters, renderInsta
         cells: rows.length,
       },
       vocabulary: {
-        observed: "A source-current mini-IDP receipt records exact ConfigHub sync, health, and workload readiness for this cell.",
+        observed: "A source-current mini-IDP receipt records the exact ConfigHub release digest, Argo sync and health, and workload readiness for this cell.",
         watch: "Current live evidence exists, but controller sync or workload state is non-green.",
         "rendered-only": "The current Kubara config and effective render include this instance; no current live sync claim is made.",
         centralized: "No Argo CD instance is selected for this spoke; the current config assigns delivery to the hub Argo CD.",
@@ -319,7 +319,7 @@ function currentMatrixCell(component, cluster, config, renderInstances, observat
     presence,
     deliveryState: observation?.deliveryState ?? (disabled ? "not-selected" : "not-live-observed"),
     syncState,
-    configHubSyncState: syncState,
+    argoSyncState: syncState,
     healthState,
     readiness,
     workloadState,
@@ -514,11 +514,11 @@ function dedupe(values) {
 }
 
 function currentCsvReport(rows) {
-  const headers = ["component", "category", "cluster", "environment", "cluster_type", "selected_version", "desired_version", "observed_version", "version_state", "presence", "delivery_state", "confighub_sync_state", "health_state", "readiness_result", "readiness_ready", "readiness_desired", "workload_state", "proof_status", "departure_id", "departure_reason", "unknown_reason", "declared_overrides", "render_object_count", "render_sha256", "evidence_scope", "evidence"];
+  const headers = ["component", "category", "cluster", "environment", "cluster_type", "selected_version", "desired_version", "observed_version", "version_state", "presence", "delivery_state", "argo_sync_state", "health_state", "readiness_result", "readiness_ready", "readiness_desired", "workload_state", "proof_status", "departure_id", "departure_reason", "unknown_reason", "declared_overrides", "render_object_count", "render_sha256", "evidence_scope", "evidence"];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell({
     component: row.component, category: row.category, cluster: row.cluster, environment: row.environment, cluster_type: row.clusterType,
     selected_version: row.selectedVersion, desired_version: row.desiredVersion, observed_version: row.observedVersion, version_state: row.versionState,
-    presence: row.presence, delivery_state: row.deliveryState, confighub_sync_state: row.configHubSyncState, health_state: row.healthState,
+    presence: row.presence, delivery_state: row.deliveryState, argo_sync_state: row.argoSyncState, health_state: row.healthState,
     readiness_result: row.readiness.result, readiness_ready: row.readiness.ready, readiness_desired: row.readiness.desired,
     workload_state: row.workloadState, proof_status: row.proofStatus, departure_id: row.departure?.id ?? "", departure_reason: row.departure?.reason ?? "",
     unknown_reason: row.unknownReason, declared_overrides: row.declaredOverrides.join(";"), render_object_count: row.renderObjectCount,
@@ -528,7 +528,7 @@ function currentCsvReport(rows) {
 
 function currentMarkdownReport(document) {
   const { components, clusters, rows, summary, evidence } = document.spec;
-  const cell = (row) => `${currentStatusIcon(row.proofStatus)} **${row.proofStatus}**<br>sync: ${escapeMd(row.syncState)}<br>health/ready: ${escapeMd(row.healthState)} / ${escapeMd(row.readiness.result)}<br>observed: ${escapeMd(row.observedVersion)}`;
+  const cell = (row) => `${currentStatusIcon(row.proofStatus)} **${row.proofStatus}**<br>Argo sync: ${escapeMd(row.syncState)}<br>health/ready: ${escapeMd(row.healthState)} / ${escapeMd(row.readiness.result)}<br>observed: ${escapeMd(row.observedVersion)}`;
   const gridRows = components.map((component) => `| ${component.name}<br>${escapeMd(component.selectedVersion)} | ${clusters.map((cluster) => cell(rows.find((row) => row.component === component.name && row.cluster === cluster.name))).join(" | ")} |`).join("\n");
   const unknownRows = document.spec.unknowns.map((row) => `| ${row.component} | ${row.cluster} | ${row.observedVersion} | ${escapeMd(row.syncState)} | ${escapeMd(row.healthState)} | ${escapeMd(row.readiness)} | ${escapeMd(row.unknownReason)} |`).join("\n") || "| — | — | — | — | — | — | — |";
   const overrideRows = rows.filter((row) => row.declaredOverrides.length > 0).map((row) => `| ${row.cluster} | ${row.component} | ${row.declaredOverrides.map((path) => `\`${path}\``).join("<br>")} |`).join("\n") || "| — | — | None. |";
@@ -539,6 +539,9 @@ catalogs ${evidence.catalogVersion}. It is generated from the four-cluster
 current config, committed effective renders, and two digest-pinned app fixtures.
 Historical v0.12.0 adapted
 evidence is retained separately under [historical-v0.12.0](historical-v0.12.0/summary.md).
+
+[Return to the Kubara adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html)
+· [Browse the component-first Catalog](https://confighub.github.io/helm-expt/site/charts/)
 
 Colored, accessible view: [matrix.html](matrix.html). Machine-readable forms:
 [matrix.csv](matrix.csv) and [matrix.json](matrix.json).
@@ -570,7 +573,7 @@ separate topology evidence (status: \`${evidence.faithfulReceiptStatus}\`).
 
 ## Explicit unknowns
 
-| Component | Cluster | Observed version | ConfigHub sync | Health | Readiness | Why Unknown |
+| Component | Cluster | Observed version | Argo sync | Health | Readiness | Why Unknown |
 | --- | --- | --- | --- | --- | --- | --- |
 ${unknownRows}
 
@@ -598,19 +601,21 @@ function currentHtmlReport(document) {
   const { components, clusters, rows, evidence } = document.spec;
   const gridRows = components.map((component) => `<tr><th scope="row">${escapeHtml(component.name)}<span class="selected">selected: ${escapeHtml(component.selectedVersion)}</span></th>${clusters.map((cluster) => {
     const row = rows.find((entry) => entry.component === component.name && entry.cluster === cluster.name);
-    const label = `${row.proofStatus}; ConfigHub sync ${row.syncState}; health ${row.healthState}; readiness ${row.readiness.result}; observed version ${row.observedVersion}`;
-    return `<td class="matrix-cell ${currentStatusClass(row.proofStatus)}" aria-label="${escapeHtml(label)}"><strong><span aria-hidden="true">${currentStatusGlyph(row.proofStatus)}</span> ${escapeHtml(row.proofStatus)}</strong><span>sync: ${escapeHtml(row.syncState)}</span><span>health / ready: ${escapeHtml(row.healthState)} / ${escapeHtml(row.readiness.result)}</span><span>observed: ${escapeHtml(row.observedVersion)}</span></td>`;
+    const label = `${row.proofStatus}; Argo sync ${row.syncState}; health ${row.healthState}; readiness ${row.readiness.result}; observed version ${row.observedVersion}`;
+    return `<td class="matrix-cell ${currentStatusClass(row.proofStatus)}" aria-label="${escapeHtml(label)}"><strong><span aria-hidden="true">${currentStatusGlyph(row.proofStatus)}</span> ${escapeHtml(row.proofStatus)}</strong><span>Argo sync: ${escapeHtml(row.syncState)}</span><span>health / ready: ${escapeHtml(row.healthState)} / ${escapeHtml(row.readiness.result)}</span><span>observed: ${escapeHtml(row.observedVersion)}</span></td>`;
   }).join("")}</tr>`).join("\n");
   const detailRows = rows.map((row) => `<tr><th scope="row">${escapeHtml(row.component)}</th><td>${escapeHtml(row.category)}</td><td>${escapeHtml(row.cluster)}</td><td>${escapeHtml(row.presence)}</td><td>${escapeHtml(row.desiredVersion)}</td><td>${escapeHtml(row.observedVersion)}</td><td>${escapeHtml(row.syncState)}</td><td>${escapeHtml(row.healthState)}</td><td>${escapeHtml(row.workloadState)}</td><td class="status ${currentStatusClass(row.proofStatus)}">${currentStatusGlyph(row.proofStatus)} ${escapeHtml(row.proofStatus)}</td><td>${escapeHtml(row.departures)}</td><td>${escapeHtml(row.unknownReason ?? "")}</td><td>${row.declaredOverrides.map((path) => `<code>${escapeHtml(path)}</code>`).join("<br>") || "none"}</td><td>${escapeHtml(row.evidenceScope)}</td></tr>`).join("\n");
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kubara current component by cluster matrix</title>
 <style>:root{color-scheme:light dark}body{font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;margin:24px;background:#fff;color:#17212b}h1{font-size:1.7rem;margin-bottom:.25rem}.lede,.boundary{max-width:95ch;color:#3f4d5a}.legend{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}.key,.status{border-radius:.25rem;padding:.3rem .5rem;font-weight:700}.observed{background:#d7f2df;color:#14532d}.watch{background:#fff0bd;color:#634b00}.rendered-only{background:#eadcff;color:#4a2573}.centralized{background:#dce9ff;color:#173b75}.disabled{background:#edf1f5;color:#344454}table{border-collapse:collapse;width:100%;margin:1.25rem 0;font-size:.84rem}caption{text-align:left;font-size:1rem;font-weight:700;padding:.5rem 0}th,td{border:1px solid #aeb8c2;padding:.5rem;text-align:left;vertical-align:top}thead th{background:#edf1f5;color:#17212b;position:sticky;top:0}.matrix-cell{min-width:12rem}.matrix-cell span,.selected{display:block;font-weight:400;margin-top:.2rem}code{white-space:normal;overflow-wrap:anywhere}@media(prefers-color-scheme:dark){body{background:#10161d;color:#eef4fa}.lede,.boundary{color:#c6d1dc}thead th{background:#25313d;color:#fff}.observed{background:#14532d;color:#fff}.watch{background:#634b00;color:#fff}.rendered-only{background:#4a2573;color:#fff}.centralized{background:#173b75;color:#fff}.disabled{background:#344454;color:#fff}}</style></head>
 <body><main><h1>Kubara component × cluster matrix — primary current</h1>
+<nav aria-label="Kubara example navigation"><a href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">Adoption guide</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Component Catalog</a></nav>
 <p class="lede">Kubara ${escapeHtml(evidence.kubaraVersion)}, catalogs ${escapeHtml(evidence.catalogVersion)}. Seven platform roles and two applications across four clusters. Live overlay: ${escapeHtml(evidence.miniIdpReceipt.status)}; ${evidence.miniIdpReceipt.sourceDigestsVerified} source digests verified. Status is written as text and symbol, with color supplementary.</p>
 <div class="legend" aria-label="Proof status legend"><span class="key observed">✓ observed</span><span class="key watch">! watch</span><span class="key rendered-only">◐ rendered-only</span><span class="key centralized">↔ centralized</span><span class="key disabled">– disabled</span></div>
 <p class="boundary"><strong>Boundary:</strong> rendered-only is desired state, not live sync. Final cells consume the mini-IDP receipt only when its current Kubara version, source digests, and all 36 rows validate. Missing or partial observed fields stay Unknown with their reason. <a href="desired-matrix.json">desired-matrix.json</a> is the deterministic, non-live base.</p>
 <table><caption>Current components by cluster</caption><thead><tr><th scope="col">Component / selection</th>${clusters.map((cluster) => `<th scope="col">${escapeHtml(cluster.name)}<br>${escapeHtml(cluster.environment)} / ${escapeHtml(cluster.type)}</th>`).join("")}</tr></thead><tbody>${gridRows}</tbody></table>
-<table><caption>Current cell details</caption><thead><tr><th scope="col">Component</th><th scope="col">Category</th><th scope="col">Cluster</th><th scope="col">Presence</th><th scope="col">Desired</th><th scope="col">Observed</th><th scope="col">ConfigHub sync</th><th scope="col">Health</th><th scope="col">Readiness</th><th scope="col">Status</th><th scope="col">Departure</th><th scope="col">Why Unknown</th><th scope="col">Declared overrides</th><th scope="col">Evidence scope</th></tr></thead><tbody>${detailRows}</tbody></table>
+<table><caption>Current cell details</caption><thead><tr><th scope="col">Component</th><th scope="col">Category</th><th scope="col">Cluster</th><th scope="col">Presence</th><th scope="col">Desired</th><th scope="col">Observed</th><th scope="col">Argo sync</th><th scope="col">Health</th><th scope="col">Readiness</th><th scope="col">Status</th><th scope="col">Departure</th><th scope="col">Why Unknown</th><th scope="col">Declared overrides</th><th scope="col">Evidence scope</th></tr></thead><tbody>${detailRows}</tbody></table>
+<p><a href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">Return to the adoption guide</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Browse every retained component version</a></p>
 </main></body></html>
 `;
 }

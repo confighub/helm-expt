@@ -86,6 +86,9 @@ const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json"
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
 const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
+const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
+const PUBLIC_CATALOG_COMPONENT_COUNT = 103;
+const PUBLIC_CATALOG_VERSION_COUNT = 130;
 const UNKNOWN_ACTION_LABELS = {
   "create-namespace": "choose and create the target namespace",
   "install-crds": "install the chart's CRDs first",
@@ -223,7 +226,7 @@ const PAGE_DESCRIPTIONS = {
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
   "private/index.html": "Choose SaaS or enterprise ConfigHub for private configuration, team workflows, policy, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
-  "charts/index.html": "Find a tested starting configuration for a public package, with its rendered objects, required setup, and evidence.",
+  "charts/index.html": "Choose among 103 public components, all 130 retained published package versions, and their packaged configurations without confusing publication proof with live runtime evidence.",
   "demo-org.html": "Open one ConfigHub demo Space, read its README, inspect its Kubernetes configuration, and then explore variants, promotions, checks, hooks, and CRDs.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
   "d/docs/demo/kubara/single-platform.html": "Adopt Kubara v0.13.0 with ConfigHub through a linear four-cluster mini-IDP path that preserves Kubara catalogs, config, values overlays, hub-and-spoke topology, and Argo reconciliation.",
@@ -282,7 +285,7 @@ if (mode === "--generate") {
     console.log(`markdown targets linked but not found in the repo (left as raw links): ${site.missingMdTargets.length}`);
     for (const target of site.missingMdTargets) console.log(`  - ${target}`);
   }
-  console.log(`wrote public site outputs, ${site.chartPages.length} chart page(s), ${site.docPages.length} rendered doc page(s), and ${site.presetScripts.length} base variant script(s)`);
+  console.log(`wrote public site outputs, ${site.chartPages.length} Catalog version page(s), ${site.docPages.length} rendered doc page(s), and ${site.presetScripts.length} base variant script(s)`);
 } else if (mode === "--verify") {
   check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   const site = buildSite(readFileSync(generatedAtPath, "utf8").trim());
@@ -489,6 +492,63 @@ function buildSite(generatedAt) {
       };
     });
   const publicChartKeys = new Set(catalogEntries.map((entry) => `${entry.chart}|${entry.version}`));
+  const retainedComponentNames = new Set(installerOciPackages.map((row) => row.chart));
+  const catalogEntryComponentNames = catalogEntries.map((entry) => entry.chart);
+  const evidenceComponentNameSet = new Set(catalogEntryComponentNames);
+  const retainedVersionKeys = installerOciPackages.map((row) => `${row.chart}|${row.version}`);
+  const retainedVersionKeySet = new Set(retainedVersionKeys);
+  check(
+    installerOciPackages.length === PUBLIC_CATALOG_VERSION_COUNT
+      && new Set(retainedVersionKeys).size === installerOciPackages.length,
+    `the component-first public Catalog must retain exactly ${PUBLIC_CATALOG_VERSION_COUNT} unique component/version packages`,
+  );
+  check(
+    catalogEntries.length === TOP100_EVIDENCE_COMPONENT_COUNT
+      && evidenceComponentNameSet.size === catalogEntries.length
+      && [...evidenceComponentNameSet].every((name) => retainedComponentNames.has(name)),
+    "the Top-100 evidence entries must remain unique and present in the retained component Catalog",
+  );
+  check(
+    catalogEntries.every((entry) => retainedVersionKeySet.has(`${entry.chart}|${entry.version}`)),
+    "every evidence-bearing Catalog version must remain present in the retained package inventory",
+  );
+  check(
+    new Set(installerOciPackages.map((row) => row.installer_oci_ref)).size === installerOciPackages.length
+      && new Set(installerOciPackages.map((row) => row.publication_receipt)).size === installerOciPackages.length,
+    "every retained Catalog version must have a unique OCI ref and publication receipt",
+  );
+  for (const row of installerOciPackages) verifyRetainedCatalogPackage(row);
+  const retainedOnlyComponentEntries = [...retainedComponentNames]
+    .filter((chart) => !evidenceComponentNameSet.has(chart))
+    .sort()
+    .map((chart) => {
+      const row = installerOciPackages
+        .filter((candidate) => candidate.chart === chart)
+        .sort((left, right) => String(right.version).localeCompare(String(left.version), undefined, {
+          numeric: true,
+          sensitivity: "base",
+        }))[0];
+      check(row, `${chart}: retained-only component has no package version`);
+      return {
+        ...row,
+        start_variant: row.default_base,
+        supported_variants: row.bases,
+        candidate_variants: "",
+        start_base_readiness: "see chart page",
+        proof_surface: "retained-publication-only",
+        catalog_status: "published-package-only",
+        source_features: "",
+        not_yet_enabled: "",
+      };
+    });
+  const catalogComponents = [...catalogEntries, ...retainedOnlyComponentEntries]
+    .sort((left, right) => left.chart.localeCompare(right.chart));
+  check(
+    catalogComponents.length === PUBLIC_CATALOG_COMPONENT_COUNT
+      && new Set(catalogComponents.map((entry) => entry.chart)).size === catalogComponents.length
+      && JSON.stringify(catalogComponents.map((entry) => entry.chart).sort()) === JSON.stringify([...retainedComponentNames].sort()),
+    `the component-first public Catalog must expose exactly ${PUBLIC_CATALOG_COMPONENT_COUNT} unique component rows`,
+  );
   const publicChartSkills = chartSkills.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
   const publicChartEvidenceRouter = chartEvidenceRouter.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
   const publicMatrixRows = masterCatalogMatrix.filter((row) => publicChartKeys.has(`${row.chart}|${row.version}`));
@@ -561,7 +621,11 @@ function buildSite(generatedAt) {
     commandRoutes: commandRoutes(),
     top500Evidence: top500.summary,
     summary: {
-      publicCatalogCharts: catalogEntries.length,
+      publicCatalogComponents: catalogComponents.length,
+      // Retained for existing catalog.json consumers; the public surface is component-first.
+      publicCatalogCharts: catalogComponents.length,
+      retainedPublishedPackageVersions: installerOciPackages.length,
+      retainedComponents: retainedComponentNames.size,
       catalogSupported: catalogEntries.filter((entry) => entry.proof_surface === "top20-catalog-supported").length,
       proofGrade: proofGrade.length,
       top500Rows: top500.summary.rows,
@@ -602,6 +666,7 @@ function buildSite(generatedAt) {
     statusMetrics,
     activeProofQueue,
     catalogEntries,
+    catalogComponents,
     proofGradeEntries: proofGrade,
     latestCandidates,
     baseReadiness,
@@ -629,11 +694,29 @@ function buildSite(generatedAt) {
     cubAdoptionCaveats,
     masterCatalogMatrix: publicMatrixRows,
   };
-  const chartPages = catalog.catalogEntries.map((entry) => ({
+  const evidenceBearingChartPages = catalog.catalogEntries.map((entry) => ({
     fileName: chartPageFileName(entry),
     path: join(chartPagesRoot, chartPageFileName(entry)),
     html: chartPageHtml(catalog, entry),
   }));
+  const retainedOnlyChartPages = catalog.installerOciPackages
+    .filter((row) => !publicChartKeys.has(`${row.chart}|${row.version}`))
+    .map((row) => ({
+      fileName: chartPageFileName(row),
+      path: join(chartPagesRoot, chartPageFileName(row)),
+      html: retainedVersionPageHtml(catalog, row),
+    }));
+  check(
+    retainedOnlyChartPages.length === catalog.installerOciPackages.length - evidenceBearingChartPages.length,
+    `retained-only page count must close the exact version inventory; found ${retainedOnlyChartPages.length}`,
+  );
+  const chartPages = [...evidenceBearingChartPages, ...retainedOnlyChartPages]
+    .sort((left, right) => left.fileName.localeCompare(right.fileName));
+  check(
+    chartPages.length === catalog.installerOciPackages.length
+      && new Set(chartPages.map((page) => page.fileName)).size === chartPages.length,
+    "the public Catalog must generate one unique local detail page per retained package version",
+  );
   const site = {
     catalogJson: `${JSON.stringify(siteSafe({ generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_COMMAND_NOTE, ...catalog }), null, 2)}\n`,
     indexHtml: html(catalog),
@@ -783,6 +866,9 @@ function pageDescription(html, relPath) {
   const fromMap = PAGE_DESCRIPTIONS[relPath];
   if (fromMap) return fromMap;
   const subject = pageTitle(html).replace(/\s*·\s*Config Workshop$/, "");
+  if (html.includes("data-retained-only-version=")) {
+    return `${subject}: retained package configurations, exact OCI publication receipt, and an explicit boundary that publication proof is not runtime proof.`;
+  }
   if (relPath.startsWith("d/")) {
     return `${subject}: a repository document from the helm-expt proof corpus, rendered for the site.`;
   }
@@ -828,8 +914,8 @@ function buildLlmsTxt() {
 
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
-- [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: charts, base variants, packages, counts, and the repo data paths they come from.
-- [Configuration Catalog](${SITE_BASE_URL}charts/): tested starting configurations and one evidence page per public Helm chart version.
+- [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
+- [Component Catalog](${SITE_BASE_URL}charts/): 103 components, all 130 retained published package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
@@ -1636,7 +1722,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <div class="routes">
             <a class="route-card" href="./try.html"><h3>Try Redis <span class="tag">catalog package</span></h3><p>Pull one reviewed configuration. Read its 14 objects. Build a local OCI and verify it by pulling it back.</p><span class="go">Start the short example &rarr;</span></a>
             <a class="route-card mid" href="./testing.html#bring-your-own"><h3>Check your Helm values <span class="tag">your chart</span></h3><p>Preview values written by your team or AI. Review the objects, then correct the settings you do not want.</p><span class="go">Open the worked flow &rarr;</span></a>
-            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">100 charts</span></h3><p>Find a tested starting configuration. Read its inputs, output, prerequisites, hooks, CRDs, and current evidence.</p><span class="go">Choose a configuration &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">103 components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence.</p><span class="go">Choose a configuration &rarr;</span></a>
           </div>
           <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR recipes for AI infrastructure, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
         </section>
@@ -1799,7 +1885,7 @@ em{font-style:italic;color:var(--ink);}
   <p>The catalog covers the most-used charts. Each chart is rendered, checked against plain Helm, scanned, and given an honest status. Today's proven scope:</p>
   <div class="scope">
     <div class="count"><b>20</b><span>charts live-tested end to end</span></div>
-    <div class="count"><b>${catalog.installerOciPackages.length}</b><span>chart versions rendered</span></div>
+    <div class="count"><b>${catalog.installerOciPackages.length}</b><span>retained published package versions</span></div>
     <div class="count"><b>2</b><span>reviewed bases per chart</span></div>
     <div class="count"><b>8</b><span>standard base shapes</span></div>
     <div class="count"><b>396</b><span>matrix rows tracked</span></div>
@@ -2557,7 +2643,7 @@ function legacyDashboardHtml(catalog) {
 function offeringHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const currentCounts = [
-    ["Catalog charts", `${catalog.summary.publicCatalogCharts}/100`, "Public chart pages with tested starting configurations and recorded requirements."],
+    ["Catalog components", `${catalog.summary.retainedComponents}/${PUBLIC_CATALOG_COMPONENT_COUNT}`, `${catalog.summary.retainedPublishedPackageVersions} retained published package versions with packaged configurations and recorded requirements.`],
     ["Helm render matches", metricValue(metric("render parity rows")), "Helm and cub installer produced the same objects from the recorded settings."],
     ["Stored in ConfigHub", metricValue(metric("in-ConfigHub proof rows")), "The rendered objects were uploaded and checked as ConfigHub Units."],
     ["Local Kubernetes runs", metricValue(metric("local live rows")), "The configuration was applied to a local target and observed."],
@@ -2654,7 +2740,7 @@ function legacyOfferingHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const publicCounters = [
-    ["Public catalog pages", `${catalog.summary.publicCatalogCharts}/100`],
+    ["Component Catalog version pages", `${catalog.summary.retainedPublishedPackageVersions}/${PUBLIC_CATALOG_VERSION_COUNT}`],
     ["Recipe proofs", metricValue(metric("maintained chart rows with model support"))],
     ["Render parity", metricValue(metric("render parity rows"))],
     ["Local live receipts", metricValue(metric("local live rows"))],
@@ -2729,7 +2815,7 @@ function legacyOfferingHtml(catalog) {
     ${topNav(".")}
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     <p class="tagline">Keep Helm charts as the source. Use ConfigHub to make the rendered config visible, reviewable, and safer to operate.</p>
-    ${humanLinks([["Get started", "./try.html"], ["Choose a chart", "./charts/index.html"], ["Read how it works", "./how-it-works.html"]])}
+    ${humanLinks([["Get started", "./try.html"], ["Choose a component", "./charts/index.html"], ["Read how it works", "./how-it-works.html"]])}
   </header>
   <main>
     <section aria-labelledby="problem">
@@ -3389,7 +3475,7 @@ function docsReferenceHtml(catalog) {
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
-    ["Choose a public chart", `<a href="./charts/index.html">Configuration Catalog</a>`, "Pick a ready-to-use base variant and read its values, output, hooks, CRDs, setup work, and evidence."],
+    ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
     ["Open the demo org", `<a href="./demo-org.html">Demo org</a>`, "See the same examples inside Hub. Each Space has a short README and the Kubernetes YAML for that example."],
     ["Use an App on ConfigHub", `<a href="./journey.html">Apps</a>`, "Use saved configuration for upgrade review, hooks and CRDs, RBAC review, fleet rollout, or AI change review."],
     ["Check a claim", `<a href="./verification.html">Check one claim</a>`, "Choose the command that answers your question and see whether it uses saved evidence or a fresh run."],
@@ -3413,15 +3499,15 @@ function docsReferenceHtml(catalog) {
     ["AI change review proof", "ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.", "../data/ai-change-review-live-proof/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
-    ["Kubara + ConfigHub mini-IDP", "The primary Kubara v0.13.0 path: four clusters, seven platform roles, two apps, byte-identical upstream and ConfigHub-aligned catalog generation, matrix, wiring, faithful hub-spoke delivery, and optional ConfigHub fleet control.", "../docs/demo/kubara/single-platform.md"],
-    ["Historical Kubara v0.12.0 compatibility proof", "The retained one-cluster generation and adapted four-cluster rollout. Useful as dated live evidence, not the current adoption starting point.", "../docs/demo/kubara/local-platform.md"],
+    ["Kubara + ConfigHub mini-IDP", "The primary Kubara v0.13.0 path: four clusters, seven platform roles, two apps, byte-identical upstream and ConfigHub-aligned catalog generation, deterministic Git/OCI import, matrix, wiring, faithful hub-spoke delivery, and governed ConfigHub platform surfaces. Live controller outcomes remain receipt-gated.", "../docs/demo/kubara/single-platform.md"],
+    ["Historical Kubara v0.12.0 compatibility proof", "Retained read-only evidence for the one-cluster generation, OCI route, Argo bootstrap, and dated live result. It is not a command path for the current Kubara organization.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A two-wave result: ConfigHub approves a pilot and one selector expansion at different OCI digests, then Argo CD and Sveltos deliver Kyverno to one staging cluster and later to both.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
     ["Try Redis", "Render and inspect one reviewed Redis configuration without ConfigHub Server or a ConfigHub account.", "./try.html"],
     ["Detailed Redis walkthrough", "Add Helm parity, Kubernetes, OCI, a major upgrade, promotion, two-cluster delivery, and rollback.", "./redis-walkthrough.html"],
     ["Check one claim", "Choose one project check, see what it proves, and learn whether it needs a cluster.", "./verification.html"],
     ["AI and the catalog", "How AI helps build and test the catalog, and why tests and receipts decide what is true.", "./ai.html"],
-    ["Choose a chart", "Browse public chart pages, ready-to-use base variants, known risks, and first-use advice.", "./charts/index.html"],
+    ["Choose a component", "Browse component pages, retained versions, packaged configurations, known risks, and first-use advice.", "./charts/index.html"],
     ["Live ConfigHub example guides", "README pages for live demo Spaces. Each guide says why the Space exists and what to inspect first.", "../data/helm-catalog-readmes/summary.md"],
     ["Installer package OCI refs", "The package refs users pull with cub installer setup --pull oci://..., and how they differ from ConfigHub delivery OCI.", "../docs/user/installer-oci-packages.md"],
     ["Inspect an OCI package", "One command that identifies the package role, resolves its digest, and reports the exact Kubernetes objects and obvious lifecycle work it contains.", "../docs/user/inspect-oci-package.md"],
@@ -3606,7 +3692,7 @@ function docsHtml() {
       <h3><a href="./try.html">Can I try one simple package?</a></h3>
       <p>Try Redis for a short local exercise with no server, cluster, or account.</p>
       <h3><a href="./charts/index.html">Which public configuration should I use?</a></h3>
-      <p>Use the Configuration Catalog for tested starting configurations, required setup, and evidence.</p>
+      <p>Use the Component Catalog to choose a component and exact retained package version, then inspect its packaged configurations, required setup, and evidence.</p>
       <h3><a href="./testing.html">How do I bring my own input?</a></h3>
       <p>Worked Examples covers your own Helm values, AICR recipes for AI infrastructure, OCI, or Kubernetes YAML.</p>
     </section>
@@ -4001,7 +4087,7 @@ function hardQuestionsHtml(catalog) {
 		          question: "Isn't that case-specific?",
 		          answer:
 		            "Yes. That is deliberate because Helm charts have different operating choices. AI can help update the configurations across versions, but tests decide what the Catalog accepts.",
-	          links: [["Configuration Catalog", "./charts/index.html"], ["AI and the catalog", "./ai.html"]],
+	          links: [["Component Catalog", "./charts/index.html"], ["AI and the catalog", "./ai.html"]],
 	        },
 		        {
 		          status: "answered",
@@ -4493,7 +4579,7 @@ function hooksHtml() {
   <title>Hooks And Actions · Config Workshop</title>
 </head>
 <body>
-  <p>Hooks and lifecycle behavior are now covered in the Configuration Catalog as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
+  <p>Hooks and lifecycle behavior are now covered in the Component Catalog as <a href="./charts/index.html#actions">hooks and actions</a>.</p>
 </body>
 </html>
 `;
@@ -4681,7 +4767,7 @@ cub k8s get crd --space "*"</code></pre>
         ["Chart", "Base variants", "What this example demonstrates"],
         ...keepRows,
       ])}
-        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> contain evidence for all 100 charts.</p>
+        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> retain 103 components and 130 exact package versions; the Top-100 entries carry the richer readiness evidence.</p>
     </section>
 
       <section aria-labelledby="exhibits">
@@ -4869,7 +4955,7 @@ function journeyHtml(catalog) {
       ])}
       <p>The <a href="../data/redis-upgrade-app-proof/summary.md">Redis upgrade and rollback proof</a> follows one complete run from chart 25.5.3 to 27.0.0 and back. A two-replica edit stays in place while the candidate moves through development and staging. Two Argo CD clusters run the candidate and rollback OCI releases.</p>
       <p>The <a href="../data/rbac-review-live-proof/summary.md">RBAC review proof</a> starts with a service account that can read Secrets unnecessarily. It records one precise correction in ConfigHub, requires approval, publishes the approved objects as OCI, and lets Argo CD deliver them to an isolated cluster. Secret access is gone while ConfigMap access still works.</p>
-      <p>Chart evidence still lives in the Configuration Catalog. This page explains how those charts become part of applications your team runs.</p>
+      <p>Component and chart evidence still lives in the Component Catalog. This page explains how those components become part of applications your team runs.</p>
     </section>
 
     <section aria-labelledby="app-program">
@@ -5475,12 +5561,12 @@ cub helm install myapp &lt;chart-ref&gt; \\
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", `<strong>Current v0.13 offline:</strong> byte-identical generation from the upstream and ConfigHub-aligned catalogs across four clusters, with 13 effective renders plus generated matrix and wiring data. <strong>Historical v0.12 live:</strong> the retained one-cluster route, OCI delivery, Argo bootstrap, and healthy Metrics Server receipt. Current live state remains receipt-gated.`, `<a href="./d/docs/demo/kubara/single-platform.html">Current v0.13 mini-IDP guide</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Current source</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
+        ["Kubara", `<strong>Current v0.13 primary path:</strong> byte-identical generation from upstream and ConfigHub-aligned catalogs across four clusters, 13 effective renders, two applications, a deterministic ordinary-Kubara-to-clean-Git preparer, component-first OCI/import contracts, and generated matrix and wiring evidence. ConfigHub organization materialization and Argo/workload convergence remain distinct receipt-gated claims. <strong>Historical v0.12 read-only evidence:</strong> the retained one-cluster route, OCI delivery, Argo bootstrap, and healthy Metrics Server receipt.`, `<a href="./d/docs/demo/kubara/single-platform.html">Current v0.13 mini-IDP guide</a> · <a href="./d/examples/kubara/git-import/README.html">Prepare and import a Kubara Git revision</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <h3 id="kubara-app">An internal developer platform with apps on it</h3>
       <p><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Kubara's catalogs, <code>config.yaml</code>, values overlays, generated components, and hub-and-spoke model remain recognizable. ConfigHub adds exact component retention, semantic review, approvals, promotion, rollback, a component-by-cluster matrix with explicit live or unknown state, and visible wiring. Argo CD still reconciles.</p>
-      <p>The current Kubara v0.13.0 source selects seven platform roles across one hub and three spokes. hx-web and cubbychat use the shared certificate and ingress services on all four targets. The guide proves byte-identical generation from Kubara's upstream catalog snapshot and the ConfigHub-aligned export, with no AI translation or required migration.</p>
+      <p>The current Kubara v0.13.0 source selects seven platform roles across one hub and three spokes. hx-web and cubbychat use the shared certificate and ingress services on all four targets. The guide proves byte-identical generation from Kubara's upstream catalog snapshot and the ConfigHub-aligned export, with no AI translation or required migration. The importer materializes the ConfigHub organization before Argo and workload convergence. Visible platform Application state is therefore never presented as proof of live health.</p>
       <p><a href="./d/docs/demo/kubara/single-platform.html">Follow the linear mini-IDP guide</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Open the matrix and wiring evidence</a>.</p>
     </section>
 
@@ -5829,7 +5915,7 @@ function operationsHtml(catalog) {
   <main>
     <section aria-labelledby="before-ops">
       <h2 id="before-ops">1. Check the starting point</h2>
-      <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Configuration Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
+      <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Component Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
     </section>
 
     <section aria-labelledby="ops">
@@ -5924,6 +6010,97 @@ function publicCatalogVersionCell(entry, sourceRow) {
   return `<a href="${escapeHtml(href)}" rel="noopener"${title}>${escapeHtml(label)}</a>`;
 }
 
+function retainedInstallerRows(catalog, chart) {
+  return catalog.installerOciPackages
+    .filter((row) => row.chart === chart)
+    .sort((left, right) => String(right.version).localeCompare(String(left.version), undefined, {
+      numeric: true,
+      sensitivity: "base",
+    }));
+}
+
+function verifyRetainedCatalogPackage(row) {
+  check(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._-]*$/.test(row.chart), `retained Catalog chart identity is unsafe: ${row.chart}`);
+  check(/^v?[0-9][A-Za-z0-9.+_-]*$/.test(row.version), `${row.chart}: retained Catalog version is unsafe: ${row.version}`);
+  check(row.package_path === `packages/${row.chart}/${row.version}`, `${row.chart}@${row.version}: package path is not canonical`);
+  check(row.installer_yaml === `${row.package_path}/installer.yaml`, `${row.chart}@${row.version}: installer path is not canonical`);
+  check(existsSync(join(repoRoot, row.installer_yaml)), `${row.chart}@${row.version}: retained installer package is missing`);
+  check(
+    row.publication_status === "published-receipt"
+      && /^oci:\/\/[^\s/@]+(?:\/[^\s/@]+)+:[^\s/@:]+$/.test(row.installer_oci_ref)
+      && row.installer_oci_ref.endsWith(`:${row.version}`)
+      && !row.installer_oci_ref.includes("@"),
+    `${row.chart}@${row.version}: retained OCI publication identity is unsafe or incomplete`,
+  );
+  check(
+    row.publication_receipt.startsWith("runs/installer-oci/")
+      && !row.publication_receipt.split("/").includes("..")
+      && existsSync(join(repoRoot, row.publication_receipt)),
+    `${row.chart}@${row.version}: publication receipt path is unsafe or missing`,
+  );
+  const receipt = readYaml(join(repoRoot, row.publication_receipt));
+  check(receipt.kind === "InstallerPackagePublicationReceipt", `${row.chart}@${row.version}: publication receipt kind drifted`);
+  check(receipt.spec?.ref === row.installer_oci_ref, `${row.chart}@${row.version}: receipt OCI ref differs from the catalog row`);
+  check(receipt.spec?.package?.path === row.package_path, `${row.chart}@${row.version}: receipt package path differs from the catalog row`);
+  check(receipt.spec?.package?.sha256 === row.published_digest, `${row.chart}@${row.version}: receipt package digest differs from the catalog row`);
+  const pushOutput = String(receipt.spec?.outputs?.push ?? "");
+  const layerDigest = receipt.spec?.outputs?.layerDigest
+    ?? pushOutput.match(/layer:\s+(sha256:[0-9a-f]{64})/)?.[1]
+    ?? "";
+  const manifestDigest = receipt.spec?.outputs?.manifestDigest
+    ?? pushOutput.match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
+    ?? "";
+  check(layerDigest === `sha256:${row.published_digest}`, `${row.chart}@${row.version}: receipt layer digest differs from the exact package`);
+  check(/^sha256:[0-9a-f]{64}$/.test(manifestDigest), `${row.chart}@${row.version}: receipt manifest digest is invalid`);
+  check(
+    /^[0-9a-f]{64}$/.test(receipt.spec?.outputs?.inspectJSONCanonicalSHA256 ?? receipt.spec?.outputs?.inspectJSONSHA256 ?? ""),
+    `${row.chart}@${row.version}: receipt inspect digest is invalid`,
+  );
+  const configurations = String(row.bases ?? "").split(";").filter(Boolean);
+  const installer = readYaml(join(repoRoot, row.installer_yaml));
+  const installerBases = Array.isArray(installer.spec?.bases) ? installer.spec.bases : [];
+  const installerConfigurations = installerBases.map((base) => base.name).filter(Boolean);
+  const installerDefault = installerBases.find((base) => base.default)?.name
+    ?? installerConfigurations[0]
+    ?? "default";
+  check(
+    configurations.length === Number(row.base_count)
+      && new Set(configurations).size === configurations.length
+      && configurations.includes(row.default_base)
+      && JSON.stringify(configurations) === JSON.stringify(installerConfigurations)
+      && row.default_base === installerDefault
+      && installerBases.every((base) =>
+        base.path === `bases/${base.name}`
+          && existsSync(join(repoRoot, row.package_path, base.path))),
+    `${row.chart}@${row.version}: packaged configuration inventory is inconsistent`,
+  );
+}
+
+function retainedCatalogVersionCell(catalog, entry) {
+  const rows = retainedInstallerRows(catalog, entry.chart);
+  check(rows.length > 0, `${entry.chart}: retained installer package inventory is empty`);
+  return rows.map((row) => {
+    const href = `./${chartPageFileName(row)}`;
+    const receiptHref = `https://github.com/confighub/helm-expt/blob/main/${row.publication_receipt}`;
+    const identity = `${row.chart}@${row.version}`;
+    const title = `retained published package; ${row.installer_oci_ref}`;
+    const label = row.version === entry.version
+      ? `<strong>${escapeHtml(row.version)}</strong>`
+      : escapeHtml(row.version);
+    return `<span data-retained-version-record="${escapeHtml(identity)}"><a data-retained-version="${escapeHtml(identity)}" href="${escapeHtml(href)}" title="${escapeHtml(title)}">${label}</a> <a data-publication-receipt="${escapeHtml(identity)}" href="${escapeHtml(receiptHref)}" rel="noopener" style="font-size:.8rem">receipt</a></span>`;
+  }).join("<br>");
+}
+
+function retainedCatalogConfigurationsCell(catalog, entry) {
+  const rows = retainedInstallerRows(catalog, entry.chart);
+  return rows.map((row) => {
+    const configurations = String(row.bases ?? "").split(";").filter(Boolean);
+    const label = configurations.length === 1 ? "configuration" : "configurations";
+    const identity = `${row.chart}@${row.version}`;
+    return `<span data-packaged-configurations="${escapeHtml(identity)}" data-configuration-count="${configurations.length}"><strong>${escapeHtml(row.version)}</strong>: ${escapeHtml(configurations.join(", "))}<br><span style="color:var(--muted);font-size:.85rem">${configurations.length} packaged ${label}</span></span>`;
+  }).join("<br>");
+}
+
 function installerOciRefForEntry(entry) {
   return entry.installer_oci_ref || installerOciRef(entry.chart, entry.version);
 }
@@ -5948,6 +6125,9 @@ function firstPathCell(entry, row) {
 }
 
 function catalogUseCell(entry, row) {
+  if (entry.proof_surface === "retained-publication-only") {
+    return `<strong>Published package; review first</strong><br><span style="color:var(--muted);font-size:.9rem">Exact OCI publication is recorded. Runtime readiness is not inherited.</span>`;
+  }
   if (row?.row_kind === "candidate") {
     return `<strong>Not ready yet</strong><br><span style="color:var(--muted);font-size:.9rem">This is a planned useful base, not a runnable package.</span>`;
   }
@@ -5977,6 +6157,9 @@ function featurePlain(feature) {
 }
 
 function watchFirstCell(entry, rows, row) {
+  if (entry.proof_surface === "retained-publication-only") {
+    return "Publication is verified; target prerequisites and runtime behavior still require review.";
+  }
   const notes = [];
   const features = splitSemicolonList(entry.source_features).map(featurePlain).slice(0, 4);
   const hasHookSignal = rows.some((candidate) => Number(candidate.hook_count || 0) > 0 || String(candidate.lifecycle_route_contract || "n/a") !== "n/a");
@@ -6010,11 +6193,11 @@ function renderedObjectsPathFromRevision(revisionPath) {
 }
 
 function chartIndexHtml(catalog) {
-  const chartRowsHtml = catalog.catalogEntries
+  const chartRowsHtml = catalog.catalogComponents
     .map((entry) => {
       const matrixRows = matrixRowsForCatalogEntry(catalog, entry);
-      const sourceRow = matrixRows.find((row) => row.row_kind === "source");
       const firstRow = firstCatalogBaseRow(matrixRows, entry);
+      const retainedRows = retainedInstallerRows(catalog, entry.chart);
       const level = catalogLayerLabel(entry);
       const variants = entry.supported_variants || entry.candidate_variants || "";
       const status = entry.start_base_readiness || "see chart page";
@@ -6028,6 +6211,7 @@ function chartIndexHtml(catalog) {
         status,
         entry.source_features,
         entry.not_yet_enabled,
+        ...retainedRows.flatMap((row) => [row.version, row.bases, row.installer_oci_ref]),
       ]
         .filter(Boolean)
         .join(" ")
@@ -6037,19 +6221,21 @@ function chartIndexHtml(catalog) {
         /hook/i.test(entry.not_yet_enabled || "") ||
         matrixRows.some((row) => Number(row.hook_count || 0) > 0 || String(row.lifecycle_route_contract || "n/a") !== "n/a");
       const hasCrds = /crd/i.test(entry.source_features || "") || /crd/i.test(variants) || matrixRows.some((row) => /crd/i.test(row.quirk_features || ""));
-      return `<tr data-chart-row data-level="${escapeHtml(level)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
+      const evidenceSurface = entry.proof_surface === "retained-publication-only" ? "publication-only" : "readiness-evidence";
+      return `<tr data-chart-row data-evidence-surface="${evidenceSurface}" data-level="${escapeHtml(level)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
         <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a></td>
-        <td>${publicCatalogVersionCell(entry, sourceRow)}</td>
+        <td>${retainedCatalogVersionCell(catalog, entry)}</td>
         <td>${firstPathCell(entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
         <td>${watchFirstCell(entry, matrixRows, firstRow)}</td>
-        <td>${escapeHtml(catalogBaseOptionsCell(matrixRows))}</td>
+        <td>${retainedCatalogConfigurationsCell(catalog, entry)}</td>
       </tr>`;
     })
     .join("\n");
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
       <h2 id="catalog-summary">What each catalog entry contains</h2>
-      <p>The catalog has ${catalog.summary.publicCatalogCharts} chart pages. Each page links its available package, rendered YAML, source inputs, required setup, test results, and current limits.</p>
+      <p>The catalog starts with ${catalog.summary.retainedComponents} components and all ${catalog.summary.retainedPublishedPackageVersions} retained published package versions. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
+      <p>The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
     </section>
 
     <section aria-labelledby="base-variants">
@@ -6064,7 +6250,7 @@ function chartIndexHtml(catalog) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Configuration Catalog · Config Workshop</title>
+  <title>Component Catalog · Config Workshop</title>
   <style>${siteCss()}
     #chart-table { table-layout: fixed; }
     #chart-table th, #chart-table td { width: 16.6667%; white-space: normal; }
@@ -6073,18 +6259,18 @@ function chartIndexHtml(catalog) {
 <body>
   <header>
     ${topNav("..")}
-    <h1>Find a tested starting configuration</h1>
-    <p class="lead">The Config Workshop Catalog is a public library of checked configurations for widely used packages.</p>
-    <p>Each entry shows what the package creates, what setup it needs, and what we tested. Search for a chart, then open its page before you deploy it.</p>
+    <h1>Choose a component, version, and configuration</h1>
+    <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages.</p>
+    <p>It keeps all ${catalog.summary.retainedPublishedPackageVersions} retained published package versions across ${catalog.summary.retainedComponents} components. Choose a component and exact version first, then inspect its packaged configurations, setup, and evidence.</p>
     <p><a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
   </header>
   <main>
     <section aria-labelledby="charts">
       <h2 id="charts">Search the catalog</h2>
-      <p>Pick a chart and check its pinned version. The chart page gives you the first configuration to try, the exact command, required setup, generated output, and evidence.</p>
+      <p>Pick a component and retained version. Every version link opens a local detail page with the exact package identity, packaged configurations, and publication receipt. Richer readiness and live evidence stay attached only to the version that produced them.</p>
       <div class="card">
-        <label for="chart-filter"><strong>Search charts</strong></label>
-        <input id="chart-filter" type="search" placeholder="redis, CRD, hook, prometheus..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
+        <label for="chart-filter"><strong>Search components</strong></label>
+        <input id="chart-filter" type="search" placeholder="component, version, configuration, CRD..." style="width:100%; margin:8px 0 12px; padding:10px; border:1px solid var(--line); border-radius:8px;">
         <div class="grid">
           <label>Readiness<br><select id="level-filter"><option value="">All</option><option value="catalog-supported">Ready to try</option><option value="proof-grade / machine-proof-only">Checked; review before use</option></select></label>
           <label>First configuration<br><select id="status-filter"><option value="">All</option><option value="start-here">Recommended first path</option><option value="render-only">Rendering checked; read page</option><option value="see chart page">Read chart page</option></select></label>
@@ -6095,7 +6281,7 @@ function chartIndexHtml(catalog) {
         <p class="mono" id="chart-filter-count" style="font-size:.9rem"></p>
       </div>
       <div class="card"><table id="chart-table">
-        <thead><tr><th>Chart</th><th>Version</th><th>Start here</th><th>Status</th><th>Check first</th><th>Other configurations</th></tr></thead>
+        <thead><tr><th>Component</th><th>Retained published package versions</th><th>Start here</th><th>Status</th><th>Check first</th><th>Packaged configurations by version</th></tr></thead>
         <tbody>
 ${chartRowsHtml}
         </tbody>
@@ -6122,7 +6308,7 @@ ${chartRowsHtml}
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " chart versions shown";
+            count.textContent = visible + " of " + rows.length + " components shown; ${catalog.summary.retainedPublishedPackageVersions} retained published package versions remain available";
           };
           [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", update));
           update();
@@ -6841,7 +7027,112 @@ function gitOpsRuntimeReviewHtml(review, reviewPath) {
         ["Question", "Recorded answer"],
         ...rows,
       ], { rawSecondColumn: true })}
-    </section>`;
+  </section>`;
+}
+
+function retainedVersionPageHtml(catalog, row) {
+  const identity = `${row.chart}@${row.version}`;
+  const configurations = String(row.bases ?? "").split(";").filter(Boolean);
+  const receipt = readYaml(join(repoRoot, row.publication_receipt));
+  const pushOutput = String(receipt.spec?.outputs?.push ?? "");
+  const manifestDigest = receipt.spec?.outputs?.manifestDigest
+    ?? pushOutput.match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
+    ?? "";
+  const layerDigest = `sha256:${row.published_digest}`;
+  const componentVersions = retainedInstallerRows(catalog, row.chart);
+  const evidenceEntry = catalog.catalogEntries.find((entry) => entry.chart === row.chart);
+  const evidenceVersionLink = evidenceEntry
+    ? `<a href="./${chartPageFileName(evidenceEntry)}">${escapeHtml(evidenceEntry.version)} evidence page</a>`
+    : "No separate evidence-bearing version is recorded.";
+  const versionLinks = componentVersions.map((candidate) => {
+    const label = candidate.version === row.version
+      ? `<strong>${escapeHtml(candidate.version)}</strong>`
+      : escapeHtml(candidate.version);
+    return `<a href="./${chartPageFileName(candidate)}">${label}</a>`;
+  }).join(" · ");
+  const configurationList = configurations
+    .map((configuration) => `<li><code>${escapeHtml(configuration)}</code>${configuration === row.default_base ? " - package default" : ""}</li>`)
+    .join("\n        ");
+  const requirementSummary = Number(row.external_requires_count) > 0
+    ? `The installer metadata records ${escapeHtml(row.external_requires_count)} external-requirement reference${Number(row.external_requires_count) === 1 ? "" : "s"} across these configurations. Inspect the package before choosing a base.`
+    : "The installer metadata records no external-requirement references for these configurations. You must still review the rendered objects and target policy.";
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(row.chart)} ${escapeHtml(row.version)} retained package · Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body data-retained-only-version="${escapeHtml(identity)}">
+  <header>
+    ${topNav("..")}
+    <h1>${escapeHtml(row.chart)}</h1>
+    <p class="lead">Inspect the retained published package for ${escapeHtml(identity)}, its packaged configurations, and its exact publication receipt.</p>
+    <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
+    <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
+    <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
+  </header>
+  <main>
+    <section aria-labelledby="retained-page-summary">
+      <h2 id="retained-page-summary">What this page gives you</h2>
+      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and publication receipt reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
+      <div id="setting-sources" class="card">
+        <h3>Where its settings and observations live</h3>
+        <p>Each packaged configuration records Helm-derived files and installer metadata. Later ConfigHub changes belong in governed variants. Target prerequisites and live observations remain separate facts; this publication receipt does not turn them into passes.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="try-retained-chart">
+      <h2 id="try-retained-chart">Try This Chart</h2>
+      <p>Inspect the package first, then choose one of the packaged configurations. The setup command renders files locally; it does not apply them to Kubernetes.</p>
+      <pre><code>${escapeHtml(row.inspect_command)}
+${escapeHtml(row.setup_command)}</code></pre>
+      <p>Exact OCI ref: <code>${escapeHtml(row.installer_oci_ref)}</code></p>
+    </section>
+
+    <section aria-labelledby="retained-configurations">
+      <h2 id="retained-configurations">Available Configurations</h2>
+      <ul>
+        ${configurationList}
+      </ul>
+      <p>${requirementSummary}</p>
+    </section>
+
+    <section aria-labelledby="retained-tests">
+      <h2 id="retained-tests">What Has Been Tested</h2>
+      <p>The committed publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.</p>
+      <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the ${evidenceVersionLink}.</p>
+    </section>
+
+    <section aria-labelledby="retained-requirements">
+      <h2 id="retained-requirements">What You Must Provide</h2>
+      <p>${requirementSummary}</p>
+      <p>Choose a namespace and target deliberately, supply any listed Secret, CRD, storage, API, or cloud prerequisite, and inspect the rendered YAML before delivery.</p>
+    </section>
+
+    <section aria-labelledby="retained-production">
+      <h2 id="retained-production">Before Production</h2>
+      <p>Run target-specific policy, lifecycle, upgrade, and workload checks. A successful package publication and inspect result does not establish production support or live convergence.</p>
+    </section>
+
+    <section aria-labelledby="retained-files">
+      <h2 id="retained-files">Source And Evidence Files</h2>
+      ${markdownLikeTable([
+        ["Record", "Open"],
+        ["Retained package source", `<a href="../../${escapeHtml(row.package_path)}/">${escapeHtml(row.package_path)}</a>`],
+        ["Installer metadata", `<a href="../../${escapeHtml(row.installer_yaml)}">${escapeHtml(row.installer_yaml)}</a>`],
+        ["Publication receipt", `<a href="../../${escapeHtml(row.publication_receipt)}">${escapeHtml(row.publication_receipt)}</a>`],
+        ["OCI ref", `<code>${escapeHtml(row.installer_oci_ref)}</code>`],
+        ["Layer digest", `<code>${escapeHtml(layerDigest)}</code>`],
+        ["Manifest digest", `<code>${escapeHtml(manifestDigest)}</code>`],
+      ], { rawSecondColumn: true })}
+    </section>
+  </main>
+  <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
+</body>
+</html>
+`;
 }
 
 function chartPageHtml(catalog, entry) {
@@ -6860,6 +7151,9 @@ function chartPageHtml(catalog, entry) {
   const firstRunnableScriptDir = firstRunnableRow ? presetScriptDir(entry, firstRunnableRow) : null;
   const installerPackageOciRef = installerOciRefForEntry(entry);
   const installerPackageStatus = installerOciStatusText(entry);
+  const installerPublicationReceiptLink = entry.installer_oci_publication_receipt
+    ? `<a href="../../${escapeHtml(entry.installer_oci_publication_receipt)}">open the exact publication receipt</a>`
+    : "no publication receipt is committed";
   const firstRunnableReason = cleanPageActionText(
     firstRunnableRow?.active_proof_reason ||
     firstRunnableRow?.variant_promotion_reason ||
@@ -7002,6 +7296,7 @@ function chartPageHtml(catalog, entry) {
     ["Recipe", entry.recipe_path],
     ["Package", entry.package_path],
     ["Installer OCI package catalog", "data/installer-oci-packages/summary.md"],
+    ["Installer OCI publication receipt", entry.installer_oci_publication_receipt],
     ["Helm pain report", entry.helm_pain_report],
     ["Production review records", "data/production-disposition/summary.md"],
     ["Support decision", support?.path ?? ""],
@@ -7158,7 +7453,7 @@ function chartPageHtml(catalog, entry) {
       <p>${isReadyToTry ? `Start with <strong>${escapeHtml(entry.start_variant)}</strong>.` : `Review <strong>${escapeHtml(entry.start_variant)}</strong> before use.`} If a card says review or preparation is needed, treat that as a real limit rather than a ready install.</p>
       <div class="card">
         <h3>Package image</h3>
-        <p><code>${escapeHtml(installerPackageOciRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)}</span></p>
+        <p><code>${escapeHtml(installerPackageOciRef)}</code><br><span style="color:var(--muted);font-size:.9rem">${escapeHtml(installerPackageStatus)} · ${installerPublicationReceiptLink}</span></p>
         <p>${escapeHtml(INSTALLER_OCI_AUTH_NOTE)}</p>
         <h3>${isReadyToTry ? "Recommended first command" : "First recorded command"}</h3>
         <p>${firstRunnableCommand}</p>
@@ -9185,7 +9480,7 @@ Open \`site/tiers.html\` only as a compatibility redirect to \`site/private/inde
 Open \`site/offering.html\` for the longer public offering page.
 Open \`docs/user/choose-your-path.md\` for the direct render, one-shot upload,
 public catalog, and ConfigHub operations route picker.
-Open \`site/charts/index.html\` for the generated per-chart catalog pages.
+Open \`site/charts/index.html\` for the Component Catalog and all retained package-version pages.
 Open \`docs/user/production-support-decisions.md\` for the plain-English
 boundary between production-review-ready and production-supported.
 

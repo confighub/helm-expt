@@ -37,7 +37,7 @@ deployment controller.
 - Kubara Composes, ConfigHub Governs, Argo Reconciles
 - A GitOps-First Kubara Platform With Reviewable Fleet State
 
-## The six-step architecture
+## The seven-step architecture
 
 The article must use this sequence and must not collapse its trust boundaries.
 
@@ -53,14 +53,33 @@ Kubara produces platform components, platform configs, add-ons, AppProjects,
 ApplicationSets, overrides, and wiring. The platform revision is coherent, but
 its deployable component instances remain separately identifiable.
 
-### 3. Commit one immutable Git revision
+### 3. Prepare one clean deterministic hand-off subtree
 
-Commit the source config, generated tree, exact source and dependency locks,
+Run `prepare-kubara-git-handoff.mjs --generate` against the ordinary Kubara
+worktree. A reviewed request maps the existing native paths; no repository
+rearrangement or AI rewrite is required. The preparer requires a reviewed exact
+`KubaraComponentArtifactSet`, the SHA-pinned Kubara binary/source lock, the full
+Helm build identity, and pinned kube/API capabilities. It refuses missing or
+ambiguous component versions, opaque pre-vendored chart archives, credential-
+shaped material, and concurrent source edits. It renders each enabled instance
+twice, extracts wiring, and atomically writes a separate clean subtree while
+leaving apps, target facts, and `.env` outside it.
+
+This bridge is general over that explicit reviewed artifact contract. It does
+not claim that every arbitrary Kubara Catalog version has already been reviewed
+or can be resolved automatically.
+
+### 4. Commit and push one immutable Git revision
+
+Commit and push the source config, generated tree, exact source and dependency locks,
 the generation receipt with render checksums and object counts, effective
 renders, and the wiring ledger together. The hand-off is one commit SHA plus a
 selected path, never a moving branch name.
 
-### 4. Import deterministically and package by deployable config
+Run the preparer's offline, zero-write `--verify` against the clean checkout of
+that final commit before scanning and import.
+
+### 5. Import deterministically and package by deployable config
 
 The importer verifies the clean checkout and exact SHA, then resolves each
 selected component against the component-first ConfigHub Catalog. Resolution
@@ -83,24 +102,33 @@ The output is:
   and wiring facts.
 
 Secret values and environment-owned target facts stay outside Git and OCI.
+The same Git revision, import name, catalog repository base, and
+materialization contract must produce the same `PlatformDigest`, component
+member bytes, and aggregate OCI index in two organizations; only the
+destination `BindingDigest` may differ. Changing the import name or catalog
+repository base preserves target-neutral member content and `PlatformDigest`,
+but necessarily changes aggregate metadata or member references.
 
 The current kind fixture is a named exception, not the generalized design: it
 commits a fake-provider target fact with demo-only Grafana data so a laptop run
-does not need a production secret backend. A future importer proof must exclude
-that file from the import/package input and bind equivalent target data through
-the separately authorized target path.
+does not need a production secret backend. The reusable import contract must
+exclude that file from its Git and OCI payloads and bind equivalent target data
+through the separately authorized target path.
 
-### 5. Reconcile an explicit ConfigHub organization
+### 6. Reconcile an explicit ConfigHub organization
 
-The user explicitly chooses the destination organization. The importer may
-initialize a new empty organization or reconcile importer-owned state with the
-same platform digest. It creates component-definition and component-instance
-Spaces, Units, Variants, ClusterTargets, UpgradeUnit lineage, and
-`NeedsProvides` Links. Target facts and secret references bind at target or
-apply time. Conflicts fail without deletion. Repeating the same input produces
-the same plan and no semantic changes.
+The user creates or selects the destination organization and pins its existing
+context, organization coordinates, target Spaces, Target IDs, and any external
+delivery infrastructure. The importer never guesses or silently switches those
+identities. It reconciles importer-owned component-definition and
+component-instance Spaces, Units, Variants, UpgradeUnit lineage,
+`NeedsProvides` Links, and the platform delivery Application surfaces declared
+by the accepted plan. Target facts and secret references bind at apply time.
+Conflicts fail without deletion. A repeated zero-action organization receipt
+proves ConfigHub convergence; a separate controller receipt must prove Argo and
+workload convergence at the exact released digests.
 
-### 6. Promote apps in ConfigHub; reconcile with Argo
+### 7. Promote apps in ConfigHub; reconcile with Argo
 
 Application bases and target variants follow as a separate hand-off. ConfigHub
 checks, approves, promotes, publishes, and rolls back exact revisions. Argo CD
@@ -114,6 +142,9 @@ Kubara catalogs + config.yaml + values overrides
                     |
                     v
 Kubara-generated platform/add-ons/ApplicationSets/wiring
+                    |
+                    v
+deterministic hand-off preparer + reviewed exact artifact lock
                     |
                     v
 immutable Git SHA + locks + checksums
@@ -166,20 +197,48 @@ older versions stay available.
   records the whole platform revision.
 - The existing Kubara authoring model and Argo reconciliation model survive.
 
-## Current proof versus the future importer
+## The GUI proof the post must show
 
-The current four-cluster fixture proves Kubara v0.13.0 generation, two
-byte-identical catalog lanes, exact component locks, 13 effective renders,
-generated matrix and wiring data, additive catalog retention, and a
-purpose-built ConfigHub mini-IDP plan. Its live claims remain gated by their
-specific receipts.
+Do not leave the improvement only in a diagram or receipt. Start from the one
+`StartHere=true` platform Space and show the native GUI searches an adopter can
+repeat:
 
-The generalized importer is a separate capability. Its first honest milestone
-is now committed and green: an offline compiler and byte-for-byte verifier over
-a clean checkout, plus an adversarial self-test. The accepted interface is
-`--plan`, `--compile`, `--verify`, and `--self-test`; `--package` and `--apply`
-fail deliberately. Do not announce general OCI publication or ConfigHub apply
-until the implementation has:
+- expand `KubaraBootstrap/argo-cd` for the faithful Kubara definition, then
+  `ConfigHubBootstrap/argo-cd` for the adapted runtime and four cluster-local
+  deployments; show the two exact `Lane` values in their metadata;
+- open `ConfigHubApplications/hx-web` to show both bases, all four target
+  deployments, releases, Argo health/sync state, and promotion topology;
+- open `hx-web-dev/hx-web-deployment` and its **Links** tab to show
+  `needs-platform-binding` beside `UpgradeUnit`, then open
+  `hx-web-platform-dev/hx-web-platform` to show its cert-manager and Traefik
+  `NeedsProvides` links;
+- `Environment=Prod` for hx-web approval, rollback, and revision history; and
+- `DeliveryMode=ConfigHubOCI` for source-Space Releases and their exact OCI
+  manifest digests.
+
+The GUI Components view is the selected platform, not the complete Catalog.
+Show `URL-Catalog` opening the component-first public Catalog with all retained
+versions, while `URL-Matrix` and `URL-Wiring` open evidence for this exact
+platform. The matrix must call controller state **Argo sync**, never
+“ConfigHub sync”; ConfigHub evidence is its separately recorded release and
+manifest digest. Keep reusable definition lineage (`DefinitionSpace`) distinct
+from the immediate promotion chain (`PromotionUpstreamSpace`).
+
+## Current proof and importer claim boundary
+
+The primary four-cluster fixture proves Kubara v0.13.0 generation, two
+byte-identical catalog lanes, exact component locks, 13 effective renders, two
+applications, generated matrix and wiring data, additive catalog retention,
+and a deterministic ConfigHub mini-IDP contract. Its ConfigHub, Argo, and
+workload claims remain gated by their specific receipts.
+
+The generalized Git importer is the reusable adoption boundary rather than a
+replacement platform definition. Its linear command family is
+`--inspect-destination`, `--plan`, `--compile`, `--verify`, `--package`,
+`--apply`, and `--self-test`. A public post
+may describe only modes that pass the then-current acceptance suite. Package
+and apply support must not be inferred merely because the flags exist: the
+accepted implementation and receipts must prove:
 
 1. an immutable Git-SHA receipt;
 2. exact component-resolution results;
@@ -189,10 +248,12 @@ until the implementation has:
 6. an explicit-organization, no-delete reconciliation receipt;
 7. a repeated-run no-op receipt.
 
-Until then, describe the current four-cluster reconciler as the concrete apply
-proof and the generalized Git importer as an accepted offline compiler. It
-currently plans only the ConfigHub-managed Argo lane; the faithful Kubara-hub
-executor remains its separate topology proof.
+Even after package and organization reconciliation pass, describe their exact
+boundary. ConfigHub platform Application objects and published source releases
+are visible governed state; they are not evidence that Argo synced them or that
+workloads are healthy. The faithful Kubara-hub lane remains a separate topology
+proof. The retained v0.12.0 one-cluster route remains read-only historical
+compatibility evidence, not the current adoption starting point.
 
 ## Honesty rails for every future post
 
@@ -203,10 +264,11 @@ executor remains its separate topology proof.
 - Do not claim ConfigHub replaces Argo CD reconciliation.
 - Do not call desired matrix cells live; leave observed version, sync, and
   workload state unknown until an exact receipt supplies them.
+- Do not label an Argo CD sync observation as ConfigHub sync.
 - Do not call a purpose-built fixture reconciler a general importer.
-- Publish only the committed importer `--plan`, `--compile`, `--verify`, and
-  `--self-test` interface. Keep `--package` and `--apply` documented as explicit
-  refusal modes until their receipts exist.
+- Publish only importer modes exercised by the current accepted self-test and
+  receipts. Do not preserve an old refusal claim after support lands, and do not
+  announce an aspirational mode before its gate passes.
 - Do not turn `watch`, `blocked`, or a missing receipt into `pass`.
 - Do not require AI for adoption, generation, import, reconciliation, or
   verification.
@@ -217,7 +279,7 @@ executor remains its separate topology proof.
   [`docs/demo/kubara/single-platform.md`](../demo/kubara/single-platform.md)
 - Current source:
   [`examples/kubara/current-platform`](../../examples/kubara/current-platform/README.md)
-- Accepted offline importer and request contract:
+- Accepted importer and request contract:
   [`examples/kubara/git-import`](../../examples/kubara/git-import/README.md)
 - Upstream-versus-aligned generation parity:
   [`examples/kubara/current-platform/catalog-parity-receipt.yaml`](../../examples/kubara/current-platform/catalog-parity-receipt.yaml)
@@ -234,7 +296,7 @@ executor remains its separate topology proof.
 
 Preferred visuals:
 
-1. The six-step diagram above.
+1. The seven-step diagram above.
 2. A side-by-side faithful hub Argo lane and optional ConfigHub delivery lane.
 3. The component-by-cluster matrix with explicit unknown states visible.
 4. A wiring view showing issuer to Certificate, IngressClass to Ingress, and
@@ -245,7 +307,7 @@ Preferred visuals:
 
 1. Open with the two boundary sentences.
 2. Show the familiar Kubara config and generated directory shape.
-3. Walk the six deterministic steps.
+3. Walk the seven deterministic steps.
 4. Explain component-first Catalog versus per-platform Kubara catalogs.
 5. Show why per-config OCI plus a bundle index is stronger than one fleet blob.
 6. Show the explicit ConfigHub organization, matrix, and wiring.

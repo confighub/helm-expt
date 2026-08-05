@@ -2,8 +2,9 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 import { TOP20_CONFIGHUB_PROOF_CHARTS } from "./lib/top20-confighub-proof.mjs";
-import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 import { installerOciRef } from "./lib/installer-oci.mjs";
+import { catalogDerivedPaths } from "./lib/catalog-derived-views.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputPath = join(repoRoot, "CATALOG.md");
@@ -75,6 +76,9 @@ function buildMarkdown() {
     "recipes/<repo>/<chart>/<version>/CATALOG.md",
     "  Per-chart recipe, variants, rendered objects, receipts, and status.",
     "",
+    "data/kubara-catalog-release/recipe-views/recipes/<repo>/<chart>/<version>/CATALOG.md",
+    "  Derived maps for byte-frozen additive Kubara recipe roots.",
+    "",
     "packages/<repo>/<chart>/<version>/",
     "  Executable cub installer package with one base per variant.",
     "",
@@ -122,9 +126,7 @@ function buildMarkdown() {
 }
 
 function artifactIndexes() {
-  return listFiles(join(repoRoot, "recipes"))
-    .filter((file) => file.endsWith("/artifact-index.yaml"))
-    .sort();
+  return catalogDerivedPaths("artifact-index.yaml", { existingOnly: true }).sort();
 }
 
 function buildEntry(indexPath, readinessByKey) {

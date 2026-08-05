@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: stakater-reloader-2.2.14
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14
+  package:
+    path: packages/stakater/reloader/2.2.14
+    sha256: eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65
+    sourceTreeSHA256: ac3a8750acf639657eaee5beef4182245f75c645259176fd3e47f617354db085
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/stakater/reloader/2.2.14 -o <tmp>/stakater-reloader-2.2.14.tgz"
+    push: "cub installer push <tmp>/stakater-reloader-2.2.14.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14 --json"
+  outputs:
+    manifestDigest: sha256:e901ac5638834018bcee0433c2a4f8aa832bd84c8b8a958e116f6c268e672269
+    layerDigest: sha256:eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65
+    package: |
+      Bundled stakater-reloader@2.2.14
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-91LTDB/stakater-reloader-2.2.14.tgz
+        files:  4
+        size:   1550 bytes
+        digest: sha256:eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14
+        manifest: sha256:e901ac5638834018bcee0433c2a4f8aa832bd84c8b8a958e116f6c268e672269
+        layer:    sha256:eeca278bc7280f67c3c24362539959616f5089e478b4233cc4f582fca2041c65 (1550 bytes, 4 files)
+    inspectJSONSHA256: 7d4ad92d2af97d58cd77e84634315517779185bcaee12c55740ec37a678d6070
+    inspectJSONCanonicalSHA256: f297fb5a252c12e497f926740240951ccf9730bc87c9afd7c9f33ac291974f0c

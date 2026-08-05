@@ -15,13 +15,22 @@ To start in ConfigHub rather than in these files, switch to the `Kubara`
 organization, filter Spaces by `StartHere=true`, open `hx-platform`, and then
 open `platform-contract`. Its metadata links to the public
 [adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html),
+[component-first Catalog](https://confighub.github.io/helm-expt/site/charts/),
 [36-cell matrix](https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html),
 and [full wiring graph](https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html).
-The GUI itself groups the selected reusable components under
-`Owner=KubaraGeneral`, then makes their exact versions, deployable or
-configuration surfaces, base or target variants, definition or instance
-lineage, hub or spoke placement, and cluster-local Argo delivery searchable.
-It also makes hx-web and cubbychat traceable across all four targets.
+The adjacent `component-catalog-coverage` Unit makes the full Catalog scope
+native and searchable too: `CatalogComponents=103`, `CatalogVersions=130`,
+`KubaraSelections=18`, and `Retention=AdditiveOnly`. Its payload is the exact
+passing coverage receipt; `component-catalog-selection` remains the separate
+seven-role selection for this particular platform.
+The GUI itself groups the selected Kubara platform components under
+`Owner=KubaraGeneral`; the faithful Kubara Argo definition under
+`Owner=KubaraBootstrap`; the adapted cluster-local Argo runtime under
+`Owner=ConfigHubBootstrap`; argobot under `Owner=ConfigHubDelivery`; and
+hx-web plus cubbychat under `Owner=ConfigHubApplications`. Exact versions,
+deployable or configuration surfaces, base or target variants, definition or
+instance lineage, hub or spoke placement, and delivery lane are therefore
+searchable without collapsing the faithful and adapted Argo identities.
 
 The split is intentional. A committed render can prove selected desired state
 and visible dependency contracts; it cannot prove that a controller reconciled
@@ -69,6 +78,12 @@ optional, prerequisite, and unresolved relationship. The ConfigHub GUI keeps a
 smaller, deterministic set of 25 `NeedsProvides` Links for operational
 navigation. Those Links cover the important consumer-to-provider paths without
 pretending that every extracted fact is an independently managed GUI edge.
+To inspect them natively, open `hx-web-dev/hx-web-deployment` and select its
+**Links** tab: `needs-platform-binding` appears beside the normal `UpgradeUnit`
+lineage. Then open `hx-web-platform-dev/hx-web-platform`; its **Links** tab
+shows the cert-manager and Traefik requirements. This exact Unit-to-Links route
+is the reproducible GUI wiring proof; the public graph remains the complete
+render-derived evidence view.
 
 The current [colored accessible platform matrix](../../../data/kubara-platform-matrix/matrix.html)
 contains 36 cells: seven deployable platform roles plus hx-web and cubbychat
@@ -90,7 +105,10 @@ The desired 36-cell contract is governed in ConfigHub as
 `hx-platform/platform-matrix`. The public files above are regenerated after the
 mini-IDP receipt, so they may add exact observed version, sync, and workload
 evidence from that receipt. A missing observation remains `unknown`; ConfigHub
-desired state alone never becomes a fabricated live result.
+desired state alone never becomes a fabricated live result. The sync field is
+explicitly **Argo sync**. ConfigHub state is represented by the governed Unit
+revision, release, and exact OCI manifest digest instead of being mislabeled as
+controller health.
 
 ## Secondary: historical v0.12.0 evidence
 

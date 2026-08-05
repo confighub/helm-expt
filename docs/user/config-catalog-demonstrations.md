@@ -373,27 +373,26 @@ Current limit: The older NGINX fleet receipt proves four stored environment reco
 
 ### Kubara platform configuration to a cluster fleet
 
-**Worked example: working.** One approved Kubara configuration passed its recorded route work, OCI delivery, Argo CD bootstrap, and a healthy Metrics Server result on one cluster.
+**Worked example: working.** The primary Kubara v0.13.0 fixture proves byte-identical generation from upstream and ConfigHub-aligned catalogs for one hub and three spokes, 13 effective component renders, two applications, a generated matrix and wiring graph, and a deterministic ConfigHub mini-IDP contract.
 
-**Broader status: partial.** The example does not yet cover the full service profile or a multi-cluster rollout wave.
+**Broader status: partial.** Current live organization state, platform delivery Applications, Argo convergence, and application health are claimed only by their exact accepted receipts; the generic importer and controller-convergence proof remain distinct boundaries.
 
 A platform stack can span Terraform, Helm, policies, and cluster-specific choices that should be managed as one declared fleet record.
 
-Treat Kubara as a platform configuration producer, record its generated configuration as base variants, and assign reviewed variants to cluster groups.
+Keep Kubara as the platform composer, import one exact generated Git revision into component-first ConfigHub records and OCI, and let Argo reconcile only reviewed platform and application releases.
 
-1. Generate a Kubara platform configuration for a declared cluster class.
-2. Separate infrastructure creation from Kubernetes configuration.
-3. Render the generated Argo CD bootstrap and record CRDs, hooks, Secrets, and target prerequisites beside it.
-4. Upload the Kubernetes configuration as a base variant with its source record.
-5. Run the required CRDs, target Secrets, and hook work before delivering the prepared configuration OCI.
-6. Let the delivered Kubara Argo CD assign the selected platform services.
-7. Assign derived variants to cluster groups and rollout waves.
+1. Select components and wiring through Kubara catalogs, config.yaml, and ordinary values overlays.
+2. Generate the complete Kubara tree and commit one exact Git revision with dependency locks, checksums, effective renders, and wiring facts.
+3. Compile and verify that revision as component-first OCI packages plus a digest-bound platform index, while keeping target facts and Secret values external.
+4. Reconcile the explicitly selected ConfigHub organization into visible component definitions, target instances, lineage, wiring, and platform delivery Application surfaces.
+5. Require a repeated zero-action organization receipt, then prove Argo convergence separately at the exact reviewed release digests.
+6. Add, promote, approve, roll back, and observe applications only after the platform boundary they require has converged.
 
-Start with [docs/demo/kubara/local-platform.md](../../docs/demo/kubara/local-platform.md) or [examples/kubara/local-platform/README.md](../../examples/kubara/local-platform/README.md) or [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
+Start with [docs/demo/kubara/single-platform.md](../../docs/demo/kubara/single-platform.md) or [examples/kubara/git-import/README.md](../../examples/kubara/git-import/README.md) or [examples/kubara/current-platform/README.md](../../examples/kubara/current-platform/README.md) or [docs/demo/kubara/local-platform.md](../../docs/demo/kubara/local-platform.md) or [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
 
-Evidence: [examples/kubara/local-platform/generation-receipt.yaml](../../examples/kubara/local-platform/generation-receipt.yaml), [examples/kubara/local-platform/confighub-upload-receipt.yaml](../../examples/kubara/local-platform/confighub-upload-receipt.yaml), [examples/kubara/local-platform/route-intent.yaml](../../examples/kubara/local-platform/route-intent.yaml), [examples/kubara/local-platform/rendered/object-inventory.json](../../examples/kubara/local-platform/rendered/object-inventory.json), [examples/kubara/local-platform/local-config-oci-manifest.json](../../examples/kubara/local-platform/local-config-oci-manifest.json), [runs/kubara-oci-delivery-proof/receipt.yaml](../../runs/kubara-oci-delivery-proof/receipt.yaml), [data/kubara-oci-delivery-proof/summary.md](../../data/kubara-oci-delivery-proof/summary.md), [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
+Evidence: [examples/kubara/current-platform/generation-receipt.yaml](../../examples/kubara/current-platform/generation-receipt.yaml), [examples/kubara/current-platform/catalog-parity-receipt.yaml](../../examples/kubara/current-platform/catalog-parity-receipt.yaml), [data/kubara-platform-matrix/matrix.html](../../data/kubara-platform-matrix/matrix.html), [data/kubara-wiring/graph.html](../../data/kubara-wiring/graph.html), [data/kubara-release-acceptance/contract.yaml](../../data/kubara-release-acceptance/contract.yaml), [examples/kubara/local-platform/generation-receipt.yaml](../../examples/kubara/local-platform/generation-receipt.yaml), [examples/kubara/local-platform/confighub-upload-receipt.yaml](../../examples/kubara/local-platform/confighub-upload-receipt.yaml), [examples/kubara/local-platform/route-intent.yaml](../../examples/kubara/local-platform/route-intent.yaml), [examples/kubara/local-platform/rendered/object-inventory.json](../../examples/kubara/local-platform/rendered/object-inventory.json), [examples/kubara/local-platform/local-config-oci-manifest.json](../../examples/kubara/local-platform/local-config-oci-manifest.json), [runs/kubara-oci-delivery-proof/receipt.yaml](../../runs/kubara-oci-delivery-proof/receipt.yaml), [data/kubara-oci-delivery-proof/summary.md](../../data/kubara-oci-delivery-proof/summary.md), [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md).
 
-Current limit: The repo now has a reproducible Kubara v0.12.0 generation, Argo CD render, route record, and local OCI layout. ConfigHub pulled the local OCI, recorded the 75 non-Secret objects in one policy-covered Unit, required approval, and published a private release. A live route handled the three Argo CD CRDs, two target-owned Secrets, and Redis initializer before delivery. It deferred the ClusterExternalSecret and gRPC Ingress because their target prerequisites were absent. A temporary portable OCI delivered 69 prepared objects through bootstrap Argo CD. Kubara Argo CD became ready and its one selected Metrics Server Application became Synced and Healthy. The live receipt covers one kind cluster and one downstream service. It does not prove permanent public publication, the full seven-service profile, or a multi-cluster promotion wave.
+Current limit: The v0.13.0 source, dual-catalog parity, exact component locks, effective renders, desired matrix, and complete extracted wiring graph are deterministic committed evidence. A current live four-cluster claim requires the mini-IDP receipt and its immediate zero-action rerun; a missing observation remains unknown. Importer reconciliation and controller convergence are separate claims. Materialized ConfigHub platform Application state does not by itself prove Argo sync or workload health. The v0.12.0 one-cluster generation, OCI route, Argo bootstrap, and healthy Metrics Server receipt remain dated read-only compatibility evidence, not the current adoption starting point.
 
 ### ConfigHub desired state delivered through Sveltos
 

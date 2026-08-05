@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: traefik-traefik-41.0.2
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2
+  package:
+    path: packages/traefik/traefik/41.0.2
+    sha256: c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8
+    sourceTreeSHA256: ec37fe5139b20128c35583d9eb8dc47a346ffb7b738711f290eb6cf8235e0c48
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/traefik/traefik/41.0.2 -o <tmp>/traefik-traefik-41.0.2.tgz"
+    push: "cub installer push <tmp>/traefik-traefik-41.0.2.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2 --json"
+  outputs:
+    manifestDigest: sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a
+    layerDigest: sha256:c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8
+    package: |
+      Bundled traefik-traefik@41.0.2
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-wRLqgZ/traefik-traefik-41.0.2.tgz
+        files:  4
+        size:   42886 bytes
+        digest: sha256:c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2
+        manifest: sha256:ccf4b10e85db0b825f01ddd31c2c20794317f89a254e8643cee9e094b2c7ee2a
+        layer:    sha256:c2260ca685fbf379fa073e66c717c27e8ae5cf9c3533774dc9f5e1be4ce839f8 (42886 bytes, 4 files)
+    inspectJSONSHA256: c7c0a5ca427a5fa1b2a14893478b75f6654bf25dfbc446e31799804b8e042e2d
+    inspectJSONCanonicalSHA256: 19d1e10cf9af77c1ef3b947eb895f3d5e28e194616747383b70108cf327c9b2d

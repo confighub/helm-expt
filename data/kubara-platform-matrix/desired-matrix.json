@@ -48,7 +48,7 @@
       "cells": 36
     },
     "vocabulary": {
-      "observed": "A source-current mini-IDP receipt records exact ConfigHub sync, health, and workload readiness for this cell.",
+      "observed": "A source-current mini-IDP receipt records the exact ConfigHub release digest, Argo sync and health, and workload readiness for this cell.",
       "watch": "Current live evidence exists, but controller sync or workload state is non-green.",
       "rendered-only": "The current Kubara config and effective render include this instance; no current live sync claim is made.",
       "centralized": "No Argo CD instance is selected for this spoke; the current config assigns delivery to the hub Argo CD.",
@@ -227,7 +227,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -266,7 +266,7 @@
         "presence": "hub-managed",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -301,7 +301,7 @@
         "presence": "hub-managed",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -336,7 +336,7 @@
         "presence": "hub-managed",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -371,7 +371,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -410,7 +410,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -449,7 +449,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -488,7 +488,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -527,7 +527,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -564,7 +564,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -599,7 +599,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -634,7 +634,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -669,7 +669,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -708,7 +708,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -743,7 +743,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -778,7 +778,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -813,7 +813,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -850,7 +850,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -885,7 +885,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -920,7 +920,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -955,7 +955,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -994,7 +994,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -1029,7 +1029,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -1064,7 +1064,7 @@
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -1099,7 +1099,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1136,7 +1136,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1173,7 +1173,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1210,7 +1210,7 @@
         "presence": "rendered-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1247,7 +1247,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1288,7 +1288,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1329,7 +1329,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1370,7 +1370,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1411,7 +1411,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1457,7 +1457,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1503,7 +1503,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",
@@ -1549,7 +1549,7 @@
         "presence": "application-intent",
         "deliveryState": "not-live-observed",
         "syncState": "Unknown",
-        "configHubSyncState": "Unknown",
+        "argoSyncState": "Unknown",
         "healthState": "Unknown",
         "readiness": {
           "result": "unknown",

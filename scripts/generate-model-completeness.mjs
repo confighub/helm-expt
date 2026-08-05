@@ -16,6 +16,7 @@
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { check, listFiles, readYaml, relativeRepo, repoRoot, sha256File, write } from "./lib/proof-common.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "model-completeness");
 const reportCsvPath = join(outputRoot, "report.csv");
@@ -72,7 +73,7 @@ function scoreRecipe(root) {
   const recipe = readYaml(join(root, "recipe.yaml"));
   const helmPlan = readYaml(join(root, "helm-plan.yaml"));
   const sourceLock = readYaml(join(root, "source-lock.yaml"));
-  const catalogStatusPath = join(root, "catalog-status.yaml");
+  const catalogStatusPath = catalogDerivedPath(root, "catalog-status.yaml");
   const catalogStatus = existsSync(catalogStatusPath) ? readYaml(catalogStatusPath) : null;
   const packageReceiptPath = join(root, "publication", "installer-package-receipt.yaml");
   const packageReceipt = existsSync(packageReceiptPath) ? readYaml(packageReceiptPath) : null;
@@ -88,7 +89,10 @@ function scoreRecipe(root) {
     .sort();
   const receiptReviews = revisionRoots.map((revisionRoot) => reviewRevision(root, revisionRoot));
   const receiptFailures = receiptReviews.flatMap((review) => review.failures);
-  const machineMissing = requiredRootFiles().filter((file) => !existsSync(join(root, file)));
+  const machineMissing = requiredRootFiles().filter((file) => {
+    const path = file === "catalog-status.yaml" ? catalogDerivedPath(root, file) : join(root, file);
+    return !existsSync(path);
+  });
 
   // Criterion 1: render-equivalent — every revision has a passing, digest-matched equivalence receipt.
   const render_equivalent = revisionRoots.length > 0 && receiptReviews.every((review) => review.equivalencePass);
@@ -96,7 +100,7 @@ function scoreRecipe(root) {
   // Criterion 2: behaviorally complete — a helm-pain-report.yaml enumerates every Helm behavior and disposes
   // it with no unknown/unhandled. needs-operator-decision / blocked-with-reason are explicit (honest), so they
   // do NOT fail behavioral completeness; they surface in production-readiness (scope), not here.
-  const painReportPath = join(root, "helm-pain-report.yaml");
+  const painReportPath = catalogDerivedPath(root, "helm-pain-report.yaml");
   const painReport = existsSync(painReportPath) ? readYaml(painReportPath) : null;
   const painPoints = painReport?.spec?.painPoints ?? [];
   const badDispositions = painPoints.filter((point) => ["unknown", "unhandled"].includes(String(point.disposition ?? "")));
@@ -109,7 +113,8 @@ function scoreRecipe(root) {
   const variant_complete = variantCount > 1 || deferred.length > 0;
 
   // Criterion 4: readable — the per-chart artifact map exists.
-  const readable = existsSync(join(root, "CATALOG.md")) && existsSync(join(root, "artifact-index.yaml"));
+  const readable = existsSync(catalogDerivedPath(root, "CATALOG.md"))
+    && existsSync(catalogDerivedPath(root, "artifact-index.yaml"));
 
   // Criterion 5: usable — executable fixture points at a current packages/ path and that package exists.
   const fixturePath = recipe.spec?.currentExecutableFixture?.installerPackage ?? "";

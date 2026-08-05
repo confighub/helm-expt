@@ -38,6 +38,9 @@ CATALOG.md
 recipes/<repo>/<chart>/<version>/CATALOG.md
   Per-chart recipe, variants, rendered objects, receipts, and status.
 
+data/kubara-catalog-release/recipe-views/recipes/<repo>/<chart>/<version>/CATALOG.md
+  Derived maps for byte-frozen additive Kubara recipe roots.
+
 packages/<repo>/<chart>/<version>/
   Executable cub installer package with one base per variant.
 
@@ -1041,7 +1044,7 @@ Helm equivalence: 97/97 objects matched
 Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 
 
-## Full Proof Index (110 Entries)
+## Full Proof Index (130 Entries)
 
 The rows below include the live-tested top 20, proof-grade recipe/package
 artifacts, and any retained newer chart-version candidates. `catalog-supported`
@@ -1072,6 +1075,26 @@ need catalog promotion review before support is claimed.
 | bitnami/nginx@24.0.2 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | http-clusterip | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-nginx:24.0.2` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/nginx/24.0.2/CATALOG.md) |
 | grafana/tempo@1.24.4 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | local-persistent | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-tempo:1.24.4` | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
 | hashicorp/consul@2.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default-control-plane | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/hashicorp-consul:2.0.0` | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
+| argo-cd/argo-cd@10.1.3 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.1.3` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/argo-cd/argo-cd/10.1.3/CATALOG.md) |
+| argo-cd/argo-cd@10.2.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:10.2.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/argo-cd/argo-cd/10.2.1/CATALOG.md) |
+| external-secrets/external-secrets@2.7.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.7.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.7.0/CATALOG.md) |
+| external-secrets/external-secrets@2.8.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/external-secrets-external-secrets:2.8.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/external-secrets/external-secrets/2.8.0/CATALOG.md) |
+| grafana/alloy@1.11.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-alloy:1.11.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/grafana/alloy/1.11.0/CATALOG.md) |
+| grafana/loki@7.1.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/grafana-loki:7.1.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/grafana/loki/7.1.0/CATALOG.md) |
+| jetstack/cert-manager@v1.21.0 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/jetstack/cert-manager/v1.21.0/CATALOG.md) |
+| kyverno/kyverno-policies@3.8.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno-policies:3.8.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/kyverno/kyverno-policies/3.8.2/CATALOG.md) |
+| kyverno/kyverno@3.8.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kyverno-kyverno:3.8.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/kyverno/kyverno/3.8.2/CATALOG.md) |
+| longhorn/longhorn@1.12.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/longhorn-longhorn:1.12.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/longhorn/longhorn/1.12.0/CATALOG.md) |
+| metallb/metallb@0.16.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metallb-metallb:0.16.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/metallb/metallb/0.16.1/CATALOG.md) |
+| metrics-server/metrics-server@3.13.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/metrics-server-metrics-server:3.13.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/metrics-server/metrics-server/3.13.1/CATALOG.md) |
+| oauth2-proxy/oauth2-proxy@10.7.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/oauth2-proxy/oauth2-proxy/10.7.0/CATALOG.md) |
+| policy-reporter/policy-reporter@3.9.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/policy-reporter-policy-reporter:3.9.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/policy-reporter/policy-reporter/3.9.1/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@87.15.1 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.15.1/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@87.19.2 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.19.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/kube-prometheus-stack/87.19.2/CATALOG.md) |
+| prometheus-community/prometheus-blackbox-exporter@11.15.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/CATALOG.md) |
+| stakater/reloader@2.2.14 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.14` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/stakater/reloader/2.2.14/CATALOG.md) |
+| traefik/traefik@41.0.2 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:41.0.2` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/traefik/traefik/41.0.2/CATALOG.md) |
+| velero/velero@12.1.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0` | - | [CATALOG.md](data/kubara-catalog-release/recipe-views/recipes/velero/velero/12.1.0/CATALOG.md) |
 | aqua/trivy-operator@0.32.1 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1` | - | [CATALOG.md](recipes/aqua/trivy-operator/0.32.1/CATALOG.md) |
 | argo-cd/argo-cd@9.5.17 | catalog-candidate | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-cd:9.5.17` | - | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.17/CATALOG.md) |
 | argo-cd/argo-events@2.4.21 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/argo-cd-argo-events:2.4.21` | - | [CATALOG.md](recipes/argo-cd/argo-events/2.4.21/CATALOG.md) |

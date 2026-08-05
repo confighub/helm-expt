@@ -442,22 +442,24 @@
     <p class="lead">A repository document, rendered for the site. <a href="../../../../data/model-completeness/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-04T16:27:09.321Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T04:34:05.051Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
 <p>Generated from recipe / pain-report / receipt / catalog-status artifacts. A chart is <b>supported (Level 2)</b> when all 6 support criteria pass - every Helm quirk modeled or explicitly disclosed (<code>needs-operator-decision</code> / <code>blocked</code> are honest dispositions, not gaps).</p>
 <p>This is a model-support report, not the whole live outcome. Full chart-choice support still needs the outcome coverage: Helm-equivalence, ConfigHub proof, local live observation, ConfigHub OCI/Argo or Flux, and live Helm-vs-ConfigHub parity for each supported default or declared main choice.</p>
 <p><b>Variant richness is a separate enhancement metric</b> until a choice is declared supported. Once declared supported, that choice must be tracked as its own chart-recipe-variant row in <code>data/lane-test-matrix/</code>.</p>
 <h2 id="headline">Headline</h2>
-<pre><code>charts: 110
-supported (Level 2, all 6): 108
-not yet supported: 2
-variant-rich (enhancement, &gt;1 variant): 77</code></pre>
+<pre><code>charts: 130
+supported (Level 2, all 6): 126
+not yet supported: 4
+variant-rich (enhancement, &gt;1 variant): 85</code></pre>
 <h2 id="per-criterion-coverage-the-6-support-criteria">Per-criterion coverage (the 6 support criteria)</h2>
-<ul><li><code>render_equivalent</code>: 110/110</li><li><code>behaviorally_complete</code>: 108/110</li><li><code>readable</code>: 110/110</li><li><code>usable</code>: 110/110</li><li><code>verifiable</code>: 110/110</li><li><code>honestly_scoped</code>: 110/110</li><li>_enhancement_ <code>variant_complete</code>: 77/110  (not a support criterion)</li></ul>
+<ul><li><code>render_equivalent</code>: 130/130</li><li><code>behaviorally_complete</code>: 126/130</li><li><code>readable</code>: 130/130</li><li><code>usable</code>: 130/130</li><li><code>verifiable</code>: 130/130</li><li><code>honestly_scoped</code>: 130/130</li><li>_enhancement_ <code>variant_complete</code>: 85/130  (not a support criterion)</li></ul>
 <h2 id="gap-by-criterion-how-many-charts-each-one-blocks">Gap by criterion (how many charts each one blocks)</h2>
-<ul><li><code>behaviorally_complete</code>: 2</li></ul>
+<ul><li><code>behaviorally_complete</code>: 4</li></ul>
 <h2 id="not-yet-supported-the-work-queue">Not yet supported (the work queue)</h2>
 <table><thead><tr><th>Chart</th><th>Score</th><th>Missing support criteria</th></tr></thead><tbody><tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td>5/6</td><td>behaviorally_complete</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.7.0</code></td><td>5/6</td><td>behaviorally_complete</td></tr>
+<tr><td><code>external-secrets/external-secrets@2.8.0</code></td><td>5/6</td><td>behaviorally_complete</td></tr>
 <tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td>5/6</td><td>behaviorally_complete</td></tr></tbody></table>
 <h2 id="notes">Notes</h2>
 <ul><li><b>Supported (Level 2)</b> = the 6 criteria above all pass: render-equivalent · quirks accounted (pain report, no unknown/unhandled) · readable · usable · verifiable · honestly scoped. Quirks left as <code>needs-operator-decision</code> are <i>disclosed</i>, not silent - the human-review residue, tracked per chart in <code>helm-pain-report.yaml</code>; they do not block Level-2 support.</li><li><b><code>variant_complete</code> is an ENHANCEMENT for the Level-2 model report.</b> A default-only chart can have a complete model for its declared scope, but it is not fully live-supported for unbuilt or undeclared main choices. Once a non-default choice is declared supported, it must get its own lane evidence.</li><li>Re-run <code>npm run completeness:generate</code> after any chart's pain report, receipts, or catalog-status change.</li></ul>

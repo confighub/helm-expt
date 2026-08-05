@@ -6,6 +6,9 @@ v0.12.0 across 1 cluster(s). It records
 object references and selector matches visible in those manifests. It performs
 no live reads and does not claim live reconciliation.
 
+[Return to the Kubara adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html)
+· [Browse the component-first Catalog](https://confighub.github.io/helm-expt/site/charts/)
+
 Colored, accessible table: [graph.html](graph.html). Machine-readable forms:
 [graph.json](graph.json) and [edges.csv](edges.csv). Render provenance:
 [effective-render receipt](../../kubara-effective-renders/historical-v0.12.0/test-cluster/receipt.yaml).

@@ -17,12 +17,12 @@ spec:
       - "hx-web"
       - "cubbychat"
     reconcilerPlan:
-      spaces: 53
-      managedUnits: 60
+      spaces: 55
+      managedUnits: 63
       deployments: 27
       needsProvidesLinks: 25
-      payloadsBeforeFaithfulEvidence: 53
-      payloadsReadyForApply: 54
+      payloadsBeforeFaithfulEvidence: 55
+      payloadsReadyForApply: 56
     desiredMatrixRows: 36
   catalog:
     role: "component-first"
@@ -31,7 +31,10 @@ spec:
     baselineRootVersions: 110
     historicalAdditions: 7
     currentAdditions: 3
-    expectedFinalRootVersions: 120
+    qualifiedIntermediateRootVersions: 120
+    fullCoverageAdditions: 10
+    expectedFinalRootVersions: 130
+    expectedFinalComponents: 103
     baselineRecipesTreeSHA256: "405bb7847cff4a4c9c691aafbaf69a1baff160c5e8a8f5d927569c8dd2286424"
     baselinePackagesTreeSHA256: "68c82bb177743dc610172bacd035475160515cccb47aea68910d32d222bd6e1c"
     historicalAdditionPaths:
@@ -46,6 +49,17 @@ spec:
       - "argo-cd/argo-cd/10.2.1"
       - "external-secrets/external-secrets/2.8.0"
       - "prometheus-community/kube-prometheus-stack/87.19.2"
+    fullCoverageAdditionPaths:
+      - "grafana/loki/7.1.0"
+      - "grafana/alloy/1.11.0"
+      - "stakater/reloader/2.2.14"
+      - "oauth2-proxy/oauth2-proxy/10.7.0"
+      - "kyverno/kyverno-policies/3.8.2"
+      - "velero/velero/12.1.0"
+      - "policy-reporter/policy-reporter/3.9.1"
+      - "longhorn/longhorn/1.12.0"
+      - "metallb/metallb/0.16.1"
+      - "kyverno/kyverno/3.8.2"
     requiredOciPublicationPackages:
       - "packages/argo-cd/argo-cd/10.1.3"
       - "packages/external-secrets/external-secrets/2.7.0"
@@ -57,21 +71,37 @@ spec:
       - "packages/argo-cd/argo-cd/10.2.1"
       - "packages/external-secrets/external-secrets/2.8.0"
       - "packages/prometheus-community/kube-prometheus-stack/87.19.2"
+      - "packages/grafana/loki/7.1.0"
+      - "packages/grafana/alloy/1.11.0"
+      - "packages/stakater/reloader/2.2.14"
+      - "packages/oauth2-proxy/oauth2-proxy/10.7.0"
+      - "packages/kyverno/kyverno-policies/3.8.2"
+      - "packages/velero/velero/12.1.0"
+      - "packages/policy-reporter/policy-reporter/3.9.1"
+      - "packages/longhorn/longhorn/1.12.0"
+      - "packages/metallb/metallb/0.16.1"
+      - "packages/kyverno/kyverno/3.8.2"
     promotionSafety:
       baselineLock: "110 recipe roots and 110 package roots are byte-locked"
       ordering: "historical-7-then-current-3"
       overwritePolicy: "never-overwrite-existing-bytes"
       retryPolicy: "fill-missing-files-and-accept-only-byte-identical-residue"
+      fullCoverageBaseline: "the 120-root intermediate Catalog is byte-locked before the final additive wave"
       requiredReceipts:
         - "data/kubara-catalog-refresh/root-promotion/receipt.yaml"
         - "data/kubara-catalog-refresh/current-root-promotion/receipt.yaml"
+        - "data/kubara-catalog-1.1-full-coverage/preflight-receipt.yaml"
+        - "data/kubara-catalog-1.1-full-coverage/receipt.yaml"
     publicationSafety:
-      scope: "exactly-ten-additive-packages"
+      scope: "two explicitly enumerated ten-package additive waves"
       retryPolicy: "reuse-only-an-existing-identical-layer"
       conflictPolicy: "refuse-existing-different-layer"
       verification: "local-source-tree-and-archive-plus-remote-manifest-and-layer"
   orderedReleaseCommands:
     - "npm run kubara-release:verify-static"
+    - "npm run kubara-git-handoff:verify-current"
+    - "npm run kubara-git-handoff:self-test"
+    - "npm run kubara-git-import:self-test"
     - "npm run kubara-live-qualification:preflight"
     - "npm run kubara-live-qualification:run"
     - "npm run kubara-live-qualification:verify"
@@ -91,6 +121,12 @@ spec:
     - "npm run kubara-catalog-oci:dry-run"
     - "npm run kubara-catalog-oci:publish"
     - "npm run kubara-catalog-oci:verify"
+    - "npm run kubara-catalog-full-coverage:generate"
+    - "npm run kubara-catalog-full-coverage:verify-candidates"
+    - "npm run kubara-catalog-full-coverage:preflight"
+    - "npm run kubara-catalog-full-coverage:promote"
+    - "npm run kubara-catalog-full-coverage:publish"
+    - "npm run kubara-catalog-full-coverage:verify"
     - "npm run kubara-faithful-hub-spoke:rehearse"
     - "npm run kubara-faithful-hub-spoke:run"
     - "npm run kubara-faithful-hub-spoke:generate"
@@ -108,7 +144,7 @@ spec:
   gates:
     -
       id: "catalog-alignment"
-      outcome: "Immutable upstream snapshots, byte-preserving aligned exports, seven historical candidates, and three current additions."
+      outcome: "Immutable upstream snapshots, byte-preserving aligned exports, all 18 exact Kubara catalogs 1.1.0 selections, and an additive 103-component/130-version Catalog."
       packageScripts:
         - "kubara-catalog-adapter:verify"
         - "kubara-catalog-candidates:verify"
@@ -117,12 +153,26 @@ spec:
         - "kubara-current-catalog-promotion:verify"
         - "kubara-catalog-oci:self-test"
         - "kubara-catalog-oci:verify"
+        - "kubara-catalog-full-coverage:self-test"
+        - "kubara-catalog-full-coverage:verify-candidates"
+        - "kubara-catalog-full-coverage:verify"
     -
       id: "current-example"
       outcome: "Kubara v0.13.0 generates the same 131 files from upstream and ConfigHub-aligned catalogs and yields 13 exact effective renders."
       packageScripts:
         - "kubara-current-example:verify"
         - "kubara-effective-renders:verify"
+    -
+      id: "git-handoff-preparation"
+      outcome: "One deterministic preparer converts an ordinary Kubara-generated worktree plus a reviewed exact artifact lock into a separate clean, importer-compatible Git subtree; the current 13-render fixture is committed and offline-verifiable."
+      packageScripts:
+        - "kubara-git-handoff:verify-current"
+        - "kubara-git-handoff:self-test"
+    -
+      id: "git-revision-import"
+      outcome: "One deterministic command path compiles an immutable Kubara Git revision, publishes component-first OCI packages, reconciles the exact user-selected ConfigHub organization and cluster-local Argo delivery Applications, and requires a second zero-action apply receipt without using AI."
+      packageScripts:
+        - "kubara-git-import:self-test"
     -
       id: "live-qualification"
       outcome: "Historical and current exact chart selections each retain a serial 13-lane live qualification receipt."
@@ -164,7 +214,13 @@ spec:
     - "node scripts/run-kubara-current-catalog-candidates.mjs --verify"
     - "node scripts/publish-installer-oci-packages.mjs --self-test"
     - "node scripts/publish-kubara-catalog-additions.mjs --dry-run"
+    - "node scripts/complete-kubara-catalog-1-1-coverage.mjs --self-test"
+    - "node scripts/complete-kubara-catalog-1-1-coverage.mjs --verify-candidates"
     - "node scripts/generate-kubara-current-example.mjs --verify"
+    - "node scripts/prepare-kubara-git-handoff.mjs --verify --request examples/kubara/git-import/current-platform.prepare.yaml --checkout ."
+    - "node scripts/prepare-kubara-git-handoff.mjs --self-test"
+    - "node scripts/import-kubara-git-revision.mjs --self-test"
+    - "node scripts/sync-kubara-org-shape.mjs --self-test"
     - "node scripts/generate-kubara-effective-renders.mjs --verify --all"
     - "node scripts/generate-kubara-wiring.mjs --verify --all"
     - "node scripts/generate-kubara-wiring.mjs --self-test"
@@ -176,11 +232,13 @@ spec:
     - "node scripts/run-kubara-live-qualification.mjs --verify --current"
     - "node scripts/promote-kubara-catalog-candidates.mjs --verify"
     - "node scripts/promote-kubara-catalog-candidates.mjs --verify --current"
+    - "node scripts/complete-kubara-catalog-1-1-coverage.mjs --verify"
     - "node scripts/run-kubara-faithful-hub-spoke-proof.mjs --verify"
     - "node scripts/reconcile-kubara-mini-idp.mjs --receipt-verify"
     - "node scripts/generate-kubara-catalog-release.mjs --verify"
   requiredEvidence:
     currentExample: "examples/kubara/current-platform/generation-receipt.yaml"
+    preparedGitHandoff: "examples/kubara/prepared-current-platform/preparation-receipt.yaml"
     catalogParity: "examples/kubara/current-platform/catalog-parity-receipt.yaml"
     currentMatrix: "data/kubara-platform-matrix/matrix.json"
     currentWiring: "data/kubara-wiring/graph.json"
@@ -190,6 +248,7 @@ spec:
     currentLiveQualification: "runs/kubara-current-live-qualification/receipt.yaml"
     historicalPromotion: "data/kubara-catalog-refresh/root-promotion/receipt.yaml"
     currentPromotion: "data/kubara-catalog-refresh/current-root-promotion/receipt.yaml"
+    fullCatalogCoverage: "data/kubara-catalog-1.1-full-coverage/receipt.yaml"
     rootCatalog: "CATALOG.md"
     installerCatalog: "data/installer-oci-packages/packages.json"
     publicPage: "site/d/docs/demo/kubara/single-platform.html"

@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write, writeYaml } from "./lib/proof-common.mjs";
+import { catalogDerivedPath, recipeRoots } from "./lib/catalog-derived-views.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "edge-recovery");
@@ -49,18 +50,16 @@ function buildReport() {
 }
 
 function discoverCatalogSupportedRecipeDirs() {
-  const statusFiles = listFiles(join(repoRoot, "recipes"))
-    .filter((file) => file.endsWith("/catalog-status.yaml"))
-    .sort();
-  const supported = statusFiles
-    .map((file) => {
+  const supported = recipeRoots()
+    .map((root) => {
+      const file = catalogDerivedPath(root, "catalog-status.yaml");
       const status = readYaml(file);
       return {
         file,
         chart: status.spec?.chart ?? "",
         version: status.spec?.version ?? "",
         status: status.spec?.status ?? "",
-        recipeRel: dirname(relativeRepo(file)),
+        recipeRel: relativeRepo(root),
       };
     })
     .filter((entry) => entry.status === "catalog-supported")
@@ -72,7 +71,7 @@ function discoverCatalogSupportedRecipeDirs() {
 function buildGraph(recipeRel) {
   const recipeDir = join(repoRoot, recipeRel);
   const recipe = readYaml(join(recipeDir, "recipe.yaml"));
-  const catalogStatus = readYaml(join(recipeDir, "catalog-status.yaml"));
+  const catalogStatus = readYaml(catalogDerivedPath(recipeDir, "catalog-status.yaml"));
   const chart = recipe.spec?.chart?.name ?? chartFromPath(recipeRel);
   const version = recipe.spec?.chart?.version ?? recipeRel.split("/").at(-1);
   const supportedVariants = catalogStatus.spec?.supportedVariants ?? [];
@@ -166,7 +165,7 @@ function buildGraph(recipeRel) {
       field_reachability_paths: edge.valueSourceMapCoverage.join(";"),
       target_fact_edges: targetFactEdges.filter((item) => item.variant === edge.to).length,
       generated_fact_edges: generatedFacts.filter((item) => item.variant === edge.to || item.variant === "default").length,
-      graph: `${recipeRel}/inheritance-graph.yaml`,
+      graph: relativeRepo(catalogDerivedPath(recipeDir, "inheritance-graph.yaml")),
     })),
     ...targetFactEdges.map((edge) => ({
       chart: `${chart}@${version}`,
@@ -180,7 +179,7 @@ function buildGraph(recipeRel) {
       field_reachability_paths: "",
       target_fact_edges: 1,
       generated_fact_edges: 0,
-      graph: `${recipeRel}/inheritance-graph.yaml`,
+      graph: relativeRepo(catalogDerivedPath(recipeDir, "inheritance-graph.yaml")),
     })),
     ...generatedFacts.map((edge) => ({
       chart: `${chart}@${version}`,
@@ -194,11 +193,11 @@ function buildGraph(recipeRel) {
       field_reachability_paths: edge.renderedFields.join(";"),
       target_fact_edges: 0,
       generated_fact_edges: 1,
-      graph: `${recipeRel}/inheritance-graph.yaml`,
+      graph: relativeRepo(catalogDerivedPath(recipeDir, "inheritance-graph.yaml")),
     })),
   ];
   return {
-    path: `${recipeRel}/inheritance-graph.yaml`,
+    path: relativeRepo(catalogDerivedPath(recipeDir, "inheritance-graph.yaml")),
     document,
     rows,
   };

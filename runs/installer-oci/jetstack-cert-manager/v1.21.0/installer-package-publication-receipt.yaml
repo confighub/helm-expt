@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: jetstack-cert-manager-v1.21.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0
+  package:
+    path: packages/jetstack/cert-manager/v1.21.0
+    sha256: d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e
+    sourceTreeSHA256: 5ebc7b1860fc2eb216e85979f25b40aa5187708806876d21e87595ed98a9e668
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/jetstack/cert-manager/v1.21.0 -o <tmp>/jetstack-cert-manager-v1.21.0.tgz"
+    push: "cub installer push <tmp>/jetstack-cert-manager-v1.21.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0 --json"
+  outputs:
+    manifestDigest: sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f
+    layerDigest: sha256:d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e
+    package: |
+      Bundled jetstack-cert-manager@v1.21.0
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-pLISdc/jetstack-cert-manager-v1.21.0.tgz
+        files:  7
+        size:   102477 bytes
+        digest: sha256:d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/jetstack-cert-manager:v1.21.0
+        manifest: sha256:ae92c5a38255f010ad11ec744947834288da9449a7243faf217ddf350041e38f
+        layer:    sha256:d64076a2e53f118b324ca30f8e019d812980159eaa22e3aee341ff89fa6b697e (102477 bytes, 7 files)
+    inspectJSONSHA256: 86f04a85bdab9b8662d144433aa779e41083794c4c8a45a98e0f116206e0a79c
+    inspectJSONCanonicalSHA256: c59229ddb2423ad1d1111d4857adc17b21d1ba38e3cf76f0cbfe32a0b8213edc

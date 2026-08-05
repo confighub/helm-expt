@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "oauth2-proxy-oauth2-proxy-10.7.0"
+spec:
+  chart:
+    name: "oauth2-proxy"
+    repository: "oauth2-proxy"
+    version: "10.7.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/oauth2-proxy/oauth2-proxy/10.7.0 -o <tmp>/oauth2-proxy-10.7.0.tgz"
+    sha256: "e2ea12142ed6580180b3a968201b00c8eb6f6ee086caf3b40e69b44971f6fe65"
+  package:
+    name: "oauth2-proxy-oauth2-proxy"
+    path: "packages/oauth2-proxy/oauth2-proxy/10.7.0"
+    sourceFiles:
+      -
+        bytes: 403
+        path: "README.md"
+        sha256: "bcc74a156fc200d45c92c1721c45601bff464928fb65732289eb381e76703426"
+      -
+        bytes: 99
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+      -
+        bytes: 6040
+        path: "bases/default/upstream.yaml"
+        sha256: "1e6b5312d0e3ec8d8c0e306fb995604d377c89207409e35f2934f3526ac54abc"
+      -
+        bytes: 324
+        path: "installer.yaml"
+        sha256: "cfe01296bcc004fd81cc6206b9b83d922da117e002396a953f3330cb21c33eac"
+    version: "10.7.0"
+  setupChecks:
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||oauth2-proxy"
+      base: "default"
+      command: "cub installer setup --pull packages/oauth2-proxy/oauth2-proxy/10.7.0 --base default --work-dir <tmp> --non-interactive --namespace oauth2-proxy"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      variant: "default"

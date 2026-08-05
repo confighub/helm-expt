@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Materialize the Kubara example's conceptual shape in its ConfigHub org.
+// Preserve the historical Kubara v0.12.0 conceptual-shape proof.
 //
 // This is deliberately narrower than the full platform demo. It records the
 // committed Kubara contract as native AppConfig/YAML and labels the existing
@@ -8,14 +8,14 @@
 //
 // Modes:
 //   --plan            print the exact intended mapping (default; offline)
-//   --apply           create/update the contract, patch labels serially, verify,
-//                     and write the live receipt
-//   --verify          compare the live Kubara org with the committed mapping
+//   --apply           retired: fail before any ConfigHub access
+//   --verify          retired: fail before any ConfigHub access
 //   --receipt-verify  verify the committed receipt without a live login
+//   --self-test       verify that both retired live modes fail closed
 //
-// Safety: live modes refuse to run unless the active cub context names the
-// Kubara organization. Writes address an explicit allowlist of Space slugs;
-// the script never bulk-selects or deletes anything.
+// The 53-Space plan and receipt remain immutable historical evidence. The
+// current Kubara organization is owned by reconcile-kubara-mini-idp.mjs; this
+// script must never read or mutate that live state.
 
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
@@ -31,9 +31,52 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--plan";
-const MODES = new Set(["--plan", "--apply", "--verify", "--receipt-verify"]);
+const MODES = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test"]);
 if (!MODES.has(mode)) {
   console.error(`Unknown mode ${mode}. Use one of: ${[...MODES].join(", ")}`);
+  process.exit(2);
+}
+
+const RETIRED_LIVE_MODES = new Set(["--apply", "--verify"]);
+
+function assertHistoricalModeIsSafe(selectedMode) {
+  if (!RETIRED_LIVE_MODES.has(selectedMode)) return;
+  throw new Error(
+    `historical Kubara v0.12.0 mode ${selectedMode} is retired and cannot access ConfigHub; `
+      + "this artifact is read-only. Use npm run kubara-mini-idp:plan, "
+      + "npm run kubara-mini-idp:apply, and npm run kubara-mini-idp:verify "
+      + "for the current v0.13.0 organization.",
+  );
+}
+
+function verifyRetirementBoundary() {
+  for (const retiredMode of RETIRED_LIVE_MODES) {
+    let error = null;
+    try {
+      assertHistoricalModeIsSafe(retiredMode);
+    } catch (caught) {
+      error = caught;
+    }
+    check(
+      error?.message.includes("historical Kubara v0.12.0")
+        && error.message.includes("kubara-mini-idp"),
+      `${retiredMode} did not fail with the historical retirement handoff`,
+    );
+  }
+  for (const offlineMode of ["--plan", "--receipt-verify", "--self-test"]) {
+    assertHistoricalModeIsSafe(offlineMode);
+  }
+  console.log("verified historical Kubara v0.12.0 live-mode retirement boundary");
+}
+
+if (mode === "--self-test") {
+  verifyRetirementBoundary();
+  process.exit(0);
+}
+try {
+  assertHistoricalModeIsSafe(mode);
+} catch (error) {
+  console.error(error.message);
   process.exit(2);
 }
 

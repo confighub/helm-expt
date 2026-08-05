@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-87.15.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1
+  package:
+    path: packages/prometheus-community/kube-prometheus-stack/87.15.1
+    sha256: 1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375
+    sourceTreeSHA256: a0c4502941d30df49709a9025098881f9141d25042532a9239ae2e3e979caf6f
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/prometheus-community/kube-prometheus-stack/87.15.1 -o <tmp>/prometheus-community-kube-prometheus-stack-87.15.1.tgz"
+    push: "cub installer push <tmp>/prometheus-community-kube-prometheus-stack-87.15.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1 --json"
+  outputs:
+    manifestDigest: sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac
+    layerDigest: sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375
+    package: |
+      Bundled kube-prometheus-stack-kube-prometheus-stack@87.15.1
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-tInLWJ/prometheus-community-kube-prometheus-stack-87.15.1.tgz
+        files:  18
+        size:   1448755 bytes
+        digest: sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-kube-prometheus-stack:87.15.1
+        manifest: sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac
+        layer:    sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375 (1448755 bytes, 18 files)
+    inspectJSONSHA256: df6fe766ea8b261e080a9009fab814379dba7a1f16c30e1ab9a4c3519aa435b6
+    inspectJSONCanonicalSHA256: 68c90517ea4bb216400fc7307ae4a2c3cb3ec64a4f38c382f41e7d7a912ecfe0

@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: prometheus-community-prometheus-blackbox-exporter-11.15.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1
+  package:
+    path: packages/prometheus-community/prometheus-blackbox-exporter/11.15.1
+    sha256: cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551
+    sourceTreeSHA256: 0d3f33d7ae4967b8943750aafa39b1b6f7691a3600a7c209ebb6a8a18bebb4e8
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.15.1 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11.15.1.tgz"
+    push: "cub installer push <tmp>/prometheus-community-prometheus-blackbox-exporter-11.15.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1 --json"
+  outputs:
+    manifestDigest: sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512
+    layerDigest: sha256:cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551
+    package: |
+      Bundled prometheus-community-prometheus-blackbox-exporter@11.15.1
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-RrPi3r/prometheus-community-prometheus-blackbox-exporter-11.15.1.tgz
+        files:  4
+        size:   1408 bytes
+        digest: sha256:cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/prometheus-community-prometheus-blackbox-exporter:11.15.1
+        manifest: sha256:674cbeab7ffc88ea358819e985ad37d2af845286124a949a8b3dccd4f6981512
+        layer:    sha256:cbe762d1bb7ac8220d3532c03327f717b58712c3b9ab3bb72516bfd330793551 (1408 bytes, 4 files)
+    inspectJSONSHA256: 324da596d7c9e717ec6aaaef51a9cb6bebb19d516c2e202a16e66903392f8cfa
+    inspectJSONCanonicalSHA256: c0f28393d47cd8ceaf493244800433aba6d29c9afff05870d64c020e1b679eb6

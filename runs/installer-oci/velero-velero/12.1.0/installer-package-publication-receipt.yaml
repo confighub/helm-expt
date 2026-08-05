@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: velero-velero-12.1.0
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0
+  package:
+    path: packages/velero/velero/12.1.0
+    sha256: 94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307
+    sourceTreeSHA256: fd185db66ac0baf067b959c7e8c507f1d37c20d5b1093d3617cfdb77005910fe
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/velero/velero/12.1.0 -o <tmp>/velero-velero-12.1.0.tgz"
+    push: "cub installer push <tmp>/velero-velero-12.1.0.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0 --json"
+  outputs:
+    manifestDigest: sha256:2a9fdd03dec5b0a44e7d39ee2b208844da73ddf95d94a08e383ce9b935d373e6
+    layerDigest: sha256:94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307
+    package: |
+      Bundled velero-velero@12.1.0
+        output: /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-installer-oci-VZgH3Z/velero-velero-12.1.0.tgz
+        files:  4
+        size:   20036 bytes
+        digest: sha256:94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.1.0
+        manifest: sha256:2a9fdd03dec5b0a44e7d39ee2b208844da73ddf95d94a08e383ce9b935d373e6
+        layer:    sha256:94798a27f0af0ef9032a333a71f711e5198f23becc78aa7b3baa082c5858d307 (20036 bytes, 4 files)
+    inspectJSONSHA256: c7bd2c2bb3d2368e19c1ee8c8ed5cea58d1b4b1a7c65acba95b79651d1cb9fa0
+    inspectJSONCanonicalSHA256: a018558d149d5a32d22c82f86f3138906408ee2b6b045453130164ff486e61b6

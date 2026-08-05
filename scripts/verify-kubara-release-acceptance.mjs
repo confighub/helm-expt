@@ -27,6 +27,11 @@ import {
   KUBARA_OCI_PACKAGES,
   KUBARA_PROMOTION_RECEIPTS,
 } from "./lib/kubara-catalog-release.mjs";
+import {
+  KUBARA_CATALOG_1_1_ADDITIONS,
+  KUBARA_CATALOG_1_1_BASELINE,
+  KUBARA_CATALOG_1_1_FINAL,
+} from "./lib/kubara-catalog-1-1-full-coverage.mjs";
 
 const mode = process.argv[2] ?? "--verify-static";
 if (!["--generate", "--verify-static", "--verify"].includes(mode)) {
@@ -47,6 +52,10 @@ const baseline = {
 const historicalAdditions = [...KUBARA_HISTORICAL_ADDITIONS];
 const currentAdditions = [...KUBARA_CURRENT_ADDITIONS];
 const additions = [...KUBARA_CATALOG_ADDITIONS];
+const fullCoverageAdditions = KUBARA_CATALOG_1_1_ADDITIONS.map((item) => `${item.canonicalIdentity}/${item.version}`);
+const top100EvidenceComponentCount = 100;
+const finalCatalogVersionCount = KUBARA_CATALOG_1_1_FINAL.versionCount;
+const finalCatalogComponentCount = KUBARA_CATALOG_1_1_FINAL.componentCount;
 
 const packageCommands = {
   "kubara-catalog-promotion:dry-run": "node scripts/promote-kubara-catalog-candidates.mjs --dry-run",
@@ -61,6 +70,9 @@ const packageCommands = {
   "kubara-current-catalog-candidates:verify": "node scripts/run-kubara-current-catalog-candidates.mjs --verify",
   "kubara-catalog-adapter:verify": "node scripts/generate-kubara-catalog-adapter.mjs --verify",
   "kubara-current-example:verify": "node scripts/generate-kubara-current-example.mjs --verify",
+  "kubara-git-handoff:verify-current": "node scripts/prepare-kubara-git-handoff.mjs --verify --request examples/kubara/git-import/current-platform.prepare.yaml --checkout .",
+  "kubara-git-handoff:self-test": "node scripts/prepare-kubara-git-handoff.mjs --self-test",
+  "kubara-git-import:self-test": "node scripts/import-kubara-git-revision.mjs --self-test",
   "kubara-effective-renders:verify": "node scripts/generate-kubara-effective-renders.mjs --verify --all",
   "kubara-wiring:verify": "node scripts/generate-kubara-wiring.mjs --verify --all",
   "kubara-platform-matrix:verify": "node scripts/generate-kubara-platform-matrix.mjs --verify --all",
@@ -71,6 +83,13 @@ const packageCommands = {
   "kubara-catalog-oci:dry-run": "node scripts/publish-kubara-catalog-additions.mjs --dry-run",
   "kubara-catalog-oci:self-test": "node scripts/publish-installer-oci-packages.mjs --self-test && node scripts/publish-kubara-catalog-additions.mjs --dry-run",
   "kubara-catalog-oci:publish": "node scripts/publish-kubara-catalog-additions.mjs --publish",
+  "kubara-catalog-full-coverage:generate": "node scripts/complete-kubara-catalog-1-1-coverage.mjs --generate",
+  "kubara-catalog-full-coverage:verify-candidates": "node scripts/complete-kubara-catalog-1-1-coverage.mjs --verify-candidates",
+  "kubara-catalog-full-coverage:preflight": "node scripts/complete-kubara-catalog-1-1-coverage.mjs --preflight",
+  "kubara-catalog-full-coverage:promote": "node scripts/complete-kubara-catalog-1-1-coverage.mjs --promote",
+  "kubara-catalog-full-coverage:publish": "node scripts/complete-kubara-catalog-1-1-coverage.mjs --publish",
+  "kubara-catalog-full-coverage:verify": "node scripts/complete-kubara-catalog-1-1-coverage.mjs --verify",
+  "kubara-catalog-full-coverage:self-test": "node scripts/complete-kubara-catalog-1-1-coverage.mjs --self-test",
   "kubara-catalog-release:generate": "node scripts/generate-kubara-catalog-release.mjs --generate",
   "kubara-catalog-release:verify": "node scripts/generate-kubara-catalog-release.mjs --verify",
   "kubara-live-qualification:verify": "node scripts/run-kubara-live-qualification.mjs --verify",
@@ -98,7 +117,13 @@ const offlineCommands = [
   command("current-candidates", "scripts/run-kubara-current-catalog-candidates.mjs", "--verify"),
   command("catalog-oci-idempotency", "scripts/publish-installer-oci-packages.mjs", "--self-test"),
   command("catalog-oci-scope-dry-run", "scripts/publish-kubara-catalog-additions.mjs", "--dry-run"),
+  command("catalog-full-coverage-self-test", "scripts/complete-kubara-catalog-1-1-coverage.mjs", "--self-test"),
+  command("catalog-full-coverage-candidates", "scripts/complete-kubara-catalog-1-1-coverage.mjs", "--verify-candidates"),
   command("current-example", "scripts/generate-kubara-current-example.mjs", "--verify"),
+  command("git-handoff-current", "scripts/prepare-kubara-git-handoff.mjs", "--verify", "--request", "examples/kubara/git-import/current-platform.prepare.yaml", "--checkout", "."),
+  command("git-handoff-self-test", "scripts/prepare-kubara-git-handoff.mjs", "--self-test"),
+  command("git-revision-import", "scripts/import-kubara-git-revision.mjs", "--self-test"),
+  command("historical-org-shape-retirement", "scripts/sync-kubara-org-shape.mjs", "--self-test"),
   command("effective-renders", "scripts/generate-kubara-effective-renders.mjs", "--verify", "--all"),
   command("wiring", "scripts/generate-kubara-wiring.mjs", "--verify", "--all"),
   command("wiring-self-test", "scripts/generate-kubara-wiring.mjs", "--self-test"),
@@ -111,6 +136,7 @@ const finalCommands = [
   command("current-live-qualification", "scripts/run-kubara-live-qualification.mjs", "--verify", "--current"),
   command("historical-root-promotion", "scripts/promote-kubara-catalog-candidates.mjs", "--verify"),
   command("current-root-promotion", "scripts/promote-kubara-catalog-candidates.mjs", "--verify", "--current"),
+  command("catalog-full-coverage", "scripts/complete-kubara-catalog-1-1-coverage.mjs", "--verify"),
   command("faithful-hub-spoke", "scripts/run-kubara-faithful-hub-spoke-proof.mjs", "--verify"),
   command("mini-idp", "scripts/reconcile-kubara-mini-idp.mjs", "--receipt-verify"),
   command("catalog-public-release", "scripts/generate-kubara-catalog-release.mjs", "--verify"),
@@ -152,12 +178,12 @@ function expectedContract() {
         selectedPlatformRoles: 7,
         applications: ["hx-web", "cubbychat"],
         reconcilerPlan: {
-          spaces: 53,
-          managedUnits: 60,
+          spaces: 55,
+          managedUnits: 63,
           deployments: 27,
           needsProvidesLinks: 25,
-          payloadsBeforeFaithfulEvidence: 53,
-          payloadsReadyForApply: 54,
+          payloadsBeforeFaithfulEvidence: 55,
+          payloadsReadyForApply: 56,
         },
         desiredMatrixRows: 36,
       },
@@ -168,21 +194,33 @@ function expectedContract() {
         baselineRootVersions: baseline.count,
         historicalAdditions: historicalAdditions.length,
         currentAdditions: currentAdditions.length,
-        expectedFinalRootVersions: baseline.count + additions.length,
+        qualifiedIntermediateRootVersions: baseline.count + additions.length,
+        fullCoverageAdditions: fullCoverageAdditions.length,
+        expectedFinalRootVersions: finalCatalogVersionCount,
+        expectedFinalComponents: finalCatalogComponentCount,
         baselineRecipesTreeSHA256: baseline.recipesTreeSHA256,
         baselinePackagesTreeSHA256: baseline.packagesTreeSHA256,
         historicalAdditionPaths: historicalAdditions,
         currentAdditionPaths: currentAdditions,
-        requiredOciPublicationPackages: [...KUBARA_OCI_PACKAGES],
+        fullCoverageAdditionPaths: fullCoverageAdditions,
+        requiredOciPublicationPackages: [
+          ...KUBARA_OCI_PACKAGES,
+          ...KUBARA_CATALOG_1_1_ADDITIONS.map((item) => item.packagePath),
+        ],
         promotionSafety: {
           baselineLock: "110 recipe roots and 110 package roots are byte-locked",
           ordering: "historical-7-then-current-3",
           overwritePolicy: "never-overwrite-existing-bytes",
           retryPolicy: "fill-missing-files-and-accept-only-byte-identical-residue",
-          requiredReceipts: [...KUBARA_PROMOTION_RECEIPTS],
+          fullCoverageBaseline: `the ${KUBARA_CATALOG_1_1_BASELINE.versionCount}-root intermediate Catalog is byte-locked before the final additive wave`,
+          requiredReceipts: [
+            ...KUBARA_PROMOTION_RECEIPTS,
+            "data/kubara-catalog-1.1-full-coverage/preflight-receipt.yaml",
+            "data/kubara-catalog-1.1-full-coverage/receipt.yaml",
+          ],
         },
         publicationSafety: {
-          scope: "exactly-ten-additive-packages",
+          scope: "two explicitly enumerated ten-package additive waves",
           retryPolicy: "reuse-only-an-existing-identical-layer",
           conflictPolicy: "refuse-existing-different-layer",
           verification: "local-source-tree-and-archive-plus-remote-manifest-and-layer",
@@ -190,6 +228,9 @@ function expectedContract() {
       },
       orderedReleaseCommands: [
         "npm run kubara-release:verify-static",
+        "npm run kubara-git-handoff:verify-current",
+        "npm run kubara-git-handoff:self-test",
+        "npm run kubara-git-import:self-test",
         "npm run kubara-live-qualification:preflight",
         "npm run kubara-live-qualification:run",
         "npm run kubara-live-qualification:verify",
@@ -209,6 +250,12 @@ function expectedContract() {
         "npm run kubara-catalog-oci:dry-run",
         "npm run kubara-catalog-oci:publish",
         "npm run kubara-catalog-oci:verify",
+        "npm run kubara-catalog-full-coverage:generate",
+        "npm run kubara-catalog-full-coverage:verify-candidates",
+        "npm run kubara-catalog-full-coverage:preflight",
+        "npm run kubara-catalog-full-coverage:promote",
+        "npm run kubara-catalog-full-coverage:publish",
+        "npm run kubara-catalog-full-coverage:verify",
         "npm run kubara-faithful-hub-spoke:rehearse",
         "npm run kubara-faithful-hub-spoke:run",
         "npm run kubara-faithful-hub-spoke:generate",
@@ -225,7 +272,7 @@ function expectedContract() {
         "npm run kubara-release:verify",
       ],
       gates: [
-        gate("catalog-alignment", "Immutable upstream snapshots, byte-preserving aligned exports, seven historical candidates, and three current additions.", [
+        gate("catalog-alignment", "Immutable upstream snapshots, byte-preserving aligned exports, all 18 exact Kubara catalogs 1.1.0 selections, and an additive 103-component/130-version Catalog.", [
           "kubara-catalog-adapter:verify",
           "kubara-catalog-candidates:verify",
           "kubara-current-catalog-candidates:verify",
@@ -233,10 +280,20 @@ function expectedContract() {
           "kubara-current-catalog-promotion:verify",
           "kubara-catalog-oci:self-test",
           "kubara-catalog-oci:verify",
+          "kubara-catalog-full-coverage:self-test",
+          "kubara-catalog-full-coverage:verify-candidates",
+          "kubara-catalog-full-coverage:verify",
         ]),
         gate("current-example", "Kubara v0.13.0 generates the same 131 files from upstream and ConfigHub-aligned catalogs and yields 13 exact effective renders.", [
           "kubara-current-example:verify",
           "kubara-effective-renders:verify",
+        ]),
+        gate("git-handoff-preparation", "One deterministic preparer converts an ordinary Kubara-generated worktree plus a reviewed exact artifact lock into a separate clean, importer-compatible Git subtree; the current 13-render fixture is committed and offline-verifiable.", [
+          "kubara-git-handoff:verify-current",
+          "kubara-git-handoff:self-test",
+        ]),
+        gate("git-revision-import", "One deterministic command path compiles an immutable Kubara Git revision, publishes component-first OCI packages, reconciles the exact user-selected ConfigHub organization and cluster-local Argo delivery Applications, and requires a second zero-action apply receipt without using AI.", [
+          "kubara-git-import:self-test",
         ]),
         gate("live-qualification", "Historical and current exact chart selections each retain a serial 13-lane live qualification receipt.", [
           "kubara-live-qualification:verify",
@@ -271,6 +328,7 @@ function expectedContract() {
       finalVerification: finalCommands.map((item) => item.display),
       requiredEvidence: {
         currentExample: "examples/kubara/current-platform/generation-receipt.yaml",
+        preparedGitHandoff: "examples/kubara/prepared-current-platform/preparation-receipt.yaml",
         catalogParity: "examples/kubara/current-platform/catalog-parity-receipt.yaml",
         currentMatrix: "data/kubara-platform-matrix/matrix.json",
         currentWiring: "data/kubara-wiring/graph.json",
@@ -280,6 +338,7 @@ function expectedContract() {
         currentLiveQualification: "runs/kubara-current-live-qualification/receipt.yaml",
         historicalPromotion: "data/kubara-catalog-refresh/root-promotion/receipt.yaml",
         currentPromotion: "data/kubara-catalog-refresh/current-root-promotion/receipt.yaml",
+        fullCatalogCoverage: "data/kubara-catalog-1.1-full-coverage/receipt.yaml",
         rootCatalog: "CATALOG.md",
         installerCatalog: "data/installer-oci-packages/packages.json",
         publicPage: "site/d/docs/demo/kubara/single-platform.html",
@@ -318,13 +377,26 @@ function verifyPackageCommands() {
 }
 
 function verifyBaselineRetention() {
+  const allDeclaredAdditions = new Set([...additions, ...fullCoverageAdditions]);
+  const fullCoverageAdditionSet = new Set(fullCoverageAdditions);
   for (const rootName of ["recipes", "packages"]) {
     const roots = versionRoots(rootName);
-    const legacy = roots.filter((path) => !additions.includes(path.slice(rootName.length + 1)));
+    const relativeRoots = roots.map((path) => path.slice(rootName.length + 1));
+    const legacy = roots.filter((path) => !allDeclaredAdditions.has(path.slice(rootName.length + 1)));
     check(legacy.length === baseline.count, `${rootName}: expected ${baseline.count} retained baseline versions, found ${legacy.length}`);
     const expected = rootName === "recipes" ? baseline.recipesTreeSHA256 : baseline.packagesTreeSHA256;
     check(treeSetDigest(legacy) === expected, `${rootName}: a retained baseline version was removed or changed`);
-    check(roots.length <= baseline.count + additions.length, `${rootName}: release scope exceeds the declared 120-version acceptance set`);
+    const retained120 = roots.filter((path) => !fullCoverageAdditionSet.has(path.slice(rootName.length + 1)));
+    const expected120 = rootName === "recipes"
+      ? KUBARA_CATALOG_1_1_BASELINE.recipesTreeSHA256
+      : KUBARA_CATALOG_1_1_BASELINE.packagesTreeSHA256;
+    check(
+      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount
+        && treeSetDigest(retained120) === expected120,
+      `${rootName}: the immutable 120-root Catalog baseline was removed or changed`,
+    );
+    check(relativeRoots.every((path) => legacy.includes(`${rootName}/${path}`) || allDeclaredAdditions.has(path)), `${rootName}: undeclared version root exists`);
+    check(roots.length <= finalCatalogVersionCount, `${rootName}: release scope exceeds the declared ${finalCatalogVersionCount}-version acceptance set`);
   }
 }
 
@@ -376,13 +448,29 @@ function verifySiteConsumption() {
   const source = readFileSync(join(repoRoot, "scripts/generate-public-site.mjs"), "utf8");
   for (const needle of [
     "${catalog.installerOciPackages.length}",
+    "retainedVersionPageHtml",
+    "data-retained-version",
+    "data-publication-receipt",
+    "data-packaged-configurations",
+    "publicCatalogComponents",
+    "retained published package versions",
     "docs/demo/kubara/single-platform.md",
     "d/docs/demo/kubara/platform-evidence.html",
     "examples/kubara/current-platform",
+    "examples/kubara/prepared-current-platform",
   ]) check(source.includes(needle), `public-site generator does not consume ${needle}`);
   for (const path of [
     "docs/demo/kubara/single-platform.md",
     "docs/demo/kubara/platform-evidence.md",
+    "examples/kubara/git-import/README.md",
+    "examples/kubara/git-import/request.example.yaml",
+    "examples/kubara/git-import/current-platform.prepare.yaml",
+    "examples/kubara/prepared-current-platform/preparation-receipt.yaml",
+    "examples/kubara/prepared-current-platform/generation-receipt.yaml",
+    "examples/kubara/prepared-current-platform/checksums.txt",
+    "examples/kubara/prepared-current-platform/wiring/graph.json",
+    "scripts/prepare-kubara-git-handoff.mjs",
+    "scripts/import-kubara-git-revision.mjs",
     "data/kubara-platform-matrix/matrix.html",
     "data/kubara-platform-matrix/matrix.json",
     "data/kubara-wiring/graph.html",
@@ -394,8 +482,13 @@ function verifySiteConsumption() {
 function verifyKubaraPublicSourceContract() {
   const adoption = collapseWhitespace(readFileSync(join(repoRoot, "docs/demo/kubara/single-platform.md"), "utf8"));
   const evidence = collapseWhitespace(readFileSync(join(repoRoot, "docs/demo/kubara/platform-evidence.md"), "utf8"));
+  const importerGuide = collapseWhitespace(readFileSync(join(repoRoot, "examples/kubara/git-import/README.md"), "utf8"));
+  const importerRequest = readFileSync(join(repoRoot, "examples/kubara/git-import/request.example.yaml"), "utf8");
+  const importerSource = readFileSync(join(repoRoot, "scripts/import-kubara-git-revision.mjs"), "utf8");
   const matrix = JSON.parse(readFileSync(join(repoRoot, "data/kubara-platform-matrix/matrix.json"), "utf8"));
   const graph = JSON.parse(readFileSync(join(repoRoot, "data/kubara-wiring/graph.json"), "utf8"));
+  const matrixHtml = readFileSync(join(repoRoot, "data/kubara-platform-matrix/matrix.html"), "utf8");
+  const wiringHtml = readFileSync(join(repoRoot, "data/kubara-wiring/graph.html"), "utf8");
   const expected = expectedContract().spec.adoption;
 
   check(expected.desiredMatrixRows === 36, "Kubara public source contract must retain 36 current matrix cells");
@@ -408,6 +501,73 @@ function verifyKubaraPublicSourceContract() {
     check(adoption.includes(app), `Kubara adoption source must name ${app}`);
     check(evidence.includes(app), `Kubara evidence source must name ${app}`);
   }
+  for (const phrase of [
+    "55 Spaces",
+    "63 managed Units",
+    "`component-catalog-coverage`",
+    "`CatalogComponents=103`",
+    "`CatalogVersions=130`",
+    "`Component=argo-cd`",
+    "`Component=argobot`",
+    "`hx-argo-base`",
+    "`hx-argo-runtime-base`",
+    "v3.4.5",
+    "v3.4.6",
+    "`Lane=Faithful`",
+    "`Lane=Adapted`",
+    "`Relationship=NeedsProvides`",
+    "`Environment=Prod`",
+    "`DeliveryMode=ConfigHubOCI`",
+    "`URL-Catalog`",
+    "130 retained",
+    "seven deterministic steps",
+    "prepare-kubara-git-handoff.mjs",
+    "current-platform.prepare.yaml",
+    "`examples/kubara/prepared-current-platform`",
+    "kubara-git-handoff:verify-current",
+    "159 checked files",
+    "--package",
+    "--apply",
+    "apply-receipt.json",
+  ]) check(adoption.includes(phrase), `Kubara adoption source must expose the current GUI/import boundary: ${phrase}`);
+  for (const phrase of [
+    "prepare-kubara-git-handoff.mjs",
+    "current-platform.prepare.yaml",
+    "prepared-current-platform",
+    "normal Kubara generation path",
+    "--generate",
+    "--compile",
+    "--verify",
+    "--package",
+    "--apply",
+    "apply-receipt.json",
+    "cluster-local Argo",
+    "zero-action",
+  ]) check(importerGuide.includes(phrase), `Kubara importer guide must expose the linear adoption step: ${phrase}`);
+  for (const phrase of [
+    "context:",
+    "organizationExternalID:",
+    "organizationID:",
+    "serverURL:",
+    "spaceID:",
+    "targetID:",
+    "appsSpaceID:",
+  ]) check(importerRequest.includes(phrase), `Kubara importer request must pin ${phrase}`);
+  for (const [name, html] of [["matrix", matrixHtml], ["wiring", wiringHtml]]) {
+    check(html.includes("https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html"), `${name} HTML must link back to the Kubara adoption guide`);
+    check(html.includes("https://confighub.github.io/helm-expt/site/charts/"), `${name} HTML must link to the retained component-first Catalog`);
+  }
+  check(matrixHtml.includes("Argo sync") && !matrixHtml.includes("ConfigHub sync"), "current platform matrix must identify controller state as Argo sync, not ConfigHub sync");
+  for (const stale of [
+    "`--package` and `--apply` deliberately fail",
+    "`--package` and `--apply` fail intentionally",
+    "Generic OCI publication and organization apply are explicitly refused",
+    "Publication and live reconciliation are intentionally not implemented here",
+  ]) {
+    check(!adoption.includes(stale), `Kubara adoption source retains obsolete importer wording: ${stale}`);
+    check(!importerGuide.includes(stale), `Kubara importer guide retains obsolete importer wording: ${stale}`);
+    check(!importerSource.includes(stale), `Kubara importer source retains obsolete implementation wording: ${stale}`);
+  }
   for (const url of [
     "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html",
     "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html",
@@ -416,6 +576,7 @@ function verifyKubaraPublicSourceContract() {
     check(adoption.includes(url), `Kubara adoption source must retain public link ${url}`);
     check(evidence.includes(url), `Kubara evidence source must retain public link ${url}`);
   }
+  check(adoption.includes("https://confighub.github.io/helm-expt/site/charts/"), "Kubara adoption source must link the full retained component Catalog");
   for (const phrase of [
     "desired-only matrix",
     "public matrix is regenerated from that desired state plus receipt evidence",
@@ -441,13 +602,20 @@ function verifyKubaraPublicVisibility() {
   const paths = {
     adoption: "site/d/docs/demo/kubara/single-platform.html",
     evidence: "site/d/docs/demo/kubara/platform-evidence.html",
+    importer: "site/d/examples/kubara/git-import/README.html",
+    catalog: "site/charts/index.html",
     examples: "site/testing.html",
   };
   for (const path of Object.values(paths)) check(existsSync(join(repoRoot, path)), `${path} is missing from the generated public site`);
 
   const adoption = collapseWhitespace(readFileSync(join(repoRoot, paths.adoption), "utf8"));
   const evidence = collapseWhitespace(readFileSync(join(repoRoot, paths.evidence), "utf8"));
+  const importer = collapseWhitespace(readFileSync(join(repoRoot, paths.importer), "utf8"));
+  const catalog = collapseWhitespace(readFileSync(join(repoRoot, paths.catalog), "utf8"));
   const examples = collapseWhitespace(readFileSync(join(repoRoot, paths.examples), "utf8"));
+  const publicCatalogJson = JSON.parse(readFileSync(join(repoRoot, "site/catalog.json"), "utf8"));
+  const installerCatalog = JSON.parse(readFileSync(join(repoRoot, "data/installer-oci-packages/packages.json"), "utf8"));
+  const retainedPackages = installerCatalog.packages ?? [];
   const matrix = JSON.parse(readFileSync(join(repoRoot, "data/kubara-platform-matrix/matrix.json"), "utf8"));
   const graph = JSON.parse(readFileSync(join(repoRoot, "data/kubara-wiring/graph.json"), "utf8"));
   const expected = expectedContract().spec.adoption;
@@ -466,6 +634,133 @@ function verifyKubaraPublicVisibility() {
     check(evidence.includes(app), `${paths.evidence} must name ${app}`);
     check(examples.includes(app), `${paths.examples} must name ${app}`);
   }
+  for (const phrase of [
+    "55 Spaces",
+    "63 managed Units",
+    "<code>component-catalog-coverage</code>",
+    "<code>CatalogComponents=103</code>",
+    "<code>CatalogVersions=130</code>",
+    "<code>Component=argo-cd</code>",
+    "<code>Component=argobot</code>",
+    "<code>hx-argo-base</code>",
+    "<code>hx-argo-runtime-base</code>",
+    "v3.4.5",
+    "v3.4.6",
+    "<code>Lane=Faithful</code>",
+    "<code>Lane=Adapted</code>",
+    "<code>Relationship=NeedsProvides</code>",
+    "<code>Environment=Prod</code>",
+    "<code>DeliveryMode=ConfigHubOCI</code>",
+    "<code>URL-Catalog</code>",
+    "130 retained",
+    "seven deterministic steps",
+    "prepare-kubara-git-handoff.mjs",
+    "current-platform.prepare.yaml",
+    "<code>examples/kubara/prepared-current-platform</code>",
+    "kubara-git-handoff:verify-current",
+    "159 checked files",
+    "--package",
+    "--apply",
+    "apply-receipt.json",
+  ]) check(adoption.includes(phrase), `${paths.adoption} must expose the current GUI/import boundary: ${phrase}`);
+  for (const phrase of [
+    "prepare-kubara-git-handoff.mjs",
+    "current-platform.prepare.yaml",
+    "prepared-current-platform",
+    "normal Kubara generation path",
+    "--generate",
+    "--compile",
+    "--verify",
+    "--package",
+    "--apply",
+    "apply-receipt.json",
+    "zero-action",
+    "cluster-local Argo",
+  ]) {
+    check(importer.includes(phrase), `${paths.importer} must expose the linear Git-import step: ${phrase}`);
+  }
+  for (const phrase of [
+    "component-first",
+    "Component Catalog",
+    "all 130 retained published package versions",
+    "103 components",
+    "9.5.15",
+    "10.1.3",
+    "10.2.1",
+    "v1.20.2",
+    "v1.21.0",
+    "2.5.0",
+    "2.7.0",
+    "2.8.0",
+    "85.3.3",
+    "86.1.0",
+    "87.15.1",
+    "87.19.2",
+    "3.13.0",
+    "3.13.1",
+    "40.2.0",
+    "41.0.2",
+    "grafana/alloy",
+    "grafana/loki",
+    "kyverno/kyverno-policies",
+    "kyverno/kyverno",
+    "longhorn/longhorn",
+    "metallb/metallb",
+    "oauth2-proxy/oauth2-proxy",
+    "policy-reporter/policy-reporter",
+    "stakater/reloader",
+    "velero/velero",
+  ]) check(catalog.includes(phrase), `${paths.catalog} must expose the additive component-first Catalog: ${phrase}`);
+  const componentRows = [...catalog.matchAll(/<tr data-chart-row\b/g)].length;
+  const readinessComponentRows = [...catalog.matchAll(/data-evidence-surface="readiness-evidence"/g)].length;
+  const publicationOnlyComponentRows = [...catalog.matchAll(/data-evidence-surface="publication-only"/g)].length;
+  const retainedVersionLinks = [...catalog.matchAll(/data-retained-version="[^"]+"\s+href="\.\/[^\"]+\.html"/g)].length;
+  const publicationReceiptLinks = [...catalog.matchAll(/data-publication-receipt="[^"]+"/g)].length;
+  const packagedConfigurationRecords = [...catalog.matchAll(/data-packaged-configurations="[^"]+"/g)].length;
+  check(componentRows === finalCatalogComponentCount, `${paths.catalog} must expose exactly ${finalCatalogComponentCount} component rows, found ${componentRows}`);
+  check(readinessComponentRows === top100EvidenceComponentCount, `${paths.catalog} must retain exactly ${top100EvidenceComponentCount} richer Top-100 readiness rows, found ${readinessComponentRows}`);
+  check(publicationOnlyComponentRows === finalCatalogComponentCount - top100EvidenceComponentCount, `${paths.catalog} must identify the ${finalCatalogComponentCount - top100EvidenceComponentCount} publication-only component rows honestly`);
+  check(retainedVersionLinks === finalCatalogVersionCount, `${paths.catalog} must link all ${finalCatalogVersionCount} retained versions to local detail pages, found ${retainedVersionLinks}`);
+  check(publicationReceiptLinks === finalCatalogVersionCount, `${paths.catalog} must expose all ${finalCatalogVersionCount} publication receipts, found ${publicationReceiptLinks}`);
+  check(packagedConfigurationRecords === finalCatalogVersionCount, `${paths.catalog} must expose all ${finalCatalogVersionCount} per-version configuration inventories, found ${packagedConfigurationRecords}`);
+  check(
+    retainedPackages.length === finalCatalogVersionCount
+      && new Set(retainedPackages.map((row) => row.chart)).size === finalCatalogComponentCount,
+    `installer package inventory must retain ${finalCatalogVersionCount} versions grouped across ${finalCatalogComponentCount} components`,
+  );
+  check(
+    publicCatalogJson.summary?.publicCatalogComponents === finalCatalogComponentCount
+      && publicCatalogJson.summary?.retainedComponents === finalCatalogComponentCount
+      && publicCatalogJson.summary?.retainedPublishedPackageVersions === finalCatalogVersionCount,
+    `site/catalog.json must expose the component-first ${finalCatalogComponentCount}-component/${finalCatalogVersionCount}-version inventory`,
+  );
+  const expectedCatalogPages = new Set(retainedPackages.map(catalogVersionPageFileName));
+  const actualCatalogPages = readdirSync(join(repoRoot, "site/charts"))
+    .filter((name) => name.endsWith(".html") && name !== "index.html");
+  check(
+    actualCatalogPages.length === expectedCatalogPages.size
+      && actualCatalogPages.every((name) => expectedCatalogPages.has(name)),
+    `site/charts must contain exactly the ${expectedCatalogPages.size} retained package-version pages`,
+  );
+  let retainedOnlyPages = 0;
+  for (const row of retainedPackages) {
+    const identity = `${row.chart}@${row.version}`;
+    const pageName = catalogVersionPageFileName(row);
+    check(
+      catalog.includes(`data-retained-version="${identity}" href="./${pageName}"`)
+        && catalog.includes(`data-publication-receipt="${identity}"`)
+        && catalog.includes(`data-packaged-configurations="${identity}"`),
+      `${paths.catalog} does not preserve the local page, receipt, and configurations for ${identity}`,
+    );
+    const page = readFileSync(join(repoRoot, "site/charts", pageName), "utf8");
+    if (page.includes("data-retained-only-version=")) retainedOnlyPages += 1;
+    check(page.toLowerCase().includes("publication receipt"), `${pageName} does not expose its version-specific publication receipt`);
+  }
+  const expectedRetainedOnlyPages = finalCatalogVersionCount - top100EvidenceComponentCount;
+  check(
+    retainedOnlyPages === expectedRetainedOnlyPages,
+    `expected ${expectedRetainedOnlyPages} retained-only human detail pages, found ${retainedOnlyPages}`,
+  );
 
   check(
     examples.includes('href="./d/docs/demo/kubara/single-platform.html"'),
@@ -474,6 +769,15 @@ function verifyKubaraPublicVisibility() {
   check(
     examples.includes('href="./d/docs/demo/kubara/platform-evidence.html"'),
     `${paths.examples} must link the Kubara matrix and wiring evidence guide`,
+  );
+  check(
+    examples.includes('href="./d/examples/kubara/git-import/README.html"'),
+    `${paths.examples} must link the reusable Kubara Git-revision importer`,
+  );
+  check(
+    examples.includes("examples/kubara/prepared-current-platform")
+      && examples.includes("examples/kubara/prepared-current-platform/preparation-receipt.yaml"),
+    `${paths.examples} must link the prepared Kubara handoff and its receipt`,
   );
   check(
     adoption.includes('href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html"')
@@ -549,8 +853,9 @@ function verifyMiniIdpPlan() {
       "Kubara mini-IDP release recovery self-test passed",
       "Kubara mini-IDP Argo convergence self-test passed",
       "Kubara mini-IDP scenario evidence self-test passed",
+      "Kubara mini-IDP receipt Link evidence self-test passed",
     ].join("\n"),
-    "mini-IDP release and Argo convergence self-tests did not pass exactly",
+    "mini-IDP release, Argo convergence, scenario, and receipt-Link self-tests did not pass exactly",
   );
   const output = execFileSync(process.execPath, [script, "--plan"], {
     cwd: repoRoot,
@@ -572,7 +877,7 @@ function verifyMiniIdpPlan() {
     "mini-IDP plan no longer limits partial fleet recovery to an exact journaled prefix",
   );
   check(plan.spec?.execution?.serialLiveParityLock === true, "mini-IDP plan does not require the shared serial live-parity lock");
-  check(plan.spec?.execution?.unexpectedSpacePolicy === "fail-outside-exact-53-space-allowlist", "mini-IDP plan does not enforce the exact Space allowlist");
+  check(plan.spec?.execution?.unexpectedSpacePolicy === "fail-outside-exact-55-space-allowlist", "mini-IDP plan does not enforce the exact Space allowlist");
   check(plan.spec?.execution?.unexpectedManagedUnitOrLinkPolicy === "fail", "mini-IDP plan does not reject unexpected managed Units or Links");
   check(plan.spec?.execution?.receiptRequiresZeroActionRerun === true, "mini-IDP plan does not require a zero-action rerun receipt");
   check(
@@ -622,18 +927,24 @@ function verifyMiniIdpPlan() {
     "every GUI-visible Component Space must expose Owner, Variant, and exact ComponentVersion",
   );
   check(
-    new Set(componentSpaces.map((space) => `${space.labels.Component}/${space.labels.Variant}`)).size
+    new Set(componentSpaces.map((space) => [
+      space.labels.Owner,
+      space.labels.Component,
+      space.labels.Lane ?? "Unspecified",
+      space.labels.Variant,
+    ].join("/"))).size
       === componentSpaces.length,
-    "every GUI-visible Component/Variant card identity must be unique",
+    "every GUI-visible Owner/Component/Lane/Variant card identity must be unique",
   );
-  const ownersByComponent = new Map();
+  const ownersByComponentLane = new Map();
   for (const space of componentSpaces) {
-    if (!ownersByComponent.has(space.labels.Component)) ownersByComponent.set(space.labels.Component, new Set());
-    ownersByComponent.get(space.labels.Component).add(space.labels.Owner);
+    const componentLane = `${space.labels.Component}/${space.labels.Lane ?? "Unspecified"}`;
+    if (!ownersByComponentLane.has(componentLane)) ownersByComponentLane.set(componentLane, new Set());
+    ownersByComponentLane.get(componentLane).add(space.labels.Owner);
   }
   check(
-    [...ownersByComponent.values()].every((owners) => owners.size === 1),
-    "each GUI Component must remain in exactly one Owner catalog bucket",
+    [...ownersByComponentLane.values()].every((owners) => owners.size === 1),
+    "each GUI Component/Lane must remain in exactly one Owner catalog bucket",
   );
   const spacesBySlug = new Map(plan.spec.spaces.map((space) => [space.slug, space]));
   check(
@@ -646,6 +957,222 @@ function verifyMiniIdpPlan() {
       && !plan.spec.spaces.some((space) => /^hx-app-(dev|staging|prod-a|prod-b)$/.test(space.slug)
         && space.labels?.Component),
     "pure control and ClusterTarget Spaces must not pollute the Components GUI",
+  );
+  const guideURL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
+  const catalogURL = "https://confighub.github.io/helm-expt/site/charts/";
+  const catalogCoverageURL = "https://confighub.github.io/helm-expt/data/kubara-catalog-1.1-full-coverage/receipt.yaml";
+  const matrixURL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
+  const wiringURL = "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html";
+  const controlSpace = spacesBySlug.get("hx-platform");
+  check(
+    controlSpace?.labels?.StartHere === "true"
+      && stableJson(controlSpace.annotations) === stableJson({
+        "URL-Guide": guideURL,
+        "URL-Catalog": catalogURL,
+        "URL-CatalogCoverage": catalogCoverageURL,
+        "URL-Matrix": matrixURL,
+        "URL-Wiring": wiringURL,
+      }),
+    "hx-platform must remain the exact StartHere GUI entry with guide, catalog, matrix, and wiring links",
+  );
+  const expectedStartHereUnits = new Map(Object.entries({
+    "component-catalog-coverage": { "URL-Guide": guideURL, "URL-Catalog": catalogURL, "URL-CatalogCoverage": catalogCoverageURL },
+    "component-catalog-selection": { "URL-Guide": guideURL, "URL-Catalog": catalogURL },
+    "faithful-hub-spoke-receipt": { "URL-Guide": guideURL },
+    "platform-contract": { "URL-Guide": guideURL, "URL-Catalog": catalogURL, "URL-CatalogCoverage": catalogCoverageURL, "URL-Matrix": matrixURL, "URL-Wiring": wiringURL },
+    "platform-matrix": { "URL-Guide": guideURL, "URL-Matrix": matrixURL },
+    "wiring-ledger": { "URL-Guide": guideURL, "URL-Wiring": wiringURL },
+  }));
+  const actualStartHereUnits = plan.spec.units.filter(
+    (unit) => unit.space === "hx-platform" && unit.labels?.StartHere === "true",
+  );
+  check(
+    actualStartHereUnits.length === expectedStartHereUnits.size
+      && actualStartHereUnits.every((unit) => stableJson(unit.annotations) === stableJson(expectedStartHereUnits.get(unit.slug))),
+    "the six StartHere Units must preserve their exact public GUI navigation mapping",
+  );
+  const argoDefinitionSpace = spacesBySlug.get("hx-argo-base");
+  check(
+    argoDefinitionSpace?.type === "component-definition"
+      && argoDefinitionSpace.labels?.Component === "argo-cd"
+      && argoDefinitionSpace.labels?.ComponentSurface === "argocd-delivery"
+      && argoDefinitionSpace.labels?.Role === "ComponentDefinition"
+      && argoDefinitionSpace.labels?.DefinitionScope === "Base"
+      && argoDefinitionSpace.labels?.Variant === "base"
+      && argoDefinitionSpace.labels?.ComponentVersion === "10.2.1"
+      && argoDefinitionSpace.labels?.RuntimeVersion === "v3.4.5"
+      && argoDefinitionSpace.labels?.RuntimeImage === "quay.io/argoproj/argocd:v3.4.5"
+      && argoDefinitionSpace.labels?.Catalog === "KubaraBootstrap"
+      && argoDefinitionSpace.labels?.Owner === "KubaraBootstrap"
+      && argoDefinitionSpace.labels?.Lane === "Faithful",
+    "Components GUI must expose the faithful Kubara argo-cd definition with exact chart/runtime provenance",
+  );
+  const argoRuntimeSpace = spacesBySlug.get("hx-argo-runtime-base");
+  check(
+    argoRuntimeSpace?.type === "delivery-runtime-definition"
+      && argoRuntimeSpace.labels?.Component === "argo-cd"
+      && argoRuntimeSpace.labels?.ComponentSurface === "argocd-delivery-runtime"
+      && argoRuntimeSpace.labels?.Role === "DeliveryRuntimeDefinition"
+      && argoRuntimeSpace.labels?.DefinitionScope === "Base"
+      && argoRuntimeSpace.labels?.Variant === "base"
+      && argoRuntimeSpace.labels?.ComponentVersion === "v3.4.6"
+      && argoRuntimeSpace.labels?.RuntimeVersion === "v3.4.6"
+      && argoRuntimeSpace.labels?.RuntimeImage === "quay.io/argoproj/argocd:v3.4.6"
+      && argoRuntimeSpace.labels?.Catalog === "ConfigHubBootstrap"
+      && argoRuntimeSpace.labels?.Owner === "ConfigHubBootstrap"
+      && argoRuntimeSpace.labels?.Lane === "Adapted"
+      && !argoRuntimeSpace.labels?.KubaraComponent,
+    "Components GUI must expose adapted cluster-local Argo as a separate exact ConfigHubBootstrap runtime",
+  );
+  const argoDefinitionUnit = plan.spec.units.find(
+    (unit) => unit.space === "hx-argo-base" && unit.slug === "argo-cd",
+  );
+  const argoEvidenceUnit = plan.spec.units.find(
+    (unit) => unit.space === "hx-platform" && unit.slug === "kubara-argo-definition",
+  );
+  check(
+    argoDefinitionUnit?.role === "ComponentDefinition"
+      && argoDefinitionUnit.payloadKey === "hx-platform/kubara-argo-definition"
+      && argoDefinitionUnit.toolchain === "Kubernetes/YAML"
+      && argoDefinitionUnit.provider === null
+      && argoDefinitionUnit.target === null
+      && !argoDefinitionUnit.upstream
+      && argoDefinitionUnit.labels?.Component === "argo-cd"
+      && argoDefinitionUnit.labels?.ComponentSurface === "argocd-delivery"
+      && argoDefinitionUnit.labels?.ComponentVersion === "10.2.1"
+      && argoDefinitionUnit.labels?.RuntimeVersion === "v3.4.5"
+      && argoDefinitionUnit.labels?.RuntimeImage === "quay.io/argoproj/argocd:v3.4.5"
+      && argoDefinitionUnit.labels?.Catalog === "KubaraBootstrap"
+      && argoDefinitionUnit.labels?.Owner === "KubaraBootstrap"
+      && argoDefinitionUnit.labels?.Lane === "Faithful",
+    "hx-argo-base/argo-cd must be the native, untargeted argo-cd definition Unit",
+  );
+  const argoRuntimeUnit = plan.spec.units.find(
+    (unit) => unit.space === "hx-argo-runtime-base" && unit.slug === "argo-cd-runtime",
+  );
+  check(
+    argoRuntimeUnit?.role === "DeliveryRuntimeDefinition"
+      && argoRuntimeUnit.payloadKey === "hx-argo-runtime-base/argo-cd-runtime"
+      && argoRuntimeUnit.toolchain === "AppConfig/YAML"
+      && argoRuntimeUnit.provider === "None"
+      && argoRuntimeUnit.target === null
+      && !argoRuntimeUnit.upstream
+      && argoRuntimeUnit.labels?.Component === "argo-cd"
+      && argoRuntimeUnit.labels?.ComponentVersion === "v3.4.6"
+      && argoRuntimeUnit.labels?.RuntimeVersion === "v3.4.6"
+      && argoRuntimeUnit.labels?.RuntimeImage === "quay.io/argoproj/argocd:v3.4.6"
+      && argoRuntimeUnit.labels?.Catalog === "ConfigHubBootstrap"
+      && argoRuntimeUnit.labels?.Owner === "ConfigHubBootstrap"
+      && argoRuntimeUnit.labels?.Lane === "Adapted"
+      && !argoRuntimeUnit.labels?.KubaraComponent,
+    "hx-argo-runtime-base/argo-cd-runtime must retain the separate adapted runtime contract",
+  );
+  check(
+    argoEvidenceUnit?.role === "KubaraDeliveryDefinition"
+      && argoEvidenceUnit.payloadKey === argoDefinitionUnit?.payloadKey
+      && argoEvidenceUnit.labels?.Component === "argo-cd"
+      && argoEvidenceUnit.labels?.Lane === "Faithful"
+      && argoEvidenceUnit.labels?.SourceType === "CommittedEvidence",
+    "hx-platform must retain the reviewed Kubara Argo evidence Unit and provenance",
+  );
+  const faithfulReceiptUnit = plan.spec.units.find(
+    (unit) => unit.space === "hx-platform" && unit.slug === "faithful-hub-spoke-receipt",
+  );
+  check(
+    faithfulReceiptUnit?.labels?.Lane === "Faithful"
+      && faithfulReceiptUnit.labels?.StartHere === "true"
+      && faithfulReceiptUnit.annotations?.["URL-Guide"]
+        === "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html",
+    "the faithful lane must have a StartHere-linked GUI receipt",
+  );
+  const argoDefinitionPayload = plan.spec.payloads.find(
+    (payload) => payload.key === "hx-platform/kubara-argo-definition",
+  );
+  check(
+    stableJson(argoDefinitionPayload?.sourcePaths) === stableJson([
+      "examples/kubara/current-platform/effective-renders/hx-app-dev/argo-cd/release-objects.yaml",
+    ]),
+    "the native argo-cd definition and retained control evidence must share the reviewed Kubara render",
+  );
+  const argoRuntimePayload = plan.spec.payloads.find(
+    (payload) => payload.key === "hx-argo-runtime-base/argo-cd-runtime",
+  );
+  check(
+    argoRuntimePayload?.toolchain === "AppConfig/YAML"
+      && argoRuntimePayload.transform === "embedded-reviewed-runtime-contract"
+      && stableJson(argoRuntimePayload.sourcePaths) === stableJson(["scripts/reconcile-kubara-mini-idp.mjs"]),
+    "adapted cluster-local Argo must retain a distinct reviewed runtime contract payload",
+  );
+  const argoDeliverySpaces = plan.spec.spaces.filter(
+    (space) => /^hx-app-(dev|staging|prod-a|prod-b)-argo-apps$/.test(space.slug),
+  );
+  check(
+    argoDeliverySpaces.length === 4
+      && argoDeliverySpaces.every((space) =>
+        space.type === "delivery-instance"
+          && space.labels?.Component === "argo-cd"
+          && space.labels?.Role === "DeliveryInstance"
+          && space.labels?.InstanceOf === "argo-cd-runtime"
+          && space.labels?.DefinitionSpace === "hx-argo-runtime-base"
+          && space.labels?.ComponentVersion === "v3.4.6"
+          && space.labels?.RuntimeVersion === "v3.4.6"
+          && space.labels?.RuntimeImage === "quay.io/argoproj/argocd:v3.4.6"
+          && space.labels?.Catalog === "ConfigHubBootstrap"
+          && space.labels?.Owner === "ConfigHubBootstrap"
+          && !space.labels?.KubaraComponent
+          && space.labels?.Lane === "Adapted"),
+    "all four cluster-local Argo delivery Spaces must resolve only to the exact adapted runtime definition",
+  );
+  const argoRootApplications = plan.spec.deliveryApplicationUnits.filter(
+    (unit) => unit.labels?.ApplicationKind === "ClusterRoot",
+  );
+  check(
+    argoRootApplications.length === 4
+      && argoRootApplications.every((unit) =>
+        unit.labels?.Component === "argo-cd"
+          && unit.labels?.InstanceOf === "argo-cd-runtime"
+          && unit.labels?.DefinitionSpace === "hx-argo-runtime-base"
+          && unit.labels?.ComponentVersion === "v3.4.6"
+          && unit.labels?.RuntimeImage === "quay.io/argoproj/argocd:v3.4.6"
+          && unit.labels?.Catalog === "ConfigHubBootstrap"
+          && !unit.labels?.KubaraComponent
+          && unit.labels?.Lane === "Adapted"),
+    "all four cluster-root delivery Application Units must expose only the exact adapted Argo runtime lineage",
+  );
+  check(
+    plan.spec.deliveryApplicationUnits.length === 35
+      && plan.spec.deliveryApplicationUnits.every((unit) => unit.labels?.Lane === "Adapted"),
+    "all 35 cluster-local delivery Application Units must be visible as Lane=Adapted",
+  );
+  for (const unit of plan.spec.deliveryApplicationUnits.filter(
+    (row) => ["PlatformComponent", "Application"].includes(row.labels?.ApplicationKind),
+  )) {
+    const sourceSpace = spacesBySlug.get(unit.labels.SourceSpace);
+    check(sourceSpace, `${unit.ref}: delivery source Space is missing`);
+    check(
+      unit.labels.DefinitionSpace === (sourceSpace.labels.DefinitionSpace ?? sourceSpace.upstreamSpace)
+        && unit.labels.InstanceOf === (sourceSpace.labels.InstanceOf ?? sourceSpace.labels.Component)
+        && unit.labels.PromotionUpstreamSpace === sourceSpace.upstreamSpace,
+      `${unit.ref}: delivery GUI labels conflate reusable definition lineage with promotion upstream`,
+    );
+  }
+  for (const [ref, promotionUpstream] of [
+    ["hx-app-staging-argo-apps/hx-web-staging", "hx-web-dev"],
+    ["hx-app-prod-a-argo-apps/hx-web-prod-a", "hx-web-staging"],
+    ["hx-app-prod-b-argo-apps/hx-web-prod-b", "hx-web-staging"],
+  ]) {
+    const unit = plan.spec.deliveryApplicationUnits.find((row) => row.ref === ref);
+    check(
+      unit?.labels?.DefinitionSpace === "hx-web-base"
+        && unit.labels.PromotionUpstreamSpace === promotionUpstream,
+      `${ref}: GUI must show hx-web-base as the definition and ${promotionUpstream} as the promotion upstream`,
+    );
+  }
+  check(
+    plan.spec.spaces
+      .filter((space) => space.labels?.Role?.endsWith("Instance") || space.labels?.Role === "ClusterTarget")
+      .every((space) => space.labels?.Lane === "Adapted"),
+    "all adapted cluster-target and instance Spaces must expose Lane=Adapted in the GUI",
   );
   const kubaraCatalogComponents = [...new Set(componentSpaces
     .filter((space) => space.labels.Owner === "KubaraGeneral")
@@ -662,6 +1189,30 @@ function verifyMiniIdpPlan() {
     "Components GUI must group the selected Kubara catalog components under KubaraGeneral",
   );
   check(
+    stableJson([...new Set(componentSpaces
+      .filter((space) => space.labels.Owner === "KubaraBootstrap")
+      .map((space) => space.labels.Component))].sort()) === stableJson(["argo-cd"]),
+    "Components GUI must expose the faithful argo-cd selection under KubaraBootstrap",
+  );
+  check(
+    componentSpaces.filter((space) => space.labels.Component === "argo-cd").length === 6
+      && stableJson([...new Set(componentSpaces
+        .filter((space) => space.labels.Owner === "ConfigHubBootstrap")
+        .map((space) => space.labels.Component))].sort()) === stableJson(["argo-cd"]),
+    "Components GUI must separately expose the ConfigHubBootstrap Argo runtime definition and four instances",
+  );
+  const argobotSpaces = componentSpaces.filter((space) => space.labels.Component === "argobot");
+  check(
+    argobotSpaces.length === 5
+      && argobotSpaces.every((space) =>
+        space.labels.Owner === "ConfigHubDelivery"
+          && space.labels.Catalog === "ConfigHubDelivery"
+          && space.labels.ComponentVersion === "v0.1.6")
+      && argobotSpaces.filter((space) => space.labels.Role === "DeliveryDefinition").length === 1
+      && argobotSpaces.filter((space) => space.labels.Role === "DeliveryInstance" && space.labels.Lane === "Adapted").length === 4,
+    "Components GUI must expose the exact v0.1.6 argobot delivery definition and four adapted instances",
+  );
+  check(
     componentSpaces.some((space) => space.labels.Component === "kube-prometheus-stack"
       && space.labels.BundledCatalogComponent === "prometheus-blackbox-exporter"
       && space.labels.BundledComponentVersion === "11.15.1"),
@@ -673,6 +1224,28 @@ function verifyMiniIdpPlan() {
       && space.labels.ComponentSurface === "hx-web-platform")
       && componentSpaces.some((space) => space.labels.Component === "cubbychat"),
     "Components GUI must group hx-web's platform binding with hx-web and expose cubbychat",
+  );
+  check(
+    componentSpaces.filter((space) => space.labels.Component === "hx-web").length === 10
+      && componentSpaces.filter((space) => space.labels.Component === "cubbychat").length === 5
+      && ["dev", "staging", "prod-a", "prod-b"].every((variant) =>
+        componentSpaces.some((space) => space.labels.Component === "hx-web" && space.labels.Variant === variant)
+          && componentSpaces.some((space) => space.labels.Component === "cubbychat" && space.labels.Variant === variant)),
+    "Components GUI must expose the complete hx-web and cubbychat definition/target inventory",
+  );
+  const plannedUnitRefs = new Set(plan.spec.units.map((unit) => `${unit.space}/${unit.slug}`));
+  check(
+    plan.spec.links.length === 25
+      && plan.spec.links.every((link) =>
+        link.updateType === "NeedsProvides"
+          && link.autoUpdate === false
+          && link.labels?.Relationship === "NeedsProvides"
+          && Boolean(link.labels?.ConsumerComponent)
+          && Boolean(link.labels?.ProviderComponent)
+          && Boolean(link.reason)
+          && plannedUnitRefs.has(`${link.space}/${link.fromUnit}`)
+          && plannedUnitRefs.has(`${link.toSpace}/${link.toUnit}`)),
+    "all 25 GUI wiring Links must preserve manual NeedsProvides semantics, reasons, and exact endpoints",
   );
   for (const key of ["hx-platform/catalog-adapter-receipt", "hx-platform/catalog-root-promotion"]) {
     check(plan.spec.payloads.some((payload) => payload.key === key), `mini-IDP plan is missing governed evidence payload ${key}`);
@@ -745,14 +1318,19 @@ function verifyFinalState() {
   verifyKubaraPublicVisibility();
   for (const rootName of ["recipes", "packages"]) {
     const roots = versionRoots(rootName);
-    check(roots.length === baseline.count + additions.length, `${rootName}: final additive total must be 120, found ${roots.length}`);
+    check(roots.length === finalCatalogVersionCount, `${rootName}: final additive total must be ${finalCatalogVersionCount}, found ${roots.length}`);
     for (const addition of additions) check(roots.includes(`${rootName}/${addition}`), `${rootName}/${addition} was not promoted`);
+    for (const addition of fullCoverageAdditions) check(roots.includes(`${rootName}/${addition}`), `${rootName}/${addition} was not promoted`);
   }
   for (const path of Object.values(expectedContract().spec.requiredEvidence)) {
     check(existsSync(join(repoRoot, path)), `${path} is missing; final Kubara acceptance remains blocked`);
   }
   const installerCatalog = JSON.parse(readFileSync(join(repoRoot, "data/installer-oci-packages/packages.json"), "utf8"));
-  check(installerCatalog.packages?.length === baseline.count + additions.length, `installer OCI catalog must expose 120 retained chart versions, found ${installerCatalog.packages?.length ?? 0}`);
+  check(installerCatalog.packages?.length === finalCatalogVersionCount, `installer OCI catalog must expose ${finalCatalogVersionCount} retained chart versions, found ${installerCatalog.packages?.length ?? 0}`);
+  check(
+    new Set(installerCatalog.packages.map((row) => row.chart)).size === finalCatalogComponentCount,
+    `installer OCI catalog must group the ${finalCatalogVersionCount} retained package versions across exactly ${finalCatalogComponentCount} components`,
+  );
 }
 
 function versionRoots(rootName) {
@@ -774,6 +1352,13 @@ function directoryNames(path) {
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort();
+}
+
+function catalogVersionPageFileName(row) {
+  return `${row.chart}-${row.version}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") + ".html";
 }
 
 function treeSetDigest(roots) {
