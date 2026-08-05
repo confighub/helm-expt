@@ -35,7 +35,7 @@ Return to the [buyer overview](index.md), follow the
 | Approvals, promotion, rollback, departures, and immutable releases improve day-two operation | Current reconciler contract plus retained isolated and historical receipts | **Waiting for current integrated live proof** |
 | hx-web and Cubbychat run across their intended targets | Digest-pinned application source and desired matrix rows | **Waiting for current integrated live proof** |
 | The Kubara organization is exact and orphan-free | Exact allowlist auditor and protected-Namespace checks | **Waiting for `runs/kubara-mini-idp-reconcile/orphan-audit.yaml`** |
-| Reconciliation is acceptably fast | [measured cost model](reconciliation-performance.md) | **Measurement in progress**; do not sell speed before a successful end-to-end receipt meets the target. |
+| Reconciliation is acceptably fast | [measured cost model](reconciliation-performance.md), [v2 acceptance contract](../../../data/kubara-mini-idp-performance/contract.yaml), and paired-run verifier | **Current deterministic contract; live measurement pending**. The rejected 25.69-minute failure profile is a baseline, not a benefit claim. Do not sell speed until a successful changed apply and its immediate zero-write rerun both meet the contract. |
 
 ## Commands for current deterministic evidence
 
@@ -49,6 +49,8 @@ npm run kubara-git-handoff:verify-current
 npm run kubara-git-import:self-test
 npm run kubara-platform-matrix:verify
 npm run kubara-wiring:verify
+npm run kubara-mini-idp:performance-contract:verify
+npm run kubara-mini-idp:performance:self-test
 ```
 
 Each check has a narrower claim than the complete live journey. Passing them
@@ -62,13 +64,17 @@ only when one serial run proves all of the following:
 1. faithful hub/spoke evidence is regenerated from the current 135-file tree;
 2. the adapted v0.13 mini-IDP applies successfully;
 3. an immediate second apply reports zero actions;
-4. every required platform and application workload converges;
-5. every Argo Application observes the exact current ConfigHub release;
-6. the exact ConfigHub inventory and cluster audit report zero orphans;
-7. the 36-cell matrix is regenerated from the accepted receipt;
-8. native GUI Components, Units, Links, approvals, history, and OCI digests are
+4. the changed run and immediate zero-action run both meet the v2 performance
+   contract, including fewer than 100 ConfigHub read commands through the first
+   accepted dev Application and zero mutation attempts on the second run (the
+   128-command complete no-op ceiling remains interim, not the product target);
+5. every required platform and application workload converges;
+6. every Argo Application observes the exact current ConfigHub release;
+7. the exact ConfigHub inventory and cluster audit report zero orphans;
+8. the 36-cell matrix is regenerated from the accepted receipt;
+9. native GUI Components, Units, Links, approvals, history, and OCI digests are
    inspected against the receipt; and
-9. the public website is regenerated from those artifacts.
+10. the public website is regenerated from those artifacts.
 
 ## Evidence that must remain separate
 

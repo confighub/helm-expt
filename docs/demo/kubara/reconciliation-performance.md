@@ -45,6 +45,67 @@ local rendering, YAML, checksumming, and contract work dominate this particular
 failure path. That last statement is an inference from the profile, not a
 standalone benchmark.
 
+## Rejected end-to-end profile and the acceptance target
+
+The first instrumented end-to-end attempt did not complete successfully, so it
+is a rejection profile rather than a speed result. It took 1,541,558 ms
+(25.69 minutes) and launched 1,372 subprocesses. The seven known ConfigHub read
+verbs accounted for 866 commands, or 63.1% of every subprocess and 13.75 reads
+per managed Unit:
+
+| Class | Sanitized verbs | Calls |
+| --- | --- | ---: |
+| Metadata discovery | `unit list`, `unit get`, `target get`, `link list`, `space get`, `space list` | 658 |
+| Exact content verification | `unit data` | 208 |
+| Known ConfigHub reads | both rows above | 866 |
+| One observed mutation verb | `unit update` | 20 |
+
+The 20 `unit update` calls are not the complete write count. Other mutation
+verbs were present, and the old profile did not yet classify every mutation by
+purpose and outcome. It would therefore be false to describe this as “866
+reads versus 20 writes.” The useful finding is that metadata and content reads
+alone already dominate the command shape.
+
+Explicit `sleep` subprocesses consumed 866,701 ms (14.45 minutes, 56.2% of the
+wall time). The remaining wall time was 674,857 ms (11.25 minutes). The old
+single `sleep.wait` bucket mixes Argo Application appearance, active-operation,
+health, refresh, namespace-move, and protected-Namespace settling. It cannot
+prove that all 14.45 minutes were caused by Argo.
+
+The exact baseline and budgets live in the
+[performance acceptance contract](../../../data/kubara-mini-idp-performance/contract.yaml).
+The [offline verifier](../../../scripts/verify-kubara-mini-idp-performance.mjs)
+requires a successful changed apply followed immediately by a successful
+zero-action apply with the same execution fingerprint. These are fixture
+regression budgets, not service-level objectives:
+
+| Dimension | Rejected attempt | First optimized changed apply | Immediate idempotent apply |
+| --- | ---: | ---: | ---: |
+| Wall time | 1,541,558 ms | at most 900,000 ms | at most 300,000 ms |
+| Subprocess calls | 1,372 | at most 650 | at most 220 |
+| ConfigHub read commands | at least 866 known | at most 400 | at most 128 |
+| ConfigHub reads through first accepted dev Application | not isolated | at most 96 | at most 96 |
+| Wall time to the first Argo convergence boundary | not isolated | at most 120,000 ms | at most 90,000 ms |
+| Explicit wait time | 866,701 ms, unclassified | at most 600,000 ms | at most 120,000 ms |
+| Unclassified explicit wait | all reasons mixed | 0 ms | 0 ms |
+| Successful ConfigHub mutations | not completely classified | every success action-attributed | exactly 0 |
+| ConfigHub mutation attempts | not completely classified | measured by outcome | exactly 0 |
+| Argo sync requests | not isolated | measured | exactly 0 |
+
+The sub-100 gate runs from apply start through the first `hx-app-dev`
+Application accepted at its exact OCI revision and allowed health; it is not
+merely “polling has started.” The complete idempotent-run ceiling of 128 is an
+interim first-optimization release ceiling, not the product target. The product
+must continue toward fewer than 100 reads for the complete no-op. Command count
+is also not wire-request count: one space-scoped `cub` command can make more
+than one authenticated request. “Fewer than 100 authenticated HTTP round trips”
+remains forbidden until sanitized client-transport evidence measures it.
+
+The performance pair is accepted only when the orphan audit also passes. This
+prevents a faster run from succeeding by silently skipping part of the managed
+fleet. No budget permits removing target pinning, approval refusal, immutable
+OCI revision checks, release-boundary stability, wiring, or Application health.
+
 ## What “63 Units means more than 100 round trips” actually means
 
 The sentence is directionally right but substantially understates the old
@@ -228,5 +289,23 @@ These are regression budgets for this implementation, not user-facing SLAs:
 - on the same host and fixture, an offline failure-path plan or self-test above
   10 seconds should be investigated against the approximately 8.6/7.8-second
   baseline;
-- no live wall-time budget will be set until a successful post-change run has
-  produced repeatable receipts. The receipt is the authority for that run.
+- a changed apply must meet the `changed-apply` contract and the immediate
+  zero-action apply must meet the tighter `idempotent-apply` contract under the
+  same execution fingerprint;
+- no live speed claim is current until the v2 receipt pair and zero-orphan audit
+  pass. The contract defines the budget; the receipts are the authority for the
+  measured runs.
+
+Verify the offline contract and its negative tests without a ConfigHub login:
+
+```sh
+npm run kubara-mini-idp:performance-contract:verify
+npm run kubara-mini-idp:performance:self-test
+```
+
+After the changed/idempotent live pair and orphan audit exist, verify only the
+committed evidence—without network access—with:
+
+```sh
+npm run kubara-mini-idp:performance:receipt-verify
+```
