@@ -72,6 +72,10 @@ const markdownFiles = listFiles(ROOT)
   .filter((file) => !file.startsWith('.git/'))
   .filter((file) => !file.startsWith('.tmp/'))
   .filter((file) => !file.startsWith('.claude/'))
+  // These are immutable copies/exports of upstream Kubara catalogs, not
+  // helm-expt documentation. Preserve their upstream-relative links verbatim.
+  .filter((file) => !file.startsWith('data/kubara-catalog-snapshots/'))
+  .filter((file) => !file.startsWith('data/kubara-catalog-adapter/exports/'))
   .sort();
 
 for (const file of markdownFiles) {

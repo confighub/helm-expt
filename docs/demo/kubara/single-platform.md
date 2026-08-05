@@ -1,5 +1,10 @@
 # Adopt Kubara with ConfigHub: a reproducible four-cluster mini-IDP
 
+> Start with the [Kubara + ConfigHub buyer overview](index.md), follow the
+> [six-step adoption tutorial](adoption.md), inspect the
+> [evidence checkpoints](checkpoints.md), or use the [GUI tour](gui-tour.md).
+> This page retains the complete technical and maintainer reference.
+
 **ConfigHub simplifies Kubara without making it fundamentally different.** This
 primary example uses Kubara v0.13.0, four clusters, seven platform roles, and
 two applications, with no AI rewrite or platform-model migration.
@@ -23,8 +28,9 @@ The boundary is intentionally simple:
 - ConfigHub retains and reviews exact component versions, records the resulting
   configuration and its relationships, applies policy, and gives promotion and
   rollback a durable history.
-- Argo CD continuously reconciles the approved result, either from the familiar
-  Kubara hub or from an optional small local reconciler on each cluster.
+- Argo CD remains the reconciler: the familiar Kubara hub retains its native
+  mode, while each optional small local reconciler applies only the exact
+  digest authorized by ConfigHub.
 
 The source is
 [`examples/kubara/current-platform`](../../../examples/kubara/current-platform/README.md).
@@ -76,7 +82,7 @@ In the `Kubara` organization, filter Spaces by `StartHere=true`, open
 entry point for the example; it links the governed platform contract to these
 public views:
 
-- [adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html);
+- [buyer and adoption journey](https://confighub.github.io/helm-expt/site/kubara.html);
 - [component-first Catalog with every retained version](https://confighub.github.io/helm-expt/site/charts/);
 - [36-cell component × cluster matrix](https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html);
 - [full extracted wiring graph](https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html).
@@ -117,7 +123,8 @@ Search for
 `Component=hx-web` or `Component=cubbychat` to follow either application
 from its definition to all four target instances.
 
-The shortest complete GUI tour uses native pages and repeatable searches:
+After the source-current mini-IDP and orphan receipts pass, the shortest
+complete GUI tour uses native pages and repeatable searches:
 
 1. Open **Components**. Expand `KubaraBootstrap` and
    `ConfigHubBootstrap`: the former contains the faithful Kubara Argo
@@ -138,7 +145,7 @@ The shortest complete GUI tour uses native pages and repeatable searches:
    curated wiring, while `URL-Wiring` opens the complete extracted graph.
 4. Filter Spaces by `Environment=Prod`, open `hx-web-prod-a` and
    `hx-web-prod-b`, then inspect their revisions and approvals to see promotion,
-   refusal, approval, rollback, and retained history.
+   exact gated heads, numeric-revision approval, rollback, and retained history.
 5. Filter by `DeliveryMode=ConfigHubOCI`, open a source Space and its
    **Releases**, and inspect the exact published OCI manifest digest that its
    Argo Application reconciles.
@@ -254,7 +261,7 @@ Generated trees, checksums, matrices, wiring graphs, and receipts are outputs.
 Regenerate them after changing the inputs; do not maintain a second hand-edited
 copy.
 
-## From Kubara's Git revision to ConfigHub in seven deterministic steps
+## From Kubara's Git revision to ConfigHub in six adoption steps
 
 The general importer now implements the complete reusable boundary. It is a
 semantic port of Kubara's generated result, not a source rewrite: the same
@@ -288,7 +295,7 @@ importer treats them as one coherent platform revision while keeping every
 reusable definition and effective component/config instance separately
 packageable and reviewable.
 
-### 3. Prepare a clean, deterministic hand-off subtree
+### 3. Prepare, commit, and push a clean Git hand-off
 
 Run the hand-off preparer after Kubara's normal generation command. It does not
 run or emulate Kubara, rearrange the existing source tree, consult a cluster,
@@ -313,7 +320,7 @@ target-fact files, symlinks, pre-vendored chart archives, and a concurrent input
 change. It keeps applications, destination facts, and secret values outside the
 platform hand-off.
 
-### 4. Commit, push, and offline-verify the exact hand-off
+#### Commit, push, scan, and offline-verify the exact hand-off
 
 Commit and push the source config, complete generated tree, reviewed
 preparation request, exact artifact and dependency locks, separate prepared
@@ -339,15 +346,16 @@ does not pretend either mechanism can prove arbitrary bytes secret-free.
 The reusable request, path rules, and exact command sequence are in the
 [Git-revision hand-off guide](../../../examples/kubara/git-import/README.md).
 
-### 5. Inspect, compile, verify, and package
+### 4. Verify the exact revision and publish immutable OCI
 
-The user first selects and bootstraps the destination organization, Targets,
-and ConfigHub-managed cluster-local Argo roots. The importer never guesses an
-ambient organization and never creates an organization or Target. Its
-read-only `--inspect-destination` mode pins the exact context/server,
-organization entity, Space/Target/Unit IDs, Unit data hashes, argobot source,
-published workload heads, and separately observed delivery-runtime version and
-image without copying live Unit data or evidence contents into the request.
+The importer verifies the clean, immutable source revision, exact artifacts,
+effective renders, object counts, and wiring ledger before publishing the
+portable packages. The current command sequence also performs a read-only
+inspection of the explicitly selected destination before final compilation and
+publication. That inspection pins the context/server, organization entity,
+Space/Target/Unit IDs, Unit data hashes, argobot source, published workload
+heads, and separately observed delivery-runtime version and image without
+copying live Unit data or evidence contents into the portable package.
 
 `--compile` and `--verify` then cross-check the complete Git inventory, exact
 component artifacts, effective-render hashes and object counts, generation
@@ -364,11 +372,14 @@ the same component payloads and platform digest in two organizations, while
 each organization receives its own binding lock. The binding lock and target
 facts are explicitly excluded from OCI.
 
-### 6. Apply to the selected organization and verify twice
+### 5. Load the selected organization and verify twice
 
-An operator completes the generated, secret-free target-fact attestation from
-external evidence. `--apply` pulls and verifies every exact OCI layer before
-mutation, then materializes definition/instance Spaces and Units, target
+The user first selects and bootstraps the destination organization, Targets,
+and ConfigHub-managed cluster-local Argo roots. The importer never guesses an
+ambient organization and never creates an organization or Target. An operator
+then completes the generated, secret-free target-fact attestation from external
+evidence. `--apply` pulls and verifies every exact OCI layer before mutation,
+then materializes definition/instance Spaces and Units, target
 metadata, `UpgradeUnit` lineage, curated `NeedsProvides` Links, platform Argo
 Applications, apps-root releases, and source releases in deterministic order.
 Each run requires serialized control of that importer-managed topology and its
@@ -392,11 +403,12 @@ runtime (v3.4.6 in this example). The faithful hub executor remains a separate
 proved lane; the general importer materializes the ConfigHub-managed local-Argo
 lane without changing the platform selection.
 
-### 7. Deploy and promote applications
+### 6. Deploy and promote applications
 
 Teams use the normal ConfigHub application workflow for app definitions,
 target variants, checks, approvals, promotions, rollbacks, departures, and
-releases. Argo remains the continuous cluster reconciler. The platform importer
+releases. Argo remains the cluster-local reconciler of each exact requested
+digest. The platform importer
 does not invent app code or flatten applications into its platform index.
 
 Existing workload Applications can be request-pinned and preserved exactly.
@@ -414,7 +426,7 @@ drop a workload pin, rebind a Target or upstream, or rewire a Link.
 | Git and security boundary | Committed locks, checksums, generated files, renders, and wiring remain reviewable. | Requires an exact clean pushed revision, inventories every selected path, requires an external scanner attestation, and keeps target facts outside Git/OCI. |
 | Component-first OCI | The Catalog retains all 130 versions across 103 components while this platform selects seven roles. | Under exclusive single-writer publication control, publishes reusable definition and effective-config packages plus a target-neutral digest index; exact observed remote layers are reused and conflicts are refused. |
 | ConfigHub shape | The purpose-built mini-IDP's live claim depends on its exact receipt. | Applies to an explicitly selected existing context with pre-existing targets/bootstrap; allows only an identical current digest or exact prior-receipt-authorized additive transition, and proves a second zero-action run in its isolated acceptance suite. |
-| Wiring and delivery | The GUI has 25 curated `NeedsProvides` Links and the public graph retains the full extracted evidence. | Materializes exact Links and Applications from a versioned contract; publishes apps-root releases before source releases and verifies pulled payload bytes. |
+| Wiring and delivery | The desired contract requires 25 curated `NeedsProvides` Links; the accepted live and orphan receipts decide whether the GUI currently has all 25. The public graph retains the full extracted evidence. | Materializes exact Links and Applications from a versioned contract; publishes apps-root releases before source releases and verifies pulled payload bytes. |
 | Applications | hx-web and cubbychat exercise promotion, approval, rollback, departures, release, and reconciliation in the mini-IDP lane. | Preserves explicitly pinned existing workload Applications, then hands new application delivery to the ordinary ConfigHub workflow. |
 
 Use the copyable, fully linear
@@ -509,14 +521,16 @@ health without installing a load-balancer controller; production targets omit
 that kind-only values file and retain their normal LoadBalancer configuration.
 These are authoring inputs, not hidden post-render patches.
 
-The committed kind exposure is deliberately explicit:
+The committed kind exposure is deliberately explicit. The first mapped port in
+each cub window remains reserved for `argocd-server`; Traefik uses the separate
+HTTP/HTTPS pair two slots later:
 
-| Cluster | HTTP NodePort | HTTPS NodePort | Ingress status hostname |
-| --- | ---: | ---: | --- |
-| `hx-app-dev` | 30000 | 30001 | `hx-app-dev.traefik.me` |
-| `hx-app-staging` | 30010 | 30011 | `hx-app-staging.traefik.me` |
-| `hx-app-prod-a` | 30020 | 30021 | `hx-app-prod-a.traefik.me` |
-| `hx-app-prod-b` | 30030 | 30031 | `hx-app-prod-b.traefik.me` |
+| Cluster | Reserved for Argo CD | Traefik HTTP | Traefik HTTPS | Ingress status hostname |
+| --- | ---: | ---: | ---: | --- |
+| `hx-app-dev` | 30000 | 30002 | 30003 | `hx-app-dev.traefik.me` |
+| `hx-app-staging` | 30010 | 30012 | 30013 | `hx-app-staging.traefik.me` |
+| `hx-app-prod-a` | 30020 | 30022 | 30023 | `hx-app-prod-a.traefik.me` |
+| `hx-app-prod-b` | 30030 | 30032 | 30033 | `hx-app-prod-b.traefik.me` |
 
 The mini-IDP preflight must reserve and verify those four cub port windows
 before it publishes target releases. Once the live receipt passes, a user can
@@ -524,9 +538,9 @@ exercise either application through any cluster without adding a load-balancer
 controller:
 
 ```bash
-curl -H 'Host: hx-web.local' http://127.0.0.1:30000/
-curl --insecure --resolve cubbychat.local:30001:127.0.0.1 \
-  https://cubbychat.local:30001/
+curl -H 'Host: hx-web.local' http://127.0.0.1:30002/
+curl --insecure --resolve cubbychat.local:30003:127.0.0.1 \
+  https://cubbychat.local:30003/
 ```
 
 Use the corresponding port pair for staging, prod-a, or prod-b. `--insecure`
@@ -557,9 +571,9 @@ unobserved field `unknown`. Open the
 to see the complete extracted set of component-to-component needs and provides,
 including ApplicationSet to cluster-registration edges, CRD dependencies,
 Secret production, issuer and IngressClass references, and unresolved target
-facts. The ConfigHub GUI shows 25 curated operational `NeedsProvides` Links;
-the public graph is the complete evidence view. Machine-readable CSV and JSON
-live beside both HTML reports.
+facts. After an accepted live run, the ConfigHub GUI must show 25 curated
+operational `NeedsProvides` Links; the public graph is the complete evidence
+view. Machine-readable CSV and JSON live beside both HTML reports.
 
 These views are stronger than a static platform diagram because they are
 regenerated from the committed platform data and exact receipts. They also stay
@@ -720,6 +734,28 @@ explains why Unit count is not request count, which N+1 reads were removed,
 what the receipt measures before first Argo convergence, and which safety
 checks remain deliberately serial.
 
+The adapted lane deliberately separates OCI discovery from deployment
+authority. Every managed Application keeps
+`spec.source.targetRevision: latest` only so Argo can discover the ConfigHub
+OCI stream; every one omits `spec.syncPolicy.automated`, including the four
+self-managing roots. `argobot` is pinned to
+`ghcr.io/confighub/argobot:v0.1.6` with the literal environment
+`ARGO_SYNC_MODE=kubernetes`, `ARGO_NAMESPACE=argocd`, and
+`ARGO_REFRESH_TYPE=hard`. That reviewed mode performs a hard refresh only and
+cannot submit a sync.
+
+ConfigHub is the release authority. Immediately before any cluster-side
+operation, the reconciler revalidates the exact authoritative published
+release and Unit heads, requires that no Argo operation is active, and submits
+`operation.sync.revision=<ManifestDigest>`. The Kubernetes JSON patch tests the
+Application's exact `metadata.uid` and `metadata.resourceVersion`; a concurrent
+change forces a reread rather than a last-writer-wins deployment. This is the
+governed improvement over raw mutable-tag auto-sync: approval, promotion, and
+rollback select the digest, while the familiar cluster-local Argo controller
+still reconciles it. The proof covers this managed automated delivery path,
+not a privileged human or manual Argo sync; excluding that path requires
+separate Argo RBAC or admission evidence.
+
 Run the orphan audit only after the second apply and ordinary live verification
 have completed. It consumes the reconciler's exact plan rather than a separate
 hand-maintained topology, takes the shared serial live lock, and refuses an
@@ -727,8 +763,10 @@ in-flight convergence, namespace migration, scenario or fleet-bootstrap
 journal. Its live commands are read-only. For the current plan it requires
 exactly 55 Spaces, 105 total allowed Units, 64 UpgradeUnit/NeedsProvides Links,
 four Targets and the 35 Argo Applications declared by the delivery Units. Every
-live Application must use the latest published manifest digest and no
-`status.resources[].requiresPruning` entry may remain. The protected
+live Application must report the exact authoritative published manifest digest,
+retain `targetRevision: latest` as discovery-only, omit
+`spec.syncPolicy.automated`, and have no
+`status.resources[].requiresPruning` entry. The protected
 `default`, `kube-system`, `kube-public` and `kube-node-lease` Namespaces must
 remain present while carrying no stale Argo tracking or ConfigHub origin
 metadata; `default` must also carry neither of the two reviewed legacy
@@ -777,9 +815,12 @@ merge bases. Every ConfigHub mutation in that rollout is a nested write-ahead
 transition with an exact pre-state and one reviewed post-state; a restart
 accepts only the durable ordered transition prefix and fails closed on any
 undeclared head, approval, release, provenance, or merge-base delta. The
-retained proof binds each production approval to the exact Unit IDs,
-revisions, and data hashes that publication refused, and binds the one-target
-rollback to the exact initial-rollout revision plus its source and result heads.
+retained proof observes each production gated head twice without issuing an
+unsafe non-CAS negative publish, then binds approval to the exact Unit IDs,
+numeric revisions, and data hashes. ConfigHub's gate behavior is explained
+separately; this run does not claim a directly observed refusal. The proof also
+binds the one-target rollback to the exact initial-rollout revision plus its
+source and result heads.
 Cluster creation is a separate prerequisite boundary: `cub cluster up` rolls back a
 returned failure, while an abrupt process or host termination inside that
 multi-system command may leave one partial cluster. The reconciler never
@@ -795,8 +836,9 @@ consecutive zero-action observations establish the retained baseline without
 inventing a change. A restarted apply also compares
 every Unit's head revision with its last applied revision, so an interrupted
 run cannot mistake an older existing release for the current desired state.
-An Application is accepted only when Argo reports the exact digest of the
-latest ConfigHub release; `Synced` on an older revision is not success.
+An Application is accepted only when Argo reports the exact authoritative
+ConfigHub `ManifestDigest`; `Synced` on an older revision is not success, and
+`targetRevision: latest` is never accepted as deployment authority.
 Each Application and OCI digest has one 90-minute overall convergence deadline
 and at most four sync-submission reservations, persisted across process
 restarts in the local operation journal. An existing
@@ -804,9 +846,11 @@ Argo operation is observed without replacement for an explicit 60-minute
 deadline, retained across restarts from Argo's `startedAt`. An exact
 revision that is already `Synced` but still becoming healthy is observed for a
 separate 30-minute health deadline and is never resynced merely for being
-`Progressing`. Only an inactive terminal failure, `OutOfSync` state, or wrong
-revision causes a hard refresh and a new current-revision sync; no more than
-four new sync operations may be submitted. This is part of the deterministic
+`Progressing`. Only after an active operation has ended may a terminal failure,
+`OutOfSync` state, or wrong revision cause a hard refresh and a new exact-digest
+sync; no more than four new sync operations may be submitted. Every submission
+repeats the authoritative release check and Kubernetes UID/resourceVersion
+compare-and-set. This is part of the deterministic
 retry path; it requires no console click, never takes over a running operation,
 and never broadens the resource allowlist.
 
@@ -861,7 +905,8 @@ The final state must show more than pods:
 1. hx-web and cubbychat have definition and per-cluster instance Spaces.
 2. Both apps use shared cert-manager and Traefik services on every target.
 3. A base change promotes through development and staging to production.
-4. Production publish is refused until every Unit in scope is approved.
+4. Production Units expose the approval gate; the run observes stable exact
+   heads and approves them by Unit ID and numeric revision before publication.
 5. One production target can roll back without rolling back its peer.
 6. A staging-only departure survives a later base promotion.
 7. Catalog owner, component, exact version, deployable/configuration surface,
@@ -926,7 +971,7 @@ catalog-release surfaces, and public site all verify.
 | `platform-configs/<cluster>/` | Still carries Kubara's per-cluster specialization. | Target variants, semantic diffs, promotion, rollback, and departure tracking. |
 | `values-*.yaml` | Still the durable authoring mechanism for supported overrides. | Their effects are visible in Units and the matrix; no silent post-render owner is introduced. |
 | Hub Argo CD and ApplicationSets | Preserved exactly in the faithful lane. | ConfigHub review and attestation around the Git revision. |
-| Reconciliation | Argo CD remains the continuous reconciler. | Optional per-cluster Argo makes release and rollback state independently governable. |
+| Reconciliation | Argo CD remains the familiar reconciler. | Optional per-cluster Argo applies only the exact ConfigHub-authorized digest, making release and rollback state independently governable. |
 | Git review | Remains the platform-authoring review in faithful mode. | ConfigHub adds object-aware checks, approvals, release evidence, and an optional required-status integration. |
 | Secrets | External secret systems remain value owners. | ConfigHub stores references and prerequisites; the kind demo uses a clearly labeled fake provider. |
 | Day-2 update | Update catalog/config/overrides and regenerate as Kubara documents. | Inspect semantic change, approve, promote, preserve target departures, and roll back an exact revision. |
@@ -944,10 +989,11 @@ catalog-release surfaces, and public site all verify.
   public 36-cell matrix is regenerated from that state and the exact live
   receipt; it leaves current live fields unknown unless the receipt supplies
   them.
-- The current
+- The
   [faithful-lane summary](../../../data/kubara-faithful-hub-spoke/summary.md)
-  passes the unchanged Kubara hub-and-spoke delivery proof. GitHub
-  required-status enforcement remains a named gap.
+  is current proof only when its generated-file count and digest match the
+  current hand-off; the [checkpoint ledger](checkpoints.md) records that gate.
+  GitHub required-status enforcement remains a named gap.
 - The simplified lane is a deliberate delivery adaptation. It must never be
   described as Kubara's native Argo ownership model.
 - The fake External Secrets provider, self-signed kind issuer, kind-only Metrics

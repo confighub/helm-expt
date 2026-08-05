@@ -122,6 +122,10 @@ const checks = [
     terms: ["Choose a worked example", "See what Redis installs, before you install it", "cub installer setup", "reuse-existing-secret", "1. Start with a configuration", "What you have", "Start with this example", "After the starting examples, see how ConfigHub handles promotion, fleet rollouts, and repeated operational jobs", "Each example includes the source files and the evidence behind its result", "Bring your own Helm chart and values", "An AICR recipe for AI infrastructure", "cub helm template", "cub helm install", "--namespace &lt;namespace&gt;", "confighubplaceholder", "drops Helm hooks by default", "--include-hooks", "--skip-crds", "myapp-base", "myapp-helm", "2. Choose how to run a starting example", "3. Continue in ConfigHub", "4. Roll out a platform or fleet", "5. Use saved configuration for a repeated job", "Local or CI", "Hosted without sign-in", "Kubernetes YAML or an existing app"],
   },
   {
+    file: "site/kubara.html",
+    terms: ["Keep Kubara. Make the platform governable.", "ConfigHub simplifies Kubara without making it fundamentally different.", "Kubara composes; ConfigHub governs; Argo reconciles.", "Benefits with explicit acceptance evidence", "Evidence or acceptance target", "What stays Kubara, and what ConfigHub adds", "One adoption journey, in the user's order", "1. Choose components and wiring", "2. Run Kubara", "3. Push the complete hand-off to Git", "4. Import the Git revision and create OCI", "5. Load the selected ConfigHub organization", "6. Deploy applications", "What we show in ConfigHub", "The honest boundaries", "Keep all the detail", "Start the six-step tutorial", "current deterministic", "live receipt required"],
+  },
+  {
     file: "site/entry-path-reference.html",
     terms: ["Detailed entry paths", "cub installer", "cub helm", "Choose where the work runs", "Most choices are made and checked before you install", "You can read the proof before you ship", "Hooks, CRDs, and setup work are listed", "You can reverse a change, not only keep it", "id=\"catalog-starting-points\"", "id=\"catalog-next-jobs\"", "Helm chart and values", "AICR recipe or bundle", "Existing OCI package", "Kubernetes YAML", "Build an App"],
   },
@@ -137,6 +141,7 @@ const menuGuidePages = [
   "site/journey.html",
   "site/operations.html",
   "site/docs.html",
+  "site/kubara.html",
   "site/verification.html",
   "site/hard-questions.html",
 ];
@@ -151,6 +156,7 @@ const humanSplitPages = [
   "site/journey.html",
   "site/operations.html",
   "site/docs.html",
+  "site/kubara.html",
   "site/verification.html",
   "site/hard-questions.html",
   "site/known-gaps.html",
@@ -183,6 +189,10 @@ const guideOpeningChecks = [
   {
     file: "site/how-it-works.html",
     headerTerms: ["Choose how to deploy it", "inspected the Kubernetes objects", "AICR recipe for AI infrastructure", "ConfigHub keeps reviewed Kubernetes configuration as shared data"],
+  },
+  {
+    file: "site/kubara.html",
+    headerTerms: ["Keep Kubara. Make the platform governable.", "ConfigHub simplifies Kubara without making it fundamentally different.", "Kubara composes; ConfigHub governs; Argo reconciles.", "Start the six-step tutorial"],
   },
   {
     file: "site/variants.html",
@@ -555,6 +565,11 @@ const purposePageRules = [
     requiredLinks: ["./try.html", "./journey.html", "./operations.html", "./confighub.html"],
   },
   {
+    file: "site/kubara.html",
+    maxH2: 6,
+    requiredLinks: ["d/docs/demo/kubara/adoption.html", "d/docs/demo/kubara/gui-tour.html", "d/docs/demo/kubara/checkpoints.html", "d/docs/demo/kubara/single-platform.html"],
+  },
+  {
     file: "site/charts/index.html",
     maxH2: 5,
     requiredLinks: ["../how-it-works.html"],
@@ -722,6 +737,35 @@ for (const check of criticalDocChecks) {
   }
   for (const phrase of check.forbidden) {
     if (html.includes(phrase)) failures.push(`${check.file}: contains retired guide text ${JSON.stringify(phrase)}`);
+  }
+}
+
+const kubaraTutorialChapters = [
+  ["site/d/docs/demo/kubara/adoption-1-choose.html", "adoption-2-generate.html"],
+  ["site/d/docs/demo/kubara/adoption-2-generate.html", "adoption-1-choose.html", "adoption-3-git.html"],
+  ["site/d/docs/demo/kubara/adoption-3-git.html", "adoption-2-generate.html", "adoption-4-oci.html"],
+  ["site/d/docs/demo/kubara/adoption-4-oci.html", "adoption-3-git.html", "adoption-5-confighub-org.html"],
+  ["site/d/docs/demo/kubara/adoption-5-confighub-org.html", "adoption-4-oci.html", "adoption-6-apps.html"],
+  ["site/d/docs/demo/kubara/adoption-6-apps.html", "adoption-5-confighub-org.html", "gui-tour.html"],
+];
+for (const [file, ...links] of kubaraTutorialChapters) {
+  const fullPath = path.join(root, file);
+  if (!fs.existsSync(fullPath)) {
+    failures.push(`${file}: missing Kubara tutorial chapter`);
+    continue;
+  }
+  const html = fs.readFileSync(fullPath, "utf8");
+  for (const phrase of ["What ConfigHub adds", "Machine checkpoint", "Safe to stop"]) {
+    if (!html.includes(phrase)) failures.push(`${file}: missing tutorial boundary ${JSON.stringify(phrase)}`);
+  }
+  if (!(html.includes("What remains Kubara") || html.includes("What stays Kubara"))) {
+    failures.push(`${file}: missing the Kubara continuity boundary`);
+  }
+  if (!(html.includes("Screenshot checkpoint") || html.includes("Screenshot to capture") || html.includes("Screenshots to capture"))) {
+    failures.push(`${file}: missing its screenshot checkpoint`);
+  }
+  for (const link of links) {
+    if (!html.includes(`href="${link}"`)) failures.push(`${file}: missing linear tutorial link ${link}`);
   }
 }
 

@@ -1,17 +1,17 @@
 # Import one Kubara Git revision into ConfigHub
 
-This is the reusable adoption boundary for an existing Kubara user:
+This is the reusable six-step adoption boundary for an existing Kubara user:
 
 1. choose components and wiring in Kubara;
 2. let Kubara generate the platform, add-ons, ApplicationSets, overrides, and
    per-cluster configuration;
-3. run one deterministic preparer against that ordinary Kubara worktree;
-4. commit, push, and offline-verify the raw inputs plus its separate clean
-   hand-off subtree;
-5. publish immutable component/config OCI packages;
-6. load them into a user-selected ConfigHub organization with the recognizable
+3. prepare, scan, commit, push, and offline-verify the raw inputs plus their
+   separate clean hand-off subtree at one exact Git revision;
+4. verify that exact revision and publish immutable component/config OCI
+   packages plus the platform index;
+5. load them into a user-selected ConfigHub organization with the recognizable
    hub-and-spoke shape; and
-7. deploy and promote applications through ConfigHub while Argo CD remains the
+6. deploy and promote applications through ConfigHub while Argo CD remains the
    cluster reconciler.
 
 The importer is deterministic code, not an AI rewrite. Kubara remains the
@@ -136,7 +136,7 @@ ConfigHub workflow.
 
 This repository's reproducible example writes that complete boundary to
 `examples/kubara/prepared-current-platform`; its committed preparation receipt
-and checksums cover all 159 files. The preparer also refuses `.env.*` and
+and checksums cover all 167 files. The preparer also refuses `.env.*` and
 singular `target-facts.yaml`, `target-facts.yml`, and `target-facts.json` files.
 
 Commit and push together to the HTTPS remote named by the import request:

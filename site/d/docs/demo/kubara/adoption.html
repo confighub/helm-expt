@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adopt an existing Kubara platform with ConfigHub · Config Workshop</title>
+  <meta name="description" content="Follow the complete six-step path from Kubara component selection through exact Git and OCI hand-off to a selected ConfigHub organization and application delivery.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html">
+  <meta property="og:title" content="Adopt an existing Kubara platform with ConfigHub · Config Workshop">
+  <meta property="og:description" content="Follow the complete six-step path from Kubara component selection through exact Git and OCI hand-off to a selected ConfigHub organization and application delivery.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Adopt an existing Kubara platform with ConfigHub</h1>
+    <p class="lead">This tutorial follows one continuous path from an ordinary Kubara selection to applications deployed through ConfigHub and Argo CD. It preserves the six adoption steps exactly; implementation details appear as checkpoints within those steps. <a href="../../../../../docs/demo/kubara/adoption.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+
+<p>Start with <a href="index.html">why a Kubara user would add ConfigHub</a>, consult the <a href="checkpoints.html">checkpoint ledger</a> while reproducing the journey, and use the <a href="single-platform.html">complete mini-IDP reference</a> when you need every command and safety condition.</p>
+<table><thead><tr><th>Step</th><th>User action</th><th>Detailed chapter</th></tr></thead><tbody><tr><td>1</td><td>Choose platform components and wiring</td><td><a href="adoption-1-choose.html">Choose in Kubara</a></td></tr>
+<tr><td>2</td><td>Run Kubara to generate platform, add-ons, and wiring</td><td><a href="adoption-2-generate.html">Generate the platform</a></td></tr>
+<tr><td>3</td><td>Push the complete portable hand-off to Git</td><td><a href="adoption-3-git.html">Prepare, scan, commit, and push</a></td></tr>
+<tr><td>4</td><td>Import the exact Git revision and create OCI</td><td><a href="adoption-4-oci.html">Verify and publish immutable packages</a></td></tr>
+<tr><td>5</td><td>Load the selected ConfigHub organization</td><td><a href="adoption-5-confighub-org.html">Materialize, rerun, and audit</a></td></tr>
+<tr><td>6</td><td>Deploy applications</td><td><a href="adoption-6-apps.html">Promote through ConfigHub; reconcile with Argo</a></td></tr></tbody></table>
+<h2 id="before-you-begin">Before you begin</h2>
+<p>You need:</p>
+<ul><li>an existing Kubara repository or the committed current example;</li><li>the exact Kubara and Helm versions named by its source lock;</li><li>a clean Git commit pushed to the reviewed HTTPS remote;</li><li>an explicitly selected ConfigHub organization;</li><li>one ConfigHub Target and cluster-local Argo delivery runtime for each target cluster; and</li><li>credentials for the selected organization and the OCI repository used by the importer.</li></ul>
+<p>The current importer does not create or guess an organization, Target, or cluster-local delivery runtime. These prerequisites are deliberate security and ownership boundaries, not hidden work performed by AI.</p>
+<h2 id="step-1-choose-components-and-wiring-in-kubaraadoption-1-choosemd">Step 1: <a href="adoption-1-choose.html">Choose components and wiring in Kubara</a></h2>
+<p>Work in Kubara's normal inputs:</p>
+<ul><li><code>config.yaml</code> chooses the platform components and per-cluster placement;</li><li>the effective ordered catalogs resolve those choices;</li><li>ordinary <code>values-*.yaml</code> files specialize components; and</li><li>Kubara's service definitions express the familiar platform wiring.</li></ul>
+<p>For the reproducible example, inspect <a href="../../../../../examples/kubara/current-platform/source/config.yaml"><code>source/config.yaml</code></a> and its adjacent reviewed overlays. It describes one hub, three spokes, seven platform roles, and the placement used by hx-web and Cubbychat.</p>
+<p>Keep three catalog layers distinct: ConfigHub presents the reusable component and all retained versions first; a byte-preserving Kubara compatibility profile retains Kubara's service definitions, wrappers, defaults, additions, and templates; and each Kubara platform keeps its own <code>config.yaml</code> selection, specialization, and wiring package. The compatibility profile connects the catalog worlds without flattening the per-platform package into the ConfigHub component catalog.</p>
+<p><b>Checkpoint 1 - recognizable input:</b> a Kubara operator can review the source without learning a replacement schema. ConfigHub has not transformed or rewritten it.</p>
+<h2 id="step-2-run-kubaraadoption-2-generatemd">Step 2: <a href="adoption-2-generate.html">Run Kubara</a></h2>
+<p>Run Kubara's ordinary generation path. Kubara, not ConfigHub, creates the platform components, add-ons, ApplicationSets, AppProjects, overrides, and cluster configuration.</p>
+<p>The current example checks two catalog lanes:</p>
+<ol><li>the immutable snapshot of Kubara's official catalog release; and</li><li>the ConfigHub-aligned export of the same catalogs.</li></ol>
+<p>Both lanes must produce the same path set and the same bytes. Verify the committed example with:</p>
+<pre><code>npm run kubara-current-example:verify</code></pre>
+<p><b>Checkpoint 2 - no semantic migration:</b> Kubara v0.13.0 produces 135 byte-identical generated files from both catalog lanes and 13 deterministic effective renders across four clusters.</p>
+<p>Evidence:</p>
+<ul><li><a href="../../../../../examples/kubara/current-platform/catalog-parity-receipt.yaml">catalog parity receipt</a></li><li><a href="../../../../../examples/kubara/current-platform/generation-receipt.yaml">generation receipt</a></li></ul>
+<h2 id="step-3-commit-and-push-the-complete-hand-off-to-gitadoption-3-gitmd">Step 3: <a href="adoption-3-git.html">Commit and push the complete hand-off to Git</a></h2>
+<p>Git remains the portable Kubara hand-off. Commit and push:</p>
+<ul><li>Kubara's source configuration and documented overlays;</li><li>its generated platform, add-on, ApplicationSet, and cluster trees;</li><li>exact source, binary, chart, image, and dependency locks;</li><li>deterministic renders and the provides/needs wiring ledger; and</li><li>checksums plus the external secret-scan attestation required by the import request.</li></ul>
+<p>Keep application source trees, credentials, private keys, secret values, and target-local facts outside the portable platform path.</p>
+<p>The deterministic preparer creates a separate clean subtree without modifying Kubara's ordinary output. Verify the committed example offline with:</p>
+<pre><code>npm run kubara-git-handoff:verify-current</code></pre>
+<p><b>Checkpoint 3 - exact portable source:</b> the importer receives one clean, pushed Git object ID and one fully inventoried path. Dirty files, untracked files, mutable revisions, symlinks, missing locks, source changes during compilation, and credential-shaped material are refused.</p>
+<h2 id="step-4-import-the-exact-git-revision-and-publish-ociadoption-4-ocimd">Step 4: <a href="adoption-4-oci.html">Import the exact Git revision and publish OCI</a></h2>
+<p>The ConfigHub Kubara importer reads the exact detached Git revision, verifies the prepared hand-off, resolves every component against the component-first Catalog, and builds:</p>
+<ul><li>one immutable target-neutral OCI package per reusable component definition;</li><li>one immutable target-neutral OCI package per effective component/config set;</li><li>one platform index that references every exact manifest and layer digest; and</li><li>a separate destination binding lock for the selected organization, Spaces, Targets, workloads, and delivery identities.</li></ul>
+<p>It deliberately does not flatten the platform into one giant OCI artifact. Secrets and target facts remain outside both Git and portable OCI.</p>
+<p>Exercise the complete isolated importer contract with:</p>
+<pre><code>npm run kubara-git-import:self-test</code></pre>
+<p><b>Checkpoint 4 - deterministic immutable delivery:</b> the current self-test produces 22 component/config packages plus a digest index, verifies pulled payloads, creates pinned delivery topology, declares 12 platform Argo Applications and four root releases, produces zero actions on the second run, and passes its adversarial refusal cases.</p>
+<p>The self-test proves the importer contract without claiming that a fresh live organization has already completed the same path. The exact live destination is the next checkpoint.</p>
+<h2 id="step-5-load-the-platform-into-the-selected-confighub-organizationadoption-5-confighub-orgmd">Step 5: <a href="adoption-5-confighub-org.html">Load the platform into the selected ConfigHub organization</a></h2>
+<p>The user explicitly selects the ConfigHub organization and confirms its exact identity. Each Kubara cluster has a pre-existing ConfigHub Target and local Argo delivery runtime. The importer then materializes the platform as:</p>
+<ul><li>reusable component definitions and exact versions;</li><li>effective component/config instances for their selected targets;</li><li>faithful and adapted delivery definitions kept visibly separate;</li><li>cluster and environment Spaces;</li><li>platform, lifecycle, and application Units;</li><li>curated <code>NeedsProvides</code> Links; and</li><li>exact source, release, approval, and OCI digest metadata.</li></ul>
+<p>The recognizable shape is preserved:</p>
+<pre><code>Kubara source and catalogs
+          |
+          v
+exact Git revision -&gt; immutable OCI members + platform index
+          |
+          v
+ConfigHub governance plane
+          |
+          +--&gt; local Argo reconciler -&gt; development
+          +--&gt; local Argo reconciler -&gt; staging
+          +--&gt; local Argo reconciler -&gt; production A
+          +--&gt; local Argo reconciler -&gt; production B</code></pre>
+<p>In the adapted lane, <code>targetRevision: latest</code> is discovery-only and every managed Application omits <code>spec.syncPolicy.automated</code>. Pinned argobot v0.1.6 hard-refreshes in Kubernetes mode but cannot deploy. ConfigHub revalidates the authoritative release before the reconciler submits the exact <code>operation.sync.revision=&lt;ManifestDigest&gt;</code> with Kubernetes UID/resourceVersion compare-and-set and no active Argo operation.</p>
+<p>Apply is serialized. Run it a second time immediately: the second accepted run must report zero semantic changes. Then run the exact inventory and orphan audit before treating the organization as a clean example.</p>
+<p><b>Checkpoint 5 - governed and repeatable organization:</b> the exact current mini-IDP receipt must prove materialization, ConfigHub release heads, Argo revisions, workload health, operation-journal completion, and a zero-action second run. The orphan receipt must prove no unexpected ConfigHub objects, dangling Links, Argo pruning residue, unclassified durable workloads, or stale ownership metadata.</p>
+<p>Until both receipts pass, describe this step as implemented but not source-current live evidence. See the <a href="checkpoints.html">checkpoint ledger</a>.</p>
+<h2 id="step-6-add-promote-and-deploy-applicationsadoption-6-appsmd">Step 6: <a href="adoption-6-apps.html">Add, promote, and deploy applications</a></h2>
+<p>Applications remain separate from the portable platform import. Add an application source, bind it to the services the platform provides, and promote reviewed revisions through ConfigHub. Publication alone does not deploy mutable <code>latest</code>: the ConfigHub reconciler authorizes one exact digest, and the local Argo CD instance reconciles that digest on its target.</p>
+<p>The mini-IDP uses:</p>
+<ul><li><b>hx-web</b>, a small NGINX application that consumes shared certificate and ingress services; and</li><li><b>Cubbychat</b>, a multi-workload application with three digest-pinned images.</li></ul>
+<p>The demonstration sequence is:</p>
+<ol><li>deploy the initial release to development;</li><li>promote the exact revision to staging;</li><li>require production approval for the exact Unit revision and data hash;</li><li>promote to both production targets;</li><li>create one reviewed target departure;</li><li>roll back one production target to its exact earlier revision; and</li><li>show the retained source, approval, release, departure, rollback, and Argo histories together.</li></ol>
+<p><b>Checkpoint 6 - better day-two operation:</b> every selected Application must report the exact current ConfigHub release digest, <code>Synced</code>, and the health required by its reviewed contract. The live matrix, native Links, and GUI tour are regenerated only from that accepted receipt.</p>
+<h2 id="six-adoption-frames-only-after-evidence-passes">Six adoption frames, only after evidence passes</h2>
+<p>Each chapter contains one publication hook for one real frame, in the same six-step order: native config, generation parity, exact Git revision, OCI packages/index, selected-organization topology, and application governance with a live result. These six tutorial frames are separate from the six-frame ConfigHub GUI tour.</p>
+<p>The offline tutorial intentionally contains no images or screenshot receipt. The full current-live verifier requires the complete six-frame set and the then-created <code>data/kubara-adoption-screenshots/receipt.yaml</code>. That receipt must bind every image to one exact source commit, its repository and selected-path Git trees, the relevant machine receipts and generated-data hashes, the image SHA-256, UTC capture time, visible identities, sensitive-value handling, caption, and claim boundary. Partial, mocked, cross-revision, or receipt-free sets are refused. The contract is published at <a href="../../../../../data/kubara-adoption-screenshots/contract.yaml"><code>data/kubara-adoption-screenshots/contract.yaml</code></a>.</p>
+<h2 id="what-the-user-has-at-the-end">What the user has at the end</h2>
+<ul><li>the original recognizable Kubara source and generated tree in Git;</li><li>immutable component/config OCI members plus a digest-bound platform index;</li><li>a component-first Catalog that retains old and new versions;</li><li>a governed platform topology in the organization they selected;</li><li>local Argo reconciliation on every cluster;</li><li>visible component placement and wiring;</li><li>approval, promotion, rollback, departure, and release history; and</li><li>applications deployed on the platform without turning AI into a required migration tool.</li></ul>
+<p>Next: begin with <a href="adoption-1-choose.html">Step 1 - choose components and wiring</a>, inspect every <a href="checkpoints.html">evidence checkpoint</a>, then follow the <a href="gui-tour.html">GUI tour</a>.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/adoption.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

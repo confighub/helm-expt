@@ -1,13 +1,13 @@
-# Kind proof override: expose Traefik through cub's reserved NodePort window.
+# Kind proof override: leave cub's first mapped NodePort reserved for argocd-server.
 traefik:
   service:
     spec:
       type: NodePort
   ports:
     web:
-      nodePort: 30030
+      nodePort: 30032
     websecure:
-      nodePort: 30031
+      nodePort: 30033
   providers:
     kubernetesIngress:
       publishedService:

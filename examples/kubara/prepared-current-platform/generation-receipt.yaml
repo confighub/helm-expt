@@ -486,8 +486,8 @@ spec:
         size: 441
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-dev/helm/traefik/values-kind.yaml"
-        sha256: "2fd27345ed3497b0e9726c70f790e8ba289afe406a4f273cd43b03db799ad8bd"
-        size: 352
+        sha256: "f388358fd18f9f089e1a14323a996d80fdf57a638af66d49f8cd2ad825daca1e"
+        size: 359
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-dev/helm/traefik/values.generated.yaml"
         sha256: "4b1e48cfd767522ac8dd3859db083479f0e8b57954db6f24667ab3b924d105cc"
@@ -506,8 +506,8 @@ spec:
         size: 629
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-prod-a/helm/traefik/values-kind.yaml"
-        sha256: "1e037d64fdda5c9bd0361ca31d628c63af4e7358f1312f5bd445049b40065d95"
-        size: 355
+        sha256: "f97dbe7bfb19933af70bbc4a2a3d1e7834c684f283222ed56641f2152852a5d1"
+        size: 362
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-prod-a/helm/traefik/values.generated.yaml"
         sha256: "742779027860092aa8766a4060e32b20df83b5b774eabd63f99689336e621349"
@@ -526,8 +526,8 @@ spec:
         size: 629
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-prod-b/helm/traefik/values-kind.yaml"
-        sha256: "05a357411fccd6eddd3f13d9e794f173a76024c47ce8d04de1ea3604b4da26ae"
-        size: 355
+        sha256: "ac839be62678128e7de1f8e3f3fab8bd1e3e15e42a1d33f2d74e89abcfdcb400"
+        size: 362
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-prod-b/helm/traefik/values.generated.yaml"
         sha256: "6ae8708d237a16756761cf6d50acd49db2dd7076132350f0f97470a047392238"
@@ -546,8 +546,8 @@ spec:
         size: 637
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-staging/helm/traefik/values-kind.yaml"
-        sha256: "ba87b2ce88f12392844b19ac26198634ec762a1566d22b9c81ea9fb64bf5da73"
-        size: 356
+        sha256: "2adc8f267183bf85a53bee677f14cef96decb10e908c5081a8833db00ebb66bb"
+        size: 363
       -
         path: "examples/kubara/current-platform/generated/platform-configs/hx-app-staging/helm/traefik/values.generated.yaml"
         sha256: "454018ef772a98233a0e61653016fc89406d47ccf58a8368e4bcadc23c1c98b7"
@@ -578,37 +578,37 @@ spec:
         size: 53
       -
         path: "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/traefik/values-kind.yaml"
-        sha256: "2fd27345ed3497b0e9726c70f790e8ba289afe406a4f273cd43b03db799ad8bd"
-        size: 352
+        sha256: "f388358fd18f9f089e1a14323a996d80fdf57a638af66d49f8cd2ad825daca1e"
+        size: 359
       -
         path: "examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/cert-manager/values-kind.yaml"
         sha256: "e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8"
         size: 273
       -
         path: "examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/traefik/values-kind.yaml"
-        sha256: "1e037d64fdda5c9bd0361ca31d628c63af4e7358f1312f5bd445049b40065d95"
-        size: 355
+        sha256: "f97dbe7bfb19933af70bbc4a2a3d1e7834c684f283222ed56641f2152852a5d1"
+        size: 362
       -
         path: "examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/cert-manager/values-kind.yaml"
         sha256: "e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8"
         size: 273
       -
         path: "examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/traefik/values-kind.yaml"
-        sha256: "05a357411fccd6eddd3f13d9e794f173a76024c47ce8d04de1ea3604b4da26ae"
-        size: 355
+        sha256: "ac839be62678128e7de1f8e3f3fab8bd1e3e15e42a1d33f2d74e89abcfdcb400"
+        size: 362
       -
         path: "examples/kubara/current-platform/source/overrides/hx-app-staging/helm/cert-manager/values-kind.yaml"
         sha256: "e87248ac287ea23f9cb841d41df675e6299e9e53db4725c0dfddc125ecc511e8"
         size: 273
       -
         path: "examples/kubara/current-platform/source/overrides/hx-app-staging/helm/traefik/values-kind.yaml"
-        sha256: "ba87b2ce88f12392844b19ac26198634ec762a1566d22b9c81ea9fb64bf5da73"
-        size: 356
+        sha256: "2adc8f267183bf85a53bee677f14cef96decb10e908c5081a8833db00ebb66bb"
+        size: 363
       -
         path: "examples/kubara/git-import/current-platform.prepare.yaml"
         sha256: "64b6a4b1beb5b82e5671b1ae0b19fe68bcbcc29dd0b627167a6a3e43f598a15d"
         size: 2380
-    rawInputTreeSHA256: "b1bb3d28d82005e35b2dc191685dc578815214f69f6582279875001b3b72c2bd"
+    rawInputTreeSHA256: "e5a1312ecafe8848a30777265a1d24035e6815041659192664f987b4297e1112"
     finalGitCommitBoundHere: false
   tools:
     kubaraVersion: "v0.13.0"
@@ -883,7 +883,7 @@ spec:
           - "generated/platform-configs/hx-app-dev/helm/traefik/values.generated.yaml"
           - "generated/platform-configs/hx-app-dev/helm/traefik/values-kind.yaml"
         output: "effective-renders/hx-app-dev/traefik/release-objects.yaml"
-        sha256: "a6470e92c0251603847dc1271634178254384ac2df4352092d063a82f2b7cf49"
+        sha256: "0c39aaa4266218d7c9cd5c29f8fd303b832d53345176fbd7bd2a94a14909ca7c"
         objectCount: 33
         kinds:
           ClusterRole: 1
@@ -939,7 +939,7 @@ spec:
           - "generated/platform-configs/hx-app-prod-a/helm/traefik/values.generated.yaml"
           - "generated/platform-configs/hx-app-prod-a/helm/traefik/values-kind.yaml"
         output: "effective-renders/hx-app-prod-a/traefik/release-objects.yaml"
-        sha256: "21a886ba8fcb6a46ed46ea7e4e0d155d7abccd09d7e29235d8f61f4ee9bbddfe"
+        sha256: "f3f494ffb978b154e083493974f39221f32ce5ec047f3e4caaced3d3310e3d81"
         objectCount: 32
         kinds:
           ClusterRole: 1
@@ -994,7 +994,7 @@ spec:
           - "generated/platform-configs/hx-app-prod-b/helm/traefik/values.generated.yaml"
           - "generated/platform-configs/hx-app-prod-b/helm/traefik/values-kind.yaml"
         output: "effective-renders/hx-app-prod-b/traefik/release-objects.yaml"
-        sha256: "48f908d388a3f2e895502ecb16e06bca58e451439a6cb6809e45cfc596d52de2"
+        sha256: "9d5ce0593524ae3e9b2aaf99ec8fddf4a8c57332b9a07bff91f24456a034a4a1"
         objectCount: 32
         kinds:
           ClusterRole: 1
@@ -1049,7 +1049,7 @@ spec:
           - "generated/platform-configs/hx-app-staging/helm/traefik/values.generated.yaml"
           - "generated/platform-configs/hx-app-staging/helm/traefik/values-kind.yaml"
         output: "effective-renders/hx-app-staging/traefik/release-objects.yaml"
-        sha256: "c447e04f08a7a3bf4de0f04bf05bea56cf4966294954c1b5546484d91becfcdc"
+        sha256: "3ebec65bab14e1f48da29496d979c7463741f2e6f2697e46752a582d6d77633c"
         objectCount: 32
         kinds:
           ClusterRole: 1

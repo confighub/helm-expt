@@ -16,5 +16,6 @@
 - [All technical references](https://confighub.github.io/helm-expt/site/docs-reference.html): the complete guide and evidence index.
 - [Continue with ConfigHub](https://confighub.github.io/helm-expt/site/confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Detailed entry paths](https://confighub.github.io/helm-expt/site/entry-path-reference.html): commands and proof links for Helm, AICR, OCI, and Kubernetes YAML.
-- [Kubara + ConfigHub mini-IDP](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html): adopt Kubara v0.13.0 without rewriting its catalogs, config, values overlays, or Argo reconciliation model.
+- [Kubara with ConfigHub](https://confighub.github.io/helm-expt/site/kubara.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
+- [Kubara six-step tutorial](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.

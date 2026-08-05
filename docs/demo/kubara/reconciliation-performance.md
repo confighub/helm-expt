@@ -3,8 +3,9 @@
 This page records the measured cost model and safety boundaries for
 `scripts/reconcile-kubara-mini-idp.mjs`. It is an engineering baseline, not a
 service-level promise. The reconciler emits a sanitized `kubara-performance`
-JSON line on exit, and a successful live verification writes the same evidence
-under `spec.execution.performance` in the mini-IDP receipt.
+JSON line on exit. Each retained live reconcile run records schema-v2 evidence
+under `spec.reconcileRuns[].performance`; failed processes retain incomplete
+cache and phase evidence on stderr without being accepted as successful runs.
 
 ## Baseline measurements
 
@@ -45,6 +46,68 @@ local rendering, YAML, checksumming, and contract work dominate this particular
 failure path. That last statement is an inference from the profile, not a
 standalone benchmark.
 
+## Rejected end-to-end profile and the acceptance target
+
+The first instrumented end-to-end attempt did not complete successfully, so it
+is a rejection profile rather than a speed result. It took 1,541,558 ms
+(25.69 minutes) and launched 1,372 subprocesses. The seven known ConfigHub read
+verbs accounted for 866 commands, or 63.1% of every subprocess and 13.75 reads
+per managed Unit:
+
+| Class | Sanitized verbs | Calls |
+| --- | --- | ---: |
+| Metadata discovery | `unit list`, `unit get`, `target get`, `link list`, `space get`, `space list` | 658 |
+| Exact content verification | `unit data` | 208 |
+| Known ConfigHub reads | both rows above | 866 |
+| One observed mutation verb | `unit update` | 20 |
+
+The 20 `unit update` calls are not the complete write count. Other mutation
+verbs were present, and the old profile did not yet classify every mutation by
+purpose and outcome. It would therefore be false to describe this as “866
+reads versus 20 writes.” The useful finding is that metadata and content reads
+alone already dominate the command shape.
+
+Explicit `sleep` subprocesses consumed 866,701 ms (14.45 minutes, 56.2% of the
+wall time). The remaining wall time was 674,857 ms (11.25 minutes). The old
+single `sleep.wait` bucket mixes Argo Application appearance, active-operation,
+health, refresh, namespace-move, and protected-Namespace settling. It cannot
+prove that all 14.45 minutes were caused by Argo.
+
+The exact baseline and budgets live in the
+[performance acceptance contract](../../../data/kubara-mini-idp-performance/contract.yaml).
+The [offline verifier](../../../scripts/verify-kubara-mini-idp-performance.mjs)
+requires a successful changed apply followed immediately by a successful
+zero-action apply with the same execution fingerprint. These are fixture
+regression budgets, not service-level objectives:
+
+| Dimension | Rejected attempt | First optimized changed apply | Immediate idempotent apply |
+| --- | ---: | ---: | ---: |
+| Wall time | 1,541,558 ms | at most 900,000 ms | at most 300,000 ms |
+| Subprocess calls | 1,372 | at most 650 | at most 220 |
+| ConfigHub read commands | at least 866 known | at most 400 | at most 96 |
+| ConfigHub reads through first accepted dev Application | not isolated | at most 96 | at most 96 |
+| Wall time to the first Argo convergence boundary | not isolated | at most 120,000 ms | at most 90,000 ms |
+| Explicit wait time | 866,701 ms, unclassified | at most 600,000 ms | at most 120,000 ms |
+| Unclassified explicit wait | all reasons mixed | 0 ms | 0 ms |
+| Successful ConfigHub mutations | not completely classified | every success action-attributed | exactly 0 |
+| ConfigHub mutation attempts | not completely classified | measured by outcome | exactly 0 |
+| Argo sync requests | not isolated | measured | exactly 0 |
+
+The sub-100 gate runs both through the first `hx-app-dev` Application accepted
+at its exact OCI revision and allowed health, and across the complete immediate
+idempotent run. It is not merely “polling has started.” The implementation is
+designed for that 96-command ceiling, but the live result remains measurement
+pending until the final changed→immediate-no-op pair and post-pair orphan audit
+pass. Command count is also not wire-request count: one `cub` command can make
+more than one authenticated request. “Fewer than 100 authenticated HTTP round
+trips” remains forbidden until sanitized client-transport evidence measures it.
+
+The performance pair is accepted only when the orphan audit also passes. This
+prevents a faster run from succeeding by silently skipping part of the managed
+fleet. No budget permits removing target pinning, stable approval-gate
+observation, exact Unit-ID/numeric-revision approval, immutable OCI revision
+checks, release-boundary stability, wiring, or Application health.
+
 ## What “63 Units means more than 100 round trips” actually means
 
 The sentence is directionally right but substantially understates the old
@@ -70,18 +133,20 @@ sample. Repeating those reads makes verification grow with the number of Units.
 An organization-wide Link list is individually expensive, but one list is still
 preferable to repeating it for every Space.
 
-Read-only verification now captures organization-wide Unit, Link, published
-release, and target snapshots. For the current fixture, the Unit snapshot
-replaces the static shape of 42 per-Space Unit lists, 63 primary Unit gets, and
-35 upstream Unit gets with one initial Unit list. A second Unit list closes the
-snapshot. Unit data remains an explicit per-Unit read because the current proof
-compares canonical content, not just metadata.
+Read-only verification now brackets organization-wide Space, Unit, Link,
+published-release, and Target snapshots. The Unit list selects `Data`,
+`DataHash`, `ContentHash`, revision, endpoint, label, annotation, and gate
+fields, so one bounded bulk observation supplies both metadata and the exact
+canonical Unit body. A second five-resource snapshot closes the verification
+barrier. No `cub unit data` or `cub unit get` command remains in the accepted
+path, and a foreign Target slug or unexpected Space fails the final allowlist.
 
-The static final-verification body falls from 537 `cub` reads to 128: the 55
-per-Space Unit lists, 247 Unit gets, 80 Link lists, 27 release lists, and 8
-target gets are replaced by eight measured organization-wide lists. The 104
-content reads and the small Space/policy read set remain explicit. This is a
-call-shape result, not yet an end-to-end latency result.
+The apply path uses the same bulk Unit data for content comparisons and refreshes
+the organization snapshot only at explicit mutation or phase boundaries.
+Release decisions still use authoritative targeted snapshots immediately before
+publication, and a cached no-op is compare-and-set revalidated before any write.
+The hard 96-command no-op ceiling includes the closing stability check; it is a
+contracted call shape whose live elapsed time remains unclaimed until measured.
 
 The apply path also removes three separate multipliers:
 
@@ -97,23 +162,13 @@ The apply path also removes three separate multipliers:
   deployments. Static accounting falls from about 1,302 reads for that repeated
   root path to 182 for four root publications plus the closing currency checks.
 
-Source-release checks now use a boundary-local read snapshot. Each independent
-opening and closing boundary still reads every exact Unit body, Space, target,
-Link inventory, source Unit inventory, and upstream Unit inventory, but all
-assertions inside that boundary reuse those observations. No snapshot survives
-a release mutation. Across the 27 source Spaces, the steady-state release path
-falls from 798 reads to 367: 23 one-Unit Spaces fall from 26 to 13 reads each,
-and four three-Unit `hx-web` Spaces fall from 50 to 17 reads each. That is 431
-fewer reads (54.0%) while retaining independent opening and closing evidence.
-
-After those changes, static steady-state accounting gives a lower bound of at
-least 469 ConfigHub reads before the first Argo convergence starts: 196 for
-managed-Unit comparison, 81 for Application materialization, 54 list/allowlist
-reads, 70 variant Space/Target reads, 55 for the first cluster's delivery-root
-boundary, and 13 for the first source release. Preflight and several
-Space/policy reads are additional, so 469 is deliberately a lower bound rather
-than a promised total. The original “well over 100” statement is true but not
-specific enough for capacity or latency planning.
+Source-release checks use an authoritative boundary-local snapshot and merge a
+successful closing observation back into the outer apply cache. The latest
+release is always taken from that inner authoritative snapshot while it is
+active; an older outer-cache release can never overrule it. No snapshot
+survives a release mutation. This preserves exact Unit bodies, endpoints,
+targets, labels, Links, approvals, and opening/closing release identity without
+returning to per-Unit reads.
 
 These are API-backed `cub` reads, not literal wire round trips. A read-only
 client trace showed that space-scoped `unit list`, `unit get`, and `unit data`
@@ -133,15 +188,14 @@ The receipt records a dedicated
 optimizing total runtime and optimizing time to the first converged Application
 are not always the same tradeoff.
 
-The initial and final Unit/Link/release/target snapshots must have identical row
-counts and a canonical fingerprint. Every row must belong to the pinned Kubara
-organization and a known Space. If those four resource sets differ at the
-closing observation, the run fails and asks for a retry against a quiescent
-organization. This is an opening/closing net-state check, not an event stream:
-an ABA change between the two observations is outside the claim, as are
-concurrent Space/Trigger/Filter changes. Snapshot data is available only inside
-`verifyLive`; reconciliation and mutation paths continue to perform fresh
-reads.
+The initial and final Space/Unit/Link/release/Target snapshots must have
+identical row counts and a canonical fingerprint. Every row must belong to the
+pinned Kubara organization and the exact final allowlist. If any of those five
+resource sets differ at the closing observation, the run fails and asks for a
+retry against a quiescent organization. This is an opening/closing net-state
+check, not an event stream: an ABA change between observations is outside the
+claim. Apply-cache mutation decisions are separately guarded by a fresh
+targeted comparison immediately before the actual write.
 
 Canonical Kubernetes and AppConfig YAML is memoized by content digest within a
 single process. Cache keys also retain a length/head/tail collision check, and
@@ -151,9 +205,9 @@ cross-run cache is trusted.
 ## Concurrency and safety boundary
 
 All commands remain serial and deterministically ordered. Organization-wide
-reads are batched by resource, not executed concurrently. The four snapshot
-lists are independent and could be parallelized later, as could some Unit data
-reads, but doing so needs server-load and stable-evidence testing first.
+reads are batched by resource, not executed concurrently. The five snapshot
+lists are independent and could be parallelized later, but doing so needs
+server-load and stable-evidence testing first.
 
 The following remain strictly serial:
 
@@ -212,12 +266,13 @@ In priority order for this example:
 These are regression budgets for this implementation, not user-facing SLAs:
 
 - verification uses exactly two organization-wide list calls per cached
-  resource: one opening and one closing Unit, Link, release, and target list;
+  resource: one opening and one closing Space, Unit, Link, release, and Target
+  list;
 - active verification must issue no per-Unit metadata get or per-Space Unit
-  inventory list; Unit data reads remain explicit;
-- each source-release boundary reads the source Unit inventory and each unique
-  upstream inventory once, issues no point Unit metadata gets, and clears its
-  cache before any release mutation;
+  inventory list; exact Unit data comes from the bulk Unit rows;
+- each source-release boundary reads authoritative targeted inventories,
+  issues no point Unit metadata/data gets, and invalidates or refreshes its
+  cache at every release mutation;
 - mutations remain serial and keep full target-pin validation;
 - the opening and closing fingerprint must match before evidence can say
   `stability: pass`;
@@ -228,5 +283,23 @@ These are regression budgets for this implementation, not user-facing SLAs:
 - on the same host and fixture, an offline failure-path plan or self-test above
   10 seconds should be investigated against the approximately 8.6/7.8-second
   baseline;
-- no live wall-time budget will be set until a successful post-change run has
-  produced repeatable receipts. The receipt is the authority for that run.
+- a changed apply must meet the `changed-apply` contract and the immediate
+  zero-action apply must meet the tighter `idempotent-apply` contract under the
+  same execution fingerprint;
+- no live speed claim is current until the v2 receipt pair and zero-orphan audit
+  pass. The contract defines the budget; the receipts are the authority for the
+  measured runs.
+
+Verify the offline contract and its negative tests without a ConfigHub login:
+
+```sh
+npm run kubara-mini-idp:performance-contract:verify
+npm run kubara-mini-idp:performance:self-test
+```
+
+After the changed/idempotent live pair and orphan audit exist, verify only the
+committed evidence—without network access—with:
+
+```sh
+npm run kubara-mini-idp:performance:receipt-verify
+```

@@ -37,7 +37,7 @@ deployment controller.
 - Kubara Composes, ConfigHub Governs, Argo Reconciles
 - A GitOps-First Kubara Platform With Reviewable Fleet State
 
-## The seven-step architecture
+## The six-step adoption architecture
 
 The article must use this sequence and must not collapse its trust boundaries.
 
@@ -53,7 +53,7 @@ Kubara produces platform components, platform configs, add-ons, AppProjects,
 ApplicationSets, overrides, and wiring. The platform revision is coherent, but
 its deployable component instances remain separately identifiable.
 
-### 3. Prepare one clean deterministic hand-off subtree
+### 3. Prepare, scan, commit, and push one clean Git hand-off
 
 Run `prepare-kubara-git-handoff.mjs --generate` against the ordinary Kubara
 worktree. A reviewed request maps the existing native paths; no repository
@@ -69,7 +69,7 @@ This bridge is general over that explicit reviewed artifact contract. It does
 not claim that every arbitrary Kubara Catalog version has already been reviewed
 or can be resolved automatically.
 
-### 4. Commit and push one immutable Git revision
+#### Commit and push one immutable Git revision
 
 Commit and push the source config, generated tree, exact source and dependency locks,
 the generation receipt with render checksums and object counts, effective
@@ -79,7 +79,7 @@ selected path, never a moving branch name.
 Run the preparer's offline, zero-write `--verify` against the clean checkout of
 that final commit before scanning and import.
 
-### 5. Import deterministically and package by deployable config
+### 4. Import deterministically and package by deployable config
 
 The importer verifies the clean checkout and exact SHA, then resolves each
 selected component against the component-first ConfigHub Catalog. Resolution
@@ -115,7 +115,7 @@ does not need a production secret backend. The reusable import contract must
 exclude that file from its Git and OCI payloads and bind equivalent target data
 through the separately authorized target path.
 
-### 6. Reconcile an explicit ConfigHub organization
+### 5. Reconcile an explicit ConfigHub organization
 
 The user creates or selects the destination organization and pins its existing
 context, organization coordinates, target Spaces, Target IDs, and any external
@@ -128,7 +128,7 @@ Conflicts fail without deletion. A repeated zero-action organization receipt
 proves ConfigHub convergence; a separate controller receipt must prove Argo and
 workload convergence at the exact released digests.
 
-### 7. Promote apps in ConfigHub; reconcile with Argo
+### 6. Promote apps in ConfigHub; reconcile with Argo
 
 Application bases and target variants follow as a separate hand-off. ConfigHub
 checks, approves, promotes, publishes, and rolls back exact revisions. Argo CD
@@ -275,7 +275,10 @@ compatibility evidence, not the current adoption starting point.
 
 ## Evidence and visuals to use
 
-- Primary guide:
+- Primary buyer route:
+  [`site/kubara.html`](../../site/kubara.html) and the
+  [six-step adoption tutorial](../demo/kubara/adoption.md)
+- Complete technical reference:
   [`docs/demo/kubara/single-platform.md`](../demo/kubara/single-platform.md)
 - Current source:
   [`examples/kubara/current-platform`](../../examples/kubara/current-platform/README.md)
@@ -296,7 +299,7 @@ compatibility evidence, not the current adoption starting point.
 
 Preferred visuals:
 
-1. The seven-step diagram above.
+1. The six-step adoption diagram above.
 2. A side-by-side faithful hub Argo lane and optional ConfigHub delivery lane.
 3. The component-by-cluster matrix with explicit unknown states visible.
 4. A wiring view showing issuer to Certificate, IngressClass to Ingress, and
@@ -307,7 +310,7 @@ Preferred visuals:
 
 1. Open with the two boundary sentences.
 2. Show the familiar Kubara config and generated directory shape.
-3. Walk the seven deterministic steps.
+3. Walk the six adoption steps.
 4. Explain component-first Catalog versus per-platform Kubara catalogs.
 5. Show why per-config OCI plus a bundle index is stronger than one fleet blob.
 6. Show the explicit ConfigHub organization, matrix, and wiring.

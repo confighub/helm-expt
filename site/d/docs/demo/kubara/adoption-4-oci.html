@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Step 4: Turn the exact Kubara Git revision into immutable OCI · Config Workshop</title>
+  <meta name="description" content="Import the exact Kubara Git revision deterministically and create immutable component/config OCI packages plus a platform index.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-4-oci.html">
+  <meta property="og:title" content="Step 4: Turn the exact Kubara Git revision into immutable OCI · Config Workshop">
+  <meta property="og:description" content="Import the exact Kubara Git revision deterministically and create immutable component/config OCI packages plus a platform index.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-4-oci.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Step 4: Turn the exact Kubara Git revision into immutable OCI</h1>
+    <p class="lead">Take the exact reviewed Git revision from Step 3, verify that it is the Kubara platform you approved, and publish it as a digest-bound OCI set that ConfigHub can materialize in Step 5. <a href="../../../../../docs/demo/kubara/adoption-4-oci.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+<h2 id="your-goal">Your goal</h2>
+
+<p>The result is deliberately not one giant platform artifact. It contains one target-neutral package per reusable component definition, one target-neutral package per effective component/configuration set, and one platform index that references their exact manifest and layer digests. Destination bindings, cluster facts, and secrets are not placed in those portable packages.</p>
+<h2 id="what-stays-kubara">What stays Kubara</h2>
+<ul><li>The input is still Kubara's committed <code>config.yaml</code>, generated component and cluster trees, ordinary overrides, locks, renders, and wiring facts.</li><li>The Git commit remains the portable, independently reviewable hand-off.</li><li>Kubara remains the composer. The importer consumes Kubara's result; it does not regenerate it, reinterpret it with AI, or replace it with a new schema.</li><li>Application source is still separate from the platform hand-off and enters the journey in Step 6.</li></ul>
+<h2 id="what-confighub-adds">What ConfigHub adds</h2>
+<ul><li>Exact-source and complete-scope verification before packaging.</li><li>Component-first packages whose retained versions can be governed separately from one platform selection.</li><li>Content-addressed OCI publication with exact remote manifest and layer verification.</li><li>A target-neutral <code>PlatformDigest</code> for the portable platform and a separate <code>BindingDigest</code> for the selected ConfigHub destination.</li><li>Refusal of dirty, mutable, ambiguous, mismatched, credential-shaped, or concurrently changed inputs.</li></ul>
+<p>The implementation is deterministic code. AI is not part of the required import path.</p>
+<h2 id="before-you-start">Before you start</h2>
+<p>The current importer cannot compile or package first and choose the destination later. Before either operation, the user must explicitly select a readable ConfigHub organization and provide one pre-existing ConfigHub Target and one observed, healthy cluster-local Argo delivery runtime for every Kubara cluster. Step 5 applies into those reviewed identities; it does not discover or create them implicitly.</p>
+<p>Complete Steps 1–3 and have all of the following:</p>
+<ul><li>a clean detached checkout at the full pushed Git object ID;</li><li>the prepared platform subtree bound by its <a href="../../../../../examples/kubara/prepared-current-platform/preparation-receipt.yaml"><code>preparation-receipt.yaml</code></a> and <a href="../../../../../examples/kubara/prepared-current-platform/checksums.txt"><code>checksums.txt</code></a>;</li><li>a passing external secret-scan report stored outside that checkout;</li><li>one secret-free Argo runtime observation for every target cluster;</li><li>a ConfigHub context already switched to the organization the user selected;</li><li>pre-existing ConfigHub Targets and cluster-local Argo delivery runtimes; and</li><li><code>oras</code> authenticated to the untagged repository base in <code>spec.destination.catalogOCIBase</code>.</li></ul>
+<p>The exact importer contract and full field reference live in <a href="../../../examples/kubara/git-import/README.html"><code>examples/kubara/git-import/README.md</code></a>. Start from <a href="../../../../../examples/kubara/git-import/request.example.yaml"><code>request.example.yaml</code></a>, but never use its example IDs, hashes, repository, or organization as real authority.</p>
+<p>Run the repository commands below from the <code>helm-expt</code> repository root.</p>
+<p>For the commands below, substitute your controlled paths and context name:</p>
+<pre><code>export KUBARA_CHECKOUT=/absolute/path/to/clean-detached-checkout
+export KUBARA_IMPORT=/controlled/import/revision-1
+export KUBARA_CONTEXT=acme-kubara
+mkdir -p &quot;$KUBARA_IMPORT&quot;</code></pre>
+<p>Do not put the controlled import directory inside the Git checkout.</p>
+<h2 id="41-inspect-the-selected-destination-without-changing-it">4.1 Inspect the selected destination without changing it</h2>
+<p>First edit a copy of the request template so that its Git repository, full commit ID, selected path, intended stable slugs, and OCI repository base are correct. Then bind the request to live, exact destination identities:</p>
+<pre><code>node scripts/import-kubara-git-revision.mjs --inspect-destination \
+  --request /controlled/import/request-template.yaml \
+  --context &quot;$KUBARA_CONTEXT&quot; \
+  --credential-scan-report /controlled/evidence/gitleaks-report.json \
+  --runtime-evidence hx-app-dev=/controlled/evidence/dev-runtime.yaml \
+  --runtime-evidence hx-app-staging=/controlled/evidence/staging-runtime.yaml \
+  --runtime-evidence hx-app-prod-a=/controlled/evidence/prod-a-runtime.yaml \
+  --runtime-evidence hx-app-prod-b=/controlled/evidence/prod-b-runtime.yaml \
+  --output /controlled/import/reviewed-request.yaml</code></pre>
+<p>This operation is read-only against ConfigHub. It uses narrow queries to pin the organization, Spaces, Targets, argobot lineage, delivery roots, and any workload Application heads explicitly preserved by the request. It hashes but does not embed the scanner report or runtime observation contents.</p>
+<p>Review <code>/controlled/import/reviewed-request.yaml</code> before continuing. In particular, confirm:</p>
+<ul><li>organization display name, external ID, internal entity ID, server URL, and context;</li><li>all four Space and Target identities;</li><li>the observed local Argo version and image for each cluster;</li><li>the exact catalog OCI base; and</li><li>every existing workload Application that must remain preserved.</li></ul>
+<h3 id="an-honest-current-product-boundary">An honest current product boundary</h3>
+<p>The current CLI requires this read-only destination inspection <b>before</b> compile and package. That is why Step 4 already needs a readable, selected organization even though ConfigHub mutation does not begin until Step 5.</p>
+<p>This ordering is a property of the current importer interface, not something Kubara intrinsically requires. The reviewed request carries both portable source intent and destination authorization. The split remains real:</p>
+<ul><li>component/config payload bytes and <code>PlatformDigest</code> are target-neutral;</li><li><code>destination-binding-lock.yaml</code> and <code>BindingDigest</code> bind the selected organization and are explicitly excluded from OCI; and</li><li>applying the same content to another organization preserves the portable member bytes while producing a different binding digest.</li></ul>
+<p>A future product command can make this boundary feel like one guided import, but this tutorial does not pretend that sequencing already exists.</p>
+<h2 id="42-compile-inspect-and-reproduce-the-plan">4.2 Compile, inspect, and reproduce the plan</h2>
+<p>Compile outside the checkout, then regenerate and compare all semantic output bytes:</p>
+<pre><code>node scripts/import-kubara-git-revision.mjs --compile \
+  --request /controlled/import/reviewed-request.yaml \
+  --checkout &quot;$KUBARA_CHECKOUT&quot; \
+  --output &quot;$KUBARA_IMPORT&quot;
+
+node scripts/import-kubara-git-revision.mjs --verify \
+  --request /controlled/import/reviewed-request.yaml \
+  --checkout &quot;$KUBARA_CHECKOUT&quot; \
+  --output &quot;$KUBARA_IMPORT&quot;</code></pre>
+<p>Review <code>import-plan.json</code> before publication. It is the exact ordered plan for Spaces, Units, packages, delivery Applications, <code>UpgradeUnit</code> lineage, and curated <code>NeedsProvides</code> Links. A changed source byte, Git object, request field, or generated output causes verification to fail.</p>
+<h2 id="43-complete-the-external-target-fact-attestation">4.3 Complete the external target-fact attestation</h2>
+<p>The compiler writes a pending template at:</p>
+<pre><code>/controlled/import/revision-1/target-facts-required.yaml</code></pre>
+<p>Copy it to controlled storage outside Git and OCI. For every binding set <code>status: verified-present</code>. For every required resolution set either <code>satisfied</code> or <code>not-applicable-reviewed</code>, then add a secret-free external <code>evidenceRef</code> and its exact <code>sha256:</code> digest. Finally require:</p>
+<pre><code>policy:
+  secretValuesIncluded: false
+  generatedTemplateIsAnAttestation: true</code></pre>
+<p>This attestation is consumed during apply in Step 5. It is not an invitation to copy target credentials or secret values into the platform package.</p>
+<h2 id="44-publish-and-verify-the-immutable-oci-set">4.4 Publish and verify the immutable OCI set</h2>
+<p>Hold exclusive single-writer control of the reviewed OCI repository base for the complete publication operation, then run:</p>
+<pre><code>node scripts/import-kubara-git-revision.mjs --package \
+  --request /controlled/import/reviewed-request.yaml \
+  --checkout &quot;$KUBARA_CHECKOUT&quot; \
+  --output &quot;$KUBARA_IMPORT&quot;</code></pre>
+<p>The importer inspects, publishes, and post-inspects every remote artifact. A pre-existing content-addressed reference is reused only when its artifact type, media type, layer count, digest, and size all match. A conflict is refused.</p>
+<h2 id="expected-artifacts">Expected artifacts</h2>
+<p>The controlled output contains:</p>
+<table><thead><tr><th>Path</th><th>Meaning</th></tr></thead><tbody><tr><td><code>platform-lock.yaml</code></td><td>Exact source/content/materialization lock and target-neutral <code>PlatformDigest</code>.</td></tr>
+<tr><td><code>destination-binding-lock.yaml</code></td><td>Exact organization, Target, and delivery binding plus <code>BindingDigest</code>; excluded from OCI.</td></tr>
+<tr><td><code>import-plan.json</code></td><td>Ordered ConfigHub topology, packages, releases, and Links for Step 5.</td></tr>
+<tr><td><code>target-facts-required.yaml</code></td><td>Pending operator-attestation template, never the completed secret-free evidence file.</td></tr>
+<tr><td><code>acceptance.json</code></td><td>Claims implemented by this importer and the boundaries it does not claim.</td></tr>
+<tr><td><code>checksums.txt</code></td><td>Exact hashes of the five semantic compiler outputs.</td></tr>
+<tr><td><code>oci/payloads/*.json</code></td><td>The deterministic local bytes published as component/config packages and the platform index.</td></tr>
+<tr><td><code>oci-publication-receipt.json</code></td><td>Exact remote refs, manifest digests, layer digests, roles, and publication result.</td></tr></tbody></table>
+<p>For the committed four-cluster fixture, the isolated acceptance suite produces 22 component/config packages plus one digest index. That number describes the fixture, not a required count for every Kubara platform.</p>
+<h2 id="machine-checkpoint">Machine checkpoint</h2>
+<p>Anyone can exercise the complete importer contract without a live organization, registry, or cluster:</p>
+<pre><code>npm run kubara-git-import:self-test</code></pre>
+<p>Expected final line:</p>
+<pre><code>Kubara Git importer self-test passed: exact Git compile, 22 component/config OCI packages plus digest index, pulled-payload verification, pinned delivery topology, 12 platform Argo Applications, four root releases, second-run zero actions, and adversarial refusals</code></pre>
+<p>This is <b>current deterministic, isolated evidence</b>. The self-test uses fake Git, OCI, and ConfigHub surfaces. It proves the importer contract and its refusals; it does not prove that your selected live organization has been changed or that any cluster is healthy.</p>
+<p>For a real publication, also require <code>oci-publication-receipt.json.status.result</code> to equal <code>pass</code>, confirm that <code>targetFactsIncluded</code> is <code>false</code>, and retain the receipt with the reviewed request and Git object ID.</p>
+<h2 id="screenshot-to-capture-after-the-checkpoint-passes">Screenshot to capture after the checkpoint passes</h2>
+<p>Do not manufacture a registry screenshot for the isolated self-test. This chapter owns exactly one future adoption frame, separate from the ConfigHub GUI tour.</p>
+<p>After the isolated self-test checkpoint and the complete source-current documentation gate pass, capture one real terminal/workspace frame from that same self-test run. It must show the complete passing final line, including the reported 22 component/config OCI packages, digest index, pulled-payload verification, pinned delivery topology, zero-action second run, and refusal cases. The caption must name the Git commit and say explicitly that these are deterministic <b>fake Git, OCI, and ConfigHub test surfaces</b>. This frame proves the importer contract and isolated package/index behavior; it does not claim a live registry publication, ConfigHub materialization, or cluster health.</p>
+<p>Embed it at the declared path only when the six-frame adoption receipt binds the exact source commit and Git trees, prepared hand-off receipt, importer implementation, release-acceptance contract, image digest, UTC capture time, visible package/index identities, sensitive-value handling, caption, and claim boundary. It must not be presented as the real-publication receipt described above. Until then, leave the hook unexpanded.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table><thead><tr><th>Symptom</th><th>What it means</th><th>Safe response</th></tr></thead><tbody><tr><td>Destination inspection reports an organization or context mismatch</td><td>The active identity is not the one authorized by the request.</td><td>Switch to the intended context and rerun inspection. Never hand-edit live UUIDs into the reviewed output.</td></tr>
+<tr><td>A Target, delivery root, or argobot Unit is missing</td><td>Step 5 prerequisites have not been bootstrapped.</td><td>Stop, provision the named prerequisite deliberately, then rerun inspection and review the new request.</td></tr>
+<tr><td>Compile rejects a branch, dirty checkout, untracked file, or changed byte</td><td>The input is not the exact Git hand-off from Step 3.</td><td>Create a clean detached checkout at the pushed object ID. Do not bypass the check.</td></tr>
+<tr><td>The credential scan or structural scan fails</td><td>The selected tree is unsafe or its attestation does not bind this exact commit and scope.</td><td>Remove the material from the portable tree, rescan the final commit, and regenerate the reviewed request.</td></tr>
+<tr><td>Verification says an output is stale</td><td>The request, Git bytes, or compiled output changed after compilation.</td><td>Use a fresh output directory and recompile from the exact reviewed inputs.</td></tr>
+<tr><td>OCI publication observes a different existing layer</td><td>Another writer or prior incompatible publication owns that reference.</td><td>Keep the conflicting evidence, stop publication, and resolve repository ownership. Never overwrite it.</td></tr>
+<tr><td>The self-test passes but the live registry is empty</td><td>The self-test is intentionally isolated.</td><td>Run the real <code>--package</code> command with authenticated <code>oras</code> and inspect its publication receipt.</td></tr></tbody></table>
+<h2 id="safe-to-stop">Safe to stop</h2>
+<p>It is safe to stop after destination inspection, compile/verify, or package. None of those operations mutates ConfigHub or a cluster. OCI publication is additive and content-addressed; retain the output and receipt if it completed.</p>
+<p>Do not begin Step 5 unless all compiler outputs still verify, the exact OCI receipt passes, and the completed target-fact attestation is available. If anything changed, create a new controlled output directory rather than rewriting evidence for the prior revision.</p>
+<p>Previous: <a href="adoption-3-git.html">Step 3 - commit and push the complete hand-off</a></p>
+<p>Next: <a href="adoption-5-confighub-org.html">Step 5 - materialize the platform in the selected ConfigHub organization</a></p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/adoption-4-oci.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

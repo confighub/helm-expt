@@ -6,7 +6,7 @@ current config, committed effective renders, and two digest-pinned app fixtures.
 Historical v0.12.0 adapted
 evidence is retained separately under [historical-v0.12.0](historical-v0.12.0/summary.md).
 
-[Return to the Kubara adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html)
+[Return to the Kubara buyer and adoption journey](https://confighub.github.io/helm-expt/site/kubara.html)
 · [Browse the component-first Catalog](https://confighub.github.io/helm-expt/site/charts/)
 
 Colored, accessible view: [matrix.html](matrix.html). Machine-readable forms:
@@ -43,7 +43,7 @@ The non-live [desired-matrix.json](desired-matrix.json) is generated first and
 digest-pinned by the reconciliation receipt. The final matrix overlays that
 base only after the receipt proves Kubara v0.13.0, all current source digests,
 and all 36 component/application cells. The faithful-lane receipt remains
-separate topology evidence (status: `pass`).
+separate topology evidence (status: `stale-source`).
 
 ## Explicit unknowns
 
