@@ -1,0 +1,16 @@
+# Kind proof override: expose Traefik through cub's reserved NodePort window.
+traefik:
+  service:
+    spec:
+      type: NodePort
+  ports:
+    web:
+      nodePort: 30010
+    websecure:
+      nodePort: 30011
+  providers:
+    kubernetesIngress:
+      publishedService:
+        enabled: false
+      ingressEndpoint:
+        hostname: hx-app-staging.traefik.me

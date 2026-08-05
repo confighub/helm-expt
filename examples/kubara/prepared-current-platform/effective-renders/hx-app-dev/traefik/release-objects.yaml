@@ -8700,7 +8700,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
   annotations:
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app.kubernetes.io/name: traefik
     app.kubernetes.io/instance: traefik-traefik
@@ -8709,10 +8709,12 @@ spec:
     name: web
     targetPort: web
     protocol: TCP
+    nodePort: 30000
   - port: 443
     name: websecure
     targetPort: websecure
     protocol: TCP
+    nodePort: 30001
 ---
 # Source: traefik/charts/traefik/templates/deployment.yaml
 apiVersion: apps/v1
@@ -8763,7 +8765,7 @@ spec:
         - --providers.kubernetescrd.allowEmptyServices=true
         - --providers.kubernetesingress
         - --providers.kubernetesingress.allowEmptyServices=true
-        - --providers.kubernetesingress.ingressendpoint.publishedservice=traefik/traefik
+        - --providers.kubernetesingress.ingressendpoint.hostname=hx-app-dev.traefik.me
         - --entryPoints.websecure.http.tls=true
         - --log.level=INFO
         env:

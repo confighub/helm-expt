@@ -38,8 +38,9 @@ import {
   rmSync,
   writeFileSync,
 } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { homedir, tmpdir } from "node:os";
+import { performance } from "node:perf_hooks";
 
 import {
   check,
@@ -53,6 +54,23 @@ import {
   sha256File,
   toYaml,
 } from "./lib/proof-common.mjs";
+import {
+  PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS,
+  PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
+  assertProtectedNamespaceDetachmentEvidence,
+  classifyProtectedNamespaceOwnership,
+  protectedNamespaceDetachPatch,
+  protectedNamespaceDetachmentFor,
+  selfTestProtectedNamespaceOwnership,
+  validateProtectedNamespaceDetached,
+} from "./lib/kubara-protected-namespace.mjs";
+import {
+  KIND_TRAEFIK_CONTRACTS,
+  KIND_TRAEFIK_POLICY,
+  assertKindTraefikLiveObjects,
+  assertKindTraefikRenderedObjects,
+  selfTestKindTraefikContract,
+} from "./lib/kubara-kind-traefik.mjs";
 
 const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test"]);
 validateCliArgs();
@@ -102,6 +120,7 @@ const ARGO_REVISION_POLICY = "accept only the exact latest ConfigHub OCI manifes
 const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from its last applied revision; reuse the exact published release for metadata-only changes or ConfigHub's unchanged-bundle response; pass only the published OCI ManifestDigest to Argo";
 const INTERRUPTED_SCENARIO_POLICY = "write ahead every ordered hx-web mutation as a nested transition with exact pre/post Unit, release, provenance, and UpgradeUnit checkpoints; bind approval to the exact refused heads and rollback to the exact initial-rollout revision; resume only an exact durable prefix and fail closed on every undeclared delta";
 const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo";
+const DELIVERY_ROOT_PUBLICATION_POLICY = "reconcile every declared Argo Application Unit first, then publish exactly one complete delivery-root release per cluster immediately before that cluster's first source Application converges; later Application Unit mutations are forbidden in that run";
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
 const GUI_IDENTITY_POLICY = "native Component, Owner, Variant, and Lane labels make the component-first Kubara catalog, faithful/adapted delivery choice, and definition-instance hub-spoke shape visible; the component-catalog-coverage Unit exposes the additive 103-component/130-version scope and all 18 Kubara selections; Kubara hub Argo and ConfigHub cluster-bootstrap Argo retain separate exact version provenance; public navigation annotations link complete evidence without claiming live health";
 const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
@@ -139,6 +158,21 @@ const PRESERVED_FAITHFUL_CONTROL_UNITS = [
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 let cachedCubVersions = null;
 let cachedFaithfulReceipt = null;
+const PROCESS_STARTED_AT_MS = performance.now();
+const commandPerformance = new Map();
+const canonicalYamlCache = new Map();
+const canonicalYamlPerformance = {
+  requests: 0,
+  hits: 0,
+  misses: 0,
+  parseMs: 0,
+};
+let activeVerificationReadSnapshot = null;
+
+process.once("exit", () => {
+  const evidence = performanceEvidence(`${mode.replace(/^--/, "")}-process-exit`);
+  process.stderr.write(`kubara-performance ${JSON.stringify(evidence)}\n`);
+});
 
 const paths = {
   config: "examples/kubara/current-platform/source/config.yaml",
@@ -334,7 +368,6 @@ const SURFACES = [
     sourceFor: (item) => effectiveRender(item.cluster, "traefik"),
     order: 70,
     serverSideApply: true,
-    acceptedHealth: ["Healthy", "Progressing"],
   }),
   surface({
     prefix: "hx-homer",
@@ -371,7 +404,6 @@ const APP_FAMILIES = [
     catalog: "ConfigHubApplications",
     version: KUBARA_VERSION,
     destinationNamespace: "hx-web",
-    acceptedHealth: ["Healthy", "Progressing"],
     units: [appUnit("hx-web-platform", [
       "examples/kubara/current-platform/apps/hx-web/platform/certificate.yaml",
       "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml",
@@ -385,7 +417,6 @@ const APP_FAMILIES = [
     catalog: "ConfigHubApplications",
     version: "e9e76a076924d95897c3ede7a0f21cec523c4f6f",
     destinationNamespace: "cubbychat",
-    acceptedHealth: ["Healthy", "Progressing"],
     units: [appUnit("hx-cubbychat", [
       "examples/kubara/current-platform/apps/cubbychat/base/namespace.yaml",
       "examples/kubara/current-platform/apps/cubbychat/base/credentials.yaml",
@@ -1174,6 +1205,10 @@ function buildPlan(inputs) {
           },
         }),
       });
+      const protectedNamespaceOwnershipDetachment = protectedNamespaceDetachmentFor(
+        fleetItem.cluster,
+        space,
+      );
       deployments.push({
         id: space,
         type: "platform",
@@ -1187,6 +1222,8 @@ function buildPlan(inputs) {
         ignoreInjectedCertificateData: item.ignoreInjectedCertificateData,
         acceptedHealth: item.acceptedHealth,
         namespaceMovePrunes: item.namespaceMovePrunes ?? [],
+        protectedNamespaceOwnershipDetachment:
+          protectedNamespaceOwnershipDetachment?.migrationID ?? null,
       });
     }
   }
@@ -1318,6 +1355,15 @@ function buildPlan(inputs) {
   check(new Set(spaces.map((item) => item.slug)).size === spaces.length, "internal plan has duplicate Spaces");
   check(new Set(managedUnits.map((item) => `${item.space}/${item.slug}`)).size === managedUnits.length, "internal plan has duplicate Units");
   check(new Set(links.map((item) => `${item.space}/${item.slug}`)).size === links.length, "internal plan has duplicate Links");
+  const plannedProtectedNamespaceDetachments = deployments
+    .map((item) => item.protectedNamespaceOwnershipDetachment)
+    .filter(Boolean)
+    .sort();
+  check(
+    stableJson(plannedProtectedNamespaceDetachments)
+      === stableJson(PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.map((item) => item.migrationID).sort()),
+    "internal plan protected Namespace ownership detachments drifted",
+  );
   const plan = { spaces, managedUnits, deployments, links };
   assertAppFamilyPlanConsistency(plan);
   return plan;
@@ -1534,7 +1580,21 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
   check(images.length >= 4, "current app fixtures should expose four pinned workload images");
   for (const image of images) check(image.includes("@sha256:"), `app image is not digest pinned: ${image}`);
 
+  verifyKindTraefikRenderedContracts();
   verifyHxWebPayloadContract(inputs);
+}
+
+function verifyKindTraefikRenderedContracts() {
+  for (const contract of KIND_TRAEFIK_CONTRACTS) {
+    const renderPath = absolute(
+      `examples/kubara/current-platform/effective-renders/${contract.cluster}/traefik/release-objects.yaml`,
+    );
+    check(existsSync(renderPath), `${contract.cluster}: Traefik effective render is missing`);
+    assertKindTraefikRenderedObjects(
+      contract,
+      parseDocs(readFileSync(renderPath, "utf8")),
+    );
+  }
 }
 
 function verifyFaithfulProof() {
@@ -1601,6 +1661,9 @@ if (mode === "--plan") {
 } else if (mode === "--receipt-verify") {
   verifyReceipt(inputs, plan);
 } else {
+  selfTestProtectedNamespaceOwnership();
+  selfTestKindTraefikContract();
+  selfTestPerformanceInstrumentation();
   selfTestReleaseRecovery();
   selfTestArgoConvergence();
   selfTestScenarioOperationEvidence();
@@ -1641,11 +1704,14 @@ function printPlan(inputs, desired) {
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         argoNamespaceMovePolicy: ARGO_NAMESPACE_MOVE_POLICY,
+        protectedNamespaceOwnershipPolicy: PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
+        kindTraefikPolicy: KIND_TRAEFIK_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
         guiIdentityPolicy: GUI_IDENTITY_POLICY,
         interruptedScenarioPolicy: INTERRUPTED_SCENARIO_POLICY,
         interruptedReleasePolicy: INTERRUPTED_RELEASE_POLICY,
         publishedReleaseSelectionPolicy: PUBLISHED_RELEASE_SELECTION_POLICY,
+        deliveryRootPublicationPolicy: DELIVERY_ROOT_PUBLICATION_POLICY,
         receiptRequiresZeroActionRerun: true,
         minimumCubVersion: `v${MIN_CUB_VERSION}`,
       },
@@ -1662,6 +1728,8 @@ function printPlan(inputs, desired) {
         preservedFaithfulControlUnits: PRESERVED_FAITHFUL_CONTROL_UNITS.length,
         deployments: desired.deployments.length,
         deliveryApplicationUnits: desired.deployments.length + (FLEET.length * 2),
+        protectedNamespaceOwnershipDetachments: PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
+        kindTraefikContracts: KIND_TRAEFIK_CONTRACTS.length,
         needsProvidesLinks: desired.links.length,
         payloads: payloadRows.length,
       },
@@ -1670,6 +1738,7 @@ function printPlan(inputs, desired) {
         "create or validate four persistent ConfigHub-owned Argo targets",
         "reconcile current contract, catalog, matrix, wiring, and lane evidence",
         "deliver lifecycle CRDs and platform prerequisites in dependency order",
+        "retain protected default Namespaces while detaching only declared obsolete ownership metadata",
         "deliver the complete current Kubara component selection",
         "exercise hx-web promotion, prod approval, rollback, and staging departure",
         "deliver cubbychat and hx-web across all four clusters",
@@ -1685,6 +1754,7 @@ function printPlan(inputs, desired) {
         policy: "preserve-and-verify-against-current-pass-receipt",
       })),
       deployments: desired.deployments,
+      protectedNamespaceOwnershipDetachments: PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS,
       deliveryApplicationUnits: plannedDeliveryApplicationIdentity(desired),
       links: desired.links,
       payloads: payloadRows,
@@ -1697,15 +1767,270 @@ function printPlan(inputs, desired) {
 }
 
 function command(binary, args, options = {}) {
-  return execFileSync(binary, args, {
-    cwd: repoRoot,
-    encoding: "utf8",
-    env: { ...process.env, CONFIGHUB_AGENT: "1" },
-    stdio: ["ignore", "pipe", "pipe"],
-    maxBuffer: 1024 * 1024 * 200,
-    timeout: options.timeout ?? 600_000,
-    ...options,
-  });
+  const verb = sanitizedCommandVerb(binary, args);
+  const startedAt = performance.now();
+  let failed = false;
+  try {
+    return execFileSync(binary, args, {
+      cwd: repoRoot,
+      encoding: "utf8",
+      env: { ...process.env, CONFIGHUB_AGENT: "1" },
+      stdio: ["ignore", "pipe", "pipe"],
+      maxBuffer: 1024 * 1024 * 200,
+      timeout: options.timeout ?? 600_000,
+      ...options,
+    });
+  } catch (error) {
+    failed = true;
+    throw error;
+  } finally {
+    recordCommandPerformance(verb, performance.now() - startedAt, failed);
+  }
+}
+
+function sanitizedCommandVerb(binary, args) {
+  const executable = basename(binary) === basename(process.execPath) ? "node" : safeMetricToken(basename(binary));
+  if (executable === "cub") {
+    let index = 0;
+    while (index < args.length && args[index].startsWith("--")) {
+      index += args[index] === "--context" || args[index] === "--space" ? 2 : 1;
+    }
+    const resource = safeMetricToken(args[index] ?? "command");
+    const candidateVerb = args[index + 1];
+    const action = candidateVerb && !candidateVerb.startsWith("-")
+      ? safeMetricToken(candidateVerb)
+      : "command";
+    return action === "command" ? `cub.${resource}` : `cub.${resource}.${action}`;
+  }
+  if (executable === "kubectl") {
+    const action = args.find((arg) => [
+      "annotate", "delete", "get", "patch", "rollout", "wait",
+    ].includes(arg));
+    return `kubectl.${safeMetricToken(action ?? "command")}`;
+  }
+  if (executable === "kind") {
+    return `kind.${safeMetricToken(args[0] ?? "command")}.${safeMetricToken(args[1] ?? "command")}`;
+  }
+  if (executable === "node") {
+    const action = args.find((arg) => /^--[a-z0-9-]+$/i.test(arg));
+    return `node.${safeMetricToken(action?.replace(/^--/, "") ?? "execute")}`;
+  }
+  if (executable === "pgrep") return "pgrep.scan";
+  if (executable === "sleep") return "sleep.wait";
+  return `${executable}.execute`;
+}
+
+function safeMetricToken(value) {
+  const token = String(value ?? "").toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+|-+$/g, "");
+  return token || "command";
+}
+
+function recordCommandPerformance(verb, elapsedMs, failed) {
+  const current = commandPerformance.get(verb) ?? {
+    verb,
+    calls: 0,
+    failures: 0,
+    totalMs: 0,
+    maxMs: 0,
+  };
+  current.calls += 1;
+  current.failures += failed ? 1 : 0;
+  current.totalMs += elapsedMs;
+  current.maxMs = Math.max(current.maxMs, elapsedMs);
+  commandPerformance.set(verb, current);
+}
+
+function performanceEvidence(scope, bulkSnapshots = activeVerificationReadSnapshot?.evidence ?? null) {
+  const byVerb = [...commandPerformance.values()]
+    .sort((left, right) => left.verb.localeCompare(right.verb))
+    .map((item) => ({
+      verb: item.verb,
+      calls: item.calls,
+      failures: item.failures,
+      totalMs: roundedMilliseconds(item.totalMs),
+      maxMs: roundedMilliseconds(item.maxMs),
+    }));
+  return {
+    schemaVersion: 1,
+    scope,
+    wallElapsedMs: roundedMilliseconds(performance.now() - PROCESS_STARTED_AT_MS),
+    commands: {
+      executionPolicy: "serial",
+      calls: byVerb.reduce((sum, item) => sum + item.calls, 0),
+      failures: byVerb.reduce((sum, item) => sum + item.failures, 0),
+      totalMs: roundedMilliseconds(byVerb.reduce((sum, item) => sum + item.totalMs, 0)),
+      byVerb,
+    },
+    canonicalYaml: {
+      requests: canonicalYamlPerformance.requests,
+      cacheHits: canonicalYamlPerformance.hits,
+      cacheMisses: canonicalYamlPerformance.misses,
+      cacheEntries: canonicalYamlCache.size,
+      parseMs: roundedMilliseconds(canonicalYamlPerformance.parseMs),
+    },
+    bulkSnapshots: bulkSnapshots ?? {
+      mode: "disabled-outside-read-only-verification",
+      stability: "not-applicable",
+      resources: [],
+    },
+  };
+}
+
+function roundedMilliseconds(value) {
+  return Math.round(Number(value) * 1000) / 1000;
+}
+
+function performanceCheckpoint() {
+  return {
+    wallStartedAtMs: performance.now(),
+    commands: new Map([...commandPerformance.entries()].map(([verb, item]) => [verb, {
+      calls: item.calls,
+      failures: item.failures,
+      totalMs: item.totalMs,
+    }])),
+  };
+}
+
+function performancePhaseEvidence(name, checkpoint) {
+  const byVerb = [];
+  for (const [verb, current] of [...commandPerformance.entries()].sort(([left], [right]) => left.localeCompare(right))) {
+    const prior = checkpoint.commands.get(verb) ?? { calls: 0, failures: 0, totalMs: 0 };
+    const calls = current.calls - prior.calls;
+    if (calls === 0) continue;
+    byVerb.push({
+      verb,
+      calls,
+      failures: current.failures - prior.failures,
+      totalMs: roundedMilliseconds(current.totalMs - prior.totalMs),
+    });
+  }
+  return {
+    name,
+    wallElapsedMs: roundedMilliseconds(performance.now() - checkpoint.wallStartedAtMs),
+    commands: {
+      executionPolicy: "serial",
+      calls: byVerb.reduce((sum, item) => sum + item.calls, 0),
+      failures: byVerb.reduce((sum, item) => sum + item.failures, 0),
+      totalMs: roundedMilliseconds(byVerb.reduce((sum, item) => sum + item.totalMs, 0)),
+      byVerb,
+    },
+  };
+}
+
+function assertPerformancePhaseEvidence(phase, prefix) {
+  check(phase?.name === "apply-start-to-first-argo-convergence", `${prefix} name drifted`);
+  check(Number.isFinite(phase.wallElapsedMs) && phase.wallElapsedMs >= 0, `${prefix} wall time is invalid`);
+  check(phase.commands?.executionPolicy === "serial", `${prefix} command policy drifted`);
+  const rows = phase.commands?.byVerb ?? [];
+  check(Array.isArray(rows), `${prefix} command rows are invalid`);
+  check(stableJson(rows.map((item) => item.verb)) === stableJson(rows.map((item) => item.verb).sort()), `${prefix} command rows are not sorted`);
+  check(new Set(rows.map((item) => item.verb)).size === rows.length, `${prefix} command rows are duplicated`);
+  for (const item of rows) {
+    check(/^[a-z0-9-]+(?:\.[a-z0-9-]+){1,2}$/.test(item.verb ?? ""), `${prefix} contains a non-sanitized command verb`);
+    check(Number.isInteger(item.calls) && item.calls > 0, `${prefix} ${item.verb} calls are invalid`);
+    check(Number.isInteger(item.failures) && item.failures >= 0 && item.failures <= item.calls, `${prefix} ${item.verb} failures are invalid`);
+    check(Number.isFinite(item.totalMs) && item.totalMs >= 0, `${prefix} ${item.verb} time is invalid`);
+  }
+  check(phase.commands.calls === rows.reduce((sum, item) => sum + item.calls, 0), `${prefix} call total is inconsistent`);
+  check(phase.commands.failures === rows.reduce((sum, item) => sum + item.failures, 0), `${prefix} failure total is inconsistent`);
+}
+
+function assertPerformanceEvidence(evidence, prefix = "performance evidence") {
+  check(evidence?.schemaVersion === 1, `${prefix} schema version drifted`);
+  check(typeof evidence.scope === "string" && evidence.scope.length > 0, `${prefix} scope is missing`);
+  check(Number.isFinite(evidence.wallElapsedMs) && evidence.wallElapsedMs >= 0, `${prefix} wall time is invalid`);
+  check(evidence.commands?.executionPolicy === "serial", `${prefix} command execution is not serial`);
+  const verbs = evidence.commands?.byVerb ?? [];
+  check(Array.isArray(verbs), `${prefix} command verb rows are invalid`);
+  check(
+    verbs.every((item) => /^[a-z0-9-]+(?:\.[a-z0-9-]+){1,2}$/.test(item.verb ?? "")),
+    `${prefix} contains a non-sanitized command verb`,
+  );
+  check(
+    stableJson(verbs.map((item) => item.verb)) === stableJson(verbs.map((item) => item.verb).sort()),
+    `${prefix} command verbs are not deterministic`,
+  );
+  check(new Set(verbs.map((item) => item.verb)).size === verbs.length, `${prefix} command verbs are duplicated`);
+  check(
+    evidence.commands.calls === verbs.reduce((sum, item) => sum + item.calls, 0),
+    `${prefix} command call total is inconsistent`,
+  );
+  check(
+    evidence.commands.failures === verbs.reduce((sum, item) => sum + item.failures, 0),
+    `${prefix} command failure total is inconsistent`,
+  );
+  for (const item of verbs) {
+    check(Number.isInteger(item.calls) && item.calls > 0, `${prefix} ${item.verb} call count is invalid`);
+    check(Number.isInteger(item.failures) && item.failures >= 0 && item.failures <= item.calls, `${prefix} ${item.verb} failure count is invalid`);
+    check(Number.isFinite(item.totalMs) && item.totalMs >= 0, `${prefix} ${item.verb} total time is invalid`);
+    check(Number.isFinite(item.maxMs) && item.maxMs >= 0 && item.maxMs <= item.totalMs + 0.001, `${prefix} ${item.verb} max time is invalid`);
+  }
+  const yaml = evidence.canonicalYaml ?? {};
+  check(Number.isInteger(yaml.requests) && yaml.requests >= 0, `${prefix} canonical YAML request count is invalid`);
+  check(yaml.cacheHits + yaml.cacheMisses === yaml.requests, `${prefix} canonical YAML cache accounting is inconsistent`);
+  check(Number.isInteger(yaml.cacheEntries) && yaml.cacheEntries === yaml.cacheMisses, `${prefix} canonical YAML entry count is inconsistent`);
+  check(Number.isFinite(yaml.parseMs) && yaml.parseMs >= 0, `${prefix} canonical YAML parse time is invalid`);
+  const bulk = evidence.bulkSnapshots ?? {};
+  check(bulk.mode === "bracketed-organization-wide-read-only", `${prefix} bulk snapshot mode drifted`);
+  check(bulk.stability === "pass", `${prefix} bulk snapshot stability did not pass`);
+  check(
+    stableJson((bulk.resources ?? []).map((item) => item.resource).sort()) === stableJson(["link", "release", "target", "unit"]),
+    `${prefix} bulk snapshot resource coverage drifted`,
+  );
+  for (const item of bulk.resources) {
+    check(Number.isInteger(item.rows) && item.rows >= 0, `${prefix} ${item.resource} row count is invalid`);
+    check(item.listCalls === 2, `${prefix} ${item.resource} must use one initial and one final list call`);
+    check(Number.isInteger(item.servedReads) && item.servedReads >= 0, `${prefix} ${item.resource} served-read count is invalid`);
+  }
+  const phases = evidence.phases ?? [];
+  check(Array.isArray(phases) && phases.length <= 1, `${prefix} phase evidence is invalid`);
+  for (const phase of phases) assertPerformancePhaseEvidence(phase, `${prefix} pre-Argo phase`);
+}
+
+function selfTestPerformanceInstrumentation() {
+  const requestCount = canonicalYamlPerformance.requests;
+  const hitCount = canonicalYamlPerformance.hits;
+  const missCount = canonicalYamlPerformance.misses;
+  const fixture = "performance-self-test: true\nitems:\n  - one\n  - two\n";
+  const first = canonicalYamlDocument(fixture);
+  const second = canonicalYamlDocument(fixture);
+  check(first === second, "performance self-test: canonical YAML cache changed its value");
+  check(canonicalYamlPerformance.requests === requestCount + 2, "performance self-test: canonical request accounting drifted");
+  check(canonicalYamlPerformance.hits === hitCount + 1, "performance self-test: canonical cache did not record one hit");
+  check(canonicalYamlPerformance.misses === missCount + 1, "performance self-test: canonical cache did not record one miss");
+  const left = snapshotRows([
+    { SpaceID: "space-b", UnitID: "unit-b", Slug: "b" },
+    { SpaceID: "space-a", UnitID: "unit-a", Slug: "a" },
+  ], ["SpaceID", "UnitID", "Slug"]);
+  const right = snapshotRows([
+    { SpaceID: "space-a", UnitID: "unit-a", Slug: "a" },
+    { SpaceID: "space-b", UnitID: "unit-b", Slug: "b" },
+  ], ["SpaceID", "UnitID", "Slug"]);
+  check(stableJson(left) === stableJson(right), "performance self-test: snapshot canonicalization depends on row order");
+  const resources = ["link", "release", "target", "unit"].map((resource) => ({
+    resource,
+    rows: 1,
+    listCalls: 2,
+    servedReads: 1,
+  }));
+  assertPerformanceEvidence({
+    schemaVersion: 1,
+    scope: "self-test",
+    wallElapsedMs: 1,
+    commands: { executionPolicy: "serial", calls: 0, failures: 0, totalMs: 0, byVerb: [] },
+    canonicalYaml: { requests: 1, cacheHits: 0, cacheMisses: 1, cacheEntries: 1, parseMs: 0 },
+    bulkSnapshots: {
+      mode: "bracketed-organization-wide-read-only",
+      stability: "pass",
+      resources,
+    },
+    phases: [{
+      name: "apply-start-to-first-argo-convergence",
+      wallElapsedMs: 1,
+      commands: { executionPolicy: "serial", calls: 0, failures: 0, totalMs: 0, byVerb: [] },
+    }],
+  }, "performance self-test evidence");
+  console.log("Kubara mini-IDP performance instrumentation self-test passed");
 }
 
 function tryCommand(binary, args, options = {}) {
@@ -1806,7 +2131,7 @@ function mutatingCubCommand(args) {
     "link/list",
     "release/list",
     "space/get", "space/list",
-    "target/get",
+    "target/get", "target/list",
     "trigger/get",
     "unit/data", "unit/get", "unit/list",
     "version/",
@@ -1933,6 +2258,8 @@ function operationExecutionFingerprint() {
   })).sort((left, right) => left.key.localeCompare(right.key));
   const executionContract = {
     reconcilerSha256: `sha256:${sha256File(absolute("scripts/reconcile-kubara-mini-idp.mjs"))}`,
+    protectedNamespaceHelperSha256: `sha256:${sha256File(absolute("scripts/lib/kubara-protected-namespace.mjs"))}`,
+    kindTraefikHelperSha256: `sha256:${sha256File(absolute("scripts/lib/kubara-kind-traefik.mjs"))}`,
     organization: {
       externalID: ORGANIZATION_EXTERNAL_ID,
       entityID: ORGANIZATION_ENTITY_ID,
@@ -1946,14 +2273,19 @@ function operationExecutionFingerprint() {
       appUnit: item.appUnit,
       order: item.order,
       destinationNamespace: item.destinationNamespace,
+      protectedNamespaceOwnershipDetachment: item.protectedNamespaceOwnershipDetachment ?? null,
     })),
+    protectedNamespaceOwnershipDetachments: PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS,
     policies: {
       argoPrune: ARGO_PRUNE_POLICY,
       namespaceMove: ARGO_NAMESPACE_MOVE_POLICY,
+      protectedNamespaceOwnership: PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
+      kindTraefik: KIND_TRAEFIK_POLICY,
       retry: ARGO_RETRY_POLICY,
       revision: ARGO_REVISION_POLICY,
       interruptedRelease: INTERRUPTED_RELEASE_POLICY,
       interruptedScenario: INTERRUPTED_SCENARIO_POLICY,
+      deliveryRootPublication: DELIVERY_ROOT_PUBLICATION_POLICY,
     },
   };
   return `sha256:${sha256(stableJson({ source: sourceEvidence(), payloads, executionContract }))}`;
@@ -1963,9 +2295,12 @@ function operationJournalFingerprintDisposition(journal, fingerprint) {
   if (journal.executionFingerprint === fingerprint) return "current";
   const convergenceInFlight = Object.keys(journal.convergence ?? {}).length > 0;
   const namespaceMoveInFlight = ["prepared", "delete-returned"].includes(journal.namespaceMove?.state);
+  const protectedNamespaceDetachmentInFlight = Object.values(journal.protectedNamespaceDetachments ?? {})
+    .some((item) => ["prepared", "patch-returned"].includes(item?.state));
   const scenarioInFlight = journal.scenario?.state === "started";
   const fleetBootstrapInFlight = journal.fleetBootstrap?.state === "started";
-  return convergenceInFlight || namespaceMoveInFlight || scenarioInFlight || fleetBootstrapInFlight ? "blocked" : "rotate";
+  return convergenceInFlight || namespaceMoveInFlight || protectedNamespaceDetachmentInFlight
+    || scenarioInFlight || fleetBootstrapInFlight ? "blocked" : "rotate";
 }
 
 function readOperationJournal() {
@@ -1975,6 +2310,7 @@ function readOperationJournal() {
       executionFingerprint: operationExecutionFingerprint(),
       convergence: {},
       namespaceMove: null,
+      protectedNamespaceDetachments: {},
       scenario: null,
       fleetBootstrap: null,
     };
@@ -1990,6 +2326,13 @@ function readOperationJournal() {
     check(journal?.[key] === value, `operation journal ${key} drifted at ${OPERATION_JOURNAL_PATH}`);
   }
   check(journal.convergence && typeof journal.convergence === "object" && !Array.isArray(journal.convergence), "operation journal convergence map is invalid");
+  if (journal.protectedNamespaceDetachments === undefined) journal.protectedNamespaceDetachments = {};
+  check(
+    journal.protectedNamespaceDetachments
+      && typeof journal.protectedNamespaceDetachments === "object"
+      && !Array.isArray(journal.protectedNamespaceDetachments),
+    "operation journal protected Namespace detachment map is invalid",
+  );
   if (journal.scenario === undefined) journal.scenario = null;
   check(journal.scenario === null || typeof journal.scenario === "object", "operation journal scenario entry is invalid");
   if (journal.fleetBootstrap === undefined) journal.fleetBootstrap = null;
@@ -1998,7 +2341,7 @@ function readOperationJournal() {
   const disposition = operationJournalFingerprintDisposition(journal, fingerprint);
   check(
     disposition !== "blocked",
-    "operation inputs changed while an Argo convergence, namespace move, scenario transition, or fleet bootstrap is in flight",
+    "operation inputs changed while an Argo convergence, namespace move, protected Namespace ownership detachment, scenario transition, or fleet bootstrap is in flight",
   );
   if (disposition === "rotate") {
     journal.executionFingerprint = fingerprint;
@@ -2044,12 +2387,42 @@ function clusterEnv(name) {
   return join(homedir(), ".confighub", "clusters", `${name}.env`);
 }
 
+function observeKindTraefikDockerBindings() {
+  return KIND_TRAEFIK_CONTRACTS.map((contract) => {
+    const node = `${contract.cluster}-control-plane`;
+    const result = tryCommand("docker", [
+      "inspect", node,
+      "--format", "{{json .NetworkSettings.Ports}}",
+    ]);
+    check(result.ok, `${contract.cluster}: cannot inspect kind control-plane port bindings: ${result.output}`);
+    const bindings = JSON.parse(result.output);
+    const ports = [contract.httpNodePort, contract.httpsNodePort].map((port) => {
+      const rows = bindings[`${port}/tcp`] ?? [];
+      check(rows.length > 0, `${contract.cluster}: Docker does not expose required TCP/${port}`);
+      const loopbackReachable = rows.find(
+        (item) => item.HostPort === String(port) && ["0.0.0.0", "127.0.0.1"].includes(item.HostIp),
+      );
+      check(loopbackReachable, `${contract.cluster}: Docker TCP/${port} is not mapped to host port ${port}`);
+      return {
+        containerPort: port,
+        hostIP: loopbackReachable.HostIp,
+        hostPort: Number(loopbackReachable.HostPort),
+      };
+    });
+    return { cluster: contract.cluster, node, ports };
+  });
+}
+
 function readSpaces() {
   return new Map(unwrapRows(cubJson(["space", "list", "--select", "Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates"]), "Space")
     .map((space) => [space.Slug, space]));
 }
 
 function readUnitRows(space) {
+  if (activeVerificationReadSnapshot) {
+    activeVerificationReadSnapshot.evidenceByResource.get("unit").servedReads += 1;
+    return [...(activeVerificationReadSnapshot.unitsBySpace.get(space) ?? [])];
+  }
   const value = cubJson([
     "unit", "list", "--space", space,
     "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
@@ -2058,6 +2431,10 @@ function readUnitRows(space) {
 }
 
 function readUnit(space, slug) {
+  if (activeVerificationReadSnapshot) {
+    activeVerificationReadSnapshot.evidenceByResource.get("unit").servedReads += 1;
+    return activeVerificationReadSnapshot.unitsByRef.get(`${space}/${slug}`) ?? null;
+  }
   const result = cubTry([
     "unit", "get", "--space", space, slug,
     "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
@@ -2068,16 +2445,170 @@ function readUnit(space, slug) {
 }
 
 function readTarget(space) {
+  if (activeVerificationReadSnapshot) {
+    activeVerificationReadSnapshot.evidenceByResource.get("target").servedReads += 1;
+    return activeVerificationReadSnapshot.targetsBySpace.get(space) ?? null;
+  }
   const result = cubTry(["target", "get", "--space", space, "target", "-o", "json"]);
   return result.ok ? unwrapEntity(JSON.parse(result.output), "Target") : null;
 }
 
 function readLinks(space) {
+  if (activeVerificationReadSnapshot) {
+    activeVerificationReadSnapshot.evidenceByResource.get("link").servedReads += 1;
+    return [...(activeVerificationReadSnapshot.linksBySpace.get(space) ?? [])];
+  }
   const result = cubJson([
     "link", "list", "--space", space,
     "--select", "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum",
   ]);
   return unwrapRows(result, "Link");
+}
+
+function beginVerificationReadSnapshot(spaces) {
+  check(!activeVerificationReadSnapshot, "verification read snapshot is already active");
+  const captured = captureOrganizationReadSnapshot(spaces);
+  const resources = ["unit", "release", "link", "target"].map((resource) => ({
+    resource,
+    rows: captured.rowCounts[resource],
+    listCalls: captured.listCalls[resource],
+    servedReads: 0,
+  }));
+  activeVerificationReadSnapshot = {
+    ...captured,
+    evidenceByResource: new Map(resources.map((item) => [item.resource, item])),
+    evidence: {
+      mode: "bracketed-organization-wide-read-only",
+      stability: "pending-final-snapshot",
+      resources,
+    },
+  };
+  return activeVerificationReadSnapshot;
+}
+
+function finishVerificationReadSnapshot(spaces) {
+  check(activeVerificationReadSnapshot, "verification read snapshot is not active");
+  const opening = activeVerificationReadSnapshot;
+  const final = captureOrganizationReadSnapshot(spaces);
+  activeVerificationReadSnapshot = null;
+  for (const resource of opening.evidence.resources) {
+    resource.listCalls += final.listCalls[resource.resource];
+    check(
+      resource.rows === final.rowCounts[resource.resource],
+      `${resource.resource} organization-wide snapshot row count changed during verification`,
+    );
+  }
+  const stable = opening.fingerprint === final.fingerprint;
+  opening.evidence.stability = stable ? "pass" : "changed-during-verification";
+  check(stable, "Unit, release, Link, or target state changed during read-only verification; retry against a quiescent organization");
+  return opening.evidence;
+}
+
+function captureOrganizationReadSnapshot(spaces) {
+  const slugBySpaceID = new Map([...spaces.values()].map((space) => [space.SpaceID, space.Slug]));
+  const unitCapture = measuredOrganizationList("unit", () => unwrapRows(cubJson([
+    "unit", "list", "--space", "*",
+    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
+  ]), "Unit"));
+  const releaseCapture = measuredOrganizationList("release", () => unwrapRows(cubJson([
+    "release", "list", "--space", "*",
+    "--where", "Published = true",
+    "--select", "SpaceID,Digest,ManifestDigest,ReleaseNum,CreatedAt",
+  ]), "Release"));
+  const linkCapture = measuredOrganizationList("link", () => unwrapRows(cubJson([
+    "link", "list", "--space", "*",
+    "--select", "SpaceID,FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum",
+  ]), "Link"));
+  const targetCapture = measuredOrganizationList("target", () => unwrapRows(cubJson([
+    "target", "list", "--space", "*",
+    "--select", "SpaceID,ProviderType,ToolchainType,Annotations",
+  ]), "Target"));
+  const units = unitCapture.rows;
+  const releases = releaseCapture.rows;
+  const links = linkCapture.rows;
+  const targets = targetCapture.rows;
+
+  const unitsBySpace = groupRowsBySpace(units, slugBySpaceID, "Unit");
+  const unitsByRef = new Map();
+  for (const [space, rows] of unitsBySpace) {
+    rows.sort((left, right) => left.Slug.localeCompare(right.Slug));
+    for (const unit of rows) {
+      const ref = `${space}/${unit.Slug}`;
+      check(!unitsByRef.has(ref), `${ref}: organization snapshot returned duplicate Unit slugs`);
+      unitsByRef.set(ref, unit);
+    }
+  }
+  const releasesBySpace = groupRowsBySpace(releases, slugBySpaceID, "Release");
+  for (const rows of releasesBySpace.values()) {
+    rows.sort((left, right) => Number(right.ReleaseNum ?? 0) - Number(left.ReleaseNum ?? 0)
+      || String(right.CreatedAt ?? "").localeCompare(String(left.CreatedAt ?? "")));
+  }
+  const linksBySpace = groupRowsBySpace(links, slugBySpaceID, "Link");
+  for (const rows of linksBySpace.values()) rows.sort((left, right) => left.Slug.localeCompare(right.Slug));
+  const targetsBySpace = new Map();
+  for (const target of targets) {
+    assertSnapshotRow(target, slugBySpaceID, "Target");
+    if (target.Slug !== "target") continue;
+    const space = slugBySpaceID.get(target.SpaceID);
+    check(!targetsBySpace.has(space), `${space}: organization snapshot returned duplicate target slugs`);
+    targetsBySpace.set(space, target);
+  }
+  const canonicalRows = {
+    unit: snapshotRows(units, ["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "DataHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]),
+    release: snapshotRows(releases, ["SpaceID", "ReleaseID", "Digest", "ManifestDigest", "ReleaseNum", "CreatedAt"]),
+    link: snapshotRows(links, ["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]),
+    target: snapshotRows(targets, ["SpaceID", "TargetID", "Slug", "ProviderType", "ToolchainType", "Annotations"]),
+  };
+  return {
+    unitsBySpace,
+    unitsByRef,
+    releasesBySpace,
+    linksBySpace,
+    targetsBySpace,
+    rowCounts: {
+      unit: units.length,
+      release: releases.length,
+      link: links.length,
+      target: targets.length,
+    },
+    listCalls: {
+      unit: unitCapture.listCalls,
+      release: releaseCapture.listCalls,
+      link: linkCapture.listCalls,
+      target: targetCapture.listCalls,
+    },
+    fingerprint: `sha256:${sha256(stableJson(canonicalRows))}`,
+  };
+}
+
+function measuredOrganizationList(resource, read) {
+  const verb = `cub.${resource}.list`;
+  const before = commandPerformance.get(verb)?.calls ?? 0;
+  const rows = read();
+  const after = commandPerformance.get(verb)?.calls ?? 0;
+  check(after - before === 1, `${resource}: organization snapshot did not issue exactly one measured list command`);
+  return { rows, listCalls: after - before };
+}
+
+function groupRowsBySpace(rows, slugBySpaceID, resource) {
+  const grouped = new Map();
+  for (const row of rows) {
+    assertSnapshotRow(row, slugBySpaceID, resource);
+    const space = slugBySpaceID.get(row.SpaceID);
+    if (!grouped.has(space)) grouped.set(space, []);
+    grouped.get(space).push(row);
+  }
+  return grouped;
+}
+
+function assertSnapshotRow(row, slugBySpaceID, resource) {
+  check(row.OrganizationID === ORGANIZATION_ENTITY_ID, `${resource} organization-wide snapshot escaped the pinned Kubara organization`);
+  check(slugBySpaceID.has(row.SpaceID), `${resource} organization-wide snapshot references an unknown Space ID`);
+}
+
+function snapshotRows(rows, fields) {
+  return rows.map((row) => Object.fromEntries(fields.map((field) => [field, row[field] ?? null])))
+    .sort((left, right) => stableJson(left).localeCompare(stableJson(right)));
 }
 
 function expectedArgoApplicationSlugs(desired, fleetItem) {
@@ -2393,6 +2924,8 @@ function applyPlan(inputs, desired) {
   const lockPath = acquireSerialLiveLock();
   const priorNamespaceMoveEvidence = validatedPriorNamespaceMoveEvidence();
   const journalNamespaceMoveAttempt = validatedNamespaceMoveJournalAttempt();
+  const priorProtectedNamespaceEvidence = validatedPriorProtectedNamespaceEvidence();
+  const journalProtectedNamespaceAttempts = validatedProtectedNamespaceJournalAttempts();
   const scenarioJournal = validatedScenarioJournal();
   const fleetBootstrapJournal = validatedFleetBootstrapJournal();
   const namespaceMoveAttempts = new Map(
@@ -2406,18 +2939,37 @@ function applyPlan(inputs, desired) {
       source: "journal",
     });
   }
+  const protectedNamespaceAttempts = new Map(
+    priorProtectedNamespaceEvidence.map((item) => [item.migrationID, { ...item, source: "receipt" }]),
+  );
+  for (const item of journalProtectedNamespaceAttempts) {
+    const prior = protectedNamespaceAttempts.get(item.migrationID);
+    check(
+      !prior || prior.uid === item.uid,
+      `${item.migrationID}: receipt and operation journal protected Namespace UIDs disagree`,
+    );
+    protectedNamespaceAttempts.set(item.migrationID, { ...item, source: "journal" });
+  }
   const state = {
     actions: [],
     changedSpaces: new Set(),
     published: new Map(),
+    deliveryRootReleases: new Map(),
     namespaceMoveAttempts,
     namespaceMoveEvidence: [
       ...priorNamespaceMoveEvidence,
       ...(journalNamespaceMoveAttempt?.state === "observed-gone" ? [journalNamespaceMoveAttempt] : []),
     ],
+    protectedNamespaceAttempts,
+    protectedNamespaceEvidence: [
+      ...priorProtectedNamespaceEvidence,
+      ...journalProtectedNamespaceAttempts.filter((item) => item.state === "observed-detached"),
+    ],
     scenarioJournal,
     fleetBootstrapJournal,
     scenario: { mode: "retained-proven-history", steps: [] },
+    performancePhaseStart: performanceCheckpoint(),
+    performancePhases: [],
   };
   let workRoot = "";
   try {
@@ -2428,6 +2980,7 @@ function applyPlan(inputs, desired) {
     let spaces = readSpaces();
     assertSpaceAllowlist(spaces, desired);
     reconcileClusters(spaces, desired, state);
+    state.kindTraefikDockerBindings = observeKindTraefikDockerBindings();
     spaces = readSpaces();
     for (const expected of desired.spaces) {
       const live = spaces.get(expected.slug);
@@ -2500,6 +3053,7 @@ function applyPlan(inputs, desired) {
     )) deployOne(deployment, state);
 
     reconcileDeliveryApplicationMetadata(desired, state, { requireAll: true });
+    assertPublishedDeliveryRootsRemainCurrent(state);
     reconcileLinks(desired, state);
     assertManagedLinkInventory(desired, { requireNeedsProvides: true });
     const observation = verifyLive(inputs, desired, { state });
@@ -2726,10 +3280,10 @@ function reconcileApplicationUnitLabels(
   fleetItem,
   unitSlug,
   state,
-  { required = true, assertOnly = false } = {},
+  { required = true, assertOnly = false, observedUnit = undefined } = {},
 ) {
   const appSpace = `${fleetItem.cluster}-argo-apps`;
-  const unit = readUnit(appSpace, unitSlug);
+  const unit = observedUnit === undefined ? readUnit(appSpace, unitSlug) : observedUnit;
   if (!unit && !required) return false;
   check(unit, `${appSpace}/${unitSlug}: Argo Application Unit is missing`);
   const expected = expectedArgoApplicationLabels(desired, fleetItem, unitSlug);
@@ -2754,6 +3308,8 @@ function reconcileDeliveryApplicationMetadata(
   { requireAll = false, assertOnlySourceSpaces = new Set() } = {},
 ) {
   for (const fleetItem of FLEET) {
+    const appSpace = `${fleetItem.cluster}-argo-apps`;
+    const observedBySlug = new Map(readUnitRows(appSpace).map((unit) => [unit.Slug, unit]));
     const requiredSlugs = ["root", `argobot-${fleetItem.cluster}`];
     for (const slug of expectedArgoApplicationSlugs(desired, fleetItem)) {
       const deployment = desired.deployments.find(
@@ -2762,6 +3318,7 @@ function reconcileDeliveryApplicationMetadata(
       reconcileApplicationUnitLabels(desired, fleetItem, slug, state, {
         required: requireAll || requiredSlugs.includes(slug),
         assertOnly: Boolean(deployment && assertOnlySourceSpaces.has(deployment.space)),
+        observedUnit: observedBySlug.get(slug) ?? null,
       });
     }
   }
@@ -3050,8 +3607,8 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
     ...sourceAnnotation(payload.value, payload.sourcePaths, payload.transform),
     ...(expected.annotations ?? {}),
   };
-  const existing = readUnit(expected.space, expected.slug);
-  if (!existing) {
+  let current = readUnit(expected.space, expected.slug);
+  if (!current) {
     check(!expected.upstream, `${expected.space}/${expected.slug}: variant Unit is missing; refusing partial clone repair`);
     cub([
       "unit", "create", "--space", expected.space,
@@ -3065,9 +3622,11 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
     ], { timeout: 1_200_000 });
     recordAction(state, "unit-create", `${expected.space}/${expected.slug}`, payloadKey);
     state.changedSpaces.add(expected.space);
+    current = readUnit(expected.space, expected.slug);
+    check(current, `${expected.space}/${expected.slug}: created Unit is not observable`);
   } else {
-    check(existing.ToolchainType === expected.toolchain, `${expected.space}/${expected.slug}: toolchain ${existing.ToolchainType} cannot be safely adopted`);
-    const actualProvider = existing.ProviderType ?? null;
+    check(current.ToolchainType === expected.toolchain, `${expected.space}/${expected.slug}: toolchain ${current.ToolchainType} cannot be safely adopted`);
+    const actualProvider = current.ProviderType ?? null;
     const expectedProvider = expected.provider ?? null;
     check(actualProvider === expectedProvider, `${expected.space}/${expected.slug}: provider ${actualProvider ?? "default"} cannot be safely adopted; expected ${expectedProvider ?? "default"}`);
     if (expected.upstream) {
@@ -3075,7 +3634,7 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
       const upstream = readUnit(upstreamSpace, upstreamSlug);
       check(upstream?.UnitID, `${expected.space}/${expected.slug}: expected upstream ${expected.upstream} is missing`);
       check(
-        existing.UpstreamUnitID === upstream.UnitID,
+        current.UpstreamUnitID === upstream.UnitID,
         `${expected.space}/${expected.slug}: unsafe upstream mismatch; expected ${expected.upstream}, refusing partial variant repair`,
       );
     }
@@ -3089,16 +3648,17 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
       ], { timeout: 1_200_000 });
       recordAction(state, "unit-data", `${expected.space}/${expected.slug}`, payloadKey);
       state.changedSpaces.add(expected.space);
+      current = readUnit(expected.space, expected.slug);
+      check(current, `${expected.space}/${expected.slug}: updated Unit is not observable`);
     }
-    const refreshed = readUnit(expected.space, expected.slug);
-    const staleLabels = staleOwnedUnitLabels(refreshed.Labels, expected.labels);
-    const staleAnnotations = staleOwnedPublicAnnotations(refreshed.Annotations, annotations);
+    const staleLabels = staleOwnedUnitLabels(current.Labels, expected.labels);
+    const staleAnnotations = staleOwnedPublicAnnotations(current.Annotations, annotations);
     if (
-      !mapMatches(refreshed.Labels, expected.labels)
+      !mapMatches(current.Labels, expected.labels)
       || staleLabels.length > 0
-      || !mapMatches(refreshed.Annotations, annotations)
+      || !mapMatches(current.Annotations, annotations)
       || staleAnnotations.length > 0
-      || (expected.provider && refreshed.ProviderType !== expected.provider)
+      || (expected.provider && current.ProviderType !== expected.provider)
     ) {
       cub([
         "unit", "update", "--patch", "--space", expected.space,
@@ -3116,7 +3676,6 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
     }
   }
 
-  const current = readUnit(expected.space, expected.slug);
   if (expected.target) {
     const targetEntity = readTarget(expected.target.split("/")[0]);
     check(targetEntity?.TargetID, `${expected.target}: target is missing`);
@@ -3131,7 +3690,7 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
     state.changedSpaces.add(expected.space);
   }
 
-  if (expected.prodProtected) ensureUnitProtection(expected.space, expected.slug, state);
+  if (expected.prodProtected) ensureUnitProtection(expected.space, expected.slug, state, current);
 }
 
 function upsertScenarioUnitAtomically(expected, inputs, payloadFiles, state, payloadKey) {
@@ -3189,11 +3748,43 @@ function upsertScenarioUnitAtomically(expected, inputs, payloadFiles, state, pay
 function sameUnitData(toolchain, actual, expected) {
   if (toolchain === "Kubernetes/YAML") return canonicalDocuments(actual) === canonicalDocuments(expected);
   if (toolchain === "AppConfig/JSON") return stableJson(JSON.parse(actual)) === stableJson(JSON.parse(expected));
-  return stableJson(readYamlText(actual)) === stableJson(readYamlText(expected));
+  return canonicalYamlDocument(actual) === canonicalYamlDocument(expected);
 }
 
 function canonicalDocuments(text) {
-  return stableJson(parseDocs(text).sort((left, right) => identityFor(left).localeCompare(identityFor(right))));
+  return memoizedCanonicalYaml("documents", text, () => (
+    parseDocs(text).sort((left, right) => identityFor(left).localeCompare(identityFor(right)))
+  ));
+}
+
+function canonicalYamlDocument(text) {
+  return memoizedCanonicalYaml("document", text, () => readYamlText(text));
+}
+
+function memoizedCanonicalYaml(kind, text, parse) {
+  canonicalYamlPerformance.requests += 1;
+  const digest = sha256(text);
+  const key = `${kind}/${digest}`;
+  const signature = {
+    length: text.length,
+    head: text.slice(0, 64),
+    tail: text.slice(-64),
+  };
+  const cached = canonicalYamlCache.get(key);
+  if (cached) {
+    check(
+      stableJson(cached.signature) === stableJson(signature),
+      `canonical YAML cache collision for ${kind}/${digest}`,
+    );
+    canonicalYamlPerformance.hits += 1;
+    return cached.value;
+  }
+  canonicalYamlPerformance.misses += 1;
+  const startedAt = performance.now();
+  const value = stableJson(parse());
+  canonicalYamlPerformance.parseMs += performance.now() - startedAt;
+  canonicalYamlCache.set(key, { signature, value });
+  return value;
 }
 
 function gateEnabled(value, name) {
@@ -3201,8 +3792,9 @@ function gateEnabled(value, name) {
   return value?.[name] === true;
 }
 
-function ensureUnitProtection(space, slug, state) {
-  const unit = readUnit(space, slug);
+function ensureUnitProtection(space, slug, state, observedUnit = null) {
+  const unit = observedUnit ?? readUnit(space, slug);
+  check(unit, `${space}/${slug}: Unit is missing before protection reconciliation`);
   if (gateEnabled(unit.DeleteGates, PROD_SAFETY_GATE) && gateEnabled(unit.DestroyGates, PROD_SAFETY_GATE)) return;
   cub([
     "unit", "update", "--patch", "--space", space, slug,
@@ -3224,7 +3816,10 @@ function ensureArgoApplication(deployment, state, { assertOnly = false } = {}) {
   check(existing.TargetID === targetEntity.TargetID, `${deployment.appSpace}/${deployment.appUnit}: target is not ${deployment.cluster}/target`);
   const fleetItem = FLEET.find((item) => item.cluster === deployment.cluster);
   check(fleetItem, `${deployment.cluster}: fleet identity is missing`);
-  reconcileApplicationUnitLabels(plan, fleetItem, deployment.appUnit, state, { assertOnly });
+  reconcileApplicationUnitLabels(plan, fleetItem, deployment.appUnit, state, {
+    assertOnly,
+    observedUnit: existing,
+  });
   const currentData = cub(["unit", "data", "--space", deployment.appSpace, deployment.appUnit]);
   const docs = parseDocs(currentData);
   check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one Argo Application`);
@@ -3475,6 +4070,78 @@ function validatedNamespaceMoveJournalAttempt() {
   );
   check(Number.isFinite(Date.parse(item.preparedAt ?? "")), "operation journal namespace-move preparedAt is invalid");
   return item;
+}
+
+function protectedNamespaceContract(migrationID) {
+  const contract = PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.find(
+    (item) => item.migrationID === migrationID,
+  );
+  check(contract, `unknown protected Namespace ownership migration ${migrationID}`);
+  return contract;
+}
+
+function assertProtectedNamespaceCurrentObservation(item, contract, prefix = "protected Namespace current observation") {
+  check(item?.migrationID === contract.migrationID, `${prefix}: migration identity drifted`);
+  check(item.cluster === contract.cluster, `${prefix}: cluster drifted`);
+  check(item.application === `${contract.cluster}/${contract.application}`, `${prefix}: Application drifted`);
+  check(item.namespace === contract.retainedNamespace, `${prefix}: retained Namespace drifted`);
+  check(item.replacementNamespace === contract.replacementNamespace, `${prefix}: replacement Namespace drifted`);
+  check(item.sourceUnit === `${contract.spaceSlug}/${contract.unitSlug}`, `${prefix}: source Unit drifted`);
+  check(UUID_PATTERN.test(item.uid ?? ""), `${prefix}: retained Namespace UID is invalid`);
+  check(UUID_PATTERN.test(item.replacementUID ?? ""), `${prefix}: replacement Namespace UID is invalid`);
+  check(item.state === "retained-clean", `${prefix}: retained Namespace state is not clean`);
+  check(item.phase === "Active", `${prefix}: retained Namespace is not Active`);
+  check(item.ownershipFieldsAbsent === true, `${prefix}: obsolete ownership fields remain`);
+  check(item.replacementTrackingID === contract.replacementTrackingID, `${prefix}: replacement tracking identity drifted`);
+  check(
+    Number.isInteger(item.replacementOriginRevision)
+      && item.replacementOriginRevision > contract.legacyOriginRevision,
+    `${prefix}: replacement origin revision is not newer than the legacy origin`,
+  );
+  check(Number.isFinite(Date.parse(item.observedAt ?? "")), `${prefix}: observedAt is invalid`);
+}
+
+function validatedPriorProtectedNamespaceEvidence() {
+  const receipt = readPriorReceipt();
+  if (!receipt) return [];
+  const trusted = receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt"
+    && receipt.spec?.organization?.name === ORGANIZATION
+    && receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID
+    && receipt.spec?.organization?.entityID === ORGANIZATION_ENTITY_ID
+    && receipt.spec?.organization?.serverURL === CONFIGHUB_SERVER_URL;
+  if (!trusted) return [];
+  const rows = receipt.spec?.protectedNamespaceOwnershipDetachments ?? [];
+  check(
+    rows.length <= PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
+    "prior receipt retains too many protected Namespace ownership detachments",
+  );
+  check(new Set(rows.map((item) => item.migrationID)).size === rows.length, "prior receipt duplicates a protected Namespace ownership migration");
+  for (const item of rows) {
+    assertProtectedNamespaceDetachmentEvidence(
+      item,
+      protectedNamespaceContract(item.migrationID),
+    );
+  }
+  return rows;
+}
+
+function validatedProtectedNamespaceJournalAttempts() {
+  const rows = Object.entries(readOperationJournal().protectedNamespaceDetachments ?? {})
+    .map(([migrationID, item]) => {
+      check(item?.migrationID === migrationID, `${migrationID}: protected Namespace journal key drifted`);
+      assertProtectedNamespaceDetachmentEvidence(
+        item,
+        protectedNamespaceContract(migrationID),
+        { requireComplete: false },
+      );
+      return item;
+    })
+    .sort((left, right) => left.migrationID.localeCompare(right.migrationID));
+  check(
+    rows.length <= PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
+    "operation journal retains too many protected Namespace ownership attempts",
+  );
+  return rows;
 }
 
 function validatedScenarioJournal() {
@@ -5017,14 +5684,33 @@ function approvalCount(value) {
 }
 
 function deployOne(deployment, state, { sourcePayloadKeys = {} } = {}) {
-  ensureArgoApplication(deployment, state);
-  // Always cross the exact release boundary, even when the latest release is
-  // reusable. That prevents an out-of-band published revision from becoming
-  // Argo's input merely because no local Unit head is currently unreleased.
-  publishDeliveryRoot(deployment, state);
+  ensureDeliveryRootPublished(deployment, state);
   if (deployment.space.includes("prod-")) approveOutstanding(deployment.space, state);
   const release = publishRelease(deployment.space, state, { sourcePayloadKeys });
+  if (state.performancePhases.length === 0) {
+    state.performancePhases.push(
+      performancePhaseEvidence("apply-start-to-first-argo-convergence", state.performancePhaseStart),
+    );
+  }
   convergeDeploymentApplication(deployment, state, releaseManifestDigest(release));
+}
+
+function ensureDeliveryRootPublished(deployment, state) {
+  if (state.deliveryRootReleases.has(deployment.cluster)) return;
+  const release = publishDeliveryRoot(deployment, state);
+  state.deliveryRootReleases.set(deployment.cluster, validatedPublishedRelease(
+    deployment.appSpace,
+    release,
+    "cluster delivery-root release",
+  ));
+}
+
+function assertPublishedDeliveryRootsRemainCurrent(state) {
+  for (const fleetItem of FLEET) {
+    const appSpace = `${fleetItem.cluster}-argo-apps`;
+    check(state.deliveryRootReleases.has(fleetItem.cluster), `${fleetItem.cluster}: delivery-root release evidence is missing`);
+    check(!spaceHasUnreleasedHeads(appSpace), `${appSpace}: Application metadata changed after the one cluster-root publication`);
+  }
 }
 
 function publishDeliveryRoot(deployment, state) {
@@ -5543,6 +6229,226 @@ function pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevi
   return changed;
 }
 
+function writeProtectedNamespaceAttempt(item) {
+  updateOperationJournal((journal) => {
+    journal.protectedNamespaceDetachments ??= {};
+    const existing = journal.protectedNamespaceDetachments[item.migrationID];
+    check(
+      !existing || existing.uid === item.uid,
+      `${item.migrationID}: refusing to replace a different protected Namespace UID`,
+    );
+    journal.protectedNamespaceDetachments[item.migrationID] = item;
+  });
+}
+
+function protectedNamespacePayloadContract(deployment, contract) {
+  const unit = plan.managedUnits.find(
+    (item) => item.space === deployment.space && item.slug === contract.unitSlug,
+  );
+  check(unit?.payloadKey, `${contract.migrationID}: deployment payload Unit is missing`);
+  const payload = inputs.payloads.get(unit.payloadKey);
+  check(payload, `${contract.migrationID}: deployment payload ${unit.payloadKey} is missing`);
+  const namespaces = parseDocs(payload.value).filter((doc) => doc.apiVersion === "v1" && doc.kind === "Namespace");
+  check(
+    !namespaces.some((doc) => doc.metadata?.name === contract.retainedNamespace),
+    `${contract.migrationID}: current payload still contains protected Namespace/${contract.retainedNamespace}`,
+  );
+  check(
+    namespaces.filter((doc) => doc.metadata?.name === contract.replacementNamespace).length === 1,
+    `${contract.migrationID}: current payload does not contain exactly one Namespace/${contract.replacementNamespace}`,
+  );
+}
+
+function readProtectedNamespace(cluster, name) {
+  const result = kubectlTry(cluster, ["get", "namespace", name, "-o", "json"]);
+  if (!result.ok && kubernetesResourceNotFound(result.output)) return null;
+  check(result.ok, `${cluster}: failed to inspect protected Namespace/${name}`);
+  return JSON.parse(result.output);
+}
+
+function protectedNamespaceArgoStatus(app, name) {
+  return (app.status?.resources ?? []).find(
+    (item) => !item.group && item.kind === "Namespace" && item.name === name,
+  ) ?? null;
+}
+
+function retainProtectedNamespaceEvidence(state, item) {
+  state.protectedNamespaceAttempts.set(item.migrationID, { ...item, source: "journal" });
+  const index = state.protectedNamespaceEvidence.findIndex(
+    (existing) => existing.migrationID === item.migrationID,
+  );
+  if (index >= 0) state.protectedNamespaceEvidence[index] = item;
+  else state.protectedNamespaceEvidence.push(item);
+}
+
+function completeProtectedNamespaceDetachment(state, attempt, retained, replacement, outcome) {
+  const completed = {
+    ...attempt,
+    state: "observed-detached",
+    outcome,
+    evidenceScope: "historical-migration-event",
+    resourceVersionAfter: retained.metadata.resourceVersion,
+    replacementResourceVersionObserved: replacement.metadata.resourceVersion,
+    observedDetachedAt: new Date().toISOString(),
+  };
+  delete completed.source;
+  writeProtectedNamespaceAttempt(completed);
+  retainProtectedNamespaceEvidence(state, completed);
+  return completed;
+}
+
+function detachDeclaredProtectedNamespaceOwnership(deployment, state, app, expectedRevision) {
+  if (!deployment.protectedNamespaceOwnershipDetachment) return false;
+  const contract = protectedNamespaceContract(deployment.protectedNamespaceOwnershipDetachment);
+  check(
+    contract.cluster === deployment.cluster && contract.application === deployment.space,
+    `${contract.migrationID}: protected Namespace contract does not match the deployment`,
+  );
+  if (
+    app.status?.sync?.revision !== expectedRevision
+      || !activeOperationMatchesExpectedRevision(app, expectedRevision)
+  ) return false;
+
+  protectedNamespacePayloadContract(deployment, contract);
+  const replacementStatus = protectedNamespaceArgoStatus(app, contract.replacementNamespace);
+  if (!replacementStatus || replacementStatus.requiresPruning === true || replacementStatus.status !== "Synced") {
+    return false;
+  }
+  const retained = readProtectedNamespace(deployment.cluster, contract.retainedNamespace);
+  const replacement = readProtectedNamespace(deployment.cluster, contract.replacementNamespace);
+  check(retained, `${contract.migrationID}: protected Namespace/${contract.retainedNamespace} is missing`);
+  if (!replacement) return false;
+  const classification = classifyProtectedNamespaceOwnership(contract, retained, replacement);
+  const prior = state.protectedNamespaceAttempts.get(contract.migrationID);
+
+  if (prior?.state === "observed-detached") {
+    validateProtectedNamespaceDetached(contract, prior.uid, retained, replacement);
+    return false;
+  }
+
+  if (classification.state === "already-detached") {
+    if (prior) {
+      check(
+        prior.source === "journal" && ["prepared", "patch-returned"].includes(prior.state),
+        `${contract.migrationID}: incomplete ownership attempt has an invalid source or state`,
+      );
+      check(prior.uid === retained.metadata.uid, `${contract.migrationID}: retained Namespace UID changed during recovery`);
+      check(prior.expectedRevision === expectedRevision, `${contract.migrationID}: recovery OCI revision drifted`);
+    }
+    const now = new Date().toISOString();
+    const attempt = prior ?? {
+      migrationID: contract.migrationID,
+      cluster: contract.cluster,
+      application: `${contract.cluster}/${contract.application}`,
+      namespace: contract.retainedNamespace,
+      replacementNamespace: contract.replacementNamespace,
+      uid: retained.metadata.uid,
+      replacementUID: replacement.metadata.uid,
+      resourceVersionObserved: retained.metadata.resourceVersion,
+      expectedRevision,
+      state: "prepared",
+      preparedAt: now,
+    };
+    const outcome = prior ? "detached-by-reconciler" : "already-detached";
+    const completed = completeProtectedNamespaceDetachment(
+      state,
+      attempt,
+      retained,
+      replacement,
+      outcome,
+    );
+    recordAction(
+      state,
+      prior ? "protected-namespace-detach-recovery" : "protected-namespace-already-detached",
+      `${contract.cluster}/Namespace/${contract.retainedNamespace}`,
+      `${contract.migrationID}; uid=${completed.uid}; outcome=${outcome}`,
+    );
+    return true;
+  }
+
+  const staleStatus = protectedNamespaceArgoStatus(app, contract.retainedNamespace);
+  if (!staleStatus?.requiresPruning) return false;
+  let attempt = prior;
+  if (attempt) {
+    check(attempt.source === "journal", `${contract.migrationID}: incomplete ownership attempt is not journal-owned`);
+    check(attempt.uid === retained.metadata.uid, `${contract.migrationID}: retained Namespace UID changed before patch`);
+    check(attempt.expectedRevision === expectedRevision, `${contract.migrationID}: prepared OCI revision drifted`);
+    check(
+      attempt.resourceVersionObserved === retained.metadata.resourceVersion,
+      `${contract.migrationID}: protected Namespace resourceVersion changed before guarded patch`,
+    );
+    check(attempt.state === "prepared", `${contract.migrationID}: patch-returned state still has legacy ownership fields`);
+  } else {
+    attempt = {
+      migrationID: contract.migrationID,
+      cluster: contract.cluster,
+      application: `${contract.cluster}/${contract.application}`,
+      namespace: contract.retainedNamespace,
+      replacementNamespace: contract.replacementNamespace,
+      uid: retained.metadata.uid,
+      replacementUID: replacement.metadata.uid,
+      resourceVersionObserved: retained.metadata.resourceVersion,
+      expectedRevision,
+      state: "prepared",
+      preparedAt: new Date().toISOString(),
+      legacyTrackingID: contract.legacyTrackingID,
+      legacyOrigin: classification.legacyOrigin,
+    };
+    writeProtectedNamespaceAttempt(attempt);
+    state.protectedNamespaceAttempts.set(contract.migrationID, { ...attempt, source: "journal" });
+  }
+
+  const patched = kubectlTry(deployment.cluster, [
+    "patch", "namespace", contract.retainedNamespace,
+    "--type=json",
+    "-p", JSON.stringify(protectedNamespaceDetachPatch(contract, classification)),
+  ]);
+  if (!patched.ok && retryableKubernetesCompareAndSet(patched.output)) {
+    const current = readProtectedNamespace(deployment.cluster, contract.retainedNamespace);
+    check(current, `${contract.migrationID}: protected Namespace disappeared during patch recovery`);
+    const recovered = validateProtectedNamespaceDetached(contract, attempt.uid, current, replacement);
+    const completed = completeProtectedNamespaceDetachment(
+      state,
+      attempt,
+      current,
+      replacement,
+      "detached-by-reconciler",
+    );
+    recordAction(
+      state,
+      "protected-namespace-detach-recovery",
+      `${contract.cluster}/Namespace/${contract.retainedNamespace}`,
+      `${contract.migrationID}; uid=${completed.uid}; resourceVersion=${recovered.retainedResourceVersion}`,
+    );
+    return true;
+  }
+  check(patched.ok, `${contract.migrationID}: guarded protected Namespace ownership patch failed: ${patched.output}`);
+  attempt = {
+    ...attempt,
+    state: "patch-returned",
+    patchReturnedAt: new Date().toISOString(),
+  };
+  writeProtectedNamespaceAttempt(attempt);
+  state.protectedNamespaceAttempts.set(contract.migrationID, { ...attempt, source: "journal" });
+  const current = readProtectedNamespace(deployment.cluster, contract.retainedNamespace);
+  check(current, `${contract.migrationID}: protected Namespace disappeared after patch`);
+  validateProtectedNamespaceDetached(contract, attempt.uid, current, replacement);
+  const completed = completeProtectedNamespaceDetachment(
+    state,
+    attempt,
+    current,
+    replacement,
+    "detached-by-reconciler",
+  );
+  recordAction(
+    state,
+    "protected-namespace-ownership-detach",
+    `${contract.cluster}/Namespace/${contract.retainedNamespace}`,
+    `${contract.migrationID}; uid=${completed.uid}; four reviewed metadata fields removed; Namespace retained`,
+  );
+  return true;
+}
+
 function convergeDeploymentApplication(deployment, state, expectedRevision) {
   check(deployment, "internal error: deployment definition missing during Argo convergence");
   check(/^sha256:[0-9a-f]{64}$/.test(expectedRevision), `${deployment.space}: invalid expected ConfigHub revision ${expectedRevision}`);
@@ -5558,6 +6464,11 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
     let app = firstApp ?? readLiveArgoApplication(deployment);
     firstApp = null;
     assertArgoApplicationContract(app, deployment);
+    if (detachDeclaredProtectedNamespaceOwnership(deployment, state, app, expectedRevision)) {
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+      app = readLiveArgoApplication(deployment);
+      assertArgoApplicationContract(app, deployment);
+    }
     if (pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevision)) {
       command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
       app = readLiveArgoApplication(deployment);
@@ -6148,6 +7059,24 @@ function selfTestArgoConvergence() {
         executionFingerprint: fingerprintA,
         convergence: {},
         namespaceMove: null,
+        protectedNamespaceDetachments: { one: { state: "prepared" } },
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        protectedNamespaceDetachments: { one: { state: "patch-returned" } },
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        protectedNamespaceDetachments: { one: { state: "observed-detached" } },
+      }, fingerprintB) === "rotate"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
         scenario: { state: "started" },
       }, fingerprintB) === "blocked"
       && operationJournalFingerprintDisposition({
@@ -6406,6 +7335,10 @@ function releaseManifestDigest(release) {
 }
 
 function latestRelease(space) {
+  if (activeVerificationReadSnapshot) {
+    activeVerificationReadSnapshot.evidenceByResource.get("release").servedReads += 1;
+    return activeVerificationReadSnapshot.releasesBySpace.get(space)?.[0] ?? null;
+  }
   const rows = unwrapRows(cubJson([
     "release", "list", "--space", space,
     "--where", "Published = true",
@@ -6560,6 +7493,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   assertKubaraOrganization();
   const findings = [];
   const spaces = readSpaces();
+  beginVerificationReadSnapshot(spaces);
   const controlSpace = unwrapEntity(cubJson(["space", "get", CONTROL_SPACE]), "Space");
   check(controlSpace.OrganizationID === ORGANIZATION_ENTITY_ID, `${CONTROL_SPACE}: organization entity ID drifted from the pinned Kubara org`);
   assertSpaceAllowlist(spaces, desired, { requireAll: true });
@@ -6756,6 +7690,9 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     });
   }
 
+  const protectedNamespaces = observeProtectedNamespacePostconditions(findings);
+  const kindTraefik = observeKindTraefikLive(findings);
+
   let scenario = [];
   try {
     for (const slug of ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)]) {
@@ -6772,6 +7709,12 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     if (row.readiness?.result === "fail") findings.push(`matrix ${row.cluster}/${row.component}: workloads not ready`);
   }
 
+  const bulkSnapshots = finishVerificationReadSnapshot(spaces);
+  const measuredPerformance = performanceEvidence(
+    `${mode === "--apply" ? "apply" : "verify"}-process-through-live-verification`,
+    bulkSnapshots,
+  );
+  measuredPerformance.phases = state?.performancePhases ?? [];
   check(findings.length === 0, `Kubara mini-IDP verification failed:\n- ${findings.join("\n- ")}`);
   return {
     organizationID: controlSpace.OrganizationID,
@@ -6782,10 +7725,13 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     policy,
     releases,
     applications,
+    protectedNamespaces,
+    kindTraefik,
     deliveryRuntimes,
     scenario,
     secretWiring,
     liveMatrix,
+    performance: measuredPerformance,
     clusters: FLEET.map((item) => ({
       name: item.cluster,
       environment: item.environment,
@@ -6798,6 +7744,95 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     })),
     actionCount: state?.actions.length ?? 0,
   };
+}
+
+function observeProtectedNamespacePostconditions(findings) {
+  const rows = [];
+  const observedAt = new Date().toISOString();
+  for (const contract of PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS) {
+    try {
+      const retained = readProtectedNamespace(contract.cluster, contract.retainedNamespace);
+      const replacement = readProtectedNamespace(contract.cluster, contract.replacementNamespace);
+      check(retained, `${contract.migrationID}: protected Namespace/${contract.retainedNamespace} is missing`);
+      check(replacement, `${contract.migrationID}: replacement Namespace/${contract.replacementNamespace} is missing`);
+      const classification = classifyProtectedNamespaceOwnership(contract, retained, replacement);
+      check(
+        classification.state === "already-detached",
+        `${contract.migrationID}: obsolete Kubara ownership still claims protected Namespace/${contract.retainedNamespace}`,
+      );
+      const row = {
+        migrationID: contract.migrationID,
+        cluster: contract.cluster,
+        application: `${contract.cluster}/${contract.application}`,
+        namespace: contract.retainedNamespace,
+        replacementNamespace: contract.replacementNamespace,
+        sourceUnit: `${contract.spaceSlug}/${contract.unitSlug}`,
+        uid: classification.retainedUID,
+        replacementUID: classification.replacementUID,
+        state: "retained-clean",
+        phase: retained.status?.phase,
+        ownershipFieldsAbsent: true,
+        replacementTrackingID: contract.replacementTrackingID,
+        replacementOriginRevision: classification.replacementOrigin.revisionNum,
+        observedAt,
+      };
+      assertProtectedNamespaceCurrentObservation(
+        row,
+        contract,
+        `${contract.migrationID}: live protected Namespace postcondition`,
+      );
+      rows.push(row);
+    } catch (error) {
+      findings.push(error.message);
+    }
+  }
+  return rows;
+}
+
+function observeKindTraefikLive(findings) {
+  let dockerByCluster = new Map();
+  try {
+    dockerByCluster = new Map(
+      observeKindTraefikDockerBindings().map((item) => [item.cluster, item]),
+    );
+  } catch (error) {
+    findings.push(error.message);
+  }
+  const rows = [];
+  const observedAt = new Date().toISOString();
+  for (const contract of KIND_TRAEFIK_CONTRACTS) {
+    try {
+      const result = kubectlTry(contract.cluster, [
+        "get",
+        "service,deployment,ingress.networking.k8s.io,certificate.cert-manager.io",
+        "-A", "-o", "json",
+      ]);
+      check(result.ok, `${contract.cluster}: cannot read the live Traefik/application endpoint contract: ${result.output}`);
+      const evidence = assertKindTraefikLiveObjects(contract, JSON.parse(result.output));
+      const docker = dockerByCluster.get(contract.cluster);
+      check(docker, `${contract.cluster}: Docker NodePort evidence is missing`);
+      const probes = evidence.applications.map((application) => {
+        const host = `${application.id}.local`;
+        const url = `http://127.0.0.1:${contract.httpNodePort}/`;
+        const probe = tryCommand("curl", [
+          "--noproxy", "*",
+          "--silent", "--show-error", "--fail",
+          "--connect-timeout", "3", "--max-time", "15",
+          "--output", "/dev/null", "--write-out", "%{http_code}",
+          "--header", `Host: ${host}`,
+          url,
+        ], { timeout: 20_000 });
+        check(probe.ok, `${contract.cluster}/${application.id}: NodePort probe failed: ${probe.output}`);
+        const statusCode = probe.output.trim();
+        check(statusCode === "200", `${contract.cluster}/${application.id}: NodePort probe returned HTTP ${statusCode || "unknown"}`);
+        return { application: application.id, hostHeader: host, url, statusCode: 200 };
+      });
+      rows.push({ ...evidence, docker, probes, observedAt });
+    } catch (error) {
+      findings.push(error.message);
+    }
+  }
+  return rows;
 }
 
 function observeGrafanaSecretWiring(findings) {
@@ -6958,7 +7993,7 @@ function observeLiveMatrix(inputs, desired, applicationRows) {
     matrixComponent("homer-dashboard", EXPECTED_VERSIONS["homer-dashboard"], [DEV], ["hx-homer"], { releaseInstance: "homer-dashboard" }),
     matrixComponent("kube-prometheus-stack", `${EXPECTED_VERSIONS["kube-prometheus-stack"]} + blackbox ${EXPECTED_VERSIONS["prometheus-blackbox-exporter"]}`, [DEV], ["hx-kps-crds", "hx-eso-grafana-es", "hx-kps-main"], { releaseInstance: "kube-prometheus-stack", departure: "crds-and-eso-secret-wiring-are-explicit-spaces" }),
     matrixComponent("metrics-server", EXPECTED_VERSIONS["metrics-server"], [DEV], ["hx-metrics"], { releaseInstance: "metrics-server" }),
-    matrixComponent("traefik", EXPECTED_VERSIONS.traefik, FLEET, ["hx-traefik"], { releaseInstance: "traefik", departure: "kind-loadbalancer-may-remain-progressing" }),
+    matrixComponent("traefik", EXPECTED_VERSIONS.traefik, FLEET, ["hx-traefik"], { releaseInstance: "traefik", departure: "kind-nodeport-with-configured-ingress-status" }),
     matrixComponent("hx-web", "digest-pinned fixture", FLEET, ["hx-web"], { namespace: "hx-web", departureFor: (item) => item.suffix === "staging" ? "staging-sandbox-url" : item.suffix === "prod-a" ? "one-target-rollback-replicas-2" : "none" }),
     matrixComponent("cubbychat", readYaml(absolute(paths.appSourceLock)).spec?.cubbychat?.upstream?.commit ?? "digest-pinned fixture", FLEET, ["hx-cubbychat"], { namespace: "cubbychat" }),
   ];
@@ -7114,7 +8149,7 @@ function departureReason(id) {
     "kind-self-signed-cluster-issuer": "The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME.",
     "kind-fake-provider-target-fact": "The demo uses ESO's fake provider; production must select a real backend without changing the wiring contract.",
     "crds-and-eso-secret-wiring-are-explicit-spaces": "CRD lifecycle and Grafana secret production are separately governed and visibly linked.",
-    "kind-loadbalancer-may-remain-progressing": "The Traefik LoadBalancer has no cloud load balancer on kind; workload readiness is evaluated separately.",
+    "kind-nodeport-with-configured-ingress-status": "The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller.",
     "staging-sandbox-url": "Staging keeps its SANDBOX_URL departure through the second upstream promotion.",
     "one-target-rollback-replicas-2": "prod-a is intentionally rolled back to two replicas while prod-b remains at three.",
   }[id] ?? id;
@@ -7145,7 +8180,68 @@ function priorReceiptMatchesCurrentExecution(previous, currentSourceEvidence, ob
     && previousSpaces.size === observation.spaces.length;
 }
 
+function assertKindTraefikEvidence(rows, prefix = "kind Traefik evidence") {
+  check(rows.length === KIND_TRAEFIK_CONTRACTS.length, `${prefix}: four-cluster evidence is incomplete`);
+  const byCluster = new Map(rows.map((item) => [item.cluster, item]));
+  check(byCluster.size === rows.length, `${prefix}: cluster rows are duplicated`);
+  for (const contract of KIND_TRAEFIK_CONTRACTS) {
+    const row = byCluster.get(contract.cluster);
+    check(row, `${prefix}: ${contract.cluster} row is missing`);
+    check(row.hostname === contract.hostname, `${prefix}: ${contract.cluster} hostname drifted`);
+    check(row.httpNodePort === contract.httpNodePort, `${prefix}: ${contract.cluster} HTTP NodePort drifted`);
+    check(row.httpsNodePort === contract.httpsNodePort, `${prefix}: ${contract.cluster} HTTPS NodePort drifted`);
+    check(row.service?.namespace === contract.namespace && row.service?.name === contract.serviceName, `${prefix}: ${contract.cluster} Service identity drifted`);
+    check(row.service?.type === "NodePort", `${prefix}: ${contract.cluster} Service type drifted`);
+    check(UUID_PATTERN.test(row.service?.uid ?? ""), `${prefix}: ${contract.cluster} Service UID is invalid`);
+    check(typeof row.service?.clusterIP === "string" && row.service.clusterIP.length > 0, `${prefix}: ${contract.cluster} Service clusterIP is missing`);
+    check(stableJson(row.service?.ports) === stableJson(contract.ports), `${prefix}: ${contract.cluster} Service ports drifted`);
+    check(stableJson(row.service?.loadBalancerIngress) === "[]", `${prefix}: ${contract.cluster} stale LoadBalancer status remains`);
+    check(row.deployment?.namespace === contract.namespace && row.deployment?.name === contract.deploymentName, `${prefix}: ${contract.cluster} Deployment identity drifted`);
+    check(UUID_PATTERN.test(row.deployment?.uid ?? ""), `${prefix}: ${contract.cluster} Deployment UID is invalid`);
+    check(row.deployment?.endpointArgument === contract.endpointArgument, `${prefix}: ${contract.cluster} endpoint argument drifted`);
+    check(stableJson(row.deployment?.publishedServiceArguments) === "[]", `${prefix}: ${contract.cluster} publishedService remains`);
+    const applications = new Map((row.applications ?? []).map((item) => [item.id, item]));
+    check(applications.size === contract.applications.length, `${prefix}: ${contract.cluster} application endpoint evidence is incomplete`);
+    for (const expected of contract.applications) {
+      const application = applications.get(expected.id);
+      check(application, `${prefix}: ${contract.cluster}/${expected.id} evidence is missing`);
+      check(application.ingress?.hostname === contract.hostname, `${prefix}: ${contract.cluster}/${expected.id} Ingress status hostname drifted`);
+      check(UUID_PATTERN.test(application.ingress?.uid ?? ""), `${prefix}: ${contract.cluster}/${expected.id} Ingress UID is invalid`);
+      check(application.certificate?.ready === true, `${prefix}: ${contract.cluster}/${expected.id} Certificate is not Ready`);
+      check(UUID_PATTERN.test(application.certificate?.uid ?? ""), `${prefix}: ${contract.cluster}/${expected.id} Certificate UID is invalid`);
+    }
+    check(
+      stableJson(row.docker?.ports?.map((item) => [item.containerPort, item.hostPort]))
+        === stableJson([[contract.httpNodePort, contract.httpNodePort], [contract.httpsNodePort, contract.httpsNodePort]]),
+      `${prefix}: ${contract.cluster} Docker port bindings drifted`,
+    );
+    check(row.docker?.node === `${contract.cluster}-control-plane`, `${prefix}: ${contract.cluster} Docker node identity drifted`);
+    check(
+      row.docker.ports.every((item) => ["0.0.0.0", "127.0.0.1"].includes(item.hostIP)),
+      `${prefix}: ${contract.cluster} Docker host binding is not reachable through loopback`,
+    );
+    const probes = new Map((row.probes ?? []).map((item) => [item.application, item]));
+    check(probes.size === contract.applications.length, `${prefix}: ${contract.cluster} application probes are incomplete`);
+    for (const expected of contract.applications) {
+      const probe = probes.get(expected.id);
+      check(
+        probe?.hostHeader === `${expected.id}.local`
+          && probe.url === `http://127.0.0.1:${contract.httpNodePort}/`
+          && probe.statusCode === 200,
+        `${prefix}: ${contract.cluster}/${expected.id} probe drifted`,
+      );
+    }
+    check(Number.isFinite(Date.parse(row.observedAt ?? "")), `${prefix}: ${contract.cluster} observedAt is invalid`);
+  }
+}
+
 function buildReceipt(inputs, desired, observation, state) {
+  assertPerformanceEvidence(observation.performance, "live verification performance evidence");
+  check(
+    observation.performance.phases.length === 1,
+    "live apply performance evidence must include the exact pre-Argo phase",
+  );
+  assertKindTraefikEvidence(observation.kindTraefik, "live kind Traefik evidence");
   const previous = readPriorReceipt();
   const currentSourceEvidence = sourceEvidence();
   const trustedPrevious = priorReceiptMatchesCurrentExecution(previous, currentSourceEvidence, observation);
@@ -7232,6 +8328,24 @@ function buildReceipt(inputs, desired, observation, state) {
     namespaceMoveEvidence.push(item);
   }
   check(namespaceMoveEvidence.length <= 1, "more than one namespace-move DaemonSet prune was retained");
+  const protectedNamespaceEvidenceByMigration = new Map();
+  for (const item of state.protectedNamespaceEvidence) {
+    const prior = protectedNamespaceEvidenceByMigration.get(item.migrationID);
+    check(
+      !prior || prior.uid === item.uid,
+      `${item.migrationID}: retained protected Namespace evidence disagrees on the Namespace UID`,
+    );
+    protectedNamespaceEvidenceByMigration.set(item.migrationID, item);
+  }
+  const protectedNamespaceEvidence = PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.map((contract) => {
+    const item = protectedNamespaceEvidenceByMigration.get(contract.migrationID);
+    check(item, `${contract.migrationID}: completed ownership-detachment evidence is missing`);
+    assertProtectedNamespaceDetachmentEvidence(item, contract);
+    const current = observation.protectedNamespaces.find((row) => row.migrationID === contract.migrationID);
+    check(current, `${contract.migrationID}: current protected Namespace postcondition is missing`);
+    check(current.uid === item.uid, `${contract.migrationID}: retained Namespace UID changed after ownership detachment`);
+    return item;
+  });
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "ConfigHubKubaraMiniIDPReconcileReceipt",
@@ -7264,13 +8378,17 @@ function buildReceipt(inputs, desired, observation, state) {
         interruptedScenarioPolicy: INTERRUPTED_SCENARIO_POLICY,
         interruptedReleasePolicy: INTERRUPTED_RELEASE_POLICY,
         publishedReleaseSelectionPolicy: PUBLISHED_RELEASE_SELECTION_POLICY,
+        deliveryRootPublicationPolicy: DELIVERY_ROOT_PUBLICATION_POLICY,
         receiptRequiresZeroActionRerun: true,
+        performance: observation.performance,
         cub: cachedCubVersions,
         delivery: `ConfigHub variant/OCI -> ConfigHub cluster-bootstrap Argo CD ${ARGO_CD_RUNTIME_VERSION}/argobot`,
         argoApplicationContract: "allowlisted ConfigHub OCI source -> cluster-local API + Kubara destination namespace",
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         argoNamespaceMovePolicy: ARGO_NAMESPACE_MOVE_POLICY,
+        protectedNamespaceOwnershipPolicy: PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
+        kindTraefikPolicy: KIND_TRAEFIK_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
         guiIdentityPolicy: GUI_IDENTITY_POLICY,
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
@@ -7281,6 +8399,8 @@ function buildReceipt(inputs, desired, observation, state) {
         preservedFaithfulControlUnits: observation.preservedControlUnits.length,
         deployments: desired.deployments.length,
         deliveryApplicationUnits: desired.deployments.length + (FLEET.length * 2),
+        protectedNamespaceOwnershipDetachments: protectedNamespaceEvidence.length,
+        kindTraefikContracts: observation.kindTraefik.length,
         releases: observation.releases.length,
         needsProvidesLinks: observation.links.length,
         liveMatrixRows: observation.liveMatrix.rowCount,
@@ -7289,6 +8409,9 @@ function buildReceipt(inputs, desired, observation, state) {
       controls: observation.units.filter((item) => item.ref.startsWith(`${CONTROL_SPACE}/`)),
       preservedControlUnits: observation.preservedControlUnits,
       namespaceMovePrunes: namespaceMoveEvidence,
+      protectedNamespaceOwnershipDetachments: protectedNamespaceEvidence,
+      protectedNamespaceOwnershipCurrent: observation.protectedNamespaces,
+      kindTraefik: observation.kindTraefik,
       spaces: observation.spaces,
       units: observation.units,
       releases: observation.releases,
@@ -7351,7 +8474,6 @@ function buildReceipt(inputs, desired, observation, state) {
         `ConfigHub cluster-bootstrap Argo CD ${ARGO_CD_RUNTIME_VERSION} and argobot replace Kubara's selected Argo chart ${EXPECTED_VERSIONS["argo-cd"]} (runtime ${KUBARA_ARGO_RUNTIME_VERSION}) in the adapted lane; the cluster-local reconciliation shape remains.`,
         "The kind proof uses a self-signed issuer and ESO's fake provider with demo credentials. Production adoption must select public/private PKI and a real secret backend.",
         "cub cluster up rolls back returned failures, but an abrupt process or host termination inside that multi-system command is fail-closed rather than automatically repaired; the reconciler resumes only fully complete journaled cluster prefixes and never deletes a partial persistent cluster.",
-        "Traefik's LoadBalancer may remain Argo Progressing on kind without a cloud load balancer; workload readiness and sync are recorded separately.",
         "The reconciler replays promotion/rollback/departure history only for a clean or unmarked hx-web tree; marked reruns verify and reconcile the deterministic final state.",
       ],
     },
@@ -7433,6 +8555,11 @@ function verifyReceipt(inputs, desired) {
   check(receipt.spec?.execution?.deterministic === true, "mini-IDP receipt must declare deterministic execution");
   check(receipt.spec?.execution?.aiRequired === false, "AI must not be required for mini-IDP reconciliation");
   check(receipt.spec?.execution?.mutationGuardConsulted === false, "mutation guard should remain outside this explicitly authorized reconciler");
+  assertPerformanceEvidence(receipt.spec?.execution?.performance, "mini-IDP receipt performance evidence");
+  check(
+    receipt.spec.execution.performance.phases.length === 1,
+    "mini-IDP receipt must retain the exact apply-start-to-first-Argo-convergence performance phase",
+  );
   check(
     stableJson(receipt.spec?.execution?.destructiveOperations)
       === stableJson([ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY]),
@@ -7440,6 +8567,11 @@ function verifyReceipt(inputs, desired) {
   );
   check(receipt.spec?.execution?.argoPrunePolicy === ARGO_PRUNE_POLICY, "mini-IDP receipt Argo prune policy drifted");
   check(receipt.spec?.execution?.argoNamespaceMovePolicy === ARGO_NAMESPACE_MOVE_POLICY, "mini-IDP receipt Argo namespace-move policy drifted");
+  check(
+    receipt.spec?.execution?.protectedNamespaceOwnershipPolicy === PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
+    "mini-IDP receipt protected Namespace ownership policy drifted",
+  );
+  check(receipt.spec?.execution?.kindTraefikPolicy === KIND_TRAEFIK_POLICY, "mini-IDP receipt kind Traefik policy drifted");
   check(receipt.spec?.execution?.argoRetryPolicy === ARGO_RETRY_POLICY, "mini-IDP receipt Argo retry policy drifted");
   check(receipt.spec?.execution?.argoRevisionPolicy === ARGO_REVISION_POLICY, "mini-IDP receipt Argo revision policy drifted");
   check(receipt.spec?.execution?.guiIdentityPolicy === GUI_IDENTITY_POLICY, "mini-IDP receipt GUI identity policy drifted");
@@ -7468,6 +8600,10 @@ function verifyReceipt(inputs, desired) {
     receipt.spec?.execution?.publishedReleaseSelectionPolicy === PUBLISHED_RELEASE_SELECTION_POLICY,
     "mini-IDP receipt no longer excludes withdrawn releases server-side",
   );
+  check(
+    receipt.spec?.execution?.deliveryRootPublicationPolicy === DELIVERY_ROOT_PUBLICATION_POLICY,
+    "mini-IDP receipt no longer binds one complete delivery-root publication per cluster",
+  );
   check(receipt.spec?.execution?.cub?.minimum === `v${MIN_CUB_VERSION}`, "mini-IDP receipt cub minimum-version contract drifted");
   check(versionAtLeast(String(receipt.spec?.execution?.cub?.client ?? "").replace(/^v/, ""), MIN_CUB_VERSION), "mini-IDP receipt cub client is too old");
   check(versionAtLeast(String(receipt.spec?.execution?.cub?.server ?? "").replace(/^v/, ""), MIN_CUB_VERSION), "mini-IDP receipt ConfigHub server is too old");
@@ -7484,6 +8620,11 @@ function verifyReceipt(inputs, desired) {
     counts.deliveryApplicationUnits === desired.deployments.length + (FLEET.length * 2),
     "receipt delivery Application Unit count drifted",
   );
+  check(
+    counts.protectedNamespaceOwnershipDetachments === PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
+    "receipt protected Namespace ownership-detachment count drifted",
+  );
+  check(counts.kindTraefikContracts === KIND_TRAEFIK_CONTRACTS.length, "receipt kind Traefik contract count drifted");
   check(counts.releases === desired.deployments.length, `receipt has ${counts.releases} releases, expected ${desired.deployments.length}`);
   check(counts.needsProvidesLinks === desired.links.length, `receipt has ${counts.needsProvidesLinks} Links, expected ${desired.links.length}`);
   check(counts.liveMatrixRows === FLEET.length * 9, `receipt live matrix has ${counts.liveMatrixRows} rows, expected ${FLEET.length * 9}`);
@@ -7508,6 +8649,31 @@ function verifyReceipt(inputs, desired) {
   for (const item of namespaceMoveEvidence) {
     assertNamespaceMoveEvidenceRow(item, "receipt namespace-move prune");
   }
+
+  const protectedNamespaceEvidence = receipt.spec?.protectedNamespaceOwnershipDetachments ?? [];
+  const protectedNamespaceCurrent = receipt.spec?.protectedNamespaceOwnershipCurrent ?? [];
+  check(
+    protectedNamespaceEvidence.length === PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
+    "receipt protected Namespace ownership-detachment history is incomplete",
+  );
+  check(
+    protectedNamespaceCurrent.length === PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
+    "receipt protected Namespace current postconditions are incomplete",
+  );
+  const historicalByMigration = new Map(protectedNamespaceEvidence.map((item) => [item.migrationID, item]));
+  const currentByMigration = new Map(protectedNamespaceCurrent.map((item) => [item.migrationID, item]));
+  check(historicalByMigration.size === protectedNamespaceEvidence.length, "receipt duplicates protected Namespace history");
+  check(currentByMigration.size === protectedNamespaceCurrent.length, "receipt duplicates protected Namespace current evidence");
+  for (const contract of PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS) {
+    const historical = historicalByMigration.get(contract.migrationID);
+    const current = currentByMigration.get(contract.migrationID);
+    check(historical, `${contract.migrationID}: receipt ownership-detachment history is missing`);
+    check(current, `${contract.migrationID}: receipt current protected Namespace evidence is missing`);
+    assertProtectedNamespaceDetachmentEvidence(historical, contract);
+    assertProtectedNamespaceCurrentObservation(current, contract, `${contract.migrationID}: receipt current postcondition`);
+    check(current.uid === historical.uid, `${contract.migrationID}: receipt retained Namespace UID changed`);
+  }
+  assertKindTraefikEvidence(receipt.spec?.kindTraefik ?? [], "receipt kind Traefik evidence");
 
   const spaceRows = receipt.spec?.spaces ?? [];
   check(spaceRows.length === desired.spaces.length, "receipt Space rows are incomplete");

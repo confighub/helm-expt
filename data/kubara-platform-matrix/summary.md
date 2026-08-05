@@ -88,6 +88,10 @@ departures.
 | hx-app-prod-b | cert-manager | `examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/cert-manager/values-kind.yaml` |
 | hx-app-dev | homer-dashboard | `examples/kubara/current-platform/source/overrides/hx-app-dev/helm/homer-dashboard/values-project-links.yaml` |
 | hx-app-dev | metrics-server | `examples/kubara/current-platform/source/overrides/hx-app-dev/helm/metrics-server/values-kind.yaml` |
+| hx-app-dev | traefik | `examples/kubara/current-platform/source/overrides/hx-app-dev/helm/traefik/values-kind.yaml` |
+| hx-app-staging | traefik | `examples/kubara/current-platform/source/overrides/hx-app-staging/helm/traefik/values-kind.yaml` |
+| hx-app-prod-a | traefik | `examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/traefik/values-kind.yaml` |
+| hx-app-prod-b | traefik | `examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/traefik/values-kind.yaml` |
 
 ## Commands
 

@@ -158,7 +158,7 @@ spec:
         - "kubara-catalog-full-coverage:verify"
     -
       id: "current-example"
-      outcome: "Kubara v0.13.0 generates the same 131 files from upstream and ConfigHub-aligned catalogs and yields 13 exact effective renders."
+      outcome: "Kubara v0.13.0 generates the same 135 files from upstream and ConfigHub-aligned catalogs and yields 13 exact effective renders, including explicit healthy kind Traefik exposure."
       packageScripts:
         - "kubara-current-example:verify"
         - "kubara-effective-renders:verify"
