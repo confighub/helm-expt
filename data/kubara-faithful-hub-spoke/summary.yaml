@@ -4,7 +4,7 @@ metadata:
   name: "kubara-v0-13-0-faithful-hub-spoke"
 spec:
   receipt: "runs/kubara-faithful-hub-spoke/receipt.yaml"
-  observedAt: "2026-08-04T16:49:06.705Z"
+  observedAt: "2026-08-05T10:07:22.888Z"
   kubaraVersion: "v0.13.0"
   catalogVersion: "1.1.0"
   hub: "hx-app-dev"

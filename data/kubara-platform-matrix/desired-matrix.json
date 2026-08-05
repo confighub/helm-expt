@@ -18,12 +18,14 @@
         "config": "examples/kubara/current-platform/source/config.yaml",
         "sourceLock": "examples/kubara/current-platform/source-lock.yaml",
         "artifacts": "examples/kubara/current-platform/component-artifacts.yaml",
+        "catalogParity": "examples/kubara/current-platform/catalog-parity-receipt.yaml",
         "appSourceLock": "examples/kubara/current-platform/apps/source-lock.yaml",
         "effectiveRenders": "data/kubara-effective-renders/current-platform/receipt.yaml",
         "faithfulReceipt": "not-consumed",
         "miniIdpReceipt": "not-consumed"
       },
       "faithfulReceiptStatus": "not-consumed",
+      "faithfulReceiptReasons": [],
       "miniIdpReceipt": {
         "path": "runs/kubara-mini-idp-reconcile/receipt.yaml",
         "status": "not-consumed-for-desired-artifact",

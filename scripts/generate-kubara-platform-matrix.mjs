@@ -28,6 +28,7 @@ const currentSources = {
   config: join(repoRoot, "examples", "kubara", "current-platform", "source", "config.yaml"),
   sourceLock: join(repoRoot, "examples", "kubara", "current-platform", "source-lock.yaml"),
   artifacts: join(repoRoot, "examples", "kubara", "current-platform", "component-artifacts.yaml"),
+  catalogParity: join(repoRoot, "examples", "kubara", "current-platform", "catalog-parity-receipt.yaml"),
   appSourceLock: join(repoRoot, "examples", "kubara", "current-platform", "apps", "source-lock.yaml"),
   effectiveRenders: join(repoRoot, "data", "kubara-effective-renders", "current-platform", "receipt.yaml"),
   faithfulReceipt: join(repoRoot, "runs", "kubara-faithful-hub-spoke", "receipt.yaml"),
@@ -116,6 +117,7 @@ function buildCurrentReport(options = {}) {
   const artifacts = readYaml(currentSources.artifacts);
   const appSourceLock = readYaml(currentSources.appSourceLock);
   const renderReceipt = readYaml(currentSources.effectiveRenders);
+  const catalogParity = readYaml(currentSources.catalogParity);
   check(config?.clusters?.length === 4, `current Kubara fixture must have four clusters, found ${config?.clusters?.length ?? 0}`);
   check(artifacts?.kind === "KubaraComponentArtifactSet", "current component artifact index has unexpected kind");
   check(renderReceipt?.kind === "KubaraEffectiveRenderReceipt", "current effective-render receipt has unexpected kind");
@@ -123,6 +125,7 @@ function buildCurrentReport(options = {}) {
 
   check(appSourceLock?.kind === "KubaraMiniIDPApplicationSourceLock", "current application source lock has unexpected kind");
   const faithfulReceipt = existsSync(currentSources.faithfulReceipt) ? readYaml(currentSources.faithfulReceipt) : null;
+  const faithfulEvaluation = evaluateFaithfulReceipt(faithfulReceipt, catalogParity);
   const components = currentComponents(artifacts, appSourceLock);
   const clusters = config.clusters.map((cluster) => ({
     name: cluster.name,
@@ -132,7 +135,7 @@ function buildCurrentReport(options = {}) {
   }));
   const renderInstances = new Map((renderReceipt.spec?.instances ?? []).map((instance) => [`${instance.cluster}/${instance.component}`, instance]));
   const desiredEvaluation = receiptEvaluation("not-consumed-for-desired-artifact", "The desired matrix never consumes a live receipt.");
-  const desiredDocument = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: new Map(), receipt: desiredEvaluation, faithfulReceipt, desiredOnly: true });
+  const desiredDocument = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: new Map(), receipt: desiredEvaluation, faithfulEvaluation, desiredOnly: true });
   const desiredJson = `${JSON.stringify(desiredDocument, null, 2)}\n`;
   const miniIdpReceipt = options.miniIdpReceipt !== undefined
     ? options.miniIdpReceipt
@@ -144,7 +147,7 @@ function buildCurrentReport(options = {}) {
     expectedSourcePaths: options.expectedSourcePaths ?? MINI_IDP_SOURCE_PATHS,
   };
   const receipt = validateMiniIdpReceipt(miniIdpReceipt, evaluationOptions);
-  const document = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: receipt.observations, receipt, faithfulReceipt, desiredOnly: false });
+  const document = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: receipt.observations, receipt, faithfulEvaluation, desiredOnly: false });
   return {
     desiredDocument,
     document,
@@ -156,7 +159,28 @@ function buildCurrentReport(options = {}) {
   };
 }
 
-function currentDocument({ config, sourceLock, components, clusters, renderInstances, observations, receipt, faithfulReceipt, desiredOnly }) {
+function evaluateFaithfulReceipt(receipt, catalogParity) {
+  if (!receipt) return { accepted: false, status: "not-present", reasons: ["faithful receipt is not present"] };
+  const reasons = [];
+  const expectedCount = Number(catalogParity?.spec?.comparison?.fileCount ?? 0);
+  const expectedDigest = catalogParity?.spec?.comparison?.outputTreeSha256 ?? null;
+  const currentExample = receipt?.spec?.source?.currentExample ?? {};
+  const remoteGit = receipt?.spec?.source?.git ?? {};
+  if (receipt?.status?.result !== "pass") reasons.push(`receipt result is ${receipt?.status?.result ?? "missing"}`);
+  if (catalogParity?.status?.result !== "pass") reasons.push("current catalog-parity receipt does not pass");
+  if (Number(currentExample.generatedFileCount ?? -1) !== expectedCount) reasons.push(`receipt generated count ${currentExample.generatedFileCount ?? "missing"} does not match current ${expectedCount}`);
+  if (currentExample.generatedSha256 !== expectedDigest) reasons.push("receipt generated digest does not match the current catalog-parity digest");
+  if (Number(remoteGit.generatedFileCount ?? -1) !== expectedCount) reasons.push(`remote-main generated count ${remoteGit.generatedFileCount ?? "missing"} does not match current ${expectedCount}`);
+  if (remoteGit.generatedSha256 !== expectedDigest) reasons.push("remote-main generated digest does not match the current catalog-parity digest");
+  if (currentExample.configSha256 !== catalogParity?.spec?.sourceConfig?.sha256) reasons.push("receipt config digest does not match the current catalog-parity source config");
+  return {
+    accepted: reasons.length === 0,
+    status: reasons.length === 0 ? "pass" : receipt?.status?.result === "pass" ? "stale-source" : "failed",
+    reasons,
+  };
+}
+
+function currentDocument({ config, sourceLock, components, clusters, renderInstances, observations, receipt, faithfulEvaluation, desiredOnly }) {
   const rows = components.flatMap((component) => clusters.map((cluster) => currentMatrixCell(component, cluster, config, renderInstances, observations)));
   const statusCounts = countBy(rows, (row) => row.proofStatus);
   const unknowns = rows
@@ -173,7 +197,8 @@ function currentDocument({ config, sourceLock, components, clusters, renderInsta
         kubaraVersion: sourceLock.spec?.kubara?.version ?? "unknown",
         catalogVersion: sourceLock.spec?.catalogs?.version ?? "unknown",
         sources: Object.fromEntries(Object.entries(currentSources).map(([name, path]) => [name, desiredOnly && ["faithfulReceipt", "miniIdpReceipt"].includes(name) ? "not-consumed" : existsSync(path) ? relativeRepo(path) : "not-present"])),
-        faithfulReceiptStatus: desiredOnly ? "not-consumed" : faithfulReceipt?.status?.result ?? "not-present",
+        faithfulReceiptStatus: desiredOnly ? "not-consumed" : faithfulEvaluation.status,
+        faithfulReceiptReasons: desiredOnly ? [] : faithfulEvaluation.reasons,
         miniIdpReceipt: {
           path: relativeRepo(currentSources.miniIdpReceipt),
           status: receipt.status,
@@ -188,7 +213,7 @@ function currentDocument({ config, sourceLock, components, clusters, renderInsta
       },
       scope: {
         deliveryModel: receipt.accepted ? "ConfigHub-adapted mini-IDP with a local Argo reconciler on each cluster" : "Kubara-generated hub Argo CD with Git/ApplicationSets targeting three spokes",
-        faithfulKubaraGitDelivery: !desiredOnly && faithfulReceipt?.status?.result === "pass" ? "receipt-pass-with-recorded-scope" : "not-proven-currently",
+        faithfulKubaraGitDelivery: !desiredOnly && faithfulEvaluation.accepted ? "source-current-receipt-pass-with-recorded-scope" : "not-proven-currently",
         components: components.length,
         platformComponents: PLATFORM_COMPONENTS.length,
         applications: APPLICATION_COMPONENTS.length,
@@ -540,7 +565,7 @@ current config, committed effective renders, and two digest-pinned app fixtures.
 Historical v0.12.0 adapted
 evidence is retained separately under [historical-v0.12.0](historical-v0.12.0/summary.md).
 
-[Return to the Kubara adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html)
+[Return to the Kubara buyer and adoption journey](https://confighub.github.io/helm-expt/site/kubara.html)
 · [Browse the component-first Catalog](https://confighub.github.io/helm-expt/site/charts/)
 
 Colored, accessible view: [matrix.html](matrix.html). Machine-readable forms:
@@ -609,13 +634,13 @@ function currentHtmlReport(document) {
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kubara current component by cluster matrix</title>
 <style>:root{color-scheme:light dark}body{font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;margin:24px;background:#fff;color:#17212b}h1{font-size:1.7rem;margin-bottom:.25rem}.lede,.boundary{max-width:95ch;color:#3f4d5a}.legend{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}.key,.status{border-radius:.25rem;padding:.3rem .5rem;font-weight:700}.observed{background:#d7f2df;color:#14532d}.watch{background:#fff0bd;color:#634b00}.rendered-only{background:#eadcff;color:#4a2573}.centralized{background:#dce9ff;color:#173b75}.disabled{background:#edf1f5;color:#344454}table{border-collapse:collapse;width:100%;margin:1.25rem 0;font-size:.84rem}caption{text-align:left;font-size:1rem;font-weight:700;padding:.5rem 0}th,td{border:1px solid #aeb8c2;padding:.5rem;text-align:left;vertical-align:top}thead th{background:#edf1f5;color:#17212b;position:sticky;top:0}.matrix-cell{min-width:12rem}.matrix-cell span,.selected{display:block;font-weight:400;margin-top:.2rem}code{white-space:normal;overflow-wrap:anywhere}@media(prefers-color-scheme:dark){body{background:#10161d;color:#eef4fa}.lede,.boundary{color:#c6d1dc}thead th{background:#25313d;color:#fff}.observed{background:#14532d;color:#fff}.watch{background:#634b00;color:#fff}.rendered-only{background:#4a2573;color:#fff}.centralized{background:#173b75;color:#fff}.disabled{background:#344454;color:#fff}}</style></head>
 <body><main><h1>Kubara component × cluster matrix — primary current</h1>
-<nav aria-label="Kubara example navigation"><a href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">Adoption guide</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Component Catalog</a></nav>
+<nav aria-label="Kubara example navigation"><a href="https://confighub.github.io/helm-expt/site/kubara.html">Kubara buyer journey</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Component Catalog</a></nav>
 <p class="lede">Kubara ${escapeHtml(evidence.kubaraVersion)}, catalogs ${escapeHtml(evidence.catalogVersion)}. Seven platform roles and two applications across four clusters. Live overlay: ${escapeHtml(evidence.miniIdpReceipt.status)}; ${evidence.miniIdpReceipt.sourceDigestsVerified} source digests verified. Status is written as text and symbol, with color supplementary.</p>
 <div class="legend" aria-label="Proof status legend"><span class="key observed">✓ observed</span><span class="key watch">! watch</span><span class="key rendered-only">◐ rendered-only</span><span class="key centralized">↔ centralized</span><span class="key disabled">– disabled</span></div>
 <p class="boundary"><strong>Boundary:</strong> rendered-only is desired state, not live sync. Final cells consume the mini-IDP receipt only when its current Kubara version, source digests, and all 36 rows validate. Missing or partial observed fields stay Unknown with their reason. <a href="desired-matrix.json">desired-matrix.json</a> is the deterministic, non-live base.</p>
 <table><caption>Current components by cluster</caption><thead><tr><th scope="col">Component / selection</th>${clusters.map((cluster) => `<th scope="col">${escapeHtml(cluster.name)}<br>${escapeHtml(cluster.environment)} / ${escapeHtml(cluster.type)}</th>`).join("")}</tr></thead><tbody>${gridRows}</tbody></table>
 <table><caption>Current cell details</caption><thead><tr><th scope="col">Component</th><th scope="col">Category</th><th scope="col">Cluster</th><th scope="col">Presence</th><th scope="col">Desired</th><th scope="col">Observed</th><th scope="col">Argo sync</th><th scope="col">Health</th><th scope="col">Readiness</th><th scope="col">Status</th><th scope="col">Departure</th><th scope="col">Why Unknown</th><th scope="col">Declared overrides</th><th scope="col">Evidence scope</th></tr></thead><tbody>${detailRows}</tbody></table>
-<p><a href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html">Return to the adoption guide</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Browse every retained component version</a></p>
+<p><a href="https://confighub.github.io/helm-expt/site/kubara.html">Return to the Kubara buyer journey</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Browse every retained component version</a></p>
 </main></body></html>
 `;
 }

@@ -123,7 +123,7 @@ const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side 
 const DELIVERY_ROOT_PUBLICATION_POLICY = "reconcile every declared Argo Application Unit first, then publish exactly one complete delivery-root release per cluster immediately before that cluster's first source Application converges; later Application Unit mutations are forbidden in that run";
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
 const GUI_IDENTITY_POLICY = "native Component, Owner, Variant, and Lane labels make the component-first Kubara catalog, faithful/adapted delivery choice, and definition-instance hub-spoke shape visible; the component-catalog-coverage Unit exposes the additive 103-component/130-version scope and all 18 Kubara selections; Kubara hub Argo and ConfigHub cluster-bootstrap Argo retain separate exact version provenance; public navigation annotations link complete evidence without claiming live health";
-const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
+const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/kubara.html";
 const PUBLIC_CATALOG_URL = "https://confighub.github.io/helm-expt/site/charts/";
 const PUBLIC_CATALOG_COVERAGE_URL = "https://confighub.github.io/helm-expt/data/kubara-catalog-1.1-full-coverage/receipt.yaml";
 const PUBLIC_MATRIX_URL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";

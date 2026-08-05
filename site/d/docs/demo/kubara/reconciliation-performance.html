@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kubara mini-IDP reconciliation performance · Config Workshop</title>
+  <meta name="description" content="Kubara mini-IDP reconciliation performance: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/reconciliation-performance.html">
+  <meta property="og:title" content="Kubara mini-IDP reconciliation performance · Config Workshop">
+  <meta property="og:description" content="Kubara mini-IDP reconciliation performance: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/reconciliation-performance.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Kubara mini-IDP reconciliation performance</h1>
+    <p class="lead">This page records the measured cost model and safety boundaries for <code>scripts/reconcile-kubara-mini-idp.mjs</code>. It is an engineering baseline, not a service-level promise. The reconciler emits a sanitized <code>kubara-performance</code> JSON line on exit, and a successful live verification writes the same evidence under <code>spec.execution.performance</code> in the mini-IDP receipt. <a href="../../../../../docs/demo/kubara/reconciliation-performance.md">View source markdown</a>.</p>
+  </header>
+  <main>
+  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+    <article class="doc-body">
+
+<h2 id="baseline-measurements">Baseline measurements</h2>
+<p>The ConfigHub reads below were measured serially on 2026-08-05 against the quiescent Kubara organization. They describe this organization and client at that point in time; they are not portable latency claims.</p>
+<table><thead><tr><th>Read</th><th>Calls</th><th>Elapsed</th><th>Mean per call</th></tr></thead><tbody><tr><td><code>unit get</code></td><td>10</td><td>5.95 s</td><td>0.595 s</td></tr>
+<tr><td><code>unit data</code></td><td>10</td><td>5.72 s</td><td>0.572 s</td></tr>
+<tr><td>organization-wide Link list</td><td>1</td><td>4.60 s</td><td>4.60 s</td></tr>
+<tr><td>organization-wide published-release list</td><td>1</td><td>0.43 s</td><td>0.43 s</td></tr>
+<tr><td><code>context get</code></td><td>10</td><td>0.61 s</td><td>0.061 s</td></tr>
+<tr><td>organization list</td><td>5</td><td>2.69 s</td><td>0.538 s</td></tr>
+<tr><td>control-Space get</td><td>5</td><td>2.73 s</td><td>0.546 s</td></tr>
+<tr><td>organization-wide Unit list (105 Units)</td><td>1</td><td>3.10 s</td><td>3.10 s</td></tr></tbody></table>
+<p>A full context, organization, and control-Space pin revalidation adds about 1.15 seconds before each mutation. This is deliberately retained: selecting the right organization and control Space is a safety property, not an eventual-consistency optimization target.</p>
+<p>The organization-wide shape probe observed 105 Units, 39 Links, 35 published releases, and 4 targets. The target-list duration was not isolated, so no target-list latency is claimed here. The Link sample predates the 25 NeedsProvides Links in the completed 64-Link organization and must be remeasured before it is used as a current Link-list baseline.</p>
+<p>The pre-change offline runs on the same host were 8.72 s, 8.57 s, and 8.58 s for <code>--plan</code>, and 7.83 s for <code>--self-test</code>. Instrumented process profiles ranged from 7.74 s to 7.95 s. Every run stopped at the same pre-existing stale faithful hub/spoke receipt after concurrent generated-example changes. These values show that instrumentation did not create an obvious regression on that failure path; they do <b>not</b> prove a successful end-to-end speedup. The instrumented plan reported about 0.13 s in its single child command, which suggests that local rendering, YAML, checksumming, and contract work dominate this particular failure path. That last statement is an inference from the profile, not a standalone benchmark.</p>
+<h2 id="what-63-units-means-more-than-100-round-trips-actually-means">What “63 Units means more than 100 round trips” actually means</h2>
+<p>The sentence is directionally right but substantially understates the old client shape. A Unit is not one request. The steady-state reconciler used to read each managed Unit's metadata three or four times, read its body, then repeat endpoint, target, release-boundary, and final-verification reads. Static call-path accounting found 537 <code>cub</code> reads in the final verification body alone and a lower bound of hundreds more before the first Argo convergence wait.</p>
+<p>This is an N+1 client problem, not a reason to collapse the platform into fewer governed Units. The useful unit of analysis is:</p>
+<pre><code>inventory snapshots + content reads + changed-object writes + convergence</code></pre>
+<p>not <code>Unit count × an assumed constant</code>.</p>
+<h2 id="bottlenecks-and-the-implemented-read-optimizations">Bottlenecks and the implemented read optimizations</h2>
+<p>Per-Unit metadata and data reads cost roughly 0.57--0.60 seconds each in the sample. Repeating those reads makes verification grow with the number of Units. An organization-wide Link list is individually expensive, but one list is still preferable to repeating it for every Space.</p>
+<p>Read-only verification now captures organization-wide Unit, Link, published release, and target snapshots. For the current fixture, the Unit snapshot replaces the static shape of 42 per-Space Unit lists, 63 primary Unit gets, and 35 upstream Unit gets with one initial Unit list. A second Unit list closes the snapshot. Unit data remains an explicit per-Unit read because the current proof compares canonical content, not just metadata.</p>
+<p>The static final-verification body falls from 537 <code>cub</code> reads to 128: the 55 per-Space Unit lists, 247 Unit gets, 80 Link lists, 27 release lists, and 8 target gets are replaced by eight measured organization-wide lists. The 104 content reads and the small Space/policy read set remain explicit. This is a call-shape result, not yet an end-to-end latency result.</p>
+<p>The apply path also removes three separate multipliers:</p>
+<ul><li>an unchanged managed Unit reuses its one fresh metadata observation instead of fetching the same metadata three or four times;</li><li>each delivery Application Space is listed once per metadata pass instead of fetching every Application Unit separately, and the already-read Unit is reused while checking its Application contract;</li><li>all Application Units are reconciled before delivery, then the complete delivery root is published once per cluster, lazily just before that cluster's first source Application converges. The previous implementation republished and fully revalidated the same cluster root for every one of 27 deployments. Static accounting falls from about 1,302 reads for that repeated root path to 182 for four root publications plus the closing currency checks.</li></ul>
+<p>Source-release checks now use a boundary-local read snapshot. Each independent opening and closing boundary still reads every exact Unit body, Space, target, Link inventory, source Unit inventory, and upstream Unit inventory, but all assertions inside that boundary reuse those observations. No snapshot survives a release mutation. Across the 27 source Spaces, the steady-state release path falls from 798 reads to 367: 23 one-Unit Spaces fall from 26 to 13 reads each, and four three-Unit <code>hx-web</code> Spaces fall from 50 to 17 reads each. That is 431 fewer reads (54.0%) while retaining independent opening and closing evidence.</p>
+<p>After those changes, static steady-state accounting gives a lower bound of at least 469 ConfigHub reads before the first Argo convergence starts: 196 for managed-Unit comparison, 81 for Application materialization, 54 list/allowlist reads, 70 variant Space/Target reads, 55 for the first cluster's delivery-root boundary, and 13 for the first source release. Preflight and several Space/policy reads are additional, so 469 is deliberately a lower bound rather than a promised total. The original “well over 100” statement is true but not specific enough for capacity or latency planning.</p>
+<p>These are API-backed <code>cub</code> reads, not literal wire round trips. A read-only client trace showed that space-scoped <code>unit list</code>, <code>unit get</code>, and <code>unit data</code> each issue two authenticated application requests: one resolves the Space and one queries the Unit endpoint. The organization-wide Unit snapshot issues one. The corresponding application-request count is therefore in the high hundreds and may approach twice the CLI-read count, but an exact full-run wire count is not claimed. The current <code>cub --debug</code> output is unsuitable for receipts or CI because raw debug traces can contain sensitive headers and request/response bodies. Safe instrumentation must count sanitized route templates and status/latency in the client transport, and use wire-level hooks separately for transmitted attempts, connection reuse, and TLS cost.</p>
+<p>The receipt records a dedicated <code>apply-start-to-first-argo-convergence</code> phase. That measurement matters because optimizing total runtime and optimizing time to the first converged Application are not always the same tradeoff.</p>
+<p>The initial and final Unit/Link/release/target snapshots must have identical row counts and a canonical fingerprint. Every row must belong to the pinned Kubara organization and a known Space. If those four resource sets differ at the closing observation, the run fails and asks for a retry against a quiescent organization. This is an opening/closing net-state check, not an event stream: an ABA change between the two observations is outside the claim, as are concurrent Space/Trigger/Filter changes. Snapshot data is available only inside <code>verifyLive</code>; reconciliation and mutation paths continue to perform fresh reads.</p>
+<p>Canonical Kubernetes and AppConfig YAML is memoized by content digest within a single process. Cache keys also retain a length/head/tail collision check, and the profile records requests, hits, misses, entries, and parse time. No cross-run cache is trusted.</p>
+<h2 id="concurrency-and-safety-boundary">Concurrency and safety boundary</h2>
+<p>All commands remain serial and deterministically ordered. Organization-wide reads are batched by resource, not executed concurrently. The four snapshot lists are independent and could be parallelized later, as could some Unit data reads, but doing so needs server-load and stable-evidence testing first.</p>
+<p>The following remain strictly serial:</p>
+<ul><li>every ConfigHub mutation and its full pinned-target revalidation;</li><li>release publication, approvals, promotion, and operation-journal changes;</li><li>cluster and Argo convergence checks whose observations depend on earlier actions;</li><li>the opening and closing snapshot barriers.</li></ul>
+<p>A possible future optimization is to validate the full target once at a well-defined mutation-batch barrier, then verify a locally pinned context token before each mutation. It is intentionally not implemented: it must first prove equivalent protection against context and organization changes.</p>
+<h2 id="other-things-that-can-slow-the-platform-down">Other things that can slow the platform down</h2>
+<p>In priority order for this example:</p>
+<ol><li><b>Repeated authenticated reads.</b> Per-object CLI calls pay process startup, TLS, authentication, API routing, and JSON decoding every time. Bulk read APIs and boundary snapshots are the main remaining product opportunity.</li><li><b>Per-mutation target pinning.</b> A context, organization, and control-Space revalidation costs about 1.15 seconds before every write. It remains intact; the safe product fix is a server-enforced organization/batch boundary, not a weaker client check.</li><li><b>Release-boundary verification.</b> Source releases deliberately prove Unit data, endpoint identity, target, labels, Links, and a stable before/after boundary. A boundary-scoped bulk API could retain those invariants with far fewer round trips.</li><li><b>OCI work.</b> Rendering, hashing, uploading immutable layers, publishing a release, registry propagation, and controller pulls all add latency. Cache hits help, but exact digests and retained versions must not be discarded.</li><li><b>Argo polling.</b> Serial five-second polls make quiet convergence easy to reason about but add tail latency. A watch/event path can improve this later if it preserves the exact revision and operation-journal deadlines.</li><li><b>Kubernetes controller dependencies.</b> CRDs, webhook readiness, cert-manager issuance, ESO reconciliation, Ingress status, and workload health are real dependency barriers; parallelizing across them blindly can make the run slower and less reproducible.</li><li><b>Image pulls and target capacity.</b> Cold images, registry throttling, CPU, memory, disk, DNS, and the single-node kind topology can dominate once API chatter is reduced.</li><li><b>Local parsing and subprocesses.</b> YAML canonicalization and one process per <code>cub</code>/<code>kubectl</code> command are measurable overhead. Process-local canonical-YAML memoization is implemented; a long-lived API client would remove more.</li><li><b>GUI query shape.</b> Component matrices, wiring Links, history, and health views should query by indexed labels and page/batch results. Rendering every revision or edge eagerly would move the same N+1 problem into the browser.</li><li><b>Source and catalog hand-off.</b> Kubara generation, Git fetch/checkout, lock and checksum verification, exact catalog-version resolution, and CI gates add deterministic latency before import. Cache by Git revision and catalog lock, but never replace exact-version failure with a silent upgrade.</li></ol>
+<h2 id="performance-guardrails">Performance guardrails</h2>
+<p>These are regression budgets for this implementation, not user-facing SLAs:</p>
+<ul><li>verification uses exactly two organization-wide list calls per cached resource: one opening and one closing Unit, Link, release, and target list;</li><li>active verification must issue no per-Unit metadata get or per-Space Unit inventory list; Unit data reads remain explicit;</li><li>each source-release boundary reads the source Unit inventory and each unique upstream inventory once, issues no point Unit metadata gets, and clears its cache before any release mutation;</li><li>mutations remain serial and keep full target-pin validation;</li><li>the opening and closing fingerprint must match before evidence can say <code>stability: pass</code>;</li><li>command evidence contains sanitized resource/verb labels only, never names, arguments, paths, tokens, or payloads;</li><li>canonical-cache hit/miss accounting must balance and every miss must create exactly one process-local entry;</li><li>on the same host and fixture, an offline failure-path plan or self-test above 10 seconds should be investigated against the approximately 8.6/7.8-second baseline;</li><li>no live wall-time budget will be set until a successful post-change run has produced repeatable receipts. The receipt is the authority for that run.</li></ul>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/reconciliation-performance.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

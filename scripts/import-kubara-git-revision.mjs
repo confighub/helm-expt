@@ -51,7 +51,7 @@ const OCI_LAYER_TYPE = "application/vnd.confighub.kubara.payload.v1+json";
 const OCI_INDEX_ARTIFACT_TYPE = "application/vnd.confighub.kubara.index.v1+json";
 const OCI_INDEX_LAYER_TYPE = "application/vnd.confighub.kubara.index.payload.v1+json";
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
-const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
+const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/kubara.html";
 const PUBLIC_CATALOG_URL = "https://confighub.github.io/helm-expt/site/charts/";
 const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
   "URL-Guide": PUBLIC_GUIDE_URL,

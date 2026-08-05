@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Step 3: commit and push the complete hand-off to Git · Config Workshop</title>
+  <meta name="description" content="Prepare, scan, commit, and push one complete portable Kubara platform hand-off at an immutable Git revision.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-3-git.html">
+  <meta property="og:title" content="Step 3: commit and push the complete hand-off to Git · Config Workshop">
+  <meta property="og:description" content="Prepare, scan, commit, and push one complete portable Kubara platform hand-off at an immutable Git revision.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-3-git.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Step 3: commit and push the complete hand-off to Git</h1>
+    <p class="lead">This is the third of six adoption steps. Git becomes the immutable, portable boundary between Kubara composition and ConfigHub import. <a href="../../../../../docs/demo/kubara/adoption-3-git.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <article class="doc-body">
+
+<h2 id="goal">Goal</h2>
+<p>Prepare, review, commit, push, and independently verify one complete Kubara platform hand-off. The next step must receive an exact Git object ID and a fully inventoried selected path-not a mutable branch, a workstation directory, or an AI-produced translation.</p>
+<p>“Complete” means every artifact needed to reproduce and understand the portable platform. It does not mean committing credentials, application secrets, or destination-specific cluster facts.</p>
+<h2 id="what-remains-kubara">What remains Kubara</h2>
+<ul><li>Git retains Kubara's native <code>config.yaml</code> and supported values overrides.</li><li>Git retains Kubara's complete generated <code>platform-components/</code> and <code>platform-configs/</code> trees, including AppProjects and ApplicationSets.</li><li>Existing faithful-mode Git and Argo workflows can continue to review and reconcile the generated paths.</li><li>The Git revision remains a portable exit and re-import point. ConfigHub does not become the only copy of the platform definition.</li></ul>
+<p>The preparer consumes Kubara's result; it never runs or emulates Kubara.</p>
+<h2 id="what-confighub-adds">What ConfigHub adds</h2>
+<p>The deterministic hand-off adds a separate, clean subtree containing:</p>
+<ul><li>the selected Kubara source and documented overrides;</li><li>the generated component and configuration trees;</li><li>exact Kubara, Helm, catalog, chart, and dependency locks;</li><li>13 deterministic effective renders;</li><li>source/render checksums and generation/preparation receipts; and</li><li>an offline provides/needs wiring graph.</li></ul>
+<p>The preparer inventories all named inputs before promotion and atomically replaces only its configured output path. It refuses overlapping paths, symlinks, pre-vendored opaque chart archives, ambiguous component matches, unreviewed exact versions, workstation paths, credential-shaped material, and input changes during preparation.</p>
+<p>It does not create a ConfigHub organization, inspect a cluster, package OCI, or prove live reconciliation. Those boundaries remain explicit in later steps.</p>
+<h2 id="prepare-the-current-example">Prepare the current example</h2>
+<h3 id="1-start-from-the-generated-verified-platform">1. Start from the generated, verified platform</h3>
+<pre><code>cd /absolute/path/to/helm-expt
+npm run kubara-current-example:verify
+git status --short</code></pre>
+<p>Review any existing changes before continuing. A dirty working tree is not automatically disposable, and the preparer must not be used to overwrite unrelated work.</p>
+<h3 id="2-review-the-preparation-request">2. Review the preparation request</h3>
+<p>Open <a href="../../../../../examples/kubara/git-import/current-platform.prepare.yaml"><code>current-platform.prepare.yaml</code></a>. For this example it maps:</p>
+<pre><code>source config       examples/kubara/current-platform/source/config.yaml
+generated wrappers  examples/kubara/current-platform/generated/platform-components/helm
+generated configs   examples/kubara/current-platform/generated/platform-configs
+artifact lock       examples/kubara/current-platform/component-artifacts.yaml
+source lock         examples/kubara/current-platform/source-lock.yaml
+normal overrides    examples/kubara/current-platform/source/overrides
+clean output        examples/kubara/prepared-current-platform</code></pre>
+<p>For an existing Kubara repository, copy this request and change only reviewed paths and contracts. <code>source.path</code> may name the root of a dedicated Kubara checkout; <code>output.path</code> must be a separate, non-overlapping subtree.</p>
+<h3 id="3-generate-the-clean-hand-off">3. Generate the clean hand-off</h3>
+<p>Use the same SHA-pinned Kubara binary reviewed in Step 2:</p>
+<pre><code>export KUBARA_BIN=/absolute/path/to/kubara
+npm run kubara-git-handoff:prepare-current</code></pre>
+<p>This is the network/write phase. The preparer fetches only the exact reviewed artifacts, renders each enabled instance twice with the pinned profile, builds the wiring graph, scans structure for credential-shaped material, and promotes the output atomically.</p>
+<h3 id="4-review-the-prepared-subtree-before-committing">4. Review the prepared subtree before committing</h3>
+<p><code>--generate</code> verifies the staged preparation before its atomic promotion. Now review the promoted files and its machine-produced evidence:</p>
+<pre><code>git diff --stat -- examples/kubara/prepared-current-platform
+sed -n '1,45p' \
+  examples/kubara/prepared-current-platform/preparation-receipt.yaml
+tail -n 8 \
+  examples/kubara/prepared-current-platform/preparation-receipt.yaml</code></pre>
+<p>The receipt must name four clusters and 13 renders, and its status must record <code>result: &quot;pass&quot;</code>, <code>deterministic: true</code>, and <code>pathNeutral: true</code>. Do not run <code>kubara-git-handoff:verify-current</code> yet: its zero-write contract intentionally requires the preparation request, raw inputs, and prepared output to be committed and clean. That independent verification occurs after the commit.</p>
+<h3 id="5-review-what-will-and-will-not-be-committed">5. Review what will and will not be committed</h3>
+<p>Commit these groups together:</p>
+<ul><li><code>examples/kubara/current-platform/source/</code>;</li><li><code>examples/kubara/current-platform/generated/</code>;</li><li>the source lock, component-artifact lock, checksums, and generation/parity receipts;</li><li><code>examples/kubara/git-import/current-platform.prepare.yaml</code>; and</li><li>the complete <code>examples/kubara/prepared-current-platform/</code> subtree.</li></ul>
+<p>The portable hand-off deliberately excludes:</p>
+<ul><li><code>apps/**</code>-applications enter through the separate Step 6 workflow;</li><li><code>target-facts/**</code> and destination binding facts;</li><li><code>.env</code> and <code>.env.*</code> files;</li><li>credentials, private keys, secret values, and cluster access material; and</li><li>the external scanner's report, which is retained in controlled evidence and referenced by digest rather than embedded in the portable tree.</li></ul>
+<p>Inspect the exact staged diff before committing:</p>
+<pre><code>git add -- \
+  examples/kubara/current-platform/source \
+  examples/kubara/current-platform/generated \
+  examples/kubara/current-platform/effective-renders \
+  examples/kubara/current-platform/source-lock.yaml \
+  examples/kubara/current-platform/component-artifacts.yaml \
+  examples/kubara/current-platform/source-checksums.txt \
+  examples/kubara/current-platform/generated-checksums.txt \
+  examples/kubara/current-platform/effective-render-checksums.txt \
+  examples/kubara/current-platform/catalog-parity-receipt.yaml \
+  examples/kubara/current-platform/generation-receipt.yaml \
+  examples/kubara/git-import/current-platform.prepare.yaml \
+  examples/kubara/prepared-current-platform
+
+git diff --cached --check
+git diff --cached --stat
+git status --short</code></pre>
+<p>If your repository uses different paths, stage the corresponding reviewed inputs and outputs explicitly. Do not use a broad staging command as a substitute for reviewing the boundary.</p>
+<h3 id="6-commit-and-push-the-exact-revision">6. Commit and push the exact revision</h3>
+<pre><code>git commit -m &quot;Add prepared Kubara platform hand-off&quot;
+git push --set-upstream origin HEAD
+
+git rev-parse HEAD
+test &quot;$(git rev-parse HEAD)&quot; = &quot;$(git rev-parse '@{upstream}')&quot;</code></pre>
+<p>Record the full lowercase commit object ID printed by <code>git rev-parse HEAD</code>. The Step 4 import request must use that immutable object ID and the selected prepared path; it must not use <code>main</code>, another branch, or a tag as its source identity.</p>
+<h3 id="7-verify-from-a-separate-clean-checkout">7. Verify from a separate clean checkout</h3>
+<pre><code>git clone https://github.com/confighub/helm-expt.git /absolute/path/to/clean-checkout
+cd /absolute/path/to/clean-checkout
+git checkout --detach &lt;full-commit-object-id&gt;
+
+git status --porcelain
+npm run kubara-git-handoff:verify-current
+git status --porcelain</code></pre>
+<p>Both <code>git status --porcelain</code> commands must produce no output. For an adopter's repository, substitute its reviewed HTTPS <code>.git</code> remote and its preparation request.</p>
+<p>Run the approved, pinned external secret scanner against this exact detached commit and selected path. Retain the scanner report outside the Git tree, bind its bytes and scope in the later import request, and separately review opaque files. The built-in structural scan and the external scan are defenses, not a mathematical proof that arbitrary bytes contain no secret.</p>
+<h2 id="expected-artifacts">Expected artifacts</h2>
+<p>The current clean hand-off is <a href="../../../../../examples/kubara/prepared-current-platform"><code>examples/kubara/prepared-current-platform</code></a>. Its top level contains:</p>
+<pre><code>source/config.yaml and reviewed overrides
+generated/platform-components/helm/
+generated/platform-configs/
+effective-renders/&lt;cluster&gt;/&lt;service&gt;/release-objects.yaml
+component-artifacts.yaml
+source-lock.yaml
+generation-receipt.yaml
+preparation-request.yaml
+preparation-receipt.yaml
+checksums.txt
+wiring/graph.json</code></pre>
+<p>In the current committed tree, <code>checksums.txt</code> inventories 166 other files; together with <code>checksums.txt</code> itself, the selected hand-off contains 167 files. The authoritative statement is the recomputed verifier and receipt, not a count copied into prose: if an intentional input changes, regenerate the subtree and update the documentation from the accepted evidence.</p>
+<p>The preparation receipt currently records <code>finalGitCommitBound: false</code> because preparation necessarily happens before the resulting commit exists. Step 4 binds the pushed source commit, selected path, external-scan attestation, and destination separately.</p>
+<h2 id="machine-checkpoint">Machine checkpoint</h2>
+<p>From the detached clean checkout, run the independent offline verifier:</p>
+<pre><code>test -z &quot;$(git status --porcelain)&quot;
+npm run kubara-git-handoff:verify-current
+test -z &quot;$(git status --porcelain)&quot;
+
+test &quot;$(wc -l &lt; examples/kubara/prepared-current-platform/checksums.txt | tr -d ' ')&quot; = 166
+test &quot;$(find examples/kubara/prepared-current-platform -type f | wc -l | tr -d ' ')&quot; = 167</code></pre>
+<p>The verifier must pass and both clean-tree checks must remain silent. The count checks document the current example; the verifier is the substantive gate.</p>
+<p>This checkpoint proves a deterministic, clean, pushed platform hand-off. It does not prove OCI publication, ConfigHub materialization, Argo sync, workload health, or an orphan-free live organization.</p>
+<h2 id="screenshot-checkpoint">Screenshot checkpoint</h2>
+<p>No GitHub screenshot is embedded until the exact revision is public and the checkpoint above passes. Capture one real GitHub commit view that shows:</p>
+<ol><li>the full commit ID;</li><li>the source, generated, and prepared paths in the same change;</li><li>the preparation receipt and checksum inventory; and</li><li>the passing repository check associated with that commit.</li></ol>
+<p>The caption should say: <b>“The exact Git revision is the portable Kubara hand-off; ConfigHub imports these reviewed bytes without an AI rewrite.”</b> Do not expose scanner findings, credentials, signed URLs, tokens, or private repository details in the screenshot.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="the-preparation-output-overlaps-an-input">The preparation output overlaps an input</h3>
+<p>Choose a separate clean output subtree. The preparer intentionally refuses to rearrange or overwrite Kubara's native source and generated tree.</p>
+<h3 id="the-preparer-finds-credential-shaped-material">The preparer finds credential-shaped material</h3>
+<p>Remove the value from the portable path and provide it later through the selected target's secret-management boundary. Never suppress the refusal by renaming a secret-shaped file.</p>
+<h3 id="the-verifier-reports-copied-input-drift">The verifier reports copied-input drift</h3>
+<p>An input changed after preparation. Review the change, rerun Kubara if needed, regenerate the hand-off, and verify again. Do not patch the prepared copy.</p>
+<h3 id="the-checkout-is-dirty-before-or-after-verification">The checkout is dirty before or after verification</h3>
+<p>Start from the exact pushed commit in a separate checkout. Untracked files and generated residue are import refusals because they make the source boundary ambiguous.</p>
+<h3 id="the-pushed-branch-and-local-commit-differ">The pushed branch and local commit differ</h3>
+<p>Do not continue with a branch name. Resolve the push, fetch the remote, and confirm the exact local commit equals its upstream. Then pin the full object ID in the import request.</p>
+<h3 id="the-git-remote-is-mutable-or-ambiguous">The Git remote is mutable or ambiguous</h3>
+<p>Use the reviewed HTTPS remote ending in <code>.git</code> and a full immutable commit object ID. The importer should refuse mutable refs, a wrong origin, or a selected byte changing during compilation.</p>
+<h3 id="an-external-secret-scan-passes">An external secret scan passes</h3>
+<p>Passing is necessary but not sufficient. Retain the exact scanner name and version, digest the report outside the tree, bind it to the commit and selected scope, and explicitly review opaque files before marking that review complete.</p>
+<h2 id="safe-to-stop-here">Safe to stop here</h2>
+<p>Yes. The exact pushed Git revision is the portable hand-off and can be reviewed independently before any OCI publication or ConfigHub mutation. Retain the scan attestation outside the tree and do not replace the commit with a moving ref.</p>
+<h2 id="continue">Continue</h2>
+<p><a href="adoption-2-generate.html">← Step 2: let Kubara generate the platform</a> · <a href="adoption-4-oci.html">Step 4: import the Git revision and publish OCI →</a></p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/kubara/adoption-3-git.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

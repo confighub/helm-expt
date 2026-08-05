@@ -14,7 +14,7 @@ questions:
 To start in ConfigHub rather than in these files, switch to the `Kubara`
 organization, filter Spaces by `StartHere=true`, open `hx-platform`, and then
 open `platform-contract`. Its metadata links to the public
-[adoption guide](https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html),
+[buyer and adoption journey](https://confighub.github.io/helm-expt/site/kubara.html),
 [component-first Catalog](https://confighub.github.io/helm-expt/site/charts/),
 [36-cell matrix](https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html),
 and [full wiring graph](https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html).
@@ -38,10 +38,11 @@ them. A live receipt can fill observed version, sync, and workload fields only
 when it records those fields for an exact component and cluster.
 
 There is also a deliberate GUI/evidence split. ConfigHub governs the
-desired-only platform matrix and exposes exactly 25 curated operational
-`NeedsProvides` Links. The receipt-aware public matrix and complete extracted
-wiring graph are linked evidence views; they are not presented as native live
-ConfigHub observations.
+desired-only platform matrix. The mini-IDP contract calls for exactly 25
+curated operational `NeedsProvides` Links; the exact live receipt and orphan
+audit decide whether those Links are current in the selected organization.
+The receipt-aware public matrix and complete extracted wiring graph are linked
+evidence views; they are not presented as native live ConfigHub observations.
 
 ## Primary: Kubara v0.13.0 current platform
 
@@ -74,15 +75,16 @@ or consume [graph.json](../../../data/kubara-wiring/graph.json) and
 [edges.csv](../../../data/kubara-wiring/edges.csv).
 
 The full graph preserves every extracted rendered, runtime-declared, external,
-optional, prerequisite, and unresolved relationship. The ConfigHub GUI keeps a
-smaller, deterministic set of 25 `NeedsProvides` Links for operational
-navigation. Those Links cover the important consumer-to-provider paths without
-pretending that every extracted fact is an independently managed GUI edge.
-To inspect them natively, open `hx-web-dev/hx-web-deployment` and select its
-**Links** tab: `needs-platform-binding` appears beside the normal `UpgradeUnit`
-lineage. Then open `hx-web-platform-dev/hx-web-platform`; its **Links** tab
-shows the cert-manager and Traefik requirements. This exact Unit-to-Links route
-is the reproducible GUI wiring proof; the public graph remains the complete
+optional, prerequisite, and unresolved relationship. After an accepted
+mini-IDP run, the ConfigHub GUI must contain the smaller deterministic set of
+25 `NeedsProvides` Links for operational navigation. Those Links cover the
+important consumer-to-provider paths without pretending that every extracted
+fact is an independently managed GUI edge. To verify them natively, open
+`hx-web-dev/hx-web-deployment` and select its **Links** tab:
+`needs-platform-binding` must appear beside the normal `UpgradeUnit` lineage.
+Then open `hx-web-platform-dev/hx-web-platform`; its **Links** tab must show the
+cert-manager and Traefik requirements. This exact Unit-to-Links route is the
+receipt-bound GUI wiring checkpoint; the public graph remains the complete
 render-derived evidence view.
 
 The current [colored accessible platform matrix](../../../data/kubara-platform-matrix/matrix.html)
@@ -92,11 +94,13 @@ hub-managed spoke Argo cells, the two applications on every target, and 12
 platform cells disabled by the current Kubara config. Selected versions are
 exact. The separate
 [faithful-lane summary](../../../data/kubara-faithful-hub-spoke/summary.md)
-now proves the unchanged hub-and-spoke topology and its selected cert-manager
-witness; matrix-wide observed versions and sync/workload state stay `unknown`
-until the current mini-IDP live receipt supplies all 36 observations. Normal
-values overlays are listed as declared configuration, not mislabeled as runtime
-departures.
+records the unchanged hub-and-spoke topology and its selected cert-manager
+witness. It is current proof only when its generated-file count and digest
+match the current Kubara hand-off; the
+[checkpoint ledger](checkpoints.md) reports that decision. Matrix-wide
+observed versions and sync/workload state stay `unknown` until the current
+mini-IDP live receipt supplies all 36 observations. Normal values overlays are
+listed as declared configuration, not mislabeled as runtime departures.
 Machine-readable outputs are
 [matrix.json](../../../data/kubara-platform-matrix/matrix.json) and
 [matrix.csv](../../../data/kubara-platform-matrix/matrix.csv).

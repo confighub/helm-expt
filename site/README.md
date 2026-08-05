@@ -12,6 +12,8 @@ Open `site/how-it-works.html` to choose where reviewed configuration lives and h
 Open `site/deployment-reference.html` for the detailed source, render, route, variant, check, and delivery model.
 Open `site/try.html` for the short Redis example.
 Open `site/testing.html` for working starting, managed, platform, and App examples.
+Open `site/kubara.html` for the Kubara buyer story, six adoption steps, GUI path,
+evidence status, and full technical references.
 Open `site/confighub.html` to sign up, follow the official tutorial, or read the blog.
 Open `site/entry-path-reference.html` for detailed Helm, AICR, OCI, and YAML commands.
 Open `site/variants.html` for base variants, derived variants, and promotion entry points.

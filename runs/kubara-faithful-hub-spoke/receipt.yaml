@@ -3,7 +3,7 @@ kind: "KubaraFaithfulHubSpokeProofReceipt"
 metadata:
   name: "kubara-v0-13-0-faithful-hub-spoke"
 spec:
-  observedAt: "2026-08-04T16:49:06.705Z"
+  observedAt: "2026-08-05T10:07:22.888Z"
   execution: "serial-live-lock"
   source:
     kubara:
@@ -19,15 +19,15 @@ spec:
       config: "examples/kubara/current-platform/source/config.yaml"
       configSha256: "7260fe438066413c1bc44b5f674e4441e3ae9873146e860d4188ef518abc1211"
       generatedRoot: "examples/kubara/current-platform/generated"
-      generatedFileCount: 131
-      generatedSha256: "9826cb5f9f5e293ee0cf9ef483cac4e2eea54ef43d3acc1dfbfc10f5e03e9c9d"
+      generatedFileCount: 135
+      generatedSha256: "6a1344c4526dd3b3f7b5355e5ed4c6888337474d59ca62812752ab12b998acbf"
     git:
       repository: "https://github.com/confighub/helm-expt.git"
       targetRevision: "main"
-      commit: "9c2ec7a257cf759a71656219b8de6db30803b71c"
+      commit: "9a24e77e0af90b028ede1f00dbfef19cc90c0f33"
       currentExampleReachable: true
-      generatedSha256: "9826cb5f9f5e293ee0cf9ef483cac4e2eea54ef43d3acc1dfbfc10f5e03e9c9d"
-      generatedFileCount: 131
+      generatedSha256: "6a1344c4526dd3b3f7b5355e5ed4c6888337474d59ca62812752ab12b998acbf"
+      generatedFileCount: 135
       exactBoundaryFiles:
         - "source/config.yaml"
         - "source-lock.yaml"
@@ -71,14 +71,14 @@ spec:
       unit:
         ref: "hx-platform/faithful-hub-spoke-plan"
         id: "d4387012-e0f5-420a-a524-3ca2bd8d9cb1"
-        headRevisionNum: 2
-        dataHash: "4860f76d2cc35c86ba6b24e6432257ebaad41d269daae303e223d2087693f02a"
-        contentHash: 1809363831
+        headRevisionNum: 3
+        dataHash: "53cdb7b8f4ce4fe0ffee8101028ea915bee6439a9b6ed4a9d4f86e703aec354c"
+        contentHash: -578061286
         provider: "None"
         targetID: null
         action: "updated"
       approval:
-        revision: 2
+        revision: 3
         recordedApprovals: 1
         approverIdentityRecordedInReceipt: false
         action: "approved-head-revision"
@@ -90,14 +90,14 @@ spec:
       unit:
         ref: "hx-platform/faithful-hub-spoke-attestation"
         id: "ff684240-725e-407a-8dfb-55f592541f16"
-        headRevisionNum: 1
-        dataHash: "7e70675415a6c2fa7eb09f9648cffa5d3bababba88befccc7aaa7828647bbbf8"
-        contentHash: -862047095
+        headRevisionNum: 2
+        dataHash: "873c324d1c67a286ead17ee9ae90425ca44f3c4fc38dcb8188bc2b8882714ca9"
+        contentHash: 748951891
         provider: "None"
         targetID: null
-        action: "created"
+        action: "updated"
       approval:
-        revision: 1
+        revision: 2
         recordedApprovals: 1
         approverIdentityRecordedInReceipt: false
         action: "approved-head-revision"
@@ -116,7 +116,7 @@ spec:
     documentedRemotePath: "hx-app-dev/dev/argocd/hx-app-staging-staging"
     remoteProperty: "kubeconfig"
     rewrittenServer: "https://192.168.97.7:6443"
-    rewrittenKubeconfigSha256: "ac77f6e20bcbeaf2fb56349fceee72da997fe1d69783baadd76f84b2cbbd04f0"
+    rewrittenKubeconfigSha256: "0fb4d776fa28a0bd0052b7a772becf7c3820c44603285ccb43632f020d1f8925"
     apiServerCertificateIncludesRewrittenIP: true
     hubNodeCanReachSpokeAPI: true
     openBao:
@@ -161,8 +161,8 @@ spec:
       sync: "Synced"
       health: "Healthy"
       revisions:
-        - "9c2ec7a257cf759a71656219b8de6db30803b71c"
-        - "9c2ec7a257cf759a71656219b8de6db30803b71c"
+        - "9a24e77e0af90b028ede1f00dbfef19cc90c0f33"
+        - "9a24e77e0af90b028ede1f00dbfef19cc90c0f33"
       component: "cert-manager"
       version: "v1.21.0"
     workload:

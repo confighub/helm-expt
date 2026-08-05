@@ -20,6 +20,7 @@ const existingAppsPath = join(siteRoot, "existing-apps.html");
 const aiPath = join(siteRoot, "ai.html");
 const securityPath = join(siteRoot, "security.html");
 const testingPath = join(siteRoot, "testing.html");
+const kubaraPath = join(siteRoot, "kubara.html");
 const entryPathReferencePath = join(siteRoot, "entry-path-reference.html");
 const futurePath = join(siteRoot, "future.html");
 const operationsPath = join(siteRoot, "operations.html");
@@ -167,6 +168,7 @@ const SITE_PAGE_RELPATHS = {
   aiHtml: "ai.html",
   securityHtml: "security.html",
   pillarsHtml: "testing.html",
+  kubaraHtml: "kubara.html",
   entryPathReferenceHtml: "entry-path-reference.html",
   futureHtml: "future.html",
   operationsHtml: "operations.html",
@@ -211,6 +213,7 @@ const PAGE_DESCRIPTIONS = {
   "ai.html": "AI and the catalog: AI can suggest chart changes, but tests and receipts decide what lands.",
   "security.html": "Review the exact Kubernetes objects, their source, security checks, approvals, and delivery record before release.",
   "testing.html": "Choose a worked example that starts with Helm, AICR AI-infrastructure packages, OCI, or Kubernetes YAML and follows it into ConfigHub when useful.",
+  "kubara.html": "Adopt Kubara with ConfigHub in six familiar steps, preserving Kubara catalogs, generated topology, Git hand-off, and Argo reconciliation while adding governed releases and fleet visibility.",
   "entry-path-reference.html": "Detailed entry paths for Helm, AICR AI-infrastructure packages, existing OCI, and Kubernetes YAML, with commands and evidence links.",
   "future.html": "Separate Config Workshop results that can be used today from ideas that remain planned or only partly tested.",
   "operations.html": "Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.",
@@ -230,6 +233,15 @@ const PAGE_DESCRIPTIONS = {
   "demo-org.html": "Open one ConfigHub demo Space, read its README, inspect its Kubernetes configuration, and then explore variants, promotions, checks, hooks, and CRDs.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
   "d/docs/demo/kubara/single-platform.html": "Adopt Kubara v0.13.0 with ConfigHub through a linear four-cluster mini-IDP path that preserves Kubara catalogs, config, values overlays, hub-and-spoke topology, and Argo reconciliation.",
+  "d/docs/demo/kubara/adoption.html": "Follow the complete six-step path from Kubara component selection through exact Git and OCI hand-off to a selected ConfigHub organization and application delivery.",
+  "d/docs/demo/kubara/adoption-1-choose.html": "Choose exact platform components and wiring in Kubara without replacing its catalogs, config, values overrides, or service definitions.",
+  "d/docs/demo/kubara/adoption-2-generate.html": "Run Kubara normally and prove that the official and ConfigHub-aligned catalog lanes generate the same platform bytes.",
+  "d/docs/demo/kubara/adoption-3-git.html": "Prepare, scan, commit, and push one complete portable Kubara platform hand-off at an immutable Git revision.",
+  "d/docs/demo/kubara/adoption-4-oci.html": "Import the exact Kubara Git revision deterministically and create immutable component/config OCI packages plus a platform index.",
+  "d/docs/demo/kubara/adoption-5-confighub-org.html": "Materialize the recognizable Kubara topology in the organization selected by the user, then prove idempotence and zero orphans.",
+  "d/docs/demo/kubara/adoption-6-apps.html": "Deploy and promote applications through ConfigHub while Argo CD remains the cluster reconciler.",
+  "d/docs/demo/kubara/checkpoints.html": "Inspect the status, scope, receipt, command, and limitation behind every Kubara plus ConfigHub benefit claim.",
+  "d/docs/demo/kubara/gui-tour.html": "Follow a receipt-bound GUI walkthrough of the Kubara topology, component Catalog, applications, wiring, approvals, releases, matrix, and orphan audit.",
 };
 const mode = process.argv[2] ?? "--generate";
 
@@ -254,6 +266,7 @@ if (mode === "--generate") {
   write(aiPath, site.aiHtml);
   write(securityPath, site.securityHtml);
   write(testingPath, site.pillarsHtml);
+  write(kubaraPath, site.kubaraHtml);
   write(entryPathReferencePath, site.entryPathReferenceHtml);
   write(futurePath, site.futureHtml);
   write(operationsPath, site.operationsHtml);
@@ -303,6 +316,7 @@ if (mode === "--generate") {
   check(existsSync(aiPath), "site/ai.html is missing; run npm run site:generate");
   check(existsSync(securityPath), "site/security.html is missing; run npm run site:generate");
   check(existsSync(testingPath), "site/testing.html is missing; run npm run site:generate");
+  check(existsSync(kubaraPath), "site/kubara.html is missing; run npm run site:generate");
   check(existsSync(entryPathReferencePath), "site/entry-path-reference.html is missing; run npm run site:generate");
   check(existsSync(futurePath), "site/future.html is missing; run npm run site:generate");
   check(existsSync(operationsPath), "site/operations.html is missing; run npm run site:generate");
@@ -336,6 +350,7 @@ if (mode === "--generate") {
   check(readFileSync(aiPath, "utf8") === site.aiHtml, "site/ai.html is stale");
   check(readFileSync(securityPath, "utf8") === site.securityHtml, "site/security.html is stale");
   check(readFileSync(testingPath, "utf8") === site.pillarsHtml, "site/testing.html is stale");
+  check(readFileSync(kubaraPath, "utf8") === site.kubaraHtml, "site/kubara.html is stale");
   check(readFileSync(entryPathReferencePath, "utf8") === site.entryPathReferenceHtml, "site/entry-path-reference.html is stale");
   check(readFileSync(futurePath, "utf8") === site.futureHtml, "site/future.html is stale");
   check(readFileSync(operationsPath, "utf8") === site.operationsHtml, "site/operations.html is stale");
@@ -733,6 +748,7 @@ function buildSite(generatedAt) {
     aiHtml: calmPage(aiHtml(catalog)),
     securityHtml: calmPage(securityHtml(catalog)),
     pillarsHtml: calmPage(examplesHtml(catalog)),
+    kubaraHtml: calmPage(kubaraHtml(catalog)),
     entryPathReferenceHtml: calmPage(entryPathReferenceHtml(catalog)),
     futureHtml: calmPage(futureHtml(catalog)),
     operationsHtml: calmPage(operationsHtml(catalog)),
@@ -928,7 +944,8 @@ function buildLlmsTxt() {
 - [All technical references](${SITE_BASE_URL}docs-reference.html): the complete guide and evidence index.
 - [Continue with ConfigHub](${SITE_BASE_URL}confighub.html): sign up, follow the official tutorial, or read the ConfigHub blog.
 - [Detailed entry paths](${SITE_BASE_URL}entry-path-reference.html): commands and proof links for Helm, AICR, OCI, and Kubernetes YAML.
-- [Kubara + ConfigHub mini-IDP](${SITE_BASE_URL}d/docs/demo/kubara/single-platform.html): adopt Kubara v0.13.0 without rewriting its catalogs, config, values overlays, or Argo reconciliation model.
+- [Kubara with ConfigHub](${SITE_BASE_URL}kubara.html): decide why to add ConfigHub without rewriting Kubara, then follow the same six-step buyer and implementation journey.
+- [Kubara six-step tutorial](${SITE_BASE_URL}d/docs/demo/kubara/adoption.html): choose, generate, push to Git, create OCI, load the selected organization, and deploy applications while Argo CD remains the reconciler.
 - [Repo README](https://github.com/confighub/helm-expt#readme): the proof corpus itself: recipes, receipts, verifiers, and how the evidence is produced.
 `;
 }
@@ -3473,6 +3490,7 @@ function docsReferenceHtml(catalog) {
     ["Try Redis without an account", `<a href="./try.html">Try Redis</a>`, "Render one reviewed Redis configuration. Inspect the files and local OCI without ConfigHub Server."],
     ["Follow the complete Redis example", `<a href="./redis-walkthrough.html">Detailed Redis walkthrough</a>`, "Add Helm parity, Kubernetes, a major upgrade, promotion, two-cluster delivery, and rollback."],
     ["Choose a worked example", `<a href="./testing.html">Examples</a>`, "Start with Helm, AICR, OCI, or YAML. Continue with ConfigHub only when you want saved configuration and managed operations."],
+    ["Adopt a Kubara platform", `<a href="./kubara.html">Kubara with ConfigHub</a>`, "Keep Kubara's catalogs, config, generated topology, Git hand-off, and Argo reconciliation; add governed OCI releases, fleet visibility, and day-two history through one six-step tutorial."],
     ["Follow configuration to deployment", `<a href="./how-it-works.html">Deployment</a>`, "See where each tool fits, where settings belong, and how a reviewed result reaches a cluster."],
     ["See every source and App demonstration", `<a href="../docs/user/config-catalog-demonstrations.md">Demonstration record</a>`, "See the exact example that ran, its result, and the work still needed for broader support."],
     ["Choose a public component", `<a href="./charts/index.html">Component Catalog</a>`, "Pick an exact retained package version, then read its packaged configurations, output, hooks, CRDs, setup work, and evidence."],
@@ -3499,7 +3517,9 @@ function docsReferenceHtml(catalog) {
     ["AI change review proof", "ConfigHub reports a mutable nested AICR image, blocks an inline API key, clears the reviewed candidate, requires approval, and leaves ordinary Deployment checks off the custom resource.", "../data/ai-change-review-live-proof/summary.md"],
     ["RBAC review example", "Find unnecessary Secret access, make one exact Role change, require approval, publish the reviewed objects as OCI, and let Argo CD deliver the result.", "../docs/demo/apps/rbac-review.md"],
     ["RBAC permissions report", "Review broad RBAC rules across committed default chart renders without needing a cluster or running Helm again.", "../data/app-readiness/summary.md"],
-    ["Kubara + ConfigHub mini-IDP", "The primary Kubara v0.13.0 path: four clusters, seven platform roles, two apps, byte-identical upstream and ConfigHub-aligned catalog generation, deterministic Git/OCI import, matrix, wiring, faithful hub-spoke delivery, and governed ConfigHub platform surfaces. Live controller outcomes remain receipt-gated.", "../docs/demo/kubara/single-platform.md"],
+    ["Kubara with ConfigHub", "The buyer landing page: what stays Kubara, what ConfigHub adds, the six adoption steps, measured benefits, current proof status, GUI tour, and honest boundaries.", "./kubara.html"],
+    ["Kubara six-step adoption tutorial", "Choose components, generate with Kubara, push the complete Git hand-off, create immutable OCI, load the selected ConfigHub organization, and deploy applications through Argo CD.", "../docs/demo/kubara/adoption.md"],
+    ["Kubara + ConfigHub technical mini-IDP", "The complete maintainer-grade v0.13.0 runbook: four clusters, seven platform roles, two apps, exact catalog generation, Git/OCI import, matrix, wiring, faithful hub-spoke delivery, and receipt-gated ConfigHub platform surfaces.", "../docs/demo/kubara/single-platform.md"],
     ["Historical Kubara v0.12.0 compatibility proof", "Retained read-only evidence for the one-cluster generation, OCI route, Argo bootstrap, and dated live result. It is not a command path for the current Kubara organization.", "../docs/demo/kubara/local-platform.md"],
     ["Sveltos Kyverno fleet example", "A two-wave result: ConfigHub approves a pilot and one selector expansion at different OCI digests, then Argo CD and Sveltos deliver Kyverno to one staging cluster and later to both.", "../docs/demo/sveltos/kyverno-fleet.md"],
     ["Hooks and CRDs example", "Kube Prometheus Stack install order, eight checked route records, Argo CD and Flux choices, live evidence, and what remains manual.", "../docs/demo/hooks-crds/kube-prometheus-stack.md"],
@@ -3695,6 +3715,8 @@ function docsHtml() {
       <p>Use the Component Catalog to choose a component and exact retained package version, then inspect its packaged configurations, required setup, and evidence.</p>
       <h3><a href="./testing.html">How do I bring my own input?</a></h3>
       <p>Worked Examples covers your own Helm values, AICR recipes for AI infrastructure, OCI, or Kubernetes YAML.</p>
+      <h3><a href="./kubara.html">How do I add ConfigHub to an existing Kubara platform?</a></h3>
+      <p>Keep Kubara's component selection, generated topology, Git hand-off, and Argo reconciliation while following one six-step adoption tutorial with explicit evidence checkpoints.</p>
     </section>
 
     <section aria-labelledby="prepare">
@@ -5399,6 +5421,135 @@ function catalogPathfinderHtml(root) {
     </section>`;
 }
 
+function loadKubaraSiteFacts() {
+  const parity = readYaml(join(repoRoot, "examples", "kubara", "current-platform", "catalog-parity-receipt.yaml"));
+  const generation = readYaml(join(repoRoot, "examples", "kubara", "current-platform", "generation-receipt.yaml"));
+  const coverage = readYaml(join(repoRoot, "data", "kubara-catalog-1.1-full-coverage", "receipt.yaml"));
+  const contract = readYaml(join(repoRoot, "data", "kubara-release-acceptance", "contract.yaml"));
+  const matrix = JSON.parse(readFileSync(join(repoRoot, "data", "kubara-platform-matrix", "matrix.json"), "utf8"));
+  const wiring = JSON.parse(readFileSync(join(repoRoot, "data", "kubara-wiring", "graph.json"), "utf8"));
+  const faithfulPath = join(repoRoot, "runs", "kubara-faithful-hub-spoke", "receipt.yaml");
+  const faithful = existsSync(faithfulPath) ? readYaml(faithfulPath) : null;
+  const orphanPath = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
+  const orphan = existsSync(orphanPath) ? readYaml(orphanPath) : null;
+  const generatedFiles = Number(parity.spec?.comparison?.fileCount ?? 0);
+  const faithfulGeneratedFiles = Number(faithful?.spec?.source?.currentExample?.generatedFileCount ?? 0);
+  const miniEvidence = matrix.spec?.evidence?.miniIdpReceipt ?? {};
+  return {
+    generatedFiles,
+    renders: Number(generation.spec?.platform?.renderCount ?? 0),
+    clusters: Number(contract.spec?.adoption?.clusters ?? 0),
+    roles: Number(contract.spec?.adoption?.selectedPlatformRoles ?? 0),
+    applications: contract.spec?.adoption?.applications ?? [],
+    matrixCells: Number(contract.spec?.adoption?.desiredMatrixRows ?? 0),
+    curatedLinks: Number(contract.spec?.adoption?.reconcilerPlan?.needsProvidesLinks ?? 0),
+    catalogComponents: Number(coverage.spec?.finalCatalog?.componentCount ?? coverage.status?.finalComponentCount ?? 0),
+    catalogVersions: Number(coverage.spec?.finalCatalog?.versionCount ?? coverage.status?.finalVersionCount ?? 0),
+    selections: coverage.spec?.selections?.length ?? 0,
+    wiringFacts: Number(wiring.spec?.summary?.facts ?? 0),
+    faithfulCurrent:
+      faithful?.status?.result === "pass"
+      && faithfulGeneratedFiles === generatedFiles,
+    miniIdpCurrent: miniEvidence.acceptedAsLive === true,
+    orphanCurrent: orphan?.status?.result === "pass",
+  };
+}
+
+function kubaraHtml(catalog) {
+  const facts = loadKubaraSiteFacts();
+  const currentLive = facts.faithfulCurrent && facts.miniIdpCurrent && facts.orphanCurrent;
+  const badge = (passed, yes, no) => `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${passed ? "var(--good)" : "var(--warn)"};border-radius:999px;background:var(--panel);color:${passed ? "var(--good)" : "var(--warn)"}">${escapeHtml(passed ? yes : no)}</strong>`;
+  const steps = [
+    ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
+    ["2", "Run Kubara", "Generate the familiar platform, add-ons, ApplicationSets, overrides, and wiring.", "../docs/demo/kubara/adoption-2-generate.md"],
+    ["3", "Push the complete hand-off to Git", "Prepare, scan, commit, and push one exact portable platform revision.", "../docs/demo/kubara/adoption-3-git.md"],
+    ["4", "Import the Git revision and create OCI", "Publish immutable component/config packages plus a digest-bound platform index.", "../docs/demo/kubara/adoption-4-oci.md"],
+    ["5", "Load the selected ConfigHub organization", "Materialize the recognizable topology, apply twice, and prove zero orphans.", "../docs/demo/kubara/adoption-5-confighub-org.md"],
+    ["6", "Deploy applications", "Promote, approve, release, and roll back while Argo CD keeps reconciling.", "../docs/demo/kubara/adoption-6-apps.md"],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kubara with ConfigHub &middot; Config Workshop</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header class="hero human-hero">
+    ${topNav(".")}
+    ${audienceLabel("For platform teams already using Kubara")}
+    <h1>Keep Kubara. Make the platform governable.</h1>
+    <p class="lead"><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Keep choosing and wiring the platform in Kubara, keep Git as the portable hand-off, and keep Argo CD as the reconciler. Add a component-first Catalog, immutable releases, review history, promotion, rollback, fleet visibility, and explicit wiring.</p>
+    <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
+    <p><a href="../docs/demo/kubara/adoption.md"><strong>Start the six-step tutorial</strong></a> · <a href="../docs/demo/kubara/gui-tour.md">See the GUI journey</a> · <a href="../docs/demo/kubara/checkpoints.md">Inspect the evidence</a></p>
+  </header>
+  <main>
+    ${generatedStamp(catalog, "Kubara buyer journey")}
+    <section aria-labelledby="benefits">
+      <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
+      ${markdownLikeTable([
+        ["Benefit", "Evidence or acceptance target", "Status"],
+        ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.generatedFiles === 135 && facts.renders === 13, "current deterministic", "check required")],
+        ["A stronger component Catalog", `${facts.catalogComponents} components, ${facts.catalogVersions} retained versions, and all ${facts.selections} exact Kubara selections under additive-only retention.`, badge(facts.catalogComponents === 103 && facts.catalogVersions === 130, "current deterministic", "check required")],
+        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent, "current live", "faithful receipt needs refresh")],
+        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent, "current live", "desired state only")],
+        ["Clean, repeatable operation", "A second zero-action apply, exact release heads, healthy applications, and a zero-orphan ConfigHub-and-cluster audit.", badge(facts.miniIdpCurrent && facts.orphanCurrent, "current live", "live receipt required")],
+      ], { rawThirdColumn: true })}
+      <p>The status is generated from committed receipts. Missing or source-stale live evidence stays visible instead of becoming a green marketing claim.</p>
+    </section>
+    <section aria-labelledby="stays-adds">
+      <h2 id="stays-adds">What stays Kubara, and what ConfigHub adds</h2>
+      ${markdownLikeTable([
+        ["Kubara stays", "ConfigHub adds"],
+        ["Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent", "Component identity and retained versions, governed definitions and instances, exact releases, approvals, promotion, rollback, departures, matrix and wiring"],
+        ["Git as the portable platform hand-off", "One immutable OCI package per reusable/effective configuration plus a digest-bound platform index"],
+        ["Argo CD as the cluster reconciler", "A governance and release plane before Argo receives the approved digest"],
+      ])}
+    </section>
+    <section aria-labelledby="six-steps">
+      <h2 id="six-steps">One adoption journey, in the user's order</h2>
+      <p>The preparer, scanner, package verifier, binding lock, and receipt checks are checkpoints inside these steps. They never replace the six actions a Kubara user understands.</p>
+      <ol>
+        ${steps.map(([number, title, detail, href]) => `<li><p><a href="${href}"><strong>${number}. ${escapeHtml(title)}</strong></a><br>${escapeHtml(detail)}</p></li>`).join("\n        ")}
+      </ol>
+      <p><a href="../docs/demo/kubara/adoption.md"><strong>Open the complete tutorial and its checkpoints</strong></a>.</p>
+    </section>
+    <section aria-labelledby="see-it">
+      <h2 id="see-it">What we show in ConfigHub</h2>
+      <ol>
+        <li>The source-bound platform contract and familiar hub/spoke identity.</li>
+        <li>The component-first Catalog, retained versions, and selected instances.</li>
+        <li>Faithful Kubara and adapted ConfigHub delivery lanes side by side.</li>
+        <li>hx-web and Cubbychat across development, staging, and two production targets.</li>
+        <li>Curated native <code>NeedsProvides</code> Links, followed by the full extracted graph.</li>
+        <li>Exact production approval, promotion, departure, rollback, release, and OCI digest history.</li>
+        <li>The live 36-cell matrix and exact zero-orphan result.</li>
+      </ol>
+      <p>${currentLive ? "The complete source-current live checkpoint is present." : "The deterministic story is current; the integrated live screenshot set remains gated until faithful, mini-IDP, idempotence, health, and orphan receipts all match this source."}</p>
+      <p><a href="../docs/demo/kubara/gui-tour.md">Follow the receipt-bound GUI tour</a>.</p>
+    </section>
+    <section aria-labelledby="boundaries">
+      <h2 id="boundaries">The honest boundaries</h2>
+      <ul>
+        <li>This is deterministic adoption, not an AI rewrite. Ordinary catalog and configuration updates may still be required.</li>
+        <li>The user explicitly selects the organization. Targets and the local delivery runtime are current prerequisites; the importer does not silently create or guess them.</li>
+        <li>Secrets and target-owned facts stay outside the portable Git and OCI payloads.</li>
+        <li>Desired state, current live state, historical evidence, OCI publication, and production support remain distinct claims.</li>
+        <li>Performance is measured and disclosed; it is not sold as a benefit until the end-to-end target passes.</li>
+      </ul>
+    </section>
+    <section aria-labelledby="detail">
+      <h2 id="detail">Keep all the detail</h2>
+      <p>The concise buyer journey does not replace the engineering material. Use the <a href="../docs/demo/kubara/single-platform.md">complete mini-IDP and maintainer runbook</a>, <a href="../examples/kubara/git-import/README.md">importer contract</a>, <a href="../docs/demo/kubara/platform-evidence.md">matrix and wiring evidence</a>, and <a href="../docs/demo/kubara/reconciliation-performance.md">performance analysis</a>.</p>
+      <p>The implementation graduates to a future <code>github.com/confighub/kubara-confighub</code> repository only after a clean-checkout import into a fresh user-selected organization passes twice. The orphan count must be zero, one application must be healthy, and every published screenshot must be receipt-bound.</p>
+    </section>
+  </main>
+  <footer>Every claim is scoped to the named Kubara source, version, catalogs, ConfigHub organization, delivery path, and receipt.</footer>
+</body>
+</html>`;
+}
+
 function examplesHtml(catalog) {
   const pathways = new Map(catalog.demoProgram.spec.pathways.map((item) => [item.id, item]));
   const apps = new Map(catalog.demoProgram.spec.apps.map((item) => [item.id, item]));
@@ -5561,13 +5712,13 @@ cub helm install myapp &lt;chart-ref&gt; \\
       <p>ConfigHub does the same job for both. It stores the result, checks it, and moves a change from one environment to the next. You cannot run a whole fleet in a web page, so each row links a walkthrough and the recorded evidence.</p>
       ${markdownLikeTable([
         ["Example", "What has run", "Open"],
-        ["Kubara", `<strong>Current v0.13 primary path:</strong> byte-identical generation from upstream and ConfigHub-aligned catalogs across four clusters, 13 effective renders, two applications, a deterministic ordinary-Kubara-to-clean-Git preparer, component-first OCI/import contracts, and generated matrix and wiring evidence. ConfigHub organization materialization and Argo/workload convergence remain distinct receipt-gated claims. <strong>Historical v0.12 read-only evidence:</strong> the retained one-cluster route, OCI delivery, Argo bootstrap, and healthy Metrics Server receipt.`, `<a href="./d/docs/demo/kubara/single-platform.html">Current v0.13 mini-IDP guide</a> · <a href="./d/examples/kubara/git-import/README.html">Prepare and import a Kubara Git revision</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
+        ["Kubara", `<strong>Current v0.13 primary path:</strong> byte-identical generation from upstream and ConfigHub-aligned catalogs across four clusters, 13 effective renders, two applications, a deterministic ordinary-Kubara-to-clean-Git preparer, component-first OCI/import contracts, and generated matrix and wiring evidence. ConfigHub organization materialization and Argo/workload convergence remain distinct receipt-gated claims. <strong>Historical v0.12 read-only evidence:</strong> the retained one-cluster route, OCI delivery, Argo bootstrap, and healthy Metrics Server receipt.`, `<a href="./kubara.html"><strong>Why Kubara users add ConfigHub</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Six-step adoption tutorial</a> · <a href="./d/docs/demo/kubara/gui-tour.html">GUI tour</a> · <a href="./d/docs/demo/kubara/checkpoints.html">Evidence checkpoints</a> · <a href="./d/docs/demo/kubara/single-platform.html">Technical mini-IDP runbook</a> · <a href="./d/examples/kubara/git-import/README.html">Importer reference</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Matrix and wiring evidence</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/current-platform">Ordinary Kubara output</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/kubara/prepared-current-platform">Prepared importer handoff</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/prepared-current-platform/preparation-receipt.yaml">Preparation receipt</a> · <a href="https://github.com/confighub/helm-expt/blob/main/examples/kubara/current-platform/catalog-parity-receipt.yaml">Catalog parity receipt</a> · <a href="./d/docs/demo/kubara/local-platform.html">Historical v0.12 proof</a>`],
         ["Sveltos", worked(pathways, "sveltos").result, `<a href="./d/docs/demo/sveltos/kyverno-fleet.html">Walkthrough</a> · <a href="https://github.com/confighub/helm-expt/tree/main/examples/sveltos/kyverno-fleet">GitHub source</a> · <a href="./d/data/sveltos-oci-delivery-proof/summary.html">Proof</a> · <a href="./d/data/helm-catalog-readmes/spaces/sveltos-kyverno-fleet-3-8-1-staging/README.html">Space guide</a>`],
       ], { rawSecondColumn: true, rawThirdColumn: true })}
       <h3 id="kubara-app">An internal developer platform with apps on it</h3>
       <p><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Kubara's catalogs, <code>config.yaml</code>, values overlays, generated components, and hub-and-spoke model remain recognizable. ConfigHub adds exact component retention, semantic review, approvals, promotion, rollback, a component-by-cluster matrix with explicit live or unknown state, and visible wiring. Argo CD still reconciles.</p>
       <p>The current Kubara v0.13.0 source selects seven platform roles across one hub and three spokes. hx-web and cubbychat use the shared certificate and ingress services on all four targets. The guide proves byte-identical generation from Kubara's upstream catalog snapshot and the ConfigHub-aligned export, with no AI translation or required migration. The importer materializes the ConfigHub organization before Argo and workload convergence. Visible platform Application state is therefore never presented as proof of live health.</p>
-      <p><a href="./d/docs/demo/kubara/single-platform.html">Follow the linear mini-IDP guide</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Open the matrix and wiring evidence</a>.</p>
+      <p><a href="./kubara.html"><strong>Start with the Kubara buyer journey</strong></a> · <a href="./d/docs/demo/kubara/adoption.html">Follow the six-step tutorial</a> · <a href="./d/docs/demo/kubara/platform-evidence.html">Open the matrix and wiring evidence</a>.</p>
     </section>
 
     <section aria-labelledby="apps">
@@ -9441,6 +9592,8 @@ Open \`site/how-it-works.html\` to choose where reviewed configuration lives and
 Open \`site/deployment-reference.html\` for the detailed source, render, route, variant, check, and delivery model.
 Open \`site/try.html\` for the short Redis example.
 Open \`site/testing.html\` for working starting, managed, platform, and App examples.
+Open \`site/kubara.html\` for the Kubara buyer story, six adoption steps, GUI path,
+evidence status, and full technical references.
 Open \`site/confighub.html\` to sign up, follow the official tutorial, or read the blog.
 Open \`site/entry-path-reference.html\` for detailed Helm, AICR, OCI, and YAML commands.
 Open \`site/variants.html\` for base variants, derived variants, and promotion entry points.

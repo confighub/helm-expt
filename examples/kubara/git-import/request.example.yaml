@@ -54,7 +54,7 @@ spec:
       dataHash: 0000000000000000000000000000000000000000000000000000000000000000
       dataSHA256: 0000000000000000000000000000000000000000000000000000000000000000
   navigation:
-    guideURL: https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html
+    guideURL: https://confighub.github.io/helm-expt/site/kubara.html
     catalogURL: https://confighub.github.io/helm-expt/site/charts/
   targets:
     hx-app-dev:

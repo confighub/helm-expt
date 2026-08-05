@@ -637,9 +637,20 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/hooks-crds/kube-prometheus-stack.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/ingress-nginx/confighub-proof-transcript.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/ingress-nginx/confighub-proof.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-1-choose.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-2-generate.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-3-git.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-4-oci.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-5-confighub-org.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption-6-apps.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/app-rollout.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/checkpoints.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/gui-tour.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/local-platform.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/platform-evidence.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/reconciliation-performance.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kube-prometheus-stack/confighub-proof-transcript.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/kube-prometheus-stack/confighub-proof.html</loc></url>
@@ -704,6 +715,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/how-it-works-website-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/independent-review-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/issue-backlog.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/kubara-git-to-confighub-blog-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/landing-page-restructure-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-handover.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-roadmap.html</loc></url>
@@ -1035,6 +1047,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/how-it-works.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/journey.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/known-gaps.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/kubara.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/offering.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/operations.html</loc></url>

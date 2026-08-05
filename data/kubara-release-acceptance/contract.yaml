@@ -136,6 +136,10 @@ spec:
     - "npm run kubara-mini-idp:apply"
     - "npm run kubara-mini-idp:verify"
     - "npm run kubara-mini-idp:receipt-verify"
+    - "npm run kubara-mini-idp:orphan-plan"
+    - "npm run kubara-mini-idp:orphan-audit:self-test"
+    - "npm run kubara-mini-idp:orphan-audit"
+    - "npm run kubara-mini-idp:orphan-audit:receipt-verify"
     - "npm run kubara-platform-matrix:generate"
     - "npm run kubara-platform-matrix:verify"
     - "npm run kubara-catalog-release:generate"
@@ -187,9 +191,10 @@ spec:
         - "kubara-platform-matrix:verify"
     -
       id: "mini-idp"
-      outcome: "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; its receipt requires an initial reconciliation followed by a zero-action rerun."
+      outcome: "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; its receipt requires an initial reconciliation followed by a zero-action rerun, and the exact ConfigHub and cluster inventory must be orphan-free."
       packageScripts:
         - "kubara-mini-idp:receipt-verify"
+        - "kubara-mini-idp:orphan-audit:receipt-verify"
     -
       id: "faithful-hub-spoke"
       outcome: "The unchanged Kubara hub Argo CD to registered spoke topology is retained as the faithful lane."
@@ -235,6 +240,7 @@ spec:
     - "node scripts/complete-kubara-catalog-1-1-coverage.mjs --verify"
     - "node scripts/run-kubara-faithful-hub-spoke-proof.mjs --verify"
     - "node scripts/reconcile-kubara-mini-idp.mjs --receipt-verify"
+    - "node scripts/audit-kubara-mini-idp-orphans.mjs --receipt-verify"
     - "node scripts/generate-kubara-catalog-release.mjs --verify"
   requiredEvidence:
     currentExample: "examples/kubara/current-platform/generation-receipt.yaml"
@@ -244,6 +250,7 @@ spec:
     currentWiring: "data/kubara-wiring/graph.json"
     faithfulLane: "runs/kubara-faithful-hub-spoke/receipt.yaml"
     miniIdp: "runs/kubara-mini-idp-reconcile/receipt.yaml"
+    miniIdpOrphans: "runs/kubara-mini-idp-reconcile/orphan-audit.yaml"
     historicalLiveQualification: "runs/kubara-live-qualification/receipt.yaml"
     currentLiveQualification: "runs/kubara-current-live-qualification/receipt.yaml"
     historicalPromotion: "data/kubara-catalog-refresh/root-promotion/receipt.yaml"
@@ -251,9 +258,34 @@ spec:
     fullCatalogCoverage: "data/kubara-catalog-1.1-full-coverage/receipt.yaml"
     rootCatalog: "CATALOG.md"
     installerCatalog: "data/installer-oci-packages/packages.json"
-    publicPage: "site/d/docs/demo/kubara/single-platform.html"
+    buyerPage: "site/kubara.html"
+    adoptionTutorial: "site/d/docs/demo/kubara/adoption.html"
+    evidenceCheckpoints: "site/d/docs/demo/kubara/checkpoints.html"
+    guiTour: "site/d/docs/demo/kubara/gui-tour.html"
+    technicalRunbook: "site/d/docs/demo/kubara/single-platform.html"
+  guiEvidenceContract:
+    tourSource: "docs/demo/kubara/gui-tour.md"
+    requiredTourFrames: 6
+    publicationPolicy: "publish-only-after-source-current-faithful-mini-idp-idempotence-health-and-orphan-receipts-pass"
+    screenshotReceiptWhenPublished: "data/kubara-gui-evidence/receipt.yaml"
+    screenshotDirectoryWhenPublished: "docs/images/kubara"
+    staticVerificationRequiresScreenshots: false
+    requiredSharedMetadata:
+      - "sourceCommit"
+      - "organizationExternalID"
+      - "organizationInternalID"
+      - "miniIdpReceiptSHA256"
+      - "orphanReceiptSHA256"
+    requiredPerImageMetadata:
+      - "path"
+      - "capturedAt"
+      - "visibleIdentities"
+      - "sensitiveValues"
+      - "caption"
+      - "claimBoundary"
   claimBoundary:
     - "The static verifier proves deterministic committed inputs and generated outputs; it does not turn missing live receipts into passes."
     - "The full verifier fails until both live qualification sets, both additive promotions, the faithful lane, the mini-IDP reconciliation, and the public site verify."
     - "The first mini-IDP apply writes a pending-idempotence receipt; the immediately repeated apply must record zero actions before receipt and release verification can pass."
+    - "The orphan audit is a separate exact inventory receipt and must pass before the website can claim a clean Kubara organization."
     - "AI may propose future wiring, but no required adoption, generation, reconciliation, or verification step depends on AI."

@@ -56,6 +56,21 @@ const fullCoverageAdditions = KUBARA_CATALOG_1_1_ADDITIONS.map((item) => `${item
 const top100EvidenceComponentCount = 100;
 const finalCatalogVersionCount = KUBARA_CATALOG_1_1_FINAL.versionCount;
 const finalCatalogComponentCount = KUBARA_CATALOG_1_1_FINAL.componentCount;
+const kubaraBuyerJourneySources = {
+  overview: "docs/demo/kubara/index.md",
+  tutorial: "docs/demo/kubara/adoption.md",
+  checkpoints: "docs/demo/kubara/checkpoints.md",
+  guiTour: "docs/demo/kubara/gui-tour.md",
+};
+const kubaraAdoptionChapters = [
+  { number: 1, path: "docs/demo/kubara/adoption-1-choose.md", previous: "index.md", next: "adoption-2-generate.md" },
+  { number: 2, path: "docs/demo/kubara/adoption-2-generate.md", previous: "adoption-1-choose.md", next: "adoption-3-git.md" },
+  { number: 3, path: "docs/demo/kubara/adoption-3-git.md", previous: "adoption-2-generate.md", next: "adoption-4-oci.md" },
+  { number: 4, path: "docs/demo/kubara/adoption-4-oci.md", previous: "adoption-3-git.md", next: "adoption-5-confighub-org.md" },
+  { number: 5, path: "docs/demo/kubara/adoption-5-confighub-org.md", previous: "adoption-4-oci.md", next: "adoption-6-apps.md" },
+  { number: 6, path: "docs/demo/kubara/adoption-6-apps.md", previous: "adoption-5-confighub-org.md", next: "gui-tour.md" },
+];
+const kubaraGuiEvidenceReceipt = "data/kubara-gui-evidence/receipt.yaml";
 
 const packageCommands = {
   "kubara-catalog-promotion:dry-run": "node scripts/promote-kubara-catalog-candidates.mjs --dry-run",
@@ -139,6 +154,7 @@ const finalCommands = [
   command("catalog-full-coverage", "scripts/complete-kubara-catalog-1-1-coverage.mjs", "--verify"),
   command("faithful-hub-spoke", "scripts/run-kubara-faithful-hub-spoke-proof.mjs", "--verify"),
   command("mini-idp", "scripts/reconcile-kubara-mini-idp.mjs", "--receipt-verify"),
+  command("mini-idp-orphans", "scripts/audit-kubara-mini-idp-orphans.mjs", "--receipt-verify"),
   command("catalog-public-release", "scripts/generate-kubara-catalog-release.mjs", "--verify"),
 ];
 
@@ -265,6 +281,10 @@ function expectedContract() {
         "npm run kubara-mini-idp:apply",
         "npm run kubara-mini-idp:verify",
         "npm run kubara-mini-idp:receipt-verify",
+        "npm run kubara-mini-idp:orphan-plan",
+        "npm run kubara-mini-idp:orphan-audit:self-test",
+        "npm run kubara-mini-idp:orphan-audit",
+        "npm run kubara-mini-idp:orphan-audit:receipt-verify",
         "npm run kubara-platform-matrix:generate",
         "npm run kubara-platform-matrix:verify",
         "npm run kubara-catalog-release:generate",
@@ -303,8 +323,9 @@ function expectedContract() {
           "kubara-wiring:verify",
           "kubara-platform-matrix:verify",
         ]),
-        gate("mini-idp", "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; its receipt requires an initial reconciliation followed by a zero-action rerun.", [
+        gate("mini-idp", "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; its receipt requires an initial reconciliation followed by a zero-action rerun, and the exact ConfigHub and cluster inventory must be orphan-free.", [
           "kubara-mini-idp:receipt-verify",
+          "kubara-mini-idp:orphan-audit:receipt-verify",
         ]),
         gate("faithful-hub-spoke", "The unchanged Kubara hub Argo CD to registered spoke topology is retained as the faithful lane.", [
           "kubara-faithful-hub-spoke:verify",
@@ -334,6 +355,7 @@ function expectedContract() {
         currentWiring: "data/kubara-wiring/graph.json",
         faithfulLane: "runs/kubara-faithful-hub-spoke/receipt.yaml",
         miniIdp: "runs/kubara-mini-idp-reconcile/receipt.yaml",
+        miniIdpOrphans: "runs/kubara-mini-idp-reconcile/orphan-audit.yaml",
         historicalLiveQualification: "runs/kubara-live-qualification/receipt.yaml",
         currentLiveQualification: "runs/kubara-current-live-qualification/receipt.yaml",
         historicalPromotion: "data/kubara-catalog-refresh/root-promotion/receipt.yaml",
@@ -341,12 +363,40 @@ function expectedContract() {
         fullCatalogCoverage: "data/kubara-catalog-1.1-full-coverage/receipt.yaml",
         rootCatalog: "CATALOG.md",
         installerCatalog: "data/installer-oci-packages/packages.json",
-        publicPage: "site/d/docs/demo/kubara/single-platform.html",
+        buyerPage: "site/kubara.html",
+        adoptionTutorial: "site/d/docs/demo/kubara/adoption.html",
+        evidenceCheckpoints: "site/d/docs/demo/kubara/checkpoints.html",
+        guiTour: "site/d/docs/demo/kubara/gui-tour.html",
+        technicalRunbook: "site/d/docs/demo/kubara/single-platform.html",
+      },
+      guiEvidenceContract: {
+        tourSource: kubaraBuyerJourneySources.guiTour,
+        requiredTourFrames: 6,
+        publicationPolicy: "publish-only-after-source-current-faithful-mini-idp-idempotence-health-and-orphan-receipts-pass",
+        screenshotReceiptWhenPublished: kubaraGuiEvidenceReceipt,
+        screenshotDirectoryWhenPublished: "docs/images/kubara",
+        staticVerificationRequiresScreenshots: false,
+        requiredSharedMetadata: [
+          "sourceCommit",
+          "organizationExternalID",
+          "organizationInternalID",
+          "miniIdpReceiptSHA256",
+          "orphanReceiptSHA256",
+        ],
+        requiredPerImageMetadata: [
+          "path",
+          "capturedAt",
+          "visibleIdentities",
+          "sensitiveValues",
+          "caption",
+          "claimBoundary",
+        ],
       },
       claimBoundary: [
         "The static verifier proves deterministic committed inputs and generated outputs; it does not turn missing live receipts into passes.",
         "The full verifier fails until both live qualification sets, both additive promotions, the faithful lane, the mini-IDP reconciliation, and the public site verify.",
         "The first mini-IDP apply writes a pending-idempotence receipt; the immediately repeated apply must record zero actions before receipt and release verification can pass.",
+        "The orphan audit is a separate exact inventory receipt and must pass before the website can claim a clean Kubara organization.",
         "AI may propose future wiring, but no required adoption, generation, reconciliation, or verification step depends on AI.",
       ],
     },
@@ -480,6 +530,7 @@ function verifySiteConsumption() {
 }
 
 function verifyKubaraPublicSourceContract() {
+  verifyKubaraBuyerJourneySourceContract();
   const adoption = collapseWhitespace(readFileSync(join(repoRoot, "docs/demo/kubara/single-platform.md"), "utf8"));
   const evidence = collapseWhitespace(readFileSync(join(repoRoot, "docs/demo/kubara/platform-evidence.md"), "utf8"));
   const importerGuide = collapseWhitespace(readFileSync(join(repoRoot, "examples/kubara/git-import/README.md"), "utf8"));
@@ -520,12 +571,12 @@ function verifyKubaraPublicSourceContract() {
     "`DeliveryMode=ConfigHubOCI`",
     "`URL-Catalog`",
     "130 retained",
-    "seven deterministic steps",
+    "six adoption steps",
     "prepare-kubara-git-handoff.mjs",
     "current-platform.prepare.yaml",
     "`examples/kubara/prepared-current-platform`",
     "kubara-git-handoff:verify-current",
-    "159 checked files",
+    "167 checked files",
     "--package",
     "--apply",
     "apply-receipt.json",
@@ -554,7 +605,7 @@ function verifyKubaraPublicSourceContract() {
     "appsSpaceID:",
   ]) check(importerRequest.includes(phrase), `Kubara importer request must pin ${phrase}`);
   for (const [name, html] of [["matrix", matrixHtml], ["wiring", wiringHtml]]) {
-    check(html.includes("https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html"), `${name} HTML must link back to the Kubara adoption guide`);
+    check(html.includes("https://confighub.github.io/helm-expt/site/kubara.html"), `${name} HTML must link back to the Kubara buyer and adoption journey`);
     check(html.includes("https://confighub.github.io/helm-expt/site/charts/"), `${name} HTML must link to the retained component-first Catalog`);
   }
   check(matrixHtml.includes("Argo sync") && !matrixHtml.includes("ConfigHub sync"), "current platform matrix must identify controller state as Argo sync, not ConfigHub sync");
@@ -569,7 +620,7 @@ function verifyKubaraPublicSourceContract() {
     check(!importerSource.includes(stale), `Kubara importer source retains obsolete implementation wording: ${stale}`);
   }
   for (const url of [
-    "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html",
+    "https://confighub.github.io/helm-expt/site/kubara.html",
     "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html",
     "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html",
   ]) {
@@ -580,7 +631,8 @@ function verifyKubaraPublicSourceContract() {
   for (const phrase of [
     "desired-only matrix",
     "public matrix is regenerated from that desired state plus receipt evidence",
-    "ConfigHub GUI shows 25 curated operational `NeedsProvides` Links",
+    "After an accepted live run, the ConfigHub GUI must show 25 curated",
+    "operational `NeedsProvides` Links",
     "public graph is the complete evidence view",
     "one 90-minute overall convergence deadline",
     "durable write-ahead operation journal",
@@ -590,7 +642,8 @@ function verifyKubaraPublicSourceContract() {
     "exact UID/resourceVersion",
   ]) check(adoption.includes(phrase), `Kubara adoption source must preserve boundary: ${phrase}`);
   for (const phrase of [
-    "desired-only platform matrix and exposes exactly 25 curated operational",
+    "The mini-IDP contract calls for exactly 25",
+    "exact live receipt and orphan audit decide whether those Links are current",
     "The receipt-aware public matrix and complete extracted",
     "contains 36 cells: seven deployable platform roles plus hx-web and cubbychat",
     "The full graph preserves every extracted",
@@ -598,17 +651,216 @@ function verifyKubaraPublicSourceContract() {
   check(!evidence.includes("contains 28 cells"), "Kubara evidence source must not retain the pre-application 28-cell matrix claim");
 }
 
+function verifyKubaraBuyerJourneySourceContract() {
+  const sourcePaths = [
+    ...Object.values(kubaraBuyerJourneySources),
+    ...kubaraAdoptionChapters.map((chapter) => chapter.path),
+  ];
+  for (const path of sourcePaths) check(existsSync(join(repoRoot, path)), `${path} is missing from the Kubara buyer journey`);
+
+  const overviewRaw = readFileSync(join(repoRoot, kubaraBuyerJourneySources.overview), "utf8");
+  const tutorialRaw = readFileSync(join(repoRoot, kubaraBuyerJourneySources.tutorial), "utf8");
+  const checkpointsRaw = readFileSync(join(repoRoot, kubaraBuyerJourneySources.checkpoints), "utf8");
+  const guiTourRaw = readFileSync(join(repoRoot, kubaraBuyerJourneySources.guiTour), "utf8");
+  const overview = collapseWhitespace(overviewRaw);
+  const tutorial = collapseWhitespace(tutorialRaw);
+  const checkpoints = collapseWhitespace(checkpointsRaw);
+  const guiTour = collapseWhitespace(guiTourRaw);
+  const generator = collapseWhitespace(readFileSync(join(repoRoot, "scripts/generate-public-site.mjs"), "utf8"));
+
+  for (const phrase of [
+    "ConfigHub simplifies Kubara without making it fundamentally different.",
+    "Kubara composes. ConfigHub governs. Argo CD reconciles.",
+    "This is an adoption path, not an AI-led rewrite.",
+    "Why a Kubara user should prefer this",
+    "Honest boundaries",
+    "Graduation to a dedicated repository",
+    "github.com/confighub/kubara-confighub",
+  ]) check(overview.includes(phrase), `${kubaraBuyerJourneySources.overview} must preserve the buyer promise: ${phrase}`);
+  checkInOrder(overview, [
+    "1. **Choose platform components and wiring in Kubara.**",
+    "2. **Run Kubara to generate the platform, add-ons, ApplicationSets, overrides, and cluster wiring.**",
+    "3. **Commit and push the complete reviewed hand-off to Git.**",
+    "4. **Run the deterministic ConfigHub importer against that exact Git revision; verify and publish immutable OCI packages.**",
+    "5. **Load the result into the organization selected by the user and materialize the familiar topology as governed ConfigHub objects.**",
+    "6. **Add, promote, and deploy applications through ConfigHub while Argo CD remains the cluster reconciler.**",
+  ], `${kubaraBuyerJourneySources.overview} six-step buyer journey`);
+  check(!overview.includes("7. **"), `${kubaraBuyerJourneySources.overview} must not introduce a competing seventh adoption step`);
+
+  for (const phrase of [
+    "function kubaraHtml(catalog)",
+    "ConfigHub simplifies Kubara without making it fundamentally different.",
+    "Kubara composes; ConfigHub governs; Argo reconciles.",
+    "Benefits with explicit acceptance evidence",
+    "The status is generated from committed receipts.",
+    "The honest boundaries",
+    "The implementation graduates to a future <code>github.com/confighub/kubara-confighub</code> repository only after",
+    "const currentLive = facts.faithfulCurrent && facts.miniIdpCurrent && facts.orphanCurrent",
+    "live receipt required",
+  ]) check(generator.includes(phrase), `public-site generator must preserve the Kubara sales landing contract: ${phrase}`);
+  checkInOrder(generator, kubaraAdoptionChapters.map((chapter) => `../${chapter.path}`), "public-site Kubara landing chapter links");
+
+  for (const phrase of [
+    "This tutorial follows one continuous path",
+    "It preserves the six adoption steps exactly",
+    "The current importer does not create or guess an organization, Target, or cluster-local delivery runtime.",
+    "The self-test proves the importer contract without claiming that a fresh live organization has already completed the same path.",
+    "Until both receipts pass, describe this step as implemented but not source-current live evidence.",
+  ]) check(tutorial.includes(phrase), `${kubaraBuyerJourneySources.tutorial} must preserve the linear adoption boundary: ${phrase}`);
+  checkInOrder(tutorialRaw, [
+    "## Step 1:",
+    "## Step 2:",
+    "## Step 3:",
+    "## Step 4:",
+    "## Step 5:",
+    "## Step 6:",
+  ], `${kubaraBuyerJourneySources.tutorial} chapter sequence`);
+  check(!/^## Step 7:/m.test(tutorialRaw), `${kubaraBuyerJourneySources.tutorial} must stop at the six user adoption steps`);
+  const tutorialChapterLinks = new Set(
+    [...tutorialRaw.matchAll(/\((adoption-[^)]+\.md)\)/g)].map((match) => match[1]),
+  );
+  const expectedChapterLinks = kubaraAdoptionChapters.map((chapter) => chapter.path.split("/").at(-1)).sort();
+  check(
+    stableJson([...tutorialChapterLinks].sort()) === stableJson(expectedChapterLinks),
+    `${kubaraBuyerJourneySources.tutorial} must link exactly the six detailed adoption chapters`,
+  );
+
+  for (const chapter of kubaraAdoptionChapters) verifyKubaraAdoptionChapter(chapter);
+
+  for (const phrase of [
+    "Current deterministic",
+    "Current live",
+    "Historical live",
+    "Waiting for current live proof",
+    "Passing them does not synthesize a live receipt.",
+    "Current live release checkpoint",
+    "the exact ConfigHub inventory and cluster audit report zero orphans",
+    "the public website is regenerated from those artifacts",
+  ]) check(checkpoints.includes(phrase), `${kubaraBuyerJourneySources.checkpoints} must preserve the evidence boundary: ${phrase}`);
+  checkInOrder(checkpoints, [
+    "faithful hub/spoke evidence is regenerated",
+    "the adapted v0.13 mini-IDP applies successfully",
+    "an immediate second apply reports zero actions",
+    "every required platform and application workload converges",
+    "every Argo Application observes the exact current ConfigHub release",
+    "the exact ConfigHub inventory and cluster audit report zero orphans",
+    "the 36-cell matrix is regenerated",
+    "native GUI Components, Units, Links, approvals, history, and OCI digests are inspected",
+    "the public website is regenerated",
+  ], `${kubaraBuyerJourneySources.checkpoints} live release sequence`);
+
+  verifyKubaraGuiEvidenceContract(guiTourRaw, guiTour);
+}
+
+function verifyKubaraAdoptionChapter(chapter) {
+  const raw = readFileSync(join(repoRoot, chapter.path), "utf8");
+  const normalized = collapseWhitespace(raw);
+  check(new RegExp(`^# Step ${chapter.number}:`, "m").test(raw), `${chapter.path} must be Step ${chapter.number}`);
+  check(/^## (Your goal|Goal)$/mi.test(raw), `${chapter.path} must state the user's goal`);
+  check(/^## What (stays|remains) Kubara$/mi.test(raw), `${chapter.path} must state what remains Kubara`);
+  check(/^## What ConfigHub adds$/mi.test(raw), `${chapter.path} must state what ConfigHub adds`);
+  check(/^## Expected (artifacts|ConfigHub state|state and evidence)$/mi.test(raw), `${chapter.path} must state its expected artifacts or state`);
+  check(/^## Machine checkpoint$/mi.test(raw), `${chapter.path} must expose a machine checkpoint`);
+  check(/^## Screens?hot/im.test(raw), `${chapter.path} must expose a screenshot checkpoint`);
+  check(/^## Troubleshooting$/mi.test(raw), `${chapter.path} must include troubleshooting`);
+  check(/^## Safe to stop( here)?$/mi.test(raw), `${chapter.path} must state when it is safe to stop`);
+  check(raw.includes(`(${chapter.previous})`), `${chapter.path} must link backward to ${chapter.previous}`);
+  check(raw.includes(`(${chapter.next})`), `${chapter.path} must link forward to ${chapter.next}`);
+  check(
+    /No screenshot|Do not substitute|No GitHub screenshot|after the checkpoint passes|Do not publish a current screenshot|After the current receipts pass/i.test(normalized),
+    `${chapter.path} must keep screenshots behind the chapter checkpoint`,
+  );
+  check(
+    /not present yet|not.*live|does not.*live|has not.*live|waiting for current live proof|after.*receipt.*pass|after the checkpoint passes/i.test(normalized),
+    `${chapter.path} must not turn its deterministic checkpoint into an unqualified live claim`,
+  );
+}
+
+function verifyKubaraGuiEvidenceContract(guiTourRaw, guiTour) {
+  checkInOrder(guiTourRaw, [
+    "### 1. Start at the platform contract",
+    "### 2. Browse components before platform instances",
+    "### 3. Show the recognizable delivery shape",
+    "### 4. Follow one application through four clusters",
+    "### 5. Open the wiring",
+    "### 6. Finish with the fleet matrix and clean inventory",
+  ], `${kubaraBuyerJourneySources.guiTour} tour sequence`);
+  for (const phrase of [
+    "Do not use a screenshot as current evidence merely because the UI looks plausible.",
+    "Capture and publish the screenshot set only after the",
+    "Each image must be tied to the same source commit, organization, receipt, and capture date.",
+    "Explain, but do not spend the demo running",
+    "Screenshot evidence contract",
+    "capture date and UTC time",
+    "exact source commit",
+    "ConfigHub organization external and internal IDs",
+    "accepted mini-IDP and orphan receipt hashes",
+    "whether sensitive values were absent or redacted",
+    "states exactly what the image proves and does not prove",
+    "The website generator should refuse to present the screenshot set as current",
+  ]) check(guiTour.includes(phrase), `${kubaraBuyerJourneySources.guiTour} must preserve the GUI evidence contract: ${phrase}`);
+
+  const markdownImages = [...guiTourRaw.matchAll(/!\[[^\]]*\]\(([^)]+)\)/g)].map((match) => match[1]);
+  const htmlImages = [...guiTourRaw.matchAll(/<img\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/gi)].map((match) => match[1]);
+  const imagePaths = [...new Set([...markdownImages, ...htmlImages])];
+  if (imagePaths.length === 0) return;
+
+  check(existsSync(join(repoRoot, kubaraGuiEvidenceReceipt)), `${kubaraGuiEvidenceReceipt} is required only after GUI screenshots are embedded`);
+  const receipt = readYaml(join(repoRoot, kubaraGuiEvidenceReceipt));
+  check(receipt.kind === "KubaraConfigHubGuiEvidenceReceipt", `${kubaraGuiEvidenceReceipt} kind changed`);
+  check(receipt.status?.result === "pass", `${kubaraGuiEvidenceReceipt} must pass before GUI screenshots are published`);
+  check(receipt.status?.sourceCurrent === true, `${kubaraGuiEvidenceReceipt} must be source-current before GUI screenshots are published`);
+  check(/^[0-9a-f]{40}(?:[0-9a-f]{24})?$/.test(receipt.spec?.sourceCommit ?? ""), `${kubaraGuiEvidenceReceipt} must pin an exact Git sourceCommit`);
+  check(/^[0-9a-f-]{36}$/.test(receipt.spec?.organizationExternalID ?? ""), `${kubaraGuiEvidenceReceipt} must pin organizationExternalID`);
+  check(/^[0-9a-f-]{36}$/.test(receipt.spec?.organizationInternalID ?? ""), `${kubaraGuiEvidenceReceipt} must pin organizationInternalID`);
+  check(/^[0-9a-f]{64}$/.test(receipt.spec?.miniIdpReceiptSHA256 ?? ""), `${kubaraGuiEvidenceReceipt} must pin miniIdpReceiptSHA256`);
+  check(/^[0-9a-f]{64}$/.test(receipt.spec?.orphanReceiptSHA256 ?? ""), `${kubaraGuiEvidenceReceipt} must pin orphanReceiptSHA256`);
+  const receiptImages = receipt.spec?.images ?? [];
+  check(receiptImages.length === imagePaths.length, `${kubaraGuiEvidenceReceipt} must describe every published GUI screenshot exactly once`);
+  for (const path of imagePaths) {
+    check(!/^(?:[a-z]+:|\/)/i.test(path), `${kubaraBuyerJourneySources.guiTour} GUI screenshot must be a repository-relative local image: ${path}`);
+    const absolute = join(repoRoot, "docs/demo/kubara", path);
+    check(existsSync(absolute) && statSync(absolute).isFile(), `${path} is linked from the GUI tour but is missing`);
+    check(relativeRepo(absolute).startsWith("docs/images/kubara/"), `${path} must live under docs/images/kubara`);
+    const record = receiptImages.find((item) => item.path === relativeRepo(absolute));
+    check(Boolean(record), `${kubaraGuiEvidenceReceipt} has no record for ${relativeRepo(absolute)}`);
+    check(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(record.capturedAt ?? ""), `${kubaraGuiEvidenceReceipt} ${record.path} must record an exact UTC capturedAt`);
+    check(Array.isArray(record.visibleIdentities) && record.visibleIdentities.length > 0, `${kubaraGuiEvidenceReceipt} ${record.path} must record visibleIdentities`);
+    for (const field of ["sensitiveValues", "caption", "claimBoundary"]) check(Boolean(record[field]), `${kubaraGuiEvidenceReceipt} ${record.path} must record ${field}`);
+  }
+}
+
+function checkInOrder(haystack, needles, label) {
+  let offset = -1;
+  for (const needle of needles) {
+    const next = haystack.indexOf(needle, offset + 1);
+    check(next >= 0, `${label} is missing or out of order at: ${needle}`);
+    offset = next;
+  }
+}
+
 function verifyKubaraPublicVisibility() {
   const paths = {
+    buyer: "site/kubara.html",
     adoption: "site/d/docs/demo/kubara/single-platform.html",
+    tutorial: "site/d/docs/demo/kubara/adoption.html",
+    checkpoints: "site/d/docs/demo/kubara/checkpoints.html",
+    gui: "site/d/docs/demo/kubara/gui-tour.html",
     evidence: "site/d/docs/demo/kubara/platform-evidence.html",
     importer: "site/d/examples/kubara/git-import/README.html",
     catalog: "site/charts/index.html",
     examples: "site/testing.html",
   };
   for (const path of Object.values(paths)) check(existsSync(join(repoRoot, path)), `${path} is missing from the generated public site`);
+  const chapterPaths = kubaraAdoptionChapters.map((chapter) =>
+    `site/d/${chapter.path.replace(/\.md$/, ".html")}`);
+  for (const path of chapterPaths) check(existsSync(join(repoRoot, path)), `${path} is missing from the generated six-step tutorial`);
 
+  const buyer = collapseWhitespace(readFileSync(join(repoRoot, paths.buyer), "utf8"));
   const adoption = collapseWhitespace(readFileSync(join(repoRoot, paths.adoption), "utf8"));
+  const tutorial = collapseWhitespace(readFileSync(join(repoRoot, paths.tutorial), "utf8"));
+  const checkpoints = collapseWhitespace(readFileSync(join(repoRoot, paths.checkpoints), "utf8"));
+  const gui = collapseWhitespace(readFileSync(join(repoRoot, paths.gui), "utf8"));
   const evidence = collapseWhitespace(readFileSync(join(repoRoot, paths.evidence), "utf8"));
   const importer = collapseWhitespace(readFileSync(join(repoRoot, paths.importer), "utf8"));
   const catalog = collapseWhitespace(readFileSync(join(repoRoot, paths.catalog), "utf8"));
@@ -619,6 +871,59 @@ function verifyKubaraPublicVisibility() {
   const matrix = JSON.parse(readFileSync(join(repoRoot, "data/kubara-platform-matrix/matrix.json"), "utf8"));
   const graph = JSON.parse(readFileSync(join(repoRoot, "data/kubara-wiring/graph.json"), "utf8"));
   const expected = expectedContract().spec.adoption;
+
+  for (const phrase of [
+    "ConfigHub simplifies Kubara without making it fundamentally different.",
+    "Kubara composes; ConfigHub governs; Argo reconciles.",
+    "Benefits with explicit acceptance evidence",
+    "What stays Kubara, and what ConfigHub adds",
+    "One adoption journey, in the user's order",
+    "What we show in ConfigHub",
+    "The honest boundaries",
+    "Keep all the detail",
+  ]) check(buyer.includes(phrase), `${paths.buyer} must preserve the sales and adoption promise: ${phrase}`);
+  checkInOrder(buyer, kubaraAdoptionChapters.map((chapter) =>
+    `d/docs/demo/kubara/${chapter.path.split("/").at(-1).replace(/\.md$/, ".html")}`), `${paths.buyer} six-step chapter links`);
+  check(
+    buyer.includes("The status is generated from committed receipts.")
+      && (buyer.includes("live receipt required") || buyer.includes("current live")),
+    `${paths.buyer} must disclose receipt-derived live status`,
+  );
+  checkInOrder(tutorial, kubaraAdoptionChapters.map((chapter) =>
+    `adoption-${chapter.number}-${["choose", "generate", "git", "oci", "confighub-org", "apps"][chapter.number - 1]}.html`), `${paths.tutorial} six-step chapter links`);
+  for (const phrase of [
+    "Current deterministic",
+    "Current live",
+    "Historical live",
+    "Waiting for current live proof",
+    "Passing them does not synthesize a live receipt.",
+    "Current live release checkpoint",
+  ]) check(checkpoints.includes(phrase), `${paths.checkpoints} must preserve the evidence status contract: ${phrase}`);
+  checkInOrder(gui, [
+    "1. Start at the platform contract",
+    "2. Browse components before platform instances",
+    "3. Show the recognizable delivery shape",
+    "4. Follow one application through four clusters",
+    "5. Open the wiring",
+    "6. Finish with the fleet matrix and clean inventory",
+    "Explain, but do not spend the demo running",
+    "Screenshot evidence contract",
+  ], `${paths.gui} receipt-bound GUI tour`);
+  for (const [index, path] of chapterPaths.entries()) {
+    const chapter = collapseWhitespace(readFileSync(join(repoRoot, path), "utf8"));
+    for (const phrase of [
+      `Step ${index + 1}:`,
+      "What ConfigHub adds",
+      "Machine checkpoint",
+      "Screenshot",
+      "Troubleshooting",
+      "Safe to stop",
+    ]) check(chapter.includes(phrase), `${path} must preserve the detailed chapter contract: ${phrase}`);
+    const previous = kubaraAdoptionChapters[index].previous.replace(/\.md$/, ".html");
+    const next = kubaraAdoptionChapters[index].next.replace(/\.md$/, ".html");
+    check(chapter.includes(`href="${previous}"`), `${path} must link backward to ${previous}`);
+    check(chapter.includes(`href="${next}"`), `${path} must link forward to ${next}`);
+  }
 
   check(expected.desiredMatrixRows === 36, "Kubara public visibility contract must retain 36 current matrix cells");
   check(matrix.spec?.scope?.cells === expected.desiredMatrixRows, `current Kubara matrix must contain ${expected.desiredMatrixRows} cells`);
@@ -653,12 +958,12 @@ function verifyKubaraPublicVisibility() {
     "<code>DeliveryMode=ConfigHubOCI</code>",
     "<code>URL-Catalog</code>",
     "130 retained",
-    "seven deterministic steps",
+    "six adoption steps",
     "prepare-kubara-git-handoff.mjs",
     "current-platform.prepare.yaml",
     "<code>examples/kubara/prepared-current-platform</code>",
     "kubara-git-handoff:verify-current",
-    "159 checked files",
+    "167 checked files",
     "--package",
     "--apply",
     "apply-receipt.json",
@@ -763,8 +1068,10 @@ function verifyKubaraPublicVisibility() {
   );
 
   check(
-    examples.includes('href="./d/docs/demo/kubara/single-platform.html"'),
-    `${paths.examples} must link the Kubara adoption example`,
+    examples.includes('href="./kubara.html"')
+      && examples.includes('href="./d/docs/demo/kubara/adoption.html"')
+      && examples.includes('href="./d/docs/demo/kubara/single-platform.html"'),
+    `${paths.examples} must link the Kubara buyer journey, tutorial, and technical example`,
   );
   check(
     examples.includes('href="./d/docs/demo/kubara/platform-evidence.html"'),
@@ -780,13 +1087,13 @@ function verifyKubaraPublicVisibility() {
     `${paths.examples} must link the prepared Kubara handoff and its receipt`,
   );
   check(
-    adoption.includes('href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html"')
+    adoption.includes('href="https://confighub.github.io/helm-expt/site/kubara.html"')
       && adoption.includes('href="https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html"')
       && adoption.includes('href="https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html"'),
     `${paths.adoption} must link the public adoption example, matrix, and full wiring graph`,
   );
   check(
-    evidence.includes('href="https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html"')
+    evidence.includes('href="https://confighub.github.io/helm-expt/site/kubara.html"')
       && evidence.includes('href="https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html"')
       && evidence.includes('href="https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html"'),
     `${paths.evidence} must link the public adoption example, matrix, and full wiring graph`,
@@ -795,7 +1102,8 @@ function verifyKubaraPublicVisibility() {
   const curatedLinkCount = expected.reconcilerPlan.needsProvidesLinks;
   check(curatedLinkCount === 25, "Kubara public visibility contract must retain 25 curated GUI Links");
   check(
-    adoption.includes(`ConfigHub GUI shows ${curatedLinkCount} curated operational <code>NeedsProvides</code> Links`),
+    adoption.includes(`After an accepted live run, the ConfigHub GUI must show ${curatedLinkCount} curated`)
+      && adoption.includes("operational <code>NeedsProvides</code> Links"),
     `${paths.adoption} must identify the ${curatedLinkCount} GUI-visible curated NeedsProvides Links`,
   );
   for (const phrase of [
@@ -820,7 +1128,8 @@ function verifyKubaraPublicVisibility() {
     "the full extracted Kubara wiring graph must remain larger than the curated GUI Link inventory",
   );
   check(
-    evidence.includes("desired-only platform matrix and exposes exactly 25 curated operational")
+    evidence.includes("The mini-IDP contract calls for exactly 25")
+      && evidence.includes("exact live receipt and orphan audit decide whether those Links are current")
       && evidence.includes("The receipt-aware public matrix and complete extracted wiring graph are linked evidence views")
       && evidence.includes("they are not presented as native live ConfigHub observations"),
     `${paths.evidence} must preserve the GUI desired-state versus derived-evidence boundary`,
@@ -850,6 +1159,7 @@ function verifyMiniIdpPlan() {
   }).trim();
   check(
     selfTest === [
+      "Kubara mini-IDP performance instrumentation self-test passed",
       "Kubara mini-IDP release recovery self-test passed",
       "Kubara mini-IDP Argo convergence self-test passed",
       "Kubara mini-IDP scenario evidence self-test passed",
@@ -958,7 +1268,7 @@ function verifyMiniIdpPlan() {
         && space.labels?.Component),
     "pure control and ClusterTarget Spaces must not pollute the Components GUI",
   );
-  const guideURL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html";
+  const guideURL = "https://confighub.github.io/helm-expt/site/kubara.html";
   const catalogURL = "https://confighub.github.io/helm-expt/site/charts/";
   const catalogCoverageURL = "https://confighub.github.io/helm-expt/data/kubara-catalog-1.1-full-coverage/receipt.yaml";
   const matrixURL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
@@ -1082,7 +1392,7 @@ function verifyMiniIdpPlan() {
     faithfulReceiptUnit?.labels?.Lane === "Faithful"
       && faithfulReceiptUnit.labels?.StartHere === "true"
       && faithfulReceiptUnit.annotations?.["URL-Guide"]
-        === "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/single-platform.html",
+        === "https://confighub.github.io/helm-expt/site/kubara.html",
     "the faithful lane must have a StartHere-linked GUI receipt",
   );
   const argoDefinitionPayload = plan.spec.payloads.find(
@@ -1298,6 +1608,7 @@ function verifyMiniIdpPlan() {
     "create or validate four persistent ConfigHub-owned Argo targets",
     "reconcile current contract, catalog, matrix, wiring, and lane evidence",
     "deliver lifecycle CRDs and platform prerequisites in dependency order",
+    "retain protected default Namespaces while detaching only declared obsolete ownership metadata",
     "deliver the complete current Kubara component selection",
     "exercise hx-web promotion, prod approval, rollback, and staging departure",
     "deliver cubbychat and hx-web across all four clusters",
