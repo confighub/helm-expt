@@ -109,10 +109,10 @@ const EXPECTED_ENABLED = new Map([
 ]);
 
 const KIND_TRAEFIK = new Map([
-  ["hx-app-dev", { httpNodePort: 30000, httpsNodePort: 30001, hostname: "hx-app-dev.traefik.me" }],
-  ["hx-app-staging", { httpNodePort: 30010, httpsNodePort: 30011, hostname: "hx-app-staging.traefik.me" }],
-  ["hx-app-prod-a", { httpNodePort: 30020, httpsNodePort: 30021, hostname: "hx-app-prod-a.traefik.me" }],
-  ["hx-app-prod-b", { httpNodePort: 30030, httpsNodePort: 30031, hostname: "hx-app-prod-b.traefik.me" }],
+  ["hx-app-dev", { reservedArgocdServerNodePort: 30000, httpNodePort: 30002, httpsNodePort: 30003, hostname: "hx-app-dev.traefik.me" }],
+  ["hx-app-staging", { reservedArgocdServerNodePort: 30010, httpNodePort: 30012, httpsNodePort: 30013, hostname: "hx-app-staging.traefik.me" }],
+  ["hx-app-prod-a", { reservedArgocdServerNodePort: 30020, httpNodePort: 30022, httpsNodePort: 30023, hostname: "hx-app-prod-a.traefik.me" }],
+  ["hx-app-prod-b", { reservedArgocdServerNodePort: 30030, httpNodePort: 30032, httpsNodePort: 30033, hostname: "hx-app-prod-b.traefik.me" }],
 ]);
 
 // One hub Argo render + cert-manager and Traefik on four clusters + four
@@ -455,6 +455,10 @@ function verifySourceContract() {
     check(Object.entries(cluster.services).every(([name, value]) => value.status === (EXPECTED_ENABLED.get(cluster.name).includes(name) ? "enabled" : "disabled")), `${cluster.name} contains an ambiguous service status`);
     const expectedTraefik = KIND_TRAEFIK.get(cluster.name);
     check(expectedTraefik, `${cluster.name} has no local-kind Traefik exposure contract`);
+    check(
+      expectedTraefik.httpNodePort === expectedTraefik.reservedArgocdServerNodePort + 2,
+      `${cluster.name} Traefik HTTP NodePort overlaps cub's argocd-server reservation`,
+    );
     check(cluster.dnsName === expectedTraefik.hostname, `${cluster.name} Traefik status hostname differs from config.yaml dnsName`);
     const traefikValuesPath = join(sourceRoot, "overrides", cluster.name, "helm", "traefik", "values-kind.yaml");
     const traefikValues = readYaml(traefikValuesPath).traefik;
@@ -919,27 +923,28 @@ them.
   self-signed issuer for the local proof instead of contacting public ACME.
 - \`overrides/hx-app-dev/helm/metrics-server/values-kind.yaml\` records the local-kind kubelet TLS
   departure rather than hiding it in a one-off command.
-- Each cluster's \`helm/traefik/values-kind.yaml\` uses cub's reserved NodePort
-  window and publishes that cluster's existing \`dnsName\` into Ingress status.
+- Each cluster's \`helm/traefik/values-kind.yaml\` leaves the first mapped port in
+  cub's NodePort window reserved for \`argocd-server\`, uses a separate HTTP/HTTPS
+  pair two slots later, and publishes that cluster's existing \`dnsName\` into Ingress status.
   This makes the local apps reachable and keeps standard Argo health honest
   without adding a load-balancer controller. Production targets omit this
   kind-only override and retain their normal LoadBalancer configuration.
 
-| Cluster | HTTP NodePort | HTTPS NodePort | Ingress status hostname |
-| --- | ---: | ---: | --- |
-| \`hx-app-dev\` | 30000 | 30001 | \`hx-app-dev.traefik.me\` |
-| \`hx-app-staging\` | 30010 | 30011 | \`hx-app-staging.traefik.me\` |
-| \`hx-app-prod-a\` | 30020 | 30021 | \`hx-app-prod-a.traefik.me\` |
-| \`hx-app-prod-b\` | 30030 | 30031 | \`hx-app-prod-b.traefik.me\` |
+| Cluster | Reserved for Argo CD | Traefik HTTP | Traefik HTTPS | Ingress status hostname |
+| --- | ---: | ---: | ---: | --- |
+| \`hx-app-dev\` | 30000 | 30002 | 30003 | \`hx-app-dev.traefik.me\` |
+| \`hx-app-staging\` | 30010 | 30012 | 30013 | \`hx-app-staging.traefik.me\` |
+| \`hx-app-prod-a\` | 30020 | 30022 | 30023 | \`hx-app-prod-a.traefik.me\` |
+| \`hx-app-prod-b\` | 30030 | 30032 | 30033 | \`hx-app-prod-b.traefik.me\` |
 
 The mini-IDP preflight must reserve and verify these four cub port windows
 before publishing the target-specific releases. For example, after
 reconciliation:
 
 ~~~sh
-curl -H 'Host: hx-web.local' http://127.0.0.1:30000/
-curl --insecure --resolve cubbychat.local:30001:127.0.0.1 \\
-  https://cubbychat.local:30001/
+curl -H 'Host: hx-web.local' http://127.0.0.1:30002/
+curl --insecure --resolve cubbychat.local:30003:127.0.0.1 \\
+  https://cubbychat.local:30003/
 ~~~
 
 Use each cluster's corresponding port pair. \`--insecure\` is appropriate only

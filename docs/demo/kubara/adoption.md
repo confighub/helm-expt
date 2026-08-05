@@ -50,6 +50,14 @@ For the reproducible example, inspect
 and its adjacent reviewed overlays. It describes one hub, three spokes, seven
 platform roles, and the placement used by hx-web and Cubbychat.
 
+Keep three catalog layers distinct: ConfigHub presents the reusable component
+and all retained versions first; a byte-preserving Kubara compatibility
+profile retains Kubara's service definitions, wrappers, defaults, additions,
+and templates; and each Kubara platform keeps its own `config.yaml` selection,
+specialization, and wiring package. The compatibility profile connects the
+catalog worlds without flattening the per-platform package into the ConfigHub
+component catalog.
+
 **Checkpoint 1 — recognizable input:** a Kubara operator can review the source
 without learning a replacement schema. ConfigHub has not transformed or
 rewritten it.
@@ -170,6 +178,13 @@ ConfigHub governance plane
           +--> local Argo reconciler -> production B
 ```
 
+In the adapted lane, `targetRevision: latest` is discovery-only and every
+managed Application omits `spec.syncPolicy.automated`. Pinned argobot v0.1.6
+hard-refreshes in Kubernetes mode but cannot deploy. ConfigHub revalidates the
+authoritative release before the reconciler submits the exact
+`operation.sync.revision=<ManifestDigest>` with Kubernetes UID/resourceVersion
+compare-and-set and no active Argo operation.
+
 Apply is serialized. Run it a second time immediately: the second accepted run
 must report zero semantic changes. Then run the exact inventory and orphan
 audit before treating the organization as a clean example.
@@ -188,8 +203,9 @@ source-current live evidence. See the [checkpoint ledger](checkpoints.md).
 
 Applications remain separate from the portable platform import. Add an
 application source, bind it to the services the platform provides, and promote
-reviewed revisions through ConfigHub. Argo CD pulls the released OCI digest and
-reconciles each target.
+reviewed revisions through ConfigHub. Publication alone does not deploy mutable
+`latest`: the ConfigHub reconciler authorizes one exact digest, and the local
+Argo CD instance reconciles that digest on its target.
 
 The mini-IDP uses:
 
@@ -212,6 +228,24 @@ The demonstration sequence is:
 report the exact current ConfigHub release digest, `Synced`, and the health
 required by its reviewed contract. The live matrix, native Links, and GUI tour
 are regenerated only from that accepted receipt.
+
+## Six adoption frames, only after evidence passes
+
+Each chapter contains one publication hook for one real frame, in the same
+six-step order: native config, generation parity, exact Git revision, OCI
+packages/index, selected-organization topology, and application governance
+with a live result. These six tutorial frames are separate from the six-frame
+ConfigHub GUI tour.
+
+The offline tutorial intentionally contains no images or screenshot receipt.
+The full current-live verifier requires the complete six-frame set and the
+then-created `data/kubara-adoption-screenshots/receipt.yaml`.
+That receipt must bind every image to one exact source commit, its repository
+and selected-path Git trees, the relevant machine receipts and generated-data
+hashes, the image SHA-256, UTC capture time, visible identities,
+sensitive-value handling, caption, and claim boundary. Partial, mocked,
+cross-revision, or receipt-free sets are refused. The contract is published at
+[`data/kubara-adoption-screenshots/contract.yaml`](../../../data/kubara-adoption-screenshots/contract.yaml).
 
 ## What the user has at the end
 

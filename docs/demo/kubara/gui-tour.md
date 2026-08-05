@@ -60,10 +60,16 @@ Show:
   registration remain recognizable;
 - `Lane=Adapted`: ConfigHub takes the governance/hub role while each target
   keeps its local Argo reconciler; and
-- the four explicit target clusters and environments.
+- the four explicit target clusters and environments;
+- `targetRevision: latest` labelled as discovery-only and
+  `spec.syncPolicy.automated` absent from every managed Application; and
+- the pinned argobot v0.1.6 refresh-only settings:
+  `ARGO_SYNC_MODE=kubernetes`, `ARGO_NAMESPACE=argocd`, and
+  `ARGO_REFRESH_TYPE=hard`.
 
 Buyer message: **ConfigHub adds a simpler operating lane without declaring the
-Kubara topology wrong or removing the faithful option.**
+Kubara topology wrong or removing the faithful option. Argo remains local, but
+a mutable `latest` pointer cannot bypass ConfigHub governance.**
 
 Screenshot checkpoint: both lane cards plus the four target relationships.
 
@@ -77,18 +83,22 @@ Show:
 - the exact source revision and OCI digest at each target;
 - one target-specific departure;
 - production approvals bound to exact revisions and data hashes;
-- promotion history; and
-- an exact rollback on one production target.
+- promotion history;
+- an exact rollback on one production target;
+- the authoritative ConfigHub `ManifestDigest` beside Argo's observed
+  revision; and
+- receipt evidence that the reconciler submitted
+  `operation.sync.revision=<ManifestDigest>` only after exact release
+  revalidation, no active operation, and Kubernetes UID/resourceVersion
+  compare-and-set.
 
 Buyer message: **the platform definition and the application release are
-separate, but their target placement and history are visible together.**
+separate, but their target placement and history are visible together; the
+approved digest, not mutable `latest`, is what Argo reconciles.**
 
-Screenshot checkpoints:
-
-1. four-cluster application placement;
-2. exact production approval;
-3. promotion and departure history; and
-4. rollback source and result revisions.
+Screenshot checkpoint: one application detail frame with the four target
+placements and its approval, promotion, departure, and rollback history visible
+together. This is frame 4 of the six-frame tour, not four additional images.
 
 ### 5. Open the wiring
 
@@ -142,6 +152,10 @@ These details remain available in the
 [importer guide](../../../examples/kubara/git-import/README.md), and the
 [reconciliation performance analysis](reconciliation-performance.md).
 
+Do explain one boundary plainly: the evidence controls the managed automated
+delivery path. It does not prove that a privileged human cannot issue a manual
+Argo sync unless separate RBAC or admission evidence is also shown.
+
 ## Screenshot evidence contract
 
 For every published GUI image, retain alongside the image:
@@ -150,12 +164,16 @@ For every published GUI image, retain alongside the image:
 - exact source commit;
 - ConfigHub organization external and internal IDs;
 - Space, Unit, Link, or Component identities visible in the frame;
-- accepted mini-IDP and orphan receipt hashes;
+- exact faithful, mini-IDP, and orphan receipt hashes;
+- exact public matrix and full wiring graph hashes;
+- the screenshot file's own SHA-256 digest;
 - whether sensitive values were absent or redacted; and
 - a short caption that states exactly what the image proves and does not prove.
 
 The website generator should refuse to present the screenshot set as current
-when those identities no longer match the accepted release receipt.
+when any source, organization, receipt, artifact, screenshot digest, or capture
+time no longer matches the accepted evidence chain. The six frames are one
+atomic evidence set: do not publish a partial tour as current.
 
 Next: use the [complete technical reference](single-platform.md) to reproduce
 the result.

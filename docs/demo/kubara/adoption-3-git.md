@@ -250,8 +250,14 @@ health, or an orphan-free live organization.
 
 ## Screenshot checkpoint
 
-No GitHub screenshot is embedded until the exact revision is public and the
-checkpoint above passes. Capture one real GitHub commit view that shows:
+No GitHub screenshot is embedded until the exact revision is public, the
+checkpoint above passes, and the complete source-current live gate passes.
+This chapter owns exactly one future adoption frame, separate from the
+ConfigHub GUI tour.
+
+<!-- kubara-adoption-screenshot step="3" id="exact-git-revision" path="../../images/kubara-adoption/03-exact-git-revision.png" -->
+
+Capture one real GitHub commit view that shows:
 
 1. the full commit ID;
 2. the source, generated, and prepared paths in the same change;
@@ -261,7 +267,11 @@ checkpoint above passes. Capture one real GitHub commit view that shows:
 The caption should say: **“The exact Git revision is the portable Kubara
 hand-off; ConfigHub imports these reviewed bytes without an AI rewrite.”** Do
 not expose scanner findings, credentials, signed URLs, tokens, or private
-repository details in the screenshot.
+repository details in the screenshot. Embed it at the declared path only when
+the six-frame adoption receipt binds the commit, repository tree, selected
+prepared-subtree tree, preparation receipt, image digest, UTC capture time,
+visible identities, sensitive-value handling, caption, and claim boundary.
+Until then, leave the hook unexpanded.
 
 ## Troubleshooting
 

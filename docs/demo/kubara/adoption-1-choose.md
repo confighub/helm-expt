@@ -59,6 +59,25 @@ ConfigHub adds a component-first review layer beside the Kubara selection:
 At this step those additions are reviewed files. Nothing has been loaded into
 a ConfigHub organization and no live platform claim is being made.
 
+Keep the catalog mapping in three visible layers:
+
+1. **ConfigHub reusable component/version first.** This is the component
+   identity, all retained versions, source and archive provenance, qualified
+   deployable variants, and their reusable configuration surfaces.
+2. **Kubara compatibility profile.** This retains the complete Kubara catalog
+   representation—`Catalog.yaml`, service definition, wrapper, defaults,
+   additions, and platform-configuration templates—so Kubara's official
+   catalog and a ConfigHub-aligned export produce the same result.
+3. **Kubara per-platform package, selection, and wiring.** The platform's
+   ordered catalogs, `config.yaml`, cluster placement, and ordinary overrides
+   select and connect those reusable components for this platform.
+
+The second and third layers preserve Kubara's package and operating model;
+they do not turn the ConfigHub Catalog into a platform-specific bundle. In the
+ConfigHub experience, people should encounter the reusable component and its
+retained versions first, then its deployable variants and configurations, and
+finally the Kubara platform selection that uses them.
+
 ## Work through the current example
 
 Run these commands from the repository root:
@@ -150,9 +169,13 @@ make it agree.
 
 ## Screenshot checkpoint
 
-No screenshot is embedded as a substitute for this check. When publishing a
-real walkthrough, capture the Git review of `config.yaml` with these facts
-visible in one sequence:
+No screenshot is embedded as a substitute for this check. This chapter owns
+exactly one future adoption frame, separate from the ConfigHub GUI tour.
+
+<!-- kubara-adoption-screenshot step="1" id="native-config" path="../../images/kubara-adoption/01-native-kubara-config.png" -->
+
+After the machine checkpoint and the complete source-current live gate pass,
+capture one real Git review frame of `config.yaml` with these facts visible:
 
 1. the ordered official catalog references;
 2. the hub and three spoke declarations;
@@ -162,7 +185,11 @@ visible in one sequence:
 The caption should say: **“The Kubara operator still selects and wires the
 platform in Kubara's native files.”** Do not use a ConfigHub GUI screenshot at
 this point, because the destination organization is not involved yet. Do not
-show credentials or `.env` contents.
+show credentials or `.env` contents. Embed the real image at the path declared
+in the publication hook only when the six-frame adoption receipt binds it to
+the exact source commit and Git trees, generation receipt, file digest, UTC
+capture time, visible identities, sensitive-value handling, caption, and
+claim boundary. Until then, leave the hook unexpanded.
 
 ## Troubleshooting
 

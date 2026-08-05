@@ -13,11 +13,16 @@ import {
   check,
   readYaml,
   repoRoot,
+  sha256File,
 } from "./lib/proof-common.mjs";
 
 const CONTRACT_PATH = join(repoRoot, "data", "kubara-mini-idp-performance", "contract.yaml");
 const DEFAULT_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
 const DEFAULT_ORPHAN_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
+const DEFAULT_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+const SHA256_PATTERN = /^sha256:[0-9a-f]{64}$/;
+const CORE_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze(["space", "unit", "release", "link", "target"]);
+const FULL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze([...CORE_CONFIGHUB_FINGERPRINT_RESOURCES, "trigger", "filter", "tag"]);
 const MODES = new Set(["--contract", "--receipt-verify", "--self-test"]);
 const requestedModes = process.argv.filter((arg) => MODES.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...MODES].join(", ")}`);
@@ -38,7 +43,15 @@ if (mode === "--contract") {
     : DEFAULT_ORPHAN_RECEIPT_PATH;
   check(existsSync(receiptPath), `${receiptPath} is missing`);
   check(existsSync(orphanReceiptPath), `${orphanReceiptPath} is missing`);
-  verifyAcceptedPair(readYaml(receiptPath), readYaml(orphanReceiptPath), contract);
+  check(existsSync(DEFAULT_ATTEMPT_LEDGER_PATH), `${DEFAULT_ATTEMPT_LEDGER_PATH} is missing`);
+  verifyAcceptedPair(
+    readYaml(receiptPath),
+    readYaml(orphanReceiptPath),
+    contract,
+    sha256File(orphanReceiptPath),
+    readYaml(DEFAULT_ATTEMPT_LEDGER_PATH),
+    sha256File(DEFAULT_ATTEMPT_LEDGER_PATH),
+  );
   console.log(`Kubara mini-IDP changed/idempotent performance pair verified: ${receiptPath}`);
 } else {
   selfTest(contract);
@@ -104,18 +117,28 @@ function verifyContract(value) {
   check(changed.maximumUnclassifiedExplicitWaitMs === 0, "changed-apply may not contain unclassified waits");
   check(noop.maximumWallElapsedMs === 300000, "idempotent wall budget drifted");
   check(noop.maximumSubprocessCalls === 220, "idempotent subprocess budget drifted");
-  check(noop.maximumConfigHubReadCommands === 128, "idempotent ConfigHub read budget drifted");
+  check(noop.maximumConfigHubReadCommands === 96, "idempotent ConfigHub read budget must stay below 100");
   check(noop.maximumConfigHubReadCommandsBeforeFirstDevAccepted === 96, "idempotent reads through first dev acceptance must stay below 100");
   check(noop.exactSuccessfulConfigHubMutations === 0 && noop.exactConfigHubMutationAttempts === 0, "idempotent run must attempt no ConfigHub writes");
   check(noop.exactArgoSyncRequests === 0, "idempotent run must request no Argo sync");
   check(noop.byVerbMaximums?.["cub.unit.get"] === 0 && noop.byVerbMaximums?.["cub.target.get"] === 0, "idempotent point metadata reads must remain eliminated");
+  check(
+    noop.byVerbMaximums?.["cub.unit.list"] === 36
+      && noop.byVerbMaximums?.["cub.release.list"] === 36
+      && noop.byVerbMaximums?.["cub.space.list"] === 4
+      && noop.byVerbMaximums?.["cub.link.list"] === 4
+      && noop.byVerbMaximums?.["cub.target.list"] === 4
+      && noop.byVerbMaximums?.["cub.space.get"] === 1,
+    "idempotent per-verb ceilings do not match the 31-stream plus four-snapshot design",
+  );
+  check(changed.byVerbMaximums?.["cub.unit.data"] === 0 && noop.byVerbMaximums?.["cub.unit.data"] === 0, "per-Unit content reads must remain eliminated");
   check(spec.pairAcceptance?.order?.join("/") === "changed-apply/idempotent-apply", "accepted pair order drifted");
   check(spec.pairAcceptance?.sameExecutionFingerprint === true && spec.pairAcceptance?.secondMustBeImmediateNextRun === true, "accepted pair identity/order boundary drifted");
   check(spec.pairAcceptance?.orphanAuditRequired === true, "performance acceptance must retain the orphan audit");
   check((spec.publication?.forbiddenWithoutClientTransportEvidence ?? []).some((item) => item.includes("authenticated HTTP")), "contract must forbid an unmeasured HTTP-round-trip claim");
 }
 
-function verifyAcceptedPair(receipt, orphanReceipt, contractValue) {
+function verifyAcceptedPair(receipt, orphanReceipt, contractValue, orphanReceiptSha256, attemptLedger, attemptLedgerSha256) {
   check(receipt?.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "unexpected mini-IDP receipt kind");
   check(receipt.status?.performanceResult === "performance-pass", "mini-IDP receipt performance status is not performance-pass");
   const runs = receipt.spec?.reconcileRuns ?? [];
@@ -125,13 +148,53 @@ function verifyAcceptedPair(receipt, orphanReceipt, contractValue) {
   check(changed.idempotentNoop === false && changed.actionCount > 0, "first performance run is not a changed apply");
   check(noop.idempotentNoop === true && noop.actionCount === 0, "second performance run is not an idempotent no-op");
   check(changed.executionFingerprint && changed.executionFingerprint === noop.executionFingerprint, "performance pair execution fingerprints differ");
+  check(
+    SHA256_PATTERN.test(changed.finalConfigHubFingerprint ?? "")
+      && changed.finalConfigHubFingerprint === noop.finalConfigHubFingerprint,
+    "performance pair final ConfigHub fingerprints differ or are invalid",
+  );
+  const finalSnapshot = receipt.spec?.finalConfigHubSnapshot ?? {};
+  check(
+    JSON.stringify(finalSnapshot.resources) === JSON.stringify(CORE_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && finalSnapshot.fingerprint === noop.finalConfigHubFingerprint
+      && finalSnapshot.sourceRunAttemptID === noop.attemptID
+      && finalSnapshot.sourceRunClass === "idempotent-apply",
+    "receipt final ConfigHub snapshot is not bound to the accepted no-op run",
+  );
   check(validDate(changed.observedAt) && validDate(noop.observedAt), "performance pair timestamps are invalid");
   check(Date.parse(changed.observedAt) < Date.parse(noop.observedAt), "idempotent performance run is not immediately after the changed run");
+  verifyAttemptContinuity(receipt, changed, noop, attemptLedger, attemptLedgerSha256);
 
   const profiles = new Map(contractValue.spec.profiles.map((profile) => [profile.id, profile]));
   verifyRunPerformance(changed, profiles.get("changed-apply"), contractValue);
   verifyRunPerformance(noop, profiles.get("idempotent-apply"), contractValue);
-  verifyOrphanReceipt(orphanReceipt);
+  verifyOrphanReceipt(orphanReceipt, receipt, noop, orphanReceiptSha256);
+}
+
+function verifyAttemptContinuity(receipt, changed, noop, ledger, ledgerSha256) {
+  check(ledger?.kind === "KubaraMiniIDPApplyAttemptLedger", "unexpected mini-IDP apply attempt ledger kind");
+  check(Array.isArray(ledger.attempts) && ledger.attempts.length >= 2, "mini-IDP apply attempt ledger is incomplete");
+  check(Number.isInteger(changed.attemptSequence) && Number.isInteger(noop.attemptSequence), "performance pair lacks durable attempt sequences");
+  check(noop.attemptSequence === changed.attemptSequence + 1, "performance pair has an intervening apply attempt");
+  const changedAttempt = ledger.attempts.find((item) => item.sequence === changed.attemptSequence);
+  const noopAttempt = ledger.attempts.find((item) => item.sequence === noop.attemptSequence);
+  check(
+    changedAttempt?.id === changed.attemptID
+      && noopAttempt?.id === noop.attemptID
+      && changedAttempt.result === "pass"
+      && noopAttempt.result === "pass",
+    "performance pair is not backed by two passing durable attempts",
+  );
+  check(
+    changedAttempt.executionFingerprint === changed.executionFingerprint
+      && noopAttempt.executionFingerprint === noop.executionFingerprint,
+    "performance pair attempt fingerprints drifted",
+  );
+  check(ledger.attempts.at(-1)?.sequence === noop.attemptSequence, "a later apply attempt invalidates the performance pair");
+  check(
+    receipt.status?.performanceAcceptance?.applyAttemptLedgerSha256 === `sha256:${ledgerSha256}`,
+    "performance acceptance is not bound to the current apply attempt ledger",
+  );
 }
 
 function verifyRunPerformance(run, profile, contractValue) {
@@ -159,6 +222,8 @@ function verifyRunPerformance(run, profile, contractValue) {
   check(reads.beforeFirstDevAcceptedCommands <= reads.commands, `${profile.id}: reads through first dev acceptance exceed total reads`);
   validateCommandRows(reads.byVerb, `${profile.id}: ConfigHub read rows`);
   check(sum(reads.byVerb, "calls") === reads.commands, `${profile.id}: ConfigHub read row total is inconsistent`);
+  validateReadPurposeRows(reads.byPurpose, `${profile.id}: ConfigHub read purpose rows`);
+  check(sum(reads.byPurpose, "commands") === reads.commands, `${profile.id}: ConfigHub read purpose total is inconsistent`);
   for (const [verb, maximum] of Object.entries(budgets.byVerbMaximums ?? {})) {
     check(rowCalls(reads.byVerb, verb) <= maximum, `${profile.id}: ${verb} calls ${rowCalls(reads.byVerb, verb)} exceed ${maximum}`);
   }
@@ -170,6 +235,7 @@ function verifyRunPerformance(run, profile, contractValue) {
   validateMutationRows(mutations.byVerb, `${profile.id}: ConfigHub mutation rows`);
   check(sum(mutations.byVerb, "attempts") === mutations.attempts, `${profile.id}: mutation attempt total is inconsistent`);
   check(sum(mutations.byVerb, "succeeded") === mutations.succeeded, `${profile.id}: successful mutation total is inconsistent`);
+  check(sum(mutations.byVerb, "attributedSucceeded") === mutations.succeeded - mutations.unattributedSucceeded, `${profile.id}: successful mutation action attribution is inconsistent`);
   check(sum(mutations.byVerb, "expectedRefusals") === mutations.expectedRefusals, `${profile.id}: expected-refusal total is inconsistent`);
   check(sum(mutations.byVerb, "unexpectedFailures") === mutations.unexpectedFailures, `${profile.id}: unexpected mutation failure total is inconsistent`);
   check(mutations.attempts === mutations.succeeded + mutations.expectedRefusals + mutations.unexpectedFailures, `${profile.id}: mutation outcome accounting is inconsistent`);
@@ -198,12 +264,39 @@ function verifyRunPerformance(run, profile, contractValue) {
   if (budgets.exactArgoSyncRequests !== undefined) check(evidence.argo.syncRequests === budgets.exactArgoSyncRequests, `${profile.id}: Argo sync requests are not exactly ${budgets.exactArgoSyncRequests}`);
 }
 
-function verifyOrphanReceipt(receipt) {
-  check(receipt?.kind === "KubaraMiniIDPOrphanAuditReceipt", "unexpected orphan audit receipt kind");
-  check(receipt.status?.result === "pass", "orphan audit did not pass");
-  check(receipt.status?.findingCount === 0, "orphan audit contains findings");
-  const counts = receipt.status?.orphanCounts ?? {};
+function verifyOrphanReceipt(orphanReceipt, reconcileReceipt, noopRun, orphanReceiptSha256) {
+  check(orphanReceipt?.kind === "KubaraMiniIDPOrphanAuditReceipt", "unexpected orphan audit receipt kind");
+  check(orphanReceipt.status?.result === "pass", "orphan audit did not pass");
+  check(orphanReceipt.status?.findingCount === 0, "orphan audit contains findings");
+  const counts = orphanReceipt.status?.orphanCounts ?? {};
   check(Object.keys(counts).length > 0 && Object.values(counts).every((value) => value === 0), "orphan audit contains a non-zero orphan count");
+  check(validDate(orphanReceipt.spec?.observedAt), "orphan audit observedAt is invalid");
+  check(Date.parse(noopRun.observedAt) < Date.parse(orphanReceipt.spec.observedAt), "orphan audit does not postdate the accepted no-op run");
+  const snapshot = orphanReceipt.spec?.configHubInventory?.snapshot ?? {};
+  const brackets = orphanReceipt.spec?.execution?.organizationWideReadBrackets ?? {};
+  check(
+    JSON.stringify(snapshot.coreResources) === JSON.stringify(CORE_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && JSON.stringify(snapshot.fullResources) === JSON.stringify(FULL_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && SHA256_PATTERN.test(snapshot.coreFiveResourceFingerprint ?? "")
+      && SHA256_PATTERN.test(snapshot.fullEightResourceFingerprint ?? "")
+      && brackets.stable === true
+      && brackets.openingCoreFiveResourceFingerprint === snapshot.coreFiveResourceFingerprint
+      && brackets.closingCoreFiveResourceFingerprint === snapshot.coreFiveResourceFingerprint
+      && brackets.openingFullEightResourceFingerprint === snapshot.fullEightResourceFingerprint
+      && brackets.closingFullEightResourceFingerprint === snapshot.fullEightResourceFingerprint,
+    "orphan audit five-/eight-resource ConfigHub snapshot evidence is invalid or unstable",
+  );
+  check(
+    brackets.openingCoreFiveResourceFingerprint === noopRun.finalConfigHubFingerprint,
+    "orphan audit opening five-resource snapshot does not equal the accepted no-op final state",
+  );
+  const binding = reconcileReceipt.status?.performanceAcceptance ?? {};
+  check(binding.orphanObservedAt === orphanReceipt.spec.observedAt, "performance acceptance is not bound to this orphan audit observation");
+  check(binding.reconcilerSha256 === orphanReceipt.spec?.source?.reconcilerSha256, "performance acceptance reconciler binding drifted");
+  check(binding.reconcilePlanSha256 === orphanReceipt.spec?.source?.reconcilePlanSha256, "performance acceptance plan binding drifted");
+  check(binding.applyAttemptLedgerSha256 === orphanReceipt.spec?.source?.applyAttemptLedgerSha256, "performance acceptance attempt-ledger binding drifted");
+  check(binding.finalConfigHubFingerprint === noopRun.finalConfigHubFingerprint, "performance acceptance final ConfigHub fingerprint binding drifted");
+  check(binding.orphanReceiptSha256 === `sha256:${orphanReceiptSha256}`, "performance acceptance orphan receipt digest does not match this audit receipt");
 }
 
 function validateCommandRows(rows, prefix) {
@@ -224,9 +317,21 @@ function validateMutationRows(rows, prefix) {
   check(JSON.stringify(verbs) === JSON.stringify([...verbs].sort()), `${prefix} are not sorted`);
   for (const row of rows) {
     check(/^cub\.[a-z0-9-]+\.[a-z0-9-]+$/.test(row.verb ?? ""), `${prefix} contain an unsafe verb`);
-    for (const field of ["attempts", "succeeded", "expectedRefusals", "unexpectedFailures"]) integerAtLeast(row[field], 0, `${prefix} ${row.verb} ${field}`);
+    for (const field of ["attempts", "succeeded", "attributedSucceeded", "expectedRefusals", "unexpectedFailures"]) integerAtLeast(row[field], 0, `${prefix} ${row.verb} ${field}`);
+    check(row.attributedSucceeded <= row.succeeded, `${prefix} ${row.verb} attributes more successful mutations than occurred`);
     check(row.attempts > 0, `${prefix} ${row.verb} has no attempts`);
     check(row.attempts === row.succeeded + row.expectedRefusals + row.unexpectedFailures, `${prefix} ${row.verb} outcome accounting is inconsistent`);
+  }
+}
+
+function validateReadPurposeRows(rows, prefix) {
+  const expected = ["content", "metadata-discovery", "mutation-target-pin"];
+  check(Array.isArray(rows), `${prefix} are missing`);
+  check(JSON.stringify(rows.map((row) => row.purpose)) === JSON.stringify(expected), `${prefix} do not cover the exact purpose taxonomy`);
+  for (const row of rows) {
+    integerAtLeast(row.commands, 0, `${prefix} ${row.purpose} commands`);
+    validateCommandRows(row.byVerb, `${prefix} ${row.purpose} command rows`);
+    check(sum(row.byVerb, "calls") === row.commands, `${prefix} ${row.purpose} command total is inconsistent`);
   }
 }
 
@@ -262,7 +367,10 @@ function validDate(value) {
 function selfTest(contractValue) {
   const receipt = selfTestReceipt(contractValue);
   const orphan = selfTestOrphanReceipt();
-  verifyAcceptedPair(receipt, orphan, contractValue);
+  const orphanDigest = "d".repeat(64);
+  const ledger = selfTestAttemptLedger(receipt);
+  const ledgerDigest = "e".repeat(64);
+  verifyAcceptedPair(receipt, orphan, contractValue, orphanDigest, ledger, ledgerDigest);
 
   expectFailure(() => {
     const value = structuredClone(receipt);
@@ -273,40 +381,55 @@ function selfTest(contractValue) {
       expectedRefusals: 0,
       unexpectedFailures: 0,
       unattributedSucceeded: 0,
-      byVerb: [{ verb: "cub.unit.update", attempts: 1, succeeded: 1, expectedRefusals: 0, unexpectedFailures: 0 }],
+      byVerb: [{ verb: "cub.unit.update", attempts: 1, succeeded: 1, attributedSucceeded: 1, expectedRefusals: 0, unexpectedFailures: 0 }],
     };
-    verifyAcceptedPair(value, orphan, contractValue);
+    verifyAcceptedPair(value, orphan, contractValue, orphanDigest, ledger, ledgerDigest);
   }, "successful ConfigHub mutations are not exactly 0");
 
   expectFailure(() => {
     const value = structuredClone(receipt);
     value.spec.reconcileRuns[1].performance.confighub.reads.beforeFirstDevAcceptedCommands = 97;
-    verifyAcceptedPair(value, orphan, contractValue);
+    verifyAcceptedPair(value, orphan, contractValue, orphanDigest, ledger, ledgerDigest);
   }, "ConfigHub reads through first dev acceptance 97 exceed 96");
 
   expectFailure(() => {
     const value = structuredClone(receipt);
     const noop = value.spec.reconcileRuns[1].performance;
     noop.waits.unclassifiedExplicitMs = 1;
-    verifyAcceptedPair(value, orphan, contractValue);
+    verifyAcceptedPair(value, orphan, contractValue, orphanDigest, ledger, ledgerDigest);
   }, "unclassified explicit wait time is forbidden");
 
   expectFailure(() => {
     const value = structuredClone(receipt);
     value.spec.reconcileRuns.reverse();
-    verifyAcceptedPair(value, orphan, contractValue);
+    verifyAcceptedPair(value, orphan, contractValue, orphanDigest, ledger, ledgerDigest);
   }, "first performance run is not a changed apply");
+
+  expectFailure(() => {
+    const value = structuredClone(orphan);
+    const drifted = `sha256:${"9".repeat(64)}`;
+    value.spec.configHubInventory.snapshot.coreFiveResourceFingerprint = drifted;
+    value.spec.execution.organizationWideReadBrackets.openingCoreFiveResourceFingerprint = drifted;
+    value.spec.execution.organizationWideReadBrackets.closingCoreFiveResourceFingerprint = drifted;
+    verifyAcceptedPair(receipt, value, contractValue, orphanDigest, ledger, ledgerDigest);
+  }, "opening five-resource snapshot does not equal the accepted no-op final state");
 }
 
 function selfTestReceipt(contractValue) {
   const fingerprint = `sha256:${"a".repeat(64)}`;
+  const finalConfigHubFingerprint = `sha256:${"f".repeat(64)}`;
+  const changedAttemptID = "00000000-0000-4000-8000-000000000001";
+  const noopAttemptID = "00000000-0000-4000-8000-000000000002";
   return {
     kind: "ConfigHubKubaraMiniIDPReconcileReceipt",
     spec: {
       reconcileRuns: [
         {
           observedAt: "2026-08-05T10:00:00.000Z",
+          attemptSequence: 1,
+          attemptID: changedAttemptID,
           executionFingerprint: fingerprint,
+          finalConfigHubFingerprint,
           actionCount: 12,
           result: "pass",
           idempotentNoop: false,
@@ -314,15 +437,48 @@ function selfTestReceipt(contractValue) {
         },
         {
           observedAt: "2026-08-05T10:12:00.000Z",
+          attemptSequence: 2,
+          attemptID: noopAttemptID,
           executionFingerprint: fingerprint,
+          finalConfigHubFingerprint,
           actionCount: 0,
           result: "pass",
           idempotentNoop: true,
           performance: selfTestPerformance("idempotent-apply", contractValue),
         },
       ],
+      finalConfigHubSnapshot: {
+        canonicalization: "stable-recursive-key-order-and-entity-row-order",
+        fingerprintAlgorithm: "sha256",
+        resources: [...CORE_CONFIGHUB_FINGERPRINT_RESOURCES],
+        fingerprint: finalConfigHubFingerprint,
+        sourceRunAttemptID: noopAttemptID,
+        sourceRunClass: "idempotent-apply",
+      },
     },
-    status: { performanceResult: "performance-pass" },
+    status: {
+      performanceResult: "performance-pass",
+      performanceAcceptance: {
+        orphanReceiptSha256: `sha256:${"d".repeat(64)}`,
+        orphanObservedAt: "2026-08-05T10:13:00.000Z",
+        reconcilerSha256: `sha256:${"b".repeat(64)}`,
+        reconcilePlanSha256: `sha256:${"c".repeat(64)}`,
+        applyAttemptLedgerSha256: `sha256:${"e".repeat(64)}`,
+        finalConfigHubFingerprint,
+      },
+    },
+  };
+}
+
+function selfTestAttemptLedger(receipt) {
+  return {
+    kind: "KubaraMiniIDPApplyAttemptLedger",
+    attempts: receipt.spec.reconcileRuns.map((run) => ({
+      sequence: run.attemptSequence,
+      id: run.attemptID,
+      executionFingerprint: run.executionFingerprint,
+      result: "pass",
+    })),
   };
 }
 
@@ -334,18 +490,16 @@ function selfTestPerformance(runClass, contractValue) {
         { verb: "cub.space.get", calls: 4 },
         { verb: "cub.space.list", calls: 8 },
         { verb: "cub.target.get", calls: 4 },
-        { verb: "cub.unit.data", calls: 80 },
         { verb: "cub.unit.list", calls: 12 },
       ]
     : [
         { verb: "cub.link.list", calls: 4 },
-        { verb: "cub.space.get", calls: 2 },
+        { verb: "cub.space.get", calls: 1 },
         { verb: "cub.space.list", calls: 4 },
-        { verb: "cub.unit.data", calls: 63 },
         { verb: "cub.unit.list", calls: 4 },
       ];
   const mutations = changed
-    ? [{ verb: "cub.unit.update", attempts: 12, succeeded: 12, expectedRefusals: 0, unexpectedFailures: 0 }]
+    ? [{ verb: "cub.unit.update", attempts: 12, succeeded: 12, attributedSucceeded: 12, expectedRefusals: 0, unexpectedFailures: 0 }]
     : [];
   const waitRows = changed
     ? [{ reason: "argo-health-pending", calls: 20, requestedMs: 100000, elapsedMs: 100000 }]
@@ -369,8 +523,13 @@ function selfTestPerformance(runClass, contractValue) {
     confighub: {
       reads: {
         commands: sum(reads, "calls"),
-        beforeFirstDevAcceptedCommands: changed ? 90 : 70,
+        beforeFirstDevAcceptedCommands: changed ? 30 : 10,
         byVerb: reads,
+        byPurpose: [
+          { purpose: "content", commands: 0, byVerb: [] },
+          { purpose: "metadata-discovery", commands: sum(reads, "calls"), byVerb: reads },
+          { purpose: "mutation-target-pin", commands: 0, byVerb: [] },
+        ],
       },
       mutations: {
         attempts: sum(mutations, "attempts"),
@@ -396,8 +555,35 @@ function selfTestPerformance(runClass, contractValue) {
 }
 
 function selfTestOrphanReceipt() {
+  const coreFingerprint = `sha256:${"f".repeat(64)}`;
+  const fullFingerprint = `sha256:${"7".repeat(64)}`;
   return {
     kind: "KubaraMiniIDPOrphanAuditReceipt",
+    spec: {
+      observedAt: "2026-08-05T10:13:00.000Z",
+      source: {
+        reconcilerSha256: `sha256:${"b".repeat(64)}`,
+        reconcilePlanSha256: `sha256:${"c".repeat(64)}`,
+        applyAttemptLedgerSha256: `sha256:${"e".repeat(64)}`,
+      },
+      execution: {
+        organizationWideReadBrackets: {
+          openingCoreFiveResourceFingerprint: coreFingerprint,
+          closingCoreFiveResourceFingerprint: coreFingerprint,
+          openingFullEightResourceFingerprint: fullFingerprint,
+          closingFullEightResourceFingerprint: fullFingerprint,
+          stable: true,
+        },
+      },
+      configHubInventory: {
+        snapshot: {
+          coreResources: [...CORE_CONFIGHUB_FINGERPRINT_RESOURCES],
+          fullResources: [...FULL_CONFIGHUB_FINGERPRINT_RESOURCES],
+          coreFiveResourceFingerprint: coreFingerprint,
+          fullEightResourceFingerprint: fullFingerprint,
+        },
+      },
+    },
     status: {
       result: "pass",
       findingCount: 0,

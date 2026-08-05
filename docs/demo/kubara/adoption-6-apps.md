@@ -108,9 +108,27 @@ mixing those resources into the portable platform import.
 
 ## 6.3 Release to development first
 
-Publish the exact reviewed development revision. Require its delivery
-Application to observe the ConfigHub release manifest digest, then require
-`Synced` and the workload health named by its contract.
+Publish the exact reviewed development revision. Publication makes the release
+discoverable; it does not authorize Argo to deploy mutable `latest`. The
+managed delivery Application retains `spec.source.targetRevision: latest` only
+for discovery and has no `spec.syncPolicy.automated` field. The pinned argobot
+v0.1.6 runtime (`ARGO_SYNC_MODE=kubernetes`, `ARGO_NAMESPACE=argocd`,
+`ARGO_REFRESH_TYPE=hard`) may hard-refresh that Application, but cannot sync it.
+
+The ConfigHub reconciler then revalidates the exact authoritative release and
+Unit heads, accepts no active Argo operation, and submits
+`operation.sync.revision=<ManifestDigest>` using Kubernetes
+`metadata.uid`/`metadata.resourceVersion` compare-and-set. Require the delivery
+Application to observe that exact digest, then require `Synced` and the
+workload health named by its contract. This preserves Argo as the familiar
+cluster-local reconciler while preventing a changed `latest` pointer from
+bypassing review, approval, or promotion.
+
+Treat retained `release-N` Tags as navigable history, not as deployment
+authority. The exact OCI `ManifestDigest` is the release identity submitted to
+Argo. The managed path also inventories Applications across every namespace
+and rejects ApplicationSets, so a second declarative owner cannot hide outside
+the normal `argocd` view.
 
 Only after development passes should the same reviewed source move to staging.
 Promotion is an exact upstream-to-downstream operation, not a rebuild from a
@@ -128,10 +146,14 @@ production target, or disappears during the later promotion.
 
 ## 6.5 Require exact approval before production
 
-Attempting to publish an unapproved production revision must be refused. The
-refusal is part of the evidence, not an error to bypass. Approval must bind all
-Units in scope to their exact Unit IDs, head revisions, and data hashes. After
-approval, publish the same reviewed revision to both production targets.
+ConfigHub's approval gate prevents publication of an unapproved production
+revision. In the repeatable live run, do not issue a negative publish because
+that command has no revision compare-and-set and could race an external
+approval. Instead, observe the same gated heads through two authoritative
+reads, then approve every Unit by exact Unit ID and numeric head revision while
+proving its data hash stayed unchanged. After approval, publish the same
+reviewed revision to both production targets. Explain the refusal behavior;
+show the safer gate observation and exact approval evidence.
 
 An approval for an older revision is not reusable authority for a changed
 revision. A ConfigHub release is also not proof that Argo has reconciled it;
@@ -168,7 +190,8 @@ npm run kubara-mini-idp:receipt-verify
 ```
 
 The first apply uses a durable write-ahead operation journal for every hx-web
-promotion, refusal, approval, departure, publication, and rollback transition.
+promotion, gate observation, approval, departure, publication, and rollback
+transition.
 If interrupted, rerun the exact same command and inputs. Do not manually replay
 the remaining history; the journal accepts only the exact durable prefix.
 
@@ -196,14 +219,15 @@ Once the current receipt passes, the local kind example can also be exercised
 through its reviewed NodePorts:
 
 ```bash
-curl -H 'Host: hx-web.local' http://127.0.0.1:30000/
-curl --insecure --resolve cubbychat.local:30001:127.0.0.1 \
-  https://cubbychat.local:30001/
+curl -H 'Host: hx-web.local' http://127.0.0.1:30002/
+curl --insecure --resolve cubbychat.local:30003:127.0.0.1 \
+  https://cubbychat.local:30003/
 ```
 
-Use port pairs `30010/30011`, `30020/30021`, and `30030/30031` for staging,
-production A, and production B. `--insecure` is acceptable only for this
-explicitly self-signed local proof.
+Use Traefik port pairs `30012/30013`, `30022/30023`, and `30032/30033` for
+staging, production A, and production B. Their first window ports (`30010`,
+`30020`, and `30030`) remain reserved for `argocd-server`. `--insecure` is
+acceptable only for this explicitly self-signed local proof.
 
 ## Expected state and evidence
 
@@ -212,7 +236,8 @@ The accepted current example must show:
 - hx-web and Cubbychat definition and per-cluster instance Spaces;
 - both apps delivered to development, staging, production A, and production B;
 - exact source revisions and OCI digests for every target;
-- production refusal followed by approvals for exact heads and hashes;
+- stable production gate observations followed by Unit-ID/numeric-revision
+  approvals for exact heads and hashes;
 - one retained staging departure;
 - one exact rollback on production A while production B remains promoted;
 - current Argo sync and workload health at the exact release digests;
@@ -264,28 +289,36 @@ The matrix must leave any field without exact receipt evidence `unknown`. A
 desired-only 36-cell matrix is useful deterministic evidence, but it is not a
 live application-health claim.
 
-## Screenshots to capture after the checkpoint passes
+## Screenshot to capture after the checkpoint passes
 
 Do not use the historical GUI or generated desired state as a current
-screenshot.
+screenshot. This chapter owns exactly one future adoption frame, separate from
+the ConfigHub GUI tour.
 
-After the current receipts pass, capture these four frames in order:
+<!-- kubara-adoption-screenshot step="6" id="app-governance-live" path="../../images/kubara-adoption/06-app-governance-live.png" -->
 
-1. **Application placement:** hx-web open with development, staging,
-   production A, and production B instances visible, each showing its exact
-   source revision and OCI digest.
-2. **Exact production approval:** the production revision/data hashes and the
-   approval that authorized them, with no secret values visible.
-3. **Departure and promotion history:** staging's retained `SANDBOX_URL`
-   departure alongside the later inherited promotion.
-4. **One-target rollback:** production A's rollback source and result revisions
-   beside production B's unchanged promoted head.
+After the current receipts and complete source-current live gate pass, capture
+one real ConfigHub browser frame with hx-web open and these identities visible
+in the application and history surfaces:
 
-Use hx-web for the short linear story, then show Cubbychat's three-tier
-topology as evidence that the model handles a richer application. Every image
-caption must name the source commit, organization, accepted receipt, and
-capture date, and must state whether it proves governance, release identity,
-or live cluster health.
+1. development, staging, production A, and production B placement at exact
+   source revisions and OCI digests;
+2. the exact production revision/data hashes and approval;
+3. staging's retained `SANDBOX_URL` departure after promotion;
+4. production A's rollback source/result beside production B's unchanged
+   promoted head; and
+5. current Argo revision, `Synced`, and accepted health for the selected live
+   result.
+
+Use the surrounding tutorial, rather than extra adoption frames, to point to
+Cubbychat's three-tier topology as evidence that the model handles a richer
+application. The caption must name the source commit, organization, accepted
+receipt, and capture date, and must state which parts prove governance,
+release identity, and live cluster health. Embed the real frame at the
+declared path only when the six-frame adoption receipt binds the exact source
+commit and Git trees, mini-IDP and orphan receipts, matrix and wiring hashes,
+image digest, UTC capture time, visible identities, sensitive-value handling,
+caption, and claim boundary. Until then, leave the hook unexpanded.
 
 ## Troubleshooting
 
@@ -304,8 +337,8 @@ or live cluster health.
 ## Safe to stop
 
 It is safe to stop after a fully verified development or staging release; do
-not begin production until the approval policy is in place. If the automated
-hx-web scenario is interrupted, preserve its operation journal and rerun the
+not begin production until the approval policy is in place. If the scripted
+hx-web governance scenario is interrupted, preserve its operation journal and rerun the
 same `kubara-mini-idp:apply`. The journal is the recovery authority.
 
 After the first complete mini-IDP apply, stop only with the result clearly

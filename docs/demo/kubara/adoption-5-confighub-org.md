@@ -17,8 +17,9 @@ zero-orphan audit.
   generated namespaces, and dependency order remain the desired platform.
 - Kubara's hub/ApplicationSet/AppProject topology remains available as the
   separately proved **faithful** lane.
-- Argo CD remains the continuous cluster reconciler in the ConfigHub-adapted
-  lane; each cluster keeps a small local reconciler.
+- Argo CD remains the cluster reconciler in the ConfigHub-adapted lane; each
+  cluster keeps a small local reconciler that applies the exact digest
+  authorized by ConfigHub.
 - Git remains the exact source hand-off and the OCI members remain the
   immutable delivery form.
 
@@ -183,6 +184,48 @@ An Application that is `Synced` to an older digest is not accepted. A workload
 that runs while Argo remains permanently `Progressing` is reported as a watch
 or failure according to its contract, never silently upgraded to a pass.
 
+The adapted lane also proves a stricter deployment-authority boundary than an
+ordinary auto-sync configuration:
+
+1. `spec.source.targetRevision: latest` remains on every managed Application
+   only as the ConfigHub OCI discovery address. It is not permission to deploy
+   whatever release happens to become latest.
+2. `spec.syncPolicy.automated` is absent from every managed Application,
+   including each self-managing delivery root. A publication or refresh cannot
+   therefore bypass ConfigHub review, approval, or release selection.
+3. `argobot` is pinned to v0.1.6 with literal
+   `ARGO_SYNC_MODE=kubernetes`, `ARGO_NAMESPACE=argocd`, and
+   `ARGO_REFRESH_TYPE=hard`. In that mode it requests a hard refresh only; it
+   never submits a sync operation.
+4. Immediately before deployment, the reconciler revalidates the exact
+   authoritative ConfigHub release and its Unit heads. It waits until no active
+   Argo operation exists, then submits
+   `operation.sync.revision=<ManifestDigest>` with Kubernetes
+   `metadata.uid` and `metadata.resourceVersion` compare-and-set tests. A
+   changed Application identity, concurrent write, or changed release is
+   reread and refused rather than silently overwritten.
+5. Application inventory is cluster-wide, not limited to the `argocd`
+   namespace. Any Application outside `argocd`, any undeclared Application,
+   or any ApplicationSet that could regenerate a managed Application fails the
+   authority and orphan gates.
+
+This is a deliberate, visibly better departure from an automated mutable-tag
+lane: ConfigHub owns release authority, while the small cluster-local Argo
+instance still performs reconciliation and reports sync and health. The claim
+controls the importer-managed automated path. It does **not** prove that a
+privileged human cannot issue a manual Argo sync; that stronger claim requires
+separate Argo RBAC or admission-policy evidence.
+
+Retained `release-N` Tags prove the additive release-history identity and are
+audited for a complete sequence through each current Release. They are not the
+deployment authority: ConfigHub's exact OCI `ManifestDigest` is. In the current
+server API, publish has no caller-supplied expected-head transaction, so an
+external writer can still cause a Release that the client's closing check
+rejects. The no-auto root and refresh-only argobot prevent that rejected
+Release from deploying through this managed reconciler; preventing the Release
+record itself requires server-side publish preconditions. This is a product
+boundary, not a reason to weaken the client checks.
+
 ## 5.5 Run the complete example's exact inventory audit
 
 The reusable importer above works against the organization chosen by the user.
@@ -213,6 +256,13 @@ deployments, and 25 curated `NeedsProvides` Links. The orphan allowlist covers 1
 total retained and managed Units, 64 `UpgradeUnit`/`NeedsProvides` Links, four
 Targets, and 35 Argo Applications. These numbers belong to this exact example,
 not the generic importer contract.
+
+For those 35 Applications, the combined reconciliation and audit evidence must
+also retain the authority facts above: `latest` is discovery-only,
+`spec.syncPolicy.automated` is absent, the observed revision is the exact
+authoritative ConfigHub `ManifestDigest`, and the pinned refresh-only argobot
+runtime cannot deploy. A tidy inventory with an automated mutable-tag path is
+not an accepted result.
 
 ## Expected ConfigHub state
 
@@ -265,19 +315,27 @@ to relabel generated desired state as live evidence.
 ## Screenshot to capture after the checkpoint passes
 
 Do not publish a current screenshot until the apply, convergence, and orphan
-receipts all pass for the same source revision.
+receipts all pass for the same source revision. This chapter owns exactly one
+future adoption frame, separate from the ConfigHub GUI tour.
+
+<!-- kubara-adoption-screenshot step="5" id="selected-org-topology" path="../../images/kubara-adoption/05-selected-org-topology.png" -->
 
 Then capture the selected organization with the `hx-platform/platform-contract`
 Unit open. The frame should show the source Git identity, Kubara version,
 organization identity, four target relationships, and navigation to the
 component Catalog, faithful/adapted lanes, matrix, and wiring. Capture a second
-frame with the faithful and adapted delivery definitions side by side so a
-Kubara user can recognize the original hub/spoke topology and the simplified
-ConfigHub-governed topology.
+pane in the same real browser frame with the faithful and adapted delivery
+definitions side by side, so a Kubara user can recognize the original
+hub/spoke topology and the simplified ConfigHub-governed topology. Do not
+splice observations from different organizations or source revisions.
 
-Each caption must identify the source commit, organization, accepted receipt,
+The caption must identify the source commit, organization, accepted receipt,
 and capture date. It proves governed materialization and visible topology; it
-does not by itself prove cluster workload health.
+does not by itself prove cluster workload health. Embed it at the declared
+path only when the six-frame adoption receipt binds the exact source commit and
+Git trees, faithful, mini-IDP, and orphan receipts, image digest, UTC capture
+time, visible identities, sensitive-value handling, caption, and claim
+boundary. Until then, leave the hook unexpanded.
 
 ## Troubleshooting
 
@@ -288,7 +346,8 @@ does not by itself prove cluster workload health.
 | First apply reports `pending-second-zero-action-run` | The expected acceptance run has not happened yet. | Repeat the identical apply immediately. Do not call the import complete. |
 | Second apply performs actions | Inputs or live state changed, or the first run did not converge exactly. | Preserve both receipts and investigate the named actions. Any mutation resets the two-run proof. |
 | Apply stops partway through | A bounded interruption occurred. | Resume with exactly the same request, checkout, package, context, and attestation. Do not manually replay guessed mutations. |
-| Argo is `Synced` at the wrong digest | The cluster has not observed the ConfigHub release under test. | Refresh and reconcile the exact current release; do not accept sync state alone. |
+| Argo is `Synced` at the wrong digest | The cluster has not observed the ConfigHub release under test. | Let the reconciler revalidate and submit the exact `ManifestDigest`; do not enable automated sync or accept sync state alone. |
+| A managed Application has `spec.syncPolicy.automated` | Mutable `latest` has regained deployment authority and can bypass the governed release selection. | Stop publication and promotion, preserve the evidence, and restore the no-automation contract through the reconciler. Do not patch around it with a manual sync. |
 | An unexpected Space, Unit, Link, or workload appears | The destination is not the reviewed inventory. | Classify it explicitly or remove it through its owning workflow. The importer and orphan auditor do not silently adopt or delete it. |
 | The mini-IDP receipt command says the file is missing | The current live example has not been refreshed. | Run the ordered live sequence only after all prerequisite qualification and faithful-lane gates pass. Keep the website status honest meanwhile. |
 

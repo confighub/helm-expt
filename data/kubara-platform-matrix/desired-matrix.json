@@ -1118,7 +1118,7 @@
           "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 33,
-        "renderSha256": "a6470e92c0251603847dc1271634178254384ac2df4352092d063a82f2b7cf49",
+        "renderSha256": "0c39aaa4266218d7c9cd5c29f8fd303b832d53345176fbd7bd2a94a14909ca7c",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
@@ -1157,7 +1157,7 @@
           "examples/kubara/current-platform/source/overrides/hx-app-staging/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 32,
-        "renderSha256": "c447e04f08a7a3bf4de0f04bf05bea56cf4966294954c1b5546484d91becfcdc",
+        "renderSha256": "3ebec65bab14e1f48da29496d979c7463741f2e6f2697e46752a582d6d77633c",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
@@ -1196,7 +1196,7 @@
           "examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 32,
-        "renderSha256": "21a886ba8fcb6a46ed46ea7e4e0d155d7abccd09d7e29235d8f61f4ee9bbddfe",
+        "renderSha256": "f3f494ffb978b154e083493974f39221f32ce5ec047f3e4caaced3d3310e3d81",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
@@ -1235,7 +1235,7 @@
           "examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 32,
-        "renderSha256": "48f908d388a3f2e895502ecb16e06bca58e451439a6cb6809e45cfc596d52de2",
+        "renderSha256": "9d5ce0593524ae3e9b2aaf99ec8fddf4a8c57332b9a07bff91f24456a034a4a1",
         "evidenceScope": "committed current effective render only",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",

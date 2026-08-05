@@ -60,6 +60,44 @@ second competing journey.
 
 ## Why a Kubara user should prefer this
 
+### Compare the operating choices honestly
+
+ConfigHub does not rename one implementation and call it a migration. The
+example keeps three deliberately different operating choices visible:
+
+| Operating choice | What the operator keeps | What the operator runs day to day | What ConfigHub adds |
+| --- | --- | --- | --- |
+| Raw Kubara | Native catalogs, `config.yaml`, generated platform tree, hub Argo, ApplicationSets, AppProjects, and spoke registration | Git review plus hub-and-spoke Argo operation | Nothing; this remains the portable baseline and exit path. |
+| Faithful Kubara + ConfigHub | The same generated topology and central hub/spoke reconciliation | Kubara's familiar delivery lane, with exact source and release evidence retained in ConfigHub | Component/version retention, immutable release identity, history, and governed visibility without changing topology. |
+| Adapted Kubara + ConfigHub | Native Kubara selection, generation, Git hand-off, target placement, and Argo reconciliation | ConfigHub takes the governance/hub role; each target keeps a small local Argo reconciler | Fewer hub-specific operating objects, approvals and promotion, exact rollback, visible wiring, a live fleet matrix, and an exact orphan audit. |
+
+The faithful lane proves that adoption does not require a rewrite. The adapted
+lane earns preference only when its current receipts show a simpler day-two
+operation without losing exact topology, release identity, health, or the Git
+exit path. Governance is additional capability and additional policy surface;
+it is not advertised as free complexity reduction.
+
+### Align the three catalog layers
+
+The word *catalog* names related but different layers. Alignment preserves all
+three instead of flattening them:
+
+1. **ConfigHub component catalog:** reusable components and every retained
+   exact version come first. Deployable variants and effective configurations
+   follow from the component; adding a version never deletes an older one.
+2. **Kubara compatibility profile:** Kubara's `Catalog.yaml`,
+   `ServiceDefinition`s, wrappers, defaults, templates, and configuration
+   surfaces are retained as the deterministic bridge for each component.
+3. **Kubara platform package:** a platform's ordered catalogs plus
+   `config.yaml` select, place, specialize, and wire those components for its
+   hub and spokes.
+
+An adopter may start from Kubara's upstream catalog or a ConfigHub-aligned
+export. The acceptance test is the same: identical native Kubara input intent
+must produce the same generated paths and bytes, while ConfigHub can still
+show the reusable component and its retained versions independently of this
+one platform selection.
+
 ### Keep the platform portable
 
 The exact Git revision remains the neutral hand-off. OCI is the immutable
@@ -88,6 +126,50 @@ historical, and live-observed state.
 ConfigHub records the review, approval, promotion, rollback, release digest,
 and revision history. Argo CD continues doing the in-cluster reconciliation a
 Kubara operator already understands.
+
+### Make `latest` discoverable, not deployable
+
+The adapted lane keeps `targetRevision: latest` so each cluster-local Argo can
+discover its ConfigHub OCI stream, but removes `spec.syncPolicy.automated` from
+every managed Application. The pinned argobot v0.1.6 runtime can hard-refresh
+only. ConfigHub revalidates the authoritative release and submits the exact
+`ManifestDigest` with Kubernetes UID/resourceVersion compare-and-set when no
+operation is active.
+
+That is an intentionally better governed departure: a newly published mutable
+pointer cannot race past approval, promotion, or rollback, yet Argo remains the
+familiar local reconciler. The evidence covers the managed automated path. A
+claim that even privileged humans cannot issue a manual Argo sync requires
+separate RBAC or admission proof.
+
+## The buyer walkthrough
+
+Show the evidence in the same order an adopter crosses the boundaries:
+
+1. **Native Kubara source:** open `config.yaml`, its ordered catalogs, and
+   normal overrides. Explain that no replacement schema or AI rewrite is
+   required.
+2. **Kubara output and Git:** run the offline verifier, show the 135
+   path-and-byte-identical files from both catalog lanes, then open the exact
+   pushed commit and complete hand-off inventory.
+3. **Component Catalog and OCI:** start with one reusable component and its
+   retained versions, then follow the selected variant/config package and its
+   immutable digest into the platform index.
+4. **Recognizable topology:** show faithful and adapted lanes together, the
+   one-hub/three-spoke identity, and the same four explicit targets.
+5. **One application change:** follow hx-web from development through staging,
+   exact production approval and promotion, one retained departure, and an
+   exact one-target rollback. Use Cubbychat to show the same model at a richer
+   application shape.
+6. **Fleet visibility:** finish with native wiring Links, the current 36-cell
+   platform matrix, measured reconciliation evidence, and the zero-orphan
+   result.
+
+Explain rather than wait through the cold path: exact OCI media details,
+source and destination locks, secret isolation, compare-and-set journals,
+qualification internals, and initial cluster/bootstrap prerequisites. Those
+mechanics remain fully documented and reproducible, but the buyer walkthrough
+should spend its time on recognizable inputs and visible day-two outcomes.
 
 ## Honest boundaries
 

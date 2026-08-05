@@ -6,6 +6,14 @@
 > versions. Start with the
 > [current reproducible mini-IDP guide](single-platform.md).
 
+> **Delivery authority superseded.** The force-sync behavior below is accurate
+> for this retained v0.12 proof, but it is not the current adapted-lane design.
+> The v0.13 lane leaves `spec.syncPolicy.automated` absent, treats
+> `targetRevision: latest` as discovery-only, pins argobot to refresh-only
+> Kubernetes mode, and lets the ConfigHub reconciler submit only the exact
+> revalidated release `ManifestDigest` with Kubernetes identity
+> compare-and-set. Use the current guide for operational adoption.
+
 This example shows two things. First, ConfigHub manages Argo CD across four
 clusters and rolls out, promotes, and rolls back an app for the operator. Second,
 a real Kubara-generated platform (cert-manager and traefik) is delivered the same
@@ -17,9 +25,10 @@ Argo CD that owns delivery on each cluster.
 
 `cub cluster up` created four kind clusters: `hx-app-dev`, `hx-app-staging`,
 `hx-app-prod-a`, and `hx-app-prod-b`. On each cluster it installed Argo CD and
-argobot. argobot is a ConfigHub bot that force-syncs the matching Argo CD
-Application the moment a release is published. So ConfigHub owns Argo CD on every
-cluster.
+argobot. In this historical proof, argobot is a ConfigHub bot that force-syncs
+the matching Argo CD Application the moment a release is published. That
+historical mechanism is preserved as evidence, not recommended as the current
+deployment-authority model.
 
 The app is a small nginx service. It is stored as three literal-YAML Units, one
 resource per Unit: a Namespace, a Deployment, and a Service. The base Space

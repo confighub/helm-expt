@@ -8709,12 +8709,12 @@ spec:
     name: web
     targetPort: web
     protocol: TCP
-    nodePort: 30000
+    nodePort: 30002
   - port: 443
     name: websecure
     targetPort: websecure
     protocol: TCP
-    nodePort: 30001
+    nodePort: 30003
 ---
 # Source: traefik/charts/traefik/templates/deployment.yaml
 apiVersion: apps/v1

@@ -175,18 +175,27 @@ ConfigHub, Argo, or Kubernetes health; those checkpoints occur in Steps 5 and
 
 ## Screenshot checkpoint
 
-Do not substitute a diagram or mocked terminal for the machine result. When
-the walkthrough is published, capture two real views after the checkpoint
-passes:
+Do not substitute a diagram or mocked terminal for the machine result. This
+chapter owns exactly one future adoption frame, separate from the ConfigHub
+GUI tour.
 
-1. a terminal crop containing the complete verifier final line; and
-2. a repository tree showing `platform-components/`, `platform-configs/`, and
-   the four cluster directories.
+<!-- kubara-adoption-screenshot step="2" id="generation-parity" path="../../images/kubara-adoption/02-kubara-generation-parity.png" -->
+
+After the checkpoint and complete source-current live gate pass, capture one
+real terminal/repository frame containing the complete verifier final line and
+the adjacent generated tree with `platform-components/`,
+`platform-configs/`, and the four cluster directories visible. This may be a
+single real browser or terminal workspace view; do not assemble unrelated
+runs into a synthetic image.
 
 The caption should say: **“Kubara's official catalog and the ConfigHub-aligned
 export generated 135 path-and-byte-identical files.”** Include the commit ID in
 the surrounding page text, not as an unverifiable graphic annotation. A live
-ConfigHub or cluster screenshot does not belong at this step.
+ConfigHub or cluster screenshot does not belong at this step. Embed the image
+at the declared path only when the six-frame adoption receipt binds its digest
+and UTC capture time to the same source commit and Git trees, generation and
+catalog-parity receipts, visible identities, sensitive-value handling,
+caption, and claim boundary. Until then, leave the hook unexpanded.
 
 ## Troubleshooting
 

@@ -525,7 +525,7 @@
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
       <div class="card"><table>
         <thead><tr><th>Benefit</th><th>Evidence or acceptance target</th><th>Status</th></tr></thead>
-        <tbody><tr><td>No rewrite</td><td>135 path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; 13 deterministic effective renders.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--good);border-radius:999px;background:var(--panel);color:var(--good)">current deterministic</strong></td></tr><tr><td>A stronger component Catalog</td><td>103 components, 130 retained versions, and all 18 exact Kubara selections under additive-only retention.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--good);border-radius:999px;background:var(--panel);color:var(--good)">current deterministic</strong></td></tr><tr><td>Recognizable platform shape</td><td>4 clusters, 7 platform roles, 2 applications, faithful and adapted delivery identities, with Argo CD retained.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--good);border-radius:999px;background:var(--panel);color:var(--good)">current live</strong></td></tr><tr><td>Fleet visibility</td><td>36 component/application cells, 25 curated native Link intents, and 663 extracted wiring facts kept as the full engineering view.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--warn);border-radius:999px;background:var(--panel);color:var(--warn)">desired state only</strong></td></tr><tr><td>Clean, repeatable operation</td><td>A second zero-action apply, exact release heads, healthy applications, and a zero-orphan ConfigHub-and-cluster audit.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--warn);border-radius:999px;background:var(--panel);color:var(--warn)">live receipt required</strong></td></tr></tbody>
+        <tbody><tr><td>No rewrite</td><td>135 path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; 13 deterministic effective renders.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--good);border-radius:999px;background:var(--panel);color:var(--good)">current deterministic</strong></td></tr><tr><td>A stronger component Catalog</td><td>103 components, 130 retained versions, and all 18 exact Kubara selections under additive-only retention.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--good);border-radius:999px;background:var(--panel);color:var(--good)">current deterministic</strong></td></tr><tr><td>Recognizable platform shape</td><td>4 clusters, 7 platform roles, 2 applications, faithful and adapted delivery identities, with Argo CD retained.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--warn);border-radius:999px;background:var(--panel);color:var(--warn)">faithful or adapted receipt needs refresh</strong></td></tr><tr><td>Fleet visibility</td><td>36 component/application cells, 25 curated native Link intents, and 663 extracted wiring facts kept as the full engineering view.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--warn);border-radius:999px;background:var(--panel);color:var(--warn)">desired state only</strong></td></tr><tr><td>Clean, repeatable operation</td><td>An adjacent changed apply and immediate zero-action apply within the schema-v2 performance budgets, exact release heads, healthy applications, and a zero-orphan ConfigHub-and-cluster audit.</td><td><strong style="display:inline-block;padding:3px 8px;border:1px solid var(--warn);border-radius:999px;background:var(--panel);color:var(--warn)">live performance receipt required</strong></td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -533,13 +533,13 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p>The status is generated from committed receipts. Missing or source-stale live evidence stays visible instead of becoming a green marketing claim.</p>
+      <p data-kubara-live-evidence="gated">The status is generated from an exact evidence chain. The live receipt required for current status is not yet available. The chain binds the faithful, source-digest mini-IDP, adjacent schema-v2 performance, matrix, wiring, orphan, and six GUI records. Missing or inconsistent evidence stays visible instead of becoming a green marketing claim.</p>
     </section>
     <section aria-labelledby="stays-adds">
       <h2 id="stays-adds">What stays Kubara, and what ConfigHub adds</h2>
       <div class="card"><table>
         <thead><tr><th>Kubara stays</th><th>ConfigHub adds</th></tr></thead>
-        <tbody><tr><td>Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent</td><td>Component identity and retained versions, governed definitions and instances, exact releases, approvals, promotion, rollback, departures, matrix and wiring</td></tr><tr><td>Git as the portable platform hand-off</td><td>One immutable OCI package per reusable/effective configuration plus a digest-bound platform index</td></tr><tr><td>Argo CD as the cluster reconciler</td><td>A governance and release plane before Argo receives the approved digest</td></tr></tbody>
+        <tbody><tr><td>Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent</td><td>Component identity and retained versions, governed definitions and instances, exact releases, approvals, promotion, rollback, departures, matrix and wiring</td></tr><tr><td>Git as the portable platform hand-off</td><td>One immutable OCI package per reusable/effective configuration plus a digest-bound platform index</td></tr><tr><td>Argo CD as the cluster reconciler</td><td>A governance and release plane that selects the exact digest before local Argo receives it</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -547,6 +547,12 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
+    </section>
+    <section aria-labelledby="delivery-authority">
+      <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>
+      <p>The adapted lane retains <code>targetRevision: latest</code> as the ConfigHub OCI discovery address, but leaves <code>spec.syncPolicy.automated</code> absent from every managed Application. Pinned argobot v0.1.6 runs with <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>, so it refreshes but cannot deploy.</p>
+      <p>ConfigHub revalidates the authoritative release and submits <code>operation.sync.revision=&lt;ManifestDigest&gt;</code> with Kubernetes UID/resourceVersion compare-and-set only when no Argo operation is active. This is the governed improvement: mutable latest cannot race past approval, promotion, or rollback, while Argo remains the local reconciler.</p>
+      <p>The authority check inventories Applications across the whole cluster: all managed Applications must live in <code>argocd</code>, and the adapted lane permits zero ApplicationSets. Retained <code>release-N</code> Tags expose contiguous history, but the exact OCI <code>ManifestDigest</code> remains deployment authority. Client opening and closing checks plus the no-auto fence stop a rejected raced Release from deploying through this managed path. Atomic rejection of the Release record requires server-side publish preconditions.</p>
     </section>
     <section aria-labelledby="six-steps">
       <h2 id="six-steps">One adoption journey, in the user's order</h2>
@@ -557,7 +563,7 @@
         <li><p><a href="d/docs/demo/kubara/adoption-3-git.html"><strong>3. Push the complete hand-off to Git</strong></a><br>Prepare, scan, commit, and push one exact portable platform revision.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-4-oci.html"><strong>4. Import the Git revision and create OCI</strong></a><br>Publish immutable component/config packages plus a digest-bound platform index.</p></li>
         <li><p><a href="d/docs/demo/kubara/adoption-5-confighub-org.html"><strong>5. Load the selected ConfigHub organization</strong></a><br>Materialize the recognizable topology, apply twice, and prove zero orphans.</p></li>
-        <li><p><a href="d/docs/demo/kubara/adoption-6-apps.html"><strong>6. Deploy applications</strong></a><br>Promote, approve, release, and roll back while Argo CD keeps reconciling.</p></li>
+        <li><p><a href="d/docs/demo/kubara/adoption-6-apps.html"><strong>6. Deploy applications</strong></a><br>Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.</p></li>
       </ol>
       <p><a href="d/docs/demo/kubara/adoption.html"><strong>Open the complete tutorial and its checkpoints</strong></a>.</p>
     </section>
@@ -569,10 +575,10 @@
         <li>Faithful Kubara and adapted ConfigHub delivery lanes side by side.</li>
         <li>hx-web and Cubbychat across development, staging, and two production targets.</li>
         <li>Curated native <code>NeedsProvides</code> Links, followed by the full extracted graph.</li>
-        <li>Exact production approval, promotion, departure, rollback, release, and OCI digest history.</li>
+        <li>Exact production approval, promotion, departure, rollback, release, OCI digest history, and the visible no-auto-sync authority boundary.</li>
         <li>The live 36-cell matrix and exact zero-orphan result.</li>
       </ol>
-      <p>The deterministic story is current; the integrated live screenshot set remains gated until faithful, mini-IDP, idempotence, health, and orphan receipts all match this source.</p>
+      <p>The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source.</p>
       <p><a href="d/docs/demo/kubara/gui-tour.html">Follow the receipt-bound GUI tour</a>.</p>
     </section>
     <section aria-labelledby="boundaries">
@@ -582,6 +588,7 @@
         <li>The user explicitly selects the organization. Targets and the local delivery runtime are current prerequisites; the importer does not silently create or guess them.</li>
         <li>Secrets and target-owned facts stay outside the portable Git and OCI payloads.</li>
         <li>Desired state, current live state, historical evidence, OCI publication, and production support remain distinct claims.</li>
+        <li>The exact-digest evidence controls the managed automated path. Blocking privileged human or manual Argo sync additionally requires separate RBAC or admission proof.</li>
         <li>Performance is measured and disclosed; it is not sold as a benefit until the end-to-end target passes.</li>
       </ul>
     </section>

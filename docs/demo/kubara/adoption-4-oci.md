@@ -39,6 +39,13 @@ import path.
 
 ## Before you start
 
+The current importer cannot compile or package first and choose the
+destination later. Before either operation, the user must explicitly select a
+readable ConfigHub organization and provide one pre-existing ConfigHub Target
+and one observed, healthy cluster-local Argo delivery runtime for every Kubara
+cluster. Step 5 applies into those reviewed identities; it does not discover
+or create them implicitly.
+
 Complete Steps 1–3 and have all of the following:
 
 - a clean detached checkout at the full pushed Git object ID;
@@ -230,12 +237,28 @@ request and Git object ID.
 
 ## Screenshot to capture after the checkpoint passes
 
-Do not manufacture a registry screenshot for the isolated self-test. For a
-real publication, capture a registry/package view showing one selected
-component package, its immutable manifest digest, and the platform index that
-references it. The caption must name the Git commit and `PlatformDigest`, and
-must say that publication proves immutable packaging and retrieval—not live
-ConfigHub materialization or cluster health.
+Do not manufacture a registry screenshot for the isolated self-test. This
+chapter owns exactly one future adoption frame, separate from the ConfigHub
+GUI tour.
+
+<!-- kubara-adoption-screenshot step="4" id="oci-packages-index" path="../../images/kubara-adoption/04-oci-packages-index.png" -->
+
+After the isolated self-test checkpoint and the complete source-current
+documentation gate pass, capture one real terminal/workspace frame from that
+same self-test run. It must show the complete passing final line, including
+the reported 22 component/config OCI packages, digest index, pulled-payload
+verification, pinned delivery topology, zero-action second run, and refusal
+cases. The caption must name the Git commit and say explicitly that these are
+deterministic **fake Git, OCI, and ConfigHub test surfaces**. This frame proves
+the importer contract and isolated package/index behavior; it does not claim a
+live registry publication, ConfigHub materialization, or cluster health.
+
+Embed it at the declared path only when the six-frame adoption receipt binds
+the exact source commit and Git trees, prepared hand-off receipt, importer
+implementation, release-acceptance contract, image digest, UTC capture time,
+visible package/index identities, sensitive-value handling, caption, and
+claim boundary. It must not be presented as the real-publication receipt
+described above. Until then, leave the hook unexpanded.
 
 ## Troubleshooting
 

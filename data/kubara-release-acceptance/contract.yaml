@@ -5,6 +5,30 @@ metadata:
 spec:
   outcome: "ConfigHub simplifies Kubara without making it fundamentally different."
   operatingModel: "Kubara composes; ConfigHub governs; Argo reconciles."
+  deliveryAuthority:
+    releaseAuthority: "ConfigHub authoritative published release"
+    argoRole: "cluster-local reconciler"
+    managedApplicationInventory: "cluster-wide-exact-allowlist; namespace-argocd-only; ApplicationSets-zero"
+    managedApplicationTargetRevision: "latest-discovery-only"
+    managedApplicationAutomatedSync: "absent"
+    argobot:
+      version: "v0.1.6"
+      image: "ghcr.io/confighub/argobot:v0.1.6"
+      environment:
+        ARGO_SYNC_MODE: "kubernetes"
+        ARGO_NAMESPACE: "argocd"
+        ARGO_REFRESH_TYPE: "hard"
+      authority: "hard-refresh-only-never-deploy"
+    syncOperation:
+      revision: "operation.sync.revision=<ManifestDigest>"
+      compareAndSet:
+        - "metadata.uid"
+        - "metadata.resourceVersion"
+      activeOperationPolicy: "wait-until-inactive-never-replace"
+      preSubmitReleaseRevalidation: "exact-authoritative-confighub-release"
+    retainedReleaseTagHistory: "release-N identity and contiguity audited; tags are not deployment authority"
+    publishRaceBoundary: "client opening/closing checks plus the no-auto fence prevent a rejected raced Release from deploying through the managed reconciler; atomic Release rejection requires server publish preconditions"
+    claimBoundary: "managed automated delivery path only; privileged human or manual Argo sync requires separate RBAC or admission proof"
   adoption:
     requiredAIRewrite: false
     kubaraConfigAndOverridesRetained: true
@@ -23,6 +47,13 @@ spec:
       needsProvidesLinks: 25
       payloadsBeforeFaithfulEvidence: 55
       payloadsReadyForApply: 56
+      orphanAuditAllowlist:
+        spaces: 55
+        units: 105
+        links: 64
+        targets: 4
+        currentReleaseStreams: 35
+        argoApplications: 35
     desiredMatrixRows: 36
   catalog:
     role: "component-first"
@@ -136,10 +167,13 @@ spec:
     - "npm run kubara-mini-idp:apply"
     - "npm run kubara-mini-idp:verify"
     - "npm run kubara-mini-idp:receipt-verify"
+    - "npm run kubara-mini-idp:performance-contract:verify"
+    - "npm run kubara-mini-idp:performance:self-test"
     - "npm run kubara-mini-idp:orphan-plan"
     - "npm run kubara-mini-idp:orphan-audit:self-test"
     - "npm run kubara-mini-idp:orphan-audit"
     - "npm run kubara-mini-idp:orphan-audit:receipt-verify"
+    - "npm run kubara-mini-idp:performance:receipt-verify"
     - "npm run kubara-platform-matrix:generate"
     - "npm run kubara-platform-matrix:verify"
     - "npm run kubara-catalog-release:generate"
@@ -191,10 +225,17 @@ spec:
         - "kubara-platform-matrix:verify"
     -
       id: "mini-idp"
-      outcome: "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; its receipt requires an initial reconciliation followed by a zero-action rerun, and the exact ConfigHub and cluster inventory must be orphan-free."
+      outcome: "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; ConfigHub selects the exact release, every managed Argo Application has automated sync disabled, and Argo reconciles only a revalidated ManifestDigest operation submitted with Kubernetes identity compare-and-set; its receipt requires an initial reconciliation followed by a zero-action rerun, and the exact ConfigHub and cluster inventory must be orphan-free."
       packageScripts:
         - "kubara-mini-idp:receipt-verify"
         - "kubara-mini-idp:orphan-audit:receipt-verify"
+    -
+      id: "mini-idp-performance"
+      outcome: "The accepted live receipt ends with an adjacent changed apply and immediate zero-action apply under one execution fingerprint; both retain schema-v2 measurements within the four-cluster fixture budgets and the pair is backed by the zero-orphan audit."
+      packageScripts:
+        - "kubara-mini-idp:performance-contract:verify"
+        - "kubara-mini-idp:performance:self-test"
+        - "kubara-mini-idp:performance:receipt-verify"
     -
       id: "faithful-hub-spoke"
       outcome: "The unchanged Kubara hub Argo CD to registered spoke topology is retained as the faithful lane."
@@ -231,6 +272,8 @@ spec:
     - "node scripts/generate-kubara-wiring.mjs --self-test"
     - "node scripts/generate-kubara-platform-matrix.mjs --verify --all"
     - "node scripts/generate-kubara-platform-matrix.mjs --self-test"
+    - "node scripts/verify-kubara-mini-idp-performance.mjs --contract"
+    - "node scripts/verify-kubara-mini-idp-performance.mjs --self-test"
     - "node scripts/reconcile-kubara-mini-idp.mjs --plan"
   finalVerification:
     - "node scripts/run-kubara-live-qualification.mjs --verify"
@@ -241,6 +284,7 @@ spec:
     - "node scripts/run-kubara-faithful-hub-spoke-proof.mjs --verify"
     - "node scripts/reconcile-kubara-mini-idp.mjs --receipt-verify"
     - "node scripts/audit-kubara-mini-idp-orphans.mjs --receipt-verify"
+    - "node scripts/verify-kubara-mini-idp-performance.mjs --receipt-verify"
     - "node scripts/generate-kubara-catalog-release.mjs --verify"
   requiredEvidence:
     currentExample: "examples/kubara/current-platform/generation-receipt.yaml"
@@ -251,6 +295,7 @@ spec:
     faithfulLane: "runs/kubara-faithful-hub-spoke/receipt.yaml"
     miniIdp: "runs/kubara-mini-idp-reconcile/receipt.yaml"
     miniIdpOrphans: "runs/kubara-mini-idp-reconcile/orphan-audit.yaml"
+    miniIdpPerformanceAcceptance: "data/kubara-mini-idp-performance/contract.yaml"
     historicalLiveQualification: "runs/kubara-live-qualification/receipt.yaml"
     currentLiveQualification: "runs/kubara-current-live-qualification/receipt.yaml"
     historicalPromotion: "data/kubara-catalog-refresh/root-promotion/receipt.yaml"
@@ -263,21 +308,36 @@ spec:
     evidenceCheckpoints: "site/d/docs/demo/kubara/checkpoints.html"
     guiTour: "site/d/docs/demo/kubara/gui-tour.html"
     technicalRunbook: "site/d/docs/demo/kubara/single-platform.html"
+    adoptionScreenshotContract: "data/kubara-adoption-screenshots/contract.yaml"
+  adoptionScreenshotEvidenceContract:
+    tutorialSource: "docs/demo/kubara/adoption.md"
+    requiredFrames: 6
+    publicationPolicy: "publish-only-after-all-six-steps-have-source-current-real-evidence"
+    screenshotReceiptWhenPublished: "data/kubara-adoption-screenshots/receipt.yaml"
+    screenshotDirectoryWhenPublished: "docs/images/kubara-adoption"
+    staticVerificationRequiresScreenshots: false
+    finalVerificationRequiresScreenshots: true
+    finalCurrentVerificationRequiresScreenshots: true
   guiEvidenceContract:
     tourSource: "docs/demo/kubara/gui-tour.md"
     requiredTourFrames: 6
-    publicationPolicy: "publish-only-after-source-current-faithful-mini-idp-idempotence-health-and-orphan-receipts-pass"
+    publicationPolicy: "publish-only-after-source-current-faithful-mini-idp-idempotence-performance-health-and-orphan-receipts-pass"
     screenshotReceiptWhenPublished: "data/kubara-gui-evidence/receipt.yaml"
     screenshotDirectoryWhenPublished: "docs/images/kubara"
     staticVerificationRequiresScreenshots: false
+    finalVerificationRequiresScreenshots: true
     requiredSharedMetadata:
       - "sourceCommit"
       - "organizationExternalID"
       - "organizationInternalID"
+      - "faithfulReceiptSHA256"
       - "miniIdpReceiptSHA256"
       - "orphanReceiptSHA256"
+      - "matrixSHA256"
+      - "wiringSHA256"
     requiredPerImageMetadata:
       - "path"
+      - "sha256"
       - "capturedAt"
       - "visibleIdentities"
       - "sensitiveValues"
@@ -288,4 +348,6 @@ spec:
     - "The full verifier fails until both live qualification sets, both additive promotions, the faithful lane, the mini-IDP reconciliation, and the public site verify."
     - "The first mini-IDP apply writes a pending-idempotence receipt; the immediately repeated apply must record zero actions before receipt and release verification can pass."
     - "The orphan audit is a separate exact inventory receipt and must pass before the website can claim a clean Kubara organization."
+    - "A green website claim is derived only from mutually consistent faithful, mini-IDP, orphan, schema-v2 performance, matrix, wiring, and exactly six published GUI evidence hashes."
+    - "The exact-digest authority contract controls the importer-managed automated delivery path; privileged human or manual Argo sync remains outside the claim unless separate RBAC or admission evidence proves otherwise."
     - "AI may propose future wiring, but no required adoption, generation, reconciliation, or verification step depends on AI."

@@ -3,6 +3,7 @@ import { join, posix } from "node:path";
 
 import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 import { installerOciRef } from "./lib/installer-oci.mjs";
+import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
 
 const siteRoot = join(repoRoot, "site");
 const chartPagesRoot = join(siteRoot, "charts");
@@ -5428,13 +5429,8 @@ function loadKubaraSiteFacts() {
   const contract = readYaml(join(repoRoot, "data", "kubara-release-acceptance", "contract.yaml"));
   const matrix = JSON.parse(readFileSync(join(repoRoot, "data", "kubara-platform-matrix", "matrix.json"), "utf8"));
   const wiring = JSON.parse(readFileSync(join(repoRoot, "data", "kubara-wiring", "graph.json"), "utf8"));
-  const faithfulPath = join(repoRoot, "runs", "kubara-faithful-hub-spoke", "receipt.yaml");
-  const faithful = existsSync(faithfulPath) ? readYaml(faithfulPath) : null;
-  const orphanPath = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
-  const orphan = existsSync(orphanPath) ? readYaml(orphanPath) : null;
   const generatedFiles = Number(parity.spec?.comparison?.fileCount ?? 0);
-  const faithfulGeneratedFiles = Number(faithful?.spec?.source?.currentExample?.generatedFileCount ?? 0);
-  const miniEvidence = matrix.spec?.evidence?.miniIdpReceipt ?? {};
+  const live = evaluateKubaraSiteLiveEvidence({ root: repoRoot });
   return {
     generatedFiles,
     renders: Number(generation.spec?.platform?.renderCount ?? 0),
@@ -5447,17 +5443,35 @@ function loadKubaraSiteFacts() {
     catalogVersions: Number(coverage.spec?.finalCatalog?.versionCount ?? coverage.status?.finalVersionCount ?? 0),
     selections: coverage.spec?.selections?.length ?? 0,
     wiringFacts: Number(wiring.spec?.summary?.facts ?? 0),
-    faithfulCurrent:
-      faithful?.status?.result === "pass"
-      && faithfulGeneratedFiles === generatedFiles,
-    miniIdpCurrent: miniEvidence.acceptedAsLive === true,
-    orphanCurrent: orphan?.status?.result === "pass",
+    deterministicParityCurrent: parity.status?.result === "pass"
+      && parity.spec?.comparison?.mode === "path-and-byte-for-byte"
+      && parity.spec?.comparison?.differences?.length === 0
+      && generatedFiles === 135
+      && generation.kind === "KubaraCurrentPlatformGenerationReceipt"
+      && generation.spec?.tools?.kubaraVersion === "v0.13.0"
+      && Number(generation.spec?.platform?.renderCount) === 13
+      && Number(generation.spec?.outputs?.generatedFileCount) === generatedFiles,
+    catalogCurrent: coverage.status?.result === "pass"
+      && Number(coverage.status?.finalComponentCount) === 103
+      && Number(coverage.status?.finalVersionCount) === 130
+      && Number(coverage.status?.exactSelectionCount) === 18
+      && coverage.status?.oldRootsByteIdentical === true,
+    faithfulCurrent: live.faithful.current,
+    miniIdpCurrent: live.miniIdp.current,
+    orphanCurrent: live.orphan.current,
+    performanceCurrent: live.performance.current,
+    matrixCurrent: live.matrix.current,
+    wiringCurrent: live.wiring.current,
+    guiCurrent: live.gui.current,
+    guiRequired: live.gui.required,
+    currentLive: live.current,
+    liveReasons: live.reasons,
   };
 }
 
 function kubaraHtml(catalog) {
   const facts = loadKubaraSiteFacts();
-  const currentLive = facts.faithfulCurrent && facts.miniIdpCurrent && facts.orphanCurrent;
+  const currentLive = facts.currentLive;
   const badge = (passed, yes, no) => `<strong style="display:inline-block;padding:3px 8px;border:1px solid ${passed ? "var(--good)" : "var(--warn)"};border-radius:999px;background:var(--panel);color:${passed ? "var(--good)" : "var(--warn)"}">${escapeHtml(passed ? yes : no)}</strong>`;
   const steps = [
     ["1", "Choose components and wiring", "Keep Kubara catalogs, config.yaml, values overlays, and service definitions.", "../docs/demo/kubara/adoption-1-choose.md"],
@@ -5465,7 +5479,7 @@ function kubaraHtml(catalog) {
     ["3", "Push the complete hand-off to Git", "Prepare, scan, commit, and push one exact portable platform revision.", "../docs/demo/kubara/adoption-3-git.md"],
     ["4", "Import the Git revision and create OCI", "Publish immutable component/config packages plus a digest-bound platform index.", "../docs/demo/kubara/adoption-4-oci.md"],
     ["5", "Load the selected ConfigHub organization", "Materialize the recognizable topology, apply twice, and prove zero orphans.", "../docs/demo/kubara/adoption-5-confighub-org.md"],
-    ["6", "Deploy applications", "Promote, approve, release, and roll back while Argo CD keeps reconciling.", "../docs/demo/kubara/adoption-6-apps.md"],
+    ["6", "Deploy applications", "Promote, approve, release, and roll back; local Argo reconciles only the exact ConfigHub-authorized digest.", "../docs/demo/kubara/adoption-6-apps.md"],
   ];
   return `<!doctype html>
 <html lang="en">
@@ -5490,13 +5504,13 @@ function kubaraHtml(catalog) {
       <h2 id="benefits">Benefits with explicit acceptance evidence</h2>
       ${markdownLikeTable([
         ["Benefit", "Evidence or acceptance target", "Status"],
-        ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.generatedFiles === 135 && facts.renders === 13, "current deterministic", "check required")],
-        ["A stronger component Catalog", `${facts.catalogComponents} components, ${facts.catalogVersions} retained versions, and all ${facts.selections} exact Kubara selections under additive-only retention.`, badge(facts.catalogComponents === 103 && facts.catalogVersions === 130, "current deterministic", "check required")],
-        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent, "current live", "faithful receipt needs refresh")],
-        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent, "current live", "desired state only")],
-        ["Clean, repeatable operation", "A second zero-action apply, exact release heads, healthy applications, and a zero-orphan ConfigHub-and-cluster audit.", badge(facts.miniIdpCurrent && facts.orphanCurrent, "current live", "live receipt required")],
+        ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
+        ["A stronger component Catalog", `${facts.catalogComponents} components, ${facts.catalogVersions} retained versions, and all ${facts.selections} exact Kubara selections under additive-only retention.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
+        ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "current live", "faithful or adapted receipt needs refresh")],
+        ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "current live", "desired state only")],
+        ["Clean, repeatable operation", "An adjacent changed apply and immediate zero-action apply within the schema-v2 performance budgets, exact release heads, healthy applications, and a zero-orphan ConfigHub-and-cluster audit.", badge(facts.miniIdpCurrent && facts.performanceCurrent && facts.orphanCurrent && facts.matrixCurrent, "current live", "live performance receipt required")],
       ], { rawThirdColumn: true })}
-      <p>The status is generated from committed receipts. Missing or source-stale live evidence stays visible instead of becoming a green marketing claim.</p>
+      <p data-kubara-live-evidence="${currentLive ? "current" : "gated"}">The status is generated from an exact evidence chain. ${currentLive ? "The live receipt required for current status is accepted." : "The live receipt required for current status is not yet available."} The chain binds the faithful, source-digest mini-IDP, adjacent schema-v2 performance, matrix, wiring, orphan, and six GUI records. Missing or inconsistent evidence stays visible instead of becoming a green marketing claim.</p>
     </section>
     <section aria-labelledby="stays-adds">
       <h2 id="stays-adds">What stays Kubara, and what ConfigHub adds</h2>
@@ -5504,8 +5518,14 @@ function kubaraHtml(catalog) {
         ["Kubara stays", "ConfigHub adds"],
         ["Ordered catalogs, ServiceDefinitions, config.yaml, values overlays, generated platform files, hub/spoke intent", "Component identity and retained versions, governed definitions and instances, exact releases, approvals, promotion, rollback, departures, matrix and wiring"],
         ["Git as the portable platform hand-off", "One immutable OCI package per reusable/effective configuration plus a digest-bound platform index"],
-        ["Argo CD as the cluster reconciler", "A governance and release plane before Argo receives the approved digest"],
+        ["Argo CD as the cluster reconciler", "A governance and release plane that selects the exact digest before local Argo receives it"],
       ])}
+    </section>
+    <section aria-labelledby="delivery-authority">
+      <h3 id="delivery-authority">Make latest discoverable, not deployable</h3>
+      <p>The adapted lane retains <code>targetRevision: latest</code> as the ConfigHub OCI discovery address, but leaves <code>spec.syncPolicy.automated</code> absent from every managed Application. Pinned argobot v0.1.6 runs with <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>, so it refreshes but cannot deploy.</p>
+      <p>ConfigHub revalidates the authoritative release and submits <code>operation.sync.revision=&lt;ManifestDigest&gt;</code> with Kubernetes UID/resourceVersion compare-and-set only when no Argo operation is active. This is the governed improvement: mutable latest cannot race past approval, promotion, or rollback, while Argo remains the local reconciler.</p>
+      <p>The authority check inventories Applications across the whole cluster: all managed Applications must live in <code>argocd</code>, and the adapted lane permits zero ApplicationSets. Retained <code>release-N</code> Tags expose contiguous history, but the exact OCI <code>ManifestDigest</code> remains deployment authority. Client opening and closing checks plus the no-auto fence stop a rejected raced Release from deploying through this managed path. Atomic rejection of the Release record requires server-side publish preconditions.</p>
     </section>
     <section aria-labelledby="six-steps">
       <h2 id="six-steps">One adoption journey, in the user's order</h2>
@@ -5523,10 +5543,10 @@ function kubaraHtml(catalog) {
         <li>Faithful Kubara and adapted ConfigHub delivery lanes side by side.</li>
         <li>hx-web and Cubbychat across development, staging, and two production targets.</li>
         <li>Curated native <code>NeedsProvides</code> Links, followed by the full extracted graph.</li>
-        <li>Exact production approval, promotion, departure, rollback, release, and OCI digest history.</li>
+        <li>Exact production approval, promotion, departure, rollback, release, OCI digest history, and the visible no-auto-sync authority boundary.</li>
         <li>The live 36-cell matrix and exact zero-orphan result.</li>
       </ol>
-      <p>${currentLive ? "The complete source-current live checkpoint is present." : "The deterministic story is current; the integrated live screenshot set remains gated until faithful, mini-IDP, idempotence, health, and orphan receipts all match this source."}</p>
+      <p>${currentLive ? "The exact faithful, mini-IDP, performance, orphan, matrix, wiring, and six-frame GUI evidence set is source-current and mutually consistent." : "The deterministic story is current. Live and GUI claims remain gated. Faithful, mini-IDP, performance, health, orphan, matrix, wiring, and all six published screenshots must match this source."}</p>
       <p><a href="../docs/demo/kubara/gui-tour.md">Follow the receipt-bound GUI tour</a>.</p>
     </section>
     <section aria-labelledby="boundaries">
@@ -5536,6 +5556,7 @@ function kubaraHtml(catalog) {
         <li>The user explicitly selects the organization. Targets and the local delivery runtime are current prerequisites; the importer does not silently create or guess them.</li>
         <li>Secrets and target-owned facts stay outside the portable Git and OCI payloads.</li>
         <li>Desired state, current live state, historical evidence, OCI publication, and production support remain distinct claims.</li>
+        <li>The exact-digest evidence controls the managed automated path. Blocking privileged human or manual Argo sync additionally requires separate RBAC or admission proof.</li>
         <li>Performance is measured and disclosed; it is not sold as a benefit until the end-to-end target passes.</li>
       </ul>
     </section>

@@ -30,6 +30,9 @@ Return to the [buyer overview](index.md), follow the
 | The general importer creates per-component/config OCI instead of one giant artifact | [importer contract and commands](../../../examples/kubara/git-import/README.md); isolated self-test produces 22 packages and a digest index and verifies a zero-action second run | **Current deterministic, isolated** |
 | The familiar Kubara hub-and-spoke lane remains available | [faithful summary](../../../data/kubara-faithful-hub-spoke/summary.md) | **Waiting for source-current refresh**: retained proof is tied to the earlier 131-file tree, while current source has 135 files. |
 | ConfigHub can take the hub role while each cluster keeps a local reconciler | Current mini-IDP reconciler and the retained historical organization-shape receipt | **Waiting for current live proof** |
+| Mutable `latest` cannot bypass governed release selection | All 35 managed Applications must retain `targetRevision: latest` as discovery-only, omit `spec.syncPolicy.automated`, run pinned argobot v0.1.6 in Kubernetes hard-refresh-only mode, and reconcile only a revalidated `operation.sync.revision=<ManifestDigest>` submitted with Kubernetes UID/resourceVersion compare-and-set and no active operation | **Current deterministic contract; live authority evidence waiting**. This covers the managed automated path, not privileged human/manual Argo sync without separate RBAC or admission proof. |
+| No second Argo owner is hidden from the normal view | Cluster-wide Application inventory must contain exactly the 35 allowlisted Applications, all in `argocd`, with zero ApplicationSets and no ApplicationSet owner references | **Current deterministic contract; live cluster-wide audit waiting** |
+| Retained release history is complete without becoming deployment authority | Every current Release must reference its same-Space `release-N` Tag, and each retained Tag stream must be contiguous from 1 through the current Release number. The exact OCI `ManifestDigest`, not mutable Tag membership, remains Argo authority. | **Current deterministic auditor; live eight-resource snapshot waiting** |
 | Component placement is visible across the fleet | [36-cell matrix](../../../data/kubara-platform-matrix/summary.md) | **Current deterministic desired state; live fields waiting** |
 | Platform wiring is inspectable | [wiring summary](../../../data/kubara-wiring/summary.md): deterministic provides/needs extraction plus curated relationship intent | **Current deterministic graph; native live Links waiting** |
 | Approvals, promotion, rollback, departures, and immutable releases improve day-two operation | Current reconciler contract plus retained isolated and historical receipts | **Waiting for current integrated live proof** |
@@ -65,11 +68,13 @@ only when one serial run proves all of the following:
 2. the adapted v0.13 mini-IDP applies successfully;
 3. an immediate second apply reports zero actions;
 4. the changed run and immediate zero-action run both meet the v2 performance
-   contract, including fewer than 100 ConfigHub read commands through the first
-   accepted dev Application and zero mutation attempts on the second run (the
-   128-command complete no-op ceiling remains interim, not the product target);
+   contract, including at most 96 ConfigHub read commands through the first
+   accepted dev Application, at most 96 ConfigHub read commands for the
+   complete no-op run, and zero mutation attempts on that second run;
 5. every required platform and application workload converges;
-6. every Argo Application observes the exact current ConfigHub release;
+6. every Argo Application observes the exact current ConfigHub release, keeps
+   `latest` discovery-only, and omits automated sync; the pinned refresh-only
+   argobot runtime and exact-digest UID/resourceVersion CAS are proved;
 7. the exact ConfigHub inventory and cluster audit report zero orphans;
 8. the 36-cell matrix is regenerated from the accepted receipt;
 9. native GUI Components, Units, Links, approvals, history, and OCI digests are

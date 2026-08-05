@@ -1,7 +1,7 @@
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export const KIND_TRAEFIK_POLICY =
-  "each persistent Kubara kind cluster exposes Traefik through an exclusive, declared HTTP/HTTPS NodePort pair; Traefik publishes the cluster DNS hostname into application Ingress status without a LoadBalancer controller or publishedService dependency, and every application Certificate is Ready";
+  "each persistent Kubara kind cluster reserves the first declared NodePort in its cub window for argocd-server and exposes Traefik through a separate, exclusive HTTP/HTTPS NodePort pair two slots later; Traefik publishes the cluster DNS hostname into application Ingress status without a LoadBalancer controller or publishedService dependency, and every application Certificate is Ready";
 
 const APPLICATION_ENDPOINTS = Object.freeze([
   applicationEndpoint("hx-web", "hx-web", "hx-web", "hx-web-tls"),
@@ -9,10 +9,10 @@ const APPLICATION_ENDPOINTS = Object.freeze([
 ]);
 
 export const KIND_TRAEFIK_CONTRACTS = Object.freeze([
-  kindTraefikContract("hx-app-dev", "hx-app-dev.traefik.me", 30000, 30001),
-  kindTraefikContract("hx-app-staging", "hx-app-staging.traefik.me", 30010, 30011),
-  kindTraefikContract("hx-app-prod-a", "hx-app-prod-a.traefik.me", 30020, 30021),
-  kindTraefikContract("hx-app-prod-b", "hx-app-prod-b.traefik.me", 30030, 30031),
+  kindTraefikContract("hx-app-dev", "hx-app-dev.traefik.me", 30000, 30002, 30003),
+  kindTraefikContract("hx-app-staging", "hx-app-staging.traefik.me", 30010, 30012, 30013),
+  kindTraefikContract("hx-app-prod-a", "hx-app-prod-a.traefik.me", 30020, 30022, 30023),
+  kindTraefikContract("hx-app-prod-b", "hx-app-prod-b.traefik.me", 30030, 30032, 30033),
 ]);
 
 export function kindTraefikContractFor(cluster) {
@@ -99,6 +99,7 @@ export function assertKindTraefikLiveObjects(contract, resources) {
   return Object.freeze({
     cluster: contract.cluster,
     hostname: contract.hostname,
+    reservedArgocdServerNodePort: contract.reservedArgocdServerNodePort,
     httpNodePort: contract.httpNodePort,
     httpsNodePort: contract.httpsNodePort,
     service: assertServiceContract(contract, service, { live: true }),
@@ -114,12 +115,20 @@ export function selfTestKindTraefikContract() {
     "self-test: cluster identities are not unique",
   );
   invariant(
-    new Set(KIND_TRAEFIK_CONTRACTS.flatMap((item) => [item.httpNodePort, item.httpsNodePort])).size === 8,
-    "self-test: NodePorts are not exclusive across the four persistent clusters",
+    new Set(KIND_TRAEFIK_CONTRACTS.flatMap((item) => [
+      item.reservedArgocdServerNodePort,
+      item.httpNodePort,
+      item.httpsNodePort,
+    ])).size === 12,
+    "self-test: reserved Argo CD and Traefik NodePorts are not exclusive across the four persistent clusters",
   );
   invariant(kindTraefikContractFor("not-a-kubara-cluster") === null, "self-test: unknown cluster matched a contract");
 
   for (const contract of KIND_TRAEFIK_CONTRACTS) {
+    invariant(
+      contract.httpNodePort === contract.reservedArgocdServerNodePort + 2,
+      `${contract.cluster}: self-test Traefik HTTP NodePort overlaps the cub Argo CD reservation`,
+    );
     const rendered = renderedFixture(contract);
     const renderedEvidence = assertKindTraefikRenderedObjects(contract, rendered);
     invariant(renderedEvidence.service.ports[0].nodePort === contract.httpNodePort, `${contract.cluster}: self-test HTTP NodePort drifted`);
@@ -136,6 +145,10 @@ export function selfTestKindTraefikContract() {
   const wrongPort = structuredClone(live);
   exactFixtureResource(wrongPort, "v1", "Service", "traefik", "traefik").spec.ports[0].nodePort = 30999;
   expectFailure(() => assertKindTraefikLiveObjects(contract, wrongPort), "Service ports drifted");
+
+  const argocdCollision = structuredClone(live);
+  exactFixtureResource(argocdCollision, "v1", "Service", "traefik", "traefik").spec.ports[0].nodePort = contract.reservedArgocdServerNodePort;
+  expectFailure(() => assertKindTraefikLiveObjects(contract, argocdCollision), "Service ports drifted");
 
   const loadBalancerAddress = structuredClone(live);
   exactFixtureResource(loadBalancerAddress, "v1", "Service", "traefik", "traefik").status.loadBalancer.ingress = [{ ip: "192.0.2.10" }];
@@ -163,11 +176,15 @@ export function selfTestKindTraefikContract() {
   expectFailure(() => assertKindTraefikLiveObjects(contract, certificateNotReady), "Certificate is not Ready");
 }
 
-function kindTraefikContract(cluster, hostname, httpNodePort, httpsNodePort) {
+function kindTraefikContract(cluster, hostname, reservedArgocdServerNodePort, httpNodePort, httpsNodePort) {
   invariant(/^hx-app-(dev|staging|prod-a|prod-b)$/.test(cluster), `invalid kind Traefik cluster ${cluster}`);
   invariant(hostname === `${cluster}.traefik.me`, `${cluster}: kind Traefik hostname must use the cluster DNS name`);
-  invariant(Number.isInteger(httpNodePort) && Number.isInteger(httpsNodePort), `${cluster}: NodePorts must be integers`);
-  invariant(httpNodePort >= 30000 && httpsNodePort <= 32767, `${cluster}: NodePorts must be in the Kubernetes NodePort range`);
+  invariant(
+    [reservedArgocdServerNodePort, httpNodePort, httpsNodePort].every(Number.isInteger),
+    `${cluster}: NodePorts must be integers`,
+  );
+  invariant(reservedArgocdServerNodePort >= 30000 && httpsNodePort <= 32767, `${cluster}: NodePorts must be in the Kubernetes NodePort range`);
+  invariant(httpNodePort === reservedArgocdServerNodePort + 2, `${cluster}: Traefik HTTP NodePort must leave cub's first mapped NodePort reserved for argocd-server`);
   invariant(httpsNodePort === httpNodePort + 1, `${cluster}: HTTPS NodePort must immediately follow HTTP`);
   const ports = Object.freeze([
     Object.freeze({ name: "web", port: 80, targetPort: "web", protocol: "TCP", nodePort: httpNodePort }),
@@ -181,6 +198,7 @@ function kindTraefikContract(cluster, hostname, httpNodePort, httpsNodePort) {
     deploymentName: "traefik",
     containerName: "traefik",
     ingressClassName: "traefik",
+    reservedArgocdServerNodePort,
     httpNodePort,
     httpsNodePort,
     endpointArgument: `--providers.kubernetesingress.ingressendpoint.hostname=${hostname}`,

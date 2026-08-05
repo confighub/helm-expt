@@ -130,16 +130,18 @@ spec:
         maximumUnexpectedMutationFailures: 0
         maximumUnattributedSuccessfulMutations: 0
         byVerbMaximums:
-          cub.unit.list: 24
+          cub.unit.list: 96
           cub.unit.get: 0
-          cub.target.get: 8
-          cub.link.list: 16
-          cub.space.get: 8
-          cub.unit.data: 126
-          cub.space.list: 16
+          cub.target.get: 32
+          cub.target.list: 32
+          cub.link.list: 64
+          cub.release.list: 64
+          cub.space.get: 64
+          cub.unit.data: 0
+          cub.space.list: 64
       invariants:
         - "Every successful mutation remains serial, target-pinned, and linked to an exact recorded action."
-        - "Expected approval refusal is classified separately from an unexpected command failure."
+        - "Production gated heads are observed through two stable authoritative boundaries, then approved by Unit ID and numeric revision; the non-CAS negative publish is not executed."
         - "No release-boundary or final-snapshot stability check is removed to meet the budget."
     - id: "idempotent-apply"
       selector:
@@ -148,7 +150,7 @@ spec:
       budgets:
         maximumWallElapsedMs: 300000
         maximumSubprocessCalls: 220
-        maximumConfigHubReadCommands: 128
+        maximumConfigHubReadCommands: 96
         maximumConfigHubReadCommandsBeforeFirstDevAccepted: 96
         maximumPreArgoWallElapsedMs: 90000
         maximumExplicitWaitElapsedMs: 120000
@@ -160,18 +162,21 @@ spec:
         exactConfigHubMutationAttempts: 0
         exactArgoSyncRequests: 0
         byVerbMaximums:
-          cub.unit.list: 4
+          cub.unit.list: 36
           cub.unit.get: 0
           cub.target.get: 0
+          cub.target.list: 4
           cub.link.list: 4
-          cub.space.get: 2
-          cub.unit.data: 63
+          cub.release.list: 36
+          cub.space.get: 1
+          cub.unit.data: 0
           cub.space.list: 4
       invariants:
         - "The immediate second apply performs no ConfigHub mutation attempt and no Argo sync request."
-        - "Each governed Unit body is read at most once; metadata comes from bounded bulk snapshots."
+        - "Governed Unit bodies and hashes come from bounded bulk Unit snapshots; no per-Unit data read remains."
         - "All 27 Applications are still checked at their exact OCI revision and accepted health."
-        - "The 128-command total no-op ceiling is an interim first-optimization release ceiling, not the product target; the product must continue toward fewer than 100 reads for the complete no-op."
+        - "The complete immediate no-op remains below 100 ConfigHub read commands; the ceiling includes final stability verification."
+        - "The changed/no-op pair is bound to consecutive durable apply attempts; any later active, failed, or interrupted attempt invalidates acceptance."
   pairAcceptance:
     order:
       - "changed-apply"
@@ -187,6 +192,7 @@ spec:
     claimStateBeforeAcceptedPair: "measurement-in-progress"
     allowedAfterAcceptedPair:
       - "The unchanged second apply performed zero ConfigHub writes and zero Argo sync requests."
+      - "The complete unchanged second apply stayed below 100 ConfigHub read commands."
       - "The same component-granular model reached its first accepted dev Application within the recorded sub-100 ConfigHub read-command budget."
       - "The receipt separates ConfigHub discovery and governance cost from Argo/Kubernetes convergence time."
       - "The speedup came from bulk/boundary reads, not flattening Units or skipping approvals, exact OCI revisions, wiring, or health checks."

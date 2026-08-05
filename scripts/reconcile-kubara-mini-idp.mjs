@@ -13,6 +13,7 @@
 //   --verify          read-only comparison of live state with the plan
 //   --receipt-verify  verify the committed live receipt without a login
 //   --self-test       exercise restart-safe release decisions without live I/O
+//   --self-test-performance  exercise only read-cache/performance invariants
 //
 // Safety properties:
 //   * live modes require the Kubara organization;
@@ -41,6 +42,7 @@ import {
 import { basename, dirname, join, resolve } from "node:path";
 import { homedir, tmpdir } from "node:os";
 import { performance } from "node:perf_hooks";
+import { randomUUID } from "node:crypto";
 
 import {
   check,
@@ -72,7 +74,7 @@ import {
   selfTestKindTraefikContract,
 } from "./lib/kubara-kind-traefik.mjs";
 
-const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test"]);
+const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test", "--self-test-performance"]);
 validateCliArgs();
 const requestedModes = process.argv.filter((arg) => modes.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...modes].join(", ")}`);
@@ -116,11 +118,11 @@ const ARGO_CONVERGENCE_TIMEOUT_MS = 90 * 60 * 1000;
 const ARGO_MAX_SYNC_REQUESTS = 4;
 const ARGO_OBSERVE_SECONDS = 5;
 const NAMESPACE_MOVE_MIGRATION_ID = "hx-kps-main/node-exporter-default-to-kube-prometheus-stack/v1";
-const ARGO_REVISION_POLICY = "accept only the exact latest ConfigHub OCI manifest digest reported by Argo; never use the bundle content digest as an OCI revision";
+const ARGO_REVISION_POLICY = "disable Argo automated sync for every managed Application; accept and submit only the exact authoritative ConfigHub OCI ManifestDigest with a Kubernetes UID/resourceVersion compare-and-set; targetRevision latest is discovery-only and argobot refreshes cannot deploy";
 const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from its last applied revision; reuse the exact published release for metadata-only changes or ConfigHub's unchanged-bundle response; pass only the published OCI ManifestDigest to Argo";
-const INTERRUPTED_SCENARIO_POLICY = "write ahead every ordered hx-web mutation as a nested transition with exact pre/post Unit, release, provenance, and UpgradeUnit checkpoints; bind approval to the exact refused heads and rollback to the exact initial-rollout revision; resume only an exact durable prefix and fail closed on every undeclared delta";
+const INTERRUPTED_SCENARIO_POLICY = "write ahead every ordered hx-web mutation as a nested transition with exact pre/post Unit, release, provenance, and UpgradeUnit checkpoints; bind approval to exact heads observed twice behind the gate and rollback to the exact initial-rollout revision; resume only an exact durable prefix and fail closed on every undeclared delta";
 const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side before selecting the highest ReleaseNum; withdrawn releases never satisfy currency or drive Argo";
-const DELIVERY_ROOT_PUBLICATION_POLICY = "reconcile every declared Argo Application Unit first, then publish exactly one complete delivery-root release per cluster immediately before that cluster's first source Application converges; later Application Unit mutations are forbidden in that run";
+const DELIVERY_ROOT_PUBLICATION_POLICY = "reconcile every declared Argo Application Unit with automated sync disabled; retain bootstrap and variant-created release history only behind a fenced no-auto root; select or publish one complete authoritative delivery-root release per cluster; compare-and-set that exact root ManifestDigest into Argo before any source release can converge; and forbid later Application Unit mutations in the run";
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
 const GUI_IDENTITY_POLICY = "native Component, Owner, Variant, and Lane labels make the component-first Kubara catalog, faithful/adapted delivery choice, and definition-instance hub-spoke shape visible; the component-catalog-coverage Unit exposes the additive 103-component/130-version scope and all 18 Kubara selections; Kubara hub Argo and ConfigHub cluster-bootstrap Argo retain separate exact version provenance; public navigation annotations link complete evidence without claiming live health";
 const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/kubara.html";
@@ -137,6 +139,7 @@ const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
 });
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
+const APPLY_ATTEMPTS_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
 const OPERATION_JOURNAL_PATH = join(homedir(), ".confighub", "locks", "helm-expt-kubara-operation-journal.json");
 const FAITHFUL_PROOF_SCRIPT = "scripts/run-kubara-faithful-hub-spoke-proof.mjs";
 const FAITHFUL_FAILURE_PATH = "runs/kubara-faithful-hub-spoke/failure.yaml";
@@ -156,8 +159,10 @@ const PRESERVED_FAITHFUL_CONTROL_UNITS = [
   },
 ];
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const FINAL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze(["space", "unit", "release", "link", "target"]);
 let cachedCubVersions = null;
 let cachedFaithfulReceipt = null;
+let cachedFaithfulAvailability = null;
 const PROCESS_STARTED_AT_MS = performance.now();
 const commandPerformance = new Map();
 const canonicalYamlCache = new Map();
@@ -169,9 +174,92 @@ const canonicalYamlPerformance = {
 };
 let activeVerificationReadSnapshot = null;
 let activeSourceReleaseBoundarySnapshot = null;
+let activeAuthoritativeReleaseReuseBatch = null;
+let activeApplyReadSnapshot = null;
+let activeReconcilePerformance = null;
+let activeConfigHubReadPurpose = "";
+let lastCompletedApplyReadEvidence = null;
+let lastCompletedPerformancePhases = [];
+
+const RECONCILE_PERFORMANCE_SCHEMA_VERSION = 2;
+const RECONCILE_PERFORMANCE_FIXTURE_ID = "kubara-v0-13-0-four-cluster-warm-v1";
+const CONFIGHUB_READ_PURPOSES = Object.freeze([
+  "content",
+  "metadata-discovery",
+  "mutation-target-pin",
+]);
+const WAIT_REASONS = new Set([
+  "argo-application-contract",
+  "argo-active-operation",
+  "argo-health-pending",
+  "argo-retry-backoff",
+  "argo-refresh-ack",
+  "namespace-move-uid-gone",
+  "protected-namespace-settle",
+]);
+const ACTION_MUTATION_VERB = Object.freeze({
+  "approval-policy": "cub.space.update",
+  "argo-application": "cub.unit.update",
+  "argo-application-metadata": "cub.unit.update",
+  "cluster-up": "cub.cluster.up",
+  "filter-create": "cub.filter.create",
+  "filter-update": "cub.filter.update",
+  "link-create": "cub.link.create",
+  "link-update": "cub.link.update",
+  "release-publish": "cub.release.publish",
+  rollback: "cub.unit.update",
+  "scenario-marker": "cub.space.update",
+  "scenario-merge-base-reset": "cub.link.update",
+  "space-create": "cub.space.create",
+  "space-metadata": "cub.space.update",
+  "space-release-target": "cub.space.update",
+  "trigger-create": "cub.trigger.create",
+  "trigger-update": "cub.trigger.update",
+  "unit-approve": "cub.unit.approve",
+  "unit-create": "cub.unit.create",
+  "unit-data": "cub.unit.update",
+  "unit-metadata": "cub.unit.update",
+  "unit-protection": "cub.unit.update",
+  "unit-target": "cub.unit.set-target",
+  "unit-target-clear": "cub.unit.set-target",
+  "variant-create": "cub.variant.create",
+  "variant-promote": "cub.variant.promote",
+});
+
+const APPLY_READ_RESOURCES = Object.freeze(["space", "unit", "release", "link", "target"]);
+const APPLY_READ_CONSISTENCY = "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope; every release boundary and the final bracketed verification read authoritative live state";
+const MUTATING_CUB_COMMAND_PAIRS = new Set([
+  "cluster/up",
+  "filter/create", "filter/update",
+  "link/create", "link/update",
+  "release/publish",
+  "space/create", "space/update",
+  "trigger/create", "trigger/update",
+  "unit/approve", "unit/create", "unit/set-target", "unit/update",
+  "variant/create", "variant/promote",
+]);
+const READ_ONLY_CUB_COMMAND_PAIRS = new Set([
+  "filter/get",
+  "link/list",
+  "release/list",
+  "space/get", "space/list",
+  "target/get", "target/list",
+  "trigger/get",
+  "unit/data", "unit/get", "unit/list",
+  "version/",
+]);
 
 process.once("exit", () => {
   const evidence = performanceEvidence(`${mode.replace(/^--/, "")}-process-exit`);
+  const applyReadCache = currentApplyReadEvidence() ?? lastCompletedApplyReadEvidence;
+  if (applyReadCache) evidence.applyReadCache = applyReadCache;
+  const phases = activeReconcilePerformance?.phases ?? lastCompletedPerformancePhases;
+  if (phases.length > 0) evidence.phases = JSON.parse(stableJson(phases));
+  if (activeReconcilePerformance) {
+    evidence.incompleteReconcileRun = reconcilePerformanceEvidence(activeReconcilePerformance, null, {
+      complete: false,
+    });
+  }
   process.stderr.write(`kubara-performance ${JSON.stringify(evidence)}\n`);
 });
 
@@ -769,6 +857,7 @@ function argoCdRuntimeContract() {
 }
 
 function materializeInputs() {
+  const faithfulAvailability = faithfulProofAvailability();
   const missing = [];
   for (const item of Object.values(paths)) {
     if (!existsSync(absolute(item))) missing.push(item);
@@ -872,6 +961,7 @@ function materializeInputs() {
 
   for (const control of CONTROL_UNITS) {
     if (!existsSync(absolute(control.source))) continue;
+    if (control.source === paths.faithfulReceipt && !faithfulAvailability.sourceCurrent) continue;
     const value = readFileSync(absolute(control.source), "utf8");
     payload(`${CONTROL_SPACE}/${control.slug}`, value, [control.source], control.toolchain);
   }
@@ -884,7 +974,12 @@ function materializeInputs() {
     "embedded-reviewed-runtime-contract",
   );
 
-  return { missing: [...new Set(missing)].sort(), kps, payloads };
+  return {
+    missing: [...new Set(missing)].sort(),
+    kps,
+    payloads,
+    faithfulAvailability,
+  };
 }
 
 function hxWebPayload(initialDocs, { stage, target: fleetItem }) {
@@ -1545,16 +1640,6 @@ function verifyLocalContract(inputs, { requireLiveEvidence }) {
   const wiring = JSON.parse(readFileSync(absolute(paths.wiring), "utf8"));
   check(wiring.spec?.evidence?.kubaraVersion === KUBARA_VERSION, "primary wiring ledger is not current Kubara v0.13.0 evidence");
 
-  check(
-    !existsSync(absolute(FAITHFUL_FAILURE_PATH)),
-    `${FAITHFUL_FAILURE_PATH} records a newer failed proof attempt; refusing stale faithful pass evidence`,
-  );
-  check(
-    !existsSync(absolute(FAITHFUL_ATTEMPT_PATH)),
-    `${FAITHFUL_ATTEMPT_PATH} records an active proof attempt; refusing stale faithful pass evidence`,
-  );
-  if (existsSync(absolute(paths.faithfulReceipt))) verifyFaithfulProof();
-
   if (requireLiveEvidence) {
     const qualification = readYaml(absolute(paths.qualificationReceipt));
     check(qualification.kind === "KubaraLiveQualificationSetReceipt", "current qualification receipt kind drifted");
@@ -1599,22 +1684,67 @@ function verifyKindTraefikRenderedContracts() {
 }
 
 function verifyFaithfulProof() {
+  const availability = faithfulProofAvailability();
   check(
-    !existsSync(absolute(FAITHFUL_FAILURE_PATH)),
-    `${FAITHFUL_FAILURE_PATH} records a newer failed proof attempt; refusing stale faithful pass evidence`,
+    availability.sourceCurrent,
+    `current faithful hub-spoke evidence is unavailable (${availability.status}); live apply and verification require a regenerated source-current receipt${availability.detail ? `:\n${availability.detail}` : ""}`,
   );
-  check(
-    !existsSync(absolute(FAITHFUL_ATTEMPT_PATH)),
-    `${FAITHFUL_ATTEMPT_PATH} records an active proof attempt; refusing stale faithful pass evidence`,
-  );
-  if (cachedFaithfulReceipt) return cachedFaithfulReceipt;
+  return cachedFaithfulReceipt;
+}
+
+function faithfulProofAvailability() {
+  if (cachedFaithfulAvailability) return cachedFaithfulAvailability;
+
+  const retainedHistoricalReceipt = existsSync(absolute(paths.faithfulReceipt));
+  const unavailable = (status, detail = "") => {
+    cachedFaithfulAvailability = {
+      path: paths.faithfulReceipt,
+      retainedHistoricalReceipt,
+      sourceCurrent: false,
+      status,
+      detail,
+    };
+    return cachedFaithfulAvailability;
+  };
+
+  if (!retainedHistoricalReceipt) return unavailable("missing");
+  if (existsSync(absolute(FAITHFUL_FAILURE_PATH))) {
+    return unavailable(
+      "newer-failure-recorded",
+      `${FAITHFUL_FAILURE_PATH} records a newer failed proof attempt`,
+    );
+  }
+  if (existsSync(absolute(FAITHFUL_ATTEMPT_PATH))) {
+    return unavailable(
+      "proof-attempt-active",
+      `${FAITHFUL_ATTEMPT_PATH} records an active proof attempt`,
+    );
+  }
+
   const result = tryCommand(process.execPath, [absolute(FAITHFUL_PROOF_SCRIPT), "--verify"]);
-  check(result.ok, `full faithful hub-spoke verifier failed:\n${result.output}`);
-  const faithful = readYaml(absolute(paths.faithfulReceipt));
-  check(faithful.kind === "KubaraFaithfulHubSpokeProofReceipt", "faithful lane receipt kind drifted");
-  check(faithful.status?.result === "pass", "faithful hub-spoke lane must pass before adapted fleet apply");
-  cachedFaithfulReceipt = faithful;
-  return faithful;
+  if (!result.ok) return unavailable("source-stale-or-invalid", result.output);
+
+  try {
+    const faithful = readYaml(absolute(paths.faithfulReceipt));
+    if (faithful.kind !== "KubaraFaithfulHubSpokeProofReceipt") {
+      return unavailable("invalid-kind", "faithful lane receipt kind drifted");
+    }
+    if (faithful.status?.result !== "pass") {
+      return unavailable("not-passing", "faithful hub-spoke lane is not a pass");
+    }
+    cachedFaithfulReceipt = faithful;
+  } catch (error) {
+    return unavailable("unreadable", String(error));
+  }
+
+  cachedFaithfulAvailability = {
+    path: paths.faithfulReceipt,
+    retainedHistoricalReceipt: true,
+    sourceCurrent: true,
+    status: "current-pass",
+    detail: "",
+  };
+  return cachedFaithfulAvailability;
 }
 
 function verifyHxWebPayloadContract(inputs) {
@@ -1647,6 +1777,11 @@ function imagesInDocument(doc) {
     .filter(Boolean);
 }
 
+if (mode === "--self-test-performance") {
+  selfTestPerformanceInstrumentation();
+  process.exit(0);
+}
+
 const inputs = materializeInputs();
 const plan = buildPlan(inputs);
 
@@ -1672,7 +1807,9 @@ if (mode === "--plan") {
 }
 
 function printPlan(inputs, desired) {
-  const missingApplyEvidence = requiredApplyEvidence.filter((item) => !existsSync(absolute(item)));
+  const missingApplyEvidence = requiredApplyEvidence.filter((item) => item === paths.faithfulReceipt
+    ? !inputs.faithfulAvailability.sourceCurrent
+    : !existsSync(absolute(item)));
   const payloadRows = [...inputs.payloads.values()].map((item) => ({
     key: item.key,
     sha256: item.sha256,
@@ -1721,6 +1858,13 @@ function printPlan(inputs, desired) {
         catalogVersion: CATALOG_VERSION,
         config: paths.config,
         componentArtifacts: paths.componentArtifacts,
+        faithfulEvidence: {
+          path: inputs.faithfulAvailability.path,
+          retainedHistoricalReceipt: inputs.faithfulAvailability.retainedHistoricalReceipt,
+          sourceCurrent: inputs.faithfulAvailability.sourceCurrent,
+          status: inputs.faithfulAvailability.status,
+          retentionPolicy: "retain-history-exclude-from-current-plan-until-source-current",
+        },
         missingApplyEvidence,
       },
       counts: {
@@ -1729,6 +1873,7 @@ function printPlan(inputs, desired) {
         preservedFaithfulControlUnits: PRESERVED_FAITHFUL_CONTROL_UNITS.length,
         deployments: desired.deployments.length,
         deliveryApplicationUnits: desired.deployments.length + (FLEET.length * 2),
+        deploymentAuthorityApplications: desired.deployments.length + (FLEET.length * 2),
         protectedNamespaceOwnershipDetachments: PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
         kindTraefikContracts: KIND_TRAEFIK_CONTRACTS.length,
         needsProvidesLinks: desired.links.length,
@@ -1769,6 +1914,14 @@ function printPlan(inputs, desired) {
 
 function command(binary, args, options = {}) {
   const verb = sanitizedCommandVerb(binary, args);
+  const {
+    expectedFailure = false,
+    expectedMutationRefusal = false,
+    waitReason = "",
+    ...executionOptions
+  } = options;
+  const isSleep = basename(binary) === "sleep";
+  if (isSleep) check(WAIT_REASONS.has(waitReason), `sleep.wait requires a classified wait reason, got ${waitReason || "none"}`);
   const startedAt = performance.now();
   let failed = false;
   try {
@@ -1778,14 +1931,25 @@ function command(binary, args, options = {}) {
       env: { ...process.env, CONFIGHUB_AGENT: "1" },
       stdio: ["ignore", "pipe", "pipe"],
       maxBuffer: 1024 * 1024 * 200,
-      timeout: options.timeout ?? 600_000,
-      ...options,
+      timeout: executionOptions.timeout ?? 600_000,
+      ...executionOptions,
     });
   } catch (error) {
     failed = true;
     throw error;
   } finally {
-    recordCommandPerformance(verb, performance.now() - startedAt, failed);
+    const elapsedMs = performance.now() - startedAt;
+    recordCommandPerformance(verb, elapsedMs, failed);
+    recordReconcileCommand({
+      binary,
+      verb,
+      elapsedMs,
+      failed,
+      expectedFailure: expectedFailure || expectedMutationRefusal,
+      expectedMutationRefusal,
+      waitReason,
+      args,
+    });
   }
 }
 
@@ -1839,6 +2003,301 @@ function recordCommandPerformance(verb, elapsedMs, failed) {
   current.totalMs += elapsedMs;
   current.maxMs = Math.max(current.maxMs, elapsedMs);
   commandPerformance.set(verb, current);
+}
+
+function configHubReadPurpose(verb) {
+  if (activeConfigHubReadPurpose) return activeConfigHubReadPurpose;
+  return verb === "cub.unit.data" ? "content" : "metadata-discovery";
+}
+
+function withConfigHubReadPurpose(purpose, run) {
+  check(CONFIGHUB_READ_PURPOSES.includes(purpose), `unknown ConfigHub read purpose ${purpose}`);
+  const prior = activeConfigHubReadPurpose;
+  activeConfigHubReadPurpose = purpose;
+  try {
+    return run();
+  } finally {
+    activeConfigHubReadPurpose = prior;
+  }
+}
+
+function mutationVerbFromMetric(verb) {
+  if (!verb.startsWith("cub.")) return false;
+  const [, resource, action = ""] = verb.split(".");
+  return MUTATING_CUB_COMMAND_PAIRS.has(`${resource}/${action}`);
+}
+
+function recordReconcileCommand({
+  binary,
+  verb,
+  elapsedMs,
+  failed,
+  expectedFailure,
+  expectedMutationRefusal,
+  waitReason,
+  args,
+}) {
+  if (!activeReconcilePerformance) return;
+  const event = {
+    verb,
+    elapsedMs,
+    failed,
+    expectedFailure: Boolean(expectedFailure && failed),
+  };
+  activeReconcilePerformance.commands.push(event);
+  if (basename(binary) === "cub") {
+    if (mutationVerbFromMetric(verb)) {
+      activeReconcilePerformance.mutations.push({
+        verb,
+        outcome: failed
+          ? expectedMutationRefusal ? "expected-refusal" : "unexpected-failure"
+          : "succeeded",
+        attributed: false,
+      });
+    } else {
+      const purpose = configHubReadPurpose(verb);
+      check(CONFIGHUB_READ_PURPOSES.includes(purpose), `unclassified ConfigHub read purpose ${purpose}`);
+      activeReconcilePerformance.reads.push({ verb, purpose });
+    }
+  }
+  if (basename(binary) === "sleep") {
+    const requestedMs = Math.round(Number(args[0] ?? 0) * 1000);
+    check(Number.isInteger(requestedMs) && requestedMs >= 0, `invalid requested sleep duration ${args[0] ?? ""}`);
+    activeReconcilePerformance.waits.push({
+      reason: waitReason,
+      requestedMs,
+      elapsedMs,
+    });
+  }
+}
+
+function beginReconcilePerformance() {
+  check(!activeReconcilePerformance, "reconcile performance measurement is already active");
+  const measurement = {
+    startedAtMs: performance.now(),
+    commands: [],
+    reads: [],
+    mutations: [],
+    waits: [],
+    milestones: {
+      preArgoWallElapsedMs: null,
+      firstArgoAcceptedMs: null,
+      firstArgoAcceptedCluster: null,
+      readsAtFirstDevAccepted: null,
+    },
+    argoSyncRequests: 0,
+    phases: [],
+  };
+  activeReconcilePerformance = measurement;
+  return measurement;
+}
+
+function markFirstDevConvergenceStart() {
+  if (!activeReconcilePerformance) return;
+  const milestones = activeReconcilePerformance.milestones;
+  if (milestones.preArgoWallElapsedMs === null) {
+    milestones.preArgoWallElapsedMs = Math.round(performance.now() - activeReconcilePerformance.startedAtMs);
+  }
+}
+
+function markFirstDevAccepted() {
+  if (!activeReconcilePerformance) return;
+  const milestones = activeReconcilePerformance.milestones;
+  if (milestones.firstArgoAcceptedMs !== null) return;
+  milestones.firstArgoAcceptedMs = Math.round(performance.now() - activeReconcilePerformance.startedAtMs);
+  milestones.firstArgoAcceptedCluster = "hx-app-dev";
+  milestones.readsAtFirstDevAccepted = activeReconcilePerformance.reads.length;
+}
+
+function recordArgoSyncRequest() {
+  if (activeReconcilePerformance) activeReconcilePerformance.argoSyncRequests += 1;
+}
+
+function classifyLatestMutationFailureAsExpected(verb) {
+  if (!activeReconcilePerformance) return;
+  const mutation = activeReconcilePerformance.mutations.findLast(
+    (item) => item.verb === verb && item.outcome === "unexpected-failure",
+  );
+  const commandEvent = activeReconcilePerformance.commands.findLast(
+    (item) => item.verb === verb && item.failed && !item.expectedFailure,
+  );
+  check(mutation && commandEvent, `${verb}: expected refusal has no measured failed mutation`);
+  mutation.outcome = "expected-refusal";
+  commandEvent.expectedFailure = true;
+}
+
+function attributeSuccessfulMutationForAction(type) {
+  if (!activeReconcilePerformance) return;
+  const verb = ACTION_MUTATION_VERB[type];
+  if (!verb) return;
+  const candidates = activeReconcilePerformance.mutations.filter(
+    (item) => item.outcome === "succeeded" && !item.attributed && item.verb === verb,
+  );
+  check(candidates.length > 0, `${type}: no successful ${verb} mutation is available for action attribution`);
+  if (["approval-policy", "unit-approve"].includes(type)) {
+    for (const item of candidates) item.attributed = true;
+  } else {
+    candidates.at(-1).attributed = true;
+  }
+}
+
+function summarizedCommandRows(events) {
+  const rows = new Map();
+  for (const event of events) {
+    const row = rows.get(event.verb) ?? {
+      verb: event.verb,
+      calls: 0,
+      expectedFailures: 0,
+      unexpectedFailures: 0,
+      elapsedMs: 0,
+    };
+    row.calls += 1;
+    row.expectedFailures += event.failed && event.expectedFailure ? 1 : 0;
+    row.unexpectedFailures += event.failed && !event.expectedFailure ? 1 : 0;
+    row.elapsedMs += event.elapsedMs;
+    rows.set(event.verb, row);
+  }
+  return [...rows.values()].sort((left, right) => left.verb.localeCompare(right.verb)).map((row) => ({
+    ...row,
+    elapsedMs: Math.round(row.elapsedMs),
+  }));
+}
+
+function summarizedReadRows(reads) {
+  const rows = new Map();
+  for (const item of reads) rows.set(item.verb, (rows.get(item.verb) ?? 0) + 1);
+  return [...rows.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([verb, calls]) => ({ verb, calls }));
+}
+
+function summarizedReadPurposes(reads) {
+  return CONFIGHUB_READ_PURPOSES.map((purpose) => {
+    const selected = reads.filter((item) => item.purpose === purpose);
+    return { purpose, commands: selected.length, byVerb: summarizedReadRows(selected) };
+  });
+}
+
+function summarizedMutationRows(mutations) {
+  const rows = new Map();
+  for (const item of mutations) {
+    const row = rows.get(item.verb) ?? {
+      verb: item.verb,
+      attempts: 0,
+      succeeded: 0,
+      attributedSucceeded: 0,
+      expectedRefusals: 0,
+      unexpectedFailures: 0,
+    };
+    row.attempts += 1;
+    if (item.outcome === "succeeded") {
+      row.succeeded += 1;
+      if (item.attributed) row.attributedSucceeded += 1;
+    }
+    else if (item.outcome === "expected-refusal") row.expectedRefusals += 1;
+    else row.unexpectedFailures += 1;
+    rows.set(item.verb, row);
+  }
+  return [...rows.values()].sort((left, right) => left.verb.localeCompare(right.verb));
+}
+
+function summarizedWaitRows(waits) {
+  const rows = new Map();
+  for (const item of waits) {
+    const row = rows.get(item.reason) ?? { reason: item.reason, calls: 0, requestedMs: 0, elapsedMs: 0 };
+    row.calls += 1;
+    row.requestedMs += item.requestedMs;
+    row.elapsedMs += item.elapsedMs;
+    rows.set(item.reason, row);
+  }
+  return [...rows.values()].sort((left, right) => left.reason.localeCompare(right.reason)).map((row) => ({
+    ...row,
+    elapsedMs: Math.round(row.elapsedMs),
+  }));
+}
+
+function reconcilePerformanceEvidence(measurement, state, { complete = true } = {}) {
+  const wallElapsedMs = Math.round(performance.now() - measurement.startedAtMs);
+  const commandRows = summarizedCommandRows(measurement.commands);
+  const readRows = summarizedReadRows(measurement.reads);
+  const mutationRows = summarizedMutationRows(measurement.mutations);
+  const waitRows = summarizedWaitRows(measurement.waits);
+  const succeeded = measurement.mutations.filter((item) => item.outcome === "succeeded");
+  const unclassifiedWaitMs = measurement.waits
+    .filter((item) => !WAIT_REASONS.has(item.reason))
+    .reduce((sum, item) => sum + item.elapsedMs, 0);
+  const commandElapsedMs = measurement.commands.reduce((sum, item) => sum + item.elapsedMs, 0);
+  const actionCount = state?.actions?.length;
+  const evidence = {
+    schemaVersion: RECONCILE_PERFORMANCE_SCHEMA_VERSION,
+    fixtureID: RECONCILE_PERFORMANCE_FIXTURE_ID,
+    runClass: Number.isInteger(actionCount)
+      ? actionCount === 0 ? "idempotent-apply" : "changed-apply"
+      : "incomplete-apply",
+    complete,
+    wallElapsedMs,
+    subprocesses: {
+      calls: measurement.commands.length,
+      unexpectedFailures: measurement.commands.filter((item) => item.failed && !item.expectedFailure).length,
+      byVerb: commandRows,
+    },
+    confighub: {
+      reads: {
+        commands: measurement.reads.length,
+        beforeFirstDevAcceptedCommands: measurement.milestones.readsAtFirstDevAccepted,
+        byVerb: readRows,
+        byPurpose: summarizedReadPurposes(measurement.reads),
+      },
+      mutations: {
+        attempts: measurement.mutations.length,
+        succeeded: succeeded.length,
+        expectedRefusals: measurement.mutations.filter((item) => item.outcome === "expected-refusal").length,
+        unexpectedFailures: measurement.mutations.filter((item) => item.outcome === "unexpected-failure").length,
+        unattributedSucceeded: succeeded.filter((item) => !item.attributed).length,
+        byVerb: mutationRows,
+      },
+    },
+    waits: {
+      explicitElapsedMs: Math.round(measurement.waits.reduce((sum, item) => sum + item.elapsedMs, 0)),
+      unclassifiedExplicitMs: Math.round(unclassifiedWaitMs),
+      byReason: waitRows,
+    },
+    milestones: {
+      preArgoWallElapsedMs: measurement.milestones.preArgoWallElapsedMs,
+      firstArgoAcceptedMs: measurement.milestones.firstArgoAcceptedMs,
+      firstArgoAcceptedCluster: measurement.milestones.firstArgoAcceptedCluster,
+    },
+    argo: { syncRequests: measurement.argoSyncRequests },
+    localProcess: {
+      wallOutsideSubprocessMs: Math.max(0, Math.round(wallElapsedMs - commandElapsedMs)),
+    },
+  };
+  if (state?.applyReadCacheEvidence) evidence.applyReadCache = state.applyReadCacheEvidence;
+  return evidence;
+}
+
+function finishReconcilePerformance(measurement, state) {
+  check(activeReconcilePerformance === measurement, "reconcile performance measurement identity drifted");
+  const evidence = reconcilePerformanceEvidence(measurement, state);
+  activeReconcilePerformance = null;
+  return evidence;
+}
+
+function assertReconcileRunPerformanceEvidence(evidence, state) {
+  check(evidence?.schemaVersion === RECONCILE_PERFORMANCE_SCHEMA_VERSION, "reconcile run performance schema drifted");
+  check(evidence.fixtureID === RECONCILE_PERFORMANCE_FIXTURE_ID, "reconcile run performance fixture drifted");
+  check(evidence.complete === true, "reconcile run performance is incomplete");
+  check(
+    evidence.runClass === (state.actions.length === 0 ? "idempotent-apply" : "changed-apply"),
+    "reconcile run performance class disagrees with its action count",
+  );
+  check(Number.isInteger(evidence.wallElapsedMs) && evidence.wallElapsedMs >= 0, "reconcile run wall time is invalid");
+  check(Number.isInteger(evidence.confighub?.reads?.beforeFirstDevAcceptedCommands), "reconcile run lacks first-dev ConfigHub read milestone");
+  check(evidence.milestones?.firstArgoAcceptedCluster === "hx-app-dev", "reconcile run lacks exact hx-app-dev acceptance");
+  check(Number.isInteger(evidence.milestones?.firstArgoAcceptedMs), "reconcile run first-dev acceptance time is invalid");
+  check(Number.isInteger(evidence.milestones?.preArgoWallElapsedMs), "reconcile run pre-Argo time is invalid");
+  check(evidence.waits?.unclassifiedExplicitMs === 0, "reconcile run contains unclassified explicit wait time");
+  for (const row of evidence.subprocesses?.byVerb ?? []) {
+    check(/^[a-z0-9-]+(?:\.[a-z0-9-]+){1,2}$/.test(row.verb ?? ""), `unsafe performance verb ${row.verb ?? ""}`);
+  }
 }
 
 function performanceEvidence(scope, bulkSnapshots = activeVerificationReadSnapshot?.evidence ?? null) {
@@ -1905,6 +2364,7 @@ function performancePhaseEvidence(name, checkpoint) {
       totalMs: roundedMilliseconds(current.totalMs - prior.totalMs),
     });
   }
+  const applyReadCache = currentApplyReadEvidence();
   return {
     name,
     wallElapsedMs: roundedMilliseconds(performance.now() - checkpoint.wallStartedAtMs),
@@ -1915,7 +2375,35 @@ function performancePhaseEvidence(name, checkpoint) {
       totalMs: roundedMilliseconds(byVerb.reduce((sum, item) => sum + item.totalMs, 0)),
       byVerb,
     },
+    ...(applyReadCache ? { configHubReadCache: applyReadCache } : {}),
   };
+}
+
+function assertApplyReadCacheEvidence(evidence, prefix = "apply read cache evidence") {
+  check(evidence?.mode === "phase-scoped-mutation-aware-organization-wide", `${prefix} mode drifted`);
+  check(evidence.consistency === APPLY_READ_CONSISTENCY, `${prefix} consistency contract drifted`);
+  const boundaries = evidence.phaseBoundaries ?? [];
+  check(boundaries[0] === "apply-start", `${prefix} does not start at apply-start`);
+  check(new Set(boundaries).size === boundaries.length, `${prefix} phase boundaries are duplicated`);
+  const resources = evidence.resources ?? [];
+  check(
+    stableJson(resources.map((item) => item.resource).sort()) === stableJson([...APPLY_READ_RESOURCES].sort()),
+    `${prefix} resource coverage drifted`,
+  );
+  for (const item of resources) {
+    check(item.initialListCalls === 1, `${prefix} ${item.resource} must use exactly one initial organization-wide list`);
+    check(
+      item.phaseRefreshListCalls === boundaries.length - 1,
+      `${prefix} ${item.resource} phase refreshes are not constant by declared boundary`,
+    );
+    check(Number.isInteger(item.mutationRefreshCalls) && item.mutationRefreshCalls >= 0, `${prefix} ${item.resource} mutation refresh count is invalid`);
+    check(Number.isInteger(item.invalidations) && item.invalidations >= 0, `${prefix} ${item.resource} invalidation count is invalid`);
+    check(Number.isInteger(item.servedReads) && item.servedReads >= 0, `${prefix} ${item.resource} served-read count is invalid`);
+    check(
+      item.mutationRefreshCalls <= item.servedReads,
+      `${prefix} ${item.resource} issued more mutation refreshes than reads`,
+    );
+  }
 }
 
 function assertPerformancePhaseEvidence(phase, prefix) {
@@ -1934,6 +2422,7 @@ function assertPerformancePhaseEvidence(phase, prefix) {
   }
   check(phase.commands.calls === rows.reduce((sum, item) => sum + item.calls, 0), `${prefix} call total is inconsistent`);
   check(phase.commands.failures === rows.reduce((sum, item) => sum + item.failures, 0), `${prefix} failure total is inconsistent`);
+  if (phase.configHubReadCache) assertApplyReadCacheEvidence(phase.configHubReadCache, `${prefix} ConfigHub read cache`);
 }
 
 function assertPerformanceEvidence(evidence, prefix = "performance evidence") {
@@ -1974,8 +2463,13 @@ function assertPerformanceEvidence(evidence, prefix = "performance evidence") {
   const bulk = evidence.bulkSnapshots ?? {};
   check(bulk.mode === "bracketed-organization-wide-read-only", `${prefix} bulk snapshot mode drifted`);
   check(bulk.stability === "pass", `${prefix} bulk snapshot stability did not pass`);
+  check(/^sha256:[0-9a-f]{64}$/.test(bulk.canonicalFingerprint ?? ""), `${prefix} canonical ConfigHub fingerprint is invalid`);
   check(
-    stableJson((bulk.resources ?? []).map((item) => item.resource).sort()) === stableJson(["link", "release", "target", "unit"]),
+    stableJson(bulk.fingerprintResources) === stableJson(FINAL_CONFIGHUB_FINGERPRINT_RESOURCES),
+    `${prefix} canonical ConfigHub fingerprint resource coverage drifted`,
+  );
+  check(
+    stableJson((bulk.resources ?? []).map((item) => item.resource).sort()) === stableJson([...FINAL_CONFIGHUB_FINGERPRINT_RESOURCES].sort()),
     `${prefix} bulk snapshot resource coverage drifted`,
   );
   for (const item of bulk.resources) {
@@ -1986,6 +2480,7 @@ function assertPerformanceEvidence(evidence, prefix = "performance evidence") {
   const phases = evidence.phases ?? [];
   check(Array.isArray(phases) && phases.length <= 1, `${prefix} phase evidence is invalid`);
   for (const phase of phases) assertPerformancePhaseEvidence(phase, `${prefix} pre-Argo phase`);
+  if (evidence.applyReadCache) assertApplyReadCacheEvidence(evidence.applyReadCache, `${prefix} apply read cache`);
 }
 
 function selfTestPerformanceInstrumentation() {
@@ -2009,7 +2504,8 @@ function selfTestPerformanceInstrumentation() {
   ], ["SpaceID", "UnitID", "Slug"]);
   check(stableJson(left) === stableJson(right), "performance self-test: snapshot canonicalization depends on row order");
   selfTestVerificationReadSnapshotLifecycle();
-  const resources = ["link", "release", "target", "unit"].map((resource) => ({
+  selfTestApplyReadSnapshotLifecycle();
+  const resources = ["link", "release", "space", "target", "unit"].map((resource) => ({
     resource,
     rows: 1,
     listCalls: 2,
@@ -2024,6 +2520,8 @@ function selfTestPerformanceInstrumentation() {
     bulkSnapshots: {
       mode: "bracketed-organization-wide-read-only",
       stability: "pass",
+      canonicalFingerprint: `sha256:${"a".repeat(64)}`,
+      fingerprintResources: [...FINAL_CONFIGHUB_FINGERPRINT_RESOURCES],
       resources,
     },
     phases: [{
@@ -2032,7 +2530,280 @@ function selfTestPerformanceInstrumentation() {
       commands: { executionPolicy: "serial", calls: 0, failures: 0, totalMs: 0, byVerb: [] },
     }],
   }, "performance self-test evidence");
+  const syntheticState = { actions: [{ type: "unit-data", ref: "space-a/unit-a" }] };
+  const syntheticMeasurement = {
+    startedAtMs: performance.now() - 5,
+    commands: [
+      { verb: "cub.unit.list", elapsedMs: 1, failed: false, expectedFailure: false },
+      { verb: "cub.unit.update", elapsedMs: 1, failed: false, expectedFailure: false },
+      { verb: "sleep.wait", elapsedMs: 1, failed: false, expectedFailure: false },
+    ],
+    reads: [{ verb: "cub.unit.list", purpose: "metadata-discovery" }],
+    mutations: [{ verb: "cub.unit.update", outcome: "succeeded", attributed: true }],
+    waits: [{ reason: "argo-health-pending", requestedMs: 2000, elapsedMs: 1 }],
+    milestones: {
+      preArgoWallElapsedMs: 2,
+      firstArgoAcceptedMs: 4,
+      firstArgoAcceptedCluster: "hx-app-dev",
+      readsAtFirstDevAccepted: 1,
+    },
+    argoSyncRequests: 0,
+    phases: [],
+  };
+  const reconcileEvidence = reconcilePerformanceEvidence(syntheticMeasurement, syntheticState);
+  assertReconcileRunPerformanceEvidence(reconcileEvidence, syntheticState);
+  check(reconcileEvidence.confighub.reads.byPurpose.find((item) => item.purpose === "metadata-discovery")?.commands === 1, "performance self-test: ConfigHub read purpose accounting drifted");
+  check(reconcileEvidence.confighub.mutations.unattributedSucceeded === 0, "performance self-test: successful mutation attribution drifted");
+  check(reconcileEvidence.waits.unclassifiedExplicitMs === 0, "performance self-test: classified wait became unclassified");
+  const nodePortContract = KIND_TRAEFIK_CONTRACTS[0];
+  const attemptFingerprint = `sha256:${"b".repeat(64)}`;
+  const attemptID = (suffix) => `00000000-0000-4000-8000-${String(suffix).padStart(12, "0")}`;
+  const attempt = (sequence, result) => ({ sequence, id: attemptID(sequence), executionFingerprint: attemptFingerprint, result });
+  const run = (sequence, idempotentNoop) => ({
+    attemptSequence: sequence,
+    attemptID: attemptID(sequence),
+    idempotentNoop,
+    actionCount: idempotentNoop ? 0 : 1,
+  });
+  check(
+    successfulAttemptPairValid(
+      [run(4, false), run(5, true)],
+      { attempts: [attempt(1, "failed"), attempt(2, "pass"), attempt(3, "failed"), attempt(4, "pass"), attempt(5, "pass")] },
+    ),
+    "performance self-test: consecutive changed/no-op durable attempts did not pass",
+  );
+  check(
+    !successfulAttemptPairValid(
+      [run(1, false), run(3, true)],
+      { attempts: [attempt(1, "pass"), attempt(2, "failed"), attempt(3, "pass")] },
+    ),
+    "performance self-test: an intervening failed apply did not invalidate changed/no-op continuity",
+  );
+  const argocdFixture = { items: [{
+    apiVersion: "v1",
+    kind: "Service",
+    metadata: {
+      namespace: "argocd",
+      name: "argocd-server",
+      uid: "11111111-1111-4111-8111-111111111111",
+      resourceVersion: "123",
+    },
+    spec: {
+      type: "NodePort",
+      ports: [{ name: "http", protocol: "TCP", port: 80, targetPort: 8080, nodePort: nodePortContract.reservedArgocdServerNodePort }],
+    },
+  }] };
+  const argocdEvidence = assertArgocdServerNodePortEvidence(nodePortContract, argocdFixture);
+  check(argocdEvidence.ports[0].nodePort === nodePortContract.reservedArgocdServerNodePort, "performance self-test: argocd-server reserved NodePort evidence drifted");
+  check(argocdServerNodePortDisposition(nodePortContract, nodePortContract.reservedArgocdServerNodePort) === "current", "performance self-test: current argocd-server NodePort disposition drifted");
+  check(argocdServerNodePortDisposition(nodePortContract, nodePortContract.reservedArgocdServerNodePort + 8) === "declared-recovery", "performance self-test: declared argocd-server recovery NodePort disposition drifted");
+  let foreignDriftRejected = false;
+  try {
+    argocdServerNodePortDisposition(nodePortContract, nodePortContract.reservedArgocdServerNodePort + 7);
+  } catch (error) {
+    foreignDriftRejected = error.message.includes("refusing to normalize foreign");
+  }
+  check(foreignDriftRejected, "performance self-test: foreign argocd-server NodePort drift was normalized");
+  let collisionRejected = false;
+  try {
+    const collision = structuredClone(argocdFixture);
+    collision.items[0].spec.ports[0].nodePort = nodePortContract.httpNodePort;
+    assertArgocdServerNodePortEvidence(nodePortContract, collision);
+  } catch (error) {
+    collisionRejected = error.message.includes("does not own reserved port");
+  }
+  check(collisionRejected, "performance self-test: argocd-server/Traefik NodePort collision was not rejected");
   console.log("Kubara mini-IDP performance instrumentation self-test passed");
+}
+
+function selfTestApplyReadSnapshotLifecycle() {
+  check(!activeApplyReadSnapshot, "performance self-test: apply snapshot unexpectedly active");
+  check(!activeVerificationReadSnapshot, "performance self-test: verification snapshot unexpectedly active");
+  check(!activeSourceReleaseBoundarySnapshot, "performance self-test: release snapshot unexpectedly active");
+  const mutationFixtures = new Map([
+    ["cluster/up", ["cluster", "up", "--name", "space-a", "--space", "space-a"]],
+    ["filter/create", ["filter", "create", "--space", "space-a"]],
+    ["filter/update", ["filter", "update", "--space", "space-a"]],
+    ["link/create", ["link", "create", "--space", "space-a"]],
+    ["link/update", ["link", "update", "--space", "space-a"]],
+    ["release/publish", ["release", "publish", "space-a"]],
+    ["space/create", ["space", "create", "space-a"]],
+    ["space/update", ["space", "update", "--patch", "space-a"]],
+    ["trigger/create", ["trigger", "create", "--space", "space-a"]],
+    ["trigger/update", ["trigger", "update", "--space", "space-a"]],
+    ["unit/approve", ["unit", "approve", "--space", "space-a"]],
+    ["unit/create", ["unit", "create", "--space", "space-a"]],
+    ["unit/set-target", ["unit", "set-target", "--space", "space-a"]],
+    ["unit/update", ["unit", "update", "--space", "space-a"]],
+    ["variant/create", ["variant", "create", "a", "base", "--space-pattern", "template:space-a"]],
+    ["variant/promote", ["variant", "promote", "space-a"]],
+  ]);
+  check(
+    stableJson([...mutationFixtures.keys()].sort()) === stableJson([...MUTATING_CUB_COMMAND_PAIRS].sort()),
+    "performance self-test: mutation invalidation fixtures do not cover every classified ConfigHub write",
+  );
+  for (const [pair, args] of mutationFixtures) {
+    check(mutatingCubCommand(args), `performance self-test: ${pair} is not classified as a mutation`);
+    const scopes = applyReadInvalidationScopes(args);
+    check(scopes.length > 0, `performance self-test: ${pair} has no cache invalidation scope`);
+    check(
+      scopes.every(([resource]) => APPLY_READ_RESOURCES.includes(resource)),
+      `performance self-test: ${pair} invalidates an unknown cache resource`,
+    );
+  }
+  const spaces = new Map([
+    ["space-a", { Slug: "space-a", SpaceID: "space-id-a" }],
+    ["space-b", { Slug: "space-b", SpaceID: "space-id-b" }],
+  ]);
+  const unitPayloads = ["kind: ConfigMap\n", "kind: Secret\n"];
+  const units = [
+    {
+      Slug: "unit-a",
+      UnitID: "unit-id-a",
+      SpaceID: "space-id-a",
+      Data: Buffer.from(unitPayloads[0], "utf8").toString("base64"),
+      DataHash: sha256(unitPayloads[0]),
+    },
+    {
+      Slug: "unit-b",
+      UnitID: "unit-id-b",
+      SpaceID: "space-id-b",
+      Data: Buffer.from(unitPayloads[1], "utf8").toString("base64"),
+      DataHash: sha256(unitPayloads[1]),
+    },
+  ];
+  expectBulkUnitDataFailure(
+    { ...units[0], Data: "not-base64!" },
+    "non-canonical base64 Data",
+    "malformed base64",
+  );
+  expectBulkUnitDataFailure(
+    { ...units[0], DataHash: "0".repeat(64) },
+    "DataHash does not match decoded Data",
+    "decoded-data hash mismatch",
+  );
+  const invalidUtf8 = Buffer.from([0xff]);
+  expectBulkUnitDataFailure(
+    { ...units[0], Data: invalidUtf8.toString("base64"), DataHash: sha256(invalidUtf8) },
+    "decoded Data is not valid UTF-8",
+    "invalid UTF-8",
+  );
+  const links = [{ Slug: "link-a", LinkID: "link-id-a", SpaceID: "space-id-a" }];
+  const releases = [{ Slug: "release-a", ReleaseID: "release-id-a", SpaceID: "space-id-a", ReleaseNum: 1, UnitCount: 1 }];
+  const target = { Slug: "target", TargetID: "target-id-a", SpaceID: "space-id-a" };
+  const loaderCalls = { spaces: 0, units: 0, target: 0, links: 0, releases: 0 };
+  const resources = APPLY_READ_RESOURCES.map((resource) => ({
+    resource,
+    initialListCalls: 1,
+    phaseRefreshListCalls: 0,
+    mutationRefreshCalls: 0,
+    invalidations: 0,
+    servedReads: 0,
+  }));
+  const snapshot = {
+    evidenceByResource: new Map(resources.map((item) => [item.resource, item])),
+    evidence: {
+      mode: "phase-scoped-mutation-aware-organization-wide",
+      consistency: APPLY_READ_CONSISTENCY,
+      phaseBoundaries: ["apply-start"],
+      resources,
+    },
+    loaders: {
+      spaces: () => {
+        loaderCalls.spaces += 1;
+        return new Map(spaces);
+      },
+      units: (space) => {
+        loaderCalls.units += 1;
+        return units.filter((unit) => unit.SpaceID === spaces.get(space)?.SpaceID);
+      },
+      target: (space) => {
+        loaderCalls.target += 1;
+        return space === "space-a" ? target : null;
+      },
+      links: (space) => {
+        loaderCalls.links += 1;
+        return links.filter((link) => link.SpaceID === spaces.get(space)?.SpaceID);
+      },
+      releases: (space) => {
+        loaderCalls.releases += 1;
+        return releases.filter((release) => release.SpaceID === spaces.get(space)?.SpaceID);
+      },
+    },
+  };
+  installApplyOrganizationSnapshot(snapshot, spaces, {
+    unitsBySpace: new Map([
+      ["space-a", [units[0]]],
+      ["space-b", [units[1]]],
+    ]),
+    unitsByRef: new Map([
+      ["space-a/unit-a", units[0]],
+      ["space-b/unit-b", units[1]],
+    ]),
+    releasesBySpace: new Map([["space-a", releases]]),
+    linksBySpace: new Map([["space-a", links]]),
+    targetsBySpace: new Map([["space-a", target]]),
+  });
+
+  try {
+    activeApplyReadSnapshot = snapshot;
+    const repeatedPasses = 256;
+    for (let index = 0; index < repeatedPasses; index += 1) {
+      check(readSpaces().size === 2, "performance self-test: cached Space inventory drifted");
+      check(readUnitRows("space-a").length === 1, "performance self-test: cached Unit inventory drifted");
+      check(readUnit("space-b", "unit-b")?.UnitID === "unit-id-b", "performance self-test: cached Unit lookup drifted");
+      check(readUnitData("space-a", "unit-a") === "kind: ConfigMap\n", "performance self-test: bulk Unit Data drifted");
+      check(readTarget("space-a")?.TargetID === "target-id-a", "performance self-test: cached target drifted");
+      check(readLinks("space-a").length === 1, "performance self-test: cached Link inventory drifted");
+      check(latestRelease("space-a")?.ReleaseNum === 1, "performance self-test: cached release drifted");
+    }
+    check(
+      Object.values(loaderCalls).every((calls) => calls === 0),
+      "performance self-test: repeated apply reads escaped the initial resource-type snapshot",
+    );
+
+    invalidateApplyReadSnapshotForSuccessfulMutation(["unit", "update", "--space", "space-a"]);
+    invalidateApplyReadSnapshotForSuccessfulMutation(["unit", "update", "--space", "space-a"]);
+    readUnit("space-a", "unit-a");
+    readUnitRows("space-a");
+    check(loaderCalls.units === 1, "performance self-test: duplicate Unit invalidations were not coalesced");
+
+    invalidateApplyReadSnapshotForSuccessfulMutation(["link", "update", "--space", "space-a"]);
+    readLinks("space-a");
+    readLinks("space-a");
+    readUnitRows("space-a");
+    check(loaderCalls.links === 1 && loaderCalls.units === 2, "performance self-test: Link mutation scopes did not refresh exactly once");
+
+    invalidateApplyReadSnapshotForSuccessfulMutation(["space", "update", "--patch", "space-a"]);
+    readSpaces();
+    readSpaces();
+    readUnitRows("space-a");
+    check(loaderCalls.spaces === 1 && loaderCalls.units === 3, "performance self-test: Space mutation scopes did not refresh exactly once");
+
+    invalidateApplyReadSnapshotForSuccessfulMutation(["release", "publish", "space-a"]);
+    latestRelease("space-a");
+    latestRelease("space-a");
+    check(loaderCalls.releases === 1, "performance self-test: release mutation refresh was not coalesced");
+
+    invalidateApplyReadSnapshotForSuccessfulMutation(["cluster", "up", "--name", "space-a", "--space", "space-a"]);
+    readSpaces();
+    readUnitRows("space-a");
+    readTarget("space-a");
+    readLinks("space-a");
+    latestRelease("space-a");
+    check(
+      stableJson(loaderCalls) === stableJson({ spaces: 2, units: 4, target: 1, links: 2, releases: 2 }),
+      `performance self-test: global mutation refresh complexity drifted: ${stableJson(loaderCalls)}`,
+    );
+    const evidence = finishApplyReadSnapshot();
+    const servedReads = evidence.resources.reduce((sum, item) => sum + item.servedReads, 0);
+    const refreshCalls = evidence.resources.reduce((sum, item) => sum + item.mutationRefreshCalls, 0);
+    check(servedReads >= repeatedPasses * 7, "performance self-test: repeated read accounting is incomplete");
+    check(refreshCalls === 11, "performance self-test: refresh calls grew with cache-served reads");
+    console.log(`Kubara apply read cache self-test passed: ${repeatedPasses * 7} repeated reads (including exact Unit Data) used five initial resource lists and zero refreshes; five mutation scenarios required ${refreshCalls} coalesced scoped refreshes`);
+  } finally {
+    activeApplyReadSnapshot = null;
+  }
 }
 
 function selfTestVerificationReadSnapshotLifecycle() {
@@ -2043,26 +2814,47 @@ function selfTestVerificationReadSnapshotLifecycle() {
     evidence: {
       mode: "bracketed-organization-wide-read-only",
       stability: "pending-final-snapshot",
+      fingerprintResources: [...FINAL_CONFIGHUB_FINGERPRINT_RESOURCES],
       resources: [{ resource: "unit", rows: 1, listCalls: 1, servedReads: 0 }],
     },
   });
+  const closingSpaces = new Map();
 
   try {
     activeVerificationReadSnapshot = opening();
-    const evidence = finishVerificationReadSnapshot(new Map(), () => ({
+    const evidence = finishVerificationReadSnapshot(() => ({
       fingerprint,
       rowCounts: { unit: 1 },
       listCalls: { unit: 1 },
-    }));
+    }), () => closingSpaces);
     check(evidence.stability === "pass", "performance self-test: stable snapshot did not pass");
+    check(evidence.canonicalFingerprint === fingerprint, "performance self-test: stable snapshot did not expose its canonical fingerprint");
+    check(
+      stableJson(evidence.fingerprintResources) === stableJson(FINAL_CONFIGHUB_FINGERPRINT_RESOURCES),
+      "performance self-test: canonical fingerprint resource coverage drifted",
+    );
     check(!activeVerificationReadSnapshot, "performance self-test: successful snapshot remained active");
+
+    activeVerificationReadSnapshot = opening();
+    let driftFailure = null;
+    try {
+      finishVerificationReadSnapshot(() => ({
+        fingerprint: `sha256:${"b".repeat(64)}`,
+        rowCounts: { unit: 1 },
+        listCalls: { unit: 1 },
+      }), () => closingSpaces);
+    } catch (error) {
+      driftFailure = error;
+    }
+    check(driftFailure?.message.includes("changed during read-only verification"), "performance self-test: final-state fingerprint drift was accepted");
+    check(!activeVerificationReadSnapshot, "performance self-test: drifted snapshot remained active");
 
     activeVerificationReadSnapshot = opening();
     let failure = null;
     try {
-      finishVerificationReadSnapshot(new Map(), () => {
+      finishVerificationReadSnapshot(() => {
         throw new Error("injected final snapshot capture failure");
-      });
+      }, () => closingSpaces);
     } catch (error) {
       failure = error;
     }
@@ -2087,12 +2879,18 @@ function tryCommand(binary, args, options = {}) {
 
 function cub(args, options = {}) {
   revalidatePinnedCubContextBeforeMutation(args);
-  return command("cub", [...contextArgs, ...args], options);
+  assertApplyMutationDecisionStillCurrent(args);
+  const output = command("cub", [...contextArgs, ...args], options);
+  invalidateApplyReadSnapshotForSuccessfulMutation(args);
+  return output;
 }
 
 function cubTry(args, options = {}) {
   revalidatePinnedCubContextBeforeMutation(args);
-  return tryCommand("cub", [...contextArgs, ...args], options);
+  assertApplyMutationDecisionStillCurrent(args);
+  const result = tryCommand("cub", [...contextArgs, ...args], options);
+  if (result.ok) invalidateApplyReadSnapshotForSuccessfulMutation(args);
+  return result;
 }
 
 function cubJson(args) {
@@ -2156,32 +2954,306 @@ function assertPinnedKubaraTarget() {
 function mutatingCubCommand(args) {
   const [resource, verb] = args;
   const pair = `${resource}/${verb ?? ""}`;
-  const mutations = new Set([
-    "cluster/up",
-    "filter/create", "filter/update",
-    "link/create", "link/update",
-    "release/publish",
-    "space/create", "space/update",
-    "trigger/create", "trigger/update",
-    "unit/approve", "unit/create", "unit/set-target", "unit/update",
-    "variant/create", "variant/promote",
-  ]);
-  const reads = new Set([
-    "filter/get",
-    "link/list",
-    "release/list",
-    "space/get", "space/list",
-    "target/get", "target/list",
-    "trigger/get",
-    "unit/data", "unit/get", "unit/list",
-    "version/",
-  ]);
-  check(mutations.has(pair) || reads.has(pair), `unclassified cub command ${pair}; classify it before live use`);
-  return mutations.has(pair);
+  check(
+    MUTATING_CUB_COMMAND_PAIRS.has(pair) || READ_ONLY_CUB_COMMAND_PAIRS.has(pair),
+    `unclassified cub command ${pair}; classify it before live use`,
+  );
+  return MUTATING_CUB_COMMAND_PAIRS.has(pair);
+}
+
+function cubArgumentValue(args, name) {
+  const index = args.indexOf(name);
+  return index >= 0 ? args[index + 1] ?? "" : "";
+}
+
+function mutationSpaceSlug(args) {
+  const [resource, verb] = args;
+  const explicit = cubArgumentValue(args, "--space");
+  if (explicit && explicit !== "*") return explicit;
+  if (resource === "release" && verb === "publish") return args[2] ?? "";
+  if (resource === "space" && ["create", "update"].includes(verb)) {
+    return args.slice(2).find((arg) => !arg.startsWith("-")) ?? "";
+  }
+  if (resource === "variant" && verb === "promote") return args[2] ?? "";
+  if (resource === "variant" && verb === "create") {
+    return cubArgumentValue(args, "--space-pattern").replace(/^template:/, "");
+  }
+  return "";
+}
+
+function invalidateApplyReadResource(resource, space = "") {
+  if (!activeApplyReadSnapshot) return;
+  applyReadResourceEvidence(resource).invalidations += 1;
+  if (resource === "space") {
+    activeApplyReadSnapshot.spacesValid = false;
+    return;
+  }
+  if (resource === "unit") {
+    if (!space) {
+      activeApplyReadSnapshot.unitsBySpace.clear();
+      activeApplyReadSnapshot.unitsByRef.clear();
+    } else {
+      activeApplyReadSnapshot.unitsBySpace.delete(space);
+      for (const ref of [...activeApplyReadSnapshot.unitsByRef.keys()]) {
+        if (ref.startsWith(`${space}/`)) activeApplyReadSnapshot.unitsByRef.delete(ref);
+      }
+    }
+    return;
+  }
+  if (resource === "release") {
+    if (space) activeApplyReadSnapshot.releasesBySpace.delete(space);
+    else activeApplyReadSnapshot.releasesBySpace.clear();
+    return;
+  }
+  if (resource === "link") {
+    if (space) activeApplyReadSnapshot.linksBySpace.delete(space);
+    else activeApplyReadSnapshot.linksBySpace.clear();
+    return;
+  }
+  if (resource === "target") {
+    if (space) {
+      activeApplyReadSnapshot.targetsBySpace.delete(space);
+      activeApplyReadSnapshot.loadedTargetSpaces.delete(space);
+    } else {
+      activeApplyReadSnapshot.targetsBySpace.clear();
+      activeApplyReadSnapshot.loadedTargetSpaces.clear();
+    }
+  }
+}
+
+function applyReadInvalidationScopes(args) {
+  const [resource, verb] = args;
+  const space = mutationSpaceSlug(args);
+  if (resource === "cluster" && verb === "up") {
+    return APPLY_READ_RESOURCES.map((tracked) => [tracked, ""]);
+  }
+  if (["filter", "trigger"].includes(resource)) {
+    // Trigger selection is stored on Spaces and may change Unit ApplyGates.
+    return [["space", ""], ["unit", ""]];
+  }
+  if (resource === "space") {
+    return [["space", space], ...(verb === "update" ? [["unit", space]] : [])];
+  }
+  if (resource === "variant") {
+    return [["space", space], ["unit", space], ["link", space], ["release", space]];
+  }
+  if (resource === "unit") {
+    return [["unit", space]];
+  }
+  if (resource === "link") {
+    // --make-current can advance the downstream Unit as well as the Link.
+    return [["link", space], ["unit", space]];
+  }
+  if (resource === "release") {
+    // Publishing advances LastAppliedRevisionNum on the released Units.
+    return [["release", space], ["unit", space]];
+  }
+  return [];
+}
+
+function invalidateApplyReadSnapshotForSuccessfulMutation(args) {
+  if (!activeApplyReadSnapshot || !mutatingCubCommand(args)) return;
+  // Any successful ConfigHub write ends the dependency-closed reuse batch.
+  // A later release decision must establish a fresh authoritative boundary.
+  activeAuthoritativeReleaseReuseBatch = null;
+  activeApplyReadSnapshot.organizationFingerprint = null;
+  const scopes = applyReadInvalidationScopes(args);
+  check(scopes.length > 0, `${args[0]}/${args[1]} mutation lacks apply-cache invalidation scopes`);
+  for (const [resource, space] of scopes) invalidateApplyReadResource(resource, space);
+}
+
+function sameCachedRows(left, right) {
+  return stableJson(left) === stableJson(right);
+}
+
+function mutationUnitSpace(args) {
+  return cubArgumentValue(args, "--space");
+}
+
+function mutationUnitSlug(args) {
+  const spaceIndex = args.indexOf("--space");
+  const slug = spaceIndex >= 0 ? args[spaceIndex + 2] : "";
+  return slug && !slug.startsWith("-") ? slug : "";
+}
+
+function sortedSpaceRows(spaces) {
+  return [...spaces.entries()].sort(([left], [right]) => left.localeCompare(right));
+}
+
+function assertFreshSpaceDecision(prefix) {
+  const cached = readSpaces();
+  const fresh = fetchSpaces();
+  check(
+    sameCachedRows(sortedSpaceRows(cached), sortedSpaceRows(fresh)),
+    `${prefix}: ConfigHub Space state changed after the decision; retry from a fresh apply snapshot`,
+  );
+  return fresh;
+}
+
+function assertFreshUnitDecision(space, prefix) {
+  check(space, `${prefix}: Unit dependency Space is missing`);
+  const cached = readUnitRows(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
+  const fresh = fetchUnitRows(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
+  for (const unit of fresh) decodeBulkUnitData(unit, `${space}/${unit.Slug}`);
+  check(sameCachedRows(cached, fresh), `${prefix}: ${space} Units changed after the decision`);
+  return fresh;
+}
+
+function assertFreshTargetDecision(space, prefix) {
+  check(space, `${prefix}: Target dependency Space is missing`);
+  const cached = readTarget(space);
+  const fresh = fetchTarget(space);
+  check(sameCachedRows(cached, fresh), `${prefix}: ${space}/target changed after the decision`);
+  return fresh;
+}
+
+function assertFreshLinkDecision(space, prefix) {
+  check(space, `${prefix}: Link dependency Space is missing`);
+  const cached = readLinks(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
+  const fresh = fetchLinks(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
+  check(sameCachedRows(cached, fresh), `${prefix}: ${space} Links changed after the decision`);
+  return fresh;
+}
+
+function assertFreshReleaseDecision(space, prefix) {
+  check(space, `${prefix}: release dependency Space is missing`);
+  const cached = readPublishedReleaseRows(space);
+  const fresh = fetchPublishedReleases(space);
+  check(sameCachedRows(cached, fresh), `${prefix}: ${space} published releases changed after the decision`);
+  return fresh;
+}
+
+function unitMutationDependencySpaces(args, sourceSpace, slug) {
+  const unit = readUnit(sourceSpace, slug);
+  const expected = plan.managedUnits.find((item) => item.space === sourceSpace && item.slug === slug);
+  const unitSpaces = new Set();
+  const targetSpaces = new Set();
+  if (expected?.upstream) unitSpaces.add(expected.upstream.split("/")[0]);
+  if (expected?.target) targetSpaces.add(expected.target.split("/")[0]);
+  if (unit?.UpstreamUnitID) {
+    const upstream = [...activeApplyReadSnapshot.unitsByRef.entries()]
+      .find(([, candidate]) => candidate.UnitID === unit.UpstreamUnitID)?.[0];
+    check(upstream, `${sourceSpace}/${slug}: cached upstream Unit identity is unresolved`);
+    unitSpaces.add(upstream.split("/")[0]);
+  }
+  if (unit?.TargetID) {
+    const targetSpace = [...activeApplyReadSnapshot.targetsBySpace.entries()]
+      .find(([, candidate]) => candidate.TargetID === unit.TargetID)?.[0];
+    check(targetSpace, `${sourceSpace}/${slug}: cached Target identity is unresolved`);
+    targetSpaces.add(targetSpace);
+  }
+  if (args[0] === "unit" && args[1] === "set-target") {
+    const spaceIndex = args.indexOf("--space");
+    const targetRef = spaceIndex >= 0 ? args[spaceIndex + 3] : "";
+    if (targetRef && targetRef !== "-") targetSpaces.add(targetRef.split("/")[0]);
+  }
+  return { unitSpaces: [...unitSpaces].sort(), targetSpaces: [...targetSpaces].sort() };
+}
+
+function linkMutationDependencies(args, space) {
+  const spaceIndex = args.indexOf("--space");
+  const slug = args[2]?.startsWith("-") ? args[spaceIndex + 2] : args[2];
+  const declared = plan.links.find((item) => item.space === space && item.slug === slug);
+  if (declared) return { slug, unitSpaces: [space, declared.toSpace] };
+  const variant = plan.managedUnits.find(
+    (item) => item.space === space && item.upstream && `upgrade-${item.slug}` === slug,
+  );
+  check(variant, `${space}/${slug || "unknown"}: Link mutation dependencies are not declared by the plan`);
+  return { slug, unitSpaces: [space, variant.upstream.split("/")[0]] };
+}
+
+function assertApplyMutationDecisionStillCurrent(args) {
+  if (!activeApplyReadSnapshot || !mutatingCubCommand(args)) return;
+  const [resource, verb] = args;
+  // These decisions are based on point reads or on the dedicated authoritative
+  // release bracket, not the long-lived organization cache.
+  if (["filter", "trigger"].includes(resource)) return;
+
+  if (resource === "cluster") {
+    const openingFingerprint = activeApplyReadSnapshot.organizationFingerprint;
+    check(/^sha256:[0-9a-f]{64}$/.test(openingFingerprint ?? ""), "cluster/up: dependency-complete cached decision is unavailable");
+    const spaces = fetchSpaces();
+    const fresh = captureOrganizationReadSnapshot(spaces);
+    check(
+      fresh.fingerprint === openingFingerprint,
+      "cluster/up: Space, Unit, release, Link, or Target state changed after the bootstrap decision",
+    );
+    return;
+  }
+
+  if (resource === "release") {
+    const space = mutationSpaceSlug(args);
+    check(
+      space
+        && activeApplyReadSnapshot.unitsBySpace.has(space)
+        && activeApplyReadSnapshot.releasesBySpace.has(space),
+      `release/${verb}: authoritative release decision for ${space || "unknown"} is unavailable before write`,
+    );
+    const prefix = `release/${verb}`;
+    assertFreshSpaceDecision(prefix);
+    assertFreshUnitDecision(space, prefix);
+    assertFreshLinkDecision(space, prefix);
+    assertFreshReleaseDecision(space, prefix);
+    const expectedUnits = plan.managedUnits.filter((item) => item.space === space);
+    for (const upstreamSpace of [...new Set(expectedUnits.map((item) => item.upstream?.split("/")[0]).filter(Boolean))].sort()) {
+      assertFreshUnitDecision(upstreamSpace, prefix);
+    }
+    for (const targetSpace of [...new Set(expectedUnits.map((item) => item.target?.split("/")[0]).filter(Boolean))].sort()) {
+      assertFreshTargetDecision(targetSpace, prefix);
+    }
+    const fleetItem = FLEET.find((item) => `${item.cluster}-argo-apps` === space);
+    if (fleetItem) {
+      const topologySpaces = ["argobot-base", fleetItem.cluster, space, `argobot-${fleetItem.cluster}`];
+      for (const topologySpace of topologySpaces) {
+        if (topologySpace !== space) assertFreshUnitDecision(topologySpace, prefix);
+        if (topologySpace !== space) assertFreshLinkDecision(topologySpace, prefix);
+      }
+      assertFreshTargetDecision(fleetItem.cluster, prefix);
+    }
+    return;
+  }
+
+  if (["cluster", "space", "variant"].includes(resource)) {
+    check(activeApplyReadSnapshot.spacesValid, `${resource}/${verb}: cached Space decision was invalidated before write`);
+    const fresh = fetchSpaces();
+    const cachedRows = [...activeApplyReadSnapshot.spaces.entries()].sort(([left], [right]) => left.localeCompare(right));
+    const freshRows = [...fresh.entries()].sort(([left], [right]) => left.localeCompare(right));
+    check(
+      sameCachedRows(cachedRows, freshRows),
+      `${resource}/${verb}: ConfigHub Space state changed after the cached decision; retry from a fresh apply snapshot`,
+    );
+  }
+
+  if (resource === "unit") {
+    const space = mutationUnitSpace(args);
+    check(space && activeApplyReadSnapshot.unitsBySpace.has(space), `${resource}/${verb}: cached Unit decision for ${space || "unknown"} was invalidated before write`);
+    const prefix = `${resource}/${verb}`;
+    assertFreshSpaceDecision(prefix);
+    assertFreshUnitDecision(space, prefix);
+    const slug = mutationUnitSlug(args);
+    check(slug, `${prefix}: mutation Unit slug is unavailable`);
+    const dependencies = unitMutationDependencySpaces(args, space, slug);
+    for (const upstreamSpace of dependencies.unitSpaces) assertFreshUnitDecision(upstreamSpace, prefix);
+    for (const targetSpace of dependencies.targetSpaces) assertFreshTargetDecision(targetSpace, prefix);
+  }
+
+  if (resource === "link") {
+    const space = mutationSpaceSlug(args);
+    check(space && activeApplyReadSnapshot.linksBySpace.has(space), `${resource}/${verb}: cached Link decision for ${space || "unknown"} was invalidated before write`);
+    const prefix = `${resource}/${verb}`;
+    assertFreshSpaceDecision(prefix);
+    assertFreshLinkDecision(space, prefix);
+    const dependencies = linkMutationDependencies(args, space);
+    for (const unitSpace of [...new Set(dependencies.unitSpaces)].sort()) {
+      assertFreshUnitDecision(unitSpace, prefix);
+    }
+  }
 }
 
 function revalidatePinnedCubContextBeforeMutation(args) {
-  if (mutatingCubCommand(args)) assertPinnedKubaraTarget();
+  if (mutatingCubCommand(args)) {
+    withConfigHubReadPurpose("mutation-target-pin", () => assertPinnedKubaraTarget());
+  }
 }
 
 function assertKubaraOrganization() {
@@ -2436,7 +3508,11 @@ function observeKindTraefikDockerBindings() {
     ]);
     check(result.ok, `${contract.cluster}: cannot inspect kind control-plane port bindings: ${result.output}`);
     const bindings = JSON.parse(result.output);
-    const ports = [contract.httpNodePort, contract.httpsNodePort].map((port) => {
+    const ports = [
+      contract.reservedArgocdServerNodePort,
+      contract.httpNodePort,
+      contract.httpsNodePort,
+    ].map((port) => {
       const rows = bindings[`${port}/tcp`] ?? [];
       check(rows.length > 0, `${contract.cluster}: Docker does not expose required TCP/${port}`);
       const loopbackReachable = rows.find(
@@ -2453,12 +3529,264 @@ function observeKindTraefikDockerBindings() {
   });
 }
 
+const UNIT_READ_SELECT = "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,Data,DataHash,ContentHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates";
+const LINK_READ_SELECT = "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum";
+const SPACE_READ_SELECT = "OrganizationID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates";
+const RELEASE_READ_SELECT = "TagID,Digest,ManifestDigest,ReleaseNum,UnitCount,CreatedAt";
+
+function fetchSpaces() {
+  const rows = unwrapRows(cubJson(["space", "list", "--select", SPACE_READ_SELECT]), "Space");
+  for (const space of rows) {
+    check(space.OrganizationID === ORGANIZATION_ENTITY_ID, `${space.Slug ?? "unknown"}: Space escaped the pinned Kubara Organization`);
+  }
+  return new Map(rows.map((space) => [space.Slug, space]));
+}
+
+function fetchUnitRows(space) {
+  return unwrapRows(cubJson([
+    "unit", "list", "--space", space,
+    "--select", UNIT_READ_SELECT,
+  ]), "Unit");
+}
+
+function fetchUnit(space, slug) {
+  const result = cubTry([
+    "unit", "get", "--space", space, slug,
+    "--select", UNIT_READ_SELECT,
+    "-o", "json",
+  ]);
+  if (!result.ok) return null;
+  return unwrapEntity(JSON.parse(result.output), "Unit");
+}
+
+function readUnitData(space, slug) {
+  const unit = readUnit(space, slug);
+  check(unit, `${space}/${slug}: Unit is missing before data inspection`);
+  return decodeBulkUnitData(unit, `${space}/${slug}`);
+}
+
+function decodeBulkUnitData(unit, ref) {
+  check(typeof unit?.Data === "string", `${ref}: bulk Unit metadata omitted Data; refusing an unproved body comparison`);
+  check(/^[a-f0-9]{64}$/.test(unit.DataHash ?? ""), `${ref}: bulk Unit metadata has an invalid DataHash`);
+  check(
+    /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(unit.Data),
+    `${ref}: bulk Unit metadata contains non-canonical base64 Data`,
+  );
+  const decoded = Buffer.from(unit.Data, "base64");
+  check(decoded.toString("base64") === unit.Data, `${ref}: bulk Unit metadata contains non-canonical base64 Data`);
+  check(sha256(decoded) === unit.DataHash, `${ref}: bulk Unit DataHash does not match decoded Data`);
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(decoded);
+  } catch {
+    check(false, `${ref}: bulk Unit decoded Data is not valid UTF-8`);
+  }
+}
+
+function expectBulkUnitDataFailure(unit, expectedMessage, label) {
+  let message = "";
+  try {
+    decodeBulkUnitData(unit, `performance self-test/${label}`);
+  } catch (error) {
+    message = error.message;
+  }
+  check(message.includes(expectedMessage), `performance self-test: ${label} was not rejected`);
+}
+
+function fetchTarget(space) {
+  const result = cubTry(["target", "get", "--space", space, "target", "-o", "json"]);
+  return result.ok ? unwrapEntity(JSON.parse(result.output), "Target") : null;
+}
+
+function fetchLinks(space) {
+  return unwrapRows(cubJson([
+    "link", "list", "--space", space,
+    "--select", LINK_READ_SELECT,
+  ]), "Link");
+}
+
+function fetchPublishedReleases(space) {
+  return unwrapRows(cubJson([
+    "release", "list", "--space", space,
+    "--where", "Published = true",
+    "--select", RELEASE_READ_SELECT,
+  ]), "Release").sort((left, right) => Number(right.ReleaseNum ?? 0) - Number(left.ReleaseNum ?? 0)
+    || String(right.CreatedAt ?? "").localeCompare(String(left.CreatedAt ?? "")));
+}
+
+function applyReadResourceEvidence(resource) {
+  const row = activeApplyReadSnapshot?.evidenceByResource.get(resource);
+  check(row, `apply read snapshot does not track ${resource}`);
+  return row;
+}
+
+function applyReadLoader(name, fallback, ...args) {
+  const loader = activeApplyReadSnapshot?.loaders?.[name] ?? fallback;
+  return loader(...args);
+}
+
+function replaceCachedUnitRows(snapshot, space, rows) {
+  for (const ref of [...snapshot.unitsByRef.keys()]) {
+    if (ref.startsWith(`${space}/`)) snapshot.unitsByRef.delete(ref);
+  }
+  const sorted = [...rows].sort((left, right) => left.Slug.localeCompare(right.Slug));
+  snapshot.unitsBySpace.set(space, sorted);
+  for (const unit of sorted) {
+    const ref = `${space}/${unit.Slug}`;
+    check(!snapshot.unitsByRef.has(ref), `${ref}: apply snapshot returned duplicate Unit slugs`);
+    snapshot.unitsByRef.set(ref, unit);
+  }
+}
+
+function hydrateEmptyApplyReadScopes(snapshot) {
+  for (const space of snapshot.spaces.keys()) {
+    if (!snapshot.unitsBySpace.has(space)) snapshot.unitsBySpace.set(space, []);
+    if (!snapshot.releasesBySpace.has(space)) snapshot.releasesBySpace.set(space, []);
+    if (!snapshot.linksBySpace.has(space)) snapshot.linksBySpace.set(space, []);
+    snapshot.loadedTargetSpaces.add(space);
+  }
+}
+
+function installApplyOrganizationSnapshot(snapshot, spaces, captured) {
+  snapshot.spaces = new Map(spaces);
+  snapshot.spacesValid = true;
+  snapshot.unitsBySpace = captured.unitsBySpace;
+  snapshot.unitsByRef = captured.unitsByRef;
+  snapshot.releasesBySpace = captured.releasesBySpace;
+  snapshot.linksBySpace = captured.linksBySpace;
+  snapshot.targetsBySpace = captured.targetsBySpace;
+  snapshot.targetRows = captured.targetRows;
+  snapshot.organizationFingerprint = captured.fingerprint;
+  snapshot.loadedTargetSpaces = new Set();
+  hydrateEmptyApplyReadScopes(snapshot);
+}
+
+function beginAuthoritativeReleaseReuseBatch() {
+  check(activeApplyReadSnapshot, "authoritative release-reuse batch requires the apply snapshot");
+  check(!activeSourceReleaseBoundarySnapshot, "authoritative release-reuse batch cannot start inside a release boundary");
+  check(!activeAuthoritativeReleaseReuseBatch, "authoritative release-reuse batch is already active");
+  const openingFingerprint = activeApplyReadSnapshot.organizationFingerprint;
+  check(/^sha256:[0-9a-f]{64}$/.test(openingFingerprint ?? ""), "pre-release organization fingerprint is missing");
+  activeAuthoritativeReleaseReuseBatch = {
+    fingerprint: openingFingerprint,
+    spaces: new Map(activeApplyReadSnapshot.spaces),
+    unitsBySpace: new Map(activeApplyReadSnapshot.unitsBySpace),
+    targetsBySpace: new Map(activeApplyReadSnapshot.targetsBySpace),
+    linksBySpace: new Map(activeApplyReadSnapshot.linksBySpace),
+    releasesBySpace: new Map(activeApplyReadSnapshot.releasesBySpace),
+  };
+}
+
+function withAuthoritativeReleaseReuseBatch(space, verify) {
+  const batch = activeAuthoritativeReleaseReuseBatch;
+  check(batch, `${space}: authoritative release-reuse batch is unavailable`);
+  check(!activeSourceReleaseBoundarySnapshot, `${space}: release-reuse batch cannot overlap another release boundary`);
+  // The dependency topology comes from the stable organization bracket, but
+  // every stream that may drive Argo gets two fresh targeted reads. This keeps
+  // a withdrawn/new release or changed Unit head from hiding behind the batch
+  // while preserving the 96-command no-op ceiling.
+  const unitsBySpace = new Map(batch.unitsBySpace);
+  const releasesBySpace = new Map(batch.releasesBySpace);
+  const streamUnits = fetchUnitRows(space);
+  for (const unit of streamUnits) decodeBulkUnitData(unit, `${space}/${unit.Slug}`);
+  unitsBySpace.set(space, streamUnits);
+  releasesBySpace.set(space, fetchPublishedReleases(space));
+  const snapshot = {
+    ...batch,
+    unitsBySpace,
+    releasesBySpace,
+  };
+  activeSourceReleaseBoundarySnapshot = snapshot;
+  try {
+    return verify();
+  } finally {
+    if (activeSourceReleaseBoundarySnapshot === snapshot) activeSourceReleaseBoundarySnapshot = null;
+  }
+}
+
+function assertExactManagedTargetInventory(snapshot, prefix = "ConfigHub Target inventory") {
+  const expected = FLEET.map((item) => `${item.cluster}/target`).sort();
+  const spaceByID = new Map([...snapshot.spaces.values()].map((space) => [space.SpaceID, space.Slug]));
+  const actual = (snapshot.targetRows ?? []).map((target) => {
+    const space = spaceByID.get(target.SpaceID);
+    check(space, `${prefix}: Target ${target.TargetID ?? "unknown"} references an unknown Space`);
+    return `${space}/${target.Slug}`;
+  }).sort();
+  check(
+    stableJson(actual) === stableJson(expected),
+    `${prefix}: expected exactly ${expected.join(", ")}, got ${actual.join(", ")}`,
+  );
+}
+
+function beginApplyReadSnapshot() {
+  check(!activeApplyReadSnapshot, "apply read snapshot is already active");
+  check(!activeVerificationReadSnapshot, "apply read snapshot cannot overlap live verification");
+  check(!activeSourceReleaseBoundarySnapshot, "apply read snapshot cannot start inside a release boundary");
+  const spaces = fetchSpaces();
+  const captured = captureOrganizationReadSnapshot(spaces);
+  const resources = APPLY_READ_RESOURCES.map((resource) => ({
+    resource,
+    initialListCalls: 1,
+    phaseRefreshListCalls: 0,
+    mutationRefreshCalls: 0,
+    invalidations: 0,
+    servedReads: 0,
+  }));
+  const snapshot = {
+    evidenceByResource: new Map(resources.map((item) => [item.resource, item])),
+    evidence: {
+      mode: "phase-scoped-mutation-aware-organization-wide",
+      consistency: APPLY_READ_CONSISTENCY,
+      phaseBoundaries: ["apply-start"],
+      resources,
+    },
+  };
+  installApplyOrganizationSnapshot(snapshot, spaces, captured);
+  activeApplyReadSnapshot = snapshot;
+  return snapshot;
+}
+
+function refreshApplyReadSnapshotAtPhaseBoundary(name) {
+  check(activeApplyReadSnapshot, `${name}: apply read snapshot is not active`);
+  check(!activeVerificationReadSnapshot, `${name}: apply read snapshot cannot refresh during live verification`);
+  check(!activeSourceReleaseBoundarySnapshot, `${name}: apply read snapshot cannot refresh inside a release boundary`);
+  const spaces = fetchSpaces();
+  const captured = captureOrganizationReadSnapshot(spaces);
+  installApplyOrganizationSnapshot(activeApplyReadSnapshot, spaces, captured);
+  activeApplyReadSnapshot.evidence.phaseBoundaries.push(name);
+  for (const resource of APPLY_READ_RESOURCES) {
+    applyReadResourceEvidence(resource).phaseRefreshListCalls += 1;
+  }
+}
+
+function currentApplyReadEvidence() {
+  if (!activeApplyReadSnapshot) return null;
+  return JSON.parse(stableJson(activeApplyReadSnapshot.evidence));
+}
+
+function finishApplyReadSnapshot() {
+  check(activeApplyReadSnapshot, "apply read snapshot is not active");
+  const evidence = currentApplyReadEvidence();
+  activeApplyReadSnapshot = null;
+  activeAuthoritativeReleaseReuseBatch = null;
+  assertApplyReadCacheEvidence(evidence, "completed apply read cache evidence");
+  return evidence;
+}
+
 function readSpaces() {
   if (activeSourceReleaseBoundarySnapshot) {
     return new Map(activeSourceReleaseBoundarySnapshot.spaces);
   }
-  return new Map(unwrapRows(cubJson(["space", "list", "--select", "Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates"]), "Space")
-    .map((space) => [space.Slug, space]));
+  if (activeApplyReadSnapshot) {
+    const evidence = applyReadResourceEvidence("space");
+    evidence.servedReads += 1;
+    if (!activeApplyReadSnapshot.spacesValid) {
+      activeApplyReadSnapshot.spaces = applyReadLoader("spaces", fetchSpaces);
+      activeApplyReadSnapshot.spacesValid = true;
+      evidence.mutationRefreshCalls += 1;
+    }
+    return new Map(activeApplyReadSnapshot.spaces);
+  }
+  return fetchSpaces();
 }
 
 function readUnitRows(space) {
@@ -2473,11 +3801,16 @@ function readUnitRows(space) {
     );
     return [...activeSourceReleaseBoundarySnapshot.unitsBySpace.get(space)];
   }
-  const value = cubJson([
-    "unit", "list", "--space", space,
-    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
-  ]);
-  return unwrapRows(value, "Unit");
+  if (activeApplyReadSnapshot) {
+    const evidence = applyReadResourceEvidence("unit");
+    evidence.servedReads += 1;
+    if (!activeApplyReadSnapshot.unitsBySpace.has(space)) {
+      replaceCachedUnitRows(activeApplyReadSnapshot, space, applyReadLoader("units", fetchUnitRows, space));
+      evidence.mutationRefreshCalls += 1;
+    }
+    return [...activeApplyReadSnapshot.unitsBySpace.get(space)];
+  }
+  return fetchUnitRows(space);
 }
 
 function readUnit(space, slug) {
@@ -2493,13 +3826,16 @@ function readUnit(space, slug) {
     return activeSourceReleaseBoundarySnapshot.unitsBySpace.get(space)
       .find((unit) => unit.Slug === slug) ?? null;
   }
-  const result = cubTry([
-    "unit", "get", "--space", space, slug,
-    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
-    "-o", "json",
-  ]);
-  if (!result.ok) return null;
-  return unwrapEntity(JSON.parse(result.output), "Unit");
+  if (activeApplyReadSnapshot) {
+    const evidence = applyReadResourceEvidence("unit");
+    evidence.servedReads += 1;
+    if (!activeApplyReadSnapshot.unitsBySpace.has(space)) {
+      replaceCachedUnitRows(activeApplyReadSnapshot, space, applyReadLoader("units", fetchUnitRows, space));
+      evidence.mutationRefreshCalls += 1;
+    }
+    return activeApplyReadSnapshot.unitsByRef.get(`${space}/${slug}`) ?? null;
+  }
+  return fetchUnit(space, slug);
 }
 
 function readTarget(space) {
@@ -2514,8 +3850,19 @@ function readTarget(space) {
     );
     return activeSourceReleaseBoundarySnapshot.targetsBySpace.get(space);
   }
-  const result = cubTry(["target", "get", "--space", space, "target", "-o", "json"]);
-  return result.ok ? unwrapEntity(JSON.parse(result.output), "Target") : null;
+  if (activeApplyReadSnapshot) {
+    const evidence = applyReadResourceEvidence("target");
+    evidence.servedReads += 1;
+    if (!activeApplyReadSnapshot.loadedTargetSpaces.has(space)) {
+      const target = applyReadLoader("target", fetchTarget, space);
+      if (target) activeApplyReadSnapshot.targetsBySpace.set(space, target);
+      else activeApplyReadSnapshot.targetsBySpace.delete(space);
+      activeApplyReadSnapshot.loadedTargetSpaces.add(space);
+      evidence.mutationRefreshCalls += 1;
+    }
+    return activeApplyReadSnapshot.targetsBySpace.get(space) ?? null;
+  }
+  return fetchTarget(space);
 }
 
 function readLinks(space) {
@@ -2530,46 +3877,112 @@ function readLinks(space) {
     );
     return [...activeSourceReleaseBoundarySnapshot.linksBySpace.get(space)];
   }
-  const result = cubJson([
-    "link", "list", "--space", space,
-    "--select", "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum",
-  ]);
-  return unwrapRows(result, "Link");
+  if (activeApplyReadSnapshot) {
+    const evidence = applyReadResourceEvidence("link");
+    evidence.servedReads += 1;
+    if (!activeApplyReadSnapshot.linksBySpace.has(space)) {
+      activeApplyReadSnapshot.linksBySpace.set(space, applyReadLoader("links", fetchLinks, space));
+      evidence.mutationRefreshCalls += 1;
+    }
+    return [...activeApplyReadSnapshot.linksBySpace.get(space)];
+  }
+  return fetchLinks(space);
+}
+
+function withAuthoritativeReleaseBoundarySnapshot(
+  boundary,
+  { unitSpaces, targetSpaces, linkSpaces, releaseSpaces = [boundary], organizationWide = false },
+  verify,
+) {
+  check(!activeVerificationReadSnapshot, `${boundary}: release boundary cannot overlap live verification`);
+  check(!activeSourceReleaseBoundarySnapshot, `${boundary}: release boundary snapshot is already active`);
+  // A publication decision is a safety boundary, not an apply-cache phase.
+  // Read it directly so an out-of-process mutation can never be hidden by the
+  // performance cache. The closing boundary and final verifier do the same.
+  const spaces = fetchSpaces();
+  let unitsBySpace;
+  let targetsBySpace;
+  let linksBySpace;
+  let releasesBySpace;
+  if (organizationWide) {
+    const captured = captureOrganizationReadSnapshot(spaces);
+    unitsBySpace = captured.unitsBySpace;
+    targetsBySpace = captured.targetsBySpace;
+    linksBySpace = captured.linksBySpace;
+    releasesBySpace = captured.releasesBySpace;
+    for (const space of spaces.keys()) {
+      if (!unitsBySpace.has(space)) unitsBySpace.set(space, []);
+      if (!linksBySpace.has(space)) linksBySpace.set(space, []);
+    }
+  } else {
+    unitsBySpace = new Map([...new Set(unitSpaces)].sort()
+      .map((space) => [space, fetchUnitRows(space)]));
+    targetsBySpace = new Map([...new Set(targetSpaces)].sort()
+      .map((space) => [space, fetchTarget(space)]));
+    linksBySpace = new Map([...new Set(linkSpaces)].sort()
+      .map((space) => [space, fetchLinks(space)]));
+    releasesBySpace = new Map([...new Set(releaseSpaces)].sort()
+      .map((space) => [space, fetchPublishedReleases(space)]));
+  }
+  const snapshot = { spaces, unitsBySpace, targetsBySpace, linksBySpace, releasesBySpace };
+  activeSourceReleaseBoundarySnapshot = snapshot;
+  let verified = false;
+  try {
+    const result = verify();
+    verified = true;
+    return result;
+  } finally {
+    if (activeSourceReleaseBoundarySnapshot === snapshot) activeSourceReleaseBoundarySnapshot = null;
+    if (verified && activeApplyReadSnapshot) {
+      activeApplyReadSnapshot.spaces = new Map(snapshot.spaces);
+      activeApplyReadSnapshot.spacesValid = true;
+      for (const [space, rows] of snapshot.unitsBySpace) replaceCachedUnitRows(activeApplyReadSnapshot, space, rows);
+      for (const [space, rows] of snapshot.linksBySpace) activeApplyReadSnapshot.linksBySpace.set(space, [...rows]);
+      for (const [space, rows] of snapshot.releasesBySpace) activeApplyReadSnapshot.releasesBySpace.set(space, [...rows]);
+      for (const space of targetSpaces) {
+        const target = snapshot.targetsBySpace.get(space);
+        if (target) activeApplyReadSnapshot.targetsBySpace.set(space, target);
+        else activeApplyReadSnapshot.targetsBySpace.delete(space);
+        activeApplyReadSnapshot.loadedTargetSpaces.add(space);
+      }
+    }
+  }
 }
 
 function withSourceReleaseBoundarySnapshot(space, expectedUnits, verify) {
-  check(!activeVerificationReadSnapshot, `${space}: source release boundary cannot overlap live verification`);
-  check(!activeSourceReleaseBoundarySnapshot, `${space}: source release boundary snapshot is already active`);
-
-  const spaces = readSpaces();
-  const unitsBySpace = new Map([[space, readUnitRows(space)]]);
   const upstreamSpaces = [...new Set(expectedUnits
     .map((unit) => unit.upstream?.split("/")[0])
     .filter(Boolean))]
     .sort();
-  for (const upstreamSpace of upstreamSpaces) {
-    if (!unitsBySpace.has(upstreamSpace)) unitsBySpace.set(upstreamSpace, readUnitRows(upstreamSpace));
-  }
-  const targetsBySpace = new Map();
   const targetSpaces = [...new Set(expectedUnits
     .map((unit) => unit.target?.split("/")[0])
     .filter(Boolean))]
     .sort();
-  for (const targetSpace of targetSpaces) targetsBySpace.set(targetSpace, readTarget(targetSpace));
-  const linksBySpace = new Map([[space, readLinks(space)]]);
-  const snapshot = { spaces, unitsBySpace, targetsBySpace, linksBySpace };
-  activeSourceReleaseBoundarySnapshot = snapshot;
-  try {
-    return verify();
-  } finally {
-    if (activeSourceReleaseBoundarySnapshot === snapshot) activeSourceReleaseBoundarySnapshot = null;
-  }
+  return withAuthoritativeReleaseBoundarySnapshot(space, {
+    unitSpaces: [space, ...upstreamSpaces],
+    targetSpaces,
+    linkSpaces: [space],
+  }, verify);
+}
+
+function withDeliveryRootReleaseBoundarySnapshot(fleetItem, verify) {
+  const appSpace = `${fleetItem.cluster}-argo-apps`;
+  const argobotSpace = `argobot-${fleetItem.cluster}`;
+  const topologySpaces = ["argobot-base", fleetItem.cluster, appSpace, argobotSpace];
+  return withAuthoritativeReleaseBoundarySnapshot(appSpace, {
+    unitSpaces: topologySpaces,
+    targetSpaces: [fleetItem.cluster],
+    linkSpaces: topologySpaces,
+    organizationWide: true,
+  }, verify);
 }
 
 function beginVerificationReadSnapshot(spaces) {
   check(!activeVerificationReadSnapshot, "verification read snapshot is already active");
+  check(!activeApplyReadSnapshot, "final verification cannot begin while the mutation-aware apply cache is active");
+  check(!activeSourceReleaseBoundarySnapshot, "final verification cannot begin inside a release boundary");
   const captured = captureOrganizationReadSnapshot(spaces);
-  const resources = ["unit", "release", "link", "target"].map((resource) => ({
+  const resources = FINAL_CONFIGHUB_FINGERPRINT_RESOURCES.map((resource) => ({
     resource,
     rows: captured.rowCounts[resource],
     listCalls: captured.listCalls[resource],
@@ -2581,17 +3994,24 @@ function beginVerificationReadSnapshot(spaces) {
     evidence: {
       mode: "bracketed-organization-wide-read-only",
       stability: "pending-final-snapshot",
+      fingerprintResources: [...FINAL_CONFIGHUB_FINGERPRINT_RESOURCES],
       resources,
     },
   };
   return activeVerificationReadSnapshot;
 }
 
-function finishVerificationReadSnapshot(spaces, capture = captureOrganizationReadSnapshot) {
+function finishVerificationReadSnapshot(
+  capture = captureOrganizationReadSnapshot,
+  readClosingSpaces = fetchSpaces,
+  desiredForAllowlist = null,
+) {
   check(activeVerificationReadSnapshot, "verification read snapshot is not active");
   const opening = activeVerificationReadSnapshot;
   try {
-    const final = capture(spaces);
+    const closingSpaces = readClosingSpaces();
+    if (desiredForAllowlist) assertSpaceAllowlist(closingSpaces, desiredForAllowlist, { requireAll: true });
+    const final = capture(closingSpaces);
     for (const resource of opening.evidence.resources) {
       resource.listCalls += final.listCalls[resource.resource];
       check(
@@ -2601,7 +4021,8 @@ function finishVerificationReadSnapshot(spaces, capture = captureOrganizationRea
     }
     const stable = opening.fingerprint === final.fingerprint;
     opening.evidence.stability = stable ? "pass" : "changed-during-verification";
-    check(stable, "Unit, release, Link, or target state changed during read-only verification; retry against a quiescent organization");
+    check(stable, "Space, Unit, release, Link, or target state changed during read-only verification; retry against a quiescent organization");
+    opening.evidence.canonicalFingerprint = opening.fingerprint;
     return opening.evidence;
   } finally {
     if (activeVerificationReadSnapshot === opening) activeVerificationReadSnapshot = null;
@@ -2612,16 +4033,16 @@ function captureOrganizationReadSnapshot(spaces) {
   const slugBySpaceID = new Map([...spaces.values()].map((space) => [space.SpaceID, space.Slug]));
   const unitCapture = measuredOrganizationList("unit", () => unwrapRows(cubJson([
     "unit", "list", "--space", "*",
-    "--select", "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,DataHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates",
+    "--select", UNIT_READ_SELECT,
   ]), "Unit"));
   const releaseCapture = measuredOrganizationList("release", () => unwrapRows(cubJson([
     "release", "list", "--space", "*",
     "--where", "Published = true",
-    "--select", "SpaceID,Digest,ManifestDigest,ReleaseNum,CreatedAt",
+    "--select", `SpaceID,${RELEASE_READ_SELECT}`,
   ]), "Release"));
   const linkCapture = measuredOrganizationList("link", () => unwrapRows(cubJson([
     "link", "list", "--space", "*",
-    "--select", "SpaceID,FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum",
+    "--select", `SpaceID,${LINK_READ_SELECT}`,
   ]), "Link"));
   const targetCapture = measuredOrganizationList("target", () => unwrapRows(cubJson([
     "target", "list", "--space", "*",
@@ -2639,6 +4060,10 @@ function captureOrganizationReadSnapshot(spaces) {
     for (const unit of rows) {
       const ref = `${space}/${unit.Slug}`;
       check(!unitsByRef.has(ref), `${ref}: organization snapshot returned duplicate Unit slugs`);
+      // Bulk Data is part of every authoritative snapshot. Decode and hash it
+      // at ingress so malformed, truncated, or mismatched bodies can never be
+      // cached as trusted evidence merely because a later path did not read it.
+      decodeBulkUnitData(unit, ref);
       unitsByRef.set(ref, unit);
     }
   }
@@ -2650,16 +4075,21 @@ function captureOrganizationReadSnapshot(spaces) {
   const linksBySpace = groupRowsBySpace(links, slugBySpaceID, "Link");
   for (const rows of linksBySpace.values()) rows.sort((left, right) => left.Slug.localeCompare(right.Slug));
   const targetsBySpace = new Map();
+  const targetRefs = new Set();
   for (const target of targets) {
     assertSnapshotRow(target, slugBySpaceID, "Target");
+    const targetSpace = slugBySpaceID.get(target.SpaceID);
+    const targetRef = `${targetSpace}/${target.Slug}`;
+    check(!targetRefs.has(targetRef), `${targetRef}: organization snapshot returned a duplicate Target`);
+    targetRefs.add(targetRef);
     if (target.Slug !== "target") continue;
-    const space = slugBySpaceID.get(target.SpaceID);
-    check(!targetsBySpace.has(space), `${space}: organization snapshot returned duplicate target slugs`);
-    targetsBySpace.set(space, target);
+    check(!targetsBySpace.has(targetSpace), `${targetSpace}: organization snapshot returned duplicate target slugs`);
+    targetsBySpace.set(targetSpace, target);
   }
   const canonicalRows = {
-    unit: snapshotRows(units, ["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "DataHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]),
-    release: snapshotRows(releases, ["SpaceID", "ReleaseID", "Digest", "ManifestDigest", "ReleaseNum", "CreatedAt"]),
+    space: snapshotRows([...spaces.values()], ["OrganizationID", "SpaceID", "Slug", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]),
+    unit: snapshotRows(units, ["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "Data", "DataHash", "ContentHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]),
+    release: snapshotRows(releases, ["SpaceID", "ReleaseID", "TagID", "Digest", "ManifestDigest", "ReleaseNum", "UnitCount", "CreatedAt"]),
     link: snapshotRows(links, ["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]),
     target: snapshotRows(targets, ["SpaceID", "TargetID", "Slug", "ProviderType", "ToolchainType", "Annotations"]),
   };
@@ -2669,13 +4099,16 @@ function captureOrganizationReadSnapshot(spaces) {
     releasesBySpace,
     linksBySpace,
     targetsBySpace,
+    targetRows: targets,
     rowCounts: {
+      space: spaces.size,
       unit: units.length,
       release: releases.length,
       link: links.length,
       target: targets.length,
     },
     listCalls: {
+      space: 1,
       unit: unitCapture.listCalls,
       release: releaseCapture.listCalls,
       link: linkCapture.listCalls,
@@ -2804,10 +4237,83 @@ function expectedArgoApplicationLabels(desired, fleetItem, unitSlug) {
   });
 }
 
+function assertArgobotRefreshOnlyDeployment(deployment, context) {
+  check(
+    deployment?.kind === "Deployment"
+      && deployment?.metadata?.name === "argobot"
+      && deployment?.metadata?.namespace === "argobot",
+    `${context}: expected the exact argobot Deployment in namespace argobot`,
+  );
+  const podSpec = deployment.spec?.template?.spec ?? {};
+  const containers = podSpec.containers ?? [];
+  check(
+    containers.length === 1 && (podSpec.initContainers ?? []).length === 0,
+    `${context}: reviewed refresh-only runtime permits one argobot container and no init containers`,
+  );
+  const matchingContainers = containers
+    .filter((container) => container?.name === "argobot");
+  check(matchingContainers.length === 1, `${context}: expected exactly one argobot container`);
+  const container = matchingContainers[0];
+  check(container.image === ARGOBOT_IMAGE, `${context}: expected exact image ${ARGOBOT_IMAGE}`);
+  check(
+    !container.command?.length && !container.args?.length,
+    `${context}: argobot command or arguments override the reviewed image entrypoint`,
+  );
+  const env = container.env ?? [];
+  const envNames = env.map((item) => item?.name).filter(Boolean);
+  check(
+    new Set(envNames).size === envNames.length,
+    `${context}: duplicate argobot environment variables make runtime mode ambiguous`,
+  );
+  const syncMode = env.filter((item) => item?.name === "ARGO_SYNC_MODE");
+  check(
+    syncMode.length === 1
+      && syncMode[0].value === "kubernetes"
+      && !syncMode[0].valueFrom,
+    `${context}: ARGO_SYNC_MODE must be the literal kubernetes refresh-only mode`,
+  );
+  for (const [name, value] of [
+    ["ARGO_NAMESPACE", "argocd"],
+    ["ARGO_REFRESH_TYPE", "hard"],
+  ]) {
+    const matches = env.filter((item) => item?.name === name);
+    check(
+      matches.length === 1 && matches[0].value === value && !matches[0].valueFrom,
+      `${context}: ${name} must be the literal reviewed value ${value}`,
+    );
+  }
+  const restAuthority = envNames.filter((name) => [
+    "ARGOCD_SERVER",
+    "ARGOCD_AUTH_TOKEN",
+    "ARGO_APP_NAMESPACE",
+    "ARGO_PRUNE",
+    "ARGO_FORCE",
+  ].includes(name));
+  check(
+    restAuthority.length === 0,
+    `${context}: Argo CD REST-sync authority is configured: ${restAuthority.join(", ")}`,
+  );
+  return {
+    image: container.image,
+    syncMode: syncMode[0].value,
+    applicationNamespace: env.find((item) => item?.name === "ARGO_NAMESPACE")?.value ?? null,
+    refreshType: env.find((item) => item?.name === "ARGO_REFRESH_TYPE")?.value ?? null,
+    restSyncEnvironmentAbsent: true,
+    commandOverrideAbsent: true,
+    oneContainerNoInit: true,
+    duplicateEnvironmentAbsent: true,
+  };
+}
+
 function assertDeliveryTopology(
   spaces,
   desired,
-  { requireAllApplications = false, requireApplicationMetadata = false, fleet = FLEET } = {},
+  {
+    requireAllApplications = false,
+    requireApplicationMetadata = false,
+    allowLegacyBootstrapAutomated = false,
+    fleet = FLEET,
+  } = {},
 ) {
   const argobotBaseRows = readUnitRows("argobot-base");
   check(
@@ -2832,12 +4338,9 @@ function assertDeliveryTopology(
       && argobotSources[0]?.digest === ARGOBOT_SOURCE_DIGEST,
     "argobot-base: source OCI ref/digest differs from the exact reviewed delivery helper",
   );
-  const argobotDeployment = parseDocs(cub(["unit", "data", "--space", "argobot-base", "argobot"]))
+  const argobotDeployment = parseDocs(readUnitData("argobot-base", "argobot"))
     .find((doc) => doc.kind === "Deployment" && doc.metadata?.name === "argobot");
-  check(
-    argobotDeployment?.spec?.template?.spec?.containers?.some((container) => container.image === ARGOBOT_IMAGE),
-    `argobot-base/argobot: expected exact image ${ARGOBOT_IMAGE}`,
-  );
+  assertArgobotRefreshOnlyDeployment(argobotDeployment, "argobot-base/argobot");
 
   for (const fleetItem of fleet) {
     const clusterSpace = spaces.get(fleetItem.cluster);
@@ -2891,12 +4394,14 @@ function assertDeliveryTopology(
       "root",
       appsSpaceSlug,
       appsSpaceSlug,
+      { allowLegacyAutomated: allowLegacyBootstrapAutomated },
     );
     assertBootstrapApplication(
       appsSpaceSlug,
       `argobot-${fleetItem.cluster}`,
       `argobot-${fleetItem.cluster}`,
       argobotSpaceSlug,
+      { allowLegacyAutomated: allowLegacyBootstrapAutomated },
     );
     check(readLinks(appsSpaceSlug).length === 0, `${appsSpaceSlug}: unexpected Links present`);
 
@@ -2910,6 +4415,12 @@ function assertDeliveryTopology(
     check(!argobot.ProviderType, `${argobotSpaceSlug}/argobot: provider must remain the default`);
     check(argobot.TargetID === targetEntity.TargetID, `${argobotSpaceSlug}/argobot: target is not ${fleetItem.cluster}/target`);
     check(argobot.UpstreamUnitID === argobotBase.UnitID, `${argobotSpaceSlug}/argobot: upstream is not argobot-base/argobot`);
+    const argobotInstanceDeployment = parseDocs(readUnitData(argobotSpaceSlug, "argobot"))
+      .find((doc) => doc.kind === "Deployment" && doc.metadata?.name === "argobot");
+    assertArgobotRefreshOnlyDeployment(
+      argobotInstanceDeployment,
+      `${argobotSpaceSlug}/argobot`,
+    );
     const argobotLinks = readLinks(argobotSpaceSlug);
     check(
       argobotLinks.length === 1
@@ -2923,26 +4434,347 @@ function assertDeliveryTopology(
   }
 }
 
-function assertBootstrapApplication(appSpace, unitSlug, applicationName, sourceSpace) {
-  const docs = parseDocs(cub(["unit", "data", "--space", appSpace, unitSlug]));
+function rootApplicationSyncOptions() {
+  return [
+    "ServerSideApply=true",
+    "ServerSideApply.ForceConflicts=true",
+    "RespectIgnoreDifferences=true",
+    "CreateNamespace=false",
+  ];
+}
+
+function assertExactObjectKeys(value, expectedKeys, context) {
+  check(
+    stableJson(Object.keys(value ?? {}).sort()) === stableJson([...expectedKeys].sort()),
+    `${context}: expected exact keys ${[...expectedKeys].sort().join(", ")}`,
+  );
+}
+
+function assertNoStoredApplicationOperation(app, context) {
+  check(!app?.operation, `${context}: stored Application must not contain an executable operation`);
+}
+
+function assertNoMultipleSources(app, context) {
+  check(
+    app.spec?.sources === undefined
+      || (Array.isArray(app.spec.sources) && app.spec.sources.length === 0),
+    `${context}: Application must not define spec.sources`,
+  );
+}
+
+function assertBootstrapAutomatedPolicy(automated, unitSlug, allowLegacyAutomated, context) {
+  if (!automated) return;
+  const exactLegacyAutomated = unitSlug === "root"
+    ? { selfHeal: true }
+    : { selfHeal: true, allowEmpty: true };
+  check(
+    allowLegacyAutomated && stableJson(automated) === stableJson(exactLegacyAutomated),
+    `${context}: bootstrap Application automated policy is neither absent nor the exact one-time ConfigHub v0.2.11 migration shape`,
+  );
+}
+
+function assertBootstrapApplication(
+  appSpace,
+  unitSlug,
+  applicationName,
+  sourceSpace,
+  { allowLegacyAutomated = false } = {},
+) {
+  const docs = parseDocs(readUnitData(appSpace, unitSlug));
   check(docs.length === 1 && docs[0].kind === "Application", `${appSpace}/${unitSlug}: expected one bootstrap Argo Application`);
   const app = docs[0];
   check(app.metadata?.name === applicationName, `${appSpace}/${unitSlug}: bootstrap Application metadata.name drifted`);
   check(app.metadata?.namespace === "argocd", `${appSpace}/${unitSlug}: bootstrap Application namespace is not argocd`);
   check(app.spec?.project === "default", `${appSpace}/${unitSlug}: bootstrap Application project is not default`);
+  assertNoStoredApplicationOperation(app, `${appSpace}/${unitSlug}: bootstrap Application`);
+  assertNoMultipleSources(app, `${appSpace}/${unitSlug}: bootstrap Application`);
+  assertExactObjectKeys(app.spec?.source, ["path", "repoURL", "targetRevision"], `${appSpace}/${unitSlug}: bootstrap source`);
   check(
     app.spec?.source?.repoURL === `${CONFIGHUB_OCI_SPACE_PREFIX}${sourceSpace}`
       && app.spec?.source?.targetRevision === "latest"
       && app.spec?.source?.path === ".",
     `${appSpace}/${unitSlug}: bootstrap Application source is not the allowlisted ConfigHub Space ${sourceSpace}`,
   );
-  check(app.spec?.destination?.server === "https://kubernetes.default.svc", `${appSpace}/${unitSlug}: bootstrap Application destination is not cluster-local`);
-  check(app.spec?.syncPolicy?.automated?.selfHeal === true, `${appSpace}/${unitSlug}: bootstrap Application is not self-healing`);
-  check(app.spec?.syncPolicy?.automated?.prune !== true, `${appSpace}/${unitSlug}: bootstrap Application must not prune`);
+  const isRoot = unitSlug === "root";
+  const expectedDestinationNamespace = isRoot ? "argocd" : null;
+  assertExactObjectKeys(
+    app.spec?.destination,
+    isRoot ? ["namespace", "server"] : ["server"],
+    `${appSpace}/${unitSlug}: bootstrap destination`,
+  );
+  check(
+    app.spec?.destination?.server === "https://kubernetes.default.svc"
+      && (expectedDestinationNamespace === null || app.spec?.destination?.namespace === expectedDestinationNamespace),
+    `${appSpace}/${unitSlug}: bootstrap Application destination is not the reviewed cluster-local destination`,
+  );
+  assertBootstrapAutomatedPolicy(
+    app.spec?.syncPolicy?.automated,
+    unitSlug,
+    allowLegacyAutomated,
+    `${appSpace}/${unitSlug}`,
+  );
+  const expectedOptions = unitSlug === "root" ? rootApplicationSyncOptions() : [];
+  check(
+    stableJson(app.spec?.syncPolicy?.syncOptions ?? []) === stableJson(expectedOptions),
+    `${appSpace}/${unitSlug}: bootstrap Application sync options drifted`,
+  );
   check(
     !(app.spec?.syncPolicy?.syncOptions ?? []).some((option) => String(option).startsWith("Replace=")),
     `${appSpace}/${unitSlug}: bootstrap Application must not use Replace`,
   );
+}
+
+function reconcileBootstrapApplicationPolicies(desired, state) {
+  for (const fleetItem of FLEET) {
+    const appSpace = `${fleetItem.cluster}-argo-apps`;
+    for (const definition of [
+      { slug: "root", name: appSpace, sourceSpace: appSpace },
+      {
+        slug: `argobot-${fleetItem.cluster}`,
+        name: `argobot-${fleetItem.cluster}`,
+        sourceSpace: `argobot-${fleetItem.cluster}`,
+      },
+    ]) {
+      const currentData = readUnitData(appSpace, definition.slug);
+      const docs = parseDocs(currentData);
+      check(docs.length === 1 && docs[0].kind === "Application", `${appSpace}/${definition.slug}: expected one bootstrap Argo Application`);
+      const app = docs[0];
+      assertBootstrapApplication(
+        appSpace,
+        definition.slug,
+        definition.name,
+        definition.sourceSpace,
+        { allowLegacyAutomated: true },
+      );
+      if (definition.slug === "root") {
+        app.spec.syncPolicy = { syncOptions: rootApplicationSyncOptions() };
+      } else {
+        delete app.spec.syncPolicy;
+      }
+      const expected = renderDocuments([app]);
+      if (sameUnitData("Kubernetes/YAML", currentData, expected)) continue;
+      const temp = mkdtempSync(join(tmpdir(), "helm-expt-kubara-bootstrap-app-"));
+      try {
+        const path = join(temp, `${definition.slug}.yaml`);
+        writeFileSync(path, expected, "utf8");
+        cub([
+          "unit", "update", "--space", appSpace,
+          definition.slug, path,
+          "--change-desc", "Delegate deployment to ConfigHub exact-digest reconciliation",
+          "--quiet",
+        ]);
+      } finally {
+        rmSync(temp, { recursive: true, force: true });
+      }
+      recordAction(state, "argo-application", `${appSpace}/${definition.slug}`, "automated sync disabled; exact-digest CAS only");
+      state.changedSpaces.add(appSpace);
+    }
+  }
+  // Re-read through the mutation-aware cache and prove the complete delivery
+  // inventory now carries the no-auto-sync boundary before publication.
+  assertDeliveryTopology(readSpaces(), desired, {
+    fleet: FLEET,
+    requireAllApplications: true,
+    requireApplicationMetadata: true,
+  });
+}
+
+function expectedLiveApplicationSources(desired, fleetItem) {
+  const appSpace = `${fleetItem.cluster}-argo-apps`;
+  return new Map([
+    [appSpace, appSpace],
+    [`argobot-${fleetItem.cluster}`, `argobot-${fleetItem.cluster}`],
+    ...desired.deployments
+      .filter((deployment) => deployment.cluster === fleetItem.cluster)
+      .map((deployment) => [deployment.appUnit, deployment.space]),
+  ]);
+}
+
+function waitForInactiveApplication(cluster, name) {
+  for (let attempt = 0; attempt < 720; attempt += 1) {
+    const app = JSON.parse(kubectl(cluster, [
+      "get", "application", name, "-n", "argocd", "-o", "json",
+    ]));
+    const phase = app.status?.operationState?.phase ?? "Unknown";
+    if (!app.operation && !["Running", "Terminating"].includes(phase)) return app;
+    command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "argo-active-operation" });
+  }
+  check(false, `${cluster}/${name}: active Argo operation did not finish before the automation fence`);
+}
+
+function assertLiveArgobotRefreshOnlyRuntime(cluster) {
+  const deployment = JSON.parse(kubectl(cluster, [
+    "get", "deployment", "argobot", "-n", "argobot", "-o", "json",
+  ]));
+  const deploymentAuthority = assertArgobotRefreshOnlyDeployment(
+    deployment,
+    `${cluster}/argobot/Deployment/argobot`,
+  );
+  check(
+    stableJson(deployment.spec?.selector?.matchLabels ?? {}) === stableJson({ app: "argobot" }),
+    `${cluster}/argobot/Deployment/argobot: selector escaped the reviewed runtime boundary`,
+  );
+  const replicas = Number(deployment.spec?.replicas ?? 1);
+  check(replicas > 0, `${cluster}/argobot/Deployment/argobot: refresh-only runtime is scaled to zero`);
+  check(
+    Number(deployment.status?.observedGeneration ?? 0) === Number(deployment.metadata?.generation ?? -1)
+      && Number(deployment.status?.updatedReplicas ?? 0) === replicas
+      && Number(deployment.status?.availableReplicas ?? 0) === replicas,
+    `${cluster}/argobot/Deployment/argobot: refresh-only rollout is not fully observed and available`,
+  );
+  const pods = JSON.parse(kubectl(cluster, [
+    "get", "pods", "-n", "argobot", "-l", "app=argobot", "-o", "json",
+  ])).items ?? [];
+  check(pods.length === replicas, `${cluster}/argobot: expected exactly ${replicas} active argobot Pod(s)`);
+  const podRows = [];
+  for (const pod of pods) {
+    check(!pod.metadata?.deletionTimestamp, `${cluster}/argobot/${pod.metadata?.name}: terminating Pod can retain obsolete sync authority`);
+    const podLikeDeployment = {
+      kind: "Deployment",
+      metadata: { name: "argobot", namespace: "argobot" },
+      spec: { template: { spec: pod.spec } },
+    };
+    const authority = assertArgobotRefreshOnlyDeployment(
+      podLikeDeployment,
+      `${cluster}/argobot/Pod/${pod.metadata?.name ?? "unknown"}`,
+    );
+    const argobotStatus = (pod.status?.containerStatuses ?? [])
+      .find((container) => container?.name === "argobot");
+    check(
+      pod.status?.phase === "Running" && argobotStatus?.ready === true,
+      `${cluster}/argobot/Pod/${pod.metadata?.name ?? "unknown"}: refresh-only container is not Running and Ready`,
+    );
+    podRows.push({
+      name: pod.metadata?.name ?? null,
+      uid: pod.metadata?.uid ?? null,
+      runningReady: true,
+      ...authority,
+    });
+  }
+  return {
+    cluster,
+    version: ARGOBOT_VERSION,
+    deployment: {
+      uid: deployment.metadata?.uid ?? null,
+      generation: deployment.metadata?.generation ?? null,
+      replicas,
+      selectorExact: true,
+      rolloutCurrent: true,
+      ...deploymentAuthority,
+    },
+    pods: podRows.sort((left, right) => String(left.name).localeCompare(String(right.name))),
+  };
+}
+
+function reconcileLiveArgoAutomationFence(desired, state) {
+  for (const fleetItem of FLEET) {
+    // argobot's Kubernetes mode only refreshes an Application. Its alternate
+    // REST mode can issue a sync even when automated sync is disabled, so the
+    // exact source, rolled-out Deployment, and every active Pod are all proved
+    // refresh-only before the Application authority fence is installed.
+    assertLiveArgobotRefreshOnlyRuntime(fleetItem.cluster);
+    const applicationSets = JSON.parse(kubectl(fleetItem.cluster, [
+      "get", "applicationsets.argoproj.io", "-A", "-o", "json",
+    ])).items ?? [];
+    check(
+      applicationSets.length === 0,
+      `${fleetItem.cluster}: adapted lane forbids ApplicationSets that could regenerate managed Applications; observed ${applicationSets.map((item) => `${item.metadata?.namespace ?? ""}/${item.metadata?.name ?? "unknown"}`).join(", ")}`,
+    );
+    const expectedSources = expectedLiveApplicationSources(desired, fleetItem);
+    const listed = JSON.parse(kubectl(fleetItem.cluster, [
+      "get", "applications.argoproj.io", "-A", "-o", "json",
+    ])).items ?? [];
+    const foreignNamespaceApplications = listed
+      .filter((app) => app.metadata?.namespace !== "argocd")
+      .map((app) => `${app.metadata?.namespace ?? "missing"}/${app.metadata?.name ?? "unknown"}`)
+      .sort();
+    check(
+      foreignNamespaceApplications.length === 0,
+      `${fleetItem.cluster}: managed authority forbids Application CRs outside argocd; observed ${foreignNamespaceApplications.join(", ")}`,
+    );
+    const observedNames = new Set(listed.map((app) => app.metadata?.name));
+    const requiredBootstrap = [
+      `${fleetItem.cluster}-argo-apps`,
+      `argobot-${fleetItem.cluster}`,
+    ];
+    for (const name of requiredBootstrap) {
+      check(observedNames.has(name), `${fleetItem.cluster}/${name}: bootstrap Application is missing before the deployment-authority fence`);
+    }
+    const unexpected = [...observedNames].filter((name) => !expectedSources.has(name)).sort();
+    check(unexpected.length === 0, `${fleetItem.cluster}: refusing unexpected live Argo Applications before fencing: ${unexpected.join(", ")}`);
+    for (const app of listed) {
+      check(
+        !(app.metadata?.ownerReferences ?? []).some((owner) => owner?.kind === "ApplicationSet"),
+        `${fleetItem.cluster}/${app.metadata?.name ?? "unknown"}: adapted-lane Application is still owned by an ApplicationSet`,
+      );
+    }
+
+    // Fence the self-managing root first. Once it cannot auto-sync, it cannot
+    // restore automation on a child while the remaining CAS patches run.
+    const ordered = [...listed].sort((left, right) => {
+      const root = `${fleetItem.cluster}-argo-apps`;
+      return Number(right.metadata?.name === root) - Number(left.metadata?.name === root)
+        || String(left.metadata?.name).localeCompare(String(right.metadata?.name));
+    });
+    for (const observed of ordered) {
+      const name = observed.metadata?.name;
+      const sourceSpace = expectedSources.get(name);
+      check(sourceSpace, `${fleetItem.cluster}/${name ?? "unknown"}: Application escaped the exact fence allowlist`);
+      assertNoMultipleSources(observed, `${fleetItem.cluster}/${name}: live Application`);
+      assertExactObjectKeys(observed.spec?.source, ["path", "repoURL", "targetRevision"], `${fleetItem.cluster}/${name}: live source`);
+      check(
+        observed.spec?.source?.repoURL === `${CONFIGHUB_OCI_SPACE_PREFIX}${sourceSpace}`
+          && observed.spec?.source?.targetRevision === "latest",
+        `${fleetItem.cluster}/${name}: Application source changed before the automation fence`,
+      );
+      const isSelfManagingRoot = name === `${fleetItem.cluster}-argo-apps`;
+      // A settled, already-fenced child needs no point read. The self-managing
+      // root is always re-read after any active operation because an older
+      // root release could otherwise restore automation while this fence runs.
+      if (!isSelfManagingRoot && !observed.spec?.syncPolicy?.automated) continue;
+      let app = waitForInactiveApplication(fleetItem.cluster, name);
+      assertNoMultipleSources(app, `${fleetItem.cluster}/${name}: settled live Application`);
+      assertExactObjectKeys(app.spec?.source, ["path", "repoURL", "targetRevision"], `${fleetItem.cluster}/${name}: settled live source`);
+      check(
+        app.spec?.source?.repoURL === `${CONFIGHUB_OCI_SPACE_PREFIX}${sourceSpace}`
+          && app.spec?.source?.targetRevision === "latest",
+        `${fleetItem.cluster}/${name}: Application source changed while waiting for the automation fence`,
+      );
+      if (!app.spec?.syncPolicy?.automated) continue;
+      let fenced = false;
+      for (let attempt = 0; attempt < 5 && !fenced; attempt += 1) {
+        check(app.metadata?.uid && app.metadata?.resourceVersion, `${fleetItem.cluster}/${name}: Application CAS identity is missing`);
+        const patched = kubectlTry(fleetItem.cluster, [
+          "patch", "application", name, "-n", "argocd",
+          "--type=json", "--patch", JSON.stringify([
+            { op: "test", path: "/metadata/uid", value: app.metadata.uid },
+            { op: "test", path: "/metadata/resourceVersion", value: app.metadata.resourceVersion },
+            { op: "remove", path: "/spec/syncPolicy/automated" },
+          ]),
+        ]);
+        if (!patched.ok && retryableKubernetesCompareAndSet(patched.output)) {
+          app = waitForInactiveApplication(fleetItem.cluster, name);
+          if (!app.spec?.syncPolicy?.automated) {
+            fenced = true;
+            break;
+          }
+          continue;
+        }
+        check(patched.ok, `${fleetItem.cluster}/${name}: failed to install the Argo automation fence: ${patched.output}`);
+        fenced = true;
+      }
+      check(fenced, `${fleetItem.cluster}/${name}: could not install the Argo automation fence after compare-and-set retries`);
+      const current = waitForInactiveApplication(fleetItem.cluster, name);
+      check(current.metadata?.uid === app.metadata?.uid, `${fleetItem.cluster}/${name}: Application identity changed during the automation fence`);
+      check(!current.spec?.syncPolicy?.automated, `${fleetItem.cluster}/${name}: automated sync remained after the automation fence`);
+      recordAction(
+        state,
+        "argo-automation-fence",
+        `${fleetItem.cluster}/${name}`,
+        "removed automated sync with UID/resourceVersion CAS; exact ManifestDigest operations only",
+      );
+    }
+  }
 }
 
 function labelsArgs(labels) {
@@ -3024,6 +4856,7 @@ function materializePayloadFiles(inputs, root) {
 }
 
 function applyPlan(inputs, desired) {
+  const reconcilePerformance = beginReconcilePerformance();
   assertKubaraOrganization();
   const lockPath = acquireSerialLiveLock();
   const priorNamespaceMoveEvidence = validatedPriorNamespaceMoveEvidence();
@@ -3074,16 +4907,26 @@ function applyPlan(inputs, desired) {
     scenario: { mode: "retained-proven-history", steps: [] },
     performancePhaseStart: performanceCheckpoint(),
     performancePhases: [],
+    reconcilePerformance,
+    applyAttempt: null,
   };
   let workRoot = "";
+  let applyReadSnapshot = null;
   try {
     assertSerialLiveLock();
+    state.applyAttempt = beginApplyAttempt();
+    applyReadSnapshot = beginApplyReadSnapshot();
     preflightScenarioHistory(state);
     workRoot = mkdtempSync(join(tmpdir(), "helm-expt-kubara-mini-idp-"));
     const payloadFiles = materializePayloadFiles(inputs, workRoot);
     let spaces = readSpaces();
     assertSpaceAllowlist(spaces, desired);
     reconcileClusters(spaces, desired, state);
+    // `cub variant create --target` can publish the apps Space as a side
+    // effect. Fence the live root and every already-observed child immediately
+    // after bootstrap, before creating or reconciling any platform variants.
+    // Fresh clusters contain only the reviewed root and argobot at this point.
+    reconcileLiveArgoAutomationFence(desired, state);
     state.kindTraefikDockerBindings = observeKindTraefikDockerBindings();
     spaces = readSpaces();
     for (const expected of desired.spaces) {
@@ -3132,12 +4975,25 @@ function applyPlan(inputs, desired) {
       requireAll: true,
       assertOnlySourceSpaces: inFlightScenarioSpaces,
     });
+    reconcileBootstrapApplicationPolicies(desired, state);
     for (const fleetItem of FLEET) {
       assertUnitAllowlist(
         `${fleetItem.cluster}-argo-apps`,
         expectedArgoApplicationSlugs(desired, fleetItem),
       );
     }
+    // Freeze a fresh, organization-wide view after declarative reconciliation
+    // and before any release is allowed to drive Argo. Publication boundaries
+    // still bypass this cache and perform their own authoritative reads.
+    refreshApplyReadSnapshotAtPhaseBoundary("pre-release-and-argo");
+    assertSpaceAllowlist(readSpaces(), desired, { requireAll: true });
+    assertManagedUnitInventory(desired);
+    assertManagedLinkInventory(desired);
+    assertExactManagedTargetInventory(activeApplyReadSnapshot, "pre-release ConfigHub Target inventory");
+    // Freeze the dependency-complete pre-release phase snapshot. Every stream
+    // still gets one fresh Unit list and one fresh published-Release list; the
+    // first successful ConfigHub mutation invalidates the frozen topology.
+    beginAuthoritativeReleaseReuseBatch();
     for (const deployment of desired.deployments.filter((item) => item.type === "platform")) {
       deployOne(deployment, state);
       waitForSpecialPrerequisite(deployment);
@@ -3156,13 +5012,28 @@ function applyPlan(inputs, desired) {
       (item) => item.space.startsWith("hx-web-platform-"),
     )) deployOne(deployment, state);
 
+    // During the one-time Traefik migration argocd-server is parked at the
+    // eighth port in each kind window. Restore its reserved first port only
+    // after the exact Traefik Service has converged on the new +2/+3 pair.
+    reconcileArgocdServerReservedNodePorts(state);
     reconcileDeliveryApplicationMetadata(desired, state, { requireAll: true });
     assertPublishedDeliveryRootsRemainCurrent(state);
     reconcileLinks(desired, state);
     assertManagedLinkInventory(desired, { requireNeedsProvides: true });
+    state.applyReadCacheEvidence = finishApplyReadSnapshot();
+    lastCompletedApplyReadEvidence = state.applyReadCacheEvidence;
     const observation = verifyLive(inputs, desired, { state });
+    state.runPerformance = finishReconcilePerformance(reconcilePerformance, state);
+    assertReconcileRunPerformanceEvidence(state.runPerformance, state);
     const receipt = buildReceipt(inputs, desired, observation, state);
     writeReceiptAtomically(receipt);
+    completeApplyAttempt(state.applyAttempt, {
+      result: "pass",
+      runClass: state.runPerformance.runClass,
+      actionCount: state.actions.length,
+      receiptObservedAt: receipt.status.observedAt,
+      performance: state.runPerformance,
+    });
     if (receipt.status.idempotentRerunProven) {
       verifyReceipt(inputs, desired);
       console.log(
@@ -3173,14 +5044,78 @@ function applyPlan(inputs, desired) {
         `reconciled Kubara mini-IDP: ${state.actions.length} action(s); rerun --apply to record the required zero-action idempotence proof`,
       );
     }
+  } catch (error) {
+    failApplyAttempt(state.applyAttempt, error, state, reconcilePerformance);
+    throw error;
   } finally {
+    lastCompletedPerformancePhases = [...state.performancePhases];
+    if (activeApplyReadSnapshot === applyReadSnapshot) activeApplyReadSnapshot = null;
     if (workRoot) rmSync(workRoot, { recursive: true, force: true });
     releaseSerialLiveLock(lockPath);
   }
 }
 
+function reconcileArgocdServerReservedNodePorts(state) {
+  for (const contract of KIND_TRAEFIK_CONTRACTS) {
+    const resources = JSON.parse(kubectl(contract.cluster, ["get", "service", "-A", "-o", "json"]));
+    const services = resources.items ?? [];
+    const traefik = services.filter((item) => item?.apiVersion === "v1"
+      && item?.kind === "Service"
+      && item?.metadata?.namespace === contract.namespace
+      && item?.metadata?.name === contract.serviceName);
+    check(traefik.length === 1, `${contract.cluster}: cannot restore argocd-server before the exact Traefik Service exists`);
+    check(
+      traefik[0].spec?.type === "NodePort"
+        && stableJson((traefik[0].spec?.ports ?? []).map((port) => ({
+          name: port.name,
+          port: port.port,
+          targetPort: port.targetPort,
+          protocol: port.protocol ?? "TCP",
+          nodePort: port.nodePort,
+        }))) === stableJson(contract.ports),
+      `${contract.cluster}: refusing to restore argocd-server before Traefik owns the exact ${contract.httpNodePort}/${contract.httpsNodePort} pair`,
+    );
+    const opening = assertArgocdServerNodePortEvidenceShape(contract, resources);
+    const disposition = argocdServerNodePortDisposition(contract, opening.ports[0].nodePort);
+    if (disposition === "current") continue;
+    const patch = [
+      { op: "test", path: "/metadata/uid", value: opening.uid },
+      { op: "test", path: "/metadata/resourceVersion", value: opening.resourceVersion },
+      { op: "test", path: "/spec/ports/0/nodePort", value: opening.ports[0].nodePort },
+      { op: "replace", path: "/spec/ports/0/nodePort", value: contract.reservedArgocdServerNodePort },
+    ];
+    kubectl(contract.cluster, [
+      "patch", "service", "argocd-server", "-n", "argocd",
+      "--type=json", "-p", JSON.stringify(patch),
+    ]);
+    const closing = JSON.parse(kubectl(contract.cluster, ["get", "service", "argocd-server", "-n", "argocd", "-o", "json"]));
+    const verified = assertArgocdServerNodePortEvidenceShape(contract, { items: [closing] }, { requireReserved: true });
+    check(verified.uid === opening.uid, `${contract.cluster}: argocd-server identity changed while restoring its reserved NodePort`);
+    recordAction(
+      state,
+      "cluster-service-nodeport",
+      `${contract.cluster}/argocd/argocd-server`,
+      `${opening.ports[0].nodePort}->${contract.reservedArgocdServerNodePort}`,
+    );
+  }
+}
+
+function argocdServerNodePortDisposition(contract, nodePort) {
+  if (nodePort === contract.reservedArgocdServerNodePort) return "current";
+  check(
+    nodePort === contract.reservedArgocdServerNodePort + 8,
+    `${contract.cluster}: refusing to normalize foreign argocd-server NodePort drift ${nodePort}; expected reserved ${contract.reservedArgocdServerNodePort} or declared recovery ${contract.reservedArgocdServerNodePort + 8}`,
+  );
+  return "declared-recovery";
+}
+
 function recordAction(state, type, ref, detail = "") {
-  state.actions.push({ type, ref, ...(detail ? { detail } : {}) });
+  recordStructuredAction(state, { type, ref, ...(detail ? { detail } : {}) });
+}
+
+function recordStructuredAction(state, action) {
+  state.actions.push(action);
+  attributeSuccessfulMutationForAction(action.type);
 }
 
 function reconcileClusters(spaces, desired, state) {
@@ -3273,12 +5208,14 @@ function reconcileClusters(spaces, desired, state) {
   } else if (existingCount === FLEET.length) {
     check(spaces.has("argobot-base"), "argobot-base is missing while persistent clusters exist; refusing partial repair");
     assertDeliveryTopology(spaces, desired, {
+      allowLegacyBootstrapAutomated: true,
       fleet: initialStates.filter((entry) => !entry.absent).map((entry) => entry.item),
     });
   } else {
     check(bootstrap?.state === "started", "partial fleet bootstrap lacks an active operation journal");
     check(spaces.has("argobot-base"), "argobot-base is missing while a journaled persistent cluster exists");
     assertDeliveryTopology(spaces, desired, {
+      allowLegacyBootstrapAutomated: true,
       fleet: initialStates.filter((entry) => !entry.absent).map((entry) => entry.item),
     });
   }
@@ -3304,6 +5241,7 @@ function reconcileClusters(spaces, desired, state) {
     );
     bootstrap = checkpointFleetBootstrapCluster(item.cluster);
     state.fleetBootstrapJournal = bootstrap;
+    refreshApplyReadSnapshotAtPhaseBoundary(`post-cluster-up-${item.cluster}`);
   }
 
   const refreshed = readSpaces();
@@ -3318,7 +5256,7 @@ function reconcileClusters(spaces, desired, state) {
   for (const slug of ["argobot-base", ...FLEET.map((item) => `argobot-${item.cluster}`)]) {
     check(refreshed.has(slug), `${slug}: delivery Space missing after cluster reconciliation; refusing partial repair`);
   }
-  assertDeliveryTopology(refreshed, desired);
+  assertDeliveryTopology(refreshed, desired, { allowLegacyBootstrapAutomated: true });
   for (const item of FLEET) {
     const reachable = kubectlTry(item.cluster, ["get", "namespace", "kube-system", "-o", "name"]);
     check(reachable.ok && /namespace\/kube-system/.test(reachable.output), `${item.cluster}: kubeconfig/context does not reach the expected persistent kind cluster`);
@@ -3344,6 +5282,7 @@ function ensureDefinitionSpaces(
       "--quiet",
     ]);
     recordAction(state, "space-create", item.slug);
+    spaces = readSpaces();
   }
 }
 
@@ -3376,6 +5315,7 @@ function reconcileSpaceLabels(
       "--quiet",
     ]);
     recordAction(state, "space-metadata", item.slug);
+    spaces = readSpaces();
   }
 }
 
@@ -3413,7 +5353,6 @@ function reconcileDeliveryApplicationMetadata(
 ) {
   for (const fleetItem of FLEET) {
     const appSpace = `${fleetItem.cluster}-argo-apps`;
-    const observedBySlug = new Map(readUnitRows(appSpace).map((unit) => [unit.Slug, unit]));
     const requiredSlugs = ["root", `argobot-${fleetItem.cluster}`];
     for (const slug of expectedArgoApplicationSlugs(desired, fleetItem)) {
       const deployment = desired.deployments.find(
@@ -3422,7 +5361,7 @@ function reconcileDeliveryApplicationMetadata(
       reconcileApplicationUnitLabels(desired, fleetItem, slug, state, {
         required: requireAll || requiredSlugs.includes(slug),
         assertOnly: Boolean(deployment && assertOnlySourceSpaces.has(deployment.space)),
-        observedUnit: observedBySlug.get(slug) ?? null,
+        observedUnit: readUnit(appSpace, slug),
       });
     }
   }
@@ -3572,8 +5511,8 @@ function ensureVariantSpace(
   state,
   { assertOnly = false } = {},
 ) {
-  const existing = cubTry(["space", "get", space, "-o", "json"]);
-  if (!existing.ok) {
+  const live = readSpaces().get(space) ?? null;
+  if (!live) {
     check(!assertOnly, `${space}: scenario variant is missing during in-flight recovery`);
     cub([
       "variant", "create", variantName, upstreamSpace,
@@ -3590,7 +5529,6 @@ function ensureVariantSpace(
     state.changedSpaces.add(space);
     return;
   }
-  const live = unwrapEntity(JSON.parse(existing.output), "Space");
   const cohort = live.Labels?.ExampleCohort;
   check(!cohort || [EXAMPLE_COHORT, PRIOR_COHORT].includes(cohort), `${space}: refuses foreign existing variant`);
   const target = readTarget(fleetItem.cluster);
@@ -3607,6 +5545,22 @@ function assertUnitAllowlist(space, expectedSlugs) {
   const actual = readUnitRows(space).map((item) => item.Slug).sort();
   const expected = [...expectedSlugs].sort();
   check(stableJson(actual) === stableJson(expected), `${space}: unsafe Unit inventory; expected ${expected.join(", ")}, got ${actual.join(", ")}`);
+}
+
+function assertManagedUnitInventory(desired) {
+  const expectedBySpace = new Map();
+  for (const unit of desired.managedUnits) {
+    if (!expectedBySpace.has(unit.space)) expectedBySpace.set(unit.space, []);
+    expectedBySpace.get(unit.space).push(unit.slug);
+  }
+  for (const [space, slugs] of expectedBySpace) {
+    assertUnitAllowlist(
+      space,
+      space === CONTROL_SPACE
+        ? [...slugs, ...PRESERVED_FAITHFUL_CONTROL_UNITS.map((item) => item.slug)]
+        : slugs,
+    );
+  }
 }
 
 function assertPreservedFaithfulControlUnits() {
@@ -3742,7 +5696,7 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
         `${expected.space}/${expected.slug}: unsafe upstream mismatch; expected ${expected.upstream}, refusing partial variant repair`,
       );
     }
-    if (!sameUnitData(expected.toolchain, cub(["unit", "data", "--space", expected.space, expected.slug]), payload.value)) {
+    if (!sameUnitData(expected.toolchain, readUnitData(expected.space, expected.slug), payload.value)) {
       cub([
         "unit", "update", "--space", expected.space,
         expected.slug, path,
@@ -3777,6 +5731,8 @@ function upsertUnit(expected, inputs, payloadFiles, state, { payloadKey = expect
       ]);
       recordAction(state, "unit-metadata", `${expected.space}/${expected.slug}`);
       state.changedSpaces.add(expected.space);
+      current = readUnit(expected.space, expected.slug);
+      check(current, `${expected.space}/${expected.slug}: metadata-updated Unit is not observable`);
     }
   }
 
@@ -3825,7 +5781,7 @@ function upsertScenarioUnitAtomically(expected, inputs, payloadFiles, state, pay
   const staleAnnotations = staleOwnedPublicAnnotations(live.Annotations, annotations);
   const dataMatches = sameUnitData(
     expected.toolchain,
-    cub(["unit", "data", "--space", expected.space, expected.slug]),
+    readUnitData(expected.space, expected.slug),
     payload.value,
   );
   const metadataMatches = mapMatches(live.Labels, expected.labels)
@@ -3896,8 +5852,8 @@ function gateEnabled(value, name) {
   return value?.[name] === true;
 }
 
-function ensureUnitProtection(space, slug, state, observedUnit = null) {
-  const unit = observedUnit ?? readUnit(space, slug);
+function ensureUnitProtection(space, slug, state, _observedUnit = null) {
+  const unit = readUnit(space, slug);
   check(unit, `${space}/${slug}: Unit is missing before protection reconciliation`);
   if (gateEnabled(unit.DeleteGates, PROD_SAFETY_GATE) && gateEnabled(unit.DestroyGates, PROD_SAFETY_GATE)) return;
   cub([
@@ -3924,11 +5880,14 @@ function ensureArgoApplication(deployment, state, { assertOnly = false } = {}) {
     assertOnly,
     observedUnit: existing,
   });
-  const currentData = cub(["unit", "data", "--space", deployment.appSpace, deployment.appUnit]);
+  const currentData = readUnitData(deployment.appSpace, deployment.appUnit);
   const docs = parseDocs(currentData);
   check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one Argo Application`);
   const app = docs[0];
-  assertArgoApplicationContract(app, deployment, { allowMissingDestinationNamespace: true });
+  assertArgoApplicationContract(app, deployment, {
+    allowMissingDestinationNamespace: true,
+    allowAutomated: true,
+  });
   app.spec ??= {};
   app.spec.destination = {
     server: "https://kubernetes.default.svc",
@@ -3974,6 +5933,7 @@ function certificateIgnoreDifferences() {
 }
 
 function applicationSyncOptions(deployment) {
+  if (deployment.deliveryRoot) return rootApplicationSyncOptions();
   return [
     "CreateNamespace=false",
     "PruneLast=true",
@@ -3982,6 +5942,46 @@ function applicationSyncOptions(deployment) {
     "ApplyOutOfSyncOnly=true",
     ...(deployment.serverSideApply ? ["ServerSideApply=true"] : []),
   ];
+}
+
+function deliveryRootDeployment(cluster) {
+  const space = `${cluster}-argo-apps`;
+  return {
+    id: `${space}-root`,
+    type: "delivery-root",
+    deliveryRoot: true,
+    cluster,
+    space,
+    appSpace: space,
+    appUnit: space,
+    destinationNamespace: "argocd",
+    acceptedHealth: ["Healthy"],
+  };
+}
+
+function assertDeliveryRootApplicationContract(app, deployment) {
+  check(app.metadata?.name === deployment.space, `${deployment.cluster}/${deployment.space}: root Application metadata.name drifted`);
+  check(app.metadata?.namespace === "argocd", `${deployment.cluster}/${deployment.space}: root Application namespace is not argocd`);
+  check(app.spec?.project === "default", `${deployment.cluster}/${deployment.space}: root Application project drifted`);
+  assertNoMultipleSources(app, `${deployment.cluster}/${deployment.space}: root Application`);
+  assertExactObjectKeys(app.spec?.source, ["path", "repoURL", "targetRevision"], `${deployment.cluster}/${deployment.space}: root source`);
+  assertExactObjectKeys(app.spec?.destination, ["namespace", "server"], `${deployment.cluster}/${deployment.space}: root destination`);
+  check(
+    app.spec?.source?.repoURL === `${CONFIGHUB_OCI_SPACE_PREFIX}${deployment.space}`
+      && app.spec?.source?.targetRevision === "latest"
+      && app.spec?.source?.path === ".",
+    `${deployment.cluster}/${deployment.space}: root Application source drifted`,
+  );
+  check(
+    app.spec?.destination?.server === "https://kubernetes.default.svc"
+      && app.spec?.destination?.namespace === "argocd",
+    `${deployment.cluster}/${deployment.space}: root Application destination drifted`,
+  );
+  check(!app.spec?.syncPolicy?.automated, `${deployment.cluster}/${deployment.space}: root Application must not automatically deploy :latest`);
+  check(
+    stableJson(app.spec?.syncPolicy?.syncOptions ?? []) === stableJson(rootApplicationSyncOptions()),
+    `${deployment.cluster}/${deployment.space}: root Application sync options drifted`,
+  );
 }
 
 function applicationRetryPolicy() {
@@ -3997,20 +5997,25 @@ function applicationRetryPolicy() {
 
 function applicationSyncPolicy(deployment) {
   return {
-    automated: {
-      prune: true,
-      selfHeal: true,
-      allowEmpty: true,
-    },
     syncOptions: applicationSyncOptions(deployment),
     retry: applicationRetryPolicy(),
   };
 }
 
-function assertArgoApplicationContract(app, deployment, { allowMissingDestinationNamespace = false } = {}) {
+function assertArgoApplicationContract(
+  app,
+  deployment,
+  { allowMissingDestinationNamespace = false, allowAutomated = false } = {},
+) {
+  if (deployment.deliveryRoot) {
+    assertDeliveryRootApplicationContract(app, deployment);
+    return;
+  }
   check(app.metadata?.name === deployment.appUnit, `${deployment.appSpace}/${deployment.appUnit}: Application metadata.name drifted`);
   check(app.metadata?.namespace === "argocd", `${deployment.appSpace}/${deployment.appUnit}: Application namespace is not argocd`);
   check(app.spec?.project === "default", `${deployment.appSpace}/${deployment.appUnit}: Application project is not default`);
+  assertNoMultipleSources(app, `${deployment.appSpace}/${deployment.appUnit}: Application`);
+  assertExactObjectKeys(app.spec?.source, ["path", "repoURL", "targetRevision"], `${deployment.appSpace}/${deployment.appUnit}: source`);
   check(
     app.spec?.source?.repoURL === `${CONFIGHUB_OCI_SPACE_PREFIX}${deployment.space}`,
     `${deployment.appSpace}/${deployment.appUnit}: Application source is not the allowlisted ConfigHub Space ${deployment.space}`,
@@ -4022,11 +6027,22 @@ function assertArgoApplicationContract(app, deployment, { allowMissingDestinatio
     `${deployment.appSpace}/${deployment.appUnit}: Application destination is not the cluster-local API`,
   );
   const actualNamespace = app.spec?.destination?.namespace;
+  assertExactObjectKeys(
+    app.spec?.destination,
+    allowMissingDestinationNamespace && actualNamespace == null ? ["server"] : ["namespace", "server"],
+    `${deployment.appSpace}/${deployment.appUnit}: destination`,
+  );
   check(
     actualNamespace === deployment.destinationNamespace
       || (allowMissingDestinationNamespace && actualNamespace == null),
     `${deployment.appSpace}/${deployment.appUnit}: Application destination namespace is not ${deployment.destinationNamespace}`,
   );
+  if (!allowAutomated) {
+    check(
+      !app.spec?.syncPolicy?.automated,
+      `${deployment.appSpace}/${deployment.appUnit}: automated sync bypasses ConfigHub's exact-digest release authority`,
+    );
+  }
 }
 
 function reconcileProdPolicies(desired, state, { requireAll = true, assertOnly = false } = {}) {
@@ -4034,15 +6050,15 @@ function reconcileProdPolicies(desired, state, { requireAll = true, assertOnly =
   check(filter?.FilterID, `${CONTROL_SPACE}/${APPROVAL_FILTER}: filter ID is missing`);
   const trigger = unwrapEntity(cubJson(["trigger", "get", "--space", CONTROL_SPACE, APPROVAL_TRIGGER]), "Trigger");
   check(trigger?.TriggerID, `${CONTROL_SPACE}/${APPROVAL_TRIGGER}: trigger ID is missing`);
-  const control = unwrapEntity(cubJson(["space", "get", CONTROL_SPACE]), "Space");
+  let knownSpaces = readSpaces();
+  const control = knownSpaces.get(CONTROL_SPACE);
   check(control?.SpaceID, `${CONTROL_SPACE}: Space ID is missing`);
   const legacyControlWhere = `SpaceID = '${control.SpaceID}'`;
   const prodSpaces = desired.spaces.filter((item) => item.prodProtected);
-  const knownSpaces = readSpaces();
   for (const expected of prodSpaces) {
     if (!knownSpaces.has(expected.slug) && !requireAll) continue;
     check(knownSpaces.has(expected.slug), `${expected.slug}: production Space is missing`);
-    const live = unwrapEntity(cubJson(["space", "get", expected.slug]), "Space");
+    const live = knownSpaces.get(expected.slug);
     const whereTrigger = live.WhereTrigger ?? "";
     const triggerFilterID = live.TriggerFilterID ?? "";
     const selectedTriggers = [...(live.TriggerIDs ?? [])].sort();
@@ -4073,14 +6089,17 @@ function reconcileProdPolicies(desired, state, { requireAll = true, assertOnly =
           "--where-trigger", "-",
           "--quiet",
         ]);
+        knownSpaces = readSpaces();
       }
       cub([
         "space", "update", "--patch", expected.slug,
         "--refresh-triggers", "--quiet",
       ]);
       recordAction(state, "approval-policy", expected.slug, `${CONTROL_SPACE}/${APPROVAL_FILTER}`);
+      knownSpaces = readSpaces();
     }
-    const refreshed = unwrapEntity(cubJson(["space", "get", expected.slug]), "Space");
+    const refreshed = readSpaces().get(expected.slug);
+    check(refreshed, `${expected.slug}: production Space disappeared while reconciling approval policy`);
     check(refreshed.TriggerFilterID === filter.FilterID && !(refreshed.WhereTrigger ?? ""), `${expected.slug}: production approval Filter did not attach exactly`);
     check(stableJson([...(refreshed.TriggerIDs ?? [])].sort()) === stableJson([trigger.TriggerID]), `${expected.slug}: production Trigger selection is not exactly ${CONTROL_SPACE}/${APPROVAL_TRIGGER}`);
     for (const unit of readUnitRows(expected.slug)) {
@@ -4115,11 +6134,189 @@ function readPriorReceipt() {
   }
 }
 
+function applyAttemptLedgerHeader() {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "KubaraMiniIDPApplyAttemptLedger",
+    metadata: { name: "kubara-v0-13-0-confighub-mini-idp-attempts" },
+    spec: {
+      organizationExternalID: ORGANIZATION_EXTERNAL_ID,
+      organizationEntityID: ORGANIZATION_ENTITY_ID,
+      serverURL: CONFIGHUB_SERVER_URL,
+    },
+  };
+}
+
+function readApplyAttemptLedger({ allowMissing = true } = {}) {
+  if (!existsSync(APPLY_ATTEMPTS_PATH)) {
+    check(allowMissing, `${relativeRepo(APPLY_ATTEMPTS_PATH)} is missing`);
+    return { ...applyAttemptLedgerHeader(), attempts: [] };
+  }
+  const ledger = readYaml(APPLY_ATTEMPTS_PATH);
+  const header = applyAttemptLedgerHeader();
+  check(ledger.apiVersion === header.apiVersion && ledger.kind === header.kind, "mini-IDP apply attempt ledger kind drifted");
+  check(stableJson(ledger.metadata) === stableJson(header.metadata), "mini-IDP apply attempt ledger metadata drifted");
+  check(stableJson(ledger.spec) === stableJson(header.spec), "mini-IDP apply attempt ledger organization boundary drifted");
+  check(Array.isArray(ledger.attempts), "mini-IDP apply attempt ledger rows are invalid");
+  let priorSequence = 0;
+  for (const item of ledger.attempts) {
+    check(Number.isInteger(item.sequence) && item.sequence === priorSequence + 1, "mini-IDP apply attempt sequences are not contiguous");
+    check(UUID_PATTERN.test(item.id ?? ""), `mini-IDP apply attempt ${item.sequence} ID is invalid`);
+    check(/^sha256:[0-9a-f]{64}$/.test(item.executionFingerprint ?? ""), `mini-IDP apply attempt ${item.sequence} fingerprint is invalid`);
+    check(Number.isFinite(Date.parse(item.startedAt ?? "")), `mini-IDP apply attempt ${item.sequence} startedAt is invalid`);
+    check(["active", "pass", "failed", "interrupted"].includes(item.result), `mini-IDP apply attempt ${item.sequence} result is invalid`);
+    if (item.result === "active") {
+      check(!item.completedAt, `mini-IDP apply attempt ${item.sequence} active row has completedAt`);
+    } else {
+      check(Number.isFinite(Date.parse(item.completedAt ?? "")), `mini-IDP apply attempt ${item.sequence} completedAt is invalid`);
+      check(Date.parse(item.completedAt) >= Date.parse(item.startedAt), `mini-IDP apply attempt ${item.sequence} completed before it started`);
+    }
+    priorSequence = item.sequence;
+  }
+  check(
+    ledger.attempts.filter((item) => item.result === "active").length <= 1
+      && (!ledger.attempts.some((item) => item.result === "active") || ledger.attempts.at(-1)?.result === "active"),
+    "mini-IDP apply attempt ledger has a non-terminal active row",
+  );
+  return ledger;
+}
+
+function writeYamlAtomically(path, value, { mode } = {}) {
+  mkdirSync(dirname(path), { recursive: true });
+  const temp = `${path}.${process.pid}.tmp`;
+  writeFileSync(temp, toYaml(value), { encoding: "utf8", ...(mode ? { mode } : {}) });
+  renameSync(temp, path);
+}
+
+function writeApplyAttemptLedger(ledger) {
+  writeYamlAtomically(APPLY_ATTEMPTS_PATH, ledger, { mode: 0o600 });
+}
+
+function invalidateReceiptForAttempt(attempt, result) {
+  if (!existsSync(RECEIPT_PATH)) return;
+  const receipt = readYaml(RECEIPT_PATH);
+  check(receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "refusing to invalidate an unknown mini-IDP receipt kind");
+  receipt.status = {
+    ...(receipt.status ?? {}),
+    result,
+    deterministicReconciliationProven: false,
+    idempotentRerunProven: false,
+    latestApplyAttempt: {
+      sequence: attempt.sequence,
+      id: attempt.id,
+      result,
+      observedAt: new Date().toISOString(),
+    },
+  };
+  delete receipt.status.performanceResult;
+  delete receipt.status.performanceAcceptance;
+  delete receipt.status.performanceAcceptedAt;
+  writeReceiptAtomically(receipt);
+}
+
+function beginApplyAttempt() {
+  const ledger = readApplyAttemptLedger();
+  const now = new Date().toISOString();
+  const active = ledger.attempts.at(-1);
+  if (active?.result === "active") {
+    active.result = "interrupted";
+    active.completedAt = now;
+    active.detail = "prior process ended without a terminal attempt record";
+  }
+  const attempt = {
+    sequence: (ledger.attempts.at(-1)?.sequence ?? 0) + 1,
+    id: randomUUID(),
+    executionFingerprint: operationExecutionFingerprint(),
+    startedAt: now,
+    result: "active",
+  };
+  ledger.attempts.push(attempt);
+  writeApplyAttemptLedger(ledger);
+  invalidateReceiptForAttempt(attempt, "invalidated-by-active-attempt");
+  return { ...attempt };
+}
+
+function completeApplyAttempt(attempt, fields) {
+  const ledger = readApplyAttemptLedger({ allowMissing: false });
+  const current = ledger.attempts.at(-1);
+  check(
+    current?.sequence === attempt.sequence
+      && current.id === attempt.id
+      && (current.result === "active" || (current.result === "pass" && fields.result === "failed")),
+    "mini-IDP apply attempt continuity changed before terminal recording",
+  );
+  Object.assign(current, fields, { completedAt: new Date().toISOString() });
+  check(["pass", "failed"].includes(current.result), "mini-IDP apply terminal result is invalid");
+  writeApplyAttemptLedger(ledger);
+  return { ...current };
+}
+
+function failApplyAttempt(attempt, error, state, measurement) {
+  if (!attempt) return;
+  const performance = state?.runPerformance
+    ?? (measurement ? reconcilePerformanceEvidence(measurement, state, { complete: false }) : null);
+  if (performance && !performance.applyReadCache) {
+    const applyReadCache = currentApplyReadEvidence();
+    if (applyReadCache) performance.applyReadCache = applyReadCache;
+  }
+  completeApplyAttempt(attempt, {
+    result: "failed",
+    runClass: "incomplete-apply",
+    actionCount: state?.actions?.length ?? 0,
+    error: String(error?.message ?? error).slice(0, 1000),
+    ...(performance ? { performance } : {}),
+  });
+  invalidateReceiptForAttempt(attempt, "invalidated-by-failed-attempt");
+}
+
+function successfulAttemptPairValid(runs, ledger) {
+  const [changed, noop] = runs.slice(-2);
+  if (!changed || !noop) return false;
+  const attempts = new Map(ledger.attempts.map((item) => [item.sequence, item]));
+  const changedAttempt = attempts.get(changed.attemptSequence);
+  const noopAttempt = attempts.get(noop.attemptSequence);
+  return Number(noop.attemptSequence) === Number(changed.attemptSequence) + 1
+    && changedAttempt?.id === changed.attemptID
+    && noopAttempt?.id === noop.attemptID
+    && changedAttempt.result === "pass"
+    && noopAttempt.result === "pass"
+    && ledger.attempts.at(-1)?.sequence === noop.attemptSequence;
+}
+
+function prospectiveAttemptPairValid(runs, ledger, currentAttempt) {
+  const [changed, noop] = runs.slice(-2);
+  if (!changed || !noop) return false;
+  const changedAttempt = ledger.attempts.find((item) => item.sequence === changed.attemptSequence);
+  const latest = ledger.attempts.at(-1);
+  return Number(noop.attemptSequence) === Number(changed.attemptSequence) + 1
+    && changedAttempt?.id === changed.attemptID
+    && changedAttempt.result === "pass"
+    && latest?.sequence === currentAttempt.sequence
+    && latest.id === currentAttempt.id
+    && latest.result === "active"
+    && noop.attemptSequence === currentAttempt.sequence
+    && noop.attemptID === currentAttempt.id;
+}
+
+function assertAttemptLedgerCurrentForReceipt(receipt) {
+  const ledger = readApplyAttemptLedger({ allowMissing: false });
+  const runs = receipt.spec?.reconcileRuns ?? [];
+  const latestRun = runs.at(-1);
+  const latestAttempt = ledger.attempts.at(-1);
+  check(latestAttempt?.result === "pass", "latest mini-IDP apply attempt is not a pass; prior receipt evidence is invalidated");
+  check(
+    latestRun?.attemptSequence === latestAttempt.sequence
+      && latestRun?.attemptID === latestAttempt.id,
+    "mini-IDP receipt is not bound to the latest durable apply attempt",
+  );
+  if (receipt.status?.idempotentRerunProven === true) {
+    check(successfulAttemptPairValid(runs, ledger), "mini-IDP changed/no-op proof is not a consecutive durable attempt pair");
+  }
+  return ledger;
+}
+
 function writeReceiptAtomically(receipt) {
-  mkdirSync(dirname(RECEIPT_PATH), { recursive: true });
-  const temp = `${RECEIPT_PATH}.${process.pid}.tmp`;
-  writeFileSync(temp, toYaml(receipt), "utf8");
-  renameSync(temp, RECEIPT_PATH);
+  writeYamlAtomically(RECEIPT_PATH, receipt);
 }
 
 function assertNamespaceMoveEvidenceRow(item, prefix = "namespace-move evidence", { requireComplete = true } = {}) {
@@ -4310,7 +6507,7 @@ function validatedScenarioJournal() {
     check(Number.isFinite(Date.parse(item.completedAt ?? "")), "completed hx-web scenario journal timestamp is invalid");
     check(
       scenarioOperationProofValid(item),
-      "completed hx-web scenario journal lacks exact refusal, approval, or rollback evidence bound to its checkpoints",
+      "completed hx-web scenario journal lacks exact gate observation, approval, or rollback evidence bound to its checkpoints",
     );
   }
   return item;
@@ -4355,7 +6552,11 @@ function validatedFleetBootstrapJournal() {
       && item.rootReleases.every((release, index) => (
         release.cluster === item.rootActivatedClusters[index]
           && release.appSpace === `${release.cluster}-argo-apps`
+          && UUID_PATTERN.test(release.releaseID ?? "")
+          && UUID_PATTERN.test(release.tagID ?? "")
           && Number.isInteger(release.releaseNum)
+          && Number.isInteger(release.unitCount)
+          && release.unitCount > 0
           && /^sha256:[0-9a-f]{64}$/.test(release.bundleDigest ?? "")
           && /^sha256:[0-9a-f]{64}$/.test(release.manifestDigest ?? "")
       )),
@@ -4466,7 +6667,10 @@ function checkpointFleetRootActivation(cluster, release) {
   const evidence = {
     cluster,
     appSpace: `${cluster}-argo-apps`,
+    releaseID: validated.ReleaseID,
+    tagID: validated.TagID,
     releaseNum: Number(validated.ReleaseNum),
+    unitCount: Number(validated.UnitCount),
     bundleDigest: validated.Digest,
     manifestDigest: validated.ManifestDigest,
   };
@@ -4578,7 +6782,7 @@ function prepareScenarioJournalStep(id) {
 function scenarioOperationEvidence(actions) {
   return actions.filter((item) => [
     "variant-promote",
-    "expected-approval-block",
+    "approval-gate-observed",
     "unit-approve",
     "rollback",
   ].includes(item.type));
@@ -4687,6 +6891,15 @@ function completeScenarioJournal() {
 
 function scenarioCheckpoint() {
   const spaces = ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)];
+  return withAuthoritativeReleaseBoundarySnapshot("hx-web-scenario-checkpoint", {
+    unitSpaces: spaces,
+    targetSpaces: [],
+    linkSpaces: spaces,
+    releaseSpaces: FLEET.map((item) => `hx-web-${item.suffix}`),
+  }, () => scenarioCheckpointFromAuthoritativeSnapshot(spaces));
+}
+
+function scenarioCheckpointFromAuthoritativeSnapshot(spaces) {
   const liveSpaces = readSpaces();
   const units = [];
   for (const space of spaces) {
@@ -4852,20 +7065,24 @@ function scenarioOperationProofValid(scenario) {
     });
 
     for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
-      const refusal = evidence.find(
-        (item) => item.type === "expected-approval-block"
+      const gateObservation = evidence.find(
+        (item) => item.type === "approval-gate-observed"
           && item.ref === space
-          && item.transitionID === `base-promotion/${space}-approval-refusal`,
+          && item.transitionID === `base-promotion/${space}-approval-gate-observation`,
       );
       const approval = evidence.find(
         (item) => item.type === "unit-approve"
           && item.ref === space
           && item.transitionID === `prod-approval/${space}-approve-v1`,
       );
-      if (!refusal?.refusedHeads?.length || !approval?.approvedHeads?.length) return false;
-      const refusedHeads = refusal.refusedHeads.map(headIdentity).sort((a, b) => a.ref.localeCompare(b.ref));
+      if (
+        gateObservation?.observationMode !== "read-only-authoritative-gate"
+          || !gateObservation.gatedHeads?.length
+          || !approval?.approvedHeads?.length
+      ) return false;
+      const gatedHeads = gateObservation.gatedHeads.map(headIdentity).sort((a, b) => a.ref.localeCompare(b.ref));
       const approvedHeads = approval.approvedHeads.map(headIdentity).sort((a, b) => a.ref.localeCompare(b.ref));
-      if (stableJson(approvedHeads) !== stableJson(refusedHeads)) return false;
+      if (stableJson(approvedHeads) !== stableJson(gatedHeads)) return false;
       for (const item of approval.approvedHeads) {
         const checkpointUnit = approvedUnits.get(item.ref);
         if (
@@ -5385,9 +7602,17 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
     return deployment;
   };
   const assertDeliveryRootReusable = (deployment) => {
-    assertReleaseBoundary(deployment.appSpace);
+    const boundary = assertReleaseBoundary(deployment.appSpace);
     check(!spaceHasUnreleasedHeads(deployment.appSpace), `${deployment.appSpace}: delivery root changed inside the hx-web scenario`);
-    return validatedPublishedRelease(deployment.appSpace, latestRelease(deployment.appSpace), "scenario delivery-root release");
+    check(
+      releaseBoundaryPublishedUnitCountMatches(boundary),
+      `${deployment.appSpace}: scenario delivery-root release does not contain the exact Application Unit inventory`,
+    );
+    return validatedPublishedRelease(
+      deployment.appSpace,
+      boundary.latestPublishedRelease,
+      "scenario delivery-root release",
+    );
   };
   const scenarioUpsert = (transition, id, space, slug, payloadKey) => transition(
     id,
@@ -5433,21 +7658,27 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
       (before, after) => assertScenarioReleasePost(before, after, space, sourcePayloadKeys),
     );
     const release = validatedPublishedRelease(space, latestRelease(space), "scenario source release");
-    convergeDeploymentApplication(deployment, state, releaseManifestDigest(release));
+    convergeDeploymentApplication(
+      deployment,
+      state,
+      releaseManifestDigest(release),
+      releaseIdentity({ latestPublishedRelease: release }),
+      sourcePayloadKeys,
+    );
   };
   const assertRefusedHeadsCurrent = (space) => {
-    const refusal = state.scenarioJournal.operationEvidence.findLast(
-      (item) => item.type === "expected-approval-block" && item.ref === space,
+    const gateObservation = state.scenarioJournal.operationEvidence.findLast(
+      (item) => item.type === "approval-gate-observed" && item.ref === space,
     );
-    check(refusal?.refusedHeads?.length > 0, `${space}: exact release-refusal head evidence is missing`);
+    check(gateObservation?.gatedHeads?.length > 0, `${space}: exact approval-gate observation head evidence is missing`);
     const currentByRef = new Map(readUnitRows(space).map((unit) => [`${space}/${unit.Slug}`, unit]));
-    for (const refused of refusal.refusedHeads) {
-      const current = currentByRef.get(refused.ref);
+    for (const gated of gateObservation.gatedHeads) {
+      const current = currentByRef.get(gated.ref);
       check(
-        current?.UnitID === refused.id
-          && current.HeadRevisionNum === refused.headRevisionNum
-          && current.DataHash === refused.dataHash,
-        `${refused.ref}: current head is not the exact head refused before approval`,
+        current?.UnitID === gated.id
+          && current.HeadRevisionNum === gated.headRevisionNum
+          && current.DataHash === gated.dataHash,
+        `${gated.ref}: current head is not the exact head observed behind the gate before approval`,
       );
     }
   };
@@ -5494,11 +7725,11 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
       if (space.includes("prod-")) {
         const sourcePayloadKeys = { "hx-web-deployment": "hx-web/base/hx-web-deployment/v1" };
         transition(
-          `${space}-approval-refusal`,
-          () => assertReleaseBlockedByApproval(space, state, sourcePayloadKeys),
+          `${space}-approval-gate-observation`,
+          () => observeReleaseGateBeforeApproval(space, state, sourcePayloadKeys),
           (before, after) => check(
             stableJson(after) === stableJson(before),
-            `${space}: expected approval refusal changed live ConfigHub state`,
+            `${space}: read-only approval-gate observation changed live ConfigHub state`,
           ),
         );
       } else {
@@ -5540,7 +7771,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
         ]);
         const restoredUnit = readUnit(space, "hx-web-deployment");
         check(restoredUnit, `${space}/hx-web-deployment: restored Unit is missing`);
-        state.actions.push({
+        recordStructuredAction(state, {
           ...rollbackEvidenceFromUnits(
             {
               ref: `${space}/hx-web-deployment`,
@@ -5581,7 +7812,7 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
     );
     scenarioApprove(transition, "prod-a-approve-rollback", space);
     scenarioPublish(transition, "prod-a-publish-rollback", space, "hx-web/prod-a/hx-web-deployment/final");
-    const docs = parseDocs(cub(["unit", "data", "--space", space, "hx-web-deployment"]));
+    const docs = parseDocs(readUnitData(space, "hx-web-deployment"));
     check(docs.find((doc) => doc.kind === "Deployment")?.spec?.replicas === 2, "prod-a rollback did not restore two replicas");
   });
 
@@ -5660,11 +7891,12 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
 }
 
 function reconcileScenarioMarkers(state) {
-  const markedSpaces = readSpaces();
+  let markedSpaces = readSpaces();
   for (const slug of ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)]) {
     if (markedSpaces.get(slug)?.Labels?.ScenarioVersion === SCENARIO_VERSION) continue;
     cub(["space", "update", "--patch", slug, "--label", `ScenarioVersion=${SCENARIO_VERSION}`, "--quiet"]);
     recordAction(state, "scenario-marker", slug, SCENARIO_VERSION);
+    markedSpaces = readSpaces();
   }
 }
 
@@ -5673,7 +7905,7 @@ function hxWebUnitMatchesPayload(inputs, space, slug, payloadKey) {
   check(payload, `${space}/${slug}: reviewed hx-web payload ${payloadKey} is missing`);
   return sameUnitData(
     "Kubernetes/YAML",
-    cub(["unit", "data", "--space", space, slug]),
+    readUnitData(space, slug),
     payload.value,
   );
 }
@@ -5690,9 +7922,9 @@ function assertHxWebSpacePayloads(inputs, desired, space, deploymentPayloadKey) 
   }
 }
 
-function assertReleaseBlockedByApproval(space, state, sourcePayloadKeys = {}) {
-  assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "required" });
-  const refusedHeads = readUnitRows(space)
+function observeReleaseGateBeforeApproval(space, state, sourcePayloadKeys = {}) {
+  const opening = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "required" });
+  const gatedHeads = readUnitRows(space)
     .filter(hasApprovalGate)
     .map((unit) => ({
       ref: `${space}/${unit.Slug}`,
@@ -5701,32 +7933,46 @@ function assertReleaseBlockedByApproval(space, state, sourcePayloadKeys = {}) {
       dataHash: unit.DataHash,
     }))
     .sort((left, right) => left.ref.localeCompare(right.ref));
-  check(refusedHeads.length > 0, `${space}: no exact gated heads exist before expected release refusal`);
-  const result = cubTry(["release", "publish", space, "-o", "json"], { timeout: 1_200_000 });
-  check(!result.ok, `${space}: production release unexpectedly published before approval`);
+  check(gatedHeads.length > 0, `${space}: no exact gated heads exist before approval`);
+  // `cub release publish` has no revision/CAS precondition. A live negative
+  // publish test could race with an external approval and publish after our
+  // check. Retain the product evidence as two stable authoritative reads of
+  // the exact gated heads, and approve those numeric revisions next.
+  const closing = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "required" });
+  assertReleaseBoundaryTransition(space, opening, closing, { publicationAttempted: false });
+  const closingHeads = closing.units
+    .filter((unit) => gatedHeads.some((item) => item.ref === `${space}/${unit.slug}`))
+    .map((unit) => ({
+      ref: `${space}/${unit.slug}`,
+      id: unit.id,
+      headRevisionNum: unit.headRevisionNum,
+      dataHash: unit.dataHash,
+    }))
+    .sort((left, right) => left.ref.localeCompare(right.ref));
   check(
-    /approval|apply.?gate|vet-approvedby/i.test(result.output),
-    `${space}: release failed before approval without naming an approval gate: ${result.output.slice(0, 800)}`,
+    stableJson(closingHeads) === stableJson(gatedHeads),
+    `${space}: gated heads changed across the stable read-only gate observation`,
   );
-  state.actions.push({
-    type: "expected-approval-block",
+  recordStructuredAction(state, {
+    type: "approval-gate-observed",
     ref: space,
-    detail: result.output.slice(0, 500),
-    refusedHeads,
+    observationMode: "read-only-authoritative-gate",
+    detail: "exact gated heads observed twice; unsafe non-CAS negative publish intentionally omitted",
+    gatedHeads,
   });
 }
 
 function verifyHxWebFinalState(inputs) {
   const checks = [];
   const expectedBase = inputs.payloads.get("hx-web/base/hx-web-deployment/v2").value;
-  const baseData = cub(["unit", "data", "--space", "hx-web-base", "hx-web-deployment"]);
+  const baseData = readUnitData("hx-web-base", "hx-web-deployment");
   checks.push({
     id: "base-at-promotion-v2",
     result: sameUnitData("Kubernetes/YAML", baseData, expectedBase) ? "pass" : "fail",
   });
   for (const item of FLEET) {
     const space = `hx-web-${item.suffix}`;
-    const actual = cub(["unit", "data", "--space", space, "hx-web-deployment"]);
+    const actual = readUnitData(space, "hx-web-deployment");
     const expected = inputs.payloads.get(`hx-web/${item.suffix}/hx-web-deployment/final`).value;
     checks.push({
       id: `${item.suffix}-final-state`,
@@ -5746,32 +7992,48 @@ function approveOutstanding(space, state) {
   const rows = readUnitRows(space);
   const outstanding = rows.filter(hasApprovalGate);
   if (outstanding.length === 0) return;
-  cub([
-    "unit", "approve", "--space", space,
-    ...outstanding.flatMap((unit) => ["--unit", unit.Slug]),
-    "--revision", "HeadRevisionNum",
-    "--wait", "--quiet",
-  ]);
-  const after = readUnitRows(space);
-  const outstandingSlugs = new Set(outstanding.map((unit) => unit.Slug));
-  check(after.filter((unit) => outstandingSlugs.has(unit.Slug)).every((unit) => !hasApprovalGate(unit)), `${space}: approval gate remained after approval`);
-  const afterBySlug = new Map(after.map((unit) => [unit.Slug, unit]));
-  state.actions.push({
+  const approvedHeads = [];
+  for (const unit of outstanding) {
+    check(Number.isInteger(Number(unit.HeadRevisionNum)) && Number(unit.HeadRevisionNum) > 0, `${space}/${unit.Slug}: approval head revision is invalid`);
+    const before = readUnitRows(space).find((candidate) => candidate.UnitID === unit.UnitID);
+    check(
+      before?.Slug === unit.Slug
+        && Number(before.HeadRevisionNum) === Number(unit.HeadRevisionNum)
+        && before.DataHash === unit.DataHash
+        && hasApprovalGate(before),
+      `${space}/${unit.Slug}: exact gated head changed before numeric-revision approval`,
+    );
+    cub([
+      "unit", "approve", "--space", space, unit.UnitID,
+      "--revision", String(unit.HeadRevisionNum),
+      "--wait", "--quiet",
+    ]);
+    const current = readUnitRows(space).find((candidate) => candidate.UnitID === unit.UnitID);
+    check(current?.Slug === unit.Slug, `${space}/${unit.Slug}: Unit identity changed during approval`);
+    check(
+      Number(current.HeadRevisionNum) === Number(unit.HeadRevisionNum)
+        && current.DataHash === unit.DataHash,
+      `${space}/${unit.Slug}: approved head revision or DataHash changed during approval`,
+    );
+    check(!hasApprovalGate(current), `${space}/${unit.Slug}: approval gate remained after exact-head approval`);
+    check(
+      approvalCount(current.ApprovedBy) === approvalCount(unit.ApprovedBy) + 1,
+      `${space}/${unit.Slug}: exact-head approval count did not advance once`,
+    );
+    approvedHeads.push({
+      ref: `${space}/${unit.Slug}`,
+      id: unit.UnitID,
+      headRevisionNum: unit.HeadRevisionNum,
+      dataHash: unit.DataHash,
+      approvalCountBefore: approvalCount(unit.ApprovedBy),
+      approvalCountAfter: approvalCount(current.ApprovedBy),
+    });
+  }
+  recordStructuredAction(state, {
     type: "unit-approve",
     ref: space,
     detail: `${outstanding.length} Unit(s)`,
-    approvedHeads: outstanding.map((unit) => {
-      const current = afterBySlug.get(unit.Slug);
-      check(current?.UnitID === unit.UnitID, `${space}/${unit.Slug}: Unit identity changed during approval`);
-      return {
-        ref: `${space}/${unit.Slug}`,
-        id: unit.UnitID,
-        headRevisionNum: unit.HeadRevisionNum,
-        dataHash: unit.DataHash,
-        approvalCountBefore: approvalCount(unit.ApprovedBy),
-        approvalCountAfter: approvalCount(current.ApprovedBy),
-      };
-    }).sort((left, right) => left.ref.localeCompare(right.ref)),
+    approvedHeads: approvedHeads.sort((left, right) => left.ref.localeCompare(right.ref)),
   });
 }
 
@@ -5791,12 +8053,14 @@ function deployOne(deployment, state, { sourcePayloadKeys = {} } = {}) {
   ensureDeliveryRootPublished(deployment, state);
   if (deployment.space.includes("prod-")) approveOutstanding(deployment.space, state);
   const release = publishRelease(deployment.space, state, { sourcePayloadKeys });
-  if (state.performancePhases.length === 0) {
-    state.performancePhases.push(
-      performancePhaseEvidence("apply-start-to-first-argo-convergence", state.performancePhaseStart),
-    );
-  }
-  convergeDeploymentApplication(deployment, state, releaseManifestDigest(release));
+  if (deployment.cluster === "hx-app-dev" && state.performancePhases.length === 0) markFirstDevConvergenceStart();
+  convergeDeploymentApplication(
+    deployment,
+    state,
+    releaseManifestDigest(release),
+    releaseIdentity({ latestPublishedRelease: release }),
+    sourcePayloadKeys,
+  );
 }
 
 function ensureDeliveryRootPublished(deployment, state) {
@@ -5813,14 +8077,22 @@ function assertPublishedDeliveryRootsRemainCurrent(state) {
   for (const fleetItem of FLEET) {
     const appSpace = `${fleetItem.cluster}-argo-apps`;
     check(state.deliveryRootReleases.has(fleetItem.cluster), `${fleetItem.cluster}: delivery-root release evidence is missing`);
-    check(!spaceHasUnreleasedHeads(appSpace), `${appSpace}: Application metadata changed after the one cluster-root publication`);
+    check(!spaceHasUnreleasedHeads(appSpace), `${appSpace}: Application metadata changed after authoritative cluster-root selection/publication`);
   }
 }
 
 function publishDeliveryRoot(deployment, state) {
   let bootstrap = state.fleetBootstrapJournal;
   if (bootstrap?.state !== "started" || bootstrap.rootActivatedClusters.includes(deployment.cluster)) {
-    return publishRelease(deployment.appSpace, state);
+    const release = publishRelease(deployment.appSpace, state);
+    const root = deliveryRootDeployment(deployment.cluster);
+    convergeDeploymentApplication(
+      root,
+      state,
+      releaseManifestDigest(release),
+      releaseIdentity({ latestPublishedRelease: release }),
+    );
+    return release;
   }
   const expectedCluster = bootstrap.expectedClusters[bootstrap.rootActivatedClusters.length];
   check(
@@ -5840,11 +8112,21 @@ function publishDeliveryRoot(deployment, state) {
       `${deployment.cluster}: refusing first root activation because ${slug} already has a published :latest`,
     );
   }
+  const root = deliveryRootDeployment(deployment.cluster);
+  const liveRoot = readLiveArgoApplication(root);
+  assertDeliveryRootApplicationContract(liveRoot, root);
+  const rootOperationPhase = liveRoot.status?.operationState?.phase ?? "Unknown";
+  check(
+    !liveRoot.operation && !["Running", "Terminating"].includes(rootOperationPhase),
+    `${deployment.cluster}/${deployment.appSpace}: live root has an active operation before first governed activation`,
+  );
   if (!bootstrap.preparedRootCluster) {
-    check(
-      !hasRelease(deployment.appSpace),
-      `${deployment.appSpace}: unjournaled delivery-root release exists before first activation`,
-    );
+    // `cub cluster up` and `cub variant create --target` publish intermediate
+    // apps-Space releases as part of their normal topology construction. They
+    // are retained history, not activation authority: the live root was fenced
+    // before variant creation, every source Space is still release-empty, and
+    // publishRelease below will reuse or create only a complete strict no-auto
+    // delivery-root boundary before recording its exact digest.
     bootstrap = prepareFleetRootActivation(deployment.cluster);
     state.fleetBootstrapJournal = bootstrap;
   } else {
@@ -5857,6 +8139,12 @@ function publishDeliveryRoot(deployment, state) {
   bootstrap = checkpointFleetRootActivation(deployment.cluster, release);
   state.fleetBootstrapJournal = bootstrap;
   recordAction(state, "fleet-root-activate", deployment.appSpace, `manifest=${releaseManifestDigest(release)}`);
+  convergeDeploymentApplication(
+    root,
+    state,
+    releaseManifestDigest(release),
+    releaseIdentity({ latestPublishedRelease: release }),
+  );
   return release;
 }
 
@@ -5879,15 +8167,17 @@ function waitForArgoApplicationContract(deployment) {
   for (let attempt = 0; attempt < 60; attempt += 1) {
     app = readLiveArgoApplication(deployment, { allowNotFound: true });
     if (!app) {
-      command("sleep", ["2"]);
+      command("sleep", ["2"], { waitReason: "argo-application-contract" });
       continue;
     }
     try {
-      assertArgoApplicationContract(app, deployment);
+      assertArgoApplicationContract(app, deployment, {
+        allowAutomated: deployment.deliveryRoot === true,
+      });
       return app;
     } catch (error) {
       contractError = error.message;
-      command("sleep", ["2"]);
+      command("sleep", ["2"], { waitReason: "argo-application-contract" });
     }
   }
   check(false, `${deployment.cluster}/${deployment.space}: live Argo Application contract did not converge: ${contractError}`);
@@ -6012,6 +8302,22 @@ function reserveConvergenceSync(key) {
     reserved = entry.syncReservations;
   });
   return reserved;
+}
+
+function releaseUnusedConvergenceSyncReservation(key, reservation) {
+  let remaining = null;
+  updateOperationJournal((journal) => {
+    const entry = journal.convergence[key];
+    check(entry, `${key}: convergence journal entry is missing before unused sync reservation release`);
+    check(
+      entry.syncReservations === reservation && reservation > 0,
+      `${key}: convergence journal sync reservation changed before a confirmed no-side-effect release`,
+    );
+    entry.syncReservations -= 1;
+    entry.updatedAt = new Date().toISOString();
+    remaining = entry.syncReservations;
+  });
+  return remaining;
 }
 
 function clearConvergenceJournalEntry(journal, key) {
@@ -6170,7 +8476,7 @@ function waitForNamespaceMoveUIDGone(deployment, migration, uid) {
         ? `original-uid-gone-replaced-by-${current.metadata.uid}`
         : "original-uid-gone";
     }
-    command("sleep", ["1"]);
+    command("sleep", ["1"], { waitReason: "namespace-move-uid-gone" });
   }
   check(false, `${deployment.cluster}: namespace-move UID ${uid} was not deleted within 2 minutes`);
 }
@@ -6553,7 +8859,13 @@ function detachDeclaredProtectedNamespaceOwnership(deployment, state, app, expec
   return true;
 }
 
-function convergeDeploymentApplication(deployment, state, expectedRevision) {
+function convergeDeploymentApplication(
+  deployment,
+  state,
+  expectedRevision,
+  expectedReleaseIdentity,
+  sourcePayloadKeys = {},
+) {
   check(deployment, "internal error: deployment definition missing during Argo convergence");
   check(/^sha256:[0-9a-f]{64}$/.test(expectedRevision), `${deployment.space}: invalid expected ConfigHub revision ${expectedRevision}`);
   let firstApp = waitForArgoApplicationContract(deployment);
@@ -6567,21 +8879,36 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
   while (true) {
     let app = firstApp ?? readLiveArgoApplication(deployment);
     firstApp = null;
-    assertArgoApplicationContract(app, deployment);
-    if (detachDeclaredProtectedNamespaceOwnership(deployment, state, app, expectedRevision)) {
-      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+    assertArgoApplicationContract(app, deployment, {
+      allowAutomated: deployment.deliveryRoot === true,
+    });
+    if (!deployment.deliveryRoot && detachDeclaredProtectedNamespaceOwnership(deployment, state, app, expectedRevision)) {
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "protected-namespace-settle" });
       app = readLiveArgoApplication(deployment);
       assertArgoApplicationContract(app, deployment);
     }
-    if (pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevision)) {
-      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+    if (!deployment.deliveryRoot && pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevision)) {
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "namespace-move-uid-gone" });
       app = readLiveArgoApplication(deployment);
       assertArgoApplicationContract(app, deployment);
     }
     last = argoObservation(app);
     const disposition = argoConvergenceState(app, deployment, expectedRevision);
     if (disposition === "accepted") {
+      // The one-time root migration may be read while its old self-managed
+      // revision still has automation. Acceptance is only valid after the
+      // exact new root digest has removed that authority from the live object.
+      assertArgoApplicationContract(app, deployment);
       clearConvergenceJournal(convergenceJournal.key);
+      if (!deployment.deliveryRoot && deployment.cluster === "hx-app-dev" && state.performancePhases.length === 0) {
+        markFirstDevAccepted();
+        const phase = performancePhaseEvidence(
+          "apply-start-to-first-argo-convergence",
+          state.performancePhaseStart,
+        );
+        state.performancePhases.push(phase);
+        if (activeReconcilePerformance) activeReconcilePerformance.phases.push(phase);
+      }
       return last;
     }
 
@@ -6606,7 +8933,7 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
         withinDeadline(activeWaitStartedAt, now, ARGO_OPERATION_TIMEOUT_MS),
         `${deployment.cluster}/${deployment.space}: active Argo operation exceeded ${ARGO_OPERATION_TIMEOUT_MS / 60000} minutes without takeover; expected revision ${expectedRevision}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(elapsed / 1000), syncRequests })}`,
       );
-      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "argo-active-operation" });
       continue;
     }
 
@@ -6625,7 +8952,7 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
         withinDeadline(healthWaitStartedAt, now, ARGO_HEALTH_TIMEOUT_MS),
         `${deployment.cluster}/${deployment.space}: exact-revision health did not settle within ${ARGO_HEALTH_TIMEOUT_MS / 60000} minutes; no resync was submitted; expected health ${deployment.acceptedHealth.join("|")}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(elapsed / 1000), syncRequests })}`,
       );
-      command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "argo-health-pending" });
       continue;
     }
 
@@ -6635,17 +8962,36 @@ function convergeDeploymentApplication(deployment, state, expectedRevision) {
       `${deployment.cluster}/${deployment.space}: exhausted ${ARGO_MAX_SYNC_REQUESTS} actual Argo sync requests; expected revision ${expectedRevision}, Synced, and health ${deployment.acceptedHealth.join("|")}, got ${stableJson(last)}`,
     );
     syncRequests = reserveConvergenceSync(convergenceJournal.key);
-    requestArgoSyncIfNeeded(
+    const submitted = requestArgoSyncIfNeeded(
       deployment,
       state,
       syncRequests,
       expectedRevision,
+      expectedReleaseIdentity,
+      sourcePayloadKeys,
     );
-    command("sleep", [String(ARGO_OBSERVE_SECONDS)]);
+    if (!submitted) {
+      // The request helper returns false only after proving that no operation
+      // was submitted (state changed before CAS, or Kubernetes rejected a
+      // tested UID/resourceVersion). Unknown transport outcomes throw and keep
+      // the durable reservation fail-closed across restart.
+      syncRequests = releaseUnusedConvergenceSyncReservation(
+        convergenceJournal.key,
+        syncRequests,
+      );
+    }
+    command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "argo-retry-backoff" });
   }
 }
 
-function requestArgoSyncIfNeeded(deployment, state, syncAttempt, expectedRevision) {
+function requestArgoSyncIfNeeded(
+  deployment,
+  state,
+  syncAttempt,
+  expectedRevision,
+  expectedReleaseIdentity,
+  sourcePayloadKeys,
+) {
   let app = waitForArgoApplicationContract(deployment);
   if (argoConvergenceState(app, deployment, expectedRevision) !== "retryable") return false;
 
@@ -6661,33 +9007,100 @@ function requestArgoSyncIfNeeded(deployment, state, syncAttempt, expectedRevisio
       refreshProcessed = true;
       break;
     }
-    command("sleep", ["2"]);
+    command("sleep", ["2"], { waitReason: "argo-refresh-ack" });
   }
   check(refreshProcessed, `${deployment.cluster}/${deployment.space}: Argo hard refresh was not processed`);
-  assertArgoApplicationContract(app, deployment);
+  assertArgoApplicationContract(app, deployment, {
+    allowAutomated: deployment.deliveryRoot === true,
+  });
   if (argoConvergenceState(app, deployment, expectedRevision) !== "retryable") return false;
+
+  assertReleaseStreamStillCurrent(
+    deployment.space,
+    expectedReleaseIdentity,
+    expectedRevision,
+    sourcePayloadKeys,
+  );
 
   const operation = {
     initiatedBy: { username: "helm-expt-kubara-mini-idp" },
     sync: {
       revision: expectedRevision,
-      prune: true,
+      prune: deployment.deliveryRoot ? false : true,
       syncOptions: applicationSyncOptions(deployment),
     },
     retry: applicationRetryPolicy(),
   };
-  check(app.metadata?.resourceVersion, `${deployment.cluster}/${deployment.space}: Application resourceVersion missing before sync compare-and-set`);
+  check(app.metadata?.uid && app.metadata?.resourceVersion, `${deployment.cluster}/${deployment.space}: Application UID/resourceVersion missing before sync compare-and-set`);
   const submitted = kubectlTry(deployment.cluster, [
     "patch", "application", deployment.space, "-n", "argocd",
     "--type=json", "--patch", JSON.stringify([
+      { op: "test", path: "/metadata/uid", value: app.metadata.uid },
       { op: "test", path: "/metadata/resourceVersion", value: app.metadata.resourceVersion },
       { op: "add", path: "/operation", value: operation },
     ]),
   ]);
   if (!submitted.ok && retryableKubernetesCompareAndSet(submitted.output)) return false;
   check(submitted.ok, `${deployment.cluster}/${deployment.space}: failed to submit compare-and-set Argo sync operation`);
+  recordArgoSyncRequest();
   recordAction(state, "argo-sync-request", `${deployment.cluster}/${deployment.space}`, `sync attempt ${syncAttempt}; Kubara prune semantics`);
   return true;
+}
+
+function assertReleaseStreamStillCurrent(
+  space,
+  expectedIdentity,
+  expectedRevision,
+  sourcePayloadKeys = {},
+) {
+  check(expectedIdentity, `${space}: expected release identity is missing before Argo compare-and-set`);
+  check(!activeSourceReleaseBoundarySnapshot, `${space}: pre-Argo dependency snapshot overlaps another release boundary`);
+  if (activeAuthoritativeReleaseReuseBatch) {
+    // A release selected from the frozen no-write batch needs its complete,
+    // source-specific dependency closure refreshed before a side effect. This
+    // path stays out of accepted no-op runs because an already-converged Argo
+    // Application never requests a sync.
+    const boundary = assertReleaseBoundary(space, {
+      sourcePayloadKeys,
+      approvalMode: "clear",
+    });
+    const latest = validatedPublishedRelease(
+      space,
+      boundary.latestPublishedRelease,
+      "dependency-refreshed pre-Argo published release",
+    );
+    check(
+      stableJson(releaseIdentity(boundary)) === stableJson(expectedIdentity)
+        && latest.ManifestDigest === expectedRevision,
+      `${space}: dependency-refreshed release changed before Argo compare-and-set`,
+    );
+    return;
+  }
+
+  // A newly published stream already passed a complete opening and closing
+  // dependency boundary. Immediately before the Kubernetes CAS, refresh only
+  // the two authority-bearing rows: exact Unit heads and Published Release.
+  const units = fetchUnitRows(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
+  check(units.length > 0, `${space}: authoritative pre-Argo Unit stream is empty`);
+  for (const unit of units) {
+    decodeBulkUnitData(unit, `${space}/${unit.Slug}`);
+    check(
+      Number(unit.HeadRevisionNum) === Number(unit.LastAppliedRevisionNum),
+      `${space}/${unit.Slug}: Unit head changed after release selection and before Argo compare-and-set`,
+    );
+  }
+  const latest = validatedPublishedRelease(
+    space,
+    fetchPublishedReleases(space)[0],
+    "authoritative pre-Argo published release",
+  );
+  assertPublishedReleaseUnitCount(space, latest, units.length, "authoritative pre-Argo published release");
+  const currentIdentity = releaseIdentity({ latestPublishedRelease: latest });
+  check(
+    stableJson(currentIdentity) === stableJson(expectedIdentity)
+      && latest.ManifestDigest === expectedRevision,
+    `${space}: latest published release changed after selection and before Argo compare-and-set`,
+  );
 }
 
 function spaceHasUnreleasedHeads(space) {
@@ -6699,28 +9112,60 @@ function spaceHasUnreleasedHeads(space) {
 }
 
 function hasRelease(space) {
-  const result = cubTry([
-    "release", "list", "--space", space,
-    "--where", "Published = true",
-    "--select", "Digest,ManifestDigest,ReleaseNum,CreatedAt", "-o", "json",
-  ]);
-  check(result.ok, `${space}: failed to inspect published releases: ${result.output}`);
-  return unwrapRows(JSON.parse(result.output), "Release").length > 0;
+  return Boolean(latestRelease(space));
 }
 
 function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
-  const boundarySnapshot = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
-  const hasUnreleasedHeads = releaseBoundaryHasUnreleasedHeads(space, boundarySnapshot);
-  const current = latestRelease(space);
-  if (releasePublicationDecision({ hasUnreleasedHeads, hasPublishedRelease: Boolean(current) }) === "reuse") {
+  const cachedSnapshot = activeAuthoritativeReleaseReuseBatch
+    ? withAuthoritativeReleaseReuseBatch(
+        space,
+        () => assertReleaseBoundaryFromCurrentReadView(space, {
+          sourcePayloadKeys,
+          approvalMode: "clear",
+        }),
+      )
+    : assertReleaseBoundaryFromCurrentReadView(space, {
+        sourcePayloadKeys,
+        approvalMode: "clear",
+      });
+  if (releasePublicationDecision({
+    hasUnreleasedHeads: releaseBoundaryHasUnreleasedHeads(space, cachedSnapshot),
+    hasPublishedRelease: Boolean(cachedSnapshot.latestPublishedRelease),
+    publishedUnitCountMatches: releaseBoundaryPublishedUnitCountMatches(cachedSnapshot),
+  }) === "reuse") {
+    if (!activeAuthoritativeReleaseReuseBatch) {
+      const authoritative = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+      check(
+        !releaseBoundaryHasUnreleasedHeads(space, authoritative)
+          && authoritative.latestPublishedRelease,
+        `${space}: cached release reuse was not confirmed by the authoritative boundary`,
+      );
+      assertReleaseBoundaryTransition(space, cachedSnapshot, authoritative, { publicationAttempted: false });
+      state.changedSpaces.delete(space);
+      return validatedPublishedRelease(
+        space,
+        authoritative.latestPublishedRelease,
+        "authoritatively revalidated published release",
+      );
+    }
     state.changedSpaces.delete(space);
-    assertReleaseBoundaryTransition(
+    return validatedPublishedRelease(
       space,
-      boundarySnapshot,
-      assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" }),
-      { publicationAttempted: false },
+      cachedSnapshot.latestPublishedRelease,
+      "dependency-closed batch-pinned existing published release",
     );
-    return validatedPublishedRelease(space, current, "existing published release");
+  }
+
+  // A cached decision may only lead to a write after a direct authoritative
+  // boundary revalidates the exact Units, topology, and latest release.
+  const boundarySnapshot = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+  if (releasePublicationDecision({
+    hasUnreleasedHeads: releaseBoundaryHasUnreleasedHeads(space, boundarySnapshot),
+    hasPublishedRelease: Boolean(boundarySnapshot.latestPublishedRelease),
+    publishedUnitCountMatches: releaseBoundaryPublishedUnitCountMatches(boundarySnapshot),
+  }) === "reuse") {
+    state.changedSpaces.delete(space);
+    return validatedPublishedRelease(space, boundarySnapshot.latestPublishedRelease, "authoritatively revalidated published release");
   }
   const result = cubTry(
     ["release", "publish", space, "-o", "json"],
@@ -6731,25 +9176,34 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
       isUnchangedReleaseResponse(result),
       `cub release publish ${space} failed: ${result.output}`,
     );
-    const reused = latestRelease(space);
+    classifyLatestMutationFailureAsExpected("cub.release.publish");
+    const closing = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+    const reused = closing.latestPublishedRelease;
     check(reused, `${space}: ConfigHub reported an unchanged bundle but no published release exists`);
     state.changedSpaces.delete(space);
     assertReleaseBoundaryTransition(
       space,
       boundarySnapshot,
-      assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" }),
+      closing,
       { publicationAttempted: true },
     );
     return validatedPublishedRelease(space, reused, "unchanged published release");
   }
   const value = JSON.parse(result.output);
-  const release = unwrapEntity(value, "Release");
-  const fallback = latestRelease(space);
-  const bundleDigest = release?.Digest ?? release?.Release?.Digest ?? fallback?.Digest ?? "";
-  const manifestDigest = release?.ManifestDigest
-    ?? release?.Release?.ManifestDigest
-    ?? fallback?.ManifestDigest
-    ?? "";
+  const commandRelease = unwrapEntity(value, "Release");
+  const closing = assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" });
+  const authoritativeRelease = closing.latestPublishedRelease;
+  check(authoritativeRelease, `${space}: successful publish has no authoritative closing release`);
+  const releaseIdentityFields = ["ReleaseID", "TagID", "ReleaseNum", "UnitCount", "Digest", "ManifestDigest"];
+  for (const field of releaseIdentityFields) {
+    check(
+      commandRelease?.[field] !== undefined
+        && stableJson(commandRelease[field]) === stableJson(authoritativeRelease[field]),
+      `${space}: publish response ${field} does not match the authoritative closing release`,
+    );
+  }
+  const bundleDigest = authoritativeRelease.Digest ?? "";
+  const manifestDigest = authoritativeRelease.ManifestDigest ?? "";
   check(/^sha256:[0-9a-f]{64}$/.test(bundleDigest), `${space}: published bundle content digest is missing or invalid`);
   check(/^sha256:[0-9a-f]{64}$/.test(manifestDigest), `${space}: published OCI manifest digest is missing or invalid`);
   recordAction(state, "release-publish", space, `manifest=${manifestDigest}; bundle=${bundleDigest}`);
@@ -6758,70 +9212,89 @@ function publishRelease(space, state, { sourcePayloadKeys = {} } = {}) {
   assertReleaseBoundaryTransition(
     space,
     boundarySnapshot,
-    assertReleaseBoundary(space, { sourcePayloadKeys, approvalMode: "clear" }),
-    { publicationAttempted: true },
+    closing,
+    { publicationAttempted: true, requireNewRelease: true },
   );
   return {
-    ...(release ?? {}),
-    Digest: bundleDigest,
-    ManifestDigest: manifestDigest,
+    ...authoritativeRelease,
   };
 }
 
 function assertReleaseBoundary(space, { sourcePayloadKeys = {}, approvalMode = "clear" } = {}) {
   const expectedManagedUnits = plan.managedUnits.filter((item) => item.space === space);
   if (expectedManagedUnits.length > 0) {
-    return withSourceReleaseBoundarySnapshot(space, expectedManagedUnits, () => {
-      assertUnitAllowlist(space, expectedManagedUnits.map((item) => item.slug));
-      const unexpectedOverrides = Object.keys(sourcePayloadKeys)
-        .filter((slug) => !expectedManagedUnits.some((item) => item.slug === slug));
-      check(
-        unexpectedOverrides.length === 0,
-        `${space}: release payload override names unknown Units: ${unexpectedOverrides.join(", ")}`,
-      );
-      for (const expected of expectedManagedUnits) {
-        assertManagedSourceUnitContract(
-          expected,
-          sourcePayloadKeys[expected.slug] ?? expected.payloadKey,
-        );
-      }
-      const liveUnits = readUnitRows(space);
-      const gated = liveUnits.filter(hasApprovalGate);
-      if (approvalMode === "required") {
-        check(gated.length > 0, `${space}: expected an exact approval gate before the refused publication`);
-      } else {
-        check(gated.length === 0, `${space}: successful publication still has ${gated.length} approval-gated head(s)`);
-      }
-      assertManagedSourceSpaceContract(space, expectedManagedUnits);
-      return releaseBoundarySnapshot(space);
-    });
+    return withSourceReleaseBoundarySnapshot(
+      space,
+      expectedManagedUnits,
+      () => assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys, approvalMode }),
+    );
   }
   const fleetItem = FLEET.find((item) => `${item.cluster}-argo-apps` === space);
   check(fleetItem, `${space}: release publication is outside the managed mini-IDP Space inventory`);
-  assertUnitAllowlist(space, expectedArgoApplicationSlugs(plan, fleetItem));
-  assertDeliveryTopology(readSpaces(), plan, {
-    fleet: [fleetItem],
-    requireAllApplications: true,
-    requireApplicationMetadata: true,
-  });
-  for (const deployment of plan.deployments.filter((item) => item.cluster === fleetItem.cluster)) {
-    const docs = parseDocs(cub(["unit", "data", "--space", deployment.appSpace, deployment.appUnit]));
-    check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one release-boundary Application`);
-    const app = docs[0];
-    assertArgoApplicationContract(app, deployment);
+  return withDeliveryRootReleaseBoundarySnapshot(
+    fleetItem,
+    () => assertReleaseBoundaryFromCurrentReadView(space, { sourcePayloadKeys, approvalMode }),
+  );
+}
+
+function assertReleaseBoundaryFromCurrentReadView(
+  space,
+  { sourcePayloadKeys = {}, approvalMode = "clear" } = {},
+) {
+  const expectedManagedUnits = plan.managedUnits.filter((item) => item.space === space);
+  if (expectedManagedUnits.length > 0) {
+    assertUnitAllowlist(space, expectedManagedUnits.map((item) => item.slug));
+    const unexpectedOverrides = Object.keys(sourcePayloadKeys)
+      .filter((slug) => !expectedManagedUnits.some((item) => item.slug === slug));
     check(
-      stableJson(app.spec?.syncPolicy) === stableJson(applicationSyncPolicy(deployment)),
-      `${deployment.appSpace}/${deployment.appUnit}: sync policy drifted before fleet-root publication`,
+      unexpectedOverrides.length === 0,
+      `${space}: release payload override names unknown Units: ${unexpectedOverrides.join(", ")}`,
     );
-    const expectedIgnoreDifferences = deployment.ignoreInjectedCertificateData
-      ? certificateIgnoreDifferences()
-      : undefined;
-    check(
-      stableJson(app.spec?.ignoreDifferences) === stableJson(expectedIgnoreDifferences),
-      `${deployment.appSpace}/${deployment.appUnit}: ignoreDifferences drifted before fleet-root publication`,
-    );
+    for (const expected of expectedManagedUnits) {
+      assertManagedSourceUnitContract(
+        expected,
+        sourcePayloadKeys[expected.slug] ?? expected.payloadKey,
+      );
+    }
+    const liveUnits = readUnitRows(space);
+    const gated = liveUnits.filter(hasApprovalGate);
+    if (approvalMode === "required") {
+      check(gated.length > 0, `${space}: expected an exact approval gate before the refused publication`);
+    } else {
+      check(gated.length === 0, `${space}: successful publication still has ${gated.length} approval-gated head(s)`);
+    }
+    assertManagedSourceSpaceContract(space, expectedManagedUnits);
+    return releaseBoundarySnapshot(space);
   }
-  return releaseBoundarySnapshot(space);
+  const fleetItem = FLEET.find((item) => `${item.cluster}-argo-apps` === space);
+  check(fleetItem, `${space}: release publication is outside the managed mini-IDP Space inventory`);
+  {
+    assertUnitAllowlist(space, expectedArgoApplicationSlugs(plan, fleetItem));
+    assertDeliveryTopology(readSpaces(), plan, {
+      fleet: [fleetItem],
+      requireAllApplications: true,
+      requireApplicationMetadata: true,
+    });
+    for (const deployment of plan.deployments.filter((item) => item.cluster === fleetItem.cluster)) {
+      const docs = parseDocs(readUnitData(deployment.appSpace, deployment.appUnit));
+      check(docs.length === 1 && docs[0].kind === "Application", `${deployment.appSpace}/${deployment.appUnit}: expected one release-boundary Application`);
+      const app = docs[0];
+      assertNoStoredApplicationOperation(app, `${deployment.appSpace}/${deployment.appUnit}: release-boundary Application`);
+      assertArgoApplicationContract(app, deployment);
+      check(
+        stableJson(app.spec?.syncPolicy) === stableJson(applicationSyncPolicy(deployment)),
+        `${deployment.appSpace}/${deployment.appUnit}: sync policy drifted before fleet-root publication`,
+      );
+      const expectedIgnoreDifferences = deployment.ignoreInjectedCertificateData
+        ? certificateIgnoreDifferences()
+        : undefined;
+      check(
+        stableJson(app.spec?.ignoreDifferences) === stableJson(expectedIgnoreDifferences),
+        `${deployment.appSpace}/${deployment.appUnit}: ignoreDifferences drifted before fleet-root publication`,
+      );
+    }
+    return releaseBoundarySnapshot(space);
+  }
 }
 
 function assertManagedSourceSpaceContract(space, expectedUnits) {
@@ -6871,7 +9344,7 @@ function assertManagedSourceUnitContract(expected, payloadKey) {
   check(
     sameUnitData(
       expected.toolchain,
-      cub(["unit", "data", "--space", expected.space, expected.slug]),
+      readUnitData(expected.space, expected.slug),
       payload.value,
     ),
     `${ref}: data is not the exact reviewed release-boundary payload ${payloadKey}`,
@@ -6921,35 +9394,69 @@ function assertManagedSourceUnitContract(expected, payloadKey) {
 }
 
 function releaseBoundarySnapshot(space) {
-  return readUnitRows(space).map((unit) => ({
-    slug: unit.Slug,
-    id: unit.UnitID,
-    headRevisionNum: unit.HeadRevisionNum,
-    lastAppliedRevisionNum: unit.LastAppliedRevisionNum,
-    dataHash: unit.DataHash,
-    targetID: unit.TargetID ?? null,
-    upstreamUnitID: unit.UpstreamUnitID ?? null,
-    toolchain: unit.ToolchainType,
-    provider: unit.ProviderType ?? null,
-    ownedLabels: Object.fromEntries([...OWNED_UNIT_LABELS]
-      .filter((key) => unit.Labels?.[key] !== undefined)
-      .sort()
-      .map((key) => [key, unit.Labels[key]])),
-  })).sort((left, right) => left.slug.localeCompare(right.slug));
+  const units = readUnitRows(space).map((unit) => ({
+      slug: unit.Slug,
+      id: unit.UnitID,
+      headRevisionNum: unit.HeadRevisionNum,
+      lastAppliedRevisionNum: unit.LastAppliedRevisionNum,
+      dataHash: unit.DataHash,
+      targetID: unit.TargetID ?? null,
+      upstreamUnitID: unit.UpstreamUnitID ?? null,
+      toolchain: unit.ToolchainType,
+      provider: unit.ProviderType ?? null,
+      ownedLabels: Object.fromEntries([...OWNED_UNIT_LABELS]
+        .filter((key) => unit.Labels?.[key] !== undefined)
+        .sort()
+        .map((key) => [key, unit.Labels[key]])),
+    })).sort((left, right) => left.slug.localeCompare(right.slug));
+  const latestPublishedRelease = latestRelease(space);
+  if (latestPublishedRelease) {
+    validatedReleaseEnvelope(
+      space,
+      latestPublishedRelease,
+      "release-boundary published release",
+      { allowEmpty: true },
+    );
+  }
+  return { units, latestPublishedRelease };
 }
 
 function releaseBoundaryHasUnreleasedHeads(space, snapshot) {
-  check(snapshot.length > 0, `${space}: cannot determine release currency without Units`);
-  return snapshot.some(
+  check(snapshot?.units?.length > 0, `${space}: cannot determine release currency without Units`);
+  return snapshot.units.some(
     (unit) => Number(unit.headRevisionNum ?? 0) !== Number(unit.lastAppliedRevisionNum ?? 0),
   );
 }
 
-function releaseBoundaryStableShape(snapshot) {
-  return snapshot.map(({ lastAppliedRevisionNum: _lastAppliedRevisionNum, ...unit }) => unit);
+function releaseBoundaryPublishedUnitCountMatches(snapshot) {
+  return Boolean(
+    snapshot?.latestPublishedRelease
+      && Number(snapshot.latestPublishedRelease.UnitCount) === snapshot?.units?.length,
+  );
 }
 
-function assertReleaseBoundaryTransition(space, opening, closing, { publicationAttempted }) {
+function releaseBoundaryStableShape(snapshot) {
+  return snapshot.units.map(({ lastAppliedRevisionNum: _lastAppliedRevisionNum, ...unit }) => unit);
+}
+
+function releaseIdentity(snapshot) {
+  const release = snapshot?.latestPublishedRelease;
+  return release ? {
+    id: release.ReleaseID ?? null,
+    tagID: release.TagID ?? null,
+    releaseNum: release.ReleaseNum ?? null,
+    unitCount: release.UnitCount ?? null,
+    digest: release.Digest ?? null,
+    manifestDigest: release.ManifestDigest ?? null,
+  } : null;
+}
+
+function assertReleaseBoundaryTransition(
+  space,
+  opening,
+  closing,
+  { publicationAttempted, requireNewRelease = false },
+) {
   check(
     stableJson(releaseBoundaryStableShape(closing)) === stableJson(releaseBoundaryStableShape(opening)),
     `${space}: release boundary changed ${publicationAttempted ? "while publishing" : "while reusing the published release"}`,
@@ -6959,22 +9466,76 @@ function assertReleaseBoundaryTransition(space, opening, closing, { publicationA
       !releaseBoundaryHasUnreleasedHeads(space, closing),
       `${space}: release publication did not advance every Unit to its current head`,
     );
+    check(
+      releaseBoundaryPublishedUnitCountMatches(closing),
+      `${space}: release publication did not capture the exact ${closing.units.length}-Unit boundary`,
+    );
+    if (requireNewRelease) {
+      const openingIdentity = releaseIdentity(opening);
+      const closingRelease = validatedPublishedRelease(
+        space,
+        closing.latestPublishedRelease,
+        "successful publication's authoritative closing release",
+      );
+      const closingIdentity = releaseIdentity(closing);
+      check(
+        !openingIdentity
+          || (
+            closingIdentity.id !== openingIdentity.id
+            && Number(closingIdentity.releaseNum) > Number(openingIdentity.releaseNum)
+          ),
+        `${space}: successful publication did not create a new authoritative Release identity and advance ReleaseNum`,
+      );
+      check(
+        stableJson(closingIdentity) !== stableJson(openingIdentity),
+        `${space}: successful publication reused the prior authoritative release identity`,
+      );
+      validatedPublishedRelease(space, closingRelease, "new authoritative published release");
+    }
   } else {
     check(
-      stableJson(closing) === stableJson(opening),
+      stableJson(closing.units) === stableJson(opening.units)
+        && stableJson(releaseIdentity(closing)) === stableJson(releaseIdentity(opening))
+        && releaseBoundaryPublishedUnitCountMatches(closing),
       `${space}: release currency changed while reusing the published release`,
     );
   }
 }
 
 function validatedPublishedRelease(space, release, description) {
+  return validatedReleaseEnvelope(space, release, description);
+}
+
+function validatedReleaseEnvelope(space, release, description, { allowEmpty = false } = {}) {
   check(release, `${space}: ${description} is missing`);
+  check(UUID_PATTERN.test(release.ReleaseID ?? ""), `${space}: ${description} ReleaseID is invalid`);
+  check(UUID_PATTERN.test(release.TagID ?? ""), `${space}: ${description} TagID is invalid`);
+  check(Number.isInteger(Number(release.ReleaseNum)) && Number(release.ReleaseNum) > 0, `${space}: ${description} ReleaseNum is invalid`);
+  check(
+    Number.isInteger(Number(release.UnitCount))
+      && Number(release.UnitCount) >= (allowEmpty ? 0 : 1),
+    `${space}: ${description} UnitCount is invalid`,
+  );
+  check(/^sha256:[0-9a-f]{64}$/.test(release.Digest ?? ""), `${space}: ${description} bundle digest is invalid`);
   releaseManifestDigest(release);
   return release;
 }
 
-function releasePublicationDecision({ hasUnreleasedHeads, hasPublishedRelease }) {
-  return !hasUnreleasedHeads && hasPublishedRelease ? "reuse" : "publish";
+function assertPublishedReleaseUnitCount(space, release, expectedUnitCount, description) {
+  check(
+    Number(release?.UnitCount) === expectedUnitCount,
+    `${space}: ${description} UnitCount ${release?.UnitCount ?? "missing"} does not match the exact ${expectedUnitCount}-Unit release boundary`,
+  );
+}
+
+function releasePublicationDecision({
+  hasUnreleasedHeads,
+  hasPublishedRelease,
+  publishedUnitCountMatches = false,
+}) {
+  return !hasUnreleasedHeads && hasPublishedRelease && publishedUnitCountMatches
+    ? "reuse"
+    : "publish";
 }
 
 function isUnchangedReleaseResponse(result) {
@@ -6983,7 +9544,7 @@ function isUnchangedReleaseResponse(result) {
 
 function selfTestReleaseRecovery() {
   check(
-    releasePublicationDecision({ hasUnreleasedHeads: false, hasPublishedRelease: true }) === "reuse",
+    releasePublicationDecision({ hasUnreleasedHeads: false, hasPublishedRelease: true, publishedUnitCountMatches: true }) === "reuse",
     "metadata-only changes must reuse the current published release",
   );
   for (const scenario of [
@@ -6993,6 +9554,21 @@ function selfTestReleaseRecovery() {
     check(releasePublicationDecision(scenario) === "publish", `release decision should publish: ${stableJson(scenario)}`);
   }
   check(
+    releasePublicationDecision({
+      hasUnreleasedHeads: false,
+      hasPublishedRelease: true,
+      publishedUnitCountMatches: false,
+    }) === "publish",
+    "an incomplete latest release must be repaired even when every surviving Unit head appears current",
+  );
+  check(
+    !releaseBoundaryPublishedUnitCountMatches({
+      units: [{ slug: "fixture" }],
+      latestPublishedRelease: { UnitCount: 0 },
+    }),
+    "an empty latest release must remain repairable but may never satisfy exact reuse",
+  );
+  check(
     isUnchangedReleaseResponse({ ok: false, output: `HTTP 400: ${UNCHANGED_RELEASE_ERROR}` }),
     "the exact ConfigHub unchanged-bundle response must be recoverable",
   );
@@ -7001,24 +9577,63 @@ function selfTestReleaseRecovery() {
       && !isUnchangedReleaseResponse({ ok: true, output: UNCHANGED_RELEASE_ERROR }),
     "unrelated failures or successful output must not be classified as unchanged-bundle recovery",
   );
-  const opening = [{
+  const openingUnits = [{
     slug: "fixture",
     id: "11111111-1111-4111-8111-111111111111",
     headRevisionNum: 2,
     lastAppliedRevisionNum: 1,
     dataHash: "a".repeat(64),
   }];
-  const published = [{ ...opening[0], lastAppliedRevisionNum: 2 }];
+  const publishedUnits = [{ ...openingUnits[0], lastAppliedRevisionNum: 2 }];
+  const release = { ReleaseID: "22222222-2222-4222-8222-222222222222", TagID: "44444444-4444-4444-8444-444444444444", ReleaseNum: 1, UnitCount: 1, Digest: `sha256:${"b".repeat(64)}`, ManifestDigest: `sha256:${"c".repeat(64)}` };
+  const opening = { units: openingUnits, latestPublishedRelease: release };
+  const nextRelease = {
+    ReleaseID: "33333333-3333-4333-8333-333333333333",
+    TagID: "55555555-5555-4555-8555-555555555555",
+    ReleaseNum: 2,
+    UnitCount: 1,
+    Digest: `sha256:${"d".repeat(64)}`,
+    ManifestDigest: `sha256:${"e".repeat(64)}`,
+  };
+  const published = { units: publishedUnits, latestPublishedRelease: nextRelease };
   check(releaseBoundaryHasUnreleasedHeads("fixture", opening), "fixture opening release must have an unreleased head");
   check(!releaseBoundaryHasUnreleasedHeads("fixture", published), "fixture published release must be current");
-  assertReleaseBoundaryTransition("fixture", opening, published, { publicationAttempted: true });
+  assertReleaseBoundaryTransition("fixture", opening, published, {
+    publicationAttempted: true,
+    requireNewRelease: true,
+  });
   assertReleaseBoundaryTransition("fixture", published, published, { publicationAttempted: false });
+  let staleSuccessFailure = null;
+  try {
+    assertReleaseBoundaryTransition(
+      "fixture",
+      opening,
+      { units: publishedUnits, latestPublishedRelease: release },
+      { publicationAttempted: true, requireNewRelease: true },
+    );
+  } catch (error) {
+    staleSuccessFailure = error;
+  }
+  check(
+    staleSuccessFailure?.message.includes("did not create a new authoritative Release identity"),
+    "successful publication must reject a rediscovered prior release",
+  );
+  let incompleteReleaseFailure = null;
+  try {
+    assertPublishedReleaseUnitCount("fixture", { ...nextRelease, UnitCount: 0 }, 1, "self-test release");
+  } catch (error) {
+    incompleteReleaseFailure = error;
+  }
+  check(
+    incompleteReleaseFailure?.message.includes("does not match the exact 1-Unit release boundary"),
+    "release reuse must reject an incomplete UnitCount even when every surviving Unit head appears current",
+  );
   let driftFailure = null;
   try {
     assertReleaseBoundaryTransition(
       "fixture",
       opening,
-      [{ ...published[0], dataHash: "b".repeat(64) }],
+      { ...published, units: [{ ...published.units[0], dataHash: "b".repeat(64) }] },
       { publicationAttempted: true },
     );
   } catch (error) {
@@ -7071,16 +9686,18 @@ function selfTestScenarioOperationEvidence() {
     ],
     operationEvidence: [
       {
-        type: "expected-approval-block",
+        type: "approval-gate-observed",
         ref: "hx-web-prod-a",
-        transitionID: "base-promotion/hx-web-prod-a-approval-refusal",
-        refusedHeads: [{ ref: refA, id: idA, headRevisionNum: 20, dataHash: hashPromoted }],
+        transitionID: "base-promotion/hx-web-prod-a-approval-gate-observation",
+        observationMode: "read-only-authoritative-gate",
+        gatedHeads: [{ ref: refA, id: idA, headRevisionNum: 20, dataHash: hashPromoted }],
       },
       {
-        type: "expected-approval-block",
+        type: "approval-gate-observed",
         ref: "hx-web-prod-b",
-        transitionID: "base-promotion/hx-web-prod-b-approval-refusal",
-        refusedHeads: [{ ref: refB, id: idB, headRevisionNum: 30, dataHash: hashPromoted }],
+        transitionID: "base-promotion/hx-web-prod-b-approval-gate-observation",
+        observationMode: "read-only-authoritative-gate",
+        gatedHeads: [{ ref: refB, id: idB, headRevisionNum: 30, dataHash: hashPromoted }],
       },
       {
         type: "unit-approve",
@@ -7130,7 +9747,7 @@ function selfTestScenarioOperationEvidence() {
   mismatchedApproval.operationEvidence.find(
     (item) => item.transitionID === "prod-approval/hx-web-prod-a-approve-v1",
   ).approvedHeads[0].headRevisionNum = 19;
-  check(!scenarioOperationProofValid(mismatchedApproval), "approval evidence not bound to the refused head was accepted");
+  check(!scenarioOperationProofValid(mismatchedApproval), "approval evidence not bound to the gated head was accepted");
   console.log("Kubara mini-IDP scenario evidence self-test passed");
 }
 
@@ -7185,6 +9802,49 @@ function selfTestReceiptLinkEvidence(desired) {
 }
 
 function selfTestArgoConvergence() {
+  const expectAuthorityFailure = (run, expectedMessage, label) => {
+    let failure = null;
+    try {
+      run();
+    } catch (error) {
+      failure = error;
+    }
+    check(failure?.message.includes(expectedMessage), `${label}: expected ${expectedMessage}, got ${failure?.message ?? "success"}`);
+  };
+  assertBootstrapAutomatedPolicy(undefined, "root", false, "self-test/root");
+  assertBootstrapAutomatedPolicy({ selfHeal: true }, "root", true, "self-test/root");
+  assertBootstrapAutomatedPolicy({ selfHeal: true, allowEmpty: true }, "argobot-test", true, "self-test/argobot");
+  expectAuthorityFailure(
+    () => assertBootstrapAutomatedPolicy({ selfHeal: true }, "root", false, "self-test/root"),
+    "neither absent nor the exact one-time",
+    "strict post-fence legacy automation",
+  );
+  expectAuthorityFailure(
+    () => assertBootstrapAutomatedPolicy({ selfHeal: true, prune: true }, "root", true, "self-test/root"),
+    "neither absent nor the exact one-time",
+    "unknown legacy automation",
+  );
+  assertNoStoredApplicationOperation({}, "self-test/Application");
+  expectAuthorityFailure(
+    () => assertNoStoredApplicationOperation({ operation: { sync: {} } }, "self-test/Application"),
+    "must not contain an executable operation",
+    "stored Application operation",
+  );
+  assertNoMultipleSources({ spec: {} }, "self-test/Application");
+  expectAuthorityFailure(
+    () => assertNoMultipleSources({ spec: { sources: {} } }, "self-test/Application"),
+    "must not define spec.sources",
+    "non-array multiple-source field",
+  );
+  expectAuthorityFailure(
+    () => assertExactObjectKeys(
+      { repoURL: "oci://example", targetRevision: "latest", path: ".", plugin: {} },
+      ["path", "repoURL", "targetRevision"],
+      "self-test/Application source",
+    ),
+    "expected exact keys",
+    "extra source plugin",
+  );
   const expectedRevision = `sha256:${"a".repeat(64)}`;
   const olderRevision = `sha256:${"b".repeat(64)}`;
   const deployment = {
@@ -7495,19 +10155,35 @@ function releaseManifestDigest(release) {
   return manifestDigest;
 }
 
-function latestRelease(space) {
+function readPublishedReleaseRows(space) {
   if (activeVerificationReadSnapshot) {
     activeVerificationReadSnapshot.evidenceByResource.get("release").servedReads += 1;
-    return activeVerificationReadSnapshot.releasesBySpace.get(space)?.[0] ?? null;
+    return [...(activeVerificationReadSnapshot.releasesBySpace.get(space) ?? [])];
   }
-  const rows = unwrapRows(cubJson([
-    "release", "list", "--space", space,
-    "--where", "Published = true",
-    "--select", "Digest,ManifestDigest,ReleaseNum,CreatedAt",
-  ]), "Release");
-  return rows
-    .sort((left, right) => Number(right.ReleaseNum ?? 0) - Number(left.ReleaseNum ?? 0)
-      || String(right.CreatedAt ?? "").localeCompare(String(left.CreatedAt ?? "")))[0] ?? null;
+  if (activeSourceReleaseBoundarySnapshot) {
+    check(
+      activeSourceReleaseBoundarySnapshot.releasesBySpace.has(space),
+      `${space}: authoritative release boundary did not preload published releases`,
+    );
+    return [...activeSourceReleaseBoundarySnapshot.releasesBySpace.get(space)];
+  }
+  if (activeApplyReadSnapshot) {
+    const evidence = applyReadResourceEvidence("release");
+    evidence.servedReads += 1;
+    if (!activeApplyReadSnapshot.releasesBySpace.has(space)) {
+      activeApplyReadSnapshot.releasesBySpace.set(
+        space,
+        applyReadLoader("releases", fetchPublishedReleases, space),
+      );
+      evidence.mutationRefreshCalls += 1;
+    }
+    return [...activeApplyReadSnapshot.releasesBySpace.get(space)];
+  }
+  return fetchPublishedReleases(space);
+}
+
+function latestRelease(space) {
+  return readPublishedReleaseRows(space)[0] ?? null;
 }
 
 function kubectl(cluster, args, options = {}) {
@@ -7621,7 +10297,7 @@ function reconcileLinks(desired, state) {
     }
     const from = readUnit(expected.space, expected.fromUnit);
     const to = readUnit(expected.toSpace, expected.toUnit);
-    const toSpace = unwrapEntity(cubJson(["space", "get", expected.toSpace]), "Space");
+    const toSpace = readSpaces().get(expected.toSpace);
     check(from && to, `${expected.space}/${expected.slug}: endpoint Unit missing`);
     if (
       existing.FromUnitID !== from.UnitID
@@ -7651,12 +10327,16 @@ function reconcileLinks(desired, state) {
 }
 
 function verifyLive(inputs, desired, { state = null } = {}) {
-  assertKubaraOrganization();
+  // Apply already pinned the named ConfigHub context and every write re-pins
+  // it. Standalone verification still performs the full organization check.
+  if (!state) assertKubaraOrganization();
   const findings = [];
   const spaces = readSpaces();
   const verificationReadSnapshot = beginVerificationReadSnapshot(spaces);
   try {
-  const controlSpace = unwrapEntity(cubJson(["space", "get", CONTROL_SPACE]), "Space");
+  assertExactManagedTargetInventory(verificationReadSnapshot, "live verification ConfigHub Target inventory");
+  const controlSpace = spaces.get(CONTROL_SPACE);
+  check(controlSpace, `${CONTROL_SPACE}: control Space is missing from the authoritative verification snapshot`);
   check(controlSpace.OrganizationID === ORGANIZATION_ENTITY_ID, `${CONTROL_SPACE}: organization entity ID drifted from the pinned Kubara org`);
   assertSpaceAllowlist(spaces, desired, { requireAll: true });
   assertDeliveryTopology(spaces, desired, {
@@ -7668,6 +10348,9 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   const localClusters = new Set(kindClusters());
   const targets = new Map();
   const deliveryRuntimes = [];
+  const argobotAuthority = [];
+  const applicationSets = [];
+  const liveApplicationsByCluster = new Map();
   for (const item of FLEET) {
     if (!localClusters.has(item.cluster)) findings.push(`${item.cluster}: kind cluster missing`);
     if (!existsSync(clusterKubeconfig(item.cluster))) findings.push(`${item.cluster}: kubeconfig missing`);
@@ -7675,6 +10358,17 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     if (localClusters.has(item.cluster) && existsSync(clusterKubeconfig(item.cluster))) {
       try {
         deliveryRuntimes.push(observeClusterLocalArgoRuntime(item.cluster));
+        argobotAuthority.push(assertLiveArgobotRefreshOnlyRuntime(item.cluster));
+        const applicationSetItems = JSON.parse(kubectl(item.cluster, [
+          "get", "applicationsets.argoproj.io", "-A", "-o", "json",
+        ])).items ?? [];
+        applicationSets.push({
+          cluster: item.cluster,
+          count: applicationSetItems.length,
+          refs: applicationSetItems.map((applicationSet) => `${applicationSet.metadata?.namespace ?? ""}/${applicationSet.metadata?.name ?? "unknown"}`).sort(),
+        });
+        if (applicationSetItems.length > 0) findings.push(`${item.cluster}: adapted lane contains ${applicationSetItems.length} ApplicationSet(s)`);
+        liveApplicationsByCluster.set(item.cluster, readApplicationInventory(item.cluster));
       } catch (error) {
         findings.push(error.message);
       }
@@ -7740,7 +10434,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     };
     if (!mapMatches(live.Annotations, annotations)) findings.push(`${expected.space}/${expected.slug}: source annotations drifted`);
     for (const key of staleOwnedPublicAnnotations(live.Annotations, annotations)) findings.push(`${expected.space}/${expected.slug}: stale owned navigation annotation ${key}`);
-    const liveData = cub(["unit", "data", "--space", expected.space, expected.slug]);
+    const liveData = readUnitData(expected.space, expected.slug);
     if (!sameUnitData(expected.toolchain, liveData, payload.value)) findings.push(`${expected.space}/${expected.slug}: data drifted from ${expected.payloadKey}`);
     if (expected.target) {
       const cluster = expected.target.split("/")[0];
@@ -7780,7 +10474,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     if (stableJson(actual) !== stableJson(allowedSlugs)) findings.push(`${space}: unexpected managed Unit inventory ${actual.join(", ")}`);
   }
 
-  const policy = verifyPolicy(desired, findings);
+  const policy = verifyPolicy(desired, findings, spaces);
   const linkRows = verifyLinks(desired, findings);
   const releases = [];
   const applications = [];
@@ -7788,15 +10482,22 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     const release = latestRelease(deployment.space);
     const bundleDigest = release?.Digest ?? "";
     const manifestDigest = release?.ManifestDigest ?? "";
+    const expectedReleaseUnitCount = readUnitRows(deployment.space).length;
     const expectedRevision = manifestDigest;
     if (!release || !/^sha256:[0-9a-f]{64}$/.test(bundleDigest)) {
       findings.push(`${deployment.space}: published bundle content digest missing`);
     } else if (!/^sha256:[0-9a-f]{64}$/.test(manifestDigest)) {
       findings.push(`${deployment.space}: published OCI manifest digest missing`);
+    } else if (Number(release.UnitCount) !== expectedReleaseUnitCount) {
+      findings.push(`${deployment.space}: published release UnitCount=${release.UnitCount}, expected ${expectedReleaseUnitCount}`);
     } else {
       releases.push({
         space: deployment.space,
         id: release.ReleaseID,
+        tagID: release.TagID,
+        releaseNum: release.ReleaseNum,
+        unitCount: release.UnitCount,
+        expectedUnitCount: expectedReleaseUnitCount,
         bundleDigest,
         manifestDigest,
         createdAt: release.CreatedAt,
@@ -7810,9 +10511,10 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     if (appUnit.TargetID !== targets.get(deployment.cluster)?.TargetID) {
       findings.push(`${deployment.appSpace}/${deployment.appUnit}: target drifted`);
     }
-    const appDocs = parseDocs(cub(["unit", "data", "--space", deployment.appSpace, deployment.appUnit]));
+    const appDocs = parseDocs(readUnitData(deployment.appSpace, deployment.appUnit));
     const app = appDocs[0];
     try {
+      assertNoStoredApplicationOperation(app, `${deployment.appSpace}/${deployment.appUnit}: final release Application`);
       assertArgoApplicationContract(app, deployment);
     } catch (error) {
       findings.push(error.message);
@@ -7831,7 +10533,11 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     const ignoreDifferences = app?.spec?.ignoreDifferences ?? [];
     if (deployment.ignoreInjectedCertificateData && stableJson(ignoreDifferences) !== stableJson(certificateIgnoreDifferences())) findings.push(`${deployment.appSpace}/${deployment.appUnit}: certificate ignoreDifferences drifted`);
     if (!deployment.ignoreInjectedCertificateData && ignoreDifferences.length !== 0) findings.push(`${deployment.appSpace}/${deployment.appUnit}: unexpected ignoreDifferences`);
-    const observed = readApplication(deployment.cluster, deployment.space);
+    const observed = readApplication(
+      deployment.cluster,
+      deployment.space,
+      liveApplicationsByCluster.get(deployment.cluster) ?? new Map(),
+    );
     if (!observed.exists) {
       findings.push(`${deployment.cluster}/${deployment.space}: Argo Application missing`);
     } else {
@@ -7848,8 +10554,110 @@ function verifyLive(inputs, desired, { state = null } = {}) {
       syncState: observed.sync,
       healthState: observed.health,
       acceptedHealth: deployment.acceptedHealth,
+      targetRevision: observed.targetRevision,
+      automatedSyncDisabled: observed.automatedSyncDisabled,
+      activeOperation: observed.activeOperation,
+      operationPhase: observed.operationPhase,
+      applicationSetOwnerAbsent: observed.applicationSetOwnerAbsent,
       conditions: observed.conditions,
     });
+  }
+
+  const deploymentAuthority = [];
+  for (const fleetItem of FLEET) {
+    const appSpace = `${fleetItem.cluster}-argo-apps`;
+    const contracts = [
+      {
+        cluster: fleetItem.cluster,
+        name: appSpace,
+        sourceSpace: appSpace,
+        unitRef: `${appSpace}/root`,
+        acceptedHealth: ["Healthy"],
+        role: "DeliveryRoot",
+      },
+      {
+        cluster: fleetItem.cluster,
+        name: `argobot-${fleetItem.cluster}`,
+        sourceSpace: `argobot-${fleetItem.cluster}`,
+        unitRef: `${appSpace}/argobot-${fleetItem.cluster}`,
+        acceptedHealth: ["Healthy"],
+        role: "RefreshHelper",
+      },
+      ...desired.deployments
+        .filter((deployment) => deployment.cluster === fleetItem.cluster)
+        .map((deployment) => ({
+          cluster: deployment.cluster,
+          name: deployment.space,
+          sourceSpace: deployment.space,
+          unitRef: `${deployment.appSpace}/${deployment.appUnit}`,
+          acceptedHealth: deployment.acceptedHealth,
+          role: deployment.type === "platform" ? "PlatformComponent" : "Application",
+        })),
+    ];
+    const inventory = liveApplicationsByCluster.get(fleetItem.cluster) ?? new Map();
+    const expectedNames = new Set(contracts.map((contract) => contract.name));
+    for (const name of [...inventory.keys()].filter((candidate) => !expectedNames.has(candidate)).sort()) {
+      findings.push(`${fleetItem.cluster}/${name}: live Application is outside the exact adapted-lane allowlist`);
+    }
+    for (const contract of contracts) {
+      const observed = readApplication(fleetItem.cluster, contract.name, inventory);
+      const raw = inventory.get(contract.name);
+      const [unitSpace, unitSlug] = contract.unitRef.split("/");
+      const desiredApplication = parseDocs(readUnitData(unitSpace, unitSlug))[0];
+      if (!observed.exists || !raw) {
+        findings.push(`${fleetItem.cluster}/${contract.name}: managed live Application is missing`);
+      } else {
+        if (stableJson(raw.spec) !== stableJson(desiredApplication?.spec)) findings.push(`${fleetItem.cluster}/${contract.name}: live spec differs from exact ConfigHub Application Unit ${contract.unitRef}`);
+        if (observed.repoURL !== `${CONFIGHUB_OCI_SPACE_PREFIX}${contract.sourceSpace}`) findings.push(`${fleetItem.cluster}/${contract.name}: live source is not ${contract.sourceSpace}`);
+        if (observed.targetRevision !== "latest") findings.push(`${fleetItem.cluster}/${contract.name}: targetRevision is not discovery-only latest`);
+        if (!observed.automatedSyncDisabled) findings.push(`${fleetItem.cluster}/${contract.name}: automated sync remains enabled`);
+        if (observed.activeOperation) findings.push(`${fleetItem.cluster}/${contract.name}: active Argo operation phase=${observed.operationPhase}`);
+        if (!observed.applicationSetOwnerAbsent) findings.push(`${fleetItem.cluster}/${contract.name}: ApplicationSet ownership can regenerate this Application`);
+      }
+      const release = latestRelease(contract.sourceSpace);
+      const expectedUnitCount = readUnitRows(contract.sourceSpace).length;
+      let expectedRevision = null;
+      try {
+        validatedPublishedRelease(contract.sourceSpace, release, "final deployment-authority release");
+        assertPublishedReleaseUnitCount(
+          contract.sourceSpace,
+          release,
+          expectedUnitCount,
+          "final deployment-authority release",
+        );
+        expectedRevision = release.ManifestDigest;
+      } catch (error) {
+        findings.push(error.message);
+      }
+      if (observed.exists) {
+        if (observed.sync !== "Synced") findings.push(`${fleetItem.cluster}/${contract.name}: authority sync=${observed.sync}`);
+        if (!contract.acceptedHealth.includes(observed.health)) findings.push(`${fleetItem.cluster}/${contract.name}: authority health=${observed.health}, expected ${contract.acceptedHealth.join("|")}`);
+        if (observed.revision !== expectedRevision) findings.push(`${fleetItem.cluster}/${contract.name}: authority revision=${observed.revision}, expected ${expectedRevision}`);
+      }
+      deploymentAuthority.push({
+        cluster: fleetItem.cluster,
+        name: contract.name,
+        role: contract.role,
+        sourceSpace: contract.sourceSpace,
+        sourceUnit: contract.unitRef,
+        releaseID: release?.ReleaseID ?? null,
+        releaseTagID: release?.TagID ?? null,
+        releaseNum: release?.ReleaseNum ?? null,
+        releaseUnitCount: release?.UnitCount ?? null,
+        expectedUnitCount,
+        expectedRevision,
+        observedRevision: observed.revision,
+        targetRevision: observed.targetRevision,
+        automatedSyncDisabled: observed.automatedSyncDisabled,
+        activeOperation: observed.activeOperation,
+        operationPhase: observed.operationPhase,
+        applicationSetOwnerAbsent: observed.applicationSetOwnerAbsent,
+        syncState: observed.sync,
+        healthState: observed.health,
+        acceptedHealth: contract.acceptedHealth,
+        syncSubmissionAuthority: "ConfigHub-revalidated-ManifestDigest-Kubernetes-UID-resourceVersion-CAS",
+      });
+    }
   }
 
   const protectedNamespaces = observeProtectedNamespacePostconditions(findings);
@@ -7871,12 +10679,13 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     if (row.readiness?.result === "fail") findings.push(`matrix ${row.cluster}/${row.component}: workloads not ready`);
   }
 
-  const bulkSnapshots = finishVerificationReadSnapshot(spaces);
+  const bulkSnapshots = finishVerificationReadSnapshot(captureOrganizationReadSnapshot, fetchSpaces, desired);
   const measuredPerformance = performanceEvidence(
     `${mode === "--apply" ? "apply" : "verify"}-process-through-live-verification`,
     bulkSnapshots,
   );
   measuredPerformance.phases = state?.performancePhases ?? [];
+  if (state?.applyReadCacheEvidence) measuredPerformance.applyReadCache = state.applyReadCacheEvidence;
   check(findings.length === 0, `Kubara mini-IDP verification failed:\n- ${findings.join("\n- ")}`);
   return {
     organizationID: controlSpace.OrganizationID,
@@ -7887,12 +10696,16 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     policy,
     releases,
     applications,
+    deploymentAuthority: deploymentAuthority.sort((left, right) => `${left.cluster}/${left.name}`.localeCompare(`${right.cluster}/${right.name}`)),
+    argobotAuthority: argobotAuthority.sort((left, right) => left.cluster.localeCompare(right.cluster)),
+    applicationSets: applicationSets.sort((left, right) => left.cluster.localeCompare(right.cluster)),
     protectedNamespaces,
     kindTraefik,
     deliveryRuntimes,
     scenario,
     secretWiring,
     liveMatrix,
+    finalConfigHubFingerprint: bulkSnapshots.canonicalFingerprint,
     performance: measuredPerformance,
     clusters: FLEET.map((item) => ({
       name: item.cluster,
@@ -7973,7 +10786,9 @@ function observeKindTraefikLive(findings) {
         "-A", "-o", "json",
       ]);
       check(result.ok, `${contract.cluster}: cannot read the live Traefik/application endpoint contract: ${result.output}`);
-      const evidence = assertKindTraefikLiveObjects(contract, JSON.parse(result.output));
+      const liveObjects = JSON.parse(result.output);
+      const evidence = assertKindTraefikLiveObjects(contract, liveObjects);
+      const argocdServer = assertArgocdServerNodePortEvidence(contract, liveObjects);
       const docker = dockerByCluster.get(contract.cluster);
       check(docker, `${contract.cluster}: Docker NodePort evidence is missing`);
       const probes = evidence.applications.map((application) => {
@@ -7992,12 +10807,66 @@ function observeKindTraefikLive(findings) {
         check(statusCode === "200", `${contract.cluster}/${application.id}: NodePort probe returned HTTP ${statusCode || "unknown"}`);
         return { application: application.id, hostHeader: host, url, statusCode: 200 };
       });
-      rows.push({ ...evidence, docker, probes, observedAt });
+      rows.push({ ...evidence, argocdServer, docker, probes, observedAt });
     } catch (error) {
       findings.push(error.message);
     }
   }
   return rows;
+}
+
+function assertArgocdServerNodePortEvidence(contract, resources) {
+  return assertArgocdServerNodePortEvidenceShape(contract, resources, { requireReserved: true });
+}
+
+function assertArgocdServerNodePortEvidenceShape(contract, resources, { requireReserved = false } = {}) {
+  const objects = Array.isArray(resources?.items) ? resources.items : Array.isArray(resources) ? resources : [];
+  const matches = objects.filter((item) => item?.apiVersion === "v1"
+    && item?.kind === "Service"
+    && item?.metadata?.namespace === "argocd"
+    && item?.metadata?.name === "argocd-server");
+  check(matches.length === 1, `${contract.cluster}: expected one live argocd/argocd-server Service, found ${matches.length}`);
+  const service = matches[0];
+  check(service.spec?.type === "NodePort", `${contract.cluster}: argocd-server Service is not NodePort`);
+  check(UUID_PATTERN.test(service.metadata?.uid ?? ""), `${contract.cluster}: argocd-server Service UID is invalid`);
+  check(/^\d+$/.test(service.metadata?.resourceVersion ?? ""), `${contract.cluster}: argocd-server Service resourceVersion is invalid`);
+  const ports = (service.spec?.ports ?? []).map((port) => ({
+    name: port.name ?? null,
+    protocol: port.protocol ?? "TCP",
+    port: port.port ?? null,
+    targetPort: port.targetPort ?? null,
+    nodePort: port.nodePort ?? null,
+  }));
+  check(ports.length === 1, `${contract.cluster}: argocd-server Service must expose exactly one port`);
+  check(
+    ports[0].name === "http"
+      && ports[0].protocol === "TCP"
+      && ports[0].port === 80
+      && Number(ports[0].targetPort) === 8080,
+    `${contract.cluster}: argocd-server Service port shape drifted`,
+  );
+  check(Number.isInteger(ports[0].nodePort) && ports[0].nodePort >= 30000 && ports[0].nodePort <= 32767, `${contract.cluster}: argocd-server first NodePort is invalid`);
+  if (requireReserved) {
+    check(
+      ports[0].nodePort === contract.reservedArgocdServerNodePort,
+      `${contract.cluster}: argocd-server first NodePort ${ports[0].nodePort ?? "missing"} does not own reserved port ${contract.reservedArgocdServerNodePort}`,
+    );
+  }
+  const assignedNodePorts = ports.map((port) => port.nodePort).filter(Number.isInteger);
+  check(new Set(assignedNodePorts).size === assignedNodePorts.length, `${contract.cluster}: argocd-server has duplicate NodePorts`);
+  check(
+    assignedNodePorts.every((nodePort) => ![contract.httpNodePort, contract.httpsNodePort].includes(nodePort)),
+    `${contract.cluster}: argocd-server collides with a Traefik NodePort`,
+  );
+  return {
+    namespace: "argocd",
+    name: "argocd-server",
+    uid: service.metadata.uid,
+    resourceVersion: service.metadata.resourceVersion,
+    type: service.spec.type,
+    reservedFirstNodePort: contract.reservedArgocdServerNodePort,
+    ports,
+  };
 }
 
 function observeGrafanaSecretWiring(findings) {
@@ -8059,7 +10928,7 @@ function observeGrafanaSecretWiring(findings) {
   };
 }
 
-function verifyPolicy(desired, findings) {
+function verifyPolicy(desired, findings, authoritativeSpaces = readSpaces()) {
   const triggerResult = cubTry(["trigger", "get", "--space", CONTROL_SPACE, APPROVAL_TRIGGER, "-o", "json"]);
   const filterResult = cubTry(["filter", "get", "--space", CONTROL_SPACE, APPROVAL_FILTER, "-o", "json"]);
   if (!triggerResult.ok) findings.push(`${CONTROL_SPACE}/${APPROVAL_TRIGGER}: Trigger missing`);
@@ -8082,7 +10951,11 @@ function verifyPolicy(desired, findings) {
   if (filter.From !== "Trigger" || filter.Where !== "Space.Slug = 'hx-platform' AND FunctionName = 'vet-approvedby'") findings.push(`${CONTROL_SPACE}/${APPROVAL_FILTER}: Filter definition drifted`);
   const productionSpaces = desired.spaces.filter((item) => item.prodProtected).map((item) => item.slug).sort();
   for (const slug of productionSpaces) {
-    const space = unwrapEntity(cubJson(["space", "get", slug]), "Space");
+    const space = authoritativeSpaces.get(slug);
+    if (!space) {
+      findings.push(`${slug}: production Space missing from authoritative snapshot`);
+      continue;
+    }
     if (space.TriggerFilterID !== filter.FilterID) findings.push(`${slug}: production approval Filter not attached`);
     if (stableJson([...(space.TriggerIDs ?? [])].sort()) !== stableJson([trigger.TriggerID])) findings.push(`${slug}: approval Trigger selection is not exact`);
   }
@@ -8136,15 +11009,48 @@ function verifyLinks(desired, findings) {
   return rows;
 }
 
-function readApplication(cluster, name) {
-  const result = kubectlTry(cluster, ["get", "application", name, "-n", "argocd", "-o", "json"]);
-  if (!result.ok) return { exists: false, sync: "Unknown", health: "Unknown", revision: "Unknown", conditions: [result.output.slice(0, 500)] };
-  const value = JSON.parse(result.output);
+function readApplicationInventory(cluster) {
+  const payload = JSON.parse(kubectl(cluster, [
+    "get", "applications.argoproj.io", "-A", "-o", "json",
+  ]));
+  const applications = payload.items ?? [];
+  const foreignNamespaceApplications = applications
+    .filter((app) => app.metadata?.namespace !== "argocd")
+    .map((app) => `${app.metadata?.namespace ?? "missing"}/${app.metadata?.name ?? "unknown"}`)
+    .sort();
+  check(
+    foreignNamespaceApplications.length === 0,
+    `${cluster}: managed authority forbids Application CRs outside argocd; observed ${foreignNamespaceApplications.join(", ")}`,
+  );
+  const inventory = new Map();
+  for (const app of applications) {
+    const name = app.metadata?.name;
+    check(name && !inventory.has(name), `${cluster}/argocd/${name ?? "unknown"}: duplicate Application identity in cluster-wide inventory`);
+    inventory.set(name, app);
+  }
+  return inventory;
+}
+
+function readApplication(cluster, name, inventory = null) {
+  let value = inventory?.get(name) ?? null;
+  if (!value && !inventory) {
+    const result = kubectlTry(cluster, ["get", "application", name, "-n", "argocd", "-o", "json"]);
+    if (!result.ok) return { exists: false, sync: "Unknown", health: "Unknown", revision: "Unknown", targetRevision: null, automatedSyncDisabled: false, activeOperation: false, operationPhase: "Unknown", applicationSetOwnerAbsent: false, conditions: [result.output.slice(0, 500)] };
+    value = JSON.parse(result.output);
+  }
+  if (!value) return { exists: false, sync: "Unknown", health: "Unknown", revision: "Unknown", targetRevision: null, automatedSyncDisabled: false, activeOperation: false, operationPhase: "Unknown", applicationSetOwnerAbsent: false, conditions: ["Application missing from exact cluster inventory"] };
+  const operationPhase = value.status?.operationState?.phase ?? "Unknown";
   return {
     exists: true,
     sync: value.status?.sync?.status ?? "Unknown",
     health: value.status?.health?.status ?? "Unknown",
     revision: value.status?.sync?.revision ?? "Unknown",
+    repoURL: value.spec?.source?.repoURL ?? null,
+    targetRevision: value.spec?.source?.targetRevision ?? null,
+    automatedSyncDisabled: !value.spec?.syncPolicy?.automated,
+    activeOperation: Boolean(value.operation) || ["Running", "Terminating"].includes(operationPhase),
+    operationPhase,
+    applicationSetOwnerAbsent: !(value.metadata?.ownerReferences ?? []).some((owner) => owner?.kind === "ApplicationSet"),
     conditions: (value.status?.conditions ?? []).map((item) => ({ type: item.type, message: item.message })),
   };
 }
@@ -8355,6 +11261,23 @@ function assertKindTraefikEvidence(rows, prefix = "kind Traefik evidence") {
     check(row.hostname === contract.hostname, `${prefix}: ${contract.cluster} hostname drifted`);
     check(row.httpNodePort === contract.httpNodePort, `${prefix}: ${contract.cluster} HTTP NodePort drifted`);
     check(row.httpsNodePort === contract.httpsNodePort, `${prefix}: ${contract.cluster} HTTPS NodePort drifted`);
+    check(
+      row.argocdServer?.namespace === "argocd"
+        && row.argocdServer?.name === "argocd-server"
+        && row.argocdServer?.type === "NodePort",
+      `${prefix}: ${contract.cluster} argocd-server Service identity drifted`,
+    );
+    check(UUID_PATTERN.test(row.argocdServer?.uid ?? ""), `${prefix}: ${contract.cluster} argocd-server Service UID is invalid`);
+    check(/^\d+$/.test(row.argocdServer?.resourceVersion ?? ""), `${prefix}: ${contract.cluster} argocd-server resourceVersion is invalid`);
+    check(
+      row.argocdServer?.reservedFirstNodePort === contract.reservedArgocdServerNodePort
+        && row.argocdServer?.ports?.[0]?.nodePort === contract.reservedArgocdServerNodePort,
+      `${prefix}: ${contract.cluster} argocd-server does not own its reserved first NodePort`,
+    );
+    check(
+      (row.argocdServer?.ports ?? []).every((port) => ![contract.httpNodePort, contract.httpsNodePort].includes(port.nodePort)),
+      `${prefix}: ${contract.cluster} argocd-server collides with Traefik`,
+    );
     check(row.service?.namespace === contract.namespace && row.service?.name === contract.serviceName, `${prefix}: ${contract.cluster} Service identity drifted`);
     check(row.service?.type === "NodePort", `${prefix}: ${contract.cluster} Service type drifted`);
     check(UUID_PATTERN.test(row.service?.uid ?? ""), `${prefix}: ${contract.cluster} Service UID is invalid`);
@@ -8377,7 +11300,11 @@ function assertKindTraefikEvidence(rows, prefix = "kind Traefik evidence") {
     }
     check(
       stableJson(row.docker?.ports?.map((item) => [item.containerPort, item.hostPort]))
-        === stableJson([[contract.httpNodePort, contract.httpNodePort], [contract.httpsNodePort, contract.httpsNodePort]]),
+        === stableJson([
+          [contract.reservedArgocdServerNodePort, contract.reservedArgocdServerNodePort],
+          [contract.httpNodePort, contract.httpNodePort],
+          [contract.httpsNodePort, contract.httpsNodePort],
+        ]),
       `${prefix}: ${contract.cluster} Docker port bindings drifted`,
     );
     check(row.docker?.node === `${contract.cluster}-control-plane`, `${prefix}: ${contract.cluster} Docker node identity drifted`);
@@ -8403,63 +11330,82 @@ function assertKindTraefikEvidence(rows, prefix = "kind Traefik evidence") {
 function buildReceipt(inputs, desired, observation, state) {
   assertPerformanceEvidence(observation.performance, "live verification performance evidence");
   check(
+    /^sha256:[0-9a-f]{64}$/.test(observation.finalConfigHubFingerprint ?? "")
+      && observation.finalConfigHubFingerprint === observation.performance.bulkSnapshots.canonicalFingerprint,
+    "live verification final ConfigHub fingerprint is missing or performance-unbound",
+  );
+  check(
     observation.performance.phases.length === 1,
     "live apply performance evidence must include the exact pre-Argo phase",
   );
   assertKindTraefikEvidence(observation.kindTraefik, "live kind Traefik evidence");
   const previous = readPriorReceipt();
+  const attemptLedger = readApplyAttemptLedger({ allowMissing: false });
+  const applyAttempt = state.applyAttempt;
+  const durableAttempt = attemptLedger.attempts.at(-1);
+  check(
+    applyAttempt
+      && durableAttempt?.sequence === applyAttempt.sequence
+      && durableAttempt.id === applyAttempt.id
+      && durableAttempt.result === "active",
+    "refusing receipt construction without the exact active durable apply attempt",
+  );
   const currentSourceEvidence = sourceEvidence();
   const trustedPrevious = priorReceiptMatchesCurrentExecution(previous, currentSourceEvidence, observation);
   const currentExecutionFingerprint = operationExecutionFingerprint();
   const previousRuns = trustedPrevious
     ? (previous.spec?.reconcileRuns ?? []).filter(
-        (item) => item.executionFingerprint === currentExecutionFingerprint,
+        (item) => item.executionFingerprint === currentExecutionFingerprint
+          && Number.isInteger(item.attemptSequence)
+          && UUID_PATTERN.test(item.attemptID ?? "")
+          && /^sha256:[0-9a-f]{64}$/.test(item.finalConfigHubFingerprint ?? "")
+          && item.performance?.schemaVersion === RECONCILE_PERFORMANCE_SCHEMA_VERSION
+          && item.performance?.fixtureID === RECONCILE_PERFORMANCE_FIXTURE_ID,
       )
     : [];
   const run = {
     observedAt: new Date().toISOString(),
+    attemptSequence: applyAttempt.sequence,
+    attemptID: applyAttempt.id,
     executionFingerprint: currentExecutionFingerprint,
     actionCount: state.actions.length,
     result: "pass",
     idempotentNoop: state.actions.length === 0,
+    finalConfigHubFingerprint: observation.finalConfigHubFingerprint,
+    performance: state.runPerformance,
   };
-  const recoveredChangedRun = !trustedPrevious
-    && state.scenario.mode === "recovered-completed-history"
-    && state.scenarioJournal?.state === "completed"
-    && state.scenarioJournal?.executionFingerprint === currentExecutionFingerprint
-    ? {
-        observedAt: state.scenarioJournal.completedAt,
-        executionFingerprint: currentExecutionFingerprint,
-        actionCount: state.scenarioJournal.operationEvidence.length,
-        result: "pass",
-        idempotentNoop: false,
-        recoveredFromOperationJournal: true,
-      }
-    : null;
-  const allRuns = [
-    ...previousRuns,
-    ...(recoveredChangedRun ? [recoveredChangedRun] : []),
-    run,
-  ];
-  const firstChangedRun = allRuns.find((item) => item.idempotentNoop === false && item.actionCount > 0) ?? null;
-  const reconcileRuns = distinctRuns([
-    ...(firstChangedRun ? [firstChangedRun] : []),
-    ...allRuns.slice(-4),
-  ]).slice(-5);
-  const currentFingerprintRuns = allRuns.filter(
-    (item) => item.result === "pass" && item.executionFingerprint === currentExecutionFingerprint,
+  // Only measured schema-v2 runs belong in reconcileRuns. An operation journal
+  // can recover semantic rollout history, but it cannot reconstruct timings or
+  // command counts and therefore must never be promoted into performance proof.
+  const reconcileRuns = distinctRuns([...previousRuns, run]).slice(-5);
+  const [pairChanged, pairNoop] = reconcileRuns.slice(-2);
+  const idempotentRerunProven = Boolean(
+    pairChanged
+      && pairNoop
+      && pairChanged.result === "pass"
+      && pairNoop.result === "pass"
+      && pairChanged.idempotentNoop === false
+      && pairChanged.actionCount > 0
+      && pairNoop.idempotentNoop === true
+      && pairNoop.actionCount === 0
+      && pairChanged.executionFingerprint === currentExecutionFingerprint
+      && pairNoop.executionFingerprint === currentExecutionFingerprint
+      && pairChanged.finalConfigHubFingerprint === pairNoop.finalConfigHubFingerprint
+      && pairNoop.finalConfigHubFingerprint === observation.finalConfigHubFingerprint
+      && pairChanged.performance?.schemaVersion === RECONCILE_PERFORMANCE_SCHEMA_VERSION
+      && pairNoop.performance?.schemaVersion === RECONCILE_PERFORMANCE_SCHEMA_VERSION
+      && pairChanged.performance?.fixtureID === RECONCILE_PERFORMANCE_FIXTURE_ID
+      && pairNoop.performance?.fixtureID === RECONCILE_PERFORMANCE_FIXTURE_ID
+      && prospectiveAttemptPairValid(reconcileRuns, attemptLedger, applyAttempt)
+      && pairChanged.performance?.runClass === "changed-apply"
+      && pairNoop.performance?.runClass === "idempotent-apply"
+      && Number.isFinite(Date.parse(pairChanged.observedAt ?? ""))
+      && Number.isFinite(Date.parse(pairNoop.observedAt ?? ""))
+      && Date.parse(pairChanged.observedAt) < Date.parse(pairNoop.observedAt)
   );
-  const retainedNoopBaselineProven = currentFingerprintRuns.length >= 2
-    && currentFingerprintRuns.slice(-2).every(
-      (item) => item.idempotentNoop === true && item.actionCount === 0,
-    );
-  const changedThenNoopProven = Boolean(firstChangedRun) && run.idempotentNoop;
-  const idempotentRerunProven = changedThenNoopProven || retainedNoopBaselineProven;
-  const deterministicProofMode = changedThenNoopProven
-    ? "changed-then-zero-action-rerun"
-    : retainedNoopBaselineProven
-      ? "two-zero-action-retained-baseline-observations"
-      : "pending-second-observation";
+  const deterministicProofMode = idempotentRerunProven
+    ? "immediate-changed-then-zero-action-rerun"
+    : "pending-immediate-changed-noop-pair";
   const priorScenario = trustedPrevious
     && previous.spec?.rolloutScenario?.version === SCENARIO_VERSION
     && previous.spec?.rolloutScenario?.sourceFingerprint === scenarioSourceFingerprint()
@@ -8472,14 +11418,14 @@ function buildReceipt(inputs, desired, observation, state) {
     ? priorScenario.operationEvidence
     : state.scenario.operationEvidence ?? state.actions.filter((item) => [
         "variant-promote",
-        "expected-approval-block",
+        "approval-gate-observed",
         "unit-approve",
         "rollback",
       ].includes(item.type));
   const scenarioCheckpoints = state.scenarioJournal?.checkpoints ?? priorScenario?.checkpoints ?? [];
   check(
     scenarioOperationProofValid({ checkpoints: scenarioCheckpoints, operationEvidence }),
-    "refusing to write a receipt without exact refusal, approval, and rollback evidence bound to scenario checkpoints",
+    "refusing to write a receipt without exact gate observation, approval, and rollback evidence bound to scenario checkpoints",
   );
   const lastChangedActions = state.actions.length > 0
     ? state.actions
@@ -8558,12 +11504,21 @@ function buildReceipt(inputs, desired, observation, state) {
         guiIdentityPolicy: GUI_IDENTITY_POLICY,
         topologyClaim: "ConfigHub takes the hub role; every cluster keeps a local reconciler",
       },
+      finalConfigHubSnapshot: {
+        canonicalization: "stable-recursive-key-order-and-entity-row-order",
+        fingerprintAlgorithm: "sha256",
+        resources: [...FINAL_CONFIGHUB_FINGERPRINT_RESOURCES],
+        fingerprint: run.finalConfigHubFingerprint,
+        sourceRunAttemptID: run.attemptID,
+        sourceRunClass: run.idempotentNoop ? "idempotent-apply" : "changed-apply",
+      },
       counts: {
         spaces: observation.spaces.length,
         managedUnits: observation.units.length,
         preservedFaithfulControlUnits: observation.preservedControlUnits.length,
         deployments: desired.deployments.length,
         deliveryApplicationUnits: desired.deployments.length + (FLEET.length * 2),
+        deploymentAuthorityApplications: observation.deploymentAuthority.length,
         protectedNamespaceOwnershipDetachments: protectedNamespaceEvidence.length,
         kindTraefikContracts: observation.kindTraefik.length,
         releases: observation.releases.length,
@@ -8581,6 +11536,13 @@ function buildReceipt(inputs, desired, observation, state) {
       units: observation.units,
       releases: observation.releases,
       applications: observation.applications,
+      deploymentAuthority: {
+        scope: "managed-automated-path; privileged human or external-controller Argo sync remains outside this proof unless separately constrained by RBAC or admission",
+        policy: "targetRevision latest is discovery-only; automated sync absent; no active operation; no ApplicationSet regeneration; ConfigHub revalidates the exact release and submits operation.sync.revision=ManifestDigest with Kubernetes UID/resourceVersion CAS",
+        applications: observation.deploymentAuthority,
+        argobot: observation.argobotAuthority,
+        applicationSets: observation.applicationSets,
+      },
       deliveryRuntimes: observation.deliveryRuntimes,
       deliveryApplicationUnits: plannedDeliveryApplicationIdentity(desired),
       guiNavigation: {
@@ -8648,7 +11610,7 @@ function buildReceipt(inputs, desired, observation, state) {
 function distinctRuns(runs) {
   const seen = new Set();
   return runs.filter((run) => {
-    const key = `${run.executionFingerprint ?? ""}/${run.observedAt ?? ""}/${run.actionCount ?? ""}/${run.idempotentNoop ?? ""}`;
+    const key = `${run.attemptSequence ?? ""}/${run.attemptID ?? ""}/${run.executionFingerprint ?? ""}/${run.finalConfigHubFingerprint ?? ""}/${run.observedAt ?? ""}/${run.actionCount ?? ""}/${run.idempotentNoop ?? ""}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -8699,6 +11661,7 @@ function assertReceiptLinkEvidence(rows, expectedLinks) {
 function verifyReceipt(inputs, desired) {
   check(existsSync(RECEIPT_PATH), `${relativeRepo(RECEIPT_PATH)} is missing; run --apply after all live prerequisites pass`);
   const receipt = readYaml(RECEIPT_PATH);
+  assertAttemptLedgerCurrentForReceipt(receipt);
   check(receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "mini-IDP receipt kind drifted");
   check(receipt.spec?.organization?.name === ORGANIZATION, "mini-IDP receipt organization drifted");
   check(receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID, "mini-IDP receipt organization external ID drifted");
@@ -8721,6 +11684,15 @@ function verifyReceipt(inputs, desired) {
   check(receipt.spec?.execution?.aiRequired === false, "AI must not be required for mini-IDP reconciliation");
   check(receipt.spec?.execution?.mutationGuardConsulted === false, "mutation guard should remain outside this explicitly authorized reconciler");
   assertPerformanceEvidence(receipt.spec?.execution?.performance, "mini-IDP receipt performance evidence");
+  const finalConfigHubSnapshot = receipt.spec?.finalConfigHubSnapshot ?? {};
+  check(
+    finalConfigHubSnapshot.canonicalization === "stable-recursive-key-order-and-entity-row-order"
+      && finalConfigHubSnapshot.fingerprintAlgorithm === "sha256"
+      && stableJson(finalConfigHubSnapshot.resources) === stableJson(FINAL_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && /^sha256:[0-9a-f]{64}$/.test(finalConfigHubSnapshot.fingerprint ?? "")
+      && finalConfigHubSnapshot.fingerprint === receipt.spec.execution.performance.bulkSnapshots.canonicalFingerprint,
+    "mini-IDP receipt final ConfigHub snapshot is missing or performance-unbound",
+  );
   check(
     receipt.spec.execution.performance.phases.length === 1,
     "mini-IDP receipt must retain the exact apply-start-to-first-Argo-convergence performance phase",
@@ -8784,6 +11756,10 @@ function verifyReceipt(inputs, desired) {
   check(
     counts.deliveryApplicationUnits === desired.deployments.length + (FLEET.length * 2),
     "receipt delivery Application Unit count drifted",
+  );
+  check(
+    counts.deploymentAuthorityApplications === desired.deployments.length + (FLEET.length * 2),
+    "receipt deployment-authority Application count drifted",
   );
   check(
     counts.protectedNamespaceOwnershipDetachments === PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
@@ -8891,8 +11867,10 @@ function verifyReceipt(inputs, desired) {
   const releaseRows = receipt.spec?.releases ?? [];
   check(releaseRows.length === desired.deployments.length, "receipt release rows are incomplete");
   for (const row of releaseRows) {
+    check(UUID_PATTERN.test(row.id ?? "") && UUID_PATTERN.test(row.tagID ?? ""), `${row.space}: release or immutable Tag identity is invalid`);
     check(/^sha256:[0-9a-f]{64}$/.test(row.bundleDigest ?? ""), `${row.space}: bundle content digest missing`);
     check(/^sha256:[0-9a-f]{64}$/.test(row.manifestDigest ?? ""), `${row.space}: OCI manifest digest missing`);
+    check(Number(row.unitCount) === Number(row.expectedUnitCount) && Number(row.unitCount) > 0, `${row.space}: receipt release UnitCount is incomplete`);
   }
   const releasesBySpace = new Map(releaseRows.map((row) => [row.space, row]));
   const appRows = receipt.spec?.applications ?? [];
@@ -8910,6 +11888,83 @@ function verifyReceipt(inputs, desired) {
     check(row.observedRevision === row.expectedRevision, `${row.cluster}/${row.name}: receipt observed revision is not the expected ConfigHub release`);
     check(row.syncState === "Synced", `${row.cluster}/${row.name}: receipt sync is ${row.syncState}`);
     check((row.acceptedHealth ?? []).includes(row.healthState), `${row.cluster}/${row.name}: receipt health ${row.healthState} is outside accepted set`);
+    check(
+      row.targetRevision === "latest"
+        && row.automatedSyncDisabled === true
+        && row.activeOperation === false
+        && !["Running", "Terminating"].includes(row.operationPhase)
+        && row.applicationSetOwnerAbsent === true,
+      `${row.cluster}/${row.name}: receipt Application authority is not fail-closed`,
+    );
+  }
+  const authority = receipt.spec?.deploymentAuthority ?? {};
+  check(
+    authority.scope === "managed-automated-path; privileged human or external-controller Argo sync remains outside this proof unless separately constrained by RBAC or admission",
+    "receipt deployment-authority scope overclaims exclusive Argo control",
+  );
+  check(
+    authority.policy === "targetRevision latest is discovery-only; automated sync absent; no active operation; no ApplicationSet regeneration; ConfigHub revalidates the exact release and submits operation.sync.revision=ManifestDigest with Kubernetes UID/resourceVersion CAS",
+    "receipt deployment-authority policy drifted",
+  );
+  const authorityApplications = authority.applications ?? [];
+  const expectedDeliveryUnitRefs = new Set(plannedDeliveryApplicationIdentity(desired).map((item) => item.ref));
+  check(authorityApplications.length === expectedDeliveryUnitRefs.size, "receipt does not retain all 35 Application authority rows");
+  check(new Set(authorityApplications.map((row) => row.sourceUnit)).size === expectedDeliveryUnitRefs.size, "receipt deployment-authority source Units are duplicated");
+  for (const row of authorityApplications) {
+    check(expectedDeliveryUnitRefs.has(row.sourceUnit), `${row.cluster}/${row.name}: deployment-authority row is outside the exact delivery Unit set`);
+    check(UUID_PATTERN.test(row.releaseID ?? "") && UUID_PATTERN.test(row.releaseTagID ?? "") && Number(row.releaseNum) > 0, `${row.cluster}/${row.name}: authoritative release/Tag identity is invalid`);
+    check(Number(row.releaseUnitCount) === Number(row.expectedUnitCount) && Number(row.releaseUnitCount) > 0, `${row.cluster}/${row.name}: authoritative release UnitCount is incomplete`);
+    check(/^sha256:[0-9a-f]{64}$/.test(row.expectedRevision ?? "") && row.observedRevision === row.expectedRevision, `${row.cluster}/${row.name}: exact ManifestDigest observation is missing`);
+    check(
+      row.targetRevision === "latest"
+        && row.automatedSyncDisabled === true
+        && row.activeOperation === false
+        && !["Running", "Terminating"].includes(row.operationPhase)
+        && row.applicationSetOwnerAbsent === true
+        && row.syncSubmissionAuthority === "ConfigHub-revalidated-ManifestDigest-Kubernetes-UID-resourceVersion-CAS",
+      `${row.cluster}/${row.name}: managed deployment authority is not fail-closed`,
+    );
+    check(row.syncState === "Synced" && (row.acceptedHealth ?? []).includes(row.healthState), `${row.cluster}/${row.name}: authority row is not converged`);
+  }
+  const applicationSetRows = authority.applicationSets ?? [];
+  check(applicationSetRows.length === FLEET.length, "receipt ApplicationSet inventory is incomplete");
+  for (const row of applicationSetRows) {
+    check(FLEET.some((item) => item.cluster === row.cluster) && row.count === 0 && stableJson(row.refs) === "[]", `${row.cluster}: adapted lane retains an ApplicationSet regeneration path`);
+  }
+  const argobotRows = authority.argobot ?? [];
+  check(argobotRows.length === FLEET.length, "receipt argobot authority inventory is incomplete");
+  for (const row of argobotRows) {
+    check(FLEET.some((item) => item.cluster === row.cluster) && row.version === ARGOBOT_VERSION, `${row.cluster}: argobot authority identity drifted`);
+    const deployment = row.deployment ?? {};
+    check(
+      deployment.image === ARGOBOT_IMAGE
+        && deployment.syncMode === "kubernetes"
+        && deployment.applicationNamespace === "argocd"
+        && deployment.refreshType === "hard"
+        && deployment.restSyncEnvironmentAbsent === true
+        && deployment.commandOverrideAbsent === true
+        && deployment.oneContainerNoInit === true
+        && deployment.duplicateEnvironmentAbsent === true
+        && deployment.selectorExact === true
+        && deployment.rolloutCurrent === true,
+      `${row.cluster}: argobot Deployment is not exact refresh-only authority`,
+    );
+    check((row.pods ?? []).length === deployment.replicas && deployment.replicas > 0, `${row.cluster}: argobot Pod authority inventory is incomplete`);
+    for (const pod of row.pods) {
+      check(
+        UUID_PATTERN.test(pod.uid ?? "")
+          && pod.runningReady === true
+          && pod.image === ARGOBOT_IMAGE
+          && pod.syncMode === "kubernetes"
+          && pod.applicationNamespace === "argocd"
+          && pod.refreshType === "hard"
+          && pod.restSyncEnvironmentAbsent === true
+          && pod.commandOverrideAbsent === true
+          && pod.oneContainerNoInit === true
+          && pod.duplicateEnvironmentAbsent === true,
+        `${row.cluster}/${pod.name}: argobot Pod is not exact refresh-only authority`,
+      );
+    }
   }
   check(
     stableJson(receipt.spec?.deliveryApplicationUnits ?? [])
@@ -8954,17 +12009,18 @@ function verifyReceipt(inputs, desired) {
     check((scenario.steps ?? []).some((item) => item.id === id && item.result === "pass"), `receipt rollout step ${id} is missing`);
   }
   for (const space of ["hx-web-prod-a", "hx-web-prod-b"]) {
-    const refusal = (scenario.operationEvidence ?? []).find(
-      (item) => item.type === "expected-approval-block" && item.ref === space,
+    const gateObservation = (scenario.operationEvidence ?? []).find(
+      (item) => item.type === "approval-gate-observed" && item.ref === space,
     );
-    check(refusal?.refusedHeads?.length > 0, `receipt lacks exact pre-approval refused heads for ${space}`);
-    for (const head of refusal.refusedHeads) {
-      check(UUID_PATTERN.test(head.id ?? "") && Number(head.headRevisionNum) > 0 && /^[a-f0-9]{64}$/.test(head.dataHash ?? ""), `${head.ref}: refused-head evidence is invalid`);
+    check(gateObservation?.gatedHeads?.length > 0, `receipt lacks exact pre-approval gated heads for ${space}`);
+    check(gateObservation.observationMode === "read-only-authoritative-gate", `${space}: gate observation mode is not read-only authoritative evidence`);
+    for (const head of gateObservation.gatedHeads) {
+      check(UUID_PATTERN.test(head.id ?? "") && Number(head.headRevisionNum) > 0 && /^[a-f0-9]{64}$/.test(head.dataHash ?? ""), `${head.ref}: gated-head evidence is invalid`);
     }
   }
   check(
     scenarioOperationProofValid(scenario),
-    "receipt lacks exact refusal, approval, or rollback evidence bound to its rollout checkpoints",
+    "receipt lacks exact gate observation, approval, or rollback evidence bound to its rollout checkpoints",
   );
   const checkpoints = scenario.checkpoints ?? [];
   for (const id of ["materialized", "base-promotion", "prod-approval", "prod-a-rollback", "final-normalized"]) {
@@ -8998,20 +12054,44 @@ function verifyReceipt(inputs, desired) {
   }
 
   const runs = receipt.spec?.reconcileRuns ?? [];
-  check(runs.length >= 2 && runs.every((item) => item.result === "pass"), "receipt must contain the initial reconciliation and a zero-action rerun");
-  check(runs.every((item) => item.executionFingerprint === operationExecutionFingerprint()), "receipt reconcile runs do not share the current execution fingerprint");
-  const changedThenNoop = runs.some((item) => item.idempotentNoop === false && item.actionCount > 0)
-    && runs.at(-1)?.idempotentNoop === true;
-  const retainedNoopBaseline = runs.length >= 2
-    && runs.slice(-2).every((item) => item.idempotentNoop === true && item.actionCount === 0);
-  check(changedThenNoop || retainedNoopBaseline, "receipt proves neither changed-then-noop reconciliation nor a two-observation retained no-op baseline");
-  check(runs.at(-1)?.idempotentNoop === true && runs.at(-1)?.actionCount === 0, "receipt latest reconcile run is not an idempotent no-op");
+  check(runs.length >= 2 && runs.every((item) => item.result === "pass"), "receipt must contain an immediate changed reconciliation and zero-action rerun");
   check(
-    receipt.spec?.deterministicProofMode === (
-      changedThenNoop
-        ? "changed-then-zero-action-rerun"
-        : "two-zero-action-retained-baseline-observations"
-    ),
+    runs.every((item) => Number.isInteger(item.attemptSequence) && UUID_PATTERN.test(item.attemptID ?? "")),
+    "receipt reconcile runs are not bound to durable apply attempts",
+  );
+  check(runs.every((item) => item.executionFingerprint === operationExecutionFingerprint()), "receipt reconcile runs do not share the current execution fingerprint");
+  check(
+    runs.every((item) => /^sha256:[0-9a-f]{64}$/.test(item.finalConfigHubFingerprint ?? "")),
+    "receipt reconcile runs lack canonical final ConfigHub fingerprints",
+  );
+  const [changed, noop] = runs.slice(-2);
+  check(noop.attemptSequence === changed.attemptSequence + 1, "receipt reconcile runs are not consecutive apply attempts");
+  check(changed.idempotentNoop === false && changed.actionCount > 0, "receipt penultimate reconcile run is not a changed apply");
+  check(noop.idempotentNoop === true && noop.actionCount === 0, "receipt latest reconcile run is not an idempotent no-op");
+  check(
+    changed.finalConfigHubFingerprint === noop.finalConfigHubFingerprint
+      && noop.finalConfigHubFingerprint === finalConfigHubSnapshot.fingerprint
+      && finalConfigHubSnapshot.sourceRunAttemptID === noop.attemptID
+      && finalConfigHubSnapshot.sourceRunClass === "idempotent-apply",
+    "receipt changed/no-op runs and final ConfigHub snapshot do not prove the same state",
+  );
+  check(
+    changed.performance?.schemaVersion === RECONCILE_PERFORMANCE_SCHEMA_VERSION
+      && noop.performance?.schemaVersion === RECONCILE_PERFORMANCE_SCHEMA_VERSION
+      && changed.performance?.fixtureID === RECONCILE_PERFORMANCE_FIXTURE_ID
+      && noop.performance?.fixtureID === RECONCILE_PERFORMANCE_FIXTURE_ID
+      && changed.performance?.runClass === "changed-apply"
+      && noop.performance?.runClass === "idempotent-apply",
+    "receipt immediate reconcile pair is not measured by the schema-v2 fixture",
+  );
+  check(
+    Number.isFinite(Date.parse(changed.observedAt ?? ""))
+      && Number.isFinite(Date.parse(noop.observedAt ?? ""))
+      && Date.parse(changed.observedAt) < Date.parse(noop.observedAt),
+    "receipt immediate reconcile pair timestamps are invalid or unordered",
+  );
+  check(
+    receipt.spec?.deterministicProofMode === "immediate-changed-then-zero-action-rerun",
     "receipt deterministic proof mode does not match its run evidence",
   );
   check(receipt.status?.result === "pass", "mini-IDP receipt status is not pass");

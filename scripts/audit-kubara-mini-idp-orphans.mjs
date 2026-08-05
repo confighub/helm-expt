@@ -13,6 +13,7 @@ import {
   mkdtempSync,
   mkdirSync,
   readFileSync,
+  renameSync,
   rmSync,
   writeFileSync,
 } from "node:fs";
@@ -43,6 +44,9 @@ const ORGANIZATION_EXTERNAL_ID = "58b23b85-9699-4384-bd57-80ef695a1d58";
 const ORGANIZATION_ENTITY_ID = "12c33fa8-00b1-4011-ad3e-19d56458b29c";
 const CONFIGHUB_SERVER_URL = "https://hub.confighub.com";
 const RECONCILER_PATH = join(repoRoot, "scripts", "reconcile-kubara-mini-idp.mjs");
+const RECONCILE_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
+const APPLY_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
+const PERFORMANCE_VERIFIER_PATH = join(repoRoot, "scripts", "verify-kubara-mini-idp-performance.mjs");
 const RECEIPT_PATH = receiptOption
   ? resolve(receiptOption)
   : join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml");
@@ -61,7 +65,60 @@ const OWNERSHIP_ANNOTATIONS = [
 ];
 const LEGACY_DEFAULT_NAMESPACE_LABELS = ["project-name", "stage"];
 const SHA256_PATTERN = /^sha256:[0-9a-f]{64}$/;
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const RELEASE_TAG_SLUG_PATTERN = /^release-([1-9][0-9]*)$/;
 const ARGO_TRACKING_ANNOTATION = "argocd.argoproj.io/tracking-id";
+const ARGOBOT_VERSION = "v0.1.6";
+const ARGOBOT_IMAGE = `ghcr.io/confighub/argobot:${ARGOBOT_VERSION}`;
+const EXPECTED_TRIGGERS = Object.freeze([
+  Object.freeze({
+    ref: "hx-platform/require-approval",
+    purpose: "production-approval",
+    event: "Mutation",
+    toolchainType: "Kubernetes/YAML",
+    functionName: "vet-approvedby",
+    arguments: Object.freeze([{ ParameterName: "num-approvers", Value: "1" }]),
+    validating: true,
+    disabled: false,
+    failOpenAfter: 0,
+  }),
+]);
+const EXPECTED_FILTERS = Object.freeze([
+  Object.freeze({
+    ref: "hx-platform/prod-approval",
+    attachment: "production-spaces",
+    from: "Trigger",
+    where: "Space.Slug = 'hx-platform' AND FunctionName = 'vet-approvedby'",
+  }),
+]);
+const SPACE_READ_SELECT = "SpaceID,OrganizationID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates";
+const UNIT_READ_SELECT = "SpaceID,Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,Data,DataHash,ContentHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates";
+const LINK_READ_SELECT = "SpaceID,FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum";
+const TRIGGER_READ_SELECT = "SpaceID,Event,ToolchainType,FunctionName,Arguments,Disabled,Validating,FailOpenAfter";
+const FILTER_READ_SELECT = "SpaceID,From,Where";
+const TAG_READ_SELECT = "SpaceID,CreatedAt";
+const CORE_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze(["space", "unit", "release", "link", "target"]);
+const FULL_CONFIGHUB_FINGERPRINT_RESOURCES = Object.freeze([...CORE_CONFIGHUB_FINGERPRINT_RESOURCES, "trigger", "filter", "tag"]);
+const CONFIGHUB_FINGERPRINT_FIELD_SETS = Object.freeze({
+  space: Object.freeze(["OrganizationID", "SpaceID", "Slug", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]),
+  unit: Object.freeze(["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "Data", "DataHash", "ContentHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]),
+  release: Object.freeze(["SpaceID", "ReleaseID", "TagID", "Digest", "ManifestDigest", "ReleaseNum", "UnitCount", "CreatedAt"]),
+  link: Object.freeze(["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]),
+  target: Object.freeze(["SpaceID", "TargetID", "Slug", "ProviderType", "ToolchainType", "Annotations"]),
+  trigger: Object.freeze(["SpaceID", "TriggerID", "Slug", "Event", "ToolchainType", "FunctionName", "Arguments", "Disabled", "Validating", "FailOpenAfter"]),
+  filter: Object.freeze(["SpaceID", "FilterID", "Slug", "From", "Where"]),
+  tag: Object.freeze(["OrganizationID", "SpaceID", "TagID", "Slug", "CreatedAt"]),
+});
+const CONFIGHUB_LIST_CALLS_PER_BRACKET = Object.freeze({
+  space: 1,
+  unit: 1,
+  link: 1,
+  target: 1,
+  release: 1,
+  trigger: 1,
+  filter: 1,
+  tag: 1,
+});
 const DURABLE_WORKLOAD_RESOURCES = [
   "deployments.apps",
   "statefulsets.apps",
@@ -321,6 +378,8 @@ function buildAuditPlan(plan) {
     slug: "target",
     appsSpace: appsSpaces.get(cluster),
   }]));
+  const triggers = new Map(EXPECTED_TRIGGERS.map((item) => [item.ref, item]));
+  const filters = new Map(EXPECTED_FILTERS.map((item) => [item.ref, item]));
 
   const releaseStreams = new Map();
   for (const deployment of plan.spec.deployments) {
@@ -366,6 +425,8 @@ function buildAuditPlan(plan) {
     units,
     links,
     targets,
+    triggers,
+    filters,
     clusters,
     appsSpaces,
     releaseStreams,
@@ -380,6 +441,8 @@ function buildAuditPlan(plan) {
   check(result.spaces.size === plan.spec.counts.spaces, "audit Space inventory differs from reconciler count");
   check(result.units.size === plan.spec.counts.managedUnits + plan.spec.counts.preservedFaithfulControlUnits + plan.spec.counts.deliveryApplicationUnits + clusters.length + 1, "audit Unit inventory differs from the plan-derived total");
   check(result.links.size === plan.spec.links.length + plan.spec.units.filter((item) => item.upstream).length + clusters.length, "audit Link inventory differs from the plan-derived total");
+  check(result.triggers.size === EXPECTED_TRIGGERS.length, "audit Trigger inventory differs from the centralized allowlist");
+  check(result.filters.size === EXPECTED_FILTERS.length, "audit Filter inventory differs from the centralized allowlist");
   check(result.releaseStreams.size === plan.spec.deployments.length + (clusters.length * 2), "audit release streams differ from the plan-derived total");
   return result;
 }
@@ -403,15 +466,17 @@ function publicAuditPlan(plan) {
       },
       policies: {
         liveMutation: "none",
-        unexpectedConfigHubSpacesUnitsLinksTargets: "fail",
-        argoApplicationInventory: "exact-plan-derived-allowlist",
+        unexpectedConfigHubSpacesUnitsLinksTargetsTriggersFiltersReleaseTags: "fail",
+        configHubReadShape: "opening-and-closing-organization-wide-eight-resource-snapshots-with-one-list-per-resource-per-bracket",
+        unitDataIngress: "canonical-base64-valid-UTF-8-and-exact-DataHash-required-before-cache-use",
+        argoApplicationInventory: "cluster-wide-exact-plan-derived-allowlist; every Application must be in argocd",
         argoRequiresPruning: "zero",
         durableWorkloadInventory: "every-Deployment-StatefulSet-DaemonSet-CronJob-Job-must-be-Argo-desired-bootstrap-or-directly-owned-by-an-Argo-desired-root",
         danglingArgoTrackedDurableWorkloads: "zero",
         unclassifiedDurableWorkloads: "zero",
         protectedNamespaceOwnershipMetadata: "zero",
         currentRelease: "latest-published-manifest-must-equal-observed-argo-revision",
-        historicalRelease: "retain-and-classify-never-delete",
+        historicalRelease: "retain contiguous release-N Tag identity history through each current Release; current deployment authority remains Release.ManifestDigest",
         catalogHistory: "retain-additively-never-classify-unselected-version-as-orphan",
       },
       counts: {
@@ -419,6 +484,8 @@ function publicAuditPlan(plan) {
         units: plan.units.size,
         links: plan.links.size,
         targets: plan.targets.size,
+        triggers: plan.triggers.size,
+        filters: plan.filters.size,
         currentReleaseStreams: plan.releaseStreams.size,
         expectedArgoApplications: plan.reconcilePlan.spec.counts.deliveryApplicationUnits,
         bootstrapDurableWorkloadsPerCluster: BOOTSTRAP_DURABLE_WORKLOADS.length,
@@ -428,6 +495,8 @@ function publicAuditPlan(plan) {
       units: [...plan.units.keys()].sort(),
       links: [...plan.links.keys()].sort(),
       targets: [...plan.targets.keys()].sort(),
+      triggers: [...plan.triggers.keys()].sort(),
+      filters: [...plan.filters.keys()].sort(),
       currentReleaseStreams: [...plan.releaseStreams.values()].sort((a, b) => a.space.localeCompare(b.space)),
       bootstrapDurableWorkloads: BOOTSTRAP_DURABLE_WORKLOADS,
       protectedNamespaces: PROTECTED_NAMESPACES,
@@ -584,7 +653,6 @@ function pinnedCubClient() {
   return {
     coordinate,
     json(args) { return JSON.parse(command("cub", [...contextArgs, ...args, "-o", "json"])); },
-    text(args) { return command("cub", [...contextArgs, ...args]); },
   };
 }
 
@@ -635,12 +703,168 @@ function setDifference(left, right) {
   return [...left].filter((item) => !right.has(item)).sort();
 }
 
+function decodeBulkUnitData(unit, ref) {
+  check(typeof unit?.Data === "string", `${ref}: organization-wide Unit row omitted Data`);
+  check(/^[a-f0-9]{64}$/.test(unit.DataHash ?? ""), `${ref}: organization-wide Unit row has an invalid DataHash`);
+  check(
+    /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(unit.Data),
+    `${ref}: organization-wide Unit row contains non-canonical base64 Data`,
+  );
+  const decoded = Buffer.from(unit.Data, "base64");
+  check(decoded.toString("base64") === unit.Data, `${ref}: organization-wide Unit row contains non-canonical base64 Data`);
+  check(sha256(decoded) === unit.DataHash, `${ref}: organization-wide Unit DataHash does not match decoded Data`);
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(decoded);
+  } catch {
+    check(false, `${ref}: organization-wide Unit decoded Data is not valid UTF-8`);
+  }
+}
+
+function canonicalSnapshotRows(rows, fields) {
+  return rows
+    .map((row) => Object.fromEntries(fields.map((field) => [field, row[field] ?? null])))
+    .sort((left, right) => stableJson(left).localeCompare(stableJson(right)));
+}
+
+function configHubSnapshotFingerprint(rowsByResource, resources) {
+  const selected = Object.fromEntries(resources.map((resource) => {
+    check(Array.isArray(rowsByResource[resource]), `canonical ConfigHub snapshot is missing ${resource} rows`);
+    return [resource, rowsByResource[resource]];
+  }));
+  return `sha256:${sha256(stableJson(selected))}`;
+}
+
+function assertOrganizationListCallBudget(listCalls) {
+  check(
+    stableJson(listCalls) === stableJson(CONFIGHUB_LIST_CALLS_PER_BRACKET),
+    `ConfigHub organization-wide read budget drifted: expected ${stableJson(CONFIGHUB_LIST_CALLS_PER_BRACKET)}, observed ${stableJson(listCalls)}`,
+  );
+}
+
+function scopedRowsByRef(rows, entity, spacesByID, findings) {
+  const result = new Map();
+  for (const row of rows) {
+    const space = spacesByID.get(row.SpaceID) ?? `unknown:${row.SpaceID ?? "missing"}`;
+    const ref = `${space}/${row.Slug ?? "missing"}`;
+    if (result.has(ref)) {
+      addFinding(findings, `duplicateConfigHub${entity}`, ref, `organization-wide ${entity} list returned a duplicate identity`);
+      continue;
+    }
+    result.set(ref, row);
+  }
+  return result;
+}
+
+function classifyReleaseTags(tagRows, releases, spaceSlugByID, findings) {
+  const tagsByID = new Map();
+  const tagsBySpaceID = new Map();
+  for (const tag of tagRows) {
+    const space = spaceSlugByID.get(tag.SpaceID);
+    const ref = `${space ?? `unknown:${tag.SpaceID ?? "missing"}`}/${tag.Slug ?? "missing"}`;
+    if (tag.OrganizationID !== ORGANIZATION_ENTITY_ID || !space) {
+      addFinding(findings, "orphanReleaseTag", ref, "release Tag belongs to an unknown Space or escaped the pinned Kubara Organization");
+    }
+    if (!UUID_PATTERN.test(tag.TagID ?? "")) addFinding(findings, "releaseTagContractDrift", ref, "release TagID is invalid");
+    if (!RELEASE_TAG_SLUG_PATTERN.test(tag.Slug ?? "")) addFinding(findings, "releaseTagContractDrift", ref, "release Tag slug is not release-<positive integer>");
+    if (tagsByID.has(tag.TagID)) addFinding(findings, "duplicateConfigHubTag", ref, "organization-wide Tag list returned a duplicate TagID");
+    tagsByID.set(tag.TagID, tag);
+    if (!tagsBySpaceID.has(tag.SpaceID)) tagsBySpaceID.set(tag.SpaceID, []);
+    tagsBySpaceID.get(tag.SpaceID).push(tag);
+  }
+
+  const releasesBySpaceID = new Map();
+  for (const release of releases) {
+    if (!releasesBySpaceID.has(release.SpaceID)) releasesBySpaceID.set(release.SpaceID, []);
+    releasesBySpaceID.get(release.SpaceID).push(release);
+    const space = spaceSlugByID.get(release.SpaceID) ?? `unknown:${release.SpaceID ?? "missing"}`;
+    const tag = tagsByID.get(release.TagID);
+    if (
+      !UUID_PATTERN.test(release.TagID ?? "")
+      || !tag
+      || tag.SpaceID !== release.SpaceID
+      || tag.Slug !== `release-${release.ReleaseNum}`
+    ) {
+      addFinding(
+        findings,
+        "releaseTagContractDrift",
+        `${space}/${release.ReleaseID ?? "unknown"}`,
+        "Release does not reference the exact same-Space release-N Tag",
+      );
+    }
+  }
+
+  const allSpaceIDs = new Set([...tagsBySpaceID.keys(), ...releasesBySpaceID.keys()]);
+  const streams = [];
+  for (const spaceID of [...allSpaceIDs].sort((left, right) => String(spaceSlugByID.get(left) ?? left).localeCompare(String(spaceSlugByID.get(right) ?? right)))) {
+    const space = spaceSlugByID.get(spaceID) ?? `unknown:${spaceID ?? "missing"}`;
+    const tags = [...(tagsBySpaceID.get(spaceID) ?? [])].sort((left, right) => {
+      const leftNum = Number(RELEASE_TAG_SLUG_PATTERN.exec(left.Slug ?? "")?.[1] ?? Number.MAX_SAFE_INTEGER);
+      const rightNum = Number(RELEASE_TAG_SLUG_PATTERN.exec(right.Slug ?? "")?.[1] ?? Number.MAX_SAFE_INTEGER);
+      return leftNum - rightNum || String(left.TagID ?? "").localeCompare(String(right.TagID ?? ""));
+    });
+    const releasesForSpace = [...(releasesBySpaceID.get(spaceID) ?? [])].sort(releaseSort);
+    const current = releasesForSpace[0];
+    if (!current) {
+      addFinding(findings, "orphanReleaseTag", space, `${tags.length} retained release Tag(s) have no current Release stream`);
+      continue;
+    }
+    const currentReleaseNum = Number(current.ReleaseNum);
+    const tagNumbers = tags.map((tag) => Number(RELEASE_TAG_SLUG_PATTERN.exec(tag.Slug ?? "")?.[1] ?? NaN));
+    const expectedNumbers = Number.isInteger(currentReleaseNum) && currentReleaseNum > 0
+      ? Array.from({ length: currentReleaseNum }, (_unused, index) => index + 1)
+      : [];
+    const contiguous = stableJson(tagNumbers) === stableJson(expectedNumbers);
+    if (!contiguous) {
+      addFinding(
+        findings,
+        "releaseTagContractDrift",
+        space,
+        `retained release Tag sequence ${stableJson(tagNumbers)} is not the complete additive history 1..${currentReleaseNum || "invalid"}`,
+      );
+    }
+    const currentTag = tagsByID.get(current.TagID);
+    const exactCurrentTag = currentTag?.SpaceID === spaceID && currentTag?.Slug === `release-${currentReleaseNum}`;
+    if (!exactCurrentTag) addFinding(findings, "missingReleaseTag", `${space}/release-${currentReleaseNum}`, "current Release Tag is absent or does not match TagID");
+    streams.push({
+      space,
+      currentReleaseID: current.ReleaseID,
+      currentReleaseNum,
+      currentTagID: current.TagID,
+      retainedTagCount: tags.length,
+      contiguousFromOne: contiguous,
+      exactCurrentTag,
+      tags: tags.map((tag) => ({
+        slug: tag.Slug,
+        tagID: tag.TagID,
+        createdAt: tag.CreatedAt,
+      })),
+    });
+  }
+  return {
+    policy: "additive-release-N-tags-contiguous-from-one-through-current-release",
+    streams,
+    retainedTagCount: tagRows.length,
+  };
+}
+
 function readConfigHubInventory(client, plan, findings) {
-  const spaces = unwrapRows(client.json([
-    "space", "list",
-    "--select", "OrganizationID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,UpdatedAt",
-  ]), "Space");
+  const listCalls = Object.fromEntries(Object.keys(CONFIGHUB_LIST_CALLS_PER_BRACKET).map((resource) => [resource, 0]));
+  const listRows = (resource, args, entity = `${resource[0].toUpperCase()}${resource.slice(1)}`) => {
+    listCalls[resource] += 1;
+    return unwrapRows(client.json([resource, "list", ...args]), entity);
+  };
+  const spaces = listRows("space", [
+    "--select", SPACE_READ_SELECT,
+  ]);
+  for (const space of spaces) {
+    check(
+      space.OrganizationID === ORGANIZATION_ENTITY_ID,
+      `${space.Slug ?? "unknown"}: Space escaped the pinned Kubara Organization`,
+    );
+  }
   const spacesBySlug = new Map(spaces.map((space) => [space.Slug, space]));
+  if (spacesBySlug.size !== spaces.length) addFinding(findings, "duplicateConfigHubSpace", "organization", "Space list returned duplicate slugs");
+  const spaceSlugByID = new Map(spaces.map((space) => [space.SpaceID, space.Slug]));
   const expectedSpaceSlugs = new Set(plan.spaces.keys());
   const actualSpaceSlugs = new Set(spacesBySlug.keys());
   for (const slug of setDifference(actualSpaceSlugs, expectedSpaceSlugs)) addFinding(findings, "unexpectedConfigHubSpace", slug, "Space is outside the exact reconciler plan");
@@ -648,20 +872,28 @@ function readConfigHubInventory(client, plan, findings) {
   const control = spacesBySlug.get("hx-platform");
   if (control && control.OrganizationID !== ORGANIZATION_ENTITY_ID) addFinding(findings, "organizationDrift", "hx-platform", "Space belongs to another Organization entity");
 
-  const units = new Map();
-  const links = new Map();
-  for (const slug of [...actualSpaceSlugs].sort()) {
-    const unitRows = unwrapRows(client.json([
-      "unit", "list", "--space", slug,
-      "--select", "Labels,Annotations,TargetID,UpstreamUnitID,ToolchainType,ProviderType,HeadRevisionNum,LastAppliedRevisionNum,DataHash",
-    ]), "Unit");
-    for (const unit of unitRows) units.set(`${slug}/${unit.Slug}`, unit);
-    const linkRows = unwrapRows(client.json([
-      "link", "list", "--space", slug,
-      "--select", "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations",
-    ]), "Link");
-    for (const link of linkRows) links.set(`${slug}/${link.Slug}`, link);
+  const unitRows = listRows("unit", [
+    "--space", "*",
+    "--select", UNIT_READ_SELECT,
+  ]);
+  const units = scopedRowsByRef(unitRows, "Unit", spaceSlugByID, findings);
+  const unitDataByRef = new Map();
+  for (const [ref, unit] of units) {
+    // The bulk row is the sole Unit body read for this bracket. Validate it at
+    // ingress before any caller can consume or cache it.
+    unitDataByRef.set(ref, decodeBulkUnitData(unit, ref));
   }
+  const linkRows = listRows("link", [
+    "--space", "*",
+    "--select", LINK_READ_SELECT,
+  ]);
+  const links = scopedRowsByRef(linkRows, "Link", spaceSlugByID, findings);
+  const triggerRows = listRows("trigger", ["--space", "*", "--select", TRIGGER_READ_SELECT]);
+  const triggersByRef = scopedRowsByRef(triggerRows, "Trigger", spaceSlugByID, findings);
+  const filterRows = listRows("filter", ["--space", "*", "--select", FILTER_READ_SELECT]);
+  const filtersByRef = scopedRowsByRef(filterRows, "Filter", spaceSlugByID, findings);
+  const tagRows = listRows("tag", ["--space", "*", "--select", TAG_READ_SELECT]);
+  const tagsByRef = scopedRowsByRef(tagRows, "Tag", spaceSlugByID, findings);
 
   const expectedUnits = new Set(plan.units.keys());
   const actualUnits = new Set(units.keys());
@@ -671,13 +903,57 @@ function readConfigHubInventory(client, plan, findings) {
   const actualLinks = new Set(links.keys());
   for (const ref of setDifference(actualLinks, expectedLinks)) addFinding(findings, "unexpectedConfigHubLink", ref, "Link is outside the plan-derived allowlist");
   for (const ref of setDifference(expectedLinks, actualLinks)) addFinding(findings, "missingConfigHubLink", ref, "planned Link is missing");
+  const expectedTriggers = new Set(plan.triggers.keys());
+  const actualTriggers = new Set(triggersByRef.keys());
+  for (const ref of setDifference(actualTriggers, expectedTriggers)) addFinding(findings, "unexpectedConfigHubTrigger", ref, "Trigger is outside the exact mini-IDP allowlist");
+  for (const ref of setDifference(expectedTriggers, actualTriggers)) addFinding(findings, "missingConfigHubTrigger", ref, "owned approval Trigger is missing");
+  for (const [ref, expected] of plan.triggers) {
+    const trigger = triggersByRef.get(ref);
+    if (!trigger) continue;
+    const behaviorExact = typeof trigger.TriggerID === "string"
+      && trigger.TriggerID.length > 0
+      && trigger.Event === expected.event
+      && trigger.ToolchainType === expected.toolchainType
+      && trigger.FunctionName === expected.functionName
+      && stableJson(trigger.Arguments ?? []) === stableJson(expected.arguments)
+      && trigger.Disabled !== true
+      && trigger.Validating === expected.validating
+      && Number(trigger.FailOpenAfter ?? 0) === expected.failOpenAfter;
+    if (!behaviorExact) addFinding(findings, "triggerContractDrift", ref, "Trigger identity or full validation behavior drifted");
+  }
+  const expectedFilters = new Set(plan.filters.keys());
+  const actualFilters = new Set(filtersByRef.keys());
+  for (const ref of setDifference(actualFilters, expectedFilters)) addFinding(findings, "unexpectedConfigHubFilter", ref, "Filter is outside the exact mini-IDP allowlist");
+  for (const ref of setDifference(expectedFilters, actualFilters)) addFinding(findings, "missingConfigHubFilter", ref, "owned production-space Filter is missing");
+  for (const [ref, expected] of plan.filters) {
+    const filter = filtersByRef.get(ref);
+    if (!filter) continue;
+    if (
+      !(typeof filter.FilterID === "string" && filter.FilterID.length > 0)
+      || filter.From !== expected.from
+      || filter.Where !== expected.where
+    ) addFinding(findings, "filterContractDrift", ref, "Filter identity or selector behavior drifted");
+  }
+  const approvalTriggerExpected = [...plan.triggers.values()].find((item) => item.purpose === "production-approval");
+  const productionFilterExpected = [...plan.filters.values()].find((item) => item.attachment === "production-spaces");
+  const approvalTrigger = triggersByRef.get(approvalTriggerExpected?.ref);
+  const productionFilter = filtersByRef.get(productionFilterExpected?.ref);
+  if (approvalTrigger && productionFilter) {
+    for (const expected of plan.reconcilePlan.spec.spaces.filter((space) => space.prodProtected)) {
+      const live = spacesBySlug.get(expected.slug);
+      if (!live) continue;
+      if (
+        live.TriggerFilterID !== productionFilter.FilterID
+        || stableJson([...(live.TriggerIDs ?? [])].sort()) !== stableJson([approvalTrigger.TriggerID])
+      ) addFinding(findings, "triggerFilterAttachmentDrift", expected.slug, "production Space does not select the exact owned approval Filter and Trigger");
+    }
+  }
 
-  const targets = unwrapRows(client.json([
-    "target", "list", "--space", "*",
+  const targets = listRows("target", [
+    "--space", "*",
     "--select", "SpaceID,ProviderType,ToolchainType,Annotations",
-  ]), "Target");
-  const spaceSlugByID = new Map(spaces.map((space) => [space.SpaceID, space.Slug]));
-  const targetsByRef = new Map(targets.map((target) => [`${spaceSlugByID.get(target.SpaceID) ?? `unknown:${target.SpaceID}`}/${target.Slug}`, target]));
+  ]);
+  const targetsByRef = scopedRowsByRef(targets, "Target", spaceSlugByID, findings);
   const expectedTargets = new Set(plan.targets.keys());
   const actualTargets = new Set(targetsByRef.keys());
   for (const ref of setDifference(actualTargets, expectedTargets)) addFinding(findings, "unexpectedConfigHubTarget", ref, "Target is outside the exact four-target allowlist");
@@ -720,37 +996,77 @@ function readConfigHubInventory(client, plan, findings) {
     if (spacesBySlug.get(item.slug)?.ReleaseTargetID !== targetIDByRef.get(`${cluster}/target`)) addFinding(findings, "spaceTargetDrift", item.slug, `release target is not ${item.target}`);
   }
 
-  const allReleases = unwrapRows(client.json([
-    "release", "list", "--space", "*",
-    "--select", "SpaceID,Digest,ManifestDigest,ReleaseNum,CreatedAt,Published",
-  ]), "Release");
-  const publishedReleases = unwrapRows(client.json([
-    "release", "list", "--space", "*", "--where", "Published = true",
-    "--select", "SpaceID,Digest,ManifestDigest,ReleaseNum,CreatedAt,Published",
-  ]), "Release");
-  const publishedIDs = new Set(publishedReleases.map((release) => release.ReleaseID));
-  const normalizedReleases = allReleases.map((release) => ({
+  const publishedReleases = listRows("release", [
+    "--space", "*", "--where", "Published = true",
+    "--select", "SpaceID,TagID,Digest,ManifestDigest,ReleaseNum,UnitCount,CreatedAt,Published",
+  ]);
+  const normalizedReleases = publishedReleases.map((release) => ({
     ...release,
     space: spaceSlugByID.get(release.SpaceID) ?? "",
-    published: publishedIDs.has(release.ReleaseID),
+    published: true,
   }));
   for (const release of normalizedReleases) {
     if (!release.space) addFinding(findings, "orphanRelease", release.ReleaseID ?? "unknown", `release belongs to unknown SpaceID ${release.SpaceID ?? "missing"}`);
     if (!SHA256_PATTERN.test(release.Digest ?? "") || !SHA256_PATTERN.test(release.ManifestDigest ?? "")) addFinding(findings, "releaseDigestDrift", `${release.space}/${release.ReleaseID ?? "unknown"}`, "bundle or OCI manifest digest is invalid");
+    if (!Number.isInteger(Number(release.UnitCount)) || Number(release.UnitCount) < 0) addFinding(findings, "releaseUnitCountDrift", `${release.space}/${release.ReleaseID ?? "unknown"}`, "release UnitCount is missing or invalid");
   }
+  const releaseTagHistory = classifyReleaseTags(tagRows, publishedReleases, spaceSlugByID, findings);
   const releaseClassification = classifyReleases(normalizedReleases, plan, findings);
+  assertOrganizationListCallBudget(listCalls);
+  const snapshotRows = {
+    space: canonicalSnapshotRows(spaces, CONFIGHUB_FINGERPRINT_FIELD_SETS.space),
+    unit: canonicalSnapshotRows(unitRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.unit),
+    release: canonicalSnapshotRows(publishedReleases, CONFIGHUB_FINGERPRINT_FIELD_SETS.release),
+    link: canonicalSnapshotRows(linkRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.link),
+    target: canonicalSnapshotRows(targets, CONFIGHUB_FINGERPRINT_FIELD_SETS.target),
+    trigger: canonicalSnapshotRows(triggerRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.trigger),
+    filter: canonicalSnapshotRows(filterRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.filter),
+    tag: canonicalSnapshotRows(tagRows, CONFIGHUB_FINGERPRINT_FIELD_SETS.tag),
+  };
+  const coreFiveResourceFingerprint = configHubSnapshotFingerprint(snapshotRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES);
+  const fullEightResourceFingerprint = configHubSnapshotFingerprint(snapshotRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES);
+  const snapshot = {
+    schemaVersion: 1,
+    mode: "organization-wide-single-list-per-resource",
+    canonicalization: "stable-recursive-key-order-and-entity-row-order",
+    fingerprintAlgorithm: "sha256",
+    coreResources: [...CORE_CONFIGHUB_FINGERPRINT_RESOURCES],
+    fullResources: [...FULL_CONFIGHUB_FINGERPRINT_RESOURCES],
+    coreFiveResourceFingerprintScope: "reconciler-final-selected-Space-Unit-published-Release-Link-Target-snapshot",
+    coreFiveResourceFingerprint,
+    fullEightResourceFingerprintScope: "core-five-plus-selected-Trigger-Filter-release-Tag-snapshot",
+    fullEightResourceFingerprint,
+    fieldSets: Object.fromEntries(FULL_CONFIGHUB_FINGERPRINT_RESOURCES.map((resource) => [resource, [...CONFIGHUB_FINGERPRINT_FIELD_SETS[resource]]])),
+    listCalls,
+    counts: {
+      spaces: spaces.length,
+      units: units.size,
+      links: links.size,
+      targets: targetsByRef.size,
+      releases: normalizedReleases.length,
+      publishedReleases: publishedReleases.length,
+      triggers: triggersByRef.size,
+      filters: filtersByRef.size,
+      tags: tagsByRef.size,
+    },
+  };
   return {
     spaces,
     spacesBySlug,
     units,
     links,
+    triggersByRef,
+    filtersByRef,
+    tagsByRef,
     targetsByRef,
     targetIDByRef,
+    snapshot,
     releaseClassification,
+    releaseTagHistory,
     latestPublishedBySpace: new Map(releaseClassification.activeCurrent.map((item) => [item.space, item])),
     unitData(ref) {
-      const [space, slug] = splitRef(ref);
-      return client.text(["unit", "data", "--space", space, slug]);
+      check(unitDataByRef.has(ref), `${ref}: Unit body is absent from the validated organization-wide snapshot`);
+      return unitDataByRef.get(ref);
     },
   };
 }
@@ -764,7 +1080,9 @@ function releaseEvidence(release, classification) {
   return {
     space: release.space,
     releaseID: release.ReleaseID,
+    tagID: release.TagID,
     releaseNum: release.ReleaseNum,
+    unitCount: release.UnitCount,
     bundleDigest: release.Digest,
     manifestDigest: release.ManifestDigest,
     createdAt: release.CreatedAt,
@@ -789,6 +1107,17 @@ function classifyReleases(releases, plan, findings) {
     if (!published.length) {
       addFinding(findings, "missingCurrentRelease", space, "current delivery stream has no Published release");
       continue;
+    }
+    const expectedUnitCount = [...plan.units.keys()]
+      .filter((ref) => ref.startsWith(`${space}/`)).length;
+    check(expectedUnitCount > 0, `${space}: current release stream has no allowlisted Units`);
+    if (Number(published[0].UnitCount) !== expectedUnitCount) {
+      addFinding(
+        findings,
+        "releaseUnitCountDrift",
+        `${space}/${published[0].ReleaseID ?? "unknown"}`,
+        `current Published release contains ${published[0].UnitCount ?? "missing"} Units; expected exactly ${expectedUnitCount}`,
+      );
     }
     activeCurrent.push({ ...releaseEvidence(published[0], "active-current"), role: stream.role, cluster: stream.cluster });
     for (const row of rows.filter((item) => item.ReleaseID !== published[0].ReleaseID)) historical.push(releaseEvidence(row, "historical-retained"));
@@ -858,10 +1187,108 @@ function expectedApplications(plan, confighub, findings) {
       addFinding(findings, "applicationUnitData", item.ref, error.message);
       continue;
     }
+    const sourceKeys = Object.keys(app.spec?.source ?? {}).sort();
+    const destinationKeys = Object.keys(app.spec?.destination ?? {}).sort();
+    const sourcesAbsent = app.spec?.sources === undefined
+      || (Array.isArray(app.spec.sources) && app.spec.sources.length === 0);
+    if (app.operation) addFinding(findings, "applicationUnitAuthority", item.ref, "stored Application contains an executable operation");
+    if (!sourcesAbsent) addFinding(findings, "applicationUnitAuthority", item.ref, "stored Application defines spec.sources");
+    if (stableJson(sourceKeys) !== stableJson(["path", "repoURL", "targetRevision"])) addFinding(findings, "applicationUnitAuthority", item.ref, "stored Application source keyset is not exact");
+    if (![stableJson(["namespace", "server"]), stableJson(["server"])].includes(stableJson(destinationKeys))) addFinding(findings, "applicationUnitAuthority", item.ref, "stored Application destination keyset is not exact");
+    if (app.spec?.source?.targetRevision !== "latest" || app.spec?.syncPolicy?.automated) addFinding(findings, "applicationUnitAuthority", item.ref, "stored Application must keep latest discovery-only with automated sync absent");
     if (result.get(cluster).has(name)) addFinding(findings, "duplicateApplicationOwner", `${cluster}/${name}`, `multiple ConfigHub delivery Units declare the same Application (${item.ref})`);
     result.get(cluster).set(name, { name, cluster, sourceSpace, unitRef: item.ref, desiredSpec: app.spec, kind: "configHub-delivery-unit" });
   }
   return result;
+}
+
+function inspectArgobotPodSpec(podSpec, ref, findings) {
+  const containers = podSpec?.containers ?? [];
+  const initContainers = podSpec?.initContainers ?? [];
+  const argobotContainers = containers.filter((container) => container?.name === "argobot");
+  const container = argobotContainers[0] ?? {};
+  const env = container.env ?? [];
+  const envNames = env.map((item) => item?.name).filter(Boolean);
+  const values = new Map(env.map((item) => [item?.name, item]));
+  const restEnvironment = envNames.filter((name) => [
+    "ARGOCD_SERVER",
+    "ARGOCD_AUTH_TOKEN",
+    "ARGO_APP_NAMESPACE",
+    "ARGO_PRUNE",
+    "ARGO_FORCE",
+  ].includes(name));
+  const evidence = {
+    image: container.image ?? null,
+    syncMode: values.get("ARGO_SYNC_MODE")?.value ?? null,
+    applicationNamespace: values.get("ARGO_NAMESPACE")?.value ?? null,
+    refreshType: values.get("ARGO_REFRESH_TYPE")?.value ?? null,
+    restSyncEnvironmentAbsent: restEnvironment.length === 0,
+    commandOverrideAbsent: !(container.command?.length || container.args?.length),
+    oneContainerNoInit: containers.length === 1 && initContainers.length === 0,
+    duplicateEnvironmentAbsent: new Set(envNames).size === envNames.length,
+  };
+  if (argobotContainers.length !== 1) addFinding(findings, "argobotAuthorityDrift", ref, "expected exactly one named argobot container");
+  if (!evidence.oneContainerNoInit) addFinding(findings, "argobotAuthorityDrift", ref, "reviewed runtime permits one argobot container and no init containers");
+  if (evidence.image !== ARGOBOT_IMAGE) addFinding(findings, "argobotAuthorityDrift", ref, `image is not ${ARGOBOT_IMAGE}`);
+  if (evidence.syncMode !== "kubernetes") addFinding(findings, "argobotAuthorityDrift", ref, "ARGO_SYNC_MODE is not kubernetes refresh-only mode");
+  if (evidence.applicationNamespace !== "argocd") addFinding(findings, "argobotAuthorityDrift", ref, "ARGO_NAMESPACE is not argocd");
+  if (evidence.refreshType !== "hard") addFinding(findings, "argobotAuthorityDrift", ref, "ARGO_REFRESH_TYPE is not hard");
+  if (!evidence.restSyncEnvironmentAbsent) addFinding(findings, "argobotAuthorityDrift", ref, `REST-sync environment is present: ${restEnvironment.join(", ")}`);
+  if (!evidence.commandOverrideAbsent) addFinding(findings, "argobotAuthorityDrift", ref, "image entrypoint is overridden");
+  if (!evidence.duplicateEnvironmentAbsent) addFinding(findings, "argobotAuthorityDrift", ref, "duplicate environment names make runtime authority ambiguous");
+  return evidence;
+}
+
+function auditArgobotAuthority(cluster, findings) {
+  const deployment = JSON.parse(kubectl(cluster, [
+    "get", "deployment", "argobot", "-n", "argobot", "-o", "json",
+  ]));
+  const deploymentRef = `${cluster}/argobot/Deployment/argobot`;
+  const deploymentEvidence = inspectArgobotPodSpec(
+    deployment.spec?.template?.spec,
+    deploymentRef,
+    findings,
+  );
+  const selectorExact = stableJson(deployment.spec?.selector?.matchLabels ?? {}) === stableJson({ app: "argobot" });
+  if (!selectorExact) addFinding(findings, "argobotAuthorityDrift", deploymentRef, "selector is not the exact reviewed app=argobot selector");
+  const replicas = Number(deployment.spec?.replicas ?? 1);
+  const rolloutCurrent = replicas > 0
+    && Number(deployment.status?.observedGeneration ?? 0) === Number(deployment.metadata?.generation ?? -1)
+    && Number(deployment.status?.updatedReplicas ?? 0) === replicas
+    && Number(deployment.status?.availableReplicas ?? 0) === replicas;
+  if (!rolloutCurrent) addFinding(findings, "argobotAuthorityDrift", deploymentRef, "refresh-only Deployment rollout is not fully current and available");
+
+  const pods = JSON.parse(kubectl(cluster, [
+    "get", "pods", "-n", "argobot", "-l", "app=argobot", "-o", "json",
+  ])).items ?? [];
+  if (pods.length !== replicas) addFinding(findings, "argobotAuthorityDrift", `${cluster}/argobot`, `expected ${replicas} active Pods, observed ${pods.length}`);
+  const podRows = pods.map((pod) => {
+    const ref = `${cluster}/argobot/Pod/${pod.metadata?.name ?? "unknown"}`;
+    const authority = inspectArgobotPodSpec(pod.spec, ref, findings);
+    const runningReady = !pod.metadata?.deletionTimestamp
+      && pod.status?.phase === "Running"
+      && (pod.status?.containerStatuses ?? []).find((item) => item?.name === "argobot")?.ready === true;
+    if (!runningReady) addFinding(findings, "argobotAuthorityDrift", ref, "Pod is terminating or not Running and Ready");
+    return {
+      name: pod.metadata?.name ?? null,
+      uid: pod.metadata?.uid ?? null,
+      runningReady,
+      ...authority,
+    };
+  }).sort((left, right) => String(left.name).localeCompare(String(right.name)));
+  return {
+    cluster,
+    version: ARGOBOT_VERSION,
+    deployment: {
+      uid: deployment.metadata?.uid ?? null,
+      generation: deployment.metadata?.generation ?? null,
+      replicas,
+      selectorExact,
+      rolloutCurrent,
+      ...deploymentEvidence,
+    },
+    pods: podRows,
+  };
 }
 
 function auditArgo(plan, confighub, findings) {
@@ -870,9 +1297,38 @@ function auditArgo(plan, confighub, findings) {
   const rows = [];
   let resourceCount = 0;
   let requiresPruningCount = 0;
+  const argobotAuthority = [];
+  const applicationSets = [];
   for (const cluster of plan.clusters) {
-    const payload = JSON.parse(kubectl(cluster, ["get", "applications.argoproj.io", "-n", "argocd", "-o", "json"]));
-    const actual = new Map((payload.items ?? []).map((app) => [app.metadata?.name, app]));
+    argobotAuthority.push(auditArgobotAuthority(cluster, findings));
+    const clusterApplicationSets = JSON.parse(kubectl(cluster, [
+      "get", "applicationsets.argoproj.io", "-A", "-o", "json",
+    ])).items ?? [];
+    applicationSets.push({
+      cluster,
+      count: clusterApplicationSets.length,
+      refs: clusterApplicationSets.map((item) => `${item.metadata?.namespace ?? ""}/${item.metadata?.name ?? "unknown"}`).sort(),
+    });
+    for (const item of clusterApplicationSets) addFinding(findings, "unexpectedArgoApplicationSet", `${cluster}/${item.metadata?.namespace ?? ""}/${item.metadata?.name ?? "unknown"}`, "adapted lane forbids ApplicationSet regeneration authority");
+    const payload = JSON.parse(kubectl(cluster, ["get", "applications.argoproj.io", "-A", "-o", "json"]));
+    const clusterApplications = payload.items ?? [];
+    for (const app of clusterApplications.filter((item) => item.metadata?.namespace !== "argocd")) {
+      addFinding(
+        findings,
+        "unexpectedArgoApplication",
+        `${cluster}/${app.metadata?.namespace ?? "missing"}/${app.metadata?.name ?? "unknown"}`,
+        "managed authority forbids Application CRs outside the exact argocd namespace inventory",
+      );
+    }
+    const actual = new Map();
+    for (const app of clusterApplications.filter((item) => item.metadata?.namespace === "argocd")) {
+      const name = app.metadata?.name;
+      if (!name || actual.has(name)) {
+        addFinding(findings, "unexpectedArgoApplication", `${cluster}/argocd/${name ?? "unknown"}`, "cluster-wide Application inventory returned a missing or duplicate identity");
+        continue;
+      }
+      actual.set(name, app);
+    }
     const expected = expectedByCluster.get(cluster);
     for (const name of setDifference(new Set(actual.keys()), new Set(expected.keys()))) addFinding(findings, "unexpectedArgoApplication", `${cluster}/${name}`, "Application is outside the plan-derived allowlist");
     for (const name of setDifference(new Set(expected.keys()), new Set(actual.keys()))) addFinding(findings, "missingArgoApplication", `${cluster}/${name}`, "planned Application is missing");
@@ -880,9 +1336,18 @@ function auditArgo(plan, confighub, findings) {
       const app = actual.get(name);
       if (!app) continue;
       if (stableJson(app.spec) !== stableJson(contract.desiredSpec)) addFinding(findings, "argoApplicationContractDrift", `${cluster}/${name}`, `live spec differs from ${contract.unitRef}`);
+      const targetRevision = app.spec?.source?.targetRevision ?? null;
+      const automatedSyncDisabled = !app.spec?.syncPolicy?.automated;
+      if (targetRevision !== "latest" || !automatedSyncDisabled) addFinding(findings, "argoApplicationAuthorityDrift", `${cluster}/${name}`, "targetRevision must be discovery-only latest with automated sync absent");
+      const applicationSetOwnerAbsent = !(app.metadata?.ownerReferences ?? []).some((owner) => owner?.kind === "ApplicationSet");
+      if (!applicationSetOwnerAbsent) addFinding(findings, "argoApplicationAuthorityDrift", `${cluster}/${name}`, "ApplicationSet ownership can regenerate the managed Application");
       const release = confighub.latestPublishedBySpace.get(contract.sourceSpace);
       if (!release) addFinding(findings, "missingCurrentRelease", contract.sourceSpace, `${cluster}/${name} has no current release`);
       const observedRevision = app.status?.sync?.revision ?? "";
+      const operationPhase = app.status?.operationState?.phase ?? "Unknown";
+      const activeOperation = Boolean(app.operation)
+        || ["Running", "Terminating"].includes(operationPhase);
+      if (activeOperation) addFinding(findings, "argoActiveOperation", `${cluster}/${name}`, `active operation phase=${operationPhase}`);
       if (app.status?.sync?.status !== "Synced") addFinding(findings, "argoApplicationNotSynced", `${cluster}/${name}`, `sync=${app.status?.sync?.status ?? "Unknown"}`);
       if (release && observedRevision !== release.manifestDigest) addFinding(findings, "argoRevisionDrift", `${cluster}/${name}`, `revision=${observedRevision || "missing"}, expected ${release.manifestDigest}`);
       const statusResources = app.status?.resources ?? [];
@@ -913,6 +1378,12 @@ function auditArgo(plan, confighub, findings) {
         sourceUnit: contract.unitRef,
         expectedRevision: release?.manifestDigest ?? null,
         observedRevision: observedRevision || null,
+        targetRevision,
+        automatedSyncDisabled,
+        applicationSetOwnerAbsent,
+        activeOperation,
+        operationPhase,
+        syncSubmissionAuthority: "ConfigHub-revalidated-ManifestDigest-Kubernetes-UID-resourceVersion-CAS",
         sync: app.status?.sync?.status ?? "Unknown",
         health: app.status?.health?.status ?? "Unknown",
         trackedResources: (app.status?.resources ?? []).length,
@@ -925,6 +1396,8 @@ function auditArgo(plan, confighub, findings) {
     observedApplications: rows.sort((a, b) => `${a.cluster}/${a.name}`.localeCompare(`${b.cluster}/${b.name}`)),
     trackedResourceCount: resourceCount,
     requiresPruningCount,
+    argobotAuthority: argobotAuthority.sort((left, right) => left.cluster.localeCompare(right.cluster)),
+    applicationSets: applicationSets.sort((left, right) => left.cluster.localeCompare(right.cluster)),
     desiredResourcesByCluster,
   };
 }
@@ -1118,11 +1591,42 @@ function findingCounts(findings) {
   for (const finding of findings) categories[finding.category] = (categories[finding.category] ?? 0) + 1;
   return {
     unexpectedConfigHubSpaces: categories.unexpectedConfigHubSpace ?? 0,
+    missingConfigHubSpaces: categories.missingConfigHubSpace ?? 0,
+    duplicateConfigHubSpaces: categories.duplicateConfigHubSpace ?? 0,
     unexpectedConfigHubUnits: categories.unexpectedConfigHubUnit ?? 0,
+    missingConfigHubUnits: categories.missingConfigHubUnit ?? 0,
+    duplicateConfigHubUnits: categories.duplicateConfigHubUnit ?? 0,
     unexpectedConfigHubLinks: categories.unexpectedConfigHubLink ?? 0,
+    missingConfigHubLinks: categories.missingConfigHubLink ?? 0,
+    duplicateConfigHubLinks: categories.duplicateConfigHubLink ?? 0,
     unexpectedConfigHubTargets: categories.unexpectedConfigHubTarget ?? 0,
+    missingConfigHubTargets: categories.missingConfigHubTarget ?? 0,
+    duplicateConfigHubTargets: categories.duplicateConfigHubTarget ?? 0,
+    unexpectedConfigHubTriggers: categories.unexpectedConfigHubTrigger ?? 0,
+    missingConfigHubTriggers: categories.missingConfigHubTrigger ?? 0,
+    duplicateConfigHubTriggers: categories.duplicateConfigHubTrigger ?? 0,
+    triggerContractDrift: categories.triggerContractDrift ?? 0,
+    unexpectedConfigHubFilters: categories.unexpectedConfigHubFilter ?? 0,
+    missingConfigHubFilters: categories.missingConfigHubFilter ?? 0,
+    duplicateConfigHubFilters: categories.duplicateConfigHubFilter ?? 0,
+    filterContractDrift: categories.filterContractDrift ?? 0,
+    triggerFilterAttachmentDrift: categories.triggerFilterAttachmentDrift ?? 0,
+    orphanReleaseTags: categories.orphanReleaseTag ?? 0,
+    missingReleaseTags: categories.missingReleaseTag ?? 0,
+    duplicateConfigHubTags: categories.duplicateConfigHubTag ?? 0,
+    releaseTagContractDrift: categories.releaseTagContractDrift ?? 0,
     orphanReleases: categories.orphanRelease ?? 0,
+    missingCurrentReleases: categories.missingCurrentRelease ?? 0,
+    releaseDigestDrift: categories.releaseDigestDrift ?? 0,
+    releaseUnitCountDrift: categories.releaseUnitCountDrift ?? 0,
     unexpectedArgoApplications: categories.unexpectedArgoApplication ?? 0,
+    missingArgoApplications: categories.missingArgoApplication ?? 0,
+    argoApplicationContractDrift: categories.argoApplicationContractDrift ?? 0,
+    argoApplicationAuthorityDrift: categories.argoApplicationAuthorityDrift ?? 0,
+    applicationUnitAuthorityDrift: categories.applicationUnitAuthority ?? 0,
+    argoActiveOperations: categories.argoActiveOperation ?? 0,
+    argobotAuthorityDrift: categories.argobotAuthorityDrift ?? 0,
+    unexpectedArgoApplicationSets: categories.unexpectedArgoApplicationSet ?? 0,
     requiresPruning: categories.argoRequiresPruning ?? 0,
     unclassifiedDurableWorkloads: categories.unclassifiedDurableWorkload ?? 0,
     danglingTrackedDurableWorkloads: categories.danglingTrackedDurableWorkload ?? 0,
@@ -1151,12 +1655,16 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
         reconciler: relativeRepo(RECONCILER_PATH),
         reconcilerSha256: plan.reconcilerSha256,
         reconcilePlanSha256: plan.planSha256,
+        applyAttemptLedger: relativeRepo(APPLY_ATTEMPT_LEDGER_PATH),
+        applyAttemptLedgerSha256: `sha256:${sha256File(APPLY_ATTEMPT_LEDGER_PATH)}`,
       },
       execution: {
         readOnly: true,
         liveMutationCommands: 0,
         sharedSerialLiveLock: true,
         operationJournalRequiredQuiescent: true,
+        snapshotBracketsRequired: 2,
+        organizationWideListCallsPerBracket: CONFIGHUB_LIST_CALLS_PER_BRACKET,
         persistentClustersPreserved: plan.clusters,
       },
       expected: {
@@ -1164,6 +1672,9 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
         units: plan.units.size,
         links: plan.links.size,
         targets: plan.targets.size,
+        triggers: plan.triggers.size,
+        filters: plan.filters.size,
+        releaseTags: "dynamic-complete-additive-history-through-each-current-release",
         currentReleaseStreams: plan.releaseStreams.size,
         argoApplications: argo.expectedApplicationCount,
         bootstrapDurableWorkloads: plan.clusters.length * BOOTSTRAP_DURABLE_WORKLOADS.length,
@@ -1174,19 +1685,47 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
         units: confighub.units.size,
         links: confighub.links.size,
         targets: confighub.targetsByRef.size,
+        triggers: confighub.triggersByRef.size,
+        filters: confighub.filtersByRef.size,
+        releaseTags: confighub.tagsByRef.size,
         argoApplications: argo.observedApplications.length,
         argoTrackedResources: argo.trackedResourceCount,
         durableWorkloads: durableWorkloads.observedCount,
+      },
+      configHubInventory: {
+        snapshot: confighub.snapshot,
+        triggerAllowlist: [...confighub.triggersByRef].map(([ref, trigger]) => ({
+          ref,
+          id: trigger.TriggerID,
+          event: trigger.Event,
+          toolchainType: trigger.ToolchainType,
+          functionName: trigger.FunctionName,
+          arguments: trigger.Arguments ?? [],
+          disabled: trigger.Disabled === true,
+          validating: trigger.Validating === true,
+          failOpenAfter: Number(trigger.FailOpenAfter ?? 0),
+        })).sort((left, right) => left.ref.localeCompare(right.ref)),
+        filterAllowlist: [...confighub.filtersByRef].map(([ref, filter]) => ({
+          ref,
+          id: filter.FilterID,
+          from: filter.From,
+          where: filter.Where,
+        })).sort((left, right) => left.ref.localeCompare(right.ref)),
       },
       catalogRetention: {
         ...plan.catalogRetention,
         classification: "intentional-additive-inventory-not-orphans",
       },
       releaseClassification: confighub.releaseClassification,
+      releaseTagHistory: confighub.releaseTagHistory,
       argo: {
         applicationInventoryPolicy: "exact-plan-derived-allowlist",
+        deploymentAuthorityPolicy: "targetRevision-latest-is-discovery-only; automated-sync-absent; no-active-operation; no-ApplicationSet-regeneration; ConfigHub-revalidated-ManifestDigest-operation-under-Kubernetes-UID-resourceVersion-CAS",
+        argobotPolicy: "v0.1.6-kubernetes-hard-refresh-only; namespace-argocd; REST-sync-environment-absent",
         requiresPruningPolicy: "zero",
         applications: argo.observedApplications,
+        argobotAuthority: argo.argobotAuthority,
+        applicationSets: argo.applicationSets,
       },
       durableWorkloads: {
         policy: "classify every Deployment, StatefulSet, DaemonSet, CronJob and Job as exact Argo desired, exact bootstrap, or directly owned by a current Argo desired root",
@@ -1201,12 +1740,42 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
     },
     status: {
       result: findings.length === 0 && zeroOrphans ? "pass" : "fail",
-      zeroUnexpectedConfigHubInventory: counts.unexpectedConfigHubSpaces + counts.unexpectedConfigHubUnits + counts.unexpectedConfigHubLinks + counts.unexpectedConfigHubTargets === 0,
+      exactConfigHubInventory: [
+        counts.unexpectedConfigHubSpaces,
+        counts.missingConfigHubSpaces,
+        counts.duplicateConfigHubSpaces,
+        counts.unexpectedConfigHubUnits,
+        counts.missingConfigHubUnits,
+        counts.duplicateConfigHubUnits,
+        counts.unexpectedConfigHubLinks,
+        counts.missingConfigHubLinks,
+        counts.duplicateConfigHubLinks,
+        counts.unexpectedConfigHubTargets,
+        counts.missingConfigHubTargets,
+        counts.duplicateConfigHubTargets,
+        counts.unexpectedConfigHubTriggers,
+        counts.missingConfigHubTriggers,
+        counts.duplicateConfigHubTriggers,
+        counts.triggerContractDrift,
+        counts.unexpectedConfigHubFilters,
+        counts.missingConfigHubFilters,
+        counts.duplicateConfigHubFilters,
+        counts.filterContractDrift,
+        counts.triggerFilterAttachmentDrift,
+        counts.orphanReleaseTags,
+        counts.missingReleaseTags,
+        counts.duplicateConfigHubTags,
+        counts.releaseTagContractDrift,
+      ].every((value) => value === 0),
+      zeroUnexpectedConfigHubInventory: counts.unexpectedConfigHubSpaces + counts.unexpectedConfigHubUnits + counts.unexpectedConfigHubLinks + counts.unexpectedConfigHubTargets + counts.unexpectedConfigHubTriggers + counts.unexpectedConfigHubFilters + counts.orphanReleaseTags + counts.duplicateConfigHubTags === 0,
+      exactTriggerFilterInventory: counts.unexpectedConfigHubTriggers + counts.missingConfigHubTriggers + counts.duplicateConfigHubTriggers + counts.triggerContractDrift + counts.unexpectedConfigHubFilters + counts.missingConfigHubFilters + counts.duplicateConfigHubFilters + counts.filterContractDrift + counts.triggerFilterAttachmentDrift === 0,
+      exactCurrentReleaseInventory: counts.orphanReleases + counts.missingCurrentReleases + counts.releaseDigestDrift + counts.releaseUnitCountDrift + counts.orphanReleaseTags + counts.missingReleaseTags + counts.duplicateConfigHubTags + counts.releaseTagContractDrift === 0,
+      exactDeploymentAuthority: counts.unexpectedArgoApplications + counts.missingArgoApplications + counts.argoApplicationContractDrift + counts.argoApplicationAuthorityDrift + counts.applicationUnitAuthorityDrift + counts.argoActiveOperations + counts.argobotAuthorityDrift + counts.unexpectedArgoApplicationSets === 0,
       zeroArgoRequiresPruning: counts.requiresPruning === 0,
       zeroUnclassifiedDurableWorkloads: counts.unclassifiedDurableWorkloads === 0,
       zeroDanglingTrackedDurableWorkloads: counts.danglingTrackedDurableWorkloads === 0,
       zeroProtectedNamespaceOwnership: counts.protectedNamespaceOwnership === 0,
-      historicalReleasesRetained: true,
+      retainedReleaseHistoryProvedByTags: true,
       orphanCounts: counts,
       findingCount: findings.length,
     },
@@ -1220,6 +1789,8 @@ function runAudit(plan) {
   const lock = acquireAuditLock();
   try {
     assertQuiescentJournal();
+    assertCurrentApplyAttemptPair();
+    invalidatePriorPerformanceAcceptance();
     const findings = [];
     const client = pinnedCubClient();
     const confighub = readConfigHubInventory(client, plan, findings);
@@ -1227,17 +1798,179 @@ function runAudit(plan) {
     const durableWorkloads = auditDurableWorkloads(plan, argo, findings);
     const protectedNamespaces = auditProtectedNamespaces(plan, findings);
     assertQuiescentJournal();
-    const receipt = buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespaces, findings, new Date().toISOString());
-    mkdirSync(dirname(RECEIPT_PATH), { recursive: true });
-    writeFileSync(RECEIPT_PATH, `${toYaml(receipt)}\n`, "utf8");
+    const observedAt = new Date().toISOString();
+    const openingReceipt = buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespaces, findings, observedAt);
+    const closingFindings = [];
+    const closingConfigHub = readConfigHubInventory(client, plan, closingFindings);
+    const closingArgo = auditArgo(plan, closingConfigHub, closingFindings);
+    const closingDurableWorkloads = auditDurableWorkloads(plan, closingArgo, closingFindings);
+    const closingProtectedNamespaces = auditProtectedNamespaces(plan, closingFindings);
+    assertQuiescentJournal();
+    assertCurrentApplyAttemptPair();
+    const receipt = buildReceipt(
+      plan,
+      closingConfigHub,
+      closingArgo,
+      closingDurableWorkloads,
+      closingProtectedNamespaces,
+      closingFindings,
+      observedAt,
+    );
+    check(
+      stableJson(receipt) === stableJson(openingReceipt),
+      "ConfigHub, Argo Application, workload, or protected-Namespace inventory changed during the zero-orphan audit",
+    );
+    receipt.spec.execution.organizationWideReadBrackets = {
+      openingCoreFiveResourceFingerprint: openingReceipt.spec.configHubInventory.snapshot.coreFiveResourceFingerprint,
+      closingCoreFiveResourceFingerprint: receipt.spec.configHubInventory.snapshot.coreFiveResourceFingerprint,
+      openingFullEightResourceFingerprint: openingReceipt.spec.configHubInventory.snapshot.fullEightResourceFingerprint,
+      closingFullEightResourceFingerprint: receipt.spec.configHubInventory.snapshot.fullEightResourceFingerprint,
+      stable: true,
+    };
+    receipt.status.openingClosingSnapshotStable = true;
+    writeYamlAtomically(RECEIPT_PATH, receipt);
     console.log(`wrote ${relativeRepo(RECEIPT_PATH)}: ${receipt.status.result}; ${receipt.status.findingCount} finding(s)`);
-    check(receipt.status.result === "pass", `Kubara mini-IDP orphan audit failed:\n- ${findings.map((item) => `${item.category} ${item.ref}: ${item.detail}`).join("\n- ")}`);
+    check(receipt.status.result === "pass", `Kubara mini-IDP orphan audit failed:\n- ${receipt.spec.findings.map((item) => `${item.category} ${item.ref}: ${item.detail}`).join("\n- ")}`);
+    verifyReceipt(plan);
+    const performance = reconcilePerformanceAcceptance(receipt);
+    console.log(`mini-IDP performance acceptance: ${performance.result}${performance.detail ? ` (${performance.detail})` : ""}`);
   } finally {
     releaseAuditLock(lock);
   }
 }
 
+function assertCurrentApplyAttemptPair() {
+  check(existsSync(RECONCILE_RECEIPT_PATH), `${relativeRepo(RECONCILE_RECEIPT_PATH)} is missing`);
+  check(existsSync(APPLY_ATTEMPT_LEDGER_PATH), `${relativeRepo(APPLY_ATTEMPT_LEDGER_PATH)} is missing`);
+  const receipt = readYaml(RECONCILE_RECEIPT_PATH);
+  const ledger = readYaml(APPLY_ATTEMPT_LEDGER_PATH);
+  check(ledger?.kind === "KubaraMiniIDPApplyAttemptLedger" && Array.isArray(ledger.attempts), "apply attempt ledger is invalid");
+  const [changed, noop] = (receipt.spec?.reconcileRuns ?? []).slice(-2);
+  check(changed && noop && changed.actionCount > 0 && noop.actionCount === 0, "current reconcile receipt lacks changed/no-op runs");
+  check(noop.attemptSequence === changed.attemptSequence + 1, "changed/no-op runs are not consecutive apply attempts");
+  check(
+    SHA256_PATTERN.test(changed.finalConfigHubFingerprint ?? "")
+      && changed.finalConfigHubFingerprint === noop.finalConfigHubFingerprint
+      && noop.finalConfigHubFingerprint === receipt.spec?.finalConfigHubSnapshot?.fingerprint,
+    "changed/no-op runs do not share the receipt's canonical final ConfigHub state",
+  );
+  const changedAttempt = ledger.attempts.find((item) => item.sequence === changed.attemptSequence);
+  const noopAttempt = ledger.attempts.find((item) => item.sequence === noop.attemptSequence);
+  check(
+    changedAttempt?.id === changed.attemptID
+      && noopAttempt?.id === noop.attemptID
+      && changedAttempt.result === "pass"
+      && noopAttempt.result === "pass"
+      && changedAttempt.executionFingerprint === changed.executionFingerprint
+      && noopAttempt.executionFingerprint === noop.executionFingerprint,
+    "changed/no-op runs are not backed by exact passing durable attempts",
+  );
+  check(ledger.attempts.at(-1)?.sequence === noop.attemptSequence, "a later apply attempt invalidates zero-orphan/performance acceptance");
+  return { receipt, ledger };
+}
+
+function invalidatePriorPerformanceAcceptance() {
+  const receipt = readYaml(RECONCILE_RECEIPT_PATH);
+  receipt.status = { ...(receipt.status ?? {}) };
+  delete receipt.status.performanceResult;
+  delete receipt.status.performanceAcceptance;
+  writeYamlAtomically(RECONCILE_RECEIPT_PATH, receipt);
+}
+
+function writeYamlAtomically(path, value) {
+  mkdirSync(dirname(path), { recursive: true });
+  const temporary = `${path}.tmp-${process.pid}`;
+  try {
+    writeFileSync(temporary, `${toYaml(value)}\n`, "utf8");
+    renameSync(temporary, path);
+  } finally {
+    rmSync(temporary, { force: true });
+  }
+}
+
+function reconcilePerformanceAcceptance(orphanReceipt) {
+  if (!existsSync(RECONCILE_RECEIPT_PATH)) return { result: "pending", detail: "reconcile receipt is absent" };
+  const receipt = readYaml(RECONCILE_RECEIPT_PATH);
+  check(receipt?.kind === "ConfigHubKubaraMiniIDPReconcileReceipt", "cannot bind performance acceptance to an unexpected reconcile receipt");
+  assertCurrentApplyAttemptPair();
+  try {
+    execFileSync(process.execPath, [RECONCILER_PATH, "--receipt-verify"], {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  } catch (error) {
+    throw new Error(`current reconcile receipt failed its own source/attempt verifier: ${String(error.stderr || error.stdout || error.message).trim()}`);
+  }
+  const priorPerformanceResult = receipt.status?.performanceResult;
+  const priorBinding = receipt.status?.performanceAcceptance;
+  receipt.status = { ...(receipt.status ?? {}) };
+  delete receipt.status.performanceResult;
+  delete receipt.status.performanceAcceptance;
+
+  const [changed, noop] = (receipt.spec?.reconcileRuns ?? []).slice(-2);
+  const pairLooksEligible = Boolean(
+    changed
+      && noop
+      && changed.performance?.schemaVersion === 2
+      && noop.performance?.schemaVersion === 2
+      && changed.performance?.fixtureID === "kubara-v0-13-0-four-cluster-warm-v1"
+      && noop.performance?.fixtureID === "kubara-v0-13-0-four-cluster-warm-v1"
+      && changed.performance?.runClass === "changed-apply"
+      && noop.performance?.runClass === "idempotent-apply",
+  );
+  if (!pairLooksEligible) {
+    if (priorPerformanceResult !== undefined || priorBinding !== undefined) writeYamlAtomically(RECONCILE_RECEIPT_PATH, receipt);
+    return { result: "pending", detail: "immediate measured changed/no-op pair is absent" };
+  }
+
+  const orphanCoreFingerprint = orphanReceipt.spec?.execution?.organizationWideReadBrackets?.openingCoreFiveResourceFingerprint;
+  check(
+    SHA256_PATTERN.test(noop.finalConfigHubFingerprint ?? "")
+      && SHA256_PATTERN.test(orphanCoreFingerprint ?? "")
+      && orphanCoreFingerprint === orphanReceipt.spec?.configHubInventory?.snapshot?.coreFiveResourceFingerprint
+      && noop.finalConfigHubFingerprint === orphanCoreFingerprint,
+    "zero-orphan audit opening ConfigHub state does not equal the latest no-op run final state",
+  );
+
+  receipt.status.performanceResult = "performance-pass";
+  receipt.status.performanceAcceptance = {
+    orphanReceipt: relativeRepo(RECEIPT_PATH),
+    orphanReceiptSha256: `sha256:${sha256File(RECEIPT_PATH)}`,
+    orphanObservedAt: orphanReceipt.spec?.observedAt,
+    reconcilerSha256: orphanReceipt.spec?.source?.reconcilerSha256,
+    reconcilePlanSha256: orphanReceipt.spec?.source?.reconcilePlanSha256,
+    applyAttemptLedgerSha256: orphanReceipt.spec?.source?.applyAttemptLedgerSha256,
+    finalConfigHubFingerprint: noop.finalConfigHubFingerprint,
+  };
+  const fixtureRoot = mkdtempSync(join(tmpdir(), "kubara-performance-acceptance-"));
+  const candidatePath = join(fixtureRoot, "receipt.yaml");
+  try {
+    writeFileSync(candidatePath, `${toYaml(receipt)}\n`, "utf8");
+    try {
+      execFileSync(process.execPath, [
+        PERFORMANCE_VERIFIER_PATH,
+        "--receipt-verify",
+        "--receipt", candidatePath,
+        "--orphan-receipt", RECEIPT_PATH,
+      ], { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+    } catch (error) {
+      delete receipt.status.performanceResult;
+      delete receipt.status.performanceAcceptance;
+      writeYamlAtomically(RECONCILE_RECEIPT_PATH, receipt);
+      const detail = String(error.stderr || error.stdout || error.message).trim().split("\n").at(-1);
+      return { result: "pending", detail: detail || "performance verifier rejected the pair" };
+    }
+    writeYamlAtomically(RECONCILE_RECEIPT_PATH, receipt);
+    return { result: "performance-pass", detail: "immediate pair and current zero-orphan audit verified" };
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+}
+
 function verifyReceipt(plan) {
+  const { receipt: reconcileReceipt } = assertCurrentApplyAttemptPair();
+  const noopRun = (reconcileReceipt.spec?.reconcileRuns ?? []).at(-1);
   check(existsSync(RECEIPT_PATH), `${relativeRepo(RECEIPT_PATH)} is missing; run --audit after reconciliation is quiescent`);
   const receipt = readYaml(RECEIPT_PATH);
   check(receipt?.kind === "KubaraMiniIDPOrphanAuditReceipt", "orphan audit receipt kind drifted");
@@ -1246,18 +1979,241 @@ function verifyReceipt(plan) {
   check(receipt.spec?.organization?.serverURL === CONFIGHUB_SERVER_URL, "orphan audit receipt server drifted");
   check(receipt.spec?.source?.reconcilerSha256 === plan.reconcilerSha256, "orphan audit receipt reconciler digest is stale");
   check(receipt.spec?.source?.reconcilePlanSha256 === plan.planSha256, "orphan audit receipt plan digest is stale");
+  check(
+    receipt.spec?.source?.applyAttemptLedgerSha256 === `sha256:${sha256File(APPLY_ATTEMPT_LEDGER_PATH)}`,
+    "orphan audit receipt apply attempt ledger digest is stale",
+  );
   check(receipt.spec?.execution?.readOnly === true && receipt.spec?.execution?.liveMutationCommands === 0, "orphan audit receipt no longer proves read-only execution");
+  check(receipt.spec?.execution?.snapshotBracketsRequired === 2, "orphan audit receipt no longer requires opening and closing snapshots");
+  check(
+    stableJson(receipt.spec?.execution?.organizationWideListCallsPerBracket) === stableJson(CONFIGHUB_LIST_CALLS_PER_BRACKET),
+    "orphan audit receipt ConfigHub list-call budget drifted",
+  );
+  const brackets = receipt.spec?.execution?.organizationWideReadBrackets;
+  check(
+    brackets?.stable === true
+      && SHA256_PATTERN.test(brackets.openingCoreFiveResourceFingerprint ?? "")
+      && brackets.openingCoreFiveResourceFingerprint === brackets.closingCoreFiveResourceFingerprint
+      && SHA256_PATTERN.test(brackets.openingFullEightResourceFingerprint ?? "")
+      && brackets.openingFullEightResourceFingerprint === brackets.closingFullEightResourceFingerprint,
+    "orphan audit receipt does not prove stable opening and closing ConfigHub snapshots",
+  );
   const expected = receipt.spec?.expected ?? {};
+  const observed = receipt.spec?.observed ?? {};
   check(expected.spaces === plan.spaces.size, "orphan audit receipt Space count drifted");
   check(expected.units === plan.units.size, "orphan audit receipt Unit count drifted");
   check(expected.links === plan.links.size, "orphan audit receipt Link count drifted");
   check(expected.targets === plan.targets.size, "orphan audit receipt Target count drifted");
+  check(expected.triggers === plan.triggers.size, "orphan audit receipt Trigger count drifted");
+  check(expected.filters === plan.filters.size, "orphan audit receipt Filter count drifted");
+  for (const resource of ["spaces", "units", "links", "targets", "triggers", "filters"]) {
+    check(observed[resource] === expected[resource], `orphan audit observed ${resource} count differs from the exact allowlist`);
+  }
+  const configHubInventory = receipt.spec?.configHubInventory;
+  check(
+    configHubInventory?.snapshot?.schemaVersion === 1
+      && configHubInventory.snapshot.mode === "organization-wide-single-list-per-resource"
+      && configHubInventory.snapshot.canonicalization === "stable-recursive-key-order-and-entity-row-order"
+      && configHubInventory.snapshot.fingerprintAlgorithm === "sha256"
+      && stableJson(configHubInventory.snapshot.coreResources) === stableJson(CORE_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && stableJson(configHubInventory.snapshot.fullResources) === stableJson(FULL_CONFIGHUB_FINGERPRINT_RESOURCES)
+      && configHubInventory.snapshot.coreFiveResourceFingerprintScope === "reconciler-final-selected-Space-Unit-published-Release-Link-Target-snapshot"
+      && configHubInventory.snapshot.fullEightResourceFingerprintScope === "core-five-plus-selected-Trigger-Filter-release-Tag-snapshot"
+      && SHA256_PATTERN.test(configHubInventory.snapshot.coreFiveResourceFingerprint ?? "")
+      && SHA256_PATTERN.test(configHubInventory.snapshot.fullEightResourceFingerprint ?? "")
+      && configHubInventory.snapshot.coreFiveResourceFingerprint === brackets.closingCoreFiveResourceFingerprint
+      && configHubInventory.snapshot.fullEightResourceFingerprint === brackets.closingFullEightResourceFingerprint,
+    "orphan audit ConfigHub snapshot evidence is missing or unbound",
+  );
+  check(
+    stableJson(configHubInventory.snapshot.fieldSets) === stableJson(CONFIGHUB_FINGERPRINT_FIELD_SETS),
+    "orphan audit canonical ConfigHub snapshot field coverage drifted",
+  );
+  check(
+    noopRun?.idempotentNoop === true
+      && noopRun.actionCount === 0
+      && SHA256_PATTERN.test(noopRun.finalConfigHubFingerprint ?? "")
+      && noopRun.finalConfigHubFingerprint === brackets.openingCoreFiveResourceFingerprint
+      && reconcileReceipt.spec?.finalConfigHubSnapshot?.fingerprint === noopRun.finalConfigHubFingerprint,
+    "orphan audit opening five-resource snapshot is not the latest no-op run final ConfigHub state",
+  );
+  check(
+    stableJson(configHubInventory.snapshot.listCalls) === stableJson(CONFIGHUB_LIST_CALLS_PER_BRACKET),
+    "orphan audit ConfigHub snapshot used an unexpected list-call shape",
+  );
+  check(
+    stableJson(configHubInventory.snapshot.counts) === stableJson({
+      spaces: observed.spaces,
+      units: observed.units,
+      links: observed.links,
+      targets: observed.targets,
+      releases: receipt.spec?.releaseClassification?.activeCurrent?.length
+        + receipt.spec?.releaseClassification?.historical?.length
+        + receipt.spec?.releaseClassification?.retainedCatalogOrProof?.length
+        + receipt.spec?.releaseClassification?.orphaned?.length,
+      publishedReleases: [
+        ...(receipt.spec?.releaseClassification?.activeCurrent ?? []),
+        ...(receipt.spec?.releaseClassification?.historical ?? []),
+        ...(receipt.spec?.releaseClassification?.retainedCatalogOrProof ?? []),
+        ...(receipt.spec?.releaseClassification?.orphaned ?? []),
+      ].filter((item) => item.published).length,
+      triggers: observed.triggers,
+      filters: observed.filters,
+      tags: observed.releaseTags,
+    }),
+    "orphan audit ConfigHub snapshot counts are not bound to the receipt inventory",
+  );
+  const receiptTriggers = new Map((configHubInventory.triggerAllowlist ?? []).map((item) => [item.ref, item]));
+  check(receiptTriggers.size === plan.triggers.size, "orphan audit Trigger allowlist count is not exact");
+  for (const [ref, expectedTrigger] of plan.triggers) {
+    const trigger = receiptTriggers.get(ref);
+    check(
+      typeof trigger?.id === "string"
+        && trigger.id.length > 0
+        && trigger.event === expectedTrigger.event
+        && trigger.toolchainType === expectedTrigger.toolchainType
+        && trigger.functionName === expectedTrigger.functionName
+        && stableJson(trigger.arguments) === stableJson(expectedTrigger.arguments)
+        && trigger.disabled === expectedTrigger.disabled
+        && trigger.validating === expectedTrigger.validating
+        && trigger.failOpenAfter === expectedTrigger.failOpenAfter,
+      `${ref}: orphan audit receipt Trigger behavior is not exact`,
+    );
+  }
+  const receiptFilters = new Map((configHubInventory.filterAllowlist ?? []).map((item) => [item.ref, item]));
+  check(receiptFilters.size === plan.filters.size, "orphan audit Filter allowlist count is not exact");
+  for (const [ref, expectedFilter] of plan.filters) {
+    const filter = receiptFilters.get(ref);
+    check(
+      typeof filter?.id === "string"
+        && filter.id.length > 0
+        && filter.from === expectedFilter.from
+        && filter.where === expectedFilter.where,
+      `${ref}: orphan audit receipt Filter behavior is not exact`,
+    );
+  }
   check(expected.currentReleaseStreams === plan.releaseStreams.size, "orphan audit receipt release stream count drifted");
   check(expected.argoApplications === plan.reconcilePlan.spec.counts.deliveryApplicationUnits, "orphan audit receipt Argo Application count drifted");
   check(expected.bootstrapDurableWorkloads === plan.clusters.length * BOOTSTRAP_DURABLE_WORKLOADS.length, "orphan audit receipt bootstrap workload count drifted");
   check(receipt.spec?.releaseClassification?.activeCurrent?.length === plan.releaseStreams.size, "orphan audit active release classification is incomplete");
+  for (const release of receipt.spec.releaseClassification.activeCurrent) {
+    const expectedUnitCount = [...plan.units.keys()]
+      .filter((ref) => ref.startsWith(`${release.space}/`)).length;
+    check(
+      UUID_PATTERN.test(release.releaseID ?? "")
+        && UUID_PATTERN.test(release.tagID ?? "")
+        && Number(release.unitCount) === expectedUnitCount
+        && expectedUnitCount > 0,
+      `${release.space}: orphan audit current release UnitCount is not the exact ${expectedUnitCount}-Unit inventory`,
+    );
+  }
   check(receipt.spec?.releaseClassification?.orphaned?.length === 0, "orphan audit receipt contains orphan releases");
+  const releaseTagHistory = receipt.spec?.releaseTagHistory;
+  check(
+    releaseTagHistory?.policy === "additive-release-N-tags-contiguous-from-one-through-current-release"
+      && Number.isInteger(releaseTagHistory.retainedTagCount)
+      && releaseTagHistory.retainedTagCount === observed.releaseTags
+      && releaseTagHistory.retainedTagCount === configHubInventory.snapshot.counts.tags,
+    "orphan audit retained release Tag inventory is missing or unbound",
+  );
+  check(
+    releaseTagHistory.streams?.length === configHubInventory.snapshot.counts.publishedReleases,
+    "orphan audit retained release Tag streams do not cover every current Release",
+  );
+  for (const stream of releaseTagHistory.streams) {
+    check(plan.spaces.has(stream.space), `${stream.space}: retained release Tag stream belongs to an unknown Space`);
+    check(
+      UUID_PATTERN.test(stream.currentReleaseID ?? "")
+        && UUID_PATTERN.test(stream.currentTagID ?? "")
+        && Number.isInteger(stream.currentReleaseNum)
+        && stream.currentReleaseNum > 0
+        && stream.retainedTagCount === stream.currentReleaseNum
+        && stream.contiguousFromOne === true
+        && stream.exactCurrentTag === true
+        && stream.tags?.length === stream.retainedTagCount,
+      `${stream.space}: retained release Tag history is incomplete`,
+    );
+    for (let index = 0; index < stream.tags.length; index += 1) {
+      const tag = stream.tags[index];
+      check(
+        tag.slug === `release-${index + 1}`
+          && UUID_PATTERN.test(tag.tagID ?? "")
+          && typeof tag.createdAt === "string"
+          && tag.createdAt.length > 0,
+        `${stream.space}: retained release Tag ${index + 1} is invalid or out of sequence`,
+      );
+    }
+    check(stream.tags.at(-1)?.tagID === stream.currentTagID, `${stream.space}: current Release does not reference the last retained Tag`);
+  }
+  check(receipt.status?.exactCurrentReleaseInventory === true, "orphan audit current Release inventory is not exact");
   check(receipt.spec?.argo?.requiresPruningPolicy === "zero", "orphan audit requiresPruning policy drifted");
+  check(
+    receipt.spec?.argo?.deploymentAuthorityPolicy === "targetRevision-latest-is-discovery-only; automated-sync-absent; no-active-operation; no-ApplicationSet-regeneration; ConfigHub-revalidated-ManifestDigest-operation-under-Kubernetes-UID-resourceVersion-CAS",
+    "orphan audit deployment-authority policy drifted",
+  );
+  const applicationRows = receipt.spec?.argo?.applications ?? [];
+  const expectedApplicationUnits = new Set(plan.reconcilePlan.spec.deliveryApplicationUnits.map((item) => item.ref));
+  check(applicationRows.length === expected.argoApplications, "orphan audit does not retain every Argo Application authority row");
+  check(new Set(applicationRows.map((row) => row.sourceUnit)).size === expectedApplicationUnits.size, "orphan audit Argo Application source Unit identities are duplicated");
+  for (const row of applicationRows) {
+    check(expectedApplicationUnits.has(row.sourceUnit), `${row.cluster}/${row.name}: authority row is outside the delivery Unit allowlist`);
+    check(
+      row.targetRevision === "latest"
+        && row.automatedSyncDisabled === true
+        && row.applicationSetOwnerAbsent === true
+        && row.activeOperation === false
+        && !["Running", "Terminating"].includes(row.operationPhase)
+        && row.syncSubmissionAuthority === "ConfigHub-revalidated-ManifestDigest-Kubernetes-UID-resourceVersion-CAS",
+      `${row.cluster}/${row.name}: retained deployment-authority evidence is not fail-closed`,
+    );
+    check(
+      SHA256_PATTERN.test(row.expectedRevision ?? "")
+        && row.observedRevision === row.expectedRevision
+        && row.sync === "Synced",
+      `${row.cluster}/${row.name}: retained exact-revision Argo state is not accepted`,
+    );
+  }
+  const argobotRows = receipt.spec?.argo?.argobotAuthority ?? [];
+  check(argobotRows.length === plan.clusters.length, "orphan audit argobot authority evidence is incomplete");
+  for (const row of argobotRows) {
+    check(plan.clusters.includes(row.cluster) && row.version === ARGOBOT_VERSION, "orphan audit argobot identity drifted");
+    const deployment = row.deployment ?? {};
+    check(
+      deployment.image === ARGOBOT_IMAGE
+        && deployment.syncMode === "kubernetes"
+        && deployment.applicationNamespace === "argocd"
+        && deployment.refreshType === "hard"
+        && deployment.restSyncEnvironmentAbsent === true
+        && deployment.commandOverrideAbsent === true
+        && deployment.oneContainerNoInit === true
+        && deployment.duplicateEnvironmentAbsent === true
+        && deployment.selectorExact === true
+        && deployment.rolloutCurrent === true,
+      `${row.cluster}: retained argobot Deployment authority is not refresh-only`,
+    );
+    check((row.pods ?? []).length === deployment.replicas && deployment.replicas > 0, `${row.cluster}: retained argobot Pod inventory is incomplete`);
+    for (const pod of row.pods) {
+      check(
+        /^[0-9a-f-]{36}$/i.test(pod.uid ?? "")
+          && pod.runningReady === true
+          && pod.image === ARGOBOT_IMAGE
+          && pod.syncMode === "kubernetes"
+          && pod.applicationNamespace === "argocd"
+          && pod.refreshType === "hard"
+          && pod.restSyncEnvironmentAbsent === true
+          && pod.commandOverrideAbsent === true
+          && pod.oneContainerNoInit === true
+          && pod.duplicateEnvironmentAbsent === true,
+        `${row.cluster}/${pod.name}: retained argobot Pod authority is not refresh-only`,
+      );
+    }
+  }
+  const applicationSetRows = receipt.spec?.argo?.applicationSets ?? [];
+  check(applicationSetRows.length === plan.clusters.length, "orphan audit ApplicationSet inventory is incomplete");
+  for (const row of applicationSetRows) {
+    check(plan.clusters.includes(row.cluster) && row.count === 0 && stableJson(row.refs) === "[]", `${row.cluster}: orphan audit retains ApplicationSet regeneration authority`);
+  }
+  check(receipt.status?.exactDeploymentAuthority === true, "orphan audit deployment authority is not exact");
   check(receipt.spec?.durableWorkloads?.resourceTypes?.length === DURABLE_WORKLOAD_RESOURCES.length, "durable workload resource inventory is incomplete");
   check(receipt.spec?.durableWorkloads?.bootstrapVersion?.argoCD === ARGO_CD_RUNTIME_VERSION, "durable workload Argo bootstrap version drifted");
   check(receipt.spec?.durableWorkloads?.expectedBootstrapTotal === plan.clusters.length * BOOTSTRAP_DURABLE_WORKLOADS.length, "durable workload bootstrap inventory drifted");
@@ -1282,13 +2238,20 @@ function verifyReceipt(plan) {
   }
   check(receipt.spec?.findings?.length === 0, "orphan audit receipt retains findings");
   check(receipt.status?.result === "pass", "orphan audit receipt is not a pass");
+  check(receipt.status?.openingClosingSnapshotStable === true, "orphan audit receipt does not attest opening/closing snapshot stability");
+  check(receipt.status?.exactConfigHubInventory === true, "orphan audit receipt does not prove exact ConfigHub inventory");
   check(receipt.status?.zeroUnexpectedConfigHubInventory === true, "orphan audit receipt does not prove zero unexpected ConfigHub inventory");
+  check(receipt.status?.exactTriggerFilterInventory === true, "orphan audit receipt does not prove exact Trigger/Filter inventory");
   check(receipt.status?.zeroArgoRequiresPruning === true, "orphan audit receipt does not prove zero Argo requiresPruning resources");
   check(receipt.status?.zeroUnclassifiedDurableWorkloads === true, "orphan audit receipt does not prove zero unclassified durable workloads");
   check(receipt.status?.zeroDanglingTrackedDurableWorkloads === true, "orphan audit receipt does not prove zero dangling tracked durable workloads");
   check(receipt.status?.zeroProtectedNamespaceOwnership === true, "orphan audit receipt does not prove protected namespace detachment");
-  check(Object.values(receipt.status?.orphanCounts ?? {}).every((value) => value === 0), "orphan audit receipt orphan counters are nonzero");
-  check(receipt.status?.historicalReleasesRetained === true, "orphan audit receipt no longer preserves release history");
+  check(
+    stableJson(receipt.status?.orphanCounts) === stableJson(findingCounts(receipt.spec.findings))
+      && Object.values(receipt.status?.orphanCounts ?? {}).every((value) => value === 0),
+    "orphan audit receipt finding counters are stale or nonzero",
+  );
+  check(receipt.status?.retainedReleaseHistoryProvedByTags === true, "orphan audit receipt no longer preserves release-N Tag history");
   console.log(`verified ${relativeRepo(RECEIPT_PATH)}: zero unexpected ConfigHub inventory, prunable Argo resources, unclassified/dangling durable workloads, and protected-namespace ownership`);
 }
 
@@ -1297,20 +2260,127 @@ function selfTest(plan) {
   check(plan.units.size === 10, `self-test plan Unit count drifted: ${plan.units.size}`);
   check(plan.links.size === 2, `self-test plan Link count drifted: ${plan.links.size}`);
   check(plan.targets.size === 1, `self-test plan Target count drifted: ${plan.targets.size}`);
+  check(stableJson([...plan.triggers.keys()]) === stableJson(EXPECTED_TRIGGERS.map((item) => item.ref)), "self-test Trigger allowlist drifted");
+  check(stableJson([...plan.filters.keys()]) === stableJson(EXPECTED_FILTERS.map((item) => item.ref)), "self-test Filter allowlist drifted");
   check(plan.releaseStreams.size === 3, `self-test plan release stream count drifted: ${plan.releaseStreams.size}`);
   check(plan.catalogRetention.components === 103 && plan.catalogRetention.versions === 130 && plan.catalogRetention.selections === 18, "catalog retention contract drifted");
   check(publicAuditPlan(plan).spec.counts.expectedArgoApplications === 3, "delivery Application Units must be the sole Argo allowlist and count");
+  check(
+    publicAuditPlan(plan).spec.counts.triggers === EXPECTED_TRIGGERS.length
+      && publicAuditPlan(plan).spec.counts.filters === EXPECTED_FILTERS.length,
+    "public audit plan Trigger/Filter counts drifted",
+  );
+  assertOrganizationListCallBudget({ ...CONFIGHUB_LIST_CALLS_PER_BRACKET });
+  expectFailure(
+    () => assertOrganizationListCallBudget({ ...CONFIGHUB_LIST_CALLS_PER_BRACKET, unit: 2 }),
+    /read budget drifted/,
+    "N+1 Unit list budget",
+  );
+
+  const unitText = "apiVersion: v1\nkind: ConfigMap\n";
+  const canonicalUnit = {
+    Data: Buffer.from(unitText, "utf8").toString("base64"),
+    DataHash: sha256(unitText),
+  };
+  check(decodeBulkUnitData(canonicalUnit, "self-test/unit") === unitText, "canonical bulk Unit Data did not round-trip");
+  expectFailure(
+    () => decodeBulkUnitData({ ...canonicalUnit, Data: "not-base64!" }, "self-test/unit"),
+    /non-canonical base64/,
+    "bulk Unit malformed base64",
+  );
+  expectFailure(
+    () => decodeBulkUnitData({ ...canonicalUnit, DataHash: "0".repeat(64) }, "self-test/unit"),
+    /DataHash does not match/,
+    "bulk Unit hash mismatch",
+  );
+  const invalidUtf8 = Buffer.from([0xff]);
+  expectFailure(
+    () => decodeBulkUnitData({ Data: invalidUtf8.toString("base64"), DataHash: sha256(invalidUtf8) }, "self-test/unit"),
+    /not valid UTF-8/,
+    "bulk Unit invalid UTF-8",
+  );
+  check(
+    stableJson(canonicalSnapshotRows([{ SpaceID: "b" }, { SpaceID: "a" }], ["SpaceID"]))
+      === stableJson(canonicalSnapshotRows([{ SpaceID: "a" }, { SpaceID: "b" }], ["SpaceID"])),
+    "ConfigHub snapshot fingerprint input depends on row order",
+  );
+  const fingerprintRows = Object.fromEntries(FULL_CONFIGHUB_FINGERPRINT_RESOURCES.map((resource) => [resource, [{ resource, value: "a" }]]));
+  const coreFingerprint = configHubSnapshotFingerprint(fingerprintRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES);
+  const fullFingerprint = configHubSnapshotFingerprint(fingerprintRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES);
+  const triggerDriftRows = structuredClone(fingerprintRows);
+  triggerDriftRows.trigger[0].value = "b";
+  check(
+    configHubSnapshotFingerprint(triggerDriftRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES) === coreFingerprint
+      && configHubSnapshotFingerprint(triggerDriftRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES) !== fullFingerprint,
+    "Trigger-only drift did not remain outside the reconciler-compatible five-resource fingerprint",
+  );
+  const unitDriftRows = structuredClone(fingerprintRows);
+  unitDriftRows.unit[0].value = "b";
+  check(
+    configHubSnapshotFingerprint(unitDriftRows, CORE_CONFIGHUB_FINGERPRINT_RESOURCES) !== coreFingerprint
+      && configHubSnapshotFingerprint(unitDriftRows, FULL_CONFIGHUB_FINGERPRINT_RESOURCES) !== fullFingerprint,
+    "core ConfigHub drift did not change both the five- and eight-resource fingerprints",
+  );
+  const tagSpaceID = "11111111-1111-4111-8111-111111111111";
+  const currentReleaseID = "22222222-2222-4222-8222-222222222222";
+  const firstTagID = "33333333-3333-4333-8333-333333333333";
+  const currentTagID = "44444444-4444-4444-8444-444444444444";
+  const tagRows = [
+    { OrganizationID: ORGANIZATION_ENTITY_ID, SpaceID: tagSpaceID, TagID: firstTagID, Slug: "release-1", CreatedAt: "2026-01-01T00:00:00Z" },
+    { OrganizationID: ORGANIZATION_ENTITY_ID, SpaceID: tagSpaceID, TagID: currentTagID, Slug: "release-2", CreatedAt: "2026-01-02T00:00:00Z" },
+  ];
+  const releaseRows = [{ SpaceID: tagSpaceID, ReleaseID: currentReleaseID, TagID: currentTagID, ReleaseNum: 2 }];
+  const tagFindings = [];
+  const tagHistory = classifyReleaseTags(tagRows, releaseRows, new Map([[tagSpaceID, "fixture-space"]]), tagFindings);
+  check(
+    tagFindings.length === 0
+      && tagHistory.retainedTagCount === 2
+      && tagHistory.streams[0]?.contiguousFromOne === true
+      && tagHistory.streams[0]?.exactCurrentTag === true,
+    "complete additive release Tag history was not accepted",
+  );
+  const gapFindings = [];
+  classifyReleaseTags([tagRows[1]], releaseRows, new Map([[tagSpaceID, "fixture-space"]]), gapFindings);
+  check(
+    gapFindings.some((finding) => finding.category === "releaseTagContractDrift"),
+    "missing historical release Tag was not rejected",
+  );
+  const mismatchedTagFindings = [];
+  classifyReleaseTags(tagRows, [{ ...releaseRows[0], TagID: firstTagID }], new Map([[tagSpaceID, "fixture-space"]]), mismatchedTagFindings);
+  check(
+    mismatchedTagFindings.some((finding) => finding.category === "releaseTagContractDrift")
+      && mismatchedTagFindings.some((finding) => finding.category === "missingReleaseTag"),
+    "current Release-to-Tag mismatch was not rejected",
+  );
+  const policyFindingCounts = findingCounts([
+    { category: "unexpectedConfigHubTrigger" },
+    { category: "missingConfigHubFilter" },
+    { category: "duplicateConfigHubTrigger" },
+    { category: "filterContractDrift" },
+    { category: "orphanReleaseTag" },
+    { category: "releaseTagContractDrift" },
+  ]);
+  check(
+    policyFindingCounts.unexpectedConfigHubTriggers === 1
+      && policyFindingCounts.missingConfigHubFilters === 1
+      && policyFindingCounts.duplicateConfigHubTriggers === 1
+      && policyFindingCounts.filterContractDrift === 1
+      && policyFindingCounts.orphanReleaseTags === 1
+      && policyFindingCounts.releaseTagContractDrift === 1,
+    "Trigger/Filter/release-Tag finding counters drifted",
+  );
 
   const currentSpace = [...plan.releaseStreams.keys()][0];
   const retainedSpace = [...plan.spaces.values()].find((space) => plan.allowedRetainedReleaseTypes.has(space.type) && !plan.releaseStreams.has(space.slug))?.slug;
   const invalidSpace = plan.clusters[0];
   const sha = `sha256:${"a".repeat(64)}`;
+  const unitCountFor = (space) => [...plan.units.keys()].filter((ref) => ref.startsWith(`${space}/`)).length;
   const fixture = [
-    { space: currentSpace, ReleaseID: "current-1", ReleaseNum: 2, CreatedAt: "2026-01-02T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true },
-    { space: currentSpace, ReleaseID: "current-0", ReleaseNum: 1, CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true },
-    { space: retainedSpace, ReleaseID: "catalog-1", ReleaseNum: 1, CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true },
+    { space: currentSpace, ReleaseID: "current-1", ReleaseNum: 2, UnitCount: unitCountFor(currentSpace), CreatedAt: "2026-01-02T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true },
+    { space: currentSpace, ReleaseID: "current-0", ReleaseNum: 1, UnitCount: unitCountFor(currentSpace), CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true },
+    { space: retainedSpace, ReleaseID: "catalog-1", ReleaseNum: 1, UnitCount: unitCountFor(retainedSpace), CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true },
   ];
-  for (const space of [...plan.releaseStreams.keys()].slice(1)) fixture.push({ space, ReleaseID: `active-${space}`, ReleaseNum: 1, CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true });
+  for (const space of [...plan.releaseStreams.keys()].slice(1)) fixture.push({ space, ReleaseID: `active-${space}`, ReleaseNum: 1, UnitCount: unitCountFor(space), CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true });
   const findings = [];
   const classified = classifyReleases(fixture, plan, findings);
   check(findings.length === 0, `historical/catalog release fixture should pass: ${stableJson(findings)}`);
@@ -1318,8 +2388,17 @@ function selfTest(plan) {
   check(classified.historical.some((item) => item.releaseID === "current-0"), "older current-stream release was not retained as history");
   check(classified.retainedCatalogOrProof.some((item) => item.releaseID === "catalog-1"), "definition release was not retained as catalog/proof inventory");
 
+  const incompleteFindings = [];
+  classifyReleases(fixture.map((release) => (
+    release.ReleaseID === "current-1" ? { ...release, UnitCount: 0 } : release
+  )), plan, incompleteFindings);
+  check(
+    incompleteFindings.some((item) => item.category === "releaseUnitCountDrift"),
+    "current Published release with an incomplete UnitCount was not rejected",
+  );
+
   const invalidFindings = [];
-  classifyReleases([...fixture, { space: invalidSpace, ReleaseID: "orphan", ReleaseNum: 1, CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true }], plan, invalidFindings);
+  classifyReleases([...fixture, { space: invalidSpace, ReleaseID: "orphan", ReleaseNum: 1, UnitCount: 0, CreatedAt: "2026-01-01T00:00:00Z", Digest: sha, ManifestDigest: sha, published: true }], plan, invalidFindings);
   check(invalidFindings.some((item) => item.category === "orphanRelease"), "active release in a cluster target Space was not rejected");
   check(staleOwnershipAnnotations({ metadata: { annotations: { "argocd.argoproj.io/tracking-id": "stale" } } }).length === 1, "protected namespace tracking metadata was not detected");
   check(staleOwnershipAnnotations({ metadata: { labels: { "argocd.argoproj.io/instance": "chart-label" } } }).length === 0, "ordinary Kubara chart instance label was incorrectly treated as ownership");
