@@ -174,6 +174,8 @@ exactly one future adoption frame, separate from the ConfigHub GUI tour.
 
 <!-- kubara-adoption-screenshot step="1" id="native-config" path="../../images/kubara-adoption/01-native-kubara-config.png" -->
 
+![Native Kubara config.yaml reviewed on GitHub at the exact source commit](../../images/kubara-adoption/01-native-kubara-config.png)
+
 After the machine checkpoint and the complete source-current live gate pass,
 capture one real Git review frame of `config.yaml` with these facts visible:
 

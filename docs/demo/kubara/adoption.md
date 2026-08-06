@@ -26,15 +26,16 @@ You need:
 - an existing Kubara repository or the committed current example;
 - the exact Kubara and Helm versions named by its source lock;
 - a clean Git commit pushed to the reviewed HTTPS remote;
-- an explicitly selected ConfigHub organization;
-- one ConfigHub Target and cluster-local Argo delivery runtime for each target
-  cluster; and
-- credentials for the selected organization and the OCI repository used by
-  the importer.
+- credentials for the OCI repository used by the importer; and, for Step 5,
+- an explicitly selected ConfigHub organization, credentials for its exact
+  context, and one ConfigHub Target plus cluster-local Argo delivery runtime
+  for each target cluster.
 
 The current importer does not create or guess an organization, Target, or
 cluster-local delivery runtime. These prerequisites are deliberate security
-and ownership boundaries, not hidden work performed by AI.
+and ownership boundaries, not hidden work performed by AI. Steps 1–4 can be
+completed before an organization is chosen: the portable request contains no
+ConfigHub destination identity, and its package set is published first.
 
 ## Step 1: [Choose components and wiring in Kubara](adoption-1-choose.md)
 
@@ -125,11 +126,16 @@ Catalog, and builds:
 - one immutable target-neutral OCI package per effective component/config set;
 - one platform index that references every exact manifest and layer digest;
   and
-- a separate destination binding lock for the selected organization, Spaces,
-  Targets, workloads, and delivery identities.
+- one target-neutral `PlatformDigest` and portable checksum set that contain
+  no ConfigHub organization or target identity.
 
 It deliberately does not flatten the platform into one giant OCI artifact.
 Secrets and target facts remain outside both Git and portable OCI.
+
+The executable sequence is `--compile-portable`, `--verify-portable`, then
+`--package-portable`. Only Step 5 selects and inspects the organization and
+runs `--bind`, which produces the separate destination lock and
+`BindingDigest` without republishing or changing the portable payloads.
 
 Exercise the complete isolated importer contract with:
 
@@ -151,7 +157,11 @@ is the next checkpoint.
 
 The user explicitly selects the ConfigHub organization and confirms its exact
 identity. Each Kubara cluster has a pre-existing ConfigHub Target and local
-Argo delivery runtime. The importer then materializes the platform as:
+Argo delivery runtime. The read-only inspector pins those identities and
+runtime observations; `--bind` proves that the published target-neutral bytes
+still match and creates the destination-specific plan and target-fact
+template. The operator completes that secret-free attestation, then the
+importer materializes the platform as:
 
 - reusable component definitions and exact versions;
 - effective component/config instances for their selected targets;
@@ -189,15 +199,26 @@ Apply is serialized. Run it a second time immediately: the second accepted run
 must report zero semantic changes. Then run the exact inventory and orphan
 audit before treating the organization as a clean example.
 
-**Checkpoint 5 — governed and repeatable organization:** the exact current
-mini-IDP receipt must prove materialization, ConfigHub release heads, Argo
-revisions, workload health, operation-journal completion, and a zero-action
-second run. The orphan receipt must prove no unexpected ConfigHub objects,
-dangling Links, Argo pruning residue, unclassified durable workloads, or stale
-ownership metadata.
+The optional selected-organization workflow compiler turns this entire path
+into an ordered, shell-free command plan and durable replay journal. It never
+executes organization selection, `cub cluster up`, import, application
+delivery, or acceptance implicitly.
 
-Until both receipts pass, describe this step as implemented but not
-source-current live evidence. See the [checkpoint ledger](checkpoints.md).
+**Checkpoint 5 — governed and repeatable organization:** the retained
+four-cluster `Kubara` organization has a passing current mini-IDP receipt. It
+proves materialization, ConfigHub release heads, exact Argo revisions, workload
+health, all 16 journaled immutable-selector replacements, preservation of the
+four bound PostgreSQL PVC identities, operation-journal completion, and a
+zero-action second run. The separate orphan receipt must prove no unexpected
+ConfigHub objects, dangling Links, Argo pruning residue, unclassified durable
+workloads, or stale ownership metadata before the organization is called
+clean.
+
+This is not yet a fresh-organization acceptance test. A real adopter must
+retain a separate passing pair for the exact organization they selected; the
+current deterministic importer self-test and the retained `Kubara`
+organization cannot be combined into that missing proof. See the
+[checkpoint ledger](checkpoints.md).
 
 ## Step 6: [Add, promote, and deploy applications](adoption-6-apps.md)
 
@@ -217,7 +238,8 @@ The demonstration sequence is:
 
 1. deploy the initial release to development;
 2. promote the exact revision to staging;
-3. require production approval for the exact Unit revision and data hash;
+3. require production approval at server `HeadRevisionNum`, bracketed by the
+   unchanged Unit ID, observed numeric head, and `DataHash`;
 4. promote to both production targets;
 5. create one reviewed target departure;
 6. roll back one production target to its exact earlier revision; and
@@ -246,6 +268,15 @@ hashes, the image SHA-256, UTC capture time, visible identities,
 sensitive-value handling, caption, and claim boundary. Partial, mocked,
 cross-revision, or receipt-free sets are refused. The contract is published at
 [`data/kubara-adoption-screenshots/contract.yaml`](../../../data/kubara-adoption-screenshots/contract.yaml).
+
+Before opening the browser, run the machine-only pre-capture gate from the
+[GUI tour](gui-tour.md#pre-capture-gate). It verifies faithful and adapted
+receipts, the zero-action run, the disclosed 32-read/208-subprocess/~102-second
+no-op measurement, orphan evidence, and current matrix/wiring inputs without
+requiring screenshots that do not exist yet. That measurement meets the fixture
+regression target but is not an HTTP-round-trip count, a raw-Kubara comparison,
+or an SLO. Capture all six real frames only after that gate passes; create the
+receipt; then run the final website gate.
 
 ## What the user has at the end
 

@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: backend
   namespace: cubbychat
+  annotations:
+    helm-expt.confighub.com/release-note: "2026-08-06 reviewed fleet release: governed changed-apply and zero-action rerun proof"
 spec:
   replicas: 1
   selector:

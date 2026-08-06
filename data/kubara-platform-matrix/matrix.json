@@ -11,7 +11,7 @@
       "evidenceLayer": "optional-live-overlay"
     },
     "evidence": {
-      "mode": "current-config-plus-effective-render",
+      "mode": "current-config-plus-effective-render-plus-validated-mini-idp-live",
       "kubaraVersion": "v0.13.0",
       "catalogVersion": "1.1.0",
       "sources": {
@@ -22,30 +22,41 @@
         "appSourceLock": "examples/kubara/current-platform/apps/source-lock.yaml",
         "effectiveRenders": "data/kubara-effective-renders/current-platform/receipt.yaml",
         "faithfulReceipt": "runs/kubara-faithful-hub-spoke/receipt.yaml",
-        "miniIdpReceipt": "not-present"
+        "miniIdpReceipt": "runs/kubara-mini-idp-reconcile/receipt.yaml",
+        "orphanReceipt": "runs/kubara-mini-idp-reconcile/orphan-audit.yaml"
       },
-      "faithfulReceiptStatus": "stale-source",
-      "faithfulReceiptReasons": [
-        "receipt generated digest does not match the current catalog-parity digest",
-        "remote-main generated digest does not match the current catalog-parity digest"
-      ],
+      "faithfulReceiptStatus": "pass",
+      "faithfulReceiptReasons": [],
       "miniIdpReceipt": {
         "path": "runs/kubara-mini-idp-reconcile/receipt.yaml",
-        "status": "not-present",
-        "acceptedAsLive": false,
+        "status": "accepted-current-live",
+        "acceptedAsLive": true,
         "reasons": [
-          "runs/kubara-mini-idp-reconcile/receipt.yaml is absent; all live fields remain Unknown."
+          "Kubara v0.13.0, all source digests, and all 36 liveMatrix cells validated."
         ],
-        "observedAt": null,
-        "sourceDigestsVerified": 0,
-        "parsedCells": 0
+        "observedAt": "2026-08-06T09:10:20.423Z",
+        "sourceDigestsVerified": 16,
+        "parsedCells": 36
       },
-      "parsedObservationCells": 0,
-      "liveReads": []
+      "orphanReceipt": {
+        "path": "runs/kubara-mini-idp-reconcile/orphan-audit.yaml",
+        "status": "accepted-current-scoped-residue-clean",
+        "acceptedAsScopedResidueClean": true,
+        "reasons": [
+          "The source-current canonical audit records zero findings and zero counters within its declared scope."
+        ],
+        "name": "kubara-v0-13-0-mini-idp-orphan-audit",
+        "observedAt": "2026-08-06T09:10:55.578Z",
+        "sha256": "c588c4882ed5de66d4dde68cf0f09f94ee9b976bca740e14cec4c6796bebdb23"
+      },
+      "parsedObservationCells": 36,
+      "liveReads": [
+        "The accepted receipt records kubectl and ConfigHub live reads; this generator performs no live read."
+      ]
     },
     "scope": {
-      "deliveryModel": "Kubara-generated hub Argo CD with Git/ApplicationSets targeting three spokes",
-      "faithfulKubaraGitDelivery": "not-proven-currently",
+      "deliveryModel": "ConfigHub-adapted mini-IDP with a local Argo reconciler on each cluster",
+      "faithfulKubaraGitDelivery": "source-current-receipt-pass-with-recorded-scope",
       "components": 9,
       "platformComponents": 7,
       "applications": 2,
@@ -227,35 +238,82 @@
         "clusterType": "hub",
         "selectedVersion": "argo-cd/argo-cd@10.2.1",
         "desiredVersion": "10.2.1",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "v3.4.6",
+        "versionState": "recorded-departure",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 7,
+          "desired": 7,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-applicationset-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-dex-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-notifications-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-redis",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-repo-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/argocd/argocd-application-controller",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (7/7 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "configHub-owned-argo-substitutes-kubara-wrapper",
+          "reason": "ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render."
+        },
+        "departures": "configHub-owned-argo-substitutes-kubara-wrapper: ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/argo-cd/values-repository-paths.yaml"
         ],
         "renderObjectCount": 86,
         "renderSha256": "3881930e58f377be7074eda757a17e304825a3104183f477cfadb4cb87c57bb8",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-dev/argo-cd.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -266,31 +324,78 @@
         "clusterType": "spoke",
         "selectedVersion": "argo-cd/argo-cd@10.2.1",
         "desiredVersion": "10.2.1",
-        "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "observedVersion": "v3.4.6",
+        "versionState": "recorded-departure",
         "presence": "hub-managed",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 7,
+          "desired": 7,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-applicationset-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-dex-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-notifications-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-redis",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-repo-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/argocd/argocd-application-controller",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "centralized",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (7/7 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "configHub-owned-argo-substitutes-kubara-wrapper",
+          "reason": "ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render."
+        },
+        "departures": "configHub-owned-argo-substitutes-kubara-wrapper: ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current hub/spoke config",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -301,31 +406,78 @@
         "clusterType": "spoke",
         "selectedVersion": "argo-cd/argo-cd@10.2.1",
         "desiredVersion": "10.2.1",
-        "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "observedVersion": "v3.4.6",
+        "versionState": "recorded-departure",
         "presence": "hub-managed",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 7,
+          "desired": 7,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-applicationset-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-dex-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-notifications-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-redis",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-repo-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/argocd/argocd-application-controller",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "centralized",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (7/7 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "configHub-owned-argo-substitutes-kubara-wrapper",
+          "reason": "ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render."
+        },
+        "departures": "configHub-owned-argo-substitutes-kubara-wrapper: ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current hub/spoke config",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -336,31 +488,78 @@
         "clusterType": "spoke",
         "selectedVersion": "argo-cd/argo-cd@10.2.1",
         "desiredVersion": "10.2.1",
-        "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "observedVersion": "v3.4.6",
+        "versionState": "recorded-departure",
         "presence": "hub-managed",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 7,
+          "desired": 7,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-applicationset-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-dex-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-notifications-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-redis",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-repo-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/argocd/argocd-server",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/argocd/argocd-application-controller",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "centralized",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (7/7 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "configHub-owned-argo-substitutes-kubara-wrapper",
+          "reason": "ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render."
+        },
+        "departures": "configHub-owned-argo-substitutes-kubara-wrapper: ConfigHub takes the hub role; each cluster keeps its local bootstrap Argo v3.4.6, explicitly separate from Kubara chart 10.2.1 and its v3.4.5 render.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current hub/spoke config",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -371,35 +570,58 @@
         "clusterType": "hub",
         "selectedVersion": "jetstack/cert-manager@v1.21.0",
         "desiredVersion": "v1.21.0",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "cert-manager-v1.21.0",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-cainjector",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-webhook",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-self-signed-cluster-issuer",
+          "reason": "The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME."
+        },
+        "departures": "kind-self-signed-cluster-issuer: The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/cert-manager/values-kind.yaml"
         ],
         "renderObjectCount": 54,
         "renderSha256": "d42bd87d5d10982edf3d3c308769c3fba802df70bfca68e10600a76114e95ee7",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-dev/cert-manager.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -410,35 +632,58 @@
         "clusterType": "spoke",
         "selectedVersion": "jetstack/cert-manager@v1.21.0",
         "desiredVersion": "v1.21.0",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "cert-manager-v1.21.0",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-cainjector",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-webhook",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-self-signed-cluster-issuer",
+          "reason": "The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME."
+        },
+        "departures": "kind-self-signed-cluster-issuer: The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-staging/helm/cert-manager/values-kind.yaml"
         ],
         "renderObjectCount": 52,
         "renderSha256": "d7cc5ad406be55803cc8c8f267631812051d82dd649863a89f87c2db0ed0690d",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-staging/cert-manager.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -449,35 +694,58 @@
         "clusterType": "spoke",
         "selectedVersion": "jetstack/cert-manager@v1.21.0",
         "desiredVersion": "v1.21.0",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "cert-manager-v1.21.0",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-cainjector",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-webhook",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-self-signed-cluster-issuer",
+          "reason": "The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME."
+        },
+        "departures": "kind-self-signed-cluster-issuer: The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/cert-manager/values-kind.yaml"
         ],
         "renderObjectCount": 52,
         "renderSha256": "27f69adde8d447b0294205f65d9d19685c987a4b2ad573271e3edbb239f0a75a",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-prod-a/cert-manager.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -488,35 +756,58 @@
         "clusterType": "spoke",
         "selectedVersion": "jetstack/cert-manager@v1.21.0",
         "desiredVersion": "v1.21.0",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "cert-manager-v1.21.0",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-cainjector",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cert-manager/cert-manager-webhook",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-self-signed-cluster-issuer",
+          "reason": "The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME."
+        },
+        "departures": "kind-self-signed-cluster-issuer: The reproducible kind lane uses a self-signed ClusterIssuer instead of public ACME.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/cert-manager/values-kind.yaml"
         ],
         "renderObjectCount": 52,
         "renderSha256": "ddab0a44c5efc491c6132223fff6b88ecd2da5abdd77e73af1887f7593aef70a",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-prod-b/cert-manager.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -527,33 +818,56 @@
         "clusterType": "hub",
         "selectedVersion": "external-secrets/external-secrets@2.8.0",
         "desiredVersion": "2.8.0",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "external-secrets-2.8.0",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/external-secrets/external-secrets",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/external-secrets/external-secrets-cert-controller",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/external-secrets/external-secrets-webhook",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-fake-provider-target-fact",
+          "reason": "The demo uses ESO's fake provider; production must select a real backend without changing the wiring contract."
+        },
+        "departures": "kind-fake-provider-target-fact: The demo uses ESO's fake provider; production must select a real backend without changing the wiring contract.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 50,
         "renderSha256": "b90bd5215ed87a67cd9b2754f04865a20e40b805fe1349e93de25770b0a69292",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-dev/external-secrets.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -565,11 +879,11 @@
         "selectedVersion": "external-secrets/external-secrets@2.8.0",
         "desiredVersion": "2.8.0",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -579,16 +893,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -600,11 +918,11 @@
         "selectedVersion": "external-secrets/external-secrets@2.8.0",
         "desiredVersion": "2.8.0",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -614,16 +932,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -635,11 +957,11 @@
         "selectedVersion": "external-secrets/external-secrets@2.8.0",
         "desiredVersion": "2.8.0",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -649,16 +971,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -669,35 +995,43 @@
         "clusterType": "hub",
         "selectedVersion": "kubara/homer-dashboard@0.1.0",
         "desiredVersion": "0.1.0",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "b4bz/homer:v26.4.2",
+        "versionState": "recorded-departure",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 1,
+          "desired": 1,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/homer-dashboard/homer-dashboard",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (1/1 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/homer-dashboard/values-project-links.yaml"
         ],
         "renderObjectCount": 8,
         "renderSha256": "0810f86226a13a70f24a345af9560536f773f054fb75a7cbaf2202ab64858d2d",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-dev/homer-dashboard.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -709,11 +1043,11 @@
         "selectedVersion": "kubara/homer-dashboard@0.1.0",
         "desiredVersion": "0.1.0",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -723,16 +1057,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -744,11 +1082,11 @@
         "selectedVersion": "kubara/homer-dashboard@0.1.0",
         "desiredVersion": "0.1.0",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -758,16 +1096,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -779,11 +1121,11 @@
         "selectedVersion": "kubara/homer-dashboard@0.1.0",
         "desiredVersion": "0.1.0",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -793,16 +1135,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -813,33 +1159,80 @@
         "clusterType": "hub",
         "selectedVersion": "prometheus-community/kube-prometheus-stack@87.19.2 + prometheus-community/prometheus-blackbox-exporter@11.15.1",
         "desiredVersion": "87.19.2 + blackbox 11.15.1",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "87.19.2 + grafana-12.8.1 + kube-state-metrics-8.0.0 + prometheus-blackbox-exporter-11.15.1 + prometheus-node-exporter-4.56.1",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 7,
+          "desired": 7,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/kube-prometheus-stack/kube-prometheus-stack-grafana",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/kube-prometheus-stack/kube-prometheus-stack-kube-state-metrics",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/kube-prometheus-stack/kube-prometheus-stack-operator",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/kube-prometheus-stack/kube-prometheus-stack-prometheus-blackbox-exporter",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/kube-prometheus-stack/alertmanager-kube-prometheus-stack-alertmanager",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/kube-prometheus-stack/prometheus-kube-prometheus-stack-prometheus",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "DaemonSet/kube-prometheus-stack/kube-prometheus-stack-prometheus-node-exporter",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (7/7 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "crds-and-eso-secret-wiring-are-explicit-spaces",
+          "reason": "CRD lifecycle and Grafana secret production are separately governed and visibly linked."
+        },
+        "departures": "crds-and-eso-secret-wiring-are-explicit-spaces: CRD lifecycle and Grafana secret production are separately governed and visibly linked.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 116,
         "renderSha256": "a9c778d0a46b42a05f4296c6ab34fc75c62a5fb1efd5e1906ab10a7a25edaf92",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-dev/kube-prometheus-stack.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -851,11 +1244,11 @@
         "selectedVersion": "prometheus-community/kube-prometheus-stack@87.19.2 + prometheus-community/prometheus-blackbox-exporter@11.15.1",
         "desiredVersion": "87.19.2 + blackbox 11.15.1",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -865,16 +1258,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -886,11 +1283,11 @@
         "selectedVersion": "prometheus-community/kube-prometheus-stack@87.19.2 + prometheus-community/prometheus-blackbox-exporter@11.15.1",
         "desiredVersion": "87.19.2 + blackbox 11.15.1",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -900,16 +1297,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -921,11 +1322,11 @@
         "selectedVersion": "prometheus-community/kube-prometheus-stack@87.19.2 + prometheus-community/prometheus-blackbox-exporter@11.15.1",
         "desiredVersion": "87.19.2 + blackbox 11.15.1",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -935,16 +1336,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -955,35 +1360,43 @@
         "clusterType": "hub",
         "selectedVersion": "metrics-server/metrics-server@3.13.1",
         "desiredVersion": "3.13.1",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "metrics-server-3.13.1",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 1,
+          "desired": 1,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/metrics-server/metrics-server",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (1/1 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/metrics-server/values-kind.yaml"
         ],
         "renderObjectCount": 10,
         "renderSha256": "da40e4395191e57b4a67b579a9b9e171461e960d9df22ae108bf2d262fa65f69",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-dev/metrics-server.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -995,11 +1408,11 @@
         "selectedVersion": "metrics-server/metrics-server@3.13.1",
         "desiredVersion": "3.13.1",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -1009,16 +1422,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1030,11 +1447,11 @@
         "selectedVersion": "metrics-server/metrics-server@3.13.1",
         "desiredVersion": "3.13.1",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -1044,16 +1461,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1065,11 +1486,11 @@
         "selectedVersion": "metrics-server/metrics-server@3.13.1",
         "desiredVersion": "3.13.1",
         "observedVersion": "Unknown",
-        "versionState": "not-applicable",
+        "versionState": "selected-not-observed",
         "presence": "disabled-by-config",
         "deliveryState": "not-selected",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
+        "syncState": "NotApplicable",
+        "argoSyncState": "NotApplicable",
         "healthState": "NotApplicable",
         "readiness": {
           "result": "not-applicable",
@@ -1079,16 +1500,20 @@
         },
         "workloadState": "NotApplicable",
         "proofStatus": "disabled",
-        "departure": null,
-        "departures": "none recorded",
+        "departure": {
+          "id": "kubara-config-disabled",
+          "reason": "service is disabled for this cluster in the committed Kubara contract"
+        },
+        "departures": "kubara-config-disabled: service is disabled for this cluster in the committed Kubara contract",
         "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 0,
         "renderSha256": "",
-        "evidenceScope": "current config disables component",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
-          "examples/kubara/current-platform/component-artifacts.yaml"
+          "examples/kubara/current-platform/component-artifacts.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1099,35 +1524,46 @@
         "clusterType": "hub",
         "selectedVersion": "traefik/traefik@41.0.2",
         "desiredVersion": "41.0.2",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "traefik-41.0.2",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 1,
+          "desired": 1,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/traefik/traefik",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (1/1 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-nodeport-with-configured-ingress-status",
+          "reason": "The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller."
+        },
+        "departures": "kind-nodeport-with-configured-ingress-status: The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-dev/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 33,
         "renderSha256": "0c39aaa4266218d7c9cd5c29f8fd303b832d53345176fbd7bd2a94a14909ca7c",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-dev/traefik.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1138,35 +1574,46 @@
         "clusterType": "spoke",
         "selectedVersion": "traefik/traefik@41.0.2",
         "desiredVersion": "41.0.2",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "traefik-41.0.2",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 1,
+          "desired": 1,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/traefik/traefik",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (1/1 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-nodeport-with-configured-ingress-status",
+          "reason": "The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller."
+        },
+        "departures": "kind-nodeport-with-configured-ingress-status: The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-staging/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 32,
         "renderSha256": "3ebec65bab14e1f48da29496d979c7463741f2e6f2697e46752a582d6d77633c",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-staging/traefik.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1177,35 +1624,46 @@
         "clusterType": "spoke",
         "selectedVersion": "traefik/traefik@41.0.2",
         "desiredVersion": "41.0.2",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "traefik-41.0.2",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 1,
+          "desired": 1,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/traefik/traefik",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (1/1 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-nodeport-with-configured-ingress-status",
+          "reason": "The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller."
+        },
+        "departures": "kind-nodeport-with-configured-ingress-status: The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-prod-a/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 32,
         "renderSha256": "f3f494ffb978b154e083493974f39221f32ce5ec047f3e4caaced3d3310e3d81",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-prod-a/traefik.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1216,35 +1674,46 @@
         "clusterType": "spoke",
         "selectedVersion": "traefik/traefik@41.0.2",
         "desiredVersion": "41.0.2",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "traefik-41.0.2",
+        "versionState": "matches-selection",
         "presence": "rendered-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 1,
+          "desired": 1,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/traefik/traefik",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (1/1 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "kind-nodeport-with-configured-ingress-status",
+          "reason": "The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller."
+        },
+        "departures": "kind-nodeport-with-configured-ingress-status: The reproducible kind lane uses declared NodePorts and Traefik's configured cluster hostname, so Ingress status and Argo health converge without a cloud LoadBalancer controller.",
+        "unknownReason": null,
         "declaredOverrides": [
           "examples/kubara/current-platform/source/overrides/hx-app-prod-b/helm/traefik/values-kind.yaml"
         ],
         "renderObjectCount": 32,
         "renderSha256": "9d5ce0593524ae3e9b2aaf99ec8fddf4a8c57332b9a07bff91f24456a034a4a1",
-        "evidenceScope": "committed current effective render only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
           "data/kubara-effective-renders/current-platform/hx-app-prod-b/traefik.yaml",
-          "data/kubara-effective-renders/current-platform/receipt.yaml"
+          "data/kubara-effective-renders/current-platform/receipt.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1255,28 +1724,35 @@
         "clusterType": "hub",
         "selectedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
         "desiredVersion": "digest-pinned fixture",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 3,
+              "ready": 3,
+              "ref": "Deployment/hx-web/hx-web",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 5,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1285,7 +1761,8 @@
           "examples/kubara/current-platform/apps/hx-web/base/namespace.yaml",
           "examples/kubara/current-platform/apps/hx-web/base/service.yaml",
           "examples/kubara/current-platform/apps/hx-web/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1296,28 +1773,38 @@
         "clusterType": "spoke",
         "selectedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
         "desiredVersion": "digest-pinned fixture",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 3,
+              "ready": 3,
+              "ref": "Deployment/hx-web/hx-web",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "staging-sandbox-url",
+          "reason": "Staging keeps its SANDBOX_URL departure through the second upstream promotion."
+        },
+        "departures": "staging-sandbox-url: Staging keeps its SANDBOX_URL departure through the second upstream promotion.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 5,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1326,7 +1813,8 @@
           "examples/kubara/current-platform/apps/hx-web/base/namespace.yaml",
           "examples/kubara/current-platform/apps/hx-web/base/service.yaml",
           "examples/kubara/current-platform/apps/hx-web/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1337,28 +1825,38 @@
         "clusterType": "spoke",
         "selectedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
         "desiredVersion": "digest-pinned fixture",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 2,
+          "desired": 2,
+          "workloads": [
+            {
+              "desired": 2,
+              "ready": 2,
+              "ref": "Deployment/hx-web/hx-web",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
-        "departure": null,
-        "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "workloadState": "pass (2/2 ready)",
+        "proofStatus": "observed",
+        "departure": {
+          "id": "one-target-rollback-replicas-2",
+          "reason": "prod-a is intentionally rolled back to two replicas while prod-b remains at three."
+        },
+        "departures": "one-target-rollback-replicas-2: prod-a is intentionally rolled back to two replicas while prod-b remains at three.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 5,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1367,7 +1865,8 @@
           "examples/kubara/current-platform/apps/hx-web/base/namespace.yaml",
           "examples/kubara/current-platform/apps/hx-web/base/service.yaml",
           "examples/kubara/current-platform/apps/hx-web/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1378,28 +1877,35 @@
         "clusterType": "spoke",
         "selectedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
         "desiredVersion": "digest-pinned fixture",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 3,
+              "ready": 3,
+              "ref": "Deployment/hx-web/hx-web",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 5,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1408,7 +1914,8 @@
           "examples/kubara/current-platform/apps/hx-web/base/namespace.yaml",
           "examples/kubara/current-platform/apps/hx-web/base/service.yaml",
           "examples/kubara/current-platform/apps/hx-web/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/hx-web/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1419,28 +1926,47 @@
         "clusterType": "hub",
         "selectedVersion": "commit e9e76a076924d95897c3ede7a0f21cec523c4f6f; 3 digest-pinned images",
         "desiredVersion": "e9e76a076924d95897c3ede7a0f21cec523c4f6f",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/backend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/frontend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/cubbychat/postgres",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 10,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1454,7 +1980,8 @@
           "examples/kubara/current-platform/apps/cubbychat/base/postgres-service.yaml",
           "examples/kubara/current-platform/apps/cubbychat/base/postgres.yaml",
           "examples/kubara/current-platform/apps/cubbychat/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1465,28 +1992,47 @@
         "clusterType": "spoke",
         "selectedVersion": "commit e9e76a076924d95897c3ede7a0f21cec523c4f6f; 3 digest-pinned images",
         "desiredVersion": "e9e76a076924d95897c3ede7a0f21cec523c4f6f",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/backend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/frontend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/cubbychat/postgres",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 10,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1500,7 +2046,8 @@
           "examples/kubara/current-platform/apps/cubbychat/base/postgres-service.yaml",
           "examples/kubara/current-platform/apps/cubbychat/base/postgres.yaml",
           "examples/kubara/current-platform/apps/cubbychat/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1511,28 +2058,47 @@
         "clusterType": "spoke",
         "selectedVersion": "commit e9e76a076924d95897c3ede7a0f21cec523c4f6f; 3 digest-pinned images",
         "desiredVersion": "e9e76a076924d95897c3ede7a0f21cec523c4f6f",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/backend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/frontend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/cubbychat/postgres",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 10,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1546,7 +2112,8 @@
           "examples/kubara/current-platform/apps/cubbychat/base/postgres-service.yaml",
           "examples/kubara/current-platform/apps/cubbychat/base/postgres.yaml",
           "examples/kubara/current-platform/apps/cubbychat/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       },
       {
@@ -1557,28 +2124,47 @@
         "clusterType": "spoke",
         "selectedVersion": "commit e9e76a076924d95897c3ede7a0f21cec523c4f6f; 3 digest-pinned images",
         "desiredVersion": "e9e76a076924d95897c3ede7a0f21cec523c4f6f",
-        "observedVersion": "Unknown",
-        "versionState": "selected-not-observed",
+        "observedVersion": "ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20",
+        "versionState": "matches-selection",
         "presence": "application-intent",
-        "deliveryState": "not-live-observed",
-        "syncState": "Unknown",
-        "argoSyncState": "Unknown",
-        "healthState": "Unknown",
+        "deliveryState": "delivered",
+        "syncState": "Synced",
+        "argoSyncState": "Synced",
+        "healthState": "Healthy",
         "readiness": {
-          "result": "unknown",
-          "ready": null,
-          "desired": null,
-          "workloads": []
+          "result": "pass",
+          "ready": 3,
+          "desired": 3,
+          "workloads": [
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/backend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "Deployment/cubbychat/frontend",
+              "result": "pass"
+            },
+            {
+              "desired": 1,
+              "ready": 1,
+              "ref": "StatefulSet/cubbychat/postgres",
+              "result": "pass"
+            }
+          ]
         },
-        "workloadState": "Unknown",
-        "proofStatus": "rendered-only",
+        "workloadState": "pass (3/3 ready)",
+        "proofStatus": "observed",
         "departure": null,
         "departures": "none recorded",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
+        "unknownReason": null,
         "declaredOverrides": [],
         "renderObjectCount": 10,
         "renderSha256": "",
-        "evidenceScope": "committed digest-pinned application fixture only",
+        "evidenceScope": "validated source-current liveMatrix row in runs/kubara-mini-idp-reconcile/receipt.yaml",
         "evidence": [
           "examples/kubara/current-platform/source/config.yaml",
           "examples/kubara/current-platform/component-artifacts.yaml",
@@ -1592,257 +2178,16 @@
           "examples/kubara/current-platform/apps/cubbychat/base/postgres-service.yaml",
           "examples/kubara/current-platform/apps/cubbychat/base/postgres.yaml",
           "examples/kubara/current-platform/apps/cubbychat/platform/certificate.yaml",
-          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml"
+          "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml",
+          "runs/kubara-mini-idp-reconcile/receipt.yaml"
         ]
       }
     ],
-    "unknowns": [
-      {
-        "component": "argo-cd",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "argo-cd",
-        "cluster": "hx-app-staging",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "current hub/spoke config"
-      },
-      {
-        "component": "argo-cd",
-        "cluster": "hx-app-prod-a",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "current hub/spoke config"
-      },
-      {
-        "component": "argo-cd",
-        "cluster": "hx-app-prod-b",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "current hub/spoke config"
-      },
-      {
-        "component": "cert-manager",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "cert-manager",
-        "cluster": "hx-app-staging",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "cert-manager",
-        "cluster": "hx-app-prod-a",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "cert-manager",
-        "cluster": "hx-app-prod-b",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "external-secrets",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "homer-dashboard",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "kube-prometheus-stack",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "metrics-server",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "traefik",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "traefik",
-        "cluster": "hx-app-staging",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "traefik",
-        "cluster": "hx-app-prod-a",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "traefik",
-        "cluster": "hx-app-prod-b",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed current effective render only"
-      },
-      {
-        "component": "hx-web",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      },
-      {
-        "component": "hx-web",
-        "cluster": "hx-app-staging",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      },
-      {
-        "component": "hx-web",
-        "cluster": "hx-app-prod-a",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      },
-      {
-        "component": "hx-web",
-        "cluster": "hx-app-prod-b",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      },
-      {
-        "component": "cubbychat",
-        "cluster": "hx-app-dev",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      },
-      {
-        "component": "cubbychat",
-        "cluster": "hx-app-staging",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      },
-      {
-        "component": "cubbychat",
-        "cluster": "hx-app-prod-a",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      },
-      {
-        "component": "cubbychat",
-        "cluster": "hx-app-prod-b",
-        "observedVersion": "Unknown",
-        "syncState": "Unknown",
-        "healthState": "Unknown",
-        "readiness": "unknown",
-        "unknownReason": "No accepted source-current mini-IDP live observation exists for this cell.",
-        "evidenceScope": "committed digest-pinned application fixture only"
-      }
-    ],
+    "unknowns": [],
     "summary": {
-      "rendered-only": 21,
-      "centralized": 3,
+      "observed": 24,
       "disabled": 12,
-      "explicitUnknownCells": 24
+      "explicitUnknownCells": 0
     },
     "claimBoundary": [
       "This is the primary current-platform matrix for Kubara v0.13.0 and catalogs 1.1.0.",

@@ -22,7 +22,8 @@
         "appSourceLock": "examples/kubara/current-platform/apps/source-lock.yaml",
         "effectiveRenders": "data/kubara-effective-renders/current-platform/receipt.yaml",
         "faithfulReceipt": "not-consumed",
-        "miniIdpReceipt": "not-consumed"
+        "miniIdpReceipt": "not-consumed",
+        "orphanReceipt": "not-consumed"
       },
       "faithfulReceiptStatus": "not-consumed",
       "faithfulReceiptReasons": [],
@@ -36,6 +37,17 @@
         "observedAt": null,
         "sourceDigestsVerified": 0,
         "parsedCells": 0
+      },
+      "orphanReceipt": {
+        "path": "runs/kubara-mini-idp-reconcile/orphan-audit.yaml",
+        "status": "not-consumed-for-desired-artifact",
+        "acceptedAsScopedResidueClean": false,
+        "reasons": [
+          "The desired matrix never consumes an orphan receipt."
+        ],
+        "name": null,
+        "observedAt": null,
+        "sha256": null
       },
       "parsedObservationCells": 0,
       "liveReads": []

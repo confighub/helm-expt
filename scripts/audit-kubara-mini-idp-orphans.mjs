@@ -43,6 +43,7 @@ const ORGANIZATION = "Kubara";
 const ORGANIZATION_EXTERNAL_ID = "58b23b85-9699-4384-bd57-80ef695a1d58";
 const ORGANIZATION_ENTITY_ID = "12c33fa8-00b1-4011-ad3e-19d56458b29c";
 const CONFIGHUB_SERVER_URL = "https://hub.confighub.com";
+const AUDITOR_PATH = join(repoRoot, "scripts", "audit-kubara-mini-idp-orphans.mjs");
 const RECONCILER_PATH = join(repoRoot, "scripts", "reconcile-kubara-mini-idp.mjs");
 const RECONCILE_RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
 const APPLY_ATTEMPT_LEDGER_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "attempts.yaml");
@@ -460,6 +461,8 @@ function publicAuditPlan(plan) {
         serverURL: CONFIGHUB_SERVER_URL,
       },
       source: {
+        auditor: relativeRepo(AUDITOR_PATH),
+        auditorSha256: `sha256:${sha256File(AUDITOR_PATH)}`,
         reconciler: relativeRepo(RECONCILER_PATH),
         reconcilerSha256: plan.reconcilerSha256,
         reconcilePlanSha256: plan.planSha256,
@@ -521,12 +524,28 @@ function assertQuiescentJournal() {
   } catch (error) {
     throw new Error(`operation journal is unreadable: ${error.message}`);
   }
+  assertQuiescentJournalDocument(journal);
+}
+
+function assertQuiescentJournalDocument(journal) {
   check(Object.keys(journal.convergence ?? {}).length === 0, "orphan audit refuses an in-flight Argo convergence journal");
   const terminalStates = new Set(["completed", "observed-gone", "observed-detached", "already-detached"]);
   for (const [key, value] of Object.entries(journal)) {
     if (!value || typeof value !== "object" || Array.isArray(value) || !("state" in value)) continue;
     if (!["namespaceMove", "scenario", "fleetBootstrap"].includes(key) && !/namespace.*detach/i.test(key)) continue;
     check(terminalStates.has(value.state), `orphan audit refuses in-flight journal ${key} state ${value.state}`);
+  }
+  for (const [migrationID, value] of Object.entries(journal.protectedNamespaceDetachments ?? {})) {
+    check(
+      value && typeof value === "object" && !Array.isArray(value) && terminalStates.has(value.state),
+      `orphan audit refuses in-flight protected Namespace detachment ${migrationID} state ${value?.state ?? "missing"}`,
+    );
+  }
+  for (const [migrationID, value] of Object.entries(journal.immutableSelectorReplacements ?? {})) {
+    check(
+      value && typeof value === "object" && !Array.isArray(value) && value.state === "replacement-healthy",
+      `orphan audit refuses in-flight immutable selector replacement ${migrationID} state ${value?.state ?? "missing"}`,
+    );
   }
 }
 
@@ -695,6 +714,17 @@ function ownerReferenceKey(workload, owner) {
   });
 }
 
+function argoTrackingIdentity(value) {
+  const match = /^([^:]+):([^/]*)\/([^:]+):([^/]+)\/(.+)$/.exec(String(value ?? ""));
+  if (!match) return null;
+  const [, application, group, kind, namespace, name] = match;
+  if (!application || !kind || !namespace || !name) return null;
+  return {
+    application,
+    key: resourceKey({ group, kind, namespace, name }),
+  };
+}
+
 function addFinding(findings, category, ref, detail) {
   findings.push({ category, ref, detail });
 }
@@ -706,12 +736,11 @@ function setDifference(left, right) {
 function decodeBulkUnitData(unit, ref) {
   check(typeof unit?.Data === "string", `${ref}: organization-wide Unit row omitted Data`);
   check(/^[a-f0-9]{64}$/.test(unit.DataHash ?? ""), `${ref}: organization-wide Unit row has an invalid DataHash`);
+  const decoded = Buffer.from(unit.Data, "base64");
   check(
-    /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(unit.Data),
+    unit.Data.length % 4 === 0 && decoded.toString("base64") === unit.Data,
     `${ref}: organization-wide Unit row contains non-canonical base64 Data`,
   );
-  const decoded = Buffer.from(unit.Data, "base64");
-  check(decoded.toString("base64") === unit.Data, `${ref}: organization-wide Unit row contains non-canonical base64 Data`);
   check(sha256(decoded) === unit.DataHash, `${ref}: organization-wide Unit DataHash does not match decoded Data`);
   try {
     return new TextDecoder("utf-8", { fatal: true }).decode(decoded);
@@ -1408,6 +1437,7 @@ function classifyDurableWorkloads(
   desiredResources,
   findings,
   bootstrapByKey = BOOTSTRAP_DURABLE_WORKLOADS_BY_KEY,
+  liveOwnerUIDs = new Map(),
 ) {
   const rows = [];
   for (const workload of workloads) {
@@ -1416,6 +1446,7 @@ function classifyDurableWorkloads(
     const annotations = workload.metadata?.annotations ?? {};
     const hasTrackingAnnotation = Object.prototype.hasOwnProperty.call(annotations, ARGO_TRACKING_ANNOTATION);
     const trackingID = hasTrackingAnnotation ? annotations[ARGO_TRACKING_ANNOTATION] : null;
+    const trackingIdentity = argoTrackingIdentity(trackingID);
     const desired = desiredResources.get(key);
     const bootstrap = bootstrapByKey.get(key);
     const ownerReferences = (workload.metadata?.ownerReferences ?? []).map((owner) => ({
@@ -1427,28 +1458,63 @@ function classifyDurableWorkloads(
       controller: owner.controller === true,
       key: owner.apiVersion && owner.kind && owner.name ? ownerReferenceKey(workload, owner) : null,
     }));
-    const desiredOwnerRoots = ownerReferences
+    const referencedDesiredOwnerRoots = ownerReferences
       .filter((owner) => owner.key && desiredResources.has(owner.key))
       .map((owner) => ({
         key: owner.key,
         applications: desiredResources.get(owner.key).applications,
         controller: owner.controller,
         uid: owner.uid,
+        liveUID: liveOwnerUIDs.get(owner.key) ?? null,
       }));
+    const desiredOwnerRoots = referencedDesiredOwnerRoots.filter((owner) => (
+      owner.uid
+        && owner.liveUID
+        && owner.uid === owner.liveUID
+    ));
+    const desiredControllerOwnerRoots = desiredOwnerRoots.filter((owner) => owner.controller);
+    const staleDesiredOwnerRoots = referencedDesiredOwnerRoots.filter((owner) => (
+      !owner.uid
+        || !owner.liveUID
+        || owner.uid !== owner.liveUID
+    ));
+    for (const owner of staleDesiredOwnerRoots) {
+      addFinding(
+        findings,
+        "staleControllerOwnerUID",
+        `${ref} -> ${owner.key}`,
+        `ownerReference uid=${owner.uid ?? "missing"}; current owner uid=${owner.liveUID ?? "missing"}`,
+      );
+    }
+    const inheritedTrackingOwnerRoots = desiredOwnerRoots.filter((owner) => (
+      owner.controller
+        && trackingIdentity?.key === owner.key
+        && owner.applications.includes(trackingIdentity.application)
+    ));
 
     let classification;
     let applications = [];
-    if (hasTrackingAnnotation && !desired) {
-      classification = "dangling-argo-tracking";
-      addFinding(findings, "danglingTrackedDurableWorkload", ref, `${ARGO_TRACKING_ANNOTATION} is present but the exact workload key is absent from every expected Application status.resources`);
-    } else if (desired) {
+    if (desired) {
       classification = "argo-status-desired";
       applications = desired.applications;
+    } else if (hasTrackingAnnotation && inheritedTrackingOwnerRoots.length === 1) {
+      // Operators such as Prometheus copy the desired CR's Argo tracking and
+      // ConfigHub provenance annotations onto their generated StatefulSets.
+      // That annotation intentionally identifies the controller owner, not the
+      // generated workload. Accept it only when one controller owner is itself
+      // in an expected Application status and the tracking identity names that
+      // exact owner and Application. An unrelated/stale tracking annotation
+      // remains a hard dangling-workload failure below.
+      classification = "generated-by-argo-desired-root";
+      applications = [...new Set(inheritedTrackingOwnerRoots.flatMap((owner) => owner.applications))].sort();
+    } else if (hasTrackingAnnotation) {
+      classification = "dangling-argo-tracking";
+      addFinding(findings, "danglingTrackedDurableWorkload", ref, `${ARGO_TRACKING_ANNOTATION} identifies neither the exact workload nor one exact controller owner in an expected Application status.resources`);
     } else if (bootstrap) {
       classification = "bootstrap-baseline";
-    } else if (desiredOwnerRoots.length > 0) {
+    } else if (desiredControllerOwnerRoots.length === 1) {
       classification = "generated-by-argo-desired-root";
-      applications = [...new Set(desiredOwnerRoots.flatMap((owner) => owner.applications))].sort();
+      applications = [...new Set(desiredControllerOwnerRoots.flatMap((owner) => owner.applications))].sort();
     } else {
       classification = "unclassified";
       addFinding(findings, "unclassifiedDurableWorkload", ref, "durable workload is neither Argo desired, exact bootstrap, nor directly owned by a current Argo desired root");
@@ -1465,13 +1531,69 @@ function classifyDurableWorkloads(
       classification,
       applications,
       trackingID,
+      trackingIdentity,
+      inheritedTrackingFromDesiredOwner: inheritedTrackingOwnerRoots.length === 1,
       bootstrapRole: bootstrap?.role ?? null,
       bootstrapRuntimeVersion: bootstrap?.role === "argocd-runtime" ? ARGO_CD_RUNTIME_VERSION : null,
       desiredOwnerRoots,
+      desiredControllerOwnerRoots,
+      staleDesiredOwnerRoots,
       ownerReferences,
     });
   }
   return rows.sort((left, right) => left.key.localeCompare(right.key));
+}
+
+function desiredOwnerResourceName(owner) {
+  const group = apiGroup(owner.apiVersion);
+  const kind = String(owner.kind ?? "").toLowerCase();
+  check(kind, "ownerReference kind is required");
+  return group ? `${kind}.${group}` : kind;
+}
+
+function resolveLiveDesiredOwnerUIDs(cluster, workloads, desiredResources, findings) {
+  const refs = new Map();
+  for (const workload of workloads) {
+    for (const owner of workload.metadata?.ownerReferences ?? []) {
+      const key = owner.apiVersion && owner.kind && owner.name
+        ? ownerReferenceKey(workload, owner)
+        : null;
+      if (!key || !desiredResources.has(key) || refs.has(key)) continue;
+      refs.set(key, {
+        key,
+        apiVersion: owner.apiVersion,
+        kind: owner.kind,
+        namespace: workload.metadata?.namespace ?? null,
+        name: owner.name,
+      });
+    }
+  }
+
+  const liveOwnerUIDs = new Map();
+  for (const ref of refs.values()) {
+    const args = ["get", desiredOwnerResourceName(ref), ref.name];
+    if (ref.namespace) args.push("--namespace", ref.namespace);
+    args.push("-o", "json");
+    let live;
+    try {
+      live = JSON.parse(kubectl(cluster, args));
+    } catch {
+      addFinding(findings, "missingDesiredOwnerRoot", `${cluster}/${ref.key}`, "ownerReference target could not be read from the live cluster");
+      continue;
+    }
+    const liveKey = workloadKey(live);
+    if (liveKey !== ref.key) {
+      addFinding(findings, "desiredOwnerRootIdentityDrift", `${cluster}/${ref.key}`, `live lookup returned ${liveKey}`);
+      continue;
+    }
+    const uid = live.metadata?.uid ?? null;
+    if (!uid) {
+      addFinding(findings, "missingDesiredOwnerUID", `${cluster}/${ref.key}`, "live owner has no metadata.uid");
+      continue;
+    }
+    liveOwnerUIDs.set(ref.key, uid);
+  }
+  return liveOwnerUIDs;
 }
 
 function workloadContainers(workload) {
@@ -1531,11 +1653,15 @@ function auditDurableWorkloads(plan, argo, findings) {
       addFinding(findings, "missingBootstrapDurableWorkload", `${cluster}/${key}`, "exact kind/Argo bootstrap workload is missing");
     }
     validateArgoBootstrapRuntime(cluster, workloadsByKey, findings);
+    const desiredResources = argo.desiredResourcesByCluster.get(cluster);
+    const liveOwnerUIDs = resolveLiveDesiredOwnerUIDs(cluster, workloads, desiredResources, findings);
     rows.push(...classifyDurableWorkloads(
       cluster,
       workloads,
-      argo.desiredResourcesByCluster.get(cluster),
+      desiredResources,
       findings,
+      BOOTSTRAP_DURABLE_WORKLOADS_BY_KEY,
+      liveOwnerUIDs,
     ));
   }
   const classifications = Object.fromEntries(
@@ -1630,6 +1756,10 @@ function findingCounts(findings) {
     requiresPruning: categories.argoRequiresPruning ?? 0,
     unclassifiedDurableWorkloads: categories.unclassifiedDurableWorkload ?? 0,
     danglingTrackedDurableWorkloads: categories.danglingTrackedDurableWorkload ?? 0,
+    staleControllerOwnerUIDs: categories.staleControllerOwnerUID ?? 0,
+    missingDesiredOwnerRoots: categories.missingDesiredOwnerRoot ?? 0,
+    desiredOwnerRootIdentityDrift: categories.desiredOwnerRootIdentityDrift ?? 0,
+    missingDesiredOwnerUIDs: categories.missingDesiredOwnerUID ?? 0,
     missingBootstrapDurableWorkloads: categories.missingBootstrapDurableWorkload ?? 0,
     argoBootstrapRuntimeDrift: categories.argoBootstrapRuntimeDrift ?? 0,
     protectedNamespaceOwnership: categories.protectedNamespaceOwnership ?? 0,
@@ -1638,7 +1768,7 @@ function findingCounts(findings) {
 
 function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespaces, findings, observedAt) {
   const counts = findingCounts(findings);
-  const zeroOrphans = Object.values(counts).every((value) => value === 0);
+  const zeroAuditedResidue = Object.values(counts).every((value) => value === 0);
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "KubaraMiniIDPOrphanAuditReceipt",
@@ -1652,11 +1782,21 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
         serverURL: CONFIGHUB_SERVER_URL,
       },
       source: {
+        auditor: relativeRepo(AUDITOR_PATH),
+        auditorSha256: `sha256:${sha256File(AUDITOR_PATH)}`,
         reconciler: relativeRepo(RECONCILER_PATH),
         reconcilerSha256: plan.reconcilerSha256,
         reconcilePlanSha256: plan.planSha256,
         applyAttemptLedger: relativeRepo(APPLY_ATTEMPT_LEDGER_PATH),
         applyAttemptLedgerSha256: `sha256:${sha256File(APPLY_ATTEMPT_LEDGER_PATH)}`,
+      },
+      auditScope: {
+        claim: "zero unexpected ConfigHub inventory, zero Argo-prunable resources, zero unclassified or dangling audited durable workloads, and zero stale ownership on protected Namespaces",
+        completeConfigHubInventory: ["Spaces", "Units", "Links", "Targets", "Triggers", "Filters", "release Tags", "published Releases"],
+        argoInventory: ["the exact planned Applications", "every resource reported by current Application status", "every requiresPruning marker"],
+        kubernetesInventory: [...DURABLE_WORKLOAD_RESOURCES, ...PROTECTED_NAMESPACES.map((namespace) => `namespace/${namespace}`)],
+        excludedFromClusterWideClaim: "Kubernetes resource types outside current Argo status, the five audited durable-workload types, and the four protected Namespaces are not a complete cluster inventory and are not covered by this receipt",
+        clusterWideOrphanFreeClaim: false,
       },
       execution: {
         readOnly: true,
@@ -1728,8 +1868,8 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
         applicationSets: argo.applicationSets,
       },
       durableWorkloads: {
-        policy: "classify every Deployment, StatefulSet, DaemonSet, CronJob and Job as exact Argo desired, exact bootstrap, or directly owned by a current Argo desired root",
-        danglingTrackingPolicy: "tracking-id-present-but-exact-key-absent-from-expected-Application-status-is-always-a-failure",
+        policy: "classify every Deployment, StatefulSet, DaemonSet, CronJob and Job as exact Argo desired, exact bootstrap, or UID-bound directly owned by a current Argo desired root",
+        danglingTrackingPolicy: "tracking-id-must-identify-the-exact-workload-or-one-exact-controller-owner-in-the-same-expected-Application-status",
         ...durableWorkloads,
       },
       protectedNamespaces: {
@@ -1739,7 +1879,8 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
       findings,
     },
     status: {
-      result: findings.length === 0 && zeroOrphans ? "pass" : "fail",
+      result: findings.length === 0 && zeroAuditedResidue ? "pass" : "fail",
+      zeroAuditedResidue,
       exactConfigHubInventory: [
         counts.unexpectedConfigHubSpaces,
         counts.missingConfigHubSpaces,
@@ -1774,6 +1915,7 @@ function buildReceipt(plan, confighub, argo, durableWorkloads, protectedNamespac
       zeroArgoRequiresPruning: counts.requiresPruning === 0,
       zeroUnclassifiedDurableWorkloads: counts.unclassifiedDurableWorkloads === 0,
       zeroDanglingTrackedDurableWorkloads: counts.danglingTrackedDurableWorkloads === 0,
+      zeroStaleControllerOwnership: counts.staleControllerOwnerUIDs + counts.missingDesiredOwnerRoots + counts.desiredOwnerRootIdentityDrift + counts.missingDesiredOwnerUIDs === 0,
       zeroProtectedNamespaceOwnership: counts.protectedNamespaceOwnership === 0,
       retainedReleaseHistoryProvedByTags: true,
       orphanCounts: counts,
@@ -1818,7 +1960,7 @@ function runAudit(plan) {
     );
     check(
       stableJson(receipt) === stableJson(openingReceipt),
-      "ConfigHub, Argo Application, workload, or protected-Namespace inventory changed during the zero-orphan audit",
+      "ConfigHub, Argo Application, workload, or protected-Namespace inventory changed during the scoped residue audit",
     );
     receipt.spec.execution.organizationWideReadBrackets = {
       openingCoreFiveResourceFingerprint: openingReceipt.spec.configHubInventory.snapshot.coreFiveResourceFingerprint,
@@ -1865,7 +2007,7 @@ function assertCurrentApplyAttemptPair() {
       && noopAttempt.executionFingerprint === noop.executionFingerprint,
     "changed/no-op runs are not backed by exact passing durable attempts",
   );
-  check(ledger.attempts.at(-1)?.sequence === noop.attemptSequence, "a later apply attempt invalidates zero-orphan/performance acceptance");
+  check(ledger.attempts.at(-1)?.sequence === noop.attemptSequence, "a later apply attempt invalidates scoped-residue/performance acceptance");
   return { receipt, ledger };
 }
 
@@ -1930,7 +2072,7 @@ function reconcilePerformanceAcceptance(orphanReceipt) {
       && SHA256_PATTERN.test(orphanCoreFingerprint ?? "")
       && orphanCoreFingerprint === orphanReceipt.spec?.configHubInventory?.snapshot?.coreFiveResourceFingerprint
       && noop.finalConfigHubFingerprint === orphanCoreFingerprint,
-    "zero-orphan audit opening ConfigHub state does not equal the latest no-op run final state",
+    "scoped residue audit opening ConfigHub state does not equal the latest no-op run final state",
   );
 
   receipt.status.performanceResult = "performance-pass";
@@ -1962,7 +2104,7 @@ function reconcilePerformanceAcceptance(orphanReceipt) {
       return { result: "pending", detail: detail || "performance verifier rejected the pair" };
     }
     writeYamlAtomically(RECONCILE_RECEIPT_PATH, receipt);
-    return { result: "performance-pass", detail: "immediate pair and current zero-orphan audit verified" };
+    return { result: "performance-pass", detail: "immediate pair and current scoped residue audit verified" };
   } finally {
     rmSync(fixtureRoot, { recursive: true, force: true });
   }
@@ -1977,6 +2119,8 @@ function verifyReceipt(plan) {
   check(receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID, "orphan audit receipt external Organization ID drifted");
   check(receipt.spec?.organization?.entityID === ORGANIZATION_ENTITY_ID, "orphan audit receipt Organization entity ID drifted");
   check(receipt.spec?.organization?.serverURL === CONFIGHUB_SERVER_URL, "orphan audit receipt server drifted");
+  check(receipt.spec?.source?.auditor === relativeRepo(AUDITOR_PATH), "orphan audit receipt auditor path drifted");
+  check(receipt.spec?.source?.auditorSha256 === `sha256:${sha256File(AUDITOR_PATH)}`, "orphan audit receipt auditor digest is stale");
   check(receipt.spec?.source?.reconcilerSha256 === plan.reconcilerSha256, "orphan audit receipt reconciler digest is stale");
   check(receipt.spec?.source?.reconcilePlanSha256 === plan.planSha256, "orphan audit receipt plan digest is stale");
   check(
@@ -2214,6 +2358,9 @@ function verifyReceipt(plan) {
     check(plan.clusters.includes(row.cluster) && row.count === 0 && stableJson(row.refs) === "[]", `${row.cluster}: orphan audit retains ApplicationSet regeneration authority`);
   }
   check(receipt.status?.exactDeploymentAuthority === true, "orphan audit deployment authority is not exact");
+  check(receipt.spec?.auditScope?.clusterWideOrphanFreeClaim === false, "orphan audit must not claim a complete cluster-wide resource inventory");
+  check(Array.isArray(receipt.spec?.auditScope?.completeConfigHubInventory) && receipt.spec.auditScope.completeConfigHubInventory.length === 8, "orphan audit ConfigHub scope is not explicit");
+  check(typeof receipt.spec?.auditScope?.excludedFromClusterWideClaim === "string" && receipt.spec.auditScope.excludedFromClusterWideClaim.includes("not a complete cluster inventory"), "orphan audit cluster exclusion is not explicit");
   check(receipt.spec?.durableWorkloads?.resourceTypes?.length === DURABLE_WORKLOAD_RESOURCES.length, "durable workload resource inventory is incomplete");
   check(receipt.spec?.durableWorkloads?.bootstrapVersion?.argoCD === ARGO_CD_RUNTIME_VERSION, "durable workload Argo bootstrap version drifted");
   check(receipt.spec?.durableWorkloads?.expectedBootstrapTotal === plan.clusters.length * BOOTSTRAP_DURABLE_WORKLOADS.length, "durable workload bootstrap inventory drifted");
@@ -2224,6 +2371,12 @@ function verifyReceipt(plan) {
   const durableRows = receipt.spec.durableWorkloads.rows;
   check(durableRows.length === receipt.spec?.observed?.durableWorkloads, "durable workload receipt does not record every observed workload");
   check(durableRows.every((row) => ["argo-status-desired", "bootstrap-baseline", "generated-by-argo-desired-root"].includes(row.classification)), "durable workload receipt contains a rejected classification");
+  for (const row of durableRows.filter((item) => item.classification === "generated-by-argo-desired-root")) {
+    check((row.desiredOwnerRoots ?? []).length > 0, `${row.cluster}/${row.key}: generated workload has no current desired owner root`);
+    check((row.desiredControllerOwnerRoots ?? []).length === 1, `${row.cluster}/${row.key}: generated workload does not have exactly one current controller owner root`);
+    check((row.staleDesiredOwnerRoots ?? []).length === 0, `${row.cluster}/${row.key}: generated workload retains stale controller ownership`);
+    check(row.desiredOwnerRoots.every((owner) => owner.uid && owner.uid === owner.liveUID), `${row.cluster}/${row.key}: generated workload owner UID is not bound to the live controller`);
+  }
   const durableRowKeys = new Set(durableRows.map((row) => `${row.cluster}/${row.key}`));
   for (const cluster of plan.clusters) {
     for (const [key] of BOOTSTRAP_DURABLE_WORKLOADS_BY_KEY) check(durableRowKeys.has(`${cluster}/${key}`), `${cluster}: receipt omits bootstrap workload ${key}`);
@@ -2238,6 +2391,7 @@ function verifyReceipt(plan) {
   }
   check(receipt.spec?.findings?.length === 0, "orphan audit receipt retains findings");
   check(receipt.status?.result === "pass", "orphan audit receipt is not a pass");
+  check(receipt.status?.zeroAuditedResidue === true, "orphan audit receipt does not prove zero residue in its declared scope");
   check(receipt.status?.openingClosingSnapshotStable === true, "orphan audit receipt does not attest opening/closing snapshot stability");
   check(receipt.status?.exactConfigHubInventory === true, "orphan audit receipt does not prove exact ConfigHub inventory");
   check(receipt.status?.zeroUnexpectedConfigHubInventory === true, "orphan audit receipt does not prove zero unexpected ConfigHub inventory");
@@ -2245,6 +2399,7 @@ function verifyReceipt(plan) {
   check(receipt.status?.zeroArgoRequiresPruning === true, "orphan audit receipt does not prove zero Argo requiresPruning resources");
   check(receipt.status?.zeroUnclassifiedDurableWorkloads === true, "orphan audit receipt does not prove zero unclassified durable workloads");
   check(receipt.status?.zeroDanglingTrackedDurableWorkloads === true, "orphan audit receipt does not prove zero dangling tracked durable workloads");
+  check(receipt.status?.zeroStaleControllerOwnership === true, "orphan audit receipt does not prove UID-current controller ownership");
   check(receipt.status?.zeroProtectedNamespaceOwnership === true, "orphan audit receipt does not prove protected namespace detachment");
   check(
     stableJson(receipt.status?.orphanCounts) === stableJson(findingCounts(receipt.spec.findings))
@@ -2276,6 +2431,39 @@ function selfTest(plan) {
     /read budget drifted/,
     "N+1 Unit list budget",
   );
+  assertQuiescentJournalDocument({
+    convergence: {},
+    protectedNamespaceDetachments: {
+      "fixture/terminal": { state: "observed-detached" },
+    },
+    immutableSelectorReplacements: {
+      "fixture/terminal": { state: "replacement-healthy" },
+    },
+  });
+  for (const state of ["prepared", "patch-returned"]) {
+    expectFailure(
+      () => assertQuiescentJournalDocument({
+        convergence: {},
+        protectedNamespaceDetachments: {
+          "fixture/in-flight": { state },
+        },
+      }),
+      new RegExp(`protected Namespace detachment fixture/in-flight state ${state}`),
+      `nested protected Namespace detachment ${state}`,
+    );
+  }
+  for (const state of ["prepared", "delete-returned", "old-uid-gone"]) {
+    expectFailure(
+      () => assertQuiescentJournalDocument({
+        convergence: {},
+        immutableSelectorReplacements: {
+          "fixture/in-flight": { state },
+        },
+      }),
+      new RegExp(`immutable selector replacement fixture/in-flight state ${state}`),
+      `nested immutable selector replacement ${state}`,
+    );
+  }
 
   const unitText = "apiVersion: v1\nkind: ConfigMap\n";
   const canonicalUnit = {
@@ -2283,6 +2471,15 @@ function selfTest(plan) {
     DataHash: sha256(unitText),
   };
   check(decodeBulkUnitData(canonicalUnit, "self-test/unit") === unitText, "canonical bulk Unit Data did not round-trip");
+  const largeUnitText = `apiVersion: v1\nkind: ConfigMap\ndata:\n  payload: ${"x".repeat(512 * 1024)}\n`;
+  const largeCanonicalUnit = {
+    Data: Buffer.from(largeUnitText, "utf8").toString("base64"),
+    DataHash: sha256(largeUnitText),
+  };
+  check(
+    decodeBulkUnitData(largeCanonicalUnit, "self-test/large unit") === largeUnitText,
+    "large canonical organization-wide Unit Data did not round-trip",
+  );
   expectFailure(
     () => decodeBulkUnitData({ ...canonicalUnit, Data: "not-base64!" }, "self-test/unit"),
     /non-canonical base64/,
@@ -2418,16 +2615,24 @@ function selfTest(plan) {
   const kindnetKey = "apps/DaemonSet/kube-system/kindnet";
   const fixtureBootstrap = new Map([[kindnetKey, BOOTSTRAP_DURABLE_WORKLOADS_BY_KEY.get(kindnetKey)]]);
   const acceptedDurableFindings = [];
+  const liveOwnerUIDs = new Map([
+    ["monitoring.coreos.com/Prometheus/monitoring/platform", "prometheus-uid"],
+    ["batch/CronJob/jobs/report", "cronjob-uid"],
+  ]);
   const acceptedDurableRows = classifyDurableWorkloads("cluster-a", [
     durable("apps/v1", "Deployment", "demo", "direct", { annotations: { [ARGO_TRACKING_ANNOTATION]: "direct-app:apps/Deployment:demo/direct" } }),
     durable("apps/v1", "DaemonSet", "kube-system", "kindnet"),
-    durable("apps/v1", "StatefulSet", "monitoring", "prometheus-platform", { ownerReferences: [{ apiVersion: "monitoring.coreos.com/v1", kind: "Prometheus", name: "platform", uid: "prometheus-uid", controller: true }] }),
+    durable("apps/v1", "StatefulSet", "monitoring", "prometheus-platform", {
+      annotations: { [ARGO_TRACKING_ANNOTATION]: "monitoring-app:monitoring.coreos.com/Prometheus:monitoring/platform" },
+      ownerReferences: [{ apiVersion: "monitoring.coreos.com/v1", kind: "Prometheus", name: "platform", uid: "prometheus-uid", controller: true }],
+    }),
     durable("batch/v1", "Job", "jobs", "report-123", { ownerReferences: [{ apiVersion: "batch/v1", kind: "CronJob", name: "report", uid: "cronjob-uid", controller: true }] }),
-  ], desiredResources, acceptedDurableFindings, fixtureBootstrap);
+  ], desiredResources, acceptedDurableFindings, fixtureBootstrap, liveOwnerUIDs);
   check(acceptedDurableFindings.length === 0, `valid durable-workload fixture should pass: ${stableJson(acceptedDurableFindings)}`);
   check(acceptedDurableRows.find((row) => row.name === "direct")?.classification === "argo-status-desired", "exact Application status workload was not classified as desired");
   check(acceptedDurableRows.find((row) => row.name === "kindnet")?.classification === "bootstrap-baseline", "exact kind bootstrap workload was not classified as baseline");
   check(acceptedDurableRows.find((row) => row.name === "prometheus-platform")?.classification === "generated-by-argo-desired-root", "operator-generated StatefulSet owner root was not recognized");
+  check(acceptedDurableRows.find((row) => row.name === "prometheus-platform")?.inheritedTrackingFromDesiredOwner === true, "operator-copied tracking was not bound to its exact desired controller owner");
   check(acceptedDurableRows.find((row) => row.name === "report-123")?.classification === "generated-by-argo-desired-root", "CronJob-generated Job owner root was not recognized");
 
   const rejectedDurableFindings = [];
@@ -2437,12 +2642,26 @@ function selfTest(plan) {
       ownerReferences: [{ apiVersion: "monitoring.coreos.com/v1", kind: "Prometheus", name: "platform", uid: "prometheus-uid", controller: true }],
     }),
     durable("batch/v1", "Job", "jobs", "manual-job"),
-  ], desiredResources, rejectedDurableFindings, fixtureBootstrap);
+    durable("batch/v1", "Job", "jobs", "non-controller-owned", {
+      ownerReferences: [{ apiVersion: "batch/v1", kind: "CronJob", name: "report", uid: "cronjob-uid", controller: false }],
+    }),
+  ], desiredResources, rejectedDurableFindings, fixtureBootstrap, liveOwnerUIDs);
   check(rejectedDurableRows.find((row) => row.name === "dangling")?.classification === "dangling-argo-tracking", "tracked-but-not-in-status workload was not rejected before owner classification");
   check(rejectedDurableRows.find((row) => row.name === "manual-job")?.classification === "unclassified", "unowned durable workload was not rejected");
+  check(rejectedDurableRows.find((row) => row.name === "non-controller-owned")?.classification === "unclassified", "non-controller ownerReference was accepted as generated ownership");
   const rejectedDurableCounts = findingCounts(rejectedDurableFindings);
   check(rejectedDurableCounts.danglingTrackedDurableWorkloads === 1, "dangling durable workload counter drifted");
-  check(rejectedDurableCounts.unclassifiedDurableWorkloads === 1, "unclassified durable workload counter drifted");
+  check(rejectedDurableCounts.unclassifiedDurableWorkloads === 2, "unclassified durable workload counter drifted");
+
+  const staleOwnerFindings = [];
+  const staleOwnerRows = classifyDurableWorkloads("cluster-a", [
+    durable("apps/v1", "StatefulSet", "monitoring", "prometheus-stale", {
+      annotations: { [ARGO_TRACKING_ANNOTATION]: "monitoring-app:monitoring.coreos.com/Prometheus:monitoring/platform" },
+      ownerReferences: [{ apiVersion: "monitoring.coreos.com/v1", kind: "Prometheus", name: "platform", uid: "recreated-owner-old-uid", controller: true }],
+    }),
+  ], desiredResources, staleOwnerFindings, fixtureBootstrap, liveOwnerUIDs);
+  check(staleOwnerRows[0]?.classification === "dangling-argo-tracking", "workload owned by a recreated controller was not rejected");
+  check(staleOwnerFindings.some((item) => item.category === "staleControllerOwnerUID"), "stale controller owner UID was not reported");
 
   const runtimeWorkloads = new Map();
   for (const expected of BOOTSTRAP_DURABLE_WORKLOADS.filter((item) => item.role === "argocd-runtime")) {

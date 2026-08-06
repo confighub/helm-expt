@@ -449,6 +449,17 @@
     <article class="doc-body">
 
 <p>Do not use a screenshot as current evidence merely because the UI looks plausible. Capture and publish the screenshot set only after the <a href="checkpoints.html#current-live-release-checkpoint">current live release checkpoint</a> passes. Each image must be tied to the same source commit, organization, receipt, and capture date.</p>
+<h2 id="pre-capture-gate">Pre-capture gate</h2>
+<p>Run this gate before opening the browser or creating <code>data/kubara-gui-evidence/receipt.yaml</code>:</p>
+<pre><code>npm run kubara-release:verify-static
+npm run kubara-faithful-hub-spoke:verify
+npm run kubara-mini-idp:receipt-verify
+npm run kubara-mini-idp:performance:receipt-verify
+npm run kubara-mini-idp:orphan-audit:receipt-verify
+npm run kubara-platform-matrix:verify
+npm run kubara-wiring:verify</code></pre>
+<p>This gate deliberately does not require screenshots, so it cannot be satisfied by the images it is meant to authorize. It must bind one source commit and one organization to a current faithful receipt, current adapted receipt, the immediate zero-action run, disclosed performance, exact ConfigHub inventory and scoped Argo/workload residue, and the exact matrix and wiring inputs. Today the measured no-op is 33 ConfigHub CLI read commands, 208 total subprocess calls, and about 77 seconds with zero ConfigHub mutation attempts and zero Argo sync requests. It meets the fixture regression target; those commands are not HTTP round trips, and the measurement is not a raw-Kubara comparison, speed claim, or service-level promise.</p>
+<p>If any command fails or any input changes after it passes, capture nothing (or discard the uncatalogued capture) and rerun the gate. Only then capture exactly six real frames under <code>docs/images/kubara/</code>, create the GUI receipt with every required hash and caption, embed all six frames atomically, and run <code>npm run kubara-release:verify</code>. Do not add placeholder, mocked, historical, partial, or receipt-free screenshots.</p>
 <h2 id="tour-order">Tour order</h2>
 <h3 id="1-start-at-the-platform-contract">1. Start at the platform contract</h3>
 <p>Open the Unit labeled <code>StartHere=true</code> and the <code>hx-platform/platform-contract</code> record.</p>
@@ -456,24 +467,29 @@
 <ul><li>Kubara version and exact source Git revision;</li><li>the one-hub/three-spoke platform identity;</li><li>the seven selected platform roles;</li><li>links to the Catalog, matrix, wiring evidence, and both delivery lanes; and</li><li>the exact receipt status behind the tour.</li></ul>
 <p>Buyer message: <b>this is the same Kubara platform, with its source and evidence made navigable.</b></p>
 <p>Screenshot checkpoint: platform contract header, source identity, and navigation labels in one frame.</p>
+<p><img alt="The hx-platform platform-contract Unit in the ConfigHub GUI" src="../../../../../docs/images/kubara/01-platform-contract.png"></p>
 <h3 id="2-browse-components-before-platform-instances">2. Browse components before platform instances</h3>
 <p>Open the ConfigHub component Catalog before showing target-specific Units.</p>
 <p>Show:</p>
 <ul><li>a familiar Kubara-selected component;</li><li>its retained older and newer versions;</li><li>deployable variants and configurations as follow-on views;</li><li>exact chart source and OCI digest metadata; and</li><li>the platform instances that selected that component version.</li></ul>
+<p>If an instance card says <code>Stale · N behind</code>, keep it visible and explain the scope: this is ConfigHub's upstream definition/variant departure signal-an available governed update-not evidence that Argo is OutOfSync. The release digest, Argo revision, sync/health, and workload readiness are proved separately in the platform matrix. A deliberately pinned instance can be Synced and Healthy while still showing that newer definition revisions exist.</p>
 <p>Buyer message: <b>Kubara still chooses and wires a platform package; ConfigHub makes each reusable component and every retained version independently governable.</b></p>
 <p>Screenshot checkpoint: one component, its version history, and its instance relationship.</p>
+<p><img alt="The traefik component with its base definition and four platform instances" src="../../../../../docs/images/kubara/02-component-catalog.png"></p>
 <h3 id="3-show-the-recognizable-delivery-shape">3. Show the recognizable delivery shape</h3>
 <p>Display the faithful and adapted Argo definitions side by side.</p>
 <p>Show:</p>
 <ul><li><code>Lane=Faithful</code>: Kubara's hub Argo, AppProject, ApplicationSets, and spoke registration remain recognizable;</li><li><code>Lane=Adapted</code>: ConfigHub takes the governance/hub role while each target keeps its local Argo reconciler; and</li><li>the four explicit target clusters and environments;</li><li><code>targetRevision: latest</code> labelled as discovery-only and <code>spec.syncPolicy.automated</code> absent from every managed Application; and</li><li>the pinned argobot v0.1.6 refresh-only settings: <code>ARGO_SYNC_MODE=kubernetes</code>, <code>ARGO_NAMESPACE=argocd</code>, and <code>ARGO_REFRESH_TYPE=hard</code>.</li></ul>
 <p>Buyer message: <b>ConfigHub adds a simpler operating lane without declaring the Kubara topology wrong or removing the faithful option. Argo remains local, but a mutable <code>latest</code> pointer cannot bypass ConfigHub governance.</b></p>
 <p>Screenshot checkpoint: both lane cards plus the four target relationships.</p>
+<p><img alt="Faithful and adapted Argo definition Units with the four delivery roots" src="../../../../../docs/images/kubara/03-delivery-lanes.png"></p>
 <h3 id="4-follow-one-application-through-four-clusters">4. Follow one application through four clusters</h3>
 <p>Use hx-web as the short story and Cubbychat as the richer application.</p>
 <p>Show:</p>
-<ul><li>development, staging, production A, and production B instances;</li><li>the exact source revision and OCI digest at each target;</li><li>one target-specific departure;</li><li>production approvals bound to exact revisions and data hashes;</li><li>promotion history;</li><li>an exact rollback on one production target;</li><li>the authoritative ConfigHub <code>ManifestDigest</code> beside Argo's observed revision; and</li><li>receipt evidence that the reconciler submitted <code>operation.sync.revision=&lt;ManifestDigest&gt;</code> only after exact release revalidation, no active operation, and Kubernetes UID/resourceVersion compare-and-set.</li></ul>
+<ul><li>development, staging, production A, and production B instances;</li><li>the exact source revision and OCI digest at each target;</li><li>one target-specific departure;</li><li>production approvals performed at server <code>HeadRevisionNum</code>, bracketed by unchanged Unit ID, observed numeric head, and <code>DataHash</code>;</li><li>promotion history;</li><li>an exact rollback on one production target;</li><li>the 16 journaled selector replacements and the four unchanged bound PostgreSQL PVC identities;</li><li>the authoritative ConfigHub <code>ManifestDigest</code> beside Argo's observed revision; and</li><li>receipt evidence that the reconciler submitted <code>operation.sync.revision=&lt;ManifestDigest&gt;</code> only after exact release revalidation, no active operation, and Kubernetes UID/resourceVersion compare-and-set.</li></ul>
 <p>Buyer message: <b>the platform definition and the application release are separate, but their target placement and history are visible together; the approved digest, not mutable <code>latest</code>, is what Argo reconciles.</b></p>
 <p>Screenshot checkpoint: one application detail frame with the four target placements and its approval, promotion, departure, and rollback history visible together. This is frame 4 of the six-frame tour, not four additional images.</p>
+<p><img alt="The hx-web application and platform binding across the four clusters" src="../../../../../docs/images/kubara/04-application-four-clusters.png"></p>
 <h3 id="5-open-the-wiring">5. Open the wiring</h3>
 <p>Start with curated native <code>NeedsProvides</code> Links, not the entire extracted graph.</p>
 <p>Show relationships such as:</p>
@@ -481,12 +497,15 @@
 <p>Then link to the complete generated wiring evidence for engineering review.</p>
 <p>Buyer message: <b>relationships that were implicit in folders and generated YAML can become queryable platform facts.</b></p>
 <p>Screenshot checkpoint: a small, legible set of native Links with both ends visible.</p>
+<p><img alt="Curated native NeedsProvides Links on the hx-cubbychat development Unit" src="../../../../../docs/images/kubara/05-native-links.png"></p>
 <h3 id="6-finish-with-the-fleet-matrix-and-clean-inventory">6. Finish with the fleet matrix and clean inventory</h3>
-<p>Open the 36-cell component/application-by-cluster matrix and the exact orphan audit result.</p>
+<p>Open the 36-cell component/application-by-cluster matrix and the exact scoped residue-audit result.</p>
 <p>Show:</p>
-<ul><li>selected, centralized, and disabled placement;</li><li>desired version and observed release digest;</li><li>Argo sync and workload health;</li><li>target departures; and</li><li>zero unexpected ConfigHub objects, dangling Links, Argo residue, or unclassified durable workloads.</li></ul>
-<p>Buyer message: <b>Kubara's platform matrix becomes current data, and the demo organization is proved clean rather than merely looking tidy.</b></p>
-<p>Screenshot checkpoint: current matrix plus the zero-orphan receipt identity.</p>
+<ul><li>selected, centralized, and disabled placement;</li><li>desired placement/version/departure separately from the observed ConfigHub release digest;</li><li>Argo's exact observed revision, sync, and health separately from Kubernetes desired/ready workload counts;</li><li>target departures; and</li><li>zero unexpected ConfigHub objects, dangling Links, Argo-prunable resources, or unclassified, dangling, or UID-stale audited durable workloads.</li></ul>
+<p>A disabled selection is <code>NotApplicable</code>. A desired cell without an accepted source-current observation is <code>Unknown</code>; the matrix must never turn desired state into inferred runtime health.</p>
+<p>Buyer message: <b>Kubara's platform matrix becomes current data, and the demo organization's governed inventory is proved clean rather than merely looking tidy. The receipt does not claim a complete inventory of every Kubernetes resource type.</b></p>
+<p>Screenshot checkpoint: current matrix plus the scoped residue receipt identity.</p>
+<p><img alt="The 36-cell component-by-cluster matrix with the scoped residue audit identity" src="../../../../../docs/images/kubara/06-fleet-matrix-clean-inventory.png"></p>
 <h2 id="explain-but-do-not-spend-the-demo-running">Explain, but do not spend the demo running</h2>
 <ul><li>the long preparation and release qualification pipeline;</li><li>package media types and every member of the platform digest index;</li><li>content-addressed reconciliation and compare-and-set safety internals;</li><li>target-fact and secret isolation mechanics;</li><li>the entire extracted wiring graph; and</li><li>a long cold import while the buyer waits.</li></ul>
 <p>These details remain available in the <a href="single-platform.html">technical mini-IDP reference</a>, the <a href="../../../examples/kubara/git-import/README.html">importer guide</a>, and the <a href="reconciliation-performance.html">reconciliation performance analysis</a>.</p>
@@ -494,6 +513,7 @@
 <h2 id="screenshot-evidence-contract">Screenshot evidence contract</h2>
 <p>For every published GUI image, retain alongside the image:</p>
 <ul><li>capture date and UTC time;</li><li>exact source commit;</li><li>ConfigHub organization external and internal IDs;</li><li>Space, Unit, Link, or Component identities visible in the frame;</li><li>exact faithful, mini-IDP, and orphan receipt hashes;</li><li>exact public matrix and full wiring graph hashes;</li><li>the screenshot file's own SHA-256 digest;</li><li>whether sensitive values were absent or redacted; and</li><li>a short caption that states exactly what the image proves and does not prove.</li></ul>
+<p>The atomic receipt path is <code>data/kubara-gui-evidence/receipt.yaml</code>. It must record exactly six images and bind <code>sourceCommit</code>, both organization IDs, faithful, mini-IDP, orphan, matrix, and wiring SHA-256 values. Every image record must bind its repository-relative path, SHA-256, exact UTC capture time, visible identities, sensitive-value handling, caption, and claim boundary.</p>
 <p>The website generator should refuse to present the screenshot set as current when any source, organization, receipt, artifact, screenshot digest, or capture time no longer matches the accepted evidence chain. The six frames are one atomic evidence set: do not publish a partial tour as current.</p>
 <p>Next: use the <a href="single-platform.html">complete technical reference</a> to reproduce the result.</p>
     </article>

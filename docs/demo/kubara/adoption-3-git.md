@@ -246,7 +246,7 @@ checks document the current example; the verifier is the substantive gate.
 
 This checkpoint proves a deterministic, clean, pushed platform hand-off. It
 does not prove OCI publication, ConfigHub materialization, Argo sync, workload
-health, or an orphan-free live organization.
+health, exact governed inventory, or a residue-free live organization.
 
 ## Screenshot checkpoint
 
@@ -256,6 +256,8 @@ This chapter owns exactly one future adoption frame, separate from the
 ConfigHub GUI tour.
 
 <!-- kubara-adoption-screenshot step="3" id="exact-git-revision" path="../../images/kubara-adoption/03-exact-git-revision.png" -->
+
+![Verified public GitHub commit carrying the prepared hand-off](../../images/kubara-adoption/03-exact-git-revision.png)
 
 Capture one real GitHub commit view that shows:
 

@@ -16,63 +16,49 @@ Colored, accessible view: [matrix.html](matrix.html). Machine-readable forms:
 
 | Component / selected version | hx-app-dev<br>dev / hub | hx-app-staging<br>staging / spoke | hx-app-prod-a<br>prod / spoke | hx-app-prod-b<br>prod / spoke |
 | --- | --- | --- | --- | --- |
-| argo-cd<br>argo-cd/argo-cd@10.2.1 | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🔁 **centralized**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🔁 **centralized**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🔁 **centralized**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown |
-| cert-manager<br>jetstack/cert-manager@v1.21.0 | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown |
-| external-secrets<br>external-secrets/external-secrets@2.8.0 | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
-| homer-dashboard<br>kubara/homer-dashboard@0.1.0 | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
-| kube-prometheus-stack<br>prometheus-community/kube-prometheus-stack@87.19.2 + prometheus-community/prometheus-blackbox-exporter@11.15.1 | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
-| metrics-server<br>metrics-server/metrics-server@3.13.1 | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: Unknown<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
-| traefik<br>traefik/traefik@41.0.2 | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown |
-| hx-web<br>nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown |
-| cubbychat<br>commit e9e76a076924d95897c3ede7a0f21cec523c4f6f; 3 digest-pinned images | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown | 🟣 **rendered-only**<br>Argo sync: Unknown<br>health/ready: Unknown / unknown<br>observed: Unknown |
+| argo-cd<br>argo-cd/argo-cd@10.2.1 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: v3.4.6 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: v3.4.6 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: v3.4.6 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: v3.4.6 |
+| cert-manager<br>jetstack/cert-manager@v1.21.0 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: cert-manager-v1.21.0 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: cert-manager-v1.21.0 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: cert-manager-v1.21.0 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: cert-manager-v1.21.0 |
+| external-secrets<br>external-secrets/external-secrets@2.8.0 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: external-secrets-2.8.0 | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
+| homer-dashboard<br>kubara/homer-dashboard@0.1.0 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: b4bz/homer:v26.4.2 | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
+| kube-prometheus-stack<br>prometheus-community/kube-prometheus-stack@87.19.2 + prometheus-community/prometheus-blackbox-exporter@11.15.1 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: 87.19.2 + grafana-12.8.1 + kube-state-metrics-8.0.0 + prometheus-blackbox-exporter-11.15.1 + prometheus-node-exporter-4.56.1 | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
+| metrics-server<br>metrics-server/metrics-server@3.13.1 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: metrics-server-3.13.1 | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown | ➖ **disabled**<br>Argo sync: NotApplicable<br>health/ready: NotApplicable / not-applicable<br>observed: Unknown |
+| traefik<br>traefik/traefik@41.0.2 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: traefik-41.0.2 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: traefik-41.0.2 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: traefik-41.0.2 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: traefik-41.0.2 |
+| hx-web<br>nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d |
+| cubbychat<br>commit e9e76a076924d95897c3ede7a0f21cec523c4f6f; 3 digest-pinned images | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20 | ✅ **observed**<br>Argo sync: Synced<br>health/ready: Healthy / pass<br>observed: ghcr.io/confighub/cubbychat/backend@sha256:0d8342bcb139662ab76b962609f3f99da0b3aaa050a97ad7230eb0c73f440755 + ghcr.io/confighub/cubbychat/frontend@sha256:4e2c305b56af8414fab8f1ee2c3b075d96d7f60a7bd9f1c73c733e0ee81dffe5 + postgres@sha256:33f923b05f64ca54ac4401c01126a6b92afe839a0aa0a52bc5aeb5cc958e5f20 |
 
-Status counts: rendered-only=21, centralized=3, disabled=12.
+Status counts: observed=24, disabled=12.
 Purple `rendered-only` means desired state is committed and mechanically
 rendered but sync/workload state is unknown. Blue `centralized` records that
 spokes are managed by hub Argo CD rather than pretending an Argo instance is
 installed on each spoke.
 
 Live overlay receipt: `runs/kubara-mini-idp-reconcile/receipt.yaml` (validation:
-`not-present`; accepted as live:
-`false`; source digests verified:
-0; parsed cells:
-0). Validation notes:
-- runs/kubara-mini-idp-reconcile/receipt.yaml is absent; all live fields remain Unknown.
+`accepted-current-live`; accepted as live:
+`true`; source digests verified:
+16; parsed cells:
+36). Validation notes:
+- Kubara v0.13.0, all source digests, and all 36 liveMatrix cells validated.
+
+Scoped residue audit: `runs/kubara-mini-idp-reconcile/orphan-audit.yaml` (validation:
+`accepted-current-scoped-residue-clean`; accepted:
+`true`; observed:
+`2026-08-06T09:10:55.578Z`; SHA-256:
+`c588c4882ed5de66d4dde68cf0f09f94ee9b976bca740e14cec4c6796bebdb23`). It proves exact ConfigHub
+inventory, zero Argo-prunable resources, and zero unclassified, dangling, or
+UID-stale workloads among the five audited durable types. It does not claim a
+complete inventory of every Kubernetes resource type.
 
 The non-live [desired-matrix.json](desired-matrix.json) is generated first and
 digest-pinned by the reconciliation receipt. The final matrix overlays that
 base only after the receipt proves Kubara v0.13.0, all current source digests,
 and all 36 component/application cells. The faithful-lane receipt remains
-separate topology evidence (status: `stale-source`).
+separate topology evidence (status: `pass`).
 
 ## Explicit unknowns
 
 | Component | Cluster | Observed version | Argo sync | Health | Readiness | Why Unknown |
 | --- | --- | --- | --- | --- | --- | --- |
-| argo-cd | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| argo-cd | hx-app-staging | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| argo-cd | hx-app-prod-a | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| argo-cd | hx-app-prod-b | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cert-manager | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cert-manager | hx-app-staging | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cert-manager | hx-app-prod-a | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cert-manager | hx-app-prod-b | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| external-secrets | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| homer-dashboard | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| kube-prometheus-stack | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| metrics-server | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| traefik | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| traefik | hx-app-staging | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| traefik | hx-app-prod-a | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| traefik | hx-app-prod-b | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| hx-web | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| hx-web | hx-app-staging | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| hx-web | hx-app-prod-a | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| hx-web | hx-app-prod-b | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cubbychat | hx-app-dev | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cubbychat | hx-app-staging | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cubbychat | hx-app-prod-a | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
-| cubbychat | hx-app-prod-b | Unknown | Unknown | Unknown | unknown | No accepted source-current mini-IDP live observation exists for this cell. |
+| — | — | — | — | — | — | — |
 
 ## Declared values overrides
 

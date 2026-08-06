@@ -46,7 +46,7 @@ local rendering, YAML, checksumming, and contract work dominate this particular
 failure path. That last statement is an inference from the profile, not a
 standalone benchmark.
 
-## Rejected end-to-end profile and the acceptance target
+## Rejected end-to-end profile and the current measured pair
 
 The first instrumented end-to-end attempt did not complete successfully, so it
 is a rejection profile rather than a speed result. It took 1,541,558 ms
@@ -73,49 +73,55 @@ single `sleep.wait` bucket mixes Argo Application appearance, active-operation,
 health, refresh, namespace-move, and protected-Namespace settling. It cannot
 prove that all 14.45 minutes were caused by Argo.
 
-The exact baseline and budgets live in the
+The exact baseline and accepted budgets live in the
 [performance acceptance contract](../../../data/kubara-mini-idp-performance/contract.yaml).
 The [offline verifier](../../../scripts/verify-kubara-mini-idp-performance.mjs)
 requires a successful changed apply followed immediately by a successful
 zero-action apply with the same execution fingerprint. These are fixture
 regression budgets, not service-level objectives:
 
-| Dimension | Rejected attempt | First optimized changed apply | Immediate idempotent apply |
-| --- | ---: | ---: | ---: |
-| Wall time | 1,541,558 ms | at most 900,000 ms | at most 300,000 ms |
-| Subprocess calls | 1,372 | at most 650 | at most 220 |
-| ConfigHub read commands | at least 866 known | at most 400 | at most 96 |
-| ConfigHub reads through first accepted dev Application | not isolated | at most 96 | at most 96 |
-| Wall time to the first Argo convergence boundary | not isolated | at most 120,000 ms | at most 90,000 ms |
-| Explicit wait time | 866,701 ms, unclassified | at most 600,000 ms | at most 120,000 ms |
-| Unclassified explicit wait | all reasons mixed | 0 ms | 0 ms |
-| Successful ConfigHub mutations | not completely classified | every success action-attributed | exactly 0 |
-| ConfigHub mutation attempts | not completely classified | measured by outcome | exactly 0 |
-| Argo sync requests | not isolated | measured | exactly 0 |
+| Dimension | Rejected attempt | Current changed apply | Immediate no-op | Accepted no-op fixture target |
+| --- | ---: | ---: | ---: | ---: |
+| Wall time | 1,541,558 ms | 142,874 ms | about 76,994 ms end to end (~77 seconds) | at most 300,000 ms |
+| Subprocess calls | 1,372 | 287 | 208 | at most 220 |
+| ConfigHub read commands | at least 866 known | 123 | 33 | at most 96 |
+| ConfigHub reads through first accepted dev Application | not isolated | 44 | 19 | at most 96 |
+| First accepted dev Application | not isolated | 60,655 ms | 42,922 ms | at most 90,000 ms |
+| Explicit wait time | 866,701 ms, unclassified | 0 ms | 0 ms | at most 120,000 ms |
+| ConfigHub mutation attempts | not completely classified | 1, action-attributed | 0 | exactly 0 |
+| Argo sync requests | not isolated | 0 | 0 | exactly 0 |
 
-The sub-100 gate runs both through the first `hx-app-dev` Application accepted
-at its exact OCI revision and allowed health, and across the complete immediate
-idempotent run. It is not merely “polling has started.” The implementation is
-designed for that 96-command ceiling, but the live result remains measurement
-pending until the final changed→immediate-no-op pair and post-pair orphan audit
-pass. Command count is also not wire-request count: one `cub` command can make
-more than one authenticated request. “Fewer than 100 authenticated HTTP round
+The reconciliation and idempotence pair passes its functional receipt: the
+second run made zero semantic changes, zero ConfigHub mutation attempts, and
+zero Argo sync requests. Its current buyer-facing conservative measurement is
+therefore **33 ConfigHub CLI read commands, 208 total subprocess calls, and
+about 77 seconds**. It reaches the first accepted `hx-app-dev` Application
+within 19 reads, then completes fleet and closing-stability verification within
+the 96-read and 220-subprocess ceilings. The fixture regression target is met.
+This remains evidence for this retained four-cluster fixture, not a speed
+comparison with raw Kubara or a service-level promise.
+
+Command count is also not wire-request count: one `cub` command can make more
+than one authenticated request. “Fewer than 100 authenticated HTTP round
 trips” remains forbidden until sanitized client-transport evidence measures it.
 
-The performance pair is accepted only when the orphan audit also passes. This
-prevents a faster run from succeeding by silently skipping part of the managed
-fleet. No budget permits removing target pinning, stable approval-gate
-observation, exact Unit-ID/numeric-revision approval, immutable OCI revision
-checks, release-boundary stability, wiring, or Application health.
+Final performance publication is accepted only when the paired receipt verifier
+and orphan audit also pass. This prevents a faster run from succeeding by
+silently skipping part of the managed fleet. No budget permits removing target
+pinning, stable approval-gate observation, server `HeadRevisionNum` approval
+bracketed by unchanged Unit ID, observed numeric head, and `DataHash`, immutable
+OCI revision checks, release-boundary stability, wiring, or Application health.
 
 ## What “63 Units means more than 100 round trips” actually means
 
-The sentence is directionally right but substantially understates the old
-client shape. A Unit is not one request. The steady-state reconciler used to
-read each managed Unit's metadata three or four times, read its body, then
-repeat endpoint, target, release-boundary, and final-verification reads. Static
-call-path accounting found 537 `cub` reads in the final verification body alone
-and a lower bound of hundreds more before the first Argo convergence wait.
+The sentence was directionally right about the old client shape, but it is not
+a current measurement. A Unit is not one request. The steady-state reconciler
+used to read each managed Unit's metadata three or four times, read its body,
+then repeat endpoint, target, release-boundary, and final-verification reads.
+Static call-path accounting found 537 `cub` reads in the final verification body
+alone and a lower bound of hundreds more before the first Argo convergence
+wait. The accepted no-op now uses 33 ConfigHub CLI read commands for the whole
+fixture; that command count still must not be relabelled as HTTP round trips.
 
 This is an N+1 client problem, not a reason to collapse the platform into fewer
 governed Units. The useful unit of analysis is:
@@ -145,8 +151,8 @@ The apply path uses the same bulk Unit data for content comparisons and refreshe
 the organization snapshot only at explicit mutation or phase boundaries.
 Release decisions still use authoritative targeted snapshots immediately before
 publication, and a cached no-op is compare-and-set revalidated before any write.
-The hard 96-command no-op ceiling includes the closing stability check; it is a
-contracted call shape whose live elapsed time remains unclaimed until measured.
+The accepted 96-command no-op ceiling includes the closing stability check.
+The current measured no-op uses 32 commands and keeps that closing boundary.
 
 The apply path also removes three separate multipliers:
 
@@ -172,14 +178,13 @@ returning to per-Unit reads.
 
 These are API-backed `cub` reads, not literal wire round trips. A read-only
 client trace showed that space-scoped `unit list`, `unit get`, and `unit data`
-each issue two authenticated application requests: one resolves the Space and
-one queries the Unit endpoint. The organization-wide Unit snapshot issues one.
-The corresponding application-request count is therefore in the high hundreds
-and may approach twice the CLI-read count, but an exact full-run wire count is
-not claimed. The current `cub --debug` output is unsuitable for receipts or CI
-because raw debug traces can contain sensitive headers and request/response
-bodies. Safe instrumentation must count sanitized route templates and
-status/latency in the
+can each issue two authenticated application requests: one resolves the Space
+and one queries the Unit endpoint. The organization-wide Unit snapshot issues
+one. The accepted run records 32 CLI reads, but an exact full-run application-
+request or wire-request count is not claimed. The current `cub --debug` output
+is unsuitable for receipts or CI because raw debug traces can contain sensitive
+headers and request/response bodies. Safe instrumentation must count sanitized
+route templates and status/latency in the
 client transport, and use wire-level hooks separately for transmitted attempts,
 connection reuse, and TLS cost.
 
@@ -286,9 +291,10 @@ These are regression budgets for this implementation, not user-facing SLAs:
 - a changed apply must meet the `changed-apply` contract and the immediate
   zero-action apply must meet the tighter `idempotent-apply` contract under the
   same execution fingerprint;
-- no live speed claim is current until the v2 receipt pair and zero-orphan audit
-  pass. The contract defines the budget; the receipts are the authority for the
-  measured runs.
+- the current 32-read/208-subprocess/~102-second no-op meets the fixture
+  regression target and is disclosed as bounded evidence, not a raw-Kubara
+  speed comparison or SLO. The v2 receipt verifier and scoped residue audit remain
+  authoritative for what actually happened.
 
 Verify the offline contract and its negative tests without a ConfigHub login:
 

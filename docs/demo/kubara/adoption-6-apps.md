@@ -27,7 +27,9 @@ source code.
   instances.
 - Exact `UpgradeUnit` promotion lineage from development to staging and two
   production targets.
-- Production approval bound to exact Unit revisions and data hashes.
+- Production approval at server-current `HeadRevisionNum`, with authoritative
+  before/after observations binding the Unit ID, observed numeric head, and
+  `DataHash`.
 - Immutable OCI release digests and source/release history.
 - A reviewed target departure that survives later upstream promotion.
 - One-target rollback with the peer production target left untouched.
@@ -150,8 +152,15 @@ ConfigHub's approval gate prevents publication of an unapproved production
 revision. In the repeatable live run, do not issue a negative publish because
 that command has no revision compare-and-set and could race an external
 approval. Instead, observe the same gated heads through two authoritative
-reads, then approve every Unit by exact Unit ID and numeric head revision while
-proving its data hash stayed unchanged. After approval, publish the same
+reads. ConfigHub v0.2.11 rejects a literal numeric approval revision, so the
+approval command identifies the Unit by slug and uses the proven
+server-current-head selector `--revision HeadRevisionNum`. The reconciler
+accepts that operation only when authoritative reads immediately before and
+after preserve the same Unit ID, observed numeric head, and `DataHash`, the
+gate clears, and the approval count advances exactly once. This is bracketed
+exact-head evidence, not a server compare-and-set guarantee from the approval API: another writer
+can still race and cause a wrong-head side effect before the post-read detects
+it. Hold serialized ownership with no competing writer. After approval, publish the same
 reviewed revision to both production targets. Explain the refusal behavior;
 show the safer gate observation and exact approval evidence.
 
@@ -175,7 +184,69 @@ The expected final hx-web shape in the current scenario is:
 | Production A | Rolled back to the exact two-replica initial rollout. |
 | Production B | Remains at the three-replica promotion-v1 revision. |
 
-## 6.7 Run the current example's resumable application sequence
+## 6.7 Run the reusable adopter application sequence
+
+Start from the checked
+[`app-release.example.yaml`](../../../examples/kubara/git-import/app-release.example.yaml).
+The request binds the exact ConfigHub Organization coordinate and
+`spaceReleaseOCIBase`; every target binds its ConfigHub Target ID, Kubernetes
+context, exact kube-system Namespace UID, Argo namespace, and root Application as well as its exact source Unit
+head and release digests. The OCI origin is never inferred from `serverURL` and
+is included in the release digest.
+
+```bash
+node scripts/compile-kubara-app-release.mjs --compile \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release
+
+node scripts/compile-kubara-app-release.mjs --verify \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release
+
+node scripts/run-kubara-app-release.mjs --execute \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release \
+  --acceptance-evidence /controlled/evidence/payments-live.json
+```
+
+The executable runner uses a durable prepared-before-write journal. It
+revalidates the exact ConfigHub coordinate before every ConfigHub mutation,
+derives and compares the canonical plan and delivery bytes from the exact
+request, and writes one immutable evidence file for every attempt. Each source
+Space must contain exactly its one request-bound deployable Unit. After publishing the
+delivery root it first fences the live root Application to the exact apps-root
+`ManifestDigest` with automated sync absent. It waits for that exact root to
+materialize the workload Application, then submits the workload's exact source
+digest. Both cluster writes use Kubernetes UID and `resourceVersion` JSON
+Patch tests. A concurrent change fails the compare-and-set rather than being
+overwritten.
+
+The local PID lock covers only processes that share the same compiled output
+directory on one host/filesystem. It does not serialize another output
+directory, host, or writer against the same ConfigHub Spaces and Argo
+Applications. Operate this sequence under one external writer/lease for those
+request-bound resources. ConfigHub approval and publish operations are
+read-bracketed but are not transactionally CAS-bound to the pre-read.
+
+If either reconciler has not converged, the runner exits pending at the next
+journal step. Rerun the identical command; it resumes by inspecting live state,
+not by blindly replaying the prior write. It emits acceptance only after both
+Applications are exact-revision, `Synced`, and `Healthy`, followed immediately
+by a read-only zero-action audit. Verify the bound evidence with:
+
+```bash
+node scripts/run-kubara-app-release.mjs --verify-acceptance \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release \
+  --acceptance-evidence /controlled/evidence/payments-live.json
+```
+
+This generic contract proves the executable
+`argo-synced-and-healthy-exact-source-manifest` health boundary. Application-
+specific endpoint, database, or business checks are additional evidence; the
+runner does not infer them from Argo health.
+
+## 6.8 Run the current example's richer application sequence
 
 The current repository automates the preceding application operations inside
 the complete mini-IDP reconciler rather than asking a user to replay dozens of
@@ -199,10 +270,26 @@ The second apply is mandatory and must make zero semantic changes. The receipt
 distinguishes an executed scenario from retained, already-proved history so
 reconciliation does not manufacture duplicate promotions on every run.
 
+The same durable journal records 16 reviewed immutable-selector replacements
+required to bring a retained fleet to the current hx-web and Cubbychat label
+contract. Four are hx-web Deployments; the other 12 are Cubbychat backend,
+frontend, and PostgreSQL workloads across four targets. The retained v1
+history honestly preserves the trigger used at the time: four recovery rows
+followed an Argo resource failure and 12 used the earlier reviewed-preflight
+path. Those completed rows are not rewritten. For every new attempt, the v2
+policy first submits the exact expected OCI revision and requires Argo to
+record that exact resource's terminal immutable-selector failure, with the
+failure object and digest journaled. Only then may the old resource be deleted
+with exact UID/resourceVersion preconditions; the replacement must be healthy
+with ready endpoints. Each
+PostgreSQL replacement preserves the same bound PVC UID and volume identity.
+This is migration evidence for an existing platform, not an ordinary rollout
+pattern and not permission for broad deletion.
+
 After application and platform convergence, run the Step 5 orphan audit before
 publishing the GUI tour or fleet matrix as current.
 
-## 6.8 Verify the actual applications
+## 6.9 Verify the actual applications
 
 For each hx-web and Cubbychat target, require all of the following:
 
@@ -236,13 +323,14 @@ The accepted current example must show:
 - hx-web and Cubbychat definition and per-cluster instance Spaces;
 - both apps delivered to development, staging, production A, and production B;
 - exact source revisions and OCI digests for every target;
-- stable production gate observations followed by Unit-ID/numeric-revision
-  approvals for exact heads and hashes;
+- stable production gate observations followed by server `HeadRevisionNum`
+  approvals bracketed by unchanged Unit ID, observed numeric head, and
+  `DataHash`;
 - one retained staging departure;
 - one exact rollback on production A while production B remains promoted;
 - current Argo sync and workload health at the exact release digests;
 - curated app-to-cert-manager and app-to-Traefik Links; and
-- a zero-orphan audit after convergence.
+- a scoped ConfigHub/Argo/workload residue audit after convergence.
 
 The passing current evidence belongs in:
 
@@ -251,10 +339,12 @@ runs/kubara-mini-idp-reconcile/receipt.yaml
 runs/kubara-mini-idp-reconcile/orphan-audit.yaml
 ```
 
-Those source-current live receipts are **not present yet**. The desired app
-source and resumable scenario are implemented, but current v0.13 app health,
-approval history, rollback history, and GUI state are not live-proved until the
-receipts are refreshed and verified.
+The source-current mini-IDP receipt now reports `pass` and proves current v0.13
+app health, exact-head approval evidence, promotion, retained departure,
+one-target rollback, immutable releases, selector migrations, and the
+immediate zero-action rerun. The scoped residue claim and screenshot publication
+remain separate: they require the source-current orphan receipt and the
+pre-capture evidence gate rather than being inferred from application health.
 
 There is a real retained v0.12 compatibility proof at
 [`runs/kubara-app-rollout-proof/receipt.yaml`](../../../runs/kubara-app-rollout-proof/receipt.yaml).
@@ -285,9 +375,12 @@ npm run kubara-platform-matrix:generate
 npm run kubara-platform-matrix:verify
 ```
 
-The matrix must leave any field without exact receipt evidence `unknown`. A
-desired-only 36-cell matrix is useful deterministic evidence, but it is not a
-live application-health claim.
+The matrix must leave any field without exact receipt evidence `unknown`. Each
+cell carries two explicit planes: Kubara/ConfigHub desired placement, selected
+version, and departure; then the receipt's exact ConfigHub release digest,
+Argo observed revision/sync/health, and Kubernetes desired/ready counts. A
+disabled selection is `NotApplicable`. A desired-only cell is useful
+deterministic evidence, but it is not a live application-health claim.
 
 ## Screenshot to capture after the checkpoint passes
 
@@ -297,7 +390,11 @@ the ConfigHub GUI tour.
 
 <!-- kubara-adoption-screenshot step="6" id="app-governance-live" path="../../images/kubara-adoption/06-app-governance-live.png" -->
 
-After the current receipts and complete source-current live gate pass, capture
+![hx-web production revision history with approval gates, promotion, rollback, and the applied release](../../images/kubara-adoption/06-app-governance-live.png)
+
+After the current receipts, the GUI tour's
+[pre-capture gate](gui-tour.md#pre-capture-gate), and the complete
+source-current live gate pass, capture
 one real ConfigHub browser frame with hx-web open and these identities visible
 in the application and history surfaces:
 
@@ -332,7 +429,7 @@ caption, and claim boundary. Until then, leave the hook unexpanded.
 | Production B moved during production A rollback | Rollback scope was not isolated. | Stop the demo and investigate exact Unit/release heads; both targets must not be called correct. |
 | A rerun tries to replay part of hx-web history | The durable operation journal and live state disagree. | Preserve the journal and receipts and fail closed. Do not delete markers or manufacture a new history. |
 | `curl` cannot reach the kind app | NodePort, Host/SNI, Certificate, Service, or workload convergence is incomplete. | Check the exact target's Argo Application and Kubernetes resources. Do not weaken the live checkpoint to pod-only health. |
-| Receipt verification reports a missing file | The current integrated app proof has not run. | Keep the claim at “implemented, waiting for current live proof” and run the ordered serial qualification when prerequisites pass. |
+| Receipt verification reports a missing file | That separate evidence boundary has not run for the current source. | Keep only the claims supported by the receipts that do pass; run the missing serial qualification and never infer orphan or screenshot evidence from the app receipt. |
 
 ## Safe to stop
 

@@ -452,9 +452,9 @@
 <ul><li>one target-neutral, immutable OCI package per reusable component definition;</li><li>one target-neutral, immutable OCI package per effective component/config set;</li><li>one target-neutral platform index referencing every exact manifest and layer digest plus the Kubara config, wiring ledger, content lock, runtime contract, and delivery-template contract; and</li><li>a separate <code>destination-binding-lock.yaml</code> for organization, Space, Target, delivery-runtime, workload, and evidence identities. This file is explicitly excluded from OCI.</li></ul>
 <p><code>PlatformDigest</code> identifies the portable Kubara result and materialization contract. <code>BindingDigest</code> identifies its exact ConfigHub destination. Importing the same Git revision under the same import name and catalog repository base into two organizations preserves the platform digest, component/config member payloads, and aggregate index while producing different binding digests. If the import name or repository base changes, member content bytes and <code>PlatformDigest</code> still remain stable, but the aggregate index's metadata or member refs necessarily change. Secrets and target-local facts stay outside Git and OCI.</p>
 <h2 id="before-you-begin">Before you begin</h2>
-<p>Install <code>git</code>, Node.js, the exact Kubara binary and Helm build named by your reviewed preparation request/source lock, <code>cub</code> 0.2.11 or later, <code>oras</code>, a pinned external secret scanner, and the tools you use to observe each cluster. Authenticate <code>cub</code> to the selected organization and <code>oras</code> to <code>spec.destination.catalogOCIBase</code>. Hold exclusive single-writer control of that OCI repository base for the whole <code>--package</code> operation. ORAS publication uses inspect, push, and post-inspect; without an external single-writer gate, a concurrent writer could race between those operations.</p>
+<p>Install <code>git</code>, Node.js, the exact Kubara binary and Helm build named by your reviewed preparation request/source lock, <code>cub</code> 0.2.11 or later, <code>oras</code>, a pinned external secret scanner, and the tools you use to observe each cluster. Authenticate <code>oras</code> to the package repository named by the portable request. No ConfigHub organization is required for portable compile or publication. Authenticate <code>cub</code> only when you are ready to select and bind the destination. Hold exclusive single-writer control of that OCI repository base for the whole <code>--package-portable</code> operation. ORAS publication uses inspect, push, and post-inspect; without an external single-writer gate, a concurrent writer could race between those operations.</p>
 <p>Serialize each <code>--apply</code> against other writers to importer-managed Spaces, Units, Links, target/bootstrap metadata, platform delivery Applications, and request-pinned workload heads. <code>cub</code> reads and mutations are not a cross-client conditional transaction; post-verification detects drift but cannot prove another writer did not race between a read and write. Unrelated application source Spaces not named by the request remain outside this lock.</p>
-<p>The importer never creates or selects an organization implicitly. It also never creates Targets or ConfigHub's cluster-local Argo bootstrap. Create the organization explicitly, switch to its exact context, and provision each cluster with <code>cub cluster up</code> or an equivalent controlled process first. For a disposable four-cluster proof that could be:</p>
+<p>The importer never creates or selects an organization implicitly. It also never creates Targets or ConfigHub's cluster-local Argo bootstrap. After the portable package is compiled and published, create or select the organization explicitly, switch to its exact context, and provision each cluster with <code>cub cluster up</code> or an equivalent controlled process. For a disposable four-cluster proof that could be:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>cub --context acme-kubara cluster up --name hx-app-dev \
   --space acme-target-dev
@@ -493,7 +493,26 @@ cub --context acme-kubara cluster up --name hx-app-prod-b \
   --report-format json \
   --report-path /controlled/evidence/gitleaks-report.json</code></pre>
 <p>Require the scanner to exit successfully, retain its report outside the Git tree, set <code>scanner: gitleaks@8.24.3</code>, and set <code>opaqueFilesReviewed: true</code> only after that review is complete. The destination inspector hashes the report bytes and binds the exact source commit and scope; it never embeds the report contents in the reviewed request.</p>
-<h2 id="3-record-the-exact-delivery-runtime-for-every-cluster">3. Record the exact delivery runtime for every cluster</h2>
+<h2 id="3-compile-and-publish-the-portable-package-set">3. Compile and publish the portable package set</h2>
+<p>Copy and review <a href="../../../../../examples/kubara/git-import/portable-request.example.yaml"><code>portable-request.example.yaml</code></a>. It contains only the immutable Git source, selected layout, exact external scan attestation, and the OCI package repository base. It contains no ConfigHub organization, context, Space, Target, runtime observation, target fact, or secret.</p>
+<p>Compile and reproduce the target-neutral payload set outside the checkout:</p>
+<pre><code>node scripts/import-kubara-git-revision.mjs --compile-portable \
+  --request /controlled/import/portable-request.yaml \
+  --checkout /absolute/path/to/clean-checkout \
+  --output /controlled/import/portable
+
+node scripts/import-kubara-git-revision.mjs --verify-portable \
+  --request /controlled/import/portable-request.yaml \
+  --checkout /absolute/path/to/clean-checkout \
+  --output /controlled/import/portable</code></pre>
+<p>The output contains <code>platform-lock.yaml</code>, <code>portable-package-set.json</code>, one local payload per component definition and effective configuration set, and <code>portable-checksums.txt</code>. It deliberately refuses a <code>destination-binding-lock.yaml</code> or target-fact file in this directory.</p>
+<p>With exclusive single-writer control of the package repository, publish those same bytes:</p>
+<pre><code>node scripts/import-kubara-git-revision.mjs --package-portable \
+  --request /controlled/import/portable-request.yaml \
+  --checkout /absolute/path/to/clean-checkout \
+  --output /controlled/import/portable</code></pre>
+<p><code>oci-publication-receipt.json</code> pins every observed manifest and layer digest. An existing exact payload is reused; a conflicting content-addressed reference is refused. At this checkpoint the user can take the Git revision and portable OCI set to any later selected organization. No ConfigHub or cluster mutation has occurred.</p>
+<h2 id="4-selectbootstrap-the-organization-and-record-each-runtime">4. Select/bootstrap the organization and record each runtime</h2>
 <p>Kubara's generated Argo CD component and ConfigHub's existing delivery runtime are distinct identities:</p>
 <ul><li><code>hx-argo-base</code> is the <b>Faithful</b> Kubara definition. In the current example, wrapper chart 10.2.1 renders Argo CD v3.4.5.</li><li><code>hx-argo-runtime-base</code> is the <b>Adapted</b> ConfigHub delivery-runtime definition. Its exact version and image come from external observation of each already running target; the current example observes v3.4.6.</li></ul>
 <p>For every target, create a secret-free observation outside the imported Git path. Example:</p>
@@ -509,7 +528,7 @@ spec:
 status:
   result: pass</code></pre>
 <p>Derive those facts with your approved <code>kubectl</code>, provider, or inventory workflow. The importer validates and hashes the observation file; it does not connect to the cluster or infer a runtime version from a chart.</p>
-<h2 id="4-inspect-the-selected-confighub-destination">4. Inspect the selected ConfigHub destination</h2>
+<h2 id="5-inspect-the-selected-confighub-destination">5. Inspect the selected ConfigHub destination</h2>
 <p>Copy <a href="../../../../../examples/kubara/git-import/request.example.yaml">request.example.yaml</a>, replace the Git source, layout, scanner version, desired organization/context and stable entity slugs, then run one read-only inspection:</p>
 <pre><code>node scripts/import-kubara-git-revision.mjs --inspect-destination \
   --request /absolute/path/to/request-template.yaml \
@@ -522,38 +541,33 @@ status:
   --output /controlled/import/acme-reviewed-request.yaml</code></pre>
 <p>The inspector requires exactly one runtime observation per request target. It uses narrow <code>cub ... list --where ... --select ... -o json</code> queries and <code>cub unit data</code> only for the exact named bootstrap/workload Units. It records IDs, ConfigHub <code>DataHash</code> values, raw Unit-byte SHA-256 hashes, argobot source identity, published workload release pins, and the explicit organization coordinate. It does not put Unit data, scanner-report content, runtime-evidence content, tokens, or secret values in its output.</p>
 <p>Review the resulting request before continuing. This is the user-visible authorization boundary: wrong organization, context, server, Space, Target, Unit, delivery root, argobot lineage, workload pin, or unexpected infrastructure is a refusal rather than a guessed repair.</p>
-<h2 id="5-compile-and-verify-without-mutation">5. Compile and verify without mutation</h2>
-<p>Keep the output outside the checkout:</p>
-<pre><code>node scripts/import-kubara-git-revision.mjs --compile \
+<h2 id="6-bind-the-portable-content-without-recompiling-it-for-the-organization">6. Bind the portable content without recompiling it for the organization</h2>
+<p>Keep the destination-bound output separate from the portable directory:</p>
+<pre><code>node scripts/import-kubara-git-revision.mjs --bind \
   --request /controlled/import/acme-reviewed-request.yaml \
   --checkout /absolute/path/to/clean-checkout \
-  --output /controlled/import/revision-1
+  --portable /controlled/import/portable \
+  --output /controlled/import/bound
 
 node scripts/import-kubara-git-revision.mjs --verify \
   --request /controlled/import/acme-reviewed-request.yaml \
   --checkout /absolute/path/to/clean-checkout \
-  --output /controlled/import/revision-1</code></pre>
-<p><code>--plan</code> prints the same plan without writing it. Compile writes six exact files:</p>
-<ul><li><code>platform-lock.yaml</code> - target-neutral source/content/materialization lock and <code>PlatformDigest</code>;</li><li><code>destination-binding-lock.yaml</code> - target-specific binding and <code>BindingDigest</code>, marked <code>includedInOCI: false</code>;</li><li><code>import-plan.json</code> - ordered Spaces, Units, packages, delivery Applications, <code>UpgradeUnit</code> lineage, and curated <code>NeedsProvides</code> Links;</li><li><code>target-facts-required.yaml</code> - a pending operator-attestation template;</li><li><code>acceptance.json</code> - implemented claims and explicit boundaries; and</li><li><code>checksums.txt</code> - exact hashes of the five semantic outputs.</li></ul>
+  --output /controlled/import/bound</code></pre>
+<p>Binding recompiles the target-neutral content from the exact Git revision and requires byte-for-byte equality with the already compiled portable package set. It then writes the destination-specific files and, when publication has already passed, copies the exact local package payloads and receipt into the separate bound directory. It never republishes OCI.</p>
+<p><code>--plan</code> prints the destination plan without writing it. Bind writes:</p>
+<ul><li><code>platform-lock.yaml</code> - target-neutral source/content/materialization lock and <code>PlatformDigest</code>;</li><li><code>destination-binding-lock.yaml</code> - target-specific binding and <code>BindingDigest</code>, marked <code>includedInOCI: false</code>;</li><li><code>import-plan.json</code> - ordered Spaces, Units, packages, delivery Applications, <code>UpgradeUnit</code> lineage, and curated <code>NeedsProvides</code> Links;</li><li><code>target-facts-required.yaml</code> - a pending operator-attestation template;</li><li><code>acceptance.json</code> - implemented claims and explicit boundaries; and</li><li><code>checksums.txt</code> - exact hashes of the five semantic outputs.</li><li><code>portable-binding-receipt.json</code> - the portable package-set hash, separate <code>BindingDigest</code>, and copied-publication status without a live apply claim.</li></ul>
 <p>Verification regenerates all six from the same Git bytes and request and requires byte-for-byte equality.</p>
-<h2 id="6-complete-the-target-fact-attestation">6. Complete the target-fact attestation</h2>
+<h2 id="7-complete-the-target-fact-attestation">7. Complete the target-fact attestation</h2>
 <p>Copy <code>target-facts-required.yaml</code> to controlled storage outside Git and OCI. For each binding set <code>status: verified-present</code>. For every required resolution, set <code>status: satisfied</code> or <code>not-applicable-reviewed</code> and add an external, secret-free <code>evidenceRef</code> plus the exact <code>sha256:</code> digest of that evidence. Finally set:</p>
 <pre><code>policy:
   secretValuesIncluded: false
   generatedTemplateIsAnAttestation: true</code></pre>
 <p>The generated file is only a template until an operator makes those changes. Apply refuses pending facts, another organization/binding digest, missing evidence hashes, or an attestation containing secret values.</p>
-<h2 id="7-publish-the-exact-oci-set">7. Publish the exact OCI set</h2>
-<p>With <code>oras</code> authenticated to the reviewed repository base:</p>
-<pre><code>node scripts/import-kubara-git-revision.mjs --package \
-  --request /controlled/import/acme-reviewed-request.yaml \
-  --checkout /absolute/path/to/clean-checkout \
-  --output /controlled/import/revision-1</code></pre>
-<p><code>oci-publication-receipt.json</code> pins each remote manifest and layer digest. Under the required exclusive single-writer gate, a pre-existing ref is reused only when artifact type, media type, layer count, digest, and size all match; an observed conflict is refused. Apply later pulls those exact layers and verifies their bytes before ConfigHub mutation.</p>
 <h2 id="8-apply-twice-and-require-the-zero-action-proof">8. Apply twice and require the zero-action proof</h2>
 <pre><code>node scripts/import-kubara-git-revision.mjs --apply \
   --request /controlled/import/acme-reviewed-request.yaml \
   --checkout /absolute/path/to/clean-checkout \
-  --output /controlled/import/revision-1 \
+  --output /controlled/import/bound \
   --context acme-kubara \
   --target-facts /controlled/evidence/target-facts-attested.yaml
 
@@ -561,21 +575,54 @@ node scripts/import-kubara-git-revision.mjs --verify \
 node scripts/import-kubara-git-revision.mjs --apply \
   --request /controlled/import/acme-reviewed-request.yaml \
   --checkout /absolute/path/to/clean-checkout \
-  --output /controlled/import/revision-1 \
+  --output /controlled/import/bound \
   --context acme-kubara \
   --target-facts /controlled/evidence/target-facts-attested.yaml</code></pre>
-<p>While holding that apply lock, the order is deterministic: pin bootstrap/target facts; publish any argobot source releases; create definitions and control Units; create variants and instances; update platform delivery Applications; publish each apps root; create exact Links; then publish source Spaces. A bounded interruption can be resumed from the same exact inputs. The second run must produce:</p>
+<p>While holding that apply lock, the order is deterministic: pin bootstrap and target facts; publish any argobot source releases; create definitions and control Units; create variants and instances; create exact Links; publish each component source Space; replace transient auto-created delivery Applications with the exact source-release <code>ManifestDigest</code> and no <code>automated</code> field; then publish each apps root. A bounded interruption can be resumed from the same exact inputs. The second run must produce:</p>
 <pre><code>status.result: pass
 status.lastActionCount: 0
 status.secondRunZeroActions: true
 status.localReceiptCryptographicProof: false</code></pre>
-<p>The local receipt is an exact deterministic continuity record, not a server-signed or cryptographically tamper-proof attestation. A changed input or live drift is rechecked/refused; any actual mutation resets the two-run proof. The importer issues no delete operation. Generated Argo Applications do enable pruning, so a reviewed later source release that removes Kubernetes objects can cause Argo to delete those objects after sync.</p>
+<p>The local receipt is an exact deterministic continuity record, not a server-signed or cryptographically tamper-proof attestation. A changed input or live drift is rechecked/refused; any actual mutation resets the two-run proof. The importer issues no delete operation. Importer-managed platform Applications do not enable automated sync and do not authorize mutable <code>latest</code>. The subsequent explicit reconciler submits the exact release digest; its reviewed sync contract may prune objects removed from that exact release.</p>
 <h2 id="9-verify-argo-and-cluster-convergence-separately">9. Verify Argo and cluster convergence separately</h2>
-<p><code>apply-receipt.json</code> proves the exact ConfigHub and OCI state. It deliberately sets <code>clusterConvergenceClaim: false</code>. For each cluster, independently retain observations showing every platform Application is <code>Synced</code>, <code>Healthy</code>, and has completed successfully at the exact source-release manifest digest recorded in the receipt. A ConfigHub release is not itself proof of cluster health.</p>
-<h2 id="10-deploy-applications-through-the-normal-confighub-workflow">10. Deploy applications through the normal ConfigHub workflow</h2>
-<p>After the platform converges, teams create or reuse application definition Units, target variants, promotion/approval policy, and releases. ConfigHub governs and promotes those revisions; each cluster's local Argo instance keeps reconciling them. The platform importer does not invent application code or hide app manifests inside the platform index.</p>
-<p>If workload Applications already exist in a target apps-root Space, preserve them explicitly. Add each known Application and its source Space/Unit to <code>delivery.workloadApplications</code> in the request template, then rerun <code>--inspect-destination</code>. Inspection fills its exact Unit ID, <code>DataHash</code>, raw byte hash, published head revision, source IDs, and source release manifest digest. Recompile and apply twice. Adding these destination pins changes only <code>BindingDigest</code>; it does not change <code>PlatformDigest</code> or the target-neutral OCI payloads. A pending workload head or later silent change is refused.</p>
-<h2 id="11-move-to-the-next-kubara-git-revision">11. Move to the next Kubara Git revision</h2>
+<p>The canonical <code>apply-receipt.json</code> records the current exact ConfigHub and OCI state. In the selected-organization workflow, the first and immediate no-op runs are also preserved separately as immutable <code>evidence/apply-first-receipt.json</code> and <code>evidence/apply-immediate-noop-receipt.json</code>; no two steps may share an evidence path. These receipts deliberately sets <code>clusterConvergenceClaim: false</code>. For each cluster, independently retain observations showing every platform Application is <code>Synced</code>, <code>Healthy</code>, and has completed successfully at the exact source-release manifest digest recorded in the receipt. A ConfigHub release is not itself proof of cluster health.</p>
+<h2 id="10-compile-and-run-the-reusable-application-release-path">10. Compile and run the reusable application release path</h2>
+<p>After the platform converges, teams create or reuse application definition Units, target variants, promotion/approval policy, and releases. Start from <a href="../../../../../examples/kubara/git-import/app-release.example.yaml"><code>app-release.example.yaml</code></a>. Every target pins its source Unit ID, numeric head revision, data hash, release bundle digest, and release manifest digest. The policy rejects mutable tags, automated sync, ApplicationSets, and target facts in application source.</p>
+<p>Compile and reproduce the app hand-off:</p>
+<pre><code>node scripts/compile-kubara-app-release.mjs --compile \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release
+
+node scripts/compile-kubara-app-release.mjs --verify \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release
+
+node scripts/run-kubara-app-release.mjs --execute \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release \
+  --acceptance-evidence /controlled/evidence/payments-live.json
+
+node scripts/run-kubara-app-release.mjs --verify-acceptance \
+  --request /controlled/import/payments-release.yaml \
+  --output /controlled/import/payments-release \
+  --acceptance-evidence /controlled/evidence/payments-live.json</code></pre>
+<p>The compiler produces exact-digest, no-auto Argo Applications, the explicit promotion/departure/rollback plan, and a durable per-target operation journal. It performs no live action. The runner rechecks the request-bound ConfigHub Organization, server, context, and Space-release OCI origin before every ConfigHub write; publishes the exact source release; materializes the digest-bound delivery Unit; and publishes the apps root. It then removes live root automation, pins that root to the exact apps-root <code>ManifestDigest</code>, and submits both root and workload sync operations with Kubernetes UID and <code>resourceVersion</code> JSON-Patch compare-and-set. Each phase has immutable attempt evidence and can be resumed from its completed prefix. Acceptance is written only after the root and workload Applications report their exact revisions, <code>Synced</code>, and <code>Healthy</code>, followed immediately by a zero-action audit. A ConfigHub release or generated YAML alone is not a live app claim.</p>
+<p>Before any live action, the runner independently derives the canonical plan and delivery Application bytes from the exact request and refuses a consistent edit to the stored plan, document hash, or document. Each application source Space must contain exactly the one request-bound deployable Unit. This is the generic runner's complete source-inventory authority; use separate one-Unit source Spaces, or wait for a future request format that binds a complete multi-Unit source inventory.</p>
+<p>The runner's <code>.application-release-execution.lock</code> serializes only processes sharing this output directory on one host/filesystem. It is not a ConfigHub Organization, Space, or distributed lock. Hold one external writer/lease for all request-bound source/apps Spaces and cluster Applications across hosts and output directories. ConfigHub approval and release publication are not an atomic transaction with the preceding reads. ConfigHub v0.2.11 rejects a literal numeric approval revision, so production approval uses the proven server-current-head selector <code>--revision HeadRevisionNum</code>, fenced by immediate reads of the same Unit ID, observed numeric head, <code>DataHash</code>, and approval gate. The gate must clear and the approval count must advance exactly once. That client-side bracket detects a race after the side effect; it is not a server numeric-head CAS and therefore still requires serialized ownership with no competing writer.</p>
+<p>Every application request must name its destination explicitly, including <code>destination.spaceReleaseOCIBase</code>, and each target must bind its exact Target ID, Kubernetes context, kube-system Namespace UID, Argo namespace, and root Application. The compiler and runner never infer the OCI origin from <code>serverURL</code>, and no production registry origin is hard-coded. The supported generic health contract is <code>argo-synced-and-healthy-exact-source-manifest</code>; richer application-specific checks remain additional evidence rather than being silently claimed by this runner.</p>
+<p>If workload Applications already exist in a target apps-root Space, preserve them explicitly. Add each known Application and its source Space/Unit to <code>delivery.workloadApplications</code> in the request template, then rerun <code>--inspect-destination</code>. Inspection fills its exact Unit ID, <code>DataHash</code>, raw byte hash, published head revision, source IDs, and source release manifest digest. Recompile and apply twice. Adding these destination pins changes only <code>BindingDigest</code>; it does not change <code>PlatformDigest</code> or the target-neutral OCI payloads. A pending workload head or later silent change is refused. A request-pinned legacy workload Application that still names <code>latest</code> is preserved byte-for-byte during platform adoption; it is explicitly outside importer-managed delivery authority. Move it through the application release contract as a later reviewed change to gain exact-digest/no-auto authority without blocking platform import or silently rewriting application ownership.</p>
+<h2 id="11-use-the-selected-organization-command-contract-and-move-forward">11. Use the selected-organization command contract and move forward</h2>
+<p><a href="../../../../../examples/kubara/git-import/selected-org-workflow.example.yaml"><code>selected-org-workflow.example.yaml</code></a> joins the portable, bootstrap, inspection, binding, two-run apply, application, and final acceptance boundaries without hiding them in shell. Compile it with:</p>
+<pre><code>node scripts/compile-kubara-selected-org-workflow.mjs --compile \
+  --request /controlled/import/selected-org-workflow.yaml \
+  --output /controlled/import/workflow</code></pre>
+<p><code>workflow-plan.json</code> stores shell-free executable/argv arrays. <code>operation-journal.json</code> starts every step pending, distinguishes read-only, OCI, ConfigHub, cluster, and multi-system effects, and records a replay rule for each. In particular, an interrupted <code>cub cluster up</code> is <b>in flight</b> and must be inspected before any replay. Recompilation refuses to overwrite an advanced journal. Validate either the pristine compiler output with <code>--verify</code> or an advanced exact completed prefix with:</p>
+<pre><code>node scripts/compile-kubara-selected-org-workflow.mjs --verify-journal \
+  --request /controlled/import/selected-org-workflow.yaml \
+  --output /controlled/import/workflow</code></pre>
+<p>The journal verifier refuses reordered steps, changed commands, more than one prepared action, non-prefix completion, or a completion without an exact evidence digest. The selected-organization compiler is a command and recovery contract, not a hidden overall live runner; organization and cluster creation remain explicit user-authorized actions. Its application live-release step is no longer a placeholder: it invokes the resumable application runner above and binds that runner's exact acceptance evidence.</p>
+<p>The terminal evidence must prove exact live digests, accepted health, the immediate zero-action rerun, exact ConfigHub inventory, zero Argo-prunable resources, zero unclassified or dangling objects among the five durable workload types, and UID-current ownership in protected Namespaces. This is a declared ConfigHub/Argo/workload residue scope, not a whole-cluster inventory or an “entire cluster is orphan-free” claim. Until that evidence exists, neither the journal nor the offline compilers claim a completed import.</p>
+<p>For a later Kubara Git revision, use an explicit additive transition:</p>
 <p>A platform-content change is an explicit, additive transition:</p>
 <ol><li>Preserve the prior passing <code>apply-receipt.json</code> as an immutable, separate file. Never overwrite it in the next output directory.</li><li>Generate and commit the next complete Kubara result, rescan its exact commit and path, refresh runtime evidence if it changed, and rerun destination inspection.</li><li>Compile once <b>without</b> <code>spec.transition</code> into a disposable draft directory to review the new <code>PlatformDigest</code> and <code>BindingDigest</code>.</li><li>Add <code>spec.transition</code> to the reviewed request using the prior receipt's platform/binding digests and the SHA-256 of its exact bytes:</li></ol>
 <pre><code>   transition:
@@ -592,12 +639,13 @@ status.localReceiptCryptographicProof: false</code></pre>
      --target-facts /controlled/evidence/revision-2-target-facts.yaml \
      --previous-apply-receipt /controlled/receipts/revision-1-apply-receipt.json</code></pre>
 <p>The transition accepts an exact prior state, an exact current state, or the bounded mixed state produced by an interrupted authorized run. It cannot remove or rename a previously managed Space, Unit, Link, delivery Application, or preserved workload pin; rebind a Target or upstream lineage; or rewire a Link. Decommissioning is a separate, explicitly authorized workflow.</p>
+<p>Contract v1.2 adds the explicit destination-bound Space-release OCI base and retains the v1.1 ability to accept an exact passing v1.0 apply receipt as transition authority. That additive transition normalizes previously generated mutable <code>latest</code>/automated platform Applications to exact ManifestDigest/no-auto authority; adopters do not have to delete and recreate their topology.</p>
 <h2 id="what-a-kubara-user-still-recognizes">What a Kubara user still recognizes</h2>
 <p>The source is still Kubara's <code>config.yaml</code>; Kubara still selects and specializes its platform catalog; generated folders, wrapper versions, overrides, ApplicationSets, hub/spoke placement, and local Argo reconciliation retain their meaning. ConfigHub takes the hub governance role while each cluster keeps a small local reconciler. The Kubara docs remain useful.</p>
 <p>The visible improvement is additive: Components is component-first and retains every catalog version; selected deployable/config variants follow from those components; definition and instance Spaces make the hub/spoke shape queryable; <code>NeedsProvides</code> Links expose operational wiring; immutable OCI and release receipts make exact content reviewable; and app promotion no longer requires rewriting Kubara's composition model.</p>
-<p>Run the complete offline acceptance suite with:</p>
-<pre><code>npm run kubara-git-import:self-test</code></pre>
-<p>The suite creates isolated fake Git, OCI, and ConfigHub surfaces. It proves exact compilation, target-neutral cross-organization packaging, remote-layer reuse/refusal, destination inspection without content disclosure, bootstrap pinning, root-before-source release order, workload preservation, resumable additive transitions, a zero-action second run, and adversarial refusals. It does not contact a live ConfigHub organization, registry, or cluster.</p>
+<p>Run the complete offline adoption-contract suite with:</p>
+<pre><code>npm run kubara-adoption:self-test</code></pre>
+<p>The suite creates isolated fake Git, OCI, and ConfigHub surfaces. It proves source-only portable compilation before organization selection, target-neutral cross-organization packaging, remote-layer reuse/refusal, separate destination binding, destination inspection without content disclosure, bootstrap pinning, source-before-exact-digest-apps-root release order, workload preservation, exact-digest/no-auto delivery, resumable additive transitions, the selected-organization journal contract, the reusable application release contract, a zero-action second run, and adversarial refusals. It does not contact a live ConfigHub organization, registry, or cluster. A fresh selected organization still needs the real serialized workflow and retained live acceptance evidence before this path can be called live-proven.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>examples/kubara/git-import/README.md</code>. The source file is the authoritative version.</p></footer>
