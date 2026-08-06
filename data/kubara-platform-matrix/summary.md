@@ -42,8 +42,8 @@ Live overlay receipt: `runs/kubara-mini-idp-reconcile/receipt.yaml` (validation:
 Scoped residue audit: `runs/kubara-mini-idp-reconcile/orphan-audit.yaml` (validation:
 `accepted-current-scoped-residue-clean`; accepted:
 `true`; observed:
-`2026-08-05T19:48:26.300Z`; SHA-256:
-`b5cd319cbfefa6f3b45211c8cdfc507ac291d8b61dd0b77eb052544c7c7db6ea`). It proves exact ConfigHub
+`2026-08-06T09:10:55.578Z`; SHA-256:
+`c588c4882ed5de66d4dde68cf0f09f94ee9b976bca740e14cec4c6796bebdb23`). It proves exact ConfigHub
 inventory, zero Argo-prunable resources, and zero unclassified, dangling, or
 UID-stale workloads among the five audited durable types. It does not claim a
 complete inventory of every Kubernetes resource type.

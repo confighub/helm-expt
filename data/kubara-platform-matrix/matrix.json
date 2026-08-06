@@ -34,7 +34,7 @@
         "reasons": [
           "Kubara v0.13.0, all source digests, and all 36 liveMatrix cells validated."
         ],
-        "observedAt": "2026-08-05T19:43:37.622Z",
+        "observedAt": "2026-08-06T09:10:20.423Z",
         "sourceDigestsVerified": 16,
         "parsedCells": 36
       },
@@ -46,8 +46,8 @@
           "The source-current canonical audit records zero findings and zero counters within its declared scope."
         ],
         "name": "kubara-v0-13-0-mini-idp-orphan-audit",
-        "observedAt": "2026-08-05T19:48:26.300Z",
-        "sha256": "b5cd319cbfefa6f3b45211c8cdfc507ac291d8b61dd0b77eb052544c7c7db6ea"
+        "observedAt": "2026-08-06T09:10:55.578Z",
+        "sha256": "c588c4882ed5de66d4dde68cf0f09f94ee9b976bca740e14cec4c6796bebdb23"
       },
       "parsedObservationCells": 36,
       "liveReads": [
