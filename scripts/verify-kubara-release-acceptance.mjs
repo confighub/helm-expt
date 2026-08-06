@@ -104,6 +104,15 @@ const kubaraAdoptionChapters = [
   { number: 5, path: "docs/demo/kubara/adoption-5-confighub-org.md", previous: "adoption-4-oci.md", next: "adoption-6-apps.md" },
   { number: 6, path: "docs/demo/kubara/adoption-6-apps.md", previous: "adoption-5-confighub-org.md", next: "gui-tour.md" },
 ];
+const kubaraMiniIdpReceiptRelative = "runs/kubara-mini-idp-reconcile/receipt.yaml";
+const kubaraMeasuredNoOpDocs = [
+  "docs/demo/kubara/index.md",
+  "docs/demo/kubara/checkpoints.md",
+  "docs/demo/kubara/gui-tour.md",
+  "docs/demo/kubara/single-platform.md",
+  "docs/demo/kubara/adoption-5-confighub-org.md",
+  "docs/demo/kubara/reconciliation-performance.md",
+];
 const kubaraGuiEvidenceReceipt = "data/kubara-gui-evidence/receipt.yaml";
 const kubaraAdoptionScreenshotContractRelative = "data/kubara-adoption-screenshots/contract.yaml";
 const kubaraAdoptionScreenshotContractPath = join(repoRoot, kubaraAdoptionScreenshotContractRelative);
@@ -913,6 +922,73 @@ function verifyKubaraPublicSourceContract() {
   ]) check(historicalRollout.includes(phrase), `historical Kubara app rollout must label superseded force-sync authority: ${phrase}`);
 }
 
+// The buyer-facing no-op cost numbers are measurements, not editorial choices.
+// Every surface must quote the accepted receipt, so the expected phrases are
+// constructed from the receipt instead of being hand-pinned literals that
+// drift on every live re-recording.
+function acceptedNoOpPerformanceEvidence() {
+  const receipt = readYaml(join(repoRoot, kubaraMiniIdpReceiptRelative));
+  const noOpRun = (receipt?.spec?.reconcileRuns ?? []).at(-1);
+  check(
+    noOpRun?.idempotentNoop === true && noOpRun?.result === "pass" && Number(noOpRun?.actionCount) === 0,
+    `${kubaraMiniIdpReceiptRelative} must end with a passing zero-action idempotent run`,
+  );
+  const performance = noOpRun.performance ?? {};
+  const readCommands = performance.confighub?.reads?.commands;
+  const readCommandsBeforeFirstDevAccepted = performance.confighub?.reads?.beforeFirstDevAcceptedCommands;
+  const subprocessCalls = performance.subprocesses?.calls;
+  const wallElapsedMs = performance.wallElapsedMs;
+  for (const [field, value] of Object.entries({
+    readCommands,
+    readCommandsBeforeFirstDevAccepted,
+    subprocessCalls,
+    wallElapsedMs,
+  })) {
+    check(
+      Number.isInteger(value) && value > 0,
+      `${kubaraMiniIdpReceiptRelative} accepted no-op performance.${field} must be a recorded positive integer`,
+    );
+  }
+  check(
+    performance.confighub?.mutations?.attempts === 0,
+    `${kubaraMiniIdpReceiptRelative} accepted no-op must record zero ConfigHub mutation attempts`,
+  );
+  check(
+    performance.argo?.syncRequests === 0,
+    `${kubaraMiniIdpReceiptRelative} accepted no-op must record zero Argo sync requests`,
+  );
+  return {
+    readCommands,
+    readCommandsBeforeFirstDevAccepted,
+    subprocessCalls,
+    wallSeconds: Math.round(wallElapsedMs / 1000),
+  };
+}
+
+// Any doc that quotes a no-op measurement must quote the receipt-backed value.
+// A phrase pattern with a different number is a stale hand-edited claim.
+function verifyKubaraMeasuredNoOpQuotes(noOp) {
+  const expectations = [
+    { pattern: /\b(\d+) ConfigHub CLI read commands\b/g, expected: noOp.readCommands, label: "ConfigHub CLI read commands", required: true },
+    { pattern: /\b(\d+) total subprocess calls\b/g, expected: noOp.subprocessCalls, label: "total subprocess calls", required: true },
+    { pattern: /\babout (\d+) seconds\b/g, expected: noOp.wallSeconds, label: "no-op wall seconds", required: true },
+    { pattern: /\bwithin (\d+) reads\b/g, expected: noOp.readCommandsBeforeFirstDevAccepted, label: "reads through the first accepted dev Application", required: false },
+  ];
+  for (const path of kubaraMeasuredNoOpDocs) {
+    const text = collapseWhitespace(readFileSync(join(repoRoot, path), "utf8"));
+    for (const { pattern, expected, label, required } of expectations) {
+      const matches = [...text.matchAll(pattern)];
+      if (required) check(matches.length > 0, `${path} must quote the measured no-op ${label} from ${kubaraMiniIdpReceiptRelative}`);
+      for (const match of matches) {
+        check(
+          Number(match[1]) === expected,
+          `${path} quotes "${match[0]}" but ${kubaraMiniIdpReceiptRelative} records ${expected} for the accepted no-op ${label}`,
+        );
+      }
+    }
+  }
+}
+
 function verifyKubaraBuyerJourneySourceContract() {
   const sourcePaths = [
     ...Object.values(kubaraBuyerJourneySources),
@@ -961,6 +1037,9 @@ function verifyKubaraBuyerJourneySourceContract() {
     "const currentLive = facts.currentLive",
     "data-kubara-live-evidence=",
     "live performance receipt required",
+    "${facts.noOpReadCommands} ConfigHub CLI read commands",
+    "${facts.noOpSubprocessCalls} total subprocess calls",
+    "about ${Math.round(facts.noOpWallMs / 1000)} seconds",
     "Make latest discoverable, not deployable",
     "<code>targetRevision: latest</code>",
     "<code>spec.syncPolicy.automated</code>",
@@ -973,6 +1052,10 @@ function verifyKubaraBuyerJourneySourceContract() {
     "Retained <code>release-N</code> Tags",
     "server-side publish preconditions",
   ]) check(generator.includes(phrase), `public-site generator must preserve the Kubara sales landing contract: ${phrase}`);
+  check(
+    !/\d+ ConfigHub CLI read commands|\d+ total subprocess calls|about \d+ seconds/.test(generator),
+    "public-site generator must derive every no-op cost number from the receipt facts, never a hard-coded literal",
+  );
   checkInOrder(generator, kubaraAdoptionChapters.map((chapter) => `../${chapter.path}`), "public-site Kubara landing chapter links");
 
   for (const phrase of [
@@ -1049,6 +1132,7 @@ function verifyKubaraBuyerJourneySourceContract() {
     "privileged humans cannot issue a manual Argo sync",
   ]) check(overview.includes(phrase), `${kubaraBuyerJourneySources.overview} must explain the governed departure: ${phrase}`);
 
+  const noOpEvidence = acceptedNoOpPerformanceEvidence();
   for (const phrase of [
     "Current deterministic",
     "Current live",
@@ -1058,14 +1142,17 @@ function verifyKubaraBuyerJourneySourceContract() {
     "Current live release checkpoint",
     "the exact ConfigHub inventory and scoped cluster audit report zero",
     "the public website is regenerated from those artifacts",
-    "33 ConfigHub CLI read commands for the complete no-op run",
-    "208 total subprocess calls",
-    "about 77 seconds",
+    `${noOpEvidence.readCommands} ConfigHub CLI read commands for the complete no-op run`,
+    `${noOpEvidence.subprocessCalls} total subprocess calls`,
+    `about ${noOpEvidence.wallSeconds} seconds`,
+    "CLI commands are not HTTP round trips",
+    "not a raw-Kubara comparison",
     "fixture regression target is met",
     "keeps `latest` discovery-only, and omits automated sync",
     "No second Argo owner is hidden from the normal view",
     "Retained release history is complete without becoming deployment authority",
   ]) check(checkpoints.includes(phrase), `${kubaraBuyerJourneySources.checkpoints} must preserve the evidence boundary: ${phrase}`);
+  verifyKubaraMeasuredNoOpQuotes(noOpEvidence);
   checkInOrder(checkpoints, [
     "faithful hub/spoke evidence is regenerated",
     "the adapted v0.13 mini-IDP applies successfully",
