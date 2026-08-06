@@ -5508,6 +5508,7 @@ function kubaraHtml(catalog) {
     <h1>Keep Kubara. Make the platform governable.</h1>
     <p class="lead"><strong>ConfigHub simplifies Kubara without making it fundamentally different.</strong> Keep choosing and wiring the platform in Kubara, keep Git as the portable hand-off, and keep Argo CD as the reconciler. Add a component-first Catalog, immutable releases, review history, promotion, rollback, fleet visibility, and explicit wiring.</p>
     <p><strong>Kubara composes; ConfigHub governs; Argo reconciles.</strong></p>
+    <p>This project now lives in its own repository: <a href="https://github.com/confighub/kubara-confighub"><strong>confighub/kubara-confighub</strong></a>. The pages here remain as a mirror of the shipped journey.</p>
     <p><a href="../docs/demo/kubara/adoption.md"><strong>Start the six-step tutorial</strong></a> · <a href="../docs/demo/kubara/gui-tour.md">See the GUI journey</a> · <a href="../docs/demo/kubara/checkpoints.md">Inspect the evidence</a></p>
   </header>
   <main>

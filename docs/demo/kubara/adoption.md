@@ -1,5 +1,8 @@
 # Adopt an existing Kubara platform with ConfigHub
 
+> **Project home:** this work now lives at [confighub/kubara-confighub](https://github.com/confighub/kubara-confighub). The pages here remain as a mirror of the shipped journey.
+
+
 This tutorial follows one continuous path from an ordinary Kubara selection to
 applications deployed through ConfigHub and Argo CD. It preserves the six
 adoption steps exactly; implementation details appear as checkpoints within
