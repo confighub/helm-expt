@@ -181,6 +181,8 @@ GUI tour.
 
 <!-- kubara-adoption-screenshot step="2" id="generation-parity" path="../../images/kubara-adoption/02-kubara-generation-parity.png" -->
 
+![Kubara generation verifier final line with the generated platform tree](../../images/kubara-adoption/02-kubara-generation-parity.png)
+
 After the checkpoint and complete source-current live gate pass, capture one
 real terminal/repository frame containing the complete verifier final line and
 the adjacent generated tree with `platform-components/`,

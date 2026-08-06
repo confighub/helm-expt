@@ -524,6 +524,8 @@ ConfigHub GUI tour.
 
 <!-- kubara-adoption-screenshot step="5" id="selected-org-topology" path="../../images/kubara-adoption/05-selected-org-topology.png" -->
 
+![Selected ConfigHub organization Spaces with the recognizable Kubara topology](../../images/kubara-adoption/05-selected-org-topology.png)
+
 Then capture the selected organization with the `hx-platform/platform-contract`
 Unit open. The frame should show the source Git identity, Kubara version,
 organization identity, four target relationships, and navigation to the

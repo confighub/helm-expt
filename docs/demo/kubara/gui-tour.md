@@ -63,6 +63,8 @@ made navigable.**
 Screenshot checkpoint: platform contract header, source identity, and
 navigation labels in one frame.
 
+![The hx-platform platform-contract Unit in the ConfigHub GUI](../../images/kubara/01-platform-contract.png)
+
 ### 2. Browse components before platform instances
 
 Open the ConfigHub component Catalog before showing target-specific Units.
@@ -89,6 +91,8 @@ governable.**
 Screenshot checkpoint: one component, its version history, and its instance
 relationship.
 
+![The traefik component with its base definition and four platform instances](../../images/kubara/02-component-catalog.png)
+
 ### 3. Show the recognizable delivery shape
 
 Display the faithful and adapted Argo definitions side by side.
@@ -111,6 +115,8 @@ Kubara topology wrong or removing the faithful option. Argo remains local, but
 a mutable `latest` pointer cannot bypass ConfigHub governance.**
 
 Screenshot checkpoint: both lane cards plus the four target relationships.
+
+![Faithful and adapted Argo definition Units with the four delivery roots](../../images/kubara/03-delivery-lanes.png)
 
 ### 4. Follow one application through four clusters
 
@@ -142,6 +148,8 @@ Screenshot checkpoint: one application detail frame with the four target
 placements and its approval, promotion, departure, and rollback history visible
 together. This is frame 4 of the six-frame tour, not four additional images.
 
+![The hx-web application and platform binding across the four clusters](../../images/kubara/04-application-four-clusters.png)
+
 ### 5. Open the wiring
 
 Start with curated native `NeedsProvides` Links, not the entire extracted graph.
@@ -160,6 +168,8 @@ YAML can become queryable platform facts.**
 
 Screenshot checkpoint: a small, legible set of native Links with both ends
 visible.
+
+![Curated native NeedsProvides Links on the hx-cubbychat development Unit](../../images/kubara/05-native-links.png)
 
 ### 6. Finish with the fleet matrix and clean inventory
 
@@ -187,6 +197,8 @@ tidy. The receipt does not claim a complete inventory of every Kubernetes
 resource type.**
 
 Screenshot checkpoint: current matrix plus the scoped residue receipt identity.
+
+![The 36-cell component-by-cluster matrix with the scoped residue audit identity](../../images/kubara/06-fleet-matrix-clean-inventory.png)
 
 ## Explain, but do not spend the demo running
 

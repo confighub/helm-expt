@@ -257,6 +257,8 @@ ConfigHub GUI tour.
 
 <!-- kubara-adoption-screenshot step="3" id="exact-git-revision" path="../../images/kubara-adoption/03-exact-git-revision.png" -->
 
+![Verified public GitHub commit carrying the prepared hand-off](../../images/kubara-adoption/03-exact-git-revision.png)
+
 Capture one real GitHub commit view that shows:
 
 1. the full commit ID;

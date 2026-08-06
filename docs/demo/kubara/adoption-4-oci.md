@@ -201,6 +201,8 @@ GUI tour.
 
 <!-- kubara-adoption-screenshot step="4" id="oci-packages-index" path="../../images/kubara-adoption/04-oci-packages-index.png" -->
 
+![Isolated importer self-test final line over deterministic fake surfaces](../../images/kubara-adoption/04-oci-packages-index.png)
+
 After the isolated self-test checkpoint and the complete source-current
 documentation gate pass, capture one real terminal/workspace frame from that
 same self-test run. It must show the complete passing final line, including

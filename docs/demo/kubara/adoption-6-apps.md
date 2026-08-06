@@ -390,6 +390,8 @@ the ConfigHub GUI tour.
 
 <!-- kubara-adoption-screenshot step="6" id="app-governance-live" path="../../images/kubara-adoption/06-app-governance-live.png" -->
 
+![hx-web production revision history with approval gates, promotion, rollback, and the applied release](../../images/kubara-adoption/06-app-governance-live.png)
+
 After the current receipts, the GUI tour's
 [pre-capture gate](gui-tour.md#pre-capture-gate), and the complete
 source-current live gate pass, capture
