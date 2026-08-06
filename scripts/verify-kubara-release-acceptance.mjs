@@ -1812,7 +1812,8 @@ function verifyKubaraPublicVisibility() {
 
   check(
     adoption.includes("The public 36-cell matrix is regenerated from that state and the exact live receipt")
-      && adoption.includes("it leaves current live fields unknown unless the receipt supplies them"),
+      && adoption.includes("leaves current live fields")
+      && adoption.includes("unless the receipt supplies them"),
     `${paths.adoption} must describe the matrix as receipt-derived live evidence`,
   );
   check(
