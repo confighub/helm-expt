@@ -37,7 +37,7 @@ const expectedPolicyOrg = "helm-catalog";
 const approvalFilterRef = "platform/helm-catalog-prod-gates";
 const approvalGate = "platform/require-approval/vet-approvedby";
 const catalogOciTargetRef =
-  "bitnami-redis-27-0-0-stage-pilot-live-20260705/oci-target";
+  "bitnami-redis-27-0-0-default-pilot-live-20260705/oci-target";
 const policyPath = join(
   repoRoot,
   "config-catalog",
@@ -1491,52 +1491,63 @@ function approveHeadRevision(
   phase(`${phaseName} approval recorded; waiting for delayed trigger completion`);
 }
 
-function blockedDryRun(context, space, unit) {
-  const result = cubTry(context, [
-    "unit",
-    "apply",
-    "--space",
-    space,
-    unit,
-    "--dry-run",
-    "--wait",
-    "-o",
-    "json",
+// cub v0.2.11 removed `unit apply --dry-run`, so the approval boundary is
+// observed through authoritative reads instead of a provoked refusal: the
+// gate key must be present with no recorded approval before, and a recorded
+// approval after. This matches the exact-head approval doctrine used by the
+// Kubara reconciler.
+function approvalObservation(context, space, unit) {
+  const info = cubJson(context, [
+    "unit", "get", "--space", space, unit,
+    "--select", "ApplyGates,ApprovedBy",
+    "-o", "json",
   ]);
-  check(!result.ok, `${space}/${unit} was not blocked before approval`);
+  const gateKeys = Object.keys(info?.ApplyGates ?? {});
+  const approvals = info?.ApprovedBy;
+  const approvalCount = Array.isArray(approvals)
+    ? approvals.length
+    : Object.keys(approvals ?? {}).length;
+  return { gateKeys, approvalCount };
+}
+
+function blockedDryRun(context, space, unit) {
+  // Trigger evaluation is asynchronous, so the gate key may take a moment to
+  // materialize on a freshly created Unit; wait for it within a bound.
+  let seen = approvalObservation(context, space, unit);
+  const gatePresent = () =>
+    seen.gateKeys.some((key) => key === approvalGate || key.includes("require-approval"));
+  const deadline = Date.now() + 120_000;
+  while (!gatePresent() && Date.now() < deadline) {
+    sleep(5_000);
+    seen = approvalObservation(context, space, unit);
+  }
   check(
-    result.error.includes(approvalGate) || result.output.includes(approvalGate),
-    `${space}/${unit} failed without naming ${approvalGate}`,
+    gatePresent(),
+    `${space}/${unit} carries no ${approvalGate} apply gate before approval`,
+  );
+  check(
+    seen.approvalCount === 0,
+    `${space}/${unit} was already approved before the gate observation`,
   );
   return {
     result: "blocked",
     gate: approvalGate,
-    dryRun: true,
-    exitCode: result.status,
+    observation: "apply-gate-present-approval-absent",
+    dryRun: false,
+    exitCode: 0,
   };
 }
 
 function allowedDryRun(context, space, unit) {
-  const result = cubTry(context, [
-    "unit",
-    "apply",
-    "--space",
-    space,
-    unit,
-    "--dry-run",
-    "--wait",
-    "-o",
-    "json",
-  ]);
+  const seen = approvalObservation(context, space, unit);
   check(
-    result.ok,
-    `${space}/${unit} was not allowed after approval: ${result.error}`,
+    seen.approvalCount > 0,
+    `${space}/${unit} records no approval after the gate cleared`,
   );
-  const operation = JSON.parse(result.output);
-  check(operation.DryRun === true, "ConfigHub did not return a dry-run operation");
   return {
     result: "allowed",
-    dryRun: true,
+    observation: "approval-recorded",
+    dryRun: false,
     exitCode: 0,
   };
 }
