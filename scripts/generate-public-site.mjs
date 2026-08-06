@@ -5449,10 +5449,10 @@ function loadKubaraSiteFacts() {
     selections: coverage.spec?.selections?.length ?? 0,
     wiringFacts: Number(wiring.spec?.summary?.facts ?? 0),
     noOpReadCommands: Number(noOpRun?.performance?.confighub?.reads?.commands ?? 0),
-    noOpSubprocessCalls: Number(miniIdp?.spec?.execution?.performance?.commands?.calls ?? noOpRun?.performance?.subprocesses?.calls ?? 0),
+    noOpSubprocessCalls: Number(noOpRun?.performance?.subprocesses?.calls ?? miniIdp?.spec?.execution?.performance?.commands?.calls ?? 0),
     noOpMutationAttempts: Number(noOpRun?.performance?.confighub?.mutations?.attempts ?? 0),
     noOpArgoSyncRequests: Number(noOpRun?.performance?.argo?.syncRequests ?? 0),
-    noOpWallMs: Number(miniIdp?.spec?.execution?.performance?.wallElapsedMs ?? noOpRun?.performance?.wallElapsedMs ?? 0),
+    noOpWallMs: Number(noOpRun?.performance?.wallElapsedMs ?? miniIdp?.spec?.execution?.performance?.wallElapsedMs ?? 0),
     selectorReplacements: selectorReplacements.length,
     retainedSelectorMigrationPvcs: selectorReplacements.reduce((total, item) => total + (item?.retainedPVCs?.length ?? 0), 0),
     deterministicParityCurrent: parity.status?.result === "pass"
@@ -5577,7 +5577,7 @@ function kubaraHtml(catalog) {
         <li>Secrets and target-owned facts stay outside the portable Git and OCI payloads.</li>
         <li>Desired state, current live state, historical evidence, OCI publication, and production support remain distinct claims.</li>
         <li>The exact-digest evidence controls the managed automated path. Blocking privileged human or manual Argo sync additionally requires separate RBAC or admission proof.</li>
-        <li>The current no-op records 32 ConfigHub CLI read commands and 208 total subprocess calls. It completes in about 102 seconds, with zero ConfigHub mutation attempts and zero Argo sync requests. The fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise.</li>
+        <li>The current no-op records ${facts.noOpReadCommands} ConfigHub CLI read commands and ${facts.noOpSubprocessCalls} total subprocess calls. It completes in about ${Math.round(facts.noOpWallMs / 1000)} seconds, with ${facts.noOpMutationAttempts === 0 ? "zero" : facts.noOpMutationAttempts} ConfigHub mutation attempts and ${facts.noOpArgoSyncRequests === 0 ? "zero" : facts.noOpArgoSyncRequests} Argo sync requests. The fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise.</li>
         <li>The retained four-cluster organization is live-proved. A clean import into a fresh user-selected organization is still a separate graduation gate.</li>
       </ul>
       <p><strong>live receipt required</strong> means a deterministic contract exists but its current live acceptance chain is absent or stale.</p>
