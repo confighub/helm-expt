@@ -1,5 +1,8 @@
 # Kubara with ConfigHub
 
+> **Project home:** this work now lives at [confighub/kubara-confighub](https://github.com/confighub/kubara-confighub). The pages here remain as a mirror of the shipped journey.
+
+
 **ConfigHub simplifies Kubara without making it fundamentally different.**
 
 Kubara users keep choosing components and wiring in Kubara, generating the
