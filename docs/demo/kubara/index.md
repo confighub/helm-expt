@@ -34,8 +34,15 @@ generated artifacts remain recognizable and portable.
 | Kubara's platform package and per-platform selection and wiring | Governed definitions, effective configurations, target instances, and explicit relationships without flattening the platform into one object | The official and ConfigHub-aligned catalog lanes generate the same 135 files, path-and-byte-for-byte. |
 | Git as the portable platform hand-off | Exact-source verification and immutable per-component/config OCI packages plus a digest-bound platform index | The deterministic importer self-test compiles the exact Git source into 22 component/config packages and refuses dirty, ambiguous, or mismatched inputs. |
 | The familiar hub, ApplicationSets, AppProjects, and registered spokes | A faithful lane for unchanged Kubara topology and an adapted lane in which ConfigHub takes the hub role while each cluster keeps a local reconciler | The faithful and adapted lanes are separately receipt-gated so one cannot be mistaken for the other. |
-| Argo CD as the cluster reconciler | Approvals, promotion, rollback, retained departures, release history, and OCI digest provenance before Argo receives a release | The current mini-IDP uses hx-web and Cubbychat across development, staging, and two production targets. Live claims require the current receipt. |
-| Kubara's generated component and cluster placement | A component-by-cluster matrix and visible provides/needs wiring | The generated platform view contains 36 component/application cells and a deterministic wiring graph; live state is shown only when a source-current receipt exists. |
+| Argo CD as the cluster reconciler | Approvals, promotion, rollback, retained departures, release history, and OCI digest provenance before Argo receives a release | The current mini-IDP receipt proves hx-web and Cubbychat across development, staging, and two production targets. |
+| Kubara's generated component and cluster placement | A component-by-cluster matrix and visible provides/needs wiring | The source-current receipt contains all 36 runtime observations; the public matrix shows them only after that exact receipt is bound and the projection is regenerated. |
+
+The retained `Kubara` organization now has a passing source-current faithful
+receipt and a passing source-current adapted mini-IDP receipt. That proves the
+four-cluster example, its 35 managed Argo Applications, both applications, and
+the zero-action rerun. It does not by itself prove a clean import into an
+arbitrary newly selected organization; that remains a separate graduation
+gate.
 
 ## The adoption journey
 
@@ -52,6 +59,12 @@ six steps in the same order:
    the familiar topology as governed ConfigHub objects.**
 6. **Add, promote, and deploy applications through ConfigHub while Argo CD
    remains the cluster reconciler.**
+
+Step 4 is genuinely portable: `--compile-portable`, `--verify-portable`, and
+`--package-portable` need no ConfigHub organization. In Step 5 the user
+explicitly selects or bootstraps a destination, inspects it read-only, and
+runs `--bind`; the resulting `BindingDigest` stays outside OCI while the
+`PlatformDigest` and member payloads remain unchanged.
 
 The [tutorial](adoption.md) expands these steps without changing their
 order. Internal preparation, scanning, packaging, binding, and verification
@@ -121,11 +134,36 @@ release state, and curated `NeedsProvides` relationships. Generated evidence
 views remain available outside the GUI and explicitly distinguish desired,
 historical, and live-observed state.
 
+The matrix is a direct runtime projection, not a health score inferred from
+desired configuration. Each cell keeps Kubara's desired placement and version
+separate from the exact ConfigHub release digest, Argo's observed revision and
+sync/health result, and Kubernetes desired/ready counts supplied by the
+source-current receipt. A disabled selection is `NotApplicable`; a missing
+observation is `Unknown`, never silently green.
+
 ### Govern changes without replacing reconciliation
 
 ConfigHub records the review, approval, promotion, rollback, release digest,
 and revision history. Argo CD continues doing the in-cluster reconciliation a
 Kubara operator already understands.
+
+For production approval, the current client passes the Unit slug with
+`--revision HeadRevisionNum`. The reconciler brackets that server-head
+operation with authoritative reads and accepts it only when Unit ID, observed
+numeric head, and `DataHash` are unchanged before and after. That is exact-head
+evidence; it is not a claim that the approval API accepts a numeric
+compare-and-set token.
+
+### Make retained-cluster upgrades explicit
+
+Kubernetes selectors are immutable. The current proof therefore records 16
+one-time, allowlisted selector replacements: four hx-web Deployments and the
+backend, frontend, and PostgreSQL workloads for Cubbychat on all four targets.
+Every replacement is journaled, bound to the exact OCI revision and old
+UID/resourceVersion, and accepted only after the replacement is healthy. The
+four PostgreSQL PVCs retain the same bound PVC UID and volume identity across
+StatefulSet replacement. This is visible upgrade evidence, not an invisible
+delete-and-hope migration.
 
 ### Make `latest` discoverable, not deployable
 
@@ -158,11 +196,12 @@ Show the evidence in the same order an adopter crosses the boundaries:
 4. **Recognizable topology:** show faithful and adapted lanes together, the
    one-hub/three-spoke identity, and the same four explicit targets.
 5. **One application change:** follow hx-web from development through staging,
-   exact production approval and promotion, one retained departure, and an
-   exact one-target rollback. Use Cubbychat to show the same model at a richer
-   application shape.
+   exact production approval (server `HeadRevisionNum`, bracketed by Unit ID,
+   observed head, and `DataHash`) and promotion, one retained departure, and
+   an exact one-target rollback. Use Cubbychat to show the same model at a
+   richer application shape and the PVC-retaining selector migration.
 6. **Fleet visibility:** finish with native wiring Links, the current 36-cell
-   platform matrix, measured reconciliation evidence, and the zero-orphan
+   platform matrix, measured reconciliation evidence, and the scoped residue
    result.
 
 Explain rather than wait through the cold path: exact OCI media details,
@@ -182,8 +221,15 @@ should spend its time on recognizable inputs and visible day-two outcomes.
   receipt supplies its observation.
 - Publication proves immutable packaging and retrieval, not production support
   for every possible chart configuration.
-- Performance is measured as part of the live receipt. It is not a sales claim
-  until the end-to-end target is demonstrated.
+- The current accepted no-op reconciliation performed zero ConfigHub mutation
+  attempts and zero Argo sync requests, while recording 32 ConfigHub CLI read
+  commands, 208 total subprocess calls, and about 102 seconds end to end. It
+  meets the fixture regression target. A CLI command is not an HTTP round trip,
+  and this is neither a raw-Kubara comparison nor a service-level promise.
+- The generic selected-new-organization path has deterministic compile,
+  package, refusal, and idempotence tests, but has not yet passed the complete
+  live path in a fresh user-selected organization. The retained four-cluster
+  organization must not be presented as that missing proof.
 
 ## Graduation to a dedicated repository
 
@@ -191,7 +237,7 @@ The eventual `github.com/confighub/kubara-confighub` repository should contain
 this same six-step journey, the importer, a small reproducible example,
 contracts, tests, and current evidence. It graduates from this proof repository
 only after the current example passes twice idempotently, the organization is
-orphan-free, the GUI walkthrough is current, and a fresh user-selected
+free of unexpected governed inventory and audited runtime residue, the GUI walkthrough is current, and a fresh user-selected
 organization import reaches one healthy application.
 
 Next: [follow the six-step adoption tutorial](adoption.md).

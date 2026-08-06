@@ -9,8 +9,9 @@
 // v0.12 selection with historical ConfigHub receipts. Missing observations stay
 // explicitly Unknown.
 
+import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
-import { basename, join } from "node:path";
+import { basename, join, relative } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, sha256, sha256File, write } from "./lib/proof-common.mjs";
 
@@ -33,7 +34,9 @@ const currentSources = {
   effectiveRenders: join(repoRoot, "data", "kubara-effective-renders", "current-platform", "receipt.yaml"),
   faithfulReceipt: join(repoRoot, "runs", "kubara-faithful-hub-spoke", "receipt.yaml"),
   miniIdpReceipt: join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml"),
+  orphanReceipt: join(repoRoot, "runs", "kubara-mini-idp-reconcile", "orphan-audit.yaml"),
 };
+const orphanAuditor = join(repoRoot, "scripts", "audit-kubara-mini-idp-orphans.mjs");
 const outputRoot = join(repoRoot, "data", "kubara-platform-matrix");
 
 const COMPONENT_ORDER = [
@@ -55,6 +58,9 @@ const MINI_IDP_SOURCE_PATHS = {
   componentArtifacts: "examples/kubara/current-platform/component-artifacts.yaml",
   generationReceipt: "examples/kubara/current-platform/generation-receipt.yaml",
   appSourceLock: "examples/kubara/current-platform/apps/source-lock.yaml",
+  argoAppSetTemplate: "examples/kubara/current-platform/generated/platform-components/helm/template-library/templates/argocd/_argo.appset.tpl",
+  argoValues: "examples/kubara/current-platform/generated/platform-configs/hx-app-dev/helm/argo-cd/values.generated.yaml",
+  catalogFullCoverageReceipt: "data/kubara-catalog-1.1-full-coverage/receipt.yaml",
   adapterOutput: "data/kubara-catalog-adapter/adapter-output.yaml",
   adapterReceipt: "data/kubara-catalog-adapter/receipt.yaml",
   desiredMatrix: "data/kubara-platform-matrix/desired-matrix.json",
@@ -72,6 +78,7 @@ if (["--generate", "--verify"].includes(mode)) {
     if (profile === "current") {
       selfTestDesired(report.desiredDocument);
       selfTestCurrent(report.document);
+      if (mode === "--verify") verifyCurrentLivePublication(report.document);
     }
     else selfTestHistorical(report.document);
     const outputs = outputPaths(profile);
@@ -91,6 +98,8 @@ if (["--generate", "--verify"].includes(mode)) {
     const current = buildCurrentReport();
     selfTestDesired(current.desiredDocument);
     selfTestCurrent(current.document);
+    selfTestFaithfulHashDomains();
+    selfTestCurrentLivePublicationGate(current.document);
     selfTestMiniIdpReceiptValidation();
   }
   console.log("Kubara platform matrix self-tests passed");
@@ -109,7 +118,7 @@ function outputPaths(profile) {
 }
 
 function buildCurrentReport(options = {}) {
-  for (const [name, path] of Object.entries(currentSources).filter(([name]) => !["faithfulReceipt", "miniIdpReceipt"].includes(name))) {
+  for (const [name, path] of Object.entries(currentSources).filter(([name]) => !["faithfulReceipt", "miniIdpReceipt", "orphanReceipt"].includes(name))) {
     check(existsSync(path), `${relativeRepo(path)} is missing; current matrix requires ${name}`);
   }
   const config = readYaml(currentSources.config);
@@ -135,7 +144,11 @@ function buildCurrentReport(options = {}) {
   }));
   const renderInstances = new Map((renderReceipt.spec?.instances ?? []).map((instance) => [`${instance.cluster}/${instance.component}`, instance]));
   const desiredEvaluation = receiptEvaluation("not-consumed-for-desired-artifact", "The desired matrix never consumes a live receipt.");
-  const desiredDocument = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: new Map(), receipt: desiredEvaluation, faithfulEvaluation, desiredOnly: true });
+  const desiredOrphanEvaluation = {
+    ...orphanReceiptEvaluation("not-consumed-for-desired-artifact", "The desired matrix never consumes an orphan receipt."),
+    sha256: null,
+  };
+  const desiredDocument = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: new Map(), receipt: desiredEvaluation, faithfulEvaluation, orphanEvaluation: desiredOrphanEvaluation, desiredOnly: true });
   const desiredJson = `${JSON.stringify(desiredDocument, null, 2)}\n`;
   const miniIdpReceipt = options.miniIdpReceipt !== undefined
     ? options.miniIdpReceipt
@@ -147,7 +160,11 @@ function buildCurrentReport(options = {}) {
     expectedSourcePaths: options.expectedSourcePaths ?? MINI_IDP_SOURCE_PATHS,
   };
   const receipt = validateMiniIdpReceipt(miniIdpReceipt, evaluationOptions);
-  const document = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: receipt.observations, receipt, faithfulEvaluation, desiredOnly: false });
+  const orphanReceipt = options.orphanReceipt !== undefined
+    ? options.orphanReceipt
+    : existsSync(currentSources.orphanReceipt) ? readYaml(currentSources.orphanReceipt) : null;
+  const orphanEvaluation = validateOrphanReceipt(orphanReceipt, miniIdpReceipt, options.verifyOrphanReceipt);
+  const document = currentDocument({ config, sourceLock, components, clusters, renderInstances, observations: receipt.observations, receipt, faithfulEvaluation, orphanEvaluation, desiredOnly: false });
   return {
     desiredDocument,
     document,
@@ -159,19 +176,73 @@ function buildCurrentReport(options = {}) {
   };
 }
 
+function orphanReceiptEvaluation(status, ...reasons) {
+  return {
+    status,
+    accepted: status === "accepted-current-scoped-residue-clean",
+    reasons: reasons.filter(Boolean),
+    path: relativeRepo(currentSources.orphanReceipt),
+    name: null,
+    observedAt: null,
+    sha256: existsSync(currentSources.orphanReceipt) ? sha256File(currentSources.orphanReceipt) : null,
+  };
+}
+
+function validateOrphanReceipt(receipt, miniIdpReceipt, verifyOverride) {
+  if (!receipt) return orphanReceiptEvaluation("not-present", `${relativeRepo(currentSources.orphanReceipt)} is absent.`);
+  const reasons = [];
+  const rejectUnless = (condition, message) => { if (!condition) reasons.push(message); };
+  rejectUnless(receipt.kind === "KubaraMiniIDPOrphanAuditReceipt", `kind is ${receipt.kind ?? "missing"}`);
+  rejectUnless(receipt.metadata?.name === "kubara-v0-13-0-mini-idp-orphan-audit", `metadata.name is ${receipt.metadata?.name ?? "missing"}`);
+  rejectUnless(receipt.status?.result === "pass", `result is ${receipt.status?.result ?? "missing"}`);
+  rejectUnless(receipt.status?.zeroAuditedResidue === true, "zeroAuditedResidue is not true");
+  rejectUnless(Number(receipt.status?.findingCount) === 0, `findingCount is ${receipt.status?.findingCount ?? "missing"}`);
+  rejectUnless(Object.values(receipt.status?.orphanCounts ?? {}).length > 0 && Object.values(receipt.status?.orphanCounts ?? {}).every((value) => Number(value) === 0), "orphan counters are absent or non-zero");
+  rejectUnless(receipt.spec?.organization?.externalID === miniIdpReceipt?.spec?.organization?.externalID, "organization differs from the mini-IDP receipt");
+  rejectUnless(receipt.spec?.auditScope?.clusterWideOrphanFreeClaim === false, "receipt does not disclose its scoped, non-cluster-wide claim");
+  rejectUnless(Date.parse(receipt.spec?.observedAt ?? "") >= Date.parse(miniIdpReceipt?.status?.observedAt ?? ""), "orphan observation predates the mini-IDP receipt");
+  let verifierPassed = verifyOverride;
+  if (verifierPassed === undefined) {
+    try {
+      execFileSync(process.execPath, [orphanAuditor, "--receipt-verify"], { cwd: repoRoot, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+      verifierPassed = true;
+    } catch {
+      verifierPassed = false;
+    }
+  }
+  rejectUnless(verifierPassed === true, "the canonical offline orphan receipt verifier rejected this receipt");
+  if (reasons.length > 0) {
+    return {
+      ...orphanReceiptEvaluation("rejected", ...reasons),
+      name: receipt.metadata?.name ?? null,
+      observedAt: receipt.spec?.observedAt ?? null,
+    };
+  }
+  return {
+    ...orphanReceiptEvaluation("accepted-current-scoped-residue-clean", "The source-current canonical audit records zero findings and zero counters within its declared scope."),
+    name: receipt.metadata.name,
+    observedAt: receipt.spec.observedAt,
+  };
+}
+
 function evaluateFaithfulReceipt(receipt, catalogParity) {
   if (!receipt) return { accepted: false, status: "not-present", reasons: ["faithful receipt is not present"] };
   const reasons = [];
   const expectedCount = Number(catalogParity?.spec?.comparison?.fileCount ?? 0);
-  const expectedDigest = catalogParity?.spec?.comparison?.outputTreeSha256 ?? null;
+  const generatedChecksumsPath = join(repoRoot, "examples", "kubara", "current-platform", "generated-checksums.txt");
+  const expectedParityDigest = existsSync(generatedChecksumsPath) ? sha256File(generatedChecksumsPath) : null;
+  const generated = currentGeneratedEvidence();
   const currentExample = receipt?.spec?.source?.currentExample ?? {};
   const remoteGit = receipt?.spec?.source?.git ?? {};
   if (receipt?.status?.result !== "pass") reasons.push(`receipt result is ${receipt?.status?.result ?? "missing"}`);
   if (catalogParity?.status?.result !== "pass") reasons.push("current catalog-parity receipt does not pass");
+  if (catalogParity?.spec?.comparison?.outputTreeSha256 !== expectedParityDigest) reasons.push("catalog-parity digest does not match the current generated-checksums artifact in the catalog-parity hash domain");
+  if (catalogParity?.spec?.sourceConfig?.sha256 !== sha256File(currentSources.config)) reasons.push("current catalog-parity source config digest is stale");
+  if (generated.fileCount !== expectedCount) reasons.push(`current generated count ${generated.fileCount} does not match catalog-parity ${expectedCount}`);
   if (Number(currentExample.generatedFileCount ?? -1) !== expectedCount) reasons.push(`receipt generated count ${currentExample.generatedFileCount ?? "missing"} does not match current ${expectedCount}`);
-  if (currentExample.generatedSha256 !== expectedDigest) reasons.push("receipt generated digest does not match the current catalog-parity digest");
+  if (currentExample.generatedSha256 !== generated.sha256) reasons.push("receipt generated digest does not match the current generated tree in the faithful-proof hash domain");
   if (Number(remoteGit.generatedFileCount ?? -1) !== expectedCount) reasons.push(`remote-main generated count ${remoteGit.generatedFileCount ?? "missing"} does not match current ${expectedCount}`);
-  if (remoteGit.generatedSha256 !== expectedDigest) reasons.push("remote-main generated digest does not match the current catalog-parity digest");
+  if (remoteGit.generatedSha256 !== generated.sha256) reasons.push("remote-main generated digest does not match the current generated tree in the faithful-proof hash domain");
   if (currentExample.configSha256 !== catalogParity?.spec?.sourceConfig?.sha256) reasons.push("receipt config digest does not match the current catalog-parity source config");
   return {
     accepted: reasons.length === 0,
@@ -180,7 +251,25 @@ function evaluateFaithfulReceipt(receipt, catalogParity) {
   };
 }
 
-function currentDocument({ config, sourceLock, components, clusters, renderInstances, observations, receipt, faithfulEvaluation, desiredOnly }) {
+function currentGeneratedEvidence() {
+  const root = join(repoRoot, "examples", "kubara", "current-platform", "generated");
+  const components = join(root, "platform-components");
+  const configs = join(root, "platform-configs");
+  check(existsSync(components), `missing ${relativeRepo(components)}`);
+  check(existsSync(configs), `missing ${relativeRepo(configs)}`);
+  const files = [...listFiles(components), ...listFiles(configs)]
+    .sort((left, right) => relative(root, left).localeCompare(relative(root, right)));
+  const entries = files.map((path) => ({
+    path: relative(root, path).replaceAll("\\", "/"),
+    sha256: sha256File(path),
+  }));
+  return {
+    fileCount: entries.length,
+    sha256: sha256(JSON.stringify(entries)),
+  };
+}
+
+function currentDocument({ config, sourceLock, components, clusters, renderInstances, observations, receipt, faithfulEvaluation, orphanEvaluation, desiredOnly }) {
   const rows = components.flatMap((component) => clusters.map((cluster) => currentMatrixCell(component, cluster, config, renderInstances, observations)));
   const statusCounts = countBy(rows, (row) => row.proofStatus);
   const unknowns = rows
@@ -196,7 +285,7 @@ function currentDocument({ config, sourceLock, components, clusters, renderInsta
         mode: receipt.accepted ? "current-config-plus-effective-render-plus-validated-mini-idp-live" : "current-config-plus-effective-render",
         kubaraVersion: sourceLock.spec?.kubara?.version ?? "unknown",
         catalogVersion: sourceLock.spec?.catalogs?.version ?? "unknown",
-        sources: Object.fromEntries(Object.entries(currentSources).map(([name, path]) => [name, desiredOnly && ["faithfulReceipt", "miniIdpReceipt"].includes(name) ? "not-consumed" : existsSync(path) ? relativeRepo(path) : "not-present"])),
+        sources: Object.fromEntries(Object.entries(currentSources).map(([name, path]) => [name, desiredOnly && ["faithfulReceipt", "miniIdpReceipt", "orphanReceipt"].includes(name) ? "not-consumed" : existsSync(path) ? relativeRepo(path) : "not-present"])),
         faithfulReceiptStatus: desiredOnly ? "not-consumed" : faithfulEvaluation.status,
         faithfulReceiptReasons: desiredOnly ? [] : faithfulEvaluation.reasons,
         miniIdpReceipt: {
@@ -207,6 +296,15 @@ function currentDocument({ config, sourceLock, components, clusters, renderInsta
           observedAt: receipt.observedAt,
           sourceDigestsVerified: receipt.sourceDigestsVerified,
           parsedCells: receipt.observations.size,
+        },
+        orphanReceipt: {
+          path: orphanEvaluation.path,
+          status: orphanEvaluation.status,
+          acceptedAsScopedResidueClean: orphanEvaluation.accepted,
+          reasons: orphanEvaluation.reasons,
+          name: orphanEvaluation.name,
+          observedAt: orphanEvaluation.observedAt,
+          sha256: orphanEvaluation.sha256,
         },
         parsedObservationCells: observations.size,
         liveReads: receipt.accepted ? ["The accepted receipt records kubectl and ConfigHub live reads; this generator performs no live read."] : [],
@@ -590,6 +688,15 @@ ${evidence.miniIdpReceipt.sourceDigestsVerified}; parsed cells:
 ${evidence.parsedObservationCells}). Validation notes:
 ${evidence.miniIdpReceipt.reasons.map((reason) => `- ${escapeMd(reason)}`).join("\n")}
 
+Scoped residue audit: \`${evidence.orphanReceipt.path}\` (validation:
+\`${evidence.orphanReceipt.status}\`; accepted:
+\`${evidence.orphanReceipt.acceptedAsScopedResidueClean}\`; observed:
+\`${evidence.orphanReceipt.observedAt ?? "not present"}\`; SHA-256:
+\`${evidence.orphanReceipt.sha256 ?? "not present"}\`). It proves exact ConfigHub
+inventory, zero Argo-prunable resources, and zero unclassified, dangling, or
+UID-stale workloads among the five audited durable types. It does not claim a
+complete inventory of every Kubernetes resource type.
+
 The non-live [desired-matrix.json](desired-matrix.json) is generated first and
 digest-pinned by the reconciliation receipt. The final matrix overlays that
 base only after the receipt proves Kubara v0.13.0, all current source digests,
@@ -636,6 +743,7 @@ function currentHtmlReport(document) {
 <body><main><h1>Kubara component × cluster matrix — primary current</h1>
 <nav aria-label="Kubara example navigation"><a href="https://confighub.github.io/helm-expt/site/kubara.html">Kubara buyer journey</a> · <a href="https://confighub.github.io/helm-expt/site/charts/">Component Catalog</a></nav>
 <p class="lede">Kubara ${escapeHtml(evidence.kubaraVersion)}, catalogs ${escapeHtml(evidence.catalogVersion)}. Seven platform roles and two applications across four clusters. Live overlay: ${escapeHtml(evidence.miniIdpReceipt.status)}; ${evidence.miniIdpReceipt.sourceDigestsVerified} source digests verified. Status is written as text and symbol, with color supplementary.</p>
+<p class="lede"><strong>Scoped ConfigHub/Argo residue audit: ${evidence.orphanReceipt.acceptedAsScopedResidueClean ? "✓ pass" : "not accepted"}</strong>. Receipt: <code>${escapeHtml(evidence.orphanReceipt.name ?? "not present")}</code>; observed: ${escapeHtml(evidence.orphanReceipt.observedAt ?? "not present")}; SHA-256: <code>${escapeHtml(evidence.orphanReceipt.sha256 ?? "not present")}</code>. It proves exact ConfigHub inventory, no Argo-prunable resources, and no unclassified or UID-stale audited durable workloads; it is not a complete inventory of every Kubernetes resource type.</p>
 <div class="legend" aria-label="Proof status legend"><span class="key observed">✓ observed</span><span class="key watch">! watch</span><span class="key rendered-only">◐ rendered-only</span><span class="key centralized">↔ centralized</span><span class="key disabled">– disabled</span></div>
 <p class="boundary"><strong>Boundary:</strong> rendered-only is desired state, not live sync. Final cells consume the mini-IDP receipt only when its current Kubara version, source digests, and all 36 rows validate. Missing or partial observed fields stay Unknown with their reason. <a href="desired-matrix.json">desired-matrix.json</a> is the deterministic, non-live base.</p>
 <table><caption>Current components by cluster</caption><thead><tr><th scope="col">Component / selection</th>${clusters.map((cluster) => `<th scope="col">${escapeHtml(cluster.name)}<br>${escapeHtml(cluster.environment)} / ${escapeHtml(cluster.type)}</th>`).join("")}</tr></thead><tbody>${gridRows}</tbody></table>
@@ -1106,6 +1214,74 @@ function selfTestCurrent(document) {
   for (const row of rows.filter((item) => item.presence !== "disabled-by-config" && (isUnknown(item.observedVersion) || item.readiness?.result === "unknown"))) {
     check(typeof row.unknownReason === "string" && row.unknownReason.length > 0, `${row.cluster}/${row.component} lost its Unknown reason`);
   }
+}
+
+function verifyCurrentLivePublication(document) {
+  const reasons = currentLivePublicationReasons(document);
+  check(reasons.length === 0, `current matrix cannot publish passing live receipts as a desired-only or partial overlay:\n- ${reasons.join("\n- ")}`);
+}
+
+function currentLivePublicationReasons(document, options = {}) {
+  const miniIdpReceipt = options.miniIdpReceipt !== undefined
+    ? options.miniIdpReceipt
+    : existsSync(currentSources.miniIdpReceipt) ? readYaml(currentSources.miniIdpReceipt) : null;
+  const faithfulReceipt = options.faithfulReceipt !== undefined
+    ? options.faithfulReceipt
+    : existsSync(currentSources.faithfulReceipt) ? readYaml(currentSources.faithfulReceipt) : null;
+  if (miniIdpReceipt?.status?.result !== "pass" || faithfulReceipt?.status?.result !== "pass") return [];
+
+  const reasons = [];
+  const evidence = document.spec?.evidence ?? {};
+  if (evidence.faithfulReceiptStatus !== "pass") reasons.push(`faithful receipt status is ${evidence.faithfulReceiptStatus ?? "missing"}, expected pass`);
+  if (evidence.miniIdpReceipt?.status !== "accepted-current-live") reasons.push(`mini-IDP overlay status is ${evidence.miniIdpReceipt?.status ?? "missing"}, expected accepted-current-live`);
+  if (evidence.miniIdpReceipt?.acceptedAsLive !== true) reasons.push("mini-IDP overlay is not acceptedAsLive");
+  if (Number(evidence.miniIdpReceipt?.sourceDigestsVerified) !== Object.keys(MINI_IDP_SOURCE_PATHS).length) reasons.push(`verified source count is ${evidence.miniIdpReceipt?.sourceDigestsVerified ?? "missing"}, expected ${Object.keys(MINI_IDP_SOURCE_PATHS).length}`);
+  if (Number(evidence.miniIdpReceipt?.parsedCells) !== 36) reasons.push(`mini-IDP parsed cell count is ${evidence.miniIdpReceipt?.parsedCells ?? "missing"}, expected 36`);
+  if (Number(evidence.parsedObservationCells) !== 36) reasons.push(`matrix parsed observation count is ${evidence.parsedObservationCells ?? "missing"}, expected 36`);
+  if (evidence.orphanReceipt?.status !== "accepted-current-scoped-residue-clean") reasons.push(`orphan receipt status is ${evidence.orphanReceipt?.status ?? "missing"}, expected accepted-current-scoped-residue-clean`);
+  if (evidence.orphanReceipt?.acceptedAsScopedResidueClean !== true) reasons.push("orphan receipt is not acceptedAsScopedResidueClean");
+  if (document.spec?.scope?.faithfulKubaraGitDelivery !== "source-current-receipt-pass-with-recorded-scope") reasons.push("faithful Kubara Git delivery is not source-current");
+  return reasons;
+}
+
+function selfTestCurrentLivePublicationGate(document) {
+  const passingReceipts = {
+    miniIdpReceipt: { status: { result: "pass" } },
+    faithfulReceipt: { status: { result: "pass" } },
+  };
+  check(currentLivePublicationReasons(document, passingReceipts).length === 0, "current live matrix failed its publication gate");
+  check(currentLivePublicationReasons(document, { miniIdpReceipt: null, faithfulReceipt: null }).length === 0, "absent live receipts disabled deterministic desired-only publication");
+
+  const rejected = structuredClone(document);
+  rejected.spec.evidence.miniIdpReceipt.acceptedAsLive = false;
+  check(currentLivePublicationReasons(rejected, passingReceipts).some((reason) => reason.includes("acceptedAsLive")), "publication gate accepted a rejected mini-IDP overlay");
+
+  const partial = structuredClone(document);
+  partial.spec.evidence.miniIdpReceipt.parsedCells = 35;
+  partial.spec.evidence.parsedObservationCells = 35;
+  check(currentLivePublicationReasons(partial, passingReceipts).filter((reason) => reason.includes("cell") || reason.includes("observation")).length === 2, "publication gate accepted a partial live overlay");
+
+  const staleFaithful = structuredClone(document);
+  staleFaithful.spec.evidence.faithfulReceiptStatus = "stale-source";
+  check(currentLivePublicationReasons(staleFaithful, passingReceipts).some((reason) => reason.includes("faithful receipt status")), "publication gate accepted stale faithful evidence");
+
+  const staleOrphan = structuredClone(document);
+  staleOrphan.spec.evidence.orphanReceipt.acceptedAsScopedResidueClean = false;
+  check(currentLivePublicationReasons(staleOrphan, passingReceipts).some((reason) => reason.includes("acceptedAsScopedResidueClean")), "publication gate accepted stale orphan evidence");
+}
+
+function selfTestFaithfulHashDomains() {
+  const catalogParity = readYaml(currentSources.catalogParity);
+  const faithfulReceipt = readYaml(currentSources.faithfulReceipt);
+  const generated = currentGeneratedEvidence();
+  const parityDigest = catalogParity.spec?.comparison?.outputTreeSha256;
+  check(generated.sha256 !== parityDigest, "faithful and catalog-parity digest fixtures unexpectedly use the same hash domain");
+  check(evaluateFaithfulReceipt(faithfulReceipt, catalogParity).accepted, "source-current faithful receipt was rejected");
+
+  const wrongDomain = structuredClone(faithfulReceipt);
+  wrongDomain.spec.source.currentExample.generatedSha256 = parityDigest;
+  wrongDomain.spec.source.git.generatedSha256 = parityDigest;
+  check(!evaluateFaithfulReceipt(wrongDomain, catalogParity).accepted, "catalog-parity digest was accepted as a faithful-proof generated-tree digest");
 }
 
 function selfTestDesired(document) {

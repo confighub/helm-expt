@@ -145,7 +145,8 @@ complete GUI tour uses native pages and repeatable searches:
    curated wiring, while `URL-Wiring` opens the complete extracted graph.
 4. Filter Spaces by `Environment=Prod`, open `hx-web-prod-a` and
    `hx-web-prod-b`, then inspect their revisions and approvals to see promotion,
-   exact gated heads, numeric-revision approval, rollback, and retained history.
+   exact gated heads, server `HeadRevisionNum` approval bracketed by Unit ID,
+   observed numeric head, and `DataHash`, rollback, and retained history.
 5. Filter by `DeliveryMode=ConfigHubOCI`, open a source Space and its
    **Releases**, and inspect the exact published OCI manifest digest that its
    Argo Application reconciles.
@@ -350,20 +351,17 @@ The reusable request, path rules, and exact command sequence are in the
 
 The importer verifies the clean, immutable source revision, exact artifacts,
 effective renders, object counts, and wiring ledger before publishing the
-portable packages. The current command sequence also performs a read-only
-inspection of the explicitly selected destination before final compilation and
-publication. That inspection pins the context/server, organization entity,
-Space/Target/Unit IDs, Unit data hashes, argobot source, published workload
-heads, and separately observed delivery-runtime version and image without
-copying live Unit data or evidence contents into the portable package.
-
-`--compile` and `--verify` then cross-check the complete Git inventory, exact
-component artifacts, effective-render hashes and object counts, generation
-receipt, and wiring ledger. `--package` publishes one target-neutral immutable
-OCI layer per component definition, one per effective component/config set,
-and one platform index. Under the required exclusive single-writer gate for the
-selected OCI repository base, existing exact artifacts are reused and an
-observed conflicting layer or media contract is refused.
+portable packages. Start from `portable-request.example.yaml`; it names only
+the immutable Git source and layout, exact external scan attestation, and
+untagged OCI repository base. `--compile-portable` and `--verify-portable`
+cross-check the complete Git inventory, exact component artifacts,
+effective-render hashes and object counts, generation receipt, and wiring
+ledger without requiring a ConfigHub organization. `--package-portable` then
+publishes one target-neutral immutable OCI layer per component definition, one
+per effective component/config set, and one platform index. Under the required
+exclusive single-writer gate for that OCI repository base, existing exact
+artifacts are reused and an observed conflicting layer or media contract is
+refused.
 
 The portable `PlatformDigest` excludes all destination facts. A separate
 `BindingDigest` covers the organization, targets, runtime observations,
@@ -376,10 +374,18 @@ facts are explicitly excluded from OCI.
 
 The user first selects and bootstraps the destination organization, Targets,
 and ConfigHub-managed cluster-local Argo roots. The importer never guesses an
-ambient organization and never creates an organization or Target. An operator
-then completes the generated, secret-free target-fact attestation from external
-evidence. `--apply` pulls and verifies every exact OCI layer before mutation,
-then materializes definition/instance Spaces and Units, target
+ambient organization and never creates an organization or Target. A read-only
+`--inspect-destination` pins the context/server, organization entity,
+Space/Target/Unit IDs, Unit data hashes, argobot source, published workload
+heads, and separately observed delivery-runtime version and image. `--bind`
+then recompiles the Git source, requires byte equality with the portable set,
+and writes the destination plan, binding lock, and pending target-fact template
+into a separate directory. It copies or exactly reuses the local OCI tree and
+passing publication receipt and refuses conflicting bound output;
+destination-bound `--verify` must pass before any apply. An operator completes
+the generated, secret-free target-fact attestation
+from external evidence. `--apply` pulls and verifies every exact OCI layer
+before mutation, then materializes definition/instance Spaces and Units, target
 metadata, `UpgradeUnit` lineage, curated `NeedsProvides` Links, platform Argo
 Applications, apps-root releases, and source releases in deterministic order.
 Each run requires serialized control of that importer-managed topology and its
@@ -431,14 +437,23 @@ drop a workload pin, rebind a Target or upstream, or rewire a Link.
 
 Use the copyable, fully linear
 [request contract and walkthrough](../../../examples/kubara/git-import/README.md)
-and its schema-complete
+and its separate
+[`portable-request.example.yaml`](https://github.com/confighub/helm-expt/blob/main/examples/kubara/git-import/portable-request.example.yaml)
+and
 [`request.example.yaml`](https://github.com/confighub/helm-expt/blob/main/examples/kubara/git-import/request.example.yaml).
-The general importer modes are implemented: `--inspect-destination`, `--plan`,
-`--compile`, `--verify`, `--package`, and `--apply`. Its isolated acceptance
-suite covers two destination organizations, OCI publication and pulled-layer
-verification, exact bootstrap and workload pins, interruption/resume, additive
-next-revision transitions, adversarial refusals, and the required second
-zero-action run:
+The general importer modes are implemented: `--compile-portable`,
+`--verify-portable`, `--package-portable`, `--inspect-destination`, `--bind`,
+`--plan`, destination-bound `--verify`, and `--apply`. The companion
+selected-organization workflow compiler turns those commands, explicit
+bootstrap, two-run apply, application release, and final acceptance into a
+durable operation journal without executing them. Its journal verifier checks
+the immutable command contract and ordered prefix, then opens every completed
+step's regular evidence file and verifies its recorded SHA-256. Evidence-type
+specific verifiers still decide whether those bytes support the live claim.
+The isolated acceptance suite covers two destination organizations, OCI
+publication and pulled-layer verification, exact bootstrap and workload pins,
+interruption/resume, additive next-revision transitions, adversarial refusals,
+and the required second zero-action run:
 
 ```bash
 npm run kubara-git-import:self-test
@@ -447,6 +462,12 @@ npm run kubara-git-import:self-test
 This self-test does not contact a live ConfigHub organization, registry, or
 cluster. The canned four-cluster reconciler below remains the separate live
 proof and website source of truth.
+
+It is therefore not a live acceptance receipt for a fresh user-selected
+organization. A clean-checkout run that bootstraps or binds one newly selected
+organization, imports the portable packages, applies twice, passes its orphan
+audit, and reaches one healthy application remains the general-path graduation
+gate.
 
 ## Prepare the deterministic inputs
 
@@ -734,6 +755,13 @@ explains why Unit count is not request count, which N+1 reads were removed,
 what the receipt measures before first Argo convergence, and which safety
 checks remain deliberately serial.
 
+The current immediate no-op is functional idempotence evidence, not a speed
+claim: it made zero ConfigHub mutation attempts and zero Argo sync requests,
+recorded 32 ConfigHub CLI read commands and 208 total subprocess calls, and took
+about 102 seconds end to end. It meets the fixture regression target. A CLI
+command is not an authenticated HTTP round trip, and this is neither a
+raw-Kubara comparison nor a service-level promise.
+
 The adapted lane deliberately separates OCI discovery from deployment
 authority. Every managed Application keeps
 `spec.source.targetRevision: latest` only so Argo can discover the ConfigHub
@@ -781,12 +809,16 @@ exact desired key in one of those 35 Applications' current `status.resources`;
 one of the 11 exact cluster-bootstrap workloads (`kindnet`, `kube-proxy`,
 `coredns`, `local-path-provisioner`, or one of the seven reviewed Argo CD
 v3.4.6 runtime workloads); or a controller-generated object whose direct
-ownerReference is a current desired root. The last case covers, for example,
+ownerReference is a current desired root and whose recorded owner UID matches
+that live root's UID. The last case covers, for example,
 Prometheus/Alertmanager-generated StatefulSets and Jobs generated by a desired
-CronJob. A workload carrying `argocd.argoproj.io/tracking-id` whose exact key is
-absent from every expected Application status always fails, even if it names a
-valid owner. The receipt records every workload and requires both the
-unclassified and dangling-tracking counters to be zero.
+CronJob, while rejecting children left behind when a same-named controller is
+recreated. A workload carrying `argocd.argoproj.io/tracking-id` whose exact key
+is absent from every expected Application status is accepted only when the
+tracking identity names that one UID-verified controller owner and its expected
+Application; every other dangling tracking identity fails. The receipt records
+every workload and requires both the unclassified and dangling-tracking
+counters to be zero.
 
 The canned reconciler is scoped to the `Kubara` organization at
 `https://hub.confighub.com`, pins context/external organization ID
@@ -817,8 +849,12 @@ accepts only the durable ordered transition prefix and fails closed on any
 undeclared head, approval, release, provenance, or merge-base delta. The
 retained proof observes each production gated head twice without issuing an
 unsafe non-CAS negative publish, then binds approval to the exact Unit IDs,
-numeric revisions, and data hashes. ConfigHub's gate behavior is explained
-separately; this run does not claim a directly observed refusal. The proof also
+observed numeric revisions, and data hashes. The actual approval command uses
+the Unit slug and server `HeadRevisionNum`; authoritative before/after reads
+must preserve Unit ID, observed head, and `DataHash`. This is bracketed
+exact-head evidence, not a numeric approval-API compare-and-set claim.
+ConfigHub's gate behavior is explained separately; this run does not claim a
+directly observed refusal. The proof also
 binds the one-target rollback to the exact initial-rollout revision plus its
 source and result heads.
 Cluster creation is a separate prerequisite boundary: `cub cluster up` rolls back a
@@ -881,6 +917,19 @@ final receipt. This prevents a
 health-before-prune deadlock while leaving Kubara's ordinary prune behavior
 unchanged; the action and exact binding are retained in the reconciliation
 receipt.
+
+Sixteen additional one-time replacements handle immutable application
+selectors in the retained fleet: the hx-web Deployment on four targets and
+Cubbychat's backend Deployment, frontend Deployment, and PostgreSQL StatefulSet
+on every target. Each exact allowlist entry progresses durably through
+`prepared`, `delete-returned`, `old-uid-gone`, and `replacement-healthy`.
+Deletion requires the reviewed legacy selector, exact Argo tracking and
+ConfigHub origin, expected OCI revision, no active Argo operation, and old
+UID/resourceVersion; completion requires a new UID, reviewed selector and pod
+template, available replicas, and ready endpoints. The four PostgreSQL entries
+also bind the same `Bound` PVC UID and volume name before and after StatefulSet
+replacement. This is an exact migration policy, not general delete authority.
+
 On kind, Traefik uses the explicitly reviewed NodePorts already reserved by
 `cub cluster up`. Its configured `ingressEndpoint.hostname` populates Ingress
 status, so Traefik, hx-web, and cubbychat must all reach `Synced/Healthy`; a
@@ -906,7 +955,8 @@ The final state must show more than pods:
 2. Both apps use shared cert-manager and Traefik services on every target.
 3. A base change promotes through development and staging to production.
 4. Production Units expose the approval gate; the run observes stable exact
-   heads and approves them by Unit ID and numeric revision before publication.
+   heads, invokes approval at server `HeadRevisionNum`, and brackets it with
+   unchanged Unit ID, observed numeric head, and `DataHash` before publication.
 5. One production target can roll back without rolling back its peer.
 6. A staging-only departure survives a later base promotion.
 7. Catalog owner, component, exact version, deployable/configuration surface,
@@ -987,8 +1037,11 @@ catalog-release surfaces, and public site all verify.
   operational `NeedsProvides` Links, not every extracted graph edge.
 - The ConfigHub `platform-matrix` Unit is desired-only governed evidence. The
   public 36-cell matrix is regenerated from that state and the exact live
-  receipt; it leaves current live fields unknown unless the receipt supplies
-  them.
+  receipt. Each cell keeps desired placement, selected version, and departure
+  separate from the exact ConfigHub release digest, Argo observed revision,
+  sync/health, and Kubernetes desired/ready counts. It leaves current live
+  fields `Unknown` unless the receipt supplies them, while disabled selections
+  are explicitly `NotApplicable`.
 - The
   [faithful-lane summary](../../../data/kubara-faithful-hub-spoke/summary.md)
   is current proof only when its generated-file count and digest match the

@@ -43,9 +43,21 @@ import {
   toYaml,
 } from "./lib/proof-common.mjs";
 
-const MODES = new Set(["--plan", "--compile", "--verify", "--self-test", "--package", "--apply", "--inspect-destination"]);
+const MODES = new Set([
+  "--plan",
+  "--compile",
+  "--verify",
+  "--compile-portable",
+  "--verify-portable",
+  "--package-portable",
+  "--bind",
+  "--self-test",
+  "--package",
+  "--apply",
+  "--inspect-destination",
+]);
 const MIN_CUB_VERSION = "0.2.11";
-const IMPORTER_CONTRACT_VERSION = "v1.0.0";
+const IMPORTER_CONTRACT_VERSION = "v1.2.0";
 const OCI_ARTIFACT_TYPE = "application/vnd.confighub.kubara.package.v1+json";
 const OCI_LAYER_TYPE = "application/vnd.confighub.kubara.payload.v1+json";
 const OCI_INDEX_ARTIFACT_TYPE = "application/vnd.confighub.kubara.index.v1+json";
@@ -53,6 +65,7 @@ const OCI_INDEX_LAYER_TYPE = "application/vnd.confighub.kubara.index.payload.v1+
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
 const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/kubara.html";
 const PUBLIC_CATALOG_URL = "https://confighub.github.io/helm-expt/site/charts/";
+const FIXTURE_SPACE_RELEASE_OCI_BASE = "oci://oci.nonprod.example.invalid:5443/spaces";
 const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
   "URL-Guide": PUBLIC_GUIDE_URL,
   "URL-Catalog": PUBLIC_CATALOG_URL,
@@ -120,6 +133,26 @@ if (mode === "--inspect-destination") {
   process.exit(0);
 }
 
+if (["--compile-portable", "--verify-portable", "--package-portable"].includes(mode)) {
+  const requestPath = resolve(requiredOption("--request"));
+  const checkoutRoot = resolve(requiredOption("--checkout"));
+  const outputRoot = resolve(requiredOption("--output"));
+  assertOutputOutsideCheckout(outputRoot, checkoutRoot, "portable compilation");
+  const compiled = compilePortableRequest({ requestPath, checkoutRoot });
+  if (mode === "--compile-portable") {
+    writePortableOutputs(outputRoot, compiled);
+    console.log(`compiled portable Kubara package set ${compiled.lock.spec.platformDigest} -> ${outputRoot}`);
+  } else if (mode === "--verify-portable") {
+    verifyPortableOutputs(outputRoot, compiled);
+    console.log(`verified portable Kubara package set ${compiled.lock.spec.platformDigest} in ${outputRoot}`);
+  } else {
+    writePortableOutputs(outputRoot, compiled);
+    const receipt = packageImport({ compiled, outputRoot });
+    console.log(`published portable Kubara package set ${compiled.lock.spec.platformDigest}: ${receipt.spec.members.length} exact OCI member(s) plus one digest index`);
+  }
+  process.exit(0);
+}
+
 const requestPath = requiredOption("--request");
 const checkoutRoot = resolve(requiredOption("--checkout"));
 const outputRoot = mode === "--plan" ? "" : resolve(requiredOption("--output"));
@@ -140,13 +173,27 @@ if (mode === "--plan") {
   writeOutputs(outputRoot, compiled);
   const receipt = packageImport({ compiled, outputRoot });
   console.log(`packaged Kubara Git import ${compiled.lock.spec.platformDigest}: ${receipt.spec.members.length} exact OCI member(s) plus one digest index`);
+} else if (mode === "--bind") {
+  assertOutputOutsideCheckout(outputRoot, checkoutRoot, "binding");
+  const portableRoot = resolve(requiredOption("--portable"));
+  check(portableRoot !== outputRoot, "--portable and --output must be separate directories");
+  verifyPortableOutputs(portableRoot, compiled);
+  assertBindOutputReplaySafe(outputRoot, compiled);
+  writeOutputs(outputRoot, compiled);
+  copyPortablePublication({ portableRoot, outputRoot, compiled });
+  console.log(`bound portable Kubara package set ${compiled.lock.spec.platformDigest} to ${compiled.plan.spec.bindingDigest} -> ${outputRoot}`);
 } else {
   assertOutputOutsideCheckout(outputRoot, checkoutRoot, "apply");
   verifyOutputs(outputRoot, compiled);
   const context = requiredOption("--context");
   const targetFactsPath = resolve(requiredOption("--target-facts"));
+  const receiptOutputOption = optionValue("--receipt-output");
+  const receiptOutputPath = receiptOutputOption
+    ? prepareImmutableApplyReceiptEvidencePath({ outputRoot, path: resolve(receiptOutputOption) })
+    : null;
   const previousApplyReceiptPath = optionValue("--previous-apply-receipt");
   const receipt = applyImport({ compiled, outputRoot, context, targetFactsPath, previousApplyReceiptPath: previousApplyReceiptPath ? resolve(previousApplyReceiptPath) : null });
+  if (receiptOutputPath) writeImmutableApplyReceiptEvidence(receiptOutputPath, receipt);
   console.log(`applied Kubara Git import ${compiled.lock.spec.platformDigest}: ${receipt.status.lastActionCount} action(s); ${receipt.status.result}`);
 }
 
@@ -314,6 +361,136 @@ function createCubInspectionClient(context) {
       return latestReleaseRow(rows);
     },
   };
+}
+
+function compilePortableRequest({ requestPath, checkoutRoot }) {
+  check(existsSync(requestPath), `portable request does not exist: ${requestPath}`);
+  const portable = readYaml(requestPath);
+  validatePortableRequest(portable);
+  const sourceRoot = safeJoin(checkoutRoot, portable.spec.source.path);
+  const configPath = safeJoin(sourceRoot, portable.spec.layout.config);
+  check(existsSync(configPath), `portable request Kubara config does not exist: ${configPath}`);
+  assertNoSymlinkPath(checkoutRoot, configPath);
+  const config = readYaml(configPath);
+  check(Array.isArray(config?.clusters) && config.clusters.length > 0, "portable request Kubara config has no clusters");
+  assertUniqueSemanticKeys(config.clusters, (row) => String(row?.name ?? ""), "portable Kubara config cluster name");
+  const synthetic = portableCompileBinding(portable, config.clusters);
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-kubara-portable-request-"));
+  try {
+    const syntheticPath = join(tempRoot, "synthetic-destination-request.yaml");
+    writeFileSync(syntheticPath, `${toYaml(synthetic)}\n`);
+    const compiled = compileImport({ requestPath: syntheticPath, checkoutRoot });
+    compiled.execution.portableRequest = portable;
+    return compiled;
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+}
+
+function validatePortableRequest(request) {
+  check(request?.apiVersion === "import.confighub.com/v1alpha1", "portable request apiVersion must be import.confighub.com/v1alpha1");
+  check(request?.kind === "KubaraPortableGitRevision", "portable request kind must be KubaraPortableGitRevision");
+  checkExactKeys(request, ["apiVersion", "kind", "metadata", "spec"], "portable request");
+  checkExactKeys(request.metadata, ["name"], "portable request metadata");
+  checkSlug(request.metadata?.name, "portable request metadata.name");
+  checkExactKeys(request.spec, ["source", "layout", "security", "publication"], "portable request spec");
+  checkExactKeys(request.spec.publication, ["catalogOCIBase"], "portable request spec.publication");
+  validateOCIRepositoryBase(request.spec.publication.catalogOCIBase, "portable request catalogOCIBase");
+  const sentinel = portableCompileBinding(request, [{ name: "portable-validation", stage: "Portable", type: "hub" }]);
+  validateRequest(sentinel);
+}
+
+function portableCompileBinding(portable, clusters) {
+  const digest = (label) => sha256(`portable-compilation-sentinel\0${portable.metadata.name}\0${label}`);
+  const uuid = (label) => deterministicUUID(`portable-compilation-sentinel\0${portable.metadata.name}\0${label}`);
+  const targets = {};
+  for (const cluster of clusters) {
+    checkSlug(cluster?.name, "portable Kubara cluster name");
+    const name = cluster.name;
+    const appsSpace = portableSentinelSlug("apps", name);
+    const argobotSpace = portableSentinelSlug("argobot", name);
+    const argobotApplication = portableSentinelSlug("argobot-app", name);
+    const environment = String(cluster.stage || cluster.type || "Imported").replace(/[^A-Za-z0-9._-]+/g, "-").slice(0, 63) || "Imported";
+    targets[name] = {
+      space: portableSentinelSlug("target", name),
+      spaceID: uuid(`${name}:target-space`),
+      target: "target",
+      targetID: uuid(`${name}:target`),
+      environment,
+      region: "portable",
+      delivery: {
+        appsSpace,
+        appsSpaceID: uuid(`${name}:apps-space`),
+        root: {
+          unit: "root",
+          unitID: uuid(`${name}:root-unit`),
+          dataHash: digest(`${name}:root-data`),
+          dataSHA256: digest(`${name}:root-data`),
+        },
+        argobotApplication: {
+          unit: argobotApplication,
+          unitID: uuid(`${name}:argobot-application-unit`),
+          dataHash: digest(`${name}:argobot-application-data`),
+          dataSHA256: digest(`${name}:argobot-application-data`),
+        },
+        argobot: {
+          space: argobotSpace,
+          spaceID: uuid(`${name}:argobot-space`),
+          unit: "argobot",
+          unitID: uuid(`${name}:argobot-unit`),
+          dataHash: digest(`${name}:argobot-data`),
+          dataSHA256: digest(`${name}:argobot-data`),
+        },
+        reconciler: {
+          componentVersion: "v0.0.1",
+          image: "example.invalid/confighub/portable-argocd:v0.0.1",
+          evidenceRef: `evidence://portable-compilation/${name}/argocd-runtime`,
+          evidenceSHA256: `sha256:${digest(`${name}:argocd-runtime`)}`,
+        },
+        workloadApplications: [],
+      },
+    };
+  }
+  return {
+    apiVersion: "import.confighub.com/v1alpha1",
+    kind: "KubaraGitRevisionImport",
+    metadata: { name: portable.metadata.name },
+    spec: {
+      source: structuredClone(portable.spec.source),
+      layout: structuredClone(portable.spec.layout),
+      security: structuredClone(portable.spec.security),
+      destination: {
+        organization: "Portable compilation sentinel",
+        context: "portable-compilation",
+        organizationExternalID: uuid("organization-external"),
+        organizationID: uuid("organization-entity"),
+        serverURL: "https://portable-compilation.invalid",
+        spaceReleaseOCIBase: "oci://portable-compilation.invalid/space",
+        organizationPolicy: "require-bootstrap-only-or-importer-owned-identical",
+        spacePrefix: "portable",
+        deliveryMode: "confighub-managed-argo",
+        catalogOCIBase: portable.spec.publication.catalogOCIBase,
+        argobotBase: {
+          space: "portable-argobot-base",
+          spaceID: uuid("argobot-base-space"),
+          unit: "argobot",
+          unitID: uuid("argobot-base-unit"),
+          componentVersion: "v0.1.6",
+          sourceRef: "oci://portable-compilation.invalid/confighub/argobot",
+          sourceDigest: `sha256:${digest("argobot-source")}`,
+          dataHash: digest("argobot-data"),
+          dataSHA256: digest("argobot-data"),
+        },
+      },
+      targets,
+    },
+  };
+}
+
+function portableSentinelSlug(role, cluster) {
+  const value = `portable-${role}-${cluster}`;
+  if (value.length <= 63) return value;
+  return `${value.slice(0, 50).replace(/[.-]+$/, "")}-${sha256(value).slice(0, 12)}`;
 }
 
 function compileImport({ requestPath, checkoutRoot }) {
@@ -516,6 +693,8 @@ function compileImport({ requestPath, checkoutRoot }) {
         state: "platform-delivery-materialized-after-root-and-source-releases-publish; cluster-convergence-verification-required-before-workload-apps",
         clusterConvergenceClaim: false,
         platformDeliveryApplicationsMaterialized: true,
+        platformDeliveryAuthority: "exact-source-release-manifest-digest-without-automated-sync",
+        mutableLatestAcceptedAsAuthority: false,
         applicationsRemainSeparate: true,
         appUnitsMayUsePlatformNeedsProvidesLinks: true,
         nextStep: "verify each exact source release manifest digest converged through the request-pinned cluster-local Argo root, then create application definitions/variants and publish reviewed workload app releases",
@@ -527,10 +706,11 @@ function compileImport({ requestPath, checkoutRoot }) {
         "publish component-first catalog packages without overwriting an existing different digest",
         "create the exact allowlisted Spaces and definition Units",
         "create per-cluster instance Units and UpgradeUnit lineage",
-        "bind target facts outside Git and OCI, then target component instances and verify their auto-created platform delivery Applications",
-        "publish each request-pinned cluster-local Argo apps root before any source Space release",
-        "publish one immutable ConfigHub source Space release OCI per component instance",
+        "bind target facts outside Git and OCI, then target component instances",
         "create visible NeedsProvides links with auto-update disabled",
+        "publish one immutable ConfigHub source Space release OCI per component instance",
+        "replace each auto-created platform delivery Application with exact ManifestDigest authority and no automated sync",
+        "publish each request-pinned cluster-local Argo apps root after exact-digest delivery Applications are materialized",
         "verify the platform digest and hand off exact delivery-root/source OCI manifest digests for separate cluster convergence verification",
       ],
       capabilities: {
@@ -541,6 +721,7 @@ function compileImport({ requestPath, checkoutRoot }) {
         createOrganization: "not-supported-use-an-explicit-pre-existing-context",
         createTarget: "not-supported-bind-explicit-pre-existing-space-and-target-ids",
         materializePlatformDeliveryApplications: "implemented-against-request-pinned-pre-existing-cluster-local-argo-root-and-argobot-contract",
+        platformDeliveryAuthority: "exact-manifest-digest-no-automated-sync",
         deployApplications: "not-included-separate-app-ready-handoff",
       },
     },
@@ -659,13 +840,14 @@ function validateRequest(request) {
   check(credentialScan.sourceCommit === source.commit && credentialScan.scopePath === source.path, "spec.security.credentialScan must attest the exact source commit and scope path");
   check(credentialScan.opaqueFilesReviewed === true, "spec.security.credentialScan.opaqueFilesReviewed must be true");
   const destination = spec.destination ?? {};
-  checkObjectKeys(destination, ["organization", "context", "organizationExternalID", "organizationID", "serverURL", "organizationPolicy", "spacePrefix", "deliveryMode", "catalogOCIBase", "argobotBase"], ["organization", "context", "organizationExternalID", "organizationID", "serverURL", "organizationPolicy", "spacePrefix", "deliveryMode", "catalogOCIBase", "argobotBase"], "spec.destination");
+  checkObjectKeys(destination, ["organization", "context", "organizationExternalID", "organizationID", "serverURL", "spaceReleaseOCIBase", "organizationPolicy", "spacePrefix", "deliveryMode", "catalogOCIBase", "argobotBase"], ["organization", "context", "organizationExternalID", "organizationID", "serverURL", "spaceReleaseOCIBase", "organizationPolicy", "spacePrefix", "deliveryMode", "catalogOCIBase", "argobotBase"], "spec.destination");
   checkObjectKeys(destination.argobotBase, ["space", "spaceID", "unit", "unitID", "componentVersion", "sourceRef", "sourceDigest", "dataHash", "dataSHA256"], ["space", "spaceID", "unit", "unitID", "componentVersion", "sourceRef", "sourceDigest", "dataHash", "dataSHA256"], "spec.destination.argobotBase");
   check(/^[A-Za-z0-9][A-Za-z0-9._ -]{0,79}$/.test(destination.organization ?? ""), "spec.destination.organization is invalid");
   checkSlug(destination.context, "spec.destination.context");
   check(UUID_PATTERN.test(destination.organizationExternalID ?? ""), "spec.destination.organizationExternalID must be the exact ConfigHub external organization UUID");
   check(UUID_PATTERN.test(destination.organizationID ?? ""), "spec.destination.organizationID must be the exact ConfigHub Organization entity UUID");
   validateServerURL(destination.serverURL);
+  validateOCIRepositoryBase(destination.spaceReleaseOCIBase, "spec.destination.spaceReleaseOCIBase");
   validateDeliveryEntity(destination.argobotBase, "spec.destination.argobotBase", { requireSpace: true });
   checkExactVersion(String(destination.argobotBase.componentVersion ?? ""), "spec.destination.argobotBase.componentVersion");
   validateOCIRepositoryRef(destination.argobotBase.sourceRef, "spec.destination.argobotBase.sourceRef");
@@ -673,8 +855,7 @@ function validateRequest(request) {
   checkSlug(destination.spacePrefix, "spec.destination.spacePrefix");
   check(destination.organizationPolicy === "require-bootstrap-only-or-importer-owned-identical", "spec.destination.organizationPolicy must be require-bootstrap-only-or-importer-owned-identical");
   check(destination.deliveryMode === "confighub-managed-argo", "spec.destination.deliveryMode must be confighub-managed-argo; the faithful Kubara hub executor is a separate proof lane, not a generic import claim");
-  check(/^oci:\/\/[^\s:@]+(?::\d+)?(?:\/[^\s:@]+)+$/.test(destination.catalogOCIBase ?? ""), "spec.destination.catalogOCIBase must be an untagged OCI repository base");
-  check(!/[{@}]/.test(destination.catalogOCIBase), "spec.destination.catalogOCIBase cannot contain placeholders");
+  validateOCIRepositoryBase(destination.catalogOCIBase, "spec.destination.catalogOCIBase");
   const navigation = spec.navigation ?? {};
   check(navigation && typeof navigation === "object" && !Array.isArray(navigation), "spec.navigation must be an object when present");
   const navigationKeys = new Set(["guideURL", "catalogURL", "matrixURL", "wiringURL"]);
@@ -1174,6 +1355,7 @@ function buildComponentPackagePlan(request, checkoutRoot, components) {
 
 function buildConfigPackagePlan(request, checkoutRoot, instances) {
   const base = request.spec.destination.catalogOCIBase.replace(/\/+$/, "");
+  const spaceReleaseBase = request.spec.destination.spaceReleaseOCIBase;
   const payloads = new Map();
   const rows = instances.map((instance) => {
     const space = instanceSpace(request.spec.destination.spacePrefix, instance.cluster, instance.service);
@@ -1212,7 +1394,7 @@ function buildConfigPackagePlan(request, checkoutRoot, instances) {
       releaseSpace: space,
       releaseUnit: instance.service,
       plannedOCIRef: `${base}/configs/${instance.service}:payload-${payloadSha256}`,
-      plannedConfigHubReleaseRefTemplate: `oci://oci.hub.confighub.com:443/space/{${space}.SpaceID}/${instance.service}:latest`,
+      plannedConfigHubReleaseRefTemplate: `${spaceReleaseBase}/{${space}.SpaceID}/${instance.service}:latest`,
       publicationPolicy: "exclusive-single-writer-required; publish generic immutable config payload by exact layer; ConfigHub publishes the governed Space release separately",
       lifecycleBoundary: "preserve full effective render; executor must prove CRD/lifecycle ordering before apply",
     };
@@ -1445,6 +1627,7 @@ function buildConfigHubPlan(request, components, instances, wiringPlan) {
       slug: sourceSpace,
       cluster: instance.cluster,
       sourceSpace,
+      sourceRepoURL: spaceReleaseOCIRef(request.spec.destination.spaceReleaseOCIBase, sourceSpace),
       sourceUnit: instance.service,
       destinationNamespace: instance.destinationNamespace,
       target: instance.target,
@@ -1789,6 +1972,18 @@ function verifyOutputs(outputRoot, compiled) {
   }
 }
 
+function assertBindOutputReplaySafe(outputRoot, compiled) {
+  if (!existsSync(outputRoot)) return;
+  ensureSafeOutputTree(outputRoot);
+  const applyReceiptPath = join(outputRoot, "apply-receipt.json");
+  if (!existsSync(applyReceiptPath)) return;
+  check(!lstatSync(applyReceiptPath).isSymbolicLink(), "existing apply receipt must not be a symbolic link");
+  // Once a destination-bound output has advanced into apply, --bind may only
+  // replay the byte-identical binding. Refuse before rewriting any control
+  // artifact if the caller points the advanced directory at another binding.
+  verifyOutputs(outputRoot, compiled);
+}
+
 function outputChecksums({ planText, lockText, bindingLockText, acceptanceText, targetFactsRequiredText }) {
   return [
     `${sha256(acceptanceText)}  acceptance.json`,
@@ -1797,6 +1992,187 @@ function outputChecksums({ planText, lockText, bindingLockText, acceptanceText, 
     `${sha256(bindingLockText)}  destination-binding-lock.yaml`,
     `${sha256(targetFactsRequiredText)}  target-facts-required.yaml`,
   ].sort().join("\n") + "\n";
+}
+
+function buildPortablePackageSet(compiled) {
+  const members = [
+    ...compiled.plan.spec.oci.catalogPackages.map((row) => ({ ...row, role: "component-definition" })),
+    ...compiled.plan.spec.oci.configReleases.map((row) => ({ ...row, role: "effective-config-set" })),
+  ].sort((left, right) => left.id.localeCompare(right.id)).map((row) => ({
+    id: row.id,
+    role: row.role,
+    payloadSha256: row.payloadSha256,
+    plannedOCIRef: row.plannedOCIRef,
+    payloadPath: `payloads/${safeArtifactFilename(row.id)}-${row.payloadSha256}.json`,
+  }));
+  return {
+    apiVersion: "import.confighub.com/v1alpha1",
+    kind: "KubaraPortablePackageSet",
+    metadata: { name: compiled.plan.metadata.name },
+    spec: {
+      platformDigest: compiled.lock.spec.platformDigest,
+      source: compiled.lock.spec.source,
+      importerContractVersion: compiled.lock.spec.importerContractVersion,
+      importerMaterializationContractSHA256: compiled.lock.spec.importerMaterializationContractSHA256,
+      members,
+      aggregate: {
+        plannedOCIRef: compiled.plan.spec.oci.aggregate.plannedOCIRef,
+        type: "target-neutral-index-published-after-member-manifest-digests-are-observed",
+      },
+      controlPayloads: [
+        { id: "platform-lock", sha256: sha256(compiled.lockText) },
+        { id: "kubara-config", sha256: sha256(compiled.execution.kubaraConfigText) },
+        { id: "wiring-ledger", sha256: sha256(compiled.execution.wiringGraphText) },
+        { id: "argo-cd-runtime", sha256: sha256(deliveryRuntimeDefinitionText()) },
+      ],
+      boundary: {
+        destinationBindingsIncluded: false,
+        targetFactsIncluded: false,
+        secretValuesIncluded: false,
+        mutableReferencesAccepted: false,
+        organizationMayBeSelectedAfterCompilation: true,
+      },
+    },
+    status: { result: "compiled-offline", liveRegistryPublicationClaimed: false, liveOrganizationBindingClaimed: false },
+  };
+}
+
+function portableOutputRows(compiled) {
+  const packageSet = buildPortablePackageSet(compiled);
+  const packageSetText = `${JSON.stringify(packageSet, null, 2)}\n`;
+  const rows = new Map([
+    ["platform-lock.yaml", compiled.lockText],
+    ["portable-package-set.json", packageSetText],
+  ]);
+  for (const member of packageSet.spec.members) {
+    const payload = compiled.execution.componentPayloads.get(member.id) ?? compiled.execution.configPayloads.get(member.id);
+    check(payload && payload.sha256 === member.payloadSha256 && sha256(payload.text) === member.payloadSha256, `${member.id}: portable payload differs from the target-neutral compile`);
+    rows.set(member.payloadPath, payload.text);
+  }
+  const checksums = [...rows.entries()].map(([path, text]) => `${sha256(text)}  ${path}`).sort().join("\n") + "\n";
+  rows.set("portable-checksums.txt", checksums);
+  return rows;
+}
+
+function writePortableOutputs(outputRoot, compiled) {
+  ensureSafeOutputTree(outputRoot, { create: true });
+  const rows = portableOutputRows(compiled);
+  for (const [path, text] of rows) {
+    const destination = safeJoin(outputRoot, path);
+    mkdirSync(dirname(destination), { recursive: true });
+    check(!existsSync(destination) || !lstatSync(destination).isSymbolicLink(), `${destination}: refusing to replace a symbolic link`);
+    writeFileSync(destination, text);
+  }
+  check(!existsSync(join(outputRoot, "destination-binding-lock.yaml")), "portable output must not contain a destination binding lock");
+  check(!existsSync(join(outputRoot, "target-facts-required.yaml")), "portable output must not contain target-fact bindings");
+}
+
+function verifyPortableOutputs(outputRoot, compiled) {
+  ensureSafeOutputTree(outputRoot);
+  rejectSymlinks(outputRoot);
+  const rows = portableOutputRows(compiled);
+  for (const [path, text] of rows) {
+    const actual = safeJoin(outputRoot, path);
+    check(existsSync(actual), `${actual} is missing; compile the portable package set first`);
+    check(readFileSync(actual, "utf8") === text, `${actual} is stale or differs from the exact target-neutral compile`);
+  }
+  check(!existsSync(join(outputRoot, "destination-binding-lock.yaml")), "portable output contains a destination binding lock");
+  check(!existsSync(join(outputRoot, "target-facts-required.yaml")), "portable output contains target-fact bindings");
+}
+
+function copyPortablePublication({ portableRoot, outputRoot, compiled }) {
+  const receiptPath = join(portableRoot, "oci-publication-receipt.json");
+  const binding = {
+    apiVersion: "import.confighub.com/v1alpha1",
+    kind: "KubaraPortableDestinationBindingReceipt",
+    metadata: { name: compiled.plan.metadata.name },
+    spec: {
+      platformDigest: compiled.lock.spec.platformDigest,
+      bindingDigest: compiled.plan.spec.bindingDigest,
+      portablePackageSetSHA256: `sha256:${sha256(readFileSync(join(portableRoot, "portable-package-set.json")))}`,
+      publicationReceiptSHA256: null,
+      destinationBindingIncludedInPortableOCI: false,
+    },
+    status: { result: "bound-offline", portablePublicationCopied: false, liveApplyClaimed: false },
+  };
+  if (existsSync(receiptPath)) {
+    check(!lstatSync(receiptPath).isSymbolicLink(), "portable OCI publication receipt must not be a symbolic link");
+    const receipt = readJson(receiptPath);
+    validatePortablePublicationLocal({ compiled, portableRoot, receipt });
+    const sourceOci = join(portableRoot, "oci");
+    check(existsSync(sourceOci), "portable OCI publication receipt exists without its local OCI payload directory");
+    rejectSymlinks(sourceOci);
+    const destinationOci = join(outputRoot, "oci");
+    copyDirectoryReuseExact(sourceOci, destinationOci);
+    const destinationReceipt = join(outputRoot, "oci-publication-receipt.json");
+    const receiptBytes = readFileSync(receiptPath);
+    if (existsSync(destinationReceipt)) {
+      check(!lstatSync(destinationReceipt).isSymbolicLink(), "bound OCI publication receipt must not be a symbolic link");
+      check(readFileSync(destinationReceipt).equals(receiptBytes), "bound OCI publication receipt differs from the exact portable receipt");
+    } else writeFileSync(destinationReceipt, receiptBytes);
+    binding.spec.publicationReceiptSHA256 = `sha256:${sha256(readFileSync(receiptPath))}`;
+    binding.status.portablePublicationCopied = true;
+  }
+  writeJsonExact(join(outputRoot, "portable-binding-receipt.json"), binding);
+}
+
+function copyDirectoryReuseExact(source, destination) {
+  if (existsSync(destination)) {
+    check(lstatSync(destination).isDirectory() && !lstatSync(destination).isSymbolicLink(), `${destination}: bound OCI payload must be a real directory`);
+    rejectSymlinks(destination);
+    check(stableJson(directoryDigestRows(destination)) === stableJson(directoryDigestRows(source)), `${destination}: existing bound OCI payload directory differs from the portable publication`);
+    return;
+  }
+  const temporary = `${destination}.${process.pid}.${Date.now()}.tmp`;
+  check(!existsSync(temporary), `${temporary}: temporary OCI binding path already exists`);
+  try {
+    cpSync(source, temporary, { recursive: true, errorOnExist: true, force: false });
+    rejectSymlinks(temporary);
+    check(stableJson(directoryDigestRows(temporary)) === stableJson(directoryDigestRows(source)), `${temporary}: copied OCI payload differs from the portable publication`);
+    renameSync(temporary, destination);
+  } finally {
+    if (existsSync(temporary)) rmSync(temporary, { recursive: true, force: true });
+  }
+}
+
+function directoryDigestRows(root) {
+  const rows = [];
+  const visit = (path) => {
+    const stat = lstatSync(path);
+    check(!stat.isSymbolicLink(), `${path}: symbolic links are refused in an exact OCI payload tree`);
+    if (stat.isDirectory()) {
+      for (const entry of readdirSync(path).sort()) visit(join(path, entry));
+      return;
+    }
+    check(stat.isFile(), `${path}: only regular files and directories are accepted in an exact OCI payload tree`);
+    const bytes = readFileSync(path);
+    rows.push({ path: relative(root, path).replaceAll("\\", "/"), sha256: sha256(bytes), size: bytes.length });
+  };
+  visit(root);
+  return rows;
+}
+
+function validatePortablePublicationLocal({ compiled, portableRoot, receipt }) {
+  check(receipt?.apiVersion === "import.confighub.com/v1alpha1" && receipt?.kind === "KubaraOCIPublicationReceipt", "portable OCI publication receipt apiVersion/kind is invalid");
+  check(receipt.spec?.platformDigest === compiled.lock.spec.platformDigest && receipt.status?.result === "pass", "portable OCI publication receipt does not pass for this platform digest");
+  const planned = [
+    ...compiled.plan.spec.oci.catalogPackages.map((row) => ({ ...row, role: "component-definition" })),
+    ...compiled.plan.spec.oci.configReleases.map((row) => ({ ...row, role: "effective-config-set" })),
+  ].sort((left, right) => left.id.localeCompare(right.id));
+  const received = [...(receipt.spec?.members ?? [])].sort((left, right) => left.id.localeCompare(right.id));
+  check(received.length === planned.length, "portable OCI publication receipt member inventory differs from the bound compile");
+  for (let index = 0; index < planned.length; index += 1) {
+    const plan = planned[index];
+    const row = received[index];
+    check(row.id === plan.id && row.role === plan.role && row.ref === plan.plannedOCIRef, `${plan.id}: portable publication identity/ref differs from the bound compile`);
+    check(row.payloadSha256 === plan.payloadSha256 && row.layerDigest === `sha256:${plan.payloadSha256}` && /^sha256:[0-9a-f]{64}$/.test(row.manifestDigest ?? ""), `${plan.id}: portable publication digest contract is invalid`);
+    const payloadPath = safeJoin(portableRoot, row.payloadPath);
+    check(existsSync(payloadPath) && sha256(readFileSync(payloadPath)) === plan.payloadSha256, `${plan.id}: portable publication payload is missing or changed`);
+  }
+  const aggregate = receipt.spec?.aggregate;
+  check(aggregate?.ref === compiled.plan.spec.oci.aggregate.plannedOCIRef && /^[0-9a-f]{64}$/.test(aggregate?.payloadSha256 ?? "") && aggregate.layerDigest === `sha256:${aggregate.payloadSha256}` && /^sha256:[0-9a-f]{64}$/.test(aggregate.manifestDigest ?? ""), "portable aggregate OCI publication contract is invalid");
+  const aggregatePath = safeJoin(portableRoot, aggregate.payloadPath);
+  check(existsSync(aggregatePath) && sha256(readFileSync(aggregatePath)) === aggregate.payloadSha256, "portable aggregate OCI payload is missing or changed");
 }
 
 function packageImport({ compiled, outputRoot, oci = createOrasClient() }) {
@@ -2011,6 +2387,26 @@ function writeJsonExact(path, value) {
   }
 }
 
+function prepareImmutableApplyReceiptEvidencePath({ outputRoot, path }) {
+  const canonical = join(outputRoot, "apply-receipt.json");
+  check(isWithin(path, outputRoot), "--receipt-output must resolve inside the destination-bound --output directory");
+  check(path !== canonical, "--receipt-output must be an immutable snapshot path, not the mutable canonical apply-receipt.json");
+  mkdirSync(dirname(path), { recursive: true });
+  ensureSafeOutputTree(outputRoot);
+  if (existsSync(path)) check(lstatSync(path).isFile() && !lstatSync(path).isSymbolicLink(), "--receipt-output must be a real file, not a symbolic link");
+  return path;
+}
+
+function writeImmutableApplyReceiptEvidence(path, receipt) {
+  const text = `${JSON.stringify(receipt, null, 2)}\n`;
+  if (existsSync(path)) {
+    check(lstatSync(path).isFile() && !lstatSync(path).isSymbolicLink(), `${path}: immutable apply receipt evidence must be a real file`);
+    check(readFileSync(path, "utf8") === text, `${path}: refusing to overwrite different immutable apply receipt evidence`);
+    return;
+  }
+  writeJsonExact(path, receipt);
+}
+
 function controlPayloadRow(id, toolchain, text) {
   return {
     id,
@@ -2029,8 +2425,8 @@ function platformDeliveryApplicationTemplate() {
     spec: {
       project: "default",
       source: {
-        repoURL: "oci://oci.hub.confighub.com:443/space/${SOURCE_SPACE}",
-        targetRevision: "latest",
+        repoURL: "${SPACE_RELEASE_OCI_BASE}/${SOURCE_SPACE}",
+        targetRevision: "${SOURCE_MANIFEST_DIGEST}",
         path: ".",
       },
       destination: {
@@ -2038,7 +2434,6 @@ function platformDeliveryApplicationTemplate() {
         namespace: "${DESTINATION_NAMESPACE}",
       },
       syncPolicy: {
-        automated: { prune: true, selfHeal: true, allowEmpty: true },
         syncOptions: [
           "CreateNamespace=false",
           "PruneLast=true",
@@ -2052,14 +2447,40 @@ function platformDeliveryApplicationTemplate() {
   };
 }
 
-function platformDeliveryApplication(sourceSpace, destinationNamespace) {
+function spaceReleaseOCIRef(base, sourceSpace) {
+  validateOCIRepositoryBase(base, "Space-release OCI base");
+  checkSlug(sourceSpace, "Space-release source Space");
+  return `${base}/${sourceSpace}`;
+}
+
+function platformDeliveryApplication(spaceReleaseOCIBase, sourceSpace, destinationNamespace, manifestDigest) {
+  validateOCIRepositoryBase(spaceReleaseOCIBase, "platform delivery Space-release OCI base");
   checkSlug(sourceSpace, "platform delivery source Space");
   checkSlug(destinationNamespace, `${sourceSpace} delivery destination namespace`);
+  check(/^sha256:[0-9a-f]{64}$/.test(manifestDigest ?? ""), `${sourceSpace} delivery requires an exact source release manifest digest`);
   const application = platformDeliveryApplicationTemplate();
   application.metadata.name = sourceSpace;
-  application.spec.source.repoURL = `oci://oci.hub.confighub.com:443/space/${sourceSpace}`;
+  application.spec.source.repoURL = spaceReleaseOCIRef(spaceReleaseOCIBase, sourceSpace);
+  application.spec.source.targetRevision = manifestDigest;
   application.spec.destination.namespace = destinationNamespace;
   return application;
+}
+
+function autoGeneratedPlatformDeliveryApplication(spaceReleaseOCIBase, sourceSpace, destinationNamespace) {
+  validateOCIRepositoryBase(spaceReleaseOCIBase, "auto-generated platform delivery Space-release OCI base");
+  checkSlug(sourceSpace, "auto-generated platform delivery source Space");
+  checkSlug(destinationNamespace, `${sourceSpace} auto-generated delivery destination namespace`);
+  return {
+    apiVersion: "argoproj.io/v1alpha1",
+    kind: "Application",
+    metadata: { name: sourceSpace, namespace: "argocd" },
+    spec: {
+      project: "default",
+      source: { repoURL: spaceReleaseOCIRef(spaceReleaseOCIBase, sourceSpace), targetRevision: "latest", path: "." },
+      destination: { server: "https://kubernetes.default.svc", namespace: destinationNamespace },
+      syncPolicy: { automated: { prune: true, selfHeal: true, allowEmpty: true } },
+    },
+  };
 }
 
 function importerMaterializationContract() {
@@ -2082,7 +2503,10 @@ function importerMaterializationContract() {
     },
     delivery: {
       applicationTemplate: platformDeliveryApplicationTemplate(),
-      releaseOrder: ["delivery-root", "component-source-spaces"],
+      releaseOrder: ["component-source-spaces", "exact-digest-delivery-applications", "delivery-root"],
+      releaseAuthority: "exact-source-release-manifest-digest",
+      mutableLatestAcceptedAsAuthority: false,
+      automatedSyncAccepted: false,
       clusterConvergenceClaimedByImporter: false,
       clusterReconcilerPrune: true,
       importerDeleteOperations: [],
@@ -2107,6 +2531,7 @@ function applyImport({ compiled, outputRoot, context, targetFactsPath, previousA
   client.assertExactCoordinate();
   client.assertVersion();
   const expected = buildApplyPayloads(compiled, consumed);
+  addObservedDeliveryApplicationPayloads({ compiled, client, expected });
   const transition = prepareContentTransition({ compiled, client, expected, previousApplyReceiptPath });
   assertApplyReceiptOutputReady({
     outputRoot,
@@ -2145,19 +2570,27 @@ function applyImport({ compiled, outputRoot, context, targetFactsPath, previousA
       ensureManagedUnit(client, unitPlan, expected.get(`${unitPlan.space}/${unitPlan.slug}`), payloadFiles, state, { allowCanonicalTransition: true, transition });
     }
 
+    for (const linkPlan of compiled.plan.spec.configHub.links) ensureManagedLink(client, linkPlan, state, transition);
+    for (const releasePlan of compiled.plan.spec.oci.configReleases) {
+      const release = ensurePublishedRelease(client, releasePlan.releaseSpace, state);
+      state.releases.set(releasePlan.releaseSpace, release);
+    }
     for (const applicationPlan of compiled.plan.spec.configHub.deliveryApplications) {
-      ensurePlatformDeliveryApplication(client, applicationPlan, expected.get(`${applicationPlan.space}/${applicationPlan.slug}`), payloadFiles, state, transition);
+      const release = state.releases.get(applicationPlan.sourceSpace);
+      check(release, `${applicationPlan.sourceSpace}: exact source release is missing before delivery Application materialization`);
+      const ref = `${applicationPlan.space}/${applicationPlan.slug}`;
+      const payload = deliveryApplicationPayload(applicationPlan, release);
+      expected.set(ref, payload);
+      const path = join(tempRoot, `${safeArtifactFilename(ref)}-${sha256(payload.text)}.yaml`);
+      writeFileSync(path, payload.text);
+      payloadFiles.set(ref, path);
+      ensurePlatformDeliveryApplication(client, applicationPlan, payload, payloadFiles, state, transition);
     }
     for (const appsSpace of [...new Set(compiled.plan.spec.configHub.deliveryApplications.map((row) => row.space))].sort()) {
       const clusterPlan = compiled.plan.spec.configHub.deliveryInfrastructure.clusters.find((row) => row.appsSpace === appsSpace);
       assertPreservedWorkloadHeads(client, clusterPlan);
       const release = ensurePublishedRelease(client, appsSpace, state);
       state.releases.set(appsSpace, release);
-    }
-    for (const linkPlan of compiled.plan.spec.configHub.links) ensureManagedLink(client, linkPlan, state, transition);
-    for (const releasePlan of compiled.plan.spec.oci.configReleases) {
-      const release = ensurePublishedRelease(client, releasePlan.releaseSpace, state);
-      state.releases.set(releasePlan.releaseSpace, release);
     }
     const observation = verifyAppliedImport({ compiled, client, expected, consumed, attestation, transition });
     const receipt = updateApplyReceipt({ compiled, outputRoot, context, attestation, state, observation, consumed, transition });
@@ -2253,7 +2686,9 @@ function validatePassingTransitionReceipt(previous) {
   }
   const last = previous.spec.runs.at(-1);
   check(last.actionCount === 0 && last.observationSHA256 === sha256(stableJson(previous.spec.observation)), "previous apply receipt final observation binding is invalid");
-  check(Array.isArray(previous.spec.claimBoundary) && stableJson(previous.spec.claimBoundary) === stableJson(applyReceiptClaimBoundary()), "previous apply receipt claim boundary differs");
+  const currentClaimBoundary = stableJson(previous.spec.claimBoundary) === stableJson(applyReceiptClaimBoundary());
+  const legacyV1ClaimBoundary = stableJson(previous.spec.claimBoundary) === stableJson(applyReceiptClaimBoundaryV1());
+  check(Array.isArray(previous.spec.claimBoundary) && (currentClaimBoundary || legacyV1ClaimBoundary), "previous apply receipt claim boundary differs");
   const observation = previous.spec.observation;
   checkObjectKeys(observation, ["targetSpaces", "deliveryInfrastructureComponents", "organization", "spaces", "units", "links", "releases", "deliveryApplications", "deliveryRootReleases", "argobotReleases", "preservedWorkloadApplications", "targets", "packages", "platformIndex", "delivery", "guiIdentity"], ["targetSpaces", "deliveryInfrastructureComponents", "organization", "spaces", "units", "links", "releases", "deliveryApplications", "deliveryRootReleases", "argobotReleases", "preservedWorkloadApplications", "targets", "packages", "platformIndex", "delivery", "guiIdentity"], "previous apply receipt observation");
   for (const key of ["targetSpaces", "deliveryInfrastructureComponents", "spaces", "units", "links", "releases", "deliveryApplications", "deliveryRootReleases", "argobotReleases", "preservedWorkloadApplications", "targets", "packages"]) check(Array.isArray(observation[key]), `previous apply receipt observation.${key} must be an array`);
@@ -2270,7 +2705,14 @@ function validatePassingTransitionReceipt(previous) {
   }
   for (const row of observation.spaces) checkObjectKeys(row, ["slug", "spaceID", "role"], ["slug", "spaceID", "role"], "previous managed Space observation");
   for (const row of observation.units) checkObjectKeys(row, ["ref", "unitID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum", "targetID", "upstreamUnitID"], ["ref", "unitID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum", "targetID", "upstreamUnitID"], "previous managed Unit observation");
-  for (const row of observation.deliveryApplications) checkObjectKeys(row, ["ref", "unitID", "sourceSpace", "targetID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum"], ["ref", "unitID", "sourceSpace", "targetID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum"], "previous delivery Application observation");
+  for (const row of observation.deliveryApplications) checkObjectKeys(
+    row,
+    ["ref", "unitID", "sourceSpace", "sourceReleaseManifestDigest", "automatedSync", "targetID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum"],
+    currentClaimBoundary
+      ? ["ref", "unitID", "sourceSpace", "sourceReleaseManifestDigest", "automatedSync", "targetID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum"]
+      : ["ref", "unitID", "sourceSpace", "targetID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum"],
+    "previous delivery Application observation",
+  );
   for (const row of observation.links) checkObjectKeys(row, ["ref", "linkID", "updateType", "autoUpdate", "fromUnitID", "toUnitID", "toSpaceID", "ownedLabels", "ownedAnnotations"], ["ref", "linkID", "updateType", "autoUpdate", "fromUnitID", "toUnitID", "toSpaceID", "ownedLabels", "ownedAnnotations"], "previous Link observation");
   for (const row of observation.preservedWorkloadApplications) checkObjectKeys(row, ["ref", "unitID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum", "sourceSpace", "sourceUnitID", "sourceReleaseManifestDigest"], ["ref", "unitID", "dataHash", "dataSHA256", "headRevisionNum", "lastAppliedRevisionNum", "sourceSpace", "sourceUnitID", "sourceReleaseManifestDigest"], "previous preserved workload observation");
   for (const [label, rows, key] of [["target Space", observation.targetSpaces, "slug"], ["target binding", observation.targets, "cluster"], ["Space", observation.spaces, "slug"], ["Unit", observation.units, "ref"], ["Link", observation.links, "ref"], ["delivery Application", observation.deliveryApplications, "ref"], ["preserved workload", observation.preservedWorkloadApplications, "ref"]]) {
@@ -2389,7 +2831,7 @@ function assertPreservedWorkloadHeads(client, clusterPlan) {
 function consumePackagedImport({ compiled, outputRoot, oci }) {
   ensureSafeOutputTree(outputRoot);
   const receiptPath = join(outputRoot, "oci-publication-receipt.json");
-  check(existsSync(receiptPath), `${receiptPath} is missing; run --package before --apply`);
+  check(existsSync(receiptPath), `${receiptPath} is missing; publish with --package-portable and bind it, or use the compatibility --package path, before --apply`);
   const receipt = readJson(receiptPath);
   check(receipt?.kind === "KubaraOCIPublicationReceipt", "OCI publication receipt kind is invalid");
   check(receipt.spec?.platformDigest === compiled.lock.spec.platformDigest, "OCI publication receipt platform digest differs from this exact compile");
@@ -2572,17 +3014,35 @@ function buildApplyPayloads(compiled, consumed) {
     };
     result.set(ref, { text, annotations });
   }
-  for (const plan of compiled.plan.spec.configHub.deliveryApplications) {
-    const text = `${toYaml(platformDeliveryApplication(plan.sourceSpace, plan.destinationNamespace))}\n`;
-    result.set(`${plan.space}/${plan.slug}`, {
-      text,
-      annotations: {
-        ...(plan.annotations ?? {}),
-        "import.confighub.com/source-sha256": `sha256:${sha256(text)}`,
-      },
-    });
-  }
   return result;
+}
+
+function deliveryApplicationPayload(plan, release) {
+  validatePublishedRelease(plan.sourceSpace, release, "delivery-authority source release");
+  const text = `${toYaml(platformDeliveryApplicationFromPlan(plan, release.ManifestDigest))}\n`;
+  return {
+    text,
+    annotations: {
+      ...(plan.annotations ?? {}),
+      "import.confighub.com/source-sha256": `sha256:${sha256(text)}`,
+      "import.confighub.com/oci-manifest-digest": release.ManifestDigest,
+    },
+  };
+}
+
+function platformDeliveryApplicationFromPlan(plan, manifestDigest) {
+  validateOCIRepositoryRef(plan.sourceRepoURL, `${plan.sourceSpace}: delivery sourceRepoURL`);
+  const separator = plan.sourceRepoURL.lastIndexOf("/");
+  check(separator > "oci://".length && plan.sourceRepoURL.slice(separator + 1) === plan.sourceSpace, `${plan.sourceSpace}: delivery sourceRepoURL does not bind the exact source Space`);
+  return platformDeliveryApplication(plan.sourceRepoURL.slice(0, separator), plan.sourceSpace, plan.destinationNamespace, manifestDigest);
+}
+
+function addObservedDeliveryApplicationPayloads({ compiled, client, expected }) {
+  for (const plan of compiled.plan.spec.configHub.deliveryApplications) {
+    if (!client.getSpace(plan.sourceSpace)) continue;
+    const release = latestReleaseRow(client.listPublishedReleases(plan.sourceSpace));
+    if (release) expected.set(`${plan.space}/${plan.slug}`, deliveryApplicationPayload(plan, release));
+  }
 }
 
 function materializeApplyPayloads(root, expected) {
@@ -2738,7 +3198,7 @@ function preflightDeliveryInfrastructure({ compiled, client, allSpaces, expected
         check(unit.UnitID === workload.unitID && unit.DataHash === workload.dataHash, `${delivery.appsSpace}/${unit.Slug}: preserved workload Application identity/data hash differs`);
         check(sha256(client.unitData(delivery.appsSpace, unit.Slug)) === workload.dataSHA256, `${delivery.appsSpace}/${unit.Slug}: preserved workload Application exact bytes differ`);
         check(!unit.UpstreamUnitID && Number(unit.HeadRevisionNum ?? 0) === workload.headRevisionNum && Number(unit.LastAppliedRevisionNum ?? 0) === workload.headRevisionNum, `${delivery.appsSpace}/${unit.Slug}: preserved workload Application has an unpinned or unpublished head`);
-        assertPreservedWorkloadApplicationData(client.unitData(delivery.appsSpace, unit.Slug), workload.unit, workload.sourceSpace);
+        assertPreservedWorkloadApplicationData(client.unitData(delivery.appsSpace, unit.Slug), workload.unit, destination.spaceReleaseOCIBase, workload.sourceSpace, workload.sourceReleaseManifestDigest);
         const sourceSpace = allSpaces.get(workload.sourceSpace);
         check(sourceSpace?.SpaceID === workload.sourceSpaceID && sourceSpace.OrganizationID === destination.organizationID, `${workload.sourceSpace}: preserved workload source Space identity differs`);
         const sourceUnit = client.getUnit(workload.sourceSpace, workload.sourceUnit);
@@ -2750,7 +3210,7 @@ function preflightDeliveryInfrastructure({ compiled, client, allSpaces, expected
         const requestEntity = unit.Slug === delivery.root.unit ? delivery.root : delivery.argobotApplication;
         check(unit.DataHash === requestEntity.dataHash, `${delivery.appsSpace}/${unit.Slug}: ConfigHub DataHash differs from the request`);
         check(sha256(client.unitData(delivery.appsSpace, unit.Slug)) === requestEntity.dataSHA256, `${delivery.appsSpace}/${unit.Slug}: exact request-pinned bootstrap Application bytes differ`);
-        assertBootstrapApplicationData(client.unitData(delivery.appsSpace, unit.Slug), unit.Slug, allowed.bootstrapSource);
+        assertBootstrapApplicationData(client.unitData(delivery.appsSpace, unit.Slug), unit.Slug, destination.spaceReleaseOCIBase, allowed.bootstrapSource);
       } else {
         const payload = expected.get(`${delivery.appsSpace}/${unit.Slug}`);
         check(payload, `${delivery.appsSpace}/${unit.Slug}: expected platform delivery payload is missing`);
@@ -2758,7 +3218,7 @@ function preflightDeliveryInfrastructure({ compiled, client, allSpaces, expected
         check(
           sameUnitData("Kubernetes/YAML", data, payload.text)
             || transitionAllowsPriorUnit(transition, `${delivery.appsSpace}/${unit.Slug}`, unit, data)
-            || isCompatibleAutoDeliveryApplication(data, allowed.plan.sourceSpace, allowed.plan.destinationNamespace),
+            || isCompatibleAutoDeliveryApplication(data, allowed.plan.sourceRepoURL, allowed.plan.sourceSpace, allowed.plan.destinationNamespace),
           `${delivery.appsSpace}/${unit.Slug}: existing platform delivery Application is neither exact, prior-receipt-authorized, nor an allowed fresh auto-generated form`,
         );
         if (unit.Labels?.ManagedBy) assertImporterOwnership(unit, compiled, `${delivery.appsSpace}/${unit.Slug} delivery Unit`, transition, "unit", `${delivery.appsSpace}/${unit.Slug}`);
@@ -2782,26 +3242,26 @@ function preflightDeliveryInfrastructure({ compiled, client, allSpaces, expected
   }
 }
 
-function assertBootstrapApplicationData(text, applicationName, sourceSpace) {
+function assertBootstrapApplicationData(text, applicationName, spaceReleaseOCIBase, sourceSpace) {
   const docs = parseDocs(text);
   check(docs.length === 1 && docs[0]?.kind === "Application", `${applicationName}: expected one bootstrap Argo Application`);
   const app = docs[0];
   check(app.metadata?.name === applicationName && app.metadata?.namespace === "argocd", `${applicationName}: bootstrap Application identity differs`);
   check(app.spec?.project === "default", `${applicationName}: bootstrap Application project differs`);
-  check(app.spec?.source?.repoURL === `oci://oci.hub.confighub.com:443/space/${sourceSpace}` && app.spec?.source?.targetRevision === "latest" && app.spec?.source?.path === ".", `${applicationName}: bootstrap Application source differs from ${sourceSpace}`);
+  check(app.spec?.source?.repoURL === spaceReleaseOCIRef(spaceReleaseOCIBase, sourceSpace) && app.spec?.source?.targetRevision === "latest" && app.spec?.source?.path === ".", `${applicationName}: bootstrap Application source differs from ${sourceSpace}`);
   check(app.spec?.destination?.server === "https://kubernetes.default.svc", `${applicationName}: bootstrap Application destination is not cluster-local`);
   check(app.spec?.syncPolicy?.automated?.selfHeal === true && app.spec?.syncPolicy?.automated?.prune !== true, `${applicationName}: bootstrap Application must self-heal without prune`);
   check(!(app.spec?.syncPolicy?.syncOptions ?? []).some((row) => String(row).startsWith("Replace=")), `${applicationName}: bootstrap Application must not use Replace`);
 }
 
-function isCompatibleAutoDeliveryApplication(text, sourceSpace, destinationNamespace) {
+function isCompatibleAutoDeliveryApplication(text, sourceRepoURL, sourceSpace, destinationNamespace) {
   try {
     const docs = parseDocs(text);
     if (docs.length !== 1 || docs[0]?.kind !== "Application") return false;
     const app = docs[0];
     return app.metadata?.name === sourceSpace
       && app.metadata?.namespace === "argocd"
-      && app.spec?.source?.repoURL === `oci://oci.hub.confighub.com:443/space/${sourceSpace}`
+      && app.spec?.source?.repoURL === sourceRepoURL
       && app.spec?.source?.targetRevision === "latest"
       && app.spec?.source?.path === "."
       && app.spec?.destination?.server === "https://kubernetes.default.svc"
@@ -2812,12 +3272,16 @@ function isCompatibleAutoDeliveryApplication(text, sourceSpace, destinationNames
   }
 }
 
-function assertPreservedWorkloadApplicationData(text, applicationName, sourceSpace) {
+function assertPreservedWorkloadApplicationData(text, applicationName, spaceReleaseOCIBase, sourceSpace, manifestDigest) {
   const docs = parseDocs(text);
   check(docs.length === 1 && docs[0]?.kind === "Application", `${applicationName}: preserved workload delivery must be exactly one Argo Application`);
   const app = docs[0];
   check(app.metadata?.name === applicationName && app.metadata?.namespace === "argocd", `${applicationName}: preserved workload Application identity differs`);
-  check(app.spec?.source?.repoURL === `oci://oci.hub.confighub.com:443/space/${sourceSpace}` && app.spec?.source?.targetRevision === "latest" && app.spec?.source?.path === ".", `${applicationName}: preserved workload Application source differs from ${sourceSpace}`);
+  check(/^sha256:[0-9a-f]{64}$/.test(manifestDigest ?? ""), `${applicationName}: preserved workload source release manifest digest is invalid`);
+  check(app.spec?.source?.repoURL === spaceReleaseOCIRef(spaceReleaseOCIBase, sourceSpace) && app.spec?.source?.path === ".", `${applicationName}: preserved workload Application source differs from ${sourceSpace}`);
+  const exactNoAuto = app.spec?.source?.targetRevision === manifestDigest && !Object.hasOwn(app.spec?.syncPolicy ?? {}, "automated");
+  const pinnedLegacy = app.spec?.source?.targetRevision === "latest";
+  check(exactNoAuto || pinnedLegacy, `${applicationName}: preserved workload Application is neither exact-digest/no-auto nor the exact request-pinned legacy latest form`);
   check(app.spec?.destination?.server === "https://kubernetes.default.svc", `${applicationName}: preserved workload Application is not cluster-local`);
   check(!(app.spec?.syncPolicy?.syncOptions ?? []).some((row) => String(row).startsWith("Replace=")), `${applicationName}: preserved workload Application uses forbidden Replace`);
 }
@@ -3039,7 +3503,7 @@ function ensurePlatformDeliveryApplication(client, plan, payload, payloadFiles, 
   check(!live.UpstreamUnitID, `${ref}: platform delivery Application unexpectedly has Unit lineage`);
   const data = client.unitData(plan.space, plan.slug);
   if (!sameUnitData("Kubernetes/YAML", data, payload.text)) {
-    check(transitionAllowsPriorUnit(transition, ref, live, data) || isCompatibleAutoDeliveryApplication(data, plan.sourceSpace, plan.destinationNamespace), `${ref}: refusing to replace an unrecognized or non-prior-receipt-authorized Application contract`);
+    check(transitionAllowsPriorUnit(transition, ref, live, data) || isCompatibleAutoDeliveryApplication(data, plan.sourceRepoURL, plan.sourceSpace, plan.destinationNamespace), `${ref}: refusing to replace an unrecognized or non-prior-receipt-authorized Application contract`);
     client.mutate([
       "unit", "update", "--space", plan.space, plan.slug, path,
       "--change-desc", `Normalize Kubara platform delivery ${plan.labels.PlatformDigest}`,
@@ -3244,10 +3708,17 @@ function verifyAppliedImport({ compiled, client, expected, consumed, attestation
     check(sameUnitData("Kubernetes/YAML", client.unitData(plan.space, plan.slug), payload.text), `${plan.space}/${plan.slug}: platform delivery Application data differs from the pulled aggregate OCI plan`);
     check(mapContains(live.Labels, plan.labels) && staleOwnedKeys(live.Labels, plan.labels, OWNED_UNIT_LABELS).length === 0, `${plan.space}/${plan.slug}: platform delivery labels did not converge`);
     check(mapContains(live.Annotations, payload.annotations), `${plan.space}/${plan.slug}: platform delivery provenance did not converge`);
+    const sourceRelease = latestReleaseRow(client.listPublishedReleases(plan.sourceSpace));
+    validatePublishedRelease(plan.sourceSpace, sourceRelease, "platform delivery source release");
+    const application = parseDocs(client.unitData(plan.space, plan.slug))[0];
+    check(application?.spec?.source?.targetRevision === sourceRelease.ManifestDigest, `${plan.space}/${plan.slug}: platform delivery Application does not authorize the exact source release manifest digest`);
+    check(!Object.hasOwn(application?.spec?.syncPolicy ?? {}, "automated"), `${plan.space}/${plan.slug}: platform delivery Application enables automated sync`);
     deliveryApplications.push({
       ref: `${plan.space}/${plan.slug}`,
       unitID: live.UnitID,
       sourceSpace: plan.sourceSpace,
+      sourceReleaseManifestDigest: sourceRelease.ManifestDigest,
+      automatedSync: false,
       targetID: live.TargetID,
       dataHash: live.DataHash,
       dataSHA256: sha256(client.unitData(plan.space, plan.slug)),
@@ -3400,6 +3871,20 @@ function applyReceiptRun({ number, actions, packageReceiptSHA256, targetFactAtte
 }
 
 function applyReceiptClaimBoundary() {
+  return [
+    "The exact packaged component/config layers were pulled and verified before ConfigHub mutation.",
+    "The selected existing context, Organization entity, target Spaces, Targets, and exact bootstrap Unit bytes were pinned and rechecked.",
+    "Each apply requires exclusive serialized control of importer-managed topology and request-pinned bootstrap/workload heads; cub mutations are not cross-client transactional conditional writes.",
+    "The receipt proves ConfigHub Spaces, Units, UpgradeUnit/NeedsProvides Links, platform delivery Applications, delivery-root releases, and source Space releases.",
+    "Every importer-managed platform delivery Application names the exact current source release ManifestDigest and has no automated sync field; mutable latest and retained release tags are not deployment authority.",
+    "Argo prune is enabled: removing objects from a reviewed source release can delete those objects from a cluster after sync; the importer itself issues no delete operation.",
+    "Cluster convergence and health at the exact source release manifest digests require the subsequent explicit live verify and are not claimed here.",
+    "Request-pinned user workload Applications are preserved exactly when present; creating or promoting them remains a separate app workflow.",
+    "This local receipt is a deterministic continuity check, not a server-signed or cryptographically tamper-proof attestation.",
+  ];
+}
+
+function applyReceiptClaimBoundaryV1() {
   return [
     "The exact packaged component/config layers were pulled and verified before ConfigHub mutation.",
     "The selected existing context, Organization entity, target Spaces, Targets, and exact bootstrap Unit bytes were pinned and rechecked.",
@@ -3675,6 +4160,8 @@ function selfTest() {
     const secondOrganizationCompile = compileImport({ requestPath, checkoutRoot: checkout });
     check(secondOrganizationCompile.lock.spec.platformDigest === compiled.lock.spec.platformDigest, "same Kubara Git content produced a destination-specific platform digest");
     check(secondOrganizationCompile.plan.spec.bindingDigest !== compiled.plan.spec.bindingDigest, "different Organization/Target mapping did not produce a distinct binding digest");
+    check(secondOrganizationCompile.plan.spec.configHub.deliveryApplications.every((row) => row.sourceRepoURL.startsWith(`${secondOrganizationRequest.spec.destination.spaceReleaseOCIBase}/`)), "remapped destination retained the first Organization's Space-release OCI origin");
+    check(!secondOrganizationCompile.plan.spec.configHub.deliveryApplications.some((row) => compiled.plan.spec.configHub.deliveryApplications.some((prior) => prior.sourceRepoURL === row.sourceRepoURL)), "destination remap did not change exact Space-release OCI refs");
     check(stableJson([...secondOrganizationCompile.execution.componentPayloads].map(([id, row]) => [id, row.sha256])) === stableJson([...compiled.execution.componentPayloads].map(([id, row]) => [id, row.sha256])), "component OCI payloads changed across destination mappings");
     check(stableJson([...secondOrganizationCompile.execution.configPayloads].map(([id, row]) => [id, row.sha256])) === stableJson([...compiled.execution.configPayloads].map(([id, row]) => [id, row.sha256])), "config OCI payloads changed across destination mappings");
     check(stableJson([...secondOrganizationCompile.plan.spec.oci.catalogPackages, ...secondOrganizationCompile.plan.spec.oci.configReleases].map((row) => row.plannedOCIRef).sort()) === stableJson([...compiled.plan.spec.oci.catalogPackages, ...compiled.plan.spec.oci.configReleases].map((row) => row.plannedOCIRef).sort()), "same catalog base produced destination-specific OCI publication refs");
@@ -3684,6 +4171,26 @@ function selfTest() {
       manifestDigest: `sha256:${sha256(`manifest:${row.id}`)}`, layerDigest: `sha256:${row.payloadSha256}`,
     })).sort((left, right) => left.id.localeCompare(right.id));
     check(stableJson(buildPlatformOciIndex(secondOrganizationCompile, indexRows)) === stableJson(buildPlatformOciIndex(compiled, indexRows)), "target-neutral aggregate OCI member index changed across destination mappings");
+    const portableRequest = {
+      apiVersion: "import.confighub.com/v1alpha1",
+      kind: "KubaraPortableGitRevision",
+      metadata: { name: request.metadata.name },
+      spec: {
+        source: structuredClone(request.spec.source),
+        layout: structuredClone(request.spec.layout),
+        security: structuredClone(request.spec.security),
+        publication: { catalogOCIBase: request.spec.destination.catalogOCIBase },
+      },
+    };
+    const portableRequestPath = join(tempRoot, "portable-request.yaml");
+    const portableOutput = join(tempRoot, "portable-output");
+    writeFileSync(portableRequestPath, `${toYaml(portableRequest)}\n`);
+    const portableCompiled = compilePortableRequest({ requestPath: portableRequestPath, checkoutRoot: checkout });
+    check(portableCompiled.lock.spec.platformDigest === compiled.lock.spec.platformDigest, "source-only portable compilation produced another platform digest");
+    writePortableOutputs(portableOutput, portableCompiled);
+    verifyPortableOutputs(portableOutput, compiled);
+    verifyPortableOutputs(portableOutput, secondOrganizationCompile);
+    check(!existsSync(join(portableOutput, "destination-binding-lock.yaml")) && !existsSync(join(portableOutput, "target-facts-required.yaml")), "portable compilation leaked destination binding artifacts");
     writeFileSync(requestPath, `${toYaml(request)}\n`);
     const wiringGraph = readJson(join(platform, "wiring/graph.json"));
     const noProviderGraph = structuredClone(wiringGraph);
@@ -3710,12 +4217,33 @@ function selfTest() {
     check(readFileSync(untouched, "utf8") === "unchanged\n", "output symlink refusal modified its target");
 
     check(compiled.plan.spec.configHub.deliveryApplications.length === 12, "self-test did not plan all 12 targeted platform delivery Applications");
+    check(compiled.plan.spec.configHub.deliveryApplications.every((row) => row.sourceRepoURL === `${FIXTURE_SPACE_RELEASE_OCI_BASE}/${row.sourceSpace}`), "self-test delivery Applications did not use the request-bound non-production Space-release OCI base");
+    check(!stableJson(compiled.plan).includes("oci.hub.confighub.com"), "self-test compiled plan leaked the production ConfigHub OCI origin");
     check(compiled.plan.spec.configHub.deliveryApplications.every((row) => row.destinationNamespace && row.destinationNamespace !== "default"), "self-test did not preserve mechanically attested non-default Kubara destination namespaces");
     check(compiled.plan.spec.configHub.deliveryApplications.every((row) => row.labels.Lane === "Adapted" && row.labels.DeliveryMode === "ConfigHubOCI"), "self-test delivery Applications do not expose the adapted ConfigHub lane");
     check(compiled.plan.spec.configHub.spaces.filter((row) => row.externalBinding).every((row) => row.labels.Lane === "Adapted"), "self-test target Spaces do not expose the adapted ConfigHub lane");
     check(compiled.plan.spec.configHub.units.some((row) => row.labels.Lane === "Faithful" && row.labels.ComponentSurface === "argocd-delivery"), "self-test retained Kubara Argo surface does not expose the faithful lane");
     check(compiled.plan.spec.configHub.units.filter((row) => row.labels.StartHere === "true").every((row) => row.annotations?.["URL-Catalog"] === PUBLIC_CATALOG_URL), "self-test StartHere Units do not link to the public Component Catalog");
     const fakeOci = createFakeOciClient();
+    const portablePackageReceipt = packageImport({ compiled: portableCompiled, outputRoot: portableOutput, oci: fakeOci });
+    check(portablePackageReceipt.spec.platformDigest === compiled.lock.spec.platformDigest, "portable OCI publication receipt platform digest differs");
+    const boundOutput = join(tempRoot, "bound-output");
+    writeOutputs(boundOutput, secondOrganizationCompile);
+    copyPortablePublication({ portableRoot: portableOutput, outputRoot: boundOutput, compiled: secondOrganizationCompile });
+    check(readJson(join(boundOutput, "portable-binding-receipt.json")).status.portablePublicationCopied === true, "portable publication was not copied into the separate destination binding output");
+    check(readYaml(join(boundOutput, "destination-binding-lock.yaml")).spec.bindingDigest === secondOrganizationCompile.plan.spec.bindingDigest, "separate destination binding output does not name the selected binding digest");
+    const firstBindingReceipt = readFileSync(join(boundOutput, "portable-binding-receipt.json"), "utf8");
+    copyPortablePublication({ portableRoot: portableOutput, outputRoot: boundOutput, compiled: secondOrganizationCompile });
+    check(readFileSync(join(boundOutput, "portable-binding-receipt.json"), "utf8") === firstBindingReceipt, "exact portable binding replay changed its receipt");
+    const unexpectedBoundPayload = join(boundOutput, "oci", "unexpected.json");
+    writeFileSync(unexpectedBoundPayload, "unexpected\n");
+    expectFailure(() => copyPortablePublication({ portableRoot: portableOutput, outputRoot: boundOutput, compiled: secondOrganizationCompile }), /differs from the portable publication/, "conflicting bound OCI directory refusal");
+    rmSync(unexpectedBoundPayload);
+    writeFileSync(join(boundOutput, "apply-receipt.json"), "{}\n");
+    assertBindOutputReplaySafe(boundOutput, secondOrganizationCompile);
+    expectFailure(() => assertBindOutputReplaySafe(boundOutput, compiled), /stale or was modified/, "advanced bound-output rebinding refusal");
+    rmSync(join(boundOutput, "apply-receipt.json"));
+    consumePackagedImport({ compiled: secondOrganizationCompile, outputRoot: boundOutput, oci: fakeOci });
     const packageReceipt = packageImport({ compiled, outputRoot: output, oci: fakeOci });
     check(packageReceipt.spec.members.some((row) => row.role === "component-definition") && packageReceipt.spec.members.some((row) => row.role === "effective-config-set"), "self-test OCI index omitted a package role");
     const firstPackageReceiptText = readFileSync(join(output, "oci-publication-receipt.json"), "utf8");
@@ -3806,10 +4334,33 @@ function selfTest() {
     const inspectedRequestPath2 = join(tempRoot, "inspected-request-second.yaml");
     inspectDestination({ requestPath: inspectionTemplatePath, outputPath: inspectedRequestPath2, context: request.spec.destination.context, credentialScanReportPath: credentialReportPath, runtimeEvidence: runtimeEvidenceArgs, inspector: createFakeInspectionClient(request, fakeHub) });
     check(readFileSync(inspectedRequestPath, "utf8") === readFileSync(inspectedRequestPath2, "utf8"), "read-only destination inspection was not byte-for-byte deterministic");
+    const firstApplyEvidencePath = prepareImmutableApplyReceiptEvidencePath({ outputRoot: output, path: join(output, "evidence", "apply-first-receipt.json") });
+    const noopApplyEvidencePath = prepareImmutableApplyReceiptEvidencePath({ outputRoot: output, path: join(output, "evidence", "apply-immediate-noop-receipt.json") });
+    check(firstApplyEvidencePath !== noopApplyEvidencePath, "self-test apply evidence paths are not distinct");
     const firstApply = applyImport({ compiled, outputRoot: output, context: request.spec.destination.context, targetFactsPath: attestationPath, oci: fakeOci, hub: fakeHub });
     check(firstApply.status.result === "pending-second-zero-action-run" && firstApply.status.lastActionCount > 0, "first fake apply did not record deterministic materialization actions");
+    writeImmutableApplyReceiptEvidence(firstApplyEvidencePath, firstApply);
+    const firstApplyEvidenceText = readFileSync(firstApplyEvidencePath, "utf8");
+    writeImmutableApplyReceiptEvidence(firstApplyEvidencePath, firstApply);
+    check(readFileSync(firstApplyEvidencePath, "utf8") === firstApplyEvidenceText, "exact first-apply evidence replay changed immutable bytes");
     const secondApply = applyImport({ compiled, outputRoot: output, context: request.spec.destination.context, targetFactsPath: attestationPath, oci: fakeOci, hub: fakeHub });
     check(secondApply.status.result === "pass" && secondApply.status.lastActionCount === 0 && secondApply.status.secondRunZeroActions === true, "second fake apply did not prove zero actions");
+    writeImmutableApplyReceiptEvidence(noopApplyEvidencePath, secondApply);
+    check(readFileSync(firstApplyEvidencePath, "utf8") === firstApplyEvidenceText, "second apply destroyed first-step immutable evidence");
+    check(readFileSync(noopApplyEvidencePath, "utf8") !== firstApplyEvidenceText, "second apply reused the first-step evidence bytes");
+    expectFailure(() => writeImmutableApplyReceiptEvidence(firstApplyEvidencePath, secondApply), /refusing to overwrite different immutable apply receipt evidence/, "immutable first-apply evidence overwrite refusal");
+    check(secondApply.spec.observation.deliveryApplications.every((row) => /^sha256:[0-9a-f]{64}$/.test(row.sourceReleaseManifestDigest) && row.automatedSync === false), "fake apply did not retain exact-digest/no-auto platform delivery authority");
+    const legacyV1Receipt = structuredClone(secondApply);
+    legacyV1Receipt.spec.claimBoundary = applyReceiptClaimBoundaryV1();
+    for (const row of legacyV1Receipt.spec.observation.deliveryApplications) {
+      delete row.sourceReleaseManifestDigest;
+      delete row.automatedSync;
+    }
+    const legacyObservationSHA256 = sha256(stableJson(legacyV1Receipt.spec.observation));
+    legacyV1Receipt.spec.runs.at(-1).observationSHA256 = legacyObservationSHA256;
+    const legacyLastRun = legacyV1Receipt.spec.runs.at(-1);
+    legacyLastRun.runDigest = `sha256:${sha256(stableJson({ number: legacyLastRun.number, actionCount: legacyLastRun.actionCount, actions: legacyLastRun.actions, packageReceiptSHA256: legacyLastRun.packageReceiptSHA256, targetFactAttestationSHA256: legacyLastRun.targetFactAttestationSHA256, observationSHA256: legacyLastRun.observationSHA256 }))}`;
+    validatePassingTransitionReceipt(legacyV1Receipt);
     check(secondApply.spec.observation.deliveryApplications.length === 12 && secondApply.spec.observation.deliveryRootReleases.length === 4, "fake apply receipt omitted platform delivery Application/root identities");
     check(secondApply.spec.observation.delivery.clusterConvergenceClaim === false, "fake apply receipt overclaimed cluster convergence");
     const passedApplyReceiptText = readFileSync(join(output, "apply-receipt.json"), "utf8");
@@ -3850,7 +4401,7 @@ function selfTest() {
     fakeHub.removeSpace("foreign-space");
 
     const workloadRequest = structuredClone(request);
-    const workloadPin = fakeHub.addPublishedWorkload("hx-app-dev", "payments-api");
+    const workloadPin = fakeHub.addPublishedWorkload("hx-app-dev", "payments-api", { legacyLatest: true });
     workloadRequest.spec.targets["hx-app-dev"].delivery.workloadApplications.push(workloadPin);
     writeFileSync(requestPath, `${toYaml(workloadRequest)}\n`);
     const workloadCompiled = compileImport({ requestPath, checkoutRoot: checkout });
@@ -4023,6 +4574,7 @@ function fixtureRequest(commit) {
         organizationExternalID: "11111111-1111-4111-8111-111111111111",
         organizationID: "22222222-2222-4222-8222-222222222222",
         serverURL: "https://hub.confighub.example",
+        spaceReleaseOCIBase: FIXTURE_SPACE_RELEASE_OCI_BASE,
         organizationPolicy: "require-bootstrap-only-or-importer-owned-identical",
         spacePrefix: "acme-kubara",
         deliveryMode: "confighub-managed-argo",
@@ -4036,10 +4588,10 @@ function fixtureRequest(commit) {
         },
       },
       targets: {
-        "hx-app-dev": fixtureTarget(1, "acme-target-dev", "Dev", "local"),
-        "hx-app-staging": fixtureTarget(2, "acme-target-staging", "Staging", "local"),
-        "hx-app-prod-a": fixtureTarget(3, "acme-target-prod-a", "Prod", "us-east"),
-        "hx-app-prod-b": fixtureTarget(4, "acme-target-prod-b", "Prod", "us-west"),
+        "hx-app-dev": fixtureTarget(1, "acme-target-dev", "Dev", "local", FIXTURE_SPACE_RELEASE_OCI_BASE),
+        "hx-app-staging": fixtureTarget(2, "acme-target-staging", "Staging", "local", FIXTURE_SPACE_RELEASE_OCI_BASE),
+        "hx-app-prod-a": fixtureTarget(3, "acme-target-prod-a", "Prod", "us-east", FIXTURE_SPACE_RELEASE_OCI_BASE),
+        "hx-app-prod-b": fixtureTarget(4, "acme-target-prod-b", "Prod", "us-west", FIXTURE_SPACE_RELEASE_OCI_BASE),
       },
     },
   };
@@ -4057,6 +4609,7 @@ function remapFixtureDestination(request) {
   value.spec.destination.context = "second-acme-kubara";
   value.spec.destination.organizationExternalID = deterministicUUID("second:organization-external");
   value.spec.destination.organizationID = deterministicUUID("second:organization-entity");
+  value.spec.destination.spaceReleaseOCIBase = "oci://oci.second.example.invalid:5443/space-releases";
   value.spec.destination.argobotBase.spaceID = deterministicUUID("second:argobot-base-space");
   value.spec.destination.argobotBase.unitID = deterministicUUID("second:argobot-base-unit");
   for (const [cluster, target] of Object.entries(value.spec.targets)) {
@@ -4067,13 +4620,19 @@ function remapFixtureDestination(request) {
     target.delivery.argobotApplication.unitID = deterministicUUID(`second:${cluster}:argobot-application-unit`);
     target.delivery.argobot.spaceID = deterministicUUID(`second:${cluster}:argobot-space`);
     target.delivery.argobot.unitID = deterministicUUID(`second:${cluster}:argobot-unit`);
+    const rootData = fakeBootstrapApplicationData(target.delivery.root.unit, target.delivery.appsSpace, value.spec.destination.spaceReleaseOCIBase);
+    target.delivery.root.dataHash = sha256(rootData);
+    target.delivery.root.dataSHA256 = sha256(rootData);
+    const argobotApplicationData = fakeBootstrapApplicationData(target.delivery.argobotApplication.unit, target.delivery.argobot.space, value.spec.destination.spaceReleaseOCIBase);
+    target.delivery.argobotApplication.dataHash = sha256(argobotApplicationData);
+    target.delivery.argobotApplication.dataSHA256 = sha256(argobotApplicationData);
     target.delivery.reconciler.evidenceRef = `evidence://second-cluster/${cluster}/argocd-runtime`;
     target.delivery.reconciler.evidenceSHA256 = `sha256:${sha256(`second:${cluster}:argocd-runtime:v3.4.6`)}`;
   }
   return value;
 }
 
-function fixtureTarget(index, space, environment, region) {
+function fixtureTarget(index, space, environment, region, spaceReleaseOCIBase) {
   const suffix = String(index).padStart(12, "0");
   const cluster = index === 1 ? "hx-app-dev" : index === 2 ? "hx-app-staging" : index === 3 ? "hx-app-prod-a" : "hx-app-prod-b";
   const appsSpace = `${cluster}-argo-apps`;
@@ -4089,8 +4648,8 @@ function fixtureTarget(index, space, environment, region) {
     delivery: {
       appsSpace,
       appsSpaceID: `60000000-0000-4000-8000-${suffix}`,
-      root: { unit: "root", unitID: `61000000-0000-4000-8000-${suffix}`, dataHash: sha256(fakeBootstrapApplicationData("root", appsSpace)), dataSHA256: sha256(fakeBootstrapApplicationData("root", appsSpace)) },
-      argobotApplication: { unit: argobotApplication, unitID: `62000000-0000-4000-8000-${suffix}`, dataHash: sha256(fakeBootstrapApplicationData(argobotApplication, argobotSpace)), dataSHA256: sha256(fakeBootstrapApplicationData(argobotApplication, argobotSpace)) },
+      root: { unit: "root", unitID: `61000000-0000-4000-8000-${suffix}`, dataHash: sha256(fakeBootstrapApplicationData("root", appsSpace, spaceReleaseOCIBase)), dataSHA256: sha256(fakeBootstrapApplicationData("root", appsSpace, spaceReleaseOCIBase)) },
+      argobotApplication: { unit: argobotApplication, unitID: `62000000-0000-4000-8000-${suffix}`, dataHash: sha256(fakeBootstrapApplicationData(argobotApplication, argobotSpace, spaceReleaseOCIBase)), dataSHA256: sha256(fakeBootstrapApplicationData(argobotApplication, argobotSpace, spaceReleaseOCIBase)) },
       argobot: { space: argobotSpace, spaceID: `63000000-0000-4000-8000-${suffix}`, unit: "argobot", unitID: `64000000-0000-4000-8000-${suffix}`, dataHash: sha256(fakeArgobotData()), dataSHA256: sha256(fakeArgobotData()) },
       reconciler: {
         componentVersion: "v3.4.6",
@@ -4116,14 +4675,14 @@ function completedTargetFactAttestation(compiled) {
   return value;
 }
 
-function fakeBootstrapApplicationData(name, sourceSpace) {
+function fakeBootstrapApplicationData(name, sourceSpace, spaceReleaseOCIBase = FIXTURE_SPACE_RELEASE_OCI_BASE) {
   return `${toYaml({
     apiVersion: "argoproj.io/v1alpha1",
     kind: "Application",
     metadata: { name, namespace: "argocd" },
     spec: {
       project: "default",
-      source: { repoURL: `oci://oci.hub.confighub.com:443/space/${sourceSpace}`, targetRevision: "latest", path: "." },
+      source: { repoURL: spaceReleaseOCIRef(spaceReleaseOCIBase, sourceSpace), targetRevision: "latest", path: "." },
       destination: { server: "https://kubernetes.default.svc", namespace: "argocd" },
       syncPolicy: { automated: { prune: false, selfHeal: true } },
     },
@@ -4247,8 +4806,8 @@ function createFakeHub(compiled) {
       Annotations: { "confighub.com/argo-apps-space": target.delivery.appsSpace },
     });
     addSpace(target.delivery.appsSpace, target.delivery.appsSpaceID, { ReleaseTargetID: target.targetID });
-    putUnit(target.delivery.appsSpace, target.delivery.root.unit, fakeBootstrapApplicationData(target.delivery.root.unit, target.delivery.appsSpace), { UnitID: target.delivery.root.unitID, TargetID: target.targetID });
-    putUnit(target.delivery.appsSpace, target.delivery.argobotApplication.unit, fakeBootstrapApplicationData(target.delivery.argobotApplication.unit, target.delivery.argobot.space), { UnitID: target.delivery.argobotApplication.unitID, TargetID: target.targetID });
+    putUnit(target.delivery.appsSpace, target.delivery.root.unit, fakeBootstrapApplicationData(target.delivery.root.unit, target.delivery.appsSpace, destination.spaceReleaseOCIBase), { UnitID: target.delivery.root.unitID, TargetID: target.targetID });
+    putUnit(target.delivery.appsSpace, target.delivery.argobotApplication.unit, fakeBootstrapApplicationData(target.delivery.argobotApplication.unit, target.delivery.argobot.space, destination.spaceReleaseOCIBase), { UnitID: target.delivery.argobotApplication.unitID, TargetID: target.targetID });
     addSpace(target.delivery.argobot.space, target.delivery.argobot.spaceID, { ReleaseTargetID: target.targetID });
     putUnit(target.delivery.argobot.space, target.delivery.argobot.unit, argobotBaseData, { UnitID: target.delivery.argobot.unitID, TargetID: target.targetID, UpstreamUnitID: destination.argobotBase.unitID });
     putLink(target.delivery.argobot.space, `upgrade-${target.delivery.argobot.unit}`, {
@@ -4368,8 +4927,7 @@ function createFakeHub(compiled) {
           const appPlan = compiled.plan.spec.configHub.deliveryApplications.find((row) => row.sourceSpace === space);
           check(appPlan, `${space}: fake delivery Application plan missing`);
           const target = requestTargetByRef(request, targetRef);
-          const autoApp = platformDeliveryApplication(space, appPlan.destinationNamespace);
-          delete autoApp.spec.syncPolicy.retry;
+          const autoApp = autoGeneratedPlatformDeliveryApplication(destination.spaceReleaseOCIBase, space, appPlan.destinationNamespace);
           const app = putUnit(appPlan.space, appPlan.slug, `${toYaml(autoApp)}\n`, { TargetID: target.targetID, LastAppliedRevisionNum: 0 });
           app.Labels = {};
         }
@@ -4451,7 +5009,7 @@ function createFakeHub(compiled) {
       check(false, `fake ${updateType} Link is missing for concurrent rewire`);
     },
     restoreLink(value) { links.get(value.space).set(value.slug, clone(value.snapshot)); },
-    addPublishedWorkload(cluster, applicationName) {
+    addPublishedWorkload(cluster, applicationName, { legacyLatest = false } = {}) {
       const target = request.spec.targets[cluster];
       check(target, `${cluster}: fake workload target is missing`);
       const sourceSpace = `acme-app-${applicationName}`;
@@ -4462,20 +5020,25 @@ function createFakeHub(compiled) {
       addSpace(sourceSpace, sourceSpaceID);
       putUnit(sourceSpace, sourceUnit, sourceData, { UnitID: sourceUnitID });
       seedPublishedRelease(sourceSpace);
-      const applicationData = fakeBootstrapApplicationData(applicationName, sourceSpace);
-      const applicationUnit = putUnit(target.delivery.appsSpace, applicationName, applicationData, { TargetID: target.targetID });
+      const sourceReleaseManifestDigest = latestReleaseRow(releases.get(sourceSpace)).ManifestDigest;
+      const applicationDocument = legacyLatest
+        ? parseDocs(fakeBootstrapApplicationData(applicationName, sourceSpace, destination.spaceReleaseOCIBase))[0]
+        : platformDeliveryApplication(destination.spaceReleaseOCIBase, sourceSpace, "apps", sourceReleaseManifestDigest);
+      applicationDocument.metadata.name = applicationName;
+      const exactApplicationData = `${toYaml(applicationDocument)}\n`;
+      const applicationUnit = putUnit(target.delivery.appsSpace, applicationName, exactApplicationData, { TargetID: target.targetID });
       seedPublishedRelease(target.delivery.appsSpace);
       return {
         unit: applicationName,
         unitID: applicationUnit.UnitID,
         dataHash: applicationUnit.DataHash,
-        dataSHA256: sha256(applicationData),
+        dataSHA256: sha256(exactApplicationData),
         headRevisionNum: applicationUnit.HeadRevisionNum,
         sourceSpace,
         sourceSpaceID,
         sourceUnit,
         sourceUnitID,
-        sourceReleaseManifestDigest: latestReleaseRow(releases.get(sourceSpace)).ManifestDigest,
+        sourceReleaseManifestDigest,
       };
     },
     addForeignSpace(slug) { addSpace(slug, id("space", slug)); },
@@ -4549,6 +5112,14 @@ function validateOCIRepositoryRef(value, label) {
   let parsed;
   try { parsed = new URL(value); } catch { check(false, `${label} must be a valid OCI repository URL`); }
   check(parsed.protocol === "oci:" && parsed.username === "" && parsed.password === "" && parsed.search === "" && parsed.hash === "" && parsed.pathname !== "", `${label} must be an OCI repository URL without credentials, query, or fragment`);
+}
+
+function validateOCIRepositoryBase(value, label) {
+  validateOCIRepositoryRef(value, label);
+  const parsed = new URL(value);
+  check(!/[{@}]/.test(value), `${label} cannot contain placeholders`);
+  check(!parsed.pathname.endsWith("/"), `${label} must not end with a slash`);
+  check(!/[:@][^/]+$/.test(parsed.pathname), `${label} must be an untagged, undigested OCI repository base`);
 }
 
 function validateServerURL(value) {
@@ -5149,7 +5720,7 @@ function optionValues(name) {
 }
 
 function validateCliArgs(values) {
-  const valueFlags = new Set(["--request", "--checkout", "--output", "--context", "--target-facts", "--previous-apply-receipt", "--credential-scan-report", "--runtime-evidence"]);
+  const valueFlags = new Set(["--request", "--checkout", "--output", "--portable", "--context", "--target-facts", "--receipt-output", "--previous-apply-receipt", "--credential-scan-report", "--runtime-evidence"]);
   const flags = new Set([...MODES, "--help", ...valueFlags]);
   for (let index = 0; index < values.length; index += 1) {
     const value = values[index];
@@ -5166,16 +5737,25 @@ function usage() {
   node scripts/import-kubara-git-revision.mjs --plan    --request <request.yaml> --checkout <clean-git-checkout>
   node scripts/import-kubara-git-revision.mjs --compile --request <request.yaml> --checkout <clean-git-checkout> --output <directory-outside-checkout>
   node scripts/import-kubara-git-revision.mjs --verify  --request <request.yaml> --checkout <clean-git-checkout> --output <directory-outside-checkout>
+  node scripts/import-kubara-git-revision.mjs --compile-portable --request <portable-request.yaml> --checkout <clean-git-checkout> --output <portable-directory>
+  node scripts/import-kubara-git-revision.mjs --verify-portable  --request <portable-request.yaml> --checkout <clean-git-checkout> --output <portable-directory>
+  node scripts/import-kubara-git-revision.mjs --package-portable --request <portable-request.yaml> --checkout <clean-git-checkout> --output <portable-directory>
+  node scripts/import-kubara-git-revision.mjs --bind --request <reviewed-destination-request.yaml> --checkout <clean-git-checkout> --portable <portable-directory> --output <bound-directory>
   node scripts/import-kubara-git-revision.mjs --package --request <request.yaml> --checkout <clean-git-checkout> --output <directory-outside-checkout>
-  node scripts/import-kubara-git-revision.mjs --apply   --request <request.yaml> --checkout <clean-git-checkout> --output <packaged-output> --context <exact-existing-context> --target-facts <completed-attestation.yaml> [--previous-apply-receipt <passing-prior-receipt.json>]
+  node scripts/import-kubara-git-revision.mjs --apply   --request <request.yaml> --checkout <clean-git-checkout> --output <packaged-output> --context <exact-existing-context> --target-facts <completed-attestation.yaml> [--receipt-output <immutable-snapshot-inside-output>] [--previous-apply-receipt <passing-prior-receipt.json>]
   node scripts/import-kubara-git-revision.mjs --inspect-destination --request <request-template.yaml> --context <exact-existing-context> --credential-scan-report <pass-report> --runtime-evidence <cluster>=<observation.yaml>... --output <reviewed-request.yaml>
   node scripts/import-kubara-git-revision.mjs --self-test
 
-The request must name an HTTPS Git repository, a full immutable commit object,
-one path within that clean checkout, an exact existing ConfigHub context and
-organization coordinate, an untagged catalog OCI base, and exact pre-existing
-Space/Target IDs for every Kubara cluster. Package requires authenticated ORAS
-registry access. Apply consumes the exact package receipt and an external,
-secret-free target-fact attestation; it never creates organizations or targets.
+The portable request names only the immutable Git source, exact scanner
+attestation, layout, and an untagged OCI repository base. It can be compiled
+and published before a ConfigHub organization is selected. The reviewed
+destination request separately pins the chosen organization, context,
+bootstrap infrastructure, and every Space/Target identity. Bind proves the
+portable PlatformDigest is unchanged and copies a passing publication receipt
+when present. OCI publication requires authenticated ORAS registry access.
+Apply consumes the bound exact package receipt and an external, secret-free
+target-fact attestation; it never creates organizations or targets. Use a
+distinct --receipt-output for each journaled apply so the mutable canonical
+apply-receipt.json cannot destroy an earlier step's evidence.
 `);
 }

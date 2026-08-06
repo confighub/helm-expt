@@ -3,7 +3,7 @@ kind: "KubaraFaithfulHubSpokeProofReceipt"
 metadata:
   name: "kubara-v0-13-0-faithful-hub-spoke"
 spec:
-  observedAt: "2026-08-05T10:07:22.888Z"
+  observedAt: "2026-08-05T14:37:39.550Z"
   execution: "serial-live-lock"
   source:
     kubara:
@@ -20,13 +20,13 @@ spec:
       configSha256: "7260fe438066413c1bc44b5f674e4441e3ae9873146e860d4188ef518abc1211"
       generatedRoot: "examples/kubara/current-platform/generated"
       generatedFileCount: 135
-      generatedSha256: "6a1344c4526dd3b3f7b5355e5ed4c6888337474d59ca62812752ab12b998acbf"
+      generatedSha256: "e055676c295979e589f4ccad2b371d30252ff7ada8531147b32f28b77bd3be19"
     git:
       repository: "https://github.com/confighub/helm-expt.git"
       targetRevision: "main"
-      commit: "9a24e77e0af90b028ede1f00dbfef19cc90c0f33"
+      commit: "5d69eb0447eed52a5e1b7f20617d98a742d65f3c"
       currentExampleReachable: true
-      generatedSha256: "6a1344c4526dd3b3f7b5355e5ed4c6888337474d59ca62812752ab12b998acbf"
+      generatedSha256: "e055676c295979e589f4ccad2b371d30252ff7ada8531147b32f28b77bd3be19"
       generatedFileCount: 135
       exactBoundaryFiles:
         - "source/config.yaml"
@@ -71,14 +71,14 @@ spec:
       unit:
         ref: "hx-platform/faithful-hub-spoke-plan"
         id: "d4387012-e0f5-420a-a524-3ca2bd8d9cb1"
-        headRevisionNum: 3
-        dataHash: "53cdb7b8f4ce4fe0ffee8101028ea915bee6439a9b6ed4a9d4f86e703aec354c"
-        contentHash: -578061286
+        headRevisionNum: 4
+        dataHash: "0301dcac409dfe98eebf8d2f73a66b34d90d2c266b500649a64bbc26a5d8f76d"
+        contentHash: -1802860678
         provider: "None"
         targetID: null
         action: "updated"
       approval:
-        revision: 3
+        revision: 4
         recordedApprovals: 1
         approverIdentityRecordedInReceipt: false
         action: "approved-head-revision"
@@ -90,14 +90,14 @@ spec:
       unit:
         ref: "hx-platform/faithful-hub-spoke-attestation"
         id: "ff684240-725e-407a-8dfb-55f592541f16"
-        headRevisionNum: 2
-        dataHash: "873c324d1c67a286ead17ee9ae90425ca44f3c4fc38dcb8188bc2b8882714ca9"
-        contentHash: 748951891
+        headRevisionNum: 3
+        dataHash: "60ffa63025b940147d5e7b6017eabb57c9c066e8221aabacc8308de463533f9a"
+        contentHash: -412016539
         provider: "None"
         targetID: null
         action: "updated"
       approval:
-        revision: 2
+        revision: 3
         recordedApprovals: 1
         approverIdentityRecordedInReceipt: false
         action: "approved-head-revision"
@@ -116,7 +116,7 @@ spec:
     documentedRemotePath: "hx-app-dev/dev/argocd/hx-app-staging-staging"
     remoteProperty: "kubeconfig"
     rewrittenServer: "https://192.168.97.7:6443"
-    rewrittenKubeconfigSha256: "0fb4d776fa28a0bd0052b7a772becf7c3820c44603285ccb43632f020d1f8925"
+    rewrittenKubeconfigSha256: "cf4e2fccd39afef3e701164fac0f66ec673bbd6420005767222ed2933c0cb0e0"
     apiServerCertificateIncludesRewrittenIP: true
     hubNodeCanReachSpokeAPI: true
     openBao:
@@ -161,8 +161,8 @@ spec:
       sync: "Synced"
       health: "Healthy"
       revisions:
-        - "9a24e77e0af90b028ede1f00dbfef19cc90c0f33"
-        - "9a24e77e0af90b028ede1f00dbfef19cc90c0f33"
+        - "5d69eb0447eed52a5e1b7f20617d98a742d65f3c"
+        - "5d69eb0447eed52a5e1b7f20617d98a742d65f3c"
       component: "cert-manager"
       version: "v1.21.0"
     workload:

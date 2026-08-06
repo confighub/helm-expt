@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { readYaml, sha256, sha256File } from "./proof-common.mjs";
+import { listFiles, readYaml, sha256, sha256File } from "./proof-common.mjs";
 
 const libraryRoot = dirname(fileURLToPath(import.meta.url));
 const defaultRepoRoot = resolve(libraryRoot, "../..");
@@ -11,6 +11,7 @@ const defaultRepoRoot = resolve(libraryRoot, "../..");
 export const KUBARA_SITE_EVIDENCE_PATHS = Object.freeze({
   config: "examples/kubara/current-platform/source/config.yaml",
   catalogParity: "examples/kubara/current-platform/catalog-parity-receipt.yaml",
+  generatedChecksums: "examples/kubara/current-platform/generated-checksums.txt",
   faithful: "runs/kubara-faithful-hub-spoke/receipt.yaml",
   miniIdp: "runs/kubara-mini-idp-reconcile/receipt.yaml",
   attempts: "runs/kubara-mini-idp-reconcile/attempts.yaml",
@@ -31,6 +32,9 @@ export const KUBARA_MINI_IDP_SOURCE_PATHS = Object.freeze({
   componentArtifacts: "examples/kubara/current-platform/component-artifacts.yaml",
   generationReceipt: "examples/kubara/current-platform/generation-receipt.yaml",
   appSourceLock: "examples/kubara/current-platform/apps/source-lock.yaml",
+  argoAppSetTemplate: "examples/kubara/current-platform/generated/platform-components/helm/template-library/templates/argocd/_argo.appset.tpl",
+  argoValues: "examples/kubara/current-platform/generated/platform-configs/hx-app-dev/helm/argo-cd/values.generated.yaml",
+  catalogFullCoverageReceipt: "data/kubara-catalog-1.1-full-coverage/receipt.yaml",
   adapterOutput: "data/kubara-catalog-adapter/adapter-output.yaml",
   adapterReceipt: "data/kubara-catalog-adapter/receipt.yaml",
   desiredMatrix: "data/kubara-platform-matrix/desired-matrix.json",
@@ -139,6 +143,15 @@ function normalizedObservedVersion(value) {
   return value === null || value === undefined || value === "" ? "Unknown" : String(value);
 }
 
+function normalizedReadiness(value = {}) {
+  return {
+    result: value.result,
+    ready: value.ready ?? null,
+    desired: value.desired ?? null,
+    workloads: Array.isArray(value.workloads) ? value.workloads : [],
+  };
+}
+
 function sameStringSet(left, right) {
   return stableJson([...new Set(left ?? [])].sort()) === stableJson([...new Set(right ?? [])].sort());
 }
@@ -148,13 +161,14 @@ function expectedSourceDigest(digests, path) {
   return SHA256.test(digest ?? "") ? `sha256:${digest}` : null;
 }
 
-function evaluateFaithful({ config, catalogParity, faithful, digests, nowMs }) {
+function evaluateFaithful({ config, catalogParity, faithful, digests, generatedEvidence, nowMs }) {
   const reasons = [];
   if (!faithful) return gate([`${KUBARA_SITE_EVIDENCE_PATHS.faithful} is absent`]);
   const currentExample = faithful.spec?.source?.currentExample ?? {};
   const remoteGit = faithful.spec?.source?.git ?? {};
   const expectedCount = Number(catalogParity?.spec?.comparison?.fileCount ?? 0);
-  const expectedTree = catalogParity?.spec?.comparison?.outputTreeSha256;
+  const expectedParityTree = catalogParity?.spec?.comparison?.outputTreeSha256;
+  const currentParityTree = digests[KUBARA_SITE_EVIDENCE_PATHS.generatedChecksums];
   const configDigest = digests[KUBARA_SITE_EVIDENCE_PATHS.config];
   const hub = (config?.clusters ?? []).find((cluster) => cluster.type === "hub");
   const repo = hub?.argocd?.repo?.https?.components;
@@ -169,13 +183,16 @@ function evaluateFaithful({ config, catalogParity, faithful, digests, nowMs }) {
   requireFact(reasons, String(faithful.spec?.source?.catalogs?.version) === EXPECTED.catalogVersion, "faithful catalog version is stale");
   requireFact(reasons, catalogParity?.status?.result === "pass", "catalog parity receipt does not pass");
   requireFact(reasons, expectedCount === EXPECTED.generatedFiles, "catalog parity generated-file count changed");
-  requireFact(reasons, SHA256.test(expectedTree ?? ""), "catalog parity tree digest is malformed");
+  requireFact(reasons, SHA256.test(expectedParityTree ?? ""), "catalog parity tree digest is malformed");
+  requireFact(reasons, expectedParityTree === currentParityTree, "catalog parity tree digest is stale in the generated-checksums hash domain");
   requireFact(reasons, catalogParity?.spec?.sourceConfig?.sha256 === configDigest, "catalog parity source config is stale");
   requireFact(reasons, currentExample.configSha256 === configDigest, "faithful source config is stale");
+  requireFact(reasons, Number(generatedEvidence?.fileCount) === expectedCount, "current generated-tree file count differs from catalog parity");
+  requireFact(reasons, SHA256.test(generatedEvidence?.sha256 ?? ""), "current generated-tree faithful-proof digest is unavailable");
   requireFact(reasons, Number(currentExample.generatedFileCount) === expectedCount, "faithful generated-file count is stale");
-  requireFact(reasons, currentExample.generatedSha256 === expectedTree, "faithful generated tree is stale");
+  requireFact(reasons, currentExample.generatedSha256 === generatedEvidence?.sha256, "faithful generated tree is stale in the faithful-proof hash domain");
   requireFact(reasons, Number(remoteGit.generatedFileCount) === expectedCount, "faithful remote Git generated-file count is stale");
-  requireFact(reasons, remoteGit.generatedSha256 === expectedTree, "faithful remote Git generated tree is stale");
+  requireFact(reasons, remoteGit.generatedSha256 === generatedEvidence?.sha256, "faithful remote Git generated tree is stale in the faithful-proof hash domain");
   requireFact(reasons, remoteGit.currentExampleReachable === true, "faithful current example was not reachable in remote Git");
   requireFact(reasons, GIT_COMMIT.test(remoteGit.commit ?? ""), "faithful remote Git commit is not exact");
   requireFact(reasons, remoteGit.repository === repo?.url && remoteGit.targetRevision === repo?.targetRevision, "faithful remote Git identity differs from the Kubara config");
@@ -368,6 +385,7 @@ function evaluateOrphan({ orphan, miniIdp, digests, planSha256, reconcilerSha256
   requireFact(reasons, validTimestamp(orphan.spec?.observedAt), "orphan receipt observedAt is invalid");
   requireFact(reasons, timestampNotFuture(orphan.spec?.observedAt, nowMs), "orphan receipt observedAt is in the future");
   requireFact(reasons, timestampAtOrAfter(orphan.spec?.observedAt, miniIdp?.status?.observedAt), "orphan audit predates the accepted mini-IDP observation");
+  requireFact(reasons, orphan.spec?.source?.auditor === KUBARA_SITE_EVIDENCE_PATHS.orphanAuditor && orphan.spec?.source?.auditorSha256 === expectedSourceDigest(digests, KUBARA_SITE_EVIDENCE_PATHS.orphanAuditor), "orphan audit implementation digest is stale");
   requireFact(reasons, SHA256_PREFIXED.test(planSha256 ?? "") && orphan.spec?.source?.reconcilePlanSha256 === planSha256, "orphan audit reconcile plan is stale");
   requireFact(reasons, SHA256_PREFIXED.test(reconcilerSha256 ?? "") && orphan.spec?.source?.reconcilerSha256 === reconcilerSha256, "orphan audit reconciler is stale");
   requireFact(reasons, orphan.spec?.source?.applyAttemptLedgerSha256 === expectedSourceDigest(digests, KUBARA_SITE_EVIDENCE_PATHS.attempts), "orphan audit durable attempt ledger is stale");
@@ -381,19 +399,23 @@ function evaluateOrphan({ orphan, miniIdp, digests, planSha256, reconcilerSha256
   requireFact(reasons, orphan.spec?.argo?.requiresPruningPolicy === "zero", "orphan audit permits Argo requiresPruning residue");
   requireFact(reasons, orphan.spec?.argo?.applications?.length === EXPECTED.deliveryApplications && new Set(orphan.spec.argo.applications.map((row) => `${row.cluster}/${row.name}`)).size === EXPECTED.deliveryApplications, "orphan audit Argo Application inventory is incomplete or duplicated");
   const durable = orphan.spec?.durableWorkloads ?? {};
+  requireFact(reasons, orphan.spec?.auditScope?.clusterWideOrphanFreeClaim === false && String(orphan.spec?.auditScope?.excludedFromClusterWideClaim ?? "").includes("not a complete cluster inventory"), "orphan audit does not disclose its cluster inventory boundary");
   requireFact(reasons, durable.unclassifiedCount === 0 && durable.danglingTrackedCount === 0 && durable.missingBootstrap?.length === 0, "orphan audit retains unclassified, dangling, or missing bootstrap workloads");
   requireFact(reasons, Array.isArray(durable.rows) && durable.rows.length === Number(observed.durableWorkloads) && durable.rows.every((row) => ["argo-status-desired", "bootstrap-baseline", "generated-by-argo-desired-root"].includes(row.classification)), "orphan audit durable workload inventory is incomplete or contains a rejected classification");
+  requireFact(reasons, durable.rows?.filter((row) => row.classification === "generated-by-argo-desired-root").every((row) => row.desiredControllerOwnerRoots?.length === 1 && row.staleDesiredOwnerRoots?.length === 0 && row.desiredControllerOwnerRoots.every((owner) => owner.uid && owner.uid === owner.liveUID)), "orphan audit generated workloads are not UID-bound to exactly one current desired controller owner");
   const protectedRows = orphan.spec?.protectedNamespaces?.rows ?? [];
   requireFact(reasons, Number(expected.protectedNamespaces) > 0 && protectedRows.length === Number(expected.protectedNamespaces), "orphan audit protected Namespace inventory is incomplete");
   requireFact(reasons, protectedRows.every((row) => CLUSTERS.includes(row.cluster) && UUID.test(row.uid ?? "") && row.phase === "Active" && row.staleOwnershipAnnotations?.length === 0 && row.staleLegacyOwnershipLabels?.length === 0), "orphan audit retains invalid or stale protected Namespace evidence");
   requireFact(reasons, orphan.status?.result === "pass", "orphan audit does not pass");
   for (const field of [
+    "zeroAuditedResidue",
     "zeroUnexpectedConfigHubInventory",
     "zeroArgoRequiresPruning",
     "zeroUnclassifiedDurableWorkloads",
     "zeroDanglingTrackedDurableWorkloads",
+    "zeroStaleControllerOwnership",
     "zeroProtectedNamespaceOwnership",
-    "historicalReleasesRetained",
+    "retainedReleaseHistoryProvedByTags",
   ]) requireFact(reasons, orphan.status?.[field] === true, `orphan audit ${field} is not true`);
   requireFact(reasons, Object.keys(orphan.status?.orphanCounts ?? {}).length > 0 && Object.values(orphan.status?.orphanCounts ?? {}).every((value) => value === 0), "orphan audit counters are absent or non-zero");
   requireFact(reasons, orphan.status?.findingCount === 0, "orphan audit finding count is non-zero");
@@ -456,7 +478,7 @@ function evaluateMatrix({ matrix, miniIdp }) {
       if (!source) continue;
       for (const field of ["desiredVersion", "deliveryState", "syncState", "healthState", "unknownReason"]) requireFact(reasons, stableJson(row[field]) === stableJson(source[field]), `matrix ${key} ${field} differs from the mini-IDP receipt`);
       requireFact(reasons, row.observedVersion === normalizedObservedVersion(source.observedVersion), `matrix ${key} observedVersion differs from the mini-IDP receipt`);
-      requireFact(reasons, stableJson(row.readiness) === stableJson(source.readiness), `matrix ${key} readiness differs from the mini-IDP receipt`);
+      requireFact(reasons, stableJson(row.readiness) === stableJson(normalizedReadiness(source.readiness)), `matrix ${key} readiness differs from the canonical mini-IDP receipt mapping`);
       requireFact(reasons, stableJson(row.departure ?? null) === stableJson(source.departure ?? null), `matrix ${key} departure differs from the mini-IDP receipt`);
     }
     requireFact(reasons, seen.size === EXPECTED.matrixRows, "matrix cell set is incomplete");
@@ -543,6 +565,23 @@ function repoDigest(root, path) {
   return existsSync(absolute) ? sha256File(absolute) : null;
 }
 
+function currentGeneratedEvidence(root) {
+  const generatedRoot = join(root, "examples", "kubara", "current-platform", "generated");
+  const components = join(generatedRoot, "platform-components");
+  const configs = join(generatedRoot, "platform-configs");
+  if (!existsSync(components) || !existsSync(configs)) return null;
+  const files = [...listFiles(components), ...listFiles(configs)]
+    .sort((left, right) => relative(generatedRoot, left).localeCompare(relative(generatedRoot, right)));
+  const entries = files.map((path) => ({
+    path: relative(generatedRoot, path).replaceAll("\\", "/"),
+    sha256: sha256File(path),
+  }));
+  return {
+    fileCount: entries.length,
+    sha256: sha256(JSON.stringify(entries)),
+  };
+}
+
 function safeRepoRelativePath(path) {
   return typeof path === "string"
     && !/^(?:[a-z]+:|\/)/i.test(path)
@@ -627,6 +666,7 @@ export function evaluateKubaraSiteLiveEvidence({ root = defaultRepoRoot, require
     guiImagePaths,
     requireGui,
     canonicalValidation,
+    generatedEvidence: currentGeneratedEvidence(root),
     nowMs: Date.now(),
     digests,
     planSha256: orphan ? currentPlanDigest(root) : null,

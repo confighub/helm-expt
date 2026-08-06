@@ -456,73 +456,52 @@
 <ul><li>Exact-source and complete-scope verification before packaging.</li><li>Component-first packages whose retained versions can be governed separately from one platform selection.</li><li>Content-addressed OCI publication with exact remote manifest and layer verification.</li><li>A target-neutral <code>PlatformDigest</code> for the portable platform and a separate <code>BindingDigest</code> for the selected ConfigHub destination.</li><li>Refusal of dirty, mutable, ambiguous, mismatched, credential-shaped, or concurrently changed inputs.</li></ul>
 <p>The implementation is deterministic code. AI is not part of the required import path.</p>
 <h2 id="before-you-start">Before you start</h2>
-<p>The current importer cannot compile or package first and choose the destination later. Before either operation, the user must explicitly select a readable ConfigHub organization and provide one pre-existing ConfigHub Target and one observed, healthy cluster-local Argo delivery runtime for every Kubara cluster. Step 5 applies into those reviewed identities; it does not discover or create them implicitly.</p>
 <p>Complete Steps 1–3 and have all of the following:</p>
-<ul><li>a clean detached checkout at the full pushed Git object ID;</li><li>the prepared platform subtree bound by its <a href="../../../../../examples/kubara/prepared-current-platform/preparation-receipt.yaml"><code>preparation-receipt.yaml</code></a> and <a href="../../../../../examples/kubara/prepared-current-platform/checksums.txt"><code>checksums.txt</code></a>;</li><li>a passing external secret-scan report stored outside that checkout;</li><li>one secret-free Argo runtime observation for every target cluster;</li><li>a ConfigHub context already switched to the organization the user selected;</li><li>pre-existing ConfigHub Targets and cluster-local Argo delivery runtimes; and</li><li><code>oras</code> authenticated to the untagged repository base in <code>spec.destination.catalogOCIBase</code>.</li></ul>
-<p>The exact importer contract and full field reference live in <a href="../../../examples/kubara/git-import/README.html"><code>examples/kubara/git-import/README.md</code></a>. Start from <a href="../../../../../examples/kubara/git-import/request.example.yaml"><code>request.example.yaml</code></a>, but never use its example IDs, hashes, repository, or organization as real authority.</p>
+<ul><li>a clean detached checkout at the full pushed Git object ID;</li><li>the prepared platform subtree bound by its <a href="../../../../../examples/kubara/prepared-current-platform/preparation-receipt.yaml"><code>preparation-receipt.yaml</code></a> and <a href="../../../../../examples/kubara/prepared-current-platform/checksums.txt"><code>checksums.txt</code></a>;</li><li>a passing external secret-scan report stored outside that checkout;</li><li>a reviewed copy of <a href="../../../../../examples/kubara/git-import/portable-request.example.yaml"><code>portable-request.example.yaml</code></a> whose source commit, selected path, layout, scan attestation, and untagged OCI repository base are exact; and</li><li><code>oras</code> authenticated to that repository base.</li></ul>
+<p>No ConfigHub organization, context, Space, Target, runtime observation, target fact, or secret is required for this step. Portable compile and publication now happen before the user chooses a ConfigHub destination. The organization and each cluster-local Argo runtime are selected, inspected, and bound explicitly in Step 5.</p>
+<p>The exact importer contract and full field reference live in <a href="../../../examples/kubara/git-import/README.html"><code>examples/kubara/git-import/README.md</code></a>. Start from <a href="../../../../../examples/kubara/git-import/portable-request.example.yaml"><code>portable-request.example.yaml</code></a>, but never use its example hash, repository, commit, path, or OCI base as real authority. Step 5 starts separately from <code>request.example.yaml</code> when a destination is selected.</p>
 <p>Run the repository commands below from the <code>helm-expt</code> repository root.</p>
-<p>For the commands below, substitute your controlled paths and context name:</p>
+<p>For the commands below, substitute your controlled paths:</p>
 <pre><code>export KUBARA_CHECKOUT=/absolute/path/to/clean-detached-checkout
-export KUBARA_IMPORT=/controlled/import/revision-1
-export KUBARA_CONTEXT=acme-kubara
-mkdir -p &quot;$KUBARA_IMPORT&quot;</code></pre>
+export KUBARA_PORTABLE_REQUEST=/controlled/import/portable-request.yaml
+export KUBARA_PORTABLE=/controlled/import/portable
+mkdir -p &quot;$KUBARA_PORTABLE&quot;</code></pre>
 <p>Do not put the controlled import directory inside the Git checkout.</p>
-<h2 id="41-inspect-the-selected-destination-without-changing-it">4.1 Inspect the selected destination without changing it</h2>
-<p>First edit a copy of the request template so that its Git repository, full commit ID, selected path, intended stable slugs, and OCI repository base are correct. Then bind the request to live, exact destination identities:</p>
-<pre><code>node scripts/import-kubara-git-revision.mjs --inspect-destination \
-  --request /controlled/import/request-template.yaml \
-  --context &quot;$KUBARA_CONTEXT&quot; \
-  --credential-scan-report /controlled/evidence/gitleaks-report.json \
-  --runtime-evidence hx-app-dev=/controlled/evidence/dev-runtime.yaml \
-  --runtime-evidence hx-app-staging=/controlled/evidence/staging-runtime.yaml \
-  --runtime-evidence hx-app-prod-a=/controlled/evidence/prod-a-runtime.yaml \
-  --runtime-evidence hx-app-prod-b=/controlled/evidence/prod-b-runtime.yaml \
-  --output /controlled/import/reviewed-request.yaml</code></pre>
-<p>This operation is read-only against ConfigHub. It uses narrow queries to pin the organization, Spaces, Targets, argobot lineage, delivery roots, and any workload Application heads explicitly preserved by the request. It hashes but does not embed the scanner report or runtime observation contents.</p>
-<p>Review <code>/controlled/import/reviewed-request.yaml</code> before continuing. In particular, confirm:</p>
-<ul><li>organization display name, external ID, internal entity ID, server URL, and context;</li><li>all four Space and Target identities;</li><li>the observed local Argo version and image for each cluster;</li><li>the exact catalog OCI base; and</li><li>every existing workload Application that must remain preserved.</li></ul>
-<h3 id="an-honest-current-product-boundary">An honest current product boundary</h3>
-<p>The current CLI requires this read-only destination inspection <b>before</b> compile and package. That is why Step 4 already needs a readable, selected organization even though ConfigHub mutation does not begin until Step 5.</p>
-<p>This ordering is a property of the current importer interface, not something Kubara intrinsically requires. The reviewed request carries both portable source intent and destination authorization. The split remains real:</p>
-<ul><li>component/config payload bytes and <code>PlatformDigest</code> are target-neutral;</li><li><code>destination-binding-lock.yaml</code> and <code>BindingDigest</code> bind the selected organization and are explicitly excluded from OCI; and</li><li>applying the same content to another organization preserves the portable member bytes while producing a different binding digest.</li></ul>
-<p>A future product command can make this boundary feel like one guided import, but this tutorial does not pretend that sequencing already exists.</p>
-<h2 id="42-compile-inspect-and-reproduce-the-plan">4.2 Compile, inspect, and reproduce the plan</h2>
-<p>Compile outside the checkout, then regenerate and compare all semantic output bytes:</p>
-<pre><code>node scripts/import-kubara-git-revision.mjs --compile \
-  --request /controlled/import/reviewed-request.yaml \
+<h2 id="41-review-the-target-neutral-request">4.1 Review the target-neutral request</h2>
+<p>The portable request is intentionally small. Confirm that it contains only:</p>
+<ul><li>the immutable repository URL, full Git object ID, and selected path;</li><li>the supported Kubara layout beneath that path;</li><li>the exact scanner name/version, report SHA-256, source commit, scope path, and explicit opaque-file review; and</li><li>an untagged <code>publication.catalogOCIBase</code>.</li></ul>
+<p>Do not copy destination slugs, UUIDs, ConfigHub context, runtime observations, target facts, tokens, or secret values into this request. Those facts belong to the separate destination request and binding created in Step 5.</p>
+<h2 id="42-compile-inspect-and-reproduce-the-portable-package-set">4.2 Compile, inspect, and reproduce the portable package set</h2>
+<p>Compile outside the checkout, then regenerate and compare every portable semantic output byte:</p>
+<pre><code>node scripts/import-kubara-git-revision.mjs --compile-portable \
+  --request &quot;$KUBARA_PORTABLE_REQUEST&quot; \
   --checkout &quot;$KUBARA_CHECKOUT&quot; \
-  --output &quot;$KUBARA_IMPORT&quot;
+  --output &quot;$KUBARA_PORTABLE&quot;
 
-node scripts/import-kubara-git-revision.mjs --verify \
-  --request /controlled/import/reviewed-request.yaml \
+node scripts/import-kubara-git-revision.mjs --verify-portable \
+  --request &quot;$KUBARA_PORTABLE_REQUEST&quot; \
   --checkout &quot;$KUBARA_CHECKOUT&quot; \
-  --output &quot;$KUBARA_IMPORT&quot;</code></pre>
-<p>Review <code>import-plan.json</code> before publication. It is the exact ordered plan for Spaces, Units, packages, delivery Applications, <code>UpgradeUnit</code> lineage, and curated <code>NeedsProvides</code> Links. A changed source byte, Git object, request field, or generated output causes verification to fail.</p>
-<h2 id="43-complete-the-external-target-fact-attestation">4.3 Complete the external target-fact attestation</h2>
-<p>The compiler writes a pending template at:</p>
-<pre><code>/controlled/import/revision-1/target-facts-required.yaml</code></pre>
-<p>Copy it to controlled storage outside Git and OCI. For every binding set <code>status: verified-present</code>. For every required resolution set either <code>satisfied</code> or <code>not-applicable-reviewed</code>, then add a secret-free external <code>evidenceRef</code> and its exact <code>sha256:</code> digest. Finally require:</p>
-<pre><code>policy:
-  secretValuesIncluded: false
-  generatedTemplateIsAnAttestation: true</code></pre>
-<p>This attestation is consumed during apply in Step 5. It is not an invitation to copy target credentials or secret values into the platform package.</p>
-<h2 id="44-publish-and-verify-the-immutable-oci-set">4.4 Publish and verify the immutable OCI set</h2>
+  --output &quot;$KUBARA_PORTABLE&quot;</code></pre>
+<p>Review <code>platform-lock.yaml</code>, <code>portable-package-set.json</code>, the local payloads, and <code>portable-checksums.txt</code>. The portable directory must not contain <code>destination-binding-lock.yaml</code> or <code>target-facts-required.yaml</code>. A changed Git object, selected byte, request field, or generated output causes verification to fail.</p>
+<h2 id="43-publish-and-verify-the-immutable-oci-set">4.3 Publish and verify the immutable OCI set</h2>
 <p>Hold exclusive single-writer control of the reviewed OCI repository base for the complete publication operation, then run:</p>
-<pre><code>node scripts/import-kubara-git-revision.mjs --package \
-  --request /controlled/import/reviewed-request.yaml \
+<pre><code>node scripts/import-kubara-git-revision.mjs --package-portable \
+  --request &quot;$KUBARA_PORTABLE_REQUEST&quot; \
   --checkout &quot;$KUBARA_CHECKOUT&quot; \
-  --output &quot;$KUBARA_IMPORT&quot;</code></pre>
-<p>The importer inspects, publishes, and post-inspects every remote artifact. A pre-existing content-addressed reference is reused only when its artifact type, media type, layer count, digest, and size all match. A conflict is refused.</p>
+  --output &quot;$KUBARA_PORTABLE&quot;</code></pre>
+<p>The importer inspects, publishes, and post-inspects every remote artifact. A pre-existing content-addressed reference is reused only when its artifact type, media type, layer count, digest, and size all match. A conflict is refused. No ConfigHub or cluster mutation occurs.</p>
+<h2 id="44-keep-the-portable-result-independent-of-its-destination">4.4 Keep the portable result independent of its destination</h2>
+<p>At this checkpoint the exact Git revision and portable OCI set can be carried to a ConfigHub organization selected later. Step 5 performs a separate read-only <code>--inspect-destination</code>, then <code>--bind</code> proves that recompiling the same Git source produces byte-for-byte identical portable members and the same <code>PlatformDigest</code>. The binding writes a different <code>BindingDigest</code> for the selected organization and explicitly keeps it outside OCI.</p>
+<p>This split is the adoption promise made executable: Kubara's Git result stays portable; OCI is its immutable delivery form; ConfigHub destination authority is added without recompiling the platform for one organization.</p>
 <h2 id="expected-artifacts">Expected artifacts</h2>
 <p>The controlled output contains:</p>
 <table><thead><tr><th>Path</th><th>Meaning</th></tr></thead><tbody><tr><td><code>platform-lock.yaml</code></td><td>Exact source/content/materialization lock and target-neutral <code>PlatformDigest</code>.</td></tr>
-<tr><td><code>destination-binding-lock.yaml</code></td><td>Exact organization, Target, and delivery binding plus <code>BindingDigest</code>; excluded from OCI.</td></tr>
-<tr><td><code>import-plan.json</code></td><td>Ordered ConfigHub topology, packages, releases, and Links for Step 5.</td></tr>
-<tr><td><code>target-facts-required.yaml</code></td><td>Pending operator-attestation template, never the completed secret-free evidence file.</td></tr>
-<tr><td><code>acceptance.json</code></td><td>Claims implemented by this importer and the boundaries it does not claim.</td></tr>
-<tr><td><code>checksums.txt</code></td><td>Exact hashes of the five semantic compiler outputs.</td></tr>
-<tr><td><code>oci/payloads/*.json</code></td><td>The deterministic local bytes published as component/config packages and the platform index.</td></tr>
+<tr><td><code>portable-package-set.json</code></td><td>Ordered component-definition, effective-config, and platform-index package contract.</td></tr>
+<tr><td><code>portable-checksums.txt</code></td><td>Exact hashes of all portable semantic outputs.</td></tr>
+<tr><td><code>payloads/*.json</code></td><td>Deterministic target-neutral member bytes produced by portable compile and covered by <code>portable-checksums.txt</code>.</td></tr>
+<tr><td><code>oci/payloads/*.json</code></td><td>Local publication copies of the member bytes plus the final digest-bound platform index.</td></tr>
 <tr><td><code>oci-publication-receipt.json</code></td><td>Exact remote refs, manifest digests, layer digests, roles, and publication result.</td></tr></tbody></table>
+<p>The destination-bound <code>import-plan.json</code>, <code>destination-binding-lock.yaml</code>, <code>target-facts-required.yaml</code>, <code>acceptance.json</code>, <code>checksums.txt</code>, and <code>portable-binding-receipt.json</code> do not exist until Step 5 runs <code>--bind</code> into a separate output directory.</p>
 <p>For the committed four-cluster fixture, the isolated acceptance suite produces 22 component/config packages plus one digest index. That number describes the fixture, not a required count for every Kubara platform.</p>
 <h2 id="machine-checkpoint">Machine checkpoint</h2>
 <p>Anyone can exercise the complete importer contract without a live organization, registry, or cluster:</p>
@@ -530,22 +509,21 @@ node scripts/import-kubara-git-revision.mjs --verify \
 <p>Expected final line:</p>
 <pre><code>Kubara Git importer self-test passed: exact Git compile, 22 component/config OCI packages plus digest index, pulled-payload verification, pinned delivery topology, 12 platform Argo Applications, four root releases, second-run zero actions, and adversarial refusals</code></pre>
 <p>This is <b>current deterministic, isolated evidence</b>. The self-test uses fake Git, OCI, and ConfigHub surfaces. It proves the importer contract and its refusals; it does not prove that your selected live organization has been changed or that any cluster is healthy.</p>
-<p>For a real publication, also require <code>oci-publication-receipt.json.status.result</code> to equal <code>pass</code>, confirm that <code>targetFactsIncluded</code> is <code>false</code>, and retain the receipt with the reviewed request and Git object ID.</p>
+<p>For a real publication, also require <code>oci-publication-receipt.json.status.result</code> to equal <code>pass</code>, confirm that <code>targetFactsIncluded</code> is <code>false</code>, and retain the receipt with the reviewed portable request and Git object ID.</p>
 <h2 id="screenshot-to-capture-after-the-checkpoint-passes">Screenshot to capture after the checkpoint passes</h2>
 <p>Do not manufacture a registry screenshot for the isolated self-test. This chapter owns exactly one future adoption frame, separate from the ConfigHub GUI tour.</p>
 <p>After the isolated self-test checkpoint and the complete source-current documentation gate pass, capture one real terminal/workspace frame from that same self-test run. It must show the complete passing final line, including the reported 22 component/config OCI packages, digest index, pulled-payload verification, pinned delivery topology, zero-action second run, and refusal cases. The caption must name the Git commit and say explicitly that these are deterministic <b>fake Git, OCI, and ConfigHub test surfaces</b>. This frame proves the importer contract and isolated package/index behavior; it does not claim a live registry publication, ConfigHub materialization, or cluster health.</p>
 <p>Embed it at the declared path only when the six-frame adoption receipt binds the exact source commit and Git trees, prepared hand-off receipt, importer implementation, release-acceptance contract, image digest, UTC capture time, visible package/index identities, sensitive-value handling, caption, and claim boundary. It must not be presented as the real-publication receipt described above. Until then, leave the hook unexpanded.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
-<table><thead><tr><th>Symptom</th><th>What it means</th><th>Safe response</th></tr></thead><tbody><tr><td>Destination inspection reports an organization or context mismatch</td><td>The active identity is not the one authorized by the request.</td><td>Switch to the intended context and rerun inspection. Never hand-edit live UUIDs into the reviewed output.</td></tr>
-<tr><td>A Target, delivery root, or argobot Unit is missing</td><td>Step 5 prerequisites have not been bootstrapped.</td><td>Stop, provision the named prerequisite deliberately, then rerun inspection and review the new request.</td></tr>
-<tr><td>Compile rejects a branch, dirty checkout, untracked file, or changed byte</td><td>The input is not the exact Git hand-off from Step 3.</td><td>Create a clean detached checkout at the pushed object ID. Do not bypass the check.</td></tr>
-<tr><td>The credential scan or structural scan fails</td><td>The selected tree is unsafe or its attestation does not bind this exact commit and scope.</td><td>Remove the material from the portable tree, rescan the final commit, and regenerate the reviewed request.</td></tr>
+<table><thead><tr><th>Symptom</th><th>What it means</th><th>Safe response</th></tr></thead><tbody><tr><td>Compile rejects a branch, dirty checkout, untracked file, or changed byte</td><td>The input is not the exact Git hand-off from Step 3.</td><td>Create a clean detached checkout at the pushed object ID. Do not bypass the check.</td></tr>
+<tr><td>The credential scan or structural scan fails</td><td>The selected tree is unsafe or its attestation does not bind this exact commit and scope.</td><td>Remove the material from the portable tree, rescan the final commit, and update the portable request with the exact attestation.</td></tr>
 <tr><td>Verification says an output is stale</td><td>The request, Git bytes, or compiled output changed after compilation.</td><td>Use a fresh output directory and recompile from the exact reviewed inputs.</td></tr>
 <tr><td>OCI publication observes a different existing layer</td><td>Another writer or prior incompatible publication owns that reference.</td><td>Keep the conflicting evidence, stop publication, and resolve repository ownership. Never overwrite it.</td></tr>
-<tr><td>The self-test passes but the live registry is empty</td><td>The self-test is intentionally isolated.</td><td>Run the real <code>--package</code> command with authenticated <code>oras</code> and inspect its publication receipt.</td></tr></tbody></table>
+<tr><td>The portable directory contains destination or target-fact files</td><td>Portable and destination-bound outputs were mixed.</td><td>Stop and compile into a new empty portable directory outside the checkout. Never publish the mixed directory.</td></tr>
+<tr><td>The self-test passes but the live registry is empty</td><td>The self-test is intentionally isolated.</td><td>Run the real <code>--package-portable</code> command with authenticated <code>oras</code> and inspect its publication receipt.</td></tr></tbody></table>
 <h2 id="safe-to-stop">Safe to stop</h2>
-<p>It is safe to stop after destination inspection, compile/verify, or package. None of those operations mutates ConfigHub or a cluster. OCI publication is additive and content-addressed; retain the output and receipt if it completed.</p>
-<p>Do not begin Step 5 unless all compiler outputs still verify, the exact OCI receipt passes, and the completed target-fact attestation is available. If anything changed, create a new controlled output directory rather than rewriting evidence for the prior revision.</p>
+<p>It is safe to stop after portable compile/verify or package. None of those operations mutates ConfigHub or a cluster. OCI publication is additive and content-addressed; retain the output and receipt if it completed.</p>
+<p>Do not begin Step 5 unless the portable compiler outputs still verify and the exact OCI receipt passes. Step 5 creates the destination binding and its pending target-fact template. If any portable input changed, create a new controlled portable output directory rather than rewriting evidence for the prior revision.</p>
 <p>Previous: <a href="adoption-3-git.html">Step 3 - commit and push the complete hand-off</a></p>
 <p>Next: <a href="adoption-5-confighub-org.html">Step 5 - materialize the platform in the selected ConfigHub organization</a></p>
     </article>

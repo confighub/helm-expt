@@ -553,7 +553,7 @@ test -z &quot;$(git status --porcelain)&quot;
 test &quot;$(wc -l &lt; examples/kubara/prepared-current-platform/checksums.txt | tr -d ' ')&quot; = 166
 test &quot;$(find examples/kubara/prepared-current-platform -type f | wc -l | tr -d ' ')&quot; = 167</code></pre>
 <p>The verifier must pass and both clean-tree checks must remain silent. The count checks document the current example; the verifier is the substantive gate.</p>
-<p>This checkpoint proves a deterministic, clean, pushed platform hand-off. It does not prove OCI publication, ConfigHub materialization, Argo sync, workload health, or an orphan-free live organization.</p>
+<p>This checkpoint proves a deterministic, clean, pushed platform hand-off. It does not prove OCI publication, ConfigHub materialization, Argo sync, workload health, exact governed inventory, or a residue-free live organization.</p>
 <h2 id="screenshot-checkpoint">Screenshot checkpoint</h2>
 <p>No GitHub screenshot is embedded until the exact revision is public, the checkpoint above passes, and the complete source-current live gate passes. This chapter owns exactly one future adoption frame, separate from the ConfigHub GUI tour.</p>
 <p>Capture one real GitHub commit view that shows:</p>

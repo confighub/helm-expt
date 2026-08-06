@@ -246,7 +246,7 @@ checks document the current example; the verifier is the substantive gate.
 
 This checkpoint proves a deterministic, clean, pushed platform hand-off. It
 does not prove OCI publication, ConfigHub materialization, Argo sync, workload
-health, or an orphan-free live organization.
+health, exact governed inventory, or a residue-free live organization.
 
 ## Screenshot checkpoint
 

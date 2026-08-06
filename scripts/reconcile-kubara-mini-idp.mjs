@@ -14,6 +14,10 @@
 //   --receipt-verify  verify the committed live receipt without a login
 //   --self-test       exercise restart-safe release decisions without live I/O
 //   --self-test-performance  exercise only read-cache/performance invariants
+//   --diagnose-journal read-only comparison of an in-flight scenario journal
+//   --diagnose-history read-only explanation of prior scenario receipt trust
+//   --rebind-journal safely rebind an exact matching scenario checkpoint and
+//                    recover an allowlisted immutable-selector convergence blocker
 //
 // Safety properties:
 //   * live modes require the Kubara organization;
@@ -22,6 +26,8 @@
 //   * exact workload Applications retain Kubara's bounded Argo prune behavior;
 //   * one exact tracked namespace-move DaemonSet may be pruned only after
 //     proving the old/new tracking identities and shared host-network binding;
+//   * sixteen exact hx-web and Cubbychat workloads may be replaced once, with
+//     UID/resourceVersion preconditions, solely to migrate immutable selectors;
 //   * a completely absent cluster may be created with `cub cluster up`;
 //   * partial state within one cluster is rejected; a complete ordered fleet
 //     prefix resumes only from the exact write-ahead bootstrap journal;
@@ -74,7 +80,7 @@ import {
   selfTestKindTraefikContract,
 } from "./lib/kubara-kind-traefik.mjs";
 
-const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test", "--self-test-performance"]);
+const modes = new Set(["--plan", "--apply", "--verify", "--receipt-verify", "--self-test", "--self-test-performance", "--diagnose-journal", "--diagnose-history", "--rebind-journal"]);
 validateCliArgs();
 const requestedModes = process.argv.filter((arg) => modes.has(arg));
 check(requestedModes.length <= 1, `choose one mode: ${[...modes].join(", ")}`);
@@ -111,6 +117,7 @@ const LINK_REASON_ANNOTATION = "helm-expt.confighub.com/reason";
 const CONFIGHUB_OCI_SPACE_PREFIX = "oci://oci.hub.confighub.com:443/space/";
 const ARGO_PRUNE_POLICY = "Argo may prune only resources tracked by one of the 27 exact allowlisted deployment Applications; ConfigHub objects and persistent clusters are never deleted";
 const ARGO_NAMESPACE_MOVE_POLICY = "one declared tracked DaemonSet may be deleted with UID/resourceVersion preconditions from its obsolete namespace only at the exact expected OCI revision and after Argo marks it requiresPruning, the same desired workload exists in the Kubara namespace, both tracking IDs match, both ConfigHub origins match, and the reviewed TCP/9100 host-network binding conflicts";
+const IMMUTABLE_SELECTOR_REPLACEMENT_POLICY = "each of the sixteen declared hx-web and Cubbychat workloads may be deleted and recreated once with UID/resourceVersion preconditions only after an attempted operation at the exact expected OCI revision records that exact resource's immutable-selector failure, the live object matches its reviewed legacy selector and exact Argo/ConfigHub ownership, the desired payload matches its reviewed replacement selector, and any retained PostgreSQL PVC is UID-bound before and after replacement";
 const ARGO_RETRY_POLICY = "persist one 90-minute convergence deadline and at most four sync-submission reservations per Application and OCI digest across restarts; observe an existing Argo operation without replacement for up to 60 minutes; wait for exact-revision health without resyncing for up to 30 minutes; reserve a new sync only after inactive terminal failure, OutOfSync, or wrong revision";
 const ARGO_OPERATION_TIMEOUT_MS = 60 * 60 * 1000;
 const ARGO_HEALTH_TIMEOUT_MS = 30 * 60 * 1000;
@@ -118,6 +125,21 @@ const ARGO_CONVERGENCE_TIMEOUT_MS = 90 * 60 * 1000;
 const ARGO_MAX_SYNC_REQUESTS = 4;
 const ARGO_OBSERVE_SECONDS = 5;
 const NAMESPACE_MOVE_MIGRATION_ID = "hx-kps-main/node-exporter-default-to-kube-prometheus-stack/v1";
+const IMMUTABLE_SELECTOR_MIGRATION_VERSION = "v1";
+const IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY = "terminal-exact-resource-failure-v2";
+const IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_EFFECTIVE_AT = "2026-08-05T19:30:00.000Z";
+const HX_WEB_LEGACY_SELECTOR = Object.freeze({ app: "hx-web" });
+const HX_WEB_REVIEWED_SELECTOR = Object.freeze({ "app.kubernetes.io/name": "hx-web" });
+const CUBBYCHAT_LEGACY_SELECTORS = Object.freeze({
+  backend: Object.freeze({ app: "backend" }),
+  frontend: Object.freeze({ app: "frontend" }),
+  postgres: Object.freeze({ app: "postgres" }),
+});
+const CUBBYCHAT_REVIEWED_SELECTORS = Object.freeze({
+  backend: Object.freeze({ "app.kubernetes.io/name": "cubbychat-backend" }),
+  frontend: Object.freeze({ "app.kubernetes.io/name": "cubbychat-frontend" }),
+  postgres: Object.freeze({ "app.kubernetes.io/name": "postgres" }),
+});
 const ARGO_REVISION_POLICY = "disable Argo automated sync for every managed Application; accept and submit only the exact authoritative ConfigHub OCI ManifestDigest with a Kubernetes UID/resourceVersion compare-and-set; targetRevision latest is discovery-only and argobot refreshes cannot deploy";
 const INTERRUPTED_RELEASE_POLICY = "publish whenever any Unit head differs from its last applied revision; reuse the exact published release for metadata-only changes or ConfigHub's unchanged-bundle response; pass only the published OCI ManifestDigest to Argo";
 const INTERRUPTED_SCENARIO_POLICY = "write ahead every ordered hx-web mutation as a nested transition with exact pre/post Unit, release, provenance, and UpgradeUnit checkpoints; bind approval to exact heads observed twice behind the gate and rollback to the exact initial-rollout revision; resume only an exact durable prefix and fail closed on every undeclared delta";
@@ -125,17 +147,24 @@ const PUBLISHED_RELEASE_SELECTION_POLICY = "filter Published = true server-side 
 const DELIVERY_ROOT_PUBLICATION_POLICY = "reconcile every declared Argo Application Unit with automated sync disabled; retain bootstrap and variant-created release history only behind a fenced no-auto root; select or publish one complete authoritative delivery-root release per cluster; compare-and-set that exact root ManifestDigest into Argo before any source release can converge; and forbid later Application Unit mutations in the run";
 const UNCHANGED_RELEASE_ERROR = "no changes were made since :latest bundle";
 const GUI_IDENTITY_POLICY = "native Component, Owner, Variant, and Lane labels make the component-first Kubara catalog, faithful/adapted delivery choice, and definition-instance hub-spoke shape visible; the component-catalog-coverage Unit exposes the additive 103-component/130-version scope and all 18 Kubara selections; Kubara hub Argo and ConfigHub cluster-bootstrap Argo retain separate exact version provenance; public navigation annotations link complete evidence without claiming live health";
+const RECONCILE_PROFILE = "bounded-bulk-v3";
 const PUBLIC_GUIDE_URL = "https://confighub.github.io/helm-expt/site/kubara.html";
+const PUBLIC_ADOPTION_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html";
+const PUBLIC_PERFORMANCE_URL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/reconciliation-performance.html";
 const PUBLIC_CATALOG_URL = "https://confighub.github.io/helm-expt/site/charts/";
 const PUBLIC_CATALOG_COVERAGE_URL = "https://confighub.github.io/helm-expt/data/kubara-catalog-1.1-full-coverage/receipt.yaml";
 const PUBLIC_MATRIX_URL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
 const PUBLIC_WIRING_URL = "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html";
+const PUBLIC_RESIDUE_AUDIT_URL = "https://confighub.github.io/helm-expt/runs/kubara-mini-idp-reconcile/orphan-audit.yaml";
 const PUBLIC_NAVIGATION_ANNOTATIONS = Object.freeze({
   "URL-Guide": PUBLIC_GUIDE_URL,
+  "URL-Adoption": PUBLIC_ADOPTION_URL,
+  "URL-Performance": PUBLIC_PERFORMANCE_URL,
   "URL-Catalog": PUBLIC_CATALOG_URL,
   "URL-CatalogCoverage": PUBLIC_CATALOG_COVERAGE_URL,
   "URL-Matrix": PUBLIC_MATRIX_URL,
   "URL-Wiring": PUBLIC_WIRING_URL,
+  "URL-ResidueAudit": PUBLIC_RESIDUE_AUDIT_URL,
 });
 const MATRIX_PUBLICATION_PATH = "data/kubara-platform-matrix/matrix.json";
 const RECEIPT_PATH = join(repoRoot, "runs", "kubara-mini-idp-reconcile", "receipt.yaml");
@@ -194,6 +223,8 @@ const WAIT_REASONS = new Set([
   "argo-health-pending",
   "argo-retry-backoff",
   "argo-refresh-ack",
+  "immutable-selector-old-uid-gone",
+  "immutable-selector-settle",
   "namespace-move-uid-gone",
   "protected-namespace-settle",
 ]);
@@ -227,7 +258,7 @@ const ACTION_MUTATION_VERB = Object.freeze({
 });
 
 const APPLY_READ_RESOURCES = Object.freeze(["space", "unit", "release", "link", "target"]);
-const APPLY_READ_CONSISTENCY = "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope; every release boundary and the final bracketed verification read authoritative live state";
+const APPLY_READ_CONSISTENCY = "one organization-wide snapshot at apply start and each declared phase boundary; successful ConfigHub mutations invalidate their affected cache scope and the no-write release-reuse batch; every ConfigHub or Argo side effect revalidates its exact release boundary; final verification must open at the unchanged pre-release organization fingerprint and close at that same fingerprint";
 const MUTATING_CUB_COMMAND_PAIRS = new Set([
   "cluster/up",
   "filter/create", "filter/update",
@@ -245,9 +276,19 @@ const READ_ONLY_CUB_COMMAND_PAIRS = new Set([
   "space/get", "space/list",
   "target/get", "target/list",
   "trigger/get",
-  "unit/data", "unit/get", "unit/list",
+  "unit/data", "unit/diff", "unit/get", "unit/list",
   "version/",
 ]);
+const UNIT_READ_SELECT = "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,Data,DataHash,ContentHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates";
+const LINK_READ_SELECT = "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum";
+const SPACE_READ_SELECT = "OrganizationID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates";
+const RELEASE_READ_SELECT = "TagID,Digest,ManifestDigest,ReleaseNum,UnitCount,CreatedAt";
+const TARGET_READ_SELECT = "SpaceID,ProviderType,ToolchainType,Annotations";
+const SPACE_DECISION_FIELDS = Object.freeze(["OrganizationID", "SpaceID", "Slug", "Labels", "Annotations", "ReleaseTargetID", "TriggerFilterID", "TriggerIDs", "WhereTrigger", "DeleteGates"]);
+const UNIT_DECISION_FIELDS = Object.freeze(["SpaceID", "UnitID", "Slug", "Labels", "Annotations", "TargetID", "UpstreamUnitID", "DeleteGates", "DestroyGates", "ToolchainType", "ProviderType", "Data", "DataHash", "ContentHash", "HeadRevisionNum", "LastAppliedRevisionNum", "ApprovedBy", "ApplyGates"]);
+const RELEASE_DECISION_FIELDS = Object.freeze(["SpaceID", "ReleaseID", "TagID", "Digest", "ManifestDigest", "ReleaseNum", "UnitCount", "CreatedAt"]);
+const LINK_DECISION_FIELDS = Object.freeze(["SpaceID", "LinkID", "Slug", "FromUnitID", "ToUnitID", "ToSpaceID", "UpdateType", "AutoUpdate", "UpstreamLastMergedRevisionNum", "DownstreamLastMergedRevisionNum", "Labels", "Annotations"]);
+const TARGET_DECISION_FIELDS = Object.freeze(["SpaceID", "TargetID", "Slug", "ProviderType", "ToolchainType", "Annotations"]);
 
 process.once("exit", () => {
   const evidence = performanceEvidence(`${mode.replace(/^--/, "")}-process-exit`);
@@ -484,6 +525,19 @@ const APP_FAMILIES = [
     ],
     order: 90,
     scenario: true,
+    immutableSelectorReplacements: [{
+      migrationKey: "hx-web-immutable-selector",
+      unitSlug: "hx-web-deployment",
+      apiVersion: "apps/v1",
+      resource: "deployment",
+      resourcePlural: "deployments",
+      kind: "Deployment",
+      name: "hx-web",
+      serviceName: "hx-web",
+      fromSelector: HX_WEB_LEGACY_SELECTOR,
+      toSelector: HX_WEB_REVIEWED_SELECTOR,
+      reason: "the retained pre-example Deployment uses app=hx-web, while the reviewed component contract uses app.kubernetes.io/name=hx-web",
+    }],
   }),
   appFamily({
     prefix: "hx-web-platform",
@@ -519,6 +573,48 @@ const APP_FAMILIES = [
       "examples/kubara/current-platform/apps/cubbychat/platform/ingress.yaml",
     ])],
     order: 110,
+    immutableSelectorReplacements: [
+      {
+        migrationKey: "backend-immutable-selector",
+        unitSlug: "hx-cubbychat",
+        apiVersion: "apps/v1",
+        resource: "deployment",
+        resourcePlural: "deployments",
+        kind: "Deployment",
+        name: "backend",
+        serviceName: "backend",
+        fromSelector: CUBBYCHAT_LEGACY_SELECTORS.backend,
+        toSelector: CUBBYCHAT_REVIEWED_SELECTORS.backend,
+        reason: "the retained Kubara Cubbychat backend uses app=backend, while the reviewed application contract uses app.kubernetes.io/name=cubbychat-backend",
+      },
+      {
+        migrationKey: "frontend-immutable-selector",
+        unitSlug: "hx-cubbychat",
+        apiVersion: "apps/v1",
+        resource: "deployment",
+        resourcePlural: "deployments",
+        kind: "Deployment",
+        name: "frontend",
+        serviceName: "frontend",
+        fromSelector: CUBBYCHAT_LEGACY_SELECTORS.frontend,
+        toSelector: CUBBYCHAT_REVIEWED_SELECTORS.frontend,
+        reason: "the retained Kubara Cubbychat frontend uses app=frontend, while the reviewed application contract uses app.kubernetes.io/name=cubbychat-frontend",
+      },
+      {
+        migrationKey: "postgres-immutable-selector",
+        unitSlug: "hx-cubbychat",
+        apiVersion: "apps/v1",
+        resource: "statefulset",
+        resourcePlural: "statefulsets",
+        kind: "StatefulSet",
+        name: "postgres",
+        serviceName: "postgres",
+        retainedPVCNames: ["postgres-storage-postgres-0"],
+        fromSelector: CUBBYCHAT_LEGACY_SELECTORS.postgres,
+        toSelector: CUBBYCHAT_REVIEWED_SELECTORS.postgres,
+        reason: "the retained Kubara Cubbychat PostgreSQL StatefulSet uses app=postgres, while the reviewed application contract uses app.kubernetes.io/name=postgres",
+      },
+    ],
   }),
 ];
 
@@ -556,6 +652,8 @@ const OWNED_SPACE_LABELS = new Set([
   "BundledComponentVersion",
   "StartHere",
   "Lane",
+  "ReconcileProfile",
+  "SelectorMigrationSafety",
 ]);
 
 const OWNED_UNIT_LABELS = new Set([
@@ -677,6 +775,32 @@ function stableJson(value) {
   return JSON.stringify(value);
 }
 
+function firstStableDifference(expected, actual, path = "$") {
+  if (stableJson(expected) === stableJson(actual)) return null;
+  if (Array.isArray(expected) && Array.isArray(actual)) {
+    if (expected.length !== actual.length) {
+      return `${path}.length expected=${expected.length} actual=${actual.length}`;
+    }
+    for (let index = 0; index < expected.length; index += 1) {
+      const difference = firstStableDifference(expected[index], actual[index], `${path}[${index}]`);
+      if (difference) return difference;
+    }
+    return null;
+  } else if (expected && actual && typeof expected === "object" && typeof actual === "object") {
+    const keys = [...new Set([...Object.keys(expected), ...Object.keys(actual)])].sort();
+    for (const key of keys) {
+      const difference = firstStableDifference(expected[key], actual[key], `${path}.${key}`);
+      if (difference) return difference;
+    }
+    return null;
+  }
+  const render = (value) => {
+    const text = stableJson(value);
+    return text.length <= 240 ? text : `${text.slice(0, 237)}...`;
+  };
+  return `${path} expected=${render(expected)} actual=${render(actual)}`;
+}
+
 function renderDocuments(documents) {
   check(documents.length > 0, "refusing to materialize an empty Kubernetes Unit");
   return `${documents.map((doc) => toYaml(doc)).join("\n---\n")}\n`;
@@ -782,7 +906,13 @@ function controlUnitNavigation(slug) {
     };
   }
   return {
-    labels: { StartHere: "true" },
+    labels: {
+      StartHere: "true",
+      ...(slug === "platform-contract" ? {
+        ReconcileProfile: RECONCILE_PROFILE,
+        SelectorMigrationSafety: "ExactRevisionFailureBound",
+      } : {}),
+    },
     annotations: slug === "platform-contract"
       ? PUBLIC_NAVIGATION_ANNOTATIONS
       : { "URL-Guide": PUBLIC_GUIDE_URL },
@@ -1037,6 +1167,7 @@ function buildPlan(inputs) {
       Catalog: "ConfigHubControl",
       Owner: "ConfigHubControl",
       StartHere: "true",
+      ReconcileProfile: RECONCILE_PROFILE,
     }),
     annotations: PUBLIC_NAVIGATION_ANNOTATIONS,
   });
@@ -1434,6 +1565,11 @@ function buildPlan(inputs) {
         destinationNamespace: family.destinationNamespace,
         serverSideApply: false,
         acceptedHealth: family.acceptedHealth,
+        immutableSelectorReplacements: (family.immutableSelectorReplacements ?? []).map((migration) => ({
+          ...migration,
+          migrationID: `${space}/${migration.migrationKey}/${IMMUTABLE_SELECTOR_MIGRATION_VERSION}`,
+          namespace: family.destinationNamespace,
+        })),
       });
     }
   }
@@ -1460,6 +1596,26 @@ function buildPlan(inputs) {
       === stableJson(PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.map((item) => item.migrationID).sort()),
     "internal plan protected Namespace ownership detachments drifted",
   );
+  const immutableSelectorReplacements = deployments.flatMap((deployment) => (
+    (deployment.immutableSelectorReplacements ?? []).map((migration) => ({ deployment, migration }))
+  ));
+  check(immutableSelectorReplacements.length === FLEET.length * 4, "internal plan must declare four immutable-selector replacements per fleet target");
+  for (const { deployment, migration } of immutableSelectorReplacements) {
+    check(deployment.type === "application" && ["hx-web", "hx-cubbychat"].some((prefix) => deployment.space.startsWith(`${prefix}-`)), `${deployment.cluster}: immutable-selector replacement escaped the two reviewed Applications`);
+    check(migration.apiVersion === "apps/v1" && ["Deployment", "StatefulSet"].includes(migration.kind), `${deployment.cluster}: immutable-selector replacement kind drifted`);
+    check(
+      (migration.kind === "Deployment" && migration.resource === "deployment" && migration.resourcePlural === "deployments")
+        || (migration.kind === "StatefulSet" && migration.resource === "statefulset" && migration.resourcePlural === "statefulsets"),
+      `${deployment.cluster}: immutable-selector replacement resource drifted`,
+    );
+    check(migration.name && migration.namespace === deployment.destinationNamespace && migration.unitSlug && migration.serviceName, `${deployment.cluster}: immutable-selector replacement identity drifted`);
+    check(Object.keys(migration.fromSelector ?? {}).length === 1 && Object.keys(migration.toSelector ?? {}).length === 1, `${deployment.cluster}: immutable-selector replacement must bind one reviewed label transition`);
+    check(stableJson(migration.fromSelector) !== stableJson(migration.toSelector), `${deployment.cluster}: immutable-selector replacement does not change the selector`);
+    check(
+      migration.kind !== "StatefulSet" || stableJson(migration.retainedPVCNames) === stableJson(["postgres-storage-postgres-0"]),
+      `${deployment.cluster}: StatefulSet immutable-selector replacement must retain the exact PostgreSQL PVC`,
+    );
+  }
   const plan = { spaces, managedUnits, deployments, links };
   assertAppFamilyPlanConsistency(plan);
   return plan;
@@ -1787,6 +1943,16 @@ const plan = buildPlan(inputs);
 
 if (mode === "--plan") {
   printPlan(inputs, plan);
+} else if (mode === "--diagnose-journal") {
+  verifyLocalContract(inputs, { requireLiveEvidence: true });
+  diagnoseOperationJournal();
+} else if (mode === "--diagnose-history") {
+  verifyLocalContract(inputs, { requireLiveEvidence: true });
+  assertKubaraOrganization();
+  console.log(stableJson(scenarioReceiptHistoryDiagnosis()));
+} else if (mode === "--rebind-journal") {
+  verifyLocalContract(inputs, { requireLiveEvidence: true });
+  diagnoseOperationJournal({ rebind: true });
 } else if (mode === "--apply") {
   verifyLocalContract(inputs, { requireLiveEvidence: true });
   applyPlan(inputs, plan);
@@ -1804,6 +1970,290 @@ if (mode === "--plan") {
   selfTestArgoConvergence();
   selfTestScenarioOperationEvidence();
   selfTestReceiptLinkEvidence(plan);
+}
+
+function prepareImmutableSelectorConvergenceRebind(journal) {
+  const entries = Object.entries(journal.convergence ?? {});
+  if (entries.length === 0) return [];
+  check(entries.length === 1, "refusing to recover more than one immutable-selector Argo convergence during execution rebind");
+  const [key, entry] = entries[0];
+  const deployment = plan.deployments.find(
+    (item) => `${item.cluster}/${item.space}` === entry.application,
+  );
+  const migrations = immutableSelectorMigrationsFor(deployment);
+  check(migrations.length > 0, `${key}: convergence is not an allowlisted immutable-selector migration`);
+  check(key === convergenceJournalKey(deployment, entry.expectedRevision), `${key}: convergence key drifted from its Application/revision`);
+  const app = readLiveArgoApplication(deployment);
+  assertArgoApplicationContract(app, deployment);
+  check(!app.operation && !["Running", "Terminating"].includes(app.status?.operationState?.phase), `${key}: Argo operation is still active`);
+  check(
+    Number(entry.syncReservations) >= 0 && Number(entry.syncReservations) <= ARGO_MAX_SYNC_REQUESTS,
+    `${key}: convergence sync reservations are outside the declared bound`,
+  );
+  check(
+    app.status?.sync?.revision === entry.expectedRevision
+      && operationStateRevision(app) === entry.expectedRevision,
+    `${key}: convergence is not bound to the exact current OCI revision`,
+  );
+  const release = validatedPublishedRelease(
+    deployment.space,
+    latestRelease(deployment.space),
+    `${key}: recovery published release`,
+  );
+  check(release.ManifestDigest === entry.expectedRevision, `${key}: published release digest changed before recovery authorization`);
+  const expectedIdentity = releaseIdentity({ latestPublishedRelease: release });
+  assertReleaseStreamStillCurrent(deployment.space, expectedIdentity, entry.expectedRevision, {});
+  journal.convergenceRecoveries ??= [];
+  const recoveries = [];
+  for (const migration of migrations) {
+    const existingAttempt = journal.immutableSelectorReplacements[migration.migrationID];
+    if (existingAttempt?.state === "replacement-healthy") continue;
+    if (existingAttempt?.state === "old-uid-gone") {
+      assertImmutableSelectorReplacementEvidence(existingAttempt, `${key}: quiescent immutable-selector recovery`, { requireComplete: false });
+      check(existingAttempt.expectedRevision === entry.expectedRevision, `${key}: quiescent migration revision drifted`);
+      const current = immutableSelectorCurrentObject(deployment, migration);
+      check(current?.metadata?.uid !== existingAttempt.uid, `${key}: old workload UID still exists after journaled deletion`);
+      if (current) {
+        assertImmutableSelectorOwnedObject(deployment, migration, current, migration.toSelector, `${key}: quiescent replacement candidate`);
+        assertRetainedPVCsUnchanged(deployment, migration, existingAttempt.retainedPVCs, `${key}: quiescent replacement candidate`);
+      }
+      const recovery = {
+        key,
+        application: entry.application,
+        expectedRevision: entry.expectedRevision,
+        exhaustedSyncReservations: entry.syncReservations,
+        classification: "quiescent-old-uid-gone-convergence-resume",
+        migrationID: migration.migrationID,
+        oldUID: existingAttempt.uid,
+        recoveredAt: new Date().toISOString(),
+      };
+      journal.convergenceRecoveries.push(recovery);
+      recoveries.push(recovery);
+      continue;
+    }
+    check(!existingAttempt, `${migration.migrationID}: immutable-selector recovery has an unrecognized journal state`);
+    const failure = immutableSelectorFailureRow(app, migration);
+    check(failure, `${migration.migrationID}: exact resource-level immutable-selector failure is absent`);
+    const workload = immutableSelectorCurrentObject(deployment, migration);
+    check(workload, `${migration.migrationID}: legacy workload is absent before recovery authorization`);
+    assertImmutableSelectorOwnedObject(deployment, migration, workload, migration.fromSelector, `${migration.migrationID}: legacy workload`);
+    assertImmutableSelectorReviewedPayload(deployment, migration);
+    const retainedPVCs = retainedPVCObservations(deployment, migration);
+    const preparedAt = new Date().toISOString();
+    journal.immutableSelectorReplacements[migration.migrationID] = {
+      migrationID: migration.migrationID,
+      ref: immutableSelectorReplacementRef(deployment, migration),
+      uid: workload.metadata.uid,
+      resourceVersion: workload.metadata.resourceVersion,
+      application: `${deployment.cluster}/${deployment.space}`,
+      expectedRevision: entry.expectedRevision,
+      apiVersion: migration.apiVersion,
+      kind: migration.kind,
+      name: migration.name,
+      namespace: migration.namespace,
+      fromSelector: migration.fromSelector,
+      toSelector: migration.toSelector,
+      retainedPVCs,
+      reason: migration.reason,
+      trigger: "recovered-resource-level-immutable-selector-failure",
+      failureEvidencePolicy: IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY,
+      failureEvidence: immutableSelectorFailureEvidence(app, failure),
+      state: "prepared",
+      preparedAt,
+    };
+    const recovery = {
+      key,
+      application: entry.application,
+      expectedRevision: entry.expectedRevision,
+      exhaustedSyncReservations: entry.syncReservations,
+      resourceFailure: {
+        group: failure.group,
+        kind: failure.kind,
+        namespace: failure.namespace,
+        name: failure.name,
+        status: failure.status,
+        hookPhase: failure.hookPhase,
+        classification: "immutable-workload-selector",
+      },
+      migrationID: migration.migrationID,
+      oldUID: workload.metadata.uid,
+      oldResourceVersion: workload.metadata.resourceVersion,
+      retainedPVCs,
+      recoveredAt: preparedAt,
+    };
+    journal.convergenceRecoveries.push(recovery);
+    recoveries.push(recovery);
+  }
+  check(recoveries.length > 0, `${key}: immutable-selector convergence has no recoverable declared workload`);
+  delete journal.convergence[key];
+  return recoveries;
+}
+
+function preparedScenarioTransitionRecoveryForRebind(scenario, current) {
+  const transition = scenario.preparedStep?.preparedTransition;
+  if (!transition) return null;
+  const match = /^(hx-web-(dev|staging|prod-a|prod-b))-promote-v([12])$/.exec(transition.id ?? "");
+  const provenanceMatch = /^(hx-web-prod-[ab])-v1-provenance$/.exec(transition.id ?? "");
+  if (provenanceMatch) {
+    const space = provenanceMatch[1];
+    const payloadKey = "hx-web/base/hx-web-deployment/v1";
+    assertScenarioUpsertPost(
+      transition.preCheckpoint,
+      current,
+      space,
+      "hx-web-deployment",
+      payloadKey,
+    );
+    return {
+      step: scenario.preparedStep.id,
+      transition: transition.id,
+      space,
+      payloadKey,
+      classification: "exact-reviewed-production-upsert-plus-semantically-empty-trigger-revision",
+    };
+  }
+  check(match, `refusing execution rebind for unrecognized prepared scenario transition ${transition.id ?? "unknown"}`);
+  const space = match[1];
+  const version = Number(match[3]);
+  let beforePayloadKey = "";
+  let afterPayloadKey = "";
+  if (version === 1) {
+    beforePayloadKey = "hx-web/base/hx-web-deployment/initial";
+    afterPayloadKey = "hx-web/base/hx-web-deployment/v1";
+  } else if (space === "hx-web-dev") {
+    beforePayloadKey = "hx-web/base/hx-web-deployment/v1";
+    afterPayloadKey = "hx-web/dev/hx-web-deployment/final";
+  } else if (space === "hx-web-staging") {
+    beforePayloadKey = "hx-web/staging/hx-web-deployment/departure";
+    afterPayloadKey = "hx-web/staging/hx-web-deployment/final";
+  } else {
+    check(false, `${transition.id}: v2 promotion recovery escaped the declared dev/staging targets`);
+  }
+  assertScenarioPromotionPost(
+    transition.preCheckpoint,
+    current,
+    space,
+    beforePayloadKey,
+    afterPayloadKey,
+  );
+  return {
+    step: scenario.preparedStep.id,
+    transition: transition.id,
+    space,
+    beforePayloadKey,
+    afterPayloadKey,
+    classification: "reviewed-pathwise-before-after-promotion-blend",
+  };
+}
+
+function diagnoseOperationJournal({ rebind = false } = {}) {
+  assertKubaraOrganization();
+  const lockPath = acquireSerialLiveLock();
+  try {
+    check(existsSync(OPERATION_JOURNAL_PATH), "operation journal is absent");
+    const journal = JSON.parse(readFileSync(OPERATION_JOURNAL_PATH, "utf8"));
+    check(
+      journal.organizationExternalID === ORGANIZATION_EXTERNAL_ID
+        && journal.organizationEntityID === ORGANIZATION_ENTITY_ID
+        && journal.serverURL === CONFIGHUB_SERVER_URL,
+      "operation journal does not belong to the pinned Kubara organization",
+    );
+    const scenario = journal.scenario;
+    check(scenario?.version === SCENARIO_VERSION && ["started", "completed"].includes(scenario.state), "no recoverable hx-web scenario exists in the operation journal");
+    check(scenario.sourceFingerprint === scenarioSourceFingerprint(), "scenario source fingerprint changed; diagnostic comparison is not meaningful");
+    const expected = scenario.preparedStep?.transitionCheckpoint ?? scenario.checkpoint;
+    check(expected, "scenario journal has no durable comparison checkpoint");
+    const current = scenarioCheckpoint();
+    const difference = firstStableDifference(expected, current);
+    const preparedTransitionRecovery = difference
+      ? preparedScenarioTransitionRecoveryForRebind(scenario, current)
+      : null;
+    const currentExecutionFingerprint = operationExecutionFingerprint();
+    let rebinding = null;
+    if (rebind) {
+      check(
+        !difference || preparedTransitionRecovery,
+        `refusing to rebind a scenario journal whose live checkpoint differs: ${difference}`,
+      );
+      check(!journal.fleetBootstrap || journal.fleetBootstrap.state === "completed", "refusing to rebind with fleet bootstrap in flight");
+      check(!journal.namespaceMove || ["observed-gone", "completed"].includes(journal.namespaceMove.state), "refusing to rebind with namespace move in flight");
+      check(
+        Object.values(journal.protectedNamespaceDetachments ?? {}).every(
+          (item) => ["observed-detached", "already-detached", "completed"].includes(item?.state),
+        ),
+        "refusing to rebind with protected Namespace detachment in flight",
+      );
+      const completedScenario = scenario.state === "completed"
+        && stableJson(scenario.completedSteps) === stableJson(SCENARIO_STEPS)
+        && !scenario.preparedStep;
+      const durableScenarioPrefix = scenario.state === "started"
+        && Array.isArray(scenario.completedSteps)
+        && scenario.preparedStep?.id
+        && Array.isArray(scenario.preparedStep.completedTransitions)
+        && (!scenario.preparedStep.preparedTransition || preparedTransitionRecovery);
+      check(completedScenario || durableScenarioPrefix, "refusing to rebind outside an exact completed scenario or durable reviewed prefix");
+      journal.immutableSelectorReplacements ??= {};
+      const convergenceRecoveries = prepareImmutableSelectorConvergenceRebind(journal);
+      check(
+        Object.keys(journal.convergence ?? {}).length === 0,
+        "refusing to rebind with an unrecognized Argo convergence in flight",
+      );
+      check(
+        Object.values(journal.immutableSelectorReplacements).every(
+          (item) => ["prepared", "old-uid-gone", "replacement-healthy"].includes(item?.state),
+        ),
+        "refusing to rebind with an unrecognized immutable-selector replacement state",
+      );
+      const priorExecutionFingerprint = journal.executionFingerprint;
+      journal.executionFingerprint = currentExecutionFingerprint;
+      scenario.executionFingerprint = currentExecutionFingerprint;
+      journal.executionRebindings ??= [];
+      journal.executionRebindings.push({
+        priorExecutionFingerprint,
+        currentExecutionFingerprint,
+        reboundAt: new Date().toISOString(),
+        reason: preparedTransitionRecovery
+          ? "source-identical-prepared-promotion-postcondition-reviewed-and-live-state-exactly-recovered"
+          : convergenceRecoveries.some((item) => item.classification === "quiescent-old-uid-gone-convergence-resume")
+            ? "source-identical-checkpoint-exactly-matched-and-quiescent-immutable-selector-convergence-resumed"
+            : convergenceRecoveries.length > 0
+              ? "source-identical-checkpoint-exactly-matched-and-exact-immutable-selector-convergence-recovered"
+              : "source-identical-transition-free-checkpoint-exactly-matched-live-state",
+        completedSteps: [...scenario.completedSteps],
+        preparedStep: scenario.preparedStep?.id ?? null,
+        completedTransitions: [...(scenario.preparedStep?.completedTransitions ?? [])],
+        preparedTransitionRecovery,
+        convergenceRecoveries,
+      });
+      writeOperationJournal(journal);
+      rebinding = journal.executionRebindings.at(-1);
+    }
+    console.log(JSON.stringify({
+      apiVersion: "helm-expt.confighub.com/v1alpha1",
+      kind: "KubaraMiniIDPJournalDiagnostic",
+      metadata: { name: "hx-web-scenario" },
+      spec: {
+        readOnly: !rebind,
+        sourceFingerprintMatches: true,
+        journalExecutionFingerprint: rebind ? rebinding.priorExecutionFingerprint : scenario.executionFingerprint,
+        currentExecutionFingerprint,
+        completedSteps: scenario.completedSteps,
+        preparedStep: scenario.preparedStep?.id ?? null,
+        completedTransitions: scenario.preparedStep?.completedTransitions ?? [],
+        preparedTransition: scenario.preparedStep?.preparedTransition?.id ?? null,
+        firstDifference: difference,
+        preparedTransitionRecovery,
+        rebinding,
+      },
+      status: {
+        checkpointMatches: difference === null,
+        preparedTransitionRecoveryValidated: Boolean(preparedTransitionRecovery),
+        rebound: Boolean(rebinding),
+      },
+    }, null, 2));
+  } finally {
+    releaseSerialLiveLock(lockPath);
+  }
 }
 
 function printPlan(inputs, desired) {
@@ -1831,7 +2281,7 @@ function printPlan(inputs, desired) {
         deterministic: true,
         aiRequired: false,
         mutationGuardConsulted: false,
-        destructiveOperations: [ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY],
+        destructiveOperations: [ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY, IMMUTABLE_SELECTOR_REPLACEMENT_POLICY],
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
         partialClusterStatePolicy: "fail-except-exact-journaled-prefix",
         serialLiveParityLock: true,
@@ -1842,6 +2292,9 @@ function printPlan(inputs, desired) {
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         argoNamespaceMovePolicy: ARGO_NAMESPACE_MOVE_POLICY,
+        immutableSelectorReplacementPolicy: IMMUTABLE_SELECTOR_REPLACEMENT_POLICY,
+        immutableSelectorFailureEvidencePolicy: IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY,
+        immutableSelectorFailureEvidenceEffectiveAt: IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_EFFECTIVE_AT,
         protectedNamespaceOwnershipPolicy: PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
         kindTraefikPolicy: KIND_TRAEFIK_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
@@ -2404,6 +2857,27 @@ function assertApplyReadCacheEvidence(evidence, prefix = "apply read cache evide
       `${prefix} ${item.resource} issued more mutation refreshes than reads`,
     );
   }
+  const releaseReuse = evidence.authoritativeReleaseReuse;
+  if (releaseReuse) {
+    check(
+      releaseReuse.mode === "single-dependency-complete-organization-snapshot",
+      `${prefix} authoritative release-reuse mode drifted`,
+    );
+    check(
+      /^sha256:[0-9a-f]{64}$/.test(releaseReuse.fingerprint ?? ""),
+      `${prefix} authoritative release-reuse fingerprint is invalid`,
+    );
+    check(
+      releaseReuse.finalVerification === "opening-and-closing-fingerprint-required",
+      `${prefix} authoritative release-reuse final verification contract drifted`,
+    );
+    const streams = releaseReuse.streams ?? [];
+    check(streams.length > 0, `${prefix} authoritative release-reuse stream inventory is empty`);
+    check(
+      stableJson(streams) === stableJson([...new Set(streams)].sort()),
+      `${prefix} authoritative release-reuse streams are duplicated or unsorted`,
+    );
+  }
 }
 
 function assertPerformancePhaseEvidence(phase, prefix) {
@@ -2484,6 +2958,10 @@ function assertPerformanceEvidence(evidence, prefix = "performance evidence") {
 }
 
 function selfTestPerformanceInstrumentation() {
+  check(
+    firstStableDifference({ a: [1] }, { a: [2] }) === "$.a[0] expected=1 actual=2",
+    "performance self-test: deterministic checkpoint difference diagnostics drifted",
+  );
   const requestCount = canonicalYamlPerformance.requests;
   const hitCount = canonicalYamlPerformance.hits;
   const missCount = canonicalYamlPerformance.misses;
@@ -2579,6 +3057,98 @@ function selfTestPerformanceInstrumentation() {
     ),
     "performance self-test: an intervening failed apply did not invalidate changed/no-op continuity",
   );
+  const currentScenarioFingerprint = `sha256:${"c".repeat(64)}`;
+  const priorScenarioFingerprint = `sha256:${"d".repeat(64)}`;
+  const scenarioRun = (executionFingerprint, idempotentNoop, result = "pass") => ({
+    executionFingerprint,
+    idempotentNoop,
+    actionCount: idempotentNoop ? 0 : 1,
+    result,
+  });
+  check(
+    reconcileRunsProveCurrentScenarioHistory([
+      scenarioRun(priorScenarioFingerprint, true),
+      scenarioRun(currentScenarioFingerprint, false),
+    ], currentScenarioFingerprint),
+    "performance self-test: retained prior-fingerprint run invalidated current changed scenario history",
+  );
+  check(
+    !reconcileRunsProveCurrentScenarioHistory([
+      scenarioRun(currentScenarioFingerprint, false),
+      scenarioRun(priorScenarioFingerprint, true),
+    ], currentScenarioFingerprint),
+    "performance self-test: non-current latest run authorized scenario history",
+  );
+  check(
+    !reconcileRunsProveCurrentScenarioHistory([
+      scenarioRun(priorScenarioFingerprint, false),
+      scenarioRun(currentScenarioFingerprint, true),
+    ], currentScenarioFingerprint),
+    "performance self-test: current execution without a changed run authorized scenario history",
+  );
+  check(
+    !reconcileRunsProveCurrentScenarioHistory([
+      scenarioRun(currentScenarioFingerprint, false, "failed"),
+      scenarioRun(currentScenarioFingerprint, true),
+    ], currentScenarioFingerprint),
+    "performance self-test: failed current-fingerprint run authorized scenario history",
+  );
+  const terminalScenarioAttempt = {
+    sequence: 9,
+    id: attemptID(9),
+    executionFingerprint: currentScenarioFingerprint,
+    result: "pass",
+  };
+  const terminalScenarioRun = {
+    ...scenarioRun(currentScenarioFingerprint, false),
+    attemptSequence: terminalScenarioAttempt.sequence,
+    attemptID: terminalScenarioAttempt.id,
+  };
+  const terminalScenarioReceipt = {
+    status: { result: "pending-idempotence" },
+    spec: { reconcileRuns: [terminalScenarioRun] },
+  };
+  const capturedScenarioBinding = scenarioReceiptAttemptBindingDiagnosis(
+    terminalScenarioReceipt,
+    { attempts: [terminalScenarioAttempt] },
+    currentScenarioFingerprint,
+  );
+  check(
+    capturedScenarioBinding.proven
+      && trustedScenarioHistoryForApply({ scenarioReceiptProven: capturedScenarioBinding.proven }),
+    "performance self-test: terminal pre-attempt scenario receipt was not reusable by the next apply",
+  );
+  const invalidatedScenarioReceipt = structuredClone(terminalScenarioReceipt);
+  invalidatedScenarioReceipt.status.result = "invalidated-by-active-attempt";
+  check(
+    !scenarioReceiptAttemptBindingDiagnosis(
+      invalidatedScenarioReceipt,
+      { attempts: [terminalScenarioAttempt, {
+        sequence: 10,
+        id: attemptID(10),
+        executionFingerprint: currentScenarioFingerprint,
+        result: "active",
+      }] },
+      currentScenarioFingerprint,
+    ).proven,
+    "performance self-test: an active attempt's invalidated receipt was trusted as terminal evidence",
+  );
+  check(
+    !scenarioReceiptAttemptBindingDiagnosis(
+      terminalScenarioReceipt,
+      { attempts: [{ ...terminalScenarioAttempt, id: attemptID(8) }] },
+      currentScenarioFingerprint,
+    ).proven,
+    "performance self-test: a receipt/attempt ID mismatch authorized scenario history",
+  );
+  check(
+    !scenarioReceiptAttemptBindingDiagnosis(
+      terminalScenarioReceipt,
+      { attempts: [{ ...terminalScenarioAttempt, result: "failed" }] },
+      currentScenarioFingerprint,
+    ).proven,
+    "performance self-test: a failed terminal attempt authorized scenario history",
+  );
   const argocdFixture = { items: [{
     apiVersion: "v1",
     kind: "Service",
@@ -2651,6 +3221,17 @@ function selfTestApplyReadSnapshotLifecycle() {
       `performance self-test: ${pair} invalidates an unknown cache resource`,
     );
   }
+  const approvalArgs = exactHeadApprovalArgs("space-a", {
+    Slug: "unit-a",
+    UnitID: "11111111-1111-4111-8111-111111111111",
+    HeadRevisionNum: 8,
+  });
+  check(
+    approvalArgs[4] === "unit-a"
+      && !approvalArgs.includes("11111111-1111-4111-8111-111111111111")
+      && approvalArgs[6] === "HeadRevisionNum",
+    "performance self-test: exact-head approval did not use the documented positional Unit slug and server head selector",
+  );
   const spaces = new Map([
     ["space-a", { Slug: "space-a", SpaceID: "space-id-a" }],
     ["space-b", { Slug: "space-b", SpaceID: "space-id-b" }],
@@ -2672,6 +3253,15 @@ function selfTestApplyReadSnapshotLifecycle() {
       DataHash: sha256(unitPayloads[1]),
     },
   ];
+  const largeUnitText = `apiVersion: v1\nkind: ConfigMap\ndata:\n  payload: ${"x".repeat(512 * 1024)}\n`;
+  const largeCanonicalUnit = {
+    Data: Buffer.from(largeUnitText, "utf8").toString("base64"),
+    DataHash: sha256(largeUnitText),
+  };
+  check(
+    decodeBulkUnitData(largeCanonicalUnit, "performance self-test/large unit") === largeUnitText,
+    "performance self-test: large canonical bulk Unit Data did not round-trip",
+  );
   expectBulkUnitDataFailure(
     { ...units[0], Data: "not-base64!" },
     "non-canonical base64 Data",
@@ -2690,7 +3280,39 @@ function selfTestApplyReadSnapshotLifecycle() {
   );
   const links = [{ Slug: "link-a", LinkID: "link-id-a", SpaceID: "space-id-a" }];
   const releases = [{ Slug: "release-a", ReleaseID: "release-id-a", SpaceID: "space-id-a", ReleaseNum: 1, UnitCount: 1 }];
+  const canonicalRelease = (row) => snapshotRows([row], RELEASE_DECISION_FIELDS);
+  check(
+    sameCachedRows(canonicalRelease(releases[0]), canonicalRelease({ ...releases[0], Published: true })),
+    "performance self-test: non-decision Release response fields caused false drift",
+  );
+  check(
+    !sameCachedRows(canonicalRelease(releases[0]), canonicalRelease({ ...releases[0], ReleaseNum: 2 })),
+    "performance self-test: decision-relevant Release drift was ignored",
+  );
+  check(
+    sameCachedRows(
+      currentReleaseDecisionRows(releases),
+      currentReleaseDecisionRows([...releases, { ...releases[0], ReleaseID: "release-id-old", ReleaseNum: 0 }]),
+    ),
+    "performance self-test: retained historical Releases caused false current-head drift",
+  );
+  check(
+    !sameCachedRows(
+      currentReleaseDecisionRows(releases),
+      currentReleaseDecisionRows([...releases, { ...releases[0], ReleaseID: "release-id-new", ReleaseNum: 2 }]),
+    ),
+    "performance self-test: a new current Release was ignored",
+  );
   const target = { Slug: "target", TargetID: "target-id-a", SpaceID: "space-id-a" };
+  const canonicalTarget = (row) => snapshotRows([row], TARGET_DECISION_FIELDS);
+  check(
+    sameCachedRows(canonicalTarget(target), canonicalTarget({ ...target, CreatedAt: "ignored-by-decision" })),
+    "performance self-test: non-decision Target response fields caused false drift",
+  );
+  check(
+    !sameCachedRows(canonicalTarget(target), canonicalTarget({ ...target, ProviderType: "changed" })),
+    "performance self-test: decision-relevant Target drift was ignored",
+  );
   const loaderCalls = { spaces: 0, units: 0, target: 0, links: 0, releases: 0 };
   const resources = APPLY_READ_RESOURCES.map((resource) => ({
     resource,
@@ -2731,7 +3353,8 @@ function selfTestApplyReadSnapshotLifecycle() {
       },
     },
   };
-  installApplyOrganizationSnapshot(snapshot, spaces, {
+  const organizationFingerprint = `sha256:${"e".repeat(64)}`;
+  const capturedOrganization = {
     unitsBySpace: new Map([
       ["space-a", [units[0]]],
       ["space-b", [units[1]]],
@@ -2743,7 +3366,10 @@ function selfTestApplyReadSnapshotLifecycle() {
     releasesBySpace: new Map([["space-a", releases]]),
     linksBySpace: new Map([["space-a", links]]),
     targetsBySpace: new Map([["space-a", target]]),
-  });
+    targetRows: [target],
+    fingerprint: organizationFingerprint,
+  };
+  installApplyOrganizationSnapshot(snapshot, spaces, capturedOrganization);
 
   try {
     activeApplyReadSnapshot = snapshot;
@@ -2762,7 +3388,20 @@ function selfTestApplyReadSnapshotLifecycle() {
       "performance self-test: repeated apply reads escaped the initial resource-type snapshot",
     );
 
+    beginAuthoritativeReleaseReuseBatch({ snapshotOnly: true });
+    const reused = withAuthoritativeReleaseReuseBatch("space-a", () => ({
+      units: readUnitRows("space-a").length,
+      links: readLinks("space-a").length,
+      releaseNum: latestRelease("space-a")?.ReleaseNum,
+    }));
+    check(
+      stableJson(reused) === stableJson({ units: 1, links: 1, releaseNum: 1 })
+        && Object.values(loaderCalls).every((calls) => calls === 0),
+      "performance self-test: authoritative release reuse escaped the organization snapshot",
+    );
+
     invalidateApplyReadSnapshotForSuccessfulMutation(["unit", "update", "--space", "space-a"]);
+    check(!activeAuthoritativeReleaseReuseBatch, "performance self-test: ConfigHub mutation retained the no-write release-reuse batch");
     invalidateApplyReadSnapshotForSuccessfulMutation(["unit", "update", "--space", "space-a"]);
     readUnit("space-a", "unit-a");
     readUnitRows("space-a");
@@ -2795,20 +3434,55 @@ function selfTestApplyReadSnapshotLifecycle() {
       stableJson(loaderCalls) === stableJson({ spaces: 2, units: 4, target: 1, links: 2, releases: 2 }),
       `performance self-test: global mutation refresh complexity drifted: ${stableJson(loaderCalls)}`,
     );
+    installApplyOrganizationSnapshot(snapshot, spaces, capturedOrganization);
+    beginAuthoritativeReleaseReuseBatch({ snapshotOnly: true });
+    withAuthoritativeReleaseReuseBatch("space-a", () => latestRelease("space-a"));
     const evidence = finishApplyReadSnapshot();
     const servedReads = evidence.resources.reduce((sum, item) => sum + item.servedReads, 0);
     const refreshCalls = evidence.resources.reduce((sum, item) => sum + item.mutationRefreshCalls, 0);
     check(servedReads >= repeatedPasses * 7, "performance self-test: repeated read accounting is incomplete");
     check(refreshCalls === 11, "performance self-test: refresh calls grew with cache-served reads");
+    check(
+      evidence.authoritativeReleaseReuse?.fingerprint === organizationFingerprint
+        && stableJson(evidence.authoritativeReleaseReuse?.streams) === stableJson(["space-a"]),
+      "performance self-test: authoritative release-reuse evidence is incomplete",
+    );
     console.log(`Kubara apply read cache self-test passed: ${repeatedPasses * 7} repeated reads (including exact Unit Data) used five initial resource lists and zero refreshes; five mutation scenarios required ${refreshCalls} coalesced scoped refreshes`);
   } finally {
     activeApplyReadSnapshot = null;
+    activeSourceReleaseBoundarySnapshot = null;
+    activeAuthoritativeReleaseReuseBatch = null;
   }
 }
 
 function selfTestVerificationReadSnapshotLifecycle() {
   check(!activeVerificationReadSnapshot, "performance self-test: verification snapshot unexpectedly active");
   const fingerprint = `sha256:${"a".repeat(64)}`;
+  const releaseReuseEvidence = {
+    authoritativeReleaseReuse: { fingerprint },
+  };
+  assertAuthoritativeReleaseReuseFinalOpening(releaseReuseEvidence, { fingerprint });
+  let staleReleaseReuseRejected = false;
+  try {
+    assertAuthoritativeReleaseReuseFinalOpening(releaseReuseEvidence, {
+      fingerprint: `sha256:${"b".repeat(64)}`,
+    });
+  } catch (error) {
+    staleReleaseReuseRejected = error.message.includes("changed after the dependency-complete pre-release snapshot");
+  }
+  check(staleReleaseReuseRejected, "performance self-test: stale pre-release organization snapshot was accepted by final verification");
+  const verificationSpaceEvidence = { resource: "space", rows: 1, listCalls: 1, servedReads: 0 };
+  activeVerificationReadSnapshot = {
+    spaces: new Map([["space-a", { Slug: "space-a", SpaceID: "space-id-a" }]]),
+    evidenceByResource: new Map([["space", verificationSpaceEvidence]]),
+  };
+  const returnedSpaces = readSpaces();
+  returnedSpaces.clear();
+  check(
+    readSpaces().size === 1 && verificationSpaceEvidence.servedReads === 2,
+    "performance self-test: final verification Space reads escaped or mutated the opening snapshot",
+  );
+  activeVerificationReadSnapshot = null;
   const opening = () => ({
     fingerprint,
     evidence: {
@@ -3076,15 +3750,14 @@ function mutationUnitSlug(args) {
   return slug && !slug.startsWith("-") ? slug : "";
 }
 
-function sortedSpaceRows(spaces) {
-  return [...spaces.entries()].sort(([left], [right]) => left.localeCompare(right));
-}
-
 function assertFreshSpaceDecision(prefix) {
   const cached = readSpaces();
   const fresh = fetchSpaces();
   check(
-    sameCachedRows(sortedSpaceRows(cached), sortedSpaceRows(fresh)),
+    sameCachedRows(
+      snapshotRows([...cached.values()], SPACE_DECISION_FIELDS),
+      snapshotRows([...fresh.values()], SPACE_DECISION_FIELDS),
+    ),
     `${prefix}: ConfigHub Space state changed after the decision; retry from a fresh apply snapshot`,
   );
   return fresh;
@@ -3095,7 +3768,13 @@ function assertFreshUnitDecision(space, prefix) {
   const cached = readUnitRows(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
   const fresh = fetchUnitRows(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
   for (const unit of fresh) decodeBulkUnitData(unit, `${space}/${unit.Slug}`);
-  check(sameCachedRows(cached, fresh), `${prefix}: ${space} Units changed after the decision`);
+  check(
+    sameCachedRows(
+      snapshotRows(cached, UNIT_DECISION_FIELDS),
+      snapshotRows(fresh, UNIT_DECISION_FIELDS),
+    ),
+    `${prefix}: ${space} Units changed after the decision`,
+  );
   return fresh;
 }
 
@@ -3103,7 +3782,11 @@ function assertFreshTargetDecision(space, prefix) {
   check(space, `${prefix}: Target dependency Space is missing`);
   const cached = readTarget(space);
   const fresh = fetchTarget(space);
-  check(sameCachedRows(cached, fresh), `${prefix}: ${space}/target changed after the decision`);
+  const canonical = (target) => snapshotRows(target ? [target] : [], TARGET_DECISION_FIELDS);
+  check(
+    sameCachedRows(canonical(cached), canonical(fresh)),
+    `${prefix}: ${space}/target changed after the decision`,
+  );
   return fresh;
 }
 
@@ -3111,15 +3794,36 @@ function assertFreshLinkDecision(space, prefix) {
   check(space, `${prefix}: Link dependency Space is missing`);
   const cached = readLinks(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
   const fresh = fetchLinks(space).sort((left, right) => left.Slug.localeCompare(right.Slug));
-  check(sameCachedRows(cached, fresh), `${prefix}: ${space} Links changed after the decision`);
+  check(
+    sameCachedRows(
+      snapshotRows(cached, LINK_DECISION_FIELDS),
+      snapshotRows(fresh, LINK_DECISION_FIELDS),
+    ),
+    `${prefix}: ${space} Links changed after the decision`,
+  );
   return fresh;
+}
+
+function currentReleaseDecisionRows(rows) {
+  // ConfigHub's organization-wide `--space *` release list intentionally
+  // returns only the current published Release per Space, while a point list
+  // returns retained history as well. Publication authority depends on the
+  // current head; additive older Releases are audited separately through Tags.
+  return snapshotRows(
+    [...rows].sort((left, right) => Number(right.ReleaseNum ?? 0) - Number(left.ReleaseNum ?? 0)
+      || String(right.CreatedAt ?? "").localeCompare(String(left.CreatedAt ?? ""))).slice(0, 1),
+    RELEASE_DECISION_FIELDS,
+  );
 }
 
 function assertFreshReleaseDecision(space, prefix) {
   check(space, `${prefix}: release dependency Space is missing`);
   const cached = readPublishedReleaseRows(space);
   const fresh = fetchPublishedReleases(space);
-  check(sameCachedRows(cached, fresh), `${prefix}: ${space} published releases changed after the decision`);
+  check(
+    sameCachedRows(currentReleaseDecisionRows(cached), currentReleaseDecisionRows(fresh)),
+    `${prefix}: ${space} published releases changed after the decision`,
+  );
   return fresh;
 }
 
@@ -3216,11 +3920,11 @@ function assertApplyMutationDecisionStillCurrent(args) {
   if (["cluster", "space", "variant"].includes(resource)) {
     check(activeApplyReadSnapshot.spacesValid, `${resource}/${verb}: cached Space decision was invalidated before write`);
     const fresh = fetchSpaces();
-    const cachedRows = [...activeApplyReadSnapshot.spaces.entries()].sort(([left], [right]) => left.localeCompare(right));
-    const freshRows = [...fresh.entries()].sort(([left], [right]) => left.localeCompare(right));
+    const cachedRows = snapshotRows([...activeApplyReadSnapshot.spaces.values()], SPACE_DECISION_FIELDS);
+    const freshRows = snapshotRows([...fresh.values()], SPACE_DECISION_FIELDS);
     check(
       sameCachedRows(cachedRows, freshRows),
-      `${resource}/${verb}: ConfigHub Space state changed after the cached decision; retry from a fresh apply snapshot`,
+      `${resource}/${verb}: ConfigHub Space state changed after the cached decision (${firstStableDifference(cachedRows, freshRows) ?? "unknown difference"}); retry from a fresh apply snapshot`,
     );
   }
 
@@ -3228,7 +3932,12 @@ function assertApplyMutationDecisionStillCurrent(args) {
     const space = mutationUnitSpace(args);
     check(space && activeApplyReadSnapshot.unitsBySpace.has(space), `${resource}/${verb}: cached Unit decision for ${space || "unknown"} was invalidated before write`);
     const prefix = `${resource}/${verb}`;
-    assertFreshSpaceDecision(prefix);
+    // Unit writes are governed by the exact Unit head/body/gates plus declared
+    // upstream and Target identities below. Requiring every mutable field on
+    // all 55 Spaces to remain unchanged over-broadens the decision, adds an
+    // organization read per write, and makes one successful approval invalidate
+    // the next unrelated approval. Context pinning above already proves the
+    // organization and control Space before every mutation.
     assertFreshUnitDecision(space, prefix);
     const slug = mutationUnitSlug(args);
     check(slug, `${prefix}: mutation Unit slug is unavailable`);
@@ -3257,23 +3966,19 @@ function revalidatePinnedCubContextBeforeMutation(args) {
 }
 
 function assertKubaraOrganization() {
-  const initialArgs = pinnedContextName ? ["--context", pinnedContextName] : [];
-  const initialText = command("cub", [...initialArgs, "context", "get"]);
-  const initial = parseCubContext(initialText);
-  check(initial.name, "active cub context name is unavailable");
-  if (pinnedContextName) check(initial.name === pinnedContextName, `requested cub context ${pinnedContextName} resolved as ${initial.name}`);
-  pinnedContextName = initial.name;
-  contextArgs = ["--context", pinnedContextName];
+  // A caller-supplied context is already an immutable CLI coordinate. Let the
+  // one full pinned-target check below prove its name, organization, external
+  // and entity IDs, server, and control Space. Discover the active context only
+  // when the caller did not pin one; repeating the same text and JSON context
+  // reads adds no independent safety evidence.
+  if (!pinnedContextName) {
+    const initial = parseCubContext(command("cub", ["context", "get"]));
+    check(initial.name, "active cub context name is unavailable");
+    pinnedContextName = initial.name;
+    contextArgs = ["--context", pinnedContextName];
+  }
   assertPinnedKubaraTarget();
   assertCubVersion();
-  const json = tryCommand("cub", [...contextArgs, "context", "get", "-o", "json"]);
-  if (json.ok) {
-    const value = JSON.parse(json.output);
-    const name = value.metadata?.organizationName
-      ?? value.OrganizationName
-      ?? value.organizationName;
-    check(name === ORGANIZATION, `refusing to run in organization ${name ?? "unknown"}; expected ${ORGANIZATION}`);
-  }
 }
 
 function assertCubVersion() {
@@ -3299,14 +4004,18 @@ function versionAtLeast(actual, minimum) {
 }
 
 function assertSerialLiveLock() {
-  for (const pattern of [
-    "scripts/run-kubara-live-qualification.mjs",
+  // The filesystem lock is the authoritative mutual-exclusion primitive used
+  // by all three live lanes. Keep one process scan as defense in depth for an
+  // old runner that predates the shared lock, rather than spawning three
+  // identical scans. pgrep exit 1 means no match; every other failure is real.
+  const processPattern = [
+    "scripts/run-kubara-live-qualification\\.mjs",
     "tests/live-helm-confighub-parity-test",
-    "scripts/run-kubara-faithful-hub-spoke-proof.mjs",
-  ]) {
-    const processes = tryCommand("pgrep", ["-fl", pattern]);
-    check(!processes.ok || !processes.output.trim(), `refusing to overlap a live Kubara proof (${pattern}):\n${processes.output}`);
-  }
+    "scripts/run-kubara-faithful-hub-spoke-proof\\.mjs",
+  ].join("|");
+  const processes = tryCommand("pgrep", ["-fl", processPattern], { expectedFailure: true });
+  check(processes.ok || processes.status === 1, `live proof process scan failed: ${processes.output}`);
+  check(!processes.ok || !processes.output.trim(), `refusing to overlap a live Kubara proof (${processPattern}):\n${processes.output}`);
   const leaked = kindClusters().filter((name) => name.startsWith("helm-expt-parity-"));
   check(leaked.length === 0, `refusing to start with live-parity clusters present: ${leaked.join(", ")}`);
 }
@@ -3386,11 +4095,13 @@ function operationExecutionFingerprint() {
       order: item.order,
       destinationNamespace: item.destinationNamespace,
       protectedNamespaceOwnershipDetachment: item.protectedNamespaceOwnershipDetachment ?? null,
+      immutableSelectorReplacements: immutableSelectorMigrationsFor(item),
     })),
     protectedNamespaceOwnershipDetachments: PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS,
     policies: {
       argoPrune: ARGO_PRUNE_POLICY,
       namespaceMove: ARGO_NAMESPACE_MOVE_POLICY,
+      immutableSelectorReplacement: IMMUTABLE_SELECTOR_REPLACEMENT_POLICY,
       protectedNamespaceOwnership: PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
       kindTraefik: KIND_TRAEFIK_POLICY,
       retry: ARGO_RETRY_POLICY,
@@ -3407,11 +4118,13 @@ function operationJournalFingerprintDisposition(journal, fingerprint) {
   if (journal.executionFingerprint === fingerprint) return "current";
   const convergenceInFlight = Object.keys(journal.convergence ?? {}).length > 0;
   const namespaceMoveInFlight = ["prepared", "delete-returned"].includes(journal.namespaceMove?.state);
+  const immutableSelectorReplacementInFlight = Object.values(journal.immutableSelectorReplacements ?? {})
+    .some((item) => ["prepared", "delete-returned", "old-uid-gone"].includes(item?.state));
   const protectedNamespaceDetachmentInFlight = Object.values(journal.protectedNamespaceDetachments ?? {})
     .some((item) => ["prepared", "patch-returned"].includes(item?.state));
   const scenarioInFlight = journal.scenario?.state === "started";
   const fleetBootstrapInFlight = journal.fleetBootstrap?.state === "started";
-  return convergenceInFlight || namespaceMoveInFlight || protectedNamespaceDetachmentInFlight
+  return convergenceInFlight || namespaceMoveInFlight || immutableSelectorReplacementInFlight || protectedNamespaceDetachmentInFlight
     || scenarioInFlight || fleetBootstrapInFlight ? "blocked" : "rotate";
 }
 
@@ -3422,6 +4135,7 @@ function readOperationJournal() {
       executionFingerprint: operationExecutionFingerprint(),
       convergence: {},
       namespaceMove: null,
+      immutableSelectorReplacements: {},
       protectedNamespaceDetachments: {},
       scenario: null,
       fleetBootstrap: null,
@@ -3438,6 +4152,13 @@ function readOperationJournal() {
     check(journal?.[key] === value, `operation journal ${key} drifted at ${OPERATION_JOURNAL_PATH}`);
   }
   check(journal.convergence && typeof journal.convergence === "object" && !Array.isArray(journal.convergence), "operation journal convergence map is invalid");
+  if (journal.immutableSelectorReplacements === undefined) journal.immutableSelectorReplacements = {};
+  check(
+    journal.immutableSelectorReplacements
+      && typeof journal.immutableSelectorReplacements === "object"
+      && !Array.isArray(journal.immutableSelectorReplacements),
+    "operation journal immutable-selector replacement map is invalid",
+  );
   if (journal.protectedNamespaceDetachments === undefined) journal.protectedNamespaceDetachments = {};
   check(
     journal.protectedNamespaceDetachments
@@ -3453,7 +4174,7 @@ function readOperationJournal() {
   const disposition = operationJournalFingerprintDisposition(journal, fingerprint);
   check(
     disposition !== "blocked",
-    "operation inputs changed while an Argo convergence, namespace move, protected Namespace ownership detachment, scenario transition, or fleet bootstrap is in flight",
+    "operation inputs changed while an Argo convergence, namespace move, immutable-selector replacement, protected Namespace ownership detachment, scenario transition, or fleet bootstrap is in flight",
   );
   if (disposition === "rotate") {
     journal.executionFingerprint = fingerprint;
@@ -3529,11 +4250,6 @@ function observeKindTraefikDockerBindings() {
   });
 }
 
-const UNIT_READ_SELECT = "Labels,Annotations,TargetID,UpstreamUnitID,DeleteGates,DestroyGates,ToolchainType,ProviderType,Data,DataHash,ContentHash,HeadRevisionNum,LastAppliedRevisionNum,ApprovedBy,ApplyGates";
-const LINK_READ_SELECT = "FromUnitID,ToUnitID,ToSpaceID,UpdateType,AutoUpdate,Labels,Annotations,UpstreamLastMergedRevisionNum,DownstreamLastMergedRevisionNum";
-const SPACE_READ_SELECT = "OrganizationID,Labels,Annotations,ReleaseTargetID,TriggerFilterID,TriggerIDs,WhereTrigger,DeleteGates";
-const RELEASE_READ_SELECT = "TagID,Digest,ManifestDigest,ReleaseNum,UnitCount,CreatedAt";
-
 function fetchSpaces() {
   const rows = unwrapRows(cubJson(["space", "list", "--select", SPACE_READ_SELECT]), "Space");
   for (const space of rows) {
@@ -3545,7 +4261,7 @@ function fetchSpaces() {
 function fetchUnitRows(space) {
   return unwrapRows(cubJson([
     "unit", "list", "--space", space,
-    "--select", UNIT_READ_SELECT,
+    "--select", `SpaceID,${UNIT_READ_SELECT}`,
   ]), "Unit");
 }
 
@@ -3568,12 +4284,11 @@ function readUnitData(space, slug) {
 function decodeBulkUnitData(unit, ref) {
   check(typeof unit?.Data === "string", `${ref}: bulk Unit metadata omitted Data; refusing an unproved body comparison`);
   check(/^[a-f0-9]{64}$/.test(unit.DataHash ?? ""), `${ref}: bulk Unit metadata has an invalid DataHash`);
+  const decoded = Buffer.from(unit.Data, "base64");
   check(
-    /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(unit.Data),
+    unit.Data.length % 4 === 0 && decoded.toString("base64") === unit.Data,
     `${ref}: bulk Unit metadata contains non-canonical base64 Data`,
   );
-  const decoded = Buffer.from(unit.Data, "base64");
-  check(decoded.toString("base64") === unit.Data, `${ref}: bulk Unit metadata contains non-canonical base64 Data`);
   check(sha256(decoded) === unit.DataHash, `${ref}: bulk Unit DataHash does not match decoded Data`);
   try {
     return new TextDecoder("utf-8", { fatal: true }).decode(decoded);
@@ -3593,14 +4308,18 @@ function expectBulkUnitDataFailure(unit, expectedMessage, label) {
 }
 
 function fetchTarget(space) {
-  const result = cubTry(["target", "get", "--space", space, "target", "-o", "json"]);
+  const result = cubTry([
+    "target", "get", "--space", space, "target",
+    "--select", TARGET_READ_SELECT,
+    "-o", "json",
+  ]);
   return result.ok ? unwrapEntity(JSON.parse(result.output), "Target") : null;
 }
 
 function fetchLinks(space) {
   return unwrapRows(cubJson([
     "link", "list", "--space", space,
-    "--select", LINK_READ_SELECT,
+    "--select", `SpaceID,${LINK_READ_SELECT}`,
   ]), "Link");
 }
 
@@ -3608,7 +4327,7 @@ function fetchPublishedReleases(space) {
   return unwrapRows(cubJson([
     "release", "list", "--space", space,
     "--where", "Published = true",
-    "--select", RELEASE_READ_SELECT,
+    "--select", `SpaceID,${RELEASE_READ_SELECT}`,
   ]), "Release").sort((left, right) => Number(right.ReleaseNum ?? 0) - Number(left.ReleaseNum ?? 0)
     || String(right.CreatedAt ?? "").localeCompare(String(left.CreatedAt ?? "")));
 }
@@ -3660,7 +4379,7 @@ function installApplyOrganizationSnapshot(snapshot, spaces, captured) {
   hydrateEmptyApplyReadScopes(snapshot);
 }
 
-function beginAuthoritativeReleaseReuseBatch() {
+function beginAuthoritativeReleaseReuseBatch({ snapshotOnly = false } = {}) {
   check(activeApplyReadSnapshot, "authoritative release-reuse batch requires the apply snapshot");
   check(!activeSourceReleaseBoundarySnapshot, "authoritative release-reuse batch cannot start inside a release boundary");
   check(!activeAuthoritativeReleaseReuseBatch, "authoritative release-reuse batch is already active");
@@ -3673,6 +4392,8 @@ function beginAuthoritativeReleaseReuseBatch() {
     targetsBySpace: new Map(activeApplyReadSnapshot.targetsBySpace),
     linksBySpace: new Map(activeApplyReadSnapshot.linksBySpace),
     releasesBySpace: new Map(activeApplyReadSnapshot.releasesBySpace),
+    streamSpaces: new Set(),
+    snapshotOnly,
   };
 }
 
@@ -3680,21 +4401,35 @@ function withAuthoritativeReleaseReuseBatch(space, verify) {
   const batch = activeAuthoritativeReleaseReuseBatch;
   check(batch, `${space}: authoritative release-reuse batch is unavailable`);
   check(!activeSourceReleaseBoundarySnapshot, `${space}: release-reuse batch cannot overlap another release boundary`);
-  // The dependency topology comes from the stable organization bracket, but
-  // every stream that may drive Argo gets two fresh targeted reads. This keeps
-  // a withdrawn/new release or changed Unit head from hiding behind the batch
-  // while preserving the 96-command no-op ceiling.
-  const unitsBySpace = new Map(batch.unitsBySpace);
-  const releasesBySpace = new Map(batch.releasesBySpace);
-  const streamUnits = fetchUnitRows(space);
-  for (const unit of streamUnits) decodeBulkUnitData(unit, `${space}/${unit.Slug}`);
-  unitsBySpace.set(space, streamUnits);
-  releasesBySpace.set(space, fetchPublishedReleases(space));
-  const snapshot = {
-    ...batch,
-    unitsBySpace,
-    releasesBySpace,
-  };
+  batch.streamSpaces.add(space);
+  let snapshot;
+  if (batch.snapshotOnly) {
+    check(
+      activeApplyReadSnapshot?.organizationFingerprint === batch.fingerprint,
+      `${space}: release-reuse organization fingerprint was invalidated`,
+    );
+    check(batch.unitsBySpace.has(space), `${space}: release-reuse batch omitted the Unit stream`);
+    check(batch.releasesBySpace.has(space), `${space}: release-reuse batch omitted the published Release stream`);
+    check(batch.linksBySpace.has(space), `${space}: release-reuse batch omitted the Link stream`);
+    // The immediately preceding phase boundary captured every Unit body/hash,
+    // current published Release, Link, Target, and Space in one dependency-
+    // complete organization snapshot. Reuse that immutable no-write view for
+    // all release decisions. Any successful ConfigHub mutation destroys this
+    // batch; any Argo or ConfigHub side effect still takes its dedicated fresh
+    // release boundary; final verification must open and close at this exact
+    // organization fingerprint.
+    snapshot = batch;
+  } else {
+    // Changed applies retain the narrower per-stream revalidation until the
+    // first successful ConfigHub mutation invalidates the batch.
+    const unitsBySpace = new Map(batch.unitsBySpace);
+    const releasesBySpace = new Map(batch.releasesBySpace);
+    const streamUnits = fetchUnitRows(space);
+    for (const unit of streamUnits) decodeBulkUnitData(unit, `${space}/${unit.Slug}`);
+    unitsBySpace.set(space, streamUnits);
+    releasesBySpace.set(space, fetchPublishedReleases(space));
+    snapshot = { ...batch, unitsBySpace, releasesBySpace };
+  }
   activeSourceReleaseBoundarySnapshot = snapshot;
   try {
     return verify();
@@ -3765,6 +4500,16 @@ function currentApplyReadEvidence() {
 
 function finishApplyReadSnapshot() {
   check(activeApplyReadSnapshot, "apply read snapshot is not active");
+  if (activeAuthoritativeReleaseReuseBatch?.snapshotOnly) {
+    const streams = [...activeAuthoritativeReleaseReuseBatch.streamSpaces].sort();
+    check(streams.length > 0, "authoritative release-reuse batch did not serve a release stream");
+    activeApplyReadSnapshot.evidence.authoritativeReleaseReuse = {
+      mode: "single-dependency-complete-organization-snapshot",
+      fingerprint: activeAuthoritativeReleaseReuseBatch.fingerprint,
+      streams,
+      finalVerification: "opening-and-closing-fingerprint-required",
+    };
+  }
   const evidence = currentApplyReadEvidence();
   activeApplyReadSnapshot = null;
   activeAuthoritativeReleaseReuseBatch = null;
@@ -3773,6 +4518,12 @@ function finishApplyReadSnapshot() {
 }
 
 function readSpaces() {
+  if (activeVerificationReadSnapshot) {
+    const evidence = activeVerificationReadSnapshot.evidenceByResource.get("space");
+    check(evidence, "verification snapshot does not track Space reads");
+    evidence.servedReads += 1;
+    return new Map(activeVerificationReadSnapshot.spaces);
+  }
   if (activeSourceReleaseBoundarySnapshot) {
     return new Map(activeSourceReleaseBoundarySnapshot.spaces);
   }
@@ -4001,6 +4752,15 @@ function beginVerificationReadSnapshot(spaces) {
   return activeVerificationReadSnapshot;
 }
 
+function assertAuthoritativeReleaseReuseFinalOpening(applyReadEvidence, openingSnapshot) {
+  const releaseReuse = applyReadEvidence?.authoritativeReleaseReuse;
+  if (!releaseReuse) return;
+  check(
+    openingSnapshot?.fingerprint === releaseReuse.fingerprint,
+    "ConfigHub Space, Unit, release, Link, or Target state changed after the dependency-complete pre-release snapshot",
+  );
+}
+
 function finishVerificationReadSnapshot(
   capture = captureOrganizationReadSnapshot,
   readClosingSpaces = fetchSpaces,
@@ -4046,7 +4806,7 @@ function captureOrganizationReadSnapshot(spaces) {
   ]), "Link"));
   const targetCapture = measuredOrganizationList("target", () => unwrapRows(cubJson([
     "target", "list", "--space", "*",
-    "--select", "SpaceID,ProviderType,ToolchainType,Annotations",
+    "--select", TARGET_READ_SELECT,
   ]), "Target"));
   const units = unitCapture.rows;
   const releases = releaseCapture.rows;
@@ -4094,6 +4854,7 @@ function captureOrganizationReadSnapshot(spaces) {
     target: snapshotRows(targets, ["SpaceID", "TargetID", "Slug", "ProviderType", "ToolchainType", "Annotations"]),
   };
   return {
+    spaces: new Map(spaces),
     unitsBySpace,
     unitsByRef,
     releasesBySpace,
@@ -4861,6 +5622,8 @@ function applyPlan(inputs, desired) {
   const lockPath = acquireSerialLiveLock();
   const priorNamespaceMoveEvidence = validatedPriorNamespaceMoveEvidence();
   const journalNamespaceMoveAttempt = validatedNamespaceMoveJournalAttempt();
+  const priorImmutableSelectorEvidence = validatedPriorImmutableSelectorEvidence();
+  const journalImmutableSelectorAttempts = validatedImmutableSelectorJournalAttempts();
   const priorProtectedNamespaceEvidence = validatedPriorProtectedNamespaceEvidence();
   const journalProtectedNamespaceAttempts = validatedProtectedNamespaceJournalAttempts();
   const scenarioJournal = validatedScenarioJournal();
@@ -4875,6 +5638,17 @@ function applyPlan(inputs, desired) {
       ...journalNamespaceMoveAttempt,
       source: "journal",
     });
+  }
+  const immutableSelectorAttempts = new Map(
+    priorImmutableSelectorEvidence.map((item) => [item.migrationID, { ...item, source: "receipt" }]),
+  );
+  for (const item of journalImmutableSelectorAttempts) {
+    const prior = immutableSelectorAttempts.get(item.migrationID);
+    check(
+      !prior || prior.uid === item.uid,
+      `${item.migrationID}: receipt and operation journal immutable-selector UIDs disagree`,
+    );
+    immutableSelectorAttempts.set(item.migrationID, { ...item, source: "journal" });
   }
   const protectedNamespaceAttempts = new Map(
     priorProtectedNamespaceEvidence.map((item) => [item.migrationID, { ...item, source: "receipt" }]),
@@ -4897,6 +5671,11 @@ function applyPlan(inputs, desired) {
       ...priorNamespaceMoveEvidence,
       ...(journalNamespaceMoveAttempt?.state === "observed-gone" ? [journalNamespaceMoveAttempt] : []),
     ],
+    immutableSelectorAttempts,
+    immutableSelectorEvidence: [
+      ...priorImmutableSelectorEvidence,
+      ...journalImmutableSelectorAttempts.filter((item) => item.state === "replacement-healthy"),
+    ],
     protectedNamespaceAttempts,
     protectedNamespaceEvidence: [
       ...priorProtectedNamespaceEvidence,
@@ -4905,6 +5684,8 @@ function applyPlan(inputs, desired) {
     scenarioJournal,
     fleetBootstrapJournal,
     scenario: { mode: "retained-proven-history", steps: [] },
+    scenarioReceiptHistory: null,
+    scenarioReceiptProven: null,
     performancePhaseStart: performanceCheckpoint(),
     performancePhases: [],
     reconcilePerformance,
@@ -4914,8 +5695,19 @@ function applyPlan(inputs, desired) {
   let applyReadSnapshot = null;
   try {
     assertSerialLiveLock();
+    // Capture the last terminal receipt and attempt ledger before opening a new
+    // attempt. beginApplyAttempt() intentionally invalidates the current receipt
+    // so nobody can mistake an in-flight apply for certified idempotence. That
+    // top-level invalidation must not erase already-proven rollout history.
+    const priorScenarioReceipt = readPriorReceipt();
+    const priorScenarioAttemptLedger = readApplyAttemptLedger();
     state.applyAttempt = beginApplyAttempt();
     applyReadSnapshot = beginApplyReadSnapshot();
+    state.scenarioReceiptHistory = scenarioReceiptHistoryDiagnosis({
+      receipt: priorScenarioReceipt,
+      attemptLedger: priorScenarioAttemptLedger,
+    });
+    state.scenarioReceiptProven = state.scenarioReceiptHistory.proven;
     preflightScenarioHistory(state);
     workRoot = mkdtempSync(join(tmpdir(), "helm-expt-kubara-mini-idp-"));
     const payloadFiles = materializePayloadFiles(inputs, workRoot);
@@ -4936,7 +5728,7 @@ function applyPlan(inputs, desired) {
     const preserveScenarioJournalState = Boolean(
       state.scenarioJournal
         && ["started", "completed"].includes(state.scenarioJournal.state)
-        && !scenarioReceiptProvesHistory(),
+        && !trustedScenarioHistoryForApply(state),
     );
     const inFlightScenarioSpaces = preserveScenarioJournalState
       ? new Set(["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)])
@@ -4990,10 +5782,11 @@ function applyPlan(inputs, desired) {
     assertManagedUnitInventory(desired);
     assertManagedLinkInventory(desired);
     assertExactManagedTargetInventory(activeApplyReadSnapshot, "pre-release ConfigHub Target inventory");
-    // Freeze the dependency-complete pre-release phase snapshot. Every stream
-    // still gets one fresh Unit list and one fresh published-Release list; the
-    // first successful ConfigHub mutation invalidates the frozen topology.
-    beginAuthoritativeReleaseReuseBatch();
+    // Freeze the dependency-complete pre-release phase snapshot. A run with no
+    // ConfigHub changes may reuse it for read-only release decisions; changed
+    // applies retain targeted stream reads. The first later ConfigHub mutation
+    // invalidates either form of the frozen topology.
+    beginAuthoritativeReleaseReuseBatch({ snapshotOnly: state.actions.length === 0 });
     for (const deployment of desired.deployments.filter((item) => item.type === "platform")) {
       deployOne(deployment, state);
       waitForSpecialPrerequisite(deployment);
@@ -6373,6 +7166,131 @@ function validatedNamespaceMoveJournalAttempt() {
   return item;
 }
 
+function immutableSelectorMigrationsFor(deployment) {
+  return deployment?.immutableSelectorReplacements ?? [];
+}
+
+function allImmutableSelectorReplacements(desired = plan) {
+  return desired.deployments.flatMap((deployment) => (
+    immutableSelectorMigrationsFor(deployment).map((migration) => ({ deployment, migration }))
+  ));
+}
+
+function immutableSelectorContractForMigration(migrationID) {
+  const contract = allImmutableSelectorReplacements().find(
+    (item) => item.migration.migrationID === migrationID,
+  );
+  check(contract, `unknown immutable-selector migration ${migrationID}`);
+  return contract;
+}
+
+function assertImmutableSelectorReplacementEvidence(
+  item,
+  prefix = "immutable-selector replacement evidence",
+  { requireComplete = true } = {},
+) {
+  const { deployment, migration } = immutableSelectorContractForMigration(item?.migrationID);
+  check(item.ref === immutableSelectorReplacementRef(deployment, migration), `${prefix}: resource identity drifted`);
+  check(item.application === `${deployment.cluster}/${deployment.space}`, `${prefix}: Application identity drifted`);
+  check(
+    item.apiVersion === migration.apiVersion
+      && item.kind === migration.kind
+      && item.name === migration.name
+      && item.namespace === migration.namespace,
+    `${prefix}: Kubernetes kind identity drifted`,
+  );
+  check(stableJson(item.fromSelector) === stableJson(migration.fromSelector), `${prefix}: legacy selector drifted`);
+  check(stableJson(item.toSelector) === stableJson(migration.toSelector), `${prefix}: reviewed selector drifted`);
+  check(UUID_PATTERN.test(item.uid ?? "") && /^\d+$/.test(String(item.resourceVersion ?? "")), `${prefix}: old UID/resourceVersion is invalid`);
+  check(Number.isFinite(Date.parse(item.preparedAt ?? "")), `${prefix}: preparedAt is invalid`);
+  check(["preflight-reviewed-selector-mismatch", "recovered-resource-level-immutable-selector-failure"].includes(item.trigger), `${prefix}: trigger is invalid`);
+  if (item.failureEvidencePolicy === IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY) {
+    check(item.trigger === "recovered-resource-level-immutable-selector-failure", `${prefix}: v2 failure evidence has an invalid trigger`);
+    const evidence = item.failureEvidence ?? {};
+    const resource = evidence.resource ?? {};
+    const { sha256: storedDigest, ...canonicalEvidence } = evidence;
+    check(["Failed", "Error"].includes(evidence.phase), `${prefix}: failure phase is not terminal`);
+    check(
+      /^sha256:[0-9a-f]{64}$/.test(evidence.syncRevision ?? "")
+        && evidence.operationRevision === evidence.syncRevision,
+      `${prefix}: failure revision is not exact`,
+    );
+    check(
+      resource.group === "apps"
+        && resource.kind === migration.kind
+        && resource.namespace === migration.namespace
+        && resource.name === migration.name
+        && resource.status === "SyncFailed"
+        && resource.hookPhase === "Failed"
+        && immutableSelectorFailureMessage(resource),
+      `${prefix}: failure resource evidence drifted`,
+    );
+    check(
+      storedDigest === `sha256:${sha256(stableJson(canonicalEvidence))}`,
+      `${prefix}: failure evidence digest drifted`,
+    );
+  } else {
+    check(
+      item.state === "replacement-healthy"
+        && Number.isFinite(Date.parse(item.completedAt ?? ""))
+        && Date.parse(item.completedAt) < Date.parse(IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_EFFECTIVE_AT)
+        && item.failureEvidence === undefined,
+      `${prefix}: legacy selector evidence is not a completed pre-v2 migration`,
+    );
+  }
+  check(item.reason === migration.reason, `${prefix}: reason drifted`);
+  const retainedPVCs = item.retainedPVCs ?? [];
+  check(
+    retainedPVCs.length === (migration.retainedPVCNames ?? []).length
+      && stableJson(retainedPVCs.map((pvc) => pvc.name)) === stableJson(migration.retainedPVCNames ?? [])
+      && retainedPVCs.every((pvc) => UUID_PATTERN.test(pvc.uid ?? "") && pvc.volumeName && pvc.phase === "Bound"),
+    `${prefix}: retained PVC evidence drifted`,
+  );
+  if (item.state === "replacement-healthy") {
+    check(/^sha256:[0-9a-f]{64}$/.test(item.revisionAtReplacement ?? ""), `${prefix}: replacement revision is invalid`);
+    check(UUID_PATTERN.test(item.replacementUID ?? "") && item.replacementUID !== item.uid, `${prefix}: replacement UID is invalid`);
+    check(/^\d+$/.test(String(item.replacementResourceVersion ?? "")), `${prefix}: replacement resourceVersion is invalid`);
+    check(Number(item.readyEndpoints) > 0, `${prefix}: ready EndpointSlice evidence is missing`);
+    check(Number.isFinite(Date.parse(item.completedAt ?? "")), `${prefix}: completion time is invalid`);
+  } else {
+    check(["prepared", "delete-returned", "old-uid-gone"].includes(item.state), `${prefix}: journal state is invalid`);
+    check(/^sha256:[0-9a-f]{64}$/.test(item.expectedRevision ?? ""), `${prefix}: expected revision is invalid`);
+    if (requireComplete) check(false, `${prefix}: replacement is not complete`);
+  }
+}
+
+function validatedPriorImmutableSelectorEvidence() {
+  const receipt = readPriorReceipt();
+  if (!receipt) return [];
+  const trusted = receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt"
+    && receipt.spec?.organization?.name === ORGANIZATION
+    && receipt.spec?.organization?.externalID === ORGANIZATION_EXTERNAL_ID
+    && receipt.spec?.organization?.entityID === ORGANIZATION_ENTITY_ID
+    && receipt.spec?.organization?.serverURL === CONFIGHUB_SERVER_URL;
+  if (!trusted) return [];
+  const rows = receipt.spec?.immutableSelectorReplacements ?? [];
+  check(rows.length <= allImmutableSelectorReplacements().length, "prior receipt retains too many immutable-selector replacements");
+  check(new Set(rows.map((item) => item.migrationID)).size === rows.length, "prior receipt duplicates an immutable-selector replacement");
+  for (const item of rows) assertImmutableSelectorReplacementEvidence(item, "prior receipt immutable-selector replacement");
+  return rows;
+}
+
+function validatedImmutableSelectorJournalAttempts() {
+  const rows = Object.entries(readOperationJournal().immutableSelectorReplacements ?? {})
+    .map(([migrationID, item]) => {
+      check(item?.migrationID === migrationID, `${migrationID}: immutable-selector journal key drifted`);
+      assertImmutableSelectorReplacementEvidence(
+        item,
+        `${migrationID}: immutable-selector journal attempt`,
+        { requireComplete: false },
+      );
+      return item;
+    })
+    .sort((left, right) => left.migrationID.localeCompare(right.migrationID));
+  check(rows.length <= allImmutableSelectorReplacements().length, "operation journal retains too many immutable-selector attempts");
+  return rows;
+}
+
 function protectedNamespaceContract(migrationID) {
   const contract = PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.find(
     (item) => item.migrationID === migrationID,
@@ -6813,9 +7731,13 @@ function runScenarioTransition(
   );
   if (!preparedStep.preparedTransition) {
     const current = scenarioCheckpoint();
+    const checkpointDifference = firstStableDifference(
+      preparedStep.transitionCheckpoint,
+      current,
+    );
     check(
-      stableJson(current) === stableJson(preparedStep.transitionCheckpoint),
-      `${stepID}/${transitionID}: live state changed after the last durable nested-transition checkpoint`,
+      !checkpointDifference,
+      `${stepID}/${transitionID}: live state changed after the last durable nested-transition checkpoint: ${checkpointDifference}`,
     );
     const updated = updateOperationJournal((journal) => {
       const step = journal.scenario?.preparedStep;
@@ -6908,7 +7830,9 @@ function scenarioCheckpointFromAuthoritativeSnapshot(spaces) {
         ref: `${space}/${unit.Slug}`,
         id: unit.UnitID,
         headRevisionNum: unit.HeadRevisionNum,
-        lastAppliedRevisionNum: unit.LastAppliedRevisionNum,
+        ...(unit.LastAppliedRevisionNum === undefined || unit.LastAppliedRevisionNum === null
+          ? {}
+          : { lastAppliedRevisionNum: unit.LastAppliedRevisionNum }),
         dataHash: unit.DataHash,
         targetID: unit.TargetID ?? null,
         upstreamUnitID: unit.UpstreamUnitID ?? null,
@@ -7106,7 +8030,23 @@ function scenarioOperationProofValid(scenario) {
     const initialUnit = initialUnits.get(ref);
     const sourceUnit = approvedUnits.get(ref);
     const finalUnit = rolledBackUnits.get(ref);
+    const rollbackApproval = evidence.find(
+      (item) => item.type === "unit-approve"
+        && item.ref === "hx-web-prod-a"
+        && item.transitionID === "prod-a-rollback/prod-a-approve-rollback",
+    );
+    const rollbackApprovedHead = rollbackApproval?.approvedHeads?.find((item) => item.ref === ref);
     if (!rollback || !initialUnit || !sourceUnit || !finalUnit) return false;
+    const finalRevisionDelta = Number(finalUnit.headRevisionNum) - Number(rollback.resultHeadRevisionNum);
+    const boundedApprovalRevision = finalRevisionDelta === 1
+      || (
+        finalRevisionDelta === 2
+          && rollbackApprovedHead?.id === finalUnit.id
+          && Number(rollbackApprovedHead.headRevisionNum) === Number(finalUnit.headRevisionNum)
+          && rollbackApprovedHead.dataHash === finalUnit.dataHash
+          && Number(rollbackApprovedHead.approvalCountAfter) === Number(rollbackApprovedHead.approvalCountBefore) + 1
+          && Number(finalUnit.approvalCount) === Number(rollbackApprovedHead.approvalCountAfter)
+      );
     return rollback.unitID === initialUnit.id
       && rollback.unitID === sourceUnit.id
       && rollback.unitID === finalUnit.id
@@ -7116,8 +8056,7 @@ function scenarioOperationProofValid(scenario) {
       && rollback.sourceDataHash === sourceUnit.dataHash
       && Number(rollback.resultHeadRevisionNum) === Number(rollback.sourceHeadRevisionNum) + 1
       && rollback.resultDataHash === rollback.restoredDataHash
-      && Number(finalUnit.headRevisionNum) >= Number(rollback.resultHeadRevisionNum)
-      && Number(finalUnit.headRevisionNum) <= Number(rollback.resultHeadRevisionNum) + 1
+      && boundedApprovalRevision
       && finalUnit.dataHash === rollback.resultDataHash;
   } catch {
     return false;
@@ -7214,7 +8153,6 @@ function assertScenarioUpsertPost(before, after, space, slug, payloadKey) {
   const right = scenarioCheckpointMaps(after).units.get(ref);
   assertScenarioUnitIdentity(left, right);
   const delta = Number(right.headRevisionNum) - Number(left.headRevisionNum);
-  check(delta >= 0 && delta <= 1, `${ref}: atomic reviewed upsert advanced the head by ${delta}, expected at most one exact revision`);
   check(right.lastAppliedRevisionNum === left.lastAppliedRevisionNum, `${ref}: upsert changed the applied revision before publication`);
   const expected = scenarioExpectedUnit(space, slug);
   assertManagedSourceUnitContract(expected, payloadKey);
@@ -7222,6 +8160,23 @@ function assertScenarioUpsertPost(before, after, space, slug, payloadKey) {
     stableJson(right.ownedAnnotations) === stableJson(expectedOwnedAnnotations(expected, payloadKey)),
     `${ref}: checkpointed provenance does not match ${payloadKey}`,
   );
+  check(delta >= 0 && delta <= 2, `${ref}: one reviewed upsert advanced the head by ${delta}, expected at most one content/provenance revision plus one production-trigger revision`);
+  if (delta === 2) {
+    check(expected.prodProtected, `${ref}: non-production upsert unexpectedly advanced two revisions`);
+    const semanticDiffs = [
+      [left.headRevisionNum, left.headRevisionNum + 1],
+      [left.headRevisionNum + 1, right.headRevisionNum],
+    ].map(([from, to]) => cub([
+      "unit", "diff", slug,
+      "--space", space,
+      String(from), String(to),
+      "-o", "mutations",
+    ]).trim());
+    check(
+      semanticDiffs.some((output) => output === ""),
+      `${ref}: two-revision production upsert lacks a semantically empty adjacent trigger/provenance revision`,
+    );
+  }
   if (delta === 0) {
     for (const key of ["dataHash", "approvalCount", "applyGates"]) {
       check(stableJson(right[key]) === stableJson(left[key]), `${ref}: ${key} changed during a zero-head-delta upsert`);
@@ -7239,7 +8194,66 @@ function assertScenarioUpsertPost(before, after, space, slug, payloadKey) {
   }
 }
 
-function assertScenarioPromotionPost(before, after, space, deploymentPayloadKey) {
+function promotionBlendDifference(actual, before, after, path = "$") {
+  if (stableJson(actual) === stableJson(before) || stableJson(actual) === stableJson(after)) return null;
+  if (Array.isArray(actual) || Array.isArray(before) || Array.isArray(after)) {
+    if (!Array.isArray(actual) || !Array.isArray(before) || !Array.isArray(after)) return `${path}: array/non-array shape escaped both reviewed payloads`;
+    if (actual.length !== before.length || actual.length !== after.length) return `${path}: hybrid array length escaped both reviewed payloads`;
+    for (let index = 0; index < actual.length; index += 1) {
+      const difference = promotionBlendDifference(actual[index], before[index], after[index], `${path}[${index}]`);
+      if (difference) return difference;
+    }
+    return null;
+  }
+  const object = (value) => value && typeof value === "object";
+  if (object(actual) || object(before) || object(after)) {
+    if (!object(actual) || !object(before) || !object(after)) return `${path}: object/non-object shape escaped both reviewed payloads`;
+    const keys = new Set([...Object.keys(before), ...Object.keys(after), ...Object.keys(actual)]);
+    for (const key of [...keys].sort()) {
+      const hasActual = Object.hasOwn(actual, key);
+      const hasBefore = Object.hasOwn(before, key);
+      const hasAfter = Object.hasOwn(after, key);
+      if (hasActual && !hasBefore && !hasAfter) return `${path}.${key}: unexpected field escaped both reviewed payloads`;
+      if (!hasActual) {
+        if (hasBefore && hasAfter) return `${path}.${key}: field present in both reviewed payloads disappeared`;
+        continue;
+      }
+      if (!hasBefore || !hasAfter) {
+        const reviewed = hasBefore ? before[key] : after[key];
+        if (stableJson(actual[key]) !== stableJson(reviewed)) return `${path}.${key}: value escaped its sole reviewed payload`;
+        continue;
+      }
+      const difference = promotionBlendDifference(actual[key], before[key], after[key], `${path}.${key}`);
+      if (difference) return difference;
+    }
+    return null;
+  }
+  return `${path}: value ${stableJson(actual)} matches neither reviewed value`;
+}
+
+function assertHxWebPromotionBlend(space, beforePayloadKey, afterPayloadKey) {
+  const beforePayload = inputs.payloads.get(beforePayloadKey);
+  const afterPayload = inputs.payloads.get(afterPayloadKey);
+  check(beforePayload && afterPayload, `${space}: reviewed promotion payload pair is missing`);
+  const actualDocs = parseDocs(readUnitData(space, "hx-web-deployment"));
+  const beforeDocs = parseDocs(beforePayload.value);
+  const afterDocs = parseDocs(afterPayload.value);
+  const byIdentity = (docs) => new Map(docs.map((doc) => [identityFor(doc), doc]));
+  const actual = byIdentity(actualDocs);
+  const before = byIdentity(beforeDocs);
+  const after = byIdentity(afterDocs);
+  check(
+    stableJson([...actual.keys()].sort()) === stableJson([...before.keys()].sort())
+      && stableJson([...actual.keys()].sort()) === stableJson([...after.keys()].sort()),
+    `${space}: promotion changed the reviewed Kubernetes identity set`,
+  );
+  for (const identity of [...actual.keys()].sort()) {
+    const difference = promotionBlendDifference(actual.get(identity), before.get(identity), after.get(identity));
+    check(!difference, `${space}/${identity}: promotion produced an undeclared merge result: ${difference}`);
+  }
+}
+
+function assertScenarioPromotionPost(before, after, space, beforePayloadKey, afterPayloadKey) {
   const unitRefs = plan.managedUnits.filter((item) => item.space === space).map((item) => `${space}/${item.slug}`);
   const linkRefs = readLinks(space)
     .filter((item) => item.UpdateType === "UpgradeUnit")
@@ -7247,7 +8261,15 @@ function assertScenarioPromotionPost(before, after, space, deploymentPayloadKey)
   assertScenarioDeltaScope(before, after, { unitRefs, linkRefs });
   const left = scenarioCheckpointMaps(before);
   const right = scenarioCheckpointMaps(after);
-  assertHxWebSpacePayloads(inputs, plan, space, deploymentPayloadKey);
+  assertHxWebPromotionBlend(space, beforePayloadKey, afterPayloadKey);
+  for (const expected of plan.managedUnits.filter(
+    (item) => item.space === space && item.slug !== "hx-web-deployment",
+  )) {
+    check(
+      hxWebUnitMatchesPayload(inputs, space, expected.slug, expected.payloadKey),
+      `${space}/${expected.slug}: promotion changed a non-deployment payload`,
+    );
+  }
   for (const ref of unitRefs) {
     const prior = left.units.get(ref);
     const current = right.units.get(ref);
@@ -7396,38 +8418,119 @@ function assertScenarioMergeCurrentPost(before, after, linkRef) {
   );
 }
 
-function scenarioReceiptProvesHistory() {
-  const receipt = readPriorReceipt();
-  if (!receipt) return false;
+function reconcileRunsProveCurrentScenarioHistory(runs, executionFingerprint) {
+  if (!Array.isArray(runs) || runs.length === 0) return false;
+  const latest = runs.at(-1);
+  if (latest?.result !== "pass" || latest.executionFingerprint !== executionFingerprint) return false;
+  const currentRuns = runs.filter((run) => run.executionFingerprint === executionFingerprint);
+  return currentRuns.length > 0
+    && currentRuns.every((run) => run.result === "pass")
+    && currentRuns.some((run) => run.idempotentNoop === false && run.actionCount > 0);
+}
+
+function scenarioReceiptAttemptBindingDiagnosis(receipt, attemptLedger, executionFingerprint) {
+  if (!["pending-idempotence", "pass"].includes(receipt?.status?.result)) {
+    return { proven: false, reason: "receipt-result" };
+  }
+  const latestRun = receipt.spec?.reconcileRuns?.at(-1);
+  const latestAttempt = attemptLedger?.attempts?.at(-1);
+  if (!latestRun || !latestAttempt) return { proven: false, reason: "attempt-binding-missing" };
+  if (latestAttempt.result !== "pass") {
+    return { proven: false, reason: "latest-attempt-result", attemptResult: latestAttempt.result };
+  }
+  if (
+    latestRun.attemptSequence !== latestAttempt.sequence
+      || latestRun.attemptID !== latestAttempt.id
+  ) {
+    return {
+      proven: false,
+      reason: "attempt-binding",
+      runAttemptSequence: latestRun.attemptSequence,
+      ledgerAttemptSequence: latestAttempt.sequence,
+    };
+  }
+  if (
+    latestRun.result !== "pass"
+      || latestRun.executionFingerprint !== executionFingerprint
+      || latestAttempt.executionFingerprint !== executionFingerprint
+  ) {
+    return { proven: false, reason: "attempt-execution" };
+  }
+  return {
+    proven: true,
+    reason: "latest-terminal-receipt-and-attempt-bound",
+    attemptSequence: latestAttempt.sequence,
+    attemptID: latestAttempt.id,
+  };
+}
+
+function scenarioReceiptHistoryDiagnosis({
+  receipt = readPriorReceipt(),
+  attemptLedger = readApplyAttemptLedger(),
+} = {}) {
+  if (!receipt) return { proven: false, reason: "receipt-missing" };
   const scenario = receipt.kind === "ConfigHubKubaraMiniIDPReconcileReceipt"
     ? receipt.spec?.rolloutScenario
     : null;
-  if (scenario?.version !== SCENARIO_VERSION) return false;
-  if (scenario?.sourceFingerprint !== scenarioSourceFingerprint()) return false;
-  if (!["pending-idempotence", "pass"].includes(receipt.status?.result)) return false;
+  if (scenario?.version !== SCENARIO_VERSION) return { proven: false, reason: "scenario-version" };
+  if (scenario?.sourceFingerprint !== scenarioSourceFingerprint()) return { proven: false, reason: "scenario-source" };
   const runs = receipt.spec?.reconcileRuns ?? [];
-  if (!runs.length || !runs.every(
-    (run) => run.result === "pass" && run.executionFingerprint === operationExecutionFingerprint(),
-  )) return false;
-  if (!runs.some((run) => run.idempotentNoop === false && run.actionCount > 0)) return false;
+  const executionFingerprint = operationExecutionFingerprint();
+  const attemptBinding = scenarioReceiptAttemptBindingDiagnosis(receipt, attemptLedger, executionFingerprint);
+  if (!attemptBinding.proven) return attemptBinding;
+  if (!reconcileRunsProveCurrentScenarioHistory(runs, executionFingerprint)) {
+    return {
+      proven: false,
+      reason: "reconcile-runs",
+      executionFingerprint,
+      runs: runs.map((run) => ({
+        executionFingerprint: run.executionFingerprint,
+        result: run.result,
+        actionCount: run.actionCount,
+        idempotentNoop: run.idempotentNoop,
+      })),
+    };
+  }
   const spaces = readSpaces();
-  if (receipt.spec?.organization?.entityID !== spaces.get(CONTROL_SPACE)?.OrganizationID) return false;
+  if (receipt.spec?.organization?.entityID !== spaces.get(CONTROL_SPACE)?.OrganizationID) {
+    return { proven: false, reason: "organization-identity" };
+  }
   const receiptSpaces = new Map((receipt.spec?.spaces ?? []).map((space) => [space.slug, space.id]));
   for (const slug of ["hx-web-base", ...FLEET.map((item) => `hx-web-${item.suffix}`)]) {
-    if (receiptSpaces.get(slug) !== spaces.get(slug)?.SpaceID) return false;
+    if (receiptSpaces.get(slug) !== spaces.get(slug)?.SpaceID) {
+      return { proven: false, reason: "space-identity", ref: slug };
+    }
   }
   for (const [name, evidence] of Object.entries(sourceEvidence())) {
     const stored = receipt.spec?.source?.files?.[name];
-    if (stored?.path !== evidence.path || stored?.sha256 !== evidence.sha256) return false;
+    if (stored?.path !== evidence.path || stored?.sha256 !== evidence.sha256) {
+      return { proven: false, reason: "source-evidence", ref: name };
+    }
   }
   const expectedSteps = SCENARIO_STEPS.slice(1);
-  return expectedSteps.every((id) => (scenario.steps ?? []).some((item) => item.id === id && item.result === "pass"))
-    && scenarioOperationProofValid(scenario);
+  if (!expectedSteps.every((id) => (scenario.steps ?? []).some((item) => item.id === id && item.result === "pass"))) {
+    return { proven: false, reason: "scenario-steps" };
+  }
+  if (!scenarioOperationProofValid(scenario)) return { proven: false, reason: "scenario-operation-proof" };
+  return {
+    proven: true,
+    reason: "current-receipt-execution-and-terminal-attempt",
+    attemptSequence: attemptBinding.attemptSequence,
+    attemptID: attemptBinding.attemptID,
+  };
+}
+
+function trustedScenarioHistoryForApply(state) {
+  check(
+    typeof state?.scenarioReceiptProven === "boolean",
+    "scenario history trust was not captured before the active apply invalidated the prior receipt",
+  );
+  return state.scenarioReceiptProven;
 }
 
 function preflightScenarioHistory(state) {
   const priorReceipt = readPriorReceipt();
-  const receiptProven = scenarioReceiptProvesHistory();
+  const receiptProven = trustedScenarioHistoryForApply(state);
   const markerStatus = scenarioMarkerStatus();
   const recoverableJournal = state.scenarioJournal
     && state.scenarioJournal.version === SCENARIO_VERSION
@@ -7449,7 +8552,7 @@ function materializeHxWebScenario(inputs, payloadFiles, desired, state) {
   const baseUnits = desired.managedUnits.filter((item) => item.space === baseSpace);
   const markerStatus = scenarioMarkerStatus();
   const priorReceipt = readPriorReceipt();
-  const receiptProven = scenarioReceiptProvesHistory();
+  const receiptProven = trustedScenarioHistoryForApply(state);
   const recoverableJournal = state.scenarioJournal
     && state.scenarioJournal.version === SCENARIO_VERSION
     && ["started", "completed"].includes(state.scenarioJournal.state);
@@ -7637,7 +8740,13 @@ function reconcileHxWebScenario(inputs, payloadFiles, desired, state, scenarioSt
       recordAction(state, "variant-promote", space);
       state.changedSpaces.add(space);
     },
-    (before, after) => assertScenarioPromotionPost(before, after, space, afterPayloadKey),
+    (before, after) => assertScenarioPromotionPost(
+      before,
+      after,
+      space,
+      beforePayloadKey,
+      afterPayloadKey,
+    ),
     { recoveryEvidence: [{ type: "variant-promote", ref: space }] },
   );
   const scenarioApprove = (transition, id, space, { allowNoop = false } = {}) => transition(
@@ -7988,6 +9097,20 @@ function verifyHxWebFinalState(inputs) {
   return checks;
 }
 
+function exactHeadApprovalArgs(space, unit) {
+  check(space && unit?.Slug, "exact-head approval requires a Space and Unit slug");
+  check(Number.isInteger(Number(unit.HeadRevisionNum)) && Number(unit.HeadRevisionNum) > 0, `${space}/${unit.Slug}: approval head revision is invalid`);
+  // ConfigHub v0.2.11 rejects an explicit numeric value even when it equals
+  // HeadRevisionNum. Use the server's HeadRevisionNum selector, bracketed by
+  // exact Unit/DataHash reads under the serial lock, and verify the numeric
+  // head did not move after approval.
+  return [
+    "unit", "approve", "--space", space, unit.Slug,
+    "--revision", "HeadRevisionNum",
+    "--wait", "--quiet",
+  ];
+}
+
 function approveOutstanding(space, state) {
   const rows = readUnitRows(space);
   const outstanding = rows.filter(hasApprovalGate);
@@ -8001,13 +9124,9 @@ function approveOutstanding(space, state) {
         && Number(before.HeadRevisionNum) === Number(unit.HeadRevisionNum)
         && before.DataHash === unit.DataHash
         && hasApprovalGate(before),
-      `${space}/${unit.Slug}: exact gated head changed before numeric-revision approval`,
+      `${space}/${unit.Slug}: exact gated head changed before server-head approval`,
     );
-    cub([
-      "unit", "approve", "--space", space, unit.UnitID,
-      "--revision", String(unit.HeadRevisionNum),
-      "--wait", "--quiet",
-    ]);
+    cub(exactHeadApprovalArgs(space, unit));
     const current = readUnitRows(space).find((candidate) => candidate.UnitID === unit.UnitID);
     check(current?.Slug === unit.Slug, `${space}/${unit.Slug}: Unit identity changed during approval`);
     check(
@@ -8155,7 +9274,7 @@ function kubernetesResourceNotFound(output) {
 function readLiveArgoApplication(deployment, { allowNotFound = false } = {}) {
   const result = kubectlTry(deployment.cluster, [
     "get", "application", deployment.space, "-n", "argocd", "-o", "json",
-  ]);
+  ], { expectedFailure: allowNotFound });
   if (!result.ok && allowNotFound && kubernetesResourceNotFound(result.output)) return null;
   check(result.ok, `${deployment.cluster}/${deployment.space}: Argo Application is unavailable before sync`);
   return JSON.parse(result.output);
@@ -8350,19 +9469,24 @@ function hostNetworkBindings(workload) {
   return [...new Set(bindings)].sort();
 }
 
-function trackedOriginSpace(workload) {
+function trackedOrigin(workload) {
   try {
-    return JSON.parse(workload.metadata?.annotations?.["confighub.com/origin"] ?? "{}").spaceSlug ?? "";
+    return JSON.parse(workload.metadata?.annotations?.["confighub.com/origin"] ?? "{}");
   } catch {
-    return "";
+    return {};
   }
+}
+
+function trackedOriginSpace(workload) {
+  return trackedOrigin(workload).spaceSlug ?? "";
 }
 
 function retryableKubernetesCompareAndSet(output) {
   return /test failed|conflict|object has been modified|not[\s_-]*found/i.test(String(output ?? ""));
 }
 
-function deleteDaemonSetWithPreconditions(cluster, namespace, name, uid, resourceVersion) {
+function deleteAppsWorkloadWithPreconditions(cluster, resourcePlural, namespace, name, uid, resourceVersion) {
+  check(["daemonsets", "deployments", "statefulsets"].includes(resourcePlural), `${cluster}: unsupported precondition-delete resource ${resourcePlural}`);
   const config = readYaml(clusterKubeconfig(cluster));
   const contextName = `kind-${cluster}`;
   const context = (config.contexts ?? []).find((item) => item.name === contextName)?.context;
@@ -8388,7 +9512,7 @@ function deleteDaemonSetWithPreconditions(cluster, namespace, name, uid, resourc
     writeFileSync(caPath, Buffer.from(clusterConfig["certificate-authority-data"], "base64"), { mode: 0o600 });
     writeFileSync(certPath, Buffer.from(userConfig["client-certificate-data"], "base64"), { mode: 0o600 });
     writeFileSync(keyPath, Buffer.from(userConfig["client-key-data"], "base64"), { mode: 0o600 });
-    const endpoint = `${server.toString().replace(/\/$/, "")}/apis/apps/v1/namespaces/${encodeURIComponent(namespace)}/daemonsets/${encodeURIComponent(name)}`;
+    const endpoint = `${server.toString().replace(/\/$/, "")}/apis/apps/v1/namespaces/${encodeURIComponent(namespace)}/${resourcePlural}/${encodeURIComponent(name)}`;
     return tryCommand("curl", [
       "--silent", "--show-error", "--fail-with-body",
       "--connect-timeout", "10", "--max-time", "120",
@@ -8410,6 +9534,17 @@ function deleteDaemonSetWithPreconditions(cluster, namespace, name, uid, resourc
   }
 }
 
+function deleteDaemonSetWithPreconditions(cluster, namespace, name, uid, resourceVersion) {
+  return deleteAppsWorkloadWithPreconditions(
+    cluster,
+    "daemonsets",
+    namespace,
+    name,
+    uid,
+    resourceVersion,
+  );
+}
+
 function writeNamespaceMoveAttempt(item) {
   updateOperationJournal((journal) => {
     const existing = journal.namespaceMove;
@@ -8422,7 +9557,7 @@ function namespaceMoveCurrentObject(deployment, migration) {
   const result = kubectlTry(deployment.cluster, [
     "get", migration.resource, migration.name,
     "-n", migration.fromNamespace, "-o", "json",
-  ]);
+  ], { expectedFailure: true });
   if (!result.ok && kubernetesResourceNotFound(result.output)) return null;
   check(result.ok, `${deployment.cluster}: failed to inspect namespace-move journal resource`);
   return JSON.parse(result.output);
@@ -8512,7 +9647,7 @@ function pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevi
     const obsoleteResult = kubectlTry(deployment.cluster, [
       "get", migration.resource, migration.name,
       "-n", migration.fromNamespace, "-o", "json",
-    ]);
+    ], { expectedFailure: true });
     if (!obsoleteResult.ok && kubernetesResourceNotFound(obsoleteResult.output)) continue;
     check(obsoleteResult.ok, `${deployment.cluster}: failed to inspect declared namespace-move blocker ${migration.fromNamespace}/${migration.name}`);
 
@@ -8527,7 +9662,7 @@ function pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevi
     const desiredResult = kubectlTry(deployment.cluster, [
       "get", migration.resource, migration.name,
       "-n", deployment.destinationNamespace, "-o", "json",
-    ]);
+    ], { expectedFailure: true });
     if (!desiredResult.ok && kubernetesResourceNotFound(desiredResult.output)) continue;
     check(desiredResult.ok, `${deployment.cluster}: failed to inspect desired namespace-move replacement ${deployment.destinationNamespace}/${migration.name}`);
 
@@ -8639,6 +9774,397 @@ function pruneDeclaredNamespaceMoveBlockers(deployment, state, app, expectedRevi
   return changed;
 }
 
+function immutableSelectorReplacementRef(deployment, migration) {
+  return `${deployment.cluster}/${migration.kind}/${migration.namespace}/${migration.name}`;
+}
+
+function writeImmutableSelectorReplacementAttempt(item) {
+  updateOperationJournal((journal) => {
+    journal.immutableSelectorReplacements ??= {};
+    const existing = journal.immutableSelectorReplacements[item.migrationID];
+    check(
+      !existing || existing.uid === item.uid,
+      `${item.migrationID}: refusing to replace a different immutable-selector workload UID`,
+    );
+    journal.immutableSelectorReplacements[item.migrationID] = item;
+  });
+}
+
+function immutableSelectorCurrentObject(deployment, migration) {
+  const result = kubectlTry(deployment.cluster, [
+    "get", migration.resource, migration.name,
+    "-n", migration.namespace, "-o", "json",
+  ], { expectedFailure: true });
+  if (!result.ok && kubernetesResourceNotFound(result.output)) return null;
+  check(result.ok, `${deployment.cluster}: failed to inspect immutable-selector ${migration.kind}/${migration.namespace}/${migration.name}`);
+  return JSON.parse(result.output);
+}
+
+function assertImmutableSelectorOwnedObject(deployment, migration, workload, selector, prefix) {
+  check(workload?.apiVersion === migration.apiVersion && workload?.kind === migration.kind, `${prefix}: apiVersion/kind drifted`);
+  check(
+    workload.metadata?.name === migration.name
+      && workload.metadata?.namespace === migration.namespace
+      && UUID_PATTERN.test(workload.metadata?.uid ?? "")
+      && /^\d+$/.test(String(workload.metadata?.resourceVersion ?? "")),
+    `${prefix}: Kubernetes identity is incomplete`,
+  );
+  check(
+    workload.metadata?.annotations?.["argocd.argoproj.io/tracking-id"]
+      === `${deployment.space}:apps/${migration.kind}:${migration.namespace}/${migration.name}`,
+    `${prefix}: Argo tracking identity drifted`,
+  );
+  const origin = trackedOrigin(workload);
+  check(
+    origin.spaceSlug === deployment.space
+      && origin.unitSlug === migration.unitSlug
+      && UUID_PATTERN.test(origin.unitId ?? ""),
+    `${prefix}: ConfigHub origin Space/Unit identity drifted`,
+  );
+  check(stableJson(workload.spec?.selector?.matchLabels ?? {}) === stableJson(selector), `${prefix}: selector drifted`);
+  check(
+    stableJson(workload.spec?.template?.metadata?.labels ?? {}) === stableJson(selector),
+    `${prefix}: pod-template labels do not exactly match the selector`,
+  );
+  if ((migration.retainedPVCNames ?? []).length > 0) {
+    check(
+      workload.kind === "StatefulSet"
+        && workload.spec?.serviceName === migration.serviceName
+        && (workload.spec?.persistentVolumeClaimRetentionPolicy?.whenDeleted ?? "Retain") === "Retain"
+        && (workload.spec?.persistentVolumeClaimRetentionPolicy?.whenScaled ?? "Retain") === "Retain",
+      `${prefix}: StatefulSet service or PVC-retention contract drifted`,
+    );
+  }
+}
+
+function assertImmutableSelectorReviewedPayload(deployment, migration) {
+  const data = readUnitData(deployment.space, migration.unitSlug);
+  const workloads = parseDocs(data).filter(
+    (doc) => doc.apiVersion === migration.apiVersion
+      && doc.kind === migration.kind
+      && doc.metadata?.name === migration.name
+      && doc.metadata?.namespace === migration.namespace,
+  );
+  check(workloads.length === 1, `${migration.migrationID}: authoritative ConfigHub Unit does not contain exactly one reviewed workload`);
+  const workload = workloads[0];
+  check(
+    stableJson(workload.spec?.selector?.matchLabels ?? {}) === stableJson(migration.toSelector),
+    `${migration.migrationID}: authoritative ConfigHub Unit selector drifted`,
+  );
+  check(
+    stableJson(workload.spec?.template?.metadata?.labels ?? {}) === stableJson(migration.toSelector),
+    `${migration.migrationID}: authoritative ConfigHub Unit pod-template labels drifted`,
+  );
+}
+
+function retainedPVCObservations(deployment, migration) {
+  const names = migration.retainedPVCNames ?? [];
+  if (names.length === 0) return [];
+  check(migration.kind === "StatefulSet", `${migration.migrationID}: only a StatefulSet may declare retained PVCs`);
+  return names.map((name) => {
+    const result = kubectlTry(deployment.cluster, [
+      "get", "persistentvolumeclaim", name,
+      "-n", migration.namespace, "-o", "json",
+    ]);
+    check(result.ok, `${migration.migrationID}: retained PVC ${name} is absent`);
+    const pvc = JSON.parse(result.output);
+    check(
+      pvc.metadata?.name === name
+        && pvc.metadata?.namespace === migration.namespace
+        && UUID_PATTERN.test(pvc.metadata?.uid ?? "")
+        && pvc.status?.phase === "Bound",
+      `${migration.migrationID}: retained PVC ${name} identity or binding drifted`,
+    );
+    check((pvc.metadata?.ownerReferences ?? []).length === 0, `${migration.migrationID}: retained PVC ${name} unexpectedly has a workload owner`);
+    return {
+      name,
+      uid: pvc.metadata.uid,
+      volumeName: pvc.spec?.volumeName ?? "",
+      phase: pvc.status.phase,
+    };
+  });
+}
+
+function assertRetainedPVCsUnchanged(deployment, migration, expected, prefix) {
+  const current = retainedPVCObservations(deployment, migration);
+  check(stableJson(current) === stableJson(expected ?? []), `${prefix}: retained PVC identity or volume binding changed`);
+  return current;
+}
+
+function immutableSelectorFailureMessage(item) {
+  if (/spec\.selector[\s\S]*field is immutable/i.test(item.message ?? "")) return true;
+  return item.kind === "StatefulSet"
+    && /updates to statefulset spec[\s\S]*forbidden/i.test(item.message ?? "");
+}
+
+function immutableSelectorFailureRow(app, migration) {
+  if (app.operation) return null;
+  if (!["Failed", "Error"].includes(app.status?.operationState?.phase)) return null;
+  if (app.status?.sync?.revision !== operationStateRevision(app)) return null;
+  return (app.status?.operationState?.syncResult?.resources ?? []).find(
+    (item) => item.group === "apps"
+      && item.kind === migration.kind
+      && item.namespace === migration.namespace
+      && item.name === migration.name
+      && item.status === "SyncFailed"
+      && item.hookPhase === "Failed"
+      && immutableSelectorFailureMessage(item),
+  ) ?? null;
+}
+
+function immutableSelectorFailureEvidence(app, failure) {
+  const evidence = {
+    phase: app.status.operationState.phase,
+    syncRevision: app.status.sync.revision,
+    operationRevision: operationStateRevision(app),
+    resource: {
+      group: failure.group,
+      kind: failure.kind,
+      namespace: failure.namespace,
+      name: failure.name,
+      status: failure.status,
+      hookPhase: failure.hookPhase,
+      message: failure.message,
+    },
+  };
+  return {
+    ...evidence,
+    sha256: `sha256:${sha256(stableJson(evidence))}`,
+  };
+}
+
+function immutableSelectorResourceFailures(app) {
+  return (app.status?.operationState?.syncResult?.resources ?? []).filter(
+    (item) => item.status === "SyncFailed"
+      && item.hookPhase === "Failed"
+      && immutableSelectorFailureMessage(item),
+  );
+}
+
+function markImmutableSelectorOldUIDGone(state, attempt, outcome) {
+  const updated = {
+    ...attempt,
+    source: undefined,
+    state: "old-uid-gone",
+    outcome,
+    oldUIDGoneAt: new Date().toISOString(),
+  };
+  delete updated.source;
+  writeImmutableSelectorReplacementAttempt(updated);
+  state.immutableSelectorAttempts.set(updated.migrationID, { ...updated, source: "journal" });
+  return updated;
+}
+
+function recoverImmutableSelectorReplacement(deployment, migration, state) {
+  const attempt = state.immutableSelectorAttempts.get(migration.migrationID);
+  if (!attempt) return null;
+  const current = immutableSelectorCurrentObject(deployment, migration);
+  if (attempt.state === "replacement-healthy") {
+    check(current?.metadata?.uid === attempt.replacementUID, `${migration.migrationID}: completed replacement UID drifted`);
+    assertImmutableSelectorOwnedObject(
+      deployment,
+      migration,
+      current,
+      migration.toSelector,
+      `${migration.migrationID}: completed replacement`,
+    );
+    assertRetainedPVCsUnchanged(deployment, migration, attempt.retainedPVCs, `${migration.migrationID}: completed replacement`);
+    return attempt;
+  }
+  if (attempt.state === "old-uid-gone") {
+    check(current?.metadata?.uid !== attempt.uid, `${migration.migrationID}: old workload UID reappeared`);
+    if (current) {
+      assertImmutableSelectorOwnedObject(
+        deployment,
+        migration,
+        current,
+        migration.toSelector,
+        `${migration.migrationID}: replacement candidate`,
+      );
+      assertRetainedPVCsUnchanged(deployment, migration, attempt.retainedPVCs, `${migration.migrationID}: replacement candidate`);
+    }
+    return attempt;
+  }
+  check(["prepared", "delete-returned"].includes(attempt.state), `${migration.migrationID}: immutable-selector journal state is invalid`);
+  if (current?.metadata?.uid === attempt.uid) return attempt;
+  const outcome = current?.metadata?.uid
+    ? `old-uid-gone-replaced-by-${current.metadata.uid}`
+    : "old-uid-gone";
+  const updated = markImmutableSelectorOldUIDGone(state, attempt, outcome);
+  recordAction(state, "argo-immutable-selector-recovery", immutableSelectorReplacementRef(deployment, migration), `uid=${attempt.uid}; ${outcome}`);
+  return updated;
+}
+
+function waitForImmutableSelectorOldUIDGone(deployment, migration, uid) {
+  for (let attempt = 0; attempt < 120; attempt += 1) {
+    const current = immutableSelectorCurrentObject(deployment, migration);
+    if (!current || current.metadata?.uid !== uid) {
+      return current?.metadata?.uid
+        ? `old-uid-gone-replaced-by-${current.metadata.uid}`
+        : "old-uid-gone";
+    }
+    command("sleep", ["1"], { waitReason: "immutable-selector-old-uid-gone" });
+  }
+  check(false, `${deployment.cluster}: immutable-selector workload UID ${uid} was not deleted within 2 minutes`);
+}
+
+function replaceDeclaredImmutableSelector(
+  deployment,
+  migration,
+  state,
+  app,
+  expectedRevision,
+  expectedReleaseIdentity,
+  sourcePayloadKeys,
+) {
+  const recovered = recoverImmutableSelectorReplacement(deployment, migration, state);
+  if (recovered?.state === "replacement-healthy" || recovered?.state === "old-uid-gone") return false;
+  check(!app.operation && !["Running", "Terminating"].includes(app.status?.operationState?.phase), `${migration.migrationID}: refusing immutable-selector replacement during an active Argo operation`);
+  const current = immutableSelectorCurrentObject(deployment, migration);
+  if (!current) {
+    if (recovered) {
+      markImmutableSelectorOldUIDGone(state, recovered, "old-uid-gone");
+      return true;
+    }
+    return false;
+  }
+  if (stableJson(current.spec?.selector?.matchLabels ?? {}) === stableJson(migration.toSelector)) {
+    assertImmutableSelectorOwnedObject(deployment, migration, current, migration.toSelector, `${migration.migrationID}: current Deployment`);
+    check(!recovered, `${migration.migrationID}: replacement exists while a nonterminal old UID is journaled`);
+    return false;
+  }
+  assertImmutableSelectorOwnedObject(deployment, migration, current, migration.fromSelector, `${migration.migrationID}: legacy workload`);
+  assertImmutableSelectorReviewedPayload(deployment, migration);
+  const retainedPVCs = retainedPVCObservations(deployment, migration);
+  assertReleaseStreamStillCurrent(
+    deployment.space,
+    expectedReleaseIdentity,
+    expectedRevision,
+    sourcePayloadKeys,
+  );
+  const failure = immutableSelectorFailureRow(app, migration);
+  if (!failure) {
+    check(!recovered, `${migration.migrationID}: prepared replacement lost its exact resource-level immutable-selector failure`);
+    return false;
+  }
+  check(
+    app.status?.sync?.revision === expectedRevision
+      && operationStateRevision(app) === expectedRevision,
+    `${migration.migrationID}: immutable-selector failure is not bound to the exact expected OCI revision`,
+  );
+  const trigger = "recovered-resource-level-immutable-selector-failure";
+  if (recovered) {
+    check(recovered.uid === current.metadata.uid, `${migration.migrationID}: prepared workload UID changed`);
+    check(recovered.resourceVersion === current.metadata.resourceVersion, `${migration.migrationID}: prepared Deployment resourceVersion changed`);
+    check(recovered.expectedRevision === expectedRevision, `${migration.migrationID}: prepared OCI revision changed`);
+  }
+  let attempt = {
+    ...(recovered ?? {}),
+    migrationID: migration.migrationID,
+    ref: immutableSelectorReplacementRef(deployment, migration),
+    uid: current.metadata.uid,
+    resourceVersion: current.metadata.resourceVersion,
+    application: `${deployment.cluster}/${deployment.space}`,
+    expectedRevision,
+    apiVersion: migration.apiVersion,
+    kind: migration.kind,
+    name: migration.name,
+    namespace: migration.namespace,
+    fromSelector: migration.fromSelector,
+    toSelector: migration.toSelector,
+    retainedPVCs,
+    reason: migration.reason,
+    trigger,
+    failureEvidencePolicy: IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY,
+    failureEvidence: immutableSelectorFailureEvidence(app, failure),
+    state: "prepared",
+    preparedAt: recovered?.preparedAt ?? new Date().toISOString(),
+  };
+  delete attempt.source;
+  writeImmutableSelectorReplacementAttempt(attempt);
+  state.immutableSelectorAttempts.set(attempt.migrationID, { ...attempt, source: "journal" });
+  const deleted = deleteAppsWorkloadWithPreconditions(
+    deployment.cluster,
+    migration.resourcePlural,
+    migration.namespace,
+    migration.name,
+    attempt.uid,
+    attempt.resourceVersion,
+  );
+  if (!deleted.ok && retryableKubernetesCompareAndSet(deleted.output)) {
+    const after = immutableSelectorCurrentObject(deployment, migration);
+    if (!after || after.metadata?.uid !== attempt.uid) {
+      const outcome = after?.metadata?.uid
+        ? `old-uid-gone-replaced-by-${after.metadata.uid}`
+        : "old-uid-gone";
+      attempt = markImmutableSelectorOldUIDGone(state, attempt, outcome);
+      recordAction(state, "argo-immutable-selector-recovery", attempt.ref, `uid=${attempt.uid}; ${outcome}`);
+      return true;
+    }
+    return false;
+  }
+  check(deleted.ok, `${attempt.ref}: UID/resourceVersion-preconditioned immutable-selector deletion failed`);
+  attempt = {
+    ...attempt,
+    state: "delete-returned",
+    deleteReturnedAt: new Date().toISOString(),
+  };
+  writeImmutableSelectorReplacementAttempt(attempt);
+  state.immutableSelectorAttempts.set(attempt.migrationID, { ...attempt, source: "journal" });
+  const outcome = waitForImmutableSelectorOldUIDGone(deployment, migration, attempt.uid);
+  attempt = markImmutableSelectorOldUIDGone(state, attempt, outcome);
+  recordAction(
+    state,
+    "argo-immutable-selector-replace",
+    attempt.ref,
+    `uid=${attempt.uid}; outcome=${outcome}; trigger=${trigger}; ${migration.reason}`,
+  );
+  return true;
+}
+
+function completeDeclaredImmutableSelectorReplacement(deployment, migration, state, app, expectedRevision) {
+  const attempt = recoverImmutableSelectorReplacement(deployment, migration, state);
+  if (!attempt || attempt.state === "replacement-healthy") return true;
+  check(attempt.state === "old-uid-gone", `${migration.migrationID}: accepted Argo state preceded old UID deletion`);
+  check(app.status?.sync?.revision === expectedRevision, `${migration.migrationID}: replacement acceptance revision drifted`);
+  const replacement = immutableSelectorCurrentObject(deployment, migration);
+  check(replacement && replacement.metadata?.uid !== attempt.uid, `${migration.migrationID}: replacement workload UID is missing or unchanged`);
+  assertImmutableSelectorOwnedObject(deployment, migration, replacement, migration.toSelector, `${migration.migrationID}: healthy replacement`);
+  const retainedPVCs = assertRetainedPVCsUnchanged(
+    deployment,
+    migration,
+    attempt.retainedPVCs,
+    `${migration.migrationID}: healthy replacement`,
+  );
+  if (Number(replacement.status?.availableReplicas ?? replacement.status?.readyReplicas ?? 0) <= 0) return false;
+  const slices = kubectlTry(deployment.cluster, [
+    "get", "endpointslice", "-n", migration.namespace,
+    "-l", `kubernetes.io/service-name=${migration.serviceName}`, "-o", "json",
+  ]);
+  check(slices.ok, `${migration.migrationID}: failed to inspect Service EndpointSlices`);
+  const readyEndpoints = (JSON.parse(slices.output).items ?? []).flatMap((item) => item.endpoints ?? [])
+    .filter((endpoint) => endpoint.conditions?.ready !== false).length;
+  if (readyEndpoints <= 0) return false;
+  const completed = {
+    ...attempt,
+    source: undefined,
+    state: "replacement-healthy",
+    revisionAtReplacement: expectedRevision,
+    replacementUID: replacement.metadata.uid,
+    replacementResourceVersion: replacement.metadata.resourceVersion,
+    readyEndpoints,
+    retainedPVCs,
+    completedAt: new Date().toISOString(),
+  };
+  delete completed.source;
+  delete completed.expectedRevision;
+  writeImmutableSelectorReplacementAttempt(completed);
+  state.immutableSelectorAttempts.set(completed.migrationID, { ...completed, source: "journal" });
+  state.immutableSelectorEvidence.push(completed);
+  recordAction(state, "argo-immutable-selector-replacement-healthy", completed.ref, `oldUID=${completed.uid}; replacementUID=${completed.replacementUID}; readyEndpoints=${readyEndpoints}`);
+  return true;
+}
+
 function writeProtectedNamespaceAttempt(item) {
   updateOperationJournal((journal) => {
     journal.protectedNamespaceDetachments ??= {};
@@ -8670,7 +10196,11 @@ function protectedNamespacePayloadContract(deployment, contract) {
 }
 
 function readProtectedNamespace(cluster, name) {
-  const result = kubectlTry(cluster, ["get", "namespace", name, "-o", "json"]);
+  const result = kubectlTry(
+    cluster,
+    ["get", "namespace", name, "-o", "json"],
+    { expectedFailure: true },
+  );
   if (!result.ok && kubernetesResourceNotFound(result.output)) return null;
   check(result.ok, `${cluster}: failed to inspect protected Namespace/${name}`);
   return JSON.parse(result.output);
@@ -8892,6 +10422,38 @@ function convergeDeploymentApplication(
       app = readLiveArgoApplication(deployment);
       assertArgoApplicationContract(app, deployment);
     }
+    let immutableSelectorChanged = false;
+    if (!deployment.deliveryRoot) {
+      for (const migration of immutableSelectorMigrationsFor(deployment)) {
+        immutableSelectorChanged = replaceDeclaredImmutableSelector(
+          deployment,
+          migration,
+          state,
+          app,
+          expectedRevision,
+          expectedReleaseIdentity,
+          sourcePayloadKeys,
+        ) || immutableSelectorChanged;
+      }
+    }
+    if (immutableSelectorChanged) {
+      command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "immutable-selector-settle" });
+      app = readLiveArgoApplication(deployment);
+      assertArgoApplicationContract(app, deployment);
+    }
+    const immutableFailures = immutableSelectorResourceFailures(app);
+    const unaccountedImmutableFailures = immutableFailures.filter((failure) => {
+      const migration = immutableSelectorMigrationsFor(deployment).find(
+        (item) => item.kind === failure.kind
+          && item.namespace === failure.namespace
+          && item.name === failure.name,
+      );
+      return !migration || state.immutableSelectorAttempts.get(migration.migrationID)?.state !== "old-uid-gone";
+    });
+    check(
+      unaccountedImmutableFailures.length === 0,
+      `${deployment.cluster}/${deployment.space}: deterministic immutable-selector failure is not covered by an active exact replacement contract: ${stableJson(unaccountedImmutableFailures.map((item) => ({ group: item.group, kind: item.kind, namespace: item.namespace, name: item.name, message: item.message })))}`,
+    );
     last = argoObservation(app);
     const disposition = argoConvergenceState(app, deployment, expectedRevision);
     if (disposition === "accepted") {
@@ -8899,6 +10461,41 @@ function convergeDeploymentApplication(
       // revision still has automation. Acceptance is only valid after the
       // exact new root digest has removed that authority from the live object.
       assertArgoApplicationContract(app, deployment);
+      let immutableSelectorReplacementsReady = true;
+      if (!deployment.deliveryRoot) {
+        for (const migration of immutableSelectorMigrationsFor(deployment)) {
+          immutableSelectorReplacementsReady = completeDeclaredImmutableSelectorReplacement(
+            deployment,
+            migration,
+            state,
+            app,
+            expectedRevision,
+          ) && immutableSelectorReplacementsReady;
+        }
+      }
+      if (!immutableSelectorReplacementsReady) {
+        const now = Date.now();
+        const convergenceElapsed = now - convergenceStartedAt;
+        check(
+          withinDeadline(convergenceStartedAt, now, ARGO_CONVERGENCE_TIMEOUT_MS),
+          `${deployment.cluster}/${deployment.space}: immutable-selector replacement readiness exceeded the overall ${ARGO_CONVERGENCE_TIMEOUT_MS / 60000}-minute convergence deadline; expected revision ${expectedRevision}, got ${stableJson({ ...last, elapsedSeconds: Math.floor(convergenceElapsed / 1000), syncRequests })}`,
+        );
+        healthWaitStartedAt = convergencePhaseStartedAt(
+          app,
+          expectedRevision,
+          "finishedAt",
+          firstObservedAt,
+          healthWaitStartedAt,
+          now,
+        );
+        const healthElapsed = now - healthWaitStartedAt;
+        check(
+          withinDeadline(healthWaitStartedAt, now, ARGO_HEALTH_TIMEOUT_MS),
+          `${deployment.cluster}/${deployment.space}: replacement workloads or Service endpoints did not become ready within ${ARGO_HEALTH_TIMEOUT_MS / 60000} minutes; no resync was submitted`,
+        );
+        command("sleep", [String(ARGO_OBSERVE_SECONDS)], { waitReason: "argo-health-pending" });
+        continue;
+      }
       clearConvergenceJournal(convergenceJournal.key);
       if (!deployment.deliveryRoot && deployment.cluster === "hx-app-dev" && state.performancePhases.length === 0) {
         markFirstDevAccepted();
@@ -9740,6 +11337,26 @@ function selfTestScenarioOperationEvidence() {
     ],
   };
   check(scenarioOperationProofValid(scenario), "valid exact approval and rollback evidence was rejected");
+  const approvalTriggerDelta = JSON.parse(JSON.stringify(scenario));
+  approvalTriggerDelta.checkpoints
+    .find((item) => item.id === "prod-a-rollback")
+    .facts.units.find((item) => item.ref === refA).headRevisionNum = 23;
+  approvalTriggerDelta.operationEvidence.push({
+    type: "unit-approve",
+    ref: "hx-web-prod-a",
+    transitionID: "prod-a-rollback/prod-a-approve-rollback",
+    approvedHeads: [{
+      ref: refA,
+      id: idA,
+      headRevisionNum: 23,
+      dataHash: hashInitial,
+      approvalCountBefore: 0,
+      approvalCountAfter: 1,
+    }],
+  });
+  check(scenarioOperationProofValid(approvalTriggerDelta), "exact approval-bound two-revision rollback delta was rejected");
+  approvalTriggerDelta.operationEvidence.pop();
+  check(!scenarioOperationProofValid(approvalTriggerDelta), "unbound two-revision rollback delta was accepted");
   const drifted = JSON.parse(JSON.stringify(scenario));
   drifted.operationEvidence.find((item) => item.type === "rollback").restoredRevisionNum = 9;
   check(!scenarioOperationProofValid(drifted), "rollback evidence not bound to the initial-rollout revision was accepted");
@@ -9880,6 +11497,24 @@ function selfTestArgoConvergence() {
         executionFingerprint: fingerprintA,
         convergence: {},
         namespaceMove: null,
+        immutableSelectorReplacements: { one: { state: "prepared" } },
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        immutableSelectorReplacements: { one: { state: "old-uid-gone" } },
+      }, fingerprintB) === "blocked"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
+        immutableSelectorReplacements: { one: { state: "replacement-healthy" } },
+      }, fingerprintB) === "rotate"
+      && operationJournalFingerprintDisposition({
+        executionFingerprint: fingerprintA,
+        convergence: {},
+        namespaceMove: null,
         protectedNamespaceDetachments: { one: { state: "prepared" } },
       }, fingerprintB) === "blocked"
       && operationJournalFingerprintDisposition({
@@ -9942,6 +11577,84 @@ function selfTestArgoConvergence() {
     argoConvergenceState(acceptedApp, deployment, expectedRevision) === "accepted",
     "exact-revision healthy Argo state must be accepted",
   );
+  const selectorMigration = {
+    kind: "Deployment",
+    namespace: "demo",
+    name: "web",
+  };
+  const selectorFailureApp = (syncRevision, operationRevision, resources = [], phase = "Failed", operation = false) => ({
+    ...(operation ? { operation: { sync: { revision: operationRevision } } } : {}),
+    status: {
+      sync: { status: "OutOfSync", revision: syncRevision },
+      operationState: {
+        phase,
+        syncResult: { revision: operationRevision, resources },
+      },
+    },
+  });
+  const selectorFailure = {
+    group: "apps",
+    kind: "Deployment",
+    namespace: "demo",
+    name: "web",
+    status: "SyncFailed",
+    hookPhase: "Failed",
+    message: "Deployment.apps web is invalid: spec.selector: field is immutable",
+  };
+  check(
+    immutableSelectorFailureRow(selectorFailureApp(expectedRevision, expectedRevision), selectorMigration) === null
+      && immutableSelectorFailureRow(selectorFailureApp(expectedRevision, olderRevision, [selectorFailure]), selectorMigration) === null
+      && immutableSelectorFailureRow(selectorFailureApp(expectedRevision, expectedRevision, [selectorFailure], "Succeeded"), selectorMigration) === null
+      && immutableSelectorFailureRow(selectorFailureApp(expectedRevision, expectedRevision, [selectorFailure], "Unknown"), selectorMigration) === null
+      && immutableSelectorFailureRow(selectorFailureApp(expectedRevision, expectedRevision, [selectorFailure], "Failed", true), selectorMigration) === null
+      && immutableSelectorFailureRow(selectorFailureApp(expectedRevision, expectedRevision, [selectorFailure]), selectorMigration) === selectorFailure,
+    "immutable-selector replacement authorization must require the exact resource-level failure from an operation at the current revision",
+  );
+  const selectorFailureEvidence = immutableSelectorFailureEvidence(
+    selectorFailureApp(expectedRevision, expectedRevision, [selectorFailure]),
+    selectorFailure,
+  );
+  const { sha256: selectorFailureDigest, ...selectorFailureCanonical } = selectorFailureEvidence;
+  check(
+    selectorFailureEvidence.phase === "Failed"
+      && selectorFailureEvidence.syncRevision === expectedRevision
+      && selectorFailureEvidence.operationRevision === expectedRevision
+      && selectorFailureEvidence.resource.name === selectorMigration.name
+      && selectorFailureDigest === `sha256:${sha256(stableJson(selectorFailureCanonical))}`,
+    "immutable-selector failure evidence must be canonical and digest-bound",
+  );
+  const [{ deployment: rebindDeployment, migration: rebindMigration }] = allImmutableSelectorReplacements();
+  const rebindFailure = {
+    group: "apps",
+    kind: rebindMigration.kind,
+    namespace: rebindMigration.namespace,
+    name: rebindMigration.name,
+    status: "SyncFailed",
+    hookPhase: "Failed",
+    message: `${rebindMigration.kind} is invalid: spec.selector: field is immutable`,
+  };
+  const rebindApp = selectorFailureApp(expectedRevision, expectedRevision, [rebindFailure]);
+  assertImmutableSelectorReplacementEvidence({
+    migrationID: rebindMigration.migrationID,
+    ref: immutableSelectorReplacementRef(rebindDeployment, rebindMigration),
+    uid: "00000000-0000-4000-8000-000000000001",
+    resourceVersion: "1",
+    application: `${rebindDeployment.cluster}/${rebindDeployment.space}`,
+    expectedRevision,
+    apiVersion: rebindMigration.apiVersion,
+    kind: rebindMigration.kind,
+    name: rebindMigration.name,
+    namespace: rebindMigration.namespace,
+    fromSelector: rebindMigration.fromSelector,
+    toSelector: rebindMigration.toSelector,
+    retainedPVCs: [],
+    reason: rebindMigration.reason,
+    trigger: "recovered-resource-level-immutable-selector-failure",
+    failureEvidencePolicy: IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY,
+    failureEvidence: immutableSelectorFailureEvidence(rebindApp, rebindFailure),
+    state: "prepared",
+    preparedAt: "2026-08-05T19:31:00.000Z",
+  }, "self-test prepared rebind", { requireComplete: false });
   check(
     argoConvergenceState(app({
       sync: "Synced",
@@ -10137,6 +11850,25 @@ function selfTestArgoConvergence() {
     wrongRegistryError?.message.includes("argocd-repo-server/copyutil")
       && wrongRegistryError.message.includes(ARGO_CD_RUNTIME_IMAGE),
     "cluster-local Argo runtime evidence must refuse a named container that drifts outside the expected registry",
+  );
+  const promotionBefore = {
+    metadata: { annotations: {}, labels: { app: "hx-web" } },
+    spec: { replicas: 2, selector: { matchLabels: { app: "hx-web" } } },
+  };
+  const promotionAfter = {
+    metadata: { annotations: { revision: "v1" }, labels: { app: "hx-web" } },
+    spec: { replicas: 3, selector: { matchLabels: { app: "hx-web" } } },
+  };
+  const reviewedBlend = {
+    metadata: { annotations: { revision: "v1" }, labels: { app: "hx-web" } },
+    spec: { replicas: 2, selector: { matchLabels: { app: "hx-web" } } },
+  };
+  const escapedBlend = structuredClone(reviewedBlend);
+  escapedBlend.spec.replicas = 99;
+  check(
+    promotionBlendDifference(reviewedBlend, promotionBefore, promotionAfter) === null
+      && promotionBlendDifference(escapedBlend, promotionBefore, promotionAfter)?.includes("replicas"),
+    "promotion recovery must accept only pathwise values from the reviewed before/after payload pair",
   );
   console.log("Kubara mini-IDP Argo convergence self-test passed");
 }
@@ -10334,6 +12066,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
   const spaces = readSpaces();
   const verificationReadSnapshot = beginVerificationReadSnapshot(spaces);
   try {
+  assertAuthoritativeReleaseReuseFinalOpening(state?.applyReadCacheEvidence, verificationReadSnapshot);
   assertExactManagedTargetInventory(verificationReadSnapshot, "live verification ConfigHub Target inventory");
   const controlSpace = spaces.get(CONTROL_SPACE);
   check(controlSpace, `${CONTROL_SPACE}: control Space is missing from the authoritative verification snapshot`);
@@ -10673,7 +12406,7 @@ function verifyLive(inputs, desired, { state = null } = {}) {
     findings.push(error.message);
   }
   const secretWiring = observeGrafanaSecretWiring(findings);
-  const liveMatrix = observeLiveMatrix(inputs, desired, applications);
+  const liveMatrix = observeLiveMatrix(inputs, desired, applications, deliveryRuntimes);
   for (const row of liveMatrix.rows.filter((item) => item.deliveryState === "delivered")) {
     if (row.syncState !== "Synced") findings.push(`matrix ${row.cluster}/${row.component}: sync=${row.syncState}`);
     if (row.readiness?.result === "fail") findings.push(`matrix ${row.cluster}/${row.component}: workloads not ready`);
@@ -11055,10 +12788,11 @@ function readApplication(cluster, name, inventory = null) {
   };
 }
 
-function observeLiveMatrix(inputs, desired, applicationRows) {
+function observeLiveMatrix(inputs, desired, applicationRows, deliveryRuntimeRows = []) {
   const applicationsByRef = new Map(applicationRows.map((item) => [`${item.cluster}/${item.name}`, item]));
+  const deliveryRuntimeByCluster = new Map(deliveryRuntimeRows.map((item) => [item.cluster, item]));
   const componentDefinitions = [
-    matrixComponent("argo-cd", EXPECTED_VERSIONS["argo-cd"], FLEET, [], { departure: "configHub-owned-argo-substitutes-kubara-wrapper", appNames: () => ["root"] }),
+    matrixComponent("argo-cd", EXPECTED_VERSIONS["argo-cd"], FLEET, [], { departure: "configHub-owned-argo-substitutes-kubara-wrapper", appNames: () => [], runtimeObserved: true }),
     matrixComponent("cert-manager", EXPECTED_VERSIONS["cert-manager"], FLEET, ["hx-cm"], { releaseInstance: "cert-manager", departure: "kind-self-signed-cluster-issuer" }),
     matrixComponent("external-secrets", EXPECTED_VERSIONS["external-secrets"], [DEV], ["hx-eso", "hx-eso-store", "hx-eso-grafana-es"], { releaseInstance: "external-secrets", departure: "kind-fake-provider-target-fact" }),
     matrixComponent("homer-dashboard", EXPECTED_VERSIONS["homer-dashboard"], [DEV], ["hx-homer"], { releaseInstance: "homer-dashboard" }),
@@ -11094,17 +12828,28 @@ function observeLiveMatrix(inputs, desired, applicationRows) {
         ? component.appNames(fleetItem)
         : component.spacePrefixes.map((prefix) => `${prefix}-${fleetItem.suffix}`);
       const appStates = appNames.map((name) => applicationsByRef.get(`${fleetItem.cluster}/${name}`) ?? (name === "root" ? readApplication(fleetItem.cluster, name) : null)).filter(Boolean);
-      const syncState = appStates.length && appStates.every((item) => item.syncState === "Synced" || item.sync === "Synced")
-        ? "Synced"
-        : distinct(appStates.map((item) => item.syncState ?? item.sync ?? "Unknown")).join("+") || "Unknown";
-      const healthValues = appStates.map((item) => item.healthState ?? item.health ?? "Unknown");
-      const healthState = healthValues.length && healthValues.every((item) => item === "Healthy")
-        ? "Healthy"
-        : distinct(healthValues).join("+") || "Unknown";
       const selectedWorkloads = selectComponentWorkloads(workloads, component);
       const readiness = readinessSummary(selectedWorkloads);
+      const runtime = component.runtimeObserved ? deliveryRuntimeByCluster.get(fleetItem.cluster) : null;
+      const syncState = component.runtimeObserved
+        ? runtime?.installedBy === "cub cluster up"
+          && runtime.version === ARGO_CD_RUNTIME_VERSION
+          && runtime.image === ARGO_CD_RUNTIME_IMAGE
+          ? "Synced"
+          : "Unknown"
+        : appStates.length && appStates.every((item) => item.syncState === "Synced" || item.sync === "Synced")
+          ? "Synced"
+          : distinct(appStates.map((item) => item.syncState ?? item.sync ?? "Unknown")).join("+") || "Unknown";
+      const healthValues = appStates.map((item) => item.healthState ?? item.health ?? "Unknown");
+      const healthState = component.runtimeObserved
+        ? readiness.result === "pass" ? "Healthy" : readiness.result === "fail" ? "Degraded" : "Unknown"
+        : healthValues.length && healthValues.every((item) => item === "Healthy")
+          ? "Healthy"
+          : distinct(healthValues).join("+") || "Unknown";
       const versions = observedWorkloadVersions(selectedWorkloads);
-      const observedVersion = versions.length ? versions.join(" + ") : null;
+      const observedVersion = component.runtimeObserved && runtime?.version
+        ? runtime.version
+        : versions.length ? versions.join(" + ") : null;
       const departureId = component.departureFor?.(fleetItem) ?? component.departure ?? "none";
       const unknownReasons = [];
       if (!observedVersion) unknownReasons.push("selected version is pinned in ConfigHub provenance but not exposed by live workload labels");
@@ -11125,6 +12870,14 @@ function observeLiveMatrix(inputs, desired, applicationRows) {
         evidence: {
           applications: appNames,
           workloadRefs: selectedWorkloads.map(workloadRef),
+          ...(runtime ? {
+            runtime: {
+              installedBy: runtime.installedBy,
+              version: runtime.version,
+              image: runtime.image,
+              references: runtime.references,
+            },
+          } : {}),
         },
       });
     }
@@ -11439,6 +13192,23 @@ function buildReceipt(inputs, desired, observation, state) {
     namespaceMoveEvidence.push(item);
   }
   check(namespaceMoveEvidence.length <= 1, "more than one namespace-move DaemonSet prune was retained");
+  const immutableSelectorEvidenceByMigration = new Map();
+  for (const item of state.immutableSelectorEvidence) {
+    const prior = immutableSelectorEvidenceByMigration.get(item.migrationID);
+    check(
+      !prior || prior.uid === item.uid,
+      `${item.migrationID}: retained immutable-selector evidence disagrees on the old workload UID`,
+    );
+    immutableSelectorEvidenceByMigration.set(item.migrationID, item);
+  }
+  const immutableSelectorEvidence = allImmutableSelectorReplacements(desired)
+    .map(({ migration }) => {
+      const migrationID = migration.migrationID;
+      const item = immutableSelectorEvidenceByMigration.get(migrationID);
+      check(item, `${migrationID}: completed immutable-selector replacement evidence is missing`);
+      assertImmutableSelectorReplacementEvidence(item, `${migrationID}: retained immutable-selector replacement`);
+      return item;
+    });
   const protectedNamespaceEvidenceByMigration = new Map();
   for (const item of state.protectedNamespaceEvidence) {
     const prior = protectedNamespaceEvidenceByMigration.get(item.migrationID);
@@ -11479,7 +13249,7 @@ function buildReceipt(inputs, desired, observation, state) {
         deterministic: true,
         aiRequired: false,
         mutationGuardConsulted: false,
-        destructiveOperations: [ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY],
+        destructiveOperations: [ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY, IMMUTABLE_SELECTOR_REPLACEMENT_POLICY],
         persistentClustersPreserved: FLEET.map((item) => item.cluster),
         partialClusterStatePolicy: "fail-except-exact-journaled-prefix",
         serialLiveParityLock: true,
@@ -11498,6 +13268,9 @@ function buildReceipt(inputs, desired, observation, state) {
         argoRetryPolicy: ARGO_RETRY_POLICY,
         argoPrunePolicy: ARGO_PRUNE_POLICY,
         argoNamespaceMovePolicy: ARGO_NAMESPACE_MOVE_POLICY,
+        immutableSelectorReplacementPolicy: IMMUTABLE_SELECTOR_REPLACEMENT_POLICY,
+        immutableSelectorFailureEvidencePolicy: IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY,
+        immutableSelectorFailureEvidenceEffectiveAt: IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_EFFECTIVE_AT,
         protectedNamespaceOwnershipPolicy: PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
         kindTraefikPolicy: KIND_TRAEFIK_POLICY,
         argoRevisionPolicy: ARGO_REVISION_POLICY,
@@ -11520,6 +13293,7 @@ function buildReceipt(inputs, desired, observation, state) {
         deliveryApplicationUnits: desired.deployments.length + (FLEET.length * 2),
         deploymentAuthorityApplications: observation.deploymentAuthority.length,
         protectedNamespaceOwnershipDetachments: protectedNamespaceEvidence.length,
+        immutableSelectorReplacements: immutableSelectorEvidence.length,
         kindTraefikContracts: observation.kindTraefik.length,
         releases: observation.releases.length,
         needsProvidesLinks: observation.links.length,
@@ -11529,6 +13303,7 @@ function buildReceipt(inputs, desired, observation, state) {
       controls: observation.units.filter((item) => item.ref.startsWith(`${CONTROL_SPACE}/`)),
       preservedControlUnits: observation.preservedControlUnits,
       namespaceMovePrunes: namespaceMoveEvidence,
+      immutableSelectorReplacements: immutableSelectorEvidence,
       protectedNamespaceOwnershipDetachments: protectedNamespaceEvidence,
       protectedNamespaceOwnershipCurrent: observation.protectedNamespaces,
       kindTraefik: observation.kindTraefik,
@@ -11699,11 +13474,20 @@ function verifyReceipt(inputs, desired) {
   );
   check(
     stableJson(receipt.spec?.execution?.destructiveOperations)
-      === stableJson([ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY]),
+      === stableJson([ARGO_PRUNE_POLICY, ARGO_NAMESPACE_MOVE_POLICY, IMMUTABLE_SELECTOR_REPLACEMENT_POLICY]),
     "mini-IDP receipt Argo prune boundary drifted",
   );
   check(receipt.spec?.execution?.argoPrunePolicy === ARGO_PRUNE_POLICY, "mini-IDP receipt Argo prune policy drifted");
   check(receipt.spec?.execution?.argoNamespaceMovePolicy === ARGO_NAMESPACE_MOVE_POLICY, "mini-IDP receipt Argo namespace-move policy drifted");
+  check(
+    receipt.spec?.execution?.immutableSelectorReplacementPolicy === IMMUTABLE_SELECTOR_REPLACEMENT_POLICY,
+    "mini-IDP receipt immutable-selector replacement policy drifted",
+  );
+  check(
+    receipt.spec?.execution?.immutableSelectorFailureEvidencePolicy === IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_POLICY
+      && receipt.spec?.execution?.immutableSelectorFailureEvidenceEffectiveAt === IMMUTABLE_SELECTOR_FAILURE_EVIDENCE_EFFECTIVE_AT,
+    "mini-IDP receipt immutable-selector failure-evidence policy drifted",
+  );
   check(
     receipt.spec?.execution?.protectedNamespaceOwnershipPolicy === PROTECTED_NAMESPACE_OWNERSHIP_POLICY,
     "mini-IDP receipt protected Namespace ownership policy drifted",
@@ -11765,6 +13549,7 @@ function verifyReceipt(inputs, desired) {
     counts.protectedNamespaceOwnershipDetachments === PROTECTED_NAMESPACE_OWNERSHIP_DETACHMENTS.length,
     "receipt protected Namespace ownership-detachment count drifted",
   );
+  check(counts.immutableSelectorReplacements === allImmutableSelectorReplacements(desired).length, "receipt immutable-selector replacement count drifted");
   check(counts.kindTraefikContracts === KIND_TRAEFIK_CONTRACTS.length, "receipt kind Traefik contract count drifted");
   check(counts.releases === desired.deployments.length, `receipt has ${counts.releases} releases, expected ${desired.deployments.length}`);
   check(counts.needsProvidesLinks === desired.links.length, `receipt has ${counts.needsProvidesLinks} Links, expected ${desired.links.length}`);
@@ -11789,6 +13574,13 @@ function verifyReceipt(inputs, desired) {
   check(namespaceMoveEvidence.length <= 1, "receipt retains more than one namespace-move DaemonSet prune");
   for (const item of namespaceMoveEvidence) {
     assertNamespaceMoveEvidenceRow(item, "receipt namespace-move prune");
+  }
+
+  const immutableSelectorEvidence = receipt.spec?.immutableSelectorReplacements ?? [];
+  check(immutableSelectorEvidence.length === allImmutableSelectorReplacements(desired).length, "receipt immutable-selector replacement history is incomplete");
+  check(new Set(immutableSelectorEvidence.map((item) => item.migrationID)).size === allImmutableSelectorReplacements(desired).length, "receipt duplicates immutable-selector replacement history");
+  for (const item of immutableSelectorEvidence) {
+    assertImmutableSelectorReplacementEvidence(item, "receipt immutable-selector replacement");
   }
 
   const protectedNamespaceEvidence = receipt.spec?.protectedNamespaceOwnershipDetachments ?? [];

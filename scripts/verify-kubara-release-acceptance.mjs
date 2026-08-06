@@ -164,6 +164,7 @@ const kubaraAdoptionScreenshotEvidence = [
   { id: "catalogParityReceipt", path: "examples/kubara/current-platform/catalog-parity-receipt.yaml" },
   { id: "preparedHandoffReceipt", path: "examples/kubara/prepared-current-platform/preparation-receipt.yaml" },
   { id: "importerImplementation", path: "scripts/import-kubara-git-revision.mjs" },
+  { id: "appReleaseRunnerImplementation", path: "scripts/run-kubara-app-release.mjs" },
   { id: "releaseAcceptanceContract", path: "data/kubara-release-acceptance/contract.yaml" },
   { id: "faithfulReceipt", path: "runs/kubara-faithful-hub-spoke/receipt.yaml" },
   { id: "miniIdpReceipt", path: "runs/kubara-mini-idp-reconcile/receipt.yaml" },
@@ -188,6 +189,10 @@ const packageCommands = {
   "kubara-git-handoff:verify-current": "node scripts/prepare-kubara-git-handoff.mjs --verify --request examples/kubara/git-import/current-platform.prepare.yaml --checkout .",
   "kubara-git-handoff:self-test": "node scripts/prepare-kubara-git-handoff.mjs --self-test",
   "kubara-git-import:self-test": "node scripts/import-kubara-git-revision.mjs --self-test",
+  "kubara-selected-org:self-test": "node scripts/compile-kubara-selected-org-workflow.mjs --self-test",
+  "kubara-app-release:self-test": "node scripts/compile-kubara-app-release.mjs --self-test",
+  "kubara-app-release-runner:self-test": "node scripts/run-kubara-app-release.mjs --self-test",
+  "kubara-adoption:self-test": "npm run kubara-git-import:self-test && npm run kubara-selected-org:self-test && npm run kubara-app-release:self-test && npm run kubara-app-release-runner:self-test",
   "kubara-effective-renders:verify": "node scripts/generate-kubara-effective-renders.mjs --verify --all",
   "kubara-wiring:verify": "node scripts/generate-kubara-wiring.mjs --verify --all",
   "kubara-platform-matrix:verify": "node scripts/generate-kubara-platform-matrix.mjs --verify --all",
@@ -241,6 +246,9 @@ const offlineCommands = [
   command("git-handoff-current", "scripts/prepare-kubara-git-handoff.mjs", "--verify", "--request", "examples/kubara/git-import/current-platform.prepare.yaml", "--checkout", "."),
   command("git-handoff-self-test", "scripts/prepare-kubara-git-handoff.mjs", "--self-test"),
   command("git-revision-import", "scripts/import-kubara-git-revision.mjs", "--self-test"),
+  command("selected-org-workflow", "scripts/compile-kubara-selected-org-workflow.mjs", "--self-test"),
+  command("app-release-workflow", "scripts/compile-kubara-app-release.mjs", "--self-test"),
+  command("app-release-runner", "scripts/run-kubara-app-release.mjs", "--self-test"),
   command("historical-org-shape-retirement", "scripts/sync-kubara-org-shape.mjs", "--self-test"),
   command("effective-renders", "scripts/generate-kubara-effective-renders.mjs", "--verify", "--all"),
   command("wiring", "scripts/generate-kubara-wiring.mjs", "--verify", "--all"),
@@ -324,6 +332,9 @@ function expectedContract() {
             targets: 4,
             currentReleaseStreams: 35,
             argoApplications: 35,
+            completeConfigHubInventory: true,
+            auditedKubernetesResourceTypes: ["deployments.apps", "statefulsets.apps", "daemonsets.apps", "cronjobs.batch", "jobs.batch", "four-protected-namespaces"],
+            clusterWideKubernetesInventory: false,
           },
         },
         desiredMatrixRows: 36,
@@ -442,6 +453,10 @@ function expectedContract() {
         ]),
         gate("git-revision-import", "One deterministic command path compiles an immutable Kubara Git revision, publishes component-first OCI packages, reconciles the exact user-selected ConfigHub organization and cluster-local Argo delivery Applications, and requires a second zero-action apply receipt without using AI.", [
           "kubara-git-import:self-test",
+          "kubara-selected-org:self-test",
+          "kubara-app-release:self-test",
+          "kubara-app-release-runner:self-test",
+          "kubara-adoption:self-test",
         ]),
         gate("live-qualification", "Historical and current exact chart selections each retain a serial 13-lane live qualification receipt.", [
           "kubara-live-qualification:verify",
@@ -451,11 +466,11 @@ function expectedContract() {
           "kubara-wiring:verify",
           "kubara-platform-matrix:verify",
         ]),
-        gate("mini-idp", "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; ConfigHub selects the exact release, every managed Argo Application has automated sync disabled, and Argo reconciles only a revalidated ManifestDigest operation submitted with Kubernetes identity compare-and-set; its receipt requires an initial reconciliation followed by a zero-action rerun, and the exact ConfigHub and cluster inventory must be orphan-free.", [
+        gate("mini-idp", "One idempotent reconciler owns the four-cluster platform, hx-web, cubbychat, governance controls, matrix, and visible wiring evidence; ConfigHub selects the exact release, every managed Argo Application has automated sync disabled, and Argo reconciles only a revalidated ManifestDigest operation submitted with Kubernetes identity compare-and-set; its receipt requires an initial reconciliation followed by a zero-action rerun, plus exact ConfigHub inventory and zero residue in the declared Argo/workload audit scope.", [
           "kubara-mini-idp:receipt-verify",
           "kubara-mini-idp:orphan-audit:receipt-verify",
         ]),
-        gate("mini-idp-performance", "The accepted live receipt ends with an adjacent changed apply and immediate zero-action apply under one execution fingerprint; both retain schema-v2 measurements within the four-cluster fixture budgets and the pair is backed by the zero-orphan audit.", [
+        gate("mini-idp-performance", "The accepted live receipt ends with an adjacent changed apply and immediate zero-action apply under one execution fingerprint; both retain schema-v2 measurements within the four-cluster fixture budgets and the pair is backed by the scoped residue audit.", [
           "kubara-mini-idp:performance-contract:verify",
           "kubara-mini-idp:performance:self-test",
           "kubara-mini-idp:performance:receipt-verify",
@@ -546,7 +561,7 @@ function expectedContract() {
         "The static verifier proves deterministic committed inputs and generated outputs; it does not turn missing live receipts into passes.",
         "The full verifier fails until both live qualification sets, both additive promotions, the faithful lane, the mini-IDP reconciliation, and the public site verify.",
         "The first mini-IDP apply writes a pending-idempotence receipt; the immediately repeated apply must record zero actions before receipt and release verification can pass.",
-        "The orphan audit is a separate exact inventory receipt and must pass before the website can claim a clean Kubara organization.",
+        "The scoped residue audit is a separate receipt and must pass before the website can claim exact ConfigHub inventory or zero Argo-prunable and audited durable-workload residue; it is not a complete inventory of every Kubernetes resource type.",
         "A green website claim is derived only from mutually consistent faithful, mini-IDP, orphan, schema-v2 performance, matrix, wiring, and exactly six published GUI evidence hashes.",
         "The exact-digest authority contract controls the importer-managed automated delivery path; privileged human or manual Argo sync remains outside the claim unless separate RBAC or admission evidence proves otherwise.",
         "AI may propose future wiring, but no required adoption, generation, reconciliation, or verification step depends on AI.",
@@ -965,7 +980,7 @@ function verifyKubaraBuyerJourneySourceContract() {
     "It preserves the six adoption steps exactly",
     "The current importer does not create or guess an organization, Target, or cluster-local delivery runtime.",
     "The self-test proves the importer contract without claiming that a fresh live organization has already completed the same path.",
-    "Until both receipts pass, describe this step as implemented but not source-current live evidence.",
+    "This is not yet a fresh-organization acceptance test.",
     "`targetRevision: latest` is discovery-only",
     "every managed Application omits `spec.syncPolicy.automated`",
     "Pinned argobot v0.1.6",
@@ -1041,9 +1056,12 @@ function verifyKubaraBuyerJourneySourceContract() {
     "Waiting for current live proof",
     "Passing them does not synthesize a live receipt.",
     "Current live release checkpoint",
-    "the exact ConfigHub inventory and cluster audit report zero orphans",
+    "the exact ConfigHub inventory and scoped cluster audit report zero",
     "the public website is regenerated from those artifacts",
-    "at most 96 ConfigHub read commands for the complete no-op run",
+    "32 ConfigHub CLI read commands for the complete no-op run",
+    "208 total subprocess calls",
+    "about 102 seconds",
+    "fixture regression target is met",
     "keeps `latest` discovery-only, and omits automated sync",
     "No second Argo owner is hidden from the normal view",
     "Retained release history is complete without becoming deployment authority",
@@ -1054,7 +1072,7 @@ function verifyKubaraBuyerJourneySourceContract() {
     "an immediate second apply reports zero actions",
     "every required platform and application workload converges",
     "every Argo Application observes the exact current ConfigHub release",
-    "the exact ConfigHub inventory and cluster audit report zero orphans",
+    "the exact ConfigHub inventory and scoped cluster audit report zero",
     "the 36-cell matrix is regenerated",
     "native GUI Components, Units, Links, approvals, history, and OCI digests are inspected",
     "the public website is regenerated",
@@ -1887,27 +1905,33 @@ function verifyMiniIdpPlan() {
     "pure control and ClusterTarget Spaces must not pollute the Components GUI",
   );
   const guideURL = "https://confighub.github.io/helm-expt/site/kubara.html";
+  const adoptionURL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/adoption.html";
+  const performanceURL = "https://confighub.github.io/helm-expt/site/d/docs/demo/kubara/reconciliation-performance.html";
   const catalogURL = "https://confighub.github.io/helm-expt/site/charts/";
   const catalogCoverageURL = "https://confighub.github.io/helm-expt/data/kubara-catalog-1.1-full-coverage/receipt.yaml";
   const matrixURL = "https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html";
   const wiringURL = "https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html";
+  const residueAuditURL = "https://confighub.github.io/helm-expt/runs/kubara-mini-idp-reconcile/orphan-audit.yaml";
   const controlSpace = spacesBySlug.get("hx-platform");
   check(
     controlSpace?.labels?.StartHere === "true"
       && stableJson(controlSpace.annotations) === stableJson({
         "URL-Guide": guideURL,
+        "URL-Adoption": adoptionURL,
+        "URL-Performance": performanceURL,
         "URL-Catalog": catalogURL,
         "URL-CatalogCoverage": catalogCoverageURL,
         "URL-Matrix": matrixURL,
         "URL-Wiring": wiringURL,
+        "URL-ResidueAudit": residueAuditURL,
       }),
-    "hx-platform must remain the exact StartHere GUI entry with guide, catalog, matrix, and wiring links",
+    "hx-platform must remain the exact StartHere GUI entry with guide, adoption, performance, catalog, matrix, wiring, and residue-audit links",
   );
   const expectedStartHereUnits = new Map(Object.entries({
     "component-catalog-coverage": { "URL-Guide": guideURL, "URL-Catalog": catalogURL, "URL-CatalogCoverage": catalogCoverageURL },
     "component-catalog-selection": { "URL-Guide": guideURL, "URL-Catalog": catalogURL },
     "faithful-hub-spoke-receipt": { "URL-Guide": guideURL },
-    "platform-contract": { "URL-Guide": guideURL, "URL-Catalog": catalogURL, "URL-CatalogCoverage": catalogCoverageURL, "URL-Matrix": matrixURL, "URL-Wiring": wiringURL },
+    "platform-contract": { "URL-Guide": guideURL, "URL-Adoption": adoptionURL, "URL-Performance": performanceURL, "URL-Catalog": catalogURL, "URL-CatalogCoverage": catalogCoverageURL, "URL-Matrix": matrixURL, "URL-Wiring": wiringURL, "URL-ResidueAudit": residueAuditURL },
     "platform-matrix": { "URL-Guide": guideURL, "URL-Matrix": matrixURL },
     "wiring-ledger": { "URL-Guide": guideURL, "URL-Wiring": wiringURL },
   }));
@@ -1917,7 +1941,7 @@ function verifyMiniIdpPlan() {
   check(
     actualStartHereUnits.length === expectedStartHereUnits.size
       && actualStartHereUnits.every((unit) => stableJson(unit.annotations) === stableJson(expectedStartHereUnits.get(unit.slug))),
-    "the six StartHere Units must preserve their exact public GUI navigation mapping",
+    "the six StartHere Units must preserve their exact public GUI navigation mapping, including the platform contract residue-audit link",
   );
   const argoDefinitionSpace = spacesBySlug.get("hx-argo-base");
   check(

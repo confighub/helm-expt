@@ -18,11 +18,14 @@ open `platform-contract`. Its metadata links to the public
 [component-first Catalog](https://confighub.github.io/helm-expt/site/charts/),
 [36-cell matrix](https://confighub.github.io/helm-expt/data/kubara-platform-matrix/matrix.html),
 and [full wiring graph](https://confighub.github.io/helm-expt/data/kubara-wiring/graph.html).
-The adjacent `component-catalog-coverage` Unit makes the full Catalog scope
-native and searchable too: `CatalogComponents=103`, `CatalogVersions=130`,
-`KubaraSelections=18`, and `Retention=AdditiveOnly`. Its payload is the exact
-passing coverage receipt; `component-catalog-selection` remains the separate
-seven-role selection for this particular platform.
+The adjacent `component-catalog-coverage` Unit makes the full Catalog promise
+and its evidence visible in ConfigHub:
+`CatalogComponents=103`, `CatalogVersions=130`, `KubaraSelections=18`, and
+`Retention=AdditiveOnly`. Its payload is the exact passing coverage receipt.
+It is not a substitute for browsing every retained version natively in this
+platform organization: `component-catalog-selection` and the native Components
+view show the exact versions selected by this platform, while `URL-Catalog`
+opens the complete component-first Catalog.
 The GUI itself groups the selected Kubara platform components under
 `Owner=KubaraGeneral`; the faithful Kubara Argo definition under
 `Owner=KubaraBootstrap`; the adapted cluster-local Argo runtime under
@@ -97,22 +100,25 @@ exact. The separate
 records the unchanged hub-and-spoke topology and its selected cert-manager
 witness. It is current proof only when its generated-file count and digest
 match the current Kubara hand-off; the
-[checkpoint ledger](checkpoints.md) reports that decision. Matrix-wide
-observed versions and sync/workload state stay `unknown` until the current
-mini-IDP live receipt supplies all 36 observations. Normal values overlays are
-listed as declared configuration, not mislabeled as runtime departures.
+[checkpoint ledger](checkpoints.md) reports that decision. The source-current
+mini-IDP receipt now supplies all 36 runtime observations; the public matrix
+may use them only after its generator binds that exact receipt and passes.
+Normal values overlays are listed as declared configuration, not mislabeled as
+runtime departures.
 Machine-readable outputs are
 [matrix.json](../../../data/kubara-platform-matrix/matrix.json) and
 [matrix.csv](../../../data/kubara-platform-matrix/matrix.csv).
 
 The desired 36-cell contract is governed in ConfigHub as
 `hx-platform/platform-matrix`. The public files above are regenerated after the
-mini-IDP receipt, so they may add exact observed version, sync, and workload
-evidence from that receipt. A missing observation remains `unknown`; ConfigHub
-desired state alone never becomes a fabricated live result. The sync field is
-explicitly **Argo sync**. ConfigHub state is represented by the governed Unit
-revision, release, and exact OCI manifest digest instead of being mislabeled as
-controller health.
+mini-IDP receipt. Each cell keeps desired placement, selected version, and
+departure separate from the exact ConfigHub release digest; Argo observed
+revision, sync, and health; and Kubernetes desired/ready workload counts. A
+missing observation remains `unknown`, and a disabled selection is
+`NotApplicable`; ConfigHub desired state alone never becomes a fabricated live
+result. The sync field is explicitly **Argo sync**. ConfigHub state is
+represented by the governed Unit revision, release, and exact OCI manifest
+digest instead of being mislabeled as controller health.
 
 ## Secondary: historical v0.12.0 evidence
 
