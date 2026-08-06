@@ -757,8 +757,8 @@ checks remain deliberately serial.
 
 The current immediate no-op is functional idempotence evidence, not a speed
 claim: it made zero ConfigHub mutation attempts and zero Argo sync requests,
-recorded 32 ConfigHub CLI read commands and 208 total subprocess calls, and took
-about 102 seconds end to end. It meets the fixture regression target. A CLI
+recorded 33 ConfigHub CLI read commands and 208 total subprocess calls, and took
+about 77 seconds end to end. It meets the fixture regression target. A CLI
 command is not an authenticated HTTP round trip, and this is neither a
 raw-Kubara comparison nor a service-level promise.
 

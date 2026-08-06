@@ -222,8 +222,8 @@ should spend its time on recognizable inputs and visible day-two outcomes.
 - Publication proves immutable packaging and retrieval, not production support
   for every possible chart configuration.
 - The current accepted no-op reconciliation performed zero ConfigHub mutation
-  attempts and zero Argo sync requests, while recording 32 ConfigHub CLI read
-  commands, 208 total subprocess calls, and about 102 seconds end to end. It
+  attempts and zero Argo sync requests, while recording 33 ConfigHub CLI read
+  commands, 208 total subprocess calls, and about 77 seconds end to end. It
   meets the fixture regression target. A CLI command is not an HTTP round trip,
   and this is neither a raw-Kubara comparison nor a service-level promise.
 - The generic selected-new-organization path has deterministic compile,

@@ -82,21 +82,21 @@ regression budgets, not service-level objectives:
 
 | Dimension | Rejected attempt | Current changed apply | Immediate no-op | Accepted no-op fixture target |
 | --- | ---: | ---: | ---: | ---: |
-| Wall time | 1,541,558 ms | 155,169 ms | about 101,829 ms end to end (~102 seconds) | at most 300,000 ms |
-| Subprocess calls | 1,372 | 292 | 208 | at most 220 |
-| ConfigHub read commands | at least 866 known | 127 | 32 | at most 96 |
-| ConfigHub reads through first accepted dev Application | not isolated | 48 | 18 | at most 96 |
-| First accepted dev Application | not isolated | 71,920 ms | 50,821 ms | at most 90,000 ms |
+| Wall time | 1,541,558 ms | 142,874 ms | about 76,994 ms end to end (~77 seconds) | at most 300,000 ms |
+| Subprocess calls | 1,372 | 287 | 208 | at most 220 |
+| ConfigHub read commands | at least 866 known | 123 | 33 | at most 96 |
+| ConfigHub reads through first accepted dev Application | not isolated | 44 | 19 | at most 96 |
+| First accepted dev Application | not isolated | 60,655 ms | 42,922 ms | at most 90,000 ms |
 | Explicit wait time | 866,701 ms, unclassified | 0 ms | 0 ms | at most 120,000 ms |
-| ConfigHub mutation attempts | not completely classified | 2, both action-attributed | 0 | exactly 0 |
+| ConfigHub mutation attempts | not completely classified | 1, action-attributed | 0 | exactly 0 |
 | Argo sync requests | not isolated | 0 | 0 | exactly 0 |
 
 The reconciliation and idempotence pair passes its functional receipt: the
 second run made zero semantic changes, zero ConfigHub mutation attempts, and
 zero Argo sync requests. Its current buyer-facing conservative measurement is
-therefore **32 ConfigHub CLI read commands, 208 total subprocess calls, and
-about 102 seconds**. It reaches the first accepted `hx-app-dev` Application
-within 18 reads, then completes fleet and closing-stability verification within
+therefore **33 ConfigHub CLI read commands, 208 total subprocess calls, and
+about 77 seconds**. It reaches the first accepted `hx-app-dev` Application
+within 19 reads, then completes fleet and closing-stability verification within
 the 96-read and 220-subprocess ceilings. The fixture regression target is met.
 This remains evidence for this retained four-cluster fixture, not a speed
 comparison with raw Kubara or a service-level promise.
@@ -120,7 +120,7 @@ used to read each managed Unit's metadata three or four times, read its body,
 then repeat endpoint, target, release-boundary, and final-verification reads.
 Static call-path accounting found 537 `cub` reads in the final verification body
 alone and a lower bound of hundreds more before the first Argo convergence
-wait. The accepted no-op now uses 32 ConfigHub CLI read commands for the whole
+wait. The accepted no-op now uses 33 ConfigHub CLI read commands for the whole
 fixture; that command count still must not be relabelled as HTTP round trips.
 
 This is an N+1 client problem, not a reason to collapse the platform into fewer

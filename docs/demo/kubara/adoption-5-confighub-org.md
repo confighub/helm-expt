@@ -466,8 +466,8 @@ The source-current mini-IDP receipt now reports `pass`; it records 55 Spaces,
 105 total Units, 64 Links, four Targets, 35 exact-digest healthy Argo
 Applications, the complete app-governance scenario, 16 completed selector
 replacements, and an immediate zero-action run. That no-op recorded zero
-ConfigHub mutation attempts, zero Argo sync requests, 32 ConfigHub CLI read
-commands, 208 total subprocess calls, and about 102 seconds end to end. The
+ConfigHub mutation attempts, zero Argo sync requests, 33 ConfigHub CLI read
+commands, 208 total subprocess calls, and about 77 seconds end to end. The
 fixture regression target is met. CLI commands are not authenticated HTTP
 round trips, and this fixture evidence is neither a raw-Kubara comparison nor
 a service-level promise.

@@ -29,8 +29,8 @@ This gate deliberately does not require screenshots, so it cannot be satisfied
 by the images it is meant to authorize. It must bind one source commit and one
 organization to a current faithful receipt, current adapted receipt, the
 immediate zero-action run, disclosed performance, exact ConfigHub inventory and scoped Argo/workload residue, and
-the exact matrix and wiring inputs. Today the measured no-op is 32 ConfigHub
-CLI read commands, 208 total subprocess calls, and about 102 seconds with zero
+the exact matrix and wiring inputs. Today the measured no-op is 33 ConfigHub
+CLI read commands, 208 total subprocess calls, and about 77 seconds with zero
 ConfigHub mutation attempts and zero Argo sync requests. It meets the fixture
 regression target; those commands are not HTTP round trips, and the measurement
 is not a raw-Kubara comparison, speed claim, or service-level promise.

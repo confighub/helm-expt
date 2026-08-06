@@ -40,7 +40,7 @@ Return to the [buyer overview](index.md), follow the
 | Approvals, promotion, rollback, departures, and immutable releases improve day-two operation | Current reconciler contract and [mini-IDP receipt](../../../runs/kubara-mini-idp-reconcile/receipt.yaml) | **Current live** |
 | hx-web and Cubbychat run across their intended targets | Exact release, Argo, and workload observations in the [mini-IDP receipt](../../../runs/kubara-mini-idp-reconcile/receipt.yaml) | **Current live** |
 | The Kubara organization has no unexpected governed inventory or audited runtime residue | Exact ConfigHub allowlist, Argo pruning, five durable-workload types, UID-bound controller ownership, and protected-Namespace checks | **Current live when `runs/kubara-mini-idp-reconcile/orphan-audit.yaml` passes**. This is not a complete inventory of every Kubernetes resource type. |
-| Reconciliation cost is measured honestly | [measured cost model](reconciliation-performance.md), [v2 acceptance contract](../../../data/kubara-mini-idp-performance/contract.yaml), paired-run verifier, and [mini-IDP receipt](../../../runs/kubara-mini-idp-reconcile/receipt.yaml) | **Current live fixture evidence, not a speed claim**: the immediate no-op made zero ConfigHub mutation attempts and zero Argo sync requests. It recorded 32 ConfigHub CLI read commands for the complete no-op run, 208 total subprocess calls, and about 102 seconds end to end, so the fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise. |
+| Reconciliation cost is measured honestly | [measured cost model](reconciliation-performance.md), [v2 acceptance contract](../../../data/kubara-mini-idp-performance/contract.yaml), paired-run verifier, and [mini-IDP receipt](../../../runs/kubara-mini-idp-reconcile/receipt.yaml) | **Current live fixture evidence, not a speed claim**: the immediate no-op made zero ConfigHub mutation attempts and zero Argo sync requests. It recorded 33 ConfigHub CLI read commands for the complete no-op run, 208 total subprocess calls, and about 77 seconds end to end, so the fixture regression target is met. CLI commands are not HTTP round trips; this is not a raw-Kubara comparison or a service-level promise. |
 
 ## Commands for current deterministic evidence
 
@@ -72,8 +72,8 @@ only when one serial run proves all of the following:
 2. the adapted v0.13 mini-IDP applies successfully;
 3. an immediate second apply reports zero actions;
 4. the paired-run performance receipt is verified without hiding the measured
-   cost: the current no-op records 32 ConfigHub CLI read commands, 208 total
-   subprocess calls, about 102 seconds, zero ConfigHub mutation attempts, and
+   cost: the current no-op records 33 ConfigHub CLI read commands, 208 total
+   subprocess calls, about 77 seconds, zero ConfigHub mutation attempts, and
    zero Argo sync requests. It meets the fixture regression target, but must
    not be sold as a raw-Kubara comparison, HTTP-round-trip count, or SLO;
 5. every required platform and application workload converges;
