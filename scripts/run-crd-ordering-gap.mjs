@@ -17,7 +17,7 @@ import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "no
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write, writeYaml, readYaml } from "./lib/proof-common.mjs";
+import { check, normalizeTempPaths, relativeRepo, repoRoot, write, writeYaml, readYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--help";
 const receiptPath = join(repoRoot, "runs", "crd-ordering-gap", "receipt.yaml");
@@ -25,7 +25,7 @@ const summaryPath = join(repoRoot, "data", "crd-ordering-gap", "summary.md");
 const htmlPath = join(repoRoot, "data", "crd-ordering-gap", "summary.html");
 
 function sh(file, args, opts = {}) { return execFileSync(file, args, { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"], ...opts }); }
-function tsh(file, args, opts = {}) { try { return { ok: true, out: sh(file, args, opts) }; } catch (e) { return { ok: false, out: `${e.stdout ?? ""}${e.stderr ?? ""}`.trim() || String(e) }; } }
+function tsh(file, args, opts = {}) { try { return { ok: true, out: sh(file, args, opts) }; } catch (e) { return { ok: false, out: normalizeTempPaths(`${e.stdout ?? ""}${e.stderr ?? ""}`.trim() || String(e)) }; } }
 
 const CRD = `apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition

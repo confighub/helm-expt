@@ -5,7 +5,7 @@ import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "no
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { check, parseDocs, readYaml, relativeRepo, repoRoot, sha256, writeYaml } from "./lib/proof-common.mjs";
+import { check, normalizeTempPaths, parseDocs, readYaml, relativeRepo, repoRoot, sha256, writeYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const chart = "kedacore/keda";
@@ -77,7 +77,7 @@ function runLiveWitness() {
       const apiServices = docs.filter((doc) => doc.kind === "APIService").map((doc) => doc.metadata?.name).filter(Boolean);
       check(apiServices.includes(apiServiceName), `rendered KEDA manifests missing APIService ${apiServiceName}`);
       receipt.spec.render = {
-        manifestDirectory: `${workdir}/out/manifests`,
+        manifestDirectory: normalizeTempPaths(`${workdir}/out/manifests`),
         durableRenderedObjectSet: renderedPath,
         namespaces,
         objectCount: docs.length,
@@ -251,7 +251,7 @@ function baseReceipt({ rig, clusterSpace, workloadSpace, target, kubeconfig, con
         namespace,
         kubeContext: context,
         kubeconfig,
-        workdir,
+        workdir: normalizeTempPaths(workdir),
         appName,
       },
       sourceEvidence: {
