@@ -101,6 +101,21 @@ variant-promotion receipt that changed one Grafana credential in a development
 variant and promoted it to staging with matching data hashes. The
 [entry page](./eks-h100-training-kubeflow.md) walks through both.
 
+## Each entry climbs the same proof ladder
+
+The proofs repeat one ladder per entry, and each rung has a committed receipt
+its verify lane recompiles offline. The training entry proved import, the
+reviewed Grafana change, and the staging promotion. The
+[CPU starter](./cpu-starter.md) climbed the whole ladder: ConfigHub import
+with the reviewed gp3 override and its staging promotion, config-plane
+delivery to a kind cluster with the application controller held at zero, and
+one reviewed component synced to Healthy with its volume bound by the
+reviewed storage class. The
+[inference entry](./kserve-nim-inference.md) started its ladder with the
+ConfigHub import of all twenty-six retained surfaces, with the license
+boundary held live. The rungs an entry has not climbed stay absent from its
+claims rather than implied.
+
 ## The boundary every receipt states
 
 All proofs here run on kind or against ConfigHub, and they prove config-plane
