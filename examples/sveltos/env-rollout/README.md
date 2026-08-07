@@ -55,6 +55,13 @@ across the three environments, a distinct OCI digest per revision, and a
 receipt bound to the reviewed example files. Once the receipt is recorded,
 the matrix generator fills the observed columns from it.
 
+## Chapter four
+
+The [CVE patching example](../cve-patch/README.md) continues from this
+chapter's outcome: one reviewed chart version bump with digest-bound
+provenance, promoted through the same environment groups, closed by a
+coverage audit that proves no cluster was missed.
+
 ## Repeat and verify
 
 ```bash
