@@ -472,7 +472,9 @@ npm run sveltos-env-rollout:self-test
 # all six approval brackets, and the receipt tamper battery, against fake
 # ConfigHub and OCI surfaces. A few seconds.
 npm run sveltos-env-rollout-proof:self-test</code></pre>
-<p>The live proof follows the two-wave runner's discipline: a self-contained kind fleet, one approval bracket per environment revision, portable OCI digests reconciled by Argo CD, Sveltos convergence per environment group, and a convergence audit at the end. Fleet proofs run serially against the organization, never in parallel. Once confighubai/confighub#4975 is resolved, the run is one command:</p>
+<p>The live proof follows the two-wave runner's discipline: a self-contained kind fleet, one approval bracket per environment revision, portable OCI digests reconciled by Argo CD, Sveltos convergence per environment group, and a convergence audit at the end. Fleet proofs run serially against the organization, never in parallel. To find out whether the server fix has landed, run the two-minute probe. It wires one throwaway Space, creates one probe Unit, watches for the approval gate, and cleans up after itself. One passing probe unblocks every drafted fleet lane.</p>
+<pre><code>CUB_CONTEXT=my-policy npm run sveltos-gate:probe</code></pre>
+<p>Once confighubai/confighub#4975 is resolved, the run is one command:</p>
 <pre><code>HELM_EXPT_ALLOW_LIVE_SVELTOS_ENV_ROLLOUT=1 \
 HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
 CUB_CONTEXT=my-policy \

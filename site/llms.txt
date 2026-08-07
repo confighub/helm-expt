@@ -4,7 +4,7 @@
 
 - [Catalog JSON](https://confighub.github.io/helm-expt/site/catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](https://confighub.github.io/helm-expt/site/changes.json): a compact chart, version, and digest list for cheap background polling; the full index is catalog.json.
-- [Component Catalog](https://confighub.github.io/helm-expt/site/charts/): 103 components, all 130 retained published package versions, their packaged configurations, and version-specific publication or readiness evidence.
+- [Component Catalog](https://confighub.github.io/helm-expt/site/charts/): 108 components, all 135 retained package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](https://confighub.github.io/helm-expt/site/matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](https://confighub.github.io/helm-expt/site/generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](https://docs.confighub.com/get-started/tutorial/): the canonical product journey from one component through release, change, production, and promotion.

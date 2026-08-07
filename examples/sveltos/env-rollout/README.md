@@ -85,7 +85,16 @@ The live proof follows the two-wave runner's discipline: a self-contained
 kind fleet, one approval bracket per environment revision, portable OCI
 digests reconciled by Argo CD, Sveltos convergence per environment group, and
 a convergence audit at the end. Fleet proofs run serially against the
-organization, never in parallel. Once confighubai/confighub#4975 is resolved,
+organization, never in parallel. To find out whether the server fix has landed, run the two-minute probe. It
+wires one throwaway Space, creates one probe Unit, watches for the approval
+gate, and cleans up after itself. One passing probe unblocks every drafted
+fleet lane.
+
+```bash
+CUB_CONTEXT=my-policy npm run sveltos-gate:probe
+```
+
+Once confighubai/confighub#4975 is resolved,
 the run is one command:
 
 ```bash

@@ -3,7 +3,7 @@ kind: "AicrKserveNimImportProofReceipt"
 metadata:
   name: "aicr-kserve-nim-inference-3ef33472-import"
 spec:
-  recordedAt: "2026-08-07T09:40:58.571Z"
+  recordedAt: "2026-08-07T12:42:47.424Z"
   context:
     name: "playful-cub"
     organization: "Cubby AI Inc"
@@ -12,21 +12,80 @@ spec:
     format: "retained KServe NIM literal configuration OCI"
     committedEntry: "examples/aicr/kserve-nim-inference"
     platformDigest: "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720"
-    temporaryReference: "oci://localhost:32780/aicr-kserve-nim-inference:3ef33472"
-    digest: "sha256:d6be914d40413913dbee82916aa0165e2a1f938d2cac9e031ada6c42ffce10eb"
+    temporaryReference: "oci://localhost:32787/aicr-kserve-nim-inference:3ef33472"
+    digest: "sha256:9f34b0e23bbde2499ff023678e7fb623b8cff35da71d0e4b732f1d21d7a1b4d8"
     documentCount: 26
     kindCounts:
       InferenceService: 16
       ClusterServingRuntime: 10
     exactSourceObjectsMatched: true
     canonicalDataSha256: "5aa16f0fcb78d1eedf4a607d9a03b6c7a66a3e3b4573fbef17b8917c1ed0f224"
-  base:
-    space: "hx-kserve-nim-20260807094053-base"
-    spaceId: "64035805-4d2e-4432-9d23-30781dfc118e"
-    unit: "hx-kserve-nim-20260807094053"
-    unitId: "fc6c44b0-5563-49b5-ba65-cd417e66ef17"
-    headRevision: 1
-    dataHash: "acd15c2ddcf7eefcb6c2c84118dabf186efe32e4cf73223f5f9d8d400c1e9227"
+  variants:
+    base:
+      space: "hx-kserve-nim-20260807124220-base"
+      spaceId: "f1940a2d-c260-4f8b-81ac-4184622b318e"
+      variant: "base"
+      environment: ""
+      unit: "hx-kserve-nim-20260807124220"
+      unitId: "48aaee33-6198-4d8d-adfa-1e54cc06e64d"
+      headRevision: 1
+      dataHash: "acd15c2ddcf7eefcb6c2c84118dabf186efe32e4cf73223f5f9d8d400c1e9227"
+      canonicalDataSha256: "5aa16f0fcb78d1eedf4a607d9a03b6c7a66a3e3b4573fbef17b8917c1ed0f224"
+    dev:
+      space: "hx-kserve-nim-20260807124220-dev"
+      spaceId: "056e30e6-5a98-42f0-b734-e3f33ada6e3e"
+      variant: "dev"
+      environment: "Dev"
+      unit: "hx-kserve-nim-20260807124220"
+      unitId: "e75ea6f5-d89a-42f0-a6bb-505eb93a7b74"
+      headRevision: 2
+      dataHash: "27c24fb2ca23be13c89748a9e6a45bca73bbc3490a134330e193136aea4f58fa"
+      canonicalDataSha256: "ac5ed1ac4dba7a6560fcff7317f073211ad10bbbec9b35d83fe37395678b82a9"
+    staging:
+      space: "hx-kserve-nim-20260807124220-staging"
+      spaceId: "41e120d2-6902-4564-bf8b-df55a835e383"
+      variant: "staging"
+      environment: "Staging"
+      unit: "hx-kserve-nim-20260807124220"
+      unitId: "26f2925d-da5d-467e-bf23-7a5bdd2730da"
+      headRevision: 2
+      dataHash: "27c24fb2ca23be13c89748a9e6a45bca73bbc3490a134330e193136aea4f58fa"
+      canonicalDataSha256: "ac5ed1ac4dba7a6560fcff7317f073211ad10bbbec9b35d83fe37395678b82a9"
+  change:
+    control: "the shared model-cache PersistentVolumeClaim name every model shape mounts, which upstream leaves to the operator"
+    before: "nvidia-nim-pvc"
+    after: "hx-nim-model-cache"
+    changedDocumentCount: 16
+    changedDocuments:
+      - "serving.kserve.io/v1beta1|InferenceService||llama-3-1-70b-instruct-2xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||llama-3-1-8b-instruct-1xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||llama-3-3-nemotron-49b-2xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-2xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-4xa100"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-4xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-4xh100"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-1xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-2xa100"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-2xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-2xh100"
+      - "serving.kserve.io/v1beta1|InferenceService||mistral-7b-instruct-v03-1xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||mixtral-8x22b-instruct-v01-8xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||mixtral-8x7b-instruct-v01-2xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||nv-embedqa-e5-v5-1xgpu"
+      - "serving.kserve.io/v1beta1|InferenceService||nv-rerankqa-mistral-4b-v3-1xgpu"
+    changedKinds:
+      - "InferenceService"
+    servingRuntimesUnchanged: true
+    devDryRun: "pass"
+    devDryRunLeftDataUnchanged: true
+    devUpdate: "pass"
+  promotion:
+    path: "base -> dev -> staging"
+    dryRun: "pass"
+    dryRunReportedUnitCount: 1
+    dryRunLeftStagingUnchanged: true
+    result: "pass"
+    stagingMatchesReviewedDev: true
   licenseBoundary:
     ngcContacted: false
     imagesPulled: false
@@ -45,16 +104,24 @@ spec:
       - "nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0"
     statement: "The artifact carried only the retained Apache-2.0 configuration. Gated images appear in the imported data as references only; nothing was pulled from nvcr.io, and the imported data carries no literal credential value."
   cleanup:
+    stagingSpace: "pass"
+    devSpace: "pass"
     baseSpace: "pass"
     registry: "pass"
   limits:
     - "This run used a temporary local registry; it does not prove public registry publication."
     - "This run started no Kubernetes cluster and required no KServe installation. It does not prove serving, model loading, or any workload behavior."
     - "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution."
-    - "This receipt proves one retained-entry import. Variants, promotion, and delivery for the inference entry are separate increments."
+    - "This receipt proves one retained-entry import, one reviewed model-cache claim rename in a development variant, and one dev-to-staging promotion of that reviewed change. Delivery for the inference entry is a separate increment."
+    - "NIM_TELEMETRY_MODE remains the documented telemetry control point, but setting it means adding an environment entry, and ConfigHub's search-replace substitutes single tokens rather than inserting structure. That change waits for a structural editing path."
 status:
   result: "pass"
   ociImport: "pass"
   exactObjectSet: "pass"
   licenseBoundary: "pass"
-  claim: "ConfigHub imported the twenty-six retained KServe NIM surfaces as one base-variant Unit, kept them byte-faithful, and recorded the exact OCI source and digest, with gated images present as references only and no credential value anywhere in the imported data."
+  derivedVariants: "pass"
+  changeDryRun: "pass"
+  change: "pass"
+  promotionDryRun: "pass"
+  promotion: "pass"
+  claim: "ConfigHub imported the twenty-six retained KServe NIM surfaces as one base-variant Unit, kept them byte-faithful with the license boundary held live, renamed the shared model-cache claim across every model shape as one reviewed development change while leaving all ten serving runtimes untouched, previewed the staging promotion without changing staging, and promoted the same reviewed configuration to staging with matching data."

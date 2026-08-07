@@ -130,7 +130,8 @@ function compile(root) {
     ["gpuWorkloadsProven", false],
     ["nimContainersRan", false],
     ["modelsFetched", false],
-    ["ngcContacted", false],
+    ["ngcArtifactsPulled", false],
+    ["ngcCatalogPageRead", true],
     ["secretValuesIncluded", false],
   ]) {
     check(boundary[key] === expected, `retention receipt boundary.${key} must be ${expected}`);
@@ -310,7 +311,7 @@ function compile(root) {
       boundary: {
         ...boundary,
         statement:
-          "This index pins retained configuration by digest. Gated images appear as references only; no NIM container ran, no model was fetched, and no NGC surface was contacted to produce or verify it.",
+          "This index pins retained configuration by digest. Gated images appear as references only; no NIM container ran, no model was fetched, and nothing was pulled from nvcr.io. The one NGC surface read was the public catalog page for the described model profile, which supplied the governing-terms names the profile records with their read date.",
       },
     },
     status: { result: "compiled-offline", liveRegistryPublicationClaimed: false },
@@ -346,8 +347,10 @@ and are pulled only by a user's cluster with the user's own key and
 entitlement. Nothing in this directory claims a registry push.
 
 The boundary, stated plainly: this index proves config-plane retention only.
-No NIM container ran, no model was fetched, no NGC surface was contacted, and
-no GPU workload claim exists here.
+No NIM container ran, no model was fetched, nothing was pulled from nvcr.io,
+and no GPU workload claim exists here. One NGC surface was read, and the entry
+says which: the public catalog page for the described model profile supplied
+the governing-terms names that the profile records with their read date.
 `;
 }
 
@@ -588,7 +591,8 @@ function writeFixture(root, tree, fixtureBase, mutateProfile, options = {}) {
           gpuWorkloadsProven: false,
           nimContainersRan: false,
           modelsFetched: false,
-          ngcContacted: false,
+          ngcArtifactsPulled: false,
+          ngcCatalogPageRead: true,
           secretValuesIncluded: false,
         },
       },

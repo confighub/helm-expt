@@ -1,0 +1,13 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SveltosFleetRehearsalLock
+metadata:
+  name: fleet-rehearsal-prerequisites
+spec:
+  argoCd:
+    version: v3.4.6
+    manifestUrl: https://raw.githubusercontent.com/argoproj/argo-cd/v3.4.6/manifests/install.yaml
+    manifestSha256: 752b5a2681f2522fc78ea12ba2d23be44a4523cfa5d9a55cf1907909cc23fc5d
+    note: The reference topology from cub cluster up runs the same Argo CD version; the rehearsal installs it directly because it uses no ConfigHub organization.
+  boundary:
+    governanceClaim: false
+    note: The rehearsal exercises delivery machinery only. No ConfigHub, no reviews, no approvals, and no chapter matrix cell is filled by it.

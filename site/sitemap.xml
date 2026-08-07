@@ -14,6 +14,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-ec2-chart-1-18-4.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-eks-chart-1-16-3.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart-1-7-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html</loc></url>
@@ -80,6 +83,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-21-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/karpenter-karpenter-1-14-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-2.html</loc></url>
@@ -97,6 +101,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvidia-device-plugin-0-19-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/oauth2-proxy-oauth2-proxy-10-7-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/opencost-opencost-2-5-21.html</loc></url>
@@ -586,6 +591,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-bulk-ops/matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-cve-patch/matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-env-rollout/matrix.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-fleet-rehearsal/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-oci-delivery-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/target-prerequisite-actions/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/target-prerequisite-workdown/summary.html</loc></url>
@@ -703,6 +709,8 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agent-experience-worklog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agreed-execution-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-catalog-brief.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-pilot-variants-brief.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-version-refresh-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/current-pathway-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/p0-major-issue-status.html</loc></url>
@@ -911,6 +919,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/sveltos/bulk-ops/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/sveltos/cve-patch/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/sveltos/env-rollout/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/sveltos/fleet-rehearsal/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/sveltos/kyverno-fleet/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/knowledge/SCHEMA.html</loc></url>

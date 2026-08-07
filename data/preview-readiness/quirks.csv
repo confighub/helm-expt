@@ -7,7 +7,7 @@ explicit-extension-slot-control-points,shift-left,"captured as control points / 
 files-get,shift-left,"bundled files vendored with the chart",source-scanned-not-surfaced,31,0,"partial"
 generated-facts,shift-left,"generated-fact receipt (capture once, reuse)",tracked-and-surfaced,60,29,"yes"
 global-values,shift-left,"deterministic given captured values (scan gap)",not-scanned,unknown,unknown,"partial"
-helm-flag-profile,shift-left,"pinned renderer flags in the render receipt",partly-tracked,n/a,154,"partial"
+helm-flag-profile,shift-left,"pinned renderer flags in the render receipt",partly-tracked,n/a,161,"partial"
 helm-version-branching,shift-left,"pin the Helm version in the render receipt",not-scanned,unknown,unknown,"partial"
 hook-phase,shift-left,"hook-minted object declared as a target fact; hook execution witnessed",partly-tracked,11,5,"partial"
 import-values,shift-left,"deterministic given captured values (scan gap)",not-scanned,unknown,0,"partial"

@@ -743,6 +743,7 @@ function toCsv(rows) {
 }
 
 function summaryMd(rows) {
+  const chartCount = new Set(rows.map((row) => `${row.repo}/${row.chart}`)).size;
   const lines = [];
   lines.push("# Flattening-safety verdicts");
   lines.push("");
@@ -763,7 +764,7 @@ function summaryMd(rows) {
   );
   lines.push("");
   lines.push(
-    "This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The seven charts here now have that axis answered from source; the catalog-wide rendered-object scan remains open.",
+    `This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The ${chartCount} charts here now have that axis answered from source, across ${rows.length} chart-and-base verdicts; the catalog-wide rendered-object scan remains open.`,
   );
   lines.push("");
   lines.push(

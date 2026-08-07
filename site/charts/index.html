@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Component Catalog · Config Workshop</title>
-  <meta name="description" content="Choose among 103 public components, all 130 retained published package versions, and their packaged configurations without confusing publication proof with live runtime evidence.">
+  <meta name="description" content="Choose among 108 public components, all 135 retained package versions, and their packaged configurations without confusing publication proof with live runtime evidence.">
   <link rel="canonical" href="https://confighub.github.io/helm-expt/site/charts/">
   <meta property="og:title" content="Component Catalog · Config Workshop">
-  <meta property="og:description" content="Choose among 103 public components, all 130 retained published package versions, and their packaged configurations without confusing publication proof with live runtime evidence.">
+  <meta property="og:description" content="Choose among 108 public components, all 135 retained package versions, and their packaged configurations without confusing publication proof with live runtime evidence.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://confighub.github.io/helm-expt/site/charts/">
   <style>
@@ -436,7 +436,7 @@
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../try.html">Try Redis</a><a href="../testing.html">Examples</a><a href="../charts/index.html">Catalog</a><a href="../how-it-works.html">Deployment</a><a href="../docs.html">Docs</a><a href="../hard-questions.html">FAQ</a><a href="../confighub.html">ConfigHub</a></span></nav></div>
     <h1>Choose a component, version, and configuration</h1>
     <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages.</p>
-    <p>It keeps all 130 retained published package versions across 103 components. Choose a component and exact version first, then inspect its packaged configurations, setup, and evidence.</p>
+    <p>It keeps all 135 retained package versions across 108 components, 130 of them published with a receipt. Choose a component and exact version first, then inspect its packaged configurations, setup, and evidence.</p>
     <p><a href="https://github.com/confighub/helm-expt/issues/new?template=site-feedback.yml">Missing something you need? Tell us.</a></p>
   </header>
   <main>
@@ -521,6 +521,30 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>No special caveat shown in the catalog row.</td>
         <td><span data-packaged-configurations="autoscaler/vertical-pod-autoscaler@0.9.0" data-configuration-count="2"><strong>0.9.0</strong>: default, no-crds<br><span style="color:var(--muted);font-size:.85rem">2 packaged configurations</span></span></td>
+      </tr>
+<tr data-chart-row data-evidence-surface="publication-only" data-level="published-package-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="aws-controllers-k8s/ec2-chart 1.18.4 published-package-only default default;eks-inference see chart page 1.18.4 default;eks-inference oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4">
+        <td><a href="./aws-controllers-k8s-ec2-chart-1-18-4.html">aws-controllers-k8s/ec2-chart</a></td>
+        <td><span data-retained-version-record="aws-controllers-k8s/ec2-chart@1.18.4"><a data-retained-version="aws-controllers-k8s/ec2-chart@1.18.4" href="./aws-controllers-k8s-ec2-chart-1-18-4.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-ec2-chart:1.18.4"><strong>1.18.4</strong></a> <a data-publication-receipt="aws-controllers-k8s/ec2-chart@1.18.4" href="https://github.com/confighub/helm-expt/blob/main/" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
+        <td><a href="./aws-controllers-k8s-ec2-chart-1-18-4.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for the command and option cards.</span></td>
+        <td><strong>Published package; review first</strong><br><span style="color:var(--muted);font-size:.9rem">Exact OCI publication is recorded. Runtime readiness is not inherited.</span></td>
+        <td>Publication is verified; target prerequisites and runtime behavior still require review.</td>
+        <td><span data-packaged-configurations="aws-controllers-k8s/ec2-chart@1.18.4" data-configuration-count="2"><strong>1.18.4</strong>: default, eks-inference<br><span style="color:var(--muted);font-size:.85rem">2 packaged configurations</span></span></td>
+      </tr>
+<tr data-chart-row data-evidence-surface="publication-only" data-level="published-package-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="aws-controllers-k8s/eks-chart 1.16.3 published-package-only default default;eks-inference see chart page 1.16.3 default;eks-inference oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3">
+        <td><a href="./aws-controllers-k8s-eks-chart-1-16-3.html">aws-controllers-k8s/eks-chart</a></td>
+        <td><span data-retained-version-record="aws-controllers-k8s/eks-chart@1.16.3"><a data-retained-version="aws-controllers-k8s/eks-chart@1.16.3" href="./aws-controllers-k8s-eks-chart-1-16-3.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3"><strong>1.16.3</strong></a> <a data-publication-receipt="aws-controllers-k8s/eks-chart@1.16.3" href="https://github.com/confighub/helm-expt/blob/main/" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
+        <td><a href="./aws-controllers-k8s-eks-chart-1-16-3.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for the command and option cards.</span></td>
+        <td><strong>Published package; review first</strong><br><span style="color:var(--muted);font-size:.9rem">Exact OCI publication is recorded. Runtime readiness is not inherited.</span></td>
+        <td>Publication is verified; target prerequisites and runtime behavior still require review.</td>
+        <td><span data-packaged-configurations="aws-controllers-k8s/eks-chart@1.16.3" data-configuration-count="2"><strong>1.16.3</strong>: default, eks-inference<br><span style="color:var(--muted);font-size:.85rem">2 packaged configurations</span></span></td>
+      </tr>
+<tr data-chart-row data-evidence-surface="publication-only" data-level="published-package-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="aws-controllers-k8s/iam-chart 1.7.3 published-package-only default default;eks-inference see chart page 1.7.3 default;eks-inference oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3">
+        <td><a href="./aws-controllers-k8s-iam-chart-1-7-3.html">aws-controllers-k8s/iam-chart</a></td>
+        <td><span data-retained-version-record="aws-controllers-k8s/iam-chart@1.7.3"><a data-retained-version="aws-controllers-k8s/iam-chart@1.7.3" href="./aws-controllers-k8s-iam-chart-1-7-3.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"><strong>1.7.3</strong></a> <a data-publication-receipt="aws-controllers-k8s/iam-chart@1.7.3" href="https://github.com/confighub/helm-expt/blob/main/" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
+        <td><a href="./aws-controllers-k8s-iam-chart-1-7-3.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for the command and option cards.</span></td>
+        <td><strong>Published package; review first</strong><br><span style="color:var(--muted);font-size:.9rem">Exact OCI publication is recorded. Runtime readiness is not inherited.</span></td>
+        <td>Publication is verified; target prerequisites and runtime behavior still require review.</td>
+        <td><span data-packaged-configurations="aws-controllers-k8s/iam-chart@1.7.3" data-configuration-count="2"><strong>1.7.3</strong>: default, eks-inference<br><span style="color:var(--muted);font-size:.85rem">2 packaged configurations</span></span></td>
       </tr>
 <tr data-chart-row data-evidence-surface="readiness-evidence" data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="aws-ebs-csi-driver/aws-ebs-csi-driver 2.60.1 proof-grade / machine-proof-only default default see chart page tpl;capabilities;cluster-rbac - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2) 2.60.1 default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-ebs-csi-driver-aws-ebs-csi-driver:2.60.1">
         <td><a href="./aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html">aws-ebs-csi-driver/aws-ebs-csi-driver</a></td>
@@ -954,6 +978,14 @@
         <td>Gitops runtime: Argo health Progressing (parity passed)</td>
         <td><span data-packaged-configurations="jetstack/trust-manager@v0.22.1" data-configuration-count="2"><strong>v0.22.1</strong>: default, no-crds<br><span style="color:var(--muted);font-size:.85rem">2 packaged configurations</span></span></td>
       </tr>
+<tr data-chart-row data-evidence-surface="publication-only" data-level="published-package-only" data-status="see chart page" data-hooks="no" data-crds="yes" data-search="karpenter/karpenter 1.14.0 published-package-only default default;eks-inference;crds-managed see chart page 1.14.0 default;eks-inference;crds-managed oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0">
+        <td><a href="./karpenter-karpenter-1-14-0.html">karpenter/karpenter</a></td>
+        <td><span data-retained-version-record="karpenter/karpenter@1.14.0"><a data-retained-version="karpenter/karpenter@1.14.0" href="./karpenter-karpenter-1-14-0.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"><strong>1.14.0</strong></a> <a data-publication-receipt="karpenter/karpenter@1.14.0" href="https://github.com/confighub/helm-expt/blob/main/" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
+        <td><a href="./karpenter-karpenter-1-14-0.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for the command and option cards.</span></td>
+        <td><strong>Published package; review first</strong><br><span style="color:var(--muted);font-size:.9rem">Exact OCI publication is recorded. Runtime readiness is not inherited.</span></td>
+        <td>Publication is verified; target prerequisites and runtime behavior still require review.</td>
+        <td><span data-packaged-configurations="karpenter/karpenter@1.14.0" data-configuration-count="3"><strong>1.14.0</strong>: default, eks-inference, crds-managed<br><span style="color:var(--muted);font-size:.85rem">3 packaged configurations</span></span></td>
+      </tr>
 <tr data-chart-row data-evidence-surface="readiness-evidence" data-level="proof-grade / machine-proof-only" data-status="see chart page" data-hooks="yes" data-crds="yes" data-search="kedacore/keda 2.19.0 proof-grade / machine-proof-only default default;no-crds see chart page tpl;capabilities;crds;cluster-rbac;webhooks - (no open gap: recommended capabilities built or n/a; quirks modeled - level 2) 2.19.0 default;no-crds oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0">
         <td><a href="./kedacore-keda-2-19-0.html">kedacore/keda</a></td>
         <td><span data-retained-version-record="kedacore/keda@2.19.0"><a data-retained-version="kedacore/keda@2.19.0" href="./kedacore-keda-2-19-0.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/kedacore-keda:2.19.0"><strong>2.19.0</strong></a> <a data-publication-receipt="kedacore/keda@2.19.0" href="https://github.com/confighub/helm-expt/blob/main/runs/installer-oci/kedacore-keda/2.19.0/installer-package-publication-receipt.yaml" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
@@ -1057,6 +1089,14 @@
         <td><strong>Review first</strong><br><span style="color:var(--muted);font-size:.9rem">Recipe and matrix data exist, but this is not a polished public demo yet.</span></td>
         <td>Kubernetes API capabilities, cluster RBAC, stateful storage; Helm runtime: upstream leg blocked</td>
         <td><span data-packaged-configurations="nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18" data-configuration-count="1"><strong>4.0.18</strong>: default<br><span style="color:var(--muted);font-size:.85rem">1 packaged configuration</span></span></td>
+      </tr>
+<tr data-chart-row data-evidence-surface="publication-only" data-level="published-package-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="nvidia/nvidia-device-plugin 0.19.3 published-package-only default default;eks-inference;nfd-enabled see chart page 0.19.3 default;eks-inference;nfd-enabled oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3">
+        <td><a href="./nvidia-nvidia-device-plugin-0-19-3.html">nvidia/nvidia-device-plugin</a></td>
+        <td><span data-retained-version-record="nvidia/nvidia-device-plugin@0.19.3"><a data-retained-version="nvidia/nvidia-device-plugin@0.19.3" href="./nvidia-nvidia-device-plugin-0-19-3.html" title="retained published package; oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3"><strong>0.19.3</strong></a> <a data-publication-receipt="nvidia/nvidia-device-plugin@0.19.3" href="https://github.com/confighub/helm-expt/blob/main/" rel="noopener" style="font-size:.8rem">receipt</a></span></td>
+        <td><a href="./nvidia-nvidia-device-plugin-0-19-3.html#matrix-options"><strong>default</strong></a><br><span style="color:var(--muted);font-size:.9rem">Open the chart page for the command and option cards.</span></td>
+        <td><strong>Published package; review first</strong><br><span style="color:var(--muted);font-size:.9rem">Exact OCI publication is recorded. Runtime readiness is not inherited.</span></td>
+        <td>Publication is verified; target prerequisites and runtime behavior still require review.</td>
+        <td><span data-packaged-configurations="nvidia/nvidia-device-plugin@0.19.3" data-configuration-count="3"><strong>0.19.3</strong>: default, eks-inference, nfd-enabled<br><span style="color:var(--muted);font-size:.85rem">3 packaged configurations</span></span></td>
       </tr>
 <tr data-chart-row data-evidence-surface="publication-only" data-level="published-package-only" data-status="see chart page" data-hooks="no" data-crds="no" data-search="oauth2-proxy/oauth2-proxy 10.7.0 published-package-only default default see chart page 10.7.0 default oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/oauth2-proxy-oauth2-proxy:10.7.0">
         <td><a href="./oauth2-proxy-oauth2-proxy-10-7-0.html">oauth2-proxy/oauth2-proxy</a></td>
@@ -1306,7 +1346,7 @@
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " components shown; 130 retained published package versions remain available";
+            count.textContent = visible + " of " + rows.length + " components shown; 135 retained package versions remain available";
           };
           [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", update));
           update();
@@ -1316,7 +1356,7 @@
 
     <section aria-labelledby="catalog-summary">
       <h2 id="catalog-summary">What each catalog entry contains</h2>
-      <p>The catalog starts with 103 components and all 130 retained published package versions. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
+      <p>The catalog starts with 108 components and all 135 retained package versions, 130 of them published with a receipt. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
       <p>The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
     </section>
 

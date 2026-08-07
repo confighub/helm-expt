@@ -52,8 +52,7 @@ reference cloud resources, the index records the residue instead of editing
 it: today that is one reference to the `gp3` storage class inside the Kube
 Prometheus Stack values, which a cluster without AWS storage classes does not
 provide. Overriding it is exactly the variant mechanics this catalog already
-proves elsewhere, and doing that override with a receipt is part of the next
-increment.
+proves elsewhere, and the section below records that override with a receipt.
 
 ## The residue override, proven live against ConfigHub
 
@@ -126,10 +125,11 @@ Proven: the selection is rule-governed, every copy is byte-identical to
 retained configuration, the whole entry is pinned by one digest with an
 end-to-end derivation chain, ConfigHub imported the starter and carried the
 residue override as a reviewed development-variant change with a dry-run
-preview, a real cluster's Argo CD accepted all seven Applications with zero
+preview, the same reviewed configuration reached staging through a previewed
+promotion, a real cluster's Argo CD accepted all seven Applications with zero
 sync operations started, and the one reviewed component synced to Healthy
 with its volume bound by the reviewed storage class. Not proven, and stated
 rather than implied: the other five components never synced, no GPU exists
 anywhere in this entry, and nothing here claims production, AWS, or fleet
-behavior. The natural next increments are the staging promotion of the
-reviewed variant and the same ladder for the inference entry.
+behavior. This entry has climbed every rung of the ladder; the increment that
+remains is config-plane delivery for the inference entry.
