@@ -1,0 +1,61 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "traefik-traefik-41.0.2"
+spec:
+  chart:
+    repository: "traefik"
+    name: "traefik"
+    version: "41.0.2"
+  package:
+    sha256: "a84ec5eae9f5507c8f0632d58a7eb10c9b7fd2a277b77740ee7460c55ecde49a"
+    observedAt: "2026-08-07T08:05:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 60
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 25
+    documents: 25
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 2
+      files:
+        - "templates/NOTES.txt:156"
+        - "templates/_helpers.tpl:318"
+    capabilities:
+      count: 4
+      files:
+        - "templates/deployment.yaml:2"
+        - "templates/poddisruptionbudget.yaml:2"
+        - "templates/prometheusrules.yaml:3"
+        - "templates/servicemonitor.yaml:3"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 1
+      files:
+        - "templates/pvc.yaml:11"
+    generated-secrets:
+      count: 1
+      files:
+        - "templates/_helpers.tpl:330"
+    webhook-config:
+      count: 2
+      files:
+        - "templates/hub-admission-controller.yaml:21"
+        - "templates/hub-admission-controller.yaml:55"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

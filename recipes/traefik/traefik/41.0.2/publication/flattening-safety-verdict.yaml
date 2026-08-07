@@ -1,0 +1,106 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "traefik-traefik-41.0.2"
+spec:
+  chart:
+    repository: "traefik"
+    name: "traefik"
+    version: "41.0.2"
+    packageSHA256: "a84ec5eae9f5507c8f0632d58a7eb10c9b7fd2a277b77740ee7460c55ecde49a"
+  witnessRef: "data/flattening-safety/witnesses/traefik-traefik-41.0.2.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present-gated"
+      detail: "keep rides on the PVC template behind persistence.enabled, off in the audited base"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/pvc.yaml:11"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "NOTES.txt use is cosmetic; the webhook-cert helper lookup sits behind hub.apimanagement.admission, off in the audited base"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/NOTES.txt:156"
+        - "templates/_helpers.tpl:318"
+    -
+      class: "webhook-ca"
+      finding: "present-gated"
+      detail: "Traefik Hub admission webhooks, off in the audited base"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/hub-admission-controller.yaml:21"
+        - "templates/hub-admission-controller.yaml:55"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "4 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/deployment.yaml:2"
+        - "templates/poddisruptionbudget.yaml:2"
+        - "templates/prometheusrules.yaml:3"
+        - "templates/servicemonitor.yaml:3"
+    -
+      class: "generated-secrets"
+      finding: "present-gated"
+      detail: "genSelfSignedCert lives in the same gated hub webhook-cert helper"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "templates/_helpers.tpl:330"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "50 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle (crds split or sync waves)"
+      evidence:
+        - "25 crds-directory file(s), 25 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "hub.apimanagement.* enabled"
+      effect: "the webhook-cert helper goes live (lookup, genSelfSignedCert, webhook CA); that base needs its own verdict and trends do-not-flatten"
+    -
+      values: "persistence.enabled: true"
+      effect: "the keep-annotated PVC renders; the bundle must ship prune protection"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Every witnessed hazard is values-gated off the audited base; the CRDs are the one construct that needs a companion artifact."
+    routes:
+      - "CRD ordering declaration for the 25 gateway and traefik CRDs"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/traefik-traefik-41.0.2.yaml"
+      - "recipes/traefik/traefik/41.0.2/source-lock.yaml"
