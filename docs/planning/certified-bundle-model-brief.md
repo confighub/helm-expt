@@ -33,6 +33,14 @@ The OCI artifact holds the rendered files. Beside it, a receipt records: source 
 
 Components that are not charts — ACK custom resources, Kubara's generated files, literal YAML — are born flattened: they take a certified-bundle receipt with a trivial verdict and skip the chart-quirk table.
 
+## Routes travel inside the bundle
+
+For the flatten-with-routes lane, the route is a declarative YAML file emitted at flatten time and shipped inside the OCI bundle beside the rendered files. Ingest turns it into Units in the base Space like everything else, the receipt names each route file and the quirk it discharges, and the delivery runtime executes the routes at apply time. Nothing operational lives out of band: one artifact carries the configuration and the knowledge of how to apply it.
+
+## One bundle per chart version and recipe variant
+
+Catalog recipes already come in variants per chart (default, no-crds, crds-enabled, existing-secret, external-tls-ca), and variants change the rendered output. The certified bundle is therefore keyed by chart version and recipe variant together: one bundle, one receipt, and one verdict per pair, because dispositions genuinely differ per base — a crds-enabled variant changes the CRD-ordering disposition, an existing-secret variant removes the generated-secret hazard entirely. Each variant bundle installs into its own base Space via the component-and-variant space pattern. On-demand variants follow the Pilot rule: a new variant is a new recipe producing a new certified bundle, parity-gated before publication, never a mutation of an existing bundle.
+
 ## What each consumer gets
 
 - **The catalog** keeps its machinery and changes its primary product: certified bundles wherever the verdict allows, installer packages where it does not, both receipted.
