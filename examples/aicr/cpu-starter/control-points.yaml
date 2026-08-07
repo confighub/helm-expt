@@ -1,0 +1,28 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: ControlPointRecord
+metadata:
+  name: aicr-cpu-starter
+spec:
+  entry: examples/aicr/cpu-starter
+  description: >-
+    The control points a reviewer may change in this entry, and the documents
+    each one governs. The blast-radius checker treats this file as the declared
+    intent: it refuses when the committed bytes disagree with a declaration,
+    and it refuses when a recorded reviewed change landed somewhere other than
+    the documents declared here.
+  documentScope:
+    - argocd-rendered/templates
+  controlPoints:
+    - id: prometheus-storage-class
+      description: >-
+        The storage class the Prometheus volume claim requests. The retained
+        value is the AWS gp3 class the training entry was generated with, which
+        a cluster without AWS storage does not provide, so this is the first
+        override any operator makes.
+      locator:
+        token: "storageClassName: gp3"
+      governs:
+        - argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack
+      reviewedChanges:
+        - receipt: runs/aicr-cpu-starter-variant/receipt.yaml
+          changedField: spec.change.changedApplications

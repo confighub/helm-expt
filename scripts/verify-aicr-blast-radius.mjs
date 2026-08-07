@@ -1,0 +1,420 @@
+#!/usr/bin/env node
+
+// Check blast-radius parity for the AICR entries.
+//
+// A single-chart parity gate compares one render against one render, so it
+// sees a wrong value and misses a wrong reach. Platform shapes fail the other
+// way: the inference entry's reviewed rename had to land on sixteen model
+// shapes and on nothing else, and a change that touched fifteen or seventeen
+// would have been just as wrong with every value correct.
+//
+// Each entry commits a control-point record naming what a reviewer may change
+// and which documents each control point governs. This checker holds that
+// record to two facts it cannot fake:
+//
+//   1. The record matches the committed bytes. Every document the control
+//      point's locator actually appears in must be declared, and every
+//      declared document must actually contain it. A record that drifts from
+//      the entry it describes is refused rather than trusted.
+//   2. Every recorded reviewed change landed exactly on the declared set. The
+//      receipts already list the documents each change touched, so the
+//      declaration and the live evidence must agree.
+//
+// This is the blast-radius level of the Pilot parity design in
+// docs/planning/aicr-pilot-variants-brief.md. It runs offline against
+// committed bytes and needs no cluster, no organization, and no network.
+
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+import {
+  check,
+  parseDocs,
+  readYaml,
+  relativeRepo,
+  repoRoot,
+  write,
+} from "./lib/proof-common.mjs";
+
+const entryRecords = [
+  join(repoRoot, "examples", "aicr", "cpu-starter", "control-points.yaml"),
+  join(repoRoot, "examples", "aicr", "kserve-nim-inference", "control-points.yaml"),
+];
+const summaryPath = join(repoRoot, "data", "aicr-blast-radius", "summary.md");
+
+const mode = process.argv[2] ?? "--verify";
+if (!["--generate", "--verify", "--self-test"].includes(mode)) {
+  console.error(`Usage:
+  node scripts/verify-aicr-blast-radius.mjs --generate
+  node scripts/verify-aicr-blast-radius.mjs --verify
+  node scripts/verify-aicr-blast-radius.mjs --self-test`);
+  process.exit(2);
+}
+
+if (mode === "--generate") {
+  const results = entryRecords.map((path) => checkRecord(path));
+  write(summaryPath, renderSummary(results));
+  console.log(`wrote ${relativeRepo(summaryPath)}`);
+} else if (mode === "--verify") {
+  const results = entryRecords.map((path) => checkRecord(path));
+  check(existsSync(summaryPath), `${relativeRepo(summaryPath)} is missing; run npm run aicr-blast-radius:generate`);
+  check(
+    readFileSync(summaryPath, "utf8") === renderSummary(results),
+    `${relativeRepo(summaryPath)} is stale; run npm run aicr-blast-radius:generate`,
+  );
+  const controlPoints = results.reduce((total, row) => total + row.controlPoints.length, 0);
+  const reviewedChanges = results.reduce(
+    (total, row) => total + row.controlPoints.reduce((sum, point) => sum + point.reviewedChanges.length, 0),
+    0,
+  );
+  console.log(
+    `verified blast-radius parity for ${controlPoints} control point(s) and ${reviewedChanges} reviewed change(s) across ${results.length} entries`,
+  );
+} else {
+  selfTest();
+  console.log("verified the blast-radius checker against fake surfaces");
+}
+
+// checkRecord is the whole gate. It reads one control-point record, recomputes
+// what the committed bytes say, and refuses any disagreement.
+function checkRecord(recordPath) {
+  check(existsSync(recordPath), `${relativeRepo(recordPath)} is missing`);
+  const record = readYaml(recordPath);
+  check(record.kind === "ControlPointRecord", `${relativeRepo(recordPath)}: unexpected kind ${record.kind}`);
+  const entryPath = String(record.spec?.entry ?? "");
+  check(entryPath, `${relativeRepo(recordPath)}: the record names no entry`);
+  const entryRoot = join(repoRoot, entryPath);
+  check(existsSync(entryRoot), `${relativeRepo(recordPath)}: the entry ${entryPath} does not exist`);
+
+  const scope = record.spec?.documentScope ?? [];
+  check(Array.isArray(scope) && scope.length > 0, `${relativeRepo(recordPath)}: the record declares no document scope`);
+  const documents = [];
+  for (const relative of scope) {
+    const scopeRoot = join(entryRoot, relative);
+    check(existsSync(scopeRoot), `${relativeRepo(recordPath)}: scope directory ${relative} does not exist`);
+    for (const file of listFiles(scopeRoot).filter((path) => path.endsWith(".yaml")).sort()) {
+      const text = readFileSync(file, "utf8");
+      for (const doc of parseDocs(text)) {
+        documents.push({ identity: identity(doc), file: relativeRepo(file), text });
+      }
+    }
+  }
+  check(documents.length > 0, `${relativeRepo(recordPath)}: the declared scope contains no documents`);
+  const identities = documents.map((row) => row.identity);
+  check(
+    new Set(identities).size === identities.length,
+    `${relativeRepo(recordPath)}: two documents in scope share an identity`,
+  );
+
+  const controlPoints = (record.spec?.controlPoints ?? []).map((point) => {
+    const id = String(point.id ?? "");
+    check(id, `${relativeRepo(recordPath)}: a control point has no id`);
+    const token = String(point.locator?.token ?? "");
+    check(token, `${relativeRepo(recordPath)}: control point ${id} has no locator token`);
+    const declared = [...(point.governs ?? [])].sort();
+    check(declared.length > 0, `${relativeRepo(recordPath)}: control point ${id} governs no documents`);
+    check(
+      new Set(declared).size === declared.length,
+      `${relativeRepo(recordPath)}: control point ${id} lists a document twice`,
+    );
+
+    // Fact one: the declaration matches the committed bytes, in both
+    // directions. Undeclared reach and phantom declarations fail alike.
+    const actual = documents
+      .filter((row) => row.text.includes(token))
+      .map((row) => row.identity)
+      .sort();
+    const undeclared = actual.filter((row) => !declared.includes(row));
+    const phantom = declared.filter((row) => !actual.includes(row));
+    check(
+      undeclared.length === 0,
+      `${relativeRepo(recordPath)}: control point ${id} also reaches ${undeclared.join(", ")}, which the record does not declare`,
+    );
+    check(
+      phantom.length === 0,
+      `${relativeRepo(recordPath)}: control point ${id} declares ${phantom.join(", ")}, which does not contain its locator`,
+    );
+
+    // Fact two: every recorded reviewed change landed on exactly that set.
+    const reviewedChanges = (point.reviewedChanges ?? []).map((row) => {
+      const receiptPath = join(repoRoot, String(row.receipt ?? ""));
+      check(existsSync(receiptPath), `${relativeRepo(recordPath)}: control point ${id} names a missing receipt`);
+      const receipt = readYaml(receiptPath);
+      const changed = [...readPath(receipt, String(row.changedField ?? ""))].sort();
+      check(
+        changed.length > 0,
+        `${relativeRepo(recordPath)}: control point ${id} reads no changed documents from ${row.receipt}`,
+      );
+      check(
+        JSON.stringify(changed) === JSON.stringify(declared),
+        `${relativeRepo(recordPath)}: control point ${id} declares ${declared.length} document(s) but ${row.receipt} changed ${changed.length} (${symmetricDifference(declared, changed).join(", ") || "different documents"})`,
+      );
+      return { receipt: String(row.receipt), changedCount: changed.length };
+    });
+
+    return { id, token, declaredCount: declared.length, declared, reviewedChanges };
+  });
+  check(controlPoints.length > 0, `${relativeRepo(recordPath)}: the record declares no control points`);
+
+  return {
+    record: relativeRepo(recordPath),
+    entry: entryPath,
+    name: record.metadata?.name ?? "",
+    documentCount: documents.length,
+    controlPoints,
+  };
+}
+
+function readPath(value, path) {
+  const result = path
+    .split(".")
+    .filter(Boolean)
+    .reduce((current, key) => (current == null ? current : current[key]), value);
+  return Array.isArray(result) ? result : [];
+}
+
+function symmetricDifference(left, right) {
+  return [
+    ...left.filter((row) => !right.includes(row)).map((row) => `declared only: ${row}`),
+    ...right.filter((row) => !left.includes(row)).map((row) => `changed only: ${row}`),
+  ].sort();
+}
+
+function renderSummary(results) {
+  const rows = results.flatMap((entry) =>
+    entry.controlPoints.map((point) => {
+      const reviewed = point.reviewedChanges.length
+        ? point.reviewedChanges.map((row) => `\`${row.receipt}\``).join(", ")
+        : "none yet";
+      return `| \`${entry.name}\` | \`${point.id}\` | ${point.declaredCount} | ${reviewed} |`;
+    }),
+  );
+  return `# AICR blast-radius parity
+
+**UNOFFICIAL/EXPERIMENTAL.** This page is generated by
+\`npm run aicr-blast-radius:generate\` and checked by
+\`npm run aicr-blast-radius:verify\`.
+
+A platform change fails differently from a chart change. The value can be
+right while the reach is wrong, and a reviewer cannot see that by reading a
+diff of one document. Each AICR entry therefore commits a control-point
+record naming what may be changed and which documents each control point
+governs, and this checker holds that record to the committed bytes and to the
+receipts of every reviewed change already made.
+
+| Entry | Control point | Documents governed | Reviewed changes checked |
+| --- | --- | --- | --- |
+${rows.join("\n")}
+
+The checker refuses three ways. It refuses when a control point reaches a
+document the record does not declare, which is how an under-declared change
+gets caught. It refuses when the record declares a document that does not
+contain the control point, which is how a record goes stale after the entry
+moves. It refuses when a recorded reviewed change touched a different set than
+the record declares, which is how a real change that over-reached or
+under-reached gets caught against its own receipt.
+
+Everything here runs offline against committed bytes. No cluster, no
+organization, and no network is involved.
+`;
+}
+
+// The self-test builds fake entries so every refusal is exercised without
+// touching the committed records.
+function selfTest() {
+  const scratch = mkdtempSync(join(tmpdir(), "aicr-blast-radius-self-test-"));
+  try {
+    const fixtureDoc = (name, extra = "") =>
+      [
+        "apiVersion: fixture.invalid/v1",
+        "kind: FixtureDoc",
+        "metadata:",
+        `  name: ${name}`,
+        "spec:",
+        `  value: ${extra || "plain"}`,
+        "",
+      ].join("\n");
+
+    const build = (name, { docs, controlPoints, receipt }) => {
+      const entryRel = join("examples", "fixture", name);
+      const entryRoot = join(repoRoot, entryRel);
+      // Fixtures live under the repo root so relative paths resolve the way
+      // the real records do, and are removed at the end of the run.
+      for (const [file, text] of Object.entries(docs)) {
+        write(join(entryRoot, "docs", file), text);
+      }
+      if (receipt) write(join(repoRoot, "runs", `fixture-${name}`, "receipt.yaml"), receipt);
+      const recordPath = join(scratch, `${name}.yaml`);
+      write(
+        recordPath,
+        `${JSON.stringify({
+          apiVersion: "catalog.confighub.com/v1alpha1",
+          kind: "ControlPointRecord",
+          metadata: { name: `fixture-${name}` },
+          spec: { entry: entryRel, documentScope: ["docs"], controlPoints },
+        })}\n`,
+      );
+      return { recordPath, entryRoot, runRoot: receipt ? join(repoRoot, "runs", `fixture-${name}`) : null };
+    };
+
+    const created = [];
+    const cleanup = () => {
+      for (const row of created) {
+        rmSync(row.entryRoot, { recursive: true, force: true });
+        if (row.runRoot) rmSync(row.runRoot, { recursive: true, force: true });
+      }
+      rmSync(join(repoRoot, "examples", "fixture"), { recursive: true, force: true });
+    };
+
+    try {
+      const goodReceipt = `${JSON.stringify({
+        apiVersion: "catalog.confighub.com/v1alpha1",
+        kind: "FixtureReceipt",
+        metadata: { name: "fixture" },
+        spec: { change: { changedDocuments: ["fixture.invalid/v1|FixtureDoc||alpha"] } },
+      })}\n`;
+
+      const baseline = build("baseline", {
+        docs: {
+          "alpha.yaml": fixtureDoc("alpha", "TOKEN-A"),
+          "beta.yaml": fixtureDoc("beta"),
+        },
+        controlPoints: [
+          {
+            id: "token-a",
+            locator: { token: "TOKEN-A" },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha"],
+            reviewedChanges: [
+              { receipt: "runs/fixture-baseline/receipt.yaml", changedField: "spec.change.changedDocuments" },
+            ],
+          },
+        ],
+        receipt: goodReceipt,
+      });
+      created.push(baseline);
+      const result = checkRecord(baseline.recordPath);
+      check(
+        result.controlPoints.length === 1
+          && result.controlPoints[0].declaredCount === 1
+          && result.controlPoints[0].reviewedChanges.length === 1,
+        "self-test baseline did not check the fixture control point",
+      );
+
+      const undeclared = build("undeclared", {
+        docs: {
+          "alpha.yaml": fixtureDoc("alpha", "TOKEN-A"),
+          "beta.yaml": fixtureDoc("beta", "TOKEN-A"),
+        },
+        controlPoints: [
+          { id: "token-a", locator: { token: "TOKEN-A" }, governs: ["fixture.invalid/v1|FixtureDoc||alpha"] },
+        ],
+      });
+      created.push(undeclared);
+      check(
+        fails(() => checkRecord(undeclared.recordPath), /also reaches .*which the record does not declare/),
+        "self-test accepted a control point reaching an undeclared document",
+      );
+
+      const phantom = build("phantom", {
+        docs: { "alpha.yaml": fixtureDoc("alpha", "TOKEN-A") },
+        controlPoints: [
+          {
+            id: "token-a",
+            locator: { token: "TOKEN-A" },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha", "fixture.invalid/v1|FixtureDoc||ghost"],
+          },
+        ],
+      });
+      created.push(phantom);
+      check(
+        fails(() => checkRecord(phantom.recordPath), /declares .*which does not contain its locator/),
+        "self-test accepted a record declaring a document without the control point",
+      );
+
+      const overReach = build("over-reach", {
+        docs: { "alpha.yaml": fixtureDoc("alpha", "TOKEN-A") },
+        controlPoints: [
+          {
+            id: "token-a",
+            locator: { token: "TOKEN-A" },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha"],
+            reviewedChanges: [
+              { receipt: "runs/fixture-over-reach/receipt.yaml", changedField: "spec.change.changedDocuments" },
+            ],
+          },
+        ],
+        receipt: `${JSON.stringify({
+          spec: {
+            change: {
+              changedDocuments: [
+                "fixture.invalid/v1|FixtureDoc||alpha",
+                "fixture.invalid/v1|FixtureDoc||beta",
+              ],
+            },
+          },
+        })}\n`,
+      });
+      created.push(overReach);
+      check(
+        fails(() => checkRecord(overReach.recordPath), /declares 1 document\(s\) but .* changed 2/),
+        "self-test accepted a reviewed change that reached further than declared",
+      );
+
+      const underReach = build("under-reach", {
+        docs: {
+          "alpha.yaml": fixtureDoc("alpha", "TOKEN-A"),
+          "beta.yaml": fixtureDoc("beta", "TOKEN-A"),
+        },
+        controlPoints: [
+          {
+            id: "token-a",
+            locator: { token: "TOKEN-A" },
+            governs: [
+              "fixture.invalid/v1|FixtureDoc||alpha",
+              "fixture.invalid/v1|FixtureDoc||beta",
+            ],
+            reviewedChanges: [
+              { receipt: "runs/fixture-under-reach/receipt.yaml", changedField: "spec.change.changedDocuments" },
+            ],
+          },
+        ],
+        receipt: goodReceipt,
+      });
+      created.push(underReach);
+      check(
+        fails(() => checkRecord(underReach.recordPath), /declares 2 document\(s\) but .* changed 1/),
+        "self-test accepted a reviewed change that reached less far than declared",
+      );
+    } finally {
+      cleanup();
+    }
+  } finally {
+    rmSync(scratch, { recursive: true, force: true });
+  }
+}
+
+function listFiles(root) {
+  return readdirSync(root).flatMap((name) => {
+    const path = join(root, name);
+    return statSync(path).isDirectory() ? listFiles(path) : [path];
+  });
+}
+
+function identity(doc) {
+  return [
+    doc.apiVersion ?? "",
+    doc.kind ?? "",
+    doc.metadata?.namespace ?? "",
+    doc.metadata?.name ?? "",
+  ].join("|");
+}
+
+function fails(action, pattern) {
+  try {
+    action();
+  } catch (error) {
+    return pattern.test(String(error?.message ?? error));
+  }
+  return false;
+}
