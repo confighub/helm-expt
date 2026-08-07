@@ -370,8 +370,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 180 CSV files. Each row records the path, audience,
-It includes 179 CSV files. Each row records the path, audience,
+It includes 182 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
