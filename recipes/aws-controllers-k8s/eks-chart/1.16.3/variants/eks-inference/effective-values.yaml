@@ -4,7 +4,7 @@ metadata:
   name: "aws-controllers-k8s-eks-chart-1.16.3-eks-inference"
 spec:
   profile: "producer-declared"
-  sourceValuesFile: "values/eks-inference.yaml"
+  sourceValuesFile: "values.yaml"
   sourceValuesSHA256: "f58922de3bf27b12821fc915af95e658221ed17e55ef3a23eb174e8c041bf63c"
   mergedValuesCaptured: false
   values:

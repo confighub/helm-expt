@@ -1,0 +1,89 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "karpenter-karpenter-1.14.0-crds-managed"
+spec:
+  chart:
+    repository: "karpenter"
+    name: "karpenter"
+    version: "1.14.0"
+    packageSHA256: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
+  witnessRef: "data/flattening-safety/witnesses/karpenter-karpenter-1.14.0.yaml"
+  auditedBase: "crds-managed"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "the ServiceMonitor template opens on a monitoring.coreos.com capability guard; the audited render pins the kube version with no extra api-versions, so the guard stays closed"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/_helpers.tpl:87"
+        - "templates/servicemonitor.yaml:1"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present-gated"
+      detail: "the chart's five CRDs are excluded from this base's render; the karpenter-crd chart owns them out of band"
+      disposition: "nothing ships in this bundle; CRD presence is a declared precondition on the platform's CRD owner"
+      evidence:
+        - "5 crds-directory file(s), 5 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "rendering with --include-crds (the eks-inference base)"
+      effect: "the five CRDs enter the bundle and the lane is flatten-with-routes with an ordering declaration"
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "With the CRDs managed out of band, nothing this base renders is discharged at render time; the ordering hazard moves to the platform's CRD owner and is recorded as a precondition rather than a companion artifact. Same chart version as the eks-inference base, different lane, which is why bundles key on version and variant together."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/karpenter-karpenter-1.14.0.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"

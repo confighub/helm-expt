@@ -622,7 +622,10 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/agent/verification.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/corpus/known-adversarial-charts.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/corpus/kubara-customized-overlays.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/cpu-starter.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/ai-change-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/apps/rbac-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/argo-cd/confighub-proof-transcript.html</loc></url>
@@ -698,6 +701,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/repo-consistency-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/today-roadmap-2026-05-29.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/blog-posts.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-consumer-contract-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-kubara-composition-strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-next-candidates.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-review.html</loc></url>
@@ -729,6 +733,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/maintenance-strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/next-20-tasks.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/next-execution-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/nim-ngc-license-read.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/onboarding-and-entry-paths.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/outside-user-test.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/per-chart-fact-sheet-spec.html</loc></url>
@@ -886,7 +891,11 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-synced-is-not-working.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-this-does-not-collapse.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-this-exists.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/cpu-starter/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/upstream/kserve/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/current-platform/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/git-import/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/kubara/local-platform/README.html</loc></url>

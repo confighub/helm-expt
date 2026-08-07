@@ -391,6 +391,74 @@ const CHARTS = [
     ],
   },
   {
+    repo: "karpenter",
+    chart: "karpenter",
+    version: "1.14.0",
+    recipe: "recipes/karpenter/karpenter/1.14.0",
+    auditedBase: "crds-managed",
+    verdictFile: "flattening-safety-verdict-crds-managed.yaml",
+    overrides: {
+      "capabilities-api-versions": {
+        detail:
+          "the ServiceMonitor template opens on a monitoring.coreos.com capability guard; the audited render pins the kube version with no extra api-versions, so the guard stays closed",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail:
+          "the chart's five CRDs are excluded from this base's render; the karpenter-crd chart owns them out of band",
+        disposition:
+          "nothing ships in this bundle; CRD presence is a declared precondition on the platform's CRD owner",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "With the CRDs managed out of band, nothing this base renders is discharged at render time; the ordering hazard moves to the platform's CRD owner and is recorded as a precondition rather than a companion artifact. Same chart version as the eks-inference base, different lane, which is why bundles key on version and variant together.",
+    variantScope: [
+      {
+        values: "rendering with --include-crds (the eks-inference base)",
+        effect:
+          "the five CRDs enter the bundle and the lane is flatten-with-routes with an ordering declaration",
+      },
+    ],
+  },
+  {
+    repo: "nvidia",
+    chart: "nvidia-device-plugin",
+    version: "0.19.3",
+    recipe: "recipes/nvidia/nvidia-device-plugin/0.19.3",
+    auditedBase: "nfd-enabled",
+    verdictFile: "flattening-safety-verdict-nfd-enabled.yaml",
+    overrides: {
+      "helm-hooks": {
+        detail:
+          "opening the node-feature-discovery gate renders its post-delete cleanup Job into this base",
+        disposition: "post-delete lifecycle route executed by the delivery runtime",
+      },
+      "crd-ordering": {
+        detail: "three NodeFeature CRDs render in this base",
+        disposition: "ordering declaration ships with the bundle",
+      },
+      "subchart-conditions": {
+        disposition:
+          "the flatten step must render with this base's condition set; the gate is deliberately open here",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "post-delete cleanup lifecycle route for the node-feature-discovery Job",
+      "CRD ordering declaration for the three NodeFeature CRDs",
+    ],
+    rationale:
+      "Opening the gate the producer leaves closed pulls the subchart's cleanup hook and CRDs into the render; the same chart version that is safe-to-flatten at the eks-inference base needs two companion artifacts here.",
+    variantScope: [
+      {
+        values: "nfd.enabled false (the eks-inference base)",
+        effect: "the subchart drops out and the lane returns to safe-to-flatten",
+      },
+    ],
+  },
+  {
     repo: "bitnami",
     chart: "redis",
     version: "27.0.0",
@@ -487,10 +555,11 @@ function buildVerdict(entry) {
   const dispositions = CLASSES.map((cls) => classRow(entry, witness, cls));
   const verdict = { lane: entry.lane, rationale: entry.rationale };
   if (entry.routes.length > 0) verdict.routes = entry.routes;
+  const nameSuffix = entry.verdictFile ? `-${entry.auditedBase}` : "";
   return {
     apiVersion: "evidence.confighub.com/v1alpha1",
     kind: "FlatteningSafetyVerdict",
-    metadata: { name: `${entry.repo}-${entry.chart}-${entry.version}` },
+    metadata: { name: `${entry.repo}-${entry.chart}-${entry.version}${nameSuffix}` },
     spec: {
       chart: {
         repository: entry.repo,
@@ -514,7 +583,7 @@ function buildVerdict(entry) {
 
 function toCsv(rows) {
   const header =
-    "repo,chart,version,lane,hooks,lookup,keep,webhooks,generated_secrets,crd_evidence,verdict";
+    "repo,chart,version,base,lane,hooks,lookup,keep,webhooks,generated_secrets,crd_evidence,verdict";
   return `${[
     header,
     ...rows.map((row) =>
@@ -522,6 +591,7 @@ function toCsv(rows) {
         row.repo,
         row.chart,
         row.version,
+        row.base,
         row.lane,
         row.hooks,
         row.lookup,
@@ -543,10 +613,12 @@ function summaryMd(rows) {
     "Each audited chart version gets one receipted answer to one question: what happens if you ship it as literal rendered YAML instead of running Helm? Findings come from a template-level scan of the pinned chart package (the witnesses directory), joined with the catalog's recorded hook and lifecycle evidence. The verdict schema is schemas/flattening-safety-verdict.schema.json and the model it feeds is docs/reference/certified-bundle-spec.md.",
   );
   lines.push("");
-  lines.push("| chart | version | lane | verdict |");
-  lines.push("| --- | --- | --- | --- |");
+  lines.push("| chart | version | base | lane | verdict |");
+  lines.push("| --- | --- | --- | --- | --- |");
   for (const row of rows) {
-    lines.push(`| ${row.repo}/${row.chart} | ${row.version} | ${row.lane} | ${row.verdictPath} |`);
+    lines.push(
+      `| ${row.repo}/${row.chart} | ${row.version} | ${row.base} | ${row.lane} | ${row.verdictPath} |`,
+    );
   }
   lines.push("");
   lines.push(
@@ -569,7 +641,7 @@ function buildAll() {
   const rows = [];
   for (const entry of CHARTS) {
     const verdict = buildVerdict(entry);
-    const verdictPath = `${entry.recipe}/publication/flattening-safety-verdict.yaml`;
+    const verdictPath = `${entry.recipe}/publication/${entry.verdictFile ?? "flattening-safety-verdict.yaml"}`;
     outputs.push({ path: join(repoRoot, verdictPath), contents: `${toYaml(verdict)}\n` });
     const byClass = Object.fromEntries(
       verdict.spec.dispositions.map((row) => [row.class, row.finding]),
@@ -578,6 +650,7 @@ function buildAll() {
       repo: entry.repo,
       chart: entry.chart,
       version: entry.version,
+      base: entry.auditedBase,
       lane: entry.lane,
       hooks: byClass["helm-hooks"],
       lookup: byClass.lookup,
