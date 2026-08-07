@@ -5,10 +5,10 @@ metadata:
 spec:
   variant: "../../../variants/eks-inference/variant.yaml"
   revision: "r001"
-  digest: "6795ea92b2ea7c0bf69a4ed5eb1ebeb70fc773aa65b86ec0f32e018e7b067f67"
+  digest: "85ba3470619d0d4e79bfd0a01df89e613cab2602da243809b2817cadf44fa406"
   digestInputs:
     chartPackageSHA256: "17c082eac9ef1f859fdf72d4e86788ab7add27876da9f2ba7cd145eeea75bc20"
-    variantSHA256: "cb9fddecc5a7ee956f0279e082680860ff07285911cf3fcf46eeac0c2a8e6da2"
+    variantSHA256: "979d7e194293b0337f685d6a93ebb141142693170ce119cdcc38b296dd8cd23c"
     effectiveValuesSHA256: "fc5e2ef91090af1971536b42906f84771b1f9bc8ae7037124c268fa4086169a4"
     renderedObjectSetSHA256: "0d4bb43a93d7f005b3ef073acc2c94f22b4d5006cbde7a165ba51bf498b67b11"
   rendered:

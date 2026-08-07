@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "EffectiveValues"
 metadata:
-  name: "aws-controllers-k8s-iam-chart-1.7.3-eks-inference"
+  name: "aws-controllers-k8s-ec2-chart-1.18.4-eks-inference"
 spec:
   profile: "producer-declared"
-  sourceValuesFile: "values/eks-inference.yaml"
-  sourceValuesSHA256: "67260e5272fe60b5341dc37b6633b2b3b1713ad63028b18649e27ddc04f0ed2d"
+  sourceValuesFile: "values.yaml"
+  sourceValuesSHA256: "fc5e2ef91090af1971536b42906f84771b1f9bc8ae7037124c268fa4086169a4"
   mergedValuesCaptured: false
   values:
     aws:

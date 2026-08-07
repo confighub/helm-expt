@@ -1,11 +1,11 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "EffectiveValues"
 metadata:
-  name: "nvidia-nvidia-device-plugin-0.19.3-eks-inference"
+  name: "nvidia-nvidia-device-plugin-0.19.3-nfd-enabled"
 spec:
   profile: "producer-declared"
-  sourceValuesFile: "values/eks-inference.yaml"
-  sourceValuesSHA256: "6ee97e60311d1cacf81d6a459d6f7c35d5fd8e483622b0266ebc414a4d3d864f"
+  sourceValuesFile: "values.yaml"
+  sourceValuesSHA256: "510c8050ee991353e9d4dcecc3ce9bb85bf67693b547b6a80c32317bb51b1918"
   mergedValuesCaptured: false
   values:
     affinity:
@@ -18,6 +18,8 @@ spec:
                   key: "eks-inference.confighub.com/accelerator"
                   operator: "Exists"
     failOnInitError: true
+    nfd:
+      enabled: true
     tolerations:
       -
         effect: "NoSchedule"

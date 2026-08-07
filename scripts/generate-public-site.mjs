@@ -3736,8 +3736,8 @@ function docsHtml() {
       <h2 id="manage">Change or operate saved configuration</h2>
       <h3><a href="./d/docs/user/variants-after-upload.html">How do I make environment variants?</a></h3>
       <p>Create, compare, and promote development and production variants.</p>
-      <h3><a href="./redis-walkthrough.html">How do I upgrade and roll back?</a></h3>
-      <p>The detailed Redis walkthrough shows an upgrade, promotion, rollout, and rollback.</p>
+      <h3><a href="../docs/user/day2-upgrade-story.md">How do I upgrade and roll back?</a></h3>
+      <p>The day-2 upgrade story: diff the value model first, check control points and immutable fields, then upgrade rendered bundles by digest. The <a href="./redis-walkthrough.html">Redis walkthrough</a> shows one full upgrade, promotion, rollout, and rollback.</p>
       <h3><a href="./journey.html">What can a ConfigHub App automate?</a></h3>
       <p>Apps on ConfigHub includes upgrade, lifecycle, RBAC, fleet, and AI review examples.</p>
       <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
@@ -6002,7 +6002,7 @@ function operationsHtml(catalog) {
       action: "compare a variant with its base",
       code: null,
       get: "A variant is one named configuration of an app. Its object diff shows exactly which Kubernetes objects changed before anything is delivered. This is the opposite of a values file you have to mentally render.",
-      see: ["change-routing-before-oci.md"],
+      see: ["change-routing-before-oci.md", "day2-upgrade-story.md"],
     },
     {
       title: "Scan and gate",
@@ -6047,7 +6047,7 @@ function operationsHtml(catalog) {
       action: "compare live state with a previous approved revision",
       code: "cub unit diff <unit> --from=PreviousLiveRevisionNum --to=LiveRevisionNum\ncub-scout compare three-way --dry-from <previous-render.yaml>",
       get: "You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.",
-      see: ["day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
+      see: ["day2-upgrade-story.md", "day2-upgrade-rollback.md", "cub-scout-diff-design.md"],
     },
   ];
   const seeLabels = new Map([
@@ -6059,6 +6059,7 @@ function operationsHtml(catalog) {
     ["../data/runtime-gitops/summary.md", "GitOps test results"],
     ["verify-it-yourself.md", "Check it yourself"],
     ["why-synced-is-not-working.md", "Why a sync check is not enough"],
+    ["day2-upgrade-story.md", "The day-2 upgrade story"],
     ["day2-upgrade-rollback.md", "Upgrade and rollback guide"],
     ["cub-scout-diff-design.md", "Three-way comparison design"],
   ]);
