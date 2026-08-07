@@ -22,8 +22,8 @@ td.note code{font-size:11px}
 </head>
 <body>
 <h1>Doc Freshness - when to update the authored docs</h1>
-<p class="sub"><b>Generated at:</b> 2026-08-07T09:41:39.029Z UTC · source: committed docs, linked evidence files, and git history.</p>
-<p class="sub">263 authored docs · <b>55 review-due</b> · 49 fresh · 159 with no linked evidence sources. Snapshot as of 2026-08-07 (commit 408a19eae); refresh with <code>npm run doc-freshness</code>. A review-due doc is cleared by editing it or acknowledging it in reviewed.csv ("reviewed on this date, still accurate").</p>
+<p class="sub"><b>Generated at:</b> 2026-08-07T12:38:06.467Z UTC · source: committed docs, linked evidence files, and git history.</p>
+<p class="sub">263 authored docs · <b>56 review-due</b> · 49 fresh · 158 with no linked evidence sources. Snapshot as of 2026-08-07 (commit df1617507); refresh with <code>npm run doc-freshness</code>. A review-due doc is cleared by editing it or acknowledging it in reviewed.csv ("reviewed on this date, still accurate").</p>
 <table>
 <thead><tr><th>Doc</th><th>Area</th><th>Status</th><th>Days behind</th><th>Doc last changed</th><th>Linked sources</th><th>Newer sources (triggers)</th></tr></thead>
 <tbody>
@@ -78,12 +78,14 @@ td.note code{font-size:11px}
 <tr><td class="doc">docs/planning/upgrade-story-plan.md</td><td>planning</td><td class="s w">review-due</td><td class="num">1</td><td>2026-06-10</td><td class="num">1</td><td class="note"><code>data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)</code></td></tr>
 <tr><td class="doc">docs/user/ai-assisted-helm-changes.md</td><td>user</td><td class="s w">review-due</td><td class="num">1</td><td>2026-07-27</td><td class="num">1</td><td class="note"><code>data/ai-change-review-live-proof/summary.md (2026-07-27)</code></td></tr>
 <tr><td class="doc">docs/user/config-catalog-demonstrations.md</td><td>user</td><td class="s w">review-due</td><td class="num">1</td><td>2026-08-05</td><td class="num">43</td><td class="note"><code>data/kubara-platform-matrix/matrix.html (2026-08-06)</code><br><code>data/kubara-release-acceptance/contract.yaml (2026-08-06)</code></td></tr>
+<tr><td class="doc">docs/user/day2-upgrade-story.md</td><td>user</td><td class="s w">review-due</td><td class="num">1</td><td>2026-08-07</td><td class="num">3</td><td class="note"><code>data/flattening-safety/summary.md (2026-08-07)</code></td></tr>
 <tr><td class="doc">docs/user/helm-presets-and-values.md</td><td>user</td><td class="s w">review-due</td><td class="num">1</td><td>2026-08-02</td><td class="num">1</td><td class="note"><code>data/confighub-example-guides/summary.md (2026-08-02)</code></td></tr>
 <tr><td class="doc">docs/user/live-parity.md</td><td>user</td><td class="s w">review-due</td><td class="num">1</td><td>2026-07-29</td><td class="num">5</td><td class="note"><code>data/live-helm-confighub-compare/summary.md (2026-07-29)</code><br><code>data/live-kind-parity/summary.md (2026-07-29)</code><br><code>data/live-matrix-burndown/summary.md (2026-07-29)</code></td></tr>
 <tr><td class="doc">docs/user/offering.md</td><td>user</td><td class="s w">review-due</td><td class="num">1</td><td>2026-06-30</td><td class="num">1</td><td class="note"><code>data/chart-use-guide/summary.md (2026-07-01)</code></td></tr>
 <tr><td class="doc">docs/user/serverless-mode.md</td><td>user</td><td class="s w">review-due</td><td class="num">1</td><td>2026-08-02</td><td class="num">4</td><td class="note"><code>data/cub-adoption-caveats/summary.md (2026-08-02)</code></td></tr>
 <tr><td class="doc">docs/demo/aicr/cpu-starter.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-07</td><td class="num">3</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/aicr/eks-h100-training-kubeflow.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-07</td><td class="num">2</td><td class="note"></td></tr>
+<tr><td class="doc">docs/demo/aicr/kserve-nim-inference.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-07</td><td class="num">1</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/apps/ai-change-review.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-07-27</td><td class="num">2</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/apps/rbac-review.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-07-27</td><td class="num">2</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/hooks-crds/kube-prometheus-stack.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-02</td><td class="num">4</td><td class="note"></td></tr>
@@ -93,7 +95,7 @@ td.note code{font-size:11px}
 <tr><td class="doc">docs/demo/kubara/platform-evidence.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-06</td><td class="num">13</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/kubara/reconciliation-performance.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-06</td><td class="num">2</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/kubara/single-platform.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-06</td><td class="num">6</td><td class="note"></td></tr>
-<tr><td class="doc">docs/demo/sveltos/fleet-chapters.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td></td><td class="num">4</td><td class="note"></td></tr>
+<tr><td class="doc">docs/demo/sveltos/fleet-chapters.md</td><td>demo</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-07</td><td class="num">4</td><td class="note"></td></tr>
 <tr><td class="doc">docs/planning/agreed-execution-plan.md</td><td>planning</td><td class="s y">fresh</td><td class="num"></td><td>2026-07-29</td><td class="num">3</td><td class="note"></td></tr>
 <tr><td class="doc">docs/planning/catalog-kubara-composition-strategy.md</td><td>planning</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-04</td><td class="num">1</td><td class="note"></td></tr>
 <tr><td class="doc">docs/planning/large-machine-roadmap.md</td><td>planning</td><td class="s y">fresh</td><td class="num"></td><td>2026-06-23</td><td class="num">1</td><td class="note"></td></tr>
@@ -112,7 +114,6 @@ td.note code{font-size:11px}
 <tr><td class="doc">docs/user/cub-deployment-path.md</td><td>user</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-02</td><td class="num">2</td><td class="note"></td></tr>
 <tr><td class="doc">docs/user/cub-scout-diff-design.md</td><td>user</td><td class="s y">fresh</td><td class="num"></td><td>2026-06-18</td><td class="num">3</td><td class="note"></td></tr>
 <tr><td class="doc">docs/user/day2-upgrade-rollback.md</td><td>user</td><td class="s y">fresh</td><td class="num"></td><td>2026-07-27</td><td class="num">1</td><td class="note"></td></tr>
-<tr><td class="doc">docs/user/day2-upgrade-story.md</td><td>user</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-07</td><td class="num">3</td><td class="note"></td></tr>
 <tr><td class="doc">docs/user/gitops-adopter-guide.md</td><td>user</td><td class="s y">fresh</td><td class="num"></td><td>2026-08-02</td><td class="num">3</td><td class="note"></td></tr>
 <tr><td class="doc">docs/user/helm-render-intents.md</td><td>user</td><td class="s y">fresh</td><td class="num"></td><td>2026-07-30</td><td class="num">25</td><td class="note"></td></tr>
 <tr><td class="doc">docs/user/helm-to-cub-migration.md</td><td>user</td><td class="s y">fresh</td><td class="num"></td><td>2026-07-01</td><td class="num">1</td><td class="note"></td></tr>
@@ -134,7 +135,6 @@ td.note code{font-size:11px}
 <tr><td class="doc">docs/corpus/known-adversarial-charts.md</td><td>corpus</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-05-31</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/corpus/kubara-customized-overlays.md</td><td>corpus</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-07-26</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/aicr/index.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-08-07</td><td class="num">0</td><td class="note"></td></tr>
-<tr><td class="doc">docs/demo/aicr/kserve-nim-inference.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-08-07</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/argo-cd/confighub-proof-transcript.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-06-14</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/argo-cd/confighub-proof.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-08-02</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/cert-manager/confighub-proof-transcript.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-06-14</td><td class="num">0</td><td class="note"></td></tr>
@@ -186,7 +186,7 @@ td.note code{font-size:11px}
 <tr><td class="doc">docs/demo/redis/ux-acceptance.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-05-29</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/secrets-store-csi-driver/confighub-proof-transcript.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-06-14</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/secrets-store-csi-driver/confighub-proof.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-08-02</td><td class="num">0</td><td class="note"></td></tr>
-<tr><td class="doc">docs/demo/sveltos/kyverno-fleet.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-08-02</td><td class="num">0</td><td class="note"></td></tr>
+<tr><td class="doc">docs/demo/sveltos/kyverno-fleet.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-08-07</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/tempo/confighub-proof-transcript.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-06-14</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/tempo/confighub-proof.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-08-02</td><td class="num">0</td><td class="note"></td></tr>
 <tr><td class="doc">docs/demo/vault/confighub-proof-transcript.md</td><td>demo</td><td class="s t">no linked sources</td><td class="num"></td><td>2026-06-14</td><td class="num">0</td><td class="note"></td></tr>

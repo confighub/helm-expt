@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-07 (commit `408a19eae`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-07 (commit `df1617507`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -25,8 +25,8 @@ cosmetic edit.
 | --- | ---: |
 | Authored docs tracked | 263 |
 | Fresh (no linked source newer than the doc) | 49 |
-| **Review-due** | 55 |
-| No linked evidence sources (cannot auto-trigger) | 159 |
+| **Review-due** | 56 |
+| No linked evidence sources (cannot auto-trigger) | 158 |
 
 ## Review queue
 
@@ -86,6 +86,7 @@ most recently changed triggers.
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
+| [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 1 | `data/flattening-safety/summary.md (2026-08-07)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-08-02 | 1 | `data/confighub-example-guides/summary.md (2026-08-02)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-07-29 | 1 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-matrix-burndown/summary.md (2026-07-29)` |
 | [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-30 | 1 | `data/chart-use-guide/summary.md (2026-07-01)` |
@@ -100,7 +101,6 @@ into this freshness model.
 - [docs/corpus/known-adversarial-charts.md](../../docs/corpus/known-adversarial-charts.md)
 - [docs/corpus/kubara-customized-overlays.md](../../docs/corpus/kubara-customized-overlays.md)
 - [docs/demo/aicr/index.md](../../docs/demo/aicr/index.md)
-- [docs/demo/aicr/kserve-nim-inference.md](../../docs/demo/aicr/kserve-nim-inference.md)
 - [docs/demo/argo-cd/confighub-proof-transcript.md](../../docs/demo/argo-cd/confighub-proof-transcript.md)
 - [docs/demo/argo-cd/confighub-proof.md](../../docs/demo/argo-cd/confighub-proof.md)
 - [docs/demo/cert-manager/confighub-proof-transcript.md](../../docs/demo/cert-manager/confighub-proof-transcript.md)
