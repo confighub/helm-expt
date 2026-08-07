@@ -72,3 +72,35 @@ record the first result. The
 and
 [OCI delivery receipt](https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml)
 record the automated handoff.
+
+## How to run the live proof
+
+The two-wave delivery proof is fully self-contained: it creates its own kind
+management cluster, two workload clusters, and a local OCI registry, records
+the receipt, and cleans up. The fleet build takes five to seven minutes.
+
+```bash
+# 1. Two authenticated contexts, deliberately separate: the maintained
+#    policy organization that owns the reviewed profile, and a scratch
+#    organization for the throwaway cluster Spaces.
+cub --context my-policy auth login     # choose the helm-catalog organization
+cub --context my-scratch auth login    # choose a scratch organization
+
+# 2. Explicit consent plus both contexts, then one command.
+HELM_EXPT_ALLOW_LIVE_SVELTOS_OCI_PROOF=1 \
+HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
+CUB_CONTEXT=my-policy \
+SVELTOS_CLUSTER_CONTEXT=my-scratch \
+npm run sveltos-oci-delivery:run
+
+# 3. Verify the recorded receipt offline, no live access needed.
+npm run sveltos-oci-delivery:verify
+```
+
+Known limit: on current hub.confighub.com the approval gate does not appear in
+the Unit's `ApplyGates` from the Space trigger-filter wiring, so the run stops
+at the approval-boundary observation. That behavior is tracked in
+confighubai/confighub#4975; the run is expected to pass once it is resolved.
+When cleaning up scratch Spaces by hand, delete each management Space before
+its `-argo-apps` sibling, or the Target is stranded by a dangling reference
+(confighubai/confighub#4980).
