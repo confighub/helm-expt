@@ -75,13 +75,33 @@ to the starter's committed platform digest, and the
 plain language. Both scratch Spaces and the temporary registry were deleted
 afterward, and the receipt refuses to verify unless that cleanup passed.
 
+## Delivery to a cluster, proven at the config plane
+
+```bash
+npm run aicr-starter-delivery:verify
+```
+
+The delivery proof puts the starter on a real cluster and stops exactly at the
+config plane. The seven Applications traveled as one OCI artifact, were
+pulled back byte-faithful, and were applied to a throwaway kind cluster
+running a pinned Argo CD. All seven were accepted with their specs and
+sync-waves intact, and the boundary was proven rather than asserted: the
+retained Applications carry upstream automated sync policies, so the
+application controller was held at zero replicas for the entire run, zero
+sync operations appeared, and every component destination namespace stayed
+absent. Delivery cannot begin until a human scales the controller up. The
+[receipt](../../../runs/aicr-cpu-starter-delivery/receipt.yaml) and
+[summary](../../../data/aicr-cpu-starter-delivery/summary.md) record the run;
+the cluster, registry, and working files were removed afterward.
+
 ## What is proven and what is not
 
 Proven: the selection is rule-governed, every copy is byte-identical to
 retained configuration, the whole entry is pinned by one digest with an
-end-to-end derivation chain, and ConfigHub imported the starter and carried
-the residue override as a reviewed development-variant change with a dry-run
-preview. Not proven, and stated rather than implied: no Kubernetes cluster
-ran anything. The variant proof started no cluster and claims no delivery and
-no workload behavior. The entry needs no GPU by construction, and the next
-increment is a config-plane delivery proof on kind.
+end-to-end derivation chain, ConfigHub imported the starter and carried the
+residue override as a reviewed development-variant change with a dry-run
+preview, and a real cluster's Argo CD accepted the seven Applications with
+zero sync operations started. Not proven, and stated rather than implied: no
+application synced, no workload ran, and no component health is claimed
+anywhere. The entry needs no GPU by construction, and the natural next
+increment is syncing one reviewed component on kind with its receipt.
