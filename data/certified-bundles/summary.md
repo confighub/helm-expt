@@ -4,8 +4,8 @@ One receipt shape covers a bundle from every producer. These four reference rece
 
 | producer | bundle | contents | lane | status | receipt |
 | --- | --- | --- | --- | --- | --- |
-| config-workshop-catalog | catalog-traefik-traefik-41.0.2-default | rendered-config | flatten-with-routes | provisional | data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml |
-| kubara | kubara-current-platform-metrics-server | component-definition | safe-to-flatten | provisional | data/certified-bundles/receipts/kubara/current-platform-metrics-server/receipt.yaml |
+| config-workshop-catalog | catalog-traefik-traefik-41.0.2-default | rendered-config | flatten-with-routes | certified | data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml |
+| kubara | kubara-current-platform-metrics-server | component-definition | safe-to-flatten | certified | data/certified-bundles/receipts/kubara/current-platform-metrics-server/receipt.yaml |
 | eks-inference | eks-inference-gpu-runtime | rendered-config | safe-to-flatten | provisional | data/certified-bundles/receipts/eks-inference/gpu-runtime/receipt.yaml |
 | sveltos-example | sveltos-kyverno-fleet-clusterprofile | literal-config | born-flattened | certified | data/certified-bundles/receipts/sveltos/kyverno-fleet-clusterprofile/receipt.yaml |
 

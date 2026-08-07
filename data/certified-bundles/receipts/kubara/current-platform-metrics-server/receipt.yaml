@@ -119,12 +119,9 @@ spec:
       disposition: "none required"
   verdict:
     lane: "safe-to-flatten"
-    status: "provisional"
-    decidedBy: "static scan over the catalog's render of the wrapped chart version (wrapper version 0.1.0); no hooks, keep-policy, webhooks, CRDs, or Secrets there"
-    openQuestions:
-      - "the wrapper's own values were not rendered; certification renders the wrapper composition"
-      - "lookup, capabilities, and subchart conditions need the template-level audit"
-    notes: "This bundle carries the component definition, which renders late today. The lane states what the flattening-safety audit currently supports for the wrapped chart, and the audit certifies it."
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict.yaml"
+    notes: "This bundle carries the component definition, which renders late today. The lane is the wrapped chart's, scoped to the audited base named in its verdict; the wrapper's own values were not rendered."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:

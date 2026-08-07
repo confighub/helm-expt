@@ -1,0 +1,100 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-87.19.2"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "kube-prometheus-stack"
+    version: "87.19.2"
+  package:
+    sha256: "b846cc368aaafd122148c8eec9b361d3893c6068d6301ec20d41c8023dcd8c88"
+    observedAt: "2026-08-07T08:05:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 286
+  subcharts:
+    count: 5
+    conditions:
+      -
+        dependency: "crds"
+        condition: "crds.enabled"
+      -
+        dependency: "kube-state-metrics"
+        condition: "kubeStateMetrics.enabled"
+      -
+        dependency: "prometheus-node-exporter"
+        condition: "nodeExporter.enabled"
+      -
+        dependency: "grafana"
+        condition: "grafana.enabled"
+      -
+        dependency: "prometheus-windows-exporter"
+        condition: "windowsMonitoring.enabled"
+  crds:
+    files: 18
+    documents: 18
+  hookValues:
+    - "post-install,post-upgrade"
+    - "pre-install,pre-upgrade"
+    - "pre-install,pre-upgrade,post-install,post-upgrade"
+    - "pre-install,pre-upgrade,pre-rollback"
+  findings:
+    lookup:
+      count: 4
+      files:
+        - "charts/grafana/templates/_helpers.tpl:119"
+        - "charts/grafana/templates/_helpers.tpl:132"
+        - "charts/grafana/templates/pvc.yaml:30"
+        - "charts/grafana/templates/pvc.yaml:31"
+    capabilities:
+      count: 86
+      files:
+        - "charts/crds/templates/upgrade/job.yaml:79"
+        - "charts/grafana/templates/_helpers.tpl:144"
+        - "charts/grafana/templates/podsecuritypolicy.yaml:1"
+        - "charts/grafana/templates/vpa.yaml:1"
+        - "charts/kube-state-metrics/templates/verticalpodautoscaler.yaml:1"
+        - "charts/prometheus-node-exporter/templates/verticalpodautoscaler.yaml:1"
+        - "templates/_helpers.tpl:261"
+        - "templates/alertmanager/service.yaml:1"
+        - "templates/grafana/dashboards-1.14/alertmanager-overview.yaml:6"
+        - "templates/grafana/dashboards-1.14/apiserver.yaml:6"
+        - "templates/grafana/dashboards-1.14/cluster-total.yaml:6"
+        - "templates/grafana/dashboards-1.14/controller-manager.yaml:6"
+    helm-hooks:
+      count: 16
+      files:
+        - "charts/crds/templates/upgrade/clusterrole.yaml:8"
+        - "charts/crds/templates/upgrade/clusterrolebinding.yaml:8"
+        - "charts/crds/templates/upgrade/crds.yaml:8"
+        - "charts/crds/templates/upgrade/job.yaml:8"
+        - "charts/crds/templates/upgrade/serviceaccount.yaml:9"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-createSecret.yaml:9"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/ciliumnetworkpolicy-patchWebhook.yaml:9"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/clusterrole.yaml:7"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/clusterrolebinding.yaml:7"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/job-createSecret.yaml:8"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/job-patchWebhook.yaml:16"
+        - "templates/prometheus-operator/admission-webhooks/job-patch/networkpolicy-createSecret.yaml:9"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 2
+      files:
+        - "charts/grafana/templates/_helpers.tpl:123"
+        - "charts/grafana/templates/_helpers.tpl:136"
+    webhook-config:
+      count: 2
+      files:
+        - "templates/prometheus-operator/admission-webhooks/mutatingWebhookConfiguration.yaml:3"
+        - "templates/prometheus-operator/admission-webhooks/validatingWebhookConfiguration.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

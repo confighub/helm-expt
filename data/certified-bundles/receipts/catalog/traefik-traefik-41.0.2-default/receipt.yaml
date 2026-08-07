@@ -103,13 +103,9 @@ spec:
       disposition: "none required"
   verdict:
     lane: "flatten-with-routes"
-    status: "provisional"
-    decidedBy: "static scan over the committed default-variant render; hooks, keep-policy, webhooks, and generated secrets are absent there, and 25 CRDs need an ordering declaration"
-    openQuestions:
-      - "lookup and capabilities use needs the template-level audit"
-      - "webhook and generated-secret templates are values-gated in this chart, so other variants can change the disposition set"
-      - "resource-policy keep is not yet scanned as its own catalog axis"
-    notes: "The render-late installer package at packages/traefik/traefik/41.0.2 stays the certified route until the audit decides the lane."
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml"
+    notes: "The lane holds for the default base; the verdict's variantScope records how hub webhooks and persistence move it."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:

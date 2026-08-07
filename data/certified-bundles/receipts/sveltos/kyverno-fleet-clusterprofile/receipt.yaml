@@ -86,7 +86,7 @@ spec:
     lane: "born-flattened"
     status: "certified"
     decidedBy: "the source is literal YAML; nothing renders, so nothing is lost at render time"
-    notes: "The profile tells Sveltos to install kyverno/kyverno 3.8.1 with Helm on matching clusters. That chart's own lane is decided by its flattening-safety verdict, not by this bundle."
+    notes: "The profile tells Sveltos to install kyverno/kyverno 3.8.1 with Helm on matching clusters. That chart's own lane is decided by its flattening-safety verdict, not by this bundle. That verdict is do-not-flatten (recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml), so the render-late delivery this profile ships is the chart's certified route."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:

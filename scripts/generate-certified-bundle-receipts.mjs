@@ -237,6 +237,34 @@ function grab(text, pattern, label) {
   return match[1];
 }
 
+// When the flattening-safety audit has decided a chart's lane, the receipt
+// carries the certified verdict; until then the receipt stays provisional.
+function readVerdict(recipeRel) {
+  const rel = `${recipeRel}/publication/flattening-safety-verdict.yaml`;
+  const path = repoPath(rel);
+  if (!existsSync(path)) return null;
+  const text = readFileSync(path, "utf8");
+  return { rel, lane: grab(text, /lane:\s*"([a-z-]+)"/, `${rel} lane`) };
+}
+
+function buildLane(verdict, { provisionalLane, provisionalDecidedBy, openQuestions, notes }) {
+  if (verdict) {
+    return {
+      lane: verdict.lane,
+      status: "certified",
+      decidedBy: `the flattening-safety audit at ${verdict.rel}`,
+      notes,
+    };
+  }
+  return {
+    lane: provisionalLane,
+    status: "provisional",
+    decidedBy: provisionalDecidedBy,
+    openQuestions,
+    notes,
+  };
+}
+
 function buildTraefikReceipt() {
   const recipe = SOURCES.traefikRecipe;
   const sourceLock = readFileSync(repoPath(`${recipe}/source-lock.yaml`), "utf8");
@@ -317,19 +345,17 @@ function buildTraefikReceipt() {
         externalSourceAnnotation: "confighub.com/external-source",
       },
       dispositions,
-      verdict: {
-        lane: "flatten-with-routes",
-        status: "provisional",
-        decidedBy:
+      verdict: buildLane(readVerdict(recipe), {
+        provisionalLane: "flatten-with-routes",
+        provisionalDecidedBy:
           "static scan over the committed default-variant render; hooks, keep-policy, webhooks, and generated secrets are absent there, and 25 CRDs need an ordering declaration",
         openQuestions: [
           "lookup and capabilities use needs the template-level audit",
           "webhook and generated-secret templates are values-gated in this chart, so other variants can change the disposition set",
-          "resource-policy keep is not yet scanned as its own catalog axis",
         ],
         notes:
-          "The render-late installer package at packages/traefik/traefik/41.0.2 stays the certified route until the audit decides the lane.",
-      },
+          "The lane holds for the default base; the verdict's variantScope records how hub webhooks and persistence move it.",
+      }),
       provenance: {
         emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
         generatedFrom: [
@@ -404,18 +430,16 @@ function buildKubaraReceipt() {
         externalSourceAnnotation: "confighub.com/external-source",
       },
       dispositions,
-      verdict: {
-        lane: "safe-to-flatten",
-        status: "provisional",
-        decidedBy:
-          `static scan over the catalog's render of the wrapped chart version (wrapper version ${wrapperVersion.trim()}); no hooks, keep-policy, webhooks, CRDs, or Secrets there`,
+      verdict: buildLane(readVerdict("recipes/metrics-server/metrics-server/3.13.1"), {
+        provisionalLane: "safe-to-flatten",
+        provisionalDecidedBy: `static scan over the catalog's render of the wrapped chart version (wrapper version ${wrapperVersion.trim()}); no hooks, keep-policy, webhooks, CRDs, or Secrets there`,
         openQuestions: [
           "the wrapper's own values were not rendered; certification renders the wrapper composition",
           "lookup, capabilities, and subchart conditions need the template-level audit",
         ],
         notes:
-          "This bundle carries the component definition, which renders late today. The lane states what the flattening-safety audit currently supports for the wrapped chart, and the audit certifies it.",
-      },
+          "This bundle carries the component definition, which renders late today. The lane is the wrapped chart's, scoped to the audited base named in its verdict; the wrapper's own values were not rendered.",
+      }),
       provenance: {
         emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
         generatedFrom: [
@@ -536,6 +560,14 @@ function buildEksInferenceReceipt() {
   };
 }
 
+function sveltosNotes() {
+  const base =
+    "The profile tells Sveltos to install kyverno/kyverno 3.8.1 with Helm on matching clusters. That chart's own lane is decided by its flattening-safety verdict, not by this bundle.";
+  const verdict = readVerdict("recipes/kyverno/kyverno/3.8.1");
+  if (!verdict) return base;
+  return `${base} That verdict is ${verdict.lane} (${verdict.rel}), so the render-late delivery this profile ships is the chart's certified route.`;
+}
+
 function buildSveltosReceipt() {
   const profileRel = SOURCES.sveltosProfile;
   const profile = fileEntry("clusterprofile-pilot.yaml", repoPath(profileRel));
@@ -596,8 +628,7 @@ function buildSveltosReceipt() {
         lane: "born-flattened",
         status: "certified",
         decidedBy: "the source is literal YAML; nothing renders, so nothing is lost at render time",
-        notes:
-          "The profile tells Sveltos to install kyverno/kyverno 3.8.1 with Helm on matching clusters. That chart's own lane is decided by its flattening-safety verdict, not by this bundle.",
+        notes: sveltosNotes(),
       },
       provenance: {
         emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
