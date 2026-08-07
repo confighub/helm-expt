@@ -337,6 +337,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `secret-lifecycle` | [secret-lifecycle/summary.md](./secret-lifecycle/summary.md) | front-door Secret handling survey for rendered Secrets, target facts, and lifecycle state |
 | `serious-chart-reviews` | - | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
+| `sveltos-bulk-ops` | - | supporting generated evidence |
 | `sveltos-cve-patch` | - | supporting generated evidence |
 | `sveltos-env-rollout` | - | supporting generated evidence |
 | `target-prerequisite-actions` | [target-prerequisite-actions/summary.md](./target-prerequisite-actions/summary.md) | action packets: per non-green row, what to stage before rerunning (action_kind), the required inputs, the evidence to look for after staging, and the rerun command; automatic=false (preflight plan, not automation) |
@@ -368,7 +369,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 180 CSV files. Each row records the path, audience,
+It includes 181 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
