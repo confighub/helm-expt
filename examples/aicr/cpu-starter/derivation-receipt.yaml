@@ -1,0 +1,88 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "DerivationReceipt"
+metadata:
+  name: "aicr-cpu-starter-v0-14-0"
+spec:
+  derivedFrom:
+    entry: "examples/aicr/eks-h100-training-kubeflow"
+    platformDigest: "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e"
+    upstream:
+      binarySha256: "84c5f5d6052bb3daa0839702e6e3abc0a6fe9669293cd3ab66b41892b3c59a9c"
+      commit: "0479e45e3ee4ea04d3fff55fd9160843d161c03c"
+      name: "NVIDIA AICR"
+      releaseAsset:
+        name: "aicr_0.14.0_darwin_arm64.tar.gz"
+        sha256: "0d48b8835660891a6ca7c0df3290d6241d2fd76daa01c6cdf65a808401e6cf8d"
+      repository: "https://github.com/NVIDIA/aicr"
+      version: "v0.14.0"
+  selection:
+    rules:
+      -
+        id: "references-gpu-resources"
+        kind: "mechanical"
+        description: "rendered bytes reference nvidia.com/gpu"
+      -
+        id: "bound-to-the-training-bundle"
+        kind: "mechanical"
+        description: "the Application source is an OCI path into the training bundle instead of a chart"
+      -
+        id: "cloud-or-gpu-fleet-purpose"
+        kind: "curated"
+        description: "a named purpose boundary recorded next to each excluded component"
+    excluded:
+      -
+        component: "aicr-stack"
+        rule: "bound-to-the-training-bundle"
+        reason: "the Application source is an OCI path into the training bundle instead of a chart"
+      -
+        component: "aws-ebs-csi-driver"
+        rule: "cloud-or-gpu-fleet-purpose"
+        reason: "AWS-specific storage driver; it needs AWS EBS and cloud credentials a CPU starter cannot assume"
+      -
+        component: "aws-efa"
+        rule: "references-gpu-resources"
+        reason: "rendered bytes reference nvidia.com/gpu"
+      -
+        component: "gpu-operator"
+        rule: "references-gpu-resources"
+        reason: "rendered bytes reference nvidia.com/gpu"
+      -
+        component: "kubeflow-trainer"
+        rule: "references-gpu-resources"
+        reason: "rendered bytes reference nvidia.com/gpu"
+      -
+        component: "kubeflow-trainer-post"
+        rule: "bound-to-the-training-bundle"
+        reason: "the Application source is an OCI path into the training bundle instead of a chart"
+      -
+        component: "nodewright-customizations"
+        rule: "bound-to-the-training-bundle"
+        reason: "the Application source is an OCI path into the training bundle instead of a chart"
+      -
+        component: "nodewright-operator"
+        rule: "cloud-or-gpu-fleet-purpose"
+        reason: "GPU node lifecycle operations; the same purpose boundary as nvsentinel"
+      -
+        component: "nvidia-dra-driver-gpu"
+        rule: "references-gpu-resources"
+        reason: "rendered bytes reference nvidia.com/gpu"
+      -
+        component: "nvsentinel"
+        rule: "cloud-or-gpu-fleet-purpose"
+        reason: "GPU fleet health monitoring; its purpose requires accelerated nodes even though its rendered values do not name them"
+    selectedCount: 7
+  cloudResidues:
+    -
+      component: "kube-prometheus-stack"
+      marker: "gp3"
+      note: "retained faithfully from the source shape; override it with variant mechanics before a live run on a cluster without this resource"
+  boundary:
+    configPlaneOnly: true
+    gpuRequired: false
+    gpuWorkloadsProven: false
+    liveRunProven: false
+    secretValuesIncluded: false
+    statement: "This starter is a derivation of retained configuration. It needs no GPU, and no live run is claimed anywhere in it; running it is a later increment."
+status:
+  result: "compiled-offline"
+  liveRunProven: false

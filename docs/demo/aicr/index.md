@@ -23,15 +23,17 @@ taxonomy follows that split.
 | --- | --- | --- |
 | Training | Exists: [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | NVIDIA AICR v0.14.0, retained exactly |
 | Inference / serving | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0 |
-| CPU starter | Planned | To be authored with named provenance; runnable by anyone without a GPU |
+| CPU starter | Exists as derived configuration: [the platform spine without accelerators](./cpu-starter.md) | Derived from the training entry by recorded selection rules; needs no GPU, cloud account, or NGC key |
 
-Two entries exist today: the training entry with its proven mechanics, and the
-inference entry as retained configuration with its digest spine and receipts.
-The catalog refuses manufactured variety: new entries come from upstream
-versions or from deliberately authored shapes whose provenance is named, and a
-planned entry stays labeled planned until its receipts exist. The inference
-entry's sixteen model-by-GPU shapes are upstream-authored variety, retained
-exactly.
+All three entries exist today: the training entry with its proven mechanics,
+the inference entry as retained configuration, and the CPU starter as a
+rule-governed derivation of the training entry. The catalog refuses
+manufactured variety: new entries come from upstream versions, from
+deliberately authored shapes whose provenance is named, or from recorded
+derivations of an existing entry. The inference entry's sixteen model-by-GPU
+shapes are upstream-authored variety, retained exactly, and the starter's
+seven components are byte-identical copies selected by rules the derivation
+receipt records.
 
 The inference class carries a licensing boundary worth stating early. NIM
 deploys through public Helm charts and the NIM Operator, so the deployment
@@ -82,6 +84,16 @@ anywhere in the tree stops the compile.
 ```bash
 npm run aicr-kserve-nim:verify
 npm run aicr-kserve-nim:self-test
+```
+
+The CPU starter's index adds a derivation chain: each member payload records
+the training-entry payload hash it copies and the training entry's platform
+digest, so the path from the AICR release pins through the training index to
+the starter is checkable end to end.
+
+```bash
+npm run aicr-cpu-starter:verify
+npm run aicr-cpu-starter:self-test
 ```
 
 The training entry also carries an OCI round-trip receipt and a
