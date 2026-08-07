@@ -12,10 +12,12 @@ import { basename, join, relative } from "node:path";
 import { check, cubEnv, listFiles, readYaml, repoRoot, sha256File } from "./lib/proof-common.mjs";
 import { installerOciRefForPackagePath } from "./lib/installer-oci.mjs";
 import {
+  findKubaraReleaseScopeDrift,
   KUBARA_CATALOG_ADDITIONS,
   KUBARA_CATALOG_BASELINE,
   KUBARA_OCI_PACKAGES,
   KUBARA_PROMOTION_RECEIPTS,
+  readKubaraReleaseScope,
 } from "./lib/kubara-catalog-release.mjs";
 import {
   KUBARA_CATALOG_1_1_ADDITIONS,
@@ -157,6 +159,8 @@ function verifyStaticScope() {
   check(stableJson(packages) === stableJson(KUBARA_CATALOG_ADDITIONS.map((path) => `packages/${path}`)), "Kubara OCI package scope differs from the additive root contract");
   const refs = packages.map(installerOciRefForPackagePath);
   check(new Set(refs).size === refs.length, "Kubara OCI package scope maps two packages to the same ref");
+  const scope = readKubaraReleaseScope(repoRoot);
+  check(scope.ok, scope.reason ?? "release scope manifest could not be read");
   for (const rootName of ["recipes", "packages"]) {
     const marker = rootName === "recipes" ? "recipe.yaml" : "installer.yaml";
     const roots = listFiles(join(repoRoot, rootName))
@@ -165,22 +169,24 @@ function verifyStaticScope() {
       .sort();
     const additions = new Set(KUBARA_CATALOG_ADDITIONS.map((path) => `${rootName}/${path}`));
     const fullCoverageAdditions = new Set(KUBARA_CATALOG_1_1_ADDITIONS.map((item) => `${rootName}/${item.canonicalIdentity}/${item.version}`));
-    const baselineRoots = roots.filter((path) => !additions.has(path) && !fullCoverageAdditions.has(path));
+    // Only roots the release recorded are this contract's business. Version
+    // roots added by later workstreams are outside it, and counting them here
+    // is what used to break publication whenever the shared catalog grew.
+    const inScopeRoots = roots.filter((path) => scope.roots.has(path));
+    const baselineRoots = inScopeRoots.filter((path) => !additions.has(path) && !fullCoverageAdditions.has(path));
     check(baselineRoots.length === KUBARA_CATALOG_BASELINE.versionCount, `${rootName}: immutable baseline root count changed`);
-    const expectedDigest = rootName === "recipes" ? KUBARA_CATALOG_BASELINE.recipesTreeSHA256 : KUBARA_CATALOG_BASELINE.packagesTreeSHA256;
-    check(treeSetDigest(baselineRoots) === expectedDigest, `${rootName}: an immutable baseline root was removed or changed`);
-    const retained120 = roots.filter((path) => !fullCoverageAdditions.has(path));
-    const expected120 = rootName === "recipes"
-      ? KUBARA_CATALOG_1_1_BASELINE.recipesTreeSHA256
-      : KUBARA_CATALOG_1_1_BASELINE.packagesTreeSHA256;
+    const baselineDrift = findKubaraReleaseScopeDrift(repoRoot, scope, baselineRoots);
+    check(!baselineDrift, `${rootName}: an immutable baseline root was removed or changed (${baselineDrift})`);
+    const retained120 = inScopeRoots.filter((path) => !fullCoverageAdditions.has(path));
     check(
-      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount
-        && treeSetDigest(retained120) === expected120,
-      `${rootName}: the immutable 120-root intermediate Catalog changed`,
+      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount,
+      `${rootName}: the immutable ${KUBARA_CATALOG_1_1_BASELINE.versionCount}-root intermediate Catalog lost a version root`,
     );
+    const intermediateDrift = findKubaraReleaseScopeDrift(repoRoot, scope, retained120);
+    check(!intermediateDrift, `${rootName}: the immutable ${KUBARA_CATALOG_1_1_BASELINE.versionCount}-root intermediate Catalog changed (${intermediateDrift})`);
     const declared = new Set([...baselineRoots, ...additions, ...fullCoverageAdditions]);
-    check(roots.every((path) => declared.has(path)), `${rootName}: undeclared retained version root exists`);
-    check(roots.length <= KUBARA_CATALOG_1_1_FINAL.versionCount, `${rootName}: release scope exceeds ${KUBARA_CATALOG_1_1_FINAL.versionCount} retained versions`);
+    check(inScopeRoots.every((path) => declared.has(path)), `${rootName}: undeclared retained version root exists`);
+    check(inScopeRoots.length <= KUBARA_CATALOG_1_1_FINAL.versionCount, `${rootName}: release scope exceeds ${KUBARA_CATALOG_1_1_FINAL.versionCount} retained versions`);
   }
 }
 
