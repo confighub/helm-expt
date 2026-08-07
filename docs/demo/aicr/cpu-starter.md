@@ -55,12 +55,33 @@ provide. Overriding it is exactly the variant mechanics this catalog already
 proves elsewhere, and doing that override with a receipt is part of the next
 increment.
 
+## The residue override, proven live against ConfigHub
+
+```bash
+npm run aicr-starter-variant:verify
+```
+
+The starter's first live proof follows the training entry's path and closes
+the loop on the recorded residue. A scratch run imported the seven derived
+Applications as a ConfigHub base variant from a temporary OCI reference,
+confirmed the base Unit matched the committed starter bytes exactly, created
+a development variant, and applied the gp3 override as a reviewed change:
+ConfigHub's dry run named the one affected Application and changed nothing,
+then the real change moved the Prometheus storage class from `gp3` to the
+cluster-default `standard` and touched exactly one Application. The
+[receipt](../../../runs/aicr-cpu-starter-variant/receipt.yaml) binds the run
+to the starter's committed platform digest, and the
+[summary](../../../data/aicr-cpu-starter-variant/summary.md) retells it in
+plain language. Both scratch Spaces and the temporary registry were deleted
+afterward, and the receipt refuses to verify unless that cleanup passed.
+
 ## What is proven and what is not
 
-Proven, offline and deterministically: the selection is rule-governed, every
-copy is byte-identical to retained configuration, and the whole entry is
-pinned by one digest with an end-to-end derivation chain. Not proven, and
-stated rather than implied: no live run of the starter is claimed anywhere.
-The entry needs no GPU by construction, and the next increments follow the
-training entry's path: a ConfigHub base variant with the storage-class
-override as a receipted variant, then a config-plane delivery proof on kind.
+Proven: the selection is rule-governed, every copy is byte-identical to
+retained configuration, the whole entry is pinned by one digest with an
+end-to-end derivation chain, and ConfigHub imported the starter and carried
+the residue override as a reviewed development-variant change with a dry-run
+preview. Not proven, and stated rather than implied: no Kubernetes cluster
+ran anything. The variant proof started no cluster and claims no delivery and
+no workload behavior. The entry needs no GPU by construction, and the next
+increment is a config-plane delivery proof on kind.
