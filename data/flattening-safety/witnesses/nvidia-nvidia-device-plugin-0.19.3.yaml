@@ -1,0 +1,61 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "nvidia-device-plugin"
+    version: "0.19.3"
+  package:
+    sha256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
+    observedAt: "2026-08-07T09:20:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 30
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "node-feature-discovery"
+        condition: "nfd.enabled,gfd.enabled"
+  crds:
+    files: 1
+    documents: 4
+  hookValues:
+    - "post-delete"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 4
+      files:
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:9"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:19"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:40"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:59"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

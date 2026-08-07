@@ -1,0 +1,74 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "eks-inference-r001"
+spec:
+  objectCount: 20
+  renderedObjectSetSHA256: "b9e5973cce0ef3428ff63302f72e284b3be9716db7730a2965d24e90bd35f101"
+  objects:
+    -
+      kind: "ClusterRole"
+      name: "ack-eks-eks-chart"
+    -
+      kind: "ClusterRole"
+      name: "ack-eks-eks-chart-namespaces-cache"
+    -
+      kind: "ClusterRoleBinding"
+      name: "ack-eks-eks-chart-namespaces-cache"
+    -
+      kind: "ClusterRoleBinding"
+      name: "ack-eks-eks-chart-rolebinding"
+    -
+      kind: "CustomResourceDefinition"
+      name: "accessentries.eks.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "addons.eks.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "capabilities.eks.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "clusters.eks.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "fargateprofiles.eks.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "fieldexports.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "iamroleselectors.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "identityproviderconfigs.eks.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "nodegroups.eks.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "podidentityassociations.eks.services.k8s.aws"
+    -
+      kind: "Deployment"
+      name: "ack-eks-eks-chart"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-eks-eks-chart-configmaps-cache"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-eks-eks-chart-reader"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-eks-eks-chart-writer"
+      namespace: "ack-system"
+    -
+      kind: "RoleBinding"
+      name: "ack-eks-eks-chart-configmaps-cache"
+      namespace: "ack-system"
+    -
+      kind: "ServiceAccount"
+      name: "ack-eks-controller"
+      namespace: "ack-system"

@@ -1,0 +1,107 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "jetstack-cert-manager-v1.21.0"
+spec:
+  chart:
+    repository: "jetstack"
+    name: "cert-manager"
+    version: "v1.21.0"
+    packageSHA256: "9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97"
+  witnessRef: "data/flattening-safety/witnesses/jetstack-cert-manager-v1.21.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "3 occurrence(s) in the packaged chart"
+      disposition: "post-install startupapicheck routes to a lifecycle route or ships disabled by values"
+      evidence:
+        - "values.yaml:1576"
+        - "values.yaml:1692"
+        - "values.yaml:1712"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "7 occurrence(s) in the packaged chart"
+      disposition: "prune protection must ship beside the bundle; the keep annotations ride the templated CRDs"
+      evidence:
+        - "templates/crd-acme.cert-manager.io_challenges.yaml:8"
+        - "templates/crd-acme.cert-manager.io_orders.yaml:8"
+        - "templates/crd-cert-manager.io_certificaterequests.yaml:8"
+        - "templates/crd-cert-manager.io_certificates.yaml:8"
+        - "templates/crd-cert-manager.io_clusterissuers.yaml:8"
+        - "templates/crd-cert-manager.io_issuers.yaml:8"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "the cainjector controller maintains the CA at runtime and ships inside the bundle; no external route needed"
+      evidence:
+        - "templates/webhook-mutating-webhook.yaml:2"
+        - "templates/webhook-validating-webhook.yaml:2"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "the CRDs are templates, not a crds directory, so they flatten into the bundle"
+      disposition: "ordering declaration ships with the bundle"
+      evidence:
+        - "0 crds-directory file(s), 6 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "startupapicheck.enabled: false"
+      effect: "removes the only hooks; the route list shrinks to keep and ordering"
+    -
+      values: "crds.keep: false"
+      effect: "drops the keep annotations and the prune-protection route"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "The hook is a post-install check, the webhook CA is runtime-owned by cainjector, and the keep promise needs prune protection; each has a nameable companion."
+    routes:
+      - "startupapicheck lifecycle route, or values that disable it"
+      - "prune protection for the six keep-annotated CRDs"
+      - "CRD ordering declaration"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/jetstack-cert-manager-v1.21.0.yaml"
+      - "recipes/jetstack/cert-manager/v1.21.0/source-lock.yaml"

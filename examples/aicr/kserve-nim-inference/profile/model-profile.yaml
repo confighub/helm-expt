@@ -1,0 +1,37 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: NIMModelProfileRecord
+metadata:
+  name: llama-3-1-8b-instruct-1xgpu
+spec:
+  description: >-
+    The first described model profile of the inference entry: the smallest
+    current-generation shape in the retained upstream matrix. This record is
+    configuration data about the shape; it grants nothing and fetches nothing.
+  modelShape: llama-3-1-8b-instruct-1xgpu
+  modelShapeFile: upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml
+  servingRuntime: nvidia-nim-llama-3.1-8b-instruct-1.1.0
+  servingRuntimeFile: upstream/kserve/runtimes/llama-3.1-8b-instruct-1.1.0.yaml
+  image: nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0
+  gpuCount: 1
+  storageUri: pvc://nvidia-nim-pvc/
+  licensing:
+    imageRegistry: >-
+      nvcr.io is NGC-gated. The image is pulled only by the user's cluster with
+      the user's NGC API key under the user's own NVIDIA entitlement.
+    ngcCatalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama-3.1-8b-instruct
+    governingTermsReadAt: "2026-08-07"
+    governingTermsNamed:
+      - NVIDIA Software License Agreement
+      - Product-Specific Terms for AI Products
+      - NVIDIA Open Model Agreement
+      - Llama 3.1 Community License Agreement
+    governingTerms: >-
+      The four names above were read from the NGC catalog page on 2026-08-07.
+      Re-read the per-artifact governing terms at deploy time; they override
+      any general statement here. The model carries its own model license in
+      addition to NVIDIA's product terms.
+    licenseRead: docs/planning/nim-ngc-license-read.md
+status:
+  result: described-offline
+  imagePulled: false
+  modelFetched: false

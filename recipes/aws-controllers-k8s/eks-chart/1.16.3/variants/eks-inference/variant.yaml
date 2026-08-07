@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "eks-inference"
+spec:
+  namespace: "ack-system"
+  releaseName: "ack-eks"
+  valuesProfile: "./effective-values.yaml"
+  valuesOrigin: "eks-inference src/ack-controllers/values/eks.yaml at commit 2e1a8823920ca4fc6f124db754b7f8f2cfe7d574"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  includeCrds: true
+  hookPolicy: "hooks-rendered-visible"

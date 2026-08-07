@@ -253,6 +253,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `capability-profile-witnesses` | - | supporting generated evidence |
 | `catalog-promotion-review` | [catalog-promotion-review/summary.md](./catalog-promotion-review/summary.md) | catalog promotion worksheet for the 100-chart corpus |
 | `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | older user-shaped variant work-order worksheet |
+| `certified-bundles` | [certified-bundles/summary.md](./certified-bundles/summary.md) | shared certified-bundle receipts: one reference bundle per producer with quirk dispositions and flattening-safety verdict lanes |
 | `chart-claim-integrity-audit-2026-06-22` | [chart-claim-integrity-audit-2026-06-22/summary.md](./chart-claim-integrity-audit-2026-06-22/summary.md) | supporting generated evidence |
 | `chart-evidence-router` | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions |
 | `chart-fact-sheets` | [chart-fact-sheets/summary.md](./chart-fact-sheets/summary.md) | supporting generated evidence |
@@ -272,6 +273,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `environment-matrix` | [environment-matrix/summary.md](./environment-matrix/summary.md) | supporting generated evidence |
 | `extension-slots` | [extension-slots/summary.md](./extension-slots/summary.md) | NGINX-like extension-slot coverage and routing |
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
+| `flattening-safety` | [flattening-safety/summary.md](./flattening-safety/summary.md) | per-chart flattening-safety verdicts: template-level witness scans and the receipted lane deciding render-early vs render-late |
 | `gitops-health-residue` | [gitops-health-residue/summary.md](./gitops-health-residue/summary.md) | ConfigHub OCI/GitOps controller-health residue classification |
 | `gitops-route-emission` | [gitops-route-emission/summary.md](./gitops-route-emission/summary.md) | supporting generated evidence |
 | `hard-chart-production-packets` | [hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) | supporting generated evidence |
@@ -369,7 +371,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 181 CSV files. Each row records the path, audience,
+It includes 183 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

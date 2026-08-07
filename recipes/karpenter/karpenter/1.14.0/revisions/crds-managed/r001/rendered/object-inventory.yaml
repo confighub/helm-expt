@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "crds-managed-r001"
+spec:
+  objectCount: 13
+  renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+  objects:
+    -
+      kind: "ClusterRole"
+      name: "karpenter"
+    -
+      kind: "ClusterRole"
+      name: "karpenter-admin"
+    -
+      kind: "ClusterRole"
+      name: "karpenter-core"
+    -
+      kind: "ClusterRoleBinding"
+      name: "karpenter"
+    -
+      kind: "ClusterRoleBinding"
+      name: "karpenter-core"
+    -
+      kind: "Deployment"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "PodDisruptionBudget"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "Role"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "Role"
+      name: "karpenter-dns"
+      namespace: "kube-system"
+    -
+      kind: "RoleBinding"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "RoleBinding"
+      name: "karpenter-dns"
+      namespace: "kube-system"
+    -
+      kind: "Service"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "ServiceAccount"
+      name: "karpenter"
+      namespace: "kube-system"

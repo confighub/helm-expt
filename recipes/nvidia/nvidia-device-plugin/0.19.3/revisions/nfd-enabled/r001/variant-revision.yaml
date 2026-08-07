@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "nfd-enabled-r001"
+spec:
+  variant: "../../../variants/nfd-enabled/variant.yaml"
+  revision: "r001"
+  digest: "95f59358ec50464c15aa7d2295123e1c4a701f742a66a77dd87d43c23a2702e1"
+  digestInputs:
+    chartPackageSHA256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
+    variantSHA256: "9c31018c6f9ed2603a8cdbb5e57e946a2aec680b6958e50bf4fae1469fc8fb1a"
+    effectiveValuesSHA256: "510c8050ee991353e9d4dcecc3ce9bb85bf67693b547b6a80c32317bb51b1918"
+    renderedObjectSetSHA256: "11b2a5b957192ea43bc2c036a83e6525a4d4074ae8afe5e42a5d7dc8ce4ffebf"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 26
