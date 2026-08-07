@@ -40,6 +40,7 @@ const journeyPath = join(siteRoot, "journey.html");
 const day1OperationsPath = join(siteRoot, "day1-operations.html");
 const chartIndexPath = join(chartPagesRoot, "index.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
+const changesJsonPath = join(siteRoot, "changes.json");
 const readmePath = join(siteRoot, "README.md");
 const generatedAtPath = join(siteRoot, "generated-at.txt");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -290,6 +291,7 @@ if (mode === "--generate") {
   for (const page of site.docPages) write(page.path, page.html);
   for (const script of site.presetScripts) write(script.path, script.content);
   write(catalogJsonPath, site.catalogJson);
+  write(changesJsonPath, site.changesJson);
   write(readmePath, site.readme);
   write(sitemapPath, site.sitemapXml);
   write(robotsPath, site.robotsTxt);
@@ -335,6 +337,7 @@ if (mode === "--generate") {
   check(existsSync(day1OperationsPath), "site/day1-operations.html is missing; run npm run site:generate");
   check(existsSync(chartIndexPath), "site/charts/index.html is missing; run npm run site:generate");
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
+  check(existsSync(changesJsonPath), "site/changes.json is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
   check(existsSync(generatedAtPath), "site/generated-at.txt is missing; run npm run site:generate");
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
@@ -381,6 +384,7 @@ if (mode === "--generate") {
     check(readFileSync(page.path, "utf8") === page.html, `site/charts/${name} is stale`);
   }
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
+  check(readFileSync(changesJsonPath, "utf8") === site.changesJson, "site/changes.json is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   check(existsSync(sitemapPath), "site/sitemap.xml is missing; run npm run site:generate");
   check(readFileSync(sitemapPath, "utf8") === site.sitemapXml, "site/sitemap.xml is stale");
@@ -734,7 +738,8 @@ function buildSite(generatedAt) {
     "the public Catalog must generate one unique local detail page per retained package version",
   );
   const site = {
-    catalogJson: `${JSON.stringify(siteSafe({ generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_COMMAND_NOTE, ...catalog }), null, 2)}\n`,
+    catalogJson: `${JSON.stringify(siteSafe({ schema_version: "1", generatedBy: catalog.generatedBy, generatedAt: catalog.generatedAt, installerAvailability: INSTALLER_COMMAND_NOTE, ...catalog }), null, 2)}\n`,
+    changesJson: `${JSON.stringify({ schema_version: "1", generated_at: catalog.generatedAt, entries: (catalog.installerOciPackages ?? []).map((row) => ({ chart: row.chart, version: row.version, digest: row.published_digest || (row.rendered_yaml_sha256s ?? "").split(";")[0] || "" })) })}\n`,
     indexHtml: html(catalog),
     offeringHtml: calmPage(offeringHtml(catalog)),
     tryHtml: calmPage(tryHtml(catalog)),
@@ -932,6 +937,7 @@ function buildLlmsTxt() {
 > A public proof catalog: popular Helm charts turned into cub installer packages, with rendered objects, receipts, scans, and live evidence. Every page is generated from committed repo data.
 
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
+- [Change feed](${SITE_BASE_URL}changes.json): a compact chart, version, and digest list for cheap background polling; the full index is catalog.json.
 - [Component Catalog](${SITE_BASE_URL}charts/): 103 components, all 130 retained published package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
