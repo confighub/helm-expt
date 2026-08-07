@@ -200,6 +200,25 @@ export function write(path, contents) {
   writeFileSync(path, contents);
 }
 
+// Machine-specific scratch paths must never reach a committed artifact: they
+// differ per operator and per runner, so they churn diffs and leak a local
+// filesystem layout into public evidence. Recorded commands are written with a
+// literal <tmp> placeholder; captured output and error text goes through here.
+// The segment-bounded pattern stops at the mkdtemp directory so a meaningful
+// repo-relative tail survives. Committed live receipts under runs/ keep their
+// recorded text as observed; this is for text on its way into a new artifact.
+export function normalizeTempPaths(text) {
+  return String(text ?? "")
+    .replaceAll(repoRoot, "<repo>")
+    // A macOS scratch tree is scratch all the way down, including any nested
+    // mkdtemp directory, so the whole path collapses. Leaving a nested random
+    // segment behind would keep the output changing on every run.
+    .replace(/\/(?:private\/)?var\/folders\/[^\s"']+/g, "<tmp>")
+    // /tmp is different: a working copy can legitimately live there, and its
+    // repo-relative tail carries meaning, so only the scratch segment goes.
+    .replace(/\/(?:private\/)?tmp\/[A-Za-z0-9._-]+/g, "<tmp>");
+}
+
 export function normalizeYaml(text) {
   return `${text
     .split("\n")

@@ -1,0 +1,65 @@
+name: Site and text gates
+
+# The generated site is committed, so a change to a doc or a data surface is
+# only half a change until the rendered pages are regenerated with it. That
+# second half kept getting missed, and main sat with a red site:verify twice in
+# one day before anyone noticed. This job catches it on the pull request that
+# causes it, which is the only place the fix is cheap.
+#
+# Everything here is offline and deterministic: no cluster, no ConfigHub server,
+# no registry, no chart pulls. It reads committed files and rebuilds the site in
+# memory to compare byte for byte.
+#
+# When this fails with "site/... is stale", regenerate with the committed
+# timestamp pinned so the diff carries content and not a clock:
+#   HELM_EXPT_SITE_GENERATED_AT="$(cat site/generated-at.txt)" npm run site:generate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site-and-text-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+        with:
+          # The text gates run `git grep` over tracked files, including the
+          # gitignored-but-tracked receipts under runs/.
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Install the YAML reader the generators shell out to
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-yaml
+
+      - name: Site outputs match their sources
+        run: npm run site:verify
+
+      - name: Site UX contract
+        run: npm run site:ux:verify
+
+      - name: Documentation map
+        run: node scripts/verify-doc-map.mjs
+
+      - name: No personal names in committed files
+        run: node scripts/verify-no-personal-names.mjs
+
+      - name: No machine-specific scratch paths in committed files
+        run: node scripts/verify-no-temp-paths.mjs

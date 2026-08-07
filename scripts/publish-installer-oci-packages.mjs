@@ -6,7 +6,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
 
-import { check, cubEnv, listFiles, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
+import { check, cubEnv, listFiles, normalizeTempPaths, relativeRepo, repoRoot } from "./lib/proof-common.mjs";
 import { installerOciRefForPackagePath } from "./lib/installer-oci.mjs";
 
 const args = process.argv.slice(2);
@@ -99,8 +99,8 @@ function publishPackage(packagePath) {
       ociRef,
       packageSha,
       sourceTreeSha,
-      packageOutput,
-      pushOutput,
+      packageOutput: normalizeTempPaths(packageOutput),
+      pushOutput: normalizeTempPaths(pushOutput),
       inspectOutput,
       publicationAction,
       manifestDigest: inspected.manifestDigest,
