@@ -1,0 +1,86 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrCpuStarterVariantProofReceipt"
+metadata:
+  name: "aicr-cpu-starter-v0-14-0-variant"
+spec:
+  recordedAt: "2026-08-07T08:50:01.016Z"
+  context:
+    name: "playful-cub"
+    organization: "Cubby AI Inc"
+    purpose: "temporary scratch proof"
+  source:
+    format: "derived CPU starter literal configuration OCI"
+    committedEntry: "examples/aicr/cpu-starter"
+    starterPlatformDigest: "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564"
+    derivedFromEntry: "examples/aicr/eks-h100-training-kubeflow"
+    derivedFromPlatformDigest: "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e"
+    temporaryReference: "oci://localhost:32775/aicr-cpu-starter:0.14.0"
+    digest: "sha256:1622280411b9eedabb8cee07a83b435cd2fa8e167acfdd130fed404e695a7f7b"
+    applicationCount: 7
+    syncWaves:
+      - 2
+      - 3
+      - 6
+      - 7
+      - 9
+      - 10
+      - 15
+    exactSourceObjectsMatched: true
+    canonicalDataSha256: "86fae4beb1c3233f7b08cff78b2ba0c8ff3044ccb6c664e3b8fc9a4e5cddc935"
+  variants:
+    base:
+      space: "hx-aicr-starter-20260807084946-base"
+      spaceId: "faf75abf-4703-4969-a5a5-e3fac96acb56"
+      variant: "base"
+      environment: ""
+      unit: "hx-aicr-starter-20260807084946"
+      unitId: "2d693418-1cd0-466e-8268-a314f38e7f6b"
+      headRevision: 1
+      upstreamRevision: null
+      upstreamUnitId: null
+      upgradeLinkId: null
+      dataHash: "91789cd0730ab8408ff2f7b96f0ec92558a826404f8ae9f326ae5551f9c768af"
+      canonicalDataSha256: "86fae4beb1c3233f7b08cff78b2ba0c8ff3044ccb6c664e3b8fc9a4e5cddc935"
+    dev:
+      space: "hx-aicr-starter-20260807084946-dev"
+      spaceId: "eeab89f9-0fa5-420e-a535-bab2506d1ec3"
+      variant: "dev"
+      environment: "Dev"
+      unit: "hx-aicr-starter-20260807084946"
+      unitId: "d7a10968-f34b-47a9-83e2-ed5898522283"
+      headRevision: 3
+      upstreamRevision: 1
+      upstreamUnitId: "2d693418-1cd0-466e-8268-a314f38e7f6b"
+      upgradeLinkId: "db6aba14-a8fb-4d3b-86f9-27a1d93cd178"
+      dataHash: "ca1510f1f4856f18254a244715f72f600e1378ab3a58194967807febb864f307"
+      canonicalDataSha256: "ae084b8f48545e14dc9de8164be9ded0c7d41c3d432594dbc195b3c8e4d07117"
+  change:
+    resource: "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+    path: "spec.source.helm.values prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName"
+    before: "gp3"
+    after: "standard"
+    searchValue: "          storageClassName: gp3"
+    replaceValue: "          storageClassName: standard"
+    changedApplicationCount: 1
+    changedApplications:
+      - "argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack"
+    devDryRun: "pass"
+    devDryRunLeftDataUnchanged: true
+    devUpdate: "pass"
+  cleanup:
+    devSpace: "pass"
+    baseSpace: "pass"
+    registry: "pass"
+  limits:
+    - "This run used a temporary local registry; it does not prove public registry publication."
+    - "This run started no Kubernetes cluster. It does not prove Argo CD delivery, application health, or any workload behavior."
+    - "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution."
+    - "This receipt proves one derived-starter import and one reviewed storage-class override in a development variant. It does not include a staging promotion."
+status:
+  result: "pass"
+  ociImport: "pass"
+  exactApplicationSet: "pass"
+  derivedVariant: "pass"
+  changeDryRun: "pass"
+  change: "pass"
+  claim: "ConfigHub imported the seven derived CPU starter Applications as a base variant, kept them byte-faithful, and applied the recorded gp3 residue's override to the cluster-default storage class in a development variant, previewed by a dry run that changed nothing."
