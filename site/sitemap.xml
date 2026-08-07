@@ -167,6 +167,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-review/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/catalog-promotion-wave2/variant-work-orders.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/certified-bundles/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-claim-integrity-audit-2026-06-22/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-evidence-router/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/chart-fact-sheets/summary.html</loc></url>
@@ -371,6 +372,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/environment-matrix/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/extension-slots/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/external-scan-lane/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/flattening-safety/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/gitops-health-residue/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/gitops-route-emission/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/hard-chart-production-packets/packets/argo-cd-argo-cd.html</loc></url>
@@ -689,6 +691,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agent-experience-audit.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agent-experience-worklog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/agreed-execution-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-catalog-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/current-pathway-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/archive/p0-major-issue-status.html</loc></url>
@@ -698,11 +701,13 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-kubara-composition-strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-next-candidates.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-review.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/certified-bundle-model-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-claim-integrity-audit-2026-06-22.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-catalog-demo-program.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/corpus-rationalization-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/current-handover.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/dedicated-website-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/flattening-safety-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/free-path-pitch.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/fuzz-corpus-tests-roadmap.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/get-started-rewrite-brief.html</loc></url>
@@ -737,6 +742,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/robust-sceptic-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/server-account-pitch.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/serverless-verified-install-plan.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/sveltos-fleet-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/three-pillars-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/top100-full-proof-target.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/top20-full-proof-target.html</loc></url>
@@ -749,6 +755,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/artifact-verifier-spec.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/capability-profile-catalog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/catalog-doctrine.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/certified-bundle-spec.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/chart-recipe-manifest-flow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/complete-corresponding-model.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/config-catalog-doctrine.html</loc></url>
@@ -816,6 +823,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/current-proof-status.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/custom-overlays.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-rollback.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/day2-upgrade-story.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/derived-variant-walkthrough.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/expected-results-and-clusters.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/extension-slots.html</loc></url>

@@ -460,6 +460,30 @@
 <p>The current run installed Sveltos directly from a pinned upstream manifest and used a temporary registry for the portable OCI. It used two local kind clusters. A permanent package, a larger fleet, and a rollout that pauses after a failed target still need their own tests.</p>
 <h2 id="repeat-and-verify">Repeat and verify</h2>
 <p>The <a href="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html">website guide</a> explains the commands and results. The <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile.yaml">source profile</a>, <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml">pilot profile</a>, <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/source-lock.yaml">source lock</a>, and <a href="https://github.com/confighub/helm-expt/blob/main/examples/sveltos/kyverno-fleet/live-receipt.yaml">live receipt</a> record the first result. The <a href="https://confighub.github.io/helm-expt/site/d/data/sveltos-oci-delivery-proof/summary.html">OCI delivery summary</a> and <a href="https://github.com/confighub/helm-expt/blob/main/runs/sveltos-oci-delivery-proof/receipt.yaml">OCI delivery receipt</a> record the automated handoff.</p>
+<h2 id="how-to-run-the-live-proof">How to run the live proof</h2>
+<p>The two-wave delivery proof is fully self-contained: it creates its own kind management cluster, two workload clusters, and a local OCI registry, records the receipt, and cleans up. The fleet build takes five to seven minutes.</p>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <pre><code># 1. Two authenticated contexts, deliberately separate: the maintained
+#    policy organization that owns the reviewed profile, and a scratch
+#    organization for the throwaway cluster Spaces. A browser round trip
+#    each, well under a minute.
+cub --context my-policy auth login     # choose the helm-catalog organization
+cub --context my-scratch auth login    # choose a scratch organization
+
+# 2. Explicit consent plus both contexts, then one command. The fleet
+#    builds in five to seven minutes (registry, management cluster, two
+#    workload clusters, Sveltos converged); the two delivery waves add a
+#    few minutes more.
+HELM_EXPT_ALLOW_LIVE_SVELTOS_OCI_PROOF=1 \
+HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
+CUB_CONTEXT=my-policy \
+SVELTOS_CLUSTER_CONTEXT=my-scratch \
+npm run sveltos-oci-delivery:run
+
+# 3. Verify the recorded receipt offline, no live access needed.
+#    A few seconds.
+npm run sveltos-oci-delivery:verify</code></pre>
+<p>Known limit: on current hub.confighub.com the approval gate does not appear in the Unit's <code>ApplyGates</code> from the Space trigger-filter wiring, so the run stops at the approval-boundary observation. That behavior is tracked in confighubai/confighub#4975; the run is expected to pass once it is resolved. When cleaning up scratch Spaces by hand, delete each management Space before its <code>-argo-apps</code> sibling, or the Target is stranded by a dangling reference (confighubai/confighub#4980).</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>examples/sveltos/kyverno-fleet/README.md</code>. The source file is the authoritative version.</p></footer>
