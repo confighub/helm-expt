@@ -65,10 +65,13 @@ The starter's first live proof follows the training entry's path and closes
 the loop on the recorded residue. A scratch run imported the seven derived
 Applications as a ConfigHub base variant from a temporary OCI reference,
 confirmed the base Unit matched the committed starter bytes exactly, created
-a development variant, and applied the gp3 override as a reviewed change:
-ConfigHub's dry run named the one affected Application and changed nothing,
-then the real change moved the Prometheus storage class from `gp3` to the
-cluster-default `standard` and touched exactly one Application. The
+development and staging variants, and applied the gp3 override as a reviewed
+change in development: ConfigHub's dry run named the one affected Application
+and changed nothing, then the real change moved the Prometheus storage class
+from `gp3` to the cluster-default `standard` and touched exactly one
+Application. The staging promotion was previewed first and left staging
+unchanged; the real promotion then carried the reviewed configuration to
+staging with matching canonical data. The
 [receipt](../../../runs/aicr-cpu-starter-variant/receipt.yaml) binds the run
 to the starter's committed platform digest, and the
 [summary](../../../data/aicr-cpu-starter-variant/summary.md) retells it in

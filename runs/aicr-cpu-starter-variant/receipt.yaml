@@ -3,7 +3,7 @@ kind: "AicrCpuStarterVariantProofReceipt"
 metadata:
   name: "aicr-cpu-starter-v0-14-0-variant"
 spec:
-  recordedAt: "2026-08-07T08:50:01.016Z"
+  recordedAt: "2026-08-07T09:36:56.677Z"
   context:
     name: "playful-cub"
     organization: "Cubby AI Inc"
@@ -14,8 +14,8 @@ spec:
     starterPlatformDigest: "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564"
     derivedFromEntry: "examples/aicr/eks-h100-training-kubeflow"
     derivedFromPlatformDigest: "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e"
-    temporaryReference: "oci://localhost:32775/aicr-cpu-starter:0.14.0"
-    digest: "sha256:1622280411b9eedabb8cee07a83b435cd2fa8e167acfdd130fed404e695a7f7b"
+    temporaryReference: "oci://localhost:32779/aicr-cpu-starter:0.14.0"
+    digest: "sha256:bd2f6e8dc3e4afc689f5bfe0af1047980e9eb9a3af2bda13dbd5550dfeea58b3"
     applicationCount: 7
     syncWaves:
       - 2
@@ -29,12 +29,12 @@ spec:
     canonicalDataSha256: "86fae4beb1c3233f7b08cff78b2ba0c8ff3044ccb6c664e3b8fc9a4e5cddc935"
   variants:
     base:
-      space: "hx-aicr-starter-20260807084946-base"
-      spaceId: "faf75abf-4703-4969-a5a5-e3fac96acb56"
+      space: "hx-aicr-starter-20260807093631-base"
+      spaceId: "a9706d87-e96e-452a-aa64-1944c924b037"
       variant: "base"
       environment: ""
-      unit: "hx-aicr-starter-20260807084946"
-      unitId: "2d693418-1cd0-466e-8268-a314f38e7f6b"
+      unit: "hx-aicr-starter-20260807093631"
+      unitId: "394d9883-46de-47b0-8d15-5357f652f46f"
       headRevision: 1
       upstreamRevision: null
       upstreamUnitId: null
@@ -42,16 +42,29 @@ spec:
       dataHash: "91789cd0730ab8408ff2f7b96f0ec92558a826404f8ae9f326ae5551f9c768af"
       canonicalDataSha256: "86fae4beb1c3233f7b08cff78b2ba0c8ff3044ccb6c664e3b8fc9a4e5cddc935"
     dev:
-      space: "hx-aicr-starter-20260807084946-dev"
-      spaceId: "eeab89f9-0fa5-420e-a535-bab2506d1ec3"
+      space: "hx-aicr-starter-20260807093631-dev"
+      spaceId: "2725e808-da28-43dc-9ce3-1df694dbc5ee"
       variant: "dev"
       environment: "Dev"
-      unit: "hx-aicr-starter-20260807084946"
-      unitId: "d7a10968-f34b-47a9-83e2-ed5898522283"
+      unit: "hx-aicr-starter-20260807093631"
+      unitId: "56252954-e6ef-4362-9030-45f745f81994"
       headRevision: 3
       upstreamRevision: 1
-      upstreamUnitId: "2d693418-1cd0-466e-8268-a314f38e7f6b"
-      upgradeLinkId: "db6aba14-a8fb-4d3b-86f9-27a1d93cd178"
+      upstreamUnitId: "394d9883-46de-47b0-8d15-5357f652f46f"
+      upgradeLinkId: "13d6bf88-455a-4989-a656-f78ff50c48e2"
+      dataHash: "ca1510f1f4856f18254a244715f72f600e1378ab3a58194967807febb864f307"
+      canonicalDataSha256: "ae084b8f48545e14dc9de8164be9ded0c7d41c3d432594dbc195b3c8e4d07117"
+    staging:
+      space: "hx-aicr-starter-20260807093631-staging"
+      spaceId: "adf4c6c0-0369-4306-9b9a-58f778a5b5b3"
+      variant: "staging"
+      environment: "Staging"
+      unit: "hx-aicr-starter-20260807093631"
+      unitId: "c2012758-255f-41b8-9d28-0f0c9fe884f6"
+      headRevision: 2
+      upstreamRevision: 3
+      upstreamUnitId: "56252954-e6ef-4362-9030-45f745f81994"
+      upgradeLinkId: "4c81a5d4-d40d-4bb6-8b5f-f493287ca427"
       dataHash: "ca1510f1f4856f18254a244715f72f600e1378ab3a58194967807febb864f307"
       canonicalDataSha256: "ae084b8f48545e14dc9de8164be9ded0c7d41c3d432594dbc195b3c8e4d07117"
   change:
@@ -67,7 +80,15 @@ spec:
     devDryRun: "pass"
     devDryRunLeftDataUnchanged: true
     devUpdate: "pass"
+  promotion:
+    path: "base -> dev -> staging"
+    dryRun: "pass"
+    dryRunReportedUnitCount: 1
+    dryRunLeftStagingUnchanged: true
+    result: "pass"
+    stagingMatchesReviewedDev: true
   cleanup:
+    stagingSpace: "pass"
     devSpace: "pass"
     baseSpace: "pass"
     registry: "pass"
@@ -75,7 +96,7 @@ spec:
     - "This run used a temporary local registry; it does not prove public registry publication."
     - "This run started no Kubernetes cluster. It does not prove Argo CD delivery, application health, or any workload behavior."
     - "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution."
-    - "This receipt proves one derived-starter import and one reviewed storage-class override in a development variant. It does not include a staging promotion."
+    - "This receipt proves one derived-starter import, one reviewed storage-class override in a development variant, and one dev-to-staging promotion of that reviewed change."
 status:
   result: "pass"
   ociImport: "pass"
@@ -83,4 +104,6 @@ status:
   derivedVariant: "pass"
   changeDryRun: "pass"
   change: "pass"
-  claim: "ConfigHub imported the seven derived CPU starter Applications as a base variant, kept them byte-faithful, and applied the recorded gp3 residue's override to the cluster-default storage class in a development variant, previewed by a dry run that changed nothing."
+  promotionDryRun: "pass"
+  promotion: "pass"
+  claim: "ConfigHub imported the seven derived CPU starter Applications as a base variant, kept them byte-faithful, applied the recorded gp3 residue's override to the cluster-default storage class in a development variant with a dry-run preview, previewed the staging promotion without changing staging, and promoted the same reviewed configuration to staging with matching data."
