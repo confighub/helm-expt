@@ -45,7 +45,7 @@ Nothing operational or explanatory lives out of band: one artifact carries the c
 
 ## One bundle per chart version and recipe variant
 
-Catalog recipes already come in variants per chart (default, no-crds, crds-enabled, existing-secret, external-tls-ca), and variants change the rendered output. The certified bundle is therefore keyed by chart version and recipe variant together: one bundle, one receipt, and one verdict per pair, because dispositions genuinely differ per base — a crds-enabled variant changes the CRD-ordering disposition, an existing-secret variant removes the generated-secret hazard entirely. Each variant bundle installs into its own base Space via the component-and-variant space pattern. On-demand variants follow the Pilot rule: a new variant is a new recipe producing a new certified bundle, parity-gated before publication, never a mutation of an existing bundle.
+Catalog recipes already come in variants per chart (default, no-crds, crds-enabled, existing-secret, external-tls-ca), and variants change the rendered output. The certified bundle is therefore keyed by chart version and recipe variant together: one bundle, one receipt, and one verdict per pair, because dispositions genuinely differ per base — a crds-enabled variant changes the CRD-ordering disposition, an existing-secret variant removes the generated-secret hazard entirely. Each variant bundle installs into its own base Space via the component-and-variant space pattern. A new variant is always a new recipe producing a new certified bundle, parity-gated before publication, never a mutation of an existing bundle.
 
 ## What each consumer gets
 
