@@ -76,6 +76,10 @@ const markdownFiles = listFiles(ROOT)
   // helm-expt documentation. Preserve their upstream-relative links verbatim.
   .filter((file) => !file.startsWith('data/kubara-catalog-snapshots/'))
   .filter((file) => !file.startsWith('data/kubara-catalog-adapter/exports/'))
+  // Retained upstream trees are unmodified copies pinned by checksum; their
+  // digest-index compilers verify them byte-for-byte, so editing them to fit
+  // documentation rules would break the retention.
+  .filter((file) => !/^examples\/aicr\/[^/]+\/upstream\//.test(file))
   .sort();
 
 for (const file of markdownFiles) {

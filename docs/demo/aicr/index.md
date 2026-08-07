@@ -22,19 +22,22 @@ taxonomy follows that split.
 | Entry class | Status | Source |
 | --- | --- | --- |
 | Training | Exists: [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | NVIDIA AICR v0.14.0, retained exactly |
-| Inference / serving | Planned | [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) is the strongest upstream candidate; KServe or vLLM is the open alternative |
+| Inference / serving | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0 |
 | CPU starter | Planned | To be authored with named provenance; runnable by anyone without a GPU |
 
-One credible entry exists today. The catalog refuses manufactured variety: new
-entries come from upstream AICR versions or from deliberately authored shapes
-whose provenance is named, and a planned entry stays labeled planned until its
-receipts exist.
+Two entries exist today: the training entry with its proven mechanics, and the
+inference entry as retained configuration with its digest spine and receipts.
+The catalog refuses manufactured variety: new entries come from upstream
+versions or from deliberately authored shapes whose provenance is named, and a
+planned entry stays labeled planned until its receipts exist. The inference
+entry's sixteen model-by-GPU shapes are upstream-authored variety, retained
+exactly.
 
 The inference class carries a licensing boundary worth stating early. NIM
 deploys through public Helm charts and the NIM Operator, so the deployment
 shapes can be cataloged, but the runtime images and models behind them are
-NGC-gated under NVIDIA AI Enterprise licensing. The catalog would retain the
-configuration shapes and never redistribute the gated artifacts. The
+NGC-gated under NVIDIA AI Enterprise licensing. The entry retains the
+configuration shapes and never redistributes the gated artifacts. The
 [license read](../../planning/nim-ngc-license-read.md) verified this boundary
 against the actual terms: the scaffolding the entry would retain is Apache-2.0,
 the gated material is exactly what a config-plane entry never touches, and NGC
@@ -67,6 +70,18 @@ digest. Change any rendered byte anywhere in the shape and the digest changes.
 ```bash
 npm run aicr-digest-index:verify
 npm run aicr-digest-index:self-test
+```
+
+The inference entry carries the same spine. Its
+[digest index](../../../examples/aicr/kserve-nim-inference/digest-index/README.md)
+pins the retained KServe tree, every serving runtime and model shape, and the
+described model profile, and its compiler adds the licensing boundary as
+refusal rules: gated images stay references, and a literal credential value
+anywhere in the tree stops the compile.
+
+```bash
+npm run aicr-kserve-nim:verify
+npm run aicr-kserve-nim:self-test
 ```
 
 The training entry also carries an OCI round-trip receipt and a
