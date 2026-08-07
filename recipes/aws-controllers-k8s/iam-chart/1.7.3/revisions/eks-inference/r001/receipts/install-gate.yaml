@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ack-iam-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for eks-inference"
+    - "deletionPolicy must be a deliberate per-target choice: delete removes the AWS-side resource when the Kubernetes resource is pruned"
+    - "Cluster-scoped RBAC needs production review"
+    - "requires target Secret ack-system/aws-creds with key credentials mounted read-only at /var/run/secrets/aws, and an aws.region value filled per environment before the confighubplaceholder sentinel clears vet-placeholders"

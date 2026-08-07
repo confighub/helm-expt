@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "karpenter/karpenter"
+    version: "1.14.0"
+    variants:
+      - "default"
+      - "eks-inference"
+      - "crds-managed"
+    helmObjectsByVariant:
+      default: 18
+      eks-inference: 18
+      crds-managed: 13
+    cubInstallObjectsByVariant:
+      default: 19
+      eks-inference: 19
+      crds-managed: 14
+    helmMatchByVariant:
+      default: "18/18"
+      eks-inference: "18/18"
+      crds-managed: "13/13"
+    scanGate: "warn-production-blocked"
+    notes: "The chart is clean by witness standards: no hooks, no lookups, no generated secrets, and deterministic renders keyed to a digest-pinned oci artifact. The controls that remain are real: the two environment-owned values (settings.clusterName and AWS_REGION) ship as confighubplaceholder and must be bound before any publish gate opens, and the CRD story splits by variant, with default and eks-inference carrying the 5 CRDs plus an ordering declaration while crds-managed depends on the karpenter-crd chart having installed them. Production scope also needs the Pod Identity association and at least two schedulable non-Karpenter nodes for the default replica count."
+    nextAction: "bind the confighubplaceholder values per target and keep the CRD ordering route attached to the in-bundle bases"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/render-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/install-gate.yaml"
+    - "revisions/crds-managed/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/crds-managed/r001/receipts/render-receipt.yaml"
+    - "revisions/crds-managed/r001/receipts/scan-receipt.yaml"
+    - "revisions/crds-managed/r001/receipts/install-gate.yaml"

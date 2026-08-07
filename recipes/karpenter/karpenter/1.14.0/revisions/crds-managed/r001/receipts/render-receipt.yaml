@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "karpenter-crds-managed-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "01beb5cd256dfc8c0fe5ec3b880a7fa80f3f4325045faf4362fe17ab0df1f78c"
+    dependencyLockSHA256: "1fcec137e7a84939a7ba06410adbd3f0d6e61d515c3312b5fdcecc0310a596cd"
+    effectiveValuesSHA256: "ec04335e71597e02b51949b56330ee41a65876144ad1aefe08cd1f28ef8ee5e7"
+  outputs:
+    renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+    renderedObjectInventorySHA256: "b23c6fefda574a9a2c0f04e32e464f03508fb987af9bc75809669439ea624998"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 13
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

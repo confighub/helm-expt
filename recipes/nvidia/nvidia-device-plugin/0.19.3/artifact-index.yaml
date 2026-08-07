@@ -1,0 +1,273 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+  chart: "nvidia/nvidia-device-plugin"
+  version: "0.19.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "nvidia/nvidia-device-plugin"
+    version: "0.19.3"
+    appVersion: "0.19.3"
+    sourceLock: "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml"
+    dependencyLock: "recipes/nvidia/nvidia-device-plugin/0.19.3/dependency-lock.yaml"
+    repository: "https://nvidia.github.io/k8s-device-plugin"
+    packageSHA256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
+  recipe:
+    path: "recipes/nvidia/nvidia-device-plugin/0.19.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/nvidia/nvidia-device-plugin/0.19.3/helm-plan.yaml"
+    chartDossier: "recipes/nvidia/nvidia-device-plugin/0.19.3/chart-dossier.yaml"
+    controlPoints: "recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml"
+    valueModel: "recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml"
+    weirdnessAndMitigations: ""
+    controlPointCategories:
+      - "capability-profile"
+      - "crd-policy"
+      - "credentials-secrets"
+      - "dependency-lock"
+      - "extension-slots"
+      - "installer-support-object"
+      - "lifecycle-policy"
+      - "namespace"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/nvidia/nvidia-device-plugin/0.19.3/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "eks-inference"
+      - "nfd-enabled"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/nvidia/nvidia-device-plugin/0.19.3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3"
+    installer: "packages/nvidia/nvidia-device-plugin/0.19.3/installer.yaml"
+    receipt: "recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/nvidia/nvidia-device-plugin/0.19.3/bases/default"
+        default: true
+        description: "nvidia-device-plugin default variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+      -
+        name: "eks-inference"
+        path: "packages/nvidia/nvidia-device-plugin/0.19.3/bases/eks-inference"
+        default: false
+        description: "nvidia-device-plugin eks-inference platform scheduling variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+      -
+        name: "nfd-enabled"
+        path: "packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled"
+        default: false
+        description: "nvidia-device-plugin eks-inference plus node-feature-discovery variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/nvidia/nvidia-device-plugin/0.19.3/variants/default/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "nvidia-device-plugin"
+      valuesProfile: "recipes/nvidia/nvidia-device-plugin/0.19.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "hooks-rendered-visible"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/nvidia/nvidia-device-plugin/0.19.3/bases/default"
+        default: true
+        description: "nvidia-device-plugin default variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/variant-revision.yaml"
+          digest: "0ed1369a1c97e24a24bfb72c7b6f98aadf5dfcc61ba6801b60f6e6463b0f2ed2"
+          renderedObjectSetSHA256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+          renderedObjects: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+    -
+      name: "eks-inference"
+      variant: "recipes/nvidia/nvidia-device-plugin/0.19.3/variants/eks-inference/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "nvidia-device-plugin"
+      valuesProfile: "recipes/nvidia/nvidia-device-plugin/0.19.3/effective-values-eks-inference.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "hooks-rendered-visible"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "eks-inference"
+        path: "packages/nvidia/nvidia-device-plugin/0.19.3/bases/eks-inference"
+        default: false
+        description: "nvidia-device-plugin eks-inference platform scheduling variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "eks-inference-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml"
+          digest: "99ccb716b96b430ddccd3829d9dbd9b78028fca4fac0958951517f74d6710c70"
+          renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+          renderedObjects: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+    -
+      name: "nfd-enabled"
+      variant: "recipes/nvidia/nvidia-device-plugin/0.19.3/variants/nfd-enabled/variant.yaml"
+      namespace: "gpu-operator"
+      releaseName: "nvidia-device-plugin"
+      valuesProfile: "recipes/nvidia/nvidia-device-plugin/0.19.3/effective-values-nfd-enabled.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "hooks-rendered-visible"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "nfd-enabled"
+        path: "packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled"
+        default: false
+        description: "nvidia-device-plugin eks-inference plus node-feature-discovery variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3 --base nfd-enabled --work-dir <tmp> --non-interactive --namespace gpu-operator"
+        helmReleaseObjectCount: 26
+        cubInstallObjectCountIncludingSupport: 27
+        semanticObjectMatches: "26/26"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||gpu-operator"
+      revisions:
+        -
+          name: "nfd-enabled-r001"
+          revision: "r001"
+          variantRevision: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml"
+          digest: "c20ca54b5d86089e41ff8cec4cd8d246ae937c7b3c8fe06ba5ae7c22d78998c3"
+          renderedObjectSetSHA256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
+          renderedObjects: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/rendered/object-inventory.yaml"
+          objectCount: 26
+          helmObjectCount: 26
+          cubInstallObjectCountIncludingSupport: 27
+          semanticObjectMatches: "26/26"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"

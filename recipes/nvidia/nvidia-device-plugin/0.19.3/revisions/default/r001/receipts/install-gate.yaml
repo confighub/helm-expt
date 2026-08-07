@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nvidia-device-plugin-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "Cluster-scoped RBAC needs production review"
+    - "GPU nodes are a scheduling prerequisite, not an install prerequisite: on a GPU-less cluster the DaemonSets simply run zero pods"

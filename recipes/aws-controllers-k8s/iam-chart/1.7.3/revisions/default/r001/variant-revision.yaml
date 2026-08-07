@@ -5,12 +5,13 @@ metadata:
 spec:
   variant: "../../../variants/default/variant.yaml"
   revision: "r001"
-  digest: "d7da80f57e4d448c52a6efcc5fea946354855a554bf2b20d42e8cbe4e3de49f9"
+  digest: "33a1f819209df27ff2f36644e598eca0e33a39bca619eb3d6b49857f1ba4cc1c"
   digestInputs:
-    chartPackageSHA256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
-    variantSHA256: "e2aaf8293e6940f7fa45b7cadbc7a7b4741ad9403e3c194ebb5aa8541ca333ef"
-    effectiveValuesSHA256: "be3983306c5d3ce1c7f8d87f5e1b803b53b62e745b260bf0b30d0a8f761ff841"
-    renderedObjectSetSHA256: "5cc2df3a477550418c2137202353567eb681765adffb856ff0efa9570a13166b"
+    recipeSHA256: "71bec28201c26ba72515e7129600619b31c561e065e5972b702c4a2007261f64"
+    variantSHA256: "b897768f23a6be1a85bb4d6981bd29c9b6bde00b6b7861e930535433836928c4"
+    effectiveValuesSHA256: "d1d5f42306a0b97967d101daf14be0eec2c7307a95b06ad041d55d1b82c598df"
+    rendererSHA256: "71197d8e44f8f8af4f7b4be1ac2e1cd7518322c5acc7992e053490b356141768"
+    renderedObjectSetSHA256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"

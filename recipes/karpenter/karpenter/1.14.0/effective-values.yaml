@@ -1,0 +1,14 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "karpenter-karpenter-1.14.0-default"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "6c23940f687da42783d4cb5e0cb8a9f1e1b347539808b5f98be6e2282b6154e0"
+  mergedValuesCaptured: false
+  values:
+    settings:
+      clusterName: "confighubplaceholder"

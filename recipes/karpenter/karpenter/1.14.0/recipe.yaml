@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "karpenter-karpenter"
+  version: "1.14.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/karpenter/karpenter/1.14.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/karpenter/karpenter/1.14.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "kube-system"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/eks-inference/variant.yaml"
+    - "variants/crds-managed/variant.yaml"

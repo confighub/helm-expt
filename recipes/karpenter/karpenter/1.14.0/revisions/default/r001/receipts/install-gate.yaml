@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "karpenter-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+  decision: "blocked"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "staging"
+    - "production"
+  reasons:
+    - "settings.clusterName is still the confighubplaceholder sentinel; bind it per target before any publish scope opens"
+    - "at least 2 schedulable non-Karpenter nodes are required by replicas 2 with the chart-default required pod anti-affinity"
+    - "cluster-scoped RBAC needs production review"
+    - "settings.clusterName must be bound per target before any publish scope opens; the render carries the confighubplaceholder sentinel"

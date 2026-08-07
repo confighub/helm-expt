@@ -5,13 +5,15 @@ metadata:
 spec:
   sourceType: "HelmChart"
   repositoryName: "aws-controllers-k8s"
+  repositoryURL: "oci://public.ecr.aws/aws-controllers-k8s"
   chart: "eks-chart"
   version: "1.16.3"
   appVersion: "1.16.3"
   packageSHA256: "3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054"
   packageBytes: 25738
   exactArtifact:
-    url: "oci://public.ecr.aws/aws-controllers-k8s/eks-chart:1.16.3"
+    url: "oci://public.ecr.aws/aws-controllers-k8s/eks-chart"
     sha256: "3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054"
-    manifestDigest: "sha256:77d88dd5a04ccc913da49bdb19dc962c83ac67579c0ae061f8c2aaf5ed12365c"
     resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

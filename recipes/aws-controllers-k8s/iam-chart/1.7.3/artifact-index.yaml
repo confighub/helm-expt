@@ -1,0 +1,217 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+  chart: "aws-controllers-k8s/iam-chart"
+  version: "1.7.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "aws-controllers-k8s/iam-chart"
+    version: "1.7.3"
+    appVersion: "1.7.3"
+    sourceLock: "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml"
+    dependencyLock: "recipes/aws-controllers-k8s/iam-chart/1.7.3/dependency-lock.yaml"
+    repository: "oci://public.ecr.aws/aws-controllers-k8s"
+    packageSHA256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
+  recipe:
+    path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/aws-controllers-k8s/iam-chart/1.7.3/helm-plan.yaml"
+    chartDossier: "recipes/aws-controllers-k8s/iam-chart/1.7.3/chart-dossier.yaml"
+    controlPoints: "recipes/aws-controllers-k8s/iam-chart/1.7.3/control-points.yaml"
+    valueModel: "recipes/aws-controllers-k8s/iam-chart/1.7.3/value-model.yaml"
+    weirdnessAndMitigations: ""
+    controlPointCategories:
+      - "capability-profile"
+      - "crd-policy"
+      - "credentials-secrets"
+      - "dependency-lock"
+      - "extension-slots"
+      - "lifecycle-policy"
+      - "namespace"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "eks-inference"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3"
+    installer: "packages/aws-controllers-k8s/iam-chart/1.7.3/installer.yaml"
+    receipt: "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/default"
+        default: true
+        description: "iam-chart default variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
+      -
+        name: "eks-inference"
+        path: "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/eks-inference"
+        default: false
+        description: "iam-chart EKS inference (retained values) variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/default/variant.yaml"
+      namespace: "ack-system"
+      releaseName: "ack-iam"
+      valuesProfile: "recipes/aws-controllers-k8s/iam-chart/1.7.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "hooks-rendered-visible"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/default"
+        default: true
+        description: "iam-chart default variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+        helmReleaseObjectCount: 19
+        cubInstallObjectCountIncludingSupport: 20
+        semanticObjectMatches: "19/19"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||ack-system"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/variant-revision.yaml"
+          digest: "33a1f819209df27ff2f36644e598eca0e33a39bca619eb3d6b49857f1ba4cc1c"
+          renderedObjectSetSHA256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+          renderedObjects: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 19
+          helmObjectCount: 19
+          cubInstallObjectCountIncludingSupport: 20
+          semanticObjectMatches: "19/19"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+    -
+      name: "eks-inference"
+      variant: "recipes/aws-controllers-k8s/iam-chart/1.7.3/variants/eks-inference/variant.yaml"
+      namespace: "ack-system"
+      releaseName: "ack-iam"
+      valuesProfile: "recipes/aws-controllers-k8s/iam-chart/1.7.3/effective-values-eks-inference.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "hooks-rendered-visible"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "credentials"
+            name: "aws-creds"
+            namespace: "ack-system"
+            purpose: "AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials"
+        requiredValues:
+          -
+            installerInput: "awsRegion"
+            path: "aws.region"
+            purpose: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
+            source: "platform-profile"
+            stage: "pre-apply"
+      targetFactSummary: "required Secret ack-system/aws-creds keys credentials; required Value aws.region (pre-apply)"
+      packageBase:
+        name: "eks-inference"
+        path: "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/eks-inference"
+        default: false
+        description: "iam-chart EKS inference (retained values) variant rendered from aws-controllers-k8s/iam-chart@1.7.3"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-iam-chart:1.7.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+        helmReleaseObjectCount: 19
+        cubInstallObjectCountIncludingSupport: 20
+        semanticObjectMatches: "19/19"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||ack-system"
+      revisions:
+        -
+          name: "eks-inference-r001"
+          revision: "r001"
+          variantRevision: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
+          digest: "cfb019239b2a3c17d763b54da9071c8e84767d2c851356beaea43fbce2ecbd84"
+          renderedObjectSetSHA256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+          renderedObjects: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+          objectCount: 19
+          helmObjectCount: 19
+          cubInstallObjectCountIncludingSupport: 20
+          semanticObjectMatches: "19/19"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"

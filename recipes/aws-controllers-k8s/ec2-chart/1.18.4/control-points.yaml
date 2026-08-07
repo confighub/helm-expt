@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      note: "source-lock.yaml pins the exact artifact oci://public.ecr.aws/aws-controllers-k8s/ec2-chart with packageSHA256 17c082ea... via the HELM_EXPT_CHART_ARTIFACT_URL/_SHA256 env pins, which must also be exported at verify time. The OCI manifestDigest has no kit field and is preserved in artifact-manifest-digest.yaml."
+    -
+      category: "dependency-lock"
+      status: "handled"
+      note: "The chart has zero dependencies (apiVersion v1, no charts/ directory, witness subcharts count 0). expectedDependencyCount is 0, the kit default."
+    -
+      category: "capability-profile"
+      status: "handled"
+      note: "kubeVersion 1.31.0, apiVersions empty. The chart uses no Capabilities checks (witness capabilities count 0), so the profile is declarative rather than render-affecting."
+    -
+      category: "lifecycle-policy"
+      status: "handled"
+      note: "The chart ships zero helm hooks and zero test hooks (witness counts 0), so no hook lifecycle exists to manage. This spec renders with hooks visible (no --no-hooks flag) and declares hookPolicy hooks-rendered-visible, matching the lean entry; with zero hooks the rendered bytes are identical either way. Never claim hooks exist for this chart."
+    -
+      category: "crd-policy"
+      status: "handled-with-required-route"
+      note: "22 CRDs (22 files, 22 documents in crds/) render with --include-crds and are counted in the 32 objects. Both flattening verdicts land flatten-with-routes with exactly one route, a CRD ordering declaration for the 22 EC2 CRDs; the eks-inference producer already emits it as the crds/controller split at Argo sync waves -20 and -10. The proof itself does not ship the route; it must travel with the bundle."
+    -
+      category: "namespace"
+      status: "handled"
+      note: "Both variants target ack-system with release name ack-ec2. The chart creates no Namespace object (witness namespace-creation 0), so the installer supplies v1|Namespace||ack-system as the single support object, matching the kit default."
+    -
+      category: "credentials-secrets"
+      status: "required-for-eks-inference"
+      note: "The chart generates no Secrets (witness generated-secrets 0; expectedSecretCount 0 for both bases). The eks-inference base references a pre-existing Secret ack-system/aws-creds with key credentials, mounted as the shared AWS credentials file. IRSA via serviceAccount annotation is the unmodeled alternative. The default base renders no credential wiring at all and cannot reach AWS."
+    -
+      category: "extension-slots"
+      status: "unused-at-audited-values"
+      note: "extraEnvVars, extraVolumes, extraVolumeMounts, deployment.annotations, deployment.labels, and image.pullSecrets are raw passthroughs into the Deployment and are empty in both audited bases. Renders with these populated are unaudited."

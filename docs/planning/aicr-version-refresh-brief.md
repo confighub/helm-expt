@@ -130,3 +130,14 @@ toolchain decision first, either pinning a cosign version with an explicit
 trusted root or adopting the vendor command and recording what it checks. That
 decision is the real first increment, and it is smaller than the entry build
 it gates.
+
+## Toolchain decision made 2026-08-07
+
+That decision is now made and recorded in
+[how the catalog verifies AICR upstream signatures](../reference/aicr-signature-verification.md),
+with a runnable lane behind it. Cosign 2.6.1 in a container, a committed
+sigstore trust root, `--use-signed-timestamps` for the missing integrated
+time, and the network disabled verifies the v0.18.0 signature with no insecure
+flag, and the lane also proves it refuses a wrong signer identity. The refresh
+is unblocked, and the rung it would add is now demonstrated rather than
+assumed.

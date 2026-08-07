@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "ack-eks-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+  inputs:
+    sourceLockSHA256: "4e38eca12c45034b6215830dde607225f563fbfd47518b0147e61eaab58e113c"
+    dependencyLockSHA256: "80a7edcb3c3c73b8a2b25f3bd7e3cabef2adba6a0718b8bf0174ec9ac334c490"
+    effectiveValuesSHA256: "da84451afab34453d235e97767adeae64957660af9f321878c829e6b2e6e1431"
+  outputs:
+    renderedObjectSetSHA256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+    renderedObjectInventorySHA256: "8d622bb120a4c4637092ec28f453c623cf6c2288360805ba3f31e4c06763b990"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 20
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

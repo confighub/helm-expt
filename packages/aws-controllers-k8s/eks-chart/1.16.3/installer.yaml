@@ -1,0 +1,55 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "aws-controllers-k8s-eks-chart"
+  version: "1.16.3"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "eks-chart default variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
+    -
+      name: "eks-inference"
+      path: "bases/eks-inference"
+      description: "eks-chart eks-inference variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret ack-system/aws-creds key credentials"
+          namespace: "ack-system"
+          suggestedSource: "kubectl -n ack-system create secret generic aws-creds --from-literal=credentials=<value>"
+  inputs:
+    -
+      name: "awsRegion"
+      type: "string"
+      default: "confighubplaceholder"
+      prompt: "AWS region for the ACK EKS controller (fills the AWS_REGION env var)"
+      description: "Used by the eks-inference base. Replaces the confighubplaceholder sentinel by writing the AWS_REGION env var by name; the default base keeps the chart's empty region and ignores this input."
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+  transformers:
+    -
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          name: "set-namespace"
+          args:
+            - "{{ .Namespace }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""
+    -
+      description: "Bind AWS_REGION on the controller Deployment from the installer input, addressed by variable name so a chart bump that adds or reorders env vars cannot redirect the write."
+      invocations:
+        -
+          name: "set-env-var"
+          args:
+            - "controller"
+            - "AWS_REGION"
+            - "{{ .Inputs.awsRegion }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: "{{ if eq .Selection.Base \"eks-inference\" }}ConfigHub.ResourceType = 'apps/v1/Deployment'{{ else }}ConfigHub.ResourceType = 'helm-expt.invalid/v1/Never'{{ end }}"

@@ -1,26 +1,39 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderedObjectInventory"
 metadata:
-  name: "eks-inference-r001"
+  name: "nvidia-nvidia-device-plugin-0.19.3-eks-inference-r001"
 spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
   objectCount: 5
-  renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
   objects:
     -
-      kind: "ClusterRole"
-      name: "nvidia-device-plugin-role"
-    -
-      kind: "ClusterRoleBinding"
-      name: "nvidia-device-plugin-role-binding"
-    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|gpu-operator|nvidia-device-plugin"
       kind: "DaemonSet"
       name: "nvidia-device-plugin"
       namespace: "gpu-operator"
     -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|gpu-operator|nvidia-device-plugin-mps-control-daemon"
       kind: "DaemonSet"
       name: "nvidia-device-plugin-mps-control-daemon"
       namespace: "gpu-operator"
     -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvidia-device-plugin-role-binding"
+      kind: "ClusterRoleBinding"
+      name: "nvidia-device-plugin-role-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||nvidia-device-plugin-role"
+      kind: "ClusterRole"
+      name: "nvidia-device-plugin-role"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|gpu-operator|nvidia-device-plugin-service-account"
       kind: "ServiceAccount"
       name: "nvidia-device-plugin-service-account"
       namespace: "gpu-operator"

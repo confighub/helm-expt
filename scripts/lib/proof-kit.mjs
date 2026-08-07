@@ -145,6 +145,7 @@ function makeContext(spec) {
     scriptPrefix: process.env.HELM_EXPT_PROOF_SCRIPT_PREFIX ?? spec.scriptPrefix ?? chart.name,
     proofCommands: process.env.HELM_EXPT_PROOF_COMMANDS ?? "",
     renderFlags: spec.renderFlags ?? DEFAULT_RENDER_FLAGS,
+    hookPolicy: spec.hookPolicy ?? "no-hooks",
     expectedDependencyCount: spec.expectedDependencyCount ?? 0,
     recordChartLockDigest: spec.recordChartLockDigest ?? false,
     recordDeprecated: spec.recordDeprecated ?? false,
@@ -338,7 +339,7 @@ function generateProof(ctx) {
         renderer: "helm",
         helmVersion,
         kubeVersion: chart.kubeVersion,
-        flags: ctx.renderFlags,
+        flags: variant.renderFlags ?? ctx.renderFlags,
         ...((variant.apiVersions ?? []).length ? { apiVersions: variant.apiVersions } : {}),
       }),
     );
@@ -383,7 +384,7 @@ function generateProof(ctx) {
           name: "helm",
           version: helmVersion,
           kubeVersion: chart.kubeVersion,
-          flags: ctx.renderFlags,
+          flags: variant.renderFlags ?? ctx.renderFlags,
           ...((variant.apiVersions ?? []).length ? { apiVersions: variant.apiVersions } : {}),
         },
         inputs: {
@@ -1059,7 +1060,7 @@ function renderVariant(ctx, variant) {
       chart.namespace,
       "--kube-version",
       chart.kubeVersion,
-      ...ctx.renderFlags,
+      ...(variant.renderFlags ?? ctx.renderFlags),
     ];
     if (!ctx.artifactURL) args.splice(3, 0, "--version", chart.version);
     if (variant.valuesText) {
@@ -1143,7 +1144,7 @@ function variantDocFor(ctx, variant) {
       releaseName: chart.releaseName,
       valuesProfile: `../../${variant.valuesFile}`,
       capabilityProfile: { kubeVersion: chart.kubeVersion, apiVersions: variant.apiVersions ?? [] },
-      hookPolicy: "no-hooks",
+      hookPolicy: ctx.hookPolicy,
     },
   };
   if (variant.targetFacts) doc.spec.targetFacts = variant.targetFacts;

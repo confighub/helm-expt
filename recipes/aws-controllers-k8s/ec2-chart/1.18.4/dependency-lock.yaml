@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4"
+spec:
+  chart: "aws-controllers-k8s/ec2-chart"
+  version: "1.18.4"
+  dependencies:
+    []

@@ -3,13 +3,23 @@ kind: "Variant"
 metadata:
   name: "eks-inference"
 spec:
+  recipe: "../../recipe.yaml"
   namespace: "kube-system"
   releaseName: "karpenter"
-  valuesProfile: "./effective-values.yaml"
-  valuesOrigin: "eks-inference src/karpenter/values/karpenter.yaml at commit 2e1a8823920ca4fc6f124db754b7f8f2cfe7d574"
+  valuesProfile: "../../effective-values-eks-inference.yaml"
   capabilityProfile:
     kubeVersion: "1.31.0"
     apiVersions:
       []
-  includeCrds: true
-  hookPolicy: "hooks-rendered-visible"
+  hookPolicy: "no-hooks"
+  targetFacts:
+    requiredValues:
+      -
+        path: "controller.env[AWS_REGION]"
+        purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+        stage: "pre-render"
+        source: "platform-profile"
+        installerInput: "awsRegion"
+    requiredTopology:
+      minimumSchedulableNodes: 1
+      purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"

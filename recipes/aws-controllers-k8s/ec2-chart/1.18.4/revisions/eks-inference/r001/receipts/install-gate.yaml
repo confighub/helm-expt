@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ack-ec2-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "52eab19d8c3c6c160d3259bd15bc468fa31eb295238e0b428fda9e53b8514a7d"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for eks-inference"
+    - "requires Secret ack-system/aws-creds (key credentials) to exist before the controller starts"
+    - "aws.region ships as confighubplaceholder; vet-placeholders must fail until an environment binds a real region"
+    - "the CRD ordering route (crds/controller split, Argo sync waves -20 and -10) travels with the bundle producer, not this recipe"
+    - "cluster-scoped RBAC needs production review"
+    - "requires target Secret ack-system/aws-creds (key credentials) before the controller starts, plus a non-placeholder aws.region bound before deploy"

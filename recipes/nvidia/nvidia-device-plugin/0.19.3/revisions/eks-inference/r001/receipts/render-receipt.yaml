@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nvidia-device-plugin-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.31.0"
+    flags:
+      - "--include-crds"
+  inputs:
+    sourceLockSHA256: "f31014f191fbbaf647fb92a1061d80684a19bcb7d26ecccac31a1a1ea7b3fcf7"
+    dependencyLockSHA256: "6fe3abca6c4b6d1beba7c1a3f7a2f0782468e01dc61e25822bfbd5aca2b18d7c"
+    effectiveValuesSHA256: "9dd0eea546562ff1c4634b7156a1c3fc58cdcc66e647808aafcb3c2b777853aa"
+  outputs:
+    renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+    renderedObjectInventorySHA256: "c57edf81e6fd8cc521a8c6da61132493dd3a7f8845c38580a9cf1b65c7fb20c7"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

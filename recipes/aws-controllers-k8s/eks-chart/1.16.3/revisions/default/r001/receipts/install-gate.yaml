@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ack-eks-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "cluster-scoped RBAC needs production review"
+    - "the ten CRDs need the bundle-side ordering declaration (crds/controller split) before flattened delivery"
+    - "deletionPolicy delete is the chart default, so flattening this base under a pruning reconciler inherits AWS-resource deletion on prune; AWS_REGION renders empty and the controller relies on ambient region and identity configuration"

@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "ack-ec2-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59"
+    objectCount: 32
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 33
+    uploadedManifestFiles: 33
+    separatedSecretFiles: 0
+    semanticObjectMatches: "32/32"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||ack-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run ack-ec2:compare"
