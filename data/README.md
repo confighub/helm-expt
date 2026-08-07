@@ -372,6 +372,7 @@ data/csv-index.csv
 ~~~
 
 It includes 183 CSV files. Each row records the path, audience,
+It includes 182 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

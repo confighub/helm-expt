@@ -38,3 +38,5 @@ The receipt records six things.
 ## Boundaries
 
 The receipt certifies rendering and packaging, not runtime health. Convergence receipts stay separate. A verdict lane is never overridden by hand, and a bundle without a receipt is just a tarball: strict consumers may refuse it.
+
+That strict consumer exists. `scripts/verify-certified-bundle.mjs` runs offline over every committed receipt and refuses a malformed structure, a file manifest that does not hash-match the committed bytes it names, a certified lane with no verdict citation, or a lane that disagrees with the verdict it cites. Run it with `npm run certified-bundles:strict`; its self-test proves each refusal fires.
