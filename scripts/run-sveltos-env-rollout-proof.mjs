@@ -25,13 +25,14 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-const allowedModes = new Set(["--run", "--generate", "--verify", "--self-test"]);
+const allowedModes = new Set(["--run", "--generate", "--verify", "--self-test", "--probe-gate"]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/run-sveltos-env-rollout-proof.mjs --run
   node scripts/run-sveltos-env-rollout-proof.mjs --generate
   node scripts/run-sveltos-env-rollout-proof.mjs --verify
-  node scripts/run-sveltos-env-rollout-proof.mjs --self-test`);
+  node scripts/run-sveltos-env-rollout-proof.mjs --self-test
+  node scripts/run-sveltos-env-rollout-proof.mjs --probe-gate`);
   process.exit(2);
 }
 
@@ -86,6 +87,8 @@ let timeSource = () => Date.now();
 
 if (mode === "--run") {
   run();
+} else if (mode === "--probe-gate") {
+  probeGate();
 } else if (mode === "--self-test") {
   selfTest();
 } else if (mode === "--generate") {
@@ -414,6 +417,35 @@ function run() {
   verifyReceipt(receipt);
   console.log(
     `wrote ${relativeRepo(receiptPath)} and ${relativeRepo(summaryPath)}`,
+  );
+}
+
+// The two-minute answer to "is confighubai/confighub#4975 fixed yet?":
+// wire one throwaway Space, create one probe Unit, and watch for the
+// approval gate. One passing probe unblocks every drafted fleet lane.
+function probeGate() {
+  const policyContext = process.env.CUB_CONTEXT?.trim() ?? "";
+  check(policyContext, "set CUB_CONTEXT to an authenticated helm-catalog context");
+  check(tryCommand("cub", ["version"]).ok, "cub is required for this probe");
+  const policyContextInfo = cubJson(policyContext, [
+    "context", "get", policyContext, "-o", "json",
+  ]);
+  check(
+    policyContextInfo.metadata?.organizationName === expectedPolicyOrg,
+    `refusing to create probe evidence outside ${expectedPolicyOrg}`,
+  );
+  const topology = readApprovalTopology(policyContext);
+  const catalogTarget = cubJson(policyContext, [
+    "target", "get", "--space", ...catalogOciTargetRef.split("/"), "-o", "json",
+  ]).Target;
+  check(
+    catalogTarget?.ProviderType === "OCI",
+    `${catalogOciTargetRef} is not an OCI target`,
+  );
+  const runId = safeRunId(new Date().toISOString());
+  assertApprovalGateObservable(policyContext, runId, topology, catalogTarget);
+  console.log(
+    "the approval gate is observable on this server; confighubai/confighub#4975 is fixed and the drafted fleet lanes are unblocked (run them serially: the two-wave re-record, then the rollout, patch, and bulk lanes)",
   );
 }
 

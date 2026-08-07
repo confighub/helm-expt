@@ -89,6 +89,13 @@ npm run sveltos-bulk-ops:self-test
 npm run sveltos-bulk-ops-proof:self-test
 ```
 
+To find out whether the server fix has landed, one probe answers for every
+lane: `CUB_CONTEXT=my-policy npm run sveltos-gate:probe` wires a throwaway
+record, watches for the block marker, cleans up, and reports either the
+refusal with the issue number or that the lanes are unblocked. The patched
+chart's digest and values fit can be checked any day with
+`npm run sveltos-cve-patch-proof:verify-chart`, with no account or cluster.
+
 Fleet proofs run serially against the organization, never in parallel. The
 planning brief behind the chapters is
 [sveltos-fleet-brief.md](../../planning/sveltos-fleet-brief.md).
