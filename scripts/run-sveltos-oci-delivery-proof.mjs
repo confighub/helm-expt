@@ -24,12 +24,13 @@ import {
 } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
-const allowedModes = new Set(["--run", "--generate", "--verify"]);
+const allowedModes = new Set(["--run", "--generate", "--verify", "--self-test"]);
 if (!allowedModes.has(mode)) {
   console.error(`Usage:
   node scripts/run-sveltos-oci-delivery-proof.mjs --run
   node scripts/run-sveltos-oci-delivery-proof.mjs --generate
-  node scripts/run-sveltos-oci-delivery-proof.mjs --verify`);
+  node scripts/run-sveltos-oci-delivery-proof.mjs --verify
+  node scripts/run-sveltos-oci-delivery-proof.mjs --self-test`);
   process.exit(2);
 }
 
@@ -81,8 +82,16 @@ const registrationNamespace = "projectsveltos";
 const sveltosManifestUrl =
   "https://raw.githubusercontent.com/projectsveltos/sveltos/v1.12.0/manifest/manifest.yaml";
 
+// The self-test swaps these three seams for fake ConfigHub and OCI surfaces
+// and a fake clock; every live lane uses the real defaults.
+let commandRunner = runRealCommand;
+let sleeper = realSleep;
+let timeSource = () => Date.now();
+
 if (mode === "--run") {
   run();
+} else if (mode === "--self-test") {
+  selfTest();
 } else if (mode === "--generate") {
   const receipt = readYaml(receiptPath);
   verifyReceipt(receipt);
@@ -1516,8 +1525,8 @@ function blockedDryRun(context, space, unit) {
   let seen = approvalObservation(context, space, unit);
   const gatePresent = () =>
     seen.gateKeys.some((key) => key === approvalGate || key.includes("require-approval"));
-  const deadline = Date.now() + 120_000;
-  while (!gatePresent() && Date.now() < deadline) {
+  const deadline = now() + 120_000;
+  while (!gatePresent() && now() < deadline) {
     sleep(5_000);
     seen = approvalObservation(context, space, unit);
   }
@@ -2183,6 +2192,10 @@ function command(file, args, options = {}) {
 }
 
 function tryCommand(file, args, options = {}) {
+  return commandRunner(file, args, options);
+}
+
+function runRealCommand(file, args, options = {}) {
   const result = spawnSync(file, args, {
     cwd: options.cwd ?? repoRoot,
     env: options.env ?? process.env,
@@ -2223,12 +2236,20 @@ function safeRunId(value) {
 }
 
 function sleep(milliseconds) {
+  sleeper(milliseconds);
+}
+
+function realSleep(milliseconds) {
   Atomics.wait(
     new Int32Array(new SharedArrayBuffer(4)),
     0,
     0,
     milliseconds,
   );
+}
+
+function now() {
+  return timeSource();
 }
 
 function phase(message) {
@@ -2516,4 +2537,593 @@ Kyverno profile rather than every Sveltos feature.
 - [Pinned source versions](../../examples/sveltos/kyverno-fleet/source-lock.yaml)
 - [Committed receipt](../../runs/sveltos-oci-delivery-proof/receipt.yaml)
 `;
+}
+
+function selfTest() {
+  const workRoot = mkdtempSync(join(tmpdir(), "helm-expt-sveltos-oci-self-test-"));
+  const realRunner = commandRunner;
+  const realSleeper = sleeper;
+  const realTime = timeSource;
+  const context = "self-test-context";
+  try {
+    let clockMs = 0;
+    const hub = createFakeConfigHub();
+    const registry = createFakeOciRegistry();
+    commandRunner = (file, args, options = {}) => {
+      if (file === "cub") return hub.handle(args, options);
+      if (file === "oras") return registry.handle(args, options);
+      if (file === "tar") return realRunner(file, args, options);
+      return {
+        ok: false,
+        status: 1,
+        output: "",
+        error: `the self-test fake surface refuses ${file}`,
+      };
+    };
+    sleeper = (milliseconds) => {
+      clockMs += milliseconds;
+      hub.tick();
+    };
+    timeSource = () => clockMs;
+
+    selfTestHelpers();
+
+    const topology = readApprovalTopology(context);
+    check(
+      topology.id === hub.filterId
+        && topology.triggerIds.length === expectedTriggers.length,
+      "the approval topology did not come from the fake control plane",
+    );
+    const space = "self-test-sveltos-space";
+    check(!spacePresent(context, space), "the fake hub reported an uncreated Space");
+    createPolicySpace(context, space);
+    check(spacePresent(context, space), "the policy Space was not created");
+    assertPolicySpace(context, space, topology.triggerIds, hub.catalogTargetId);
+
+    hub.state.triggerIdOverride = ["self-test-trigger-bogus"];
+    createPolicySpace(context, "self-test-wrong-triggers");
+    expectFailure(
+      () => assertPolicySpace(context, "self-test-wrong-triggers", topology.triggerIds, hub.catalogTargetId),
+      /received the wrong Trigger set/,
+      "wrong trigger wiring refusal",
+    );
+    hub.state.triggerIdOverride = null;
+    hub.state.releaseTargetOverride = "self-test-wrong-target";
+    createPolicySpace(context, "self-test-wrong-target-space");
+    expectFailure(
+      () => assertPolicySpace(context, "self-test-wrong-target-space", topology.triggerIds, hub.catalogTargetId),
+      /received the wrong release target/,
+      "wrong release-target wiring refusal",
+    );
+    hub.state.releaseTargetOverride = null;
+
+    const sourceText = readFileSync(profilePath, "utf8");
+    const sourceDocs = parseDocs(sourceText);
+    cub(context, [
+      "unit", "create", "--space", space, policyUnit, profilePath,
+      "--target", catalogOciTargetRef,
+      "--label", "Proof=sveltos-oci-delivery-self-test",
+      "--change-desc", "Store the reviewed Sveltos ClusterProfile",
+      "--quiet",
+    ]);
+    const pilotStored = waitForPolicy(context, space, policyUnit, true);
+    check(
+      canonicalDocs(parseDocs(storedData(pilotStored)))
+        === canonicalDocs(sourceDocs),
+      "the fake hub stored a different ClusterProfile",
+    );
+    const pilotBlocked = blockedDryRun(context, space, policyUnit);
+    check(
+      pilotBlocked.result === "blocked"
+        && pilotBlocked.observation === "apply-gate-present-approval-absent",
+      "the pilot bracket did not observe the armed gate",
+    );
+    expectFailure(
+      () => allowedDryRun(context, space, policyUnit),
+      /records no approval after the gate cleared/,
+      "premature allowed-observation refusal",
+    );
+    approveHeadRevision(context, space, policyUnit, "pilot", pilotStored.HeadRevisionNum);
+    const pilotApproved = waitForPolicy(context, space, policyUnit, false);
+    check(
+      pilotApproved.ContentHash === pilotStored.ContentHash,
+      "approval changed the stored content hash",
+    );
+    check(approvalCount(pilotApproved.ApprovedBy) >= 1, "the approval was not recorded");
+    const pilotAllowed = allowedDryRun(context, space, policyUnit);
+    check(pilotAllowed.result === "allowed", "the approved bracket was not observed as allowed");
+    const pilotRelease = publishRelease(context, space);
+    check(
+      pilotRelease.manifestDigest.startsWith("sha256:")
+        && normalizeDigest(pilotRelease.manifestDigest) === pilotRelease.manifestDigest,
+      "the private release digest is not a normalized sha256",
+    );
+    const registryHost = "registry.self-test.invalid:5000";
+    const clusterRegistryHost = "cluster.self-test.invalid:5000";
+    const pilotPortable = publishPortableOci({
+      workRoot,
+      approvedText: storedData(pilotApproved),
+      registryHost,
+      clusterRegistryHost,
+      tag: "pilot",
+    });
+    check(
+      pilotPortable.objectsMatchApprovedData === true
+        && pilotPortable.anonymousPull === true
+        && pilotPortable.approvedDataSha256 === pilotPortable.pulledDataSha256,
+      "the pilot portable package round trip failed",
+    );
+
+    const fleetDoc = structuredClone(sourceDocs[0]);
+    check(
+      fleetDoc.spec?.clusterSelector?.matchLabels?.rollout === "pilot",
+      "the committed profile no longer declares rollout=pilot",
+    );
+    delete fleetDoc.spec.clusterSelector.matchLabels.rollout;
+    const fleetProfileFile = join(workRoot, "clusterprofile-fleet.yaml");
+    writeDocuments(fleetProfileFile, [fleetDoc]);
+    const fleetUpdate = cubTry(context, [
+      "unit", "update", "--space", space, policyUnit, fleetProfileFile,
+      "--change-desc", "Expand the approved Kyverno profile",
+      "-o", "json",
+    ]);
+    check(fleetUpdate.ok, "the fake hub rejected the fleet update");
+    const fleetStored = waitForPolicy(context, space, policyUnit, true);
+    check(
+      Number(fleetStored.HeadRevisionNum) > Number(pilotApproved.HeadRevisionNum),
+      "the fleet update did not create a new revision",
+    );
+    blockedDryRun(context, space, policyUnit);
+    approveHeadRevision(context, space, policyUnit, "fleet", fleetStored.HeadRevisionNum);
+    const fleetApproved = waitForPolicy(context, space, policyUnit, false);
+    check(
+      canonicalDocs(parseDocs(storedData(fleetApproved)))
+        === canonicalDocs([fleetDoc]),
+      "the fake hub stored a different fleet ClusterProfile",
+    );
+    allowedDryRun(context, space, policyUnit);
+    const fleetPortable = publishPortableOci({
+      workRoot,
+      approvedText: storedData(fleetApproved),
+      registryHost,
+      clusterRegistryHost,
+      tag: "fleet",
+    });
+    check(
+      pilotPortable.manifestDigest !== fleetPortable.manifestDigest,
+      "the selector change did not produce a new OCI digest",
+    );
+
+    // The live-server defect in confighubai/confighub#4975 must stay a
+    // refusal: a Unit whose gate never materializes fails closed.
+    hub.state.neverPopulateGates = true;
+    const stalled = "self-test-stalled-space";
+    createPolicySpace(context, stalled);
+    cub(context, ["unit", "create", "--space", stalled, policyUnit, profilePath, "--quiet"]);
+    expectFailure(
+      () => waitForPolicy(context, stalled, policyUnit, true),
+      /did not reach the expected policy state/,
+      "missing-gate wait refusal",
+    );
+    expectFailure(
+      () => blockedDryRun(context, stalled, policyUnit),
+      /carries no platform\/require-approval\/vet-approvedby apply gate before approval/,
+      "missing-gate bracket refusal",
+    );
+    hub.state.neverPopulateGates = false;
+
+    const stale = "self-test-preapproved-space";
+    createPolicySpace(context, stale);
+    cub(context, ["unit", "create", "--space", stale, policyUnit, profilePath, "--quiet"]);
+    waitForPolicy(context, stale, policyUnit, true);
+    hub.seedApproval(stale, policyUnit);
+    expectFailure(
+      () => blockedDryRun(context, stale, policyUnit),
+      /was already approved before the gate observation/,
+      "pre-approved bracket refusal",
+    );
+
+    hub.state.approveFails = true;
+    const rejected = "self-test-rejected-space";
+    createPolicySpace(context, rejected);
+    cub(context, ["unit", "create", "--space", rejected, policyUnit, profilePath, "--quiet"]);
+    waitForPolicy(context, rejected, policyUnit, true);
+    expectFailure(
+      () => approveHeadRevision(context, rejected, policyUnit, "pilot", 1),
+      /ConfigHub rejected the pilot approval before recording it/,
+      "unrecorded approval refusal",
+    );
+    hub.seedApproval(rejected, policyUnit);
+    approveHeadRevision(context, rejected, policyUnit, "pilot", 1);
+    hub.state.approveFails = false;
+
+    hub.state.stripReleaseManifestDigest = true;
+    expectFailure(
+      () => publishRelease(context, space),
+      /release publish returned no manifest digest/,
+      "missing release digest refusal",
+    );
+    hub.state.stripReleaseManifestDigest = false;
+    expectFailure(
+      () => publishPortableOci({ workRoot, approvedText: sourceText, registryHost, clusterRegistryHost, tag: "canary" }),
+      /unsupported OCI tag/,
+      "unsupported tag refusal",
+    );
+    registry.state.dropBundleOnPull = true;
+    expectFailure(
+      () => publishPortableOci({ workRoot: join(workRoot, "drop"), approvedText: sourceText, registryHost, clusterRegistryHost, tag: "pilot" }),
+      /missing bundle\.tar\.gz/,
+      "missing pulled bundle refusal",
+    );
+    registry.state.dropBundleOnPull = false;
+    const tamperedText = sourceText.replace("replicas: 3", "replicas: 1");
+    check(tamperedText !== sourceText, "the tamper fixture did not change the profile");
+    registry.state.substituteBundle = buildBundle(join(workRoot, "tampered"), tamperedText);
+    expectFailure(
+      () => publishPortableOci({ workRoot: join(workRoot, "swap"), approvedText: sourceText, registryHost, clusterRegistryHost, tag: "pilot" }),
+      /pulled portable OCI differs from the approved ConfigHub data/,
+      "tampered pulled payload refusal",
+    );
+    registry.state.substituteBundle = null;
+
+    expectFailure(
+      () => storedData({ SpaceSlug: "self-test", Slug: "empty" }),
+      /has no stored data/,
+      "missing unit data refusal",
+    );
+
+    selfTestReceipt();
+
+    console.log(
+      "sveltos OCI delivery self-test passed: fake-hub approval brackets for both waves, wrong-wiring refusals, the missing-gate fail-closed boundary, portable OCI round trip and tamper refusals, helper checks, and the committed-receipt tamper battery",
+    );
+  } finally {
+    commandRunner = realRunner;
+    sleeper = realSleeper;
+    timeSource = realTime;
+    rmSync(workRoot, { recursive: true, force: true });
+  }
+}
+
+function selfTestHelpers() {
+  const orderedA = 'apiVersion: v1\nkind: ConfigMap\nmetadata:\n  name: sample\n  namespace: demo\ndata:\n  alpha: "1"\n  beta: "2"\n';
+  const orderedB = 'kind: ConfigMap\napiVersion: v1\nmetadata:\n  namespace: demo\n  name: sample\ndata:\n  beta: "2"\n  alpha: "1"\nstatus:\n  observed: true\n';
+  check(
+    canonicalDocs(parseDocs(orderedA)) === canonicalDocs(parseDocs(orderedB)),
+    "canonicalDocs is sensitive to key order or status noise",
+  );
+  check(
+    canonicalDocs(parseDocs(orderedA))
+      !== canonicalDocs(parseDocs(orderedA.replace('alpha: "1"', 'alpha: "9"'))),
+    "canonicalDocs missed a data change",
+  );
+
+  const source = {
+    apiVersion: "config.projectsveltos.io/v1beta1",
+    kind: "ClusterProfile",
+    metadata: { name: "kyverno-staging" },
+    spec: { clusterSelector: { matchLabels: { environment: "staging" } } },
+  };
+  const live = structuredClone(source);
+  live.metadata.labels = { "app.kubernetes.io/instance": "sveltos-profile" };
+  live.spec.syncMode = "Continuous";
+  check(
+    sourceFieldsMatchLive(source, live) === true,
+    "an added live field broke the source projection",
+  );
+  const added = addedFieldPaths(source, live);
+  check(
+    added.includes("metadata.labels") && added.includes("spec.syncMode"),
+    "added live fields were not reported",
+  );
+  const drifted = structuredClone(live);
+  drifted.spec.clusterSelector.matchLabels.environment = "production";
+  check(
+    sourceFieldsMatchLive(source, drifted) === false,
+    "a changed live field was not detected",
+  );
+
+  check(
+    normalizeDigest(`SHA256:${"A".repeat(64)}`) === `sha256:${"a".repeat(64)}`
+      && normalizeDigest("not-a-digest") === "",
+    "normalizeDigest behavior changed",
+  );
+  check(
+    sameSet(["b", "a"], ["a", "b"]) && !sameSet(["a"], ["a", "b"]),
+    "sameSet behavior changed",
+  );
+  check(
+    approvalCount([{ user: "one" }, { user: "two" }]) === 2
+      && approvalCount({ first: 1, second: 1 }) === 2
+      && approvalCount(null) === 0,
+    "approvalCount shape handling changed",
+  );
+  check(
+    safeRunId("2026-08-07T10:11:12Z") === "20260807101112",
+    "safeRunId digit extraction changed",
+  );
+  expectFailure(() => safeRunId("proof"), /at least eight digits/, "short run-id refusal");
+  const sanitized = sanitizeError(`password: hunter2-value token=${"a".repeat(48)}`);
+  check(
+    !sanitized.includes("hunter2") && !sanitized.includes("a".repeat(48)),
+    "sanitizeError leaked a credential shape",
+  );
+}
+
+function selfTestReceipt() {
+  const receipt = readYaml(receiptPath);
+  verifyReceipt(structuredClone(receipt));
+  const tampers = [
+    ["kind", (c) => { c.kind = "OtherReceipt"; }, /receipt kind changed/],
+    ["result", (c) => { c.status.result = "fail"; }, /is not pass/],
+    ["portable access", (c) => { c.spec.flow.access.portablePull = "account required"; }, /flow access record changed/],
+    ["source hash", (c) => { c.spec.source.rawSha256 = "0".repeat(64); }, /source record changed/],
+    ["policy triggers", (c) => { c.spec.configHubReview.policy.filter.triggerRefs = ["platform/bogus"]; }, /policy record changed/],
+    ["pilot approval", (c) => { c.spec.configHubReview.pilot.beforeApproval.result = "allowed"; }, /pilot approval record changed/],
+    ["fleet approvals", (c) => { c.spec.configHubReview.fleet.approval.recordedApprovals = 0; }, /fleet approval record changed/],
+    ["digest reuse", (c) => { c.spec.configHubReview.fleet.portableRelease.manifestDigest = c.spec.configHubReview.pilot.portableRelease.manifestDigest; }, /fleet selector change record changed/],
+    ["pilot wave", (c) => { c.spec.management.waves.pilot.targets[1].selected = true; }, /pilot target record changed/],
+    ["fleet wave", (c) => { c.spec.management.waves.fleet.targets[0].selected = false; }, /fleet target record changed/],
+    ["argo revision", (c) => { c.spec.management.waves.pilot.argo.revision = `sha256:${"0".repeat(64)}`; }, /pilot Argo delivery record changed/],
+    ["drift", (c) => { c.spec.workloads[0].drift.result = "fail"; }, /drift record changed/],
+    ["cleanup", (c) => { c.spec.cleanup.registry = "fail"; }, /cleanup did not pass/],
+    ["identity leak", (c) => { c.spec.notes = "approved by someone@confighub.com"; }, /contains a user identity/],
+    ["credential leak", (c) => { c.spec.notes = "ch_selftesttoken"; }, /contains a credential/],
+  ];
+  for (const [label, tamper, pattern] of tampers) {
+    const clone = structuredClone(receipt);
+    tamper(clone);
+    expectFailure(() => verifyReceipt(clone), pattern, `receipt ${label}`);
+  }
+}
+
+function createFakeConfigHub() {
+  const filterId = "self-test-filter-0001";
+  const catalogTargetId = "self-test-oci-target-0001";
+  const triggerIdFor = (ref) => `self-test-trigger-${ref.split("/")[1]}`;
+  const spaces = new Map();
+  const units = new Map();
+  const pending = new Set();
+  let releaseSequence = 0;
+  const state = {
+    neverPopulateGates: false,
+    approveFails: false,
+    stripReleaseManifestDigest: false,
+    triggerIdOverride: null,
+    releaseTargetOverride: null,
+  };
+  const unitKey = (space, slug) => `${space}/${slug}`;
+  const approvalsOn = (unit) =>
+    Array.isArray(unit.ApprovedBy) ? unit.ApprovedBy.length : 0;
+  const tick = () => {
+    for (const key of pending) {
+      const unit = units.get(key);
+      if (!unit) continue;
+      if (state.neverPopulateGates) unit.ApplyGates = {};
+      else if (approvalsOn(unit) >= 1) unit.ApplyGates = {};
+      else unit.ApplyGates = { [approvalGate]: true };
+    }
+    pending.clear();
+  };
+  const seedApproval = (space, slug) => {
+    const unit = units.get(unitKey(space, slug));
+    check(unit, `${space}/${slug}: fake hub unit missing for approval seed`);
+    unit.ApprovedBy = ["self-test-reviewer"];
+  };
+  const ok = (output) => ({ ok: true, status: 0, output, error: "" });
+  const refuse = (error) => ({ ok: false, status: 1, output: "", error });
+  const publicUnit = (unit) => structuredClone(unit);
+  const handle = (args) => {
+    const { positionals, flags } = parseCubCommand(args);
+    const [entity, verb, ...rest] = positionals;
+    if (entity === "filter" && verb === "get") {
+      return ok(JSON.stringify({ Filter: { FilterID: filterId, Hash: "self-test-filter-hash" } }));
+    }
+    if (entity === "trigger" && verb === "get") {
+      return ok(JSON.stringify({ Trigger: { TriggerID: `self-test-trigger-${rest[0]}` } }));
+    }
+    if (entity === "space" && verb === "create") {
+      const slug = rest[0];
+      if (flags["trigger-filter"] !== approvalFilterRef) {
+        return refuse(`unexpected trigger filter ${flags["trigger-filter"]}`);
+      }
+      spaces.set(slug, {
+        Slug: slug,
+        SpaceID: `self-test-space-${slug}`,
+        TriggerIDs: [],
+        ReleaseTargetID: null,
+        TriggerFilterID: filterId,
+      });
+      return ok("");
+    }
+    if (entity === "space" && verb === "update") {
+      const slug = rest[0];
+      const row = spaces.get(slug);
+      if (!row) return refuse(`space ${slug} not found`);
+      if (flags["release-target"]) {
+        row.ReleaseTargetID = state.releaseTargetOverride ?? catalogTargetId;
+      }
+      if (flags["refresh-triggers"]) {
+        row.TriggerIDs = state.triggerIdOverride
+          ?? expectedTriggers.map(triggerIdFor).sort();
+      }
+      return ok("");
+    }
+    if (entity === "space" && verb === "get") {
+      const row = spaces.get(rest[0]);
+      if (!row) return refuse(`space ${rest[0]} not found`);
+      return ok(JSON.stringify({ Space: structuredClone(row) }));
+    }
+    if (entity === "unit" && verb === "create") {
+      const [slug, path] = rest;
+      const data = readFileSync(path, "utf8");
+      const key = unitKey(flags.space, slug);
+      units.set(key, {
+        Slug: slug,
+        SpaceSlug: flags.space,
+        UnitID: `self-test-unit-${flags.space}-${slug}`,
+        Data: Buffer.from(data).toString("base64"),
+        ContentHash: sha256(data),
+        HeadRevisionNum: 1,
+        ApplyGates: { "awaiting/triggers": true },
+        ApprovedBy: [],
+      });
+      pending.add(key);
+      return ok("");
+    }
+    if (entity === "unit" && verb === "update") {
+      const [slug, path] = rest;
+      const key = unitKey(flags.space, slug);
+      const unit = units.get(key);
+      if (!unit) return refuse(`unit ${key} not found`);
+      const data = readFileSync(path, "utf8");
+      unit.Data = Buffer.from(data).toString("base64");
+      unit.ContentHash = sha256(data);
+      unit.HeadRevisionNum += 1;
+      unit.ApprovedBy = [];
+      unit.ApplyGates = { "awaiting/triggers": true };
+      pending.add(key);
+      return ok(JSON.stringify({ Unit: publicUnit(unit) }));
+    }
+    if (entity === "unit" && verb === "get") {
+      const key = unitKey(flags.space, rest[0]);
+      const unit = units.get(key);
+      if (!unit) return refuse(`unit ${key} not found`);
+      if (flags.select) {
+        const projection = {};
+        for (const field of flags.select.split(",")) {
+          projection[field] = structuredClone(unit[field]);
+        }
+        return ok(JSON.stringify(projection));
+      }
+      return ok(JSON.stringify({ Unit: publicUnit(unit) }));
+    }
+    if (entity === "unit" && verb === "approve") {
+      if (state.approveFails) return refuse("self-test simulated approval rejection");
+      const key = unitKey(flags.space, rest[0]);
+      const unit = units.get(key);
+      if (!unit) return refuse(`unit ${key} not found`);
+      unit.ApprovedBy = ["self-test-reviewer"];
+      pending.add(key);
+      return ok("");
+    }
+    if (entity === "release" && verb === "publish") {
+      const spaceSlug = rest[0];
+      const rows = [...units.values()]
+        .filter((unit) => unit.SpaceSlug === spaceSlug)
+        .sort((left, right) => left.Slug.localeCompare(right.Slug));
+      const digestInput = rows
+        .map((unit) => `${unit.Slug}:${unit.ContentHash}:${unit.HeadRevisionNum}`)
+        .join("|");
+      releaseSequence += 1;
+      return ok(JSON.stringify({
+        Release: {
+          ReleaseID: `self-test-release-${releaseSequence}`,
+          Digest: `sha256:${sha256(`bundle:${spaceSlug}:${digestInput}`)}`,
+          ManifestDigest: state.stripReleaseManifestDigest
+            ? ""
+            : `sha256:${sha256(`manifest:${spaceSlug}:${releaseSequence}:${digestInput}`)}`,
+        },
+      }));
+    }
+    return refuse(`the self-test fake hub refuses: cub ${args.join(" ")}`);
+  };
+  return { state, handle, tick, seedApproval, filterId, catalogTargetId };
+}
+
+function parseCubCommand(args) {
+  const booleans = new Set(["--quiet", "--wait", "--patch", "--refresh-triggers"]);
+  const positionals = [];
+  const flags = {};
+  for (let index = 0; index < args.length; index += 1) {
+    const token = args[index];
+    if (!token.startsWith("-") || token === "-") {
+      positionals.push(token);
+      continue;
+    }
+    if (booleans.has(token)) {
+      flags[token.slice(2)] = true;
+      continue;
+    }
+    const name = token.replace(/^--?/, "");
+    flags[name] = args[index + 1];
+    index += 1;
+  }
+  return { positionals, flags };
+}
+
+function createFakeOciRegistry() {
+  const tags = new Map();
+  const blobs = new Map();
+  const state = { dropBundleOnPull: false, substituteBundle: null };
+  const ok = (output) => ({ ok: true, status: 0, output, error: "" });
+  const refuse = (error) => ({ ok: false, status: 1, output: "", error });
+  const positionalsOf = (args) => {
+    const valueFlags = new Set(["--artifact-type", "--format", "--output"]);
+    const positionals = [];
+    for (let index = 0; index < args.length; index += 1) {
+      const token = args[index];
+      if (valueFlags.has(token)) {
+        index += 1;
+        continue;
+      }
+      if (token.startsWith("--")) continue;
+      positionals.push(token);
+    }
+    return positionals;
+  };
+  const outputFlag = (args) => args[args.indexOf("--output") + 1];
+  const handle = (args, options = {}) => {
+    const positionals = positionalsOf(args);
+    if (positionals[0] === "push") {
+      const [, reference, layerSpec] = positionals;
+      const bytes = readFileSync(join(options.cwd, layerSpec.split(":")[0]));
+      const digest = `sha256:${sha256(bytes)}`;
+      tags.set(reference, digest);
+      blobs.set(digest, Buffer.from(bytes));
+      return ok(JSON.stringify({ reference, digest }));
+    }
+    if (positionals[0] === "manifest" && positionals[1] === "fetch") {
+      const reference = positionals[2];
+      if (!tags.has(reference)) return refuse(`unknown reference ${reference}`);
+      return ok(JSON.stringify({
+        digest: tags.get(reference),
+        mediaType: "application/vnd.oci.image.manifest.v1+json",
+      }));
+    }
+    if (positionals[0] === "pull") {
+      const reference = positionals[1];
+      const digest = reference.split("@")[1];
+      const bytes = state.substituteBundle ?? blobs.get(digest);
+      if (!bytes) return refuse(`unknown digest ${digest}`);
+      const output = outputFlag(args);
+      mkdirSync(output, { recursive: true });
+      if (!state.dropBundleOnPull) {
+        writeFileSync(join(output, "bundle.tar.gz"), bytes);
+      }
+      return ok("");
+    }
+    return refuse(`the self-test fake registry refuses: oras ${args.join(" ")}`);
+  };
+  return { state, handle };
+}
+
+function buildBundle(root, text) {
+  mkdirSync(root, { recursive: true });
+  writeFileSync(join(root, "clusterprofile.yaml"), text);
+  command("tar", ["-czf", join(root, "bundle.tar.gz"), "clusterprofile.yaml"], { cwd: root });
+  return readFileSync(join(root, "bundle.tar.gz"));
+}
+
+function expectFailure(fn, pattern, label) {
+  let error = null;
+  try {
+    fn();
+  } catch (caught) {
+    error = caught;
+  }
+  check(
+    error && pattern.test(String(error.message)),
+    `${label}: expected ${pattern}, got ${error?.message ?? "success"}`,
+  );
 }

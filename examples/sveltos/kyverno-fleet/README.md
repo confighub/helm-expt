@@ -58,6 +58,13 @@ a temporary registry for the portable OCI. It used two local kind clusters. A
 permanent package, a larger fleet, and a rollout that pauses after a failed target
 still need their own tests.
 
+## Chapter three
+
+The [environment rollout example](../env-rollout/README.md) starts the next
+chapter: one reviewed values change promoted from pilot to staging to
+production, with a per-cluster matrix that shows exactly which cluster runs
+which revision at each checkpoint.
+
 ## Repeat and verify
 
 The [website guide](https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html)
@@ -74,6 +81,16 @@ and
 record the automated handoff.
 
 ## How to run the live proof
+
+Run the offline self-tests first. They drive the same approval bracket,
+portable OCI round trip, and receipt checks against fake ConfigHub and OCI
+surfaces. They need no account, cluster, or network access and finish in
+seconds.
+
+```bash
+npm run sveltos-example:self-test
+npm run sveltos-oci-delivery:self-test
+```
 
 The two-wave delivery proof is fully self-contained: it creates its own kind
 management cluster, two workload clusters, and a local OCI registry, records
