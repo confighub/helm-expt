@@ -1,0 +1,53 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrUpstreamSignatureReceipt"
+metadata:
+  name: "aicr-v0-18-0-recipe-catalog-signature"
+spec:
+  observedAt: "2026-08-07T14:34:19.278Z"
+  upstream:
+    project: "NVIDIA AICR"
+    version: "v0.18.0"
+    asset: "recipe-catalog.sigstore.json"
+    committedBundle: "examples/aicr/upstream-signatures/v0.18.0/recipe-catalog.sigstore.json"
+    bundleSha256: "3e1d713af9f2ba4e50e437fe7d670cf760fa16dd65fb8318671dabdba2cb82e1"
+  toolchain:
+    verifier: "gcr.io/projectsigstore/cosign:v2.6.1"
+    execution: "container with the network disabled"
+    trustedRoot: "examples/aicr/upstream-signatures/trusted_root.json"
+    trustedRootSha256: "6494e21ea73fa7ee769f85f57d5a3e6a08725eae1e38c755fc3517c9e6bc0b66"
+    flags:
+      - "--new-bundle-format"
+      - "--trusted-root"
+      - "--use-signed-timestamps"
+      - "--check-claims=false"
+    decisionRecord: "docs/reference/aicr-signature-verification.md"
+  signature:
+    mediaType: "application/vnd.dev.sigstore.bundle.v0.3+json"
+    payloadType: "application/vnd.in-toto+json"
+    statementType: "https://in-toto.io/Statement/v1"
+    predicateType: "https://slsa.dev/provenance/v1"
+    subjects:
+      -
+        name: "recipe-catalog"
+        sha256: "b622b4f66d60129b8b6ff49b154ea2ea34e308bd681028cec5c79e6e9ed2db18"
+    signerIdentity: "https://github.com/NVIDIA/aicr/.github/workflows/on-tag.yaml@refs/tags/v0.18.0"
+    oidcIssuer: "https://token.actions.githubusercontent.com"
+    transparencyLogEntry:
+      kind: "hashedrekord"
+      version: "0.0.2"
+      carriesIntegratedTime: false
+    signedTimestampCount: 1
+  result:
+    offlineVerification: "pass"
+    networkDisabled: true
+    wrongIdentityRefused: true
+  limits:
+    - "This receipt verifies the signature over the release's recipe-catalog attestation. It does not verify the recipe catalog artifact itself, because the catalog is not a release asset and no copy is retained here; the attestation's subject digest is recorded so a future retained copy can be bound to it."
+    - "Claim checking is disabled for the same reason, so this receipt proves who signed the statement and that the statement is intact, not that a local artifact matches it."
+    - "The trust root is pinned as committed bytes. Refreshing it is a deliberate change, and it is the one input that ages."
+    - "This receipt concerns the upstream v0.18.0 release. The catalog still retains v0.14.0, which shipped no signature at all."
+status:
+  result: "pass"
+  offlineVerification: "pass"
+  negativeControl: "pass"
+  claim: "The signature over NVIDIA AICR v0.18.0's recipe-catalog attestation verifies offline against a pinned sigstore trust root, with the signer identified as the tagged release workflow in NVIDIA/aicr through GitHub Actions OIDC, and the same command refuses a different signer identity."
