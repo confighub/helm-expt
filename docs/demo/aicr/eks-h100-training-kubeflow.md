@@ -7,6 +7,9 @@ EKS cluster with H100 GPUs, Ubuntu, Kubeflow, and a training job. AICR then pick
 install them. It does not decide how your team reviews, approves, or promotes
 those files.
 
+This entry belongs to [the AICR catalog overview](./index.md), which names the
+entry classes, the retained-versions discipline, and the shared proof boundary.
+
 That is where ConfigHub comes in, and the boundary is the whole point. AICR
 decides what goes in the platform. It selects the 15 components, sets the install
 order, and writes the exact files. ConfigHub then records that decision as data a
