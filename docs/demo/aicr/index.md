@@ -34,7 +34,11 @@ The inference class carries a licensing boundary worth stating early. NIM
 deploys through public Helm charts and the NIM Operator, so the deployment
 shapes can be cataloged, but the runtime images and models behind them are
 NGC-gated under NVIDIA AI Enterprise licensing. The catalog would retain the
-configuration shapes and never redistribute the gated artifacts.
+configuration shapes and never redistribute the gated artifacts. The
+[license read](../../planning/nim-ngc-license-read.md) verified this boundary
+against the actual terms: the scaffolding the entry would retain is Apache-2.0,
+the gated material is exactly what a config-plane entry never touches, and NGC
+API keys enter the shape only as target facts.
 
 ## Retained versions while upstream moves
 
