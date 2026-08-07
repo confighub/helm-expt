@@ -53,6 +53,10 @@ subject.
 | [catalog-kubara-composition-strategy.md](./planning/catalog-kubara-composition-strategy.md) | Strategy for platform composition: the catalog reviews parts and wiring facts, machines generate the wiring, deterministic gates check it, and ConfigHub records and delivers the result. |
 | [kubara-git-to-confighub-blog-brief.md](./planning/kubara-git-to-confighub-blog-brief.md) | Future public article brief using the same six-step adoption journey, buyer wording, proof boundaries, and GUI evidence order as the website. |
 | [three-pillars-brief.md](./planning/three-pillars-brief.md) | Brief behind the current website testing story: choices fixed before install, evidence users can inspect, and lifecycle work kept visible. |
+| [certified-bundle-model-brief.md](./planning/certified-bundle-model-brief.md) | Brief for the certified bundle model: the catalog certifies, flattened bundles deliver where the verdict allows, and one receipt spec joins every producer. |
+| [flattening-safety-brief.md](./planning/flattening-safety-brief.md) | Brief for the flattening-safety audit lane: one receipted verdict per chart version on shipping literal rendered YAML instead of running Helm. |
+| [aicr-catalog-brief.md](./planning/aicr-catalog-brief.md) | Brief for the AICR catalog: upstream-validated AI-platform recipes with an OCI digest spine and an honest config-plane boundary. |
+| [sveltos-fleet-brief.md](./planning/sveltos-fleet-brief.md) | Brief for the Sveltos fleet chapters: one reference fleet reusing the recorded kyverno, canary, rollout, patching, and bulk-operation proofs. |
 | [expected-results-and-clusters.md](./user/expected-results-and-clusters.md) | Practical guide for what users should see after each step, when they need a Kubernetes cluster, when to use kind or `cub cluster up`, and when npm verifiers are optional. |
 | [first-run-walkthrough.md](./user/first-run-walkthrough.md) | Captured real serverless try-out (render → kubectl apply → running pod) with the honest namespace rough edge; tested-UX companion to try-now. |
 | [serverless-mode.md](./user/serverless-mode.md) | A local path that needs neither ConfigHub Server nor a ConfigHub account. It distinguishes those two choices, compares Helm install with cub render plus apply, and shows how reviewed files can become OCI for GitOps. |
@@ -263,6 +267,7 @@ ConfigHub primitives.
 | File | Role |
 | --- | --- |
 | [artifact-verifier-spec.md](./reference/artifact-verifier-spec.md) | What the artifact verifier must check. |
+| [certified-bundle-spec.md](./reference/certified-bundle-spec.md) | The shared bundle-plus-receipt spec every producer emits against: bundle shape, receipt fields, quirk dispositions, and the flattening-safety verdict lanes. |
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Seven-stage lifecycle, render parity boundary, hook routing, and support claims. |
 | [proof-kit-migration.md](./reference/proof-kit-migration.md) | How repeated chart proof scripts are migrated to the shared proof-kit generator/verifier. |
 | [customization-algorithm.md](./reference/customization-algorithm.md) | Reference algorithm for values files, overlays, wrapper charts, and post-render variants. |

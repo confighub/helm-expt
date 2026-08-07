@@ -253,6 +253,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `capability-profile-witnesses` | - | supporting generated evidence |
 | `catalog-promotion-review` | [catalog-promotion-review/summary.md](./catalog-promotion-review/summary.md) | catalog promotion worksheet for the 100-chart corpus |
 | `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | older user-shaped variant work-order worksheet |
+| `certified-bundles` | [certified-bundles/summary.md](./certified-bundles/summary.md) | shared certified-bundle receipts: one reference bundle per producer with quirk dispositions and flattening-safety verdict lanes |
 | `chart-claim-integrity-audit-2026-06-22` | [chart-claim-integrity-audit-2026-06-22/summary.md](./chart-claim-integrity-audit-2026-06-22/summary.md) | supporting generated evidence |
 | `chart-evidence-router` | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions |
 | `chart-fact-sheets` | [chart-fact-sheets/summary.md](./chart-fact-sheets/summary.md) | supporting generated evidence |
@@ -366,7 +367,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 178 CSV files. Each row records the path, audience,
+It includes 179 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -604,6 +604,7 @@ function familyRole(family) {
     "next-ten-waves": "compact next work queues",
     "variant-backlog": "candidate base-variant expansion backlog",
     "variant-goldens": "golden work orders for derived-variant examples",
+    "certified-bundles": "shared certified-bundle receipts: one reference bundle per producer with quirk dispositions and flattening-safety verdict lanes",
   };
   return roles[family] ?? "supporting generated evidence";
 }
@@ -648,6 +649,7 @@ function verifyForPath(path, family) {
 function commandMap() {
   return {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
+    "certified-bundles": { generate: "npm run certified-bundles", verify: "npm run certified-bundles:verify" },
     "chart-use-guide": { generate: "npm run chart-use:guide", verify: "npm run chart-use:guide:verify" },
     "chart-evidence-router": { generate: "npm run chart:evidence-router", verify: "npm run chart:evidence-router:verify" },
     "claims-register": { generate: "npm run claims:register", verify: "npm run claims:register:verify" },

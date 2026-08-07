@@ -23,6 +23,7 @@ data/blast-radius-fleet/matrix.csv,blast-radius-fleet,supporting,supporting gene
 data/capability-profile-witnesses/selectablefields/summary.csv,capability-profile-witnesses,supporting,machine-readable summary,data/capability-profile-witnesses/selectablefields/summary.md,,
 data/catalog-promotion-review/review.csv,catalog-promotion-review,planning,review or promotion worksheet,data/catalog-promotion-review/summary.md,npm run catalog:review,npm run catalog:review:verify
 data/catalog-promotion-wave2/review.csv,catalog-promotion-wave2,planning,review or promotion worksheet,data/catalog-promotion-wave2/summary.md,npm run catalog:wave2,npm run catalog:wave2:verify
+data/certified-bundles/receipts.csv,certified-bundles,supporting,supporting generated CSV,data/certified-bundles/summary.md,npm run certified-bundles,npm run certified-bundles:verify
 data/chart-claim-integrity-audit-2026-06-22/findings.csv,chart-claim-integrity-audit-2026-06-22,supporting,supporting generated CSV,data/chart-claim-integrity-audit-2026-06-22/summary.md,,
 data/chart-evidence-router/router.csv,chart-evidence-router,user/front-door,"one row per top-100 chart: catalog path, base rows, variant revisions, receipts, hook route, quirk route, production decisions, and next action",data/chart-evidence-router/summary.md,npm run chart:evidence-router,npm run chart:evidence-router:verify
 data/chart-fact-sheets/fact-sheets.csv,chart-fact-sheets,user/front-door,supporting generated CSV,data/chart-fact-sheets/summary.md,,

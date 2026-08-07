@@ -1,0 +1,94 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "sveltos-kyverno-fleet-clusterprofile"
+spec:
+  producer:
+    name: "sveltos-example"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "confighub-unit"
+    evidence:
+      - "examples/sveltos/kyverno-fleet/source-lock.yaml"
+      - "examples/sveltos/kyverno-fleet/live-receipt.yaml"
+      - "runs/sveltos-oci-delivery-proof/receipt.yaml"
+  bundle:
+    reference: "oci://127.0.0.1:32807/sveltos-kyverno-staging:pilot"
+    manifestDigest: "sha256:0de702823d0d0cb41bfa667e29f40871f6d28e3122815ccd2f2931a9aacbc3bc"
+    contentsKind: "literal-config"
+    files:
+      -
+        path: "clusterprofile-pilot.yaml"
+        sha256: "2385f9255fd7237f5289b057549f1056ee9b04fe48394ce52a937b2b6aedf793"
+        bytes: 547
+        role: "ClusterProfile"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the literal profile"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the literal profile; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the literal profile"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the literal profile"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the literal profile"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the literal profile"
+      disposition: "none required"
+  verdict:
+    lane: "born-flattened"
+    status: "certified"
+    decidedBy: "the source is literal YAML; nothing renders, so nothing is lost at render time"
+    notes: "The profile tells Sveltos to install kyverno/kyverno 3.8.1 with Helm on matching clusters. That chart's own lane is decided by its flattening-safety verdict, not by this bundle."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml"
+      - "runs/sveltos-oci-delivery-proof/receipt.yaml"
