@@ -3,7 +3,7 @@
 import { existsSync, readFileSync, rmSync } from "node:fs";
 import { basename, join } from "node:path";
 
-import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, listFiles, readYaml, relativeRepo, repoRoot, sha256File, write } from "./lib/proof-common.mjs";
 import { DEFAULT_INSTALLER_OCI_REGISTRY, chartVersionFromPackagePath, installerOciRef } from "./lib/installer-oci.mjs";
 
 const mode = process.argv[2] ?? "--generate";
@@ -60,6 +60,17 @@ function buildReport() {
     const baseNames = bases.map((base) => base.name).filter(Boolean).join(";");
     const defaultBase = bases.find((base) => base.default)?.name || bases[0]?.name || "default";
     const externalRequires = bases.reduce((count, base) => count + (base.externalRequires?.length ?? 0), 0);
+    // Consumers fetch the rendered YAML directly over HTTPS, so publish both
+    // its exact path and a digest of the bytes they will receive.
+    const renderedYaml = bases
+      .map((base) => base.name)
+      .filter(Boolean)
+      .map((name) => {
+        const relPath = `${packagePath}/bases/${name}/upstream.yaml`;
+        return existsSync(join(repoRoot, relPath))
+          ? { path: relPath, sha256: sha256File(join(repoRoot, relPath)) }
+          : { path: "", sha256: "" };
+      });
     const collector = installer?.spec?.collector ? "yes" : "no";
     const transformers = installer?.spec?.transformers?.length ?? 0;
     const key = `${chart}|${version}`;
@@ -79,6 +90,8 @@ function buildReport() {
       default_base: defaultBase,
       bases: baseNames,
       base_count: String(bases.length),
+      rendered_yaml_paths: renderedYaml.map((item) => item.path).join(";"),
+      rendered_yaml_sha256s: renderedYaml.map((item) => item.sha256).join(";"),
       external_requires_count: String(externalRequires),
       collector,
       transformers: String(transformers),
@@ -217,6 +230,8 @@ function toCsv(rows) {
     "default_base",
     "bases",
     "base_count",
+    "rendered_yaml_paths",
+    "rendered_yaml_sha256s",
     "external_requires_count",
     "collector",
     "transformers",

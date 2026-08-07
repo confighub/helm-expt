@@ -20,6 +20,10 @@ Status: proposal, 2026-08-07, from detailed feedback by the catalog's first seri
 
 110 of 130 charts carry no production assessment, so consumers render the field as neutral rather than as a warning — at that coverage the badge carries no weight. Scope the fix instead of boiling the ocean: assess the seven flattening-verdict charts and the top-20 first, where review effort already exists.
 
+## Delivery status
+
+Items 1 (tactical layer), 2, 3, and 6 shipped on 2026-08-07: catalog.json rows now carry `rendered_yaml_paths` and `rendered_yaml_sha256s` per base, the index carries `schema_version: "1"`, and `changes.json` publishes the compact chart, version, and digest feed beside it. Item 1's durable layer (per-file receipt manifests) shipped with the certified-bundle program. Item 4 remains parked pending an owner-and-cadence decision; item 5 and the keep-clauses are documented practice.
+
 ## Routing
 
 Items 1 (tactical field), 2, 3, and 6 are one contained catalog-generator change plus an index schema note; item 1's durable layer is already the certified-bundle workstream. Item 4 needs an owner-and-cadence decision before implementation. Item 5 and the two keep-clauses are documentation of existing practice. The assessment-coverage work rides with the flattening-safety verdicts.
