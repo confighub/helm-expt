@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  chart:
+    repository: "aws-controllers-k8s"
+    name: "iam-chart"
+    version: "1.7.3"
+  package:
+    sha256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
+    observedAt: "2026-08-07T09:20:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 24
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 9
+    documents: 9
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

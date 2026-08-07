@@ -273,6 +273,124 @@ const CHARTS = [
     ],
   },
   {
+    repo: "aws-controllers-k8s",
+    chart: "ec2-chart",
+    version: "1.18.4",
+    recipe: "recipes/aws-controllers-k8s/ec2-chart/1.18.4",
+    auditedBase: "eks-inference",
+    overrides: {
+      "crd-ordering": {
+        disposition:
+          "ordering declaration ships with the bundle; the eks-inference producer already emits exactly this as the crds/controller split at Argo sync waves -20 and -10",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 22 EC2 CRDs"],
+    rationale:
+      "The chart is hook-free and template-clean at the audited values; the CRDs are the one construct needing a companion, and the producer's pipeline already ships it.",
+    variantScope: [],
+  },
+  {
+    repo: "aws-controllers-k8s",
+    chart: "iam-chart",
+    version: "1.7.3",
+    recipe: "recipes/aws-controllers-k8s/iam-chart/1.7.3",
+    auditedBase: "eks-inference",
+    overrides: {
+      "crd-ordering": {
+        disposition:
+          "ordering declaration ships with the bundle; the eks-inference producer already emits exactly this as the crds/controller split at Argo sync waves -20 and -10",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 9 IAM CRDs"],
+    rationale:
+      "The chart is hook-free and template-clean at the audited values; the CRDs are the one construct needing a companion, and the producer's pipeline already ships it.",
+    variantScope: [],
+  },
+  {
+    repo: "aws-controllers-k8s",
+    chart: "eks-chart",
+    version: "1.16.3",
+    recipe: "recipes/aws-controllers-k8s/eks-chart/1.16.3",
+    auditedBase: "eks-inference",
+    overrides: {
+      "crd-ordering": {
+        disposition:
+          "ordering declaration ships with the bundle; the eks-inference producer already emits exactly this as the crds/controller split at Argo sync waves -20 and -10",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 10 EKS CRDs"],
+    rationale:
+      "The chart is hook-free and template-clean at the audited values; the CRDs are the one construct needing a companion, and the producer's pipeline already ships it.",
+    variantScope: [],
+  },
+  {
+    repo: "karpenter",
+    chart: "karpenter",
+    version: "1.14.0",
+    recipe: "recipes/karpenter/karpenter/1.14.0",
+    auditedBase: "eks-inference",
+    overrides: {
+      "capabilities-api-versions": {
+        detail:
+          "the ServiceMonitor template opens on a monitoring.coreos.com capability guard; the audited render pins the kube version with no extra api-versions, so the guard stays closed",
+      },
+      "crd-ordering": {
+        disposition:
+          "ordering declaration ships with the bundle; the eks-inference producer already emits it as karpenter-crds.yaml at sync wave -20",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 5 Karpenter CRDs"],
+    rationale:
+      "No hooks, no lookup, no generated values; the capability guard is closed by the pinned render inputs and only the CRDs need a companion.",
+    variantScope: [
+      {
+        values: "serviceMonitor.enabled with monitoring.coreos.com in api-versions",
+        effect:
+          "the capability guard opens; the render inputs must pin the api-versions list explicitly or the flattened bundle silently lacks the ServiceMonitor",
+      },
+    ],
+  },
+  {
+    repo: "nvidia",
+    chart: "nvidia-device-plugin",
+    version: "0.19.3",
+    recipe: "recipes/nvidia/nvidia-device-plugin/0.19.3",
+    auditedBase: "eks-inference",
+    overrides: {
+      "helm-hooks": {
+        finding: "present-gated",
+        detail:
+          "a post-delete cleanup Job lives in the vendored node-feature-discovery subchart, gated by nfd.enabled and gfd.enabled, both off in the audited base",
+        disposition: "no route needed for the audited base",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail:
+          "the NodeFeature CRDs ship in the node-feature-discovery subchart behind the same gate",
+        disposition: "no route needed for the audited base",
+      },
+      "subchart-conditions": {
+        disposition:
+          "the flatten step must render with the audited base's condition set; the producer's committed values leave the gate off",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The audited render carries nothing render time discards; the chart's only hazards sit in the condition-gated node-feature-discovery subchart, which the audited base leaves off. This confirms the producer's guard-clean published bundle at template level.",
+    variantScope: [
+      {
+        values: "nfd.enabled or gfd.enabled",
+        effect:
+          "the node-feature-discovery subchart adds a post-delete cleanup hook and NodeFeature CRDs; that base is at least flatten-with-routes and needs its own verdict",
+      },
+    ],
+  },
+  {
     repo: "bitnami",
     chart: "redis",
     version: "27.0.0",

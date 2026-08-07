@@ -1,0 +1,93 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "nvidia-device-plugin"
+    version: "0.19.3"
+    packageSHA256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
+  witnessRef: "data/flattening-safety/witnesses/nvidia-nvidia-device-plugin-0.19.3.yaml"
+  auditedBase: "eks-inference"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present-gated"
+      detail: "a post-delete cleanup Job lives in the vendored node-feature-discovery subchart, gated by nfd.enabled and gfd.enabled, both off in the audited base"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:9"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:19"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:40"
+        - "charts/node-feature-discovery/templates/post-delete-job.yaml:59"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present-gated"
+      detail: "the NodeFeature CRDs ship in the node-feature-discovery subchart behind the same gate"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "1 crds-directory file(s), 4 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set; the producer's committed values leave the gate off"
+      evidence:
+        - "node-feature-discovery gated by nfd.enabled,gfd.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "nfd.enabled or gfd.enabled"
+      effect: "the node-feature-discovery subchart adds a post-delete cleanup hook and NodeFeature CRDs; that base is at least flatten-with-routes and needs its own verdict"
+  verdict:
+    lane: "safe-to-flatten"
+    rationale: "The audited render carries nothing render time discards; the chart's only hazards sit in the condition-gated node-feature-discovery subchart, which the audited base leaves off. This confirms the producer's guard-clean published bundle at template level."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/nvidia-nvidia-device-plugin-0.19.3.yaml"
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml"

@@ -540,17 +540,16 @@ function buildEksInferenceReceipt() {
           "cub variant upload --component gpu-runtime --variant base --granularity per-file oci://ghcr.io/confighub/configs/eks-inference/gpu-runtime",
       },
       dispositions,
-      verdict: {
-        lane: "safe-to-flatten",
-        status: "provisional",
-        decidedBy:
+      verdict: buildLane(readVerdict("recipes/nvidia/nvidia-device-plugin/0.19.3"), {
+        provisionalLane: "safe-to-flatten",
+        provisionalDecidedBy:
           "static scan over the witnessed bundle files, agreeing with the producer's build-time guard; no hooks, keep-policy, webhooks, CRDs, or Secrets",
         openQuestions: [
           "lookup, capabilities, and subchart conditions need the template-level audit, which lands with the chart's catalog entry",
         ],
         notes:
           "This receipt certifies a bundle the producer published, not one this repository built. The witness records the pulled digests and the byte agreement with the producer's committed render.",
-      },
+      }),
       provenance: {
         emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
         generatedFrom: [SOURCES.witness],
