@@ -1,0 +1,58 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "istio-istiod-1.30.0"
+spec:
+  chart:
+    repository: "istio"
+    name: "istiod"
+    version: "1.30.0"
+  package:
+    sha256: "7a34c7688da34107841e9585b226b94357769749f82502fdc4fb43a6bc3db320"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 53
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 3
+      files:
+        - "templates/mutatingwebhook.yaml:43"
+        - "templates/revision-tags-mwc.yaml:41"
+        - "templates/validatingwebhookconfiguration.yaml:6"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

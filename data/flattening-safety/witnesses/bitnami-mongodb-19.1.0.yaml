@@ -1,0 +1,75 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-mongodb-19.1.0"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "mongodb"
+    version: "19.1.0"
+  package:
+    sha256: "f55ff62750f654cf45d91bacd792352e19e3b7b943b2df11d73e281a343bb469"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 85
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 4
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+        - "templates/networkpolicy.yaml:44"
+    capabilities:
+      count: 5
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:165"
+        - "charts/common/templates/_capabilities.tpl:166"
+        - "charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 2
+      files:
+        - "templates/backup/pvc.yaml:29"
+        - "templates/standalone/pvc.yaml:16"
+    generated-secrets:
+      count: 15
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/mcp/ingress-tls-secret.yaml:28"
+        - "templates/mcp/ingress-tls-secret.yaml:29"
+        - "templates/mcp/tls-secret.yaml:12"
+        - "templates/mcp/tls-secret.yaml:16"
+        - "templates/secrets-ca.yaml:29"
+        - "templates/secrets.yaml:26"
+        - "templates/secrets.yaml:45"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

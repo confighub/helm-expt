@@ -1,0 +1,212 @@
+name: Weekly catalog refresh
+
+# The catalog measures itself against what upstream publishes, and until now it
+# only noticed when somebody ran the generators on a workstation. The first
+# external consumer felt that as an unpredictable refresh rhythm, so this job
+# gives the answer an owner and a cadence: every Monday it asks each supported
+# chart's repository what the latest version is, and when something moved it
+# opens a pull request. It never pushes to main; a person still merges.
+#
+# The scope rule is absolute. This job runs the affected chart lanes only, never
+# the full generator fan-out, which once produced a 2356-file diff. It runs no
+# live lane: no cluster, no ConfigHub server, no promotion of a candidate into
+# the supported root paths. Those stay deliberate human acts.
+#
+# What this job deliberately does NOT do: regenerate candidate proofs for the
+# charts that moved. That lane re-renders charts and rebuilds installer
+# packages, so its output depends on the exact Helm and cub builds; a runner
+# whose toolchain drifts would rewrite hundreds of receipts with no change in
+# meaning. It also reads a hardcoded per-chart version list that CI must never
+# edit on its own. So the regeneration stays a deliberate act, and the pull
+# request this job opens names the exact commands for it. The Helm build is
+# still checked here and reported, because the answer decides whether a
+# maintainer can regenerate reproducibly at all.
+
+on:
+  schedule:
+    # Mondays, 06:00 UTC.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-catalog-refresh
+  cancel-in-progress: false
+
+env:
+  # The build string the committed render receipts record. Assert, never assume.
+  EXPECTED_HELM_VERSION: "v4.1.4+g05fa379"
+  HELM_VERSION: "4.1.4"
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out helm-expt
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          package-manager-cache: false
+
+      - name: Install the YAML reader the generators shell out to
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-yaml
+
+      - name: Install Helm
+        run: |
+          archive="$RUNNER_TEMP/helm.tar.gz"
+          curl -fsSL "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz" -o "$archive"
+          tar -xzf "$archive" -C "$RUNNER_TEMP" linux-amd64/helm
+          sudo install -m 0755 "$RUNNER_TEMP/linux-amd64/helm" /usr/local/bin/helm
+          helm version --short
+
+      - name: Check the Helm build against the one the receipts record
+        id: toolchain
+        run: |
+          actual="$(helm version --short)"
+          if [ "$actual" = "$EXPECTED_HELM_VERSION" ]; then
+            echo "reproducible=yes" >> "$GITHUB_OUTPUT"
+            echo "Helm build matches the recorded pin: $actual"
+          else
+            echo "reproducible=no" >> "$GITHUB_OUTPUT"
+            echo "::warning::Helm build is $actual but the receipts record $EXPECTED_HELM_VERSION. Detection is unaffected, but regenerating a candidate proof on this build would rewrite render receipts with no change in meaning."
+          fi
+
+      - name: Index the chart repositories the catalog pins
+        run: |
+          # The list comes from the recipes themselves, so adding a chart cannot
+          # leave this lane looking at a repository it never indexed. A single
+          # unreachable repository is a warning, not a failure: the detection
+          # step below fails loudly for the charts it actually needs.
+          while IFS="$(printf '\t')" read -r name url; do
+            [ -n "$name" ] || continue
+            if ! helm repo add "$name" "$url" --force-update >/dev/null 2>&1; then
+              echo "::warning::helm repo add failed for $name ($url)"
+            fi
+          done < <(node scripts/print-chart-repositories.mjs)
+          helm repo update >/dev/null
+
+      - name: Ask upstream what the latest versions are
+        run: npm run top20:latest-refresh
+
+      - name: Decide whether anything actually moved
+        id: detect
+        run: |
+          # Compare the review view alone. Its summary restamps a timestamp and
+          # the local Helm build on every run, so diffing the worktree would
+          # open an empty pull request every week and train reviewers to wave
+          # them through.
+          if git diff --quiet -- data/latest-top20-refresh/review.csv; then
+            echo "moved=false" >> "$GITHUB_OUTPUT"
+            echo "No chart moved this week."
+          else
+            echo "moved=true" >> "$GITHUB_OUTPUT"
+            echo "Charts that moved:"
+            git diff -- data/latest-top20-refresh/review.csv | grep -E '^\+[^+]' || true
+          fi
+
+      - name: Refresh the derived views that read the detection
+        if: steps.detect.outputs.moved == 'true'
+        run: |
+          # Dependency order, then the detection pass again: the review view's
+          # next-action column reads promotion readiness, so a single pass can
+          # leave it describing work that is already done.
+          npm run top20:latest-promotion-readiness
+          npm run top20:latest-production-disposition
+          npm run top20:latest-refresh
+          npm run data:index
+          HELM_EXPT_SITE_GENERATED_AT="$(cat site/generated-at.txt)" npm run site:generate
+
+      - name: Refuse a diff that reaches outside the refresh surface
+        if: steps.detect.outputs.moved == 'true'
+        run: |
+          # A refresh may rewrite its own views and the surfaces generated from
+          # them. Anything else means a generator did more than this lane
+          # intends, and the run stops rather than proposing it.
+          allowed='^(data/latest-top20-refresh/|data/production-disposition/next-actions|data/README.md|data/csv-index.csv|site/)'
+          unexpected="$(git status --porcelain | awk '{print $2}' | grep -vE "$allowed" || true)"
+          if [ -n "$unexpected" ]; then
+            echo "::error::The refresh touched paths outside its surface:"
+            echo "$unexpected"
+            exit 1
+          fi
+
+      - name: Verify the refreshed views
+        if: steps.detect.outputs.moved == 'true'
+        run: |
+          npm run top20:latest-refresh:verify
+          npm run top20:latest-promotion-readiness:verify
+          npm run data:index:verify
+          npm run site:verify
+          node scripts/verify-no-personal-names.mjs
+          node scripts/verify-no-temp-paths.mjs
+
+      - name: Open a pull request
+        if: steps.detect.outputs.moved == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          date_tag="$(date -u +%Y-%m-%d)"
+          branch="bot/catalog-refresh-${date_tag}"
+          moved="$(git diff -- data/latest-top20-refresh/review.csv | grep -E '^[+-][^+-]' || echo 'see the diff')"
+
+          cat > "$RUNNER_TEMP/commit-message.txt" <<'MESSAGE_END'
+          chore(catalog): refresh upstream versions
+
+          The weekly refresh asked each supported chart's repository for its
+          latest published version and recorded what moved. Candidate proofs are
+          not regenerated here, so support claims are unchanged.
+          MESSAGE_END
+          sed -i 's/^          //' "$RUNNER_TEMP/commit-message.txt"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add -A
+          git commit --file "$RUNNER_TEMP/commit-message.txt"
+          git push --set-upstream origin "$branch"
+
+          {
+            echo "The weekly refresh found upstream movement."
+            echo
+            echo '```'
+            echo "$moved"
+            echo '```'
+            echo
+            echo "This pull request records **what moved**, not a decision. Candidate proofs and support claims are unchanged, because regenerating them re-renders charts and rebuilds installer packages, and that output depends on the exact Helm and cub builds. Promoting a candidate into the supported root paths stays a deliberate human act, and each moved chart still needs a target-scoped replacement decision before the catalog claims the new version."
+            echo
+            echo "To regenerate a candidate for one chart, with \`<chart>\` its proof script and \`<latest>\` the version above:"
+            echo
+            echo '```sh'
+            echo "HELM_EXPT_CHART_VERSION=<latest> \\"
+            echo "  HELM_EXPT_PROOF_OUTPUT_ROOT=data/latest-top20-refresh/candidates/<slug>-<latest> \\"
+            echo "  node scripts/<chart>-proof.mjs --generate-proof"
+            echo '```'
+            echo
+            echo "Check first that \`scripts/run-latest-top20-candidates.mjs\` lists that version. When upstream has moved past it, update that list by hand rather than guessing a slug."
+            echo
+            echo "Helm on the runner: \`$(helm version --short)\`. The committed render receipts record \`${EXPECTED_HELM_VERSION}\`, so regenerating reproducibly here: **${{ steps.toolchain.outputs.reproducible }}**."
+          } > "$RUNNER_TEMP/pr-body.md"
+
+          gh pr create --base main --head "$branch" \
+            --title "chore(catalog): weekly upstream refresh for ${date_tag}" \
+            --body-file "$RUNNER_TEMP/pr-body.md"
+
+      - name: Keep the evidence either way
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: catalog-refresh-${{ github.run_id }}
+          path: data/latest-top20-refresh/
+          if-no-files-found: error

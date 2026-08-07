@@ -1,0 +1,64 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0.9.0"
+spec:
+  chart:
+    repository: "autoscaler"
+    name: "vertical-pod-autoscaler"
+    version: "0.9.0"
+  package:
+    sha256: "ee0af0da65261208fc3b9cbda37b4ad4e8faf8b6870fac1272b493416be66d2c"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 33
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 1
+    documents: 2
+  hookValues:
+    - "post-install,post-upgrade"
+    - "pre-install,pre-upgrade"
+    - "pre-install,pre-upgrade,post-install,post-upgrade"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 7
+      files:
+        - "templates/admission-controller-certgen-clusterrole.yaml:7"
+        - "templates/admission-controller-certgen-clusterrolebinding.yaml:7"
+        - "templates/admission-controller-certgen-patch.yaml:8"
+        - "templates/admission-controller-certgen-role.yaml:8"
+        - "templates/admission-controller-certgen-rolebinding.yaml:8"
+        - "templates/admission-controller-certgen-serviceaccount.yaml:8"
+        - "templates/admission-controller-certgen.yaml:8"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 1
+      files:
+        - "values.yaml:153"
+    webhook-config:
+      count: 1
+      files:
+        - "templates/admission-controller-webhook.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

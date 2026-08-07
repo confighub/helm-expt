@@ -1,0 +1,67 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "policy-reporter-policy-reporter-3.9.1"
+spec:
+  chart:
+    repository: "policy-reporter"
+    name: "policy-reporter"
+    version: "3.9.1"
+  package:
+    sha256: "a7d00d9b79435bc40fb3049302e8e08da156f718713403042666bb699c569fb1"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 72
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 3
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 26
+      files:
+        - "templates/_helpers.tpl:95"
+        - "templates/_helpers.tpl:117"
+        - "templates/ingress.yaml:4"
+        - "templates/ingress.yaml:9"
+        - "templates/ingress.yaml:11"
+        - "templates/ingress.yaml:37"
+        - "templates/ingress.yaml:51"
+        - "templates/ingress.yaml:55"
+        - "templates/plugins/kyverno/ingress.yaml:5"
+        - "templates/plugins/kyverno/ingress.yaml:10"
+        - "templates/plugins/kyverno/ingress.yaml:12"
+        - "templates/plugins/kyverno/ingress.yaml:31"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -1,0 +1,57 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "kedacore-keda-2.19.0"
+spec:
+  chart:
+    repository: "kedacore"
+    name: "keda"
+    version: "2.19.0"
+  package:
+    sha256: "6ee0edbb604577aaa2db07a4eecd836c69e1b1266f2db88a55010870faaad34b"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 49
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 6
+    documents: 6
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 2
+      files:
+        - "templates/NOTES.txt:56"
+        - "templates/NOTES.txt:58"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 1
+      files:
+        - "templates/webhooks/validatingconfiguration.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

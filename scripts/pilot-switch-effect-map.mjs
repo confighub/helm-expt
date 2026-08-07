@@ -16,7 +16,7 @@ import { mkdtempSync, rmSync, writeFileSync, mkdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-import { repoRoot, write } from "./lib/proof-common.mjs";
+import { normalizeTempPaths, repoRoot, write } from "./lib/proof-common.mjs";
 
 // Versions pinned to the catalog's packages/ tree. baseValues exist to make
 // the baseline render deterministic where the chart supports it; generated
@@ -91,7 +91,7 @@ function buildMap(name, chart) {
     try {
       objects = objectSet(renderHelm(chart, chart.baseValues + sw.values));
     } catch (error) {
-      rows.push({ switch: sw.name, kind: "render-error", error: String(error.message || error).slice(0, 200), added: [], removed: [] });
+      rows.push({ switch: sw.name, kind: "render-error", error: normalizeTempPaths(error.message || error).slice(0, 200), added: [], removed: [] });
       process.stdout.write(`render-err  ${sw.name}\n`);
       continue;
     }

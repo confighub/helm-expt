@@ -1,0 +1,62 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "vm-victoria-logs-single-0.12.5"
+spec:
+  chart:
+    repository: "vm"
+    name: "victoria-logs-single"
+    version: "0.12.5"
+  package:
+    sha256: "7aa80fab4c3744c6972059eb079788ffd87fe739923bf3e63d307b7dd0954ac6"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 68
+  subcharts:
+    count: 2
+    conditions:
+      -
+        dependency: "vector"
+        condition: "vector.enabled"
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "charts/vector/templates/daemonset.yaml:31"
+        - "charts/vector/templates/deployment.yaml:32"
+        - "charts/vector/templates/statefulset.yaml:38"
+    capabilities:
+      count: 3
+      files:
+        - "charts/vector/templates/podmonitor.yaml:1"
+        - "charts/vector/templates/psp.yaml:1"
+        - "charts/vector/templates/rbac.yaml:20"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

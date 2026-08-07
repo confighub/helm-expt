@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "percona-pg-operator-3.0.0"
+spec:
+  chart:
+    repository: "percona"
+    name: "pg-operator"
+    version: "3.0.0"
+  package:
+    sha256: "795b9924089cc9f088d47fbf13cc94f0207c84629d69b581f504a6d1fbeefc92"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 8
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 1
+    documents: 8
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "templates/NOTES.txt:19"
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

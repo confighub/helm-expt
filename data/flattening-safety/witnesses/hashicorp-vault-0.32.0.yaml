@@ -1,0 +1,65 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "hashicorp-vault-0.32.0"
+spec:
+  chart:
+    repository: "hashicorp"
+    name: "vault"
+    version: "0.32.0"
+  package:
+    sha256: "e31ddf3f6dd031c0f5407dd6b63361ea5ff655f89c781049b39f4c2a95a6f88a"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 49
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 10
+      files:
+        - "templates/injector-mutating-webhook.yaml:8"
+        - "templates/server-clusterrolebinding.yaml:8"
+        - "templates/server-discovery-rolebinding.yaml:10"
+        - "templates/server-ha-active-service.yaml:31"
+        - "templates/server-ha-standby-service.yaml:30"
+        - "templates/server-headless-service.yaml:25"
+        - "templates/server-ingress.yaml:19"
+        - "templates/server-service.yaml:30"
+        - "templates/server-statefulset.yaml:27"
+        - "templates/ui-service.yaml:23"
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/tests/server-test.yaml:15"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 1
+      files:
+        - "templates/injector-mutating-webhook.yaml:13"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/server-test.yaml:15"

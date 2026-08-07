@@ -37,8 +37,10 @@ derived variant. The verdict is the diff, not an opinion.
 
 | Switch | Error |
 | --- | --- |
-| `memoryHighWatermark.enabled=true` | Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/pilot-switch-m |
-| `ldap.enabled=true` | Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/pilot-switch-m |
+| `memoryHighWatermark.enabled=true` | Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values <tmp> --kube-version 1.30.0
+Pulled: registry-1.docker.io/bitnam |
+| `ldap.enabled=true` | Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values <tmp> --kube-version 1.30.0
+Pulled: registry-1.docker.io/bitnam |
 
 A flip that breaks the render is itself a finding: the chart requires more than the toggle to enable that feature.
 

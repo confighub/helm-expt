@@ -1,0 +1,70 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0.114.0"
+spec:
+  chart:
+    repository: "open-telemetry"
+    name: "opentelemetry-operator"
+    version: "0.114.0"
+  package:
+    sha256: "450c24e9d279534413860d9fb4dbe2609f8c32b8a3e2990833ee4f53d0e8546e"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 31
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 4
+    documents: 4
+  hookValues:
+    - "pre-install,pre-upgrade"
+    - "test"
+  findings:
+    lookup:
+      count: 2
+      files:
+        - "templates/_helpers.tpl:123"
+        - "templates/_helpers.tpl:129"
+    capabilities:
+      count: 3
+      files:
+        - "templates/clusterrole.yaml:187"
+        - "templates/deployment.yaml:43"
+        - "templates/verticalpodautoscaler.yaml:1"
+    helm-hooks:
+      count: 4
+      files:
+        - "templates/tests/test-certmanager-connection.yaml:11"
+        - "templates/tests/test-service-connection.yaml:11"
+        - "templates/tests/test-service-connection.yaml:64"
+        - "values.yaml:336"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 3
+      files:
+        - "templates/_helpers.tpl:137"
+        - "templates/_helpers.tpl:138"
+        - "templates/deployment.yaml:28"
+    webhook-config:
+      count: 4
+      files:
+        - "templates/admission-webhooks/operator-webhook-with-cert-manager.yaml:3"
+        - "templates/admission-webhooks/operator-webhook-with-cert-manager.yaml:106"
+        - "templates/admission-webhooks/operator-webhook.yaml:28"
+        - "templates/admission-webhooks/operator-webhook.yaml:132"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 3
+      files:
+        - "templates/tests/test-certmanager-connection.yaml:11"
+        - "templates/tests/test-service-connection.yaml:11"
+        - "templates/tests/test-service-connection.yaml:64"

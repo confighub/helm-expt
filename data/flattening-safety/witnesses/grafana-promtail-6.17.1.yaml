@@ -1,0 +1,65 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "grafana-promtail-6.17.1"
+spec:
+  chart:
+    repository: "grafana"
+    name: "promtail"
+    version: "6.17.1"
+  package:
+    sha256: "12115103a3b94932473fb3873aa670a68da9504e2f323c03790257088b479d9f"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 29
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 10
+      files:
+        - "templates/_helpers.tpl:75"
+        - "templates/_helpers.tpl:88"
+        - "templates/_helpers.tpl:90"
+        - "templates/_helpers.tpl:108"
+        - "templates/_helpers.tpl:115"
+        - "templates/hpa.yaml:2"
+        - "templates/podsecuritypolicy.yaml:1"
+        - "templates/role.yaml:1"
+        - "templates/rolebinding.yaml:1"
+        - "templates/verticalpodautoscaler.yaml:1"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

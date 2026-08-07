@@ -1,0 +1,67 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "jaegertracing-jaeger-4.8.0"
+spec:
+  chart:
+    repository: "jaegertracing"
+    name: "jaeger"
+    version: "4.8.0"
+  package:
+    sha256: "e5393714186742f3fa3afa35858610753c49a7680557c3df55d7ff74f6189f9d"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 47
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "pre-install,pre-upgrade"
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+    capabilities:
+      count: 5
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:170"
+        - "charts/common/templates/_capabilities.tpl:171"
+        - "charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 2
+      files:
+        - "templates/es-maintenance/es-rollover-hook.yml:10"
+        - "templates/es-maintenance/es-rollover-service-account.yaml:10"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 5
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

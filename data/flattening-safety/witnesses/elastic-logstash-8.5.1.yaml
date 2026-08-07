@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "elastic-logstash-8.5.1"
+spec:
+  chart:
+    repository: "elastic"
+    name: "logstash"
+    version: "8.5.1"
+  package:
+    sha256: "70aace1eb5ecb759942e60ffd192a849330582900658a6b306055a9530adb44b"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 26
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 1
+      files:
+        - "templates/poddisruptionbudget.yaml:2"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

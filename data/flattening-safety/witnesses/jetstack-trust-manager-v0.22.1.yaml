@@ -1,0 +1,61 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "jetstack-trust-manager-v0.22.1"
+spec:
+  chart:
+    repository: "jetstack"
+    name: "trust-manager"
+    version: "v0.22.1"
+  package:
+    sha256: "7fac0640b4c58424ca7589a91dfdc2f79a3cd490c0b2b5b8d4cfea2654e9133f"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 18
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 1
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 2
+      files:
+        - "templates/crd-trust.cert-manager.io_bundles.yaml:8"
+        - "values.yaml:11"
+    generated-secrets:
+      count: 5
+      files:
+        - "templates/deployment.yaml:27"
+        - "templates/webhook.yaml:9"
+        - "templates/webhook.yaml:17"
+        - "templates/webhook.yaml:24"
+        - "templates/webhook.yaml:31"
+    webhook-config:
+      count: 1
+      files:
+        - "templates/webhook.yaml:88"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

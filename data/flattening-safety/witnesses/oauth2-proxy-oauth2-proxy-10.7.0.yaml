@@ -1,0 +1,71 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "oauth2-proxy-oauth2-proxy-10.7.0"
+spec:
+  chart:
+    repository: "oauth2-proxy"
+    name: "oauth2-proxy"
+    version: "10.7.0"
+  package:
+    sha256: "47b44c66fdfc42677d307cf8891f3de29863414bf265f6bef2020c273ff7e839"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 84
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "redis-ha"
+        condition: "redis-ha.enabled"
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test-success"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 13
+      files:
+        - "charts/redis-ha/templates/_helpers.tpl:89"
+        - "charts/redis-ha/templates/_helpers.tpl:102"
+        - "charts/redis-ha/templates/redis-ha-announce-service.yaml:18"
+        - "charts/redis-ha/templates/redis-ha-announce-service.yaml:25"
+        - "charts/redis-ha/templates/redis-ha-servicemonitor.yaml:1"
+        - "charts/redis-ha/templates/redis-haproxy-servicemonitor.yaml:1"
+        - "templates/_capabilities.tpl:5"
+        - "templates/_capabilities.tpl:16"
+        - "templates/_capabilities.tpl:18"
+        - "templates/_capabilities.tpl:29"
+        - "templates/_helpers.tpl:140"
+        - "templates/_ingress.tpl:5"
+    helm-hooks:
+      count: 2
+      files:
+        - "charts/redis-ha/templates/tests/test-redis-ha-configmap.yaml:9"
+        - "charts/redis-ha/templates/tests/test-redis-ha-pod.yaml:13"
+    resource-policy-keep:
+      count: 1
+      files:
+        - "values.yaml:287"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 2
+      files:
+        - "charts/redis-ha/templates/tests/test-redis-ha-configmap.yaml:9"
+        - "charts/redis-ha/templates/tests/test-redis-ha-pod.yaml:13"

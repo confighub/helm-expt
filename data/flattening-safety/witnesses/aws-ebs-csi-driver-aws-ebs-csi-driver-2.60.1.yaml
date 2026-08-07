@@ -1,0 +1,72 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1"
+spec:
+  chart:
+    repository: "aws-ebs-csi-driver"
+    name: "aws-ebs-csi-driver"
+    version: "2.60.1"
+  package:
+    sha256: "800d52ecc906445a8b6f3553b671edd37a5fc5355c6a8cb879ea8d043223ea7e"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 33
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 9
+      files:
+        - "templates/_metrics.tpl:26"
+        - "templates/controller.yaml:252"
+        - "templates/controller.yaml:327"
+        - "templates/controller.yaml:367"
+        - "templates/controller.yaml:574"
+        - "templates/csidriver.yaml:2"
+        - "templates/csidriver.yaml:11"
+        - "templates/metrics.yaml:39"
+        - "templates/volumesnapshotclass.yaml:1"
+    helm-hooks:
+      count: 5
+      files:
+        - "templates/tests/helm-tester.yaml:8"
+        - "templates/tests/helm-tester.yaml:16"
+        - "templates/tests/helm-tester.yaml:133"
+        - "templates/tests/helm-tester.yaml:186"
+        - "templates/tests/helm-tester.yaml:194"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 5
+      files:
+        - "templates/tests/helm-tester.yaml:8"
+        - "templates/tests/helm-tester.yaml:16"
+        - "templates/tests/helm-tester.yaml:133"
+        - "templates/tests/helm-tester.yaml:186"
+        - "templates/tests/helm-tester.yaml:194"

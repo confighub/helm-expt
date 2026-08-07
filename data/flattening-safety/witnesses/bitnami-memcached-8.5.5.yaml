@@ -1,0 +1,67 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-memcached-8.5.5"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "memcached"
+    version: "8.5.5"
+  package:
+    sha256: "a4e93ca0fd99b523a52b3c388421330a7cbdc47efc860aff79fba775be240047"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 41
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+    capabilities:
+      count: 5
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:165"
+        - "charts/common/templates/_capabilities.tpl:166"
+        - "charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 6
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/secrets.yaml:18"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

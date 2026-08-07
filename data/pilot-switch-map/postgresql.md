@@ -30,7 +30,8 @@ derived variant. The verdict is the diff, not an opinion.
 
 | Switch | Error |
 | --- | --- |
-| `tls.enabled=true` | Command failed: helm template postgresql oci://registry-1.docker.io/bitnamicharts/postgresql --version 18.6.10 --namespace postgresql --values /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/pilot-sw |
+| `tls.enabled=true` | Command failed: helm template postgresql oci://registry-1.docker.io/bitnamicharts/postgresql --version 18.6.10 --namespace postgresql --values <tmp> --kube-version 1.30.0
+Pulled: registry-1.docker.io/ |
 
 A flip that breaks the render is itself a finding: the chart requires more than the toggle to enable that feature.
 

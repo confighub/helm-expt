@@ -1,0 +1,60 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "fluent-fluentd-0.5.3"
+spec:
+  chart:
+    repository: "fluent"
+    name: "fluentd"
+    version: "0.5.3"
+  package:
+    sha256: "3e506454cfa06d696e07cdc499eaa5f4dc2a119c4e6f28969430528467e3bf82"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 22
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test-success"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 5
+      files:
+        - "templates/_helpers.tpl:99"
+        - "templates/clusterrole.yaml:18"
+        - "templates/podsecuritypolicy.yaml:1"
+        - "templates/prometheusrules.yaml:1"
+        - "templates/servicemonitor.yaml:1"
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:15"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:15"

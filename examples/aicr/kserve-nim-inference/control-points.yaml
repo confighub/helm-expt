@@ -1,0 +1,63 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: ControlPointRecord
+metadata:
+  name: aicr-kserve-nim-inference
+spec:
+  entry: examples/aicr/kserve-nim-inference
+  description: >-
+    The control points a reviewer may change in this entry, and the documents
+    each one governs. The scope covers the deployment surfaces this catalog
+    imports, which is the serving runtimes and the model shapes. The setup
+    scripts in the retained tree are not imported and are not governed here.
+  documentScope:
+    - upstream/kserve/runtimes
+    - upstream/kserve/nim-models
+  controlPoints:
+    - id: model-cache-claim
+      description: >-
+        The shared PersistentVolumeClaim every model shape mounts for its model
+        cache. Upstream tells the operator to create that claim, so its name is
+        a per-cluster decision, and renaming it has to land on every shape at
+        once.
+      locator:
+        token: "nvidia-nim-pvc"
+      governs:
+        - serving.kserve.io/v1beta1|InferenceService||llama-3-1-70b-instruct-2xgpu
+        - serving.kserve.io/v1beta1|InferenceService||llama-3-1-8b-instruct-1xgpu
+        - serving.kserve.io/v1beta1|InferenceService||llama-3-3-nemotron-49b-2xgpu
+        - serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-2xgpu
+        - serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-4xa100
+        - serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-4xgpu
+        - serving.kserve.io/v1beta1|InferenceService||llama3-70b-instruct-4xh100
+        - serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-1xgpu
+        - serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-2xa100
+        - serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-2xgpu
+        - serving.kserve.io/v1beta1|InferenceService||llama3-8b-instruct-2xh100
+        - serving.kserve.io/v1beta1|InferenceService||mistral-7b-instruct-v03-1xgpu
+        - serving.kserve.io/v1beta1|InferenceService||mixtral-8x22b-instruct-v01-8xgpu
+        - serving.kserve.io/v1beta1|InferenceService||mixtral-8x7b-instruct-v01-2xgpu
+        - serving.kserve.io/v1beta1|InferenceService||nv-embedqa-e5-v5-1xgpu
+        - serving.kserve.io/v1beta1|InferenceService||nv-rerankqa-mistral-4b-v3-1xgpu
+      reviewedChanges:
+        - receipt: runs/aicr-kserve-nim-import/receipt.yaml
+          changedField: spec.change.changedDocuments
+    - id: nim-telemetry-mode
+      description: >-
+        The telemetry setting the NVIDIA product terms document. No reviewed
+        change exercises it yet, because setting it means inserting an
+        environment entry and ConfigHub's search-replace substitutes single
+        tokens. The control point is declared so the gap stays visible.
+      locator:
+        token: "NIM_CACHE_PATH"
+      governs:
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-llama-3.1-70b-instruct-1.1.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-llama-3.1-8b-instruct-1.1.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-llama3-70b-instruct-1.0.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-llama3-8b-instruct-1.0.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-mistral-7b-instruct-v03-1.0.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-mixtral-8x22b-instruct-v01-1.0.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-mixtral-8x7b-instruct-v01-1.0.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-nv-embedqa-e5-v5-1.0.0
+        - serving.kserve.io/v1alpha1|ClusterServingRuntime||nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0
+      reviewedChanges: []

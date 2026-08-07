@@ -10,14 +10,14 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 833
+scripts: 840
 ```
 
 ## By Category
 
 | Category | Scripts |
 | --- | ---: |
-| `other` | 329 |
+| `other` | 335 |
 | `top20-chart-proof` | 123 |
 | `catalog-data` | 67 |
 | `production-support` | 65 |
@@ -26,7 +26,7 @@ scripts: 833
 | `evidence-workdown` | 32 |
 | `confighub-proof` | 30 |
 | `hook-lifecycle` | 29 |
-| `repo-integrity` | 18 |
+| `repo-integrity` | 19 |
 | `confighub-catalog-org` | 11 |
 | `derived-variants` | 11 |
 | `local-live-evidence` | 8 |
@@ -43,10 +43,10 @@ scripts: 833
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 367 |
-| `generate-or-run` | 320 |
-| `run` | 98 |
-| `self-test` | 38 |
+| `verify` | 370 |
+| `generate-or-run` | 322 |
+| `run` | 99 |
+| `self-test` | 39 |
 | `summary` | 9 |
 | `full-corpus-verify` | 1 |
 
@@ -54,7 +54,7 @@ scripts: 833
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 756 |
+| `none-for-verify` | 763 |
 | `confighub-or-live-cluster` | 33 |
 | `network-or-helm-repo` | 15 |
 | `local-kubernetes` | 14 |

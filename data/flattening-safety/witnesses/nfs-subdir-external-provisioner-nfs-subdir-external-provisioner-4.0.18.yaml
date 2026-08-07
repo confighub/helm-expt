@@ -1,0 +1,59 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18"
+spec:
+  chart:
+    repository: "nfs-subdir-external-provisioner"
+    name: "nfs-subdir-external-provisioner"
+    version: "4.0.18"
+  package:
+    sha256: "a842163c1f5eedc4893e1f685e4249b0ddd62533c3c941228ee6a096ac308f6f"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 15
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 4
+      files:
+        - "templates/_helpers.tpl:57"
+        - "templates/_helpers.tpl:68"
+        - "templates/deployment.yaml:20"
+        - "templates/deployment.yaml:80"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

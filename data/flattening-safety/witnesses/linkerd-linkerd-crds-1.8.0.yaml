@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "linkerd-linkerd-crds-1.8.0"
+spec:
+  chart:
+    repository: "linkerd"
+    name: "linkerd-crds"
+    version: "1.8.0"
+  package:
+    sha256: "516789ccd8116f5f7ddd69ad2368be6f3c26cb53eae94f3950061592c0074991"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 30
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 8
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []
