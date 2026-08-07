@@ -33,12 +33,14 @@ The mechanics are proven. The catalog, the digest spine, and the story are not b
 - **Sourcing.** One credible AICR exists. More entries must come from upstream AICR versions or deliberately authored shapes with named provenance. Manufactured variety would be fake breadth; refuse it.
 - **Labels.** UNOFFICIAL/EXPERIMENTAL stays on every surface until a proof earns its removal.
 
-## Research before build
+## Research findings
 
-1. **AICR community trajectory.** Release cadence, contributor growth, adoption signals. Is AICR a rising standard worth tracking as an upstream, or a single-vendor artifact we would be carrying?
-2. **NVIDIA NIM blueprints.** Whether NIM blueprints can be packaged as catalog entries: content shape, licensing, overlap with AICR, and whether "NIM blueprint as governed OCI digest" is itself a story.
-3. **Inference shape sourcing.** Which serving reference stack (KServe, vLLM, Ray Serve) has the most credible upstream configuration to retain.
+The three pre-build questions were answered on 2026-08-06 and 2026-08-07:
 
-## First increment
+1. **AICR community trajectory.** AICR is NVIDIA's AI Cluster Runtime (github.com/NVIDIA/aicr), Apache-2.0, created January 2026, with roughly biweekly minor releases, thirty contributors, and daily pushes. Verdict: a young but rising NVIDIA-backed standard and a credible upstream; catalog breadth comes from its own recipe catalog (EKS, GKE, and self-managed, across H100 and GB200), never from manufactured variety. Our retained v0.14.0 against a moving upstream is itself the retained-versions story.
+2. **NVIDIA NIM.** Deployment shapes are packagable from public surfaces (Helm charts, the NIM Operator CRDs, and the NVIDIA/nim-deploy reference repo). The boundary: NIM runtime images and models are NGC-gated under NVIDIA AI Enterprise licensing, so the catalog retains deployment shapes and records gated references as data, never redistributing artifacts, keys, or benchmark observations. The full license read lives in docs/planning/nim-ngc-license-read.md, and its refusals are enforced in the compiler.
+3. **Inference-shape sourcing.** NVIDIA/nim-deploy's KServe path won: the nim-llm Helm chart moved to NGC-only distribution upstream, leaving the KServe subtree as the retainable Apache-2.0 surface. The retained entry lives at examples/aicr/kserve-nim-inference.
 
-Port the digest-index compiler to AICR and produce the index for the existing H100 example, with self-tests. That alone upgrades the current story from "we imported an OCI" to "the whole shape is pinned by one digest," using code that already exists. Everything else follows the Kubara playbook: reference deployment, governed change story, receipts, frames, two-path page.
+## First increment## First increment
+
+Delivered: the digest-index compiler landed for the H100 example, followed by the catalog overview page, the NGC license read, the retained KServe/NIM inference entry, the CPU starter, and two live config-plane proofs of the starter against ConfigHub and kind. The original plan follows for the record. Port the digest-index compiler to AICR and produce the index for the existing H100 example, with self-tests. That alone upgrades the current story from "we imported an OCI" to "the whole shape is pinned by one digest," using code that already exists. Everything else follows the Kubara playbook: reference deployment, governed change story, receipts, frames, two-path page.
