@@ -1,0 +1,66 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrCpuStarterDeliveryProofReceipt"
+metadata:
+  name: "aicr-cpu-starter-v0-14-0-delivery"
+spec:
+  observedAt: "2026-08-07T09:08:19.982Z"
+  input:
+    format: "derived CPU starter literal configuration OCI"
+    committedEntry: "examples/aicr/cpu-starter"
+    starterPlatformDigest: "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564"
+    derivedFromEntry: "examples/aicr/eks-h100-training-kubeflow"
+    derivedFromPlatformDigest: "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e"
+    temporaryReference: "oci://localhost:32777/aicr-cpu-starter:0.14.0"
+    digest: "sha256:535c9ba66a5988518a7c2356662fd8d6d44453ebc18d1cc4b0e0a8338388f2e5"
+    applicationCount: 7
+    syncWaves:
+      - 2
+      - 3
+      - 6
+      - 7
+      - 9
+      - 10
+      - 15
+    transportByteFaithful: true
+    canonicalDataSha256: "86fae4beb1c3233f7b08cff78b2ba0c8ff3044ccb6c664e3b8fc9a4e5cddc935"
+  cluster:
+    shape: "throwaway kind cluster with an isolated kubeconfig"
+    creationCommand: "kind create cluster"
+    argoCd:
+      version: "v3.4.5"
+      installManifest: "https://raw.githubusercontent.com/argoproj/argo-cd/v3.4.5/manifests/install.yaml"
+      method: "pinned upstream manifest applied as a cluster prerequisite"
+  delivery:
+    applied: true
+    appliedFrom: "the pulled OCI artifact, not the checkout"
+    applicationsAccepted: 7
+    applicationSpecsMatched: true
+    syncWavesPreserved: true
+    automatedSyncPolicyPresent: true
+    controllerHeldAtZero: true
+    syncOperationsObserved: 0
+    settleSeconds: 30
+    componentNamespacesAbsent:
+      - "cert-manager"
+      - "kai-scheduler"
+      - "monitoring"
+      - "node-feature-discovery"
+    workloadsDelivered: false
+  cleanup:
+    cluster: "pass"
+    registry: "pass"
+    localFiles: "pass"
+  limits:
+    - "This run proves config-plane delivery only: the Applications were accepted and no sync started. It claims no application sync, no workload behavior, and no component health."
+    - "The retained Applications carry upstream automated sync policies, so the application controller was deliberately held at zero replicas for the entire run. Delivery cannot begin until a human scales the controller up; automatic stays false until earned."
+    - "This run used a temporary local registry; it does not prove public registry publication."
+    - "No ConfigHub organization was involved in this run; the ConfigHub import and reviewed-change story is the separate variant proof receipt."
+status:
+  result: "pass"
+  ociTransport: "pass"
+  clusterUp: "pass"
+  argoCdInstall: "pass"
+  applicationsAccepted: "pass"
+  noSyncStarted: "pass"
+  boundaryProven: "pass"
+  claim: "The seven derived CPU starter Applications traveled as one OCI artifact, arrived byte-faithful, and were accepted with the real Argo CD CRDs on a throwaway kind cluster. The application controller was held at zero replicas, zero sync operations appeared, and every component namespace stayed absent: the governed configuration arrived, and nothing beyond it happened."
