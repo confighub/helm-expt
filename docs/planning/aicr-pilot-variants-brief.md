@@ -97,3 +97,24 @@ that record using the existing starter proofs as fixtures. The gp3 override
 and the inference rename become the two positive fixtures, and a deliberately
 over-broad rename becomes the refusal fixture. Nothing in that increment needs
 a cluster, a GPU, or a live organization.
+
+## First increment delivered 2026-08-07
+
+Both entries now commit a control-point record, and
+`npm run aicr-blast-radius:verify` holds each record to the committed bytes
+and to the receipts of every reviewed change already made. Three control
+points are declared: the starter's Prometheus storage class over one
+document, the inference entry's shared model-cache claim over sixteen, and
+its telemetry setting over ten runtimes with no reviewed change yet, declared
+so the gap stays visible.
+
+The checker earned its keep immediately. The first inference record was
+hand-written and wrong: it guessed a serving-runtime name that upstream spells
+differently, and the checker refused it rather than recording a comfortable
+number. The declarations are now derived from the retained bytes.
+
+Two levels of the design remain. Document-set parity, which refuses a variant
+that adds or removes documents, and field-level parity, which the existing
+per-chart machinery already performs, are not yet wired into this checker.
+Blast radius was the level worth building first because it is the level
+nothing else covers.
