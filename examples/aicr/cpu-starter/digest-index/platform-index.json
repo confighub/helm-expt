@@ -1,0 +1,178 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "AICRPlatformDigestIndex",
+  "metadata": {
+    "name": "aicr-cpu-starter-v0-14-0-digest-index"
+  },
+  "spec": {
+    "platformDigest": "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564",
+    "source": {
+      "binarySha256": "84c5f5d6052bb3daa0839702e6e3abc0a6fe9669293cd3ab66b41892b3c59a9c",
+      "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+      "name": "NVIDIA AICR",
+      "releaseAsset": {
+        "name": "aicr_0.14.0_darwin_arm64.tar.gz",
+        "sha256": "0d48b8835660891a6ca7c0df3290d6241d2fd76daa01c6cdf65a808401e6cf8d"
+      },
+      "repository": "https://github.com/NVIDIA/aicr",
+      "version": "v0.14.0"
+    },
+    "derivedFrom": {
+      "entry": "examples/aicr/eks-h100-training-kubeflow",
+      "platformDigest": "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e"
+    },
+    "selection": {
+      "rules": [
+        {
+          "id": "references-gpu-resources",
+          "kind": "mechanical",
+          "description": "rendered bytes reference nvidia.com/gpu"
+        },
+        {
+          "id": "bound-to-the-training-bundle",
+          "kind": "mechanical",
+          "description": "the Application source is an OCI path into the training bundle instead of a chart"
+        },
+        {
+          "id": "cloud-or-gpu-fleet-purpose",
+          "kind": "curated",
+          "description": "a named purpose boundary recorded next to each excluded component"
+        }
+      ],
+      "excluded": [
+        {
+          "component": "aicr-stack",
+          "rule": "bound-to-the-training-bundle",
+          "reason": "the Application source is an OCI path into the training bundle instead of a chart"
+        },
+        {
+          "component": "aws-ebs-csi-driver",
+          "rule": "cloud-or-gpu-fleet-purpose",
+          "reason": "AWS-specific storage driver; it needs AWS EBS and cloud credentials a CPU starter cannot assume"
+        },
+        {
+          "component": "aws-efa",
+          "rule": "references-gpu-resources",
+          "reason": "rendered bytes reference nvidia.com/gpu"
+        },
+        {
+          "component": "gpu-operator",
+          "rule": "references-gpu-resources",
+          "reason": "rendered bytes reference nvidia.com/gpu"
+        },
+        {
+          "component": "kubeflow-trainer",
+          "rule": "references-gpu-resources",
+          "reason": "rendered bytes reference nvidia.com/gpu"
+        },
+        {
+          "component": "kubeflow-trainer-post",
+          "rule": "bound-to-the-training-bundle",
+          "reason": "the Application source is an OCI path into the training bundle instead of a chart"
+        },
+        {
+          "component": "nodewright-customizations",
+          "rule": "bound-to-the-training-bundle",
+          "reason": "the Application source is an OCI path into the training bundle instead of a chart"
+        },
+        {
+          "component": "nodewright-operator",
+          "rule": "cloud-or-gpu-fleet-purpose",
+          "reason": "GPU node lifecycle operations; the same purpose boundary as nvsentinel"
+        },
+        {
+          "component": "nvidia-dra-driver-gpu",
+          "rule": "references-gpu-resources",
+          "reason": "rendered bytes reference nvidia.com/gpu"
+        },
+        {
+          "component": "nvsentinel",
+          "rule": "cloud-or-gpu-fleet-purpose",
+          "reason": "GPU fleet health monitoring; its purpose requires accelerated nodes even though its rendered values do not name them"
+        }
+      ],
+      "selectedCount": 7
+    },
+    "cloudResidues": [
+      {
+        "component": "kube-prometheus-stack",
+        "marker": "gp3",
+        "note": "retained faithfully from the source shape; override it with variant mechanics before a live run on a cluster without this resource"
+      }
+    ],
+    "members": [
+      {
+        "component": "cert-manager",
+        "role": "component-application",
+        "syncWave": 2,
+        "payloadSha256": "8342362b271c473c7c87bb095d7aa4eb22de642bc4b4246c1b36004babeb5fd0",
+        "payloadPath": "payloads/cert-manager-8342362b271c473c7c87bb095d7aa4eb22de642bc4b4246c1b36004babeb5fd0.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-components/cert-manager:payload-8342362b271c473c7c87bb095d7aa4eb22de642bc4b4246c1b36004babeb5fd0"
+      },
+      {
+        "component": "k8s-ephemeral-storage-metrics",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "214a8b12cadb37b1a34e27ee989ba3e992321db1611815b261139c550c17f247",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-214a8b12cadb37b1a34e27ee989ba3e992321db1611815b261139c550c17f247.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-components/k8s-ephemeral-storage-metrics:payload-214a8b12cadb37b1a34e27ee989ba3e992321db1611815b261139c550c17f247"
+      },
+      {
+        "component": "kai-scheduler",
+        "role": "component-application",
+        "syncWave": 10,
+        "payloadSha256": "8325a6d0698c188fb0bb554311960ba2692e4de2e1a243c40ed00b79b076825f",
+        "payloadPath": "payloads/kai-scheduler-8325a6d0698c188fb0bb554311960ba2692e4de2e1a243c40ed00b79b076825f.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-components/kai-scheduler:payload-8325a6d0698c188fb0bb554311960ba2692e4de2e1a243c40ed00b79b076825f"
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "role": "component-application",
+        "syncWave": 7,
+        "payloadSha256": "2ee3d29923598880ea175c2938b88ff58fc4ed096f2e6e7f27fa774dc098b563",
+        "payloadPath": "payloads/kube-prometheus-stack-2ee3d29923598880ea175c2938b88ff58fc4ed096f2e6e7f27fa774dc098b563.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-components/kube-prometheus-stack:payload-2ee3d29923598880ea175c2938b88ff58fc4ed096f2e6e7f27fa774dc098b563"
+      },
+      {
+        "component": "nfd",
+        "role": "component-application",
+        "syncWave": 3,
+        "payloadSha256": "2535641120d5dd41380f620f8834985734e09e2655260192b9bd87004962bbe1",
+        "payloadPath": "payloads/nfd-2535641120d5dd41380f620f8834985734e09e2655260192b9bd87004962bbe1.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-components/nfd:payload-2535641120d5dd41380f620f8834985734e09e2655260192b9bd87004962bbe1"
+      },
+      {
+        "component": "prometheus-adapter",
+        "role": "component-application",
+        "syncWave": 15,
+        "payloadSha256": "1a392eb6905b1b9002323a7f2126c821382399c74eb633ecdfff1a9fad0a106d",
+        "payloadPath": "payloads/prometheus-adapter-1a392eb6905b1b9002323a7f2126c821382399c74eb633ecdfff1a9fad0a106d.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-components/prometheus-adapter:payload-1a392eb6905b1b9002323a7f2126c821382399c74eb633ecdfff1a9fad0a106d"
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "role": "component-application",
+        "syncWave": 6,
+        "payloadSha256": "51868d682fee2e50c83fccfe43bd394ad4ee89250dc053d34811d8e6ba525e5c",
+        "payloadPath": "payloads/prometheus-operator-crds-51868d682fee2e50c83fccfe43bd394ad4ee89250dc053d34811d8e6ba525e5c.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-components/prometheus-operator-crds:payload-51868d682fee2e50c83fccfe43bd394ad4ee89250dc053d34811d8e6ba525e5c"
+      }
+    ],
+    "aggregate": {
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-cpu-starter-digest-index:platform-d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564",
+      "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
+    },
+    "boundary": {
+      "configPlaneOnly": true,
+      "gpuRequired": false,
+      "gpuWorkloadsProven": false,
+      "liveRunProven": false,
+      "secretValuesIncluded": false,
+      "statement": "This starter is a derivation of retained configuration. It needs no GPU, and no live run is claimed anywhere in it; running it is a later increment."
+    }
+  },
+  "status": {
+    "result": "compiled-offline",
+    "liveRegistryPublicationClaimed": false
+  }
+}
