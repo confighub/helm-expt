@@ -10,6 +10,11 @@ aws-controllers-k8s,iam-chart,1.7.3,eks-inference,flatten-with-routes,absent,abs
 aws-controllers-k8s,eks-chart,1.16.3,eks-inference,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict.yaml
 karpenter,karpenter,1.14.0,eks-inference,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml
 nvidia,nvidia-device-plugin,0.19.3,eks-inference,safe-to-flatten,present-gated,absent,absent,absent,absent,present-gated,recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict.yaml
+aws-controllers-k8s,ec2-chart,1.18.4,default,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml
+aws-controllers-k8s,iam-chart,1.7.3,default,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml
+aws-controllers-k8s,eks-chart,1.16.3,default,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml
+karpenter,karpenter,1.14.0,default,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-default.yaml
+nvidia,nvidia-device-plugin,0.19.3,default,safe-to-flatten,present-gated,absent,absent,absent,absent,present-gated,recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-default.yaml
 karpenter,karpenter,1.14.0,crds-managed,safe-to-flatten,absent,absent,absent,absent,absent,present-gated,recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml
 nvidia,nvidia-device-plugin,0.19.3,nfd-enabled,flatten-with-routes,present,absent,absent,absent,absent,present,recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml
 bitnami,redis,27.0.0,default,do-not-flatten,absent,present,absent,absent,present,absent,recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml

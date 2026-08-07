@@ -15,6 +15,11 @@ Each audited chart version gets one receipted answer to one question: what happe
 | aws-controllers-k8s/eks-chart | 1.16.3 | eks-inference | flatten-with-routes | recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict.yaml |
 | karpenter/karpenter | 1.14.0 | eks-inference | flatten-with-routes | recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml |
 | nvidia/nvidia-device-plugin | 0.19.3 | eks-inference | safe-to-flatten | recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict.yaml |
+| aws-controllers-k8s/ec2-chart | 1.18.4 | default | flatten-with-routes | recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict-default.yaml |
+| aws-controllers-k8s/iam-chart | 1.7.3 | default | flatten-with-routes | recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml |
+| aws-controllers-k8s/eks-chart | 1.16.3 | default | flatten-with-routes | recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict-default.yaml |
+| karpenter/karpenter | 1.14.0 | default | flatten-with-routes | recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-default.yaml |
+| nvidia/nvidia-device-plugin | 0.19.3 | default | safe-to-flatten | recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-default.yaml |
 | karpenter/karpenter | 1.14.0 | crds-managed | safe-to-flatten | recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml |
 | nvidia/nvidia-device-plugin | 0.19.3 | nfd-enabled | flatten-with-routes | recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml |
 | bitnami/redis | 27.0.0 | default | do-not-flatten | recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml |

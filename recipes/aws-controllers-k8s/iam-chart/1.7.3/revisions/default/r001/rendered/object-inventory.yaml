@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "default-r001"
+spec:
+  objectCount: 19
+  renderedObjectSetSHA256: "5cc2df3a477550418c2137202353567eb681765adffb856ff0efa9570a13166b"
+  objects:
+    -
+      kind: "ClusterRole"
+      name: "ack-iam-iam-chart"
+    -
+      kind: "ClusterRole"
+      name: "ack-iam-iam-chart-namespaces-cache"
+    -
+      kind: "ClusterRoleBinding"
+      name: "ack-iam-iam-chart-namespaces-cache"
+    -
+      kind: "ClusterRoleBinding"
+      name: "ack-iam-iam-chart-rolebinding"
+    -
+      kind: "CustomResourceDefinition"
+      name: "fieldexports.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "groups.iam.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "iamroleselectors.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "instanceprofiles.iam.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "openidconnectproviders.iam.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "policies.iam.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "roles.iam.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "servicelinkedroles.iam.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "users.iam.services.k8s.aws"
+    -
+      kind: "Deployment"
+      name: "ack-iam-iam-chart"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-iam-iam-chart-configmaps-cache"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-iam-iam-chart-reader"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-iam-iam-chart-writer"
+      namespace: "ack-system"
+    -
+      kind: "RoleBinding"
+      name: "ack-iam-iam-chart-configmaps-cache"
+      namespace: "ack-system"
+    -
+      kind: "ServiceAccount"
+      name: "ack-iam-controller"
+      namespace: "ack-system"
