@@ -1,0 +1,65 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2"
+spec:
+  chart:
+    repository: "jetstack"
+    name: "cert-manager"
+    version: "v1.20.2"
+  package:
+    sha256: "d2a50bd44a09d838c2576a8f3dfca1524597c7393cf8d82ab3ec8a465b9eeb79"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 51
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 6
+  hookValues:
+    - "post-install"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 3
+      files:
+        - "values.yaml:1535"
+        - "values.yaml:1644"
+        - "values.yaml:1664"
+    resource-policy-keep:
+      count: 7
+      files:
+        - "templates/crd-acme.cert-manager.io_challenges.yaml:8"
+        - "templates/crd-acme.cert-manager.io_orders.yaml:8"
+        - "templates/crd-cert-manager.io_certificaterequests.yaml:8"
+        - "templates/crd-cert-manager.io_certificates.yaml:8"
+        - "templates/crd-cert-manager.io_clusterissuers.yaml:8"
+        - "templates/crd-cert-manager.io_issuers.yaml:8"
+        - "values.yaml:102"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 2
+      files:
+        - "templates/webhook-mutating-webhook.yaml:2"
+        - "templates/webhook-validating-webhook.yaml:2"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

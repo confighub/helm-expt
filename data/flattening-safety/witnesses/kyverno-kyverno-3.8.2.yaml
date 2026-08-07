@@ -1,0 +1,104 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "kyverno-kyverno-3.8.2"
+spec:
+  chart:
+    repository: "kyverno"
+    name: "kyverno"
+    version: "3.8.2"
+  package:
+    sha256: "f4fc787cf1d6781eefb9e9b45837edcddcfae984c872888289914e97207cc5de"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 195
+  subcharts:
+    count: 7
+    conditions:
+      -
+        dependency: "grafana"
+        condition: "grafana.enabled"
+      -
+        dependency: "crds"
+        condition: "crds.install"
+      -
+        dependency: "kyverno-api"
+        condition: "crds.install"
+      -
+        dependency: "openreports"
+        condition: "openreports.installCrds"
+      -
+        dependency: "reports-server"
+        condition: "reportsServer.enabled"
+  crds:
+    files: 25
+    documents: 27
+  hookValues:
+    - "post-upgrade"
+    - "pre-delete"
+    - "test"
+  findings:
+    lookup:
+      count: 4
+      files:
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:100"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:156"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:178"
+        - "templates/validate.yaml:36"
+    capabilities:
+      count: 10
+      files:
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_capabilities.tpl:16"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_capabilities.tpl:19"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_capabilities.tpl:221"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_capabilities.tpl:222"
+        - "templates/NOTES.txt:53"
+        - "templates/NOTES.txt:54"
+        - "templates/_helpers/_flowcontrol.tpl:4"
+        - "templates/_helpers/_flowcontrol.tpl:6"
+        - "templates/_helpers/_flowcontrol.tpl:8"
+        - "templates/_helpers/_flowcontrol.tpl:10"
+    helm-hooks:
+      count: 8
+      files:
+        - "charts/reports-server/templates/hooks/pre-delete-api-service-cleanup.yaml:11"
+        - "templates/hooks/post-upgrade-migrate-resources.yaml:11"
+        - "templates/hooks/post-upgrade-migrate-resources.yaml:51"
+        - "templates/hooks/post-upgrade-migrate-resources.yaml:71"
+        - "templates/hooks/post-upgrade-migrate-resources.yaml:84"
+        - "templates/hooks/pre-delete-remove-webhooks.yaml:12"
+        - "templates/hooks/pre-delete-scale-to-zero.yaml:12"
+        - "templates/tests/helper-functions-test.yaml:13"
+    resource-policy-keep:
+      count: 2
+      files:
+        - "charts/reports-server/charts/postgresql/templates/backup/pvc.yaml:22"
+        - "templates/config/configmap.yaml:14"
+    generated-secrets:
+      count: 14
+      files:
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:70"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:92"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:123"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:124"
+        - "charts/reports-server/charts/postgresql/charts/common/templates/_secrets.tpl:128"
+        - "charts/reports-server/charts/postgresql/templates/secrets.yaml:11"
+        - "charts/reports-server/charts/postgresql/templates/secrets.yaml:15"
+        - "charts/reports-server/charts/postgresql/templates/secrets.yaml:23"
+        - "charts/reports-server/charts/postgresql/templates/tls-secrets.yaml:8"
+        - "charts/reports-server/charts/postgresql/templates/tls-secrets.yaml:15"
+        - "templates/admission-controller/secret.yaml:2"
+        - "templates/admission-controller/secret.yaml:4"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 2
+      files:
+        - "charts/reports-server/templates/namespace.yaml:3"
+        - "templates/_templating/namespace.yaml:3"
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/helper-functions-test.yaml:13"

@@ -1,0 +1,71 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "elastic-eck-operator-3.4.0"
+spec:
+  chart:
+    repository: "elastic"
+    name: "eck-operator"
+    version: "3.4.0"
+  package:
+    sha256: "097f44d2b9ba895495db311eecd9de9ee03d44a5d50fd6ebaf023edbb2ef3c97"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 30
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "eck-operator-crds"
+        condition: "installCRDs"
+  crds:
+    files: 0
+    documents: 12
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 2
+      files:
+        - "charts/eck-operator-crds/templates/_helpers.tpl:60"
+        - "templates/_helpers.tpl:77"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 12
+      files:
+        - "charts/eck-operator-crds/templates/all-crds.yaml:6"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:1141"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:2375"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:2645"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:3130"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:3734"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:4092"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:7286"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:8454"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:9801"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:11038"
+        - "charts/eck-operator-crds/templates/all-crds.yaml:11605"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 1
+      files:
+        - "templates/webhook.yaml:4"
+    namespace-creation:
+      count: 2
+      files:
+        - "templates/managed-namespaces.yaml:6"
+        - "templates/operator-namespace.yaml:4"
+    test-hooks:
+      count: 0
+      files:
+        []

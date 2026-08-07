@@ -1,0 +1,70 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "prometheus-community-prometheus-29.9.0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "prometheus"
+    version: "29.9.0"
+  package:
+    sha256: "a87e983b2dfe2d7052213869e41c7536e2de8c2231bbeb844add1372a1ddd09c"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 88
+  subcharts:
+    count: 4
+    conditions:
+      -
+        dependency: "alertmanager"
+        condition: "alertmanager.enabled"
+      -
+        dependency: "kube-state-metrics"
+        condition: "kube-state-metrics.enabled"
+      -
+        dependency: "prometheus-node-exporter"
+        condition: "prometheus-node-exporter.enabled"
+      -
+        dependency: "prometheus-pushgateway"
+        condition: "prometheus-pushgateway.enabled"
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test-success"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 4
+      files:
+        - "charts/kube-state-metrics/templates/verticalpodautoscaler.yaml:1"
+        - "charts/prometheus-node-exporter/templates/verticalpodautoscaler.yaml:1"
+        - "templates/_helpers.tpl:127"
+        - "templates/deploy.yaml:87"
+    helm-hooks:
+      count: 1
+      files:
+        - "charts/alertmanager/values.yaml:429"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "charts/alertmanager/values.yaml:429"

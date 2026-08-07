@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1.0.0"
+spec:
+  chart:
+    repository: "strimzi"
+    name: "strimzi-kafka-operator"
+    version: "1.0.0"
+  package:
+    sha256: "afb2e7c9fd95eefef689097fc57740975f588f5285d1af1c00ef26cceff5f7c3"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 37
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 10
+    documents: 10
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 1
+      files:
+        - "templates/051-PodDisruptionBudget-strimzi-cluster-operator.yaml:16"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

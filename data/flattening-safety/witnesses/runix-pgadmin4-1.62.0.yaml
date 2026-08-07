@@ -1,0 +1,62 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "runix-pgadmin4-1.62.0"
+spec:
+  chart:
+    repository: "runix"
+    name: "pgadmin4"
+    version: "1.62.0"
+  package:
+    sha256: "6f615ad016402c4413845d2c2d020b5a0a0e71d21cd8b80ef63a1feeace972d5"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 27
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 7
+      files:
+        - "templates/_helpers.tpl:116"
+        - "templates/_helpers.tpl:123"
+        - "templates/_helpers.tpl:176"
+        - "templates/_helpers.tpl:187"
+        - "templates/_helpers.tpl:198"
+        - "templates/_helpers.tpl:200"
+        - "templates/hpa.yaml:2"
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:10"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:10"

@@ -1,0 +1,57 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "rook-release-rook-ceph-cluster-v1.19.5"
+spec:
+  chart:
+    repository: "rook-release"
+    name: "rook-ceph-cluster"
+    version: "v1.19.5"
+  package:
+    sha256: "9320ece3729bd49fbddddb85e49931a7c81adaea5a1cf6cda1f280000eacc2d9"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 31
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 2
+      files:
+        - "templates/_helpers.tpl:12"
+        - "templates/securityContextConstraints.yaml:1"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -1,0 +1,68 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.28.2"
+spec:
+  chart:
+    repository: "cloudnative-pg"
+    name: "cloudnative-pg"
+    version: "0.28.2"
+  package:
+    sha256: "43c8029e2c88527cfde8dd19d88fd120f67565f5788b213a37de43ee96f64e64"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 17
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "cluster"
+        condition: "monitoring.grafanaDashboard.create"
+  crds:
+    files: 1
+    documents: 10
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 10
+      files:
+        - "templates/crds/crds.yaml:7"
+        - "templates/crds/crds.yaml:480"
+        - "templates/crds/crds.yaml:668"
+        - "templates/crds/crds.yaml:8172"
+        - "templates/crds/crds.yaml:8767"
+        - "templates/crds/crds.yaml:8845"
+        - "templates/crds/crds.yaml:9032"
+        - "templates/crds/crds.yaml:18413"
+        - "templates/crds/crds.yaml:18609"
+        - "templates/crds/crds.yaml:18801"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 2
+      files:
+        - "templates/mutatingwebhookconfiguration.yaml:22"
+        - "templates/validatingwebhookconfiguration.yaml:22"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

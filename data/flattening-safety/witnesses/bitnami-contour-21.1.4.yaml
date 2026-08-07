@@ -1,0 +1,71 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-contour-21.1.4"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "contour"
+    version: "21.1.4"
+  package:
+    sha256: "dbb32d59417cb5800a337509521cce5ab2d37dac6e72e451190ced31b27986f8"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 63
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 2
+    documents: 15
+  hookValues:
+    - "pre-install,pre-upgrade"
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+    capabilities:
+      count: 5
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:170"
+        - "charts/common/templates/_capabilities.tpl:171"
+        - "charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 4
+      files:
+        - "templates/certgen/job.yaml:13"
+        - "templates/certgen/rbac.yaml:15"
+        - "templates/certgen/rbac.yaml:37"
+        - "templates/certgen/serviceaccount.yaml:17"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 7
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/default-backend/tls-secrets.yaml:29"
+        - "templates/default-backend/tls-secrets.yaml:30"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

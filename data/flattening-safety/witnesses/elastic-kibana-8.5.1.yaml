@@ -1,0 +1,66 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "elastic-kibana-8.5.1"
+spec:
+  chart:
+    repository: "elastic"
+    name: "kibana"
+    version: "8.5.1"
+  package:
+    sha256: "dab5f50a4f66a3a62529c336db0df732358c5bac405a17efee1572127b895acf"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 24
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "post-delete"
+    - "pre-install,pre-upgrade"
+    - "pre-install,pre-upgrade,post-delete"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 9
+      files:
+        - "templates/configmap-helm-scripts.yaml:8"
+        - "templates/post-delete-job.yaml:7"
+        - "templates/post-delete-role.yaml:7"
+        - "templates/post-delete-rolebinding.yaml:7"
+        - "templates/post-delete-serviceaccount.yaml:7"
+        - "templates/pre-install-job.yaml:7"
+        - "templates/pre-install-role.yaml:7"
+        - "templates/pre-install-rolebinding.yaml:7"
+        - "templates/pre-install-serviceaccount.yaml:7"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

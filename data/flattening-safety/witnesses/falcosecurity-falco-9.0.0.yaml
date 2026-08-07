@@ -1,0 +1,72 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "falcosecurity-falco-9.0.0"
+spec:
+  chart:
+    repository: "falcosecurity"
+    name: "falco"
+    version: "9.0.0"
+  package:
+    sha256: "0224559b6cb95004908ccb278d5dcf2c9165670d108a4dea2419b87ada3f3d6a"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 71
+  subcharts:
+    count: 3
+    conditions:
+      -
+        dependency: "falcosidekick"
+        condition: "falcosidekick.enabled"
+      -
+        dependency: "k8s-metacollector"
+        condition: "collectors.kubernetes.enabled"
+      -
+        dependency: "falco-talon"
+        condition: "responseActions.enabled"
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test-success"
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "charts/falco-talon/templates/deployment.yaml:24"
+    capabilities:
+      count: 9
+      files:
+        - "charts/falco-talon/templates/_helpers.tpl:20"
+        - "charts/falco-talon/templates/_helpers.tpl:22"
+        - "charts/falco-talon/templates/_helpers.tpl:63"
+        - "charts/falcosidekick/templates/_helpers.tpl:38"
+        - "charts/falcosidekick/templates/_helpers.tpl:40"
+        - "charts/falcosidekick/templates/_helpers.tpl:79"
+        - "charts/falcosidekick/templates/servicemonitor.yaml:1"
+        - "templates/_helpers.tpl:117"
+        - "templates/securitycontextconstraints.yaml:1"
+    helm-hooks:
+      count: 1
+      files:
+        - "charts/falcosidekick/templates/tests/test-connection.yaml:12"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "charts/falcosidekick/templates/tests/test-connection.yaml:12"

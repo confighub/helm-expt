@@ -1,0 +1,78 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "grafana-pyroscope-2.0.2"
+spec:
+  chart:
+    repository: "grafana"
+    name: "pyroscope"
+    version: "2.0.2"
+  package:
+    sha256: "2ef4155c4952f4427964273e4bd9bc81bb3356083dc43d28665979d2359f172f"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 174
+  subcharts:
+    count: 5
+    conditions:
+      -
+        dependency: "grafana-agent"
+        condition: "agent.enabled"
+      -
+        dependency: "alloy"
+        condition: "alloy.enabled"
+      -
+        dependency: "minio"
+        condition: "minio.enabled"
+  crds:
+    files: 4
+    documents: 4
+  hookValues:
+    - "post-install,post-upgrade"
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "charts/minio/templates/_helpers.tpl:196"
+    capabilities:
+      count: 35
+      files:
+        - "charts/alloy/templates/_helpers.tpl:124"
+        - "charts/alloy/templates/_helpers.tpl:126"
+        - "charts/alloy/templates/_helpers.tpl:144"
+        - "charts/alloy/templates/_helpers.tpl:150"
+        - "charts/alloy/templates/_helpers.tpl:157"
+        - "charts/alloy/templates/controllers/daemonset.yaml:17"
+        - "charts/alloy/templates/controllers/deployment.yaml:20"
+        - "charts/alloy/templates/controllers/statefulset.yaml:26"
+        - "charts/alloy/templates/controllers/statefulset.yaml:45"
+        - "charts/alloy/templates/service.yaml:22"
+        - "charts/alloy/templates/vpa.yaml:1"
+        - "charts/grafana-agent/templates/_helpers.tpl:123"
+    helm-hooks:
+      count: 4
+      files:
+        - "charts/minio/templates/post-install-create-bucket-job.yaml:13"
+        - "charts/minio/templates/post-install-create-policy-job.yaml:13"
+        - "charts/minio/templates/post-install-create-user-job.yaml:14"
+        - "charts/minio/templates/post-install-custom-command.yaml:13"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 1
+      files:
+        - "charts/minio/templates/_helpers.tpl:200"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

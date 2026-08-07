@@ -1,0 +1,98 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "grafana-loki-7.0.0"
+spec:
+  chart:
+    repository: "grafana"
+    name: "loki"
+    version: "7.0.0"
+  package:
+    sha256: "5eaa28e3535069de2a7ac1f7087ff558e5b4b4a24f0e158072a97e2391132f81"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 255
+  subcharts:
+    count: 3
+    conditions:
+      -
+        dependency: "minio"
+        condition: "minio.enabled"
+      -
+        dependency: "grafana-agent-operator"
+        condition: "monitoring.selfMonitoring.grafanaAgent.installOperator"
+      -
+        dependency: "rollout-operator"
+        condition: "rollout_operator.enabled"
+  crds:
+    files: 10
+    documents: 10
+  hookValues:
+    - "post-install,post-upgrade"
+    - "pre-upgrade"
+    - "test"
+    - "{{ .Values.enterprise.provisioner.hookType | quote }}"
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "charts/minio/templates/_helpers.tpl:196"
+    capabilities:
+      count: 32
+      files:
+        - "charts/minio/templates/_helpers.tpl:38"
+        - "charts/minio/templates/_helpers.tpl:40"
+        - "charts/minio/templates/_helpers.tpl:42"
+        - "charts/minio/templates/_helpers.tpl:51"
+        - "charts/minio/templates/_helpers.tpl:62"
+        - "charts/minio/templates/_helpers.tpl:73"
+        - "charts/minio/templates/_helpers.tpl:75"
+        - "charts/minio/templates/_helpers.tpl:86"
+        - "charts/minio/templates/_helpers.tpl:88"
+        - "charts/minio/templates/console-ingress.yaml:39"
+        - "charts/minio/templates/ingress.yaml:39"
+        - "charts/minio/templates/poddisruptionbudget.yaml:2"
+    helm-hooks:
+      count: 16
+      files:
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:8"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:26"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:36"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:73"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:91"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:104"
+        - "charts/minio/templates/post-job.yaml:12"
+        - "templates/provisioner/job-provisioner.yaml:17"
+        - "templates/provisioner/role-provisioner.yaml:16"
+        - "templates/provisioner/rolebinding-provisioner.yaml:17"
+        - "templates/provisioner/serviceaccount-provisioner.yaml:17"
+        - "templates/single-binary/statefulset-recreate-job.yaml:40"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 1
+      files:
+        - "charts/minio/templates/_helpers.tpl:200"
+    webhook-config:
+      count: 4
+      files:
+        - "charts/rollout-operator/templates/no-downscale-webhook.yaml:3"
+        - "charts/rollout-operator/templates/pod-eviction-webhook.yaml:3"
+        - "charts/rollout-operator/templates/prepare-downscale-webhook.yaml:3"
+        - "charts/rollout-operator/templates/zone-aware-pod-disruption-budget-validating-webhook.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 7
+      files:
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:8"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:26"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:36"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:73"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:91"
+        - "charts/grafana-agent-operator/templates/tests/test-grafanaagent.yaml:104"
+        - "templates/tests/test-canary.yaml:18"

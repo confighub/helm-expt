@@ -1,0 +1,68 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "grafana-alloy-1.11.0"
+spec:
+  chart:
+    repository: "grafana"
+    name: "alloy"
+    version: "1.11.0"
+  package:
+    sha256: "11d253b62e47beeacd89eb4283fc056962ecbf143984863c1998be13da0772dd"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 81
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "crds"
+        condition: "crds.create"
+  crds:
+    files: 2
+    documents: 2
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 11
+      files:
+        - "templates/_helpers.tpl:124"
+        - "templates/_helpers.tpl:126"
+        - "templates/_helpers.tpl:144"
+        - "templates/_helpers.tpl:150"
+        - "templates/_helpers.tpl:157"
+        - "templates/controllers/daemonset.yaml:20"
+        - "templates/controllers/deployment.yaml:23"
+        - "templates/controllers/statefulset.yaml:29"
+        - "templates/controllers/statefulset.yaml:48"
+        - "templates/service.yaml:22"
+        - "templates/vpa.yaml:1"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

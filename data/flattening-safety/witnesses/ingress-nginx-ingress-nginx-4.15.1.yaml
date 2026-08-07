@@ -1,0 +1,76 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1"
+spec:
+  chart:
+    repository: "ingress-nginx"
+    name: "ingress-nginx"
+    version: "4.15.1"
+  package:
+    sha256: "3eff0bd18151d6e6b1c441463410571443dda1ac78292cb189346628de784f0c"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 94
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "post-install,post-upgrade"
+    - "pre-install,pre-upgrade"
+    - "pre-install,pre-upgrade,post-install,post-upgrade"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 16
+      files:
+        - "templates/controller-daemonset.yaml:177"
+        - "templates/controller-deployment.yaml:183"
+        - "templates/controller-hpa.yaml:2"
+        - "templates/controller-poddisruptionbudget.yaml:11"
+        - "templates/controller-service-internal.yaml:52"
+        - "templates/controller-service-internal.yaml:57"
+        - "templates/controller-service-internal.yaml:72"
+        - "templates/controller-service-internal.yaml:84"
+        - "templates/controller-service-webhook.yaml:34"
+        - "templates/controller-service.yaml:52"
+        - "templates/controller-service.yaml:57"
+        - "templates/controller-service.yaml:72"
+    helm-hooks:
+      count: 8
+      files:
+        - "templates/admission-webhooks/job-patch/clusterrole.yaml:7"
+        - "templates/admission-webhooks/job-patch/clusterrolebinding.yaml:7"
+        - "templates/admission-webhooks/job-patch/job-createSecret.yaml:8"
+        - "templates/admission-webhooks/job-patch/job-patchWebhook.yaml:8"
+        - "templates/admission-webhooks/job-patch/networkpolicy.yaml:8"
+        - "templates/admission-webhooks/job-patch/role.yaml:8"
+        - "templates/admission-webhooks/job-patch/rolebinding.yaml:8"
+        - "templates/admission-webhooks/job-patch/serviceaccount.yaml:8"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 1
+      files:
+        - "templates/admission-webhooks/validating-webhook.yaml:5"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

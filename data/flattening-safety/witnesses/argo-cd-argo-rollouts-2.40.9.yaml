@@ -1,0 +1,60 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "argo-cd-argo-rollouts-2.40.9"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argo-rollouts"
+    version: "2.40.9"
+  package:
+    sha256: "9028af96514d3e7443b68c56ecf17beae279e73982ffd6ee33bfeb6c70d42f22"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 29
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 5
+    documents: 5
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 1
+      files:
+        - "templates/_helpers.tpl:99"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 5
+      files:
+        - "templates/crds/analysis-run-crd.yaml:8"
+        - "templates/crds/analysis-template-crd.yaml:8"
+        - "templates/crds/cluster-analysis-template-crd.yaml:8"
+        - "templates/crds/experiment-crd.yaml:8"
+        - "templates/crds/rollout-crd.yaml:8"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

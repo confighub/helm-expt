@@ -1,0 +1,61 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "grafana-rollout-operator-0.49.0"
+spec:
+  chart:
+    repository: "grafana"
+    name: "rollout-operator"
+    version: "0.49.0"
+  package:
+    sha256: "681cff1dc555168c658f3c0deaa23b99273dfd08c6a64bc9da6c3afd8f75a079"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 22
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "crds"
+        condition: "crds.enabled"
+  crds:
+    files: 4
+    documents: 4
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 4
+      files:
+        - "templates/no-downscale-webhook.yaml:3"
+        - "templates/pod-eviction-webhook.yaml:3"
+        - "templates/prepare-downscale-webhook.yaml:3"
+        - "templates/zone-aware-pod-disruption-budget-validating-webhook.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

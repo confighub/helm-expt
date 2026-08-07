@@ -1,0 +1,67 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "fluent-fluent-bit-0.57.6"
+spec:
+  chart:
+    repository: "fluent"
+    name: "fluent-bit"
+    version: "0.57.6"
+  package:
+    sha256: "dba34ec5f57a69a91b391077fefc58db7431e5fe30c4da25df8b65240abb30f8"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 25
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 13
+      files:
+        - "templates/_helpers.tpl:78"
+        - "templates/_helpers.tpl:80"
+        - "templates/_helpers.tpl:97"
+        - "templates/_helpers.tpl:103"
+        - "templates/_helpers.tpl:110"
+        - "templates/_helpers.tpl:122"
+        - "templates/clusterrole.yaml:26"
+        - "templates/prometheusrule.yaml:1"
+        - "templates/psp.yaml:1"
+        - "templates/servicemonitor.yaml:1"
+        - "templates/vpa.yaml:1"
+        - "values.yaml:350"
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:12"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:12"
