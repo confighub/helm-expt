@@ -144,12 +144,17 @@ function run() {
   const contextInfo = jsonCommand("cub", ["context", "get", context, "-o", "json"]);
   const runId = safeRunId(process.env.HELM_EXPT_PROOF_RUN_ID || new Date().toISOString());
   const component = `hx-aicr-starter-${runId}`;
-  const spaces = { base: `${component}-base`, dev: `${component}-dev` };
+  const spaces = { base: `${component}-base`, dev: `${component}-dev`, staging: `${component}-staging` };
   const container = `helm-expt-aicr-starter-${runId}`;
   const createdSpaces = [];
   let registryStarted = false;
   let receipt;
-  const cleanup = { devSpace: "not-created", baseSpace: "not-created", registry: "not-started" };
+  const cleanup = {
+    stagingSpace: "not-created",
+    devSpace: "not-created",
+    baseSpace: "not-created",
+    registry: "not-started",
+  };
 
   try {
     for (const slug of Object.values(spaces)) {
@@ -254,6 +259,29 @@ function run() {
       `the development variant does not match the uploaded base (${changedDocs(baseBefore.docs, devBefore.docs).join(", ") || "no changed identity"})`,
     );
 
+    cub(context, [
+      "variant",
+      "create",
+      "staging",
+      spaces.dev,
+      "--space-pattern",
+      `template:${spaces.staging}`,
+      "--environment",
+      "Staging",
+      "--region",
+      "demo",
+      "--wait",
+      "--timeout",
+      "10m",
+    ], { timeout: 660_000 });
+    createdSpaces.push(spaces.staging);
+    cleanup.stagingSpace = "pending";
+    const stagingBefore = inspectVariant(context, spaces.staging, component);
+    check(
+      canonicalDocs(stagingBefore.docs) === canonicalDocs(devBefore.docs),
+      "the staging variant does not match the development variant it was created from",
+    );
+
     const changeArgs = [
       "run",
       "search-replace",
@@ -295,6 +323,36 @@ function run() {
       "the development variant still contains the gp3 storage class",
     );
 
+    const stagingBeforePromotion = inspectVariant(context, spaces.staging, component);
+    check(
+      canonicalDocs(stagingBeforePromotion.docs) === canonicalDocs(stagingBefore.docs),
+      "staging changed before the promotion",
+    );
+    const promotionDryRunOutput = cub(context, ["variant", "promote", spaces.staging, "--dry-run"]);
+    check(
+      /1\s+unit/i.test(promotionDryRunOutput),
+      `the promotion dry run did not report one Unit: ${promotionDryRunOutput.trim()}`,
+    );
+    const stagingAfterPromotionDryRun = inspectVariant(context, spaces.staging, component);
+    check(
+      canonicalDocs(stagingAfterPromotionDryRun.docs) === canonicalDocs(stagingBeforePromotion.docs),
+      "the promotion dry run changed staging",
+    );
+
+    cub(context, [
+      "variant",
+      "promote",
+      spaces.staging,
+      "--change-desc",
+      "Promote the reviewed storage-class override to staging",
+    ], { timeout: 660_000 });
+    const stagingPromoted = inspectVariant(context, spaces.staging, component);
+    assertStorageClass(stagingPromoted.docs, "standard", "staging");
+    check(
+      canonicalDocs(stagingPromoted.docs) === canonicalDocs(devChanged.docs),
+      "the promoted staging Unit does not match the reviewed dev Unit",
+    );
+
     receipt = {
       apiVersion: "catalog.confighub.com/v1alpha1",
       kind: "AicrCpuStarterVariantProofReceipt",
@@ -322,6 +380,7 @@ function run() {
         variants: {
           base: variantRecord(baseBefore),
           dev: variantRecord(devChanged),
+          staging: variantRecord(stagingPromoted),
         },
         change: {
           resource: kpsIdentity,
@@ -336,12 +395,20 @@ function run() {
           devDryRunLeftDataUnchanged: true,
           devUpdate: "pass",
         },
+        promotion: {
+          path: "base -> dev -> staging",
+          dryRun: "pass",
+          dryRunReportedUnitCount: 1,
+          dryRunLeftStagingUnchanged: true,
+          result: "pass",
+          stagingMatchesReviewedDev: true,
+        },
         cleanup,
         limits: [
           "This run used a temporary local registry; it does not prove public registry publication.",
           "This run started no Kubernetes cluster. It does not prove Argo CD delivery, application health, or any workload behavior.",
           "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution.",
-          "This receipt proves one derived-starter import and one reviewed storage-class override in a development variant. It does not include a staging promotion.",
+          "This receipt proves one derived-starter import, one reviewed storage-class override in a development variant, and one dev-to-staging promotion of that reviewed change.",
         ],
       },
       status: {
@@ -351,12 +418,15 @@ function run() {
         derivedVariant: "pass",
         changeDryRun: "pass",
         change: "pass",
+        promotionDryRun: "pass",
+        promotion: "pass",
         claim:
-          "ConfigHub imported the seven derived CPU starter Applications as a base variant, kept them byte-faithful, and applied the recorded gp3 residue's override to the cluster-default storage class in a development variant, previewed by a dry run that changed nothing.",
+          "ConfigHub imported the seven derived CPU starter Applications as a base variant, kept them byte-faithful, applied the recorded gp3 residue's override to the cluster-default storage class in a development variant with a dry-run preview, previewed the staging promotion without changing staging, and promoted the same reviewed configuration to staging with matching data.",
       },
     };
   } finally {
     for (const [key, slug] of [
+      ["stagingSpace", spaces.staging],
       ["devSpace", spaces.dev],
       ["baseSpace", spaces.base],
     ]) {
@@ -451,7 +521,7 @@ function variantRecord(variant) {
 function verifyReceipt(receipt, expectations) {
   check(receipt.kind === "AicrCpuStarterVariantProofReceipt", "CPU starter variant receipt kind changed");
   check(receipt.status?.result === "pass", "CPU starter variant proof is not pass");
-  for (const lane of ["ociImport", "exactApplicationSet", "derivedVariant", "changeDryRun", "change"]) {
+  for (const lane of ["ociImport", "exactApplicationSet", "derivedVariant", "changeDryRun", "change", "promotionDryRun", "promotion"]) {
     check(receipt.status?.[lane] === "pass", `CPU starter variant receipt lane ${lane} did not pass`);
   }
   check(
@@ -499,6 +569,21 @@ function verifyReceipt(receipt, expectations) {
     "the CPU starter dev change evidence is incomplete",
   );
   check(
+    receipt.spec?.promotion?.path === "base -> dev -> staging"
+      && receipt.spec?.promotion?.dryRun === "pass"
+      && receipt.spec?.promotion?.dryRunReportedUnitCount === 1
+      && receipt.spec?.promotion?.dryRunLeftStagingUnchanged === true
+      && receipt.spec?.promotion?.result === "pass"
+      && receipt.spec?.promotion?.stagingMatchesReviewedDev === true,
+    "the CPU starter promotion evidence is incomplete",
+  );
+  check(
+    receipt.spec?.variants?.staging?.canonicalDataSha256
+      && receipt.spec?.variants?.staging?.canonicalDataSha256
+        === receipt.spec?.variants?.dev?.canonicalDataSha256,
+    "the promoted staging variant does not carry the reviewed dev configuration",
+  );
+  check(
     Object.values(receipt.spec?.cleanup ?? {}).every((value) => value === "pass"),
     "the CPU starter variant proof cleanup did not pass",
   );
@@ -528,16 +613,21 @@ files exactly. The starter's committed platform digest at the time of the run
 was \`${source.starterPlatformDigest}\`, itself derived from the training
 entry's \`${source.derivedFromPlatformDigest}\`.
 
-A development variant was created from the base, and the one recorded cloud
-residue was overridden as a reviewed change: the Prometheus storage class
-moved from \`${change.before}\` to \`${change.after}\`. ConfigHub's dry run
-named the affected Application and left the stored configuration unchanged;
-the real change touched exactly ${change.changedApplicationCount} Application
-(\`kube-prometheus-stack\`).
+Development and staging variants were created from the base, and the one
+recorded cloud residue was overridden as a reviewed change in development:
+the Prometheus storage class moved from \`${change.before}\` to
+\`${change.after}\`. ConfigHub's dry run named the affected Application and
+left the stored configuration unchanged; the real change touched exactly
+${change.changedApplicationCount} Application (\`kube-prometheus-stack\`).
+
+The staging promotion was previewed first: the dry run reported one Unit and
+left staging unchanged. The real promotion then copied the reviewed
+development configuration to staging, and the two variants recorded the same
+canonical data.
 
 The proof ran in the scratch organization \`${receipt.spec.context.organization}\`
-on ${receipt.spec.recordedAt}. Both scratch Spaces and the temporary registry
-were removed afterward.
+on ${receipt.spec.recordedAt}. All three scratch Spaces and the temporary
+registry were removed afterward.
 
 ## Limits
 
@@ -610,7 +700,8 @@ function selfTest() {
         },
         variants: {
           base: { dataHash: "hash-base", canonicalDataSha256: expectations.canonicalDataSha256 },
-          dev: { dataHash: "hash-dev" },
+          dev: { dataHash: "hash-dev", canonicalDataSha256: "sha-reviewed" },
+          staging: { dataHash: "hash-staging", canonicalDataSha256: "sha-reviewed" },
         },
         change: {
           changedApplicationCount: 1,
@@ -621,7 +712,15 @@ function selfTest() {
           devDryRunLeftDataUnchanged: true,
           devUpdate: "pass",
         },
-        cleanup: { devSpace: "pass", baseSpace: "pass", registry: "pass" },
+        promotion: {
+          path: "base -> dev -> staging",
+          dryRun: "pass",
+          dryRunReportedUnitCount: 1,
+          dryRunLeftStagingUnchanged: true,
+          result: "pass",
+          stagingMatchesReviewedDev: true,
+        },
+        cleanup: { stagingSpace: "pass", devSpace: "pass", baseSpace: "pass", registry: "pass" },
         limits: ["This run started no Kubernetes cluster. It does not prove delivery."],
       },
       status: {
@@ -631,6 +730,8 @@ function selfTest() {
         derivedVariant: "pass",
         changeDryRun: "pass",
         change: "pass",
+        promotionDryRun: "pass",
+        promotion: "pass",
       },
     });
 
@@ -642,6 +743,8 @@ function selfTest() {
       [(r) => (r.spec.change.changedApplications = ["other|identity"]), /touch only kube-prometheus-stack/],
       [(r) => (r.spec.cleanup.devSpace = "fail"), /cleanup did not pass/],
       [(r) => (r.spec.variants.dev.dataHash = "hash-base"), /records no reviewed change/],
+      [(r) => (r.spec.promotion.stagingMatchesReviewedDev = false), /promotion evidence is incomplete/],
+      [(r) => (r.spec.variants.staging.canonicalDataSha256 = "sha-other"), /does not carry the reviewed dev configuration/],
       [(r) => (r.spec.limits = []), /no cluster delivery/],
     ];
     for (const [mutate, pattern] of refusals) {
