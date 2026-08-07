@@ -71,6 +71,9 @@ actually receive?
 - [promotion-readiness-receipt.yaml](../../../examples/aicr/eks-h100-training-kubeflow/promotion-readiness-receipt.yaml)
   records the persistent base, development, and staging Spaces and their exact
   configuration change.
+- [digest-index/platform-index.json](../../../examples/aicr/eks-h100-training-kubeflow/digest-index/platform-index.json)
+  pins the whole shape by one digest: the upstream source, the recipe criteria, the
+  three OCI transport manifests, and one immutable payload per rendered Application.
 
 The original Git-oriented bundle still contains
 `https://github.com/YOUR_ORG/YOUR_REPO.git`. It is kept so the limitation is visible;
@@ -82,6 +85,28 @@ charts with `ArtifactGenerator` resources, and their `HelmRelease` objects refer
 absolute output directory. The committed copy changes only those path prefixes to
 paths relative to the bundle root, so the checksum list is portable and does not expose
 a workstation path.
+
+## One digest pins the whole shape
+
+The [digest-index](../../../examples/aicr/eks-h100-training-kubeflow/digest-index/README.md)
+directory compiles the whole example into one digest-bound platform index, following
+the pattern the Kubara importer proved: one immutable payload per component plus one
+index that names every payload by its exact hash. The compiler reads only committed
+bytes and refuses to compile if any rendered file drifts from its recorded checksum.
+
+```bash
+npm run aicr-digest-index:verify
+npm run aicr-digest-index:self-test
+```
+
+The verify lane recompiles the index and compares every committed file byte for byte.
+The self-test compiles fake surfaces only and proves determinism, digest sensitivity
+to a single changed byte, tamper refusal, and the structural refusals: duplicate
+Application names, broken sync-wave ranges, a second root, an off-version member.
+The planned OCI references inside the index are plans, not publications; the index
+records `compiled-offline` and claims no registry push. As everywhere in this
+example, the index proves config-plane mechanics only. No GPU workload ran to
+produce or verify it.
 
 ## Rebuild the example
 
