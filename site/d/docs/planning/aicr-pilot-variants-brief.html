@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The inference entry retains NIM on KServe as configuration · Config Workshop</title>
-  <meta name="description" content="The inference entry retains NIM on KServe as configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html">
-  <meta property="og:title" content="The inference entry retains NIM on KServe as configuration · Config Workshop">
-  <meta property="og:description" content="The inference entry retains NIM on KServe as configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Brief: Pilot variants for AICR platform shapes · Config Workshop</title>
+  <meta name="description" content="Brief: Pilot variants for AICR platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-pilot-variants-brief.html">
+  <meta property="og:title" content="Brief: Pilot variants for AICR platform shapes · Config Workshop">
+  <meta property="og:description" content="Brief: Pilot variants for AICR platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-pilot-variants-brief.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,40 +433,39 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The inference entry retains NIM on KServe as configuration</h1>
-    <p class="lead">The <a href="../../../examples/aicr/kserve-nim-inference/upstream/kserve/README.html">upstream tree</a> is the <code>kserve</code> subtree of <a href="https://github.com/NVIDIA/nim-deploy">NVIDIA/nim-deploy</a> at commit <code>3ef33472b84da9f39131dff0326bf05ac1dc0fe6</code> (2026-07-31), copied unmodified under its Apache-2.0 license, which <a href="../../../../../examples/aicr/kserve-nim-inference/upstream/LICENSE">travels with the tree</a>. The tree holds ten <code>ClusterServingRuntime</code> definitions, one per NIM version, and sixteen <code>InferenceService</code> shapes covering the upstream model-by-GPU matrix, from one-GPU Llama 3.1 8B up to eight-GPU Mixtral, plus the setup scripts. That matrix is real upstream variety, not manufactured variety: every shape in it was authored by NVIDIA. <a href="../../../../../docs/demo/aicr/kserve-nim-inference.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Brief: Pilot variants for AICR platform shapes</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/aicr-pilot-variants-brief.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It retains NVIDIA's KServe reference implementation for NIM inference as governed configuration, pinned by one digest, with the licensing boundary enforced in code. It is a config-plane entry: no NIM container ran, no model was fetched, and no NGC surface was contacted to produce or verify anything here.</p>
-<h2 id="what-is-retained">What is retained</h2>
-
-<p>The <a href="../../../../../examples/aicr/kserve-nim-inference/retention-receipt.yaml">retention receipt</a> pins the source, the commit, the retrieval method, and the boundary. One provenance note matters for the record: nim-deploy removed its local nim-llm Helm chart on 2025-05-09 (pull request 143), and that chart now ships only through NGC. The <a href="../../planning/nim-ngc-license-read.html">license read</a> classifies NGC-served artifacts as gated, so the KServe path is the surface this catalog retains from GitHub.</p>
-<h2 id="one-digest-pins-the-shape">One digest pins the shape</h2>
-<pre><code>npm run aicr-kserve-nim:verify
-npm run aicr-kserve-nim:self-test</code></pre>
-<p>The <a href="../../../examples/aicr/kserve-nim-inference/digest-index/README.html">digest index</a> compiles one immutable payload per component: each serving runtime, each model shape, and the described model profile, with every support file bound by checksum. The whole entry is pinned by <code>sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720</code>. The compiler refuses to compile when any retained byte drifts from its recorded checksum, when an <code>InferenceService</code> references a runtime that is not retained, or when a literal credential value appears anywhere in the tree. The self-test proves all of that against fake surfaces only.</p>
-<h2 id="the-licensing-boundary-enforced-in-code">The licensing boundary, enforced in code</h2>
-<p>The retained runtimes reference NGC-gated images such as <code>nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0</code>. The index lists every gated reference explicitly, and the references are configuration data: the images are pulled only by a user's cluster, with the user's own NGC API key, under the user's own NVIDIA entitlement. Every secret surface in the tree carries names or environment substitutions only, and the compiler's credential guard turns that observation into a refusal rule.</p>
-<p>The <a href="../../../../../examples/aicr/kserve-nim-inference/profile/model-profile.yaml">model profile</a> describes the smallest current-generation shape, Llama 3.1 8B on one GPU, as data. It records the four governing-terms names the NGC catalog page stated on 2026-08-07, including the Llama 3.1 Community License Agreement for the model itself, and it tells the reader to re-read the per-artifact terms at deploy time because those override any general statement.</p>
-<h2 id="the-retained-surfaces-imported-into-confighub">The retained surfaces, imported into ConfigHub</h2>
-<pre><code>npm run aicr-kserve-nim-import:verify</code></pre>
-<p>The entry's first live proof follows the training entry's path. A scratch run imported the twenty-six retained deployment surfaces (ten serving runtimes and sixteen model shapes) as one ConfigHub base-variant Unit from a temporary OCI reference, and the imported Unit matched the committed retained bytes exactly, with the Space recording the exact OCI source and digest. The license boundary held live: no NGC surface was contacted, no image was pulled, the imported data carries no literal credential value, and the gated image references present in the runtimes are recorded in the <a href="../../../../../runs/aicr-kserve-nim-import/receipt.yaml">receipt</a> as evidence that references are data. The <a href="../../../data/aicr-kserve-nim-import/summary.html">summary</a> retells the run; all three scratch Spaces and the registry were removed afterward.</p>
-<p>The same run then carried one reviewed change through development and into staging. Upstream leaves the shared model-cache claim for the operator to create, so its name is a per-cluster decision that has to land consistently everywhere it appears. Renaming it in the development variant changed exactly the sixteen model shapes that mount it and left all ten serving runtimes untouched, with a dry run first that reported the change and altered nothing. The staging promotion was previewed before it ran and left staging untouched until it did; staging ended with the reviewed configuration's exact canonical data.</p>
-<p>One CLI limitation is recorded in the receipt rather than worked around. <code>NIM_TELEMETRY_MODE</code> is the telemetry control point the NVIDIA product terms document, and setting it means adding an environment entry to a runtime. ConfigHub's search-replace substitutes single tokens rather than inserting structure, and it reports &quot;Config data not changed&quot; when a multi-line replacement finds no match, so that change waits for a structural editing path instead of being faked here.</p>
-<h2 id="what-is-proven-and-what-is-not">What is proven and what is not</h2>
-<p>Proven: the retention is exact, the shape is pinned by one digest, the cross-references hold, no credential value exists in the tree, ConfigHub imported the retained surfaces byte-faithful with the license boundary held live, and one reviewed change moved exactly the sixteen model shapes that mount the shared claim and reached staging through a previewed promotion. Not proven, and stated rather than implied: no KServe cluster ran these shapes under this catalog, no NIM container started, no model was fetched, no claim was created for the renamed model cache, and no GPU workload claim exists. The next increment follows the starter's ladder: config-plane delivery mechanics for the retained shapes.</p>
+<p>Status: proposal, 2026-08-07. Written after the three AICR entries and their proof ladders landed, so it starts from what the receipts already show rather than from a blank page.</p>
+<h2 id="the-question-this-answers">The question this answers</h2>
+<p>The Pilot model generates variants on demand and lets parity decide whether they exist: an agent authors intent, a deterministic gate re-renders and compares, and a variant that fails the comparison is refused with a receipt rather than shipped. That model was prototyped on a single chart. AICR entries are platform shapes, so the question is what parity means when the unit of change is a whole platform rather than one chart, and whether the same anti-hallucination guarantee survives the move.</p>
+<h2 id="what-the-entries-already-prove-about-variance">What the entries already prove about variance</h2>
+<p>Three reviewed changes exist across the entries, and they are three different shapes of change:</p>
+<ol><li>The training entry changed one Grafana credential in one Application. The blast radius was one document, and correctness meant that document's value.</li><li>The CPU starter changed one storage class in one Application, and the change was later synced on a cluster where the Prometheus claim bound with the reviewed class. Correctness meant a cluster accepted it.</li><li>The inference entry renamed one shared claim across sixteen model shapes while ten serving runtimes stayed untouched. Correctness meant the blast radius, not the value.</li></ol>
+<p>That third case is the interesting one for Pilot. Its risk is not a wrong value; it is a change that lands in too few or too many places. A single-chart parity gate cannot see that risk, because it compares one render against one render.</p>
+<h2 id="what-parity-has-to-mean-here">What parity has to mean here</h2>
+<p>For a platform shape, parity should be checked at three levels, and a variant should exist only when all three hold.</p>
+<ol><li><b>Document-set parity.</b> The variant renders exactly the documents the base renders, with the same identities. Additions and deletions are the loudest possible failure and must be refused unless the intent explicitly asked for them.</li><li><b>Blast-radius parity.</b> The set of documents the change touches equals the set the intent declared. The inference rename declared sixteen shapes and touched sixteen shapes. An intent that says &quot;rename the cache claim&quot; and touches a serving runtime is wrong even if every value it wrote is plausible.</li><li><b>Field-level parity.</b> Inside each touched document, only the declared fields differ. The existing per-chart parity machinery already does this and carries over unchanged.</li></ol>
+<p>The middle level is the new one, and it is the level the entries' receipts already record. The inference receipt lists <code>changedDocuments</code> and asserts <code>servingRuntimesUnchanged</code>; that is a hand-written instance of what the gate should compute generically.</p>
+<h2 id="the-switch-effect-map-for-a-platform-shape">The switch-effect map for a platform shape</h2>
+<p>Pilot's per-chart work starts from a switch-effect map that records what each value change does to the render. The platform equivalent is a control-point map per entry, and the entries already name their control points in prose:</p>
+<ul><li>The training entry has exactly four open choices, named on its page: the storage class, the accelerated-node selector, the workload selector, and the source the delivery controller reads.</li><li>The CPU starter inherits those and adds the recorded cloud residue as its first reviewed override.</li><li>The inference entry's control points are the shared cache claim name, the per-shape GPU counts, and the telemetry setting the product terms document.</li></ul>
+<p>The first build increment is to turn those prose lists into one committed control-point record per entry, with each control point naming the documents it is expected to touch. That record is what blast-radius parity compares against, and writing it costs nothing beyond reading the entries we already retain.</p>
+<h2 id="where-the-boundary-stays">Where the boundary stays</h2>
+<p>Two refusals matter more here than in the chart case, and both follow the license read and the config-plane boundary.</p>
+<ul><li>A generated variant may never introduce a new gated artifact reference. The inference entry's compiler already refuses embedded credentials; the variant gate should equally refuse an intent that invents an <code>nvcr.io</code> reference the retained tree does not contain.</li><li>A generated variant may never claim workload behavior. Parity is a config-plane comparison, and the receipt should say so in the same words the entry receipts already use.</li></ul>
+<h2 id="first-increment">First increment</h2>
+<p>Write the control-point record for the CPU starter, because it is the entry with the complete ladder, and implement blast-radius parity as a checker over that record using the existing starter proofs as fixtures. The gp3 override and the inference rename become the two positive fixtures, and a deliberately over-broad rename becomes the refusal fixture. Nothing in that increment needs a cluster, a GPU, or a live organization.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/kserve-nim-inference.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/aicr-pilot-variants-brief.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

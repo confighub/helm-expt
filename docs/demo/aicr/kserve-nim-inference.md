@@ -103,9 +103,12 @@ path instead of being faked here.
 ## What is proven and what is not
 
 Proven: the retention is exact, the shape is pinned by one digest, the
-cross-references hold, no credential value exists in the tree, and ConfigHub
+cross-references hold, no credential value exists in the tree, ConfigHub
 imported the retained surfaces byte-faithful with the license boundary held
-live. Not proven, and stated rather than implied: no KServe cluster ran these
-shapes under this catalog, no NIM container started, no model was fetched,
-and no GPU workload claim exists. The next increment follows the starter's
-ladder: config-plane delivery mechanics for the retained shapes.
+live, and one reviewed change moved exactly the sixteen model shapes that
+mount the shared claim and reached staging through a previewed promotion. Not
+proven, and stated rather than implied: no KServe cluster ran these shapes
+under this catalog, no NIM container started, no model was fetched, no claim
+was created for the renamed model cache, and no GPU workload claim exists. The
+next increment follows the starter's ladder: config-plane delivery mechanics
+for the retained shapes.
