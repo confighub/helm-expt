@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sveltos fleet rehearsal · Config Workshop</title>
-  <meta name="description" content="Sveltos fleet rehearsal: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/examples/sveltos/fleet-rehearsal/README.html">
-  <meta property="og:title" content="Sveltos fleet rehearsal · Config Workshop">
-  <meta property="og:description" content="Sveltos fleet rehearsal: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The fleet delivery machinery works on this machine · Config Workshop</title>
+  <meta name="description" content="The fleet delivery machinery works on this machine: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/sveltos-fleet-rehearsal/summary.html">
+  <meta property="og:title" content="The fleet delivery machinery works on this machine · Config Workshop">
+  <meta property="og:description" content="The fleet delivery machinery works on this machine: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/examples/sveltos/fleet-rehearsal/README.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/sveltos-fleet-rehearsal/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -437,36 +437,38 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Sveltos fleet rehearsal</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../../examples/sveltos/fleet-rehearsal/README.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>The fleet delivery machinery works on this machine</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/sveltos-fleet-rehearsal/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-  <p class="install-cub-note">New to <code>cub</code>? <a href="../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
     <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>The governed fleet chapters should not meet their cluster machinery for the first time on patch day. This rehearsal runs the delivery path they share, today, with no ConfigHub account, so the day confighubai/confighub#4975 closes the only untested piece is the approval boundary itself.</p>
-<h2 id="what-it-runs">What it runs</h2>
-<p>One command builds a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label), installs Argo CD from the <a href="../../../../../examples/sveltos/fleet-rehearsal/source-lock.yaml">pinned upstream manifest</a> and Sveltos v1.12.0 from the chapter-one source lock, and then drives the shared machinery:</p>
-<ol><li>Kyverno converges on all four clusters from portable OCI digests reconciled by Argo CD.</li><li>A values change lands on the pilot cluster alone; the other three hold their state.</li><li>A chart version bump lands on the pilot alone with the values intact.</li><li>Drift injected on the pilot is repaired by Sveltos.</li></ol>
-<p>The receipt records phase timings, so it also measures what this machine can carry before a real recording day.</p>
-<h2 id="the-boundary">The boundary</h2>
-<p>No review, approval, or promotion is claimed and no ConfigHub organization is touched. Argo CD comes from the pinned upstream manifest instead of <code>cub cluster up</code>, and Applications are applied with kubectl instead of being delivered as ConfigHub Units. The receipt states these differences, its verifier refuses a receipt that claims governance, and no chapter matrix cell is ever filled by a rehearsal.</p>
-<h2 id="the-recorded-run">The recorded run</h2>
-<p>The <a href="../../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">committed receipt</a> and the <a href="../../../data/sveltos-fleet-rehearsal/summary.html">summary with phase timings</a> record the first rehearsal on the reference machine.</p>
-<h2 id="run-it">Run it</h2>
-<pre><code># Deterministic self-test first: the revision ladder, the portable OCI
-# round trip, the Argo pin refusal, and the receipt contract. Seconds.
-npm run sveltos-fleet-rehearsal:self-test
-
-# The live rehearsal. It creates its own clusters and registry, records
-# the receipt with timings, and cleans up. Expect twenty to forty minutes.
-HELM_EXPT_ALLOW_LIVE_SVELTOS_REHEARSAL=1 npm run sveltos-fleet-rehearsal:run
-
-# Verify the recorded receipt offline.
-npm run sveltos-fleet-rehearsal:verify</code></pre>
+<p>This rehearsal exists so the governed chapters do not meet their cluster machinery for the first time on patch day. It built the full reference fleet and drove the shared delivery path end to end with no ConfigHub involved.</p>
+<p>Boundary: no review, approval, or promotion is claimed. Argo CD came from the pinned upstream manifest instead of cub cluster up, Applications were applied with kubectl instead of delivered as ConfigHub Units, and the chapter matrices are untouched. When this receipt was recorded (2026-08-07), the governed lanes were still blocked by confighubai/confighub#4975.</p>
+<p>What ran: a five-cluster kind fleet (one management cluster, four workload clusters registered by environment label), Kyverno 3.8.1 converged on all four clusters from portable OCI digests reconciled by Argo CD v3.4.6, a values change landed on the pilot alone, a chart version bump to 3.8.2 landed on the pilot alone with the values intact, the other three clusters held their state through both, and injected drift was repaired.</p>
+<table><thead><tr><th>Phase</th><th>Duration</th></tr></thead><tbody><tr><td>temporary OCI registry ready</td><td>1.2s</td></tr>
+<tr><td>management cluster ready</td><td>25.5s</td></tr>
+<tr><td>Argo CD converged on the management cluster</td><td>64.2s</td></tr>
+<tr><td>four workload clusters ready</td><td>102.1s</td></tr>
+<tr><td>Sveltos controllers converged</td><td>89.8s</td></tr>
+<tr><td>four workload clusters registered</td><td>1s</td></tr>
+<tr><td>baseline delivered to all four clusters</td><td>147s</td></tr>
+<tr><td>values change delivered to the pilot only</td><td>34.5s</td></tr>
+<tr><td>version bump delivered to the pilot only</td><td>104s</td></tr>
+<tr><td>injected drift repaired on the pilot</td><td>15.3s</td></tr>
+<tr><td>Total measured</td><td>585s</td></tr></tbody></table>
+<table><thead><tr><th>Check</th><th>Result</th></tr></thead><tbody><tr><td>Clusters converged at baseline</td><td>4/4</td></tr>
+<tr><td>Selective values change</td><td>pilot only</td></tr>
+<tr><td>Selective version bump</td><td>pilot only, values intact</td></tr>
+<tr><td>Distinct pilot digests across waves</td><td>3</td></tr>
+<tr><td>Drift repaired</td><td>pass</td></tr>
+<tr><td>Cleanup</td><td>Pass</td></tr></tbody></table>
+<h2 id="limits">Limits</h2>
+<ul><li>No ConfigHub organization, review, approval, or release was involved; this is not a governance proof.</li><li>The portable OCI used a temporary anonymous registry; this is not a permanent public package.</li><li>The rehearsal used five local kind clusters on one machine. It measures this machine, not a production fleet.</li><li>The chapter matrices are untouched; only the governed lanes may fill their observed cells.</li></ul>
+<ul><li><a href="../../../../runs/sveltos-fleet-rehearsal/receipt.yaml">Committed receipt</a></li><li><a href="../../../../examples/sveltos/fleet-rehearsal/source-lock.yaml">Rehearsal source lock</a></li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>examples/sveltos/fleet-rehearsal/README.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/sveltos-fleet-rehearsal/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

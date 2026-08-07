@@ -31,6 +31,12 @@ delivered as ConfigHub Units. The receipt states these differences, its
 verifier refuses a receipt that claims governance, and no chapter matrix
 cell is ever filled by a rehearsal.
 
+## The recorded run
+
+The [committed receipt](../../../runs/sveltos-fleet-rehearsal/receipt.yaml)
+and the [summary with phase timings](../../../data/sveltos-fleet-rehearsal/summary.md)
+record the first rehearsal on the reference machine.
+
 ## Run it
 
 ```bash
