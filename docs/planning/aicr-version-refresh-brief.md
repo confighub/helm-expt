@@ -86,3 +86,47 @@ either way. If verification works, continue into the full retained entry with
 the signature check as its distinguishing rung. If it does not, write the
 finding and stop; the catalog keeps v0.14.0 and gains a recorded reason.
 Nothing in this increment needs a GPU or a cluster.
+
+## Probe result recorded 2026-08-07
+
+The verification probe ran the same day and returned a more useful answer than
+yes or no. The signing is real and its provenance is excellent, but verifying
+it needs tooling this environment does not have, and that changes the shape of
+the work rather than cancelling it.
+
+What the `recipe-catalog.sigstore.json` from the v0.18.0 release actually
+contains, read without any verification tool:
+
+- A sigstore bundle version 0.3 carrying a DSSE envelope, whose payload is an
+  in-toto Statement v1 with a SLSA provenance v1 predicate.
+- One subject, `recipe-catalog`, pinned at
+  `sha256:b622b4f66d60129b8b6ff49b154ea2ea34e308bd681028cec5c79e6e9ed2db18`.
+- A Fulcio certificate whose subject alternative name is
+  `https://github.com/NVIDIA/aicr/.github/workflows/on-tag.yaml@refs/tags/v0.18.0`,
+  issued through `https://token.actions.githubusercontent.com`, naming the
+  NVIDIA organization, the source repository, a GitHub-hosted runner, and the
+  exact build commit `1439f2fc5db27e6bb9ef3d73e8f8afca45a32126`.
+- One transparency-log entry of kind `hashedrekord` version `0.0.2` carrying
+  an inclusion proof, with no inclusion promise and no integrated time.
+
+That last detail is the blocker. Stock cosign 2.4.1 refuses the entry with
+`nil value in transaction log entry`, both with and without
+`--insecure-ignore-tlog`, because it expects the older entry shape. Cosign
+2.5.3 parses the entry and then fails leaf-certificate verification against
+its default trust root. Both results are consistent with the release notes,
+which say AICR runs its own Rekor v2 identity monitoring for the release
+signer: this is Rekor v2 era material, and verifying it needs either newer
+trust material passed explicitly or the vendor's own `aicr` verification
+command.
+
+The probe stopped there rather than running a freshly downloaded vendor
+binary.
+
+What this means for the decision. The refresh still buys a genuinely new rung,
+and the provenance chain above is stronger evidence than expected, because it
+identifies the workflow, repository, organization, and commit that produced
+the catalog. The cost estimate changes: the refresh needs a verification
+toolchain decision first, either pinning a cosign version with an explicit
+trusted root or adopting the vendor command and recording what it checks. That
+decision is the real first increment, and it is smaller than the entry build
+it gates.
