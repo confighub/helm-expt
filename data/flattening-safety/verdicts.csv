@@ -1,0 +1,13 @@
+repo,chart,version,lane,hooks,lookup,keep,webhooks,generated_secrets,crd_evidence,verdict
+traefik,traefik,41.0.2,flatten-with-routes,absent,present-gated,present-gated,present-gated,present-gated,present,recipes/traefik/traefik/41.0.2/publication/flattening-safety-verdict.yaml
+jetstack,cert-manager,v1.21.0,flatten-with-routes,present,absent,present,present,absent,present,recipes/jetstack/cert-manager/v1.21.0/publication/flattening-safety-verdict.yaml
+external-secrets,external-secrets,2.8.0,flatten-with-routes,absent,absent,absent,present,absent,present,recipes/external-secrets/external-secrets/2.8.0/publication/flattening-safety-verdict.yaml
+prometheus-community,kube-prometheus-stack,87.19.2,do-not-flatten,present,present,absent,present,present,present,recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict.yaml
+metrics-server,metrics-server,3.13.1,safe-to-flatten,absent,present-gated,absent,absent,present-gated,absent,recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict.yaml
+kyverno,kyverno,3.8.1,do-not-flatten,present,present,present,absent,present,present,recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml
+aws-controllers-k8s,ec2-chart,1.18.4,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict.yaml
+aws-controllers-k8s,iam-chart,1.7.3,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml
+aws-controllers-k8s,eks-chart,1.16.3,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict.yaml
+karpenter,karpenter,1.14.0,flatten-with-routes,absent,absent,absent,absent,absent,present,recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml
+nvidia,nvidia-device-plugin,0.19.3,safe-to-flatten,present-gated,absent,absent,absent,absent,present-gated,recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict.yaml
+bitnami,redis,27.0.0,do-not-flatten,absent,present,absent,absent,present,absent,recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml

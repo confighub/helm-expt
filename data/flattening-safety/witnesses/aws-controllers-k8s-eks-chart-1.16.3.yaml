@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+spec:
+  chart:
+    repository: "aws-controllers-k8s"
+    name: "eks-chart"
+    version: "1.16.3"
+  package:
+    sha256: "3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054"
+    observedAt: "2026-08-07T09:20:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 25
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 10
+    documents: 10
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

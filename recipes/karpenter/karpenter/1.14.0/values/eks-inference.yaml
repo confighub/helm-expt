@@ -1,0 +1,61 @@
+# Karpenter controller.
+#
+# Runs on the t4g.medium system nodegroup — the managed nodegroup exists
+# precisely because Karpenter cannot schedule the node Karpenter runs on. That
+# nodegroup is arm64, and Karpenter publishes multi-arch images, so this works;
+# a chart that did not would CrashLoop with an exec format error rather than
+# fail to schedule.
+settings:
+  clusterName: inference-demo
+
+  # DELIBERATELY EMPTY. Karpenter's interruption queue is optional. Without it
+  # you lose graceful handling of spot reclaims and scheduled maintenance —
+  # nodes go away with less warning — but provisioning and consolidation work
+  # normally. Enabling it would mean an SQS queue and EventBridge rules, and
+  # therefore ACK controllers for both services in the mgmt plane. See
+  # docs/karpenter.md before turning this on.
+  interruptionQueue: ""
+
+# The ServiceAccount name is load-bearing: it must match the serviceAccount in
+# the PodIdentityAssociation created by the karpenter-aws component
+# (kube-system/karpenter). Rename it here and the controller silently gets no
+# AWS credentials.
+serviceAccount:
+  create: true
+  name: karpenter
+
+# One replica. The chart defaults to two with required pod anti-affinity, which
+# needs two schedulable nodes; the system nodegroup has exactly two and also
+# hosts CoreDNS and the pod identity agent. One replica means provisioning
+# pauses if that node is lost, which is acceptable here and would not be in
+# production.
+replicas: 1
+
+controller:
+  # AWS_REGION is NOT optional here, and nothing in the chart supplies it.
+  #
+  # Karpenter resolves its region from IMDS when the variable is absent. Under
+  # IRSA that still worked, because the IRSA webhook injects AWS_REGION into
+  # every annotated pod. EKS Pod Identity — which is what this stack uses —
+  # injects only the credential variables, so the fallback is reached and then
+  # fails: EKS restricts pod access to IMDS, so the lookup times out and the
+  # controller panics on startup rather than degrading.
+  #
+  #   panic: unable to determine region from IMDS: operation error ec2imds:
+  #   GetRegion, canceled, context deadline exceeded
+  #
+  # Filled per variant by a link from platform-profile, same as the three ACK
+  # controllers. The placeholder is what makes forgetting it a release-time
+  # failure instead of a CrashLoop.
+  env:
+    - name: AWS_REGION
+      value: confighubplaceholder
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      memory: 512Mi
+
+logLevel: info

@@ -1,0 +1,100 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "external-secrets-external-secrets-2.8.0"
+spec:
+  chart:
+    repository: "external-secrets"
+    name: "external-secrets"
+    version: "2.8.0"
+    packageSHA256: "251e4615013c6d2f9ade5cedf1cd8615613f286bfc381e44fb005f197e611ecd"
+  witnessRef: "data/flattening-safety/witnesses/external-secrets-external-secrets-2.8.0.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "the cert-controller maintains the webhook CA at runtime and ships inside the bundle; no external route needed"
+      evidence:
+        - "templates/validatingwebhook.yaml:3"
+        - "templates/validatingwebhook.yaml:54"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "6 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/_helpers.tpl:220"
+        - "templates/_helpers.tpl:281"
+        - "templates/_helpers.tpl:287"
+        - "templates/cert-controller-deployment.yaml:49"
+        - "templates/deployment.yaml:50"
+        - "templates/webhook-deployment.yaml:50"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "50 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle (crds split or sync waves)"
+      evidence:
+        - "25 crds-directory file(s), 25 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "the flatten step must render with the audited base's condition set"
+      evidence:
+        - "bitwarden-sdk-server gated by bitwarden-sdk-server.enabled"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "the catalog's no-crds base"
+      effect: "removes the CRDs and the ordering route; that base trends safe-to-flatten"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "No hooks, no keep, no generated values; the webhook CA is runtime-owned and only the CRDs need a companion artifact."
+    routes:
+      - "CRD ordering declaration for the 25 CRD files"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/external-secrets-external-secrets-2.8.0.yaml"
+      - "recipes/external-secrets/external-secrets/2.8.0/source-lock.yaml"

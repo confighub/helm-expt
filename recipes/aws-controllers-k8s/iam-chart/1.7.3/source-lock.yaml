@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "aws-controllers-k8s"
+  chart: "iam-chart"
+  version: "1.7.3"
+  appVersion: "1.7.3"
+  packageSHA256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
+  packageBytes: 17935
+  exactArtifact:
+    url: "oci://public.ecr.aws/aws-controllers-k8s/iam-chart:1.7.3"
+    sha256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
+    manifestDigest: "sha256:6c3e022e9ba2dfd944abd7d9f8e710573f23706b26bd94e00c97f44564bc9fe6"
+    resolution: "artifact-addressed"

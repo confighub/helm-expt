@@ -1,0 +1,86 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  chart:
+    repository: "aws-controllers-k8s"
+    name: "iam-chart"
+    version: "1.7.3"
+    packageSHA256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
+  witnessRef: "data/flattening-safety/witnesses/aws-controllers-k8s-iam-chart-1.7.3.yaml"
+  auditedBase: "eks-inference"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "18 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle; the eks-inference producer already emits exactly this as the crds/controller split at Argo sync waves -20 and -10"
+      evidence:
+        - "9 crds-directory file(s), 9 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "The chart is hook-free and template-clean at the audited values; the CRDs are the one construct needing a companion, and the producer's pipeline already ships it."
+    routes:
+      - "CRD ordering declaration for the 9 IAM CRDs"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/aws-controllers-k8s-iam-chart-1.7.3.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml"
