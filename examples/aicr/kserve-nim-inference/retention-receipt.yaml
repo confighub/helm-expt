@@ -45,12 +45,15 @@ spec:
     gpuWorkloadsProven: false
     nimContainersRan: false
     modelsFetched: false
-    ngcContacted: false
+    ngcArtifactsPulled: false
+    ngcCatalogPageRead: true
     secretValuesIncluded: false
     statement: >-
       This entry retains configuration only. No NIM container ran, no model
-      was fetched, and no NGC surface was contacted to produce or verify it.
-      Workload-plane claims stay absent rather than implied.
+      was fetched, and nothing was pulled from nvcr.io. One NGC surface was
+      read: the public catalog page for the described model profile supplied
+      the governing-terms names, which the profile records with the date they
+      were read. Workload-plane claims stay absent rather than implied.
 status:
   result: retained-offline
   liveRegistryPublicationClaimed: false

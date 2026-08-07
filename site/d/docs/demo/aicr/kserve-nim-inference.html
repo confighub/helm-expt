@@ -447,7 +447,7 @@
   </header>
   <main>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It retains NVIDIA's KServe reference implementation for NIM inference as governed configuration, pinned by one digest, with the licensing boundary enforced in code. It is a config-plane entry: no NIM container ran, no model was fetched, and no NGC surface was contacted to produce or verify anything here.</p>
+<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It retains NVIDIA's KServe reference implementation for NIM inference as governed configuration, pinned by one digest, with the licensing boundary enforced in code. It is a config-plane entry: no NIM container ran, no model was fetched, and nothing was pulled from <code>nvcr.io</code>. One NGC surface was read, and the entry records which. The public catalog page for the described model profile supplied the governing-terms names, and the profile stores those names with the date they were read.</p>
 <h2 id="what-is-retained">What is retained</h2>
 
 <p>The <a href="../../../../../examples/aicr/kserve-nim-inference/retention-receipt.yaml">retention receipt</a> pins the source, the commit, the retrieval method, and the boundary. One provenance note matters for the record: nim-deploy removed its local nim-llm Helm chart on 2025-05-09 (pull request 143), and that chart now ships only through NGC. The <a href="../../planning/nim-ngc-license-read.html">license read</a> classifies NGC-served artifacts as gated, so the KServe path is the surface this catalog retains from GitHub.</p>

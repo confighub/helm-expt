@@ -4,8 +4,10 @@ UNOFFICIAL/EXPERIMENTAL. This entry belongs to
 [the AICR catalog overview](./index.md). It retains NVIDIA's KServe reference
 implementation for NIM inference as governed configuration, pinned by one
 digest, with the licensing boundary enforced in code. It is a config-plane
-entry: no NIM container ran, no model was fetched, and no NGC surface was
-contacted to produce or verify anything here.
+entry: no NIM container ran, no model was fetched, and nothing was pulled from
+`nvcr.io`. One NGC surface was read, and the entry records which. The public
+catalog page for the described model profile supplied the governing-terms
+names, and the profile stores those names with the date they were read.
 
 ## What is retained
 

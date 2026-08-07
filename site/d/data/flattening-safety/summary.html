@@ -465,7 +465,7 @@
 <tr><td>nvidia/nvidia-device-plugin</td><td>0.19.3</td><td>nfd-enabled</td><td>flatten-with-routes</td><td>recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict-nfd-enabled.yaml</td></tr>
 <tr><td>bitnami/redis</td><td>27.0.0</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml</td></tr></tbody></table>
 <p>A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.</p>
-<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The seven charts here now have that axis answered from source; the catalog-wide rendered-object scan remains open.</p>
+<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 12 charts here now have that axis answered from source, across 19 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.</p>
 <p>Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with <code>npm run flattening-safety</code>. Verify with <code>npm run flattening-safety:verify</code>.</p>
     </article>
   </main>
