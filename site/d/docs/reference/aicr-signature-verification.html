@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>How the catalog verifies AICR upstream signatures · Config Workshop</title>
+  <meta name="description" content="How the catalog verifies AICR upstream signatures: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/aicr-signature-verification.html">
+  <meta property="og:title" content="How the catalog verifies AICR upstream signatures · Config Workshop">
+  <meta property="og:description" content="How the catalog verifies AICR upstream signatures: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/aicr-signature-verification.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,66 +433,40 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
+    @media (max-width: 700px) {
+      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .doc-body th, .doc-body td { min-width: 10rem; }
+    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../try.html">Try Redis</a><a href="../../testing.html">Examples</a><a href="../../charts/index.html">Catalog</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../hard-questions.html">FAQ</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>How the catalog verifies AICR upstream signatures</h1>
+    <p class="lead">Maintained decision, made 2026-08-07. The <a href="../planning/aicr-version-refresh-brief.html">refresh brief</a> blocked a second retained AICR version on choosing a verification toolchain. This page records the choice, the evidence behind it, and what the choice does and does not prove. The runnable lane that implements it is <code>npm run aicr-signature:verify</code>. <a href="../../../../docs/reference/aicr-signature-verification.md">View source markdown</a>.</p>
   </header>
   <main>
-    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 833</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>329</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>catalog-data</code></td><td>67</td></tr>
-<tr><td><code>production-support</code></td><td>65</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>29</td></tr>
-<tr><td><code>repo-integrity</code></td><td>18</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>367</td></tr>
-<tr><td><code>generate-or-run</code></td><td>320</td></tr>
-<tr><td><code>run</code></td><td>98</td></tr>
-<tr><td><code>self-test</code></td><td>38</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>756</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+
+<h2 id="the-decision">The decision</h2>
+<p>The catalog verifies upstream AICR signatures with cosign 2.6.1, run from its published container image, against a sigstore trust root committed in this repository, with <code>--use-signed-timestamps</code>, and with the container's network disabled. It does not use the vendor's own verification command, and it does not install cosign on any machine.</p>
+<h2 id="why-each-part-of-that">Why each part of that</h2>
+<p><b>Cosign 2.6.1 specifically.</b> Older cosign cannot read these bundles at all. Version 2.4.1 refuses the release's transparency-log entry with <code>nil value in transaction log entry</code>, with and without <code>--insecure-ignore-tlog</code>, because it expects a log entry shape this release does not use. Version 2.5.3 reads the entry and then fails leaf-certificate verification against its default trust root. Version 2.6.1 verifies the same bundle without any insecure flag. The version is therefore load-bearing and is pinned in the receipt.</p>
+<p><b>Signed timestamps.</b> AICR's release signature is Rekor v2 era material: its log entry is a <code>hashedrekord</code> version <code>0.0.2</code> carrying an inclusion proof, and it has no integrated time. Cosign needs a trusted time to check the signing certificate was valid when it signed, and without one it stops with <code>threshold not met for verified log entry integrated timestamps</code>. The bundle carries an RFC 3161 timestamp from sigstore's timestamp authority, and <code>--use-signed-timestamps</code> tells cosign to use it. That flag is what makes the verification work, and it is not a weakening.</p>
+<p><b>A committed trust root and no network.</b> Passing <code>--trusted-root</code> with a committed copy of sigstore's trust root removes the last network dependency, so verification runs with <code>--network none</code>. This matters twice over: it makes the check reproducible years from now, and it matches the air-gapped story upstream added in the same release. The trust root is the one input that ages, so refreshing it is a deliberate, reviewable change rather than a silent fetch.</p>
+<p><b>A container rather than an install.</b> The verifier is a pinned image reference, so the exact verifier is recorded in the receipt and nobody has to install anything to reproduce the result.</p>
+<p><b>Not the vendor command.</b> The <code>aicr</code> binary can verify its own artifacts, and using it would mean running a freshly downloaded vendor binary to check that same vendor's signature. The circularity is the problem, not the vendor. An independent verifier checking a signature against public trust material is a stronger claim, and it stays available if we ever verify a different project's releases.</p>
+<h2 id="what-the-lane-proves">What the lane proves</h2>
+<p><code>npm run aicr-signature:run</code> performs the verification and writes a receipt. It proves three things:</p>
+<ol><li>The signature over the release's recipe-catalog attestation verifies offline against pinned trust material.</li><li>The signer is the tagged release workflow in NVIDIA/aicr, identified through GitHub Actions OIDC, and the statement carries a SLSA provenance predicate naming the repository, organization, runner, and build commit.</li><li>The check can fail. The same command is run again with a different signer identity and must be refused, and the receipt records that refusal.</li></ol>
+<p><code>npm run aicr-signature:verify</code> re-checks the committed receipt against the committed bundle without cosign, a container, or a network, so the ordinary verify chain stays free of this toolchain.</p>
+<h2 id="what-it-does-not-prove">What it does not prove</h2>
+<p>The recipe catalog artifact itself is not checked here, because the catalog is not published as a release asset and no copy is retained. The attestation's subject digest is recorded in the receipt so that a future retained copy can be bound to it, and claim checking stays off until that copy exists. Read the receipt as evidence about who signed a statement, not yet as evidence about a file we hold.</p>
+<p>The receipt also concerns the upstream v0.18.0 release. The catalog still retains v0.14.0, which shipped no signature at all, so no retained entry carries a signature claim today.</p>
+<h2 id="what-this-unblocks">What this unblocks</h2>
+<p>The refresh brief can proceed with signature verification as the new rung a second retained entry would carry, and the cost of that rung is now known rather than estimated. When the refresh happens, the retained entry should bind its retained bytes to the attested subject digest and turn claim checking back on, which is the step that upgrades this from a statement about a signer to a statement about the artifact we retain.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/aicr-signature-verification.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
