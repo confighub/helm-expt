@@ -1,0 +1,70 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "default-r001"
+spec:
+  objectCount: 18
+  renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+  objects:
+    -
+      kind: "ClusterRole"
+      name: "karpenter"
+    -
+      kind: "ClusterRole"
+      name: "karpenter-admin"
+    -
+      kind: "ClusterRole"
+      name: "karpenter-core"
+    -
+      kind: "ClusterRoleBinding"
+      name: "karpenter"
+    -
+      kind: "ClusterRoleBinding"
+      name: "karpenter-core"
+    -
+      kind: "CustomResourceDefinition"
+      name: "capacitybuffers.autoscaling.x-k8s.io"
+    -
+      kind: "CustomResourceDefinition"
+      name: "ec2nodeclasses.karpenter.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "nodeclaims.karpenter.sh"
+    -
+      kind: "CustomResourceDefinition"
+      name: "nodeoverlays.karpenter.sh"
+    -
+      kind: "CustomResourceDefinition"
+      name: "nodepools.karpenter.sh"
+    -
+      kind: "Deployment"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "PodDisruptionBudget"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "Role"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "Role"
+      name: "karpenter-dns"
+      namespace: "kube-system"
+    -
+      kind: "RoleBinding"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "RoleBinding"
+      name: "karpenter-dns"
+      namespace: "kube-system"
+    -
+      kind: "Service"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      kind: "ServiceAccount"
+      name: "karpenter"
+      namespace: "kube-system"

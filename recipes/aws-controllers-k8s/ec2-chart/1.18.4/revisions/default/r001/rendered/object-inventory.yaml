@@ -1,0 +1,110 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "default-r001"
+spec:
+  objectCount: 32
+  renderedObjectSetSHA256: "83a44526ce1547d55573d1a01535b7b2c456a836c9facc3df072ac702d5f6779"
+  objects:
+    -
+      kind: "ClusterRole"
+      name: "ack-ec2-ec2-chart"
+    -
+      kind: "ClusterRole"
+      name: "ack-ec2-ec2-chart-namespaces-cache"
+    -
+      kind: "ClusterRoleBinding"
+      name: "ack-ec2-ec2-chart-namespaces-cache"
+    -
+      kind: "ClusterRoleBinding"
+      name: "ack-ec2-ec2-chart-rolebinding"
+    -
+      kind: "CustomResourceDefinition"
+      name: "capacityreservations.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "dhcpoptions.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "egressonlyinternetgateways.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "elasticipaddresses.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "fieldexports.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "flowlogs.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "iamroleselectors.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "instances.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "internetgateways.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "launchtemplates.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "managedprefixlists.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "natgateways.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "networkacls.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "routetables.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "securitygroups.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "subnets.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "transitgateways.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "transitgatewayvpcattachments.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "vpcendpoints.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "vpcendpointserviceconfigurations.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "vpcpeeringconnections.ec2.services.k8s.aws"
+    -
+      kind: "CustomResourceDefinition"
+      name: "vpcs.ec2.services.k8s.aws"
+    -
+      kind: "Deployment"
+      name: "ack-ec2-ec2-chart"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-ec2-ec2-chart-configmaps-cache"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-ec2-ec2-chart-reader"
+      namespace: "ack-system"
+    -
+      kind: "Role"
+      name: "ack-ec2-ec2-chart-writer"
+      namespace: "ack-system"
+    -
+      kind: "RoleBinding"
+      name: "ack-ec2-ec2-chart-configmaps-cache"
+      namespace: "ack-system"
+    -
+      kind: "ServiceAccount"
+      name: "ack-ec2-controller"
+      namespace: "ack-system"

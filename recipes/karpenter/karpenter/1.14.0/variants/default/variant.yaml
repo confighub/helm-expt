@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+spec:
+  namespace: "kube-system"
+  releaseName: "karpenter"
+  valuesProfile: "./effective-values.yaml"
+  valuesOrigin: "chart defaults plus the required settings.clusterName as the ConfigHub placeholder sentinel; the chart refuses to render without it"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  includeCrds: true
+  hookPolicy: "hooks-rendered-visible"

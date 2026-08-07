@@ -391,6 +391,143 @@ const CHARTS = [
     ],
   },
   {
+    repo: "aws-controllers-k8s",
+    chart: "ec2-chart",
+    version: "1.18.4",
+    recipe: "recipes/aws-controllers-k8s/ec2-chart/1.18.4",
+    auditedBase: "default",
+    verdictFile: "flattening-safety-verdict-default.yaml",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle (crds split or sync waves)",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 22 EC2 CRDs"],
+    rationale:
+      "Chart defaults change no quirk class against the eks-inference base; the CRDs remain the one construct needing a companion.",
+    variantScope: [
+      {
+        values: "deletionPolicy (chart default deletes AWS resources on prune; the eks-inference base sets retain)",
+        effect:
+          "not a flattening hazard, but the single most consequential values choice for this chart under a pruning reconciler",
+      },
+    ],
+  },
+  {
+    repo: "aws-controllers-k8s",
+    chart: "iam-chart",
+    version: "1.7.3",
+    recipe: "recipes/aws-controllers-k8s/iam-chart/1.7.3",
+    auditedBase: "default",
+    verdictFile: "flattening-safety-verdict-default.yaml",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle (crds split or sync waves)",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 9 IAM CRDs"],
+    rationale:
+      "Chart defaults change no quirk class against the eks-inference base; the CRDs remain the one construct needing a companion.",
+    variantScope: [
+      {
+        values: "deletionPolicy (chart default deletes AWS resources on prune; the eks-inference base sets retain)",
+        effect:
+          "not a flattening hazard, but the single most consequential values choice for this chart under a pruning reconciler",
+      },
+    ],
+  },
+  {
+    repo: "aws-controllers-k8s",
+    chart: "eks-chart",
+    version: "1.16.3",
+    recipe: "recipes/aws-controllers-k8s/eks-chart/1.16.3",
+    auditedBase: "default",
+    verdictFile: "flattening-safety-verdict-default.yaml",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle (crds split or sync waves)",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 10 EKS CRDs"],
+    rationale:
+      "Chart defaults change no quirk class against the eks-inference base; the CRDs remain the one construct needing a companion.",
+    variantScope: [
+      {
+        values: "deletionPolicy (chart default deletes AWS resources on prune; the eks-inference base sets retain)",
+        effect:
+          "not a flattening hazard, but the single most consequential values choice for this chart under a pruning reconciler",
+      },
+    ],
+  },
+  {
+    repo: "karpenter",
+    chart: "karpenter",
+    version: "1.14.0",
+    recipe: "recipes/karpenter/karpenter/1.14.0",
+    auditedBase: "default",
+    verdictFile: "flattening-safety-verdict-default.yaml",
+    overrides: {
+      "capabilities-api-versions": {
+        detail:
+          "the ServiceMonitor template opens on a monitoring.coreos.com capability guard; the audited render pins the kube version with no extra api-versions, so the guard stays closed",
+      },
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle (crds split or sync waves)",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["CRD ordering declaration for the 5 Karpenter CRDs"],
+    rationale:
+      "The chart refuses to render without settings.clusterName, so this base sets it to the ConfigHub placeholder sentinel and publishing gates refuse while it remains; beyond that required value, chart defaults change no quirk class and only the CRDs need a companion.",
+    variantScope: [
+      {
+        values: "settings.clusterName",
+        effect:
+          "required with no chart default; environment-owned, filled per variant by a link, never baked into a published bundle",
+      },
+    ],
+  },
+  {
+    repo: "nvidia",
+    chart: "nvidia-device-plugin",
+    version: "0.19.3",
+    recipe: "recipes/nvidia/nvidia-device-plugin/0.19.3",
+    auditedBase: "default",
+    verdictFile: "flattening-safety-verdict-default.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present-gated",
+        detail:
+          "a post-delete cleanup Job lives in the vendored node-feature-discovery subchart, gated by nfd.enabled and gfd.enabled, both off by chart default",
+        disposition: "no route needed for the audited base",
+      },
+      "crd-ordering": {
+        finding: "present-gated",
+        detail:
+          "the NodeFeature CRDs ship in the node-feature-discovery subchart behind the same gate",
+        disposition: "no route needed for the audited base",
+      },
+      "subchart-conditions": {
+        disposition:
+          "the flatten step must render with the audited base's condition set; chart defaults leave the gate off",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Chart defaults leave the node-feature-discovery gate off, so nothing this base renders is discharged at render time; the default and eks-inference bases agree.",
+    variantScope: [
+      {
+        values: "nfd.enabled or gfd.enabled",
+        effect:
+          "the subchart adds a post-delete cleanup hook and NodeFeature CRDs; the nfd-enabled base's verdict records that lane",
+      },
+    ],
+  },
+  {
     repo: "karpenter",
     chart: "karpenter",
     version: "1.14.0",
