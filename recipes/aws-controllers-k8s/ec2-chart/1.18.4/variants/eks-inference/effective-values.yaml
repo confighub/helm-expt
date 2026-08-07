@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4-eks-inference"
+spec:
+  profile: "producer-declared"
+  sourceValuesFile: "values.yaml"
+  sourceValuesSHA256: "fc5e2ef91090af1971536b42906f84771b1f9bc8ae7037124c268fa4086169a4"
+  mergedValuesCaptured: false
+  values:
+    aws:
+      credentials:
+        profile: "default"
+        secretKey: "credentials"
+        secretName: "aws-creds"
+      region: "confighubplaceholder"
+    deletionPolicy: "retain"
+    installScope: "cluster"
+    log:
+      level: "info"
+    metrics:
+      service:
+        create: false

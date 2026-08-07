@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "nfd-enabled"
+spec:
+  namespace: "gpu-operator"
+  releaseName: "nvidia-device-plugin"
+  valuesProfile: "./effective-values.yaml"
+  valuesOrigin: "derived in this repository: the eks-inference values plus nfd.enabled true, opening the node-feature-discovery gate"
+  capabilityProfile:
+    kubeVersion: "1.31.0"
+    apiVersions:
+      []
+  includeCrds: true
+  hookPolicy: "hooks-rendered-visible"
