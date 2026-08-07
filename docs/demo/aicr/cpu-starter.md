@@ -94,14 +94,39 @@ absent. Delivery cannot begin until a human scales the controller up. The
 [summary](../../../data/aicr-cpu-starter-delivery/summary.md) record the run;
 the cluster, registry, and working files were removed afterward.
 
+## One reviewed component, synced
+
+```bash
+npm run aicr-starter-sync:verify
+```
+
+The first deliberate step past the config plane takes exactly one step. The
+reviewed storage-class override from the variant receipt was applied to the
+committed Kube Prometheus Stack bytes, the result traveled as one OCI
+artifact with the six untouched components, and a running Argo CD on a
+throwaway kind cluster synced the CRD prerequisite first and then the
+reviewed component, in the order the sync-waves state. Both reached Synced
+and Healthy, and the reviewed field became real: every Prometheus volume
+claim bound with the cluster-default `standard` class the review selected,
+which is exactly what the recorded `gp3` residue prevented before the review.
+Scope was proven, not implied: two Applications existed on the cluster, and
+every other component destination namespace stayed absent. The
+[receipt](../../../runs/aicr-cpu-starter-sync/receipt.yaml) chains the
+starter's platform digest, the training entry's digest, and the variant
+receipt whose change it realizes; the
+[summary](../../../data/aicr-cpu-starter-sync/summary.md) retells it in plain
+language.
+
 ## What is proven and what is not
 
 Proven: the selection is rule-governed, every copy is byte-identical to
 retained configuration, the whole entry is pinned by one digest with an
 end-to-end derivation chain, ConfigHub imported the starter and carried the
 residue override as a reviewed development-variant change with a dry-run
-preview, and a real cluster's Argo CD accepted the seven Applications with
-zero sync operations started. Not proven, and stated rather than implied: no
-application synced, no workload ran, and no component health is claimed
-anywhere. The entry needs no GPU by construction, and the natural next
-increment is syncing one reviewed component on kind with its receipt.
+preview, a real cluster's Argo CD accepted all seven Applications with zero
+sync operations started, and the one reviewed component synced to Healthy
+with its volume bound by the reviewed storage class. Not proven, and stated
+rather than implied: the other five components never synced, no GPU exists
+anywhere in this entry, and nothing here claims production, AWS, or fleet
+behavior. The natural next increments are the staging promotion of the
+reviewed variant and the same ladder for the inference entry.

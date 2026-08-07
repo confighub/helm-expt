@@ -1,0 +1,73 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrCpuStarterSyncProofReceipt"
+metadata:
+  name: "aicr-cpu-starter-v0-14-0-sync"
+spec:
+  observedAt: "2026-08-07T09:21:25.154Z"
+  durationSeconds: 460
+  input:
+    format: "reviewed CPU starter literal configuration OCI"
+    committedEntry: "examples/aicr/cpu-starter"
+    starterPlatformDigest: "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564"
+    derivedFromEntry: "examples/aicr/eks-h100-training-kubeflow"
+    derivedFromPlatformDigest: "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e"
+    reviewedChange:
+      variantReceipt: "runs/aicr-cpu-starter-variant/receipt.yaml"
+      variantReceiptName: "aicr-cpu-starter-v0-14-0-variant"
+      before: "gp3"
+      after: "standard"
+      reviewedComponentSha256: "f8d1f031f6f9946bdfba746e16529b7878a32cf16286effa0bcea5e1728bbfe8"
+    temporaryReference: "oci://localhost:32778/aicr-cpu-starter-reviewed:0.14.0"
+    digest: "sha256:825078bdbbbc74cc0de67be3f2f77d2f1d80d595aa1f07a97b9bbc9017cd423a"
+  cluster:
+    shape: "throwaway kind cluster with an isolated kubeconfig"
+    creationCommand: "kind create cluster"
+    argoCd:
+      version: "v3.4.5"
+      installManifest: "https://raw.githubusercontent.com/argoproj/argo-cd/v3.4.5/manifests/install.yaml"
+      method: "pinned upstream manifest applied server-side as a cluster prerequisite"
+  sync:
+    prerequisite:
+      component: "prometheus-operator-crds"
+      reason: "the reviewed component sets crds.enabled false and its sync-wave places the CRD chart first"
+      syncStatus: "Synced"
+      healthStatus: "Healthy"
+      operationPhase: "Succeeded"
+    reviewed:
+      component: "kube-prometheus-stack"
+      syncStatus: "Synced"
+      healthStatus: "Healthy"
+      operationPhase: "Succeeded"
+      persistentVolumeClaims:
+        -
+          name: "prometheus-kube-prometheus-prometheus-db-prometheus-kube-prometheus-prometheus-0"
+          storageClassName: "standard"
+          phase: "Bound"
+    scope:
+      applicationsApplied:
+        - "prometheus-operator-crds"
+        - "kube-prometheus-stack"
+      otherComponentsApplied: false
+      otherNamespacesAbsent:
+        - "cert-manager"
+        - "kai-scheduler"
+        - "node-feature-discovery"
+  cleanup:
+    cluster: "pass"
+    registry: "pass"
+    localFiles: "pass"
+  limits:
+    - "This receipt syncs exactly one reviewed component plus its declared CRD prerequisite. The other five starter components stay config-plane and were proven absent."
+    - "The sync ran on a throwaway kind cluster; it claims nothing about production clusters, AWS, or GPU nodes."
+    - "The reviewed change came from the committed variant receipt; this run realizes that change, it does not re-review it."
+    - "Upstream charts were fetched from their public repository during the sync; their contents are pinned by the Application targetRevision, not re-verified here."
+status:
+  result: "pass"
+  ociTransport: "pass"
+  clusterUp: "pass"
+  argoCdInstall: "pass"
+  prerequisiteSynced: "pass"
+  reviewedComponentSynced: "pass"
+  reviewedFieldRealized: "pass"
+  scopeHeld: "pass"
+  claim: "The reviewed storage-class override from the variant receipt became real: Argo CD synced the CRD prerequisite and then kube-prometheus-stack on a throwaway kind cluster, both reached Synced and Healthy, every Prometheus volume claim bound with the cluster-default standard class the review selected, and the other five starter components stayed config-plane."
