@@ -33,9 +33,15 @@ The OCI artifact holds the rendered files. Beside it, a receipt records: source 
 
 Components that are not charts — ACK custom resources, Kubara's generated files, literal YAML — are born flattened: they take a certified-bundle receipt with a trivial verdict and skip the chart-quirk table.
 
-## Routes travel inside the bundle
+## Three artifact classes travel inside the bundle
 
-For the flatten-with-routes lane, the route is a declarative YAML file emitted at flatten time and shipped inside the OCI bundle beside the rendered files. Ingest turns it into Units in the base Space like everything else, the receipt names each route file and the quirk it discharges, and the delivery runtime executes the routes at apply time. Nothing operational lives out of band: one artifact carries the configuration and the knowledge of how to apply it.
+The bundle carries the rendered configuration files, the route files, and the Space guide, and ingest turns all three into Units:
+
+- **Rendered config** — the literal resources, one Unit per file.
+- **Routes** — for the flatten-with-routes lane, declarative YAML emitted at flatten time; the receipt names each route file and the quirk it discharges, and the delivery runtime executes them at apply time.
+- **The Space guide** — the per-Space README Unit the catalog already generates and uploads today, so the operator reading the Space in ConfigHub sees what this component is, which variant produced it, and what its routes owe, in context.
+
+Nothing operational or explanatory lives out of band: one artifact carries the configuration, the knowledge of how to apply it, and the words a human needs beside it.
 
 ## One bundle per chart version and recipe variant
 
