@@ -5,12 +5,15 @@ metadata:
 spec:
   sourceType: "HelmChart"
   repositoryName: "nvidia"
+  repositoryURL: "https://nvidia.github.io/k8s-device-plugin"
   chart: "nvidia-device-plugin"
   version: "0.19.3"
   appVersion: "0.19.3"
   packageSHA256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
   packageBytes: 22226
   exactArtifact:
-    url: "https://nvidia.github.io/k8s-device-plugin/nvidia-device-plugin-0.19.3.tgz"
+    url: "https://nvidia.github.io/k8s-device-plugin/stable/nvidia-device-plugin-0.19.3.tgz"
     sha256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
     resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

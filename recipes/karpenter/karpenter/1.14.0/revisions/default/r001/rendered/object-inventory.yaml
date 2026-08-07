@@ -1,70 +1,117 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderedObjectInventory"
 metadata:
-  name: "default-r001"
+  name: "karpenter-karpenter-1.14.0-default-r001"
 spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
   objectCount: 18
-  renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
   objects:
     -
-      kind: "ClusterRole"
-      name: "karpenter"
-    -
-      kind: "ClusterRole"
-      name: "karpenter-admin"
-    -
-      kind: "ClusterRole"
-      name: "karpenter-core"
-    -
-      kind: "ClusterRoleBinding"
-      name: "karpenter"
-    -
-      kind: "ClusterRoleBinding"
-      name: "karpenter-core"
-    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||capacitybuffers.autoscaling.x-k8s.io"
       kind: "CustomResourceDefinition"
       name: "capacitybuffers.autoscaling.x-k8s.io"
+      namespace: ""
     -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||ec2nodeclasses.karpenter.k8s.aws"
       kind: "CustomResourceDefinition"
       name: "ec2nodeclasses.karpenter.k8s.aws"
+      namespace: ""
     -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nodeclaims.karpenter.sh"
       kind: "CustomResourceDefinition"
       name: "nodeclaims.karpenter.sh"
+      namespace: ""
     -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nodeoverlays.karpenter.sh"
       kind: "CustomResourceDefinition"
       name: "nodeoverlays.karpenter.sh"
+      namespace: ""
     -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nodepools.karpenter.sh"
       kind: "CustomResourceDefinition"
       name: "nodepools.karpenter.sh"
+      namespace: ""
     -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|kube-system|karpenter"
       kind: "Deployment"
       name: "karpenter"
       namespace: "kube-system"
     -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|kube-system|karpenter"
       kind: "PodDisruptionBudget"
       name: "karpenter"
       namespace: "kube-system"
     -
-      kind: "Role"
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter"
+      kind: "ClusterRoleBinding"
       name: "karpenter"
-      namespace: "kube-system"
+      namespace: ""
     -
-      kind: "Role"
-      name: "karpenter-dns"
-      namespace: "kube-system"
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||karpenter-core"
+      kind: "ClusterRoleBinding"
+      name: "karpenter-core"
+      namespace: ""
     -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter"
+      kind: "ClusterRole"
+      name: "karpenter"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-admin"
+      kind: "ClusterRole"
+      name: "karpenter-admin"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||karpenter-core"
+      kind: "ClusterRole"
+      name: "karpenter-core"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter"
       kind: "RoleBinding"
       name: "karpenter"
       namespace: "kube-system"
     -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|karpenter-dns"
       kind: "RoleBinding"
       name: "karpenter-dns"
       namespace: "kube-system"
     -
-      kind: "Service"
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter"
+      kind: "Role"
       name: "karpenter"
       namespace: "kube-system"
     -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|kube-system|karpenter-dns"
+      kind: "Role"
+      name: "karpenter-dns"
+      namespace: "kube-system"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|kube-system|karpenter"
       kind: "ServiceAccount"
+      name: "karpenter"
+      namespace: "kube-system"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|kube-system|karpenter"
+      kind: "Service"
       name: "karpenter"
       namespace: "kube-system"

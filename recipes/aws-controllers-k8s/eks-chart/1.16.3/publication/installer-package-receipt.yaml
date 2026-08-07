@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+spec:
+  chart:
+    repository: "aws-controllers-k8s"
+    name: "eks-chart"
+    version: "1.16.3"
+  package:
+    path: "packages/aws-controllers-k8s/eks-chart/1.16.3"
+    name: "aws-controllers-k8s-eks-chart"
+    version: "1.16.3"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "48109cdaad9657017d47c20f022370b2e0b536f0f7f25ecb33543a3a3d99f58f"
+        bytes: 277
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+        bytes: 155514
+      -
+        path: "bases/eks-inference/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/eks-inference/upstream.yaml"
+        sha256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+        bytes: 155896
+      -
+        path: "collector/target-facts.sh"
+        sha256: "2c8d4c9e78ef85295fc65ab00abd9144fef92fc3f7481aa9948467eab59a3d39"
+        bytes: 2521
+      -
+        path: "installer.yaml"
+        sha256: "1ea181e059814bceb186f2c26f3270aeb2cab68d508af535f3349687e76ab8cf"
+        bytes: 2213
+  deterministicBundle:
+    command: "cub installer package packages/aws-controllers-k8s/eks-chart/1.16.3 -o <tmp>/ack-eks-1.16.3.tgz"
+    sha256: "92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/aws-controllers-k8s/eks-chart/1.16.3 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+      helmReleaseObjectCount: 20
+      cubInstallObjectCountIncludingSupport: 21
+      semanticObjectMatches: "20/20"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ack-system"
+    -
+      variant: "eks-inference"
+      base: "eks-inference"
+      command: "cub installer setup --pull packages/aws-controllers-k8s/eks-chart/1.16.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+      helmReleaseObjectCount: 20
+      cubInstallObjectCountIncludingSupport: 21
+      semanticObjectMatches: "20/20"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ack-system"

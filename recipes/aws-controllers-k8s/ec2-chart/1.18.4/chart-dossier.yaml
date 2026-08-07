@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4"
+spec:
+  chart: "aws-controllers-k8s/ec2-chart"
+  version: "1.18.4"
+  caveats:
+    - "ACK deletionPolicy: never flatten the default base into a pruning pipeline without changing deletionPolicy to retain or accepting that prune deletes AWS resources."
+    - "The eks-inference base requires Secret ack-system/aws-creds (key credentials) to exist before the controller starts; IRSA via serviceAccount.annotations is a real alternative the audited bases do not use."
+    - "aws.region must be filled before deploy; the eks-inference render intentionally ships confighubplaceholder and is not runnable as rendered."
+    - "The CRD ordering route (crds/controller split, Argo sync waves -20 and -10) ships with the bundle producer, not with this recipe; a consumer flattening without that route is outside the verdict."
+    - "Keep deployment.replicas at 1 unless leaderElection.enabled is turned on; the chart documents this and the audited bases hold both at defaults."
+    - "The flattening scan is static; values-gated reachability is recorded judgment, not a render (verdict boundedness)."
+  maintainedNotes:
+    - "Both variants render exactly 32 objects: 22 CustomResourceDefinitions, 1 Deployment, 1 ServiceAccount, 2 ClusterRoles, 2 ClusterRoleBindings, 3 Roles, and 1 RoleBinding, everything cluster-scoped or in ack-system."
+    - "The 22 CRDs split into 20 EC2 kinds (ec2.services.k8s.aws) plus the two common ACK CRDs fieldexports.services.k8s.aws and iamroleselectors.services.k8s.aws."
+    - "The release runs one image, public.ecr.aws/aws-controllers-k8s/ec2-controller:1.18.4, pinned to the chart version."
+    - "The witness scan is clean across every quirk class: zero hooks, zero lookups, zero resource-policy keep annotations, zero Capabilities checks, zero generated Secrets, zero webhooks, zero Namespace creation, zero subcharts (37 files scanned)."
+    - "The chart's one weird thing is resourceTags: the rendered ACK_RESOURCE_TAGS env var contains literal %CONTROLLER_VERSION% style tokens that the controller substitutes at runtime, so the rendered YAML shows what look like unexpanded template variables on purpose."
+    - "deletionPolicy is the highest-stakes value: the chart default delete removes the AWS resource when the Kubernetes resource is deleted, so under a pruning reconciler a pruned manifest means deleted cloud infrastructure; the eks-inference base sets retain to make that accident inert."
+    - "The eks-inference base renders aws.region as the literal string confighubplaceholder by design; the region belongs to the environment and is bound per variant by a set-env-var link that addresses AWS_REGION by name, with vet-placeholders failing while any sentinel remains."
+    - "The default base is an audit base, not a deployable one: AWS_REGION renders empty and no credentials are wired, so the controller cannot reach AWS as rendered."
+    - "installScope is cluster in both bases; switching to namespace changes the RBAC shape from ClusterRole to Role and activates watchNamespace, none of which is covered by these renders."
+  knownControlPoints:
+    - "crd-ordering-route"
+    - "deletion-policy-vs-prune"
+    - "region-placeholder-binding"
+    - "target-secret-credentials"
+    - "capability-profile"
+    - "cluster-rbac-scan"

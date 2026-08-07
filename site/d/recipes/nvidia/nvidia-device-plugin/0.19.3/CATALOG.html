@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nvidia/nvidia-device-plugin 0.19.3 Catalog Map · Config Workshop</title>
+  <meta name="description" content="nvidia/nvidia-device-plugin 0.19.3 Catalog Map: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.html">
+  <meta property="og:title" content="nvidia/nvidia-device-plugin 0.19.3 Catalog Map · Config Workshop">
+  <meta property="og:description" content="nvidia/nvidia-device-plugin 0.19.3 Catalog Map: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../../try.html">Try Redis</a><a href="../../../../../testing.html">Examples</a><a href="../../../../../charts/index.html">Catalog</a><a href="../../../../../how-it-works.html">Deployment</a><a href="../../../../../docs.html">Docs</a><a href="../../../../../hard-questions.html">FAQ</a><a href="../../../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>nvidia/nvidia-device-plugin 0.19.3 Catalog Map</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>This page makes the artifact chain explicit:</p>
+<pre><code>chart -&gt; recipe -&gt; variants -&gt; variant revisions -&gt; package bases -&gt; receipts</code></pre>
+<h2 id="status">Status</h2>
+<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Chart</td><td>nvidia/nvidia-device-plugin@0.19.3</td></tr>
+<tr><td>Catalog status</td><td>catalog-candidate</td></tr>
+<tr><td>Support level</td><td>promotion-review-needed</td></tr>
+<tr><td>Supported scopes</td><td>none</td></tr>
+<tr><td>Production readiness</td><td>not-reviewed-for-production</td></tr>
+<tr><td>Supported variants</td><td>none</td></tr>
+<tr><td>Candidate variants</td><td>default, eks-inference, nfd-enabled</td></tr>
+<tr><td>Control points</td><td>capability-profile, crd-policy, credentials-secrets, dependency-lock, extension-slots, installer-support-object, lifecycle-policy, namespace, source-lock</td></tr></tbody></table>
+<h2 id="feature-and-proof-summary">Feature And Proof Summary</h2>
+<p>This is the chart-level summary. Use the variant table and receipt links below for exact base-variant evidence.</p>
+<table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Adoption bucket</td><td>-</td></tr>
+<tr><td>User status</td><td>-</td></tr>
+<tr><td>Strongest evidence</td><td>-</td></tr>
+<tr><td>Proof lanes</td><td>render parity -; ConfigHub -; local live -; GitOps live -; live parity -</td></tr>
+<tr><td>Feature summary</td><td>-</td></tr>
+<tr><td>Hard gap</td><td>-</td></tr>
+<tr><td>Next action</td><td>-</td></tr></tbody></table>
+<h2 id="artifact-chain">Artifact Chain</h2>
+<table><thead><tr><th>Stage</th><th>Artifact</th></tr></thead><tbody><tr><td>Source chart lock</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml</a></td></tr>
+<tr><td>Dependency lock</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/dependency-lock.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/dependency-lock.yaml</a></td></tr>
+<tr><td>Recipe</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/recipe.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/recipe.yaml</a></td></tr>
+<tr><td>Helm plan</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/helm-plan.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/helm-plan.yaml</a></td></tr>
+<tr><td>Chart dossier</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/chart-dossier.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/chart-dossier.yaml</a></td></tr>
+<tr><td>Control points</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/control-points.yaml</a></td></tr>
+<tr><td>Value model</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/value-model.yaml</a></td></tr>
+<tr><td>Catalog status</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/catalog-status.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/catalog-status.yaml</a></td></tr>
+<tr><td>Installer package OCI</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3</code></td></tr>
+<tr><td>Installer package source</td><td><a href="../../../../../../packages/nvidia/nvidia-device-plugin/0.19.3">packages/nvidia/nvidia-device-plugin/0.19.3</a></td></tr>
+<tr><td>Installer package receipt</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/publication/installer-package-receipt.yaml</a></td></tr>
+<tr><td>Machine index</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/artifact-index.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/artifact-index.yaml</a></td></tr></tbody></table>
+<h2 id="variants">Variants</h2>
+<table><thead><tr><th>Variant</th><th>Variant file</th><th>Package base</th><th>Revision</th><th>Helm objects</th><th>cub installer objects</th><th>Match</th><th>Helm equivalence</th><th>Scan</th><th>Gate</th><th>Target facts</th></tr></thead><tbody><tr><td>default</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/variants/default/variant.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/variants/default/variant.yaml</a></td><td><a href="../../../../../../packages/nvidia/nvidia-device-plugin/0.19.3/bases/default">packages/nvidia/nvidia-device-plugin/0.19.3/bases/default</a></td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/variant-revision.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/variant-revision.yaml</a></td><td>5</td><td>6</td><td>5/5</td><td>pass</td><td>warn</td><td>warn</td><td>none</td></tr>
+<tr><td>eks-inference</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/variants/eks-inference/variant.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/variants/eks-inference/variant.yaml</a></td><td><a href="../../../../../../packages/nvidia/nvidia-device-plugin/0.19.3/bases/eks-inference">packages/nvidia/nvidia-device-plugin/0.19.3/bases/eks-inference</a></td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml</a></td><td>5</td><td>6</td><td>5/5</td><td>pass</td><td>warn</td><td>warn</td><td>none</td></tr>
+<tr><td>nfd-enabled</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/variants/nfd-enabled/variant.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/variants/nfd-enabled/variant.yaml</a></td><td><a href="../../../../../../packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled">packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled</a></td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml</a></td><td>26</td><td>27</td><td>26/26</td><td>pass</td><td>warn</td><td>warn</td><td>none</td></tr></tbody></table>
+<h2 id="package-bases">Package Bases</h2>
+<table><thead><tr><th>Base</th><th>Path</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td>default</td><td><a href="../../../../../../packages/nvidia/nvidia-device-plugin/0.19.3/bases/default">packages/nvidia/nvidia-device-plugin/0.19.3/bases/default</a></td><td>yes</td><td>nvidia-device-plugin default variant rendered from nvidia/nvidia-device-plugin@0.19.3</td></tr>
+<tr><td>eks-inference</td><td><a href="../../../../../../packages/nvidia/nvidia-device-plugin/0.19.3/bases/eks-inference">packages/nvidia/nvidia-device-plugin/0.19.3/bases/eks-inference</a></td><td>no</td><td>nvidia-device-plugin eks-inference platform scheduling variant rendered from nvidia/nvidia-device-plugin@0.19.3</td></tr>
+<tr><td>nfd-enabled</td><td><a href="../../../../../../packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled">packages/nvidia/nvidia-device-plugin/0.19.3/bases/nfd-enabled</a></td><td>no</td><td>nvidia-device-plugin eks-inference plus node-feature-discovery variant rendered from nvidia/nvidia-device-plugin@0.19.3</td></tr></tbody></table>
+<h2 id="receipts">Receipts</h2>
+<table><thead><tr><th>Variant</th><th>Revision</th><th>Receipt</th><th>Kind</th><th>Result</th><th>Path</th></tr></thead><tbody><tr><td>default</td><td>r001</td><td>render</td><td>RenderReceipt</td><td>recorded</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/render-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/render-receipt.yaml</a></td></tr>
+<tr><td>default</td><td>r001</td><td>helmEquivalence</td><td>HelmEquivalenceReceipt</td><td>pass</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml</a></td></tr>
+<tr><td>default</td><td>r001</td><td>scan</td><td>ScanReceipt</td><td>warn</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/scan-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/scan-receipt.yaml</a></td></tr>
+<tr><td>default</td><td>r001</td><td>installGate</td><td>InstallGate</td><td>warn</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/install-gate.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/receipts/install-gate.yaml</a></td></tr>
+<tr><td>eks-inference</td><td>r001</td><td>render</td><td>RenderReceipt</td><td>recorded</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/render-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/render-receipt.yaml</a></td></tr>
+<tr><td>eks-inference</td><td>r001</td><td>helmEquivalence</td><td>HelmEquivalenceReceipt</td><td>pass</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml</a></td></tr>
+<tr><td>eks-inference</td><td>r001</td><td>scan</td><td>ScanReceipt</td><td>warn</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/scan-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/scan-receipt.yaml</a></td></tr>
+<tr><td>eks-inference</td><td>r001</td><td>installGate</td><td>InstallGate</td><td>warn</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/install-gate.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/receipts/install-gate.yaml</a></td></tr>
+<tr><td>nfd-enabled</td><td>r001</td><td>render</td><td>RenderReceipt</td><td>recorded</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/render-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/render-receipt.yaml</a></td></tr>
+<tr><td>nfd-enabled</td><td>r001</td><td>helmEquivalence</td><td>HelmEquivalenceReceipt</td><td>pass</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/helm-equivalence-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/helm-equivalence-receipt.yaml</a></td></tr>
+<tr><td>nfd-enabled</td><td>r001</td><td>scan</td><td>ScanReceipt</td><td>warn</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/scan-receipt.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/scan-receipt.yaml</a></td></tr>
+<tr><td>nfd-enabled</td><td>r001</td><td>installGate</td><td>InstallGate</td><td>warn</td><td><a href="../../../../../../recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/install-gate.yaml">recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/receipts/install-gate.yaml</a></td></tr></tbody></table>
+<h2 id="current-install-shape">Current Install Shape</h2>
+<p class="install-cub-note">New to <code>cub</code>? <a href="../../../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
+  <p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/nvidia-nvidia-device-plugin:0.19.3 --base &lt;variant&gt; --work-dir &lt;tmp&gt; --non-interactive --namespace &lt;namespace&gt;</code></pre>
+<p>Use the variant table above to choose the package base. The <code>oci://</code> ref is the public package users pull; the <code>packages/...</code> path is the repo source path used by maintainers and proof scripts. The proof path compares regular Helm output with real <code>cub installer setup</code> output and explains every intentional difference, such as the Namespace support object or separated Secrets.</p>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

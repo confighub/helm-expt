@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "ack-eks-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+    objectCount: 20
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 21
+    uploadedManifestFiles: 21
+    separatedSecretFiles: 0
+    semanticObjectMatches: "20/20"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||ack-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run ack-eks:compare"

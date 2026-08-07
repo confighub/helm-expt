@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ack-ec2-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "f554824764fd9d781aaea445b728b209a93a190ccd8865ccdf235139377fcc59"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "audit base: renders empty AWS_REGION and no credential wiring, so the controller cannot reach AWS as rendered"
+    - "deletionPolicy is the chart default delete; a pruning reconciler that prunes a manifest deletes the AWS resource behind it"
+    - "cluster-scoped RBAC needs production review"
+    - "audit base only: renders empty AWS_REGION and no credentials, so the controller cannot reach AWS as rendered"

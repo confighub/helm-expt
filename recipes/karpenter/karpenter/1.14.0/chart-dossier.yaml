@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+spec:
+  chart: "karpenter/karpenter"
+  version: "1.14.0"
+  caveats:
+    - "settings.clusterName is required with no default; the default base carries the confighubplaceholder sentinel and publishing gates must refuse while it remains."
+    - "Under EKS Pod Identity the controller panics at startup without an explicit AWS_REGION env because the IMDS region lookup is blocked; IRSA masked this by injecting the variable. The eks bases carry it as a placeholder so forgetting it fails at release time, not as a CrashLoop."
+    - "Renaming serviceAccount.name away from karpenter breaks the PodIdentityAssociation match and the controller silently loses AWS credentials."
+    - "settings.interruptionQueue is deliberately empty in the eks bases; spot reclaims and maintenance events get no graceful handling until an SQS queue and EventBridge rules exist."
+    - "The crds-managed base only works when the karpenter-crd chart has already installed the 5 CRDs; that precondition belongs to the platform CRD owner per the crds-managed verdict."
+    - "serviceMonitor.enabled together with monitoring.coreos.com in api-versions opens the capability guard; render inputs must pin the api-versions list explicitly or a flattened bundle silently lacks the ServiceMonitor."
+  maintainedNotes:
+    - "The chart renders 18 objects in the default and eks-inference bases and 13 in crds-managed; the difference is exactly the 5 CRDs."
+    - "The 5 CRDs are ec2nodeclasses.karpenter.k8s.aws, nodeclaims.karpenter.sh, nodepools.karpenter.sh, nodeoverlays.karpenter.sh, and capacitybuffers.autoscaling.x-k8s.io, shipped as 5 files in the crds/ directory."
+    - "Everything namespaced lands in kube-system with releaseName karpenter; the chart creates no Namespace and renders no Secret."
+    - "One container image, digest-pinned in chart defaults: public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23."
+    - "The chart's one weird thing is that Karpenter cannot schedule the node Karpenter runs on. The default nodeAffinity requires karpenter.sh/nodepool DoesNotExist, so the controller always needs a pre-existing nodegroup, and default replicas 2 plus required pod anti-affinity needs two such nodes."
+    - "settings.clusterName has no chart default and the deployment template hard-fails the render without it."
+    - "The witness records zero hooks, zero lookups, zero generated secrets, and zero namespace-creation sites across 19 scanned files; the only quirk classes present are capabilities-api-versions (2 sites) and crd-ordering (5 CRDs)."
+    - "All settings.* values flatten into plain env vars on the controller container (CLUSTER_NAME, FEATURE_GATES, BATCH_MAX_DURATION and friends), so the whole runtime configuration is readable off the rendered Deployment."
+    - "RBAC is substantial: 3 ClusterRoles, 2 ClusterRoleBindings, 2 Roles, and 2 RoleBindings, including a karpenter-admin aggregation ClusterRole."
+  knownControlPoints:
+    - "crd-ordering"
+    - "capability-profile"
+    - "environment-owned-values"
+    - "pod-identity-credentials"
+    - "cluster-rbac-scan"
+    - "extension-slots"

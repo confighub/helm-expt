@@ -1,0 +1,30 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "nvidia-nvidia-device-plugin"
+  version: "0.19.3"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "nvidia-device-plugin default variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+    -
+      name: "eks-inference"
+      path: "bases/eks-inference"
+      description: "nvidia-device-plugin eks-inference platform scheduling variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+    -
+      name: "nfd-enabled"
+      path: "bases/nfd-enabled"
+      description: "nvidia-device-plugin eks-inference plus node-feature-discovery variant rendered from nvidia/nvidia-device-plugin@0.19.3"
+  transformers:
+    -
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          name: "set-namespace"
+          args:
+            - "{{ .Namespace }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""

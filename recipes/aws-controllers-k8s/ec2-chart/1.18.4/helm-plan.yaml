@@ -1,0 +1,33 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart-1.18.4"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "aws-controllers-k8s/ec2-chart"
+    version: "1.18.4"
+    variants:
+      - "default"
+      - "eks-inference"
+    helmObjectsByVariant:
+      default: 32
+      eks-inference: 32
+    cubInstallObjectsByVariant:
+      default: 33
+      eks-inference: 33
+    helmMatchByVariant:
+      default: "32/32"
+      eks-inference: "32/32"
+    scanGate: "warn-production-blocked"
+    narrative: "Both bases render 32 objects deterministically from the artifact-addressed OCI package, and the witness finds no hook, lookup, keep, capabilities, or generated-secret quirks, so the flattening verdicts land flatten-with-routes with a single CRD ordering route. The controls that keep this usable are the route itself, the retain deletionPolicy on the eks-inference base, the pre-existing aws-creds Secret, and the region placeholder that vet-placeholders holds until an environment fills it. The default base exists to audit the chart as shipped; it renders an empty region, no credentials, and deletionPolicy delete, so it gates to local-test scopes only."
+    nextAction: "keep the CRD ordering declaration travelling with any flattened bundle and bind region and credentials per environment before any live scope opens"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/render-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/install-gate.yaml"

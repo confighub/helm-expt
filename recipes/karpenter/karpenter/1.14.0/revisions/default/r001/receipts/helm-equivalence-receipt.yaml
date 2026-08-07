@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "karpenter-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+    objectCount: 18
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 19
+    uploadedManifestFiles: 19
+    separatedSecretFiles: 0
+    semanticObjectMatches: "18/18"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||kube-system"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run karpenter:compare"

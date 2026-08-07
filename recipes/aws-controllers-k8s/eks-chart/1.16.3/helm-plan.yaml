@@ -1,0 +1,33 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "aws-controllers-k8s/eks-chart"
+    version: "1.16.3"
+    variants:
+      - "default"
+      - "eks-inference"
+    helmObjectsByVariant:
+      default: 20
+      eks-inference: 20
+    cubInstallObjectsByVariant:
+      default: 21
+      eks-inference: 21
+    helmMatchByVariant:
+      default: "20/20"
+      eks-inference: "20/20"
+    scanGate: "warn-production-blocked"
+    summary: "Both bases render 20 objects deterministically from the artifact-addressed 1.16.3 package, and the flattening verdicts clear every quirk class except CRD ordering, which the shipped crds/controller split already routes. The default base audits the chart exactly as shipped, including deletionPolicy delete; the eks-inference base pins retain and defers aws.region to a placeholder filled per target. Nothing in either base depends on hooks, lookups, or generated secrets, so the flattened bundle equals the Helm render plus the ack-system Namespace support object."
+    nextAction: "promote beyond local-test only after the ack-system/aws-creds target Secret exists, the aws.region placeholder is bound per target, and the CRD ordering route ships with the bundle"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/render-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/install-gate.yaml"

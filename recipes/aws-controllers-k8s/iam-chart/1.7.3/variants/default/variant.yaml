@@ -3,13 +3,12 @@ kind: "Variant"
 metadata:
   name: "default"
 spec:
+  recipe: "../../recipe.yaml"
   namespace: "ack-system"
   releaseName: "ack-iam"
-  valuesProfile: "./effective-values.yaml"
-  valuesOrigin: "chart defaults; no overrides"
+  valuesProfile: "../../effective-values.yaml"
   capabilityProfile:
     kubeVersion: "1.31.0"
     apiVersions:
       []
-  includeCrds: true
   hookPolicy: "hooks-rendered-visible"

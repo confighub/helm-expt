@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+spec:
+  chart: "karpenter/karpenter"
+  version: "1.14.0"
+  dependencies:
+    []

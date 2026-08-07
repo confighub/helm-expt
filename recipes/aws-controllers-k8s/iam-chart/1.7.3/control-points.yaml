@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+      note: "pins the exact artifact oci://public.ecr.aws/aws-controllers-k8s/iam-chart with packageSHA256 598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730; resolution is artifact-addressed. Reproduction requires HELM_EXPT_CHART_ARTIFACT_URL and HELM_EXPT_CHART_ARTIFACT_SHA256 exported at generate and verify time."
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "the chart has zero subcharts and zero subchart conditions, so the dependency lock records an empty dependency list"
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.31.0"
+      note: "both variants pin kubeVersion 1.31.0 with an empty apiVersions list; no template consults .Capabilities, so the profile is a pin rather than a behavior switch"
+    -
+      category: "lifecycle-policy"
+      status: "handled"
+      policy: "hooks-rendered-visible"
+      note: "the chart renders zero helm hooks and zero test hooks; the render drops --no-hooks so any future hook would surface in the rendered objects instead of being silently skipped"
+    -
+      category: "crd-policy"
+      status: "route-required"
+      note: "nine CRDs ship from the chart's crds/ directory. Both flattening verdicts land on flatten-with-routes with one route, the CRD ordering declaration; the eks-inference producer already emits exactly this as the crds/controller split at Argo sync waves -20 and -10. Never present this chart as flatten-clean without the route."
+    -
+      category: "namespace"
+      status: "handled-by-installer"
+      note: "both bases target ack-system with releaseName ack-iam; the chart creates no Namespace object, so the installer's default support object v1|Namespace||ack-system covers it"
+    -
+      category: "credentials-secrets"
+      status: "required-target-fact-for-eks-inference"
+      note: "the chart generates no Secrets and renders none in either base. The eks-inference base references the external Secret ack-system/aws-creds (key credentials); the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials, so the Secret must exist before the controller pod starts. The default base carries no credential reference at all."
+    -
+      category: "extension-slots"
+      status: "unused-in-audited-bases"
+      note: "deployment.extraEnvVars, extraVolumes, extraVolumeMounts, tolerations, affinity, strategy, annotations and labels are all empty at the audited values; the templates wire them through but nothing in either rendered revision exercises them"

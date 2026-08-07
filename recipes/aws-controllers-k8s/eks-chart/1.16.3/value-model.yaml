@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+spec:
+  checkedValues:
+    -
+      path: "aws.region"
+      variant: "eks-inference"
+      disposition: "environment-owned-input"
+      reason: "renders as the confighubplaceholder sentinel and flows into the AWS_REGION env var that the container args dereference by name; the awsRegion installer input fills it per target via set-env-var addressed by name"
+    -
+      path: "aws.region"
+      variant: "default"
+      disposition: "chart-default-empty"
+      reason: "renders empty, so the controller depends on ambient region configuration at the target"
+    -
+      path: "aws.credentials.secretName"
+      variant: "eks-inference"
+      disposition: "target-secret-reference"
+      reason: "mounts target Secret aws-creds key credentials read-only and adds AWS_SHARED_CREDENTIALS_FILE and AWS_PROFILE env vars; the chart renders no Secret object itself"
+    -
+      path: "deletionPolicy"
+      variant: "eks-inference"
+      disposition: "variant-pinned-safety-control"
+      reason: "pinned to retain because a pruned eks.services.k8s.aws/Cluster would otherwise tear down a live control plane under a pruning reconciler"
+    -
+      path: "deletionPolicy"
+      variant: "default"
+      disposition: "chart-default-audited"
+      reason: "chart default delete removes the AWS resource before the Kubernetes resource; the default base audits that behavior exactly as shipped"
+    -
+      path: "installScope"
+      variant: "default"
+      disposition: "chart-default-kept"
+      reason: "cluster scope emits the ClusterRole and ClusterRoleBinding; namespace scope would replace the binding with per-namespace RoleBindings ranged over watchNamespace; both bases keep cluster scope"
+    -
+      path: "watchNamespace"
+      variant: "default"
+      disposition: "dormant-at-audited-values"
+      reason: "only read when installScope is namespace; the helper defaults it to the release namespace and accepts a comma-separated list; the namespace-scope branch is unexercised by both bases"
+    -
+      path: "metrics.service.create"
+      variant: "eks-inference"
+      disposition: "chart-default-kept"
+      reason: "false, so no metrics Service renders and no scrape endpoint ships with either base; the eks-inference base restates false explicitly"
+    -
+      path: "serviceAccount.name"
+      variant: "default"
+      disposition: "chart-default-kept"
+      reason: "fixed at ack-eks-controller rather than release-derived; the empty annotations map is the IRSA wiring point for ambient credentials"
+    -
+      path: "leaderElection.enabled"
+      variant: "default"
+      disposition: "chart-default-kept"
+      reason: "false, so the leader-election Role, RoleBinding, and flags do not render; the chart comment recommends enabling it before raising replicas above 1"
+    -
+      path: "reconcile.resources"
+      variant: "default"
+      disposition: "chart-default-kept"
+      reason: "enumerates the eight EKS kinds the controller reconciles and feeds the RECONCILE_RESOURCES env var, matching the eight eks.services.k8s.aws CRDs in the render"
+    -
+      path: "image.repository"
+      variant: "default"
+      disposition: "chart-default-kept"
+      reason: "public.ecr.aws/aws-controllers-k8s/eks-controller at tag 1.16.3, pinned to appVersion; the tag is a version tag, not a digest; single image across both bases"
+    -
+      path: "featureGates"
+      variant: "default"
+      disposition: "chart-default-kept"
+      reason: "ReadOnlyResources and ResourceAdoption default true; ServiceLevelCARM, TeamLevelCARM, and IAMRoleSelector default false; the non-empty map always renders the FEATURE_GATES env var and flag"
+    -
+      path: "enableCARM"
+      variant: "default"
+      disposition: "chart-default-kept"
+      reason: "true by default and rendered directly into container args rather than through env vars, unlike almost every other setting in this chart"
+  unknownValues: "deployment.extraEnvVars, extraVolumes, extraVolumeMounts, tolerations, affinity, priorityClassName, hostNetwork, dnsPolicy, strategy, resources, resourceTags, log.*, the reconcile resync and concurrency maps, watchSelectors, aws.endpoint_url and identity_endpoint_url, role.labels, nameOverride, and fullnameOverride stay at chart defaults in both audited bases and were not exhaustively checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

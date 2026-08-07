@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ArtifactManifestDigest"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+spec:
+  url: "oci://public.ecr.aws/aws-controllers-k8s/eks-chart:1.16.3"
+  packageSHA256: "3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054"
+  manifestDigest: "sha256:77d88dd5a04ccc913da49bdb19dc962c83ac67579c0ae061f8c2aaf5ed12365c"
+  note: "OCI manifest digest observed at the original eks-inference import; the tarball packageSHA256 is the render-time pin."

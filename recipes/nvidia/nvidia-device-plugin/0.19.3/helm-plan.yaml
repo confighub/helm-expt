@@ -1,0 +1,40 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "nvidia/nvidia-device-plugin"
+    version: "0.19.3"
+    variants:
+      - "default"
+      - "eks-inference"
+      - "nfd-enabled"
+    helmObjectsByVariant:
+      default: 5
+      eks-inference: 5
+      nfd-enabled: 26
+    cubInstallObjectsByVariant:
+      default: 6
+      eks-inference: 6
+      nfd-enabled: 27
+    helmMatchByVariant:
+      default: "5/5"
+      eks-inference: "5/5"
+      nfd-enabled: "26/26"
+    scanGate: "warn-production-blocked"
+    nextAction: "flatten the default and eks-inference bundles as-is; promote the nfd-enabled bundle only with the post-delete lifecycle route covering all four prune hook documents and the CRD ordering declaration attached"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/render-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+    - "revisions/eks-inference/r001/receipts/install-gate.yaml"
+    - "revisions/nfd-enabled/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/nfd-enabled/r001/receipts/render-receipt.yaml"
+    - "revisions/nfd-enabled/r001/receipts/scan-receipt.yaml"
+    - "revisions/nfd-enabled/r001/receipts/install-gate.yaml"

@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+      note: "artifact-addressed at oci://public.ecr.aws/aws-controllers-k8s/eks-chart version 1.16.3 with a recorded packageSHA256; the kit expresses exact-artifact pinning only through the HELM_EXPT_CHART_ARTIFACT_URL and HELM_EXPT_CHART_ARTIFACT_SHA256 env vars, so generate and verify runs must export both. The OCI manifestDigest has no kit field and is preserved in artifact-manifest-digest.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "zero subchart dependencies; expectedDependencyCount stays at the default 0"
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.31.0"
+      note: "empty apiVersions list in both variants; the render does not depend on the capability profile beyond kubeVersion"
+    -
+      category: "hook-policy"
+      status: "handled"
+      policy: "hooks-rendered-visible"
+      note: "the chart ships zero hooks and zero test hooks, so the render is identical with or without --no-hooks; this entry renders without --no-hooks and declares hooks-rendered-visible so the declaration matches the flags"
+    -
+      category: "crd-policy"
+      status: "needs-route"
+      note: "ten CRDs ship in crds/ and render with --include-crds into both bases; the ordering declaration required by the flattening verdicts ships downstream as the crds/controller split at Argo sync waves -20 and -10; the route travels with the bundle, not inside the chart"
+    -
+      category: "namespace"
+      status: "handled"
+      note: "all namespaced objects land in ack-system; the chart creates no Namespace, so the installer supplies v1|Namespace||ack-system as the single cub-only support object"
+    -
+      category: "credentials-secrets"
+      status: "required-for-eks-inference"
+      evidence: "variants/eks-inference/variant.yaml"
+      note: "the chart renders no Secret and generates none; the eks-inference base mounts target Secret ack-system/aws-creds with key credentials, which must exist before the controller starts; the default base carries no credential wiring and relies on ambient identity via the empty serviceAccount.annotations IRSA slot"
+    -
+      category: "extension-slots"
+      status: "open-unchecked"
+      note: "deployment.extraEnvVars, extraVolumes, and extraVolumeMounts splice raw manifest fragments into the pod spec, and serviceAccount.annotations is the IRSA slot; all stay empty in both audited bases, so their behavior is asserted from template reading, not from a rendered check"

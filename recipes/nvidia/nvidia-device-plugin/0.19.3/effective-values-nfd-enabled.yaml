@@ -1,0 +1,33 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3-nfd-enabled"
+spec:
+  files:
+    -
+      path: "effective-values-nfd-enabled.yaml"
+      source: "inline-proof"
+      sha256: "510c8050ee991353e9d4dcecc3ce9bb85bf67693b547b6a80c32317bb51b1918"
+  mergedValuesCaptured: false
+  values:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            -
+              matchExpressions:
+                -
+                  key: "eks-inference.confighub.com/accelerator"
+                  operator: "Exists"
+    failOnInitError: true
+    nfd:
+      enabled: true
+    tolerations:
+      -
+        effect: "NoSchedule"
+        key: "nvidia.com/gpu"
+        operator: "Exists"
+      -
+        effect: "NoSchedule"
+        key: "eks-inference.confighub.com/h200"
+        operator: "Exists"

@@ -1,0 +1,216 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "aws-controllers-k8s-eks-chart-1.16.3"
+  chart: "aws-controllers-k8s/eks-chart"
+  version: "1.16.3"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "aws-controllers-k8s/eks-chart"
+    version: "1.16.3"
+    appVersion: "1.16.3"
+    sourceLock: "recipes/aws-controllers-k8s/eks-chart/1.16.3/source-lock.yaml"
+    dependencyLock: "recipes/aws-controllers-k8s/eks-chart/1.16.3/dependency-lock.yaml"
+    repository: "oci://public.ecr.aws/aws-controllers-k8s"
+    packageSHA256: "3d76c60ddb8f3272236e0408899eddbb1710f6f59c6464bda43162d94d8a6054"
+  recipe:
+    path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/aws-controllers-k8s/eks-chart/1.16.3/helm-plan.yaml"
+    chartDossier: "recipes/aws-controllers-k8s/eks-chart/1.16.3/chart-dossier.yaml"
+    controlPoints: "recipes/aws-controllers-k8s/eks-chart/1.16.3/control-points.yaml"
+    valueModel: "recipes/aws-controllers-k8s/eks-chart/1.16.3/value-model.yaml"
+    weirdnessAndMitigations: ""
+    controlPointCategories:
+      - "capability-profile"
+      - "crd-policy"
+      - "credentials-secrets"
+      - "dependency-lock"
+      - "extension-slots"
+      - "hook-policy"
+      - "namespace"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "eks-inference"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/aws-controllers-k8s/eks-chart/1.16.3"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3"
+    installer: "packages/aws-controllers-k8s/eks-chart/1.16.3/installer.yaml"
+    receipt: "recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/aws-controllers-k8s/eks-chart/1.16.3/bases/default"
+        default: true
+        description: "eks-chart default variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
+      -
+        name: "eks-inference"
+        path: "packages/aws-controllers-k8s/eks-chart/1.16.3/bases/eks-inference"
+        default: false
+        description: "eks-chart eks-inference variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/default/variant.yaml"
+      namespace: "ack-system"
+      releaseName: "ack-eks"
+      valuesProfile: "recipes/aws-controllers-k8s/eks-chart/1.16.3/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "hooks-rendered-visible"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/aws-controllers-k8s/eks-chart/1.16.3/bases/default"
+        default: true
+        description: "eks-chart default variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+        helmReleaseObjectCount: 20
+        cubInstallObjectCountIncludingSupport: 21
+        semanticObjectMatches: "20/20"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||ack-system"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/variant-revision.yaml"
+          digest: "d5da8664d910f2bc6002cf7d3cac668092b46d2c87a223a95cc35719c4e21565"
+          renderedObjectSetSHA256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+          renderedObjects: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 20
+          helmObjectCount: 20
+          cubInstallObjectCountIncludingSupport: 21
+          semanticObjectMatches: "20/20"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3fe09ae2024abed56f4c85fa918c2950dc8fddc677cec46dc69b681cd43bc3a9"
+    -
+      name: "eks-inference"
+      variant: "recipes/aws-controllers-k8s/eks-chart/1.16.3/variants/eks-inference/variant.yaml"
+      namespace: "ack-system"
+      releaseName: "ack-eks"
+      valuesProfile: "recipes/aws-controllers-k8s/eks-chart/1.16.3/effective-values-eks-inference.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "hooks-rendered-visible"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "credentials"
+            name: "aws-creds"
+            namespace: "ack-system"
+            purpose: "AWS shared credentials file mounted read-only at /var/run/secrets/aws"
+        requiredValues:
+          -
+            installerInput: "awsRegion"
+            path: "aws.region"
+            purpose: "AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target"
+            stage: "setup"
+      targetFactSummary: "required Secret ack-system/aws-creds keys credentials; required Value aws.region (setup)"
+      packageBase:
+        name: "eks-inference"
+        path: "packages/aws-controllers-k8s/eks-chart/1.16.3/bases/eks-inference"
+        default: false
+        description: "eks-chart eks-inference variant rendered from aws-controllers-k8s/eks-chart@1.16.3"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+        helmReleaseObjectCount: 20
+        cubInstallObjectCountIncludingSupport: 21
+        semanticObjectMatches: "20/20"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||ack-system"
+      revisions:
+        -
+          name: "eks-inference-r001"
+          revision: "r001"
+          variantRevision: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/variant-revision.yaml"
+          digest: "47d680387e443f1ae21c72e02c14662247894d4c9eaec538048b3931032150ac"
+          renderedObjectSetSHA256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+          renderedObjects: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+          objectCount: 20
+          helmObjectCount: 20
+          cubInstallObjectCountIncludingSupport: 21
+          semanticObjectMatches: "20/20"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
