@@ -62,21 +62,24 @@ const appVersion = chartMeta.match(/^appVersion:\s*"?([^"\n]+)"?/m)?.[1] ?? "";
 
 const valuesText = readFileSync(args.values, "utf8");
 const valuesSha = sha256(valuesText);
-// effective-values.yaml is a house EffectiveValues artifact; the producer's
-// values file is kept verbatim beside it, comments and all, as the render input.
+// effective-values.yaml is a house EffectiveValues artifact. It lives inside
+// the variant directory because a recipe can carry more than one audited base,
+// and the source values file is kept verbatim beside it, comments and all, as
+// the render input.
 const effectiveValues = {
   apiVersion: "helm-expt.confighub.com/v1alpha1",
   kind: "EffectiveValues",
   metadata: { name: `${args["repo-name"]}-${args.chart}-${args.version}-${args.variant}` },
   spec: {
     profile: "producer-declared",
-    sourceValuesFile: `values/${args.variant}.yaml`,
+    sourceValuesFile: "values.yaml",
     sourceValuesSHA256: valuesSha,
     mergedValuesCaptured: false,
     values: readYamlText(valuesText),
   },
 };
 
+const includeCrds = (args["include-crds"] ?? "true") !== "false";
 const rendered = execFileSync(
   "helm",
   [
@@ -87,7 +90,7 @@ const rendered = execFileSync(
     args.namespace,
     "--kube-version",
     args["kube-version"],
-    "--include-crds",
+    ...(includeCrds ? ["--include-crds"] : []),
     "--values",
     args.values,
   ],
@@ -135,9 +138,10 @@ const variantRecord = {
   spec: {
     namespace: args.namespace,
     releaseName: args.release,
-    valuesProfile: "../../effective-values.yaml",
+    valuesProfile: "./effective-values.yaml",
     valuesOrigin: args["values-origin"],
     capabilityProfile: { kubeVersion: args["kube-version"], apiVersions: [] },
+    includeCrds,
     hookPolicy: "hooks-rendered-visible",
   },
 };
@@ -180,8 +184,8 @@ const inventory = {
 };
 
 write(join(recipeDir, "source-lock.yaml"), `${toYaml(sourceLock)}\n`);
-write(join(recipeDir, "effective-values.yaml"), `${toYaml(effectiveValues)}\n`);
-write(join(recipeDir, "values", `${args.variant}.yaml`), valuesText);
+write(join(recipeDir, "variants", variant, "effective-values.yaml"), `${toYaml(effectiveValues)}\n`);
+write(join(recipeDir, "variants", variant, "values.yaml"), valuesText);
 write(join(recipeDir, "variants", variant, "variant.yaml"), `${toYaml(variantRecord)}\n`);
 write(
   join(recipeDir, "revisions", variant, "r001", "variant-revision.yaml"),

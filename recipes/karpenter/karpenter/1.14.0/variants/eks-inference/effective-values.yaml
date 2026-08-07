@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "karpenter-karpenter-1.14.0-eks-inference"
+spec:
+  profile: "producer-declared"
+  sourceValuesFile: "values.yaml"
+  sourceValuesSHA256: "5a9902fab3ad99d00c5a309fbcfb9b4ef2e712a4661efb5755e923a696f6077f"
+  mergedValuesCaptured: false
+  values:
+    controller:
+      env:
+        -
+          name: "AWS_REGION"
+          value: "confighubplaceholder"
+      resources:
+        limits:
+          memory: "512Mi"
+        requests:
+          cpu: "200m"
+          memory: "512Mi"
+    logLevel: "info"
+    replicas: 1
+    serviceAccount:
+      create: true
+      name: "karpenter"
+    settings:
+      clusterName: "inference-demo"
+      interruptionQueue: ""
