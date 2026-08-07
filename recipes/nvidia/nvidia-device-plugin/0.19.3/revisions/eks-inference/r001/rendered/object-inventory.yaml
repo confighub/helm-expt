@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "eks-inference-r001"
+spec:
+  objectCount: 5
+  renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+  objects:
+    -
+      kind: "ClusterRole"
+      name: "nvidia-device-plugin-role"
+    -
+      kind: "ClusterRoleBinding"
+      name: "nvidia-device-plugin-role-binding"
+    -
+      kind: "DaemonSet"
+      name: "nvidia-device-plugin"
+      namespace: "gpu-operator"
+    -
+      kind: "DaemonSet"
+      name: "nvidia-device-plugin-mps-control-daemon"
+      namespace: "gpu-operator"
+    -
+      kind: "ServiceAccount"
+      name: "nvidia-device-plugin-service-account"
+      namespace: "gpu-operator"

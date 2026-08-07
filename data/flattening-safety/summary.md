@@ -10,6 +10,11 @@ Each audited chart version gets one receipted answer to one question: what happe
 | prometheus-community/kube-prometheus-stack | 87.19.2 | do-not-flatten | recipes/prometheus-community/kube-prometheus-stack/87.19.2/publication/flattening-safety-verdict.yaml |
 | metrics-server/metrics-server | 3.13.1 | safe-to-flatten | recipes/metrics-server/metrics-server/3.13.1/publication/flattening-safety-verdict.yaml |
 | kyverno/kyverno | 3.8.1 | do-not-flatten | recipes/kyverno/kyverno/3.8.1/publication/flattening-safety-verdict.yaml |
+| aws-controllers-k8s/ec2-chart | 1.18.4 | flatten-with-routes | recipes/aws-controllers-k8s/ec2-chart/1.18.4/publication/flattening-safety-verdict.yaml |
+| aws-controllers-k8s/iam-chart | 1.7.3 | flatten-with-routes | recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml |
+| aws-controllers-k8s/eks-chart | 1.16.3 | flatten-with-routes | recipes/aws-controllers-k8s/eks-chart/1.16.3/publication/flattening-safety-verdict.yaml |
+| karpenter/karpenter | 1.14.0 | flatten-with-routes | recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml |
+| nvidia/nvidia-device-plugin | 0.19.3 | safe-to-flatten | recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict.yaml |
 | bitnami/redis | 27.0.0 | do-not-flatten | recipes/bitnami/redis/27.0.0/publication/flattening-safety-verdict.yaml |
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.

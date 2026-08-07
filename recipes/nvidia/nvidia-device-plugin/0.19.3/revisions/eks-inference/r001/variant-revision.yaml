@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "eks-inference-r001"
+spec:
+  variant: "../../../variants/eks-inference/variant.yaml"
+  revision: "r001"
+  digest: "d8f26ea678cfa30e14052904ca24459d622f31deecf951511c84b6fde25a12e6"
+  digestInputs:
+    chartPackageSHA256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
+    variantSHA256: "2ba14c6024652a99af308ee9e162418a9b2a795636b6c8288173edc124317d7a"
+    effectiveValuesSHA256: "6ee97e60311d1cacf81d6a459d6f7c35d5fd8e483622b0266ebc414a4d3d864f"
+    renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5
