@@ -1,0 +1,80 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "hashicorp-consul-2.0.0"
+spec:
+  chart:
+    repository: "hashicorp"
+    name: "consul"
+    version: "2.0.0"
+  package:
+    sha256: "41d0b30408cd3dbbfdafe5207f85d29111636d105dd17dba005ff5c857647dc0"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 215
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 39
+  hookValues:
+    - "post-install,post-upgrade"
+    - "post-upgrade"
+    - "post-upgrade, post-install"
+    - "post-upgrade,post-install"
+    - "pre-delete"
+    - "pre-install"
+    - "pre-install,pre-upgrade"
+    - "pre-upgrade"
+    - "test-success"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 5
+      files:
+        - "templates/connect-injector-disruptionbudget.yaml:4"
+        - "templates/server-disruptionbudget.yaml:4"
+        - "templates/server-statefulset.yaml:50"
+        - "templates/ui-ingress.yaml:8"
+        - "templates/ui-ingress.yaml:33"
+    helm-hooks:
+      count: 44
+      files:
+        - "templates/create-federation-secret-job.yaml:22"
+        - "templates/create-federation-secret-podsecuritypolicy.yaml:15"
+        - "templates/create-federation-secret-role.yaml:14"
+        - "templates/create-federation-secret-rolebinding.yaml:14"
+        - "templates/create-federation-secret-serviceaccount.yaml:14"
+        - "templates/enterprise-license-job.yaml:22"
+        - "templates/gateway-cleanup-job-custom.yaml:17"
+        - "templates/gateway-cleanup-job.yaml:17"
+        - "templates/gateway-resources-job-ocp.yaml:33"
+        - "templates/gateway-resources-job.yaml:18"
+        - "templates/generate-manifests-apply-job.yaml:17"
+        - "templates/generate-manifests-apply-role.yaml:14"
+    resource-policy-keep:
+      count: 1
+      files:
+        - "templates/generate-manifests-pvc.yaml:16"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 2
+      files:
+        - "templates/connect-inject-mutatingwebhookconfiguration.yaml:4"
+        - "templates/connect-inject-validatingwebhookconfiguration.yaml:4"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-runner.yaml:13"

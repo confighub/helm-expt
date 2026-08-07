@@ -1,0 +1,78 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "argo-cd-argo-cd-9.5.17"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argo-cd"
+    version: "9.5.17"
+  package:
+    sha256: "28f2a995cc2d459466e784e541b1bc1f143285246a5fa8e9f3ca02e1e9a75084"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 168
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "redis-ha"
+        condition: "redis-ha.enabled"
+  crds:
+    files: 3
+    documents: 3
+  hookValues:
+    - "pre-install,pre-upgrade"
+    - "test-success"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 16
+      files:
+        - "charts/redis-ha/templates/_helpers.tpl:89"
+        - "charts/redis-ha/templates/_helpers.tpl:102"
+        - "charts/redis-ha/templates/redis-ha-announce-service.yaml:18"
+        - "charts/redis-ha/templates/redis-ha-announce-service.yaml:25"
+        - "charts/redis-ha/templates/redis-ha-servicemonitor.yaml:1"
+        - "charts/redis-ha/templates/redis-haproxy-servicemonitor.yaml:1"
+        - "templates/_helpers.tpl:327"
+        - "templates/_versions.tpl:6"
+        - "templates/argocd-application-controller/prometheusrule.yaml:2"
+        - "templates/argocd-application-controller/servicemonitor.yaml:2"
+        - "templates/argocd-applicationset/servicemonitor.yaml:2"
+        - "templates/argocd-notifications/servicemonitor.yaml:2"
+    helm-hooks:
+      count: 6
+      files:
+        - "charts/redis-ha/templates/tests/test-redis-ha-configmap.yaml:9"
+        - "charts/redis-ha/templates/tests/test-redis-ha-pod.yaml:13"
+        - "templates/redis-secret-init/job.yaml:8"
+        - "templates/redis-secret-init/role.yaml:6"
+        - "templates/redis-secret-init/rolebinding.yaml:6"
+        - "templates/redis-secret-init/serviceaccount.yaml:9"
+    resource-policy-keep:
+      count: 3
+      files:
+        - "templates/crds/crd-application.yaml:7"
+        - "templates/crds/crd-applicationset.yaml:7"
+        - "templates/crds/crd-appproject.yaml:7"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 2
+      files:
+        - "charts/redis-ha/templates/tests/test-redis-ha-configmap.yaml:9"
+        - "charts/redis-ha/templates/tests/test-redis-ha-pod.yaml:13"

@@ -1,0 +1,67 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "velero-velero-12.1.0"
+spec:
+  chart:
+    repository: "velero"
+    name: "velero"
+    version: "12.1.0"
+  package:
+    sha256: "cd23589ad1b2d25cdd3220f6866b3f6f4c5683c4c09494e76a14700b33f81f83"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 42
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 13
+    documents: 13
+  hookValues:
+    - "post-install,post-upgrade,post-rollback"
+    - "pre-delete"
+    - "pre-install,pre-upgrade,pre-rollback"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 5
+      files:
+        - "templates/_helpers.tpl:104"
+        - "templates/poddisruptionbudget.yaml:2"
+        - "templates/podmonitor.yaml:1"
+        - "templates/prometheusrule.yaml:1"
+        - "templates/servicemonitor.yaml:1"
+    helm-hooks:
+      count: 6
+      files:
+        - "templates/cleanup-crds.yaml:14"
+        - "templates/label-namespace/labelnamespace.yaml:9"
+        - "templates/upgrade-crds/clusterrole-upgrade.yaml:7"
+        - "templates/upgrade-crds/clusterrolebinding-upgrade.yaml:13"
+        - "templates/upgrade-crds/serviceaccount-upgrade.yaml:8"
+        - "templates/upgrade-crds/upgrade-crds.yaml:10"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

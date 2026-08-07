@@ -1,0 +1,83 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-elasticsearch-22.1.6"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "elasticsearch"
+    version: "22.1.6"
+  package:
+    sha256: "5c9db533f891fc52fbea44bd15d2782b38c78ad943b80e9afff35103daf10e6a"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 108
+  subcharts:
+    count: 3
+    conditions:
+      -
+        dependency: "kibana"
+        condition: "global.kibanaEnabled"
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "post-install,post-upgrade"
+  findings:
+    lookup:
+      count: 6
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:103"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:166"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:188"
+    capabilities:
+      count: 10
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:170"
+        - "charts/common/templates/_capabilities.tpl:171"
+        - "charts/common/templates/_compatibility.tpl:14"
+        - "charts/kibana/charts/common/templates/_capabilities.tpl:12"
+        - "charts/kibana/charts/common/templates/_capabilities.tpl:22"
+        - "charts/kibana/charts/common/templates/_capabilities.tpl:170"
+        - "charts/kibana/charts/common/templates/_capabilities.tpl:171"
+        - "charts/kibana/charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 1
+      files:
+        - "values.yaml:2236"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 24
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:70"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:95"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:132"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:133"
+        - "charts/kibana/charts/common/templates/_secrets.tpl:137"
+        - "charts/kibana/templates/tls-secret.yaml:27"
+        - "charts/kibana/templates/tls-secret.yaml:28"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

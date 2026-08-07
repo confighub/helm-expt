@@ -1,0 +1,73 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "rabbitmq"
+    version: "16.0.14"
+  package:
+    sha256: "df625220cafdfe892e68c1b3f1a5500049acd227fe90b2deca04df13190a176b"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 45
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+    capabilities:
+      count: 5
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:170"
+        - "charts/common/templates/_capabilities.tpl:171"
+        - "charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 12
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/ingress-tls-secrets.yaml:27"
+        - "templates/ingress-tls-secrets.yaml:28"
+        - "templates/secrets.yaml:9"
+        - "templates/secrets.yaml:10"
+        - "templates/tls-secrets.yaml:25"
+        - "templates/tls-secrets.yaml:31"
+        - "values.yaml:470"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -1,0 +1,74 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2"
+spec:
+  chart:
+    repository: "gatekeeper"
+    name: "gatekeeper"
+    version: "3.22.2"
+  package:
+    sha256: "aadb0419b4e85feaa838de14a2f51342543047e20f9e3d2920f83244e10bc801"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 40
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 17
+    documents: 17
+  hookValues:
+    - "post-install"
+    - "post-upgrade"
+    - "pre-delete"
+    - "pre-install,pre-upgrade"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 4
+      files:
+        - "templates/gatekeeper-controller-manager-poddisruptionbudget.yaml:2"
+        - "templates/gatekeeper-controller-manager-poddisruptionbudget.yaml:3"
+        - "templates/gatekeeper-mutating-webhook-configuration-mutatingwebhookconfiguration.yaml:29"
+        - "templates/gatekeeper-validating-webhook-configuration-validatingwebhookconfiguration.yaml:29"
+    helm-hooks:
+      count: 17
+      files:
+        - "templates/namespace-post-install.yaml:11"
+        - "templates/namespace-post-install.yaml:104"
+        - "templates/namespace-post-install.yaml:119"
+        - "templates/namespace-post-install.yaml:151"
+        - "templates/namespace-post-upgrade.yaml:11"
+        - "templates/namespace-post-upgrade.yaml:95"
+        - "templates/namespace-post-upgrade.yaml:110"
+        - "templates/namespace-post-upgrade.yaml:139"
+        - "templates/probe-webhook-post-install.yaml:11"
+        - "templates/upgrade-crds-hook.yaml:12"
+        - "templates/upgrade-crds-hook.yaml:34"
+        - "templates/upgrade-crds-hook.yaml:58"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 2
+      files:
+        - "templates/gatekeeper-mutating-webhook-configuration-mutatingwebhookconfiguration.yaml:4"
+        - "templates/gatekeeper-validating-webhook-configuration-validatingwebhookconfiguration.yaml:4"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

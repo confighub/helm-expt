@@ -1,0 +1,60 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "longhorn-longhorn-1.12.0"
+spec:
+  chart:
+    repository: "longhorn"
+    name: "longhorn"
+    version: "1.12.0"
+  package:
+    sha256: "869bb20701b154473606f1e8967b27f34f2448a2dfe6eb8970f1cae6957384f5"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 37
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 23
+  hookValues:
+    - "post-upgrade"
+    - "pre-delete"
+    - "pre-upgrade"
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "templates/validate-psp-install.yaml:1"
+    capabilities:
+      count: 1
+      files:
+        - "templates/validate-psp-install.yaml:3"
+    helm-hooks:
+      count: 3
+      files:
+        - "templates/postupgrade-job.yaml:5"
+        - "templates/preupgrade-job.yaml:6"
+        - "templates/uninstall-job.yaml:5"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -1,0 +1,59 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "falcosecurity-falcosidekick-0.13.1"
+spec:
+  chart:
+    repository: "falcosecurity"
+    name: "falcosidekick"
+    version: "0.13.1"
+  package:
+    sha256: "8ab1a7225a1da64547b9bf04244cbaa67c10e26ed784f44740e0246947d18d9a"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 24
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test-success"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 4
+      files:
+        - "templates/_helpers.tpl:38"
+        - "templates/_helpers.tpl:40"
+        - "templates/_helpers.tpl:79"
+        - "templates/servicemonitor.yaml:1"
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:12"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/test-connection.yaml:12"

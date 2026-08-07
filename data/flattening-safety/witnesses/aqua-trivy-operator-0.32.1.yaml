@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "aqua-trivy-operator-0.32.1"
+spec:
+  chart:
+    repository: "aqua"
+    name: "trivy-operator"
+    version: "0.32.1"
+  package:
+    sha256: "2dfb5c7f8a2b8cd338208c362b88e4eae607b24f199226c31a6f5bb76c7ace08"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 46
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 12
+    documents: 12
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "templates/namespace.yaml:2"
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 1
+      files:
+        - "templates/namespace.yaml:5"
+    test-hooks:
+      count: 0
+      files:
+        []

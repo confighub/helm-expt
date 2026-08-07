@@ -1,0 +1,58 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "opencost-opencost-2.5.21"
+spec:
+  chart:
+    repository: "opencost"
+    name: "opencost"
+    version: "2.5.21"
+  package:
+    sha256: "5f346f7e81d145b6e9d7f8217d1dafa3e31650a3c71b021274f6143220888649"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 34
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 3
+      files:
+        - "templates/_helpers.tpl:250"
+        - "templates/_helpers.tpl:252"
+        - "templates/route.yaml:1"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

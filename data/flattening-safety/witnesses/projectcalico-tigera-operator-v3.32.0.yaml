@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "projectcalico-tigera-operator-v3.32.0"
+spec:
+  chart:
+    repository: "projectcalico"
+    name: "tigera-operator"
+    version: "v3.32.0"
+  package:
+    sha256: "7e968633c7d8b1de1e648a15fa838995bdbae285bdca9af9badd13156e360450"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 17
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "pre-delete"
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "templates/crs/configmap-felixconfiguration-templates.yaml:4"
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/tigera-operator/00-uninstall.yaml:13"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

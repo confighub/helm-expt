@@ -1,0 +1,69 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "haproxytech-kubernetes-ingress-1.52.0"
+spec:
+  chart:
+    repository: "haproxytech"
+    name: "kubernetes-ingress"
+    version: "1.52.0"
+  package:
+    sha256: "90920ec938be27e638b86e8267bde75d90058e61ca8c3c64ad27f05d0d5a73f1"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 89
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "post-install,pre-upgrade"
+    - "pre-install"
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "templates/controller-defaultcertsecret.yaml:21"
+    capabilities:
+      count: 8
+      files:
+        - "templates/NOTES.txt:26"
+        - "templates/NOTES.txt:52"
+        - "templates/_podspec.tpl:108"
+        - "templates/_podspec.tpl:188"
+        - "templates/controller-podsecuritypolicy.yaml:17"
+        - "templates/controller-proxy-service.yaml:67"
+        - "templates/controller-service.yaml:66"
+        - "templates/controller-service.yaml:108"
+    helm-hooks:
+      count: 5
+      files:
+        - "templates/controller-crdjob-rbac.yaml:26"
+        - "templates/controller-crdjob-rbac.yaml:39"
+        - "templates/controller-crdjob-rbac.yaml:65"
+        - "templates/controller-crdjob.yaml:27"
+        - "templates/controller-defaultcertsecret.yaml:31"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 2
+      files:
+        - "templates/_helpers.tpl:130"
+        - "templates/_helpers.tpl:132"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 1
+      files:
+        - "templates/namespace.yaml:19"
+    test-hooks:
+      count: 0
+      files:
+        []

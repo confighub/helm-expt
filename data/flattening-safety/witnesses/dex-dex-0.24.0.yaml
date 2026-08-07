@@ -1,0 +1,67 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "dex-dex-0.24.0"
+spec:
+  chart:
+    repository: "dex"
+    name: "dex"
+    version: "0.24.0"
+  package:
+    sha256: "24d486ac2182b919483a9840339997443793ce637e3f10d37ab3284eaa229d33"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 19
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "test"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 15
+      files:
+        - "templates/hpa.yaml:2"
+        - "templates/hpa.yaml:22"
+        - "templates/hpa.yaml:37"
+        - "templates/ingress.yaml:4"
+        - "templates/ingress.yaml:9"
+        - "templates/ingress.yaml:11"
+        - "templates/ingress.yaml:27"
+        - "templates/ingress.yaml:47"
+        - "templates/ingress.yaml:51"
+        - "templates/networkpolicy.yaml:2"
+        - "templates/poddisruptionbudget.yaml:2"
+        - "templates/service.yaml:30"
+    helm-hooks:
+      count: 1
+      files:
+        - "templates/tests/no-config-secret.yaml:9"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 1
+      files:
+        - "templates/tests/no-config-secret.yaml:9"

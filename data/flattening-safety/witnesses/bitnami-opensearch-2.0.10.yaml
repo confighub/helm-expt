@@ -1,0 +1,73 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-opensearch-2.0.10"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "opensearch"
+    version: "2.0.10"
+  package:
+    sha256: "bced5a244e0260965fde8a92dd630992834ca31df7fe6bf7a189d1a2b2a88dfc"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 89
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+    capabilities:
+      count: 5
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:170"
+        - "charts/common/templates/_capabilities.tpl:171"
+        - "charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 1
+      files:
+        - "templates/snapshots/pvc.yaml:16"
+    generated-secrets:
+      count: 22
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/dashboards/ingress-tls-secret.yaml:27"
+        - "templates/dashboards/ingress-tls-secret.yaml:28"
+        - "templates/dashboards/tls-secret.yaml:7"
+        - "templates/dashboards/tls-secret.yaml:11"
+        - "templates/ingress-tls-secrets.yaml:27"
+        - "templates/ingress-tls-secrets.yaml:28"
+        - "templates/ingress-tls-secrets.yaml:68"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -1,0 +1,56 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-29.0.0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "prometheus-operator-crds"
+    version: "29.0.0"
+  package:
+    sha256: "25b32cd6f4483e0ebe9ebd08b8cd1c073ff734ceb82e84bacfb75d552ce2fafd"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 13
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 11
+    documents: 11
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

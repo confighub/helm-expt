@@ -1,0 +1,60 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "hashicorp-terraform-1.1.2"
+spec:
+  chart:
+    repository: "hashicorp"
+    name: "terraform"
+    version: "1.1.2"
+  package:
+    sha256: "9115fecf667f3d41a5a1c5833de948ef699321a6165be7bebe4976a7279702d5"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 22
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 1
+    documents: 1
+  hookValues:
+    - "test"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 3
+      files:
+        - "templates/tests/test-configmap.yaml:13"
+        - "templates/tests/test-runner.yaml:12"
+        - "templates/tests/test-workspace.yaml:13"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 3
+      files:
+        - "templates/tests/test-configmap.yaml:13"
+        - "templates/tests/test-runner.yaml:12"
+        - "templates/tests/test-workspace.yaml:13"

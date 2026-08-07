@@ -1,0 +1,58 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "argo-cd-argo-events-2.4.21"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argo-events"
+    version: "2.4.21"
+  package:
+    sha256: "b325ca4569aa43b6bef3bb0065bb997727124017b307491a731e47cf527b69c7"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 21
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 3
+    documents: 3
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 1
+      files:
+        - "templates/_helpers.tpl:136"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 3
+      files:
+        - "templates/crds/eventbus-crd.yml:8"
+        - "templates/crds/eventsources-crd.yml:8"
+        - "templates/crds/sensors-crd.yml:8"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

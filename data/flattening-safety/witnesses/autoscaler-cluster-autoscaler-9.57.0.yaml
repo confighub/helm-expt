@@ -1,0 +1,59 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9.57.0"
+spec:
+  chart:
+    repository: "autoscaler"
+    name: "cluster-autoscaler"
+    version: "9.57.0"
+  package:
+    sha256: "d1cc7757b42bcc61e2ff70087552d95c33f74a43c04779bf258d29485f882e45"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 20
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 4
+      files:
+        - "templates/_helpers.tpl:58"
+        - "templates/_helpers.tpl:70"
+        - "templates/_helpers.tpl:82"
+        - "values.yaml:314"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

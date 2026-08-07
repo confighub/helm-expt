@@ -1,0 +1,74 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-redis-25.5.3"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "redis"
+    version: "25.5.3"
+  package:
+    sha256: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 64
+  subcharts:
+    count: 1
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 8
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+        - "templates/_helpers.tpl:228"
+        - "templates/sentinel/node-services.yaml:10"
+        - "templates/sentinel/ports-configmap.yaml:12"
+        - "templates/sentinel/ports-configmap.yaml:81"
+        - "templates/sentinel/service.yaml:8"
+    capabilities:
+      count: 5
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:165"
+        - "charts/common/templates/_capabilities.tpl:166"
+        - "charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 8
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/_helpers.tpl:208"
+        - "templates/tls-secret.yaml:8"
+        - "templates/tls-secret.yaml:16"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

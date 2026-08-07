@@ -1,0 +1,84 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "bitnami-phpmyadmin-20.0.0"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "phpmyadmin"
+    version: "20.0.0"
+  package:
+    sha256: "1edc604fa2c2e02d3fa14e866e6278f6ea987f52ef8580a7f4058f3fb6329fa8"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 90
+  subcharts:
+    count: 3
+    conditions:
+      -
+        dependency: "mariadb"
+        condition: "db.bundleTestDB"
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 7
+      files:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:103"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:166"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:188"
+        - "charts/mariadb/templates/_helpers.tpl:217"
+    capabilities:
+      count: 10
+      files:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:170"
+        - "charts/common/templates/_capabilities.tpl:171"
+        - "charts/common/templates/_compatibility.tpl:14"
+        - "charts/mariadb/charts/common/templates/_capabilities.tpl:12"
+        - "charts/mariadb/charts/common/templates/_capabilities.tpl:22"
+        - "charts/mariadb/charts/common/templates/_capabilities.tpl:170"
+        - "charts/mariadb/charts/common/templates/_capabilities.tpl:171"
+        - "charts/mariadb/charts/common/templates/_compatibility.tpl:14"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 18
+      files:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:70"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:95"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:132"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:133"
+        - "charts/mariadb/charts/common/templates/_secrets.tpl:137"
+        - "charts/mariadb/templates/secrets.yaml:8"
+        - "charts/mariadb/templates/secrets.yaml:11"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

@@ -1,0 +1,79 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "grafana-grafana-10.5.15"
+spec:
+  chart:
+    repository: "grafana"
+    name: "grafana"
+    version: "10.5.15"
+  package:
+    sha256: "c08c87969270402e7d5227edb8385af67cc32ee34817bff89773ad02303b5d79"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 50
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 0
+    documents: 0
+  hookValues:
+    - "{{ .Values.testFramework.hookType | default \"test\" }}"
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "templates/_helpers.tpl:110"
+        - "templates/pvc.yaml:30"
+        - "templates/pvc.yaml:31"
+    capabilities:
+      count: 12
+      files:
+        - "templates/_helpers.tpl:122"
+        - "templates/_helpers.tpl:133"
+        - "templates/_helpers.tpl:135"
+        - "templates/_helpers.tpl:146"
+        - "templates/_helpers.tpl:159"
+        - "templates/_helpers.tpl:177"
+        - "templates/_helpers.tpl:184"
+        - "templates/podsecuritypolicy.yaml:1"
+        - "templates/role.yaml:15"
+        - "templates/tests/test-podsecuritypolicy.yaml:1"
+        - "templates/tests/test-role.yaml:1"
+        - "templates/tests/test-rolebinding.yaml:1"
+    helm-hooks:
+      count: 6
+      files:
+        - "templates/tests/test-configmap.yaml:8"
+        - "templates/tests/test-podsecuritypolicy.yaml:7"
+        - "templates/tests/test-role.yaml:8"
+        - "templates/tests/test-rolebinding.yaml:8"
+        - "templates/tests/test-serviceaccount.yaml:10"
+        - "templates/tests/test.yaml:10"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 1
+      files:
+        - "templates/_helpers.tpl:114"
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 6
+      files:
+        - "templates/tests/test-configmap.yaml:8"
+        - "templates/tests/test-podsecuritypolicy.yaml:7"
+        - "templates/tests/test-role.yaml:8"
+        - "templates/tests/test-rolebinding.yaml:8"
+        - "templates/tests/test-serviceaccount.yaml:10"
+        - "templates/tests/test.yaml:10"

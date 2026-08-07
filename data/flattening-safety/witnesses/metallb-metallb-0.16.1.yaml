@@ -1,0 +1,62 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "metallb-metallb-0.16.1"
+spec:
+  chart:
+    repository: "metallb"
+    name: "metallb"
+    version: "0.16.1"
+  package:
+    sha256: "fb06bb584fcb7856f15733b2a6a2aff5b61b5c350687e341c163ae24a5938adc"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 32
+  subcharts:
+    count: 3
+    conditions:
+      -
+        dependency: "crds"
+        condition: "crds.enabled"
+      -
+        dependency: "frr-k8s"
+        condition: "frrk8s.enabled"
+  crds:
+    files: 7
+    documents: 15
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 0
+      files:
+        []
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 2
+      files:
+        - "charts/frr-k8s/templates/webhooks.yaml:20"
+        - "templates/webhooks.yaml:2"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

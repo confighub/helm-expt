@@ -1,0 +1,69 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argo-workflows"
+    version: "1.0.14"
+  package:
+    sha256: "552fd9548aa107cd495a5e1277c4995b0389591ce945537a356863bfc791c339"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 45
+  subcharts:
+    count: 0
+    conditions:
+      []
+  crds:
+    files: 8
+    documents: 8
+  hookValues:
+    - "pre-install,pre-upgrade"
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 3
+      files:
+        - "templates/_helpers.tpl:147"
+        - "templates/_helpers.tpl:187"
+        - "templates/controller/workflow-controller-servicemonitor.yaml:2"
+    helm-hooks:
+      count: 4
+      files:
+        - "templates/crds-install-job.yaml:12"
+        - "templates/crds-install-job.yaml:23"
+        - "templates/crds-install-job.yaml:38"
+        - "templates/crds-install-job.yaml:58"
+    resource-policy-keep:
+      count: 9
+      files:
+        - "files/crds/minimal/argoproj.io_clusterworkflowtemplates.yaml:6"
+        - "files/crds/minimal/argoproj.io_cronworkflows.yaml:6"
+        - "files/crds/minimal/argoproj.io_workflowartifactgctasks.yaml:6"
+        - "files/crds/minimal/argoproj.io_workfloweventbindings.yaml:6"
+        - "files/crds/minimal/argoproj.io_workflows.yaml:6"
+        - "files/crds/minimal/argoproj.io_workflowtaskresults.yaml:6"
+        - "files/crds/minimal/argoproj.io_workflowtasksets.yaml:6"
+        - "files/crds/minimal/argoproj.io_workflowtemplates.yaml:6"
+        - "templates/_helpers.tpl:217"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []

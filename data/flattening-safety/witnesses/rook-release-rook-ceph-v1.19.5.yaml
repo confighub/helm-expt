@@ -1,0 +1,70 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "rook-release-rook-ceph-v1.19.5"
+spec:
+  chart:
+    repository: "rook-release"
+    name: "rook-ceph"
+    version: "v1.19.5"
+  package:
+    sha256: "8f409c339559714d7bae19c8bea166ed54a0bb351d5ee99a13588c9ffece1191"
+    observedAt: "2026-08-07T16:00:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+  scannedFiles: 76
+  subcharts:
+    count: 2
+    conditions:
+      -
+        dependency: "ceph-csi-operator"
+        condition: "csi.rookUseCsiOperator"
+  crds:
+    files: 0
+    documents: 25
+  hookValues:
+    []
+  findings:
+    lookup:
+      count: 0
+      files:
+        []
+    capabilities:
+      count: 2
+      files:
+        - "templates/deployment.yaml:92"
+        - "templates/securityContextConstraints.yaml:1"
+    helm-hooks:
+      count: 0
+      files:
+        []
+    resource-policy-keep:
+      count: 20
+      files:
+        - "templates/resources.yaml:8"
+        - "templates/resources.yaml:357"
+        - "templates/resources.yaml:887"
+        - "templates/resources.yaml:1083"
+        - "templates/resources.yaml:1319"
+        - "templates/resources.yaml:1471"
+        - "templates/resources.yaml:6298"
+        - "templates/resources.yaml:6930"
+        - "templates/resources.yaml:7632"
+        - "templates/resources.yaml:9277"
+        - "templates/resources.yaml:9441"
+        - "templates/resources.yaml:11570"
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 0
+      files:
+        []
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 0
+      files:
+        []
