@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The inference entry retains NIM on KServe as configuration · Config Workshop</title>
-  <meta name="description" content="The inference entry retains NIM on KServe as configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html">
-  <meta property="og:title" content="The inference entry retains NIM on KServe as configuration · Config Workshop">
-  <meta property="og:description" content="The inference entry retains NIM on KServe as configuration: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>KServe NIM inference ConfigHub import proof · Config Workshop</title>
+  <meta name="description" content="KServe NIM inference ConfigHub import proof: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/aicr-kserve-nim-import/summary.html">
+  <meta property="og:title" content="KServe NIM inference ConfigHub import proof · Config Workshop">
+  <meta property="og:description" content="KServe NIM inference ConfigHub import proof: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/aicr-kserve-nim-import/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,38 +433,25 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The inference entry retains NIM on KServe as configuration</h1>
-    <p class="lead">The <a href="../../../examples/aicr/kserve-nim-inference/upstream/kserve/README.html">upstream tree</a> is the <code>kserve</code> subtree of <a href="https://github.com/NVIDIA/nim-deploy">NVIDIA/nim-deploy</a> at commit <code>3ef33472b84da9f39131dff0326bf05ac1dc0fe6</code> (2026-07-31), copied unmodified under its Apache-2.0 license, which <a href="../../../../../examples/aicr/kserve-nim-inference/upstream/LICENSE">travels with the tree</a>. The tree holds ten <code>ClusterServingRuntime</code> definitions, one per NIM version, and sixteen <code>InferenceService</code> shapes covering the upstream model-by-GPU matrix, from one-GPU Llama 3.1 8B up to eight-GPU Mixtral, plus the setup scripts. That matrix is real upstream variety, not manufactured variety: every shape in it was authored by NVIDIA. <a href="../../../../../docs/demo/aicr/kserve-nim-inference.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>KServe NIM inference ConfigHub import proof</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-kserve-nim-import/summary.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It retains NVIDIA's KServe reference implementation for NIM inference as governed configuration, pinned by one digest, with the licensing boundary enforced in code. It is a config-plane entry: no NIM container ran, no model was fetched, and no NGC surface was contacted to produce or verify anything here.</p>
-<h2 id="what-is-retained">What is retained</h2>
-
-<p>The <a href="../../../../../examples/aicr/kserve-nim-inference/retention-receipt.yaml">retention receipt</a> pins the source, the commit, the retrieval method, and the boundary. One provenance note matters for the record: nim-deploy removed its local nim-llm Helm chart on 2025-05-09 (pull request 143), and that chart now ships only through NGC. The <a href="../../planning/nim-ngc-license-read.html">license read</a> classifies NGC-served artifacts as gated, so the KServe path is the surface this catalog retains from GitHub.</p>
-<h2 id="one-digest-pins-the-shape">One digest pins the shape</h2>
-<pre><code>npm run aicr-kserve-nim:verify
-npm run aicr-kserve-nim:self-test</code></pre>
-<p>The <a href="../../../examples/aicr/kserve-nim-inference/digest-index/README.html">digest index</a> compiles one immutable payload per component: each serving runtime, each model shape, and the described model profile, with every support file bound by checksum. The whole entry is pinned by <code>sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720</code>. The compiler refuses to compile when any retained byte drifts from its recorded checksum, when an <code>InferenceService</code> references a runtime that is not retained, or when a literal credential value appears anywhere in the tree. The self-test proves all of that against fake surfaces only.</p>
-<h2 id="the-licensing-boundary-enforced-in-code">The licensing boundary, enforced in code</h2>
-<p>The retained runtimes reference NGC-gated images such as <code>nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0</code>. The index lists every gated reference explicitly, and the references are configuration data: the images are pulled only by a user's cluster, with the user's own NGC API key, under the user's own NVIDIA entitlement. Every secret surface in the tree carries names or environment substitutions only, and the compiler's credential guard turns that observation into a refusal rule.</p>
-<p>The <a href="../../../../../examples/aicr/kserve-nim-inference/profile/model-profile.yaml">model profile</a> describes the smallest current-generation shape, Llama 3.1 8B on one GPU, as data. It records the four governing-terms names the NGC catalog page stated on 2026-08-07, including the Llama 3.1 Community License Agreement for the model itself, and it tells the reader to re-read the per-artifact terms at deploy time because those override any general statement.</p>
-<h2 id="the-retained-surfaces-imported-into-confighub">The retained surfaces, imported into ConfigHub</h2>
-<pre><code>npm run aicr-kserve-nim-import:verify</code></pre>
-<p>The entry's first live proof follows the training entry's path. A scratch run imported the twenty-six retained deployment surfaces (ten serving runtimes and sixteen model shapes) as one ConfigHub base-variant Unit from a temporary OCI reference, and the imported Unit matched the committed retained bytes exactly, with the Space recording the exact OCI source and digest. The license boundary held live: no NGC surface was contacted, no image was pulled, the imported data carries no literal credential value, and the gated image references present in the runtimes are recorded in the <a href="../../../../../runs/aicr-kserve-nim-import/receipt.yaml">receipt</a> as evidence that references are data. The <a href="../../../data/aicr-kserve-nim-import/summary.html">summary</a> retells the run; the scratch Space and registry were removed afterward.</p>
-<h2 id="what-is-proven-and-what-is-not">What is proven and what is not</h2>
-<p>Proven: the retention is exact, the shape is pinned by one digest, the cross-references hold, no credential value exists in the tree, and ConfigHub imported the retained surfaces byte-faithful with the license boundary held live. Not proven, and stated rather than implied: no KServe cluster ran these shapes under this catalog, no NIM container started, no model was fetched, and no GPU workload claim exists. The next increments follow the starter's ladder: a reviewed variant change with promotion, then config-plane delivery mechanics.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from the committed live receipt. Rerun the scratch proof with <code>npm run aicr-kserve-nim-import:run</code>; verify it without external access with <code>npm run aicr-kserve-nim-import:verify</code>.</p>
+<p>ConfigHub imported the 26 retained KServe NIM surfaces (10 serving runtimes and 16 model shapes from the Apache-2.0 nim-deploy KServe subtree) as one base-variant Unit from a temporary OCI reference, and the imported Unit matched the committed retained bytes exactly. The entry's committed platform digest at the time of the run was <code>sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720</code>.</p>
+<p>The license boundary held live. The artifact carried only retained configuration; no NGC surface was contacted, no image was pulled, and the imported data carries no literal credential value. The 10 gated image references present in the imported runtimes are recorded in the receipt as evidence that references are data.</p>
+<p>The proof ran in the scratch organization <code>Cubby AI Inc</code> on 2026-08-07T09:40:58.571Z. The scratch Space and temporary registry were removed afterward.</p>
+<h2 id="limits">Limits</h2>
+<ul><li>This run used a temporary local registry; it does not prove public registry publication.</li><li>This run started no Kubernetes cluster and required no KServe installation. It does not prove serving, model loading, or any workload behavior.</li><li>The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution.</li><li>This receipt proves one retained-entry import. Variants, promotion, and delivery for the inference entry are separate increments.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/kserve-nim-inference.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/aicr-kserve-nim-import/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

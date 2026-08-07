@@ -470,6 +470,8 @@ npm run aicr-kserve-nim:self-test</code></pre>
 <pre><code>npm run aicr-cpu-starter:verify
 npm run aicr-cpu-starter:self-test</code></pre>
 <p>The training entry also carries an OCI round-trip receipt and a variant-promotion receipt that changed one Grafana credential in a development variant and promoted it to staging with matching data hashes. The <a href="eks-h100-training-kubeflow.html">entry page</a> walks through both.</p>
+<h2 id="each-entry-climbs-the-same-proof-ladder">Each entry climbs the same proof ladder</h2>
+<p>The proofs repeat one ladder per entry, and each rung has a committed receipt its verify lane recompiles offline. The training entry proved import, the reviewed Grafana change, and the staging promotion. The <a href="cpu-starter.html">CPU starter</a> climbed the whole ladder: ConfigHub import with the reviewed gp3 override and its staging promotion, config-plane delivery to a kind cluster with the application controller held at zero, and one reviewed component synced to Healthy with its volume bound by the reviewed storage class. The <a href="kserve-nim-inference.html">inference entry</a> started its ladder with the ConfigHub import of all twenty-six retained surfaces, with the license boundary held live. The rungs an entry has not climbed stay absent from its claims rather than implied.</p>
 <h2 id="the-boundary-every-receipt-states">The boundary every receipt states</h2>
 <p>All proofs here run on kind or against ConfigHub, and they prove config-plane mechanics only: import, render, digest pinning, variant, promotion, delivery wiring. No GPU workload ran to produce or verify any receipt in this catalog. Workload-plane claims wait until a real GPU target exists, and they stay absent rather than implied.</p>
     </article>
