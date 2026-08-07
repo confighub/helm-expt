@@ -63,13 +63,32 @@ data. It records the four governing-terms names the NGC catalog page stated on
 itself, and it tells the reader to re-read the per-artifact terms at deploy
 time because those override any general statement.
 
+## The retained surfaces, imported into ConfigHub
+
+```bash
+npm run aicr-kserve-nim-import:verify
+```
+
+The entry's first live proof follows the training entry's path. A scratch run
+imported the twenty-six retained deployment surfaces (ten serving runtimes
+and sixteen model shapes) as one ConfigHub base-variant Unit from a temporary
+OCI reference, and the imported Unit matched the committed retained bytes
+exactly, with the Space recording the exact OCI source and digest. The
+license boundary held live: no NGC surface was contacted, no image was
+pulled, the imported data carries no literal credential value, and the gated
+image references present in the runtimes are recorded in the
+[receipt](../../../runs/aicr-kserve-nim-import/receipt.yaml) as evidence that
+references are data. The
+[summary](../../../data/aicr-kserve-nim-import/summary.md) retells the run;
+the scratch Space and registry were removed afterward.
+
 ## What is proven and what is not
 
-Proven, offline and deterministically: the retention is exact, the shape is
-pinned by one digest, the cross-references hold, and no credential value
-exists in the tree. Not proven, and stated rather than implied: no KServe
-cluster ran these shapes under this catalog, no NIM container started, no
-model was fetched, and no GPU workload claim exists. The next config-plane
-step follows the training entry's path: import the retained shapes into
-ConfigHub as a base variant, then exercise variant and promotion mechanics
-with receipts.
+Proven: the retention is exact, the shape is pinned by one digest, the
+cross-references hold, no credential value exists in the tree, and ConfigHub
+imported the retained surfaces byte-faithful with the license boundary held
+live. Not proven, and stated rather than implied: no KServe cluster ran these
+shapes under this catalog, no NIM container started, no model was fetched,
+and no GPU workload claim exists. The next increments follow the starter's
+ladder: a reviewed variant change with promotion, then config-plane delivery
+mechanics.

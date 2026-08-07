@@ -1,0 +1,60 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrKserveNimImportProofReceipt"
+metadata:
+  name: "aicr-kserve-nim-inference-3ef33472-import"
+spec:
+  recordedAt: "2026-08-07T09:40:58.571Z"
+  context:
+    name: "playful-cub"
+    organization: "Cubby AI Inc"
+    purpose: "temporary scratch proof"
+  source:
+    format: "retained KServe NIM literal configuration OCI"
+    committedEntry: "examples/aicr/kserve-nim-inference"
+    platformDigest: "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720"
+    temporaryReference: "oci://localhost:32780/aicr-kserve-nim-inference:3ef33472"
+    digest: "sha256:d6be914d40413913dbee82916aa0165e2a1f938d2cac9e031ada6c42ffce10eb"
+    documentCount: 26
+    kindCounts:
+      InferenceService: 16
+      ClusterServingRuntime: 10
+    exactSourceObjectsMatched: true
+    canonicalDataSha256: "5aa16f0fcb78d1eedf4a607d9a03b6c7a66a3e3b4573fbef17b8917c1ed0f224"
+  base:
+    space: "hx-kserve-nim-20260807094053-base"
+    spaceId: "64035805-4d2e-4432-9d23-30781dfc118e"
+    unit: "hx-kserve-nim-20260807094053"
+    unitId: "fc6c44b0-5563-49b5-ba65-cd417e66ef17"
+    headRevision: 1
+    dataHash: "acd15c2ddcf7eefcb6c2c84118dabf186efe32e4cf73223f5f9d8d400c1e9227"
+  licenseBoundary:
+    ngcContacted: false
+    imagesPulled: false
+    modelsFetched: false
+    embeddedCredentialValues: false
+    gatedImageReferences:
+      - "nvcr.io/nim/meta/llama-3.1-70b-instruct:1.1.0"
+      - "nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0"
+      - "nvcr.io/nim/meta/llama3-70b-instruct:1.0.0"
+      - "nvcr.io/nim/meta/llama3-8b-instruct:1.0.0"
+      - "nvcr.io/nim/mistralai/mistral-7b-instruct-v03:1.0.0"
+      - "nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0"
+      - "nvcr.io/nim/mistralai/mixtral-8x7b-instruct-v01:1.0.0"
+      - "nvcr.io/nim/nvidia/llama-3.3-nemotron-super-49b-v1:1.8.2"
+      - "nvcr.io/nim/nvidia/nv-embedqa-e5-v5:1.0.0"
+      - "nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0"
+    statement: "The artifact carried only the retained Apache-2.0 configuration. Gated images appear in the imported data as references only; nothing was pulled from nvcr.io, and the imported data carries no literal credential value."
+  cleanup:
+    baseSpace: "pass"
+    registry: "pass"
+  limits:
+    - "This run used a temporary local registry; it does not prove public registry publication."
+    - "This run started no Kubernetes cluster and required no KServe installation. It does not prove serving, model loading, or any workload behavior."
+    - "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution."
+    - "This receipt proves one retained-entry import. Variants, promotion, and delivery for the inference entry are separate increments."
+status:
+  result: "pass"
+  ociImport: "pass"
+  exactObjectSet: "pass"
+  licenseBoundary: "pass"
+  claim: "ConfigHub imported the twenty-six retained KServe NIM surfaces as one base-variant Unit, kept them byte-faithful, and recorded the exact OCI source and digest, with gated images present as references only and no credential value anywhere in the imported data."
