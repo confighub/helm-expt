@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The CPU starter derives the shape anyone can exercise · Config Workshop</title>
-  <meta name="description" content="The CPU starter derives the shape anyone can exercise: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/cpu-starter.html">
-  <meta property="og:title" content="The CPU starter derives the shape anyone can exercise · Config Workshop">
-  <meta property="og:description" content="The CPU starter derives the shape anyone can exercise: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>CPU starter kind delivery proof · Config Workshop</title>
+  <meta name="description" content="CPU starter kind delivery proof: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-delivery/summary.html">
+  <meta property="og:title" content="CPU starter kind delivery proof · Config Workshop">
+  <meta property="og:description" content="CPU starter kind delivery proof: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/cpu-starter.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-delivery/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,41 +433,25 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The CPU starter derives the shape anyone can exercise</h1>
-    <p class="lead">The starter invents nothing. Every one of its seven Argo CD Applications is a byte-identical copy of a rendered Application the <a href="eks-h100-training-kubeflow.html">training entry</a> retains from NVIDIA AICR v0.14.0. What the starter adds is a selection, and the selection is recorded, not implied: two mechanical rules exclude anything whose rendered bytes reference <code>nvidia.com/gpu</code> and anything bound to the training OCI bundle by a path source, and one curated rule excludes three components whose purpose is cloud-specific or GPU-fleet operations, each with its reason written next to its name in the <a href="../../../../../examples/aicr/cpu-starter/derivation-receipt.yaml">derivation receipt</a>. The compiler refuses to compile if the curated list goes stale against the source entry. <a href="../../../../../docs/demo/aicr/cpu-starter.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>CPU starter kind delivery proof</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-cpu-starter-delivery/summary.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This entry belongs to <a href="index.html">the AICR catalog overview</a>. It is the third entry class: the AICR platform spine without accelerators, for anyone who wants to exercise the catalog's config mechanics without a GPU, a cloud account, or an NGC key.</p>
-<h2 id="provenance-by-derivation-not-authorship">Provenance by derivation, not authorship</h2>
-
-<p>What survives is the platform spine: cert-manager, node feature discovery, the Prometheus operator CRDs, Kube Prometheus Stack, ephemeral-storage metrics, the KAI scheduler, and the Prometheus adapter, with their original sync-waves preserved.</p>
-<h2 id="the-derivation-is-pinned-end-to-end">The derivation is pinned end to end</h2>
-<pre><code>npm run aicr-cpu-starter:verify
-npm run aicr-cpu-starter:self-test</code></pre>
-<p>The <a href="../../../examples/aicr/cpu-starter/digest-index/README.html">digest index</a> pins the starter under one platform digest, <code>sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564</code>, and each member payload records the training-entry payload hash it derives from plus the training entry's own platform digest. The chain from the AICR v0.14.0 release pins through the training index to the starter is checkable end to end, offline. The compiler also cross-checks every copied byte against the training index before it compiles, so the starter cannot silently drift from what the training entry pinned.</p>
-<p>The self-test proves the selection rules, the byte-identical copying, the digest sensitivity, and the refusals against fake surfaces only.</p>
-<h2 id="honest-residues-instead-of-silent-edits">Honest residues instead of silent edits</h2>
-<p>The starter keeps the source bytes faithful. Where the retained values reference cloud resources, the index records the residue instead of editing it: today that is one reference to the <code>gp3</code> storage class inside the Kube Prometheus Stack values, which a cluster without AWS storage classes does not provide. Overriding it is exactly the variant mechanics this catalog already proves elsewhere, and doing that override with a receipt is part of the next increment.</p>
-<h2 id="the-residue-override-proven-live-against-confighub">The residue override, proven live against ConfigHub</h2>
-<pre><code>npm run aicr-starter-variant:verify</code></pre>
-<p>The starter's first live proof follows the training entry's path and closes the loop on the recorded residue. A scratch run imported the seven derived Applications as a ConfigHub base variant from a temporary OCI reference, confirmed the base Unit matched the committed starter bytes exactly, created a development variant, and applied the gp3 override as a reviewed change: ConfigHub's dry run named the one affected Application and changed nothing, then the real change moved the Prometheus storage class from <code>gp3</code> to the cluster-default <code>standard</code> and touched exactly one Application. The <a href="../../../../../runs/aicr-cpu-starter-variant/receipt.yaml">receipt</a> binds the run to the starter's committed platform digest, and the <a href="../../../data/aicr-cpu-starter-variant/summary.html">summary</a> retells it in plain language. Both scratch Spaces and the temporary registry were deleted afterward, and the receipt refuses to verify unless that cleanup passed.</p>
-<h2 id="delivery-to-a-cluster-proven-at-the-config-plane">Delivery to a cluster, proven at the config plane</h2>
-<pre><code>npm run aicr-starter-delivery:verify</code></pre>
-<p>The delivery proof puts the starter on a real cluster and stops exactly at the config plane. The seven Applications traveled as one OCI artifact, were pulled back byte-faithful, and were applied to a throwaway kind cluster running a pinned Argo CD. All seven were accepted with their specs and sync-waves intact, and the boundary was proven rather than asserted: the retained Applications carry upstream automated sync policies, so the application controller was held at zero replicas for the entire run, zero sync operations appeared, and every component destination namespace stayed absent. Delivery cannot begin until a human scales the controller up. The <a href="../../../../../runs/aicr-cpu-starter-delivery/receipt.yaml">receipt</a> and <a href="../../../data/aicr-cpu-starter-delivery/summary.html">summary</a> record the run; the cluster, registry, and working files were removed afterward.</p>
-<h2 id="what-is-proven-and-what-is-not">What is proven and what is not</h2>
-<p>Proven: the selection is rule-governed, every copy is byte-identical to retained configuration, the whole entry is pinned by one digest with an end-to-end derivation chain, ConfigHub imported the starter and carried the residue override as a reviewed development-variant change with a dry-run preview, and a real cluster's Argo CD accepted the seven Applications with zero sync operations started. Not proven, and stated rather than implied: no application synced, no workload ran, and no component health is claimed anywhere. The entry needs no GPU by construction, and the natural next increment is syncing one reviewed component on kind with its receipt.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from the committed live receipt. Rerun the throwaway-cluster proof with <code>npm run aicr-starter-delivery:run</code>; verify it without external access with <code>npm run aicr-starter-delivery:verify</code>.</p>
+<p>The seven derived CPU starter Applications traveled as one OCI artifact from a temporary local registry, were pulled back byte-faithful, and were applied to a throwaway kind cluster running Argo CD v3.4.5 from the pinned upstream manifest. All 7 Applications were accepted with their specs and sync-waves intact.</p>
+<p>The boundary was proven, not asserted. The retained Applications carry upstream automated sync policies, so the application controller was held at zero replicas for the entire run: after a 30-second settle it was still at zero, 0 sync operations appeared, and every component destination namespace (cert-manager, kai-scheduler, monitoring, node-feature-discovery) stayed absent. Delivery cannot begin until a human scales the controller up. The governed configuration arrived; nothing beyond it happened.</p>
+<p>The starter's committed platform digest at the time of the run was <code>sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564</code>, derived from the training entry's <code>sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e</code>. The run happened on 2026-08-07T09:08:19.982Z; the cluster, registry, and working files were removed afterward.</p>
+<h2 id="limits">Limits</h2>
+<ul><li>This run proves config-plane delivery only: the Applications were accepted and no sync started. It claims no application sync, no workload behavior, and no component health.</li><li>The retained Applications carry upstream automated sync policies, so the application controller was deliberately held at zero replicas for the entire run. Delivery cannot begin until a human scales the controller up; automatic stays false until earned.</li><li>This run used a temporary local registry; it does not prove public registry publication.</li><li>No ConfigHub organization was involved in this run; the ConfigHub import and reviewed-change story is the separate variant proof receipt.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/cpu-starter.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/aicr-cpu-starter-delivery/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
