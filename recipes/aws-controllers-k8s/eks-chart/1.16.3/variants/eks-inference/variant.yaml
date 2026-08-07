@@ -3,13 +3,26 @@ kind: "Variant"
 metadata:
   name: "eks-inference"
 spec:
+  recipe: "../../recipe.yaml"
   namespace: "ack-system"
   releaseName: "ack-eks"
-  valuesProfile: "./effective-values.yaml"
-  valuesOrigin: "eks-inference src/ack-controllers/values/eks.yaml at commit 2e1a8823920ca4fc6f124db754b7f8f2cfe7d574"
+  valuesProfile: "../../effective-values-eks-inference.yaml"
   capabilityProfile:
     kubeVersion: "1.31.0"
     apiVersions:
       []
-  includeCrds: true
   hookPolicy: "hooks-rendered-visible"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "ack-system"
+        name: "aws-creds"
+        keys:
+          - "credentials"
+        purpose: "AWS shared credentials file mounted read-only at /var/run/secrets/aws"
+    requiredValues:
+      -
+        path: "aws.region"
+        purpose: "AWS region for the controller's API calls; rendered as the confighubplaceholder sentinel and filled per target"
+        stage: "setup"
+        installerInput: "awsRegion"

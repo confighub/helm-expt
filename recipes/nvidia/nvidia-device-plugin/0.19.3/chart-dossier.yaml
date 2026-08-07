@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+spec:
+  chart: "nvidia/nvidia-device-plugin"
+  version: "0.19.3"
+  caveats:
+    - "Opening nfd.enabled or gfd.enabled moves the base to flatten-with-routes; the bundle must then carry the post-delete lifecycle route covering all four prune hook documents plus the CRD ordering declaration, and the 5-object verdicts do not cover it."
+    - "The eks-inference tolerations and affinity assume that platform's node taints and labels (eks-inference.confighub.com/h200 and eks-inference.confighub.com/accelerator); on any other cluster the DaemonSets schedule nowhere and the plugin silently protects nothing."
+    - "Overriding tolerations replaces the whole array and drops the chart-default CriticalAddonsOnly toleration; deliberate in the audited bases, a footgun for derived values."
+    - "runtimeClassName stays null in every base; clusters that expose the NVIDIA runtime through a RuntimeClass must set it or the plugin container cannot see the GPUs."
+    - "GPU nodes are a scheduling prerequisite, not an install prerequisite; the chart installs cleanly on a GPU-less cluster and simply runs zero pods, which is why no externalRequires entry claims them."
+    - "The default base's affinity depends on NFD labels it does not install; that mirrors the nvidia NFD gate caveat recorded in the verdicts."
+  maintainedNotes:
+    - "Three audited bases render into namespace gpu-operator with release name nvidia-device-plugin at kubeVersion 1.31.0: default and eks-inference render 5 objects each, nfd-enabled renders 26."
+    - "Chart 0.19.3 (appVersion 0.19.3) vendors one dependency, node-feature-discovery 0.17.3, behind the condition nfd.enabled,gfd.enabled; both gates are off by chart default."
+    - "Every base runs nvcr.io/nvidia/k8s-device-plugin:v0.19.3; the nfd-enabled base adds registry.k8s.io/nfd/node-feature-discovery:v0.17.3."
+    - "The chart's one weird thing is the MPS control-daemon DaemonSet. It renders unconditionally whenever devicePlugin.enabled is true, but pins itself to nodes labeled nvidia.com/mps.capable=true, so on most clusters it exists as a permanently zero-pod DaemonSet running with hostPID."
+    - "The chart-default nodeAffinity keys are NFD-published labels, yet the default base ships no NFD; scheduling under chart defaults relies on an out-of-band NFD install or the manual nvidia.com/gpu.present=true label."
+    - "The chart refuses to render into the default namespace (templates/validation.yml hard-fails unless allowDefaultNamespace=true) and rejects any .Values.namespace override outright."
+    - "nfd-enabled renders four hook-annotated post-delete documents as visible objects (ServiceAccount, ClusterRole, ClusterRoleBinding, and Job, all named nvidia-device-plugin-node-feature-discovery-prune) plus three NodeFeature CRDs; default and eks-inference render no hooks and no CRDs."
+    - "The witness records zero lookups, zero Capabilities probes, zero generated Secrets, zero webhooks, zero namespace creation, and zero test hooks across the whole package."
+  knownControlPoints:
+    - "subchart-gate"
+    - "post-delete-lifecycle-route"
+    - "crd-ordering"
+    - "namespace-guard"
+    - "capability-profile"
+    - "toleration-replacement"
+    - "mps-node-label-gate"

@@ -1,0 +1,89 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  checkedValues:
+    -
+      path: "aws.region"
+      variant: "default"
+      disposition: "environment-input-placeholder"
+      reason: "empty at chart defaults, so AWS_REGION renders with an empty value; the controller must get a region from somewhere at runtime"
+    -
+      path: "aws.region"
+      variant: "eks-inference"
+      disposition: "environment-input-placeholder"
+      reason: "renders the confighubplaceholder sentinel instead of a guess; filled per variant by a set-env-var link addressed by env var name, and vet-placeholders blocks any render that still carries the sentinel"
+    -
+      path: "aws.credentials.secretName"
+      variant: "default"
+      disposition: "inert-at-audited-values"
+      reason: "empty, so no credentials env vars, Secret volume, or mount render"
+    -
+      path: "aws.credentials.secretName"
+      variant: "eks-inference"
+      disposition: "target-secret-reference"
+      reason: "aws-creds/credentials/default adds AWS_SHARED_CREDENTIALS_FILE and AWS_PROFILE env vars plus a Secret volume mounted read-only at /var/run/secrets/aws; the Secret is never rendered by the chart and must exist before the pod starts"
+    -
+      path: "deletionPolicy"
+      variant: "default"
+      disposition: "per-variant-choice"
+      reason: "chart default delete renders as the DELETION_POLICY env var and the --deletion-policy flag; the single most consequential values choice under a pruning reconciler"
+    -
+      path: "deletionPolicy"
+      variant: "eks-inference"
+      disposition: "per-variant-choice"
+      reason: "set to retain so pruning the Kubernetes resource keeps the AWS-side resource"
+    -
+      path: "installScope"
+      variant: "eks-inference"
+      disposition: "cluster-scope-rbac-choice"
+      reason: "cluster in both audited bases, which renders the controller ClusterRole and ClusterRoleBinding; the namespace setting would instead render per-watch-namespace Roles"
+    -
+      path: "watchNamespace"
+      variant: "default"
+      disposition: "inert-at-audited-values"
+      reason: "empty in both bases and inert while installScope=cluster; only consulted for namespace scope"
+    -
+      path: "metrics.service.create"
+      variant: "eks-inference"
+      disposition: "disabled-object-gate"
+      reason: "false in both bases (chart default, pinned explicitly here), so the Prometheus metrics Service is not rendered; flipping it adds exactly one Service and changes the object count"
+    -
+      path: "leaderElection.enabled"
+      variant: "default"
+      disposition: "disabled-object-gate"
+      reason: "false; no leader-election Role or RoleBinding renders and the --enable-leader-election flag is absent; required before raising replicas above 1"
+    -
+      path: "deployment.replicas"
+      variant: "default"
+      disposition: "chart-default-safe-at-one"
+      reason: "1 in both bases; the chart's own comment says leader election should be enabled before increasing it"
+    -
+      path: "serviceAccount.name"
+      variant: "default"
+      disposition: "fixed-identity-object"
+      reason: "fixed name ack-iam-controller does not derive from the release name, so two releases in one namespace would collide; the IRSA annotation slot is empty in both audited bases"
+    -
+      path: "image.repository"
+      variant: "default"
+      disposition: "chart-default-image"
+      reason: "public.ecr.aws/aws-controllers-k8s/iam-controller:1.7.3 in both bases; the tag tracks the chart version and is the single image in the whole render"
+    -
+      path: "reconcile.resources"
+      variant: "default"
+      disposition: "chart-default-reconcile-set"
+      reason: "seven kinds (Group, InstanceProfile, OpenIDConnectProvider, Policy, Role, ServiceLinkedRole, User) joined into the RECONCILE_RESOURCES env var; unchanged in both bases"
+    -
+      path: "featureGates.IAMRoleSelector"
+      variant: "default"
+      disposition: "gate-off-crd-still-installed"
+      reason: "false, yet the iamroleselectors CRD ships from the crds/ directory regardless, and the FEATURE_GATES env var always renders because the default featureGates map is non-empty; the chart's known oddity"
+    -
+      path: "log.level"
+      variant: "eks-inference"
+      disposition: "explicit-pin-of-default"
+      reason: "info, pinned explicitly in the eks-inference values and matching the chart default"
+  unknownValues: "deployment.extraEnvVars, extraVolumes, extraVolumeMounts, tolerations, affinity, strategy, resourceTags, reconcile resync tuning, enableCARM, enableCrossNamespace and the remaining feature gates stay at chart defaults in both audited bases; not exhaustively checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

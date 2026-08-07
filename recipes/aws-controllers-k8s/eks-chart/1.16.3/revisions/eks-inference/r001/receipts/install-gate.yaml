@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ack-eks-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "7fd0d6032acd22425401c38a877d2b949ec9c0e3e49da622c6d06c3fd2658e8e"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for eks-inference"
+    - "cluster-scoped RBAC needs production review"
+    - "the ten CRDs need the bundle-side ordering declaration (crds/controller split) before flattened delivery"
+    - "requires target Secret ack-system/aws-creds with key credentials before the controller starts, and the aws.region confighubplaceholder sentinel must be bound per target before delivery"

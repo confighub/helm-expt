@@ -5,11 +5,12 @@ metadata:
 spec:
   variant: "../../../variants/crds-managed/variant.yaml"
   revision: "r001"
-  digest: "87e49b653a7a209521832a66efd575f16944ee76a489a6ff353a53b78d6ca033"
+  digest: "ec3a3490afa349cacdcbccf74070272e115920148f2ac39e5e23d849af2ee4c5"
   digestInputs:
-    chartPackageSHA256: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
-    variantSHA256: "9713ad9578fba6e117ac86a47ba8df8266de4d066471f771a5f69fd06a409b45"
-    effectiveValuesSHA256: "5a9902fab3ad99d00c5a309fbcfb9b4ef2e712a4661efb5755e923a696f6077f"
+    recipeSHA256: "8351dd0fdefbf0e5ae22b7b0a2f66df350686292aacace7e8f26f333f411a3ed"
+    variantSHA256: "5abd8e4d75f69b17c97a80be5c13726531177cc0bc6d59bb9930e12d459ff145"
+    effectiveValuesSHA256: "ec04335e71597e02b51949b56330ee41a65876144ad1aefe08cd1f28ef8ee5e7"
+    rendererSHA256: "046a556a272bdb7f99311334bfc7cf7a93df642a33a8d73103d8dd3b35acef33"
     renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"

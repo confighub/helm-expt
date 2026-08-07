@@ -3,13 +3,27 @@ kind: "Variant"
 metadata:
   name: "eks-inference"
 spec:
+  recipe: "../../recipe.yaml"
   namespace: "ack-system"
   releaseName: "ack-iam"
-  valuesProfile: "./effective-values.yaml"
-  valuesOrigin: "eks-inference src/ack-controllers/values/iam.yaml at commit 2e1a8823920ca4fc6f124db754b7f8f2cfe7d574"
+  valuesProfile: "../../effective-values-eks-inference.yaml"
   capabilityProfile:
     kubeVersion: "1.31.0"
     apiVersions:
       []
-  includeCrds: true
   hookPolicy: "hooks-rendered-visible"
+  targetFacts:
+    requiredSecrets:
+      -
+        namespace: "ack-system"
+        name: "aws-creds"
+        keys:
+          - "credentials"
+        purpose: "AWS shared credentials file; the Deployment mounts the Secret volume read-only at /var/run/secrets/aws and AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials"
+    requiredValues:
+      -
+        path: "aws.region"
+        purpose: "AWS region for the controller; deliberately the confighubplaceholder sentinel because the region belongs to the environment, not the chart"
+        stage: "pre-apply"
+        source: "platform-profile"
+        installerInput: "awsRegion"

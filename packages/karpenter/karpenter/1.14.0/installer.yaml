@@ -1,0 +1,91 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "karpenter-karpenter"
+  version: "1.14.0"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "karpenter default variant rendered from karpenter/karpenter@1.14.0"
+    -
+      name: "eks-inference"
+      path: "bases/eks-inference"
+      description: "karpenter EKS inference-demo platform variant rendered from karpenter/karpenter@1.14.0"
+    -
+      name: "crds-managed"
+      path: "bases/crds-managed"
+      description: "karpenter platform values without CRDs variant rendered from karpenter/karpenter@1.14.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "CRD capacitybuffers.autoscaling.x-k8s.io"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+        -
+          kind: "ClusterFeature"
+          name: "CRD ec2nodeclasses.karpenter.k8s.aws"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodeclaims.karpenter.sh"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodeoverlays.karpenter.sh"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+        -
+          kind: "ClusterFeature"
+          name: "CRD nodepools.karpenter.sh"
+          suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+  inputs:
+    -
+      name: "clusterName"
+      type: "string"
+      default: "confighubplaceholder"
+      prompt: "EKS cluster name for Karpenter (settings.clusterName)"
+      description: "Used by the default base. Replaces the confighubplaceholder sentinel in the CLUSTER_NAME env on the controller Deployment. The install gate stays blocked while the sentinel remains."
+    -
+      name: "awsRegion"
+      type: "string"
+      default: "confighubplaceholder"
+      prompt: "AWS region for the Karpenter controller (AWS_REGION env)"
+      description: "Used by the eks-inference and crds-managed bases. The chart supplies no AWS_REGION and EKS Pod Identity does not inject it; an unbound value panics the controller at startup, so the sentinel keeps the failure at release time."
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+  transformers:
+    -
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          name: "set-namespace"
+          args:
+            - "{{ .Namespace }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""
+    -
+      description: "Bind the CLUSTER_NAME env on the controller Deployment from the clusterName input."
+      invocations:
+        -
+          name: "set-string-path"
+          args:
+            - "apps/v1/Deployment"
+            - "spec.template.spec.containers.?name=controller.env.?name=CLUSTER_NAME.value"
+            - "{{ .Inputs.clusterName }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: "{{ if eq .Selection.Base \"default\" }}ConfigHub.ResourceType = 'apps/v1/Deployment'{{ else }}ConfigHub.ResourceType = 'helm-expt.invalid/v1/Never'{{ end }}"
+    -
+      description: "Bind the AWS_REGION env on the controller Deployment from the awsRegion input."
+      invocations:
+        -
+          name: "set-string-path"
+          args:
+            - "apps/v1/Deployment"
+            - "spec.template.spec.containers.?name=controller.env.?name=AWS_REGION.value"
+            - "{{ .Inputs.awsRegion }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: "{{ if or (eq .Selection.Base \"eks-inference\") (eq .Selection.Base \"crds-managed\") }}ConfigHub.ResourceType = 'apps/v1/Deployment'{{ else }}ConfigHub.ResourceType = 'helm-expt.invalid/v1/Never'{{ end }}"

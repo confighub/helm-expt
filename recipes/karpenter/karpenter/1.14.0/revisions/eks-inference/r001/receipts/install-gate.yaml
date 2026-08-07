@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "karpenter-eks-inference-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+  decision: "blocked"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "staging"
+    - "production"
+  reasons:
+    - "AWS_REGION is still the confighubplaceholder sentinel; an unbound value panics the controller at startup under EKS Pod Identity"
+    - "the EKS Pod Identity association for kube-system/karpenter must exist; this runtime credential precondition cannot be collector-checked from inside the cluster"
+    - "cluster-scoped RBAC needs production review"
+    - "requires the EKS Pod Identity association for kube-system/karpenter and a bound AWS_REGION value; both live outside the chart"

@@ -1,0 +1,91 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+spec:
+  chart:
+    repository: "karpenter"
+    name: "karpenter"
+    version: "1.14.0"
+  package:
+    path: "packages/karpenter/karpenter/1.14.0"
+    name: "karpenter-karpenter"
+    version: "1.14.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "58039bc8b01421da2ab9dec90d7efce21bdd547ab06bed8b4d73ae5d6fde3cba"
+        bytes: 279
+      -
+        path: "bases/crds-managed/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/crds-managed/upstream.yaml"
+        sha256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+        bytes: 13705
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+        bytes: 154219
+      -
+        path: "bases/eks-inference/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/eks-inference/upstream.yaml"
+        sha256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+        bytes: 154429
+      -
+        path: "collector/target-facts.sh"
+        sha256: "1c6503d930e85e432af4095954b1fc00e7bf5356af0699b394288a60dcf764c9"
+        bytes: 5272
+      -
+        path: "installer.yaml"
+        sha256: "547d287932d95e2fde4ea8acbfe936dc2d619dee7045941bfd80049954faad9d"
+        bytes: 4279
+  deterministicBundle:
+    command: "cub installer package packages/karpenter/karpenter/1.14.0 -o <tmp>/karpenter-1.14.0.tgz"
+    sha256: "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/karpenter/karpenter/1.14.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 18
+      cubInstallObjectCountIncludingSupport: 19
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"
+    -
+      variant: "eks-inference"
+      base: "eks-inference"
+      command: "cub installer setup --pull packages/karpenter/karpenter/1.14.0 --base eks-inference --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 18
+      cubInstallObjectCountIncludingSupport: 19
+      semanticObjectMatches: "18/18"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"
+    -
+      variant: "crds-managed"
+      base: "crds-managed"
+      command: "cub installer setup --pull packages/karpenter/karpenter/1.14.0 --base crds-managed --work-dir <tmp> --non-interactive --namespace kube-system"
+      helmReleaseObjectCount: 13
+      cubInstallObjectCountIncludingSupport: 14
+      semanticObjectMatches: "13/13"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"

@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+spec:
+  chart:
+    repository: "nvidia"
+    name: "nvidia-device-plugin"
+    version: "0.19.3"
+  package:
+    path: "packages/nvidia/nvidia-device-plugin/0.19.3"
+    name: "nvidia-nvidia-device-plugin"
+    version: "0.19.3"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "83501d90505bf18c1ed04a0de9708627a4e6856f7114ad499fc31e87cab47261"
+        bytes: 353
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+        bytes: 9782
+      -
+        path: "bases/eks-inference/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/eks-inference/upstream.yaml"
+        sha256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
+        bytes: 9169
+      -
+        path: "bases/nfd-enabled/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/nfd-enabled/upstream.yaml"
+        sha256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
+        bytes: 65089
+      -
+        path: "installer.yaml"
+        sha256: "34f528dcb24640c831b346d098cc10e6005b2105bdbf8ab0b70a45a404650ea6"
+        bytes: 995
+  deterministicBundle:
+    command: "cub installer package packages/nvidia/nvidia-device-plugin/0.19.3 -o <tmp>/nvidia-device-plugin-0.19.3.tgz"
+    sha256: "eec340a62b02c9a7095035230695a05aa182947c0043e90e419611458eed7f73"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/nvidia/nvidia-device-plugin/0.19.3 --base default --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+    -
+      variant: "eks-inference"
+      base: "eks-inference"
+      command: "cub installer setup --pull packages/nvidia/nvidia-device-plugin/0.19.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"
+    -
+      variant: "nfd-enabled"
+      base: "nfd-enabled"
+      command: "cub installer setup --pull packages/nvidia/nvidia-device-plugin/0.19.3 --base nfd-enabled --work-dir <tmp> --non-interactive --namespace gpu-operator"
+      helmReleaseObjectCount: 26
+      cubInstallObjectCountIncludingSupport: 27
+      semanticObjectMatches: "26/26"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||gpu-operator"

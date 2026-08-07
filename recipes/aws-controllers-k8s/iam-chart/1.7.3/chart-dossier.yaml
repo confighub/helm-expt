@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  chart: "aws-controllers-k8s/iam-chart"
+  version: "1.7.3"
+  caveats:
+    - "deletionPolicy is the consequential choice: the chart default delete removes the AWS-side resource when the Kubernetes resource is pruned, while the eks-inference base sets retain. Decide it per target, never by accident."
+    - "aws.region stays confighubplaceholder until a platform-profile link fills it via set-env-var, addressed by env var name so a chart bump cannot redirect the write; vet-placeholders fails while the sentinel remains."
+    - "Raising deployment.replicas above 1 without leaderElection.enabled=true puts multiple reconcilers in contention; the chart's own values comment says to enable leader election first."
+    - "Two releases in one namespace collide on the fixed ack-iam-controller ServiceAccount name."
+    - "The IRSA annotation slot (eks.amazonaws.com/role-arn) is empty in both audited bases; credentials come from the mounted aws-creds Secret, and switching to IRSA is an unaudited path."
+    - "Any flattened bundle must carry the CRD ordering declaration for the nine CRDs; the eks-inference producer already ships it as sync waves -20 and -10."
+  maintainedNotes:
+    - "Both bases render exactly 19 objects with identical object inventories; the only rendered difference is the Deployment environment block, where AWS_REGION, DELETION_POLICY and the credentials mount change."
+    - "Nine CRDs ship from the chart's crds/ directory: seven iam.services.k8s.aws kinds (groups, instanceprofiles, openidconnectproviders, policies, roles, servicelinkedroles, users) plus the shared services.k8s.aws fieldexports and iamroleselectors."
+    - "The whole release runs one image, public.ecr.aws/aws-controllers-k8s/iam-controller:1.7.3, and appVersion equals the chart version."
+    - "The chart has zero helm hooks, zero test hooks, zero lookups, zero generated secrets, zero webhook configs and zero subcharts; the CRDs are the single flattening companion this chart needs."
+    - "The ServiceAccount name is fixed at ack-iam-controller and does not derive from the release name."
+    - "The chart's one weird thing is that FEATURE_GATES always renders because the default featureGates map is non-empty, and the iamroleselectors CRD installs even while its IAMRoleSelector gate is false."
+    - "The default base renders AWS_REGION with an empty value; the controller must get a region from somewhere at runtime, which is why the eks-inference base carries the confighubplaceholder sentinel instead of a guess."
+    - "At installScope cluster the RBAC set is two ClusterRoles, two ClusterRoleBindings, three namespaced Roles (reader, writer, configmaps-cache) and one RoleBinding in ack-system."
+    - "The eks-inference base mounts the aws-creds Secret volume read-only at /var/run/secrets/aws with AWS_PROFILE default; AWS_SHARED_CREDENTIALS_FILE points at /var/run/secrets/aws/credentials (mount path plus the credentials key). The Secret itself is never rendered."
+  knownControlPoints:
+    - "crd-ordering-route"
+    - "environment-input-placeholder"
+    - "credentials-target-secret"
+    - "deletion-policy-variant-choice"
+    - "capability-profile"
+    - "cluster-rbac-scan"

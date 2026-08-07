@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "nvidia-device-plugin-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "53d8261ca2426081f87f6f340e3f29897b7be85107b3ab99d6323d1042e29f52"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "a760c42abd69a4a416bb6b6f284881c7ab1e821466df371784cdfe3b0fe9f420"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 2
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||nvidia-device-plugin-role"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||nvidia-device-plugin-role"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvidia-device-plugin-role-binding"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvidia-device-plugin-role-binding"
+      message: "Cluster-scoped RBAC requires production review"

@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3-default"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "be3983306c5d3ce1c7f8d87f5e1b803b53b62e745b260bf0b30d0a8f761ff841"
+  mergedValuesCaptured: false
+  values:
+    []

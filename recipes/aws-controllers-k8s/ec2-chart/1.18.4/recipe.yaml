@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "aws-controllers-k8s-ec2-chart"
+  version: "1.18.4"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/aws-controllers-k8s/ec2-chart/1.18.4"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/aws-controllers-k8s/ec2-chart/1.18.4"
+      - "--non-interactive"
+      - "--namespace"
+      - "ack-system"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/eks-inference/variant.yaml"

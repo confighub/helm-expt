@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "aws-controllers-k8s-iam-chart-1.7.3"
+spec:
+  chart:
+    repository: "aws-controllers-k8s"
+    name: "iam-chart"
+    version: "1.7.3"
+  package:
+    path: "packages/aws-controllers-k8s/iam-chart/1.7.3"
+    name: "aws-controllers-k8s-iam-chart"
+    version: "1.7.3"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "1d0cabb7525626b88236ffa84be5eeee358634c412390b9e0e9aa24fd2962251"
+        bytes: 276
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+        bytes: 102554
+      -
+        path: "bases/eks-inference/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/eks-inference/upstream.yaml"
+        sha256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+        bytes: 102936
+      -
+        path: "collector/target-facts.sh"
+        sha256: "fd6b313248399c109ee348c7cb4caa33b90c5952e40556ff81b6e548628c4563"
+        bytes: 2692
+      -
+        path: "installer.yaml"
+        sha256: "7f85db38b2d42cfce5b0b291f0c315688260dc36142c8b40f1eb0b99a76eb3bb"
+        bytes: 2254
+  deterministicBundle:
+    command: "cub installer package packages/aws-controllers-k8s/iam-chart/1.7.3 -o <tmp>/ack-iam-1.7.3.tgz"
+    sha256: "d12b937d510e668d29d11dba1a8a94c59410208d35f6d8f4702ff99df6d20965"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/aws-controllers-k8s/iam-chart/1.7.3 --base default --work-dir <tmp> --non-interactive --namespace ack-system"
+      helmReleaseObjectCount: 19
+      cubInstallObjectCountIncludingSupport: 20
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ack-system"
+    -
+      variant: "eks-inference"
+      base: "eks-inference"
+      command: "cub installer setup --pull packages/aws-controllers-k8s/iam-chart/1.7.3 --base eks-inference --work-dir <tmp> --non-interactive --namespace ack-system"
+      helmReleaseObjectCount: 19
+      cubInstallObjectCountIncludingSupport: 20
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||ack-system"

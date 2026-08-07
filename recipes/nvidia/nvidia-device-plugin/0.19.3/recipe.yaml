@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "nvidia-nvidia-device-plugin"
+  version: "0.19.3"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/nvidia/nvidia-device-plugin/0.19.3"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/nvidia/nvidia-device-plugin/0.19.3"
+      - "--non-interactive"
+      - "--namespace"
+      - "gpu-operator"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/eks-inference/variant.yaml"
+    - "variants/nfd-enabled/variant.yaml"

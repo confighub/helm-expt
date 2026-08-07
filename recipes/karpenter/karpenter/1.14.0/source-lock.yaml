@@ -5,13 +5,15 @@ metadata:
 spec:
   sourceType: "HelmChart"
   repositoryName: "karpenter"
+  repositoryURL: "oci://public.ecr.aws/karpenter"
   chart: "karpenter"
   version: "1.14.0"
   appVersion: "1.14.0"
   packageSHA256: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
   packageBytes: 36923
   exactArtifact:
-    url: "oci://public.ecr.aws/karpenter/karpenter:1.14.0"
+    url: "oci://public.ecr.aws/karpenter/karpenter"
     sha256: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
-    manifestDigest: "sha256:4c1e3a9e158e59e2c30ef76ca0c2bf72ecf6d3a7f25c5c9b06d0bf47cfeec745"
     resolution: "artifact-addressed"
+  evidence:
+    exactArtifactRenderReceipt: "revisions/default/r001/receipts/render-receipt.yaml"

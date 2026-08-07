@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "ack-iam-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "deletionPolicy must be a deliberate per-target choice: delete removes the AWS-side resource when the Kubernetes resource is pruned"
+    - "Cluster-scoped RBAC needs production review"
+    - "audits chart defaults: AWS_REGION renders with an empty value, deletionPolicy renders delete, and no credentials mount renders"

@@ -90,8 +90,8 @@ const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", 
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
 const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
 const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
-const PUBLIC_CATALOG_COMPONENT_COUNT = 103;
-const PUBLIC_CATALOG_VERSION_COUNT = 130;
+const PUBLIC_CATALOG_COMPONENT_COUNT = 108;
+const PUBLIC_CATALOG_VERSION_COUNT = 135;
 const UNKNOWN_ACTION_LABELS = {
   "create-namespace": "choose and create the target namespace",
   "install-crds": "install the chart's CRDs first",
@@ -231,7 +231,7 @@ const PAGE_DESCRIPTIONS = {
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
   "private/index.html": "Choose SaaS or enterprise ConfigHub for private configuration, team workflows, policy, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
-  "charts/index.html": "Choose among 103 public components, all 130 retained published package versions, and their packaged configurations without confusing publication proof with live runtime evidence.",
+  "charts/index.html": "Choose among 108 public components, all 135 retained package versions, and their packaged configurations without confusing publication proof with live runtime evidence.",
   "demo-org.html": "Open one ConfigHub demo Space, read its README, inspect its Kubernetes configuration, and then explore variants, promotions, checks, hooks, and CRDs.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
   "d/docs/demo/kubara/single-platform.html": "Adopt Kubara v0.13.0 with ConfigHub through a linear four-cluster mini-IDP path that preserves Kubara catalogs, config, values overlays, hub-and-spoke topology, and Argo reconciliation.",
@@ -532,10 +532,13 @@ function buildSite(generatedAt) {
     catalogEntries.every((entry) => retainedVersionKeySet.has(`${entry.chart}|${entry.version}`)),
     "every evidence-bearing Catalog version must remain present in the retained package inventory",
   );
+  const publicationReceipts = installerOciPackages
+    .map((row) => row.publication_receipt)
+    .filter(Boolean);
   check(
     new Set(installerOciPackages.map((row) => row.installer_oci_ref)).size === installerOciPackages.length
-      && new Set(installerOciPackages.map((row) => row.publication_receipt)).size === installerOciPackages.length,
-    "every retained Catalog version must have a unique OCI ref and publication receipt",
+      && new Set(publicationReceipts).size === publicationReceipts.length,
+    "every retained Catalog version must have a unique OCI ref, and every publication receipt must belong to one version",
   );
   for (const row of installerOciPackages) verifyRetainedCatalogPackage(row);
   const retainedOnlyComponentEntries = [...retainedComponentNames]
@@ -644,7 +647,8 @@ function buildSite(generatedAt) {
       publicCatalogComponents: catalogComponents.length,
       // Retained for existing catalog.json consumers; the public surface is component-first.
       publicCatalogCharts: catalogComponents.length,
-      retainedPublishedPackageVersions: installerOciPackages.length,
+      retainedPackageVersions: installerOciPackages.length,
+      retainedPublishedPackageVersions: publicationReceipts.length,
       retainedComponents: retainedComponentNames.size,
       catalogSupported: catalogEntries.filter((entry) => entry.proof_surface === "top20-catalog-supported").length,
       proofGrade: proofGrade.length,
@@ -938,7 +942,7 @@ function buildLlmsTxt() {
 
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](${SITE_BASE_URL}changes.json): a compact chart, version, and digest list for cheap background polling; the full index is catalog.json.
-- [Component Catalog](${SITE_BASE_URL}charts/): 103 components, all 130 retained published package versions, their packaged configurations, and version-specific publication or readiness evidence.
+- [Component Catalog](${SITE_BASE_URL}charts/): 108 components, all 135 retained package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
@@ -2667,7 +2671,7 @@ function legacyDashboardHtml(catalog) {
 function offeringHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const currentCounts = [
-    ["Catalog components", `${catalog.summary.retainedComponents}/${PUBLIC_CATALOG_COMPONENT_COUNT}`, `${catalog.summary.retainedPublishedPackageVersions} retained published package versions with packaged configurations and recorded requirements.`],
+    ["Catalog components", `${catalog.summary.retainedComponents}/${PUBLIC_CATALOG_COMPONENT_COUNT}`, `${catalog.summary.retainedPackageVersions} retained package versions with packaged configurations and recorded requirements, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt.`],
     ["Helm render matches", metricValue(metric("render parity rows")), "Helm and cub installer produced the same objects from the recorded settings."],
     ["Stored in ConfigHub", metricValue(metric("in-ConfigHub proof rows")), "The rendered objects were uploaded and checked as ConfigHub Units."],
     ["Local Kubernetes runs", metricValue(metric("local live rows")), "The configuration was applied to a local target and observed."],
@@ -2764,7 +2768,7 @@ function legacyOfferingHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const publicCounters = [
-    ["Component Catalog version pages", `${catalog.summary.retainedPublishedPackageVersions}/${PUBLIC_CATALOG_VERSION_COUNT}`],
+    ["Component Catalog version pages", `${catalog.summary.retainedPackageVersions}/${PUBLIC_CATALOG_VERSION_COUNT}`],
     ["Recipe proofs", metricValue(metric("maintained chart rows with model support"))],
     ["Render parity", metricValue(metric("render parity rows"))],
     ["Local live receipts", metricValue(metric("local live rows"))],
@@ -4796,7 +4800,7 @@ cub k8s get crd --space "*"</code></pre>
         ["Chart", "Base variants", "What this example demonstrates"],
         ...keepRows,
       ])}
-        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> retain 103 components and 130 exact package versions; the Top-100 entries carry the richer readiness evidence.</p>
+        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> retain 108 components and 135 exact package versions; the Top-100 entries carry the richer readiness evidence.</p>
     </section>
 
       <section aria-labelledby="exhibits">
@@ -5524,7 +5528,7 @@ function kubaraHtml(catalog) {
       ${markdownLikeTable([
         ["Benefit", "Evidence or acceptance target", "Status"],
         ["No rewrite", `${facts.generatedFiles} path-and-byte-identical generated files from Kubara's official and ConfigHub-aligned catalog lanes; ${facts.renders} deterministic effective renders.`, badge(facts.deterministicParityCurrent, "current deterministic", "check required")],
-        ["A stronger component Catalog", `${facts.catalogComponents} components, ${facts.catalogVersions} retained versions, and all ${facts.selections} exact Kubara selections under additive-only retention.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
+        ["A stronger component Catalog", `The Kubara catalog 1.1 coverage run closed at ${facts.catalogComponents} components and ${facts.catalogVersions} retained versions, with all ${facts.selections} exact Kubara selections kept under additive-only retention. The Catalog has grown since, and the pages above carry its current size.`, badge(facts.catalogCurrent, "current deterministic", "check required")],
         ["Recognizable platform shape", `${facts.clusters} clusters, ${facts.roles} platform roles, ${facts.applications.length} applications, faithful and adapted delivery identities, with Argo CD retained.`, badge(facts.faithfulCurrent && facts.miniIdpCurrent, "current live", "faithful or adapted receipt needs refresh")],
         ["Upgrade-safe retained workloads", `${facts.selectorReplacements || 16} exact journaled immutable-selector replacements, including four PostgreSQL StatefulSets whose bound PVC identities are retained.`, badge(facts.miniIdpCurrent && facts.selectorReplacements === 16 && facts.retainedSelectorMigrationPvcs === 4, "current live", "live migration receipt required")],
         ["Fleet visibility", `${facts.matrixCells} component/application cells, ${facts.curatedLinks} curated native Link intents, and ${facts.wiringFacts} extracted wiring facts kept as the full engineering view.`, badge(facts.miniIdpCurrent && facts.matrixCurrent && facts.wiringCurrent, "current live", "desired state only")],
@@ -6228,12 +6232,23 @@ function verifyRetainedCatalogPackage(row) {
   check(row.installer_yaml === `${row.package_path}/installer.yaml`, `${row.chart}@${row.version}: installer path is not canonical`);
   check(existsSync(join(repoRoot, row.installer_yaml)), `${row.chart}@${row.version}: retained installer package is missing`);
   check(
-    row.publication_status === "published-receipt"
+    (row.publication_status === "published-receipt" || row.publication_status === "assigned-ref")
       && /^oci:\/\/[^\s/@]+(?:\/[^\s/@]+)+:[^\s/@:]+$/.test(row.installer_oci_ref)
       && row.installer_oci_ref.endsWith(`:${row.version}`)
       && !row.installer_oci_ref.includes("@"),
     `${row.chart}@${row.version}: retained OCI publication identity is unsafe or incomplete`,
   );
+  // A version can be retained before it is published. Such a row holds a
+  // reserved ref and must claim nothing else; the catalog page says so in
+  // words. Everything below applies to versions that do claim publication.
+  if (row.publication_status === "assigned-ref") {
+    check(
+      !row.publication_receipt && !row.published_digest,
+      `${row.chart}@${row.version}: an unpublished version must not carry a publication receipt or a published digest`,
+    );
+    verifyRetainedCatalogConfigurations(row);
+    return;
+  }
   check(
     row.publication_receipt.startsWith("runs/installer-oci/")
       && !row.publication_receipt.split("/").includes("..")
@@ -6258,6 +6273,10 @@ function verifyRetainedCatalogPackage(row) {
     /^[0-9a-f]{64}$/.test(receipt.spec?.outputs?.inspectJSONCanonicalSHA256 ?? receipt.spec?.outputs?.inspectJSONSHA256 ?? ""),
     `${row.chart}@${row.version}: receipt inspect digest is invalid`,
   );
+  verifyRetainedCatalogConfigurations(row);
+}
+
+function verifyRetainedCatalogConfigurations(row) {
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
   const installer = readYaml(join(repoRoot, row.installer_yaml));
   const installerBases = Array.isArray(installer.spec?.bases) ? installer.spec.bases : [];
@@ -6436,7 +6455,7 @@ function chartIndexHtml(catalog) {
     .join("\n");
   const catalogContextHtml = `<section aria-labelledby="catalog-summary">
       <h2 id="catalog-summary">What each catalog entry contains</h2>
-      <p>The catalog starts with ${catalog.summary.retainedComponents} components and all ${catalog.summary.retainedPublishedPackageVersions} retained published package versions. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
+      <p>The catalog starts with ${catalog.summary.retainedComponents} components and all ${catalog.summary.retainedPackageVersions} retained package versions, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt. Older versions remain available when a newer reviewed version is added. Every version has a local detail page for its package, configurations, and receipt.</p>
       <p>The bold version in each row is the one summarized by that row's readiness and evidence. Retained-only version pages prove publication and inspect identity; they do not inherit another version's readiness or live proof.</p>
     </section>
 
@@ -6463,7 +6482,7 @@ function chartIndexHtml(catalog) {
     ${topNav("..")}
     <h1>Choose a component, version, and configuration</h1>
     <p class="lead">The Config Workshop Catalog is a component-first public library of checked configurations for widely used packages.</p>
-    <p>It keeps all ${catalog.summary.retainedPublishedPackageVersions} retained published package versions across ${catalog.summary.retainedComponents} components. Choose a component and exact version first, then inspect its packaged configurations, setup, and evidence.</p>
+    <p>It keeps all ${catalog.summary.retainedPackageVersions} retained package versions across ${catalog.summary.retainedComponents} components, ${catalog.summary.retainedPublishedPackageVersions} of them published with a receipt. Choose a component and exact version first, then inspect its packaged configurations, setup, and evidence.</p>
     <p><a href="${SITE_FEEDBACK_ISSUE_URL}">Missing something you need? Tell us.</a></p>
   </header>
   <main>
@@ -6510,7 +6529,7 @@ ${chartRowsHtml}
               row.style.display = ok ? "" : "none";
               if (ok) visible += 1;
             }
-            count.textContent = visible + " of " + rows.length + " components shown; ${catalog.summary.retainedPublishedPackageVersions} retained published package versions remain available";
+            count.textContent = visible + " of " + rows.length + " components shown; ${catalog.summary.retainedPackageVersions} retained package versions remain available";
           };
           [text, level, status, hooks, crds].forEach((node) => node.addEventListener("input", update));
           update();
@@ -7235,12 +7254,13 @@ function gitOpsRuntimeReviewHtml(review, reviewPath) {
 function retainedVersionPageHtml(catalog, row) {
   const identity = `${row.chart}@${row.version}`;
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
-  const receipt = readYaml(join(repoRoot, row.publication_receipt));
-  const pushOutput = String(receipt.spec?.outputs?.push ?? "");
-  const manifestDigest = receipt.spec?.outputs?.manifestDigest
+  const published = row.publication_status === "published-receipt";
+  const receipt = published ? readYaml(join(repoRoot, row.publication_receipt)) : null;
+  const pushOutput = String(receipt?.spec?.outputs?.push ?? "");
+  const manifestDigest = receipt?.spec?.outputs?.manifestDigest
     ?? pushOutput.match(/manifest:\s+(sha256:[0-9a-f]{64})/)?.[1]
     ?? "";
-  const layerDigest = `sha256:${row.published_digest}`;
+  const layerDigest = published ? `sha256:${row.published_digest}` : "";
   const componentVersions = retainedInstallerRows(catalog, row.chart);
   const evidenceEntry = catalog.catalogEntries.find((entry) => entry.chart === row.chart);
   const evidenceVersionLink = evidenceEntry
@@ -7270,15 +7290,17 @@ function retainedVersionPageHtml(catalog, row) {
   <header>
     ${topNav("..")}
     <h1>${escapeHtml(row.chart)}</h1>
-    <p class="lead">Inspect the retained published package for ${escapeHtml(identity)}, its packaged configurations, and its exact publication receipt.</p>
-    <p>This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.</p>
-    <p class="tagline">Publication proof: recorded · runtime proof: not inherited.</p>
+    <p class="lead">Inspect the retained package for ${escapeHtml(identity)}, its packaged configurations, and ${published ? "its exact publication receipt" : "its reserved public reference"}.</p>
+    <p>${published
+      ? "This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result."
+      : "This version is retained and packaged, and its public reference is reserved, but it has not been published yet, so there is no publication receipt to show. This page claims nothing about publication, Argo CD sync, Kubernetes health, or production readiness."}</p>
+    <p class="tagline">${published ? "Publication proof: recorded" : "Publication proof: not yet earned"} · runtime proof: not inherited.</p>
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>
     <section aria-labelledby="retained-page-summary">
       <h2 id="retained-page-summary">What this page gives you</h2>
-      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and publication receipt reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
+      <p>This is a human-readable detail page for one retained package version. It keeps the package, base names, exact OCI identity, and ${published ? "publication receipt" : "publication status"} reachable without pretending this retained-only version has the richer readiness evidence attached to the bold version in the component row.</p>
       <div id="setting-sources" class="card">
         <h3>Where its settings and observations live</h3>
         <p>Each packaged configuration records Helm-derived files and installer metadata. Later ConfigHub changes belong in governed variants. Target prerequisites and live observations remain separate facts; this publication receipt does not turn them into passes.</p>
@@ -7303,7 +7325,9 @@ ${escapeHtml(row.setup_command)}</code></pre>
 
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
-      <p>The committed publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.</p>
+      <p>${published
+        ? `The committed publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.`
+        : "Nothing has been published for this version, so no publication receipt exists and no digest is bound. The package itself is committed and can be inspected from this repository."}</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the ${evidenceVersionLink}.</p>
     </section>
 

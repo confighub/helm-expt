@@ -14,6 +14,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/argo-cd-argocd-image-updater-1-2-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/autoscaler-cluster-autoscaler-9-57-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/autoscaler-vertical-pod-autoscaler-0-9-0.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-ec2-chart-1-18-4.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-eks-chart-1-16-3.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-controllers-k8s-iam-chart-1-7-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/aws-ebs-csi-driver-aws-ebs-csi-driver-2-60-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/bitnami-apache-11-4-29.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/bitnami-contour-21-1-4.html</loc></url>
@@ -80,6 +83,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-20-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-cert-manager-v1-21-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/jetstack-trust-manager-v0-22-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/karpenter-karpenter-1-14-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kedacore-keda-2-19-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/kyverno-kyverno-3-8-2.html</loc></url>
@@ -97,6 +101,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-nats-2-14-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nats-surveyor-0-20-9.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4-0-18.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/nvidia-nvidia-device-plugin-0-19-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/oauth2-proxy-oauth2-proxy-10-7-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/open-telemetry-opentelemetry-operator-0-114-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/opencost-opencost-2-5-21.html</loc></url>
@@ -768,6 +773,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/user-journey-test-pathways-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/verified-install-commercial-model.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/where-does-my-hook-go.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/aicr-signature-verification.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/artifact-verifier-spec.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/capability-profile-catalog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/reference/catalog-doctrine.html</loc></url>
@@ -937,6 +943,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/aws-controllers-k8s/ec2-chart/1.18.4/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/aws-controllers-k8s/eks-chart/1.16.3/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/aws-controllers-k8s/iam-chart/1.7.3/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/apache/11.4.29/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/contour/21.1.4/CATALOG.html</loc></url>
@@ -1013,6 +1022,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager/v1.20.2/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/trust-manager/v0.22.1/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/karpenter/karpenter/1.14.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/kedacore/keda/2.19.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/kyverno/kyverno-policies/3.8.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/kyverno/kyverno/3.8.1/CATALOG.html</loc></url>
@@ -1027,6 +1037,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/nats/nats/2.14.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/nats/surveyor/0.20.9/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/nvidia/nvidia-device-plugin/0.19.3/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/opencost/opencost/2.5.21/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/percona/pg-operator/3.0.0/CATALOG.html</loc></url>

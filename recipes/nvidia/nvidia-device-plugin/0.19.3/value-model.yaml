@@ -1,0 +1,87 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "nvidia-nvidia-device-plugin-0.19.3"
+spec:
+  checkedValues:
+    -
+      path: "nfd.enabled"
+      disposition: "variant-axis"
+      reason: "The chart default leaves the node-feature-discovery gate closed. The nfd-enabled base opens it and the render grows from 5 to 26 objects, pulling in a post-delete cleanup Job and three NodeFeature CRDs."
+      note: "the nfd-enabled base carries the flatten-with-routes verdict, the other two bases stay safe-to-flatten"
+      evidence: "Chart.yaml:5 (condition nfd.enabled,gfd.enabled), effective-values-nfd-enabled.yaml (nfd.enabled: true)"
+    -
+      path: "gfd.enabled"
+      disposition: "left-at-default"
+      reason: "Second arm of the same subchart condition and the gate for the gpu-feature-discovery DaemonSet. It stays false in all three audited bases."
+      note: "opening it re-triggers the nfd-enabled routes plus a privileged GFD DaemonSet that no base here audits"
+      evidence: "values.yaml:107, templates/daemonset-gfd.yml:15, Chart.yaml:5"
+    -
+      path: "devicePlugin.enabled"
+      disposition: "left-at-default"
+      reason: "Gates both the main device-plugin DaemonSet and the MPS control-daemon DaemonSet. True by default and true in every base."
+      note: "both DaemonSets render in all three bases"
+      evidence: "values.yaml:104, templates/daemonset-device-plugin.yml:15, templates/daemonset-mps-control-daemon.yml:14"
+    -
+      path: "failOnInitError"
+      disposition: "overridden-in-audited-bases"
+      reason: "Null by chart default. The eks-inference and nfd-enabled bases set it true so the plugin fails loudly on a driver or NVML mismatch instead of degrading quietly."
+      note: "renders as the FAIL_ON_INIT_ERROR env var"
+      evidence: "values.yaml:32, effective-values-eks-inference.yaml (failOnInitError: true), templates/daemonset-device-plugin.yml:142"
+    -
+      path: "tolerations"
+      disposition: "overridden-deliberately"
+      reason: "The chart ships CriticalAddonsOnly plus nvidia.com/gpu tolerations. The eks-inference and nfd-enabled bases replace the whole array with nvidia.com/gpu and eks-inference.confighub.com/h200, which drops the CriticalAddonsOnly entry because Helm value arrays replace rather than merge."
+      note: "the replacement-not-merge behavior is recorded as a footgun for derived values"
+      evidence: "values.yaml:86-93, effective-values-eks-inference.yaml tolerations block, revisions/eks-inference/r001/rendered/release-objects.yaml"
+    -
+      path: "affinity"
+      disposition: "overridden-deliberately"
+      reason: "The chart-default nodeAffinity keys are NFD-published labels (feature.node.kubernetes.io/pci-10de.present and friends) plus the manual nvidia.com/gpu.present escape hatch. The eks-inference and nfd-enabled bases replace it with a single eks-inference.confighub.com/accelerator Exists match."
+      note: "the default base's affinity depends on labels the default base does not install"
+      evidence: "values.yaml:64-85, effective-values-eks-inference.yaml affinity block, revisions/eks-inference/r001/rendered/release-objects.yaml"
+    -
+      path: "allowDefaultNamespace"
+      disposition: "left-at-default"
+      reason: "False by default, and the chart hard-fails a render whose release namespace is default. It also fails outright if .Values.namespace is set. Every base renders with the namespace pinned to gpu-operator so the guard never fires."
+      note: "the render must always pass an explicit namespace"
+      evidence: "values.yaml:46, templates/validation.yml:4-11 (.Values.namespace rejection) and templates/validation.yml:41-48 (Release.Namespace default guard)"
+    -
+      path: "config.name / config.map"
+      disposition: "unused-extension-slot"
+      reason: "Both empty in every base, so no plugin ConfigMap renders. The validation template enforces that at most one of the two is ever set, and that a multi-entry map names a default."
+      note: "validation guards the slot in all audited bases"
+      evidence: "values.yaml:20-28, templates/validation.yml:25-31, templates/configmap.yml:1"
+    -
+      path: "image.repository / image.tag"
+      disposition: "left-at-default"
+      reason: "The tag is empty and falls back to the chart appVersion, so every base runs nvcr.io/nvidia/k8s-device-plugin:v0.19.3."
+      note: "single image across default and eks-inference, plus the NFD image in nfd-enabled"
+      evidence: "values.yaml:49-53, revisions/eks-inference/r001/rendered/release-objects.yaml"
+    -
+      path: "priorityClassName"
+      disposition: "left-at-default"
+      reason: "Defaults to system-node-critical and renders on both DaemonSets in every base."
+      note: "marks the plugin as a critical add-on"
+      evidence: "values.yaml:99, templates/daemonset-device-plugin.yml:42-43"
+    -
+      path: "mps.enableHostPID"
+      disposition: "left-at-default"
+      reason: "True by default, so the MPS control-daemon pod runs with hostPID: true in every base. The template swaps to shareProcessNamespace when it is false."
+      note: "a host-namespace privilege worth flagging in review even though the DaemonSet is label-gated idle on most clusters"
+      evidence: "values.yaml:158, templates/daemonset-mps-control-daemon.yml:54-58"
+    -
+      path: "runtimeClassName"
+      disposition: "left-at-default"
+      reason: "Null by default and unset in every base, so no runtimeClassName renders on either DaemonSet."
+      note: "clusters that expose the NVIDIA runtime through a RuntimeClass must set it or the plugin cannot reach the GPUs"
+      evidence: "values.yaml:101, templates/daemonset-device-plugin.yml:44-46 (equivalent guard also in the MPS template)"
+    -
+      path: "migStrategy"
+      disposition: "left-at-default"
+      reason: "Null in every base. The helpers derive whether MIG monitor devices are added from this value and from any config.map entries."
+      note: "no MIG behavior is audited here"
+      evidence: "values.yaml:31, templates/_helpers.tpl:138-152"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

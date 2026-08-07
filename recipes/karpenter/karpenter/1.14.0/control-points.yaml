@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+      note: "source-lock.yaml pins the exact artifact oci://public.ecr.aws/karpenter/karpenter at 1.14.0 with packageSHA256 d576f955..., resolution artifact-addressed. Regeneration must export HELM_EXPT_CHART_ARTIFACT_URL and HELM_EXPT_CHART_ARTIFACT_SHA256."
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "the packaged chart declares no dependencies and the witness records zero subcharts, so expectedDependencyCount is 0"
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.31.0"
+      note: "every variant pins kubeVersion 1.31.0 with an empty apiVersions list. Two capability sites exist: the PDB apiVersion helper resolves to policy/v1 at 1.31.0, and the ServiceMonitor guard stays closed without monitoring.coreos.com/v1"
+    -
+      category: "lifecycle-policy"
+      status: "handled"
+      note: "the witness records zero helm-hooks and zero test-hooks, so the emitted hookPolicy no-hooks is truthful: renders pass --no-hooks and there are no hooks to hide"
+    -
+      category: "crd-policy"
+      status: "split-by-variant"
+      note: "the chart ships 5 CRDs as crds-directory files. default and eks-inference render them in-bundle (verdict lane flatten-with-routes, route = CRD ordering declaration); crds-managed excludes them via variant renderFlags without --include-crds, and the karpenter-crd chart owns them out of band, so that base's lane is safe-to-flatten with CRD presence recorded as a platform precondition"
+    -
+      category: "namespace"
+      status: "handled"
+      note: "all namespaced objects land in kube-system; the chart creates no Namespace and kube-system pre-exists on every cluster. The installer supportObjects default v1|Namespace||kube-system covers the cub-side namespace object"
+    -
+      category: "credentials-secrets"
+      status: "none-generated"
+      note: "zero generated secrets, zero lookup sites, no Secret rendered in any base (expectedSecretCount 0). AWS credentials arrive at runtime through the EKS Pod Identity association bound to the kube-system/karpenter ServiceAccount, outside the chart; AWS_REGION is the one credential-adjacent value and it ships as a placeholder env entry"
+    -
+      category: "extension-slots"
+      status: "open-unaudited"
+      note: "extraVolumes, controller.extraVolumeMounts, controller.sidecarContainer, initContainers, and additionalClusterRoleRules are live template slots that no audited base exercises. additionalClusterRoleRules in particular can widen cluster RBAC and stays subject to scan-and-review"

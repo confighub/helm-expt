@@ -5,11 +5,12 @@ metadata:
 spec:
   variant: "../../../variants/eks-inference/variant.yaml"
   revision: "r001"
-  digest: "5179b7e8521cb2c587368fd987b3d4477ef0d4a2cbb86e4bcda20472a51bcdad"
+  digest: "99ccb716b96b430ddccd3829d9dbd9b78028fca4fac0958951517f74d6710c70"
   digestInputs:
-    chartPackageSHA256: "8f01067500e712508fe55fe060b6f895814dc7efc1cb96323db2ce4f777f6e96"
-    variantSHA256: "94729df02e983ece4e9616b2237be20a1c6bc72cf90b7fe0e1ed9fd4eacbc876"
-    effectiveValuesSHA256: "6ee97e60311d1cacf81d6a459d6f7c35d5fd8e483622b0266ebc414a4d3d864f"
+    recipeSHA256: "d4fb08bc026ac7094181cd39da46bc31b50ae90d488c7acaf40bfaf96f41e5a4"
+    variantSHA256: "802fc5904544ae33227fa1728bac00e9e536e38bf57c6327ede52ebdb85f3bb7"
+    effectiveValuesSHA256: "9dd0eea546562ff1c4634b7156a1c3fc58cdcc66e647808aafcb3c2b777853aa"
+    rendererSHA256: "9ed2ec23a6d3d19ba695c07adf905bdaeec97f7e31b562394b011c2a712ce417"
     renderedObjectSetSHA256: "d5400ed7c047b23b6d5783ceb33f90346750a979ecd97d715faa4b0348ec3f1f"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"

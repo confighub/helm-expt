@@ -1,101 +1,165 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderedObjectInventory"
 metadata:
-  name: "nfd-enabled-r001"
+  name: "nvidia-nvidia-device-plugin-0.19.3-nfd-enabled-r001"
 spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "ea128b8bb7bdea3f841d2bf5fe74d8d8926401882dc2348e567fe9678d74a119"
   objectCount: 26
-  renderedObjectSetSHA256: "11b2a5b957192ea43bc2c036a83e6525a4d4074ae8afe5e42a5d7dc8ce4ffebf"
   objects:
     -
-      kind: "ClusterRole"
-      name: "nvidia-device-plugin-node-feature-discovery"
-    -
-      kind: "ClusterRole"
-      name: "nvidia-device-plugin-node-feature-discovery-gc"
-    -
-      kind: "ClusterRole"
-      name: "nvidia-device-plugin-node-feature-discovery-prune"
-    -
-      kind: "ClusterRole"
-      name: "nvidia-device-plugin-role"
-    -
-      kind: "ClusterRoleBinding"
-      name: "nvidia-device-plugin-node-feature-discovery"
-    -
-      kind: "ClusterRoleBinding"
-      name: "nvidia-device-plugin-node-feature-discovery-gc"
-    -
-      kind: "ClusterRoleBinding"
-      name: "nvidia-device-plugin-node-feature-discovery-prune"
-    -
-      kind: "ClusterRoleBinding"
-      name: "nvidia-device-plugin-role-binding"
-    -
-      kind: "ConfigMap"
-      name: "nvidia-device-plugin-node-feature-discovery-master-conf"
-      namespace: "gpu-operator"
-    -
-      kind: "ConfigMap"
-      name: "nvidia-device-plugin-node-feature-discovery-worker-conf"
-      namespace: "gpu-operator"
-    -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nodefeaturegroups.nfd.k8s-sigs.io"
       kind: "CustomResourceDefinition"
       name: "nodefeaturegroups.nfd.k8s-sigs.io"
+      namespace: ""
     -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nodefeaturerules.nfd.k8s-sigs.io"
       kind: "CustomResourceDefinition"
       name: "nodefeaturerules.nfd.k8s-sigs.io"
+      namespace: ""
     -
+      apiVersion: "apiextensions.k8s.io/v1"
+      identity: "apiextensions.k8s.io/v1|CustomResourceDefinition||nodefeatures.nfd.k8s-sigs.io"
       kind: "CustomResourceDefinition"
       name: "nodefeatures.nfd.k8s-sigs.io"
+      namespace: ""
     -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|gpu-operator|nvidia-device-plugin"
       kind: "DaemonSet"
       name: "nvidia-device-plugin"
       namespace: "gpu-operator"
     -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|gpu-operator|nvidia-device-plugin-mps-control-daemon"
       kind: "DaemonSet"
       name: "nvidia-device-plugin-mps-control-daemon"
       namespace: "gpu-operator"
     -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|DaemonSet|gpu-operator|nvidia-device-plugin-node-feature-discovery-worker"
       kind: "DaemonSet"
       name: "nvidia-device-plugin-node-feature-discovery-worker"
       namespace: "gpu-operator"
     -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|gpu-operator|nvidia-device-plugin-node-feature-discovery-gc"
       kind: "Deployment"
       name: "nvidia-device-plugin-node-feature-discovery-gc"
       namespace: "gpu-operator"
     -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|gpu-operator|nvidia-device-plugin-node-feature-discovery-master"
       kind: "Deployment"
       name: "nvidia-device-plugin-node-feature-discovery-master"
       namespace: "gpu-operator"
     -
+      apiVersion: "batch/v1"
+      identity: "batch/v1|Job|gpu-operator|nvidia-device-plugin-node-feature-discovery-prune"
       kind: "Job"
       name: "nvidia-device-plugin-node-feature-discovery-prune"
       namespace: "gpu-operator"
     -
-      kind: "Role"
-      name: "nvidia-device-plugin-node-feature-discovery-worker"
-      namespace: "gpu-operator"
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvidia-device-plugin-node-feature-discovery"
+      kind: "ClusterRoleBinding"
+      name: "nvidia-device-plugin-node-feature-discovery"
+      namespace: ""
     -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvidia-device-plugin-node-feature-discovery-gc"
+      kind: "ClusterRoleBinding"
+      name: "nvidia-device-plugin-node-feature-discovery-gc"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvidia-device-plugin-node-feature-discovery-prune"
+      kind: "ClusterRoleBinding"
+      name: "nvidia-device-plugin-node-feature-discovery-prune"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||nvidia-device-plugin-role-binding"
+      kind: "ClusterRoleBinding"
+      name: "nvidia-device-plugin-role-binding"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||nvidia-device-plugin-node-feature-discovery"
+      kind: "ClusterRole"
+      name: "nvidia-device-plugin-node-feature-discovery"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||nvidia-device-plugin-node-feature-discovery-gc"
+      kind: "ClusterRole"
+      name: "nvidia-device-plugin-node-feature-discovery-gc"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||nvidia-device-plugin-node-feature-discovery-prune"
+      kind: "ClusterRole"
+      name: "nvidia-device-plugin-node-feature-discovery-prune"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||nvidia-device-plugin-role"
+      kind: "ClusterRole"
+      name: "nvidia-device-plugin-role"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|gpu-operator|nvidia-device-plugin-node-feature-discovery-worker"
       kind: "RoleBinding"
       name: "nvidia-device-plugin-node-feature-discovery-worker"
       namespace: "gpu-operator"
     -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|gpu-operator|nvidia-device-plugin-node-feature-discovery-worker"
+      kind: "Role"
+      name: "nvidia-device-plugin-node-feature-discovery-worker"
+      namespace: "gpu-operator"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|gpu-operator|nvidia-device-plugin-node-feature-discovery-master-conf"
+      kind: "ConfigMap"
+      name: "nvidia-device-plugin-node-feature-discovery-master-conf"
+      namespace: "gpu-operator"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|gpu-operator|nvidia-device-plugin-node-feature-discovery-worker-conf"
+      kind: "ConfigMap"
+      name: "nvidia-device-plugin-node-feature-discovery-worker-conf"
+      namespace: "gpu-operator"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|gpu-operator|node-feature-discovery"
       kind: "ServiceAccount"
       name: "node-feature-discovery"
       namespace: "gpu-operator"
     -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|gpu-operator|nvidia-device-plugin-node-feature-discovery-gc"
       kind: "ServiceAccount"
       name: "nvidia-device-plugin-node-feature-discovery-gc"
       namespace: "gpu-operator"
     -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|gpu-operator|nvidia-device-plugin-node-feature-discovery-prune"
       kind: "ServiceAccount"
       name: "nvidia-device-plugin-node-feature-discovery-prune"
       namespace: "gpu-operator"
     -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|gpu-operator|nvidia-device-plugin-node-feature-discovery-worker"
       kind: "ServiceAccount"
       name: "nvidia-device-plugin-node-feature-discovery-worker"
       namespace: "gpu-operator"
     -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|gpu-operator|nvidia-device-plugin-service-account"
       kind: "ServiceAccount"
       name: "nvidia-device-plugin-service-account"
       namespace: "gpu-operator"

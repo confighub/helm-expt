@@ -1,6 +1,0 @@
-# Chart defaults plus the one required value. settings.clusterName has no chart
-# default; it belongs to the environment, so this base renders it as the
-# ConfigHub placeholder sentinel, the same discipline the eks-inference base
-# uses for environment-owned values. Publishing gates refuse while it remains.
-settings:
-  clusterName: confighubplaceholder

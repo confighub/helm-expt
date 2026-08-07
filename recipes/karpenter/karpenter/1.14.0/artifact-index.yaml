@@ -1,0 +1,315 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "karpenter-karpenter-1.14.0"
+  chart: "karpenter/karpenter"
+  version: "1.14.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "karpenter/karpenter"
+    version: "1.14.0"
+    appVersion: "1.14.0"
+    sourceLock: "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
+    dependencyLock: "recipes/karpenter/karpenter/1.14.0/dependency-lock.yaml"
+    repository: "oci://public.ecr.aws/karpenter"
+    packageSHA256: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
+  recipe:
+    path: "recipes/karpenter/karpenter/1.14.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/karpenter/karpenter/1.14.0/helm-plan.yaml"
+    chartDossier: "recipes/karpenter/karpenter/1.14.0/chart-dossier.yaml"
+    controlPoints: "recipes/karpenter/karpenter/1.14.0/control-points.yaml"
+    valueModel: "recipes/karpenter/karpenter/1.14.0/value-model.yaml"
+    weirdnessAndMitigations: ""
+    controlPointCategories:
+      - "capability-profile"
+      - "crd-policy"
+      - "credentials-secrets"
+      - "dependency-lock"
+      - "extension-slots"
+      - "lifecycle-policy"
+      - "namespace"
+      - "source-lock"
+  catalogStatus:
+    path: "recipes/karpenter/karpenter/1.14.0/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+      - "eks-inference"
+      - "crds-managed"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/karpenter/karpenter/1.14.0"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
+    installer: "packages/karpenter/karpenter/1.14.0/installer.yaml"
+    receipt: "recipes/karpenter/karpenter/1.14.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/karpenter/karpenter/1.14.0/bases/default"
+        default: true
+        description: "karpenter default variant rendered from karpenter/karpenter@1.14.0"
+      -
+        name: "eks-inference"
+        path: "packages/karpenter/karpenter/1.14.0/bases/eks-inference"
+        default: false
+        description: "karpenter EKS inference-demo platform variant rendered from karpenter/karpenter@1.14.0"
+      -
+        name: "crds-managed"
+        path: "packages/karpenter/karpenter/1.14.0/bases/crds-managed"
+        default: false
+        description: "karpenter platform values without CRDs variant rendered from karpenter/karpenter@1.14.0"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/karpenter/karpenter/1.14.0/variants/default/variant.yaml"
+      namespace: "kube-system"
+      releaseName: "karpenter"
+      valuesProfile: "recipes/karpenter/karpenter/1.14.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredTopology:
+          minimumSchedulableNodes: 2
+          purpose: "replicas 2 with the chart-default required pod anti-affinity needs two schedulable non-Karpenter nodes"
+        requiredValues:
+          -
+            installerInput: "clusterName"
+            path: "settings.clusterName"
+            purpose: "EKS cluster name; required with no chart default, the deployment template refuses to render without it"
+            source: "platform-profile"
+            stage: "pre-render"
+      targetFactSummary: "required Value settings.clusterName (pre-render); topology minSchedulableNodes=2"
+      packageBase:
+        name: "default"
+        path: "packages/karpenter/karpenter/1.14.0/bases/default"
+        default: true
+        description: "karpenter default variant rendered from karpenter/karpenter@1.14.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+        helmReleaseObjectCount: 18
+        cubInstallObjectCountIncludingSupport: 19
+        semanticObjectMatches: "18/18"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||kube-system"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml"
+          digest: "ecb946809732af8bbe4f7fc3c03d19f6b1d81fd92ebd6c8a4af65c56bd41f14b"
+          renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+          renderedObjects: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 18
+          helmObjectCount: 18
+          cubInstallObjectCountIncludingSupport: 19
+          semanticObjectMatches: "18/18"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/receipts/install-gate.yaml"
+              result: "blocked"
+              renderedObjectSetSHA256: "c38230e2c3415465b9369ba43943b2f5c33fd5082b836eea705af7546383e381"
+    -
+      name: "eks-inference"
+      variant: "recipes/karpenter/karpenter/1.14.0/variants/eks-inference/variant.yaml"
+      namespace: "kube-system"
+      releaseName: "karpenter"
+      valuesProfile: "recipes/karpenter/karpenter/1.14.0/effective-values-eks-inference.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredTopology:
+          minimumSchedulableNodes: 1
+          purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+        requiredValues:
+          -
+            installerInput: "awsRegion"
+            path: "controller.env[AWS_REGION]"
+            purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+            source: "platform-profile"
+            stage: "pre-render"
+      targetFactSummary: "required Value controller.env[AWS_REGION] (pre-render); topology minSchedulableNodes=1"
+      packageBase:
+        name: "eks-inference"
+        path: "packages/karpenter/karpenter/1.14.0/bases/eks-inference"
+        default: false
+        description: "karpenter EKS inference-demo platform variant rendered from karpenter/karpenter@1.14.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base eks-inference --work-dir <tmp> --non-interactive --namespace kube-system"
+        helmReleaseObjectCount: 18
+        cubInstallObjectCountIncludingSupport: 19
+        semanticObjectMatches: "18/18"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||kube-system"
+      revisions:
+        -
+          name: "eks-inference-r001"
+          revision: "r001"
+          variantRevision: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml"
+          digest: "1cb9f238a15e453a6f6d71bf79dc53596a541f27a72985c922787fc0dab3aff3"
+          renderedObjectSetSHA256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+          renderedObjects: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+          objectCount: 18
+          helmObjectCount: 18
+          cubInstallObjectCountIncludingSupport: 19
+          semanticObjectMatches: "18/18"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/receipts/install-gate.yaml"
+              result: "blocked"
+              renderedObjectSetSHA256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+    -
+      name: "crds-managed"
+      variant: "recipes/karpenter/karpenter/1.14.0/variants/crds-managed/variant.yaml"
+      namespace: "kube-system"
+      releaseName: "karpenter"
+      valuesProfile: "recipes/karpenter/karpenter/1.14.0/effective-values-crds-managed.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.31.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredCRDs:
+          -
+            name: "capacitybuffers.autoscaling.x-k8s.io"
+            suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          -
+            name: "ec2nodeclasses.karpenter.k8s.aws"
+            suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          -
+            name: "nodeclaims.karpenter.sh"
+            suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          -
+            name: "nodeoverlays.karpenter.sh"
+            suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+          -
+            name: "nodepools.karpenter.sh"
+            suggestedSource: "helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system"
+        requiredTopology:
+          minimumSchedulableNodes: 1
+          purpose: "replicas 1 needs one schedulable non-Karpenter node on the system nodegroup"
+        requiredValues:
+          -
+            installerInput: "awsRegion"
+            path: "controller.env[AWS_REGION]"
+            purpose: "AWS region for the controller; the chart supplies nothing and EKS Pod Identity does not inject it, so an absent value panics the controller at startup"
+            source: "platform-profile"
+            stage: "pre-render"
+      targetFactSummary: "required CRD capacitybuffers.autoscaling.x-k8s.io; required CRD ec2nodeclasses.karpenter.k8s.aws; required CRD nodeclaims.karpenter.sh; required CRD nodeoverlays.karpenter.sh; required CRD nodepools.karpenter.sh; required Value controller.env[AWS_REGION] (pre-render); topology minSchedulableNodes=1"
+      packageBase:
+        name: "crds-managed"
+        path: "packages/karpenter/karpenter/1.14.0/bases/crds-managed"
+        default: false
+        description: "karpenter platform values without CRDs variant rendered from karpenter/karpenter@1.14.0"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0 --base crds-managed --work-dir <tmp> --non-interactive --namespace kube-system"
+        helmReleaseObjectCount: 13
+        cubInstallObjectCountIncludingSupport: 14
+        semanticObjectMatches: "13/13"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||kube-system"
+      revisions:
+        -
+          name: "crds-managed-r001"
+          revision: "r001"
+          variantRevision: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+          digest: "ec3a3490afa349cacdcbccf74070272e115920148f2ac39e5e23d849af2ee4c5"
+          renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+          renderedObjects: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml"
+          objectCount: 13
+          helmObjectCount: 13
+          cubInstallObjectCountIncludingSupport: 14
+          semanticObjectMatches: "13/13"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/receipts/install-gate.yaml"
+              result: "blocked"
+              renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"

@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "karpenter-crds-managed-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+  decision: "blocked"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "staging"
+    - "production"
+  reasons:
+    - "AWS_REGION is still the confighubplaceholder sentinel; an unbound value panics the controller at startup under EKS Pod Identity"
+    - "the 5 Karpenter CRDs must pre-exist; the karpenter-crd chart owns them (helm install karpenter-crd oci://public.ecr.aws/karpenter/karpenter-crd --version 1.14.0 --namespace kube-system)"
+    - "the EKS Pod Identity association for kube-system/karpenter must exist; this runtime credential precondition cannot be collector-checked from inside the cluster"
+    - "cluster-scoped RBAC needs production review"
+    - "requires the 5 Karpenter CRDs pre-installed by the karpenter-crd chart, plus the Pod Identity association and a bound AWS_REGION value"
