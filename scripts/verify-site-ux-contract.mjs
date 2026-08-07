@@ -5,8 +5,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
-const PUBLIC_CATALOG_COMPONENT_COUNT = 103;
-const PUBLIC_CATALOG_VERSION_COUNT = 130;
+const PUBLIC_CATALOG_COMPONENT_COUNT = 108;
+const PUBLIC_CATALOG_VERSION_COUNT = 135;
 
 const checks = [
   {
@@ -51,7 +51,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 130 retained published package versions", "103 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "components shown; 130 retained published package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 135 retained package versions", "108 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "components shown; 135 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",
@@ -533,11 +533,20 @@ if (fs.existsSync(chartPagesDir)) {
     const file = path.relative(root, fullPath);
     if (html.includes("data-retained-only-version=")) {
       retainedOnlyPages += 1;
-      for (const phrase of [
-        "Publication proof: recorded · runtime proof: not inherited.",
-        "It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.",
-        "No version-specific runtime result is claimed here.",
-      ]) {
+      const published = html.includes("Publication proof: recorded");
+      const boundaryPhrases = published
+        ? [
+            "Publication proof: recorded · runtime proof: not inherited.",
+            "It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.",
+            "No version-specific runtime result is claimed here.",
+          ]
+        : [
+            "Publication proof: not yet earned · runtime proof: not inherited.",
+            "it has not been published yet, so there is no publication receipt to show",
+            "This page claims nothing about publication, Argo CD sync, Kubernetes health, or production readiness.",
+            "No version-specific runtime result is claimed here.",
+          ];
+      for (const phrase of boundaryPhrases) {
         if (!html.includes(phrase)) failures.push(`${file}: retained-only page is missing proof boundary ${JSON.stringify(phrase)}`);
       }
     }
