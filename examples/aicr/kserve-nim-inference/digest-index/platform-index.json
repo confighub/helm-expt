@@ -357,10 +357,11 @@
       "configPlaneOnly": true,
       "gpuWorkloadsProven": false,
       "modelsFetched": false,
-      "ngcContacted": false,
+      "ngcArtifactsPulled": false,
+      "ngcCatalogPageRead": true,
       "nimContainersRan": false,
       "secretValuesIncluded": false,
-      "statement": "This index pins retained configuration by digest. Gated images appear as references only; no NIM container ran, no model was fetched, and no NGC surface was contacted to produce or verify it."
+      "statement": "This index pins retained configuration by digest. Gated images appear as references only; no NIM container ran, no model was fetched, and nothing was pulled from nvcr.io. The one NGC surface read was the public catalog page for the described model profile, which supplied the governing-terms names the profile records with their read date."
     }
   },
   "status": {

@@ -22,5 +22,7 @@ and are pulled only by a user's cluster with the user's own key and
 entitlement. Nothing in this directory claims a registry push.
 
 The boundary, stated plainly: this index proves config-plane retention only.
-No NIM container ran, no model was fetched, no NGC surface was contacted, and
-no GPU workload claim exists here.
+No NIM container ran, no model was fetched, nothing was pulled from nvcr.io,
+and no GPU workload claim exists here. One NGC surface was read, and the entry
+says which: the public catalog page for the described model profile supplied
+the governing-terms names that the profile records with their read date.

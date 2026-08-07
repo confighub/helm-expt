@@ -446,39 +446,39 @@
     <article class="doc-body">
 <p>This report checks the rendered default configuration for every catalog chart and lists RBAC rules that deserve review. It reads the committed Kubernetes objects, so it does not need access to a cluster and does not run Helm again.</p>
 <p>Broad permissions are sometimes necessary, especially for operators and platform services. The purpose of this report is to show where those permissions occur so a team can decide whether each one is appropriate for its use.</p>
-<p>Scanned <b>95</b> default renders; <b>69</b> ship RBAC; <b>50</b> contain at least one broad/risky rule by these conservative heuristics.</p>
+<p>Scanned <b>120</b> default renders; <b>91</b> ship RBAC; <b>69</b> contain at least one broad/risky rule by these conservative heuristics.</p>
 <p>Findings across the catalog:</p>
-<table><thead><tr><th>Finding</th><th>Charts</th><th>Meaning</th></tr></thead><tbody><tr><td><code>full-wildcard</code></td><td>8</td><td>a rule grants <code>*</code> verbs on <code>*</code> resources (admin-like)</td></tr>
-<tr><td><code>secret-read</code></td><td>46</td><td>a rule can read Secrets (<code>get</code>/<code>list</code>/<code>watch</code> or <code>*</code>)</td></tr>
+<table><thead><tr><th>Finding</th><th>Charts</th><th>Meaning</th></tr></thead><tbody><tr><td><code>full-wildcard</code></td><td>11</td><td>a rule grants <code>*</code> verbs on <code>*</code> resources (admin-like)</td></tr>
+<tr><td><code>secret-read</code></td><td>64</td><td>a rule can read Secrets (<code>get</code>/<code>list</code>/<code>watch</code> or <code>*</code>)</td></tr>
 <tr><td><code>priv-escalation</code></td><td>2</td><td>a rule has <code>escalate</code>/<code>bind</code>/<code>impersonate</code></td></tr>
-<tr><td><code>all-resources</code></td><td>8</td><td>a rule targets <code>*</code> resources (non-wildcard verbs)</td></tr></tbody></table>
+<tr><td><code>all-resources</code></td><td>10</td><td>a rule targets <code>*</code> resources (non-wildcard verbs)</td></tr></tbody></table>
 <h2 id="charts-to-review-first">Charts to review first</h2>
 <table><thead><tr><th>Chart</th><th>ClusterRoles</th><th>Roles</th><th>Risky rules</th><th>Findings</th></tr></thead><tbody><tr><td><code>crossplane-stable/crossplane/2.3.1</code></td><td>12</td><td>0</td><td>22</td><td><code>all-resources</code>, <code>full-wildcard</code>, <code>priv-escalation</code>, <code>secret-read</code></td></tr>
 <tr><td><code>rook-release/rook-ceph/v1.19.5</code></td><td>33</td><td>14</td><td>16</td><td><code>secret-read</code></td></tr>
+<tr><td><code>argo-cd/argo-cd/10.1.3</code></td><td>3</td><td>6</td><td>10</td><td><code>all-resources</code>, <code>full-wildcard</code>, <code>secret-read</code></td></tr>
+<tr><td><code>argo-cd/argo-cd/10.2.1</code></td><td>3</td><td>6</td><td>10</td><td><code>all-resources</code>, <code>full-wildcard</code>, <code>secret-read</code></td></tr>
 <tr><td><code>argo-cd/argo-cd/9.5.15</code></td><td>3</td><td>6</td><td>10</td><td><code>all-resources</code>, <code>full-wildcard</code>, <code>secret-read</code></td></tr>
 <tr><td><code>argo-cd/argo-cd/9.5.17</code></td><td>3</td><td>6</td><td>10</td><td><code>all-resources</code>, <code>full-wildcard</code>, <code>secret-read</code></td></tr>
 <tr><td><code>jetstack/cert-manager/v1.20.2</code></td><td>13</td><td>4</td><td>8</td><td><code>secret-read</code></td></tr>
+<tr><td><code>jetstack/cert-manager/v1.21.0</code></td><td>13</td><td>3</td><td>8</td><td><code>secret-read</code></td></tr>
 <tr><td><code>istio/istiod/1.30.0</code></td><td>3</td><td>1</td><td>6</td><td><code>all-resources</code>, <code>secret-read</code></td></tr>
+<tr><td><code>metallb/metallb/0.16.1</code></td><td>3</td><td>4</td><td>5</td><td><code>secret-read</code></td></tr>
 <tr><td><code>gatekeeper/gatekeeper/3.22.2</code></td><td>1</td><td>1</td><td>4</td><td><code>all-resources</code>, <code>secret-read</code></td></tr>
 <tr><td><code>kyverno/kyverno/3.8.1</code></td><td>16</td><td>4</td><td>4</td><td><code>secret-read</code></td></tr>
+<tr><td><code>kyverno/kyverno/3.8.2</code></td><td>16</td><td>4</td><td>4</td><td><code>secret-read</code></td></tr>
 <tr><td><code>haproxytech/kubernetes-ingress/1.52.0</code></td><td>1</td><td>0</td><td>3</td><td><code>all-resources</code>, <code>secret-read</code></td></tr>
 <tr><td><code>kedacore/keda/2.19.0</code></td><td>4</td><td>1</td><td>3</td><td><code>all-resources</code>, <code>secret-read</code></td></tr>
 <tr><td><code>minio-operator/operator/7.1.1</code></td><td>1</td><td>0</td><td>3</td><td><code>full-wildcard</code>, <code>secret-read</code></td></tr>
 <tr><td><code>prometheus-community/kube-prometheus-stack/85.3.3</code></td><td>4</td><td>0</td><td>3</td><td><code>secret-read</code></td></tr>
 <tr><td><code>prometheus-community/kube-prometheus-stack/86.1.0</code></td><td>4</td><td>0</td><td>3</td><td><code>secret-read</code></td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack/87.15.1</code></td><td>4</td><td>0</td><td>3</td><td><code>secret-read</code></td></tr>
+<tr><td><code>prometheus-community/kube-prometheus-stack/87.19.2</code></td><td>4</td><td>0</td><td>3</td><td><code>secret-read</code></td></tr>
 <tr><td><code>sealed-secrets/sealed-secrets/2.18.6</code></td><td>1</td><td>2</td><td>3</td><td><code>secret-read</code></td></tr>
 <tr><td><code>hashicorp/terraform/1.1.2</code></td><td>0</td><td>1</td><td>2</td><td><code>full-wildcard</code>, <code>secret-read</code></td></tr>
 <tr><td><code>projectcalico/tigera-operator/v3.32.0</code></td><td>2</td><td>0</td><td>2</td><td><code>priv-escalation</code>, <code>secret-read</code></td></tr>
 <tr><td><code>aqua/trivy-operator/0.32.1</code></td><td>4</td><td>2</td><td>2</td><td><code>secret-read</code></td></tr>
 <tr><td><code>argo-cd/argo-workflows/1.0.14</code></td><td>7</td><td>1</td><td>2</td><td><code>secret-read</code></td></tr>
-<tr><td><code>external-secrets/external-secrets/2.5.0</code></td><td>5</td><td>1</td><td>2</td><td><code>secret-read</code></td></tr>
-<tr><td><code>fairwinds-stable/goldilocks/10.3.0</code></td><td>2</td><td>0</td><td>2</td><td><code>all-resources</code></td></tr>
-<tr><td><code>ingress-nginx/ingress-nginx/4.15.1</code></td><td>1</td><td>1</td><td>2</td><td><code>secret-read</code></td></tr>
-<tr><td><code>longhorn/longhorn/1.11.2</code></td><td>1</td><td>1</td><td>2</td><td><code>secret-read</code></td></tr>
-<tr><td><code>strimzi/strimzi-kafka-operator/1.0.0</code></td><td>7</td><td>0</td><td>2</td><td><code>secret-read</code></td></tr>
-<tr><td><code>argo-cd/argo-events/2.4.21</code></td><td>1</td><td>0</td><td>1</td><td><code>secret-read</code></td></tr>
-<tr><td><code>argo-cd/argo-rollouts/2.40.9</code></td><td>4</td><td>0</td><td>1</td><td><code>secret-read</code></td></tr>
-<tr><td>_… and 25 more_</td><td></td><td></td><td></td><td></td></tr></tbody></table>
+<tr><td>_… and 44 more_</td><td></td><td></td><td></td><td></td></tr></tbody></table>
 <h2 id="what-happens-after-a-finding">What happens after a finding</h2>
 <p>A finding is a reason to inspect the rendered Role or ClusterRole. If the permission is not needed, propose a precise object change, review the diff, run the normal policy checks, and require approval before delivery.</p>
 <p>The <a href="../rbac-review-live-proof/summary.html">live RBAC review example</a> follows that path for one namespaced service account. It removes Secret access, keeps ConfigMap access, proves that ConfigHub blocked the correction until approval, publishes the approved objects as OCI, and lets Argo CD deliver the result to an isolated Kubernetes cluster. The <a href="../../docs/demo/apps/rbac-review.html">walkthrough</a> explains each step.</p>
