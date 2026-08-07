@@ -80,7 +80,25 @@ image references present in the runtimes are recorded in the
 [receipt](../../../runs/aicr-kserve-nim-import/receipt.yaml) as evidence that
 references are data. The
 [summary](../../../data/aicr-kserve-nim-import/summary.md) retells the run;
-the scratch Space and registry were removed afterward.
+all three scratch Spaces and the registry were removed afterward.
+
+The same run then carried one reviewed change through development and into
+staging. Upstream leaves the shared model-cache claim for the operator to
+create, so its name is a per-cluster decision that has to land consistently
+everywhere it appears. Renaming it in the development variant changed exactly
+the sixteen model shapes that mount it and left all ten serving runtimes
+untouched, with a dry run first that reported the change and altered nothing.
+The staging promotion was previewed before it ran and left staging untouched
+until it did; staging ended with the reviewed configuration's exact canonical
+data.
+
+One CLI limitation is recorded in the receipt rather than worked around.
+`NIM_TELEMETRY_MODE` is the telemetry control point the NVIDIA product terms
+document, and setting it means adding an environment entry to a runtime.
+ConfigHub's search-replace substitutes single tokens rather than inserting
+structure, and it reports "Config data not changed" when a multi-line
+replacement finds no match, so that change waits for a structural editing
+path instead of being faked here.
 
 ## What is proven and what is not
 
@@ -89,6 +107,5 @@ cross-references hold, no credential value exists in the tree, and ConfigHub
 imported the retained surfaces byte-faithful with the license boundary held
 live. Not proven, and stated rather than implied: no KServe cluster ran these
 shapes under this catalog, no NIM container started, no model was fetched,
-and no GPU workload claim exists. The next increments follow the starter's
-ladder: a reviewed variant change with promotion, then config-plane delivery
-mechanics.
+and no GPU workload claim exists. The next increment follows the starter's
+ladder: config-plane delivery mechanics for the retained shapes.
