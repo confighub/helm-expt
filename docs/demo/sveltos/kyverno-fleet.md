@@ -109,3 +109,6 @@ live Space still contains the same profile and README under the recorded policy:
 ```bash
 CUB_CONTEXT=<your-helm-catalog-context> npm run sveltos-example:hub-verify
 ```
+
+The [fleet chapters page](./fleet-chapters.md) places this example in the
+five-chapter fleet story and lists every offline proof.
