@@ -1,0 +1,370 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "AICRPlatformDigestIndex",
+  "metadata": {
+    "name": "aicr-kserve-nim-inference-3ef33472-digest-index"
+  },
+  "spec": {
+    "platformDigest": "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720",
+    "source": {
+      "commit": "3ef33472b84da9f39131dff0326bf05ac1dc0fe6",
+      "committedAt": "2026-07-31T19:26:17Z",
+      "license": "Apache-2.0",
+      "licenseFile": "upstream/LICENSE",
+      "name": "NVIDIA nim-deploy KServe reference implementation",
+      "repository": "https://github.com/NVIDIA/nim-deploy",
+      "retrievalMethod": "git clone of the public repository, checkout of the exact commit, then an unmodified copy of the kserve subtree and the repository LICENSE into upstream/. No NGC surface was contacted; nothing was pulled from nvcr.io.",
+      "retrievedAt": "2026-08-07",
+      "subtree": "kserve"
+    },
+    "members": [
+      {
+        "component": "llama-3-1-8b-instruct-1xgpu",
+        "role": "model-profile",
+        "sourceFile": "profile/model-profile.yaml",
+        "payloadSha256": "e2be669d71b2575c45e101d1f86160805c93330f176b685be5ded65419c759ec",
+        "payloadPath": "payloads/llama-3-1-8b-instruct-1xgpu-e2be669d71b2575c45e101d1f86160805c93330f176b685be5ded65419c759ec.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama-3-1-8b-instruct-1xgpu:payload-e2be669d71b2575c45e101d1f86160805c93330f176b685be5ded65419c759ec"
+      },
+      {
+        "component": "llama-3-1-70b-instruct-2xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama-3.1-70b-instruct_2xgpu_1.1.0.yaml",
+        "payloadSha256": "9cbca6baf4136a18ec34cc3707ad5dbc1f43f8656808ad4aeb7d48f638eac91a",
+        "payloadPath": "payloads/llama-3-1-70b-instruct-2xgpu-9cbca6baf4136a18ec34cc3707ad5dbc1f43f8656808ad4aeb7d48f638eac91a.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama-3-1-70b-instruct-2xgpu:payload-9cbca6baf4136a18ec34cc3707ad5dbc1f43f8656808ad4aeb7d48f638eac91a"
+      },
+      {
+        "component": "llama-3-1-8b-instruct-1xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml",
+        "payloadSha256": "cb047c43737662a3543fe7cbe058692da847d298251b9da7eb3ca36d142378e5",
+        "payloadPath": "payloads/llama-3-1-8b-instruct-1xgpu-cb047c43737662a3543fe7cbe058692da847d298251b9da7eb3ca36d142378e5.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama-3-1-8b-instruct-1xgpu:payload-cb047c43737662a3543fe7cbe058692da847d298251b9da7eb3ca36d142378e5"
+      },
+      {
+        "component": "llama-3-3-nemotron-49b-2xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2.yaml",
+        "payloadSha256": "c53bac7d289a11ee68f0d8e1ffc2b9947553a0a28a452c3ba96d631a8408a89e",
+        "payloadPath": "payloads/llama-3-3-nemotron-49b-2xgpu-c53bac7d289a11ee68f0d8e1ffc2b9947553a0a28a452c3ba96d631a8408a89e.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama-3-3-nemotron-49b-2xgpu:payload-c53bac7d289a11ee68f0d8e1ffc2b9947553a0a28a452c3ba96d631a8408a89e"
+      },
+      {
+        "component": "llama3-70b-instruct-2xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-70b-instruct_2xgpu_1.0.0.yaml",
+        "payloadSha256": "ea215f7bd3a85cf90048587aed22393baf7438430db1e1cd672e66bf0aa959fa",
+        "payloadPath": "payloads/llama3-70b-instruct-2xgpu-ea215f7bd3a85cf90048587aed22393baf7438430db1e1cd672e66bf0aa959fa.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-70b-instruct-2xgpu:payload-ea215f7bd3a85cf90048587aed22393baf7438430db1e1cd672e66bf0aa959fa"
+      },
+      {
+        "component": "llama3-70b-instruct-4xa100",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-70b-instruct_4xa100_1.0.0.yaml",
+        "payloadSha256": "0edb4bc543a884653141cb237339df5184c3071a3ce43b3f2b32b0cba81660e8",
+        "payloadPath": "payloads/llama3-70b-instruct-4xa100-0edb4bc543a884653141cb237339df5184c3071a3ce43b3f2b32b0cba81660e8.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-70b-instruct-4xa100:payload-0edb4bc543a884653141cb237339df5184c3071a3ce43b3f2b32b0cba81660e8"
+      },
+      {
+        "component": "llama3-70b-instruct-4xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-70b-instruct_4xgpu_1.0.0.yaml",
+        "payloadSha256": "5baa02478edda77805e9eb75a5f2a31e11a3af2dcd5463a708ccb2af5912e556",
+        "payloadPath": "payloads/llama3-70b-instruct-4xgpu-5baa02478edda77805e9eb75a5f2a31e11a3af2dcd5463a708ccb2af5912e556.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-70b-instruct-4xgpu:payload-5baa02478edda77805e9eb75a5f2a31e11a3af2dcd5463a708ccb2af5912e556"
+      },
+      {
+        "component": "llama3-70b-instruct-4xh100",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-70b-instruct_4xh100_1.0.0.yaml",
+        "payloadSha256": "a3fe6992600d9b7dc52fad4715dc567782621b1b67a0eb7ed7f0585a17a3090d",
+        "payloadPath": "payloads/llama3-70b-instruct-4xh100-a3fe6992600d9b7dc52fad4715dc567782621b1b67a0eb7ed7f0585a17a3090d.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-70b-instruct-4xh100:payload-a3fe6992600d9b7dc52fad4715dc567782621b1b67a0eb7ed7f0585a17a3090d"
+      },
+      {
+        "component": "llama3-8b-instruct-1xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-8b-instruct_1xgpu_1.0.0.yaml",
+        "payloadSha256": "cb79b4b209296aefead056efc347c0e536142b8f96f54bae13b2e075c50fb2bc",
+        "payloadPath": "payloads/llama3-8b-instruct-1xgpu-cb79b4b209296aefead056efc347c0e536142b8f96f54bae13b2e075c50fb2bc.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-8b-instruct-1xgpu:payload-cb79b4b209296aefead056efc347c0e536142b8f96f54bae13b2e075c50fb2bc"
+      },
+      {
+        "component": "llama3-8b-instruct-2xa100",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-8b-instruct_2xa100_1.0.0.yaml",
+        "payloadSha256": "58e3db3266685c85643e3d3ebbc853ff620502dea0f60a14867c12986fe33f75",
+        "payloadPath": "payloads/llama3-8b-instruct-2xa100-58e3db3266685c85643e3d3ebbc853ff620502dea0f60a14867c12986fe33f75.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-8b-instruct-2xa100:payload-58e3db3266685c85643e3d3ebbc853ff620502dea0f60a14867c12986fe33f75"
+      },
+      {
+        "component": "llama3-8b-instruct-2xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-8b-instruct_2xgpu_1.0.0.yaml",
+        "payloadSha256": "7122a0ab501ecb931f2027b753ed826d7ad765879e13b6ca728a9630e90bee14",
+        "payloadPath": "payloads/llama3-8b-instruct-2xgpu-7122a0ab501ecb931f2027b753ed826d7ad765879e13b6ca728a9630e90bee14.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-8b-instruct-2xgpu:payload-7122a0ab501ecb931f2027b753ed826d7ad765879e13b6ca728a9630e90bee14"
+      },
+      {
+        "component": "llama3-8b-instruct-2xh100",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/llama3-8b-instruct_2h100_1.0.0.yaml",
+        "payloadSha256": "1fd5e1c01ead6fccdbf0218fdd79e68a477689271b2e2063d4f895f987ecb8f7",
+        "payloadPath": "payloads/llama3-8b-instruct-2xh100-1fd5e1c01ead6fccdbf0218fdd79e68a477689271b2e2063d4f895f987ecb8f7.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama3-8b-instruct-2xh100:payload-1fd5e1c01ead6fccdbf0218fdd79e68a477689271b2e2063d4f895f987ecb8f7"
+      },
+      {
+        "component": "mistral-7b-instruct-v03-1xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/mistral-7b-instruct-v03_1xgpu_1.0.0.yaml",
+        "payloadSha256": "29753d43b9d14c2561e641dcff517b25bb2478a7f1e94a4e04d0bf3d4592e60a",
+        "payloadPath": "payloads/mistral-7b-instruct-v03-1xgpu-29753d43b9d14c2561e641dcff517b25bb2478a7f1e94a4e04d0bf3d4592e60a.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/mistral-7b-instruct-v03-1xgpu:payload-29753d43b9d14c2561e641dcff517b25bb2478a7f1e94a4e04d0bf3d4592e60a"
+      },
+      {
+        "component": "mixtral-8x22b-instruct-v01-8xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/mixtral-8x22b-instruct-v01_8xgpu_1.0.0.yaml",
+        "payloadSha256": "271952379c4e9386657e5a35ea081a63f3dd001199ea2964047236d7e884b2e9",
+        "payloadPath": "payloads/mixtral-8x22b-instruct-v01-8xgpu-271952379c4e9386657e5a35ea081a63f3dd001199ea2964047236d7e884b2e9.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/mixtral-8x22b-instruct-v01-8xgpu:payload-271952379c4e9386657e5a35ea081a63f3dd001199ea2964047236d7e884b2e9"
+      },
+      {
+        "component": "mixtral-8x7b-instruct-v01-2xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/mixtral-8x7b-instruct-v01_2xgpu_1.0.0.yaml",
+        "payloadSha256": "f71f68adf3673ffe8d01145590092c06229e3021406968ee28096d68155b2714",
+        "payloadPath": "payloads/mixtral-8x7b-instruct-v01-2xgpu-f71f68adf3673ffe8d01145590092c06229e3021406968ee28096d68155b2714.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/mixtral-8x7b-instruct-v01-2xgpu:payload-f71f68adf3673ffe8d01145590092c06229e3021406968ee28096d68155b2714"
+      },
+      {
+        "component": "nv-embedqa-e5-v5-1xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/nv-embedqa-e5-v5_1xgpu_1.0.0.yaml",
+        "payloadSha256": "d33e27768a8ebed719729cd573eac5c13d77f0e2ede6bf9cd9ffae3765718308",
+        "payloadPath": "payloads/nv-embedqa-e5-v5-1xgpu-d33e27768a8ebed719729cd573eac5c13d77f0e2ede6bf9cd9ffae3765718308.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nv-embedqa-e5-v5-1xgpu:payload-d33e27768a8ebed719729cd573eac5c13d77f0e2ede6bf9cd9ffae3765718308"
+      },
+      {
+        "component": "nv-rerankqa-mistral-4b-v3-1xgpu",
+        "role": "model-shape",
+        "sourceFile": "upstream/kserve/nim-models/nv-rerankqa-mistral-4b-v3_1xgpu_1.0.0.yaml",
+        "payloadSha256": "07375093d8647d1eeff64d57cffcf4dfeed0e9e34d554ecf3969c8a7fb94b2e6",
+        "payloadPath": "payloads/nv-rerankqa-mistral-4b-v3-1xgpu-07375093d8647d1eeff64d57cffcf4dfeed0e9e34d554ecf3969c8a7fb94b2e6.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nv-rerankqa-mistral-4b-v3-1xgpu:payload-07375093d8647d1eeff64d57cffcf4dfeed0e9e34d554ecf3969c8a7fb94b2e6"
+      },
+      {
+        "component": "llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2.yaml",
+        "payloadSha256": "a5339a7841010d8b5c47779ce8a483b7bcfbc837c68d2b50ad39536149e3df2f",
+        "payloadPath": "payloads/llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2-a5339a7841010d8b5c47779ce8a483b7bcfbc837c68d2b50ad39536149e3df2f.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2:payload-a5339a7841010d8b5c47779ce8a483b7bcfbc837c68d2b50ad39536149e3df2f"
+      },
+      {
+        "component": "nvidia-nim-llama-3.1-70b-instruct-1.1.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/llama-3.1-70b-instruct-1.1.0.yaml",
+        "payloadSha256": "1fb0acdaf8ba34c6d41c2520ebf145d9c91a1d4ad0d6fb0706c3b07c3270dc8f",
+        "payloadPath": "payloads/nvidia-nim-llama-3.1-70b-instruct-1.1.0-1fb0acdaf8ba34c6d41c2520ebf145d9c91a1d4ad0d6fb0706c3b07c3270dc8f.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-llama-3.1-70b-instruct-1.1.0:payload-1fb0acdaf8ba34c6d41c2520ebf145d9c91a1d4ad0d6fb0706c3b07c3270dc8f"
+      },
+      {
+        "component": "nvidia-nim-llama-3.1-8b-instruct-1.1.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/llama-3.1-8b-instruct-1.1.0.yaml",
+        "payloadSha256": "d5cebcf1dc4195d66741cc8ba23accd0352ad905b7c50448768b02b8a45be91e",
+        "payloadPath": "payloads/nvidia-nim-llama-3.1-8b-instruct-1.1.0-d5cebcf1dc4195d66741cc8ba23accd0352ad905b7c50448768b02b8a45be91e.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-llama-3.1-8b-instruct-1.1.0:payload-d5cebcf1dc4195d66741cc8ba23accd0352ad905b7c50448768b02b8a45be91e"
+      },
+      {
+        "component": "nvidia-nim-llama3-70b-instruct-1.0.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/llama3-70b-instruct-1.0.0.yaml",
+        "payloadSha256": "d302e2df96155f79624d82d4d5ebec54132d4e1670df8bc4622953a3becff686",
+        "payloadPath": "payloads/nvidia-nim-llama3-70b-instruct-1.0.0-d302e2df96155f79624d82d4d5ebec54132d4e1670df8bc4622953a3becff686.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-llama3-70b-instruct-1.0.0:payload-d302e2df96155f79624d82d4d5ebec54132d4e1670df8bc4622953a3becff686"
+      },
+      {
+        "component": "nvidia-nim-llama3-8b-instruct-1.0.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/llama3-8b-instruct-1.0.0.yaml",
+        "payloadSha256": "92250dd9e185f160c6eecd34f0b1fa3de95374abde847a3dc03bd84749e86a34",
+        "payloadPath": "payloads/nvidia-nim-llama3-8b-instruct-1.0.0-92250dd9e185f160c6eecd34f0b1fa3de95374abde847a3dc03bd84749e86a34.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-llama3-8b-instruct-1.0.0:payload-92250dd9e185f160c6eecd34f0b1fa3de95374abde847a3dc03bd84749e86a34"
+      },
+      {
+        "component": "nvidia-nim-mistral-7b-instruct-v03-1.0.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/mistral-7b-instruct-v03-1.0.0.yaml",
+        "payloadSha256": "6e8426687acaddd2d8ad79ff23c0e2c836da3fab72d00e8624c870f5fa38887c",
+        "payloadPath": "payloads/nvidia-nim-mistral-7b-instruct-v03-1.0.0-6e8426687acaddd2d8ad79ff23c0e2c836da3fab72d00e8624c870f5fa38887c.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-mistral-7b-instruct-v03-1.0.0:payload-6e8426687acaddd2d8ad79ff23c0e2c836da3fab72d00e8624c870f5fa38887c"
+      },
+      {
+        "component": "nvidia-nim-mixtral-8x22b-instruct-v01-1.0.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/mixtral-8x22b-instruct-v01-1.0.0.yaml",
+        "payloadSha256": "3f7cb74ebc5a39e96c5cd4193681f19ee76d91cbd31df2310a63f515e646042d",
+        "payloadPath": "payloads/nvidia-nim-mixtral-8x22b-instruct-v01-1.0.0-3f7cb74ebc5a39e96c5cd4193681f19ee76d91cbd31df2310a63f515e646042d.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-mixtral-8x22b-instruct-v01-1.0.0:payload-3f7cb74ebc5a39e96c5cd4193681f19ee76d91cbd31df2310a63f515e646042d"
+      },
+      {
+        "component": "nvidia-nim-mixtral-8x7b-instruct-v01-1.0.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/mixtral-8x7b-instruct-v01-1.0.0.yaml",
+        "payloadSha256": "cccd96563e08b1673d25322ebee9096b848729d0982acff4b429b4224236b10f",
+        "payloadPath": "payloads/nvidia-nim-mixtral-8x7b-instruct-v01-1.0.0-cccd96563e08b1673d25322ebee9096b848729d0982acff4b429b4224236b10f.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-mixtral-8x7b-instruct-v01-1.0.0:payload-cccd96563e08b1673d25322ebee9096b848729d0982acff4b429b4224236b10f"
+      },
+      {
+        "component": "nvidia-nim-nv-embedqa-e5-v5-1.0.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/nv-embedqa-e5-v5-1.0.0.yaml",
+        "payloadSha256": "78c2b72ae250ef139ab8bf4f36b342806931ad22a81286fc11db2cb6fa037498",
+        "payloadPath": "payloads/nvidia-nim-nv-embedqa-e5-v5-1.0.0-78c2b72ae250ef139ab8bf4f36b342806931ad22a81286fc11db2cb6fa037498.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-nv-embedqa-e5-v5-1.0.0:payload-78c2b72ae250ef139ab8bf4f36b342806931ad22a81286fc11db2cb6fa037498"
+      },
+      {
+        "component": "nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0",
+        "role": "serving-runtime",
+        "sourceFile": "upstream/kserve/runtimes/nv-rerankqa-mistral-4b-v3-1.0.0.yaml",
+        "payloadSha256": "67bbab9c50f04588cd1c2813c5c2d7c54edce45e1627273c97c656ce42330c83",
+        "payloadPath": "payloads/nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0-67bbab9c50f04588cd1c2813c5c2d7c54edce45e1627273c97c656ce42330c83.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-components/nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0:payload-67bbab9c50f04588cd1c2813c5c2d7c54edce45e1627273c97c656ce42330c83"
+      }
+    ],
+    "supportFiles": [
+      {
+        "path": "upstream/LICENSE",
+        "sha256": "54ec920061eac874002600239435adfd09d0298800f3cc4a5ac88b11c554f22f"
+      },
+      {
+        "path": "upstream/kserve/.gitignore",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "upstream/kserve/README.md",
+        "sha256": "052b3e4b0f35182aecb0e4560c5f52bd45b68ac77aeb127cfe6cdb6b22e916c0"
+      },
+      {
+        "path": "upstream/kserve/nim-models/README.md",
+        "sha256": "e1e851b0f4122a677b91b4e1a5d66626e0fbb205c25bad306b44c2a795eb956e"
+      },
+      {
+        "path": "upstream/kserve/runtimes/README.md",
+        "sha256": "c5ed2298b0a494c9f9d81aec0a46b0d60a6a7eeb258db19c1262852f7944c7e5"
+      },
+      {
+        "path": "upstream/kserve/scripts/README.md",
+        "sha256": "f76f8c67d9df8490274b7c27b49b42a7c4b26179f75a3777bba3266aa6af9fb3"
+      },
+      {
+        "path": "upstream/kserve/scripts/create-secrets.sh",
+        "sha256": "6f1696d761a09cd73e23d8c9f216257c79973296aa1fa11969ef41f3195f356f"
+      },
+      {
+        "path": "upstream/kserve/scripts/download-all.yaml",
+        "sha256": "2aaa627450a5f5cffe30b425c6e059425394f493a7829a4d548c5a2aaf34fe0e"
+      },
+      {
+        "path": "upstream/kserve/scripts/download-profile.yaml",
+        "sha256": "e834cdd78c28be9c69a32d1f08d316b49386ec1de709374e83d0f7d575e492a1"
+      },
+      {
+        "path": "upstream/kserve/scripts/download-single.yaml",
+        "sha256": "92ea96ceff57d0b07a0e777cee1b4b8bfe8120d5052e651239d668c457230862"
+      },
+      {
+        "path": "upstream/kserve/scripts/list-profiles.yaml",
+        "sha256": "1668106f0d63512445907bf9485b1d8013cb17d61c298db3abcbc307c5f5a3cc"
+      },
+      {
+        "path": "upstream/kserve/scripts/nvidia-nim-cache.yaml",
+        "sha256": "c56bb096fb3f7047dcaf20dcfdd21a918d1c1ac8a0ca59b5a97d26c97605d983"
+      },
+      {
+        "path": "upstream/kserve/scripts/nvidia-nim-secrets.yaml",
+        "sha256": "9638cdd30dd0a5307c2447b063ffef20703010fce469807fde3d4dbddfe14c62"
+      },
+      {
+        "path": "upstream/kserve/scripts/secrets.env",
+        "sha256": "a013246129bb2a7d0fc3c6a4545d2a2ffd6854e7b3b9b50c2c64319ee7b695d2"
+      },
+      {
+        "path": "upstream/kserve/scripts/setup.sh",
+        "sha256": "3cba08904d77e4ec349531df8c1c2bcd2fd60f8f4608735be4dc4f861c2ef40e"
+      }
+    ],
+    "gatedImageReferences": [
+      {
+        "servingRuntime": "llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2",
+        "image": "nvcr.io/nim/nvidia/llama-3.3-nemotron-super-49b-v1:1.8.2",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-llama-3.1-70b-instruct-1.1.0",
+        "image": "nvcr.io/nim/meta/llama-3.1-70b-instruct:1.1.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-llama-3.1-8b-instruct-1.1.0",
+        "image": "nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-llama3-70b-instruct-1.0.0",
+        "image": "nvcr.io/nim/meta/llama3-70b-instruct:1.0.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-llama3-8b-instruct-1.0.0",
+        "image": "nvcr.io/nim/meta/llama3-8b-instruct:1.0.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-mistral-7b-instruct-v03-1.0.0",
+        "image": "nvcr.io/nim/mistralai/mistral-7b-instruct-v03:1.0.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-mixtral-8x22b-instruct-v01-1.0.0",
+        "image": "nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-mixtral-8x7b-instruct-v01-1.0.0",
+        "image": "nvcr.io/nim/mistralai/mixtral-8x7b-instruct-v01:1.0.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-nv-embedqa-e5-v5-1.0.0",
+        "image": "nvcr.io/nim/nvidia/nv-embedqa-e5-v5:1.0.0",
+        "registry": "nvcr.io"
+      },
+      {
+        "servingRuntime": "nvidia-nim-nv-rerankqa-mistral-4b-v3-1.0.0",
+        "image": "nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0",
+        "registry": "nvcr.io"
+      }
+    ],
+    "aggregate": {
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-kserve-nim-inference-digest-index:platform-7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720",
+      "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
+    },
+    "boundary": {
+      "configPlaneOnly": true,
+      "gpuWorkloadsProven": false,
+      "modelsFetched": false,
+      "ngcContacted": false,
+      "nimContainersRan": false,
+      "secretValuesIncluded": false,
+      "statement": "This index pins retained configuration by digest. Gated images appear as references only; no NIM container ran, no model was fetched, and no NGC surface was contacted to produce or verify it."
+    }
+  },
+  "status": {
+    "result": "compiled-offline",
+    "liveRegistryPublicationClaimed": false
+  }
+}

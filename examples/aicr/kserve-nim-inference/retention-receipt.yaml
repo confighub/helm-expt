@@ -1,0 +1,56 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceRetentionReceipt
+metadata:
+  name: aicr-kserve-nim-inference-3ef33472
+spec:
+  source:
+    name: NVIDIA nim-deploy KServe reference implementation
+    repository: https://github.com/NVIDIA/nim-deploy
+    commit: 3ef33472b84da9f39131dff0326bf05ac1dc0fe6
+    committedAt: "2026-07-31T19:26:17Z"
+    subtree: kserve
+    license: Apache-2.0
+    licenseFile: upstream/LICENSE
+    retrievedAt: "2026-08-07"
+    retrievalMethod: >-
+      git clone of the public repository, checkout of the exact commit, then an
+      unmodified copy of the kserve subtree and the repository LICENSE into
+      upstream/. No NGC surface was contacted; nothing was pulled from nvcr.io.
+  provenanceNotes:
+    - >-
+      The upstream repository removed its local nim-llm Helm chart on
+      2025-05-09 (nim-deploy pull request 143); that chart now ships only
+      through NGC, which this catalog treats as gated and does not retain. The
+      KServe path is the retained GitHub surface.
+    - >-
+      Upstream describes this repository as experimental reference
+      implementations without enterprise support and points long-term
+      production users to official NGC releases.
+    - >-
+      The retained tree references NGC-gated container images by name (for
+      example nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0). Those references
+      are configuration data; the images are pulled only by a user's cluster
+      with the user's own NGC API key under the user's own NVIDIA entitlement.
+      See docs/planning/nim-ngc-license-read.md for the license read behind
+      this boundary.
+    - >-
+      Every secret surface in the retained tree carries names or environment
+      substitutions only (secretKeyRef entries, ${NGC_API_KEY} placeholders).
+      No secret value is committed, and the digest-index compiler refuses to
+      compile if one appears.
+  destination:
+    plannedOCIBase: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+  boundary:
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    nimContainersRan: false
+    modelsFetched: false
+    ngcContacted: false
+    secretValuesIncluded: false
+    statement: >-
+      This entry retains configuration only. No NIM container ran, no model
+      was fetched, and no NGC surface was contacted to produce or verify it.
+      Workload-plane claims stay absent rather than implied.
+status:
+  result: retained-offline
+  liveRegistryPublicationClaimed: false

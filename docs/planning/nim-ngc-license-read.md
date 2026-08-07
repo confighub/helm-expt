@@ -125,3 +125,20 @@ receipt states that no NIM container ran and no model was fetched.
 3. Re-read the per-artifact governing terms on the specific NGC pages the entry
    references at build time, since per-artifact terms override this general
    read.
+
+## Addendum recorded at build time, 2026-08-07
+
+The build closed the three open items the same day, with one discovery that
+changed the sourcing decision. The nim-llm Helm chart this read expected to
+retain no longer exists on GitHub: nim-deploy removed it on 2025-05-09 (pull
+request 143), and the chart now ships only through NGC, which this read
+classifies as gated. The
+[inference entry](../demo/aicr/kserve-nim-inference.md) therefore retains the
+repository's KServe subtree instead, at commit `3ef33472` under the same
+Apache-2.0 license. The per-artifact re-read happened for the first described
+profile: on 2026-08-07 the NGC catalog page for the Llama 3.1 8B NIM named
+four governing terms, the NVIDIA Software License Agreement, the
+Product-Specific Terms for AI Products, the NVIDIA Open Model Agreement, and
+the Llama 3.1 Community License Agreement, and the
+[profile record](../../examples/aicr/kserve-nim-inference/profile/model-profile.yaml)
+carries those names as dated data.
