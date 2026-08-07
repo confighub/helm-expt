@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Brief: an AICR catalog with an OCI digest spine · Config Workshop</title>
-  <meta name="description" content="Brief: an AICR catalog with an OCI digest spine: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-catalog-brief.html">
-  <meta property="og:title" content="Brief: an AICR catalog with an OCI digest spine · Config Workshop">
-  <meta property="og:description" content="Brief: an AICR catalog with an OCI digest spine: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>CPU starter reviewed-component sync proof · Config Workshop</title>
+  <meta name="description" content="CPU starter reviewed-component sync proof: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-sync/summary.html">
+  <meta property="og:title" content="CPU starter reviewed-component sync proof · Config Workshop">
+  <meta property="og:description" content="CPU starter reviewed-component sync proof: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/aicr-catalog-brief.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/aicr-cpu-starter-sync/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -438,31 +438,19 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Brief: an AICR catalog with an OCI digest spine</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/aicr-catalog-brief.md">View source markdown</a>.</p>
+    <h1>CPU starter reviewed-component sync proof</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-cpu-starter-sync/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Status: proposal, 2026-08-06. Nothing here is built. This brief exists so the next session starts from decisions, not archaeology.</p>
-<h2 id="purpose">Purpose</h2>
-<p>Extend the receipts-everywhere catalog discipline from single charts and the Kubara platform to whole AI-platform shapes. Ship a small catalog of AICR configurations where every entry has retained exact versions, every package is an immutable OCI digest, and every claim carries a receipt. Nobody in the AI-infrastructure space offers governed, provenance-carrying platform configuration; teams copy YAML from blog posts, and an H100 misconfiguration has a dollar sign attached.</p>
-<h2 id="what-exists-today">What exists today</h2>
-<ul><li>One example, <code>examples/aicr/eks-h100-training-kubeflow</code>, already packaged in every transport the doctrine wants: Argo rendered, Flux bundle, OCI layouts, Helm bundle.</li><li>Twelve npm lanes (<code>aicr-*</code>) covering verify, publish, hub sync and record, policy check, and promotion.</li><li>Two committed proofs: an OCI roundtrip receipt (pass) and a variant-promotion receipt that imported AICR v0.14.0's 17 Argo Applications with sync-wave order preserved, changed one Grafana credential to a real Secret in a development variant, previewed with a dry run that named the affected Application, and promoted to staging with matching data hashes.</li><li>Honest UNOFFICIAL/EXPERIMENTAL labels throughout, and three AICR Spaces in the demo organization.</li></ul>
-<p>The mechanics are proven. The catalog, the digest spine, and the story are not built.</p>
-<h2 id="design">Design</h2>
-<ol><li><b>Catalog taxonomy.</b> Three entry classes to start: a training shape (the existing H100/Kubeflow example), an inference or serving shape (KServe or vLLM on GPU nodes), and a CPU-only starter anyone can run. Training versus inference versus starter is a real buyer taxonomy.</li><li><b>OCI digest spine.</b> Port the pattern the Kubara importer proved: one immutable OCI package per component plus a digest-bound platform index that pins the whole shape. The compiler code lives in github.com/confighub/kubara-confighub (<code>scripts/import-kubara-git-revision.mjs</code> and the app-release compilers) and generalizes.</li><li><b>Retained versions.</b> Each catalog entry keeps its exact upstream versions retained, the way the chart catalog and the Kubara component catalog do.</li><li><b>Variants where AI infrastructure actually varies.</b> GPU class and count, storage class, secrets handling, region. This is the natural fit for the Pilot ad-hoc variant model: variants generated on demand, gated by parity, author not authority (see <code>docs/planning</code> Pilot notes and PR #1082).</li></ol>
-<h2 id="proof-ladder">Proof ladder</h2>
-<ol><li>Deterministic self-tests against fake Git, OCI, and ConfigHub surfaces, in the importer's style.</li><li>Config-plane live proofs on kind: import, variant, promotion, delivery, and the changed/no-op idempotence pair.</li><li>An explicit boundary, stated in every receipt and caption: kind proves config mechanics, not GPU workloads. Workload-plane claims wait until a real GPU target exists, and stay absent rather than implied.</li></ol>
-<h2 id="honest-boundaries">Honest boundaries</h2>
-<ul><li><b>Sourcing.</b> One credible AICR exists. More entries must come from upstream AICR versions or deliberately authored shapes with named provenance. Manufactured variety would be fake breadth; refuse it.</li><li><b>Labels.</b> UNOFFICIAL/EXPERIMENTAL stays on every surface until a proof earns its removal.</li></ul>
-<h2 id="research-findings">Research findings</h2>
-<p>The three pre-build questions were answered on 2026-08-06 and 2026-08-07:</p>
-<ol><li><b>AICR community trajectory.</b> AICR is NVIDIA's AI Cluster Runtime (github.com/NVIDIA/aicr), Apache-2.0, created January 2026, with roughly biweekly minor releases, thirty contributors, and daily pushes. Verdict: a young but rising NVIDIA-backed standard and a credible upstream; catalog breadth comes from its own recipe catalog (EKS, GKE, and self-managed, across H100 and GB200), never from manufactured variety. Our retained v0.14.0 against a moving upstream is itself the retained-versions story.</li><li><b>NVIDIA NIM.</b> Deployment shapes are packagable from public surfaces (Helm charts, the NIM Operator CRDs, and the NVIDIA/nim-deploy reference repo). The boundary: NIM runtime images and models are NGC-gated under NVIDIA AI Enterprise licensing, so the catalog retains deployment shapes and records gated references as data, never redistributing artifacts, keys, or benchmark observations. The full license read lives in docs/planning/nim-ngc-license-read.md, and its refusals are enforced in the compiler.</li><li><b>Inference-shape sourcing.</b> NVIDIA/nim-deploy's KServe path won: the nim-llm Helm chart moved to NGC-only distribution upstream, leaving the KServe subtree as the retainable Apache-2.0 surface. The retained entry lives at examples/aicr/kserve-nim-inference.</li></ol>
-<h2 id="first-increment-first-increment">First increment## First increment</h2>
-<p>Delivered: the digest-index compiler landed for the H100 example, followed by the catalog overview page, the NGC license read, the retained KServe/NIM inference entry, the CPU starter, and two live config-plane proofs of the starter against ConfigHub and kind. The original plan follows for the record. Port the digest-index compiler to AICR and produce the index for the existing H100 example, with self-tests. That alone upgrades the current story from &quot;we imported an OCI&quot; to &quot;the whole shape is pinned by one digest,&quot; using code that already exists. Everything else follows the Kubara playbook: reference deployment, governed change story, receipts, frames, two-path page.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from the committed live receipt. Rerun the throwaway-cluster proof with <code>npm run aicr-starter-sync:run</code>; verify it without external access with <code>npm run aicr-starter-sync:verify</code>.</p>
+<p>The reviewed change from the <a href="../../../../runs/aicr-cpu-starter-variant/receipt.yaml">variant receipt</a> became real on a cluster. The committed <code>kube-prometheus-stack</code> bytes with the reviewed <code>gp3</code> to <code>standard</code> storage-class override traveled as one OCI artifact with the six untouched components, and Argo CD v3.4.5 on a throwaway kind cluster synced the <code>prometheus-operator-crds</code> CRD prerequisite first and then the reviewed component, in the order the sync-waves state. Both reached Synced and Healthy, and every Prometheus volume claim bound with the <code>standard</code> class the review selected (<code>prometheus-kube-prometheus-prometheus-db-prometheus-kube-prometheus-prometheus-0</code>).</p>
+<p>Scope was proven, not implied: exactly two Applications existed on the cluster, and every other component destination namespace (cert-manager, kai-scheduler, node-feature-discovery) stayed absent. The run took 460 seconds on 2026-08-07T09:21:25.154Z; the cluster, registry, and working files were removed afterward.</p>
+<h2 id="limits">Limits</h2>
+<ul><li>This receipt syncs exactly one reviewed component plus its declared CRD prerequisite. The other five starter components stay config-plane and were proven absent.</li><li>The sync ran on a throwaway kind cluster; it claims nothing about production clusters, AWS, or GPU nodes.</li><li>The reviewed change came from the committed variant receipt; this run realizes that change, it does not re-review it.</li><li>Upstream charts were fetched from their public repository during the sync; their contents are pinned by the Application targetRevision, not re-verified here.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/planning/aicr-catalog-brief.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/aicr-cpu-starter-sync/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
