@@ -143,18 +143,30 @@ function run() {
   const contextInfo = jsonCommand("cub", ["context", "get", context, "-o", "json"]);
   const runId = safeRunId(process.env.HELM_EXPT_PROOF_RUN_ID || new Date().toISOString());
   const component = `hx-kserve-nim-${runId}`;
-  const space = `${component}-base`;
+  const spaces = {
+    base: `${component}-base`,
+    dev: `${component}-dev`,
+    staging: `${component}-staging`,
+  };
+  const space = spaces.base;
   const container = `helm-expt-kserve-nim-${runId}`;
-  let spaceCreated = false;
+  const createdSpaces = [];
   let registryStarted = false;
   let receipt;
-  const cleanup = { baseSpace: "not-created", registry: "not-started" };
+  const cleanup = {
+    stagingSpace: "not-created",
+    devSpace: "not-created",
+    baseSpace: "not-created",
+    registry: "not-started",
+  };
 
   try {
-    check(
-      !cubTry(context, ["space", "get", space, "-o", "json"]).ok,
-      `refusing to reuse existing scratch Space ${space}`,
-    );
+    for (const slug of Object.values(spaces)) {
+      check(
+        !cubTry(context, ["space", "get", slug, "-o", "json"]).ok,
+        `refusing to reuse existing scratch Space ${slug}`,
+      );
+    }
 
     command("docker", ["run", "-d", "--rm", "--name", container, "-p", "127.0.0.1::5000", "registry:2"]);
     registryStarted = true;
@@ -204,14 +216,12 @@ function run() {
       "Import the retained KServe NIM inference surfaces as the base variant",
       `oci://${registryRef}`,
     ], { timeout: 420_000 });
-    spaceCreated = true;
+    createdSpaces.push(spaces.base);
     cleanup.baseSpace = "pending";
 
-    const spaceResponse = cubJson(context, ["space", "get", space, "-o", "json"]);
-    const unitResponse = cubJson(context, ["unit", "get", component, "--space", space, "-o", "json"]);
-    const data = cub(context, ["unit", "data", component, "--space", space]);
-    refuseEmbeddedCredentials("the imported Unit data", data);
-    const importedDocs = parseDocs(data).map(stripCommentMetadata);
+    const baseBefore = inspectVariant(context, spaces.base, component);
+    refuseEmbeddedCredentials("the imported Unit data", baseBefore.rawData);
+    const importedDocs = baseBefore.docs;
     check(
       importedDocs.length === expectations.documentCount,
       `ConfigHub imported ${importedDocs.length} documents, expected ${expectations.documentCount}`,
@@ -221,7 +231,7 @@ function run() {
       "the ConfigHub base Unit differs from the committed retained surfaces",
     );
     const externalSources = JSON.parse(
-      spaceResponse.Space?.Annotations?.["confighub.com/external-source"] ?? "[]",
+      baseBefore.space?.Annotations?.["confighub.com/external-source"] ?? "[]",
     );
     check(
       externalSources.length === 1
@@ -236,6 +246,138 @@ function run() {
         .filter((image) => image.startsWith("nvcr.io/")),
     )].sort();
     check(gatedReferences.length > 0, "the imported runtimes name no gated image references");
+
+    cub(context, [
+      "variant",
+      "create",
+      "dev",
+      spaces.base,
+      "--space-pattern",
+      `template:${spaces.dev}`,
+      "--environment",
+      "Dev",
+      "--region",
+      "demo",
+      "--wait",
+      "--timeout",
+      "10m",
+    ], { timeout: 660_000 });
+    createdSpaces.push(spaces.dev);
+    cleanup.devSpace = "pending";
+    const devBefore = inspectVariant(context, spaces.dev, component);
+    check(
+      canonicalDocs(devBefore.docs) === canonicalDocs(baseBefore.docs),
+      "the development variant does not match the imported base",
+    );
+
+    cub(context, [
+      "variant",
+      "create",
+      "staging",
+      spaces.dev,
+      "--space-pattern",
+      `template:${spaces.staging}`,
+      "--environment",
+      "Staging",
+      "--region",
+      "demo",
+      "--wait",
+      "--timeout",
+      "10m",
+    ], { timeout: 660_000 });
+    createdSpaces.push(spaces.staging);
+    cleanup.stagingSpace = "pending";
+    const stagingBefore = inspectVariant(context, spaces.dev, component);
+
+    // The reviewed change renames the shared model-cache claim every model
+    // shape mounts. Upstream tells the operator to create that claim
+    // themselves, so its name is a per-cluster decision, and renaming it is
+    // one review that has to land consistently across all sixteen shapes.
+    // ConfigHub's search-replace substitutes single tokens, so the change is
+    // expressed as one token and its blast radius is then measured.
+    const cacheClaimBefore = "nvidia-nim-pvc";
+    const cacheClaimAfter = "hx-nim-model-cache";
+    check(
+      devBefore.rawData.includes(cacheClaimBefore),
+      "the live dev Unit data does not mount the upstream model-cache claim",
+    );
+    const changeArgs = [
+      "run",
+      "search-replace",
+      "--space",
+      spaces.dev,
+      "--unit",
+      component,
+      "--search-value",
+      cacheClaimBefore,
+      "--replace-value",
+      cacheClaimAfter,
+    ];
+    const dryRunOutput = cub(context, [...changeArgs, "--dry-run", "-o", "mutations"]);
+    check(
+      /config data changed/i.test(dryRunOutput),
+      `the ConfigHub dry run reported no change for the reviewed claim rename: ${dryRunOutput.trim().slice(0, 400)}`,
+    );
+    const devAfterDryRun = inspectVariant(context, spaces.dev, component);
+    check(
+      canonicalDocs(devAfterDryRun.docs) === canonicalDocs(devBefore.docs),
+      "the ConfigHub search-replace dry run changed the dev Unit",
+    );
+
+    cub(context, [
+      ...changeArgs,
+      "--change-desc",
+      "Rename the shared NIM model-cache claim for this cluster in development",
+      "--wait",
+    ], { timeout: 660_000 });
+    const devChanged = inspectVariant(context, spaces.dev, component);
+    const changedIdentities = changedDocs(devBefore.docs, devChanged.docs);
+    const expectedChanged = expectations.docs
+      .filter((doc) => JSON.stringify(doc).includes(cacheClaimBefore))
+      .map((doc) => identity(doc))
+      .sort();
+    check(
+      JSON.stringify(changedIdentities) === JSON.stringify(expectedChanged),
+      `the reviewed rename changed ${changedIdentities.length} documents, expected the ${expectedChanged.length} that mount the claim`,
+    );
+    check(
+      changedIdentities.every((row) => row.includes("InferenceService")),
+      "the reviewed rename touched a document that is not a model shape",
+    );
+    check(
+      !JSON.stringify(devChanged.docs).includes(cacheClaimBefore)
+        && devChanged.docs.filter((doc) => JSON.stringify(doc).includes(cacheClaimAfter)).length
+          === expectedChanged.length,
+      "the reviewed rename did not land on every model shape",
+    );
+
+    const stagingBeforePromotion = inspectVariant(context, spaces.staging, component);
+    check(
+      canonicalDocs(stagingBeforePromotion.docs) === canonicalDocs(stagingBefore.docs),
+      "staging changed before the promotion",
+    );
+    const promotionDryRunOutput = cub(context, ["variant", "promote", spaces.staging, "--dry-run"]);
+    check(
+      /1\s+unit/i.test(promotionDryRunOutput),
+      `the promotion dry run did not report one Unit: ${promotionDryRunOutput.trim()}`,
+    );
+    const stagingAfterPromotionDryRun = inspectVariant(context, spaces.staging, component);
+    check(
+      canonicalDocs(stagingAfterPromotionDryRun.docs) === canonicalDocs(stagingBeforePromotion.docs),
+      "the promotion dry run changed staging",
+    );
+    cub(context, [
+      "variant",
+      "promote",
+      spaces.staging,
+      "--change-desc",
+      "Promote the reviewed telemetry setting to staging",
+    ], { timeout: 660_000 });
+    const stagingPromoted = inspectVariant(context, spaces.staging, component);
+    check(
+      canonicalDocs(stagingPromoted.docs) === canonicalDocs(devChanged.docs),
+      "the promoted staging Unit does not match the reviewed dev Unit",
+    );
 
     receipt = {
       apiVersion: "catalog.confighub.com/v1alpha1",
@@ -259,13 +401,30 @@ function run() {
           exactSourceObjectsMatched: true,
           canonicalDataSha256: expectations.canonicalDataSha256,
         },
-        base: {
-          space,
-          spaceId: spaceResponse.Space?.SpaceID,
-          unit: component,
-          unitId: unitResponse.Unit?.UnitID,
-          headRevision: unitResponse.Unit?.HeadRevisionNum,
-          dataHash: unitResponse.Unit?.DataHash,
+        variants: {
+          base: variantRecord(baseBefore),
+          dev: variantRecord(devChanged),
+          staging: variantRecord(stagingPromoted),
+        },
+        change: {
+          control: "the shared model-cache PersistentVolumeClaim name every model shape mounts, which upstream leaves to the operator",
+          before: cacheClaimBefore,
+          after: cacheClaimAfter,
+          changedDocumentCount: changedIdentities.length,
+          changedDocuments: changedIdentities,
+          changedKinds: ["InferenceService"],
+          servingRuntimesUnchanged: true,
+          devDryRun: "pass",
+          devDryRunLeftDataUnchanged: true,
+          devUpdate: "pass",
+        },
+        promotion: {
+          path: "base -> dev -> staging",
+          dryRun: "pass",
+          dryRunReportedUnitCount: 1,
+          dryRunLeftStagingUnchanged: true,
+          result: "pass",
+          stagingMatchesReviewedDev: true,
         },
         licenseBoundary: {
           ngcContacted: false,
@@ -281,7 +440,8 @@ function run() {
           "This run used a temporary local registry; it does not prove public registry publication.",
           "This run started no Kubernetes cluster and required no KServe installation. It does not prove serving, model loading, or any workload behavior.",
           "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution.",
-          "This receipt proves one retained-entry import. Variants, promotion, and delivery for the inference entry are separate increments.",
+          "This receipt proves one retained-entry import, one reviewed model-cache claim rename in a development variant, and one dev-to-staging promotion of that reviewed change. Delivery for the inference entry is a separate increment.",
+          "NIM_TELEMETRY_MODE remains the documented telemetry control point, but setting it means adding an environment entry, and ConfigHub's search-replace substitutes single tokens rather than inserting structure. That change waits for a structural editing path.",
         ],
       },
       status: {
@@ -289,15 +449,29 @@ function run() {
         ociImport: "pass",
         exactObjectSet: "pass",
         licenseBoundary: "pass",
+        derivedVariants: "pass",
+        changeDryRun: "pass",
+        change: "pass",
+        promotionDryRun: "pass",
+        promotion: "pass",
         claim:
-          "ConfigHub imported the twenty-six retained KServe NIM surfaces as one base-variant Unit, kept them byte-faithful, and recorded the exact OCI source and digest, with gated images present as references only and no credential value anywhere in the imported data.",
+          "ConfigHub imported the twenty-six retained KServe NIM surfaces as one base-variant Unit, kept them byte-faithful with the license boundary held live, renamed the shared model-cache claim across every model shape as one reviewed development change while leaving all ten serving runtimes untouched, previewed the staging promotion without changing staging, and promoted the same reviewed configuration to staging with matching data.",
       },
     };
   } finally {
-    if (spaceCreated || cubTry(context, ["space", "get", space, "-o", "json"]).ok) {
-      const deleted = cubTry(context, ["space", "delete", space, "--recursive-force", "--quiet"]);
-      const absent = !cubTry(context, ["space", "get", space, "-o", "json"]).ok;
-      cleanup.baseSpace = deleted.ok && absent ? "pass" : spaceCreated ? "fail" : "not-created";
+    for (const [key, slug] of [
+      ["stagingSpace", spaces.staging],
+      ["devSpace", spaces.dev],
+      ["baseSpace", spaces.base],
+    ]) {
+      const exists = cubTry(context, ["space", "get", slug, "-o", "json"]).ok;
+      if (!exists) {
+        cleanup[key] = createdSpaces.includes(slug) ? "fail" : "not-created";
+        continue;
+      }
+      const deleted = cubTry(context, ["space", "delete", slug, "--recursive-force", "--quiet"]);
+      const absent = !cubTry(context, ["space", "get", slug, "-o", "json"]).ok;
+      cleanup[key] = deleted.ok && absent ? "pass" : "fail";
     }
     if (registryStarted) {
       const stopped = tryCommand("docker", ["stop", container]);
@@ -320,7 +494,16 @@ function run() {
 function verifyReceipt(receipt, expectations) {
   check(receipt.kind === "AicrKserveNimImportProofReceipt", "KServe NIM import receipt kind changed");
   check(receipt.status?.result === "pass", "KServe NIM import proof is not pass");
-  for (const lane of ["ociImport", "exactObjectSet", "licenseBoundary"]) {
+  for (const lane of [
+    "ociImport",
+    "exactObjectSet",
+    "licenseBoundary",
+    "derivedVariants",
+    "changeDryRun",
+    "change",
+    "promotionDryRun",
+    "promotion",
+  ]) {
     check(receipt.status?.[lane] === "pass", `KServe NIM import receipt lane ${lane} did not pass`);
   }
   check(
@@ -353,6 +536,52 @@ function verifyReceipt(receipt, expectations) {
       && boundary.gatedImageReferences.length > 0
       && boundary.gatedImageReferences.every((image) => image.startsWith("nvcr.io/")),
     "KServe NIM import receipt records no gated image references as evidence",
+  );
+  const change = receipt.spec?.change ?? {};
+  const expectedChanged = expectations.docs
+    .filter((doc) => JSON.stringify(doc).includes(change.before ?? " "))
+    .map((doc) => identity(doc))
+    .sort();
+  check(
+    expectedChanged.length > 0
+      && change.changedDocumentCount === expectedChanged.length
+      && JSON.stringify(change.changedDocuments) === JSON.stringify(expectedChanged),
+    "the reviewed change did not land on exactly the retained documents that mount the claim",
+  );
+  check(
+    (change.changedDocuments ?? []).every((row) => String(row).includes("InferenceService"))
+      && change.servingRuntimesUnchanged === true,
+    "the reviewed change touched something other than the model shapes",
+  );
+  check(
+    change.before && change.after && change.before !== change.after
+      && change.devDryRun === "pass"
+      && change.devDryRunLeftDataUnchanged === true
+      && change.devUpdate === "pass",
+    "the reviewed claim-rename evidence is incomplete",
+  );
+  check(
+    receipt.spec?.promotion?.path === "base -> dev -> staging"
+      && receipt.spec?.promotion?.dryRun === "pass"
+      && receipt.spec?.promotion?.dryRunReportedUnitCount === 1
+      && receipt.spec?.promotion?.dryRunLeftStagingUnchanged === true
+      && receipt.spec?.promotion?.result === "pass"
+      && receipt.spec?.promotion?.stagingMatchesReviewedDev === true,
+    "the KServe NIM promotion evidence is incomplete",
+  );
+  check(
+    receipt.spec?.variants?.base?.canonicalDataSha256 === expectations.canonicalDataSha256,
+    "the imported base variant did not match the committed retained bytes",
+  );
+  check(
+    receipt.spec?.variants?.staging?.canonicalDataSha256
+      && receipt.spec?.variants?.staging?.canonicalDataSha256
+        === receipt.spec?.variants?.dev?.canonicalDataSha256,
+    "the promoted staging variant does not carry the reviewed dev configuration",
+  );
+  check(
+    receipt.spec?.variants?.dev?.canonicalDataSha256 !== expectations.canonicalDataSha256,
+    "the development variant records no reviewed change against the imported base",
   );
   check(
     Object.values(receipt.spec?.cleanup ?? {}).every((value) => value === "pass"),
@@ -392,9 +621,21 @@ ${boundary.gatedImageReferences.length} gated image references present in the
 imported runtimes are recorded in the receipt as evidence that references are
 data.
 
+Development and staging variants were created from the base, and one reviewed
+change renamed the shared model-cache claim that every model shape mounts,
+from \`${receipt.spec.change.before}\` to \`${receipt.spec.change.after}\`.
+Upstream leaves that claim for the operator to create, so its name is a
+per-cluster decision, and one review has to land consistently everywhere it
+appears. ConfigHub's dry run reported the change and left the stored
+configuration untouched; the real change updated exactly
+${receipt.spec.change.changedDocumentCount} model shapes and left all ten
+serving runtimes alone. The staging promotion was previewed first, reported
+one Unit, and left staging unchanged; the real promotion then carried the
+reviewed configuration to staging with matching canonical data.
+
 The proof ran in the scratch organization
-\`${receipt.spec.context.organization}\` on ${receipt.spec.recordedAt}. The
-scratch Space and temporary registry were removed afterward.
+\`${receipt.spec.context.organization}\` on ${receipt.spec.recordedAt}. All
+three scratch Spaces and the temporary registry were removed afterward.
 
 ## Limits
 
@@ -432,6 +673,7 @@ function selfTest() {
         "  predictor:",
         "    model:",
         "      runtime: fixture-runtime-alpha",
+        "      storageUri: pvc://nvidia-nim-pvc/",
         "",
       ].join("\n"),
     );
@@ -461,7 +703,31 @@ function selfTest() {
           documentCount: 2,
           kindCounts: { ClusterServingRuntime: 1, InferenceService: 1 },
         },
-        base: { space: "fixture-space", unit: "fixture-unit" },
+        variants: {
+          base: { canonicalDataSha256: expectations.canonicalDataSha256, dataHash: "hash-base" },
+          dev: { canonicalDataSha256: "sha-reviewed", dataHash: "hash-dev" },
+          staging: { canonicalDataSha256: "sha-reviewed", dataHash: "hash-staging" },
+        },
+        change: {
+          control: "the shared model-cache PersistentVolumeClaim name every model shape mounts",
+          before: "nvidia-nim-pvc",
+          after: "hx-nim-model-cache",
+          changedDocumentCount: 1,
+          changedDocuments: ["serving.kserve.io/v1beta1|InferenceService||fixture-alpha-1xgpu"],
+          changedKinds: ["InferenceService"],
+          servingRuntimesUnchanged: true,
+          devDryRun: "pass",
+          devDryRunLeftDataUnchanged: true,
+          devUpdate: "pass",
+        },
+        promotion: {
+          path: "base -> dev -> staging",
+          dryRun: "pass",
+          dryRunReportedUnitCount: 1,
+          dryRunLeftStagingUnchanged: true,
+          result: "pass",
+          stagingMatchesReviewedDev: true,
+        },
         licenseBoundary: {
           ngcContacted: false,
           imagesPulled: false,
@@ -469,10 +735,20 @@ function selfTest() {
           embeddedCredentialValues: false,
           gatedImageReferences: ["nvcr.io/nim/fixture/alpha:1.0.0"],
         },
-        cleanup: { baseSpace: "pass", registry: "pass" },
+        cleanup: { stagingSpace: "pass", devSpace: "pass", baseSpace: "pass", registry: "pass" },
         limits: ["This run started no Kubernetes cluster and required no KServe installation."],
       },
-      status: { result: "pass", ociImport: "pass", exactObjectSet: "pass", licenseBoundary: "pass" },
+      status: {
+        result: "pass",
+        ociImport: "pass",
+        exactObjectSet: "pass",
+        licenseBoundary: "pass",
+        derivedVariants: "pass",
+        changeDryRun: "pass",
+        change: "pass",
+        promotionDryRun: "pass",
+        promotion: "pass",
+      },
     });
 
     verifyReceipt(receipt(), expectations);
@@ -482,6 +758,19 @@ function selfTest() {
       [(r) => (r.spec.source.canonicalDataSha256 = "wrong"), /canonical data differs/],
       [(r) => (r.spec.licenseBoundary.ngcContacted = true), /hold the license boundary/],
       [(r) => (r.spec.licenseBoundary.gatedImageReferences = []), /gated image references as evidence/],
+      [(r) => {
+        r.spec.change.changedDocuments = ["serving.kserve.io/v1alpha1|ClusterServingRuntime||fixture-runtime-alpha"];
+      }, /exactly the retained documents that mount the claim/],
+      [(r) => (r.spec.change.servingRuntimesUnchanged = false), /other than the model shapes/],
+      [(r) => (r.spec.change.after = "nvidia-nim-pvc"), /claim-rename evidence/],
+      [(r) => (r.spec.promotion.stagingMatchesReviewedDev = false), /promotion evidence is incomplete/],
+      [(r) => (r.spec.variants.staging.canonicalDataSha256 = "sha-other"), /does not carry the reviewed dev configuration/],
+      [(r) => {
+        // A no-op review: dev and staging agree with each other and with the
+        // imported base, so only the "nothing was reviewed" check can catch it.
+        r.spec.variants.dev.canonicalDataSha256 = expectations.canonicalDataSha256;
+        r.spec.variants.staging.canonicalDataSha256 = expectations.canonicalDataSha256;
+      }, /records no reviewed change/],
       [(r) => (r.spec.cleanup.baseSpace = "fail"), /cleanup did not pass/],
       [(r) => (r.spec.limits = []), /no cluster or serving was tested/],
     ];
@@ -498,6 +787,45 @@ function selfTest() {
   } finally {
     rmSync(scratch, { recursive: true, force: true });
   }
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\/]/g, (character) => `\\${character}`);
+}
+
+function inspectVariant(context, spaceSlug, unitSlug) {
+  const spaceResponse = cubJson(context, ["space", "get", spaceSlug, "-o", "json"]);
+  const unitResponse = cubJson(context, ["unit", "get", unitSlug, "--space", spaceSlug, "-o", "json"]);
+  const rawData = cub(context, ["unit", "data", unitSlug, "--space", spaceSlug]);
+  const docs = parseDocs(rawData).map(stripCommentMetadata);
+  return {
+    space: spaceResponse.Space,
+    unit: unitResponse.Unit,
+    rawData,
+    docs,
+    dataSha256: sha256(canonicalDocs(docs)),
+  };
+}
+
+function variantRecord(variant) {
+  return {
+    space: variant.space.Slug,
+    spaceId: variant.space.SpaceID,
+    variant: variant.space.Labels?.Variant ?? "",
+    environment: variant.space.Labels?.Environment ?? "",
+    unit: variant.unit.Slug,
+    unitId: variant.unit.UnitID,
+    headRevision: variant.unit.HeadRevisionNum,
+    dataHash: variant.unit.DataHash,
+    canonicalDataSha256: variant.dataSha256,
+  };
+}
+
+function changedDocs(before, after) {
+  const left = new Map(before.map((doc) => [identity(doc), JSON.stringify(doc)]));
+  const right = new Map(after.map((doc) => [identity(doc), JSON.stringify(doc)]));
+  const identities = [...new Set([...left.keys(), ...right.keys()])].sort();
+  return identities.filter((key) => left.get(key) !== right.get(key));
 }
 
 function listFiles(root) {

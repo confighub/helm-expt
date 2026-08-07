@@ -111,10 +111,13 @@ with the reviewed gp3 override and its staging promotion, config-plane
 delivery to a kind cluster with the application controller held at zero, and
 one reviewed component synced to Healthy with its volume bound by the
 reviewed storage class. The
-[inference entry](./kserve-nim-inference.md) started its ladder with the
-ConfigHub import of all twenty-six retained surfaces, with the license
-boundary held live. The rungs an entry has not climbed stay absent from its
-claims rather than implied.
+[inference entry](./kserve-nim-inference.md) has climbed two rungs: the
+ConfigHub import of all twenty-six retained surfaces with the license boundary
+held live, then the reviewed model-cache claim rename that changed exactly the
+sixteen model shapes that mount it, left all ten serving runtimes untouched,
+and reached staging through a previewed promotion. Delivery is the rung it has
+not climbed. The rungs an entry has not climbed stay absent from its claims
+rather than implied.
 
 ## The boundary every receipt states
 
