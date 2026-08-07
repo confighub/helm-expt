@@ -82,11 +82,15 @@ the receipt, and cleans up. The fleet build takes five to seven minutes.
 ```bash
 # 1. Two authenticated contexts, deliberately separate: the maintained
 #    policy organization that owns the reviewed profile, and a scratch
-#    organization for the throwaway cluster Spaces.
+#    organization for the throwaway cluster Spaces. A browser round trip
+#    each, well under a minute.
 cub --context my-policy auth login     # choose the helm-catalog organization
 cub --context my-scratch auth login    # choose a scratch organization
 
-# 2. Explicit consent plus both contexts, then one command.
+# 2. Explicit consent plus both contexts, then one command. The fleet
+#    builds in five to seven minutes (registry, management cluster, two
+#    workload clusters, Sveltos converged); the two delivery waves add a
+#    few minutes more.
 HELM_EXPT_ALLOW_LIVE_SVELTOS_OCI_PROOF=1 \
 HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
 CUB_CONTEXT=my-policy \
@@ -94,6 +98,7 @@ SVELTOS_CLUSTER_CONTEXT=my-scratch \
 npm run sveltos-oci-delivery:run
 
 # 3. Verify the recorded receipt offline, no live access needed.
+#    A few seconds.
 npm run sveltos-oci-delivery:verify
 ```
 
