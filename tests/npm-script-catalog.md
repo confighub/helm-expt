@@ -10,14 +10,14 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 743
+scripts: 752
 ```
 
 ## By Category
 
 | Category | Scripts |
 | --- | ---: |
-| `other` | 239 |
+| `other` | 248 |
 | `top20-chart-proof` | 123 |
 | `catalog-data` | 67 |
 | `production-support` | 65 |
@@ -43,10 +43,10 @@ scripts: 743
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 335 |
-| `generate-or-run` | 286 |
+| `verify` | 338 |
+| `generate-or-run` | 289 |
 | `run` | 92 |
-| `self-test` | 20 |
+| `self-test` | 23 |
 | `summary` | 9 |
 | `full-corpus-verify` | 1 |
 
@@ -54,7 +54,7 @@ scripts: 743
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 666 |
+| `none-for-verify` | 675 |
 | `confighub-or-live-cluster` | 33 |
 | `network-or-helm-repo` | 15 |
 | `local-kubernetes` | 14 |
