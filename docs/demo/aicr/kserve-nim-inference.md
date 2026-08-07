@@ -82,13 +82,43 @@ references are data. The
 [summary](../../../data/aicr-kserve-nim-import/summary.md) retells the run;
 the scratch Space and registry were removed afterward.
 
+## One reviewed change, sixteen model shapes
+
+```bash
+npm run aicr-kserve-nim-variant:verify
+```
+
+The entry then climbed the starter's next rung. A scratch run created
+development and staging variants from the imported base and made the decision a
+platform team makes before anything runs: development model shapes read from
+their own model cache volume rather than the shared one, so
+`spec.predictor.model.storageUri` moved from `pvc://nvidia-nim-pvc/` to
+`pvc://nvidia-nim-pvc-dev/`.
+
+That is where configuration as data earns its keep. One reviewed change covered
+all sixteen model shapes, and all ten serving runtimes came through
+byte-identical, which the
+[receipt](../../../runs/aicr-kserve-nim-variant/receipt.yaml) checks by
+comparing every resource rather than by asserting it. ConfigHub previewed the
+change first: the dry run named all sixteen affected model shapes and the exact
+field it would update, and left the stored configuration untouched. The
+promotion to staging was previewed the same way, and the promoted staging
+variant recorded the same canonical data as the reviewed development variant.
+
+The license boundary held here too. The gated image references were identical
+before and after the change, nothing was pulled from `nvcr.io`, and no
+variant's data carries a literal credential value. The
+[summary](../../../data/aicr-kserve-nim-variant/summary.md) retells the run;
+all three scratch Spaces and the temporary registry were removed afterward.
+
 ## What is proven and what is not
 
 Proven: the retention is exact, the shape is pinned by one digest, the
-cross-references hold, no credential value exists in the tree, and ConfigHub
+cross-references hold, no credential value exists in the tree, ConfigHub
 imported the retained surfaces byte-faithful with the license boundary held
-live. Not proven, and stated rather than implied: no KServe cluster ran these
-shapes under this catalog, no NIM container started, no model was fetched,
-and no GPU workload claim exists. The next increments follow the starter's
-ladder: a reviewed variant change with promotion, then config-plane delivery
-mechanics.
+live, and one reviewed change moved every model shape and no serving runtime
+through a previewed dev-to-staging promotion. Not proven, and stated rather
+than implied: no KServe cluster ran these shapes under this catalog, no NIM
+container started, no model was fetched, no PersistentVolumeClaim was created
+for the development model cache, and no GPU workload claim exists. The next
+increment is the starter's last rung, config-plane delivery mechanics.

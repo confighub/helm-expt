@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The AICR catalog retains exact AI-platform shapes · Config Workshop</title>
-  <meta name="description" content="The AICR catalog retains exact AI-platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/">
-  <meta property="og:title" content="The AICR catalog retains exact AI-platform shapes · Config Workshop">
-  <meta property="og:description" content="The AICR catalog retains exact AI-platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>KServe NIM inference ConfigHub variant proof · Config Workshop</title>
+  <meta name="description" content="KServe NIM inference ConfigHub variant proof: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/aicr-kserve-nim-variant/summary.html">
+  <meta property="og:title" content="KServe NIM inference ConfigHub variant proof · Config Workshop">
+  <meta property="og:description" content="KServe NIM inference ConfigHub variant proof: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/aicr-kserve-nim-variant/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,49 +433,27 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The AICR catalog retains exact AI-platform shapes</h1>
-    <p class="lead">AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms (<a href="https://github.com/NVIDIA/aicr">github.com/NVIDIA/aicr</a>). You describe the platform you want and AICR picks the components, orders the installs, and writes the files. The catalog applies the same discipline here that it applies to Helm charts and to the Kubara platform: retain exact versions, pin every package by an immutable OCI digest, and attach a receipt to every claim. Teams assembling GPU platforms copy YAML from blog posts today, and an H100 misconfiguration has a dollar sign attached. Nobody offers governed, provenance-carrying configuration for this space; that gap is why these entries exist. <a href="../../../../../docs/demo/aicr/index.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>KServe NIM inference ConfigHub variant proof</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-kserve-nim-variant/summary.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This page is the starting point for the AICR entries in the catalog. It names the three entry classes we track, what exists today, what is planned, and the exact boundary every claim respects.</p>
-
-<h2 id="three-entry-classes-track-how-buyers-differ">Three entry classes track how buyers differ</h2>
-<p>Buyers train, they serve, or they want to try the mechanics without GPUs. The taxonomy follows that split.</p>
-<table><thead><tr><th>Entry class</th><th>Status</th><th>Source</th></tr></thead><tbody><tr><td>Training</td><td>Exists: <a href="eks-h100-training-kubeflow.html">EKS + H100 + Kubeflow</a></td><td>NVIDIA AICR v0.14.0, retained exactly</td></tr>
-<tr><td>Inference / serving</td><td>Exists as retained configuration: <a href="kserve-nim-inference.html">NIM on KServe</a></td><td>The KServe subtree of <a href="https://github.com/NVIDIA/nim-deploy">NVIDIA/nim-deploy</a> at an exact commit, Apache-2.0</td></tr>
-<tr><td>CPU starter</td><td>Exists as derived configuration: <a href="cpu-starter.html">the platform spine without accelerators</a></td><td>Derived from the training entry by recorded selection rules; needs no GPU, cloud account, or NGC key</td></tr></tbody></table>
-<p>All three entries exist today: the training entry with its proven mechanics, the inference entry as retained configuration, and the CPU starter as a rule-governed derivation of the training entry. The catalog refuses manufactured variety: new entries come from upstream versions, from deliberately authored shapes whose provenance is named, or from recorded derivations of an existing entry. The inference entry's sixteen model-by-GPU shapes are upstream-authored variety, retained exactly, and the starter's seven components are byte-identical copies selected by rules the derivation receipt records.</p>
-<p>The inference class carries a licensing boundary worth stating early. NIM deploys through public Helm charts and the NIM Operator, so the deployment shapes can be cataloged, but the runtime images and models behind them are NGC-gated under NVIDIA AI Enterprise licensing. The entry retains the configuration shapes and never redistributes the gated artifacts. The <a href="../../planning/nim-ngc-license-read.html">license read</a> verified this boundary against the actual terms: the scaffolding the entry would retain is Apache-2.0, the gated material is exactly what a config-plane entry never touches, and NGC API keys enter the shape only as target facts.</p>
-<h2 id="retained-versions-while-upstream-moves">Retained versions while upstream moves</h2>
-<p>The training entry retains NVIDIA AICR v0.14.0 exactly: the release commit, the release-asset checksum, and the binary checksum are pinned in its <a href="../../../../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml">generation receipt</a>. Upstream has since released v0.15.0 through v0.18.0 (2026-07-23, checked 2026-08-07) on a roughly biweekly cadence.</p>
-<p>That gap is the point of retention, not a defect. The retained entry stays byte-for-byte reproducible and its receipts stay true while upstream moves. Refreshing the catalog to a newer AICR version creates a new retained entry with its own receipts next to the old one; it never overwrites the proven shape. This is the same retained-versions discipline the chart catalog and the Kubara component catalog follow.</p>
-<h2 id="one-digest-pins-each-shape">One digest pins each shape</h2>
-<p>Every entry carries the digest spine the Kubara importer proved: one immutable OCI payload per component plus one digest-bound platform index. For the training entry, the <a href="../../../examples/aicr/eks-h100-training-kubeflow/digest-index/README.html">digest index</a> pins the upstream source, the recipe criteria, the three OCI transport manifests, and all 17 rendered Argo CD Applications under a single platform digest. Change any rendered byte anywhere in the shape and the digest changes.</p>
-<pre><code>npm run aicr-digest-index:verify
-npm run aicr-digest-index:self-test</code></pre>
-<p>The inference entry carries the same spine. Its <a href="../../../examples/aicr/kserve-nim-inference/digest-index/README.html">digest index</a> pins the retained KServe tree, every serving runtime and model shape, and the described model profile, and its compiler adds the licensing boundary as refusal rules: gated images stay references, and a literal credential value anywhere in the tree stops the compile.</p>
-<pre><code>npm run aicr-kserve-nim:verify
-npm run aicr-kserve-nim:self-test</code></pre>
-<p>The CPU starter's index adds a derivation chain: each member payload records the training-entry payload hash it copies and the training entry's platform digest, so the path from the AICR release pins through the training index to the starter is checkable end to end.</p>
-<pre><code>npm run aicr-cpu-starter:verify
-npm run aicr-cpu-starter:self-test</code></pre>
-<p>The training entry also carries an OCI round-trip receipt and a variant-promotion receipt that changed one Grafana credential in a development variant and promoted it to staging with matching data hashes. The <a href="eks-h100-training-kubeflow.html">entry page</a> walks through both.</p>
-<h2 id="each-entry-climbs-the-same-proof-ladder">Each entry climbs the same proof ladder</h2>
-<p>The proofs repeat one ladder per entry, and each rung has a committed receipt its verify lane recompiles offline. The training entry proved import, the reviewed Grafana change, and the staging promotion. The <a href="cpu-starter.html">CPU starter</a> climbed the whole ladder: ConfigHub import with the reviewed gp3 override and its staging promotion, config-plane delivery to a kind cluster with the application controller held at zero, and one reviewed component synced to Healthy with its volume bound by the reviewed storage class. The <a href="kserve-nim-inference.html">inference entry</a> has climbed two rungs: the ConfigHub import of all twenty-six retained surfaces, then one reviewed model cache change that moved every one of its sixteen model shapes and left all ten serving runtimes byte-identical, promoted to staging after a dry run that named each affected shape. The license boundary held live on both. The rungs an entry has not climbed stay absent from its claims rather than implied.</p>
-<h2 id="the-boundary-every-receipt-states">The boundary every receipt states</h2>
-<p>All proofs here run on kind or against ConfigHub, and they prove config-plane mechanics only: import, render, digest pinning, variant, promotion, delivery wiring. No GPU workload ran to produce or verify any receipt in this catalog. Workload-plane claims wait until a real GPU target exists, and they stay absent rather than implied.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> This page is generated from the committed live receipt. Rerun the scratch proof with <code>npm run aicr-kserve-nim-variant:run</code>; verify it without external access with <code>npm run aicr-kserve-nim-variant:verify</code>.</p>
+<p>ConfigHub imported the 26 retained inference surfaces as a base variant from a temporary OCI reference and kept them byte-faithful: the base Unit's canonical data matched the committed files exactly, and the Space recorded the exact source reference and digest. The entry's committed platform digest at the time of the run was <code>sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720</code>.</p>
+<p>Development and staging variants were created from the base, and one reviewed decision was applied in development. Model shapes read from their own model cache volume, so <code>spec.predictor.model.storageUri</code> moved from <code>pvc://nvidia-nim-pvc/</code> to <code>pvc://nvidia-nim-pvc-dev/</code>. That single change covered every one of the 16 model shapes and left all 10 serving runtimes byte-identical. ConfigHub previewed it first: the dry run named all 16 affected model shapes and the exact field it would update, and it left the stored configuration unchanged.</p>
+<p>The staging promotion was previewed first: the dry run reported one Unit and left staging unchanged. The real promotion then copied the reviewed development configuration to staging, and the two variants recorded the same canonical data.</p>
+<p>The license boundary held for the whole run. Gated NGC images appear in every variant as references only, the reviewed change left those references untouched, nothing was pulled from <code>nvcr.io</code>, and no variant's data carries a literal credential value.</p>
+<p>The proof ran in the scratch organization <code>Cubby AI Inc</code> on 2026-08-07T12:47:35.514Z. All three scratch Spaces and the temporary registry were removed afterward.</p>
+<h2 id="limits">Limits</h2>
+<ul><li>This run used a temporary local registry; it does not prove public registry publication.</li><li>This run started no Kubernetes cluster and installed no KServe. It does not prove serving, model loading, or any workload behavior.</li><li>The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution.</li><li>This receipt proves one retained-entry import, one reviewed model cache change across every model shape in a development variant, and one dev-to-staging promotion of that reviewed change.</li><li>The development model cache volume is named in configuration only. This run created no PersistentVolumeClaim and does not prove that the volume exists.</li></ul>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/index.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/aicr-kserve-nim-variant/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

@@ -1,0 +1,126 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrKserveNimVariantProofReceipt"
+metadata:
+  name: "aicr-kserve-nim-inference-3ef33472-variant"
+spec:
+  recordedAt: "2026-08-07T12:47:35.514Z"
+  context:
+    name: "playful-cub"
+    organization: "Cubby AI Inc"
+    purpose: "temporary scratch proof"
+  source:
+    format: "retained KServe NIM literal configuration OCI"
+    committedEntry: "examples/aicr/kserve-nim-inference"
+    platformDigest: "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720"
+    temporaryReference: "oci://localhost:32790/aicr-kserve-nim-inference:3ef33472"
+    digest: "sha256:e7a3eef2d558c703905a843e2814274a78dc1545c1768d8cbb71853157cf27e6"
+    documentCount: 26
+    kindCounts:
+      InferenceService: 16
+      ClusterServingRuntime: 10
+    exactSourceObjectsMatched: true
+    canonicalDataSha256: "5aa16f0fcb78d1eedf4a607d9a03b6c7a66a3e3b4573fbef17b8917c1ed0f224"
+  variants:
+    base:
+      space: "hx-nim-variant-20260807180000-base"
+      spaceId: "f7d6e7c0-3e60-411b-8973-90f123ed6a02"
+      variant: "base"
+      environment: ""
+      unit: "hx-nim-variant-20260807180000"
+      unitId: "7f9abc23-201c-42a7-9848-456dccac1545"
+      headRevision: 1
+      upstreamRevision: null
+      upstreamUnitId: null
+      upgradeLinkId: null
+      dataHash: "acd15c2ddcf7eefcb6c2c84118dabf186efe32e4cf73223f5f9d8d400c1e9227"
+      canonicalDataSha256: "5aa16f0fcb78d1eedf4a607d9a03b6c7a66a3e3b4573fbef17b8917c1ed0f224"
+    dev:
+      space: "hx-nim-variant-20260807180000-dev"
+      spaceId: "082a5302-5bcb-4eff-9cb8-e3cca8eba85e"
+      variant: "dev"
+      environment: "Dev"
+      unit: "hx-nim-variant-20260807180000"
+      unitId: "8f895ecf-b6d1-4013-bcbd-70376ecee8b1"
+      headRevision: 2
+      upstreamRevision: 1
+      upstreamUnitId: "7f9abc23-201c-42a7-9848-456dccac1545"
+      upgradeLinkId: "03f84bb4-69fb-47f2-9ebe-d5c0dd98ba38"
+      dataHash: "96320e37617050e77b913461f7487568eda4d5065cd6738ed75ee7e96b361c99"
+      canonicalDataSha256: "c53b69bfb89ef6f156428acef85e9144ca68208b073f9bc5880ade7b5abc8232"
+    staging:
+      space: "hx-nim-variant-20260807180000-staging"
+      spaceId: "393253b8-aee0-4a86-b7bc-44665ba4794c"
+      variant: "staging"
+      environment: "Staging"
+      unit: "hx-nim-variant-20260807180000"
+      unitId: "89c4d833-1104-44c6-9606-c49ddab4bde5"
+      headRevision: 2
+      upstreamRevision: 2
+      upstreamUnitId: "8f895ecf-b6d1-4013-bcbd-70376ecee8b1"
+      upgradeLinkId: "0f30c287-f879-4eda-a108-0473c837e6a8"
+      dataHash: "96320e37617050e77b913461f7487568eda4d5065cd6738ed75ee7e96b361c99"
+      canonicalDataSha256: "c53b69bfb89ef6f156428acef85e9144ca68208b073f9bc5880ade7b5abc8232"
+  change:
+    control: "spec.predictor.model.storageUri"
+    intent: "development model shapes read from their own model cache volume"
+    before: "pvc://nvidia-nim-pvc/"
+    after: "pvc://nvidia-nim-pvc-dev/"
+    searchValue: "pvc://nvidia-nim-pvc/"
+    replaceValue: "pvc://nvidia-nim-pvc-dev/"
+    changedResourceCount: 16
+    changedKind: "InferenceService"
+    unchangedKind: "ClusterServingRuntime"
+    unchangedResourceCount: 10
+    devDryRun: "pass"
+    devDryRunReportedMutations: true
+    devDryRunPreviewedResourceCount: 16
+    devDryRunNamedTheField: true
+    devDryRunLeftDataUnchanged: true
+    devUpdate: "pass"
+  promotion:
+    path: "base -> dev -> staging"
+    dryRun: "pass"
+    dryRunReportedUnitCount: 1
+    dryRunLeftStagingUnchanged: true
+    result: "pass"
+    stagingMatchesReviewedDev: true
+  licenseBoundary:
+    ngcContacted: false
+    imagesPulled: false
+    modelsFetched: false
+    embeddedCredentialValues: false
+    gatedImageReferences:
+      - "nvcr.io/nim/meta/llama-3.1-70b-instruct:1.1.0"
+      - "nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0"
+      - "nvcr.io/nim/meta/llama3-70b-instruct:1.0.0"
+      - "nvcr.io/nim/meta/llama3-8b-instruct:1.0.0"
+      - "nvcr.io/nim/mistralai/mistral-7b-instruct-v03:1.0.0"
+      - "nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0"
+      - "nvcr.io/nim/mistralai/mixtral-8x7b-instruct-v01:1.0.0"
+      - "nvcr.io/nim/nvidia/llama-3.3-nemotron-super-49b-v1:1.8.2"
+      - "nvcr.io/nim/nvidia/nv-embedqa-e5-v5:1.0.0"
+      - "nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0"
+    gatedReferencesUnchangedByTheChange: true
+    statement: "The artifact carried only the retained Apache-2.0 configuration. Gated images appear in every variant as references only, the reviewed change left those references untouched, nothing was pulled from nvcr.io, and no variant's data carries a literal credential value."
+  cleanup:
+    stagingSpace: "pass"
+    devSpace: "pass"
+    baseSpace: "pass"
+    registry: "pass"
+  limits:
+    - "This run used a temporary local registry; it does not prove public registry publication."
+    - "This run started no Kubernetes cluster and installed no KServe. It does not prove serving, model loading, or any workload behavior."
+    - "The scratch organization did not run the helm-catalog apply-policy Triggers, so this receipt does not prove policy execution."
+    - "This receipt proves one retained-entry import, one reviewed model cache change across every model shape in a development variant, and one dev-to-staging promotion of that reviewed change."
+    - "The development model cache volume is named in configuration only. This run created no PersistentVolumeClaim and does not prove that the volume exists."
+status:
+  result: "pass"
+  ociImport: "pass"
+  exactObjectSet: "pass"
+  derivedVariant: "pass"
+  changeDryRun: "pass"
+  change: "pass"
+  promotionDryRun: "pass"
+  promotion: "pass"
+  licenseBoundary: "pass"
+  claim: "ConfigHub imported the retained KServe NIM surfaces as a base variant, kept them byte-faithful, applied one reviewed model-cache decision that changed every model shape and no serving runtime after a dry run that reported the mutation and changed nothing, and promoted the same reviewed configuration to staging with matching data."
