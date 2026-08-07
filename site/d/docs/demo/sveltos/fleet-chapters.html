@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sveltos Kyverno fleet · Config Workshop</title>
-  <meta name="description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html">
-  <meta property="og:title" content="Sveltos Kyverno fleet · Config Workshop">
-  <meta property="og:description" content="Sveltos Kyverno fleet: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The Sveltos fleet chapters · Config Workshop</title>
+  <meta name="description" content="The Sveltos fleet chapters: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/fleet-chapters.html">
+  <meta property="og:title" content="The Sveltos fleet chapters · Config Workshop">
+  <meta property="og:description" content="The Sveltos fleet chapters: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/kyverno-fleet.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/sveltos/fleet-chapters.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -442,40 +442,34 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Sveltos Kyverno fleet</h1>
-    <p class="lead">This example is for a platform team that needs to install the same system component on a group of clusters. The team should review the configuration once, keep its history in ConfigHub, and let a fleet controller handle cluster selection and reconciliation. <a href="../../../../../docs/demo/sveltos/kyverno-fleet.md">View source markdown</a>.</p>
+    <h1>The Sveltos fleet chapters</h1>
+    <p class="lead">This page ties the five Sveltos fleet chapters into one story. A platform team manages one fleet: a management cluster running Sveltos and Argo CD, and four workload clusters grouped as pilot, staging, and two production clusters. ConfigHub keeps every reviewed record and its approval history; OCI carries exact digests; Sveltos selects clusters by label and reconciles them. Each chapter makes one operational claim and backs it with a machine-checked matrix, a receipt contract, and deterministic self-tests. <a href="../../../../../docs/demo/sveltos/fleet-chapters.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
-<p>ConfigHub stores the reviewed configuration and runs the catalog's checks against it. Sveltos runs on a management cluster, selects workload clusters by label, and installs the declared add-on. ConfigHub keeps the reviewed record; Sveltos handles cluster selection and reconciliation.</p>
-<h2 id="the-reviewed-configuration">The reviewed configuration</h2>
-<p>The <a href="../../../../../examples/sveltos/kyverno-fleet/clusterprofile.yaml">ClusterProfile</a> contains the decisions a reviewer needs to see:</p>
-<ul><li>select clusters labeled <code>environment=staging</code>;</li><li>install <code>kyverno/kyverno</code> chart version <code>3.8.1</code>;</li><li>run three admission-controller replicas;</li><li>use <code>ContinuousWithDriftDetection</code> so Sveltos restores the reviewed settings.</li></ul>
-<p>The <a href="../../../../../examples/sveltos/kyverno-fleet/clusterprofile-pilot.yaml">pilot profile</a> adds one selector, <code>rollout=pilot</code>. The two-wave test begins with that file and then removes only the rollout selector to add the second staging cluster.</p>
-<p>The <a href="../../../../../examples/sveltos/kyverno-fleet/source-lock.yaml">source lock</a> pins Sveltos v1.12.0, the upstream commits, downloaded manifest checksums, kind version, and Kubernetes versions used by the test.</p>
-<h2 id="what-the-first-live-run-proved">What the first live run proved</h2>
-<p>The test created separate kind management and workload clusters. It installed Sveltos v1.12.0 on the management cluster and registered the workload cluster with the <code>environment=staging</code> label.</p>
-<p>The <code>ClusterProfile</code> was uploaded to the live <code>helm-catalog</code> ConfigHub organization as the <code>clusterprofile</code> Unit in Space <code>sveltos-kyverno-fleet-3-8-1-staging</code>. The standard catalog policy was attached to that Space. It requires approval even in staging because the profile changes cluster-wide admission policy. A human README in the same Space explains the example before someone opens the YAML.</p>
-<p>The exact object read back from ConfigHub was applied to the management cluster with <code>kubectl</code>. Sveltos then:</p>
-<ol><li>selected the staging workload cluster;</li><li>installed Kyverno 3.8.1;</li><li>reported the Helm feature as <code>Provisioned</code>;</li><li>brought all four Kyverno deployments to their requested replica counts.</li></ol>
-<p>The test changed the admission-controller deployment from three replicas to one. Sveltos restored it to three. The <a href="../../../../../examples/sveltos/kyverno-fleet/live-receipt.yaml">live receipt</a> records the ConfigHub IDs and hashes, cluster result, deployment counts, and drift test.</p>
-<h2 id="what-the-oci-delivery-run-proved">What the OCI delivery run proved</h2>
-<p>The <a href="../../../../../runs/sveltos-oci-delivery-proof/receipt.yaml">OCI delivery receipt</a> records a separate run with one management cluster and two workload clusters:</p>
-<ol><li>ConfigHub stored the exact pilot <code>ClusterProfile</code> under the catalog's system-configuration policy.</li><li>A dry-run apply was blocked until the pilot revision was approved.</li><li>ConfigHub published the approved revision as a private release.</li><li>The runner packaged the approved Unit data as a portable OCI using a local, no-server step.</li><li>The package was pulled back without a ConfigHub account and compared with the approved data.</li><li>Argo CD reconciled that exact OCI digest on the Sveltos management cluster.</li><li>Sveltos selected the pilot cluster, installed Kyverno, and left the second cluster unchanged.</li><li>The next ConfigHub revision removed only <code>spec.clusterSelector.matchLabels.rollout</code>.</li><li>ConfigHub blocked that revision until approval and published it at a different OCI digest.</li><li>Argo CD reconciled the new digest. Sveltos kept the pilot healthy and installed Kyverno on the second staging cluster.</li><li>Sveltos repaired a deliberate replica change on both clusters.</li></ol>
-<p>The receipt lists the controller-managed fields added to each live <code>ClusterProfile</code> revision and confirms that every approved field kept its value. It also records the OCI digest and Kyverno result for each workload cluster.</p>
-<p>The same flow does not require ConfigHub at every step. In this run, ConfigHub stored and approved the revisions. A local no-server step created the portable OCI, and the cluster pulled it without a ConfigHub account.</p>
-<h2 id="what-remains">What remains</h2>
-<p>The runner installed Sveltos itself directly from its pinned manifest as a management-cluster prerequisite. It used a temporary registry for the portable OCI and two local kind workload clusters. A permanent public package, a larger fleet, and a rollout that pauses after a failed target still need their own evidence.</p>
-<h2 id="check-the-evidence">Check the evidence</h2>
-<p>Check the committed files without a live cluster:</p>
-<pre><code>npm run sveltos-example:verify
-npm run sveltos-oci-delivery:verify</code></pre>
-<p>While logged into the <code>helm-catalog</code> ConfigHub organization, also check that the live Space still contains the same profile and README under the recorded policy:</p>
-<pre><code>CUB_CONTEXT=&lt;your-helm-catalog-context&gt; npm run sveltos-example:hub-verify</code></pre>
-<p>The <a href="fleet-chapters.html">fleet chapters page</a> places this example in the five-chapter fleet story and lists every offline proof.</p>
+<h2 id="the-five-chapters">The five chapters</h2>
+<ol><li><b><a href="../../../examples/sveltos/kyverno-fleet/README.html">Kyverno across the fleet</a></b> installs admission policy through a reviewed record with an approval gate, because policy is the clearest case for review before a change reaches every cluster. Recorded live.</li><li><b>The canary, in the same example</b>: the reviewed profile selected only the pilot cluster, and one approved selector change added the second cluster at a new OCI digest. Recorded live in the <a href="../../../data/sveltos-oci-delivery-proof/summary.html">two-wave proof</a>.</li><li><b><a href="../../../examples/sveltos/env-rollout/README.html">Environment rollout</a></b> promotes one reviewed values change pilot to staging to production, with a <a href="../../../data/sveltos-env-rollout/matrix.html">per-cluster matrix</a> showing which cluster runs which revision at every checkpoint.</li><li><b><a href="../../../examples/sveltos/cve-patch/README.html">CVE patching</a></b> is fleet patch day with evidence: one reviewed version bump with digest-bound provenance, promoted through the same groups, closed by a coverage audit that proves no cluster was missed. It does not scan for vulnerabilities and does not verify any advisory claim. The <a href="../../../data/sveltos-cve-patch/matrix.html">matrix</a> tracks chart versions.</li><li><b><a href="../../../examples/sveltos/bulk-ops/README.html">Bulk operations</a></b> is the change-it-once claim: one reviewed edit fans out to every record in one pass, and a zero-drift audit closes the run with a set-aware query across the Spaces, out-of-band checks on every record, and drift repaired on every cluster. The <a href="../../../data/sveltos-bulk-ops/matrix.html">matrix</a> shows all three checkpoints.</li></ol>
+<p>The chapters share one fleet design and hand their state forward: chapter four starts from chapter three's outcome and chapter five from chapter four's, and the repository gate enforces that continuity mechanically.</p>
+<h2 id="what-is-proven-today-and-what-is-not">What is proven today and what is not</h2>
+<p>Chapters one and two are recorded live. Chapters three, four, and five are fully drafted and proven offline: their governance logic, their receipts, and their refusal behavior all run against fake ConfigHub and OCI surfaces in the repository gate, in seconds, with no account or cluster. Their live runs have not happened, every observed matrix cell is honestly empty, and each drafted runner refuses to start while the server defect below stands.</p>
+<h2 id="why-one-server-issue-blocks-every-live-run">Why one server issue blocks every live run</h2>
+<p>The claim these chapters sell is not that configuration can be pushed to clusters. Anyone can push. The claim is that nothing reaches any cluster except an exactly approved revision, and the only evidence for that is watching the approval boundary from both sides. Before approval, the record must visibly show &quot;blocked, waiting for approval&quot; with no approval on file: that observation proves the change was actually held. After someone approves that exact revision, the block lifts and the approval is on record: that proves the bytes that shipped are the bytes that were approved.</p>
+<p>On the current server the first half is broken. A freshly created record in a Space wired with the standard approval policy never shows the block marker at all, even though the policy is attached correctly. The pipeline can never witness the &quot;held for review&quot; state, so it refuses to record a proof that skips it, because that state is the whole point. There is no side door either: the older CLI had a command that provoked a rejection we could record as evidence, but it was removed, so reading the markers is the only way left to observe the boundary. The defect is tracked in confighubai/confighub#4975.</p>
+<p>Every drafted runner therefore starts with a gate preflight: it creates a throwaway record, waits briefly for the block marker, and refuses with the issue number if the marker never appears. The refusal costs seconds instead of the seven-minute fleet build. The day the server fix lands, each chapter records with one command, listed in its README.</p>
+<h2 id="run-the-offline-proofs-yourself">Run the offline proofs yourself</h2>
+<p>Every chapter's checks run without any account, cluster, or network access:</p>
+<pre><code>npm run sveltos-example:self-test
+npm run sveltos-oci-delivery:self-test
+npm run sveltos-env-rollout:self-test
+npm run sveltos-env-rollout-proof:self-test
+npm run sveltos-cve-patch:self-test
+npm run sveltos-cve-patch-proof:self-test
+npm run sveltos-bulk-ops:self-test
+npm run sveltos-bulk-ops-proof:self-test</code></pre>
+<p>Fleet proofs run serially against the organization, never in parallel. The planning brief behind the chapters is <a href="../../planning/sveltos-fleet-brief.html">sveltos-fleet-brief.md</a>.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/sveltos/kyverno-fleet.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/demo/sveltos/fleet-chapters.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
