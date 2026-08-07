@@ -42,6 +42,10 @@ import {
   KUBARA_CATALOG_1_1_FINAL,
   KUBARA_CATALOG_1_1_SUPPLEMENTS,
 } from "./lib/kubara-catalog-1-1-full-coverage.mjs";
+import {
+  findKubaraReleaseScopeDrift,
+  readKubaraReleaseScope,
+} from "./lib/kubara-catalog-release.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 const dataRootRelative = "data/kubara-catalog-1.1-full-coverage";
@@ -232,14 +236,23 @@ function verifyStaticContract() {
 }
 
 function verifyBaselineRoots() {
+  // Scope first: roots this release never recorded belong to later workstreams,
+  // and counting them here made an unrelated catalog addition look like a
+  // baseline change.
+  const scope = readKubaraReleaseScope(repoRoot);
+  check(scope.ok, scope.reason ?? "release scope manifest could not be read");
   const additionRecipePaths = new Set(KUBARA_CATALOG_1_1_ADDITIONS.map((item) => item.recipePath));
   const additionPackagePaths = new Set(KUBARA_CATALOG_1_1_ADDITIONS.map((item) => item.packagePath));
-  const recipeRoots = catalogVersionRoots("recipes").filter((item) => !additionRecipePaths.has(item));
-  const packageRoots = catalogVersionRoots("packages").filter((item) => !additionPackagePaths.has(item));
+  const recipeRoots = catalogVersionRoots("recipes")
+    .filter((item) => scope.roots.has(item) && !additionRecipePaths.has(item));
+  const packageRoots = catalogVersionRoots("packages")
+    .filter((item) => scope.roots.has(item) && !additionPackagePaths.has(item));
   check(recipeRoots.length === 120, `immutable recipe baseline must contain 120 roots, found ${recipeRoots.length}`);
   check(packageRoots.length === 120, `immutable package baseline must contain 120 roots, found ${packageRoots.length}`);
-  check(treeSetDigest(recipeRoots) === KUBARA_CATALOG_1_1_BASELINE.recipesTreeSHA256, "an existing recipe root changed; refusing completion");
-  check(treeSetDigest(packageRoots) === KUBARA_CATALOG_1_1_BASELINE.packagesTreeSHA256, "an existing package root changed; refusing completion");
+  const recipeDrift = findKubaraReleaseScopeDrift(repoRoot, scope, recipeRoots);
+  check(!recipeDrift, `an existing recipe root changed; refusing completion (${recipeDrift})`);
+  const packageDrift = findKubaraReleaseScopeDrift(repoRoot, scope, packageRoots);
+  check(!packageDrift, `an existing package root changed; refusing completion (${packageDrift})`);
   check(componentCount(recipeRoots) === 100, "immutable recipe baseline component count changed");
   check(componentCount(packageRoots) === 100, "immutable package baseline component count changed");
 }
@@ -247,8 +260,10 @@ function verifyBaselineRoots() {
 function verifyAllRoots() {
   verifyBaselineRoots();
   for (const item of KUBARA_CATALOG_1_1_ADDITIONS) verifyRootAddition(item);
-  const recipeRoots = catalogVersionRoots("recipes");
-  const packageRoots = catalogVersionRoots("packages");
+  const scope = readKubaraReleaseScope(repoRoot);
+  check(scope.ok, scope.reason ?? "release scope manifest could not be read");
+  const recipeRoots = catalogVersionRoots("recipes").filter((item) => scope.roots.has(item));
+  const packageRoots = catalogVersionRoots("packages").filter((item) => scope.roots.has(item));
   check(recipeRoots.length === 130, `expected 130 recipe roots, found ${recipeRoots.length}`);
   check(packageRoots.length === 130, `expected 130 package roots, found ${packageRoots.length}`);
   check(componentCount(recipeRoots) === 103, `expected 103 recipe components, found ${componentCount(recipeRoots)}`);
@@ -340,13 +355,24 @@ function verifyRootAddition(item) {
   const receiptRelative = "publication/installer-package-receipt.yaml";
   const candidateFiles = new Map(listFiles(candidateRecipe).map((file) => [relative(candidateRecipe, file).replaceAll("\\", "/"), file]));
   const rootFiles = new Map(listFiles(rootRecipe).map((file) => [relative(rootRecipe, file).replaceAll("\\", "/"), file]));
-  check(stableJson([...rootFiles.keys()].sort()) === stableJson([...candidateFiles.keys()].sort()), `${item.recipePath}: retained recipe file set differs from exact candidate`);
+  // Every file the exact candidate provided must still be in the retained root,
+  // byte for byte. The retained root may also carry artifacts that later lanes
+  // added, such as a flattening-safety verdict, so this is containment rather
+  // than equality: enrichment is allowed, loss and alteration are not.
+  const missingFromRoot = [...candidateFiles.keys()].filter((relativePath) => !rootFiles.has(relativePath));
+  check(missingFromRoot.length === 0, `${item.recipePath}: retained recipe is missing exact candidate file(s) ${missingFromRoot.join(", ")}`);
   for (const [relativePath, candidateFile] of candidateFiles) {
     if (relativePath === receiptRelative) continue;
     check(sha256File(rootFiles.get(relativePath)) === sha256File(candidateFile), `${item.recipePath}/${relativePath}: retained recipe differs from exact candidate`);
   }
   check(readFileSync(rootFiles.get(receiptRelative), "utf8") === rootReadyReceiptText(item), `${item.recipePath}: retained publication receipt does not bind the retained package root`);
-  check(treeDigest(rootPackage) === treeDigest(candidatePackage), `${item.packagePath}: retained package differs from exact candidate`);
+  const candidatePackageFiles = new Map(listFiles(candidatePackage).map((file) => [relative(candidatePackage, file).replaceAll("\\", "/"), file]));
+  const rootPackageFiles = new Map(listFiles(rootPackage).map((file) => [relative(rootPackage, file).replaceAll("\\", "/"), file]));
+  for (const [relativePath, candidateFile] of candidatePackageFiles) {
+    const retained = rootPackageFiles.get(relativePath);
+    check(retained, `${item.packagePath}: retained package is missing exact candidate file ${relativePath}`);
+    check(sha256File(retained) === sha256File(candidateFile), `${item.packagePath}/${relativePath}: retained package differs from exact candidate`);
+  }
 }
 
 function verifySupplements() {

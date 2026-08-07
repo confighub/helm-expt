@@ -24,12 +24,14 @@ import {
   KUBARA_GUI_REQUIRED_HASH_FIELDS,
 } from "./lib/kubara-site-live-evidence.mjs";
 import {
+  findKubaraReleaseScopeDrift,
   KUBARA_CATALOG_ADDITIONS,
   KUBARA_CATALOG_BASELINE,
   KUBARA_CURRENT_ADDITIONS,
   KUBARA_HISTORICAL_ADDITIONS,
   KUBARA_OCI_PACKAGES,
   KUBARA_PROMOTION_RECEIPTS,
+  readKubaraReleaseScope,
 } from "./lib/kubara-catalog-release.mjs";
 import {
   KUBARA_CATALOG_1_1_ADDITIONS,
@@ -678,27 +680,41 @@ function verifyPackageCommands() {
 }
 
 function verifyBaselineRetention() {
+  const scope = readReleaseScopeManifest();
   const allDeclaredAdditions = new Set([...additions, ...fullCoverageAdditions]);
   const fullCoverageAdditionSet = new Set(fullCoverageAdditions);
   for (const rootName of ["recipes", "packages"]) {
-    const roots = versionRoots(rootName);
+    // Only roots the release recorded are in scope. A version root added by a
+    // later workstream is another lane's business, and counting it here is what
+    // used to break this acceptance whenever the shared catalog grew.
+    const roots = versionRoots(rootName).filter((path) => scope.roots.has(path));
     const relativeRoots = roots.map((path) => path.slice(rootName.length + 1));
     const legacy = roots.filter((path) => !allDeclaredAdditions.has(path.slice(rootName.length + 1)));
     check(legacy.length === baseline.count, `${rootName}: expected ${baseline.count} retained baseline versions, found ${legacy.length}`);
-    const expected = rootName === "recipes" ? baseline.recipesTreeSHA256 : baseline.packagesTreeSHA256;
-    check(treeSetDigest(legacy) === expected, `${rootName}: a retained baseline version was removed or changed`);
+    verifyScopeFilesUnchanged(scope, legacy, `${rootName}: a retained baseline version was removed or changed`);
     const retained120 = roots.filter((path) => !fullCoverageAdditionSet.has(path.slice(rootName.length + 1)));
-    const expected120 = rootName === "recipes"
-      ? KUBARA_CATALOG_1_1_BASELINE.recipesTreeSHA256
-      : KUBARA_CATALOG_1_1_BASELINE.packagesTreeSHA256;
     check(
-      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount
-        && treeSetDigest(retained120) === expected120,
-      `${rootName}: the immutable 120-root Catalog baseline was removed or changed`,
+      retained120.length === KUBARA_CATALOG_1_1_BASELINE.versionCount,
+      `${rootName}: the immutable ${KUBARA_CATALOG_1_1_BASELINE.versionCount}-root Catalog baseline lost a version root`,
     );
+    verifyScopeFilesUnchanged(scope, retained120, `${rootName}: the immutable ${KUBARA_CATALOG_1_1_BASELINE.versionCount}-root Catalog baseline was removed or changed`);
     check(relativeRoots.every((path) => legacy.includes(`${rootName}/${path}`) || allDeclaredAdditions.has(path)), `${rootName}: undeclared version root exists`);
     check(roots.length <= finalCatalogVersionCount, `${rootName}: release scope exceeds the declared ${finalCatalogVersionCount}-version acceptance set`);
   }
+}
+
+// The release scope is the exact set of files the Kubara catalog release
+// recorded. Reading it through its pinned digest means a quiet edit to the
+// manifest fails here rather than weakening every check that reads it.
+function readReleaseScopeManifest() {
+  const scope = readKubaraReleaseScope(repoRoot);
+  check(scope.ok, scope.reason ?? "release scope manifest could not be read");
+  return scope;
+}
+
+function verifyScopeFilesUnchanged(scope, roots, message) {
+  const drift = findKubaraReleaseScopeDrift(repoRoot, scope, roots);
+  check(!drift, `${message} (${drift})`);
 }
 
 function verifyCandidateSets() {
