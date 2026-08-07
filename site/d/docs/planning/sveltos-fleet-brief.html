@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Operate saved configuration · Config Workshop</title>
-  <meta name="description" content="Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/operations.html">
-  <meta property="og:title" content="Operate saved configuration · Config Workshop">
-  <meta property="og:description" content="Ops starts when an app already exists: see what changed, review diffs, and promote with gates and receipts.">
+  <title>Brief: the Sveltos fleet example in the Kubara style · Config Workshop</title>
+  <meta name="description" content="Brief: the Sveltos fleet example in the Kubara style: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/sveltos-fleet-brief.html">
+  <meta property="og:title" content="Brief: the Sveltos fleet example in the Kubara style · Config Workshop">
+  <meta property="og:description" content="Brief: the Sveltos fleet example in the Kubara style: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/operations.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/sveltos-fleet-brief.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -427,214 +427,42 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .op { border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 14px 0; }
-    .ophead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .ophead h3 { margin: 0; font-size: 1.08rem; }
-    .opmeta { margin: 6px 0 8px; }
-    .badge { display: inline-block; border-radius: 999px; font-size: .72rem; padding: 2px 9px; border: 1px solid var(--line); white-space: nowrap; }
-    .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
-    .badge.watch { color: #2d2300; background: #f9ab00; border-color: #f9ab00; }
-    .badge.planned { color: var(--muted); background: var(--panel); }
-    .muted { color: var(--muted); }
-    @media (max-width: 600px) { .ophead { flex-direction: column; } }
-
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Operate saved configuration</h1>
-    <p class="lead">Use this page after an application and its target already exist. It shows how to review a change, approve it, deliver it, and check the live result.</p>
-    <p>ConfigHub keeps the desired configuration and revision history. OCI carries a reviewed release to Argo CD or Flux. Live checks show what reached the cluster.</p>
-    <p>If you have not chosen a configuration yet, start with the Catalog, Variants, or Apps pages.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Brief: the Sveltos fleet example in the Kubara style</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/sveltos-fleet-brief.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="before-ops">
-      <h2 id="before-ops">1. Check the starting point</h2>
-      <p>The application needs a reviewed configuration, any environment changes, and a target or delivery path. If those choices are still open, start with the <a href="./charts/index.html">Component Catalog</a>, <a href="./variants.html">Variants</a>, or <a href="./journey.html">Apps</a>.</p>
-    </section>
-
-    <section aria-labelledby="ops">
-      <h2 id="ops">2. Choose an operation</h2>
-      <div class="card">
-        <h3>Status legend</h3>
-        <p><span class="badge now">available</span> runs today. <span class="badge watch">watch</span> has evidence plus a named limitation. Planned work still needs a product, policy, support, or service decision.</p>
-        <p>A green GitOps sync is not the same as a working application. Use observation receipts when the claim depends on live state.</p>
-      </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Diff before you ship</h3>
-          <span class="badge now">available</span>
-        </div>
-        <p class="opmeta"><code>compare a variant with its base</code> · <span class="muted">ConfigHub account</span></p>
-        
-        <p>A variant is one named configuration of an app. Its object diff shows exactly which Kubernetes objects changed before anything is delivered. This is the opposite of a values file you have to mentally render.</p>
-        <p class="muted">See: <a href="d/docs/user/change-routing-before-oci.html">Where changes belong</a> · <a href="d/docs/user/day2-upgrade-story.html">The day-2 upgrade story</a></p>
-      </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Scan and gate</h3>
-          <span class="badge now">available</span>
-        </div>
-        <p class="opmeta"><code>scan rendered objects and stop unsafe releases</code> · <span class="muted">local checks; managed policy</span></p>
-        
-        <p>Run scans over the rendered objects for privilege, exposure, and deprecated APIs. A gate is a release stop: delivery waits until findings are accepted or waived with a named reason.</p>
-        <p class="muted">See: <a href="d/data/external-scan-lane/summary.html">Security scan results</a></p>
-      </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Release a prepared variant</h3>
-          <span class="badge watch">watch</span>
-        </div>
-        <p class="opmeta"><code>preview, then promote a variant</code> · <span class="muted">ConfigHub Server</span></p>
-        <p class="install-cub-note">New to <code>cub</code>? <a href="./try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
-  <pre><code>cub variant promote &lt;space&gt; --dry-run -o mutations
-cub variant promote &lt;space&gt;</code></pre>
-        <p>Apps and Variants choose the base, derived variant, and target. We've proven this on Redis, NGINX, and kube-prometheus-stack: previewing the change, updating objects that changed, and adding new ones.</p>
-        <p class="muted">See: <a href="d/data/variant-promotion/summary.html">Promotion results</a> · <a href="d/docs/user/prometheus-overlay-promotion-example.html">Prometheus promotion example</a></p>
-      </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Deliver via OCI + GitOps</h3>
-          <span class="badge now">available</span>
-        </div>
-        <p class="opmeta"><code>publish OCI for a GitOps controller</code> · <span class="muted">Argo CD or Flux</span></p>
-        
-        <p>Publish the variant as an OCI artifact, which is a digest-pinned delivery bundle. Argo or Flux can pull that bundle and reconcile it. A green local apply is not the same as the controller reconciling; both are recorded separately.</p>
-        <p class="muted">See: <a href="d/docs/user/chain-of-proof.html">How tests support each claim</a> · <a href="d/data/runtime-gitops/summary.html">GitOps test results</a></p>
-      </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Observe the live result</h3>
-          <span class="badge now">available</span>
-        </div>
-        <p class="opmeta"><code>check the cluster after delivery</code> · <span class="muted">your cluster</span></p>
-        <pre><code>cub-scout receipt verify \
-  --file &lt;rendered-objects.yaml&gt; \
-  --scope namespace/&lt;namespace&gt; \
-  --predicate object-set-matches \
-  --ttl 1h \
-  --out .tmp/object-set.receipt.json
-
-cub-scout receipt validate .tmp/object-set.receipt.json</code></pre>
-        <p>After delivery, check what actually happened. The receipt names the check, time, namespace or target, and whether the cluster matched the desired objects.</p>
-        <p class="muted">See: <a href="d/docs/user/verify-it-yourself.html">Check it yourself</a> · <a href="d/docs/user/why-synced-is-not-working.html">Why a sync check is not enough</a></p>
-      </div>
-      <div class="op">
-        <div class="ophead">
-          <h3>Rehearse rollback before you need it</h3>
-          <span class="badge watch">watch</span>
-        </div>
-        <p class="opmeta"><code>compare live state with a previous approved revision</code> · <span class="muted">ConfigHub revisions and a live check</span></p>
-        <pre><code>cub unit diff &lt;unit&gt; --from=PreviousLiveRevisionNum --to=LiveRevisionNum
-cub-scout compare three-way --dry-from &lt;previous-render.yaml&gt;</code></pre>
-        <p>You see the difference between the current live app and the previous approved state. Today this is a rehearse-and-review path; exact rollback automation depends on the app, target, and any irreversible lifecycle steps.</p>
-        <p class="muted">See: <a href="d/docs/user/day2-upgrade-story.html">The day-2 upgrade story</a> · <a href="d/docs/user/day2-upgrade-rollback.html">Upgrade and rollback guide</a> · <a href="d/docs/user/cub-scout-diff-design.html">Three-way comparison design</a></p>
-      </div>
-    </section>
-
-    <section aria-labelledby="fleet-record">
-      <h2 id="fleet-record">3. Keep a fleet record</h2>
-      <p>The fleet use case begins when a platform team needs to know what many clusters should run and whether each cluster matches that record.</p>
-      <p>A useful record says: this cluster, customer, or environment should run this package release, this preset, these allowed inputs, this target, and these approval gates. The package fixes most choices ahead of time. Only a small, restricted set of settings remains at install time, so an upgrade does not become another free-form Helm exercise.</p>
-      <table>
-        <thead><tr><th>Fleet area</th><th>Who usually owns it</th><th>What ConfigHub records</th></tr></thead>
-        <tbody>
-          <tr><td>User workloads</td><td>Application teams</td><td>The approved app variant, target, inputs, policy gates, and release history.</td></tr>
-          <tr><td>System services</td><td>Platform operators</td><td>Shared services such as DNS, monitoring, ingress, and storage, with controlled upgrades across clusters.</td></tr>
-          <tr><td>System configuration</td><td>Cluster or fleet systems</td><td>Opt-in platform components such as GPU, network, security, and operator configuration, reconciled from a signed-off package and fleet record.</td></tr>
-        </tbody>
-      </table>
-      <p>Read the <a href="d/data/operational-class-examples/summary.html">three checked examples</a> for their owners, targets, checks, rollout order, and current evidence. They cover NGINX, Kube Prometheus Stack, and a Kubara platform configuration.</p>
-      <p>This is why the site keeps separating package OCI from delivery OCI. The package is the vetted release you start from. The delivery artifact is what a controller reconciles after ConfigHub has recorded the desired state.</p>
-    </section>
-
-    <section aria-labelledby="next">
-      <h2 id="next">4. Use managed ConfigHub when needed</h2>
-      <p>When the work carries private inputs, production responsibility, multiple teams, policy, SLA, or fleet scale, the <a href="./private/">Upgrade guide</a> describes the managed boundary.</p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Status: proposal, 2026-08-06. This brief exists so the build session starts from decisions, not archaeology.</p>
+<h2 id="purpose">Purpose</h2>
+<p>Give Sveltos the same treatment Kubara received: a working reference implementation we operate, a governed change story with receipts, screenshots from the live system, and a simple DIY path where a reader brings their own clusters. Kubara answers &quot;how do I govern the platform one cluster at a time&quot;; Sveltos answers &quot;how do I govern one change across a fleet.&quot; Together they cover the two shapes every platform team has.</p>
+<h2 id="what-exists-today">What exists today</h2>
+<ul><li><code>examples/sveltos/kyverno-fleet</code>: a reviewed <code>ClusterProfile</code> delivered through ConfigHub, with a committed live receipt, a pilot-wave variant, and a source lock. The Space carries an approval gate because it changes cluster-wide admission policy.</li><li>A live two-wave rollout proof (<code>data/sveltos-oci-delivery-proof</code>): the reviewed profile selected only clusters labeled <code>rollout=pilot</code>, Argo reconciled the portable OCI digest on the management cluster, Sveltos installed Kyverno on the pilot cluster first, and the second wave followed by label change alone.</li><li>Six npm lanes covering example verify, hub record and verify, and the OCI delivery run.</li></ul>
+<p>The pilot-wave mechanics are proven live. The fleet reference implementation, the scenario set, and the story are not built.</p>
+<h2 id="reference-implementation">Reference implementation</h2>
+<p>One kind management cluster running Sveltos and Argo CD, plus a labeled workload fleet (pilot, staging, and two production clusters - reusing the retained-cluster discipline from the Kubara work). ConfigHub stores every <code>ClusterProfile</code> and chart configuration as governed Units delivered as immutable OCI digests to the management cluster; Sveltos fans them out by label. We operate it, its receipts are committed, and readers verify rather than trust - the same contract as the Kubara reference deployment.</p>
+<h2 id="the-scenario-set">The scenario set</h2>
+<p>Each scenario is one chapter with its own machine checkpoint, in this order:</p>
+<ol><li><b>Kyverno across the fleet</b> (exists; becomes chapter one). Admission policy delivered fleet-wide with an approval gate, because policy is the clearest &quot;you want review before this hits every cluster&quot; story.</li><li><b>Canary by label</b> (half-proven; formalize the existing two-wave proof). Wave one goes to <code>rollout=pilot</code> clusters, the receipt proves convergence, and promotion to the remaining clusters is a governed ConfigHub operation, not a label edit nobody reviewed.</li><li><b>Fleet rollout through environments.</b> One change in the base, promoted pilot to staging to production groups, with a per-cluster observed matrix in the Kubara matrix style showing exactly which cluster runs which revision.</li><li><b>CVE patching.</b> The money story: a chart version bump packaged as an exact reviewed revision, promoted through the waves, with receipts proving every cluster converged on the patched digest and none was missed. This is fleet patch day with evidence instead of hope.</li><li><b>Bulk operations.</b> One governed change fanning to many clusters, and ConfigHub set-aware bulk commands across many Spaces, closed by a zero-drift audit - the &quot;change it once, prove it everywhere&quot; claim.</li></ol>
+<h2 id="diy-and-bring-your-own">DIY and bring-your-own</h2>
+<p>The reference fleet is kind, but nothing in the path requires it. The DIY chapter mirrors the Kubara run-your-own section: deterministic self-tests against fake surfaces first (to be built in the importer's style), then bring your own clusters - kind, CAPI, or real - label them, install Sveltos on your management cluster, log the cub CLI into your own organization, and copy the example request files. Honest status labels stay until each step earns its live proof.</p>
+<h2 id="proof-ladder-and-boundaries">Proof ladder and boundaries</h2>
+<ol><li>Self-tests against fake Git, OCI, and ConfigHub surfaces.</li><li>Config-plane and workload live proofs on the kind fleet: unlike GPU platforms, Kyverno and the fleet scenarios are fully provable on kind - convergence, health, policy admission behavior, and the changed/no-op idempotence pair ported from the Kubara reconciler discipline.</li><li>Boundaries stated in every receipt: the CVE chapter demonstrates governed patch delivery, not vulnerability scanning - no scanner integration is claimed. Quota discipline applies: fleet proofs run serially against the organization, never in parallel.</li></ol>
+<h2 id="first-increment">First increment</h2>
+<p>Stand up the reference fleet and re-record the existing kyverno and two-wave proofs against it with the Kubara-style receipt discipline (source commit binding, idempotence pair, orphan audit). That converts today's strongest asset into chapter one and chapter two of the tutorial with no new mechanics. The matrix, CVE, and bulk chapters follow the playbook from there.</p>
+    </article>
   </main>
-  <footer>Generated from helm-expt proof data. Check each operation's status before relying on it.</footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/sveltos-fleet-brief.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
