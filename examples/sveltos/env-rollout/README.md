@@ -45,6 +45,16 @@ confighubai/confighub#4975. The offline surfaces below are deterministic and
 verified in the repository gate; every observed cell in the matrix stays
 honestly empty until the live proof runs.
 
+The live runner is drafted in
+`scripts/run-sveltos-env-rollout-proof.mjs` and stays behind that blocker on
+purpose. Before it builds anything it probes the approval gate on a throwaway
+Space and Unit; while the defect stands, the probe refuses in seconds and
+names the issue, instead of failing after the seven-minute fleet build. Its
+self-test proves the whole governance walk offline: six approval brackets
+across the three environments, a distinct OCI digest per revision, and a
+receipt bound to the reviewed example files. Once the receipt is recorded,
+the matrix generator fills the observed columns from it.
+
 ## Repeat and verify
 
 ```bash
@@ -57,10 +67,28 @@ npm run sveltos-env-rollout:verify
 # Deterministic self-test: fixture compile, tamper refusals, and the
 # self-contained HTML contract. No account, cluster, or network access.
 npm run sveltos-env-rollout:self-test
+
+# Deterministic self-test of the drafted live runner: the gate preflight,
+# all six approval brackets, and the receipt tamper battery, against fake
+# ConfigHub and OCI surfaces. A few seconds.
+npm run sveltos-env-rollout-proof:self-test
 ```
 
-The live proof will reuse the two-wave runner's discipline: a self-contained
+The live proof follows the two-wave runner's discipline: a self-contained
 kind fleet, one approval bracket per environment revision, portable OCI
 digests reconciled by Argo CD, Sveltos convergence per environment group, and
-a zero-drift audit at the end. Fleet proofs run serially against the
-organization, never in parallel.
+a convergence audit at the end. Fleet proofs run serially against the
+organization, never in parallel. Once confighubai/confighub#4975 is resolved,
+the run is one command:
+
+```bash
+HELM_EXPT_ALLOW_LIVE_SVELTOS_ENV_ROLLOUT=1 \
+HELM_EXPT_ALLOW_SCRATCH_ORG=1 \
+CUB_CONTEXT=my-policy \
+SVELTOS_CLUSTER_CONTEXT=my-scratch \
+npm run sveltos-env-rollout-proof:run
+
+# Then refresh the summary and the observed matrix columns.
+npm run sveltos-env-rollout-proof:generate
+npm run sveltos-env-rollout:generate
+```
