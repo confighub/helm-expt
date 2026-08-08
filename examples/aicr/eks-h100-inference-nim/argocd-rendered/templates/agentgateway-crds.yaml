@@ -1,0 +1,28 @@
+---
+# Source: aicr-bundle/templates/agentgateway-crds.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "0"
+    name: agentgateway-crds
+    namespace: argocd
+spec:
+    destination:
+        namespace: agentgateway-system
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: agentgateway-crds
+        helm:
+            values: |-
+                enabled: true
+        repoURL: oci://cr.agentgateway.dev/charts/agentgateway-crds
+        targetRevision: v2.2.1
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true
