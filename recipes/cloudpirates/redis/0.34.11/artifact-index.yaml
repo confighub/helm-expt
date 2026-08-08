@@ -1,0 +1,150 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "cloudpirates-redis-0.34.11"
+  chart: "cloudpirates/redis"
+  version: "0.34.11"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "cloudpirates/redis"
+    version: "0.34.11"
+    appVersion: "8.10.0"
+    sourceLock: "recipes/cloudpirates/redis/0.34.11/source-lock.yaml"
+    dependencyLock: "recipes/cloudpirates/redis/0.34.11/dependency-lock.yaml"
+    repository: "oci://registry-1.docker.io/cloudpirates/redis"
+    packageSHA256: "b7677d3692b8126a34113498f1a3ff1674a69899a2fd68c9542755ad1e90845f"
+    licenses:
+      chart:
+        evidence: "artifacthub license annotation read from the pulled chart"
+        spdx: "Apache-2.0"
+      images:
+        -
+          component: "redis"
+          note: "Redis 8 tri-license; AGPLv3 is the open-source option; image digest-pinned by the chart default"
+          spdx: "RSALv2 OR SSPLv1 OR AGPL-3.0-only"
+  recipe:
+    path: "recipes/cloudpirates/redis/0.34.11/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/cloudpirates/redis/0.34.11/helm-plan.yaml"
+    chartDossier: "recipes/cloudpirates/redis/0.34.11/chart-dossier.yaml"
+    controlPoints: "recipes/cloudpirates/redis/0.34.11/control-points.yaml"
+    valueModel: "recipes/cloudpirates/redis/0.34.11/value-model.yaml"
+    weirdnessAndMitigations: ""
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "extension-slots"
+      - "generated-facts"
+      - "helm-equivalence"
+      - "lifecycle-policy"
+      - "rendered-manifest-scan"
+      - "secret-material"
+      - "source-lock"
+      - "stateful-storage"
+      - "target-facts"
+      - "tpl-extension-slots"
+      - "variant-revision"
+  catalogStatus:
+    path: "recipes/cloudpirates/redis/0.34.11/catalog-status.yaml"
+    status: "proof-grade"
+    supportLevel: "machine-proof-only"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "default"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/cloudpirates/redis/0.34.11"
+    ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
+    installer: "packages/cloudpirates/redis/0.34.11/installer.yaml"
+    receipt: "recipes/cloudpirates/redis/0.34.11/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "default"
+        path: "packages/cloudpirates/redis/0.34.11/bases/default"
+        default: true
+        description: "cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11"
+  variants:
+    -
+      name: "default"
+      variant: "recipes/cloudpirates/redis/0.34.11/variants/default/variant.yaml"
+      namespace: "default"
+      releaseName: "redis"
+      valuesProfile: "recipes/cloudpirates/redis/0.34.11/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default"
+        path: "packages/cloudpirates/redis/0.34.11/bases/default"
+        default: true
+        description: "cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11"
+      setupCheck:
+        command: "cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11 --base default --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-r001"
+          revision: "r001"
+          variantRevision: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml"
+          digest: "5d394f10b8724a14b52fdc999257004d46364509c8a35abc54cdf92874030fdd"
+          renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+          renderedObjects: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/cloudpirates/redis/0.34.11/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"

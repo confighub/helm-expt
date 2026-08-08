@@ -1,0 +1,9 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "valkey-valkey-0-11-0"
+spec:
+  chart: "valkey/valkey"
+  version: "0.11.0"
+  dependencies:
+    []

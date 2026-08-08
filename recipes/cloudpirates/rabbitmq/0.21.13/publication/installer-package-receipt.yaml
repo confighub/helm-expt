@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "cloudpirates-rabbitmq-0-21-13"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "rabbitmq"
+    version: "0.21.13"
+  package:
+    path: "packages/cloudpirates/rabbitmq/0.21.13"
+    name: "cloudpirates-rabbitmq"
+    version: "0.21.13"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "b7205407a7411beec91e98ce3cb333db514d52fbc4c3331b6005df5833382b97"
+        bytes: 299
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df"
+        bytes: 7270
+      -
+        path: "installer.yaml"
+        sha256: "8a5205663521169b7eb9d0ca9420751c2312ffa7ffb19d7734b06670aeb815d8"
+        bytes: 320
+  deterministicBundle:
+    command: "cub installer package packages/cloudpirates/rabbitmq/0.21.13 -o <tmp>/cloudpirates-rabbitmq-0-21-13.tgz"
+    sha256: "610b9ac34abf15f3ccabc8c62c9dc98829982df195551ff1fe1251d33ab7b864"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/cloudpirates/rabbitmq/0.21.13 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

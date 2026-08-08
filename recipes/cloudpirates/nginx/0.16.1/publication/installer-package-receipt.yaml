@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "cloudpirates-nginx-0-16-1"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "nginx"
+    version: "0.16.1"
+  package:
+    path: "packages/cloudpirates/nginx/0.16.1"
+    name: "cloudpirates-nginx"
+    version: "0.16.1"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "58a43957ee4d26d8675a3767cd70fdb70a304a93e85e32784d14bac7b455b8fd"
+        bytes: 295
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b"
+        bytes: 3339
+      -
+        path: "installer.yaml"
+        sha256: "7f61dd21e5443f3672bc5374f7166ac21e37e6208b0e6de632fd427db06a683b"
+        bytes: 309
+  deterministicBundle:
+    command: "cub installer package packages/cloudpirates/nginx/0.16.1 -o <tmp>/cloudpirates-nginx-0-16-1.tgz"
+    sha256: "74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/cloudpirates/nginx/0.16.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 3
+      cubInstallObjectCountIncludingSupport: 4
+      semanticObjectMatches: "3/3"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

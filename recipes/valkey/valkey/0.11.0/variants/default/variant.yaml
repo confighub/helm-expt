@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+  labels:
+    confighub.io/chart-ref: "valkey/valkey"
+    confighub.io/chart-version: "0.11.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "valkey"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

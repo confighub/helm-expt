@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "cloudpirates-nginx-0-16-1"
+spec:
+  chart: "cloudpirates/nginx"
+  version: "0.16.1"
+  dependencies:
+    -
+      name: "common"
+      version: "2.2.0"
+      repository: "oci://registry-1.docker.io/cloudpirates"
+  chartLockDigest: "sha256:a38dfdc974869f987d4e07c1a33c03db67fe20a37aba7d0f06c81f3adc220531"

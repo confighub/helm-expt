@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "cloudpirates-rabbitmq-0-21-13"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/rabbitmq"
+    confighub.io/chart-version: "0.21.13"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "cloudpirates/rabbitmq"
+    version: "0.21.13"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 5
+    cubInstallObjectsByVariant:
+      default: 6
+    helmMatchByVariant:
+      default: "5/5"
+    renderedObjectSetSHA256: "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

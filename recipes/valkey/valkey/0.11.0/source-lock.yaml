@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "valkey-valkey-0-11-0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "valkey"
+  repositoryURL: "https://valkey.io/valkey-helm/"
+  chart: "valkey"
+  ref: "valkey/valkey"
+  version: "0.11.0"
+  appVersion: "9.1.1"
+  packageSHA256: "6aa9f2e423642cae84ed6a9798cdfd0faf2e347290ce7b3e4c393333a79743f8"
+  packageBytes: 26172
+  capturedAt: "generated-by-successor-track-harness"

@@ -455,9 +455,9 @@ cub installer setup --pull oci://... --base default --work-dir ./out --non-inter
 <pre><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt</code></pre>
 <p>Public read access is enabled for this Artifact Registry repository. Users can run <code>cub installer inspect</code> and <code>cub installer setup --pull</code> against these refs without a ConfigHub account, a Google Cloud account, or a local repo clone. Maintainers still need registry write credentials to publish or replace packages.</p>
 <h2 id="counts">Counts</h2>
-<table><thead><tr><th>Count</th><th>Value</th></tr></thead><tbody><tr><td>Installer packages</td><td>135</td></tr>
+<table><thead><tr><th>Count</th><th>Value</th></tr></thead><tbody><tr><td>Installer packages</td><td>139</td></tr>
 <tr><td>Public catalog packages</td><td>100</td></tr>
-<tr><td>Package refs with publication receipts</td><td>135</td></tr>
+<tr><td>Package refs with publication receipts</td><td>139</td></tr>
 <tr><td>Assigned refs without publication receipts yet</td><td>0</td></tr></tbody></table>
 <h2 id="public-examples">Public Examples</h2>
 <table><thead><tr><th>Chart</th><th>Package OCI ref</th><th>First command</th></tr></thead><tbody><tr><td>aqua/trivy-operator@0.32.1</td><td><code>oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1</code></td><td><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aqua-trivy-operator:0.32.1 --base default --work-dir .tmp/demo/aqua-trivy-operator-0-32-1-default --non-interactive --namespace default</code></td></tr>

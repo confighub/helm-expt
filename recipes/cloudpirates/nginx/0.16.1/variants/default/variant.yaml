@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "default"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/nginx"
+    confighub.io/chart-version: "0.16.1"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "nginx"
+  valuesProfile: "../../effective-values.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

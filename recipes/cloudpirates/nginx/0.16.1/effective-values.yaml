@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "cloudpirates-nginx-0-16-1-default"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/nginx"
+    confighub.io/chart-version: "0.16.1"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "9c88ad923402ecf6f681b7db535b99c5117e316f7a716a5938d1137dc7fce0a7"
+  mergedValuesCaptured: false
+  values:
+    {}

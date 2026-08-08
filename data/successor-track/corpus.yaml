@@ -1,0 +1,86 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SuccessorTrackCorpus"
+metadata:
+  name: "successor-track"
+spec:
+  charts:
+    - rank: 1
+      key: "cloudpirates/nginx"
+      publisher: "cloudpirates"
+      chart: "nginx"
+      version: "0.16.1"
+      appVersion: "1.31.3"
+      ociRef: "oci://registry-1.docker.io/cloudpirates/nginx"
+      category: "web server"
+      proofFocus: "web server workload, ClusterIP Service exposure, digest-pinned default image"
+      licenses:
+        chart:
+          spdx: "Apache-2.0"
+          evidence: "artifacthub license annotation read from the pulled chart"
+        images:
+          - component: "nginx"
+            spdx: "BSD-2-Clause"
+            note: "upstream nginx source license; image digest-pinned by the chart default"
+    - rank: 2
+      key: "cloudpirates/rabbitmq"
+      publisher: "cloudpirates"
+      chart: "rabbitmq"
+      version: "0.21.13"
+      appVersion: "4.3.4"
+      ociRef: "oci://registry-1.docker.io/cloudpirates/rabbitmq"
+      category: "message broker"
+      proofFocus: "message broker StatefulSet, rendered credential Secret, headless plus client Services"
+      values:
+        auth:
+          password: "confighub-rabbitmq-password"
+          erlangCookie: "confighub-rabbitmq-erlang-cookie"
+      licenses:
+        chart:
+          spdx: "Apache-2.0"
+          evidence: "artifacthub license annotation read from the pulled chart"
+        images:
+          - component: "rabbitmq"
+            spdx: "MPL-2.0"
+            note: "upstream RabbitMQ server license; management image digest-pinned by the chart default"
+    - rank: 3
+      key: "cloudpirates/redis"
+      publisher: "cloudpirates"
+      chart: "redis"
+      version: "0.34.11"
+      appVersion: "8.10.0"
+      ociRef: "oci://registry-1.docker.io/cloudpirates/redis"
+      category: "database"
+      proofFocus: "database StatefulSet, rendered credential Secret, headless plus client Services"
+      values:
+        auth:
+          password: "confighub-redis-password"
+      allowedSemanticDiffs:
+        - identity: "apps/v1|StatefulSet|default|redis"
+          rule: "leading-blank-line-pruned-by-kustomize"
+          reason: "the chart's probe scripts start with a template-emitted blank first line; the installer's Kustomize round trip prunes that blank line and sh ignores it"
+      licenses:
+        chart:
+          spdx: "Apache-2.0"
+          evidence: "artifacthub license annotation read from the pulled chart"
+        images:
+          - component: "redis"
+            spdx: "RSALv2 OR SSPLv1 OR AGPL-3.0-only"
+            note: "Redis 8 tri-license; AGPLv3 is the open-source option; image digest-pinned by the chart default"
+    - rank: 4
+      key: "valkey/valkey"
+      publisher: "valkey"
+      chart: "valkey"
+      version: "0.11.0"
+      appVersion: "9.1.1"
+      repository: "valkey"
+      repositoryURL: "https://valkey.io/valkey-helm/"
+      category: "database"
+      proofFocus: "database workload, classic helm repository source, ConfigMap-driven configuration"
+      licenses:
+        chart:
+          spdx: "BSD-3-Clause"
+          evidence: "repository LICENSE file; the pulled Chart.yaml carries no license field"
+        images:
+          - component: "valkey"
+            spdx: "BSD-3-Clause"
+            note: "upstream Valkey license"

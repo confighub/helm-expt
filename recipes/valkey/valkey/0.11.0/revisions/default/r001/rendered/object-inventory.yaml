@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "valkey-valkey-0-11-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "valkey/valkey"
+    confighub.io/chart-version: "0.11.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df"
+  objectCount: 4
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||valkey"
+      kind: "Deployment"
+      name: "valkey"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap||valkey-init-scripts"
+      kind: "ConfigMap"
+      name: "valkey-init-scripts"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||valkey"
+      kind: "ServiceAccount"
+      name: "valkey"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service||valkey"
+      kind: "Service"
+      name: "valkey"
+      namespace: ""

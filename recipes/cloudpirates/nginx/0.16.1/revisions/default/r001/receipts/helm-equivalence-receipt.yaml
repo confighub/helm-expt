@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "cloudpirates-nginx-0-16-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/nginx"
+    confighub.io/chart-version: "0.16.1"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b"
+    objectCount: 3
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 4
+    uploadedManifestFiles: 4
+    separatedSecretFiles: 0
+    semanticObjectMatches: "3/3"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "node scripts/generate-successor-track.mjs --verify-packages"

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "cloudpirates-redis-0-34-11"
+spec:
+  checkedValues:
+    -
+      path: "<chart defaults>"
+      variant: "default"
+      disposition: "default-render-captured"
+      reason: "default chart values are bound by source-lock.yaml and effective-values.yaml; rendered objects are digest-bound in the revision receipts"
+    -
+      path: "auth.password"
+      variant: "default"
+      disposition: "determinism-pin"
+      reason: "the chart default generates random material at render time; this value is pinned in effective-values.yaml so the rendered object set stays digest-bound"
+  sourceFeatureSignals:
+    usesLookup: true
+    usesGeneratedFacts: true
+    usesCapabilities: true
+    usesTpl: true
+    hasExtensionSlots: true
+  unknownValues: "not-exhaustively-checked-in-successor-track-lane"
+  deadValues: "not-exhaustively-checked-in-successor-track-lane"
+  ignoredValues: "not-exhaustively-checked-in-successor-track-lane"

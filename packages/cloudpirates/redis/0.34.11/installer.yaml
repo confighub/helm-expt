@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "cloudpirates-redis"
+  version: "0.34.11"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "cloudpirates/redis default variant rendered from cloudpirates/redis@0.34.11"

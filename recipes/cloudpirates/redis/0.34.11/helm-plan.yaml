@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "cloudpirates-redis-0-34-11"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/redis"
+    confighub.io/chart-version: "0.34.11"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "cloudpirates/redis"
+    version: "0.34.11"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 5
+    cubInstallObjectsByVariant:
+      default: 6
+    helmMatchByVariant:
+      default: "5/5"
+    renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+    scanGate: "warn-review-before-production"
+    nextAction: "review scan findings, then promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

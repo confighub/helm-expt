@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "cloudpirates-redis-0-34-11"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "cloudpirates"
+  repositoryURL: "oci://registry-1.docker.io/cloudpirates/redis"
+  chart: "redis"
+  ref: "cloudpirates/redis"
+  version: "0.34.11"
+  appVersion: "8.10.0"
+  packageSHA256: "b7677d3692b8126a34113498f1a3ff1674a69899a2fd68c9542755ad1e90845f"
+  packageBytes: 69834
+  capturedAt: "generated-by-successor-track-harness"

@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "cloudpirates-nginx-0-16-1-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/nginx"
+    confighub.io/chart-version: "0.16.1"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b"
+  objectCount: 3
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|nginx"
+      kind: "Deployment"
+      name: "nginx"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|nginx"
+      kind: "ServiceAccount"
+      name: "nginx"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|nginx"
+      kind: "Service"
+      name: "nginx"
+      namespace: "default"

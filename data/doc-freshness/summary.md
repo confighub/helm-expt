@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-08 (commit `53dee604f`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `0f95d4011`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -46,6 +46,7 @@ most recently changed triggers.
 | [docs/reference/proof-kit-migration.md](../../docs/reference/proof-kit-migration.md) | reference | 2026-06-11 | 48 | `data/live-helm-confighub-compare/summary.md (2026-07-29)` |
 | [docs/user/extension-slots.md](../../docs/user/extension-slots.md) | user | 2026-06-11 | 48 | `data/extension-slots/extension-slots.csv (2026-07-29)`<br>`data/extension-slots/summary.md (2026-06-30)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 48 | `data/outcome-coverage/summary.md (2026-07-29)`<br>`tests/npm-scripts.md (2026-07-28)` |
+| [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 47 | `scripts/verify-chart-claim-integrity.mjs (2026-08-08)`<br>`tests/persona-ux-strategy.md (2026-07-14)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 47 | `data/production-disposition/summary.md (2026-07-28)`<br>`data/production-support-decisions/decisions.csv (2026-07-28)`<br>`data/production-support-decisions/summary.md (2026-07-28)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 47 | `data/hard-chart-production-packets/summary.md (2026-07-28)`<br>`data/production-readiness-packets/cert-manager/packet.md (2026-06-23)`<br>`data/production-readiness-packets/external-secrets/packet.md (2026-06-23)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 47 | `data/top100-readiness/summary.md (2026-07-29)`<br>`data/top100-user-readiness/summary.md (2026-07-29)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
@@ -70,7 +71,6 @@ most recently changed triggers.
 | [docs/planning/pilot-adversarial-testing.md](../../docs/planning/pilot-adversarial-testing.md) | planning | 2026-07-05 | 24 | `tests/README.md (2026-07-28)` |
 | [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md) | planning | 2026-06-22 | 23 | `tests/persona-ux-strategy.md (2026-07-14)` |
 | [docs/planning/persona-ux-rerun-2026-06-22.md](../../docs/planning/persona-ux-rerun-2026-06-22.md) | planning | 2026-06-22 | 23 | `tests/persona-ux-strategy.md (2026-07-14)` |
-| [docs/planning/chart-claim-integrity-audit-2026-06-22.md](../../docs/planning/chart-claim-integrity-audit-2026-06-22.md) | planning | 2026-06-23 | 21 | `tests/persona-ux-strategy.md (2026-07-14)`<br>`data/chart-claim-integrity-audit-2026-06-22/summary.md (2026-07-02)` |
 | [docs/reference/quirk-coverage.md](../../docs/reference/quirk-coverage.md) | reference | 2026-06-11 | 19 | `data/extension-slots/summary.md (2026-06-30)`<br>`data/quirk-coverage/coverage.csv (2026-06-24)`<br>`data/quirk-coverage/summary.md (2026-06-24)` |
 | [docs/user/nginx-configuration-files.md](../../docs/user/nginx-configuration-files.md) | user | 2026-06-11 | 19 | `data/extension-slots/summary.md (2026-06-30)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 13 | `data/chart-use-guide/summary.md (2026-08-08)`<br>`data/claims-register/summary.md (2026-07-29)`<br>`data/secret-lifecycle/summary.md (2026-07-29)` |

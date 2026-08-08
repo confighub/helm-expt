@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/redis"
+    confighub.io/chart-version: "0.34.11"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "5d394f10b8724a14b52fdc999257004d46364509c8a35abc54cdf92874030fdd"
+  digestInputs:
+    recipeSHA256: "d15cc3597958dae0d2f72bd31483ea0e214f220cc0d656bceb0513463d771204"
+    variantSHA256: "c8d5e4ea46dd0735babf68b6a60d407ecf7505caf371e1507dcf2598eb2386ab"
+    effectiveValuesSHA256: "f8f1f30d4fa7daf10e4d052acb27e67c602c2bda4536e6029e966f489ae684b7"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 5

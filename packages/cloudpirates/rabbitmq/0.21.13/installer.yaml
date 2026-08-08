@@ -1,0 +1,12 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "cloudpirates-rabbitmq"
+  version: "0.21.13"
+spec:
+  bases:
+    -
+      name: "default"
+      path: "bases/default"
+      default: true
+      description: "cloudpirates/rabbitmq default variant rendered from cloudpirates/rabbitmq@0.21.13"

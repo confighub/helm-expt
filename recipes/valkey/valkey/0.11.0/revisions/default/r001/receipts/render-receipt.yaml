@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "valkey-valkey-0-11-0-default-r001"
+  labels:
+    confighub.io/chart-ref: "valkey/valkey"
+    confighub.io/chart-version: "0.11.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "438461c7e2f0f7c3004b0d5c595cdb9f5621c8174c77a31bbda261ffa898156c"
+    dependencyLockSHA256: "52292bb783dd9455a1cf24d9da88cb653ec782d8b1a507a4b27a7b53a84498ae"
+    effectiveValuesSHA256: "7e6e84c8822374c93c38812be1ca63d1b2a768f02030d1d7ee5cfa08e6b54714"
+  outputs:
+    renderedObjectSetSHA256: "0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df"
+    renderedObjectInventorySHA256: "ff269191d2a6400903b2bb398aa85f9dbf9ea1f07b4fc9bad3ccf66f966e2d07"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 4
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "cloudpirates-redis-0-34-11-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/redis"
+    confighub.io/chart-version: "0.34.11"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "634a860ce9d3b6273c30c31b1ccd4489f37037d32fee171a6f55b07e58cf0aeb"
+    dependencyLockSHA256: "fe8dd6276bd5ae44a69b46b2c7a362770935bdc711c130880033f17806dd10e3"
+    effectiveValuesSHA256: "f8f1f30d4fa7daf10e4d052acb27e67c602c2bda4536e6029e966f489ae684b7"
+  outputs:
+    renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+    renderedObjectInventorySHA256: "ceb125d3b17ce1deb676a551358f4cdb002354164e83a13719af1a5f44c53820"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

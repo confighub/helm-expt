@@ -32,9 +32,9 @@ packages.
 
 | Count | Value |
 | --- | ---: |
-| Installer packages | 135 |
+| Installer packages | 139 |
 | Public catalog packages | 100 |
-| Package refs with publication receipts | 135 |
+| Package refs with publication receipts | 139 |
 | Assigned refs without publication receipts yet | 0 |
 
 ## Public Examples

@@ -40,6 +40,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/bitnami-spark-10-0-3.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/bitnami-zookeeper-13-8-7.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/cloudnative-pg-cloudnative-pg-0-28-2.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/cloudpirates-nginx-0-16-1.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/cloudpirates-rabbitmq-0-21-13.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/cloudpirates-redis-0-34-11.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/coredns-coredns-1-45-2.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/crossplane-stable-crossplane-2-3-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/descheduler-descheduler-0-36-0.html</loc></url>
@@ -134,6 +137,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/charts/strimzi-strimzi-kafka-operator-1-0-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/traefik-traefik-40-2-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/traefik-traefik-41-0-2.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/charts/valkey-valkey-0-11-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/velero-velero-12-0-1.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/velero-velero-12-1-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/charts/vm-victoria-logs-single-0-12-5.html</loc></url>
@@ -592,6 +596,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/serverless-oci-gitops-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/ssa-conflict-gap/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/status-dashboard/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/successor-track/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-bulk-ops/matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-cve-patch/matrix.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/sveltos-env-rollout/matrix.html</loc></url>
@@ -988,6 +993,9 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/spark/10.0.3/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/bitnami/zookeeper/13.8.7/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/cloudpirates/nginx/0.16.1/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/cloudpirates/redis/0.34.11/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/coredns/coredns/1.45.2/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/crossplane-stable/crossplane/2.3.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/descheduler/descheduler/0.36.0/CATALOG.html</loc></url>
@@ -1079,6 +1087,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/stakater/reloader/2.2.12/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/traefik/traefik/40.2.0/CATALOG.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/valkey/valkey/0.11.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/velero/velero/12.0.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/vm/victoria-logs-single/0.12.5/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/vm/victoria-metrics-single/0.39.0/CATALOG.html</loc></url>

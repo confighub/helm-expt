@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "valkey-valkey-0-11-0-default"
+  labels:
+    confighub.io/chart-ref: "valkey/valkey"
+    confighub.io/chart-version: "0.11.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults"
+  defaultValuesSHA256: "c9c407ca4d2dcc11062dee983d011899b6b2b3ba6420c4104f8f2b9e8c98c9f0"
+  mergedValuesCaptured: false
+  values:
+    {}

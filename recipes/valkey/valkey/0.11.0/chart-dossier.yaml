@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "valkey-valkey-0-11-0"
+  labels:
+    confighub.io/chart-ref: "valkey/valkey"
+    confighub.io/chart-version: "0.11.0"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  chart: "valkey/valkey"
+  version: "0.11.0"
+  category: "database"
+  licenses:
+    chart:
+      evidence: "repository LICENSE file; the pulled Chart.yaml carries no license field"
+      spdx: "BSD-3-Clause"
+    images:
+      -
+        component: "valkey"
+        note: "upstream Valkey license"
+        spdx: "BSD-3-Clause"
+  maintainedNotes:
+    - "valkey/valkey@0.11.0 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "tpl-extension-slots"
+    - "lifecycle-policy"
+    - "extension-slots"
+  proofFocus: "database workload, classic helm repository source, ConfigMap-driven configuration"

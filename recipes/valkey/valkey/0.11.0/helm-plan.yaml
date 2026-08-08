@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "valkey-valkey-0-11-0"
+  labels:
+    confighub.io/chart-ref: "valkey/valkey"
+    confighub.io/chart-version: "0.11.0"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "valkey/valkey"
+    version: "0.11.0"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 4
+    cubInstallObjectsByVariant:
+      default: 5
+    helmMatchByVariant:
+      default: "4/4"
+    renderedObjectSetSHA256: "0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"
