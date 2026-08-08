@@ -105,6 +105,36 @@ The receipt also concerns the upstream v0.18.0 release. The catalog still
 retains v0.14.0, which shipped no signature at all, so no retained entry
 carries a signature claim today.
 
+## The trust root is the one input that ages, and it is now reviewed
+
+Passing a committed trust root is what removes the last network dependency, and
+it is also what makes that file the part of this lane that goes out of date.
+Sigstore publishes updates to its trust root, and our copy is a snapshot of one
+moment.
+
+The refresh trigger is drift rather than expiry. Every active entry in the
+committed root carries a start date and no end date. Only two entries have
+ended, both years ago, and they are kept so signatures made while they were
+valid still verify. There is no deadline to count down to, so a lane that
+counted one down would be inventing it.
+
+```bash
+npm run aicr-trust-root:verify
+```
+
+`npm run aicr-trust-root:run` compares the committed trust root against the one
+sigstore publishes and records the result either way. At the review on
+2026-08-08 the two were byte-identical, so the committed copy is not a local
+variant of anything. The verify lane is offline and refuses when the committed
+trust root has changed since the review that recorded it, which makes replacing
+trust material a reviewable step rather than a diff someone might scroll past.
+
+It deliberately does not check the trust root against the network. That would
+put a network dependency back into the ordinary verify chain, which is the
+thing the committed copy exists to remove. The
+[review record](../../data/aicr-trust-root-review/summary.md) lists what the
+trust root contains and what it retains for older signatures.
+
 ## What this unblocks
 
 The refresh brief can proceed with signature verification as the new rung a

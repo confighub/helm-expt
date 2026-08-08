@@ -92,12 +92,14 @@ if (!["--generate", "--verify", "--self-test"].includes(mode)) {
 
 if (mode === "--generate") {
   const compiled = compile(sourceExampleRoot);
+  checkTrackingAgreesWithRegister(compiled.source.version);
   writeOutputs(starterExampleRoot, compiled);
   console.log(
     `compiled ${compiled.index.spec.platformDigest} deriving ${compiled.index.spec.members.length} member(s) into ${relativeRepo(starterExampleRoot)}`,
   );
 } else if (mode === "--verify") {
   const compiled = compile(sourceExampleRoot);
+  checkTrackingAgreesWithRegister(compiled.source.version);
   verifyOutputs(starterExampleRoot, compiled);
   console.log(
     `verified ${compiled.index.spec.platformDigest} against ${compiled.index.spec.members.length} committed derived member(s)`,
@@ -144,6 +146,22 @@ function readRenderedChecksums(root) {
   }
   check(rows.size > 0, "source argocd-rendered/checksums.txt lists no rendered templates");
   return rows;
+}
+
+// The catalog retains more than one AICR version now, so which one this entry
+// derives from has to agree with the register that names versions in prose.
+// Repointing the starter at another retained entry means moving both together,
+// which is the point of writing the tracking policy down. The self-test builds
+// fixture sources with invented versions, so this runs against the committed
+// entry rather than inside the compiler.
+function checkTrackingAgreesWithRegister(version) {
+  const register = readYaml(join(repoRoot, "examples", "aicr", "claims", "entry-names.yaml"));
+  const starter = (register.spec?.entries ?? []).find((entry) => entry.id === "cpu-starter");
+  check(starter, "the entry-naming register does not declare the cpu-starter entry");
+  check(
+    starter.retainedVersion === version,
+    `the starter derives from ${version} and the naming register says it carries ${starter.retainedVersion}`,
+  );
 }
 
 function compile(sourceRoot) {
@@ -355,6 +373,19 @@ function renderDerivationReceipt(compiled) {
         entry: "examples/aicr/eks-h100-training-kubeflow",
         platformDigest: compiled.sourcePlatformDigest,
         upstream: compiled.source,
+      },
+      // The starter derives from one retained version and stays there. The
+      // catalog now retains two AICR versions, so a derived entry has to say
+      // whether it follows the newest one. It does not: a second starter would
+      // be a second entry with its own receipts, derived deliberately, and
+      // nothing about a new upstream release moves this one.
+      tracking: {
+        policy: "single-retained-version",
+        tracks: "examples/aicr/eks-h100-training-kubeflow",
+        version: compiled.source.version,
+        followsNewerRetainedVersions: false,
+        rationale:
+          "Every proof this entry holds was produced from these bytes. Following a newer retained version would leave those receipts describing an entry nobody derived, so a refresh here means deriving a second starter rather than moving this one.",
       },
       selection: compiled.index.spec.selection,
       cloudResidues: compiled.index.spec.cloudResidues,

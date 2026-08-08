@@ -19,7 +19,7 @@ oldest receipt is from 2026-05-26, so the evidence spans 74 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 44 |
+| 0 to 30 days | 45 |
 | 31 to 90 days | 1054 |
 | 91 to 180 days | 0 |
 | over 180 days | 0 |
@@ -66,7 +66,7 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-530 of 1628 committed receipts record no date in any form.
+530 of 1629 committed receipts record no date in any form.
 Their evidence cannot be aged at all, which is a stronger problem than being
 old, and it is invisible until someone counts.
 

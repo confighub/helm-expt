@@ -15,6 +15,12 @@ spec:
         sha256: "0d48b8835660891a6ca7c0df3290d6241d2fd76daa01c6cdf65a808401e6cf8d"
       repository: "https://github.com/NVIDIA/aicr"
       version: "v0.14.0"
+  tracking:
+    policy: "single-retained-version"
+    tracks: "examples/aicr/eks-h100-training-kubeflow"
+    version: "v0.14.0"
+    followsNewerRetainedVersions: false
+    rationale: "Every proof this entry holds was produced from these bytes. Following a newer retained version would leave those receipts describing an entry nobody derived, so a refresh here means deriving a second starter rather than moving this one."
   selection:
     rules:
       -

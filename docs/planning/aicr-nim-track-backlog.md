@@ -313,9 +313,19 @@ against the recipe's dependency edges instead. That lesson generalises beyond
 AICR: a parity check should verify the property, not the shape the property
 happened to take in the version it was written against.
 
-What remains in theme 1 is task 3, whether the CPU starter tracks one retained
-version or forks, which is a decision rather than a task, and task 7, the
-cadence for refreshing the committed sigstore trust root.
+Theme 1 is now closed. Task 3 is decided: the CPU starter tracks the one
+retained version it derives from and does not follow a newer one, because every
+proof it holds was produced from those bytes. The decision is in its derivation
+receipt and the compiler refuses when that version disagrees with the naming
+register, so repointing the starter means moving both together.
+
+Task 7 is decided too, and the interesting part is that the expected shape was
+wrong. The trust root has no expiry to count down to: every active entry
+carries a start date and no end date, and the two that ended did so years ago
+and are kept so older signatures still verify. The trigger is drift, so the
+lane compares the committed trust root against the one sigstore publishes,
+records the result either way, and refuses offline when the committed file
+changes without a review. At the first review the two were byte-identical.
 
 Task 45 is done. The
 [upstream watch](../../data/aicr-upstream-watch/summary.md) takes a committed
