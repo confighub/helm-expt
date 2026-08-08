@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chart successors for the six affected components · Config Workshop</title>
+  <meta name="description" content="Chart successors for the six affected components: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/bitnami-successors/successors.html">
+  <meta property="og:title" content="Chart successors for the six affected components · Config Workshop">
+  <meta property="og:description" content="Chart successors for the six affected components: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/bitnami-successors/successors.html">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: #131a20;
+      --muted: #56646f;
+      --line: #d5dde2;
+      --panel: #f3f6f8;
+      --accent: #0b6e8f;
+      --good: #1f8a4c;
+      --warn: #b5761a;
+      --bad: #c53a3a;
+      --surface: #ffffff;
+      --term: #0e1419;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+        --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ink: #e8eef3; --muted: #97a5b0; --line: #253038; --panel: #151d25;
+      --accent: #34a7c9; --good: #4bc07d; --warn: #e0a648; --bad: #ef7570; --surface: #0d1319;
+    }
+    :root[data-theme="light"] {
+      --ink: #131a20; --muted: #56646f; --line: #d5dde2; --panel: #f3f6f8;
+      --accent: #0b6e8f; --good: #1f8a4c; --warn: #b5761a; --bad: #c53a3a; --surface: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    input, select, textarea { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    header, main, footer { max-width: 1180px; margin: 0 auto; padding: 24px 20px; }
+    .site-chrome {
+      max-width: 1180px;
+      margin: 0 auto 20px;
+    }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+      max-width: 1180px; margin: 0; padding: 12px 0;
+      background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+    }
+    .topbar .brand {
+      font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+    }
+    .topbar .brand:hover { color: var(--accent); border-color: var(--accent); }
+    .topbar .site-purpose {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .navlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-left: auto; }
+    .navlinks a { color: var(--muted); text-decoration: none; }
+    .navlinks a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 720px) {
+      .topbar .site-purpose { order: 1; }
+      .topbar .navlinks { order: 2; flex-basis: 100%; margin-left: 0; }
+    }
+    header.hero { padding-top: 44px; padding-bottom: 8px; border-bottom: 0; }
+    h1 { margin: 0 0 10px; font-size: clamp(1.7rem, 3.4vw, 2.9rem); line-height: 1.08; letter-spacing: 0; max-width: 950px; }
+    h2 { margin: 40px 0 10px; font-size: 1.32rem; letter-spacing: 0; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { max-width: 860px; color: var(--muted); }
+    .generated {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    .experiment-banner {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 8px 12px;
+      border: 1px solid #f0c36d;
+      border-radius: 8px;
+      background: #fff8e5;
+      color: #6d4b00;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .experiment-banner a {
+      color: inherit;
+      text-decoration: underline;
+    }
+    .install-cub-note {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    code, pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .92em; }
+    pre {
+      overflow-wrap: anywhere;
+      padding: 13px 14px;
+      border: 1px solid #1f2a33;
+      border-radius: 8px;
+      background: var(--term);
+      color: #dcebfa;
+      white-space: pre-wrap;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    pre code { background: transparent; border: 0; padding: 0; color: inherit; }
+    .lead, .tagline { font-size: 1.08rem; color: var(--ink); max-width: 880px; }
+    .stat-strip { font-size: .9rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+    .stat-strip strong { color: var(--ink); }
+    .hero-copy {
+      max-width: 880px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    .button.primary {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .button.secondary {
+      color: var(--ink);
+      background: var(--surface);
+    }
+    .button:hover {
+      text-decoration: none;
+      filter: brightness(.98);
+    }
+    .home-terminal {
+      margin-top: 26px;
+      width: 100%;
+      max-width: 1080px;
+    }
+    .light-grid {
+      margin-top: 16px;
+    }
+    .closing-line {
+      margin-top: 18px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .quiet-line {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .doors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 26px 0 8px; }
+    .door {
+      border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+      padding: 16px; display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .15s ease;
+    }
+    .door:hover { border-color: var(--accent); }
+    .door .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .door h3 { font-size: 1.06rem; margin: 0; }
+    .door h3 a { color: var(--ink); text-decoration: none; }
+    .door h3 a:hover { color: var(--accent); }
+    .door p { font-size: .9rem; margin: 0; }
+    .door pre { margin: 6px 0 0; }
+    .door .go { margin-top: auto; font-size: .9rem; }
+    .journey-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: 10px;
+      margin: 26px 0 8px;
+    }
+    .journey-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .15s ease;
+    }
+    .journey-step:hover { border-color: var(--accent); }
+    .journey-step .kicker { font-size: .78rem; text-transform: uppercase; letter-spacing: 0; color: var(--muted); }
+    .journey-step h3 { font-size: 1.06rem; margin: 0; }
+    .journey-step p { font-size: .9rem; margin: 0; color: var(--muted); }
+    .journey-step .go { margin-top: auto; font-size: .9rem; color: var(--accent); }
+    .journey-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+    .chain { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; counter-reset: step; margin: 14px 0; }
+    .chain a {
+      counter-increment: step;
+      border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
+      padding: 10px 10px 10px 12px; font-size: .9rem; color: var(--ink); text-decoration: none;
+      position: relative;
+    }
+    .chain a:hover { border-color: var(--accent); }
+    .chain a::before {
+      content: counter(step, decimal-leading-zero);
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem; color: var(--good); margin-bottom: 4px;
+    }
+    .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+    .tier { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+    .tier .stage { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; color: var(--muted); }
+    .tier h3 { font-size: 1.06rem; }
+    .tier p { font-size: .9rem; margin: 0; }
+    .tier .badge { align-self: flex-start; border-radius: 999px; font-size: .72rem; padding: 2px 8px; border: 1px solid var(--line); }
+    .tier .badge.now { color: #fff; background: var(--good); border-color: var(--good); }
+    .tier .badge.planned { color: var(--muted); background: var(--panel); }
+    .grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .card, .metric, .lane {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+    }
+    .metric { background: var(--panel); }
+    .metric strong { display: block; font-size: 1.65rem; line-height: 1; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .metric span { display: block; margin-top: 7px; color: var(--muted); font-size: .78rem; }
+    .catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card dl { display: grid; grid-template-columns: 9.5rem 1fr; gap: 6px 10px; margin: 12px 0 0; }
+    .card dt { color: var(--muted); }
+    .card dd { margin: 0; }
+    .faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .faq-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .faq-card.later { border-color: #efca92; background: #fffdf8; }
+    .faq-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .faq-head h3 { margin: 0; font-size: 1.06rem; }
+    .faq-status {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+    }
+    .faq-card.later .faq-status { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .faq-card p { max-width: none; margin: 0; }
+    .faq-links { margin-top: auto; font-size: .9rem; }
+    .faq-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .faq-card table { font-size: .78rem; }
+    .status { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: .78rem; border: 1px solid var(--line); }
+    .status.good { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .status.warn { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .matrix-row-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+    .matrix-row-card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto auto;
+      gap: 10px;
+      min-height: 100%;
+    }
+    .matrix-row-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .matrix-row-head h3 { margin-top: 4px; overflow-wrap: anywhere; }
+    .row-layer, .row-kind {
+      display: inline-block;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--panel);
+      white-space: nowrap;
+    }
+    .row-purpose { margin: 0; font-size: .9rem; color: var(--muted); min-height: 2.6em; }
+    .matrix-row-card dl { display: grid; grid-template-columns: 7rem 1fr; gap: 6px 10px; margin: 0; align-content: start; }
+    .matrix-row-card dt { color: var(--muted); }
+    .matrix-row-card dd { margin: 0; overflow-wrap: anywhere; }
+    .lane-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 5px; }
+    .lane-pill {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 42px;
+      padding: 5px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1px;
+      background: var(--panel);
+      text-align: center;
+      overflow: hidden;
+    }
+    .lane-pill b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .72rem; line-height: 1; }
+    .lane-pill em { font-style: normal; font-size: .72rem; line-height: 1.05; max-width: 100%; overflow-wrap: anywhere; }
+    .lane-pill.yes { color: var(--good); border-color: #9bd3b8; background: #f0fbf5; }
+    .lane-pill.watch { color: var(--warn); border-color: #efca92; background: #fff8ed; }
+    .lane-pill.no { color: var(--bad); border-color: #f0aaa4; background: #fff3f2; }
+    .lane-pill.todo { color: #335c87; border-color: #b5cbe1; background: #f0f6fc; }
+    .lane-pill.na, .lane-pill.blank { color: var(--muted); background: #f3f4f6; }
+    @media (prefers-color-scheme: dark) {
+      .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+      .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+      .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+      .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+      .lane-pill.na, .lane-pill.blank { background: #1b242d; }
+    }
+    :root[data-theme="dark"] .lane-pill.yes { border-color: #1f5a3a; background: #12291d; }
+    :root[data-theme="dark"] .lane-pill.watch { border-color: #5a4a1e; background: #2c2213; }
+    :root[data-theme="dark"] .lane-pill.no { border-color: #5a2a28; background: #2e1717; }
+    :root[data-theme="dark"] .lane-pill.todo { color: #7fb0d8; border-color: #2b3f52; background: #16222e; }
+    :root[data-theme="dark"] .lane-pill.na, :root[data-theme="dark"] .lane-pill.blank { background: #1b242d; }
+    .row-links { margin: 0; font-size: .9rem; }
+    .lanes, .stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .lane { background: var(--panel); }
+    .bar { height: 7px; border-radius: 999px; background: #e3e9ef; overflow: hidden; margin-top: 12px; }
+    .bar span { display: block; height: 100%; background: var(--good); }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+    thead th { background: var(--panel); position: sticky; top: 49px; }
+    footer { color: var(--muted); border-top: 1px solid var(--line); margin-top: 40px; font-size: .9rem; }
+    @media (max-width: 980px) {
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list { grid-template-columns: 1fr 1fr; }
+      .journey-flow { grid-template-columns: 1fr; }
+      .journey-arrow { display: none; }
+      .faq-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 16px; }
+      header, main, footer { padding: 18px 14px; }
+      .home-hero { padding-top: 14px; }
+      h1 { font-size: 2rem; line-height: 1.12; margin-bottom: 12px; }
+      h2 { margin-top: 30px; }
+      p { max-width: none; }
+      .lead, .tagline { font-size: 1rem; }
+      .doors, .chain, .tiers, .grid, .catalog, .lanes, .matrix-row-grid, .faq-list, .faq-metrics { grid-template-columns: 1fr; }
+      .card dl { grid-template-columns: 1fr; }
+      .matrix-row-card dl { grid-template-columns: 1fr; }
+      .lane-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .site-chrome { margin-bottom: 14px; }
+      .experiment-banner {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        padding: 7px 10px;
+        font-size: .78rem;
+        line-height: 1.25;
+      }
+      .topbar {
+        position: static;
+        display: block;
+        padding: 9px 0 10px;
+      }
+      .topbar .brand {
+        margin-bottom: 9px;
+      }
+      .topbar .site-purpose {
+        display: block;
+        margin: 0 0 9px;
+        line-height: 1.4;
+      }
+      .navlinks {
+        margin-left: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 0 7px;
+      }
+      .navlinks a {
+        flex: 0 0 auto;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: var(--surface);
+        white-space: nowrap;
+      }
+      .journey-flow { gap: 8px; margin-top: 18px; }
+      .journey-step { padding: 13px; gap: 6px; }
+      .journey-step h3 { font-size: 1rem; }
+      .journey-step p { font-size: .9rem; }
+      pre { font-size: .85rem; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <header class="hero human-hero">
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Chart successors for the six affected components</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/bitnami-successors/successors.md">View source markdown</a>.</p>
+  </header>
+  <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>Measured 2026-08-08. Every candidate and every source status below was measured live with anonymous fetches on the measurement date, then the top pick per component was independently re-verified by a second pass. Statuses are observations, not assumptions.</p>
+<p>This survey names verified successor options. It changes no catalog entry, recipe, or receipt; migration is separate reviewed work per component.</p>
+<h2 id="recommendations">Recommendations</h2>
+<table><thead><tr><th>Component</th><th>Recommendation</th><th>Publisher</th><th>License</th><th>Shape</th><th>Latest</th><th>Sources today</th></tr></thead><tbody><tr><td>redis</td><td>redis (CloudPirates)</td><td>CloudPirates GmbH &amp; Co. KG</td><td>Apache-2.0</td><td>plain-chart</td><td>0.34.11</td><td>index 200, artifact 200</td></tr>
+<tr><td>nginx</td><td>nginx (CloudPirates)</td><td>CloudPirates GmbH &amp; Co. KG</td><td>Apache-2.0</td><td>oci-chart</td><td>0.16.1</td><td>index 200, artifact 200</td></tr>
+<tr><td>postgresql</td><td>CloudNativePG operator chart (cloudnative-pg) + official companion 'cluster' chart</td><td>CloudNativePG project</td><td>Apache-2.0</td><td>operator</td><td>0.29.0</td><td>index 200, artifact 200</td></tr>
+<tr><td>mysql</td><td>Oracle MySQL Operator for Kubernetes (mysql-operator + mysql-innodbcluster)</td><td>MySQL team at Oracle</td><td>UPL-1.0</td><td>operator</td><td>2.3.0</td><td>index 200, artifact 200</td></tr>
+<tr><td>mongodb</td><td>Percona Operator for MongoDB (psmdb-operator + psmdb-db)</td><td>Percona</td><td>Charts: Apache-2.0</td><td>operator</td><td>1.23.0</td><td>index 200, artifact 200</td></tr>
+<tr><td>rabbitmq</td><td>rabbitmq (CloudPirates)</td><td>CloudPirates GmbH &amp; Co. KG</td><td>Apache-2.0</td><td>oci-chart</td><td>0.21.13</td><td>index 200, artifact 200</td></tr></tbody></table>
+<h2 id="redis">redis</h2>
+<h3 id="1-redis-cloudpirates">1. redis (CloudPirates)</h3>
+<ul><li>Source: oci://registry-1.docker.io/cloudpirates/redis (index 200, artifact 200); latest 0.34.11 (appVersion 8.10.0).</li><li>Publisher: CloudPirates GmbH &amp; Co. KG (Artifact Hub verified publisher; same publisher as the nginx and rabbitmq picks). License: Apache-2.0 (Chart.yaml artifacthub license annotation, read from the pulled chart). Shape: plain-chart.</li><li>Values: Keeps the Redis engine and the near-Bitnami surface: auth.password / auth.existingSecret with existingSecretPasswordKey defaulting to redis-password (the Bitnami key name), optional ACL via auth.acl.existingSecret, image digest-pinned by default (docker.io/redis 8.10.0@sha256:39353c6a...). Anonymous helm show chart and helm show values both succeed against the OCI reference.</li><li>Caveats: The default image is Redis 8.x, which carries the post-7.4 tri-license (AGPLv3, RSALv2, SSPLv1; AGPLv3 is the open-source option) - the same engine-license consideration as any current Redis image. Raises the CloudPirates concentration to three components; the ranked alternates below remain the hedge. Surfaced by an Artifact Hub catalog sweep after the first survey pass; verified live twice (Artifact Hub metadata, then anonymous helm pulls reading Chart.yaml, the license annotation, and the values surface).</li></ul>
+<h3 id="2-valkey-valkey-iovalkey-helm">2. valkey (valkey-io/valkey-helm)</h3>
+<ul><li>Source: https://valkey.io/valkey-helm/ (index 200, artifact 200); latest 0.11.0 (appVersion 9.1.1, released 2026-07-22).</li><li>Publisher: Valkey project (valkey-io GitHub org; Linux Foundation project). Repo active: pushed 2026-08-07, 24 chart releases in index.. License: BSD-3-Clause (repo LICENSE file; Chart.yaml carries no license field). Shape: plain-chart.</li><li>Values: Auth is ACL-based: auth.enabled + auth.usersExistingSecret (existing secret, key defaults to username) + aclUsers map; the 'default' user must be defined when auth is on. Replicas: replica.enabled + replica.replicas (default 2, master+replicas), minReplicasToWrite write-safety knob. Persistence: dataStorage.* for standalone (default disabled, supports existing PVC) and replica.persistence.size/storageClass (required when replicas enabled). Image pins: image.registry/repository/tag plus global.imageRegistry; tag defaults to appVersion; no digest key. TLS via tls.existingSecret. Metrics via bundled oliver006/redis_exporter. helm template renders clean on helm 4.1.4 with auth+replica+existingSecret set. Same repo also publishes valkey-operator 0.4.1 and valkey-resources 0.1.3.</li><li>Caveats: Engine swap, not just a chart swap: this deploys Valkey 9.x (RESP-compatible Linux Foundation fork), not Redis. Chart is pre-1.0 (0.11.0). No Sentinel mode and no cluster mode in the plain chart. Auth model is ACL-users, so there is no 1:1 mapping from Bitnami's auth.password/auth.existingSecret single-password shape.</li></ul>
+<h3 id="3-redis-operator-cr-charts-ot-container-kit">3. redis-operator + CR charts (OT-Container-Kit)</h3>
+<ul><li>Source: https://ot-container-kit.github.io/helm-charts/ (index 200, artifact 200); latest redis-operator 0.25.0 (2026-06-23); redis-replication 0.17.0; redis-sentinel 0.16.13; redis-cluster 0.17.4; redis 0.16.9.</li><li>Publisher: OT-CONTAINER-KIT (Opstree Solutions). Operator repo active: pushed 2026-08-04, 1427 stars, 55 operator chart releases.. License: Apache-2.0 (OT-CONTAINER-KIT/redis-operator repo). Note: the helm-charts packaging repo itself has no root LICENSE file (GitHub license API returns 404).. Shape: operator.</li><li>Values: Operator chart bundles 4 CRDs (Redis, RedisReplication, RedisSentinel, RedisCluster); topologies are installed as separate CR charts. redis-replication chart: redisReplication.clusterSize=3 (replica control); redisSecret.secretName/secretKey = existing-secret auth; storageSpec.volumeClaimTemplate = persistence; acl.secret.secretName and TLS.secret.secretName; sentinel.enabled block for failover; image pin via redisReplication.image + tag (default quay.io/opstree/redis v7.0.15); no digest key. Both operator and CR charts helm-template clean on helm 4.1.4.</li><li>Caveats: Big catalog shape change: operator + CRDs + two-step install (operator first, then a CR chart per topology). Values live under CR-shaped maps, so no 1:1 Bitnami values mapping. Default image tag lags upstream (Redis v7.0.15; overridable). Keeps actual Redis engine, and covers standalone/replication/sentinel/cluster - the broadest topology coverage of the three.</li></ul>
+<h3 id="4-redis-ha-dandydevelopercharts">4. redis-ha (DandyDeveloper/charts)</h3>
+<ul><li>Source: https://dandydeveloper.github.io/charts/ (index 200, artifact 200); latest 4.39.0 (appVersion 8.8.0, released 2026-06-15).</li><li>Publisher: Individual community maintainer (DandyDeveloper; descended from the retired helm/stable redis-ha chart). 170 releases in index; repo pushed 2026-06-15, 257 stars.. License: Apache-2.0 (repo LICENSE). Shape: plain-chart.</li><li>Values: Closest drop-in to the Bitnami shape: master/replica StatefulSet with Sentinel sidecars and optional HAProxy front end. Auth: auth (bool) + redisPassword + existingSecret + authKey (default 'auth'); separate sentinel.auth/sentinel.existingSecret/sentinel.authKey. Replicas: replicas=3 (plus haproxy.replicas). Persistence: persistentVolume.enabled=true, size 10Gi, storageClass. Image pin: image.repository=public.ecr.aws/docker/library/redis, tag=8.8.0-alpine; exporter quay.io/oliver006/redis_exporter; no digest key. helm template renders clean on helm 4.1.4 with auth+existingSecret set.</li><li>Caveats: Fails the official-vendor/CNCF publisher bar: one community maintainer, no vendor backing. Default image is Redis 8.x from the Docker library mirror, which carries Redis's post-7.4 tri-license (AGPLv3/RSALv2/SSPLv1) - review image licensing for the catalog even though the chart itself is Apache-2.0. Sentinel topology only; no cluster mode. Release cadence is slower than the other two (latest push 2026-06-15). Separately verified negative result: no anonymous official Redis OSS chart exists - helm.redis.io (index HTTP 200) hosts only redis-enterprise-operator 8.2.0-13 (commercial Redis Enterprise, an operator shape), and anonymous Docker Hub token+API probes for redis/redis, redis/redis-helm, and dhi/redis-chart all returned HTTP 401.</li></ul>
+<p>Independent verification notes: Catalog sweeps added after the first pass: Artifact Hub lists no vendor-official Redis chart (confirming the verified negative) and surfaced the CloudPirates redis chart now ranked first; charts.openshift.io carries only OpenShift template-style wrappers (imagestreams/persistent, versions 0.0.x-1.0.x), not catalog-grade charts. Minor, non-load-bearing nuances: (1) Chart.yaml description is boilerplate (&quot;A Helm chart for Kubernetes&quot;) and lists three individual maintainers (raven, sgissi, Bloodraven21) rather than an organization; (2) the LICENSE copyright line reads &quot;Copyright (c) 2025, Raven&quot; (a maintainer), so BSD-3-Clause is correct but the copyright holder is an individual, not the Linux Foundation; the &quot;Linux Foundation project&quot; framing describes Valkey upstream, not this chart repo's own metadata; (3) the index's 24 releases are for the valkey chart specifically (the full index holds 44 across valkey, valkey-ope</p>
+<h2 id="nginx">nginx</h2>
+<h3 id="1-nginx-cloudpirates">1. nginx (CloudPirates)</h3>
+<ul><li>Source: oci://registry-1.docker.io/cloudpirates/nginx (index 200, artifact 200); latest 0.16.1 (appVersion 1.31.3).</li><li>Publisher: CloudPirates GmbH &amp; Co. KG (maintainer field in Chart.yaml; hello@cloudpirates.io; github.com/CloudPirates-io/helm-charts). License: Apache-2.0 (LICENSE file shipped in chart tgz; also declared in Chart.yaml annotation license: Apache-2.0). Shape: oci-chart.</li><li>Values: 480-line values.yaml plus values.schema.json. Measured surface: replicaCount (line 33); image.registry/repository/tag with the default tag digest-pinned (tag: 1.31.3-alpine@sha256:4a73...) so both tag-pin and digest-pin work out of the box; staticSiteConfigmap for existing-ConfigMap content plus cloneStaticSiteFromGit with a git-sync sidecar; extraEnvVarsSecret and imagePullSecrets for secret refs; ingress.tls secret array. No persistence block: the chart is deliberately stateless (content comes from ConfigMap or git), and there is no app-credential existingSecret because plain nginx has no credentials.</li><li>Caveats: OCI-only transport (no classic index.yaml): 'index' status above is the measured anonymous Docker Hub v2 tags/list = 200, 'tgz' status is the manifest GET for 0.16.1 = 200; anonymous helm pull and helm show chart both succeeded. Chart-shape-wise it is a plain chart with a Bitnami-familiar surface (staticSiteConfigmap/cloneStaticSiteFromGit mirror the old layout), so it is the smallest migration delta of the three, but values paths still differ from Bitnami and need remapping. Depends on the publisher's common library (oci://registry-1.docker.io/cloudpirates common 2.2.0, vendored in the tgz). Cosign-signed (.sig tags present in the registry; public key published via artifacthub.io/signKey). Publisher is a commercial consultancy, not the nginx vendor or CNCF; NGINX Inc/F5 itself publishes no plain web-server chart (verified: helm.nginx.com/stable index 200 lists only nginx-ingress, app-protect, service-mesh, NIM/NMS charts). The in-chart CHANGELOG.md carries a caution note but it only says the file itself moved to GitHub Releases, not that the chart is deprecated.</li></ul>
+<h3 id="2-application-stakater-generic-stateless-chart-running-the-upstream-nginx-image">2. application (Stakater) - generic stateless chart running the upstream nginx image</h3>
+<ul><li>Source: https://stakater.github.io/stakater-charts (index 200, artifact 200); latest 9.2.0 (released 2026-08-01; 238 versions in index).</li><li>Publisher: Stakater (maintainer field in Chart.yaml: Stakater, hello@stakater.com; github.com/stakater/application). License: MIT (no license field or LICENSE file in the chart tgz; measured from the repo LICENSE at raw.githubusercontent.com/stakater/application/master/LICENSE, HTTP 200, 'MIT License'). Shape: plain-chart.</li><li>Values: Measured surface: deployment.replicas (nullable int); deployment.image.repository/tag/digest with explicit 'digest takes precedence on the tag' semantics; persistence.enabled with mountPVC and mount path; envFrom supporting existing external Secret/ConfigMap by name (my-existing-secret pattern shown in values comments); autoscaling minReplicas/maxReplicas. Chart.yaml description: 'Generic Helm chart for deploying stateless applications on Kubernetes'. You must supply image.repository=docker.io/library/nginx and a tag yourself; nothing nginx-specific (no server-block/static-site helpers) is provided.</li><li>Caveats: Honest shape change: this is not an nginx chart, it is a generic application chart, so every Bitnami nginx value must be remapped and nginx config must be managed as your own ConfigMap mounts. Still a plain chart (not an operator), classic anonymous HTTP repo. Company publisher with a long, very active release history, but not the nginx vendor and not CNCF. License is MIT rather than Apache-2.0 and is only stated in the GitHub repo, not inside the chart package.</li></ul>
+<h3 id="3-app-template-bjw-s-labs-generic-stateless-chart-running-the-upstream-nginx-image">3. app-template (bjw-s-labs) - generic stateless chart running the upstream nginx image</h3>
+<ul><li>Source: oci://ghcr.io/bjw-s-labs/helm/app-template (index 200, artifact 200); latest 5.0.1.</li><li>Publisher: bjw-s (individual maintainer, me@bjw-s.dev, per Chart.yaml; org github.com/bjw-s-labs). License: Apache-2.0 (LICENSE file shipped in the chart tgz; verified against repo LICENSE, HTTP 200; no license field in Chart.yaml). Shape: oci-chart.</li><li>Values: values.yaml in the package is literally empty (0 lines): the entire surface is defined by the bundled values.schema.json and the vendored common 5.0.1 library. Configuration pattern: controllers.&lt;name&gt;.replicas for replica control; controllers.&lt;name&gt;.containers.&lt;name&gt;.image.repository/tag for image pinning (digest via tag@sha256); persistence.&lt;name&gt; supporting pvc, existing ConfigMap/Secret mounts, emptyDir, nfs; env/envFrom with secretRef for existing secrets. Requires kubeVersion &gt;=1.28.0-0.</li><li>Caveats: Biggest shape change of the three: generic chart, empty default values, schema/docs-driven configuration - a hard remap from any Bitnami-style values file, and rendered output depends entirely on values you author. OCI-only for v3+ ('index' status above is the measured anonymous ghcr v2 tags/list = 200; 'tgz' status is the manifest GET for 5.0.1 = 200; anonymous helm pull succeeded). Extremely widely used in GitOps home-lab/fleet setups and very actively released, but the publisher is a single individual, not a vendor or CNCF project, which is below the stated quality bar for publisher type; ranked accordingly.</li></ul>
+<p>Independent verification notes: Two trivial overstatements, neither load-bearing: (1) replicaCount is at values.yaml line 34, not 33 (line 33 is its doc comment). (2) extraEnvVarsSecret exists only nested under cloneStaticSiteFromGit (line 203, envFrom secretRef for the git-sync/clone containers), not as a top-level option for the main nginx container, which only has top-level extraEnvVars (line 304); the claim's phrasing implies a slightly broader secret-ref surface than the chart has.</p>
+<h2 id="postgresql">postgresql</h2>
+<h3 id="1-cloudnativepg-operator-chart-cloudnative-pg-official-companion-cluster-chart">1. CloudNativePG operator chart (cloudnative-pg) + official companion 'cluster' chart</h3>
+<ul><li>Source: https://cloudnative-pg.github.io/charts (index 200, artifact 200); latest 0.29.0 (appVersion 1.30.0; chart created 2026-06-29).</li><li>Publisher: CloudNativePG project (CNCF); chart repo github.com/cloudnative-pg/charts, Chart.yaml maintainer 'phisco'. License: Apache-2.0 (LICENSE bundled in chart tgz; repo license Apache-2.0 via GitHub API). Shape: operator.</li><li>Values: Operator chart values (696 lines) cover only the operator: replicaCount, image.repository=ghcr.io/cloudnative-pg/cloudnative-pg with tag defaulting to appVersion, crds.create, webhook, monitoring queries. Database surface lives in the official companion 'cluster' chart (v0.8.1, tgz measured 200): cluster.instances=3 (replica control), cluster.storage.size/storageClass + optional walStorage (persistence), cluster.imageName documented to accept image:tag@sha256:digest plus imageCatalogRef (strong image-pin surface), cluster.superuserSecret and bootstrap/recovery passwordSecret/sslKeySecret refs (existing-secret support). helm show/pull both anonymous.</li><li>Caveats: Big catalog shape change: plain chart -&gt; operator + Cluster CR, installs CRDs, and HA databases become a two-chart story (operator first, then cluster chart or raw CR). Measured redirect: https://cloudnative-pg.github.io/charts/index.yaml returns 301 to https://cloudnative-pg.io/charts/index.yaml which returns 200 (helm follows this transparently; curl -L measured 200). Chart tgzs are GitHub release assets (302 chain to release-assets.githubusercontent.com, final 200).</li></ul>
+<h3 id="2-zalando-postgres-operator">2. Zalando postgres-operator</h3>
+<ul><li>Source: https://opensource.zalando.com/postgres-operator/charts/postgres-operator (index 200, artifact 200); latest 2.0.1 (appVersion 2.0.1; created 2026-07-30).</li><li>Publisher: Zalando (official project chart; Chart.yaml maintainer 'Zalando', opensource@zalando.de). License: MIT (repo license via GitHub API; no LICENSE file inside the chart tgz). Shape: operator.</li><li>Values: Values (572 lines) configure the operator, not a database: image ghcr.io/zalando/postgres-operator:v2.0.1, configGeneral.docker_image pins the Spilo database image (ghcr.io/zalando/spilo-18:4.1-p2), min_instances/max_instances fleet limits, storage_resize_mode=pvc, connection-pooler and logical-backup image pins. Databases are 'postgresql' CRs: instances, volume size, and users are declared there and the operator GENERATES credential Secrets; there is no chart-level existingSecret for database credentials.</li><li>Caveats: Same operator-vs-plain shape change: this chart installs only the operator, every database is a CR, and per-database values (replicas, persistence, users) leave the Helm values surface entirely. Database image pinning is indirect (operator-level Spilo pin, overridable per-CR). Index and tgz are served directly from opensource.zalando.com (no redirects; both measured 200).</li></ul>
+<h3 id="3-groundhog2k-postgres-plain-statefulset-chart">3. groundhog2k postgres (plain StatefulSet chart)</h3>
+<ul><li>Source: https://groundhog2k.github.io/helm-charts (index 200, artifact 200); latest 1.6.7 (appVersion 18.4 = PostgreSQL 18.4; created 2026-07-15).</li><li>Publisher: groundhog2k (individual community maintainer, github.com/groundhog2k/helm-charts). License: MIT (repo license via GitHub API; no LICENSE file inside the chart tgz). Shape: plain-chart.</li><li>Values: Closest values-shape match to the current catalog entry: settings.existingSecret for the superuser and userDatabase.existingSecret for the app database (existing-secret support), image.registry/repository/tag pinning the upstream docker.io/postgres library image (tag defaults to appVersion), storage block with existing-PVC reference (persistentVolumeClaimName) or dynamic PVC (requestedSize, className) plus StatefulSet PVC retention policy (persistence), customConfig/customScripts, optional Deployment mode.</li><li>Caveats: No replica control at all: the StatefulSet template hardcodes replicas: 1 and the chart has no replication/HA mode, a functional regression versus the Bitnami chart's replication architecture. Publisher is a single individual, not a vendor or foundation, so it clears the shape bar but not the preferred-publisher bar. Chart tgzs are GitHub release assets (redirect chain, final 200).</li></ul>
+<h3 id="4-crunchy-pgo-postgres-operator-from-crunchy-data---verified-but-not-shortlisted">4. Crunchy PGO (Postgres Operator from Crunchy Data) - verified but not shortlisted</h3>
+<ul><li>Source: oci://registry.developers.crunchydata.com/crunchydata/pgo (index 200, artifact 200); latest 6.0.2 (appVersion 6.0.2; digest sha256:161c722234b0824771e36773f279f2cf228c5314b094736419a0d57e15f3d710).</li><li>Publisher: Crunchy Data (official; Chart.yaml: 'Installer for PGO, the open source Postgres Operator from Crunchy Data'). License: Chart tgz bundles LICENSE.txt = 'Crunchy PostgreSQL for Kubernetes Terms of Use' (Crunchy Data Developer Program terms, not an OSI license); the operator SOURCE repo CrunchyData/postgres-operator is Apache-2.0. Shape: operator.</li><li>Values: OCI-only distribution, no index.yaml: reported statuses are measured anonymous OCI registry API calls. Bare /v2/ returns 401 (standard auth challenge); the anonymous token grant from registry-auth.developers.crunchydata.com succeeds, then tags/list = 200 (29 tags, 5.3.0 through 6.0.2) and the 6.0.2 manifest = 200 with helm chart media types; 'helm show chart' and 'helm pull' both work with no login. Values are a thin 105-line installer surface: operator 'replicas', imagePullSecretNames, and relatedImages pinning every component (postgres 15-18, gis, pgbackrest, pgbouncer, exporter, pgadmin4, operator) to registry.developers.crunchydata.com tags. All database config (instances, storage, secrets) lives in PostgresCluster CRs, not values.</li><li>Caveats: Ranked last despite official-vendor status because the packaged chart and all default image pins sit on Crunchy's own developer registry under Terms-of-Use conditions rather than an OSI license, the same vendor-registry dependency profile the catalog is currently exiting; plus the full operator shape change. Facts only: anonymous access works today and releases are active.</li></ul>
+<p>Independent verification notes: None of substance. Two clarifications: (1) the companion 'cluster' chart's own Chart.yaml maintainer is 'itay-grudev', not 'phisco' - the claim correctly attributed phisco only to the operator chart; (2) the cluster chart's default image type supports postgresql/postgis/timescaledb flavors, defaulting to postgresql.</p>
+<h2 id="mysql">mysql</h2>
+<h3 id="1-oracle-mysql-operator-for-kubernetes-mysql-operator-mysql-innodbcluster">1. Oracle MySQL Operator for Kubernetes (mysql-operator + mysql-innodbcluster)</h3>
+<ul><li>Source: https://mysql.github.io/mysql-operator/ (index 200, artifact 200); latest 2.3.0 (appVersion 26.7.0, index generated 2026-07-31).</li><li>Publisher: MySQL team at Oracle (official vendor; github.com/mysql/mysql-operator). License: UPL-1.0 (Universal Permissive License v1.0, per repo LICENSE 'MySQL Operator for Kubernetes 26.7.0 Community'; no LICENSE file inside the chart tgz; MySQL server images are licensed separately). Shape: operator.</li><li>Values: Existing-secret: credentials.root.secretName (commented example in values). Replicas: serverInstances: 3 and routerInstances: 1 are live defaults. Persistence: datadirVolumeClaimTemplate (accessModes/resources.requests.storage). Image pin: image.registry + image.repository (default container-registry.oracle.com/mysql, commented) plus serverVersion; image.pullSecrets supported. Both tgz statuses measured 200 (operator chart and DB chart).</li><li>Caveats: Big shape change from a plain chart: two-chart install (operator with CRDs first, then mysql-innodbcluster which creates an InnoDBCluster CR). values.yaml is largely commented-out documentation, so the effective defaults surface is thin. podSpec and router.podSpec are honored only at initial build (chart's own warning: 'carved into stone'). Chart uses Helm lookup for Secret validation; disableLookups: true exists for helm template / render-only workflows, directly relevant to render-early pipelines. Chart.yaml has no maintainers or license field.</li></ul>
+<h3 id="2-percona-operator-for-mysql-ps-operator-ps-db-pxc-operatorpxc-db-sibling-lane-also-verified">2. Percona Operator for MySQL (ps-operator + ps-db; pxc-operator/pxc-db sibling lane also verified)</h3>
+<ul><li>Source: https://percona.github.io/percona-helm-charts/ (index 200, artifact 200); latest ps lane 1.2.0 (2026-07-03); pxc lane 1.20.0 (2026-06-05).</li><li>Publisher: Percona (official vendor; github.com/percona/percona-helm-charts, four named Percona maintainers in Chart.yaml). License: Apache-2.0 (repo LICENSE; pxc-operator tgz also embeds LICENSE.txt Apache-2.0). Shape: operator.</li><li>Values: Sanest values surface of the three. Existing-secret: secretsName (default &lt;cluster&gt;-secrets, overridable) plus sslSecretName and vaultSecretName. Replicas: mysql.size: 3, haproxy.size: 3, router.size: 3, orchestrator.size: 3; clusterType: group-replication or async. Persistence: mysql.volumeSpec PVC (3Gi default) and orchestrator volumeSpec. Image pin: explicit repository+tag for every component (percona/percona-server 8.4.10-10.1, haproxy 2.8.18-1, percona-mysql-router 8.4.10, percona-orchestrator, pmm-client). All four tgz statuses measured 200 (GitHub releases URLs, redirect followed to final 200).</li><li>Caveats: Ships Percona Server for MySQL (Percona's MySQL distribution), not Oracle-built MySQL binaries; pxc lane ships Percona XtraDB Cluster (Galera-style). Operator shape: CRDs via ps-operator first, ps-db creates a PerconaServerMySQL CR; crVersion in ps-db must match the operator version. upgradeOptions.versionServiceEndpoint points at check.percona.com but apply: disabled is the default. Default finalizer percona.com/delete-mysql-pods-in-order.</li></ul>
+<h3 id="3-mariadb-operator-mariadb-operator-mariadb-cluster-mariadb-not-mysql">3. mariadb-operator (mariadb-operator + mariadb-cluster) - MariaDB, not MySQL</h3>
+<ul><li>Source: https://helm.mariadb.com/mariadb-operator (307-redirects to https://mariadb-operator.github.io/mariadb-operator/) (index 200, artifact 200); latest 26.6.0 (both charts, 2026-06-06).</li><li>Publisher: mariadb-operator project; maintainer mmontes11 (martin.montes@mariadb.com), LICENSE copyright MariaDB plc. License: MIT (repo LICENSE, Copyright 2023 MariaDB plc; no LICENSE inside tgz). Shape: operator.</li><li>Values: mariadb-cluster: existing-secret via mariadb.rootPasswordSecretKeyRef.name (with generate: true toggle to have the chart mint one); replicas: 3 with galera.enabled: true; persistence via mariadb.storage.size (1Gi default); databases/users/grants/backups declared as CR lists pointing at the operator's API. Operator chart: image.repository ghcr.io/mariadb-operator/mariadb-operator with tag pin, ha.enabled, CRDs via mariadb-operator-crds subchart (crds.enabled condition). Index measured 307 at helm.mariadb.com then 200 at the github.io target; both tgz statuses measured 200.</li><li>Caveats: This is an engine change, not a chart swap: it deploys MariaDB, which is protocol-compatible for many clients but is not MySQL and diverges from MySQL 8.x+ features. Double shape change versus Bitnami mysql (operator model AND different database). mariadb-cluster appVersion is 0.0.0 (it is a thin CR wrapper). The vanity index URL adds a 307 hop; pin the github.io URL if redirect-free fetching matters.</li></ul>
+<p>Independent verification notes: Only one nuance, not a defect: GitHub's license API reports NOASSERTION/'Other' for mysql/mysql-operator because the LICENSE file is Oracle's licensing-information manual (UPL text plus third-party notices) rather than a bare UPL file; the finder's UPL-1.0 characterization with the quoted manual header is accurate. Additionally, image.pullPolicy is a live required value (IfNotPresent) not mentioned by the finder, and routerInstances has an alternative router.instances key (templates fail if both are set to different values) - neither contradicts any claim.</p>
+<h2 id="mongodb">mongodb</h2>
+<h3 id="1-percona-operator-for-mongodb-psmdb-operator-psmdb-db">1. Percona Operator for MongoDB (psmdb-operator + psmdb-db)</h3>
+<ul><li>Source: https://percona.github.io/percona-helm-charts/ (index 200, artifact 200); latest 1.23.0 (both charts, released 2026-07-23).</li><li>Publisher: Percona (Chart.yaml maintainers are @percona.com addresses; hosted on percona GitHub org). License: Charts: Apache-2.0 (LICENSE.txt bundled in psmdb-operator chart and repo-root LICENSE both Apache-2.0; Chart.yaml has no license field). Database image percona/percona-server-mongodb 8.0.26-11 is Percona Server for MongoDB, licensed SSPL-1.0 like upstream - not OSI-approved; fine for internal use, restrictive if you offer MongoDB as a service.. Shape: operator.</li><li>Values: psmdb-db values.yaml (1239 lines): existing-secret via secrets.users (operator uses an existing users secret or generates one; also encryptionKey/ssl/keyFile secret names); replica control via replsets[].size=3 plus nonvoting, arbiter, and full sharding block (configrs.size, mongos.size); persistence via replsets[].volumeSpec.persistentVolumeClaim (default 3Gi, storage class settable, enableVolumeExpansion flag); image pin via image.repository=percona/percona-server-mongodb + image.tag=8.0.26-11 (plain repo:tag, imagePullPolicy=Always default). psmdb-operator values: image.repository/tag=1.23.0, watchAllNamespaces, replicaCount.</li><li>Caveats: Major shape change from the Bitnami plain chart: two-chart install (operator first, then one psmdb-db release per cluster), CRDs (PerconaServerMongoDB), and day-2 driven by the operator (SmartUpdate strategy). The image is Percona Server for MongoDB, a drop-in fork, not upstream mongo. upgradeOptions.versionServiceEndpoint points at check.percona.com but apply=disabled by default. tgz status 200 is the final status after GitHub Releases' 302 redirect.</li></ul>
+<h3 id="2-mongodb-official-helm-charts-mongodb-kubernetes-mck-successor-to-community-operator">2. MongoDB official helm-charts: mongodb-kubernetes (MCK) - successor to community-operator</h3>
+<ul><li>Source: https://mongodb.github.io/helm-charts (index 200, artifact 200); latest 1.10.0 (released 2026-07-30); community-operator stuck at 0.13.0 since 2025-04-11.</li><li>Publisher: MongoDB (Chart.yaml maintainer: MongoDB, support@mongodb.com; mongodb GitHub org). License: Chart repo mongodb/helm-charts: Apache-2.0. Operator itself is dual-licensed per LICENSE-MCK in mongodb/mongodb-kubernetes: Apache-2.0 when managing MongoDB Community clusters, MongoDB Customer Agreement for Enterprise/Ops Manager use. The legacy community-operator repo additionally puts the MongoDB Agent binary under a 'Free for Commercial Use - Oct 2020' license and says you must agree to both. Database image docker.io/mongodb/mongodb-community-server is SSPL-1.0.. Shape: operator.</li><li>Values: mongodb-kubernetes 1.10.0 values.yaml (252 lines) configures only the operator: image pins per component (operator/database/initDatabase/agent name+version pairs, registry override), operator.watchedResources, operator.replicas=1, enablePVCResize=true. Database topology, replicas, storage, and user secrets live in MongoDBCommunity CRs, not chart values. The legacy community-operator chart exposes createResource=false + resource.members=3 and users[].passwordSecretRef (existing secret) but no storage sizing in values - persistence is set through the CR's statefulSet override.</li><li>Caveats: The task named the Community Operator chart; measured facts: it is live (index 200, tgz 200) but has had no release for ~16 months, while MongoDB's release activity moved to the unified mongodb-kubernetes chart (15 releases, latest 2026-07-30). Either way this is an operator, a large catalog shape change from a plain chart, and values do not describe the database - CRs do. Dual license on MCK needs reading if any Enterprise features are in scope. tgz status is post-redirect final status.</li></ul>
+<h3 id="3-groundhog2k-mongodb-plain-chart">3. groundhog2k mongodb (plain chart)</h3>
+<ul><li>Source: https://groundhog2k.github.io/helm-charts/ (index 200, artifact 200); latest 0.8.0 (chart, released 2026-07-28; appVersion 8.3.7).</li><li>Publisher: groundhog2k (individual maintainer per Chart.yaml; not a vendor or CNCF project). License: Chart repo: MIT (GitHub API license detection). Image is the Docker official docker.io/mongo (MongoDB Community Server), which is SSPL-1.0.. Shape: plain-chart.</li><li>Values: values.yaml (475 lines): image pin via image.registry/repository/tag (docker.io/mongo, tag defaults to appVersion 8.3.7); replica control via replicaSet.enabled + replicaSet.secondaries=2 + arbiter and hiddenSecondaries blocks, keyfile via replicaSet.key or existing replicaSet.keySecretName; credentials via settings.rootUsername/rootPassword or an existing secret through extraEnvSecrets supplying MONGO_INITDB_ROOT_USERNAME/_PASSWORD; persistence via storage.persistentVolumeClaimName (existing PVC) or storage.requestedSize + storage.className, with documented emptyDir fallback when both are unset; bundled percona/mongodb_exporter metrics option.</li><li>Caveats: Closest drop-in to the Bitnami plain-chart shape and very actively released (139 chart releases, three on 2026-07-28 alone), but published by a single individual, which misses the vendor/CNCF quality bar - bus-factor and support risk. Values layout differs from Bitnami's (auth.existingSecret equivalents are spread across settings/extraEnvSecrets), so a values translation is still needed. tgz status is post-redirect final status.</li></ul>
+<p>Independent verification notes: One naming imprecision, not load-bearing: persistence in values.yaml is keyed replsets[].volumeSpec.pvc, which the chart template maps to the CR field persistentVolumeClaim; the finder quoted the CR field name rather than the values key. Also trivia: the Apache-2.0 LICENSE.txt in the operator chart and the repo-root LICENSE carry a 2019 Paul Czarkowski scaffold copyright header (standard chart-starter heritage), still Apache-2.0 text. The psmdb-db chart itself bundles no license file, consistent with the claim which only cited the operator chart and repo root.</p>
+<h2 id="rabbitmq">rabbitmq</h2>
+<h3 id="1-rabbitmq-cloudpirates">1. rabbitmq (CloudPirates)</h3>
+<ul><li>Source: oci://registry-1.docker.io/cloudpirates (index 200, artifact 200); latest 0.21.13 (appVersion 4.3.4).</li><li>Publisher: CloudPirates GmbH &amp; Co. KG (github.com/CloudPirates-io/helm-charts). License: Apache-2.0 (Chart.yaml annotation; GitHub repo SPDX Apache-2.0). Shape: oci-chart.</li><li>Values: auth.existingSecret present; replicaCount (clustering must be enabled for &gt;1); persistence.enabled/existingClaim/storageClass/size/accessModes; image pin surface is registry+repository+tag with the default tag digest-pinned (4.3.4-management@sha256:c86dd1d...). Charts are cosign-signed (.sig tags observed in the registry, signKey annotation with public key URL). Values naming is close to Bitnami conventions (auth.*, persistence.*, replicaCount) so switch-mapping is comparatively small.</li><li>Caveats: indexHttpStatus is the anonymous Docker Hub tags/list call (OCI repos have no index.yaml); tgzHttpStatus is the anonymous OCI manifest GET for tag 0.21.13; helm pull also succeeded (digest sha256:7355dea...). Publisher is young: repo created 2025-08, 590 stars, but very active (pushed 2026-08-07, 119 semver releases of this chart). Chart is 0.x semver. Depends on a cloudpirates/common OCI dependency. OCI transport only.</li></ul>
+<h3 id="2-rabbitmq-groundhog2k">2. rabbitmq (groundhog2k)</h3>
+<ul><li>Source: https://groundhog2k.github.io/helm-charts/ (index 200, artifact 200); latest 2.3.7 (appVersion 4.3.4, released 2026-07-25).</li><li>Publisher: groundhog2k (individual maintainer, github.com/groundhog2k/helm-charts). License: MIT (repo LICENSE, 'Copyright (c) 2020-2026 groundhog2k'; Chart.yaml itself carries no license field). Shape: plain-chart.</li><li>Values: authentication.existingSecret supported (optional, with per-key secretKey mapping for user/password/erlangCookie); erlang cookie is MANDATORY input; replicaCount; storage.persistentVolumeClaimName (existing PVC) / requestedSize / className plus extraStorage for extra PVCs; image pin surface is registry+repository+tag (tag defaults to appVersion; no digest field).</li><li>Caveats: Single-person publisher, but long track record: 218 rabbitmq releases, three releases in July 2026, appVersion tracks current RabbitMQ 4.3.4. Values schema differs from Bitnami conventions (authentication.* / storage.* instead of auth.* / persistence.*), so switch-mapping is larger than candidate 1. tgz is served from GitHub Releases via redirect (curl -L measured 200).</li></ul>
+<h3 id="3-rabbitmq-cluster-operator-cloudpirates-wrapper-of-the-official-rabbitmq-operator">3. rabbitmq-cluster-operator (CloudPirates wrapper of the official RabbitMQ operator)</h3>
+<ul><li>Source: oci://registry-1.docker.io/cloudpirates (index 200, artifact 200); latest 0.5.6 (appVersion 2.22.3 = latest upstream operator, released upstream 2026-07-17).</li><li>Publisher: CloudPirates GmbH &amp; Co. KG (wraps github.com/rabbitmq/cluster-operator; the operator itself is the official RabbitMQ-team component). License: Apache-2.0 (Chart.yaml annotation); upstream operator is MPL-2.0 per rabbitmq/cluster-operator LICENSE.txt. Shape: operator.</li><li>Values: Chart values control the OPERATOR only: clusterOperator.image (ghcr.io/rabbitmq/cluster-operator:2.22.3, registry+repository+tag), clusterOperator.replicaCount, watchAllNamespaces/watchNamespaces, plus default-user-credential-updater and messaging-topology-operator images. Per-broker existing-secret, replicas, and persistence move OUT of chart values into the RabbitmqCluster CR spec (operator generates the default-user secret). Cosign-signed like candidate 1.</li><li>Caveats: Big catalog shape change: plain chart -&gt; operator + CRDs + CR lifecycle (render-late; CRD-before-CR ordering applies). Measured fact: the RabbitMQ team publishes NO Helm chart of its own - charts.rabbitmq.com returned curl status 000 (host does not resolve), the official repo has no chart directory, and the official docs install via kubectl manifest while pointing Helm users at the Bitnami chart. indexHttpStatus is the anonymous tags/list call; tgzHttpStatus is the anonymous OCI manifest GET for 0.5.6 (helm pull digest sha256:0dd2aea...). Alternative wrapper alekc/rabbitmq-cluster-operator 2.8.1 (index and tgz both measured 200) was inspected but wraps operator 2.19.2, lagging upstream 2.22.3, single maintainer, no license field - not ranked.</li></ul>
+<p>Independent verification notes: Nothing overstated; three small precision notes: (1) the clustering enable knob is peerDiscoveryK8sPlugin.enabled (default false) - the claim's phrasing mirrors the chart's doc comment but does not name the key; (2) Bitnami-style naming is close but not identical (auth.existingSecret + auth.existingPasswordKey here vs Bitnami's auth.existingPasswordSecret), so the switch-map is small but nonzero; (3) default imagePullPolicy is Always, worth knowing alongside the digest-pinned tag.</p>
+<h2 id="todays-exposure-on-the-current-pins">Today's exposure on the current pins</h2>
+<table><thead><tr><th>Component and pin</th><th>Direct tgz today</th><th>Which lanes fetch at run time</th></tr></thead><tbody><tr><td>redis 25.5.3</td><td>403</td><td>Fetches at run time: redis:generate-proof (scripts/generate-redis-proof.mjs renders via helm template oci://registry-1.docker.io/bitnamicharts/redis:25.5.3 - Docker Hub OCI, not charts.bitnami.com; source lock merely records repositoryURL charts.bitnami.com/bitnami) and redis:compare (same OCI ref); live-parity:run -- --recipe recipes/bitnami/redis/25.5.3 (helm install --repo https://charts.bitnami.com/bitnami)</td></tr>
+<tr><td>nginx 24.0.2</td><td>403</td><td>Fetches at run time: nginx:generate-proof (proof-kit pullSource helm pull + renderVariant helm template bitnami/nginx --version 24.0.2, resolved through the charts.bitnami.com index unless HELM_EXPT_CHART_ARTIFACT_URL overrides) and live-parity:run -- --recipe recipes/bitnami/nginx/24.0.2 (helm install --repo https://charts.bitnami.com/bitnami)</td></tr>
+<tr><td>postgresql 18.6.7</td><td>403</td><td>Fetches at run time: postgresql:generate-proof (proof-kit helm pull + helm template bitnami/postgresql --version 18.6.7) and live-parity:run -- --recipe recipes/bitnami/postgresql/18.6.7 (helm install --repo https://charts.bitnami.com/bitnami)</td></tr>
+<tr><td>mysql 14.0.3</td><td>200</td><td>Fetches at run time: mysql:generate-proof (proof-kit helm pull + helm template bitnami/mysql --version 14.0.3) and live-parity:run -- --recipe recipes/bitnami/mysql/14.0.3 (helm install --repo https://charts.bitnami.com/bitnami)</td></tr>
+<tr><td>mongodb 19.0.7</td><td>403</td><td>Fetches at run time: mongodb:generate-proof (proof-kit helm pull + helm template bitnami/mongodb --version 19.0.7) and live-parity:run -- --recipe recipes/bitnami/mongodb/19.0.7 (helm install --repo https://charts.bitnami.com/bitnami)</td></tr>
+<tr><td>rabbitmq 16.0.14</td><td>200</td><td>Fetches at run time: rabbitmq:generate-proof (proof-kit helm pull + helm template bitnami/rabbitmq --version 16.0.14) and live-parity:run -- --recipe recipes/bitnami/rabbitmq/16.0.14 (helm install --repo https://charts.bitnami.com/bitnami)</td></tr>
+<tr><td>redis (recipes/bitnami refresh candidate) 27.0.0</td><td>403</td><td>Only fetched when a generate lane runs with HELM_EXPT_CHART_VERSION=27.0.0 (redis:generate-proof via oci://registry-1.docker.io/bitnamicharts/redis, plus helm show/pull for metadata) or via the top20 latest-refresh/candidate generate lanes; live-parity:run -- --recipe recipes/bitnami/redis/27.0.0 would fetch via --repo charts.bitnami.com/bitnami</td></tr>
+<tr><td>nginx (recipes/bitnami refresh candidate) 24.0.4</td><td>403</td><td>Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=24.0.4 (nginx:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami</td></tr>
+<tr><td>nginx (recipes/bitnami refresh candidate) 25.0.0</td><td>403</td><td>Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=25.0.0 (nginx:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami</td></tr>
+<tr><td>postgresql (recipes/bitnami refresh candidate) 18.6.10</td><td>403</td><td>Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=18.6.10 (postgresql:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami</td></tr>
+<tr><td>postgresql (recipes/bitnami refresh candidate) 18.7.0</td><td>403</td><td>Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=18.7.0 (postgresql:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami</td></tr>
+<tr><td>mongodb (recipes/bitnami refresh candidate) 19.0.9</td><td>403</td><td>Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=19.0.9 (mongodb:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami</td></tr>
+<tr><td>mongodb (recipes/bitnami refresh candidate) 19.1.0</td><td>403</td><td>Only fetched when generate lanes run with HELM_EXPT_CHART_VERSION=19.1.0 (mongodb:generate-proof) or by top20 latest-refresh/candidate generate lanes; live-parity:run on this recipe would fetch via --repo charts.bitnami.com/bitnami</td></tr></tbody></table>
+    </article>
+  </main>
+  <footer><p>Generated from the committed markdown file <code>data/bitnami-successors/successors.md</code>. The source file is the authoritative version.</p></footer>
+</body>
+</html>

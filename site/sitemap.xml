@@ -165,6 +165,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/attack-plan-workdown/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/bad-decisions-fuzz/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/base-variant-records/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/bitnami-successors/successors.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/blast-radius-accuracy/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/blast-radius-fleet/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/byo-helm-values-deploy-proof/summary.html</loc></url>
@@ -731,6 +732,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/certified-bundle-model-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/certified-bundle-track-backlog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-claim-integrity-audit-2026-06-22.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-successors-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-catalog-demo-program.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/corpus-rationalization-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/current-handover.html</loc></url>

@@ -78,6 +78,30 @@ function buildChartCatalog(root, context) {
   const dependencyLock = readYaml(required("dependency-lock.yaml"));
   const helmPlan = readYaml(required("helm-plan.yaml"));
   const chartDossier = readYaml(required("chart-dossier.yaml"));
+  const licenses = chartDossier.spec?.licenses ?? null;
+  const publisher = relativeRepo(root).split("/")[1];
+  // Successor entries ship with visible licenses; legacy entries backfill
+  // through their own reviewed work.
+  const licenseRequiredPublishers = new Set(["cloudpirates", "valkey", "valkey-io"]);
+  if (licenses) {
+    check(
+      typeof licenses.chart?.spdx === "string" && licenses.chart.spdx.length > 0
+        && typeof licenses.chart?.evidence === "string" && licenses.chart.evidence.length > 0,
+      `${relativeRepo(root)} chart-dossier licenses.chart must carry spdx and evidence`,
+    );
+    for (const image of licenses.images ?? []) {
+      check(
+        typeof image.component === "string" && image.component.length > 0
+          && typeof image.spdx === "string" && image.spdx.length > 0,
+        `${relativeRepo(root)} chart-dossier licenses.images entries must carry component and spdx`,
+      );
+    }
+  } else {
+    check(
+      !licenseRequiredPublishers.has(publisher),
+      `${relativeRepo(root)} must declare chart-dossier spec.licenses with chart and image licenses`,
+    );
+  }
   const controlPoints = readYaml(required("control-points.yaml"));
   readYaml(required("value-model.yaml"));
   const catalogStatusPath = requiredDerived("catalog-status.yaml");
@@ -142,6 +166,7 @@ function buildChartCatalog(root, context) {
         dependencyLock: relativeRepo(join(root, "dependency-lock.yaml")),
         repository: sourceLock.spec?.repositoryURL ?? "",
         packageSHA256: sourceLock.spec?.packageSHA256 ?? sourceLock.spec?.archiveSHA256 ?? "",
+        ...(licenses ? { licenses } : {}),
       },
       recipe: {
         path: relativeRepo(join(root, "recipe.yaml")),
@@ -404,7 +429,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Field | Value |
 | --- | --- |
 | Chart | ${chart.ref}@${chart.version} |
-| Catalog status | ${status.status} |
+${chart.licenses ? `| Chart license | ${chart.licenses.chart.spdx} (${chart.licenses.chart.evidence}) |\n` : ""}${chart.licenses?.images?.length ? `| Image licenses | ${chart.licenses.images.map((image) => `${image.component}: ${image.spdx}${image.note ? ` (${image.note})` : ""}`).join("; ")} |\n` : ""}| Catalog status | ${status.status} |
 | Support level | ${status.supportLevel} |
 | Supported scopes | ${status.supportedScopes.length ? status.supportedScopes.join(", ") : "none"} |
 | Production readiness | ${status.productionReadiness} |

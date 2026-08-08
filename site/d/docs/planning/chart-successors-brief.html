@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Brief: successor charts for the six affected components · Config Workshop</title>
+  <meta name="description" content="Brief: successor charts for the six affected components: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/chart-successors-brief.html">
+  <meta property="og:title" content="Brief: successor charts for the six affected components · Config Workshop">
+  <meta property="og:description" content="Brief: successor charts for the six affected components: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/chart-successors-brief.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -437,66 +437,42 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../try.html">Try Redis</a><a href="../../testing.html">Examples</a><a href="../../charts/index.html">Catalog</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../hard-questions.html">FAQ</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>Brief: successor charts for the six affected components</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/chart-successors-brief.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 853</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>452</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>382</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>19</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>348</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>catalog-data</code></td><td>67</td></tr>
-<tr><td><code>production-support</code></td><td>65</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>29</td></tr>
-<tr><td><code>repo-integrity</code></td><td>19</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>375</td></tr>
-<tr><td><code>generate-or-run</code></td><td>327</td></tr>
-<tr><td><code>run</code></td><td>100</td></tr>
-<tr><td><code>self-test</code></td><td>41</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>776</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+<p>Status: survey complete, 2026-08-08. The measured survey lives in <a href="../../data/bitnami-successors/successors.html">data/bitnami-successors</a>; this brief carries the decisions it supports. Nothing in the catalog changes until each migration lands as its own reviewed work.</p>
+<h2 id="why-now">Why now</h2>
+<p>The catalog sources six components from one upstream publisher whose public chart archive is closing. Measured on 2026-08-08: the pinned tgz paths for redis 25.5.3, nginx 24.0.2, postgresql 18.6.7, and mongodb 19.0.7 return 403; mysql 14.0.3 and rabbitmq 16.0.14 still return 200. The repository index still lists every pinned version but points its download entries at a registry namespace instead of the direct archive, so the remaining 200s should be treated as a closing window, not stability.</p>
+<p>Verify lanes never fetch charts and keep passing on committed receipts. The lanes that fetch at run time are the generate-proof and live-parity lanes, so refresh and re-record work breaks first.</p>
+<h2 id="the-recommendations">The recommendations</h2>
+<p>Each pick was found and live-verified by one pass and independently re-verified by a second; every source status is a measured anonymous fetch.</p>
+<table><thead><tr><th>Component</th><th>Recommendation</th><th>Publisher</th><th>Shape</th></tr></thead><tbody><tr><td>redis</td><td>redis chart</td><td>CloudPirates</td><td>plain chart, keeps the engine</td></tr>
+<tr><td>nginx</td><td>nginx chart</td><td>CloudPirates</td><td>plain chart</td></tr>
+<tr><td>postgresql</td><td>CloudNativePG operator and cluster charts</td><td>CNCF project</td><td>operator</td></tr>
+<tr><td>mysql</td><td>MySQL Operator and InnoDB cluster charts</td><td>MySQL team</td><td>operator</td></tr>
+<tr><td>mongodb</td><td>Percona operator and database charts</td><td>Percona</td><td>operator</td></tr>
+<tr><td>rabbitmq</td><td>rabbitmq chart</td><td>CloudPirates</td><td>plain chart</td></tr></tbody></table>
+<h2 id="the-two-decisions-the-survey-cannot-make">The two decisions the survey cannot make</h2>
+<p><b>The redis engine question.</b> A second-pass catalog sweep (Artifact Hub and charts.openshift.io) surfaced a plain chart that keeps the Redis engine with a near-identical values surface, now ranked first: the same verified publisher as the nginx and rabbitmq picks, digest-pinned Redis 8 by default. The engine consideration does not disappear: Redis 8 carries the post-7.4 tri-license with AGPLv3 as the open-source option, and buyers who avoid AGPL will prefer the valkey chart (rank two, BSD-3-Clause fork, ACL auth surface). There is still no anonymous official Redis chart, and the Red Hat catalog holds only OpenShift template wrappers; both were verified, not assumed. The remaining call is licensing posture, not chart availability.</p>
+<p><b>The operator shape tax.</b> Three recommendations are operators. An operator entry changes the catalog contract: CRDs before CRs, render-late lifecycle routes, and values that move from chart keys into CR specs. The catalog already has the doctrine for this, but each migration is real reviewed work, not a pin bump.</p>
+<h2 id="concentration-note">Concentration note</h2>
+<p>Three recommendations now share one small commercial publisher (CloudPirates). Both charts measured well: Apache-2.0, digest-pinned upstream images, cosign signatures, near-Bitnami values names. The concentration is still a risk to weigh; the survey records ranked alternates for both components.</p>
+<h2 id="proposed-order">Proposed order</h2>
+<ol><li>nginx and rabbitmq first: plain charts, near drop-in values, and nginx is already broken at its pin while rabbitmq still serves.</li><li>redis next: the ranked pick keeps the engine and the values surface, so it joins the near-drop-in group once the licensing posture is confirmed.</li><li>The three operators one at a time, postgresql first because the CNCF publisher clears the quality bar most cleanly.</li></ol>
+<h2 id="decisions-recorded-2026-08-08">Decisions recorded 2026-08-08</h2>
+<p>Both redis engines enter the catalog as separate entries: the redis chart (keeps the engine; tri-licensed image with AGPLv3 as the open-source option) and the valkey chart (BSD-3-Clause fork). Buyers pick by license posture, and the catalog states both licenses plainly instead of choosing for them.</p>
+<p>Licenses become a visible catalog surface. The chart dossier now accepts a <code>spec.licenses</code> block (chart license with evidence, plus per-image licenses with notes), the artifact index and each entry's CATALOG.md render it, and the generator refuses a successor-publisher entry that omits it. Legacy entries backfill through their own reviewed work.</p>
+<p>The nginx migration is approved to start.</p>
+<h2 id="the-nginx-work-order">The nginx work order</h2>
+<ol><li>Placement: a successor track beside the fixed corpora (the next80 corpus is contract-locked at eighty charts), keyed <code>cloudpirates/nginx@0.16.1</code>, recipe at <code>recipes/cloudpirates/nginx/0.16.1</code>.</li><li>Source lock: the OCI reference <code>oci://registry-1.docker.io/cloudpirates/nginx</code> version 0.16.1, appVersion 1.31.3, with the chart digest recorded from an anonymous pull at import time.</li><li>Licenses block, required by the generator for this publisher: chart Apache-2.0 (evidence: the artifacthub license annotation inside the pulled chart), image <code>nginx</code> with the license read from the image's upstream LICENSE at import time, stated with its evidence.</li><li>Values mapping from the retired entry: the surface is near-identical; record the switch-map deltas the survey noted for this publisher's charts (existing-secret key names match; confirm probe and service keys at import).</li><li>Proofs in the established order: render proof and package first, kind install proof next, live-parity later and serial. The verify chain must stay green at every slice; no receipt is claimed before its lane runs.</li><li>rabbitmq follows the same order with <code>cloudpirates/rabbitmq@0.21.13</code>; redis and valkey follow once their entries are scaffolded, each carrying the licenses block from day one.</li></ol>
+<h2 id="boundary">Boundary</h2>
+<p>This survey names verified options and their measured availability, records the engine and license decisions above, and adds the license machinery the successor entries require. It still changes no recipe, receipt, or catalog entry, and it makes no claim about any vendor beyond the recorded fetch results.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/chart-successors-brief.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

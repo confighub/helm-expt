@@ -18,6 +18,7 @@ data/attack-plan-workdown/runtime-gitops-sweep.csv,attack-plan-workdown,verifica
 data/attack-plan-workdown/secret-gap-workdown.csv,attack-plan-workdown,supporting,supporting generated CSV,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify
 data/attack-plan-workdown/variant-workdown.csv,attack-plan-workdown,supporting,supporting generated CSV,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify
 data/base-variant-records/records.csv,base-variant-records,supporting,supporting generated CSV,data/base-variant-records/summary.md,,
+data/bitnami-successors/successors.csv,bitnami-successors,supporting,supporting generated CSV,,,
 data/blast-radius-accuracy/cases.csv,blast-radius-accuracy,user/front-door,one row per value-source-map blast-radius case: measured score or unmeasured backlog,data/blast-radius-accuracy/summary.md,npm run blast-radius:accuracy,npm run blast-radius:accuracy:verify
 data/blast-radius-fleet/matrix.csv,blast-radius-fleet,supporting,supporting generated CSV,data/blast-radius-fleet/summary.md,,
 data/capability-profile-witnesses/selectablefields/summary.csv,capability-profile-witnesses,supporting,machine-readable summary,data/capability-profile-witnesses/selectablefields/summary.md,,
