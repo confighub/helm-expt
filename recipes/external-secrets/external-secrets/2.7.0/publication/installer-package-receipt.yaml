@@ -4,13 +4,16 @@ metadata:
   name: "external-secrets-external-secrets-2.7.0"
 spec:
   chart:
-    repository: "external-secrets"
     name: "external-secrets"
+    repository: "external-secrets"
     version: "2.7.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/external-secrets/external-secrets/2.7.0 -o <tmp>/external-secrets-2.7.0.tgz"
+    sha256: "a73adf9a4364bcb7fc71083c8b85f112a34352613bd9d4e4d228cbf042cce7aa"
   package:
-    path: "packages/external-secrets/external-secrets/2.7.0"
     name: "external-secrets-external-secrets"
-    version: "2.7.0"
+    path: "packages/external-secrets/external-secrets/2.7.0"
     sourceFiles:
       -
         path: "README.md"
@@ -34,38 +37,39 @@ spec:
         bytes: 22325
       -
         path: "collector/target-facts.sh"
-        sha256: "42ab81ea61c5d7fb6ea47af3be9d3ba1cffd140d950da541774c758dd26cc779"
-        bytes: 12029
+        sha256: "88c7a8da237a8e322ab2899998274dd767d8879c0e37c179f3dae05a4002cf6e"
+        bytes: 11367
       -
         path: "installer.yaml"
-        sha256: "c04c5a6222df46777ec7f665904ebe03f6d134135721bad0ab19543eb775f872"
-        bytes: 7438
-  deterministicBundle:
-    command: "cub installer package packages/external-secrets/external-secrets/2.7.0 -o <tmp>/external-secrets-2.7.0.tgz"
-    sha256: "42ee5df4017453a1e3d0ea07d6430d0b258d5e0599c86a5d5d6b48896b5abde4"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "dee3e97db10e761758cc1c64d780206710d47b29bf08d8ec77c6c6d6426e2506"
+        bytes: 7855
+      -
+        path: "prerequisites/target-facts/no-crds-crds.yaml"
+        sha256: "f08210327fb77832e1bc6bcf45683c84076d76295d9441cc74c4b16a59c621fe"
+        bytes: 1741051
+    version: "2.7.0"
   setupChecks:
     -
-      variant: "default"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||external-secrets"
       base: "default"
       command: "cub installer setup --pull packages/external-secrets/external-secrets/2.7.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
-      helmReleaseObjectCount: 43
       cubInstallObjectCountIncludingSupport: 44
+      helmReleaseObjectCount: 43
       semanticObjectMatches: "43/43"
       separatedSecretCount: 1
       targetFactMode: "collector-facts"
       targetFactsBound: true
+      variant: "default"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||external-secrets"
-    -
-      variant: "no-crds"
       base: "no-crds"
       command: "cub installer setup --pull packages/external-secrets/external-secrets/2.7.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets"
-      helmReleaseObjectCount: 19
       cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
       semanticObjectMatches: "19/19"
       separatedSecretCount: 1
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||external-secrets"
+      variant: "no-crds"
