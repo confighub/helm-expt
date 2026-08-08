@@ -161,9 +161,33 @@
                     "type": "string"
                   },
                   "proven": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "True only when a runtime was watched executing this route. Preserving a declaration through delivery is not executing it."
+                  },
+                  "provenBy": {
+                    "type": "string",
+                    "description": "Repo-relative path to the receipt recording the run that proved it. Required whenever proven is true, so the claim can be opened rather than taken on trust."
                   }
-                }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "proven": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "proven"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "provenBy"
+                      ]
+                    }
+                  }
+                ]
               }
             },
             "automatic": {

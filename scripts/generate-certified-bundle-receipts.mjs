@@ -362,12 +362,12 @@ function buildCrdOrderingRoute({ name, inventoryRel, verdictRel, crdNames, other
           {
             name: "Argo CD",
             mechanism: "sync waves, the earlier stage at the lower wave number",
-            proven: true,
+            proven: false,
           },
           {
             name: "Flux",
             mechanism: "dependsOn between the definitions Kustomization and the rest",
-            proven: true,
+            proven: false,
           },
           {
             name: "cub-direct applier",
@@ -1100,7 +1100,7 @@ function buildObservedOrderingRoute({ name, witnessDir, fileRows, witnessRel, ve
           {
             name: "Argo CD",
             mechanism: "the sync-wave annotations the producer already emits, which this route reads back",
-            proven: true,
+            proven: false,
           },
           {
             name: "Flux",
@@ -1543,13 +1543,14 @@ function buildAicrReceipt(entry) {
             {
               name: "Argo CD",
               mechanism: "the sync-wave annotation each Application carries",
-              proven: true,
+              proven: false,
             },
           ],
           automatic: true,
         },
         boundedness: [
           "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly.",
+          "No runtime is proven to execute this route. The closest run, runs/aicr-cpu-starter-delivery, says so itself: the Applications were accepted with their sync waves preserved, the application controller was held at zero replicas, and zero sync operations were observed. Surviving delivery is not the same as being executed.",
         ],
         provenance: {
           emittedBy: "scripts/generate-certified-bundle-receipts.mjs",

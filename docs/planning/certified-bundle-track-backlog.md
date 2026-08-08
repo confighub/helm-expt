@@ -86,11 +86,21 @@ flattenable without a verdict.
     the self-test proves it. Ordering earned automatic because re-applying it
     changes nothing; work does not get that by default.
 13. **Prove a route executes under Argo.** The route declares that Argo can
-    express it as sync waves. Nothing has watched it happen. M.
+    express it as sync waves. Nothing has watched it happen, and until recently
+    eight routes claimed otherwise. The claim is now gated: `proven` requires a
+    `provenBy` receipt that exists, and strict ingest refuses it otherwise. So
+    this task is now to produce that receipt rather than to correct a flag. M.
 14. **Prove the same route under Flux.** One artifact, three runtimes, is the
-    claim. Two of three are asserted from the declaration alone. M.
-15. **Prove the same route under the cub-direct applier.** Its proven flag is
-    false today and should either become true or be explained. M.
+    claim. Zero of three are proven today, stated plainly in each route. M.
+15. **Prove the same route under the cub-direct applier.** M.
+
+    The nearest existing evidence is worth knowing before anyone starts.
+    `runs/oci-hook-delivery-proof` records one OCI bundle consumed by Argo, Flux
+    and cub-direct with a routed hook observed running under each, which proves
+    the mechanism for a fixture rather than for any shipped route.
+    `runs/aicr-cpu-starter-delivery` proves sync waves survive delivery, and
+    says in its own limits that no sync ever started. Neither is a substitute
+    for watching a shipped route execute.
 16. **Fail a bundle whose verdict names a route it does not ship.** Done.
     `companionRequired` now sits on the disposition row, drawn from the same
     vocabulary as a route's `routeKind`, and strict ingest reads each shipped

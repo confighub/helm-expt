@@ -52,8 +52,8 @@ spec:
         bytes: 593
       -
         path: "data/certified-bundles/routes/eks-inference/ack-controllers/crd-ordering.yaml"
-        sha256: "e15b3ab078dcb0e4f2260bea512dcfbf0f09c72038b63e3ec0e7fcb3a9d69c48"
-        bytes: 2341
+        sha256: "e9cbdfd14d486ab04ba676519e7a11266f26b5825a8e639e86a7f1ef3b818119"
+        bytes: 2342
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/eks-inference/ack-controllers/space-guide.md"
