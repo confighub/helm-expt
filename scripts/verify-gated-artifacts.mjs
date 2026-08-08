@@ -122,6 +122,9 @@ function findReferences(register, root) {
       .split("\n")
       .filter(Boolean);
     for (const file of listed) {
+      // The register names every reference by definition, so counting it as a
+      // document that names them would make it evidence for itself.
+      if (file === relativeRepo(register.path)) continue;
       const path = join(root, file);
       if (!existsSync(path)) continue;
       const text = readFileSync(path, "utf8");
@@ -203,7 +206,8 @@ moment an entry retains a document that mentions it.
 
 ## Every reference in the retained configuration
 
-${report.artifacts.length} gated references appear across ${report.filesWithReferences} committed files. The lane
+${report.artifacts.length} gated references appear across ${report.filesWithReferences} committed files, not counting this
+register, which names them all by definition. The lane
 refuses a reference that is not listed here, and refuses a listing that no
 committed document names, so this table cannot drift in either direction.
 

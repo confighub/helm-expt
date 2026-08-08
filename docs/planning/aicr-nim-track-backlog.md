@@ -339,6 +339,18 @@ and reading them automatically would mean working around it. Measuring the gap
 was the honest option, and it leaves task 11 open as a reading job for a person
 rather than a lane nobody can build.
 
+Theme 3 moved too. Tasks 18 and 20 turned out to be already satisfied: the
+training entry's four choices are three declared control points plus one
+recorded gap, and the coverage section names which points have no reviewed
+change. Task 19 is done. The blast-radius checker now locates a control point
+three ways, and which form fits is a property of where the value lives rather
+than a preference. A token is a substring, a path resolves through the parsed
+document, and a valuesPath resolves inside the Helm values these Applications
+carry as an embedded YAML string, which is where most platform choices actually
+live. The v0.18.0 entry's record uses the precise forms and exists partly to
+prove them on real bytes. The checker also reads every record in its directory
+now instead of a list, so a new entry's record cannot be added and never read.
+
 Theme 1 is now closed. Task 3 is decided: the CPU starter tracks the one
 retained version it derives from and does not follow a newer one, because every
 proof it holds was produced from those bytes. The decision is in its derivation
