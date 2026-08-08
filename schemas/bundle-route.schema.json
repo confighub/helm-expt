@@ -4,20 +4,43 @@
   "title": "Bundle Route",
   "description": "A companion artifact that travels inside a certified bundle and discharges one quirk class the flattening-safety verdict named. Routes are the reason the flatten-with-routes lane exists: the bundle carries the configuration, and the route carries the knowledge of how to apply it, so neither depends on whoever happened to flatten the chart. A route is declarative. It states what must hold, not how a particular tool achieves it, so any delivery runtime can execute it and a reader can check it without running anything. Generated at flatten time and named in the receipt beside the quirk it discharges.",
   "type": "object",
-  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "spec"
+  ],
   "additionalProperties": false,
   "properties": {
-    "apiVersion": { "const": "evidence.confighub.com/v1alpha1" },
-    "kind": { "const": "BundleRoute" },
+    "apiVersion": {
+      "const": "evidence.confighub.com/v1alpha1"
+    },
+    "kind": {
+      "const": "BundleRoute"
+    },
     "metadata": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "additionalProperties": false,
-      "properties": { "name": { "type": "string", "minLength": 1 } }
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
     },
     "spec": {
       "type": "object",
-      "required": ["quirkClass", "routeKind", "discharges", "declaration", "executedBy", "boundedness"],
+      "required": [
+        "quirkClass",
+        "routeKind",
+        "discharges",
+        "declaration",
+        "executedBy",
+        "boundedness"
+      ],
       "additionalProperties": false,
       "properties": {
         "quirkClass": {
@@ -37,7 +60,13 @@
           ]
         },
         "routeKind": {
-          "enum": ["apply-ordering", "lifecycle-job", "prune-protection", "external-secret-reference", "versioned-replacement"]
+          "enum": [
+            "apply-ordering",
+            "lifecycle-job",
+            "prune-protection",
+            "external-secret-reference",
+            "versioned-replacement"
+          ]
         },
         "discharges": {
           "description": "What breaks without this route, in one sentence.",
@@ -53,22 +82,54 @@
               "minItems": 1,
               "items": {
                 "type": "object",
-                "required": ["order", "name", "selector"],
+                "required": [
+                  "order",
+                  "name",
+                  "selector"
+                ],
                 "additionalProperties": false,
                 "properties": {
-                  "order": { "type": "integer" },
-                  "name": { "type": "string" },
+                  "order": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
                   "selector": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
-                      "kinds": { "type": "array", "items": { "type": "string" } },
-                      "files": { "type": "array", "items": { "type": "string" } },
-                      "names": { "type": "array", "items": { "type": "string" } }
+                      "kinds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "names": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
                     }
                   },
-                  "waitFor": { "type": "string" },
-                  "objectCount": { "type": "integer", "minimum": 0 }
+                  "waitFor": {
+                    "type": "string"
+                  },
+                  "objectCount": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "observedSyncWave": {
+                    "description": "The Argo sync wave this stage was read back from, when the route restates an ordering the producer already declared rather than inventing one.",
+                    "type": "integer"
+                  }
                 }
               }
             }
@@ -77,7 +138,9 @@
         "executedBy": {
           "description": "Which runtimes can execute this route, and how each expresses it. A route that no runtime can execute is a refusal, not a route.",
           "type": "object",
-          "required": ["runtimes"],
+          "required": [
+            "runtimes"
+          ],
           "additionalProperties": false,
           "properties": {
             "runtimes": {
@@ -85,12 +148,21 @@
               "minItems": 1,
               "items": {
                 "type": "object",
-                "required": ["name", "mechanism"],
+                "required": [
+                  "name",
+                  "mechanism"
+                ],
                 "additionalProperties": false,
                 "properties": {
-                  "name": { "type": "string" },
-                  "mechanism": { "type": "string" },
-                  "proven": { "type": "boolean" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "mechanism": {
+                    "type": "string"
+                  },
+                  "proven": {
+                    "type": "boolean"
+                  }
                 }
               }
             },
@@ -103,15 +175,26 @@
         "boundedness": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "provenance": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "emittedBy": { "type": "string" },
-            "generatedFrom": { "type": "array", "items": { "type": "string" } },
-            "verdictRef": { "type": "string" }
+            "emittedBy": {
+              "type": "string"
+            },
+            "generatedFrom": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "verdictRef": {
+              "type": "string"
+            }
           }
         }
       }

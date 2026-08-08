@@ -136,8 +136,15 @@ spec:
             - "Application"
           names:
             - "prometheus-adapter"
-  executedBy: "Argo CD, through the sync-wave annotation each Application carries"
-  boundedness: "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly."
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "the sync-wave annotation each Application carries"
+        proven: true
+    automatic: true
+  boundedness:
+    - "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:

@@ -650,6 +650,86 @@ function eksInferenceWitnessPath(component) {
   return `data/certified-bundles/witnesses/eks-inference-${component}/witness.yaml`;
 }
 
+// A route derived from what the producer already declares. Their pipeline
+// splits definitions from controllers and orders them with Argo sync waves, so
+// the ordering is real but expressible only to Argo. Reading the waves back out
+// and restating them as stages makes the same ordering portable to a runtime
+// that has never heard of a sync wave, without inventing an ordering nobody
+// chose.
+function buildObservedOrderingRoute({ name, witnessDir, fileRows, witnessRel, verdictRel }) {
+  const waves = new Map();
+  for (const row of fileRows) {
+    const text = readFileSync(join(witnessDir, "files", row.path), "utf8");
+    const wave = text.match(/argocd\.argoproj\.io\/sync-wave["']?\s*:\s*["']?(-?\d+)/)?.[1];
+    if (wave === undefined) return null;
+    const key = Number(wave);
+    waves.set(key, [...(waves.get(key) ?? []), row.path]);
+  }
+  if (waves.size < 2) return null;
+
+  const ordered = [...waves.entries()].sort(([left], [right]) => left - right);
+  const stageName = (files) => {
+    if (files.every((file) => file.includes("crds"))) return "custom-resource-definitions";
+    if (files.every((file) => file.includes("namespace"))) return "namespace";
+    if (files.every((file) => file.includes("controller"))) return "controllers";
+    return files.map((file) => file.replace(/\.ya?ml$/, "")).join("-and-");
+  };
+
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "BundleRoute",
+    metadata: { name },
+    spec: {
+      quirkClass: "crd-ordering",
+      routeKind: "apply-ordering",
+      discharges:
+        "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning, and a controller before the namespace that holds it.",
+      declaration: {
+        stages: ordered.map(([wave, files], index) => ({
+          order: index + 1,
+          name: stageName(files),
+          selector: { files: files.sort() },
+          ...(files.some((file) => file.includes("crds"))
+            ? { waitFor: "every definition in this stage reports the Established condition" }
+            : {}),
+          objectCount: files.length,
+          observedSyncWave: wave,
+        })),
+      },
+      executedBy: {
+        runtimes: [
+          {
+            name: "Argo CD",
+            mechanism: "the sync-wave annotations the producer already emits, which this route reads back",
+            proven: true,
+          },
+          {
+            name: "Flux",
+            mechanism: "dependsOn between one Kustomization per stage, in the order below",
+            proven: false,
+          },
+          {
+            name: "cub-direct applier",
+            mechanism: "apply each stage and wait before starting the next",
+            proven: false,
+          },
+        ],
+        automatic: true,
+      },
+      boundedness: [
+        "the stages restate the ordering the producer's own sync waves declare; they do not add an ordering nobody chose",
+        "the route orders what the bundle contains, so a definition this bundle does not ship must already exist on the target",
+        "only Argo is proven to execute this ordering today, because that is the runtime the producer uses",
+      ],
+      provenance: {
+        emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+        generatedFrom: [witnessRel],
+        verdictRef: verdictRel,
+      },
+    },
+  };
+}
+
 function buildEksInferenceComponentReceipt(component) {
   const witnessRel = eksInferenceWitnessPath(component.name);
   const witnessDir = join(repoRoot, "data", "certified-bundles", "witnesses", `eks-inference-${component.name}`);
@@ -730,6 +810,36 @@ function buildEksInferenceComponentReceipt(component) {
     };
   }
 
+  // A component whose verdict requires an ordering companion gets one, built
+  // from the ordering the producer already declares.
+  let routeFile = null;
+  if (verdict.lane === "flatten-with-routes" && verdict.status === "certified") {
+    const routeRel = `data/certified-bundles/routes/eks-inference/${component.name}/crd-ordering.yaml`;
+    const route = buildObservedOrderingRoute({
+      name: `eks-inference-${component.name}-crd-ordering`,
+      witnessDir,
+      fileRows,
+      witnessRel,
+      verdictRel: (component.recipes ?? [])
+        .map((recipe) => readVerdict(recipe))
+        .filter(Boolean)[0]?.rel,
+    });
+    if (route) {
+      const text = `${toYaml(route)}\n`;
+      emittedRoutes.push({ path: repoPath(routeRel), contents: text });
+      routeFile = {
+        path: routeRel,
+        sha256: sha256(text),
+        bytes: Buffer.byteLength(text),
+        role: "route: crd-ordering",
+      };
+      for (const row of dispositions) {
+        if (row.class === "crd-ordering" && row.finding === "present")
+          row.disposition = `discharged by the route this bundle ships at ${routeRel}`;
+      }
+    }
+  }
+
   const spec = {
     producer: {
       name: "eks-inference",
@@ -747,7 +857,7 @@ function buildEksInferenceComponentReceipt(component) {
       layerDigest,
       reproducible: true,
       contentsKind: component.contentsKind,
-      files: fileRows,
+      files: routeFile ? [...fileRows, routeFile] : fileRows,
     },
     ingest: {
       granularity: "per-file",
@@ -1028,9 +1138,19 @@ function buildAicrReceipt(entry) {
         discharges:
           "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on.",
         declaration: { stages },
-        executedBy: "Argo CD, through the sync-wave annotation each Application carries",
-        boundedness:
+        executedBy: {
+          runtimes: [
+            {
+              name: "Argo CD",
+              mechanism: "the sync-wave annotation each Application carries",
+              proven: true,
+            },
+          ],
+          automatic: true,
+        },
+        boundedness: [
           "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly.",
+        ],
         provenance: {
           emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
           generatedFrom: [renderedRel, `${entryRel}/recipe.yaml`, "data/aicr-ordering-parity/summary.md"],

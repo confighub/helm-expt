@@ -12,7 +12,7 @@
 //   node scripts/verify-certified-bundle.mjs --self-test   prove each refusal fires
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, relative } from "node:path";
 
 import { check, readYaml, repoRoot, sha256File } from "./lib/proof-common.mjs";
 
@@ -143,6 +143,48 @@ function verifyVerdictCitation(name, receipt) {
 // no disposition claims. The third case, a lane that needs routes and ships
 // none, is honest unfinished work rather than a broken artifact, so it is
 // reported rather than refused.
+const ROUTE_KINDS = [
+  "apply-ordering",
+  "lifecycle-job",
+  "prune-protection",
+  "external-secret-reference",
+  "versioned-replacement",
+];
+
+// A route is an artifact a delivery runtime is meant to execute, so a
+// malformed one is worse than a missing one: it looks actionable and is not.
+function verifyRouteDocument(name, path) {
+  const route = readYaml(path);
+  const label = `${name} route ${relative(repoRoot, path)}`;
+  if (route.apiVersion !== "evidence.confighub.com/v1alpha1")
+    refuse(label, `unexpected apiVersion ${route.apiVersion}`);
+  if (route.kind !== "BundleRoute") refuse(label, `unexpected kind ${route.kind}`);
+  const spec = route.spec ?? {};
+  if (!CLASSES.includes(spec.quirkClass)) refuse(label, `unknown quirk class ${spec.quirkClass}`);
+  if (!ROUTE_KINDS.includes(spec.routeKind)) refuse(label, `unknown route kind ${spec.routeKind}`);
+  if (!spec.discharges) refuse(label, "the route does not say what breaks without it");
+  if (!Array.isArray(spec.boundedness) || spec.boundedness.length === 0)
+    refuse(label, "boundedness must be a non-empty list, so a route states its own limits");
+  const runtimes = spec.executedBy?.runtimes;
+  if (!Array.isArray(runtimes) || runtimes.length === 0)
+    refuse(
+      label,
+      "executedBy.runtimes must be a non-empty list. A route no runtime can execute is a refusal, not a route.",
+    );
+  for (const runtime of runtimes) {
+    if (!runtime?.name || !runtime?.mechanism)
+      refuse(label, "every runtime must name itself and how it expresses the route");
+  }
+  if (spec.routeKind === "apply-ordering") {
+    const stages = spec.declaration?.stages;
+    if (!Array.isArray(stages) || stages.length < 2)
+      refuse(label, "an ordering route needs at least two stages, or it orders nothing");
+    const orders = stages.map((stage) => stage.order);
+    if (orders.some((order, index) => order !== index + 1))
+      refuse(label, `stage order must run 1..n without gaps, found ${orders.join(", ")}`);
+  }
+}
+
 function verifyRouteIntegrity(name, receipt) {
   const spec = receipt.spec;
   const shipped = spec.bundle.files
@@ -170,6 +212,8 @@ function verifyRouteIntegrity(name, receipt) {
   }
 
   for (const route of shipped) {
+    const onDisk = join(repoRoot, route.path);
+    if (existsSync(onDisk)) verifyRouteDocument(name, onDisk);
     if (!referenced.some((reference) => reference.path === route.path))
       refuse(
         name,
@@ -235,8 +279,20 @@ function runVerify() {
   }
 }
 
-function expectRefusal(label, mutate) {
-  const base = readYaml(receiptPaths()[0]);
+// Pick a receipt that actually carries what the case needs to break, rather
+// than whichever sorts first. The route cases silently stopped testing anything
+// the moment a receipt without a route sorted ahead of the one with it.
+function receiptCarryingARoute() {
+  for (const path of receiptPaths()) {
+    const receipt = readYaml(path);
+    if (receipt.spec.bundle.files.some((file) => String(file.role ?? "").startsWith("route:")))
+      return receipt;
+  }
+  return null;
+}
+
+function expectRefusal(label, mutate, receiptOverride) {
+  const base = receiptOverride ?? readYaml(receiptPaths()[0]);
   const copy = JSON.parse(JSON.stringify(base));
   mutate(copy);
   try {
@@ -274,13 +330,15 @@ function runSelfTest() {
   expectRefusal("a dropped ingest contract", (receipt) => {
     receipt.spec.ingest.externalSourceAnnotation = "";
   });
-  // The base receipt is the traefik one, which ships a route, so both route
-  // refusals have something real to break.
+  // Both route refusals need a receipt that ships a route, or they would pass
+  // by breaking nothing.
+  const routed = receiptCarryingARoute();
+  check(routed, "no receipt ships a route, so the route refusals cannot be self-tested");
   expectRefusal("a disposition pointing at a route the bundle does not ship", (receipt) => {
     receipt.spec.bundle.files = receipt.spec.bundle.files.filter(
       (file) => !String(file.role ?? "").startsWith("route:"),
     );
-  });
+  }, routed);
   expectRefusal("a route no disposition references", (receipt) => {
     for (const row of receipt.spec.dispositions) {
       row.disposition = String(row.disposition).replace(
@@ -288,7 +346,7 @@ function runSelfTest() {
         "explicit ordering declared at ingest",
       );
     }
-  });
+  }, routed);
   console.log("strict ingest self-test: 8 refusal(s) fired as required");
 }
 
