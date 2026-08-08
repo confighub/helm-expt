@@ -167,6 +167,7 @@ function scanDispositions(scan, { renderScope, templateEvidence, routeRefs = {} 
       scan.hookDocs > 0
         ? "lifecycle route executed by the delivery runtime"
         : "none required",
+    ...(scan.hookDocs > 0 ? { companionRequired: "lifecycle-job" } : {}),
   });
   rows.push({
     class: "resource-policy-keep",
@@ -181,6 +182,7 @@ function scanDispositions(scan, { renderScope, templateEvidence, routeRefs = {} 
           ? `discharged by the route this bundle ships at ${routeRefs["resource-policy-keep"]}`
           : "prune protection emitted beside the bundle"
         : "none required",
+    ...(scan.keepDocs > 0 ? { companionRequired: "prune-protection" } : {}),
   });
   rows.push({
     class: "lookup",
@@ -217,6 +219,7 @@ function scanDispositions(scan, { renderScope, templateEvidence, routeRefs = {} 
       scan.secrets > 0
         ? "external Secret reference required before certification"
         : "none required",
+    ...(scan.secrets > 0 ? { companionRequired: "external-secret-reference" } : {}),
   });
   rows.push({
     class: "crd-ordering",
@@ -231,6 +234,7 @@ function scanDispositions(scan, { renderScope, templateEvidence, routeRefs = {} 
           ? `discharged by the route this bundle ships at ${routeRefs["crd-ordering"]}`
           : "explicit ordering declared at ingest (file split or sync waves)"
         : "none required",
+    ...(scan.crds > 0 ? { companionRequired: "apply-ordering" } : {}),
   });
   rows.push({
     class: "immutable-fields",
@@ -1431,6 +1435,7 @@ function buildAicrReceipt(entry) {
         finding: "present",
         detail: `${stages.length} Applications carry a sync-wave, and the order they declare is AICR's own deploymentOrder`,
         disposition: `route this bundle ships at ${routeRel}`,
+        companionRequired: "apply-ordering",
       };
     }
     return row.finding === "not-evaluated"
