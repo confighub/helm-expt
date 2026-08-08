@@ -34,8 +34,8 @@ packages.
 | --- | ---: |
 | Installer packages | 135 |
 | Public catalog packages | 100 |
-| Package refs with publication receipts | 130 |
-| Assigned refs without publication receipts yet | 5 |
+| Package refs with publication receipts | 135 |
+| Assigned refs without publication receipts yet | 0 |
 
 ## Public Examples
 

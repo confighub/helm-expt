@@ -1,0 +1,98 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "fairwinds-stable-goldilocks-10.3.0-republished"
+spec:
+  chart:
+    repository: "fairwinds-stable"
+    name: "goldilocks"
+    version: "10.3.0"
+  package:
+    sha256: "3e51ce8032b0217d667b7e9084d36c76262b4ea566151f8fa47d422cbbd475db"
+    observedAt: "2026-08-07T18:30:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+    note: "the bytes upstream publishes today under this version string, which are NOT the bytes this catalog locks; recorded so the republished artifact is available and inspectable"
+  scannedFiles: 103
+  subcharts:
+    count: 3
+    conditions:
+      -
+        dependency: "vpa"
+        condition: "vpa.enabled"
+      -
+        dependency: "metrics-server"
+        condition: "metrics-server.enabled"
+  crds:
+    files: 1
+    documents: 2
+  hookValues:
+    - "post-install,post-upgrade"
+    - "pre-install,pre-upgrade"
+    - "pre-install,pre-upgrade,post-install,post-upgrade"
+    - "pre-upgrade,post-delete"
+    - "test"
+  findings:
+    lookup:
+      count: 3
+      files:
+        - "charts/metrics-server/templates/apiservice.yaml:6"
+        - "charts/metrics-server/templates/apiservice.yaml:33"
+        - "charts/vpa/templates/webhooks/_webhook_helpers.tpl:6"
+    capabilities:
+      count: 12
+      files:
+        - "charts/metrics-server/templates/_helpers.tpl:97"
+        - "charts/metrics-server/templates/pdb.yaml:16"
+        - "charts/metrics-server/templates/psp.yaml:1"
+        - "charts/vpa/charts/metrics-server/templates/_helpers.tpl:97"
+        - "charts/vpa/templates/admission-controller-pdb.yaml:3"
+        - "charts/vpa/templates/recommender-pdb.yaml:3"
+        - "charts/vpa/templates/tests/_test_helpers.tpl:6"
+        - "charts/vpa/templates/tests/_test_helpers.tpl:8"
+        - "charts/vpa/templates/updater-pdb.yaml:3"
+        - "templates/dashboard-ingress.yaml:4"
+        - "templates/dashboard-ingress.yaml:7"
+        - "templates/dashboard-ingress.yaml:25"
+    helm-hooks:
+      count: 19
+      files:
+        - "charts/vpa/templates/tests/crds-available.yaml:9"
+        - "charts/vpa/templates/tests/create-vpa.yaml:9"
+        - "charts/vpa/templates/tests/metrics.yaml:9"
+        - "charts/vpa/templates/tests/rbac.yaml:5"
+        - "charts/vpa/templates/tests/rbac.yaml:16"
+        - "charts/vpa/templates/tests/rbac.yaml:54"
+        - "charts/vpa/templates/tests/rbac.yaml:72"
+        - "charts/vpa/templates/tests/rbac.yaml:113"
+        - "charts/vpa/templates/tests/webhook.yaml:10"
+        - "charts/vpa/templates/webhooks/jobs/certgen-clusterrole.yaml:7"
+        - "charts/vpa/templates/webhooks/jobs/certgen-clusterrolebinding.yaml:7"
+        - "charts/vpa/templates/webhooks/jobs/certgen-create.yaml:7"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 1
+      files:
+        - "charts/metrics-server/templates/apiservice.yaml:12"
+    webhook-config:
+      count: 1
+      files:
+        - "charts/vpa/templates/webhooks/mutating.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 9
+      files:
+        - "charts/vpa/templates/tests/crds-available.yaml:9"
+        - "charts/vpa/templates/tests/create-vpa.yaml:9"
+        - "charts/vpa/templates/tests/metrics.yaml:9"
+        - "charts/vpa/templates/tests/rbac.yaml:5"
+        - "charts/vpa/templates/tests/rbac.yaml:16"
+        - "charts/vpa/templates/tests/rbac.yaml:54"
+        - "charts/vpa/templates/tests/rbac.yaml:72"
+        - "charts/vpa/templates/tests/rbac.yaml:113"
+        - "charts/vpa/templates/tests/webhook.yaml:10"

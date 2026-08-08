@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Choose How Much ConfigHub To Use · Config Workshop</title>
-  <meta name="description" content="Choose local public tools, a free ConfigHub account, or the commercial product according to the configuration work you need to do.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/offering.html">
-  <meta property="og:title" content="Choose How Much ConfigHub To Use · Config Workshop">
-  <meta property="og:description" content="Choose local public tools, a free ConfigHub account, or the commercial product according to the configuration work you need to do.">
+  <title>When upstream republishes a version · Config Workshop</title>
+  <meta name="description" content="When upstream republishes a version: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/upstream-drift/summary.html">
+  <meta property="og:title" content="When upstream republishes a version · Config Workshop">
+  <meta property="og:description" content="When upstream republishes a version: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/offering.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/upstream-drift/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -427,165 +427,43 @@
       table { display: block; overflow-x: auto; white-space: nowrap; }
     }
 
-    .calm-page header.hero { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
-    .calm-page main section { padding-top: 8px; }
-    .calm-page .grid, .calm-page .catalog, .calm-page .lanes, .calm-page .stage-grid, .calm-page .faq-list {
-      gap: 22px;
-      align-items: start;
-    }
-    .calm-page .card,
-    .calm-page .metric,
-    .calm-page .lane,
-    .calm-page .faq-card,
-    .calm-page .door,
-    .calm-page .tier,
-    .calm-page .matrix-row-card,
-    .calm-page .move-card,
-    .calm-page .node,
-    .calm-page .consumer,
-    .calm-page .app-step,
-    .calm-page .op,
-    .calm-page .route div,
-    .calm-page .callout-section {
-      border: 0;
-      border-top: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      box-shadow: none;
-      padding: 14px 0 0;
-    }
-    .calm-page .metric strong { font-size: 1.4rem; }
-    .calm-page .metric strong,
-    .calm-page .kicker,
-    .calm-page .eyebrow,
-    .calm-page .generated,
-    .calm-page .tier .stage,
-    .calm-page .chain a::before,
-    .calm-page .faq-status,
-    .calm-page .row-layer,
-    .calm-page .row-kind,
-    .calm-page .lane-pill b,
-    .calm-page .terminal-title {
-      font-family: inherit;
-    }
-    .calm-page p code,
-    .calm-page li code,
-    .calm-page td code,
-    .calm-page th code,
-    .calm-page dd code,
-    .calm-page .mono-line code {
-      font-family: inherit;
-      font-size: .92em;
-    }
-    .calm-page pre,
-    .calm-page pre code,
-    .calm-page .terminal-body,
-    .calm-page .terminal-body code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .calm-page .metric span,
-    .calm-page .card p,
-    .calm-page .lane p,
-    .calm-page .faq-card p,
-    .calm-page .op p {
-      max-width: none;
-    }
-    .calm-page .faq-card.later { background: transparent; border-color: var(--line); }
-    .calm-page .mini-visual,
-    .calm-page .proof-frame {
-      border-radius: 0;
-      background: transparent;
-      border-color: var(--line);
-    }
-    .calm-page .chain a,
-    .calm-page .button.secondary,
-    .calm-page .chips span {
-      border-radius: 6px;
-      background: transparent;
-    }
-    .calm-page .route,
-    .calm-page .app-flow,
-    .calm-page .move-spine {
-      gap: 22px;
-    }
+    .doc-body table { border-collapse: collapse; margin: 14px 0; font-size: .9rem; }
+    .doc-body th, .doc-body td { border: 1px solid var(--line); padding: 7px 10px; text-align: left; vertical-align: top; }
+    .doc-body th { background: var(--panel); }
+    .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
+    .doc-body img { max-width: 100%; }
+    .doc-body h2 { margin-top: 28px; }
   </style>
 </head>
-<body class="calm-page">
+<body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="./index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="./try.html">Try Redis</a><a href="./testing.html">Examples</a><a href="./charts/index.html">Catalog</a><a href="./how-it-works.html">Deployment</a><a href="./docs.html">Docs</a><a href="./hard-questions.html">FAQ</a><a href="./confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Choose how much of ConfigHub to use</h1>
-    <p class="lead">Start with local tools and public packages. Add a free ConfigHub account when you want to save, change, promote, and release the reviewed configuration.</p>
-    <p>Use the commercial product for private sources, teams, fleet operations, and production support.</p>
-    <p style="margin-top:14px;font-size:.9rem"><a href="./try.html">Try Redis</a> · <a href="./testing.html">Choose an example</a> · <a href="./confighub.html">Learn ConfigHub</a></p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>When upstream republishes a version</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/upstream-drift/summary.md">View source markdown</a>.</p>
   </header>
   <main>
-    <section aria-labelledby="public">
-      <h2 id="public">1. Start without ConfigHub Server</h2>
-      <p>The local paths below do not contact ConfigHub Server. Public Catalog package pulls also need no ConfigHub account or Google registry login.</p>
-      <div class="card"><table>
-        <thead><tr><th>Task</th><th>Start here</th><th>What happens</th></tr></thead>
-        <tbody><tr><td>Try a Catalog configuration</td><td><a href="./try.html">Try Redis</a></td><td>Pull a public package, render it locally, and inspect the exact Kubernetes objects.</td></tr><tr><td>Bring a Helm chart and values</td><td><a href="./testing.html#bring-your-own">Review your own Helm input</a></td><td>Use cub helm locally to render the chart without applying it.</td></tr><tr><td>Start with AICR, OCI, or YAML</td><td><a href="./testing.html">Choose a worked example</a></td><td>Inspect the objects and source information before deciding where they go.</td></tr><tr><td>Check chart requirements</td><td><a href="./charts/index.html">Browse the Catalog</a></td><td>See the recommended configuration, hooks, CRDs, Secrets, setup work, and evidence.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>The local tools work today. A hosted path without sign-in is planned, not yet a shipped service. <a href="./serverless.html">Read the current no-server and no-account boundary</a>.</p>
-    </section>
-
-    <section aria-labelledby="managed">
-      <h2 id="managed">2. Add ConfigHub when the result must live and change</h2>
-      <p>ConfigHub keeps reviewed Kubernetes configuration as shared data. Teams can change it, approve it, promote it, and publish releases for deployment.</p>
-      <div class="card"><table>
-        <thead><tr><th>Need</th><th>What ConfigHub adds</th></tr></thead>
-        <tbody><tr><td>Keep the reviewed result</td><td>Store the exact Kubernetes objects and their source as shared, versioned configuration.</td></tr><tr><td>Change it with a team</td><td>Review object diffs, keep revision history, run checks, and require approval where needed.</td></tr><tr><td>Create environments</td><td>Make development, staging, production, region, or customer variants from one recorded base.</td></tr><tr><td>Promote and release</td><td>Move a reviewed change between variants and publish OCI for Argo CD or Flux.</td></tr><tr><td>Operate applications and fleets</td><td>Use saved configuration for upgrades, policy checks, rollout waves, and purpose-built Apps.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p>Follow the <a href="https://docs.confighub.com/get-started/tutorial/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=offering">official ConfigHub tutorial</a> for one component, a release, a change, production, and promotion.</p>
-    </section>
-
-    <section aria-labelledby="commercial">
-      <h2 id="commercial">3. Use the commercial product for private and production work</h2>
-      <p>ConfigHub is available as a self-sign-up service and as a standalone enterprise product.</p>
-      <div class="card"><table>
-        <thead><tr><th>Need</th><th>Commercial capability</th></tr></thead>
-        <tbody><tr><td>Private sources</td><td>Use private charts, values, OCI packages, application objects, and internal catalogs.</td></tr><tr><td>Teams and policy</td><td>Manage access, approvals, apply gates, audit history, and production responsibilities.</td></tr><tr><td>Fleet operations</td><td>Query, patch, promote, release, and observe many applications or clusters.</td></tr><tr><td>Support</td><td>Add target-specific production decisions, upgrade help, older-version support, and service commitments.</td></tr></tbody>
-      </table></div>
-      <style>
-        table { border-collapse: collapse; width: 100%; }
-        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
-        td { overflow-wrap: anywhere; }
-        th { color: var(--muted); font-weight: 600; }
-      </style>
-      <p><a href="https://hub.confighub.com/?utm_source=helm-expt&amp;utm_medium=site&amp;utm_campaign=offering">Sign up for ConfigHub</a> or <a href="./private/">review the commercial options for users of this site</a>.</p>
-    </section>
-
-    <section aria-labelledby="current">
-      <h2 id="current">4. Check what exists today</h2>
-      <p>Each count covers a different test. It does not become a blanket production claim.</p>
-      <div class="grid">
-        <div class="metric"><strong>108/108</strong><span>Catalog components · 135 retained package versions with packaged configurations and recorded requirements, 135 of them published with a receipt.</span></div>
-        <div class="metric"><strong>199/199</strong><span>Helm render matches · Helm and cub installer produced the same objects from the recorded settings.</span></div>
-        <div class="metric"><strong>198/199</strong><span>Stored in ConfigHub · The rendered objects were uploaded and checked as ConfigHub Units.</span></div>
-        <div class="metric"><strong>148/199</strong><span>Local Kubernetes runs · The configuration was applied to a local target and observed.</span></div>
-        <div class="metric"><strong>139/199</strong><span>OCI through GitOps · A GitOps controller pulled the reviewed OCI and reconciled it in a live run.</span></div>
-      </div>
-      <p><a href="./proof.html">See what has been tested</a> · <a href="./verification.html">Check one claim</a> · <a href="./known-gaps.html">See what is not ready yet</a></p>
-    </section>
-
-    <section aria-labelledby="missing">
-      <h2 id="missing">5. Send a missing or broken public chart</h2>
-      <p>If the Catalog is missing a public chart or configuration, or its output differs from Helm, send the chart and values that show the problem.</p>
-      <p><a href="https://github.com/confighub/helm-expt/issues/new?template=problem-chart.yml">Open the problem chart issue template</a>.</p>
-    </section>
+    <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
+    <article class="doc-body">
+<p>A version string is supposed to name one artifact. These charts are the ones where a publisher reused a version string for different bytes, which the witness sweep found by verifying every fetched package against the hash its recipe locks.</p>
+<table><thead><tr><th>chart</th><th>version</th><th>decision</th><th>retained bytes</th><th>republished bytes</th></tr></thead><tbody><tr><td>fairwinds-stable/goldilocks</td><td>10.3.0</td><td>retained-exact</td><td><code>9498a6f49cde</code></td><td><code>3e51ce8032b0</code></td></tr>
+<tr><td>fairwinds-stable/vpa</td><td>4.11.0</td><td>retained-exact</td><td><code>28b48002bf80</code></td><td><code>2751f4ad7d3b</code></td></tr></tbody></table>
+<h2 id="what-retained-exact-means-here">What retained-exact means here</h2>
+<p>The catalog keeps the bytes it locked. Every proof it holds for these charts, the rendered objects, the package receipt, and the published installer package, was produced from those bytes, so re-pinning would leave that evidence describing an artifact nobody reviewed. The lock stays, and the drift is recorded rather than resolved silently.</p>
+<ul><li><b>fairwinds-stable/goldilocks 10.3.0.</b> The catalog keeps the bytes it locked. Its rendered objects, package receipt, and published installer package were all produced from them, so re-pinning would invalidate that evidence without changing what any consumer already installed.</li><li><b>fairwinds-stable/vpa 4.11.0.</b> The catalog keeps the bytes it locked, for the same reason as its sibling chart: the recorded proofs describe those bytes, and a silent re-pin would leave them describing something else.</li></ul>
+<h2 id="the-republished-bytes-are-available-too">The republished bytes are available too</h2>
+<p>Retaining does not mean hiding the newer artifact. Each republished package is recorded with its digest and a witness of what it contains, so a consumer can inspect it, compare it, and fetch it deliberately. Verify the digest on arrival: the version string will not distinguish it from the retained one.</p>
+<h3 id="fairwinds-stablegoldilocks-1030">fairwinds-stable/goldilocks 10.3.0</h3>
+<pre><code>helm pull goldilocks --repo https://charts.fairwinds.com/stable --version 10.3.0
+# expect sha256 3e51ce8032b0217d667b7e9084d36c76262b4ea566151f8fa47d422cbbd475db</code></pre>
+<p>Its contents are witnessed at <code>data/flattening-safety/witnesses/fairwinds-stable-goldilocks-10.3.0-republished.yaml</code> across 103 scanned files. The retained bytes keep their evidence at <code>recipes/fairwinds-stable/goldilocks/10.3.0/publication/installer-package-receipt.yaml</code>.</p>
+<h3 id="fairwinds-stablevpa-4110">fairwinds-stable/vpa 4.11.0</h3>
+<pre><code>helm pull vpa --repo https://charts.fairwinds.com/stable --version 4.11.0
+# expect sha256 2751f4ad7d3bc9114f79f03106e91676ae8cdbf3fe55a832159c8ae3b51c0c45</code></pre>
+<p>Its contents are witnessed at <code>data/flattening-safety/witnesses/fairwinds-stable-vpa-4.11.0-republished.yaml</code> across 58 scanned files. The retained bytes keep their evidence at <code>recipes/fairwinds-stable/vpa/4.11.0/publication/installer-package-receipt.yaml</code>.</p>
+<p>The flattening evidence view counts catalog entries, so it reads the retained witness and skips the republished one. Counting both would report one entry twice.</p>
+<p>Regenerate with <code>npm run upstream-drift</code>. Verify with <code>npm run upstream-drift:verify</code>.</p>
+    </article>
   </main>
-  <footer>Use the public paths first. Add ConfigHub when the configuration needs shared history, controlled change, promotion, or rollout.</footer>
+  <footer><p>Generated from the committed markdown file <code>data/upstream-drift/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: aws-controllers-k8s-eks-chart-1.16.3
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3
+  package:
+    path: packages/aws-controllers-k8s/eks-chart/1.16.3
+    sha256: 92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555
+    sourceTreeSHA256: 40154ee222feb68502e950aa81e8921db031f8919e48de67563c7410749cffa2
+  publicationAction: pushed-new
+  commands:
+    package: "cub installer package packages/aws-controllers-k8s/eks-chart/1.16.3 -o <tmp>/aws-controllers-k8s-eks-chart-1.16.3.tgz"
+    push: "cub installer push <tmp>/aws-controllers-k8s-eks-chart-1.16.3.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3 --json"
+  outputs:
+    manifestDigest: sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354
+    layerDigest: sha256:92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555
+    package: |
+      Bundled aws-controllers-k8s-eks-chart@1.16.3
+        output: <tmp>
+        files:  7
+        size:   37958 bytes
+        digest: sha256:92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555
+    push: |
+      Pushed europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aws-controllers-k8s-eks-chart:1.16.3
+        manifest: sha256:7869981d9e40090a96374d47adab251ba8e84f25577c714acbda7e22b6ad9354
+        layer:    sha256:92de2082c76f777f891ae782a1f22066233b683ca2971b6aa71e7a11b7b26555 (37958 bytes, 7 files)
+    inspectJSONSHA256: 3aeea1031208b79373ac969b2902767b796b3d08348c3741e12ec786761d6d1d
+    inspectJSONCanonicalSHA256: f4e90f74b5f2ca6d0594d37b18360292edbdd2f1fe5df3a20b2ca1c533e1d83e
