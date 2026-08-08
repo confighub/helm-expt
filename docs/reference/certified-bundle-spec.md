@@ -13,7 +13,9 @@ The bundle format is the one the eks-inference example already publishes. This s
 - Consumers ingest one Unit per file with `cub variant upload --granularity per-file`, into a base Space no target deploys.
 - The resolved digest is recorded on the Space as a `confighub.com/external-source` annotation, so the exact installed bytes stay auditable.
 
-A producer that has not published to OCI yet can still emit a receipt. The catalog's traefik receipt certifies a committed rendered file; the OCI publication step comes later and adds digests to the same receipt shape.
+A producer that has not published to OCI yet can still emit a receipt, and publication adds digests to the same receipt shape rather than changing what it claims.
+
+The catalog publishes both products. The installer package stays the render-late route, and a flattened bundle is the render-early one wherever a verdict permits it. `scripts/publish-certified-bundles.mjs` builds the bundle from the three artifact classes the receipt already names, checks it is byte-reproducible by building it twice, pushes it, and records what the registry reported. A chart whose verdict says `do-not-flatten` is refused: publishing a flattened bundle for it would contradict its own verdict, and the installer package is its certified route. Verification pulls the published artifact rather than rebuilding it, because tar implementations differ across platforms and the published bytes are the fact.
 
 ## The receipt
 

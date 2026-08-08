@@ -120,13 +120,25 @@ flattenable without a verdict.
     receipt now ships exactly one guide, written from the receipt so it cannot
     drift from what the bundle contains, and strict ingest refuses a bundle
     without one. **Workshop-wide**.
-28. **Decide whether the catalog publishes certified bundles as bundles.** The
-    catalog publishes installer packages. It does not publish certified bundles,
-    so its own receipts describe committed files rather than published
-    artifacts. M. **Workshop-wide**, because it decides what the catalog sells.
+28. **Publish flattened bundles for the lanes that permit them.** Decided. The
+    catalog becomes a two-product thing: the installer package stays the
+    render-late route, and a flattened bundle becomes the render-early one
+    wherever a verdict permits it. Receipt-per-published-bundle becomes the
+    rule. Note the coupling this creates, because it sets the order of work: a
+    bundle may only be published for a base whose lane is decided and permits
+    flattening, so publication is gated on theme 1. Sixteen audited bases
+    qualify today. L. **Workshop-wide**, because it decides what the catalog
+    sells.
 29. **Emit a receipt per published bundle rather than per reference bundle.**
-    Four of the eleven receipts are references chosen to prove the spec fits.
-    The other 131 catalog entries have none. L.
+    The framing this task carried was wrong and is corrected here, because it
+    read as 120 unreceipted entries. Every catalog entry already carries an
+    installer-package receipt and a publication receipt, 135 of each. What the
+    older family does not carry is the flattening verdict, the quirk
+    dispositions, the routes, and the space guide. So this is a convergence
+    question rather than a coverage gap, and it applies only where a bundle is
+    actually published. A `do-not-flatten` entry must never carry a
+    certified-bundle receipt: producing one would contradict its own verdict,
+    which is the lane doing its job. L.
 30. **Record the composition index in the receipt.** Kubara pins components with
     a digest index and the receipt only points at it. A composition digest would
     let a consumer verify a platform rather than a component. M.
@@ -147,8 +159,12 @@ flattenable without a verdict.
     the drift lane. The first sweep only caught the two Fairwinds charts
     because no witness existed yet; a re-run would have compared two local
     files and reported nothing. **Workshop-wide**.
-35. **Re-witness on a cadence rather than on demand.** A witness is a claim
-    about bytes at a moment. Nothing re-checks it. S.
+35. **Re-witness on a cadence rather than on demand.** Done by task 34, and
+    worth stating why rather than leaving it looking open. A witness records
+    findings scanned from bytes with a known hash, so it stays true for exactly
+    as long as those bytes are what upstream serves. The weekly recheck asks
+    that question, which is what keeps every witness honest without rescanning
+    anything.
 36. **Decide the retention rule for republished bytes.** Two charts are
     retained-exact by decision. The next one should follow a rule rather than a
     conversation. S. **Workshop-wide**.

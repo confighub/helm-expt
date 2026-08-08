@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-traefik-traefik-41.0.2-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/traefik-traefik-41.0.2-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:91573183feafd532498027251a5a4fa7e8bf3cca132dc96f0ba1cf25ad0dd2cd"
+  layerDigest: "sha256:dcd29a4e7dc4b42afa91521695449745e48c442edeabd5a094d121c2e06985aa"
+  layerBytes: 45059
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-traefik-traefik-41-0-2-default.tar.gz"
