@@ -39,6 +39,11 @@ spec:
         sha256: "460d20fb9271461c0ccf38da58c7aa940fd691aca94b48cf76aed24465a982ac"
         bytes: 432022
         role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
+        sha256: "19a97b6ed27e552bff088224682012a0353a87505de8f6e8843027e945570791"
+        bytes: 2882
+        role: "route: crd-ordering"
     objectCount: 31
     objectInventoryRef: "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/object-inventory.yaml"
   ingest:
@@ -80,7 +85,7 @@ spec:
       class: "crd-ordering"
       finding: "present"
       detail: "25 CustomResourceDefinition(s) in the committed default-variant render; per-file Units can race their CRDs"
-      disposition: "explicit ordering declared at ingest (file split or sync waves)"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml"
     -
       class: "immutable-fields"
       finding: "not-evaluated"

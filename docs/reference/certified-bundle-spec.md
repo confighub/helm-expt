@@ -35,6 +35,14 @@ The receipt records six things.
 - **eks-inference** keeps its render, guard, and publish pipeline. The receipt replaces the guard's pass-or-fail exit code with per-class findings that travel with the artifact, and the catalog supplies chart-level evidence its pipeline never had.
 - **The Sveltos example** attaches born-flattened receipts to its literal profiles; fleets consume certified bundles the same way single clusters do.
 
+## Routes travel inside the bundle
+
+A `flatten-with-routes` verdict names the companion artifacts a bundle must ship. Those are routes, and they travel inside the bundle so the knowledge of how to apply the configuration never depends on whoever happened to flatten the chart.
+
+Schema: [schemas/bundle-route.schema.json](../../schemas/bundle-route.schema.json), kind `BundleRoute`. A route names the quirk class it discharges, states what breaks without it, and carries a declaration rather than a command: it says what must hold, not how one tool achieves it. The `executedBy` block lists the runtimes that can execute it and how each expresses it, and carries `automatic`, which defaults to false and is earned by observation.
+
+The first route is traefik's CRD ordering, at `data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml`. Its verdict requires an ordering declaration for 25 CRDs. The route declares two stages, the definitions first with a wait for establishment and everything else second. The receipt carries it as a bundle file with the role `route: crd-ordering`, and that quirk's disposition points at the file instead of describing an intention. Ordering is declarative and idempotent, so this route is marked automatic. A route that runs a Job is not, and stays manual until observed.
+
 ## Boundaries
 
 The receipt certifies rendering and packaging, not runtime health. Convergence receipts stay separate. A verdict lane is never overridden by hand, and a bundle without a receipt is just a tarball: strict consumers may refuse it.

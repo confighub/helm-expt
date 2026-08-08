@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://confighub.com/helm-expt/schemas/bundle-route.schema.json",
+  "title": "Bundle Route",
+  "description": "A companion artifact that travels inside a certified bundle and discharges one quirk class the flattening-safety verdict named. Routes are the reason the flatten-with-routes lane exists: the bundle carries the configuration, and the route carries the knowledge of how to apply it, so neither depends on whoever happened to flatten the chart. A route is declarative. It states what must hold, not how a particular tool achieves it, so any delivery runtime can execute it and a reader can check it without running anything. Generated at flatten time and named in the receipt beside the quirk it discharges.",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": { "const": "evidence.confighub.com/v1alpha1" },
+    "kind": { "const": "BundleRoute" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": { "name": { "type": "string", "minLength": 1 } }
+    },
+    "spec": {
+      "type": "object",
+      "required": ["quirkClass", "routeKind", "discharges", "declaration", "executedBy", "boundedness"],
+      "additionalProperties": false,
+      "properties": {
+        "quirkClass": {
+          "description": "The flattening-safety quirk class this route discharges. It must match a disposition row in the receipt that ships the route.",
+          "enum": [
+            "helm-hooks",
+            "resource-policy-keep",
+            "lookup",
+            "webhook-ca",
+            "capabilities-api-versions",
+            "generated-secrets",
+            "crd-ordering",
+            "immutable-fields",
+            "namespace-creation",
+            "subchart-conditions",
+            "test-hooks"
+          ]
+        },
+        "routeKind": {
+          "enum": ["apply-ordering", "lifecycle-job", "prune-protection", "external-secret-reference", "versioned-replacement"]
+        },
+        "discharges": {
+          "description": "What breaks without this route, in one sentence.",
+          "type": "string"
+        },
+        "declaration": {
+          "description": "The route itself. Its shape depends on routeKind; apply-ordering carries ordered stages.",
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "stages": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["order", "name", "selector"],
+                "additionalProperties": false,
+                "properties": {
+                  "order": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "selector": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "kinds": { "type": "array", "items": { "type": "string" } },
+                      "files": { "type": "array", "items": { "type": "string" } },
+                      "names": { "type": "array", "items": { "type": "string" } }
+                    }
+                  },
+                  "waitFor": { "type": "string" },
+                  "objectCount": { "type": "integer", "minimum": 0 }
+                }
+              }
+            }
+          }
+        },
+        "executedBy": {
+          "description": "Which runtimes can execute this route, and how each expresses it. A route that no runtime can execute is a refusal, not a route.",
+          "type": "object",
+          "required": ["runtimes"],
+          "additionalProperties": false,
+          "properties": {
+            "runtimes": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["name", "mechanism"],
+                "additionalProperties": false,
+                "properties": {
+                  "name": { "type": "string" },
+                  "mechanism": { "type": "string" },
+                  "proven": { "type": "boolean" }
+                }
+              }
+            },
+            "automatic": {
+              "description": "Whether a delivery runtime may execute this route without a human deciding. Defaults to false and is earned by observation, never assumed.",
+              "type": "boolean"
+            }
+          }
+        },
+        "boundedness": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "provenance": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "emittedBy": { "type": "string" },
+            "generatedFrom": { "type": "array", "items": { "type": "string" } },
+            "verdictRef": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
