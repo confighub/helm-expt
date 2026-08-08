@@ -1,5 +1,10 @@
 # Sveltos Kyverno fleet
 
+> This example now lives at
+> [confighub/sveltos-confighub](https://github.com/confighub/sveltos-confighub).
+> This copy is a frozen mirror; new work, live recordings, and issues belong
+> in that repository.
+
 This example shows how ConfigHub and Sveltos can divide the work of managing a
 platform component across a cluster fleet.
 

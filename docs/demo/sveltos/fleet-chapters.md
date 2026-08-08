@@ -1,5 +1,10 @@
 # The Sveltos fleet chapters
 
+> This example now lives at
+> [confighub/sveltos-confighub](https://github.com/confighub/sveltos-confighub).
+> This copy is a frozen mirror; new work, live recordings, and issues belong
+> in that repository.
+
 This page ties the five Sveltos fleet chapters into one story. A platform team
 manages one fleet: a management cluster running Sveltos and Argo CD, and four
 workload clusters grouped as pilot, staging, and two production clusters.

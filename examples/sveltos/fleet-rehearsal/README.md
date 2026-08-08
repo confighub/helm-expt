@@ -1,5 +1,10 @@
 # Sveltos fleet rehearsal
 
+> This example now lives at
+> [confighub/sveltos-confighub](https://github.com/confighub/sveltos-confighub).
+> This copy is a frozen mirror; new work, live recordings, and issues belong
+> in that repository.
+
 The governed fleet chapters should not meet their cluster machinery for the
 first time on patch day. This rehearsal runs the delivery path they share,
 today, with no ConfigHub account, so the day confighubai/confighub#4975
