@@ -4,6 +4,35 @@ A certified bundle is a config bundle that travels with a receipt. The bundle ca
 
 One receipt shape serves every producer. The catalog, Kubara, eks-inference, and the Sveltos example each emit different artifacts today, and the same receipt fits all four. The reference receipts under [data/certified-bundles/](../../data/certified-bundles/summary.md) prove it, including one for a bundle this repository did not build.
 
+## The question this answers
+
+Two delivery models coexist in the portfolio. The catalog packages charts render-late: the installer package carries the un-rendered chart with its value model and control points, and the toolchain renders at install time. The eks-inference example packages render-early: CI flattens charts to literal YAML, publishes OCI bundles, and delivery never runs Helm.
+
+Neither wins as a doctrine. **The catalog machinery certifies, the flattened-bundle shape delivers wherever certification allows, and the flattening-safety verdict arbitrates.** Render-late stays the certified route for charts the verdict rejects, chosen by receipt rather than by taste. How a lane is decided is in [deciding-a-flattening-lane.md](./deciding-a-flattening-lane.md); the evidence discipline behind every claim here is rule 10 of [the doctrine](../../tests/doctrine.md).
+
+## The pipeline
+
+Any source — a Helm chart, a Kubara-generated tree, an AICR recipe, ACK custom resources, raw YAML — flows through one shape.
+
+1. **Render or flatten once**, with declared inputs, at build time and never in the delivery path.
+2. **Package as a certified bundle**: one OCI artifact per component, a digest-bound index pinning the composition, and this receipt.
+3. **Ingest as Units** at per-file granularity, with the bundle digest recorded as an external-source annotation, into a base Space no target deploys.
+4. **Vary per target**, then publish governed releases against an immutable digest.
+5. **Any reconciler syncs that digest**: Argo per cluster, Sveltos across a labeled fleet, plain kubectl for the minimal path.
+6. **Receipts close the loop** where convergence is recorded, which is still outstanding.
+
+## One bundle per chart version and recipe variant
+
+Variants change the rendered output, so a bundle is keyed by chart version **and** recipe variant together: one bundle, one receipt, one verdict per pair. A `crds-enabled` variant changes the CRD-ordering disposition; an `existing-secret` variant removes the generated-secret hazard outright. Each variant installs into its own base Space, and a new variant is always a new bundle rather than a mutation of an existing one.
+
+## What each producer gets
+
+- **The catalog** keeps its machinery and gains a second product: a certified bundle wherever the verdict allows, an installer package where it does not, both receipted.
+- **Kubara** already packages per component with a digest index, and adopts this receipt, inheriting the verdict lane for charts inside its umbrella components.
+- **eks-inference** keeps its composition and plugin experience and takes catalog-certified inputs in place of private guard scripts. Its CR and literal components take born-flattened receipts.
+- **AICR** entries are upstream-validated recipes bundled the same way, with the config-plane boundary stated in every receipt.
+- **The Sveltos example** fans the same bundles across a fleet, consuming them exactly as a single cluster does.
+
 ## The bundle shape
 
 The bundle format is the one the eks-inference example already publishes. This spec adopts it rather than inventing a competitor.

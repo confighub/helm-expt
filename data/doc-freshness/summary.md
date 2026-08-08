@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-08 (commit `2c0a709a2`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `8fcd3e493`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,9 +24,9 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 276 |
-| Fresh (no linked source newer than the doc) | 50 |
-| **Review-due** | 60 |
-| No linked evidence sources (cannot auto-trigger) | 166 |
+| Fresh (no linked source newer than the doc) | 52 |
+| **Review-due** | 64 |
+| No linked evidence sources (cannot auto-trigger) | 160 |
 
 ## Review queue
 
@@ -38,7 +38,7 @@ most recently changed triggers.
 | [docs/reference/helm-quirk-support-matrix.md](../../docs/reference/helm-quirk-support-matrix.md) | reference | 2026-06-11 | 59 | `data/top100-user-readiness/summary.md (2026-08-08)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 59 | `data/chart-use-guide/summary.md (2026-08-08)`<br>`data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/top100-readiness/next80-queues.csv (2026-07-29)` |
 | [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-12 | 58 | `data/top100-user-readiness/readiness.csv (2026-08-08)`<br>`data/top100-user-readiness/summary.md (2026-08-08)`<br>`data/chart-facts/chart-facts.csv (2026-08-08)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 58 | `data/top500-catalog-analysis/review.csv (2026-08-08)`<br>`CATALOG.md (2026-08-08)`<br>`data/README.md (2026-08-08)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 58 | `data/README.md (2026-08-08)`<br>`data/csv-index.csv (2026-08-08)`<br>`data/top500-catalog-analysis/review.csv (2026-08-08)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 57 | `data/top100-user-readiness/summary.md (2026-08-08)`<br>`data/top100-readiness/summary.md (2026-07-29)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
 | [docs/user/generative-gitops-fit.md](../../docs/user/generative-gitops-fit.md) | user | 2026-06-18 | 51 | `data/chart-use-guide/summary.md (2026-08-08)`<br>`data/claims-register/summary.md (2026-07-29)`<br>`data/master-catalog-matrix/matrix.html (2026-07-29)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 49 | `data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-07-29)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
@@ -89,8 +89,12 @@ most recently changed triggers.
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 3 | `tests/README.md (2026-07-28)`<br>`tests/doctrine.md (2026-07-26)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 2 | `data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
 | [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 2 | `data/flattening-safety/summary.md (2026-08-08)` |
+| [docs/demo/aicr/claim-integrity.md](../../docs/demo/aicr/claim-integrity.md) | demo | 2026-08-08 | 1 | `data/aicr-claim-integrity/summary.md (2026-08-08)`<br>`data/aicr-entry-naming/summary.md (2026-08-08)` |
+| [docs/demo/aicr/refusal-corpus.md](../../docs/demo/aicr/refusal-corpus.md) | demo | 2026-08-08 | 1 | `data/aicr-refusal-corpus/summary.md (2026-08-08)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
+| [docs/reference/aicr-evidence-and-our-receipts.md](../../docs/reference/aicr-evidence-and-our-receipts.md) | reference | 2026-08-08 | 1 | `data/aicr-ordering-parity/summary.md (2026-08-08)` |
+| [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-08 | 1 | `data/certified-bundles/summary.md (2026-08-08)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-08 | 1 | `data/installer-oci-packages/summary.md (2026-08-08)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-08-02 | 1 | `data/confighub-example-guides/summary.md (2026-08-02)` |
@@ -164,19 +168,14 @@ into this freshness model.
 - [docs/planning/agent-experience-audit.md](../../docs/planning/agent-experience-audit.md)
 - [docs/planning/agent-experience-worklog.md](../../docs/planning/agent-experience-worklog.md)
 - [docs/planning/aicr-catalog-brief.md](../../docs/planning/aicr-catalog-brief.md)
-- [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md)
 - [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md)
-- [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md)
 - [docs/planning/blog-posts.md](../../docs/planning/blog-posts.md)
 - [docs/planning/catalog-consumer-contract-brief.md](../../docs/planning/catalog-consumer-contract-brief.md)
 - [docs/planning/catalog-entry-contract-brief.md](../../docs/planning/catalog-entry-contract-brief.md)
 - [docs/planning/catalog-promotion-next-candidates.md](../../docs/planning/catalog-promotion-next-candidates.md)
 - [docs/planning/catalog-promotion-review.md](../../docs/planning/catalog-promotion-review.md)
 - [docs/planning/catalog-refresh-plan.md](../../docs/planning/catalog-refresh-plan.md)
-- [docs/planning/certified-bundle-model-brief.md](../../docs/planning/certified-bundle-model-brief.md)
-- [docs/planning/certified-bundle-track-backlog.md](../../docs/planning/certified-bundle-track-backlog.md)
 - [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
-- [docs/planning/flattening-safety-brief.md](../../docs/planning/flattening-safety-brief.md)
 - [docs/planning/fuzz-corpus-tests-roadmap.md](../../docs/planning/fuzz-corpus-tests-roadmap.md)
 - [docs/planning/get-started-rewrite-brief.md](../../docs/planning/get-started-rewrite-brief.md)
 - [docs/planning/helm-community-persona-prd.md](../../docs/planning/helm-community-persona-prd.md)
@@ -207,7 +206,6 @@ into this freshness model.
 - [docs/planning/user-journey-test-pathways-brief.md](../../docs/planning/user-journey-test-pathways-brief.md)
 - [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)
 - [docs/reference/aicr-composition-model.md](../../docs/reference/aicr-composition-model.md)
-- [docs/reference/aicr-signature-verification.md](../../docs/reference/aicr-signature-verification.md)
 - [docs/reference/artifact-verifier-spec.md](../../docs/reference/artifact-verifier-spec.md)
 - [docs/reference/capability-profile-catalog.md](../../docs/reference/capability-profile-catalog.md)
 - [docs/reference/catalog-doctrine.md](../../docs/reference/catalog-doctrine.md)

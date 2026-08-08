@@ -162,3 +162,67 @@ agent must not continuously mutate a live variant, and every receipt records
 who mapped the intent (`mappedBy`). The switch-effect maps follow the same
 rule: classifications are computed by rendering, never asserted
 ([data/pilot-switch-map/](../data/pilot-switch-map/summary.md)).
+
+## 10. A claim must be openable, or it is not a claim
+Every recorded boolean or status names the artifact that earned it, or it reads
+false. `proven: true` on a route requires `provenBy` pointing at a receipt that
+exists; strict ingest refuses it otherwise.
+
+This rule exists because we broke it. Eight routes claimed a runtime was proven
+to execute them and cited nothing, while the run that looked like the proof
+recorded `syncOperationsObserved: 0` and stated in its own limits that no sync
+started. **Surviving delivery is not being executed.** The overclaim was inside
+the model built to prevent overclaiming, so grep our own artifacts for claim
+fields on a cadence, not only other people's.
+
+## 10a. Declare a debt; never read one out of prose
+`companionRequired` names the `routeKind` a disposition owes. Inferring that
+from the disposition's wording was implemented and reverted: it reported four
+resolutions as debts, because a namespace shipping inside its own bundle reads
+like a namespace that is missing.
+
+A check that cries wolf teaches readers to skip it. Where evidence cannot settle
+a class, leave the field absent and say so — never guess and never infer intent
+from a sentence.
+
+## 10b. A check that stops checking is worse than no check
+Tamper-test every gate the moment it is written, and keep the tamper as a
+self-test. A gate reporting zero findings is a hypothesis until you break
+something and watch it fail.
+
+Four ways ours went blind, all silent:
+- comparing two **local** files, so upstream drift was undetectable;
+- selecting a fixture by sort order (`[0]`), which stopped selecting the fixture
+  under test the moment new records landed;
+- reading a CSV by **column index** after the columns moved;
+- a mutation that rewrote a producer's **wording** rather than the structure the
+  check reads.
+
+## 10c. Evidence is not a decision, and one scanner never settles everything
+A witness scans a packaged chart; a verdict decides a lane. The pages say which
+they have, and that undecided is not the same as safe.
+
+- **A scan reports what an artifact contains, not what it calls.** All six
+  bitnami charts package the lookup-or-generate credential helper; five call it.
+- **Each scanner has a blind spot, so cross-check with a different one.** The
+  witness sees *generated* credentials and is blind to a literal one:
+  minio-operator/tenant renders `MINIO_ROOT_PASSWORD` from values and its
+  witness reports zero generated secrets. `verdict-render-parity:verify` now
+  refuses any verdict calling a class absent that its own render contains.
+
+## 10d. Follow the artifact, not its family
+memcached and zookeeper call the same credential helper as postgresql and redis.
+Their auth is off by default, so their base renders no Secret, and they are safe
+to flatten while the databases are not. **The lane follows what the base
+renders, not what the chart could render.**
+
+Precedent selects the question to ask. It never supplies the answer.
+
+## 10e. State what the artifact does not cover
+A receipt certifies rendering and packaging, never runtime health. Convergence
+is a separate record that does not exist yet.
+
+A bundle's bytes are fixed and the images those bytes name are not: most
+references in the catalog's bundles are tags, which can be repushed. The receipt
+records every reference with how it is pinned and a boundary sentence, rather
+than letting a reader assume a certified bundle certifies what it starts.

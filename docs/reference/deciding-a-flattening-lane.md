@@ -4,6 +4,8 @@ A witness is a static scan of a packaged chart. A lane is a decision about wheth
 
 The decision table lives in `scripts/generate-flattening-safety-verdicts.mjs`. Nothing here is automatic, and the reason is written into the first rule below.
 
+These six rules are the chart-specific application of rule 10 of [the doctrine](../../tests/doctrine.md), which states the general form: a claim must be openable, evidence is not a decision, and one scanner never settles everything.
+
 ## The four lanes
 
 - **safe-to-flatten.** Nothing the audited base renders is discharged at render time.
