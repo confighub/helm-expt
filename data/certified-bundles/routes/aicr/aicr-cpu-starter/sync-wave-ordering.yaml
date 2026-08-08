@@ -9,56 +9,63 @@ spec:
   declaration:
     stages:
       -
-        order: 3
+        order: 1
         name: "cert-manager"
+        syncWave: 2
         selector:
           kinds:
             - "Application"
           names:
             - "cert-manager"
       -
-        order: 4
+        order: 2
         name: "nfd"
+        syncWave: 3
         selector:
           kinds:
             - "Application"
           names:
             - "nfd"
       -
-        order: 7
+        order: 3
         name: "prometheus-operator-crds"
+        syncWave: 6
         selector:
           kinds:
             - "Application"
           names:
             - "prometheus-operator-crds"
       -
-        order: 8
+        order: 4
         name: "kube-prometheus-stack"
+        syncWave: 7
         selector:
           kinds:
             - "Application"
           names:
             - "kube-prometheus-stack"
       -
-        order: 10
+        order: 5
         name: "k8s-ephemeral-storage-metrics"
+        syncWave: 9
         selector:
           kinds:
             - "Application"
           names:
             - "k8s-ephemeral-storage-metrics"
       -
-        order: 11
+        order: 6
         name: "kai-scheduler"
+        syncWave: 10
         selector:
           kinds:
             - "Application"
           names:
             - "kai-scheduler"
       -
-        order: 16
+        order: 7
         name: "prometheus-adapter"
+        syncWave: 15
         selector:
           kinds:
             - "Application"

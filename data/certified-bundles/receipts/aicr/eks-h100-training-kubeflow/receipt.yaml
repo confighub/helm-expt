@@ -105,9 +105,14 @@ spec:
         bytes: 786
         role: "Argo CD Application"
       -
+        path: "data/certified-bundles/routes/aicr/aicr-eks-h100-training-kubeflow/sync-wave-ordering.yaml"
+        sha256: "c986b5c193be17c6a782d81f529d4cbaa3b8512aaffcb054817b1c3b1c5bdc05"
+        bytes: 4223
+        role: "route:crd-ordering"
+      -
         path: "data/certified-bundles/guides/aicr/eks-h100-training-kubeflow/space-guide.md"
-        sha256: "85e4adbdc597ba22d50373d7f79bbd1d89d3e20b78fa2ca44670f4234d75698b"
-        bytes: 1073
+        sha256: "b91833d9312a7b0bed79368c9e3561e2ad299f25c3ca3a95349030c602e773f9"
+        bytes: 1149
         role: "space-guide"
   ingest:
     granularity: "per-file"
@@ -146,9 +151,9 @@ spec:
       disposition: "none required"
     -
       class: "crd-ordering"
-      finding: "absent"
-      detail: "no CustomResourceDefinition in the rendered Application set"
-      disposition: "none required"
+      finding: "present"
+      detail: "16 Applications carry a sync-wave, and the order they declare is AICR's own deploymentOrder"
+      disposition: "route this bundle ships at data/certified-bundles/routes/aicr/aicr-eks-h100-training-kubeflow/sync-wave-ordering.yaml"
     -
       class: "immutable-fields"
       finding: "not-evaluated"

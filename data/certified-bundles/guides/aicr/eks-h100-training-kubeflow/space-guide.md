@@ -6,7 +6,7 @@ This Space holds one certified bundle, ingested one Unit per file. Its source is
 
 ## What produced it
 
-Producer: aicr. Contents: rendered-config, 17 file(s).
+Producer: aicr. Contents: rendered-config, 18 file(s).
 
 ## Whether it may ship as plain YAML
 
@@ -16,7 +16,9 @@ Decided by: the platform-shape flattening verdict at data/aicr-flattening-verdic
 
 ## What its routes owe
 
-This bundle's lane requires companion artifacts and it ships none yet. Treat its ordering and lifecycle work as unresolved until a route arrives.
+This bundle ships the following routes. A delivery runtime executes them; they are not documentation.
+
+- `data/certified-bundles/routes/aicr/aicr-eks-h100-training-kubeflow/sync-wave-ordering.yaml` discharges crd-ordering
 
 ## How it was ingested
 
