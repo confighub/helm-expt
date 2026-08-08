@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "cloudpirates-redis-0-34-11"
+spec:
+  chart:
+    repository: "cloudpirates"
+    name: "redis"
+    version: "0.34.11"
+  package:
+    path: "packages/cloudpirates/redis/0.34.11"
+    name: "cloudpirates-redis"
+    version: "0.34.11"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "c5931e9914d519ceaaeafb36afbbf9721c0b23b20e12dc73728815ef299d30f4"
+        bytes: 296
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+        bytes: 7833
+      -
+        path: "installer.yaml"
+        sha256: "c79805be2e1d0e6393e11e5526b3d50cc18356fc4d05fe8b0423f89cb329f49b"
+        bytes: 311
+  deterministicBundle:
+    command: "cub installer package packages/cloudpirates/redis/0.34.11 -o <tmp>/cloudpirates-redis-0-34-11.tgz"
+    sha256: "328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/cloudpirates/redis/0.34.11 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 5
+      cubInstallObjectCountIncludingSupport: 6
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 1
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

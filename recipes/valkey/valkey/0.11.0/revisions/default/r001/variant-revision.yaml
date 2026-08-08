@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "default-r001"
+  labels:
+    confighub.io/chart-ref: "valkey/valkey"
+    confighub.io/chart-version: "0.11.0"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variant: "../../../variants/default/variant.yaml"
+  revision: "r001"
+  digest: "094d01211df163fcdb2c2de42c459223e53b6bc8edc46a1cc3fe40e1e4b1ada7"
+  digestInputs:
+    recipeSHA256: "ffbdd07d16a9e9274c6c07ee4793a5d9ba74488efdaed90d0a379843519f4205"
+    variantSHA256: "0c7eaff0fc933ccb35bf3442fce6d11b9a03835804da893391b531aa1b4f0ce3"
+    effectiveValuesSHA256: "7e6e84c8822374c93c38812be1ca63d1b2a768f02030d1d7ee5cfa08e6b54714"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 4

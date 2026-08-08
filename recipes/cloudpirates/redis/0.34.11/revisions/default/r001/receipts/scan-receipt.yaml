@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "cloudpirates-redis-0-34-11-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/redis"
+    confighub.io/chart-version: "0.34.11"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "rendered-secret-review:v1|Secret|default|redis"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|redis"
+      message: "Rendered Secret material or references require review before production promotion"
+    -
+      id: "workload-service-account-exists:apps/v1|StatefulSet|default|redis"
+      rule: "workload-service-account-exists"
+      severity: "high"
+      object: "apps/v1|StatefulSet|default|redis"
+      message: "workload references missing ServiceAccount default/default"

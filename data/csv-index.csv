@@ -151,6 +151,7 @@ data/status-dashboard/active-proof-queue.csv,status-dashboard,user/front-door,"c
 data/status-dashboard/next-work-queues.csv,status-dashboard,user/front-door,"machine-readable next work queues: section, item, count, action, source table, and detail",data/status-dashboard/summary.md,npm run status:dashboard,npm run status:dashboard:verify
 data/status-dashboard/status.csv,status-dashboard,user/front-door,"front-door status dashboard across top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity",data/status-dashboard/summary.md,npm run status:dashboard,npm run status:dashboard:verify
 data/status-dashboard/top20-status.csv,status-dashboard,user/front-door,"one row per top-20 catalog chart: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action",data/status-dashboard/summary.md,npm run status:dashboard,npm run status:dashboard:verify
+data/successor-track/proof-index.csv,successor-track,supporting,supporting generated CSV,data/successor-track/summary.md,,
 data/sveltos-bulk-ops/matrix.csv,sveltos-bulk-ops,supporting,supporting generated CSV,,,
 data/sveltos-cve-patch/matrix.csv,sveltos-cve-patch,supporting,supporting generated CSV,,,
 data/sveltos-env-rollout/matrix.csv,sveltos-env-rollout,supporting,supporting generated CSV,,,

@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "cloudpirates-redis-0-34-11-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/redis"
+    confighub.io/chart-version: "0.34.11"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "e7bfebc49e68cd2a4baa080a6376fd9d5c2c3b0deaa3363abbbbbdec1c134935"
+    objectCount: 5
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 6
+    uploadedManifestFiles: 6
+    separatedSecretFiles: 1
+    semanticObjectMatches: "5/5"
+  semanticNormalizations:
+    - "prune-null-fields"
+    - "leading-blank-line-pruned-by-kustomize"
+  classifications:
+    -
+      identity: "v1|Namespace||default"
+      classification: "installer-support-object"
+      disposition: "allowed"
+    -
+      identity: "apps/v1|StatefulSet|default|redis"
+      classification: "leading-blank-line-pruned-by-kustomize"
+      disposition: "allowed"
+      paths:
+        - "spec.template.spec.containers[0].livenessProbe.exec.command[2]"
+        - "spec.template.spec.containers[0].readinessProbe.exec.command[2]"
+      reason: "the chart's probe scripts start with a template-emitted blank first line; the installer's Kustomize round trip prunes that blank line and sh ignores it"
+  result: "pass"
+  evidenceCommand: "node scripts/generate-successor-track.mjs --verify-packages"

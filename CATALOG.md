@@ -1044,7 +1044,7 @@ Helm equivalence: 97/97 objects matched
 Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 
 
-## Full Proof Index (135 Entries)
+## Full Proof Index (139 Entries)
 
 The rows below include the live-tested top 20, proof-grade recipe/package
 artifacts, and any retained newer chart-version candidates. `catalog-supported`
@@ -1123,6 +1123,9 @@ need catalog promotion review before support is claimed.
 | bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-spark:10.0.3` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
 | bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | local-kubernetes-live | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-zookeeper:13.8.7` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
 | cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudnative-pg-cloudnative-pg:0.28.2` | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
+| cloudpirates/nginx@0.16.1 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1` | - | [CATALOG.md](recipes/cloudpirates/nginx/0.16.1/CATALOG.md) |
+| cloudpirates/rabbitmq@0.21.13 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-rabbitmq:0.21.13` | - | [CATALOG.md](recipes/cloudpirates/rabbitmq/0.21.13/CATALOG.md) |
+| cloudpirates/redis@0.34.11 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11` | - | [CATALOG.md](recipes/cloudpirates/redis/0.34.11/CATALOG.md) |
 | coredns/coredns@1.45.2 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/coredns-coredns:1.45.2` | - | [CATALOG.md](recipes/coredns/coredns/1.45.2/CATALOG.md) |
 | crossplane-stable/crossplane@2.3.1 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/crossplane-stable-crossplane:2.3.1` | - | [CATALOG.md](recipes/crossplane-stable/crossplane/2.3.1/CATALOG.md) |
 | descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/descheduler-descheduler:0.36.0` | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
@@ -1187,6 +1190,7 @@ need catalog promotion review before support is claimed.
 | stakater/reloader@2.2.12 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/stakater-reloader:2.2.12` | - | [CATALOG.md](recipes/stakater/reloader/2.2.12/CATALOG.md) |
 | strimzi/strimzi-kafka-operator@1.0.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/strimzi-strimzi-kafka-operator:1.0.0` | - | [CATALOG.md](recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md) |
 | traefik/traefik@40.2.0 | proof-grade | limitation-decision-first | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/traefik-traefik:40.2.0` | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/traefik/traefik/40.2.0/CATALOG.md) |
+| valkey/valkey@0.11.0 | proof-grade | - | - | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/valkey-valkey:0.11.0` | - | [CATALOG.md](recipes/valkey/valkey/0.11.0/CATALOG.md) |
 | velero/velero@12.0.1 | proof-grade | promote-after-review | in-confighub-proof | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/velero-velero:12.0.1` | - | [CATALOG.md](recipes/velero/velero/12.0.1/CATALOG.md) |
 | vm/victoria-logs-single@0.12.5 | proof-grade | needs-useful-variant | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-logs-single:0.12.5` | - | [CATALOG.md](recipes/vm/victoria-logs-single/0.12.5/CATALOG.md) |
 | vm/victoria-metrics-single@0.39.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | `oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/vm-victoria-metrics-single:0.39.0` | - | [CATALOG.md](recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md) |

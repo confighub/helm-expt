@@ -1,0 +1,36 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "cloudpirates-rabbitmq-0-21-13-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/rabbitmq"
+    confighub.io/chart-version: "0.21.13"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  findingCounts:
+    critical: 0
+    high: 1
+    medium: 1
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "rendered-secret-review:v1|Secret|default|rabbitmq"
+      rule: "rendered-secret-review"
+      severity: "medium"
+      object: "v1|Secret|default|rabbitmq"
+      message: "Rendered Secret material or references require review before production promotion"
+    -
+      id: "workload-service-account-exists:apps/v1|StatefulSet|default|rabbitmq"
+      rule: "workload-service-account-exists"
+      severity: "high"
+      object: "apps/v1|StatefulSet|default|rabbitmq"
+      message: "workload references missing ServiceAccount default/default"

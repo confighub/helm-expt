@@ -1,0 +1,33 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SuccessorTrackCorpusLock"
+metadata:
+  name: "successor-track"
+spec:
+  chartCount: 4
+  kubeVersion: "1.30.0"
+  packageManager: "helm"
+  charts:
+    -
+      rank: 1
+      ref: "cloudpirates/nginx"
+      version: "0.16.1"
+      recipe: "recipes/cloudpirates/nginx/0.16.1"
+      package: "packages/cloudpirates/nginx/0.16.1"
+    -
+      rank: 2
+      ref: "cloudpirates/rabbitmq"
+      version: "0.21.13"
+      recipe: "recipes/cloudpirates/rabbitmq/0.21.13"
+      package: "packages/cloudpirates/rabbitmq/0.21.13"
+    -
+      rank: 3
+      ref: "cloudpirates/redis"
+      version: "0.34.11"
+      recipe: "recipes/cloudpirates/redis/0.34.11"
+      package: "packages/cloudpirates/redis/0.34.11"
+    -
+      rank: 4
+      ref: "valkey/valkey"
+      version: "0.11.0"
+      recipe: "recipes/valkey/valkey/0.11.0"
+      package: "packages/valkey/valkey/0.11.0"

@@ -1,0 +1,27 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "cloudpirates-rabbitmq"
+  version: "0.21.13"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/rabbitmq"
+    confighub.io/chart-version: "0.21.13"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "packages/cloudpirates/rabbitmq/0.21.13"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "packages/cloudpirates/rabbitmq/0.21.13"
+      - "--non-interactive"
+      - "--namespace"
+      - "default"
+  variants:
+    - "variants/default/variant.yaml"

@@ -1,0 +1,46 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "cloudpirates-redis-0-34-11"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/redis"
+    confighub.io/chart-version: "0.34.11"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  chart: "cloudpirates/redis"
+  version: "0.34.11"
+  category: "database"
+  licenses:
+    chart:
+      evidence: "artifacthub license annotation read from the pulled chart"
+      spdx: "Apache-2.0"
+    images:
+      -
+        component: "redis"
+        note: "Redis 8 tri-license; AGPLv3 is the open-source option; image digest-pinned by the chart default"
+        spdx: "RSALv2 OR SSPLv1 OR AGPL-3.0-only"
+  maintainedNotes:
+    - "cloudpirates/redis@0.34.11 renders deterministically under Kubernetes 1.30.0 with hooks and tests excluded."
+    - "The default variant is intended as a proof baseline; production promotion still follows scan/gate review."
+    - "The default variant pins auth.password to fixed demo values recorded in effective-values.yaml because the chart default generates random material at render time; replace these before any real use."
+    - "Rendered apps/v1|StatefulSet|default|redis matches through the installer round trip under the recorded leading-blank-line-pruned-by-kustomize normalization; the helm-equivalence receipt lists the exact paths."
+    - "Chart source contains Helm hooks; the proof revision uses no-hooks so hook lifecycle must be handled separately before production."
+    - "Chart source contains lookup; future variants using lookup paths must bind target facts in the recipe."
+    - "Chart source contains generated/random/time helpers; generated values must be captured before approval if activated by a variant."
+    - "Chart source contains tpl; raw templating extension slots need explicit ownership and review."
+    - "Rendered output has stateful/storage behavior; rollback and upgrade plans must be explicit."
+  knownControlPoints:
+    - "source-lock"
+    - "dependency-lock"
+    - "capability-profile"
+    - "variant-revision"
+    - "rendered-manifest-scan"
+    - "helm-equivalence"
+    - "target-facts"
+    - "generated-facts"
+    - "tpl-extension-slots"
+    - "lifecycle-policy"
+    - "extension-slots"
+    - "stateful-storage"
+    - "secret-material"
+  proofFocus: "database StatefulSet, rendered credential Secret, headless plus client Services"

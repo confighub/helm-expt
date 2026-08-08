@@ -1,0 +1,17 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "cloudpirates-rabbitmq-0-21-13-default"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/rabbitmq"
+    confighub.io/chart-version: "0.21.13"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults-with-determinism-pins"
+  defaultValuesSHA256: "4ee658ef286c26992f2c55773feed682444b6c9962d010a9707d295e4ca17ff5"
+  mergedValuesCaptured: false
+  values:
+    auth:
+      erlangCookie: "confighub-rabbitmq-erlang-cookie"
+      password: "confighub-rabbitmq-password"

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "cloudpirates-rabbitmq-0-21-13"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "cloudpirates"
+  repositoryURL: "oci://registry-1.docker.io/cloudpirates/rabbitmq"
+  chart: "rabbitmq"
+  ref: "cloudpirates/rabbitmq"
+  version: "0.21.13"
+  appVersion: "4.3.4"
+  packageSHA256: "b1884d0635597974715562e64ce97a24e32a488637538ae7c342e3ee7434588e"
+  packageBytes: 46282
+  capturedAt: "generated-by-successor-track-harness"

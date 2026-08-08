@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "cloudpirates-nginx-0-16-1"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "cloudpirates"
+  repositoryURL: "oci://registry-1.docker.io/cloudpirates/nginx"
+  chart: "nginx"
+  ref: "cloudpirates/nginx"
+  version: "0.16.1"
+  appVersion: "1.31.3"
+  packageSHA256: "23d670c0674a94cfd6baecb2e07b20d9cda1c07c43fe7eb9b71fa7fcffa5da6e"
+  packageBytes: 33709
+  capturedAt: "generated-by-successor-track-harness"

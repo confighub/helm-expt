@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmPlan"
+metadata:
+  name: "cloudpirates-nginx-0-16-1"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/nginx"
+    confighub.io/chart-version: "0.16.1"
+    confighub.io/proof-tier: "successor-full"
+spec:
+  readiness:
+    status: "usable-with-controls"
+    chart: "cloudpirates/nginx"
+    version: "0.16.1"
+    variants:
+      - "default"
+    helmObjectsByVariant:
+      default: 3
+    cubInstallObjectsByVariant:
+      default: 4
+    helmMatchByVariant:
+      default: "3/3"
+    renderedObjectSetSHA256: "0ab5bf40e30391f43bb673d8e3f97c3d427ae2b2dda8d007dfd38464ad820e9b"
+    scanGate: "allow"
+    nextAction: "promote the digest-bound variant"
+  receipts:
+    - "revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    - "revisions/default/r001/receipts/render-receipt.yaml"
+    - "revisions/default/r001/receipts/scan-receipt.yaml"
+    - "revisions/default/r001/receipts/install-gate.yaml"
+    - "publication/installer-package-receipt.yaml"

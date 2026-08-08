@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: cloudpirates-nginx-0.16.1
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1
+  package:
+    path: packages/cloudpirates/nginx/0.16.1
+    sha256: 74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
+    sourceTreeSHA256: 5b385d32c27155aab574e1cf44cf7b8205d81f35fd1c3871df30b67569a8c7a0
+  publicationAction: reused-existing-exact-artifact
+  commands:
+    package: "cub installer package packages/cloudpirates/nginx/0.16.1 -o <tmp>/cloudpirates-nginx-0.16.1.tgz"
+    push: "cub installer push <tmp>/cloudpirates-nginx-0.16.1.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1 --json"
+  outputs:
+    manifestDigest: sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103
+    layerDigest: sha256:74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
+    package: |
+      Bundled cloudpirates-nginx@0.16.1
+        output: <tmp>
+        files:  4
+        size:   1238 bytes
+        digest: sha256:74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
+    push: |
+      Reused existing oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-nginx:0.16.1
+        manifest: sha256:7d8591d2abf8722f3329d653a0929fca99e9df4306c5f627db4ebfd23bc70103
+        layer:    sha256:74701eb18a3cd69e379500c49ef87f16a0315153912691e9855255aa30806b1e
+    inspectJSONSHA256: 038c5e850fa00286d009b326f9c170ed8a469473255aac81921dfb418bd9c436
+    inspectJSONCanonicalSHA256: 90a47d82db8a370c41595e20fda23e133146400b45ab16dd662d7fdb2309ef12

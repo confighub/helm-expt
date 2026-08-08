@@ -5,8 +5,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
-const PUBLIC_CATALOG_COMPONENT_COUNT = 108;
-const PUBLIC_CATALOG_VERSION_COUNT = 135;
+const PUBLIC_CATALOG_COMPONENT_COUNT = 112;
+const PUBLIC_CATALOG_VERSION_COUNT = 139;
 
 const checks = [
   {
@@ -51,7 +51,7 @@ const checks = [
   },
   {
     file: "site/charts/index.html",
-    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 135 retained package versions", "108 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "components shown; 135 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
+    terms: ["id=\"chart-filter\"", "Component Catalog", "Choose a component, version, and configuration", "component-first public library of checked configurations", "all 139 retained package versions", "112 components", "Search the catalog", "Search components", "Readiness", "Ready to try", "Checked; review before use", "Published package; review first", "First configuration", "Missing something you need? Tell us.", "components shown; 139 retained package versions remain available", "Every version has a local detail page", "Packaged configurations by version", "What each catalog entry contains", "Why the catalog offers several configurations", "How the catalog handles required setup", "After you choose", "Choose how to deploy the reviewed configuration"],
   },
   {
     file: "site/charts/bitnami-redis-25-5-3.html",

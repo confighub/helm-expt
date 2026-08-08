@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "cloudpirates-redis-0-34-11-default"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/redis"
+    confighub.io/chart-version: "0.34.11"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  profile: "chart-defaults-with-determinism-pins"
+  defaultValuesSHA256: "8c21ddc373c976fc60526065a5ccde35eecccac628222c6ba856b86d8a2e6891"
+  mergedValuesCaptured: false
+  values:
+    auth:
+      password: "confighub-redis-password"

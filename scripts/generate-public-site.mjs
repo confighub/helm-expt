@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
 import { join, posix } from "node:path";
 
-import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, listFiles, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 import { installerOciRef } from "./lib/installer-oci.mjs";
 import { evaluateKubaraSiteLiveEvidence } from "./lib/kubara-site-live-evidence.mjs";
 
@@ -95,8 +95,8 @@ const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "c
 const flatteningEvidencePath = join(repoRoot, "data", "flattening-safety", "evidence.csv");
 const flatteningCoveragePath = join(repoRoot, "data", "flattening-safety", "witness-coverage.csv");
 const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
-const PUBLIC_CATALOG_COMPONENT_COUNT = 108;
-const PUBLIC_CATALOG_VERSION_COUNT = 135;
+const PUBLIC_CATALOG_COMPONENT_COUNT = 112;
+const PUBLIC_CATALOG_VERSION_COUNT = 139;
 const UNKNOWN_ACTION_LABELS = {
   "create-namespace": "choose and create the target namespace",
   "install-crds": "install the chart's CRDs first",
@@ -236,7 +236,7 @@ const PAGE_DESCRIPTIONS = {
   "day1-operations.html": "The day-1 operations page moved: operations guidance now lives on the Ops page.",
   "private/index.html": "Choose SaaS or enterprise ConfigHub for private configuration, team workflows, policy, fleet operations, and production support.",
   "journey.html": "Apps on ConfigHub: install public charts, bring the applications your team owns, and keep approved changes through updates.",
-  "charts/index.html": "Choose among 108 public components, all 135 retained package versions, and their packaged configurations without confusing publication proof with live runtime evidence.",
+  "charts/index.html": "Choose among 112 public components, all 139 retained package versions, and their packaged configurations without confusing publication proof with live runtime evidence.",
   "demo-org.html": "Open one ConfigHub demo Space, read its README, inspect its Kubernetes configuration, and then explore variants, promotions, checks, hooks, and CRDs.",
   "matrix.html": "The master catalog matrix: one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.",
   "d/docs/demo/kubara/single-platform.html": "Adopt Kubara v0.13.0 with ConfigHub through a linear four-cluster mini-IDP path that preserves Kubara catalogs, config, values overlays, hub-and-spoke topology, and Argo reconciliation.",
@@ -523,6 +523,17 @@ function buildSite(generatedAt) {
         chart_page: `site/charts/${chartPageFileName(withStartFields)}`,
       };
     });
+  const licensesByChartVersion = new Map();
+  for (const indexPath of listFiles(join(repoRoot, "recipes")).filter((file) => file.endsWith("/artifact-index.yaml"))) {
+    const artifactIndex = readYaml(indexPath);
+    const indexLicenses = artifactIndex.spec?.chart?.licenses;
+    if (indexLicenses) {
+      licensesByChartVersion.set(
+        `${artifactIndex.spec.chart.ref}|${artifactIndex.spec.chart.version}`,
+        indexLicenses,
+      );
+    }
+  }
   const publicChartKeys = new Set(catalogEntries.map((entry) => `${entry.chart}|${entry.version}`));
   const retainedComponentNames = new Set(installerOciPackages.map((row) => row.chart));
   const catalogEntryComponentNames = catalogEntries.map((entry) => entry.chart);
@@ -702,6 +713,7 @@ function buildSite(generatedAt) {
     statusMetrics,
     activeProofQueue,
     catalogEntries,
+    licensesByChartVersion,
     catalogComponents,
     proofGradeEntries: proofGrade,
     latestCandidates,
@@ -957,7 +969,7 @@ function buildLlmsTxt() {
 
 - [Catalog JSON](${SITE_BASE_URL}catalog.json): machine-readable summary of the catalog: components, retained versions, packaged configurations, counts, and the repo data paths they come from.
 - [Change feed](${SITE_BASE_URL}changes.json): a compact chart, version, and digest list for cheap background polling; the full index is catalog.json.
-- [Component Catalog](${SITE_BASE_URL}charts/): 108 components, all 135 retained package versions, their packaged configurations, and version-specific publication or readiness evidence.
+- [Component Catalog](${SITE_BASE_URL}charts/): 112 components, all 139 retained package versions, their packaged configurations, and version-specific publication or readiness evidence.
 - [Master catalog matrix](${SITE_BASE_URL}matrix.html): one row per chart, version, and base with lane dispositions, hooks, quirks, and next actions.
 - [Generated at](${SITE_BASE_URL}generated-at.txt): the timestamp of the last site generation.
 - [Official ConfigHub tutorial](${CONFIGHUB_TUTORIAL_URL}): the canonical product journey from one component through release, change, production, and promotion.
@@ -4815,7 +4827,7 @@ cub k8s get crd --space "*"</code></pre>
         ["Chart", "Base variants", "What this example demonstrates"],
         ...keepRows,
       ])}
-        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> retain 108 components and 135 exact package versions; the Top-100 entries carry the richer readiness evidence.</p>
+        <p class="quiet-line">The org uses ten charts so each example can include variants, promotions, and supporting evidence. The <a href="./charts/index.html">catalog pages</a> retain 112 components and 139 exact package versions; the Top-100 entries carry the richer readiness evidence.</p>
     </section>
 
       <section aria-labelledby="exhibits">
@@ -7304,6 +7316,10 @@ function retainedVersionPageHtml(catalog, row) {
   const requirementSummary = Number(row.external_requires_count) > 0
     ? `The installer metadata records ${escapeHtml(row.external_requires_count)} external-requirement reference${Number(row.external_requires_count) === 1 ? "" : "s"} across these configurations. Inspect the package before choosing a base.`
     : "The installer metadata records no external-requirement references for these configurations. You must still review the rendered objects and target policy.";
+  const rowLicenses = catalog.licensesByChartVersion?.get(`${row.chart}|${row.version}`);
+  const licenseLine = rowLicenses
+    ? `<p>Licenses: chart <strong>${escapeHtml(rowLicenses.chart.spdx)}</strong> (${escapeHtml(rowLicenses.chart.evidence)})${(rowLicenses.images ?? []).length ? `; images: ${rowLicenses.images.map((image) => `${escapeHtml(image.component)} <strong>${escapeHtml(image.spdx)}</strong>${image.note ? ` (${escapeHtml(image.note)})` : ""}`).join("; ")}` : ""}.</p>`
+    : "";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -7321,6 +7337,7 @@ function retainedVersionPageHtml(catalog, row) {
       ? "This page proves that the named package was published and inspected at the recorded digests. It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result."
       : "This version is retained and packaged, and its public reference is reserved, but it has not been published yet, so there is no publication receipt to show. This page claims nothing about publication, Argo CD sync, Kubernetes health, or production readiness."}</p>
     <p class="tagline">${published ? "Publication proof: recorded" : "Publication proof: not yet earned"} · runtime proof: not inherited.</p>
+    ${licenseLine}
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>

@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "cloudpirates-rabbitmq-0-21-13-default-r001"
+  labels:
+    confighub.io/chart-ref: "cloudpirates/rabbitmq"
+    confighub.io/chart-version: "0.21.13"
+    confighub.io/proof-tier: "successor-full"
+    confighub.io/variant: "default"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "6ddcc064289e1aed0b354617551a78a33191f91fea643190f4644450d7d3cb12"
+    dependencyLockSHA256: "1489b8a6832f643b03d72b8fe3c89db44b6a4158f04276ec423bef6441888f7c"
+    effectiveValuesSHA256: "b796e9c6c25188edb3cc4e53706394051a965aaae7e6b921c2ca37556393385b"
+  outputs:
+    renderedObjectSetSHA256: "ada74ec4e4df444071b63172777c84c055018a602978642ae044453ae74a30df"
+    renderedObjectInventorySHA256: "8ef75a4ff1cc4bd635f361080f1c6de024d0dabe10978e33c3ced14eefa10c8e"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedSecretCount: 1
+    secretCountSeparatedByCubInstall: 1

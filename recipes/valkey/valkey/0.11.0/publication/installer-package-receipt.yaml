@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "valkey-valkey-0-11-0"
+spec:
+  chart:
+    repository: "valkey"
+    name: "valkey"
+    version: "0.11.0"
+  package:
+    path: "packages/valkey/valkey/0.11.0"
+    name: "valkey-valkey"
+    version: "0.11.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "f03368a65be823deba4bcafd9103962a1ba7384f332c2a56618af595bfbe518e"
+        bytes: 290
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "0e66fc37f01be1b3812cf18bb9e0f83799a07f7d2d5a8d66c18cfca409d5e4df"
+        bytes: 5267
+      -
+        path: "installer.yaml"
+        sha256: "c14196fb627f4b90bdb6dda493c2fa2a9e1698a266b8d255a2369a6e6bc671c1"
+        bytes: 294
+  deterministicBundle:
+    command: "cub installer package packages/valkey/valkey/0.11.0 -o <tmp>/valkey-valkey-0-11-0.tgz"
+    sha256: "1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/valkey/valkey/0.11.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"

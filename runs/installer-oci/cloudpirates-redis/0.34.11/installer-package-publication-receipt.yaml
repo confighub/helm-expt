@@ -1,0 +1,30 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackagePublicationReceipt
+metadata:
+  name: cloudpirates-redis-0.34.11
+spec:
+  ref: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11
+  package:
+    path: packages/cloudpirates/redis/0.34.11
+    sha256: 328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3
+    sourceTreeSHA256: 1b8a7d284e73830f0a075e65b7edff299c549421622a3198c0c8faa48b52cb1e
+  publicationAction: reused-existing-exact-artifact
+  commands:
+    package: "cub installer package packages/cloudpirates/redis/0.34.11 -o <tmp>/cloudpirates-redis-0.34.11.tgz"
+    push: "cub installer push <tmp>/cloudpirates-redis-0.34.11.tgz oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11"
+    inspect: "cub installer inspect oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11 --json"
+  outputs:
+    manifestDigest: sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99
+    layerDigest: sha256:328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3
+    package: |
+      Bundled cloudpirates-redis@0.34.11
+        output: <tmp>
+        files:  4
+        size:   2307 bytes
+        digest: sha256:328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3
+    push: |
+      Reused existing oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/cloudpirates-redis:0.34.11
+        manifest: sha256:1fb28149f907ff18521b9f1374c547c894813dafd58d244b00ca70d7ea766c99
+        layer:    sha256:328c3a6f4c80273dd90d8d02b0cf8d3d577640e8e7d4498495f708cd5d73dfb3
+    inspectJSONSHA256: b8084565a3c0c1f02775ac9170ef880c71f5a4483f3cb35dc9875ef412dd42c1
+    inspectJSONCanonicalSHA256: 8419b92c5c8be53fdc5bc29c1bb44a311ec3491b70b1df4ee79f39e114140c42
