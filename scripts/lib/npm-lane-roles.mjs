@@ -18,6 +18,24 @@
 //               keep-outside      needs external state or is too slow
 //               superseded        belongs to work that has moved on
 export const NPM_LANE_ROLES = Object.freeze({
+  "verify:shard": {
+    proves: "One deterministic slice of the `npm run verify` chain passes. The slice is chosen by position, so every step lands in exactly one shard and the runner refuses a split that would leave any step unrun.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "green: this is how CI runs the chain, in six parallel shards, rather than a gate of its own",
+  },
+  "verify:shard:offline": {
+    proves: "A slice of the chain excluding the thirty-two steps that shell out to cub, oras or helm, carrying the gates declared in tests/verify-chain-known-red.yaml. Needs nothing installed beyond Node, git and a YAML reader.",
+    requires: "offline",
+    disposition: "keep-outside",
+    status: "green: six of these run in parallel on every pull request",
+  },
+  "verify:shard:cli": {
+    proves: "The thirty-two chain steps that re-render a package through the cub installer, read an OCI artifact through oras, or template a chart through helm. None of that can be done by reading files, so they are separated and their tools installed once.",
+    requires: "network",
+    disposition: "keep-outside",
+    status: "green: runs as its own job so a hiccup reaching hub.confighub.com cannot mask an offline gate failing",
+  },
   "anonymous-oci-ci:verify": {
     proves: "The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI->work->OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt.",
     requires: "offline",
