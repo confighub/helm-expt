@@ -40,11 +40,15 @@ import {
 // The records live outside the entry directories on purpose. A compiler owns
 // its entry directory and regenerates it wholesale, so a hand-authored file
 // kept inside one would be deleted on the next generate.
-const entryRecords = [
-  join(repoRoot, "examples", "aicr", "control-points", "eks-h100-training-kubeflow.yaml"),
-  join(repoRoot, "examples", "aicr", "control-points", "cpu-starter.yaml"),
-  join(repoRoot, "examples", "aicr", "control-points", "kserve-nim-inference.yaml"),
-];
+//
+// Every record in that directory is checked. Listing them by name here would
+// mean a new entry's record could be added and never read, which is the failure
+// this lane exists to prevent one level down.
+const recordRoot = join(repoRoot, "examples", "aicr", "control-points");
+const entryRecords = readdirSync(recordRoot)
+  .filter((name) => name.endsWith(".yaml"))
+  .sort()
+  .map((name) => join(recordRoot, name));
 const summaryPath = join(repoRoot, "data", "aicr-blast-radius", "summary.md");
 
 const mode = process.argv[2] ?? "--verify";
@@ -82,6 +86,49 @@ if (mode === "--generate") {
 
 // checkRecord is the whole gate. It reads one control-point record, recomputes
 // what the committed bytes say, and refuses any disagreement.
+
+// A control point is located three ways, and which one fits is a property of
+// where the value lives rather than a preference.
+//
+// A token is a substring of the rendered bytes. It is the bluntest form and the
+// only one that reaches anywhere, which is why it stays.
+//
+// A path resolves through the parsed document. It says exactly which field it
+// means, so a value that happens to appear in an unrelated string cannot be
+// mistaken for the control point.
+//
+// A valuesPath resolves inside the Helm values these Applications carry as an
+// embedded YAML string. That is where most platform choices actually live, and
+// a path over the outer document cannot reach them. Parsing the string is what
+// turns "the storage class" from a substring into a field.
+function resolvePath(node, path) {
+  return path.split(".").reduce((current, segment) => {
+    if (current === undefined || current === null) return undefined;
+    if (Array.isArray(current)) {
+      const index = Number(segment);
+      return Number.isInteger(index) ? current[index] : undefined;
+    }
+    if (typeof current !== "object") return undefined;
+    return current[segment];
+  }, node);
+}
+
+function reaches(row, locator, form) {
+  if (form === "token") return row.text.includes(String(locator.token));
+  let root = row.doc;
+  if (form === "valuesPath") {
+    const values = resolvePath(row.doc, "spec.source.helm.values");
+    if (typeof values !== "string") return false;
+    const parsed = parseDocs(values);
+    if (parsed.length !== 1) return false;
+    root = parsed[0];
+  }
+  const value = resolvePath(root, String(locator[form === "valuesPath" ? "valuesPath" : "path"]));
+  if (value === undefined || value === null) return false;
+  if (locator.equals === undefined) return true;
+  return String(value) === String(locator.equals);
+}
+
 function checkRecord(recordPath) {
   check(existsSync(recordPath), `${relativeRepo(recordPath)} is missing`);
   const record = readYaml(recordPath);
@@ -100,7 +147,7 @@ function checkRecord(recordPath) {
     for (const file of listFiles(scopeRoot).filter((path) => path.endsWith(".yaml")).sort()) {
       const text = readFileSync(file, "utf8");
       for (const doc of parseDocs(text)) {
-        documents.push({ identity: identity(doc), file: relativeRepo(file), text });
+        documents.push({ identity: identity(doc), file: relativeRepo(file), text, doc });
       }
     }
   }
@@ -114,8 +161,16 @@ function checkRecord(recordPath) {
   const controlPoints = (record.spec?.controlPoints ?? []).map((point) => {
     const id = String(point.id ?? "");
     check(id, `${relativeRepo(recordPath)}: a control point has no id`);
-    const token = String(point.locator?.token ?? "");
-    check(token, `${relativeRepo(recordPath)}: control point ${id} has no locator token`);
+    const locator = point.locator ?? {};
+    const forms = ["token", "path", "valuesPath"].filter((form) => locator[form] !== undefined);
+    check(
+      forms.length === 1,
+      `${relativeRepo(recordPath)}: control point ${id} must declare exactly one of token, path or valuesPath, and declares ${forms.length}`,
+    );
+    const form = forms[0];
+    const token = form === "token" ? String(locator.token ?? "") : "";
+    if (form === "token") check(token, `${relativeRepo(recordPath)}: control point ${id} has an empty locator token`);
+    else check(String(locator[form] ?? ""), `${relativeRepo(recordPath)}: control point ${id} has an empty ${form}`);
     const declared = [...(point.governs ?? [])].sort();
     check(declared.length > 0, `${relativeRepo(recordPath)}: control point ${id} governs no documents`);
     check(
@@ -126,7 +181,7 @@ function checkRecord(recordPath) {
     // Fact one: the declaration matches the committed bytes, in both
     // directions. Undeclared reach and phantom declarations fail alike.
     const actual = documents
-      .filter((row) => row.text.includes(token))
+      .filter((row) => reaches(row, locator, form))
       .map((row) => row.identity)
       .sort();
     const undeclared = actual.filter((row) => !declared.includes(row));
@@ -182,7 +237,7 @@ function checkRecord(recordPath) {
       return { receipt: String(row.receipt), changedCount: changed.length };
     });
 
-    return { id, token, upstream: Boolean(upstream), declaredCount: declared.length, declared, reviewedChanges };
+    return { id, token, form, locator, upstream: Boolean(upstream), declaredCount: declared.length, declared, reviewedChanges };
   });
   check(controlPoints.length > 0, `${relativeRepo(recordPath)}: the record declares no control points`);
 
@@ -228,7 +283,7 @@ function renderSummary(results) {
       const reviewed = point.reviewedChanges.length
         ? point.reviewedChanges.map((row) => `\`${row.receipt}\``).join(", ")
         : "none yet";
-      return `| \`${entry.name}\` | \`${point.id}\`${derived} | ${point.declaredCount} | ${reviewed} |`;
+      return `| \`${entry.name}\` | \`${point.id}\`${derived} | \`${point.form}\` | ${point.declaredCount} | ${reviewed} |`;
     }),
   );
   const allPoints = results.flatMap((entry) => entry.controlPoints);
@@ -252,8 +307,8 @@ record naming what may be changed and which documents each control point
 governs, and this checker holds that record to the committed bytes and to the
 receipts of every reviewed change already made.
 
-| Entry | Control point | Documents governed | Reviewed changes checked |
-| --- | --- | --- | --- |
+| Entry | Control point | Locator | Documents governed | Reviewed changes checked |
+| --- | --- | --- | --- | --- |
 ${rows.join("\n")}
 
 ## Coverage
@@ -266,6 +321,23 @@ than letting an empty column read as completeness.
 ## Control points an entry documents but does not declare
 
 ${gapLines}
+
+## A control point is located three ways
+
+Which form fits is a property of where the value lives rather than a
+preference.
+
+A \`token\` is a substring of the rendered bytes. It is the bluntest form and the
+only one that reaches anywhere, which is why it stays.
+
+A \`path\` resolves through the parsed document, so it names exactly which field
+it means. A value that happens to appear in an unrelated string cannot be
+mistaken for the control point.
+
+A \`valuesPath\` resolves inside the Helm values these Applications carry as an
+embedded YAML string. That is where most platform choices actually live, and a
+path over the outer document cannot reach them. Parsing that string is what
+turns "the storage class" from a substring into a field.
 
 The checker refuses three ways. It refuses when a control point reaches a
 document the record does not declare, which is how an under-declared change
@@ -390,6 +462,81 @@ function selfTest() {
       check(
         fails(() => checkRecord(phantom.recordPath), /declares .*which does not contain its locator/),
         "self-test accepted a record declaring a document without the control point",
+      );
+
+      // The path forms resolve fields rather than text, so a value that only
+      // appears inside an unrelated string must not count as a reach.
+      const pathDoc = (name, storageClass, decoy) =>
+        [
+          "apiVersion: fixture.invalid/v1",
+          "kind: FixtureDoc",
+          "metadata:",
+          `  name: ${name}`,
+          "spec:",
+          `  note: ${decoy}`,
+          "  source:",
+          "    helm:",
+          "      values: |",
+          "        prometheus:",
+          "          prometheusSpec:",
+          `            storageClassName: ${storageClass}`,
+          "",
+        ].join("\n");
+
+      const paths = build("paths", {
+        docs: {
+          "alpha.yaml": pathDoc("alpha", "gp3", "plain"),
+          // beta mentions the same text in prose and must not be reached.
+          "beta.yaml": fixtureDoc("beta", "storageClassName:-gp3-in-a-sentence"),
+        },
+        controlPoints: [
+          {
+            id: "values-path",
+            locator: {
+              valuesPath: "prometheus.prometheusSpec.storageClassName",
+              equals: "gp3",
+            },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha"],
+          },
+        ],
+      });
+      created.push(paths);
+      const pathResult = checkRecord(paths.recordPath);
+      check(
+        pathResult.controlPoints[0].form === "valuesPath" && pathResult.controlPoints[0].declaredCount === 1,
+        "self-test did not resolve a control point through the embedded values",
+      );
+
+      const wrongValue = build("wrong-value", {
+        docs: { "alpha.yaml": pathDoc("alpha", "standard", "plain") },
+        controlPoints: [
+          {
+            id: "values-path",
+            locator: { valuesPath: "prometheus.prometheusSpec.storageClassName", equals: "gp3" },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha"],
+          },
+        ],
+      });
+      created.push(wrongValue);
+      check(
+        fails(() => checkRecord(wrongValue.recordPath), /which does not contain its locator/),
+        "self-test accepted a values path whose value no longer matches",
+      );
+
+      const twoForms = build("two-forms", {
+        docs: { "alpha.yaml": pathDoc("alpha", "gp3", "plain") },
+        controlPoints: [
+          {
+            id: "ambiguous",
+            locator: { token: "gp3", path: "spec.note" },
+            governs: ["fixture.invalid/v1|FixtureDoc||alpha"],
+          },
+        ],
+      });
+      created.push(twoForms);
+      check(
+        fails(() => checkRecord(twoForms.recordPath), /must declare exactly one of token, path or valuesPath/),
+        "self-test accepted a control point declaring two locator forms",
       );
 
       const overReach = build("over-reach", {

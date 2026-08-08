@@ -1,0 +1,58 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: ControlPointRecord
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v0-18-0
+spec:
+  entry: examples/aicr/eks-h100-training-kubeflow-v0-18-0
+  description: >-
+    The control points a reviewer may change in the second retained AICR
+    version. The v0.14.0 entry declares the same four choices, and this record
+    exists separately because a control point is a claim about bytes and these
+    are different bytes. Where that record uses substring locators, this one
+    uses field paths, which say exactly which field is meant instead of which
+    text happens to appear.
+  documentScope:
+    - argocd-rendered/templates
+  knownGaps:
+    - control: workload-selector
+      value: app.kubernetes.io/part-of=training
+      reason: >-
+        The generation receipt records this selector as a generation input and
+        it appears in no rendered Application. It travels inside the bundle
+        payload the path-sourced Applications point at, which this document
+        scope does not cover. Declaring it here would fail the checker, and it
+        should, because the record describes what these documents contain.
+  controlPoints:
+    - id: prometheus-storage-class
+      description: >-
+        The storage class the Prometheus volume claim requests. It lives inside
+        the Helm values this Application carries as an embedded YAML string, so
+        a path over the outer document cannot reach it. The valuesPath locator
+        parses that string and names the field, which is the difference between
+        saying "the storage class" and saying "any document containing this
+        text".
+      locator:
+        valuesPath: prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName
+        equals: gp3
+      upstreamDeclaration:
+        registry: examples/aicr/upstream-reference/v0.14.0/registry.yaml
+        component: kube-prometheus-stack
+        pathsKey: storageClassPaths
+        paths:
+          - prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName
+      governs:
+        - argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack
+
+    - id: bundle-source
+      description: >-
+        The repository the platform root reads its bundle from. This one is a
+        field of the Application itself rather than of any chart's values, so a
+        path over the outer document says it exactly. Changing it repoints
+        delivery at a different published bundle.
+      locator:
+        path: spec.source.repoURL
+        equals: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle
+      governs:
+        - argoproj.io/v1alpha1|Application|argocd|aicr-stack
+        - argoproj.io/v1alpha1|Application|argocd|kubeflow-trainer-post
+        - argoproj.io/v1alpha1|Application|argocd|nodewright-customizations

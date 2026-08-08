@@ -19,7 +19,8 @@ moment an entry retains a document that mentions it.
 
 ## Every reference in the retained configuration
 
-10 gated references appear across 28 committed files. The lane
+10 gated references appear across 28 committed files, not counting this
+register, which names them all by definition. The lane
 refuses a reference that is not listed here, and refuses a listing that no
 committed document names, so this table cannot drift in either direction.
 
