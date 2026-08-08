@@ -448,7 +448,7 @@
 <p><b>UNOFFICIAL/EXPERIMENTAL</b></p>
 <p>The npm scripts in this repo are proof checks. They are not the product path a Helm user follows. Use this page to choose the smallest proof command that answers the claim.</p>
 <h2 id="short-rules">Short Rules</h2>
-<ul><li>Use <code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, or Flux when doing product work.</li><li>Use <code>npm run ...</code> when checking committed repo evidence.</li><li>Prefer scoped verifiers over <code>npm run verify</code>.</li><li>Treat fresh live runs as evidence-producing work.</li><li>Never claim a live lane changed without a receipt and verifier.</li></ul>
+<ul><li>Use <code>cub</code>, <code>helm</code>, <code>kubectl</code>, Argo, or Flux when doing product work.</li><li>Use <code>npm run ...</code> when checking committed repo evidence.</li><li>Prefer scoped verifiers over <code>npm run verify</code>.</li><li>CI runs the whole chain in six parallel shards, so a gate cannot go red unnoticed the way several did before 2026-08-08.</li><li>Treat fresh live runs as evidence-producing work.</li><li>Never claim a live lane changed without a receipt and verifier.</li></ul>
 <h2 id="claim-to-command-map">Claim-To-Command Map</h2>
 <table><thead><tr><th>Claim or question</th><th>Check</th></tr></thead><tbody><tr><td>Markdown files are in valid locations and links resolve.</td><td><code>npm run docs:verify</code></td></tr>
 <tr><td>Static site output is current.</td><td><code>npm run site:verify</code></td></tr>
@@ -463,7 +463,8 @@
 <tr><td>Lane status vocabulary is valid.</td><td><code>npm run lane-tests:verify</code></td></tr>
 <tr><td>Committed two-cluster parity receipts validate.</td><td><code>npm run kind-parity:verify</code></td></tr>
 <tr><td>Committed ConfigHub/OCI live receipts validate.</td><td><code>npm run live-parity:verify</code></td></tr>
-<tr><td>The whole committed repo proof chain is consistent.</td><td><code>npm run verify</code></td></tr></tbody></table>
+<tr><td>The whole committed repo proof chain is consistent.</td><td><code>npm run verify</code></td></tr>
+<tr><td>One slice of that chain, the way CI runs it.</td><td><code>npm run verify:shard -- --shard 1 --of 6</code></td></tr></tbody></table>
 <h2 id="generate-versus-verify">Generate Versus Verify</h2>
 <p>The common pattern is:</p>
 <pre><code>npm run &lt;surface&gt;          # regenerate files
@@ -484,6 +485,10 @@ npm run npm-scripts:catalog:verify</code></pre>
 <p>Run fresh live commands only when fresh evidence is the task.</p>
 <h2 id="useful-references">Useful References</h2>
 <ul><li><a href="../user/verification.html">User Verification</a></li><li><a href="../user/verify-it-yourself.html">Verify It Yourself</a></li><li><a href="../user/verification-lanes.html">Verification Lanes</a></li><li><a href="../user/chain-of-proof.html">Chain Of Proof</a></li><li><a href="../../tests/npm-scripts.html">NPM Test And Verification Scripts</a></li></ul>
+<h2 id="what-ci-runs">What CI Runs</h2>
+<p>CI runs the entire <code>npm run verify</code> chain on every pull request, split into six shards that run in parallel. Before this, six gates ran in CI and the rest were checked only by whoever remembered to run the chain locally, which is how twenty-four of them came to be failing on main with nothing reporting it.</p>
+<p>Two jobs, because the chain is not quite uniform. Most steps read committed bytes and need nothing installed. Thirty-two re-render a package through the cub installer, read an OCI artifact through oras, or template a chart through helm, and those are listed in <a href="../../../../tests/verify-chain-cli-steps.yaml">tests/verify-chain-cli-steps.yaml</a> and run in their own job with those tools installed once.</p>
+<p>The gates that were already red are declared in <a href="../../../../tests/verify-chain-known-red.yaml">tests/verify-chain-known-red.yaml</a> with the error each produces. A declared gate that fails is carried; a declared gate that starts passing fails the run and asks to be removed from the list, so it can only shrink.</p>
     </article>
   </main>
   <footer><p>Generated from the committed markdown file <code>docs/agent/verification.md</code>. The source file is the authoritative version.</p></footer>

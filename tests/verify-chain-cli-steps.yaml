@@ -1,0 +1,88 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: VerifyChainCLISteps
+metadata:
+  name: verify-chain-cli-steps
+spec:
+  description: >-
+    The steps in the verify chain that need a command-line tool beyond Node, git
+    and a YAML reader. Every other step reads committed bytes and nothing else,
+    which is what lets the chain run in parallel shards on a bare runner.
+  why: >-
+    The chain's convention is that live work happens under --run and the chain
+    calls --verify, which re-checks a committed receipt. These steps are the
+    exceptions: they re-render a package through the cub installer, read an OCI
+    artifact through oras, or template a chart through helm, and none of that can
+    be done by reading files. They are separated so the offline shards need
+    nothing installed, and so the cost of installing those tools is paid once
+    rather than in every shard.
+  discovery: >-
+    Found by running every step of the chain with a PATH holding only node, npm,
+    python3, git and a shell, and recording which ones failed for a missing
+    binary. Re-run that probe after adding a step that shells out.
+  steps:
+    - step: "node scripts/ack-ec2-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/ack-eks-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/ack-iam-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/argo-cd-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/cert-manager-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/consul-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/external-secrets-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/generate-kubara-example.mjs --verify"
+      needs: [helm]
+    - step: "node scripts/generate-useful-base-realization-wave.mjs --verify"
+      needs: [cub]
+    - step: "node scripts/grafana-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/ingress-nginx-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/inspect-config-oci.mjs --verify"
+      needs: [oras]
+    - step: "node scripts/karpenter-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/kube-prometheus-stack-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/loki-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/longhorn-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/metrics-server-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/mongodb-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/mysql-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/nginx-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/nvidia-device-plugin-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/postgresql-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/prometheus-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/rabbitmq-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/run-anonymous-oci-transform-proof.mjs --verify"
+      needs: [oras]
+    - step: "node scripts/run-kubara-catalog-candidates.mjs --verify"
+      needs: [cub]
+    - step: "node scripts/run-latest-top20-candidates.mjs --verify"
+      needs: [cub]
+    - step: "node scripts/secrets-store-csi-driver-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/sync-installer-target-facts.mjs --verify"
+      needs: [cub]
+    - step: "node scripts/tempo-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/vault-proof.mjs --verify-package"
+      needs: [cub]
+    - step: "node scripts/verify-redis-installer-package.mjs"
+      needs: [cub]
+    - step: "node scripts/run-external-scan-lane.mjs --verify"
+      needs: [kube-linter]
