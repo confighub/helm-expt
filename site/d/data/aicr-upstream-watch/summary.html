@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The AICR catalog retains exact AI-platform shapes · Config Workshop</title>
-  <meta name="description" content="The AICR catalog retains exact AI-platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/">
-  <meta property="og:title" content="The AICR catalog retains exact AI-platform shapes · Config Workshop">
-  <meta property="og:description" content="The AICR catalog retains exact AI-platform shapes: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>How far behind upstream the retained AICR versions are · Config Workshop</title>
+  <meta name="description" content="How far behind upstream the retained AICR versions are: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/aicr-upstream-watch/summary.html">
+  <meta property="og:title" content="How far behind upstream the retained AICR versions are · Config Workshop">
+  <meta property="og:description" content="How far behind upstream the retained AICR versions are: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/aicr-upstream-watch/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -433,58 +433,44 @@
     .doc-body blockquote { border-left: 3px solid var(--line); margin: 14px 0; padding: 4px 14px; color: var(--muted); }
     .doc-body img { max-width: 100%; }
     .doc-body h2 { margin-top: 28px; }
-    @media (max-width: 700px) {
-      .doc-body table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-      .doc-body th, .doc-body td { min-width: 10rem; }
-    }
   </style>
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../../try.html">Try Redis</a><a href="../../../../testing.html">Examples</a><a href="../../../../charts/index.html">Catalog</a><a href="../../../../how-it-works.html">Deployment</a><a href="../../../../docs.html">Docs</a><a href="../../../../hard-questions.html">FAQ</a><a href="../../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>The AICR catalog retains exact AI-platform shapes</h1>
-    <p class="lead">AICR is NVIDIA's Apache-2.0 tool for building AI-cluster platforms (<a href="https://github.com/NVIDIA/aicr">github.com/NVIDIA/aicr</a>). You describe the platform you want and AICR picks the components, orders the installs, and writes the files. The catalog applies the same discipline here that it applies to Helm charts and to the Kubara platform: retain exact versions, pin every package by an immutable OCI digest, and attach a receipt to every claim. Teams assembling GPU platforms copy YAML from blog posts today, and an H100 misconfiguration has a dollar sign attached. <a href="../../../../../docs/demo/aicr/index.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>How far behind upstream the retained AICR versions are</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/aicr-upstream-watch/summary.md">View source markdown</a>.</p>
   </header>
   <main>
+    <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>UNOFFICIAL/EXPERIMENTAL. This page is the starting point for the AICR entries in the catalog. It names the three entry classes we track, what exists today, what is planned, and the exact boundary every claim respects.</p>
-
-<p>The gap these entries fill is governance, and it is worth being precise about that. AICR itself carries provenance: it signs its recipe catalog, ships per-component health checks, and emits attestable evidence from validation runs against real hardware. What no one offers is the governed half, meaning reviewed changes with previews, variant lineage, promotion history, and a record of what each change touched, applied to AI-platform configuration the same way it is applied to charts. The <a href="../../reference/aicr-evidence-and-our-receipts.html">comparison of AICR's evidence with our receipts</a> sets out which tool answers which question.</p>
-<h2 id="three-entry-classes-track-how-buyers-differ">Three entry classes track how buyers differ</h2>
-<p>Buyers train, they serve, or they want to try the mechanics without GPUs. The taxonomy follows that split.</p>
-<table><thead><tr><th>Entry class</th><th>Status</th><th>Source</th></tr></thead><tbody><tr><td>Training</td><td>Exists: <a href="eks-h100-training-kubeflow.html">EKS + H100 + Kubeflow</a></td><td>NVIDIA AICR v0.14.0, retained exactly</td></tr>
-<tr><td>Training, second retained version</td><td>Exists: <a href="eks-h100-training-kubeflow-v0-18-0.html">the same platform four minor versions later</a></td><td>NVIDIA AICR v0.18.0, retained exactly, from the same criteria</td></tr>
-<tr><td>Inference / serving, platform level</td><td>Exists: <a href="eks-h100-inference-nim.html">the AICR-native NIM platform</a></td><td>NVIDIA AICR v0.14.0 with <code>platform: nim</code>, retained exactly</td></tr>
-<tr><td>Inference / serving, model level</td><td>Exists as retained configuration: <a href="kserve-nim-inference.html">NIM on KServe</a></td><td>The KServe subtree of <a href="https://github.com/NVIDIA/nim-deploy">NVIDIA/nim-deploy</a> at an exact commit, Apache-2.0</td></tr>
-<tr><td>CPU starter</td><td>Exists as derived configuration: <a href="cpu-starter.html">the platform spine without accelerators</a></td><td>Derived from the training entry by recorded selection rules, with no upstream equivalent; needs no GPU, cloud account, or NGC key</td></tr></tbody></table>
-<p>Five entries exist today, covering four shapes. The training entry carries the proven mechanics and is retained at two upstream versions, the two inference entries answer the serving question at different granularities, and the CPU starter is a rule-governed derivation of the training entry. The inference pair is deliberate: the AICR-native entry stands up a cluster that can serve NIM, and the KServe entry, retained at upstream commit 3ef33472, names the exact shape a given model runs in. Retaining both keeps the sourcing choice visible instead of implied, and the <a href="eks-h100-inference-nim.html">entry page</a> compares them directly.</p>
-<p>The catalog refuses manufactured variety: new entries come from upstream versions, from deliberately authored shapes whose provenance is named, or from recorded derivations of an existing entry. The inference entry's sixteen model-by-GPU shapes are upstream-authored variety, retained exactly, and the starter's seven components are byte-identical copies selected by rules the derivation receipt records.</p>
-<p>The inference class carries a licensing boundary worth stating early. NIM deploys through public Helm charts and the NIM Operator, so the deployment shapes can be cataloged, but the runtime images and models behind them are NGC-gated under NVIDIA AI Enterprise licensing. The entry retains the configuration shapes and never redistributes the gated artifacts. The <a href="../../planning/nim-ngc-license-read.html">license read</a> verified this boundary against the actual terms: the scaffolding the entry would retain is Apache-2.0, the gated material is exactly what a config-plane entry never touches, and NGC API keys enter the shape only as target facts.</p>
-<h2 id="retained-versions-while-upstream-moves">Retained versions while upstream moves</h2>
-<p>The training entry retains NVIDIA AICR v0.14.0 exactly: the release commit, the release-asset checksum, and the binary checksum are pinned in its <a href="../../../../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml">generation receipt</a>. How far behind upstream that leaves the catalog is measured rather than described. The <a href="../../../data/aicr-upstream-watch/summary.html">upstream watch</a> compares every retained version against a committed snapshot of the release list, and it computes the release cadence instead of repeating it.</p>
-<p>That gap is the point of retention, not a defect. The retained entry stays byte-for-byte reproducible and its receipts stay true while upstream moves. Refreshing the catalog to a newer AICR version creates a new retained entry with its own receipts next to the old one; it never overwrites the proven shape. This is the same retained-versions discipline the chart catalog and the Kubara component catalog follow.</p>
-<p>That is no longer a policy statement. The catalog now retains <a href="eks-h100-training-kubeflow-v0-18-0.html">v0.18.0 as a second entry</a>, generated from the same criteria, so the two versions sit side by side and the difference between them is computed rather than described. The <a href="../../../data/aicr-version-diff/summary.html">version diff</a> reads both entries' committed bytes on every run. The platform did not change and the parts did: the same fifteen components in the same declared order, with nine of them pulling a different chart version.</p>
-<p>The second version also proves something the first cannot. Its generating binary ships the signature bundle this repository verified offline, and it reports the same build commit that signature names, so the entry's provenance runs from an upstream signer to the bytes on disk rather than from a checksum alone.</p>
-<h2 id="one-digest-pins-each-shape">One digest pins each shape</h2>
-<p>Every entry carries the digest spine the Kubara importer proved: one immutable OCI payload per component plus one digest-bound platform index. For the training entry, the <a href="../../../examples/aicr/eks-h100-training-kubeflow/digest-index/README.html">digest index</a> pins the upstream source, the recipe criteria, the three OCI transport manifests, and all 17 rendered Argo CD Applications under a single platform digest. Change any rendered byte anywhere in the shape and the digest changes.</p>
-<pre><code>npm run aicr-digest-index:verify
-npm run aicr-digest-index:self-test</code></pre>
-<p>The inference entry carries the same spine. Its <a href="../../../examples/aicr/kserve-nim-inference/digest-index/README.html">digest index</a> pins the retained KServe tree, every serving runtime and model shape, and the described model profile, and its compiler adds the licensing boundary as refusal rules: gated images stay references, and a literal credential value anywhere in the tree stops the compile.</p>
-<pre><code>npm run aicr-kserve-nim:verify
-npm run aicr-kserve-nim:self-test</code></pre>
-<p>The CPU starter's index adds a derivation chain: each member payload records the training-entry payload hash it copies and the training entry's platform digest, so the path from the AICR release pins through the training index to the starter is checkable end to end.</p>
-<pre><code>npm run aicr-cpu-starter:verify
-npm run aicr-cpu-starter:self-test</code></pre>
-<p>The training entry also carries an OCI round-trip receipt and a variant-promotion receipt that changed one Grafana credential in a development variant and promoted it to staging with matching data hashes. The <a href="eks-h100-training-kubeflow.html">entry page</a> walks through both.</p>
-<h2 id="each-entry-climbs-the-same-proof-ladder">Each entry climbs the same proof ladder</h2>
-<p>The proofs repeat one ladder per entry, and each rung has a committed receipt its verify lane recompiles offline. The training entry proved import, the reviewed Grafana change, and the staging promotion. The <a href="cpu-starter.html">CPU starter</a> climbed the whole ladder: ConfigHub import with the reviewed gp3 override and its staging promotion, config-plane delivery to a kind cluster with the application controller held at zero, and one reviewed component synced to Healthy with its volume bound by the reviewed storage class. The <a href="kserve-nim-inference.html">inference entry</a> has climbed two rungs: the ConfigHub import of all twenty-six retained surfaces with the license boundary held live, then the reviewed model-cache claim rename that changed exactly the sixteen model shapes that mount it, left all ten serving runtimes untouched, and reached staging through a previewed promotion, then config-plane delivery of its serving surface to a kind cluster. The rungs an entry has not climbed stay absent from its claims rather than implied, and the <a href="../../../data/aicr-platform-evidence/summary.html">platform evidence record</a> lists those gaps per entry rather than leaving them to inference.</p>
-<h2 id="what-the-entries-refuse-is-recorded-too">What the entries refuse is recorded too</h2>
-<p>A ladder records what the catalog accepted. The <a href="refusal-corpus.html">refusal corpus</a> records what it turns down, by running the shipped lanes against changes a contributor could plausibly propose and publishing the verdicts. Two of those candidates have to be accepted, because lanes that refused everything would look identical to lanes that refused the right things.</p>
-<p>The counts on these pages are checked the same way. Every number followed by a counted noun is bound to a quantity computed from committed bytes, and <a href="claim-integrity.html">the claim-integrity lane</a> refuses both a number that has drifted and a counted claim nobody declared.</p>
-<h2 id="the-boundary-every-receipt-states">The boundary every receipt states</h2>
-<p>All proofs here run on kind or against ConfigHub, and they prove config-plane mechanics only: import, render, digest pinning, variant, promotion, delivery wiring. No GPU workload ran to produce or verify any receipt in this catalog. Workload-plane claims wait until a real GPU target exists, and they stay absent rather than implied.</p>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> The snapshot is taken by <code>npm run aicr-upstream-watch:run</code>, which is the only step that reaches the network. The summary is rendered by <code>npm run aicr-upstream-watch:generate</code> and checked offline by <code>npm run aicr-upstream-watch:verify</code>.</p>
+<p>Retaining an exact version is a deliberate choice, and a deliberate choice needs a number next to it. This measures the gap instead of leaving it to be discovered when someone happens to look at a release page.</p>
+<p>Everything below is measured against the snapshot's own timestamp, <b>2026-08-08T15:49:54.745Z</b>, rather than against the clock. The record stays stable until someone takes a new snapshot on purpose, and a stale snapshot is visible as a date rather than hidden behind a moving number.</p>
+<h2 id="the-gap-today">The gap today</h2>
+<p>The catalog's newest retained version is upstream's newest release. There is no gap to report today, which is a fact with a date on it rather than a permanent state.</p>
+<table><thead><tr><th>Entry</th><th>Provenance</th><th>AICR version</th><th>Released</th><th>Releases published since</th></tr></thead><tbody><tr><td><code>eks-h100-training-kubeflow</code></td><td>retained-upstream</td><td>v0.14.0</td><td>2026-06-01</td><td>4</td></tr>
+<tr><td><code>eks-h100-training-kubeflow-v0-18-0</code></td><td>retained-upstream</td><td>v0.18.0</td><td>2026-07-23</td><td>0</td></tr>
+<tr><td><code>eks-h100-inference-nim</code></td><td>retained-upstream</td><td>v0.14.0</td><td>2026-06-01</td><td>4</td></tr>
+<tr><td><code>cpu-starter</code></td><td>derived</td><td>v0.14.0</td><td>2026-06-01</td><td>4</td></tr></tbody></table>
+<p>A derived entry carries the version of the entry it came from, so it moves when that entry moves rather than on its own. Listing it here keeps the row count equal to the number of entries whose freshness depends on an AICR release.</p>
+<h2 id="recent-upstream-releases">Recent upstream releases</h2>
+<table><thead><tr><th>Release</th><th>Published</th><th>In the catalog</th></tr></thead><tbody><tr><td>v0.18.0</td><td>2026-07-23</td><td>retained</td></tr>
+<tr><td>v0.17.0</td><td>2026-07-14</td><td>not retained</td></tr>
+<tr><td>v0.16.0</td><td>2026-06-30</td><td>not retained</td></tr>
+<tr><td>v0.15.0</td><td>2026-06-15</td><td>not retained</td></tr>
+<tr><td>v0.14.0</td><td>2026-06-01</td><td>retained</td></tr>
+<tr><td>v0.13.0</td><td>2026-05-16</td><td>not retained</td></tr></tbody></table>
+<h2 id="the-cadence-is-computed-now">The cadence is computed now</h2>
+<p>The median gap between minor releases is <b>14 days</b>, over 9 intervals across 10 minor releases in this snapshot. The pages have been saying AICR ships roughly every two weeks, which the measurement supports. It was read off a release page by hand once and repeated since. It is derived now, so it can be wrong out loud rather than quietly.</p>
+<p>The measurement covers minor releases only. This project publishes several tags on one day, so a median across every tag would be a day and would say nothing about how fast the platform moves. What a retained version cares about is when the next minor lands.</p>
+<p>That number is what makes retention a decision rather than neglect. A version retained today falls a release behind within about 14 days whatever anyone intends, and the catalog's answer is to retain deliberately and record the distance rather than chase the tag.</p>
+<h2 id="what-this-does-not-do">What this does not do</h2>
+<p>It does not decide anything. A gap is not a defect, and closing one costs a new entry with its own receipts, which <a href="../../docs/planning/aicr-version-refresh-brief.html">the refresh brief</a> works out in full. This lane exists so that decision is made against a measured number.</p>
+<p>It also says nothing about what changed between versions. That is <a href="../aicr-version-diff/summary.html">the version diff</a>, which compares the retained entries byte for byte.</p>
+<p>The snapshot is a record of what upstream listed at one moment, taken from https://api.github.com/repos/NVIDIA/aicr/releases?per_page=30. No cluster, no organization, and no GPU workload is involved, and nothing here downloads or runs an upstream artifact.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/demo/aicr/index.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/aicr-upstream-watch/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
