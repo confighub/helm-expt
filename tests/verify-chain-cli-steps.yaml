@@ -84,3 +84,5 @@ spec:
       needs: [cub]
     - step: "node scripts/verify-redis-installer-package.mjs"
       needs: [cub]
+    - step: "node scripts/run-external-scan-lane.mjs --verify"
+      needs: [kube-linter]

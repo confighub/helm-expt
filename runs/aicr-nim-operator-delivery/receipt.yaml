@@ -1,0 +1,64 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "AicrNimOperatorDeliveryProofReceipt"
+metadata:
+  name: "aicr-eks-h100-inference-nim-operator-delivery"
+spec:
+  observedAt: "2026-08-08T13:24:58.413Z"
+  input:
+    committedEntry: "examples/aicr/eks-h100-inference-nim"
+    retainedDefinitionTag: "v3.1.0"
+    operatorChartVersionInEntry: "3.1.0"
+    definitionsAgreeWithComponent: true
+    definitionCount: 2
+    definitions:
+      -
+        file: "apps.nvidia.com_nimcaches.yaml"
+        name: "nimcaches.apps.nvidia.com"
+        kind: "NIMCache"
+      -
+        file: "apps.nvidia.com_nimservices.yaml"
+        name: "nimservices.apps.nvidia.com"
+        kind: "NIMService"
+    authoredCount: 1
+    canonicalAuthoredSha256: "a81dea922e9bb4c987b69225b1fd21ceb2a760050bbff379d6cbefd47318eddc"
+  cluster:
+    shape: "throwaway kind cluster with an isolated kubeconfig"
+    operatorInstalled: false
+    reason: "with no operator nothing reconciles a NIMService, so no pod is scheduled and no gated image is pulled"
+  delivery:
+    definitionsEstablished: 2
+    resourcesAccepted: 1
+    accepted:
+      -
+        kind: "NIMService"
+        name: "llama-3-1-8b-instruct"
+        namespace: "nim-service"
+    imageReferencePreserved: true
+    workloadPods: 0
+    gatedImagePullEvents: 0
+    servingProven: false
+  licenseBoundary:
+    ngcContacted: false
+    imagesPulled: false
+    modelsFetched: false
+    credentialValuesInAuthoredConfig: false
+    gatedImageReferences:
+      - "nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0"
+  provenance:
+    definitions: "retained from NVIDIA/k8s-nim-operator, Apache-2.0"
+    exampleResource: "authored by this catalog, because upstream ships no ready-made NIMService for this entry"
+  cleanup:
+    cluster: "pass"
+    localFiles: "pass"
+  limits:
+    - "This proof shows a real API server accepting the shapes a NIM deployment writes, against the operator's own definitions. It does not prove serving, model loading, or any workload behavior."
+    - "The NIM operator was deliberately not installed. With it, a NIMService would attempt to pull a gated image, which the licensing boundary forbids this project from doing."
+    - "The example resource is authored, not retained. It exercises the definition; it is not a recommended deployment."
+    - "Two of the operator's nine definitions are retained, the two a NIM deployment writes."
+status:
+  result: "pass"
+  definitionsAgree: "pass"
+  crdInstall: "pass"
+  resourcesAccepted: "pass"
+  boundaryProven: "pass"
+  claim: "The NIM operator definitions retained for this entry match the operator chart version the entry installs, a real API server established them and accepted the catalog's authored NIMService with its gated image reference intact, and no operator, pod, or image pull existed anywhere in the run."
