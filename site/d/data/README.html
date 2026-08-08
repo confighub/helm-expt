@@ -732,6 +732,7 @@ What is the current status for each chart, base, derived variant, and feature?</
 <tr><td><code>quirk-inventory-audit</code></td><td><a href="quirk-inventory-audit/summary.html">quirk-inventory-audit/summary.md</a></td><td>supporting generated evidence</td></tr>
 <tr><td><code>quirk-review-queue</code></td><td><a href="quirk-review-queue/summary.html">quirk-review-queue/summary.md</a></td><td>queue for chart quirks needing human or product review</td></tr>
 <tr><td><code>quirk-work-queue</code></td><td><a href="quirk-work-queue/summary.html">quirk-work-queue/summary.md</a></td><td>source-scan quirk work queue for top-100 charts</td></tr>
+<tr><td><code>receipt-aging</code></td><td><a href="receipt-aging/summary.html">receipt-aging/summary.md</a></td><td>how old every committed receipt is, measured against the newest one, with the count that carry no date at all</td></tr>
 <tr><td><code>refresh-survival</code></td><td><a href="refresh-survival/summary.html">refresh-survival/summary.md</a></td><td>latest-version refresh survival and upgrade seed</td></tr>
 <tr><td><code>remote-dependency-closure</code></td><td><a href="remote-dependency-closure/summary.html">remote-dependency-closure/summary.md</a></td><td>remote dependency closure map for top-100 charts</td></tr>
 <tr><td><code>remote-image-runtime-workdown</code></td><td><a href="remote-image-runtime-workdown/summary.html">remote-image-runtime-workdown/summary.md</a></td><td>product/base decisions for the remote-image watch rows: exact missing image, where it fails, recommended action (refresh / override / pin-mirror / lifecycle-route / watch / refuse), and owner class</td></tr>
@@ -768,7 +769,7 @@ What is the current status for each chart, base, derived variant, and feature?</
 <h2 id="every-csv">Every CSV</h2>
 <p>The complete CSV list is generated at:</p>
 <pre><code>data/csv-index.csv</code></pre>
-<p>It includes 188 CSV files. Each row records the path, audience, purpose, summary, and regenerate/verify command where known.</p>
+<p>It includes 189 CSV files. Each row records the path, audience, purpose, summary, and regenerate/verify command where known.</p>
 <h2 id="regeneration">Regeneration</h2>
 <p>Regenerate and verify this index:</p>
 <pre><code>npm run data:index

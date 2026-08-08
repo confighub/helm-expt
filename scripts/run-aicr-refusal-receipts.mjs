@@ -288,6 +288,8 @@ function readResults() {
   return receipt.spec?.results ?? [];
 }
 
+// The receipt records when the run happened, so its evidence can be aged
+// alongside every other receipt rather than sitting outside that count.
 function writeReceipt(corpus, results, commit) {
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
@@ -298,6 +300,7 @@ function writeReceipt(corpus, results, commit) {
         "Every candidate in the AICR refusal corpus was run through the shipped lanes in a throwaway worktree, and each returned the verdict the corpus declared, including two candidates that had to be accepted.",
       boundary: corpus.boundary,
       corpus: { path: relativeRepo(corpusPath), sha256: sha256(readFileSync(corpusPath)) },
+      observedAt: new Date().toISOString(),
       tree: {
         commit,
         note: "Each candidate ran in a throwaway worktree of this commit, so the run describes committed bytes rather than an author's working tree.",

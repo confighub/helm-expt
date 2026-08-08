@@ -328,3 +328,14 @@ project publishes several tags together, so the measurement covers minor
 releases only and says so. A number that looked wrong was worth chasing rather
 than shipping.
 
+Task 46 is done too, and it left the workshop with a number nobody had. Every
+proof here writes a receipt, and a receipt is a claim about one moment, but
+nothing reported how old any of it was. Measuring found 1628 committed
+receipts, and 530 of them record no date in any form, so their evidence cannot
+be aged at all. That is a stronger problem than being old and it was invisible
+until someone counted. The
+[aging surface](../../data/receipt-aging/summary.md) publishes the spread and
+ratchets the undated count rather than failing on it, because a red build over
+530 files written by other work would either block everyone or get
+suppressed.
+
