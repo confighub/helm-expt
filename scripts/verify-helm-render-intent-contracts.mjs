@@ -23,7 +23,16 @@ const targetStates = new Set([
 const expectedGaps = new Set();
 const names = new Set();
 
-check(intents.length === 199, `expected 199 real-base render intents, found ${intents.length}`);
+// One intent per real base row in the master matrix, so this tracks the catalog
+// rather than a moment in its history. Pinning it to a number is what kept 46
+// bases out of the coverage view: the matrix needed an intent per row and the
+// intents were generated from the matrix, so a new entry could join neither.
+const realBaseCount = parseCsv(readFileSync(join(repoRoot, "data/master-catalog-matrix/matrix.csv"), "utf8"))
+  .filter((row) => row.row_kind === "base").length;
+check(
+  intents.length === realBaseCount,
+  `expected one render intent per real base row (${realBaseCount}), found ${intents.length}`,
+);
 
 for (const intent of intents) {
   const name = intent.metadata?.name;

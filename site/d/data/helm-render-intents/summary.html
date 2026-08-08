@@ -448,27 +448,27 @@
 <p>This report connects the full helm-expt chain to the shorter ConfigHub model. A render intent is one reviewed base-variant path: chart, version, values profile, namespace, capability profile, source lock, package base, installer package OCI ref, evidence lanes, lifecycle routes, and target prerequisites.</p>
 <p>The generator emits files only for real base rows in the master matrix. Candidate and custom-discussion rows stay visible in the matrix, but they are not emitted as runnable render-intent configs yet.</p>
 <h2 id="snapshot">Snapshot</h2>
-<table><thead><tr><th>Measure</th><th>Count</th></tr></thead><tbody><tr><td>Real base rows in the matrix</td><td>199</td></tr>
-<tr><td>Generated HelmRenderIntent objects</td><td>199</td></tr>
+<table><thead><tr><th>Measure</th><th>Count</th></tr></thead><tbody><tr><td>Real base rows in the matrix</td><td>245</td></tr>
+<tr><td>Generated HelmRenderIntent objects</td><td>245</td></tr>
 <tr><td>Candidate/custom-discussion rows skipped</td><td>67</td></tr>
-<tr><td>Intents with lifecycle routes attached</td><td>14</td></tr>
-<tr><td>Intents whose routes name the Argo CD and Flux handling</td><td>14</td></tr>
-<tr><td>Intents with target facts declared by the base variant</td><td>67</td></tr>
+<tr><td>Intents with lifecycle routes attached</td><td>21</td></tr>
+<tr><td>Intents whose routes name the Argo CD and Flux handling</td><td>21</td></tr>
+<tr><td>Intents with target facts declared by the base variant</td><td>89</td></tr>
 <tr><td>Intents with action records from observed prerequisite failures</td><td>27</td></tr>
-<tr><td>Lifecycle contract gaps named for follow-up</td><td>3</td></tr>
-<tr><td>Target-prerequisite reviews still missing</td><td>132</td></tr></tbody></table>
+<tr><td>Lifecycle contract gaps named for follow-up</td><td>10</td></tr>
+<tr><td>Target-prerequisite reviews still missing</td><td>156</td></tr></tbody></table>
 <h2 id="contract-coverage">Contract Coverage</h2>
 <p>Every render intent now states whether its lifecycle and target-prerequisite contract is attached, explicitly unnecessary, or still missing. A missing contract stays in the generated gap list; it is not treated as proof that the chart needs no extra work.</p>
-<table><thead><tr><th>Lifecycle state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>3</td></tr>
+<table><thead><tr><th>Lifecycle state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>10</td></tr>
 <tr><td><code>attached</code></td><td>12</td></tr>
-<tr><td><code>no-route-required</code></td><td>184</td></tr></tbody></table>
-<table><thead><tr><th>Target-prerequisite state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>132</td></tr>
-<tr><td><code>attached</code></td><td>56</td></tr>
+<tr><td><code>no-route-required</code></td><td>223</td></tr></tbody></table>
+<table><thead><tr><th>Target-prerequisite state</th><th>Intents</th></tr></thead><tbody><tr><td><code>actionable-gap</code></td><td>156</td></tr>
+<tr><td><code>attached</code></td><td>78</td></tr>
 <tr><td><code>attached-with-observed-actions</code></td><td>11</td></tr></tbody></table>
 <p>Open <a href="contract-gaps.html">contract-gaps.md</a> for the exact bases that still need a route or target-prerequisite review.</p>
 <h2 id="by-catalog-layer">By Catalog Layer</h2>
-<table><thead><tr><th>Layer</th><th>Intents</th></tr></thead><tbody><tr><td>F2a</td><td>95</td></tr>
-<tr><td>F2b</td><td>104</td></tr></tbody></table>
+<table><thead><tr><th>Layer</th><th>Intents</th></tr></thead><tbody><tr><td>F2a</td><td>124</td></tr>
+<tr><td>F2b</td><td>121</td></tr></tbody></table>
 <h2 id="model">Model</h2>
 <p>Simple view:</p>
 <pre><code>Component

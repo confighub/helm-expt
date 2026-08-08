@@ -18,43 +18,43 @@ columns). It changes no status and runs nothing.
 
 ## Completion classes
 
-657 non-green cells:
+738 non-green cells:
 
 | Class | Cells | Meaning |
 | --- | ---: | --- |
-| `needs-target-or-prereq-fix` | 429 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
+| `needs-target-or-prereq-fix` | 504 | Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change. |
 | `already-decided` | 136 | A watch row with a recorded product decision: evidence plus a named residue. Usable today with the caveat. |
-| `needs-run` | 47 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
+| `needs-run` | 53 | A command exists — just run it (the burn-down / run-block surfaces have the exact command). |
 | `needs-modeling` | 45 | The catalog/model has to change before this can pass. |
 
 | Lane | Cells |
 | --- | ---: |
-| `promotion` | 389 |
+| `promotion` | 464 |
 | `G` | 60 |
 | `P` | 60 |
+| `lifecycle` | 53 |
 | `L` | 51 |
 | `K` | 50 |
-| `lifecycle` | 47 |
 
 | State | Cells |
 | --- | ---: |
 | `proven` | 167 |
+| `not-applicable-source` | 139 |
 | `watch` | 136 |
-| `not-applicable-source` | 110 |
 | `blocked` | 99 |
 | `not-applicable-candidate` | 67 |
-| `todo` | 47 |
+| `todo` | 53 |
+| `missing-status` | 46 |
 | `fail` | 18 |
 | `not-applicable-derived-variant` | 13 |
 
-## needs-run (47)
+## needs-run (53)
 
 A command exists — just run it (the burn-down / run-block surfaces have the exact command).
 
 | Chart | Variant | Lane | State | Reason | Next action |
 | --- | --- | --- | --- | --- | --- |
 | argo-cd/argo-workflows@1.0.14 | controller-default-reviewed | lifecycle | todo | lifecycle route(s) defined (todo:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
-| argo-cd/argo-workflows@1.0.14 | default | lifecycle | todo | lifecycle route(s) defined (observed:1) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | argo-cd/argocd-image-updater@1.2.2 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | bitnami/contour@21.1.4 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | bitnami/contour@21.1.4 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
@@ -88,9 +88,16 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | jaegertracing/jaeger-operator@2.57.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | kedacore/keda@2.19.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
 | kyverno/kyverno@3.8.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | observe the routed lifecycle action and record a receipt (see lifecycle-route-actions) |
+| kyverno/kyverno@3.8.2 | default | lifecycle | todo | lifecycle route(s) defined (observed:6) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | minio-operator/operator@7.1.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | percona/pxc-operator@1.19.1 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@87.15.1 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@87.15.1 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@87.19.2 | default | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
+| prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | lifecycle | todo | lifecycle route(s) defined (observed:7) but not yet observed live | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | apiservice-v1-capability | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | cluster-metrics-readonly | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | prometheus-community/prometheus-adapter@5.3.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
@@ -101,7 +108,7 @@ A command exists — just run it (the burn-down / run-block surfaces have the ex
 | traefik/traefik@40.2.0 | default | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 | traefik/traefik@40.2.0 | no-crds | lifecycle | todo | chart has hook/lifecycle behavior with no live observation yet | decide and record the lifecycle route, then observe it live |
 
-## needs-target-or-prereq-fix (429)
+## needs-target-or-prereq-fix (504)
 
 Blocked on a target prerequisite, image, or tooling — a user/target action, not a model change.
 
@@ -110,6 +117,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | aqua/trivy-operator@0.32.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | aqua/trivy-operator@0.32.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | aqua/trivy-operator@0.32.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| argo-cd/argo-cd@10.1.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| argo-cd/argo-cd@10.1.3 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| argo-cd/argo-cd@10.1.3 | no-crds | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| argo-cd/argo-cd@10.2.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| argo-cd/argo-cd@10.2.1 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| argo-cd/argo-cd@10.2.1 | no-crds | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | argo-cd/argo-cd@9.5.15 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | argo-cd/argo-cd@9.5.15 | no-crds | L | blocked | local-live blocked: webhook-cert-lifecycle: deployment/argo-cd-argocd-applicationset-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b845 | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | argo-cd/argo-cd@9.5.15 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -137,6 +150,15 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | autoscaler/vertical-pod-autoscaler@0.9.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| aws-controllers-k8s/ec2-chart@1.18.4 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| aws-controllers-k8s/ec2-chart@1.18.4 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| aws-controllers-k8s/ec2-chart@1.18.4 | eks-inference | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| aws-controllers-k8s/eks-chart@1.16.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| aws-controllers-k8s/eks-chart@1.16.3 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| aws-controllers-k8s/eks-chart@1.16.3 | eks-inference | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| aws-controllers-k8s/iam-chart@1.7.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| aws-controllers-k8s/iam-chart@1.7.3 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| aws-controllers-k8s/iam-chart@1.7.3 | eks-inference | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default + topology | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | default | L | fail | local-live fail: cloud-or-provider-prerequisite: daemonset/ebs-csi-node: not-ready (ebs-csi-controller-8d8878fb7-24jf4[ ready=true restarts=3;Error ready=false restarts=3; ready=true restarts=3;CrashLoopBackOff ready=false restarts=4; ready=tru) | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
@@ -216,6 +238,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | cloudnative-pg/cloudnative-pg@0.28.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | L | fail | local-live fail: runtime-readiness: deployment/cloudnative-pg: not-ready (cloudnative-pg-d8f4779dd-wjsfg[CrashLoopBackOff ready=false restarts=5;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | cloudnative-pg/cloudnative-pg@0.28.2 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| cloudpirates/nginx@0.16.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| cloudpirates/nginx@0.16.1 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| cloudpirates/rabbitmq@0.21.13 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| cloudpirates/rabbitmq@0.21.13 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| cloudpirates/redis@0.34.11 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| cloudpirates/redis@0.34.11 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | coredns/coredns@1.45.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | coredns/coredns@1.45.2 | controller-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | coredns/coredns@1.45.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -270,6 +298,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | external-dns/external-dns@1.21.1 | route53-irsa | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | external-secrets/external-secrets@2.5.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | external-secrets/external-secrets@2.5.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| external-secrets/external-secrets@2.7.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| external-secrets/external-secrets@2.7.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| external-secrets/external-secrets@2.7.0 | no-crds | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| external-secrets/external-secrets@2.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| external-secrets/external-secrets@2.8.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| external-secrets/external-secrets@2.8.0 | no-crds | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | fairwinds-stable/goldilocks@10.3.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | fairwinds-stable/goldilocks@10.3.0 | cluster-metrics-readonly | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | fairwinds-stable/goldilocks@10.3.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -297,6 +331,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | gitlab/gitlab-runner@0.89.0 | default | L | fail | local-live fail: runtime-readiness: deployment/gitlab-runner: not-ready (gitlab-runner-844d54c8cc-x6rtt[ ready=false restarts=1;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | gitlab/gitlab-runner@0.89.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | gitlab/gitlab-runner@0.89.0 | runner-existing-secret | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| grafana/alloy@1.11.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| grafana/alloy@1.11.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | grafana/alloy@1.8.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/alloy@1.8.2 | default | promotion | blocked | server-side promotion did not prove changed-unit catch-up and added-unit cloning | inspect the promotion receipt and resolve the recorded blocker |
 | grafana/alloy@1.8.2 | no-crds | promotion | blocked | server-side promotion did not prove changed-unit catch-up and added-unit cloning | inspect the promotion receipt and resolve the recorded blocker |
@@ -306,6 +342,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | grafana/grafana@10.5.15 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
 | grafana/loki@7.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/loki@7.0.0 | simple-scalable-minio | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| grafana/loki@7.1.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| grafana/loki@7.1.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | grafana/promtail@6.17.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | grafana/promtail@6.17.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | grafana/pyroscope@2.0.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
@@ -379,29 +417,47 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | jetstack/cert-manager-csi-driver@v0.14.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jetstack/cert-manager@v1.20.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | jetstack/cert-manager@v1.20.2 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| jetstack/cert-manager@v1.21.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| jetstack/cert-manager@v1.21.0 | crds-enabled | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| jetstack/cert-manager@v1.21.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | jetstack/trust-manager@v0.22.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | jetstack/trust-manager@v0.22.1 | default | L | fail | local-live fail: runtime-readiness: deployment/trust-manager: not-ready (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilit) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | jetstack/trust-manager@v0.22.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | jetstack/trust-manager@v0.22.1 | no-crds | L | fail | local-live fail: runtime-readiness: deployment/trust-manager: not-ready (trust-manager-6db9f66446-c44df[PodInitializing ready=false restarts=0;]) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | jetstack/trust-manager@v0.22.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| karpenter/karpenter@1.14.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| karpenter/karpenter@1.14.0 | crds-managed | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| karpenter/karpenter@1.14.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| karpenter/karpenter@1.14.0 | eks-inference | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | kedacore/keda@2.19.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kedacore/keda@2.19.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | kedacore/keda@2.19.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | kyverno/kyverno-policies@3.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kyverno/kyverno-policies@3.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| kyverno/kyverno-policies@3.8.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| kyverno/kyverno-policies@3.8.2 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | kyverno/kyverno@3.8.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | kyverno/kyverno@3.8.1 | default-admission | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | kyverno/kyverno@3.8.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | kyverno/kyverno@3.8.1 | external-crds | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | kyverno/kyverno@3.8.1 | ha-admission-reports | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | kyverno/kyverno@3.8.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| kyverno/kyverno@3.8.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| kyverno/kyverno@3.8.2 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | linkerd/linkerd-crds@1.8.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | linkerd/linkerd-crds@1.8.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | longhorn/longhorn@1.11.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | longhorn/longhorn@1.11.2 | ui-ingress | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| longhorn/longhorn@1.12.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| longhorn/longhorn@1.12.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| metallb/metallb@0.16.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| metallb/metallb@0.16.1 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | metrics-server/metrics-server@3.13.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | metrics-server/metrics-server@3.13.0 | external-tls-ca | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | metrics-server/metrics-server@3.13.0 | prod-us-east | promotion | not-applicable-derived-variant | derived ConfigHub variant creation is not the base-variant promotion lane | use the derived variant receipts and target-bound lane for this downstream variant |
+| metrics-server/metrics-server@3.13.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| metrics-server/metrics-server@3.13.1 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| metrics-server/metrics-server@3.13.1 | external-tls-ca | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | minio-operator/operator@7.1.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | minio-operator/operator@7.1.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | minio-operator/operator@7.1.1 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
@@ -427,6 +483,12 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default + review | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | storage-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
+| nvidia/nvidia-device-plugin@0.19.3 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| nvidia/nvidia-device-plugin@0.19.3 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| nvidia/nvidia-device-plugin@0.19.3 | eks-inference | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| nvidia/nvidia-device-plugin@0.19.3 | nfd-enabled | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| oauth2-proxy/oauth2-proxy@10.7.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| oauth2-proxy/oauth2-proxy@10.7.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | open-telemetry/opentelemetry-operator@0.114.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | L | blocked | local-live blocked: inspect-receipt: target fact CRDs: source variant jetstack/cert-manager@v1.20.2/crds-enabled render missing | Read the receipt and add a classifier rule only after the product route is clear. |
 | open-telemetry/opentelemetry-operator@0.114.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -448,6 +510,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | percona/pxc-operator@1.19.1 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | percona/pxc-operator@1.19.1 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/pxc-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] pxc-operator-5f59645bd-ctt85[CrashLoopBackOff ready=false restarts=4;] rollout-operator) | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | percona/pxc-operator@1.19.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| policy-reporter/policy-reporter@3.9.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| policy-reporter/policy-reporter@3.9.1 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | projectcalico/tigera-operator@v3.32.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | projectcalico/tigera-operator@v3.32.0 | controller-default-reviewed | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | projectcalico/tigera-operator@v3.32.0 | default | L | blocked | local-live blocked: lifecycle-ordering: apply: resource mapping not found for name: "default" namespace: "" from "STDIN": no matches for kind "APIServer" in version "operator.tigera.io/v1" ensure CRDs are installed first resource mapping not found | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. |
@@ -462,6 +526,14 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | prometheus-community/kube-prometheus-stack@86.1.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/kube-prometheus-stack@86.1.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/kube-prometheus-stack@86.1.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| prometheus-community/kube-prometheus-stack@87.15.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/kube-prometheus-stack@87.15.1 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| prometheus-community/kube-prometheus-stack@87.15.1 | existing-secret | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| prometheus-community/kube-prometheus-stack@87.15.1 | no-crds | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| prometheus-community/kube-prometheus-stack@87.19.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/kube-prometheus-stack@87.19.2 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| prometheus-community/kube-prometheus-stack@87.19.2 | existing-secret | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| prometheus-community/kube-prometheus-stack@87.19.2 | no-crds | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | prometheus-community/kube-state-metrics@7.4.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/kube-state-metrics@7.4.0 | cluster-metrics-readonly | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/kube-state-metrics@7.4.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -474,6 +546,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | cluster-metrics-readonly | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| prometheus-community/prometheus-blackbox-exporter@11.15.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| prometheus-community/prometheus-blackbox-exporter@11.15.1 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | prometheus-community/prometheus-node-exporter@4.55.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | prometheus-community/prometheus-node-exporter@4.55.0 | cluster-metrics-readonly | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | prometheus-community/prometheus-node-exporter@4.55.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
@@ -511,6 +585,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | stakater/reloader@2.2.12 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | stakater/reloader@2.2.12 | controller-default-reviewed | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | stakater/reloader@2.2.12 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| stakater/reloader@2.2.14 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| stakater/reloader@2.2.14 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | strimzi/strimzi-kafka-operator@1.0.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | strimzi/strimzi-kafka-operator@1.0.0 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | strimzi/strimzi-kafka-operator@1.0.0 | no-crds | L | blocked | local-live blocked: runtime-readiness: deployment/strimzi-cluster-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] strimzi-cluster-operat | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
@@ -521,6 +597,10 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | traefik/traefik@40.2.0 | external-crds | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | traefik/traefik@40.2.0 | internal-clusterip-dashboard-off | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | traefik/traefik@40.2.0 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| traefik/traefik@41.0.2 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| traefik/traefik@41.0.2 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
+| valkey/valkey@0.11.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| valkey/valkey@0.11.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | velero/velero@12.0.1 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | velero/velero@12.0.1 | aws-s3-existing-secret | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
 | velero/velero@12.0.1 | azure-blob-existing-secret | promotion | not-applicable-candidate | candidate rows are planning rows, not server-side promotion evidence | turn this candidate into a real base or derived variant before server-side promotion applies |
@@ -531,6 +611,8 @@ Blocked on a target prerequisite, image, or tooling — a user/target action, no
 | velero/velero@12.0.1 | no-crds | K | blocked | target-prerequisite: CRDs missing | Stage the chart's CRDs as target facts (or pick a CRD-rendering base), then the row can move to pass. |
 | velero/velero@12.0.1 | no-crds | L | blocked | local-live blocked: admission-or-rbac: apply: Error from server (Invalid): error when creating "STDIN": BackupStorageLocation.velero.io "default" is invalid: spec.provider: Required value Error from server (Invalid): error when creating "STDIN": | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | velero/velero@12.0.1 | no-crds | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
+| velero/velero@12.1.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
+| velero/velero@12.1.0 | default | promotion | missing-status | no server-side promotion status row exists yet for this base | generate or run the server-side variant promotion status for this base |
 | vm/victoria-logs-single@0.12.5 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |
 | vm/victoria-logs-single@0.12.5 | default | promotion | proven | server-side promotion receipt passed | keep receipt fresh when the upstream base changes |
 | vm/victoria-metrics-single@0.39.0 | (source) | promotion | not-applicable-source | source rows are upstream chart inputs, not server-side promotion evidence | choose or create an F2 base before server-side variant promotion applies |

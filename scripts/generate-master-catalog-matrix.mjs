@@ -32,6 +32,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { catalogDerivedPath, recipeRoots } from "./lib/catalog-derived-views.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "master-catalog-matrix");
@@ -267,7 +268,10 @@ function buildReport(generatedAt) {
       const version = chartAtVersion.slice(at + 1);
       const variant = outcome.base;
       const recipePath = outcome.recipe_path;
-      const recipeCatalogPath = `${recipePath}/CATALOG.md`;
+      // Immutable roots keep their catalog views in an overlay, so the raw
+      // in-root path is a broken link for them. Publish the path a reader can
+      // actually open, which is the one the generators resolve.
+      const recipeCatalogPath = relativeRepo(catalogDerivedPath(join(repoRoot, recipePath), "CATALOG.md"));
       const variantPath = `${recipePath}/variants/${variant}/variant.yaml`;
       const packageBasePath = `packages/${chartName}/${version}/bases/${variant}`;
       const variantRevisionPath = `${recipePath}/revisions/${variant}/r001/variant-revision.yaml`;
@@ -310,8 +314,13 @@ function buildReport(generatedAt) {
       const activeLive = activeRows.find((row) => row.lane === "configHub-oci-live-comparison");
       const active = chooseActiveProofRow(activeRows);
       const completion = completionActions.get(`${chartName}|${version}|${variant}`) ?? [];
-      const renderIntent = renderIntents.get(`${chartName}|${version}|${variant}`);
-      check(renderIntent, `missing Helm render-intent coverage for ${chartName}@${version}/${variant}`);
+      // An entry with no render intent used to abort this whole view, which is
+      // why entries added later could never enter it: the intents are generated
+      // FROM this matrix, so a new entry could join neither. Absence is recorded
+      // as an actionable gap instead, in the three states the catalog contract
+      // uses everywhere else. The gap is visible in render_intent_state, and the
+      // completeness of that column is checked below.
+      const renderIntent = renderIntents.get(`${chartName}|${version}|${variant}`) ?? null;
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       const nextAction = normalizeTargetRunText(ready?.next_action ?? "");
       // A chart whose source scan flags hooks but that has no disposition row
@@ -355,15 +364,19 @@ function buildReport(generatedAt) {
         lifecycle_route_evidence_version: lifecycleRouteEvidenceVersion,
         lifecycle_route_contract_path: lifecycleRoute ? "data/lifecycle-routes/summary.md" : "",
         lifecycle_route_json_path: lifecycleRoute ? "data/lifecycle-routes/routes.json" : "",
-        render_intent_path: renderIntent.intent_path,
-        render_intent_lifecycle_state: renderIntent.lifecycle_contract_state,
-        render_intent_lifecycle_reason: renderIntent.lifecycle_contract_reason,
-        render_intent_lifecycle_next_action: renderIntent.lifecycle_contract_next_action,
-        render_intent_target_state: renderIntent.target_fact_contract_state,
-        render_intent_target_reason: renderIntent.target_fact_contract_reason,
-        render_intent_target_next_action: renderIntent.target_fact_contract_next_action,
-        render_intent_target_requirement_count: renderIntent.target_requirement_count,
-        render_intent_target_action_count: renderIntent.target_fact_action_count,
+        render_intent_state: renderIntent ? "attached" : "actionable-gap",
+        render_intent_next_action: renderIntent
+          ? ""
+          : "run npm run helm-render-intents to give this base a render intent",
+        render_intent_path: renderIntent?.intent_path ?? "",
+        render_intent_lifecycle_state: renderIntent?.lifecycle_contract_state ?? "",
+        render_intent_lifecycle_reason: renderIntent?.lifecycle_contract_reason ?? "",
+        render_intent_lifecycle_next_action: renderIntent?.lifecycle_contract_next_action ?? "",
+        render_intent_target_state: renderIntent?.target_fact_contract_state ?? "",
+        render_intent_target_reason: renderIntent?.target_fact_contract_reason ?? "",
+        render_intent_target_next_action: renderIntent?.target_fact_contract_next_action ?? "",
+        render_intent_target_requirement_count: renderIntent?.target_requirement_count ?? "",
+        render_intent_target_action_count: renderIntent?.target_fact_action_count ?? "",
         ...Object.fromEntries(LANE_COLUMNS.map(([target, source]) => [target, normalizeLane(outcome[source])])),
         lane_two_cluster_kind: normalizeLane(outcome.two_cluster_kind_parity),
         core_lanes_complete: outcome.complete_core_lane_set === "yes" ? "yes" : "no",
@@ -1030,6 +1043,21 @@ function rowKindOrder(kind) {
 function summary(rows, charts, unmatchedReadiness) {
   const laneCells = rows.flatMap((row) => [...LANE_COLUMNS.map(([target]) => row[target]), row.lane_two_cluster_kind]).filter(Boolean);
   const sourceRowCount = rows.filter((row) => row.row_kind === "source").length;
+  // Every catalog entry appears here, or this view is reporting percentages
+  // against the wrong denominator. That is not hypothetical: this matrix
+  // covered 100 of 112 charts while the catalog held 139 roots, and outcome
+  // coverage reported 126 of 199 when the truth was 126 of 245. Enumerate the
+  // entries directly rather than trusting an upstream view to have kept up.
+  {
+    const entryRoots = recipeRoots().map((root) => relativeRepo(root).slice("recipes/".length));
+    const covered = new Set(rows.filter((row) => row.row_kind === "base").map((row) => `${row.chart}/${row.version}`));
+    const absent = entryRoots.filter((root) => !covered.has(root));
+    check(
+      absent.length === 0,
+      `these catalog entries have no base row in the master matrix: ${absent.join(", ")}`,
+    );
+  }
+
   const baseRowCount = rows.filter((row) => row.row_kind === "base").length;
   const candidateRowCount = rows.filter((row) => row.row_kind === "candidate").length;
   const derivedRowCount = rows.filter((row) => row.row_kind === "derived").length;

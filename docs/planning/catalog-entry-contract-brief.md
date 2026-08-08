@@ -186,6 +186,92 @@ values, and `scripts/generate-disposition-frontier.mjs:50` admits six by adding
 `fail`. One of them is wrong and the contract cannot be written until someone
 says which.
 
+## Data management, which the contract also has to settle
+
+The obligations above say what an entry owes. Four questions are about how the
+catalog holds that data, and they surfaced together while clearing the chain.
+
+### Coverage: a matrix spans the catalog or says why not
+
+The catalog's oldest surfaces are matrices, and they still carry the most
+detail: `data/master-catalog-matrix/matrix.csv` holds **81 columns over 389
+rows**, and `data/matrix-completion-audit/audit.csv` holds 657 rows.
+
+Nothing has been lost. The only matrix file ever deleted is
+`data/lane-test-matrix/summary.md`, removed deliberately in #514 when the
+published lane surfaces were rationalised, and its CSV remains.
+
+What has not happened is expansion. Measured against 112 distinct charts:
+
+| matrix | charts covered |
+|---|---|
+| `lane-test-matrix/variant-lanes.csv` | **112 of 112** |
+| `master-catalog-matrix/matrix.csv` | 100 of 112 |
+| `matrix-completion-audit/audit.csv` | 100 of 112 |
+| `live-matrix-burndown/work-items.csv` | 47 of 112 |
+
+Twelve charts are absent from the master matrix: the three
+aws-controllers-k8s charts, three cloudpirates charts, karpenter,
+nvidia-device-plugin, valkey, metallb, oauth2-proxy, and policy-reporter. The
+lane-test matrix proves full coverage is achievable, so the gap is not
+structural.
+
+The cause is shared with the render-intent gap. The master matrix derives from
+render intents rather than enumerating entries, so a root with no intent is
+invisible to it. Fixing the enumeration fixes both.
+
+**Rule.** A matrix covers every entry, or names the entries it excludes and
+why. A matrix that silently spans a subset reports a percentage against the
+wrong denominator, which is how outcome coverage came to report 126 of 199
+while the truth was 126 of 245.
+
+### Duplication: one render, one copy
+
+Nine variants declare `realizationStrategy: alias-of-default-render`. All nine
+render byte-identically to their default, duplicating **67 KB** of rendered
+objects across kube-state-metrics, prometheus-adapter, blackbox-exporter,
+argo-workflows, istio gateway, filebeat and others.
+
+Each alias buys a decision record: the render-time choices a reader should
+understand, and what remains before catalog support. Each costs a second
+revision and a second receipt set describing bytes that already exist once.
+
+That cost is not theoretical. `argo-cd/argo-workflows/1.0.14` has two copies of
+one render and two independent revisions, and when the variant was edited on
+2026-07-29 only one side moved, which is the failure still open in the chain
+today.
+
+**Rule.** A reviewed decision that changes no bytes is metadata on the base it
+reviews, not a second base. Keep the `usefulBase` record, attach it to the
+default variant, and remove the duplicate render, revision and receipts.
+
+### Derived order: declare it or assert it
+
+No lane regenerates the derived views in dependency order. `npm run generate`
+runs one generator. Nothing records that the pain reports feed chart facts,
+which feed quirk coverage, model completeness and the image-digest workdown, or
+that outcome coverage reads views its own first pass rebuilds.
+
+The practical consequence is that a maintainer regenerates, sees three lanes
+still red, and cannot tell whether that is drift or ordering. Running twice
+happens to settle it today, which is folklore rather than a contract.
+
+**Rule.** Either a lane regenerates in a declared order, or each generator
+asserts its inputs are fresh before it runs. The second is preferable, because
+it fails with the name of the input that is stale rather than requiring the
+maintainer to know the graph.
+
+### Retention: a recorded column is never dropped silently
+
+The matrices are the catalog's memory of questions asked earlier: quirk
+classes, hook phases, lane outcomes, promotion state. The retention rule that
+governs published versions applies to recorded columns too. A column may be
+superseded, and superseding it is a decision with a record. It may not simply
+stop being written.
+
+**Rule.** Removing a recorded column or row set is a declared change with a
+reason, in the same register shape used for package drift and lane roles.
+
 ## What not to do
 
 Do not enrol the 184 generated lifecycle defaults by keeping them. Deleting the
