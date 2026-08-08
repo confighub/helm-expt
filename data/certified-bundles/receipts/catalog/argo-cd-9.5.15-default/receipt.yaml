@@ -43,6 +43,22 @@ spec:
         role: "space-guide"
     objectCount: 49
     objectInventoryRef: "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 3
+      pinnedByDigest: 0
+      pinnedByTag: 3
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "ecr-public.aws.com/docker/library/redis:8.2.3-alpine"
+          pinnedBy: "tag"
+        -
+          reference: "ghcr.io/dexidp/dex:v2.45.1"
+          pinnedBy: "tag"
+        -
+          reference: "quay.io/argoproj/argocd:v3.4.2"
+          pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-cd-9-5-15-default:latest"
     manifestDigest: "sha256:db5f1c04f70374dafee19c4e88a0fa82b55e74eb8baf8feb7dc8e7c715426135"

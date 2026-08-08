@@ -237,6 +237,47 @@ function verifyRouteDocument(name, path) {
   }
 }
 
+// The image inventory is a claim about the bundle's own bytes, so it is checked
+// against them rather than trusted. Re-deriving the list here, independently of
+// the generator that wrote it, is the point: a receipt that quietly stopped
+// matching its artifact would otherwise read as certified.
+function verifyImageInventory(name, receipt) {
+  const inventory = receipt.spec.bundle.images;
+  if (!inventory) return 0;
+
+  const objectSet = receipt.spec.bundle.files.find((file) => file.role === "rendered object set");
+  if (!objectSet) refuse(name, "an image inventory without a rendered object set to have read it from");
+  const resolved = resolveFile(receipt, objectSet.path);
+  if (!resolved) refuse(name, `the rendered object set resolves nowhere: ${objectSet.path}`);
+
+  const found = new Set();
+  for (const match of readFileSync(resolved, "utf8").matchAll(/^\s*image:\s*"?([^"\n]+?)"?\s*$/gm)) {
+    const reference = match[1].trim();
+    if (reference && !reference.includes("{{")) found.add(reference);
+  }
+
+  const recorded = new Set(inventory.references.map((row) => row.reference));
+  for (const reference of found) {
+    if (!recorded.has(reference))
+      refuse(name, `the bundle deploys an image the receipt does not record: ${reference}`);
+  }
+  for (const reference of recorded) {
+    if (!found.has(reference))
+      refuse(name, `the receipt records an image the bundle does not deploy: ${reference}`);
+  }
+
+  for (const row of inventory.references) {
+    const actual = row.reference.includes("@sha256:") ? "digest" : "tag";
+    if (row.pinnedBy !== actual)
+      refuse(name, `${row.reference} is recorded as pinned by ${row.pinnedBy} and is pinned by ${actual}`);
+  }
+  const byTag = inventory.references.filter((row) => row.pinnedBy === "tag").length;
+  if (inventory.count !== inventory.references.length || inventory.pinnedByTag !== byTag)
+    refuse(name, "the image inventory's counts disagree with the references it lists");
+
+  return inventory.count;
+}
+
 function verifyRouteIntegrity(name, receipt) {
   const spec = receipt.spec;
   const shipped = spec.bundle.files
@@ -341,7 +382,8 @@ function verifyReceipt(path) {
   const citations = verifyVerdictCitation(name, receipt);
   const routing = verifyRouteIntegrity(name, receipt);
   const guides = verifySpaceGuide(name, receipt);
-  return { hashes, citations, guides, ...routing };
+  const images = verifyImageInventory(name, receipt);
+  return { hashes, citations, guides, images, ...routing };
 }
 
 function receiptPaths() {
@@ -365,6 +407,7 @@ function runVerify() {
   let citations = 0;
   let routes = 0;
   let guides = 0;
+  let images = 0;
   const owed = [];
   for (const path of paths) {
     const result = verifyReceipt(path);
@@ -372,10 +415,11 @@ function runVerify() {
     citations += result.citations;
     routes += result.routes;
     guides += result.guides;
+    images += result.images;
     owed.push(...result.owed);
   }
   console.log(
-    `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed, ${routes} route(s) carried, ${guides} space guide(s)`,
+    `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed, ${routes} route(s) carried, ${guides} space guide(s), ${images} image reference(s) cross-checked`,
   );
   // Naming these is the point. A provisional bundle that owes a companion is
   // not a broken artifact, it is work the route lane has not reached, and
@@ -399,6 +443,17 @@ function receiptCarryingARoute() {
   return null;
 }
 
+// Pick a receipt that actually records images, rather than whichever sorts
+// first: the component receipts carry none, so a fixed index would silently
+// stop testing anything.
+function receiptCarryingImages() {
+  for (const path of receiptPaths()) {
+    const receipt = readYaml(path);
+    if ((receipt.spec.bundle.images?.references ?? []).length > 0) return receipt;
+  }
+  return null;
+}
+
 function expectRefusal(label, mutate, receiptOverride) {
   const base = receiptOverride ?? readYaml(receiptPaths()[0]);
   const copy = JSON.parse(JSON.stringify(base));
@@ -409,6 +464,7 @@ function expectRefusal(label, mutate, receiptOverride) {
     verifyVerdictCitation("self-test", copy);
     verifyRouteIntegrity("self-test", copy);
     verifySpaceGuide("self-test", copy);
+    verifyImageInventory("self-test", copy);
   } catch (error) {
     if (String(error.message).startsWith("strict ingest refuses")) return;
     throw error;
@@ -505,7 +561,15 @@ function runSelfTest() {
     route.spec.executedBy.runtimes[0].proven = true;
     route.spec.executedBy.runtimes[0].provenBy = "runs/a-run-that-never-happened/receipt.yaml";
   });
-  console.log("strict ingest self-test: 15 refusal(s) fired as required");
+  const imaged = receiptCarryingImages();
+  expectRefusal("an image the receipt forgot to record", (receipt) => {
+    receipt.spec.bundle.images.references.pop();
+    receipt.spec.bundle.images.count -= 1;
+  }, imaged);
+  expectRefusal("an image recorded as digest-pinned when it is a tag", (receipt) => {
+    receipt.spec.bundle.images.references[0].pinnedBy = "digest";
+  }, imaged);
+  console.log("strict ingest self-test: 17 refusal(s) fired as required");
 }
 
 if (mode === "--verify") {

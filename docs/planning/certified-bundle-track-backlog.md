@@ -181,9 +181,17 @@ flattenable without a verdict.
 32. **Add convergence receipts to the model.** The receipt certifies rendering
     and packaging, and says so. What happened on the cluster is a separate
     record that does not exist yet. L. **Workshop-wide**.
-33. **Decide what a receipt says about an image digest.** Charts pin images and
-    the image lane tracks 195 subjects, and neither shows up in a bundle
-    receipt. M.
+33. **Decide what a receipt says about an image digest.** Decided and shipped.
+    The receipt records every image reference the rendered object set names and
+    how each is pinned, with a boundary sentence saying the receipt certifies
+    the bytes and not the images those bytes name. It does not resolve tags to
+    digests, which would need the network and would go stale the moment it
+    landed. Across the catalog's bundles, 37 references are pinned by tag and 3
+    by digest, so the honest reading is that most bundles are reproducible in
+    what they are and not in what they start. Strict ingest re-derives the list
+    from the bundle's bytes and refuses a receipt that disagrees with its own
+    artifact. Resolving digests at publish time is the obvious follow-on and is
+    a larger question, because it changes what a bundle means on a re-push.
 
 ## Theme 5: upstream drift and retention
 

@@ -38,6 +38,22 @@ spec:
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 3
+      pinnedByDigest: 0
+      pinnedByTag: 3
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "registry.k8s.io/csi-secrets-store/driver:v1.6.0"
+          pinnedBy: "tag"
+        -
+          reference: "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0"
+          pinnedBy: "tag"
+        -
+          reference: "registry.k8s.io/sig-storage/livenessprobe:v2.18.0"
+          pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default:latest"
     manifestDigest: "sha256:1760f3905d2973aa0d8f79520027ff754fcbe76f6a91ed4d5d6e91ffd53e6e8d"

@@ -33,6 +33,22 @@ spec:
         role: "space-guide"
     objectCount: 42
     objectInventoryRef: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 3
+      pinnedByDigest: 0
+      pinnedByTag: 3
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "quay.io/jetstack/cert-manager-cainjector:v1.20.2"
+          pinnedBy: "tag"
+        -
+          reference: "quay.io/jetstack/cert-manager-controller:v1.20.2"
+          pinnedBy: "tag"
+        -
+          reference: "quay.io/jetstack/cert-manager-webhook:v1.20.2"
+          pinnedBy: "tag"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-20-2-default:latest"
     manifestDigest: "sha256:3a6238aca9652b69c845268d55bebea8a6148875045805597b3741f94c564b07"

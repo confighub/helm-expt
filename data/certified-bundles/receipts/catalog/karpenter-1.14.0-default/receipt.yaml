@@ -38,6 +38,16 @@ spec:
         role: "space-guide"
     objectCount: 18
     objectInventoryRef: "recipes/karpenter/karpenter/1.14.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 1
+      pinnedByTag: 0
+      boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
+      references:
+        -
+          reference: "public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23"
+          pinnedBy: "digest"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest"
     manifestDigest: "sha256:659ce0303f879db0246a20c9659d06adea3c2fc3d8b77518b684512f235149fb"

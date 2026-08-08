@@ -61,6 +61,14 @@ That strict consumer exists. `scripts/verify-certified-bundle.mjs` runs offline 
 
 It also checks that routes and dispositions agree. A disposition pointing at a route the bundle does not ship is refused, and so is a route no disposition references, because a route nothing claims is either unused or a disposition that forgot it.
 
+## What the bundle deploys, as opposed to what it is
+
+A receipt hashes every byte of the bundle. Those bytes name container images, and naming is not pinning: `openpolicyagent/gatekeeper:v3.22.2` is whatever that tag points at today. The bundle is fixed and the containers it starts are not, which is the same failure the catalog already records as upstream drift for two charts whose version strings moved under them.
+
+`bundle.images` records every reference the rendered object set names, how each is pinned, and a `boundary` sentence stating plainly which of the two the receipt covers. Across the catalog's bundles today, 37 references are pinned by tag and 3 by digest.
+
+Strict ingest re-derives the list from the bundle's own bytes rather than trusting the receipt, and refuses an image the bundle deploys and the receipt omits, an image the receipt records and the bundle does not deploy, and a reference recorded as digest-pinned that is a tag. The scan reads `image:` keys, which covers containers and initContainers and misses an image named anywhere else; the receipt says so in `scannedFrom` rather than implying completeness.
+
 A route lists the runtimes that can express it, and each says whether it is `proven`. That word means one thing: a runtime was watched executing this route. Expressing the mechanism in principle does not count, and neither does a declaration surviving delivery. A runtime marked `proven` must name the receipt that earned it in `provenBy`, and the verifier refuses the claim if that receipt is not in the repository.
 
 No route is proven today. Eight of them once said otherwise, for Argo CD and in three cases for Flux, with nothing cited. The run that looked closest to the proof, `runs/aicr-cpu-starter-delivery`, states in its own limits that the application controller was held at zero replicas and zero sync operations were observed. The Applications were accepted with their sync waves intact, which proves the ordering survives delivery, not that anything executed it. Every flag is now `false`, and the `provenBy` requirement exists so the claim cannot come back without evidence attached.
