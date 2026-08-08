@@ -24,8 +24,9 @@ guard works is the one nobody keeps.
 
 The refusal corpus keeps it. It is a set of changes a contributor could
 plausibly propose, each declared with the verdict the lanes must return. Every
-candidate is applied to a throwaway copy of this repository and run through the
-shipped commands, unmodified. The verdicts are published at
+candidate is applied to a throwaway worktree of the commit under test and run
+through the shipped commands, unmodified. The receipt records that commit,
+because a run describes the tree it ran against. The verdicts are published at
 [data/aicr-refusal-corpus/summary.md](../../../data/aicr-refusal-corpus/summary.md)
 and recorded in
 [the receipt](../../../runs/aicr-refusal-corpus/receipt.yaml).

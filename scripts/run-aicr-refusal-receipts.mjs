@@ -55,9 +55,9 @@ if (!["--run", "--generate", "--verify", "--self-test"].includes(mode)) {
 
 if (mode === "--run") {
   const corpus = loadCorpus();
-  const results = evaluate(corpus);
+  const { results, commit } = evaluate(corpus);
   judge(corpus, results);
-  writeReceipt(corpus, results);
+  writeReceipt(corpus, results, commit);
   write(summaryPath, renderSummary(corpus, results));
   console.log(
     `ran ${results.length} candidate(s) through ${corpus.matrixLanes.length} lanes and wrote ${relativeRepo(receiptPath)}`,
@@ -201,7 +201,9 @@ function runLane(root, lane) {
 }
 
 // evaluate runs every candidate in a detached worktree of the current commit,
-// so the repository the author is working in is never mutated.
+// so the repository the author is working in is never mutated. The commit is
+// recorded, because a run describes the tree it ran against and an uncommitted
+// change is not in it.
 function evaluate(corpus) {
   const scratch = mkdtempSync(join(tmpdir(), "aicr-refusal-corpus-"));
   const root = join(scratch, "tree");
@@ -233,7 +235,7 @@ function evaluate(corpus) {
       });
     }
     reset();
-    return results;
+    return { results, commit: head };
   } finally {
     execFileSync("git", ["worktree", "remove", "--force", root], { cwd: repoRoot, stdio: "pipe" });
     rmSync(scratch, { recursive: true, force: true });
@@ -286,7 +288,7 @@ function readResults() {
   return receipt.spec?.results ?? [];
 }
 
-function writeReceipt(corpus, results) {
+function writeReceipt(corpus, results, commit) {
   const receipt = {
     apiVersion: "catalog.confighub.com/v1alpha1",
     kind: "RefusalCorpusReceipt",
@@ -296,6 +298,10 @@ function writeReceipt(corpus, results) {
         "Every candidate in the AICR refusal corpus was run through the shipped lanes in a throwaway worktree, and each returned the verdict the corpus declared, including two candidates that had to be accepted.",
       boundary: corpus.boundary,
       corpus: { path: relativeRepo(corpusPath), sha256: sha256(readFileSync(corpusPath)) },
+      tree: {
+        commit,
+        note: "Each candidate ran in a throwaway worktree of this commit, so the run describes committed bytes rather than an author's working tree.",
+      },
       lanes: corpus.matrixLanes.map((lane) => ({ id: lane.id, command: `node ${lane.command.join(" ")}` })),
       results,
     },
@@ -353,8 +359,8 @@ at \`${relativeRepo(corpusPath)}\`, and the run that
 produced these verdicts is recorded at \`${relativeRepo(receiptPath)}\`.
 
 Each candidate below is a change someone could reasonably propose to an AICR
-entry. Every one was applied to a throwaway copy of this repository and run
-through the shipped commands, unmodified. Two candidates had to be accepted,
+entry. Every one was applied to a throwaway worktree of the commit under test
+and run through the shipped commands, unmodified. Two candidates had to be accepted,
 because lanes that refused everything would look identical to lanes that
 refused the right things.
 

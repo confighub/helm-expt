@@ -13,6 +13,9 @@ spec:
   corpus:
     path: "examples/aicr/refusal-corpus/candidates.yaml"
     sha256: "2179d1431b67942d5d0a05eb93f77c018136998c51a587fcb88de0419036e526"
+  tree:
+    commit: "9745d2a2c95a7883f7dcab8857136a9a48594902"
+    note: "Each candidate ran in a throwaway worktree of this commit, so the run describes committed bytes rather than an author's working tree."
   lanes:
     -
       id: "digest-index"

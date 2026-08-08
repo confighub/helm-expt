@@ -7,8 +7,8 @@ at `examples/aicr/refusal-corpus/candidates.yaml`, and the run that
 produced these verdicts is recorded at `runs/aicr-refusal-corpus/receipt.yaml`.
 
 Each candidate below is a change someone could reasonably propose to an AICR
-entry. Every one was applied to a throwaway copy of this repository and run
-through the shipped commands, unmodified. Two candidates had to be accepted,
+entry. Every one was applied to a throwaway worktree of the commit under test
+and run through the shipped commands, unmodified. Two candidates had to be accepted,
 because lanes that refused everything would look identical to lanes that
 refused the right things.
 

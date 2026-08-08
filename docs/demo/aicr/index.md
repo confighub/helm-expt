@@ -130,9 +130,11 @@ reviewed storage class. The
 ConfigHub import of all twenty-six retained surfaces with the license boundary
 held live, then the reviewed model-cache claim rename that changed exactly the
 sixteen model shapes that mount it, left all ten serving runtimes untouched,
-and reached staging through a previewed promotion. Delivery is the rung it has
-not climbed. The rungs an entry has not climbed stay absent from its claims
-rather than implied.
+and reached staging through a previewed promotion, then config-plane delivery
+of its serving surface to a kind cluster. The rungs an entry has not climbed
+stay absent from its claims rather than implied, and the
+[platform evidence record](../../../data/aicr-platform-evidence/summary.md)
+lists those gaps per entry rather than leaving them to inference.
 
 ## What the entries refuse is recorded too
 
@@ -142,6 +144,11 @@ the shipped lanes against changes a contributor could plausibly propose and
 publishing the verdicts. Two of those candidates have to be accepted, because
 lanes that refused everything would look identical to lanes that refused the
 right things.
+
+The counts on these pages are checked the same way. Every number followed by a
+counted noun is bound to a quantity computed from committed bytes, and
+[the claim-integrity lane](./claim-integrity.md) refuses both a number that has
+drifted and a counted claim nobody declared.
 
 ## The boundary every receipt states
 
