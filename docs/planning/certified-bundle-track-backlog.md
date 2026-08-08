@@ -116,9 +116,10 @@ flattenable without a verdict.
 
 ## Theme 4: finish the bundle
 
-27. **Ship the Space guide README as the third artifact class.** The model
-    promises rendered config, routes, and the Space guide travel together. Two
-    of three ship. M. **Workshop-wide**.
+27. **Ship the Space guide README as the third artifact class.** Done. Every
+    receipt now ships exactly one guide, written from the receipt so it cannot
+    drift from what the bundle contains, and strict ingest refuses a bundle
+    without one. **Workshop-wide**.
 28. **Decide whether the catalog publishes certified bundles as bundles.** The
     catalog publishes installer packages. It does not publish certified bundles,
     so its own receipts describe committed files rather than published

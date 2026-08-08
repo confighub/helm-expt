@@ -148,6 +148,11 @@ spec:
         sha256: "8ed5081a7a42f259d380ca26fc2c0ff6e8b6792dc9854a8443430fe825a2f8c5"
         bytes: 494
         role: "KServe serving document"
+      -
+        path: "data/certified-bundles/guides/aicr/kserve-nim-inference/space-guide.md"
+        sha256: "48e9dc27f9ea5c1ad9e6670e6332d090e23613f2fd8d7ead3d514a898a604c32"
+        bytes: 868
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

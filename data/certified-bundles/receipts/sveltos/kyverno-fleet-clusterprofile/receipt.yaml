@@ -22,6 +22,11 @@ spec:
         sha256: "2385f9255fd7237f5289b057549f1056ee9b04fe48394ce52a937b2b6aedf793"
         bytes: 547
         role: "ClusterProfile"
+      -
+        path: "data/certified-bundles/guides/sveltos/kyverno-fleet-clusterprofile/space-guide.md"
+        sha256: "f8ebc9d85a5d12ef0acad6733189f0bf9eb5fcfca8143513b14ef39fbe925132"
+        bytes: 869
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

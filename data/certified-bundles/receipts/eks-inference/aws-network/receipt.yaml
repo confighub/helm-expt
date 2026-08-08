@@ -27,6 +27,11 @@ spec:
         path: "network.yaml"
         sha256: "8efc3b5f5feae2857ff727c78d97880dfa03c54c2bac7fe99cd8a014ad796a6c"
         bytes: 11606
+      -
+        path: "data/certified-bundles/guides/eks-inference/aws-network/space-guide.md"
+        sha256: "08372f93dc51f1eaea879e78b3670e008a78e582d4e30b2f954b261c5a30e2e2"
+        bytes: 908
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

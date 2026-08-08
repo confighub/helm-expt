@@ -43,6 +43,12 @@ Schema: [schemas/bundle-route.schema.json](../../schemas/bundle-route.schema.jso
 
 The first route is traefik's CRD ordering, at `data/certified-bundles/routes/catalog/traefik-traefik-41.0.2-default/crd-ordering.yaml`. Its verdict requires an ordering declaration for 25 CRDs. The route declares two stages, the definitions first with a wait for establishment and everything else second. The receipt carries it as a bundle file with the role `route: crd-ordering`, and that quirk's disposition points at the file instead of describing an intention. Ordering is declarative and idempotent, so this route is marked automatic. A route that runs a Job is not, and stays manual until observed.
 
+## The Space guide travels too
+
+A bundle carries three things: the rendered configuration, the routes that say how to apply it, and the words an operator needs beside them. Nothing operational or explanatory lives out of band.
+
+Every receipt ships exactly one space guide, written from the receipt itself, so it cannot drift from what the bundle contains. It states what produced the bundle, whether the bundle may ship as plain YAML and who decided that, what its routes owe, and the command that ingested it. A bundle whose lane requires routes and ships none says so in its own guide rather than reading as finished. Strict ingest refuses a bundle with no guide, and one with more than one, because a reader cannot tell which of two governs.
+
 ## Boundaries
 
 The receipt certifies rendering and packaging, not runtime health. Convergence receipts stay separate. A verdict lane is never overridden by hand, and a bundle without a receipt is just a tarball: strict consumers may refuse it.

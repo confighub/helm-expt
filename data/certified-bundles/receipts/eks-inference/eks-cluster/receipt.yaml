@@ -35,6 +35,11 @@ spec:
         path: "nodegroup.yaml"
         sha256: "c688de50bb8eb8d2f547f994ca6180040f07ce386b276f75d03e3d7b8807f6fe"
         bytes: 1482
+      -
+        path: "data/certified-bundles/guides/eks-inference/eks-cluster/space-guide.md"
+        sha256: "a395189caf2c8e329b049522a8647edf14ec09b46303a5db7e0626f1bb7f85fe"
+        bytes: 908
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

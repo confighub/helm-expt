@@ -119,6 +119,11 @@ spec:
         sha256: "3b64c6c3ec16ad09eaf9306e63e31b843b80180c71d6335280b3d853136fde35"
         bytes: 760
         role: "Argo CD Application"
+      -
+        path: "data/certified-bundles/guides/aicr/eks-h100-inference-nim/space-guide.md"
+        sha256: "264a1a2153cf04360bb53421ec031f8683a3712283a8539857721f24f92e7a3c"
+        bytes: 1061
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

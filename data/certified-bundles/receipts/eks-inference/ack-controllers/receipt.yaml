@@ -55,6 +55,11 @@ spec:
         sha256: "e15b3ab078dcb0e4f2260bea512dcfbf0f09c72038b63e3ec0e7fcb3a9d69c48"
         bytes: 2341
         role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/eks-inference/ack-controllers/space-guide.md"
+        sha256: "36c0f5754344db1ff4b72bacf91391f2104ae7bc87c2aad4988b8f1f4294f132"
+        bytes: 1186
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
