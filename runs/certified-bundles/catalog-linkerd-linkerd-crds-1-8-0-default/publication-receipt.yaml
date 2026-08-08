@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-linkerd-linkerd-crds-1.8.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/linkerd-crds-1.8.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:2723d56e4bdd46b9f4fb0298f164a2961907d49acdff719aaac1c63361d19f0d"
+  layerDigest: "sha256:fbfb0bdd79b66dfbf1fbed81f95330ef6a5969a3f0b191f6a16228191c0329da"
+  layerBytes: 89614
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-linkerd-linkerd-crds-1-8-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-linkerd-linkerd-crds-1-8-0-default.tar.gz"

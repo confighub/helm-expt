@@ -73,9 +73,22 @@ Each audited chart version gets one receipted answer to one question: what happe
 | grafana/promtail | 6.17.1 | default | safe-to-flatten | recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml |
 | nats/nats | 2.14.0 | default | safe-to-flatten | recipes/nats/nats/2.14.0/publication/flattening-safety-verdict.yaml |
 | minio-operator/tenant | 7.1.1 | default | do-not-flatten | recipes/minio-operator/tenant/7.1.1/publication/flattening-safety-verdict.yaml |
+| external-dns/external-dns | 1.21.1 | default | flatten-with-routes | recipes/external-dns/external-dns/1.21.1/publication/flattening-safety-verdict.yaml |
+| grafana/alloy | 1.11.0 | default | flatten-with-routes | recipes/grafana/alloy/1.11.0/publication/flattening-safety-verdict.yaml |
+| grafana/alloy | 1.8.2 | default | flatten-with-routes | recipes/grafana/alloy/1.8.2/publication/flattening-safety-verdict.yaml |
+| linkerd/linkerd-crds | 1.8.0 | default | flatten-with-routes | recipes/linkerd/linkerd-crds/1.8.0/publication/flattening-safety-verdict.yaml |
+| minio-operator/operator | 7.1.1 | default | flatten-with-routes | recipes/minio-operator/operator/7.1.1/publication/flattening-safety-verdict.yaml |
+| nats/nack | 0.34.0 | default | flatten-with-routes | recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml |
+| prometheus-community/prometheus-operator-crds | 29.0.0 | default | flatten-with-routes | recipes/prometheus-community/prometheus-operator-crds/29.0.0/publication/flattening-safety-verdict.yaml |
+| strimzi/strimzi-kafka-operator | 1.0.0 | default | flatten-with-routes | recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml |
+| argo-cd/argo-events | 2.4.21 | default | flatten-with-routes | recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml |
+| argo-cd/argo-rollouts | 2.40.9 | default | flatten-with-routes | recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml |
+| argo-cd/argocd-image-updater | 1.2.2 | default | flatten-with-routes | recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml |
+| rook-release/rook-ceph | v1.19.5 | default | flatten-with-routes | recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml |
+| policy-reporter/policy-reporter | 3.9.1 | default | safe-to-flatten | recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml |
 
 A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.
 
-This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 54 charts here now have that axis answered from source, across 69 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
+This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 66 charts here now have that axis answered from source, across 82 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.
 
 Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with `npm run flattening-safety`. Verify with `npm run flattening-safety:verify`.

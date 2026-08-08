@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-strimzi-strimzi-kafka-operator-1.0.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/strimzi-kafka-operator-1.0.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
+  layerDigest: "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9"
+  layerBytes: 87064
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-strimzi-strimzi-kafka-operator-1-0-0-default.tar.gz"

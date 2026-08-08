@@ -1,0 +1,93 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "argo-cd-argo-events-2.4.21"
+spec:
+  chart:
+    repository: "argo-cd"
+    name: "argo-events"
+    version: "2.4.21"
+    packageSHA256: "b325ca4569aa43b6bef3bb0065bb997727124017b307491a731e47cf527b69c7"
+  witnessRef: "data/flattening-safety/witnesses/argo-cd-argo-events-2.4.21.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "3 occurrence(s) in the packaged chart"
+      disposition: "prune protection ships beside the bundle"
+      evidence:
+        - "templates/crds/eventbus-crd.yml:8"
+        - "templates/crds/eventsources-crd.yml:8"
+        - "templates/crds/sensors-crd.yml:8"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "templates/_helpers.tpl:136"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "6 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle"
+      evidence:
+        - "3 crds-directory file(s), 3 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "Two constructs need companions and both have one. The 3 definitions need ordering, and the 3 object(s) carrying the keep promise need prune protection, or a reconciler that deletes anything absent from its desired state takes them with the release."
+    routes:
+      - "CRD ordering declaration for the 3 definition(s) this base renders"
+      - "prune protection for the 3 object(s) carrying the keep promise"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/argo-cd-argo-events-2.4.21.yaml"
+      - "recipes/argo-cd/argo-events/2.4.21/source-lock.yaml"

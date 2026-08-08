@@ -1,0 +1,129 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-nats-nack-0.34.0-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://nats-io.github.io/k8s/helm/charts/"
+        name: "nack"
+        version: "0.34.0"
+        packageSHA256: "e4a713e6e76f3df1e63a4db8d4c47d41ee35c927cd56e75ff8b2296fd85dfc2c"
+    evidence:
+      - "recipes/nats/nack/0.34.0/source-lock.yaml"
+      - "recipes/nats/nack/0.34.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/nats/nack/0.34.0/bases/default/upstream.yaml"
+        sha256: "3578a1e913da259083e95b1bca9492a5e1aac8ae270e2871eb05c5f0c5f6c3c9"
+        bytes: 60286
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml"
+        sha256: "3795a2df169d3eb7e1a6611e53dcd1510ae0d3caea39c0d62f9915b597d658e0"
+        bytes: 2052
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/nack-0.34.0-default/space-guide.md"
+        sha256: "147108c120604a8db341642d404e96e37c223d9ca03dfea0dd50361ca2f976a7"
+        bytes: 1227
+        role: "space-guide"
+    objectCount: 10
+    objectInventoryRef: "recipes/nats/nack/0.34.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "natsio/jetstream-controller:0.23.0"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nats-nack-0-34-0-default:latest"
+    manifestDigest: "sha256:0a73104045abf1a9553f209caa7cdd24d941e2e7b1a078b1afdb1b1d29c227dd"
+    layerDigest: "sha256:75c868aae86fa79dcba64674e9092a78c3e212f16471faabf5d670225e0a774e"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "6 CustomResourceDefinition(s) in the committed default render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/nats-nack-0.34.0-default/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/nats/nack/0.34.0/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 6 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/nats/nack/0.34.0/source-lock.yaml"
+      - "recipes/nats/nack/0.34.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/nats/nack/0.34.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/nats/nack/0.34.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-nats-nack-0-34-0-default/publication-receipt.yaml"

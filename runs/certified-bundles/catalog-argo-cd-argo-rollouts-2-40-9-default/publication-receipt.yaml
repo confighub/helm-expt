@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-rollouts-2.40.9-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/argo-rollouts-2.40.9-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:1b50004af5ed92d1147a731b19b7f64a3cef57eb9c9cc6c0163920237d7da6a3"
+  layerDigest: "sha256:7446c395f22e315d6410e78f398efebf27c75ceaf9b3c858c413701138534fa8"
+  layerBytes: 52226
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/prune-protection.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-rollouts-2-40-9-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-argo-cd-argo-rollouts-2-40-9-default.tar.gz"

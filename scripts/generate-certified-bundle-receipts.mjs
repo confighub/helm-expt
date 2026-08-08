@@ -1104,6 +1104,25 @@ const CATALOG_BUNDLES = [
   { repo: "stakater", chart: "reloader", version: "2.2.12", base: "default" },
   { repo: "stakater", chart: "reloader", version: "2.2.14", base: "default" },
   { repo: "vm", chart: "victoria-metrics-single", version: "0.39.0", base: "default" },
+  { repo: "external-dns", chart: "external-dns", version: "1.21.1", base: "default" },
+  { repo: "grafana", chart: "alloy", version: "1.11.0", base: "default" },
+  { repo: "grafana", chart: "alloy", version: "1.8.2", base: "default" },
+  { repo: "linkerd", chart: "linkerd-crds", version: "1.8.0", base: "default" },
+  { repo: "minio-operator", chart: "operator", version: "7.1.1", base: "default" },
+  { repo: "nats", chart: "nack", version: "0.34.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus-operator-crds", version: "29.0.0", base: "default" },
+  { repo: "strimzi", chart: "strimzi-kafka-operator", version: "1.0.0", base: "default" },
+  { repo: "argo-cd", chart: "argo-events", version: "2.4.21", base: "default" },
+  { repo: "argo-cd", chart: "argo-rollouts", version: "2.40.9", base: "default" },
+  { repo: "argo-cd", chart: "argocd-image-updater", version: "1.2.2", base: "default" },
+  { repo: "rook-release", chart: "rook-ceph", version: "v1.19.5", base: "default" },
+  {
+    repo: "policy-reporter",
+    chart: "policy-reporter",
+    version: "3.9.1",
+    base: "default",
+    secretsCarryConfiguration: "the rendered Secret holds config.yaml, the reporter's own target configuration, with empty host fields in the audited base",
+  },
 ];
 
 // A note a reader can check rather than a sentence that fills the field. It

@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-minio-operator-operator-7.1.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/operator-7.1.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15"
+  layerDigest: "sha256:cf75e500a478bbea7758ac5156e62f985b572f1026d722086efab0bb31726e95"
+  layerBytes: 17528
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-minio-operator-operator-7-1-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-minio-operator-operator-7-1-1-default.tar.gz"
