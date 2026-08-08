@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-08 (commit `b08f60f0c`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `29baf294c`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 273 |
-| Fresh (no linked source newer than the doc) | 46 |
-| **Review-due** | 61 |
+| Fresh (no linked source newer than the doc) | 45 |
+| **Review-due** | 62 |
 | No linked evidence sources (cannot auto-trigger) | 166 |
 
 ## Review queue
@@ -88,12 +88,13 @@ most recently changed triggers.
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 3 | `tests/README.md (2026-07-28)`<br>`tests/doctrine.md (2026-07-26)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 2 | `data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
+| [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 2 | `data/flattening-safety/summary.md (2026-08-08)` |
 | [docs/README.md](../../docs/README.md) | docs | 2026-08-08 | 1 | `CATALOG.md (2026-08-08)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
+| [docs/reference/certified-bundle-spec.md](../../docs/reference/certified-bundle-spec.md) | reference | 2026-08-08 | 1 | `data/certified-bundles/summary.md (2026-08-08)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
 | [docs/user/config-catalog-demonstrations.md](../../docs/user/config-catalog-demonstrations.md) | user | 2026-08-08 | 1 | `data/installer-oci-packages/summary.md (2026-08-08)` |
-| [docs/user/day2-upgrade-story.md](../../docs/user/day2-upgrade-story.md) | user | 2026-08-07 | 1 | `data/flattening-safety/summary.md (2026-08-07)` |
 | [docs/user/helm-presets-and-values.md](../../docs/user/helm-presets-and-values.md) | user | 2026-08-02 | 1 | `data/confighub-example-guides/summary.md (2026-08-02)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-07-29 | 1 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-matrix-burndown/summary.md (2026-07-29)` |
 
