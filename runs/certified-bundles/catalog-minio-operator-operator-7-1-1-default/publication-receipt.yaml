@@ -9,6 +9,7 @@ spec:
   manifestDigest: "sha256:f27f9bb4949e8fa147eb88bb4839e82e72430b7992a9a007ab4b4cd274bf4a15"
   layerDigest: "sha256:cf75e500a478bbea7758ac5156e62f985b572f1026d722086efab0bb31726e95"
   layerBytes: 17528
+  observedAt: "2026-08-08T19:42:38.555Z"
   reproducible: true
   stagedFiles:
     - "README.md"

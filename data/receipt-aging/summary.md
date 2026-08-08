@@ -19,7 +19,7 @@ oldest receipt is from 2026-05-26, so the evidence spans 74 days.
 
 | Age | Receipts |
 | --- | --- |
-| 0 to 30 days | 45 |
+| 0 to 30 days | 119 |
 | 31 to 90 days | 1054 |
 | 91 to 180 days | 0 |
 | over 180 days | 0 |
@@ -33,6 +33,7 @@ receipt, and the full table is in the CSV for the rest.
 | Family | Dated receipts | Median age | Oldest | Undated |
 | --- | --- | --- | --- | --- |
 | `next80-local-kind` | 176 | 58 | 58 | none |
+| `certified-bundles` | 74 | 0 | 0 | none |
 | `latest-top20-refresh` | 30 | 74 | 74 | 10 |
 | `derived-variant-execution` | 10 | 65 | 65 | none |
 | `alertmanager-ha-confighub-proof` | 4 | 74 | 74 | none |
@@ -43,7 +44,6 @@ receipt, and the full table is in the CSV for the rest.
 | `argo-workflows-default-confighub-proof` | 4 | 74 | 74 | none |
 | `argo-workflows-minimal-crds-confighub-proof` | 4 | 74 | 74 | none |
 | `aws-ebs-csi-driver-default-confighub-proof` | 4 | 74 | 74 | none |
-| `cert-manager-confighub-proof` | 4 | 74 | 74 | none |
 
 ## The oldest evidence, one family at a time
 
@@ -66,13 +66,12 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-557 of 1656 committed receipts record no date in any form.
+527 of 1700 committed receipts record no date in any form.
 Their evidence cannot be aged at all, which is a stronger problem than being
 old, and it is invisible until someone counts.
 
 | Family | Receipts with no date |
 | --- | --- |
-| `certified-bundles` | 30 |
 | `derived-variant-target-bound` | 3 |
 | `installer-oci` | 139 |
 | `latest-top20-refresh` | 10 |
