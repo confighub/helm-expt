@@ -286,6 +286,7 @@ ConfigHub primitives.
 | --- | --- |
 | [artifact-verifier-spec.md](./reference/artifact-verifier-spec.md) | What the artifact verifier must check. |
 | [certified-bundle-spec.md](./reference/certified-bundle-spec.md) | The shared bundle-plus-receipt spec every producer emits against: bundle shape, receipt fields, quirk dispositions, and the flattening-safety verdict lanes. |
+| [deciding-a-flattening-lane.md](./reference/deciding-a-flattening-lane.md) | How a lane is decided from a witness: six rules, each drawn from a draft the chart source proved wrong, plus the regeneration order and what a decided lane does not mean. |
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Seven-stage lifecycle, render parity boundary, hook routing, and support claims. |
 | [proof-kit-migration.md](./reference/proof-kit-migration.md) | How repeated chart proof scripts are migrated to the shared proof-kit generator/verifier. |
 | [customization-algorithm.md](./reference/customization-algorithm.md) | Reference algorithm for values files, overlays, wrapper charts, and post-render variants. |
