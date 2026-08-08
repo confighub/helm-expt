@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>redis switch-effect map · Config Workshop</title>
-  <meta name="description" content="redis switch-effect map: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/pilot-switch-map/redis.html">
-  <meta property="og:title" content="redis switch-effect map · Config Workshop">
-  <meta property="og:description" content="redis switch-effect map: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Plan: turning the weekly catalog refresh on · Config Workshop</title>
+  <meta name="description" content="Plan: turning the weekly catalog refresh on: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-refresh-plan.html">
+  <meta property="og:title" content="Plan: turning the weekly catalog refresh on · Config Workshop">
+  <meta property="og:description" content="Plan: turning the weekly catalog refresh on: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/pilot-switch-map/redis.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-refresh-plan.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -438,33 +438,40 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>redis switch-effect map</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/pilot-switch-map/redis.md">View source markdown</a>.</p>
+    <h1>Plan: turning the weekly catalog refresh on</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/catalog-refresh-plan.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-05T10:24:06.244Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>Classified by rendering, not by hand. Every switch below was auto-extracted from the chart's own values (<code>oci://registry-1.docker.io/bitnamicharts/redis@25.5.3</code>), flipped, and the rendered object set compared against the baseline (14 objects). A switch that changes the object set is <b>structural</b> and belongs in a base variant. A switch that only changes field values is a <b>data edit</b> on a derived variant. The verdict is the diff, not an opinion.</p>
-<h2 id="structural-switches-change-the-object-set">Structural switches (change the object set)</h2>
-<table><thead><tr><th>Switch</th><th>Objects</th><th>Adds</th><th>Removes</th></tr></thead><tbody><tr><td><code>architecture=standalone</code></td><td>10</td><td>-</td><td><code>policy/v1/PodDisruptionBudget/redis-replicas</code>&lt;br&gt;<code>v1/ServiceAccount/redis-replica</code>&lt;br&gt;<code>v1/Service/redis-replicas</code>&lt;br&gt;<code>apps/v1/StatefulSet/redis-replicas</code></td></tr>
-<tr><td><code>auth.enabled=false</code></td><td>13</td><td>-</td><td><code>v1/Secret/redis</code></td></tr>
-<tr><td><code>sentinel.enabled=true</code></td><td>10</td><td><code>policy/v1/PodDisruptionBudget/redis-node</code>&lt;br&gt;<code>v1/ServiceAccount/redis</code>&lt;br&gt;<code>v1/Service/redis</code>&lt;br&gt;<code>apps/v1/StatefulSet/redis-node</code></td><td><code>policy/v1/PodDisruptionBudget/redis-master</code>&lt;br&gt;<code>policy/v1/PodDisruptionBudget/redis-replicas</code>&lt;br&gt;<code>v1/ServiceAccount/redis-master</code>&lt;br&gt;<code>v1/ServiceAccount/redis-replica</code>&lt;br&gt;<code>v1/Service/redis-master</code>&lt;br&gt;<code>v1/Service/redis-replicas</code>&lt;br&gt;<code>apps/v1/StatefulSet/redis-master</code>&lt;br&gt;<code>apps/v1/StatefulSet/redis-replicas</code></td></tr>
-<tr><td><code>serviceBindings.enabled=true</code></td><td>15</td><td><code>v1/Secret/redis-svcbind</code></td><td>-</td></tr>
-<tr><td><code>networkPolicy.enabled=false</code></td><td>13</td><td>-</td><td><code>networking.k8s.io/v1/NetworkPolicy/redis</code></td></tr>
-<tr><td><code>metrics.enabled=true</code></td><td>15</td><td><code>v1/Service/redis-metrics</code></td><td>-</td></tr></tbody></table>
-<h2 id="data-edit-switches-values-only-no-object-set-change">Data-edit switches (values only, no object-set change)</h2>
-<table><thead><tr><th>Switch</th><th>Objects</th></tr></thead><tbody><tr><td><code>diagnosticMode.enabled=true</code></td><td>14 (unchanged set)</td></tr>
-<tr><td><code>podSecurityPolicy.enabled=true</code></td><td>14 (unchanged set)</td></tr>
-<tr><td><code>volumePermissions.enabled=true</code></td><td>14 (unchanged set)</td></tr>
-<tr><td><code>sysctl.enabled=true</code></td><td>14 (unchanged set)</td></tr>
-<tr><td><code>useExternalDNS.enabled=true</code></td><td>14 (unchanged set)</td></tr></tbody></table>
-<h2 id="switches-that-failed-to-render-when-flipped">Switches that failed to render when flipped</h2>
-<table><thead><tr><th>Switch</th><th>Error</th></tr></thead><tbody><tr><td><code>tls.enabled=true</code></td><td>Command failed: helm template redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace redis --values &lt;tmp&gt; --kube-version 1.30.0 Pulled: registry-1.docker.io/bitnamicharts/re</td></tr></tbody></table>
-<p>A flip that breaks the render is itself a finding: the chart requires more than the toggle to enable that feature.</p>
-<h2 id="what-this-means">What this means</h2>
-<p>Of 12 switches tested, 6 are structural, 5 are data edits, and 1 refuse to render without more inputs. Naming the structural axes as base variants and leaving the rest as data edits avoids both the values-file sprawl and the combinatorial explosion. Switches were tested independently; a generated variant renders the actual combination and proves parity, so interaction effects are caught at generation, not assumed here.</p>
+<p>EXPERIMENTAL</p>
+<p>The weekly refresh lane exists and is switched off. This page records why it is off, what has to be true before the schedule comes back, and the rules the lane must obey when it does run. The maintainer decides when, not the lane.</p>
+<h2 id="why-it-is-off">Why it is off</h2>
+<p>The lane was merged in #1341 with its derived-view fan-out incomplete. Its refresh step rewrote <code>data/latest-top20-refresh/review.csv</code> without rewriting three committed views that copy <code>latest_version</code> straight out of it, and two of those three have a <code>--verify</code> lane in the main verify chain. The pull request it opened every Monday would therefore have carried a change that disagreed with itself, and merging it would have turned <code>npm run verify</code> red on main.</p>
+<p>That fan-out is now fixed. The schedule stays off anyway, because the two preconditions below are not met yet, and because a lane that opens pull requests unattended should start from a catalog that is already current rather than one it has to chase.</p>
+<h2 id="the-retention-rule-which-is-not-negotiable">The retention rule, which is not negotiable</h2>
+<p><b>Published versions are never deleted.</b> A refresh adds information; it never removes it. When upstream publishes a newer version the catalog gains a row, and the older row keeps its recipe, its package, its receipts, and its page. A user who pinned an older version keeps everything that made that version usable.</p>
+<p>This rule already has machinery behind it, and the refresh lane must stay inside it:</p>
+<ul><li>The Kubara release acceptance pins every file the release recorded in <code>data/kubara-catalog-1.1-full-coverage/release-scope-manifest.json</code> and fails when one is removed or altered. Later lanes may add files; nothing may take them away.</li><li>The consumer contract in <code>catalog-consumer-contract-brief.md</code> codifies never-delete-published-versions as an external promise, not only an internal habit.</li><li>The refresh lane's own path guard refuses a diff that reaches outside its surface, so it cannot quietly touch a retained root.</li></ul>
+<p>A correction is the one case where committed bytes change, and it is a repair rather than a deletion: when something recorded is wrong, it is fixed in place and the reason is written down. The version stays.</p>
+<h2 id="preconditions-before-the-schedule-returns">Preconditions before the schedule returns</h2>
+<h3 id="1-the-catalog-is-current">1. The catalog is current</h3>
+<p>The committed refresh view records <b>7 charts with an update available</b> out of 20 tracked. A local detection run during #1341 found <b>14</b>. Turning on a lane whose first act is to open a pull request about work nobody has done yet buries the signal in noise.</p>
+<p>The catalog should be brought current by the deliberate path first: refresh the detection, write the target-scoped replacement decisions, regenerate the candidate proofs on a known Helm build, and promote additively. Then a weekly lane has a small, meaningful diff to report rather than a backlog.</p>
+<h3 id="2-every-npm-lane-has-a-role-and-none-is-hidden">2. Every npm lane has a role, and none is hidden</h3>
+<p><code>package.json</code> holds <b>840 scripts</b>. The main <code>verify</code> chain runs <b>299</b> of them. <b>72 lanes are named <code>*:verify</code> or <code>verify:*</code> and are not in that chain</b>, which means they look like gates and are not.</p>
+<p>That gap is not theoretical. Three of today's nine audit findings were stale generated data, and two of the three sat in exactly this gap: <code>app-readiness</code> and <code>preview-readiness</code> are outside the chain, so nothing told anyone their reports had drifted from a catalog that grew from 229 to 241 rendered subjects.</p>
+<p>Before CI starts enforcing anything on a schedule, each of those 72 lanes needs a recorded answer to three questions: what it proves, why it is outside the chain, and what it costs to run. <code>tests/npm-script-catalog.csv</code> already carries <code>category</code>, <code>mode</code>, <code>writes_files</code>, <code>needs_external_state</code>, <code>why</code>, and <code>how</code> columns per script, so the answer has a home; it needs filling in and then holding. A lane that turns out to be cheap and offline should join the chain. A lane that is expensive or needs a cluster should say so where a reader can see it, and its staleness should be somebody's declared job.</p>
+<h2 id="rules-the-lane-obeys-when-it-does-run">Rules the lane obeys when it does run</h2>
+<p>These are already implemented and should stay true:</p>
+<ul><li>It never pushes to <code>main</code>. It pushes a <code>bot/catalog-refresh-&lt;date&gt;</code> branch and opens a pull request against main, and a person merges.</li><li>It runs no live lane. No cluster, no ConfigHub server, no registry write, no promotion into supported root paths.</li><li>It never runs the full generator fan-out, which once produced a 2,356-file diff. A path guard fails the run when the diff reaches outside the refresh surface, and the guard runs before the commit.</li><li>It does not regenerate candidate proofs. That step re-renders charts and rebuilds installer packages, so its bytes depend on the exact Helm and cub builds. It checks the runner's Helm build against the pin the receipts record and reports the answer instead.</li><li>It verifies the refreshed views before opening anything.</li></ul>
+<h2 id="known-gaps-still-open-in-the-lane">Known gaps still open in the lane</h2>
+<p>Recorded here so switching the schedule on is a decision made with open eyes. None of them is a reason to keep the lane broken; all of them are reasons the cron stays off until someone has decided about each.</p>
+<ul><li><b>Duplicate weekly pull requests.</b> The branch name is date-derived and detection compares against main every run, so an unmerged pull request means a near-identical one opens the following week. Deriving the branch name from the moved content, or looking for an open bot pull request first, fixes it.</li><li><b>The gate does not run on the bot's own pull requests.</b> Pull requests opened with <code>GITHUB_TOKEN</code> do not trigger <code>pull_request</code> workflows, so the site and text gates added in the same change never see them.</li><li><b>A same-day retry cannot push</b>, for the same date-derived branch reason.</li><li><b>The path guard parses <code>git status --porcelain</code> with <code>awk '{print $2}'</code></b>, which takes the wrong field for a rename and breaks on a path containing a space.</li></ul>
+<h2 id="how-to-turn-it-on">How to turn it on</h2>
+<ol><li>Bring the catalog current and let the detection view settle.</li><li>Fill in the role of every npm lane, and move the cheap offline ones into the verify chain.</li><li>Decide about each known gap above.</li><li>Uncomment the <code>schedule</code> block, remove the acknowledgement input and the refusal step, and watch the first run.</li></ol>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/pilot-switch-map/redis.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/catalog-refresh-plan.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

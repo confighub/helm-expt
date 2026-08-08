@@ -86,7 +86,7 @@
     {
       "switch": "tls.enabled=true",
       "kind": "render-error",
-      "error": "Command failed: helm template redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace redis --values <tmp> --kube-version 1.30.0\nPulled: registry-1.docker.io/bitnamicharts/re",
+      "error": "Command failed: helm template redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace redis --values <tmp> --kube-version 1.30.0 Pulled: registry-1.docker.io/bitnamicharts/re",
       "added": [],
       "removed": []
     },

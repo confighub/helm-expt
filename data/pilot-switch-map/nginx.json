@@ -73,7 +73,7 @@
     {
       "switch": "cloneStaticSiteFromGit.enabled=true",
       "kind": "render-error",
-      "error": "Command failed: helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values <tmp> --kube-version 1.30.0\nPulled: registry-1.docker.io/bitnamicharts/ng",
+      "error": "Command failed: helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values <tmp> --kube-version 1.30.0 Pulled: registry-1.docker.io/bitnamicharts/ng",
       "added": [],
       "removed": []
     },
