@@ -351,6 +351,27 @@ live. The v0.18.0 entry's record uses the precise forms and exists partly to
 prove them on real bytes. The checker also reads every record in its directory
 now instead of a list, so a new entry's record cannot be added and never read.
 
+Tasks 43 and 44 are done, and the answer to 43 is a number nobody had. The
+AICR track proved a provenance chain end to end, so the obvious question was
+how far it could reach.
+[The survey](../../data/upstream-provenance/summary.md) asks once per retained
+chart whether its publisher ships a Helm provenance file: 33 of 139 do, which
+is 24% of the catalog and the ceiling on any provenance claim by that
+mechanism. Twenty-one more are bitnami charts whose index now points at OCI
+rather than a tarball, so the convention does not reach them at all, which ties
+the provenance story to the repricing migration already recorded elsewhere.
+
+Building it was a lesson in not shipping a plausible number. The first run said
+3%, because the index scan was reading each entry's sources URL rather than its
+tarball URL, and a survey that answers the right question about the wrong file
+looks exactly like a survey. Two more defects followed: relative index URLs and
+a 403 counted as evidence of absence. The published number is the fourth one.
+
+Task 44 is the policy half and it is doctrine now. A provenance claim may not
+degrade silently, so each run compares its answers against the previous
+snapshot and records every chart whose verdict moved. An unanswered question is
+recorded as unknown, never as unsigned.
+
 Theme 1 is now closed. Task 3 is decided: the CPU starter tracks the one
 retained version it derives from and does not follow a newer one, because every
 proof it holds was produced from those bytes. The decision is in its derivation
