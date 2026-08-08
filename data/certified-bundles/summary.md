@@ -15,6 +15,10 @@ One receipt shape covers a bundle from every producer. These four reference rece
 | eks-inference | gpu-runtime | helm-chart | `ghcr.io/confighub/configs/eks-inference/gpu-runtime:latest` | safe-to-flatten | certified |
 | eks-inference | inference-workloads | literal-yaml | `ghcr.io/confighub/configs/eks-inference/inference-workloads:latest` | born-flattened | certified |
 | sveltos-example | kyverno-fleet-clusterprofile | confighub-unit | `oci://127.0.0.1:32807/sveltos-kyverno-staging:pilot` | born-flattened | certified |
+| aicr | aicr-eks-h100-training-kubeflow | aicr-entry | not published | flatten-with-routes | certified |
+| aicr | aicr-eks-h100-inference-nim | aicr-entry | not published | flatten-with-routes | certified |
+| aicr | aicr-cpu-starter | aicr-entry | not published | flatten-with-routes | certified |
+| aicr | aicr-kserve-nim-inference | retained-upstream-tree | not published | born-flattened | certified |
 
 The OCI column states where the bundle is published, and says so plainly when it is not. A bundle without a published reference is still certified: the receipt describes committed bytes, and publication adds a digest to the same receipt shape rather than changing what it claims.
 

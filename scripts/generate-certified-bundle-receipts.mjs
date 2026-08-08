@@ -46,6 +46,31 @@ const SOURCES = {
   witness: "data/certified-bundles/witnesses/eks-inference-gpu-runtime/witness.yaml",
 };
 
+// The AICR entries are the first producer whose flattened artifact consists of
+// pointers to charts that a delivery runtime renders later. Each entry ships a
+// set of Argo CD Application objects: literal YAML that carries an ordering
+// declaration, wrapping components that are never flattened here at all.
+const AICR_ENTRIES = [
+  {
+    id: "eks-h100-training-kubeflow",
+    name: "aicr-eks-h100-training-kubeflow",
+    sourceReceipt: "generation-receipt.yaml",
+    kind: "rendered-config",
+  },
+  {
+    id: "eks-h100-inference-nim",
+    name: "aicr-eks-h100-inference-nim",
+    sourceReceipt: "generation-receipt.yaml",
+    kind: "rendered-config",
+  },
+  {
+    id: "cpu-starter",
+    name: "aicr-cpu-starter",
+    sourceReceipt: "derivation-receipt.yaml",
+    kind: "rendered-config",
+  },
+];
+
 // The canonical home of the Kubara collateral. helm-expt keeps a byte-faithful
 // mirror under examples/kubara; when that mirror is stripped, re-point the
 // kubara sources above at this repository and path.
@@ -932,6 +957,274 @@ function buildSveltosReceipt() {
   };
 }
 
+// An AICR entry's bundle is the rendered Argo CD Application set. Two facts
+// decide its verdict, and they answer different questions.
+//
+// The wrapper was produced by rendering AICR's argocd-helm chart, so it is
+// flattened output, and it carries sync-wave ordering plus automated sync
+// policies that a delivery runtime executes. Ordering declarations are exactly
+// what the flatten-with-routes lane covers, so that is the lane, and the route
+// is emitted beside the receipt.
+//
+// The components are a separate question and deliberately out of scope. Each
+// Application points at a chart that Argo CD renders at sync time, so no chart
+// is flattened by this bundle and no chart's flattening verdict applies to it.
+// Those verdicts stay the chart catalog's business.
+function buildAicrReceipt(entry) {
+  const entryRel = `examples/aicr/${entry.id}`;
+  const renderedRel = `${entryRel}/argocd-rendered/templates`;
+  const renderedDir = repoPath(renderedRel);
+  check(existsSync(renderedDir), `${renderedRel} is missing`);
+  const files = listFiles(renderedDir)
+    .filter((path) => path.endsWith(".yaml"))
+    .sort()
+    .map((path) => ({
+      ...fileEntry(relative(renderedDir, path), path),
+      role: "Argo CD Application",
+    }));
+  check(files.length > 0, `${renderedRel} contains no Applications`);
+
+  const indexRel = `${entryRel}/digest-index/platform-index.json`;
+  const index = JSON.parse(readFileSync(repoPath(indexRel), "utf8"));
+  const platformDigest = index.spec?.platformDigest ?? "";
+  check(/^sha256:[0-9a-f]{64}$/.test(platformDigest), `${indexRel} records no platform digest`);
+
+  const sourceReceiptRel = `${entryRel}/${entry.sourceReceipt}`;
+  const sourceText = readFileSync(repoPath(sourceReceiptRel), "utf8");
+  const version = grab(sourceText, /version:\s*"?(v[0-9.]+)"?/, `${entry.id} source version`);
+
+  // The referenced charts, read from the rendered Applications. They are named
+  // so the out-of-scope statement is checkable rather than asserted.
+  const combined = files.map((row) => readFileSync(join(renderedDir, row.path), "utf8")).join("\n---\n");
+  const charts = [...combined.matchAll(/^\s+chart:\s*"?([A-Za-z0-9._-]+)"?\s*$/gm)].map((row) => row[1]);
+  const uniqueCharts = [...new Set(charts)].sort();
+
+  // The ordering the bundle carries, read from the sync-waves themselves.
+  const stages = files
+    .map((row) => {
+      const text = readFileSync(join(renderedDir, row.path), "utf8");
+      const name = grab(text, /^\s*name:\s*"?([A-Za-z0-9._-]+)"?\s*$/m, `${row.path} name`);
+      const wave = text.match(/argocd\.argoproj\.io\/sync-wave:\s*"?(-?\d+)"?/);
+      return { name, wave: wave ? Number(wave[1]) : null };
+    })
+    .filter((row) => row.wave !== null)
+    .sort((left, right) => left.wave - right.wave)
+    .map((row) => ({
+      order: row.wave + 1,
+      name: row.name,
+      selector: { kinds: ["Application"], names: [row.name] },
+    }));
+
+  const routeRel = `data/certified-bundles/routes/aicr/${entry.name}/sync-wave-ordering.yaml`;
+  emittedRoutes.push({
+    path: repoPath(routeRel),
+    contents: `${toYaml({
+      apiVersion: "evidence.confighub.com/v1alpha1",
+      kind: "BundleRoute",
+      metadata: { name: `${entry.name}-sync-wave-ordering` },
+      spec: {
+        quirkClass: "crd-ordering",
+        routeKind: "apply-ordering",
+        discharges:
+          "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on.",
+        declaration: { stages },
+        executedBy: "Argo CD, through the sync-wave annotation each Application carries",
+        boundedness:
+          "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly.",
+        provenance: {
+          emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+          generatedFrom: [renderedRel, `${entryRel}/recipe.yaml`, "data/aicr-ordering-parity/summary.md"],
+        },
+      },
+    })}\n`,
+  });
+
+  const scan = scanRendered(combined);
+  const dispositions = scanDispositions(scan, {
+    renderScope: "the rendered Application set",
+    templateEvidence: "the Applications are literal; the charts they reference are not rendered here",
+  }).map((row) =>
+    row.finding === "not-evaluated"
+      ? {
+          ...row,
+          detail:
+            "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here",
+          disposition: "carried by the referenced chart's own catalog verdict",
+        }
+      : row,
+  );
+
+  // Task 22: the lane is decided by a verdict artifact, not asserted in the
+  // receipt. The verdict is what the strict ingest gate makes us produce, and
+  // producing it is what forces the platform-shape question to be answered.
+  const verdictRel = `data/aicr-flattening-verdicts/${entry.name}/flattening-safety-verdict.yaml`;
+  emittedRoutes.push({
+    path: repoPath(verdictRel),
+    contents: `${toYaml({
+      apiVersion: "evidence.confighub.com/v1alpha1",
+      kind: "FlatteningSafetyVerdict",
+      metadata: { name: entry.name },
+      spec: {
+        subject: {
+          kind: "aicr-platform-shape",
+          entry: entryRel,
+          platformDigest,
+          upstreamVersion: version,
+          note:
+            "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart.",
+        },
+        dispositions,
+        componentScope: {
+          mode: "render-late-by-argo",
+          referencedCharts: uniqueCharts,
+          statement:
+            "Each Application points at a chart that Argo CD renders at sync time. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart.",
+        },
+        verdict: {
+          lane: "flatten-with-routes",
+          rationale:
+            "The Application set is flattened output that carries an ordering declaration the delivery runtime executes. Ordering declarations are what this lane covers. Nothing else in the set needs a companion, because the constructs a flattening audit looks for live in the charts, and the charts are not flattened here.",
+          routes: ["sync-wave ordering across the platform components"],
+        },
+        boundedness: [
+          "This verdict decides the wrapper, not the components. A component chart can be do-not-flatten and still ship inside this shape safely, because this shape does not flatten it.",
+          "The ordering is upstream's. AICR computes deploymentOrder from the dependency graph, and the ordering-parity lane checks these sync-waves preserve it.",
+          "The Applications carry automated sync policies. That is a delivery decision, not a flattening hazard, and the delivery proof holds the controller at zero rather than inheriting it silently.",
+          "No workload ran. This verdict is config-plane only, like every AICR receipt.",
+        ],
+        provenance: {
+          emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+          generatedFrom: [renderedRel, indexRel, "data/aicr-ordering-parity/summary.md"],
+        },
+      },
+    })}\n`,
+  });
+
+
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "CertifiedBundleReceipt",
+    metadata: { name: entry.name },
+    spec: {
+      producer: {
+        name: "aicr",
+        repository: "https://github.com/confighub/helm-expt",
+      },
+      source: {
+        kind: "aicr-entry",
+        canonicalHome: {
+          repository: "https://github.com/confighub/helm-expt",
+          path: entryRel,
+        },
+        evidence: [sourceReceiptRel, indexRel, "data/aicr-ordering-parity/summary.md"],
+      },
+      bundle: {
+        contentsKind: entry.kind,
+        platformDigest,
+        files,
+      },
+      ingest: {
+        granularity: "per-file",
+        spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}",
+        externalSourceAnnotation: "confighub.com/external-source",
+      },
+      dispositions,
+      verdict: {
+        lane: "flatten-with-routes",
+        status: "certified",
+        decidedBy: `the platform-shape flattening verdict at ${verdictRel}`,
+        notes: [
+          `The bundle is the rendered Argo CD Application set for AICR ${version}. It is flattened output, and it ships with one route: the sync-wave ordering, emitted beside this receipt.`,
+          `The ${uniqueCharts.length} charts these Applications reference are not flattened by this bundle. Argo CD renders them at sync time, so their flattening verdicts belong to the chart catalog and are deliberately out of scope here.`,
+          "No workload claim attaches. Every AICR receipt proves config-plane mechanics only.",
+        ].join(" "),
+        componentDelivery: {
+          mode: "render-late-by-argo",
+          referencedCharts: uniqueCharts,
+          outOfScopeReason:
+            "a chart this bundle points at is never flattened by it, so this bundle cannot carry that chart's flattening verdict",
+        },
+      },
+      provenance: {
+        emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+        generatedFrom: [renderedRel, indexRel, sourceReceiptRel],
+      },
+    },
+  };
+}
+
+// The KServe entry retains literal serving documents rather than a rendered
+// chart, so it takes the born-flattened lane the Sveltos profile takes.
+function buildAicrKserveReceipt() {
+  const entryRel = "examples/aicr/kserve-nim-inference";
+  const roots = ["upstream/kserve/runtimes", "upstream/kserve/nim-models"];
+  const files = roots.flatMap((rel) =>
+    listFiles(repoPath(`${entryRel}/${rel}`))
+      .filter((path) => path.endsWith(".yaml"))
+      .sort()
+      .map((path) => ({
+        ...fileEntry(`${rel}/${relative(repoPath(`${entryRel}/${rel}`), path)}`, path),
+        role: "KServe serving document",
+      })),
+  );
+  check(files.length > 0, "the KServe entry retains no serving documents");
+  const indexRel = `${entryRel}/digest-index/platform-index.json`;
+  const index = JSON.parse(readFileSync(repoPath(indexRel), "utf8"));
+  const combined = files
+    .map((row) => readFileSync(repoPath(`${entryRel}/${row.path}`), "utf8"))
+    .join("\n---\n");
+  const scan = scanRendered(combined);
+  const dispositions = scanDispositions(scan, {
+    renderScope: "the retained serving documents",
+    templateEvidence: "nothing templates; the source is literal YAML retained from upstream",
+  }).map((row) =>
+    row.finding === "not-evaluated"
+      ? {
+          ...row,
+          finding: "absent",
+          detail: "literal YAML; no template-time construct exists",
+          disposition: "none required",
+        }
+      : row,
+  );
+  return {
+    apiVersion: "evidence.confighub.com/v1alpha1",
+    kind: "CertifiedBundleReceipt",
+    metadata: { name: "aicr-kserve-nim-inference" },
+    spec: {
+      producer: { name: "aicr", repository: "https://github.com/confighub/helm-expt" },
+      source: {
+        kind: "retained-upstream-tree",
+        canonicalHome: { repository: "https://github.com/NVIDIA/nim-deploy", path: "kserve" },
+        evidence: [`${entryRel}/retention-receipt.yaml`, indexRel],
+      },
+      bundle: {
+        contentsKind: "literal-config",
+        platformDigest: index.spec?.platformDigest ?? "",
+        files,
+      },
+      ingest: {
+        granularity: "per-file",
+        spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}",
+        externalSourceAnnotation: "confighub.com/external-source",
+      },
+      dispositions,
+      verdict: {
+        lane: "born-flattened",
+        status: "certified",
+        decidedBy: "the source is literal YAML retained from upstream; nothing renders, so nothing is lost at render time",
+        notes:
+          "The gated container images these documents reference are recorded as references. Nothing here mirrors an NGC artifact, and no NIM container ran to certify this bundle.",
+      },
+      provenance: {
+        emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
+        // The entry root is listed so each retained document resolves from it.
+        generatedFrom: [entryRel, `${entryRel}/retention-receipt.yaml`, indexRel],
+      },
+    },
+  };
+}
+
 function toCsv(rows) {
   const header =
     "producer,name,source_kind,contents_kind,chart,chart_version,bundle_digest,file_count,verdict_lane,verdict_status,oci_reference,oci_published,receipt";
@@ -1027,6 +1320,11 @@ function buildAll() {
       value: buildEksInferenceComponentReceipt(component),
     })),
     { rel: "data/certified-bundles/receipts/sveltos/kyverno-fleet-clusterprofile/receipt.yaml", value: buildSveltosReceipt() },
+    ...AICR_ENTRIES.map((entry) => ({
+      rel: `data/certified-bundles/receipts/aicr/${entry.id}/receipt.yaml`,
+      value: buildAicrReceipt(entry),
+    })),
+    { rel: "data/certified-bundles/receipts/aicr/kserve-nim-inference/receipt.yaml", value: buildAicrKserveReceipt() },
   ];
   for (const receipt of receipts) {
     const classes = receipt.value.spec.dispositions.map((row) => row.class);

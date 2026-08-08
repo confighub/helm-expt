@@ -62,3 +62,44 @@ The receipt certifies rendering and packaging, not runtime health; convergence r
 ## First increment
 
 Write the bundle and receipt spec as a schema plus one reference implementation, then re-emit one existing artifact from each producer against it: one catalog chart (traefik), one Kubara component, one eks-inference component, one Sveltos profile. Four receipts proving one spec fits all four producers is the entire point demonstrated.
+
+## What the AICR producer added, 2026-08-08
+
+AICR joined as the fifth producer, and it turned out to be a shape the three
+lanes did not previously describe. Recording it here because the answer
+generalizes beyond AICR.
+
+**A platform shape's bundle is pointers, not payload.** Each AICR entry ships
+a set of rendered Argo CD Application objects. Those objects are flattened
+output, produced once by rendering AICR's bundle chart, and they are literal
+from then on. But each one points at a chart that Argo CD renders at sync
+time. So the bundle contains no flattened chart at all.
+
+That splits the verdict question in two, and both halves have to be answered
+separately.
+
+- **The wrapper** is flattened output carrying an ordering declaration that the
+  delivery runtime executes. Ordering declarations are what `flatten-with-routes`
+  covers, so that is the lane, and the route ships beside the receipt.
+- **The components** are not flattened by this bundle, so this bundle cannot
+  carry their verdicts. A component chart may be `do-not-flatten` and still
+  ship safely inside a platform shape, because the shape defers rendering to
+  the runtime rather than flattening it away. Those verdicts remain the chart
+  catalog's, read per chart.
+
+The practical rule is that a verdict decides the artifact it describes, and a
+platform shape describes a wrapper. Reading a shape's verdict as though it
+covered its components would be the exact overreach the audit lane exists to
+prevent.
+
+**The ordering is upstream's, which is what makes the route honest.** AICR
+computes `deploymentOrder` from the component dependency graph, and the
+ordering-parity lane checks that the sync-waves preserve it. The route
+declaration is therefore a restatement of an upstream fact rather than an
+ordering this project invented, and the route says so in its boundedness.
+
+**The strict ingest gate did its job.** The first attempt asserted the lane in
+the receipt and was refused, because a certified lane must cite the verdict
+that decided it. That refusal is what forced the platform-shape question to be
+answered in an artifact rather than in prose.
+

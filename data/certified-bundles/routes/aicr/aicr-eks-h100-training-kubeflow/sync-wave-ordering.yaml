@@ -1,0 +1,146 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-eks-h100-training-kubeflow-sync-wave-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "aws-ebs-csi-driver"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "aws-ebs-csi-driver"
+      -
+        order: 2
+        name: "aws-efa"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "aws-efa"
+      -
+        order: 3
+        name: "cert-manager"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "cert-manager"
+      -
+        order: 4
+        name: "nfd"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nfd"
+      -
+        order: 5
+        name: "nodewright-operator"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nodewright-operator"
+      -
+        order: 6
+        name: "nodewright-customizations"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nodewright-customizations"
+      -
+        order: 7
+        name: "prometheus-operator-crds"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-operator-crds"
+      -
+        order: 8
+        name: "kube-prometheus-stack"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kube-prometheus-stack"
+      -
+        order: 9
+        name: "gpu-operator"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "gpu-operator"
+      -
+        order: 10
+        name: "k8s-ephemeral-storage-metrics"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "k8s-ephemeral-storage-metrics"
+      -
+        order: 11
+        name: "kai-scheduler"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kai-scheduler"
+      -
+        order: 12
+        name: "kubeflow-trainer"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kubeflow-trainer"
+      -
+        order: 13
+        name: "kubeflow-trainer-post"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kubeflow-trainer-post"
+      -
+        order: 14
+        name: "nvidia-dra-driver-gpu"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nvidia-dra-driver-gpu"
+      -
+        order: 15
+        name: "nvsentinel"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nvsentinel"
+      -
+        order: 16
+        name: "prometheus-adapter"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-adapter"
+  executedBy: "Argo CD, through the sync-wave annotation each Application carries"
+  boundedness: "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/eks-h100-training-kubeflow/argocd-rendered/templates"
+      - "examples/aicr/eks-h100-training-kubeflow/recipe.yaml"
+      - "data/aicr-ordering-parity/summary.md"

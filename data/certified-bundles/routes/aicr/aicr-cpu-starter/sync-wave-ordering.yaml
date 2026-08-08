@@ -1,0 +1,74 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-cpu-starter-sync-wave-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on."
+  declaration:
+    stages:
+      -
+        order: 3
+        name: "cert-manager"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "cert-manager"
+      -
+        order: 4
+        name: "nfd"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nfd"
+      -
+        order: 7
+        name: "prometheus-operator-crds"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-operator-crds"
+      -
+        order: 8
+        name: "kube-prometheus-stack"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kube-prometheus-stack"
+      -
+        order: 10
+        name: "k8s-ephemeral-storage-metrics"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "k8s-ephemeral-storage-metrics"
+      -
+        order: 11
+        name: "kai-scheduler"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kai-scheduler"
+      -
+        order: 16
+        name: "prometheus-adapter"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-adapter"
+  executedBy: "Argo CD, through the sync-wave annotation each Application carries"
+  boundedness: "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/cpu-starter/argocd-rendered/templates"
+      - "examples/aicr/cpu-starter/recipe.yaml"
+      - "data/aicr-ordering-parity/summary.md"
