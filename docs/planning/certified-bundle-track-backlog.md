@@ -140,9 +140,12 @@ flattenable without a verdict.
 
 ## Theme 5: upstream drift and retention
 
-34. **Detect byte drift on locked versions in the weekly job.** It detects
-    version movement today. The two Fairwinds charts drifted without moving
-    version, and only a manual sweep found them. M. **Workshop-wide**.
+34. **Detect byte drift on locked versions in the weekly job.** Done. The
+    weekly job now asks every locked package whether upstream still serves the
+    bytes the catalog recorded, and stops when one drifted with no decision in
+    the drift lane. The first sweep only caught the two Fairwinds charts
+    because no witness existed yet; a re-run would have compared two local
+    files and reported nothing. **Workshop-wide**.
 35. **Re-witness on a cadence rather than on demand.** A witness is a claim
     about bytes at a moment. Nothing re-checks it. S.
 36. **Decide the retention rule for republished bytes.** Two charts are

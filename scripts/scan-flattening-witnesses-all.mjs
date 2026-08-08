@@ -37,6 +37,14 @@ const run = promisify(execFile);
 const args = process.argv.slice(2);
 const limit = args.includes("--limit") ? Number(args[args.indexOf("--limit") + 1]) : Infinity;
 const only = args.includes("--only") ? args[args.indexOf("--only") + 1] : null;
+// Recheck asks upstream whether the bytes it serves still match what the
+// catalog locked. The normal sweep cannot answer that: it decides an entry is
+// current by comparing the committed witness to the lock, and both of those are
+// local, so a re-run would never fetch anything and would report no drift no
+// matter what upstream did. Recheck bypasses both that shortcut and the
+// download cache, and writes no witness, because its job is to report rather
+// than to record.
+const recheck = args.includes("--recheck");
 
 // One timestamp for the whole sweep: a witness records when the package was
 // observed, and a per-chart clock would add churn without adding meaning.
@@ -90,7 +98,8 @@ function alreadyCurrent(entry) {
 
 async function fetchTarball(entry) {
   const cached = join(CACHE, `${entry.repoName}-${entry.chart}-${entry.version}.tgz`);
-  if (existsSync(cached)) return cached;
+  if (existsSync(cached) && !recheck) return cached;
+  if (recheck) rmSync(cached, { force: true });
   const dest = join(CACHE, `pull-${entry.repoName}-${entry.chart}-${entry.version}`);
   rmSync(dest, { recursive: true, force: true });
   mkdirSync(dest, { recursive: true });
@@ -127,7 +136,8 @@ async function fetchTarball(entry) {
 
 async function scanOne(entry) {
   if (!entry.sha) return { ...entry, status: "no-hash", detail: "source lock records no package hash" };
-  if (alreadyCurrent(entry)) return { ...entry, status: "current", detail: "witness already matches the locked hash" };
+  if (!recheck && alreadyCurrent(entry))
+    return { ...entry, status: "current", detail: "witness already matches the locked hash" };
 
   let tarball;
   try {
@@ -145,6 +155,8 @@ async function scanOne(entry) {
       detail: `upstream now publishes ${actual.slice(0, 12)} where the lock records ${entry.sha.slice(0, 12)}`,
     };
   }
+
+  if (recheck) return { ...entry, status: "unchanged", detail: "upstream still serves the locked bytes" };
 
   const extract = join(CACHE, `x-${entry.repoName}-${entry.chart}-${entry.version}`);
   rmSync(extract, { recursive: true, force: true });
@@ -259,6 +271,43 @@ const rows = await pool(entries, async (entry) => {
   console.log(`${result.status.padEnd(14)} ${result.recipe}${result.detail ? ` — ${result.detail}` : ""}`);
   return result;
 }, CONCURRENCY);
+
+if (recheck) {
+  const drifted = rows.filter((row) => row.status === "hash-mismatch");
+  const unreachable = rows.filter((row) => row.status === "unavailable");
+  // Drift already decided is not news. A decision is recorded per entry in the
+  // drift lane, so only an entry missing from it should stop a run.
+  const driftLane = join(repoRoot, "data", "upstream-drift", "drift.csv");
+  const decided = existsSync(driftLane)
+    ? new Set(
+        readFileSync(driftLane, "utf8")
+          .trim()
+          .split("\n")
+          .slice(1)
+          .map((line) => line.split(",")[0]),
+      )
+    : new Set();
+  const undecided = drifted.filter((row) => !decided.has(row.recipe));
+
+  console.log("");
+  console.log(
+    `recheck: ${rows.length} locked package(s) asked, ${rows.filter((r) => r.status === "unchanged").length} unchanged, ${drifted.length} drifted, ${unreachable.length} unreachable`,
+  );
+  for (const row of drifted)
+    console.log(`  drifted    ${row.recipe} — ${row.detail}${decided.has(row.recipe) ? " (decision recorded)" : ""}`);
+  for (const row of unreachable) console.log(`  unreachable ${row.recipe} — ${row.detail}`);
+  if (undecided.length > 0) {
+    console.error("");
+    console.error(
+      `recheck: ${undecided.length} chart(s) drifted with no decision recorded in data/upstream-drift/drift.csv:`,
+    );
+    for (const row of undecided) console.error(`  ${row.recipe}`);
+    console.error("A version string that names different bytes than the catalog locked is a decision,");
+    console.error("not a refresh. Record it as retained-exact or relock it deliberately.");
+    process.exit(1);
+  }
+  process.exit(0);
+}
 
 write(join(repoRoot, "data", "flattening-safety", "witness-coverage.csv"), report(rows));
 write(join(repoRoot, "data", "flattening-safety", "witness-coverage.md"), summary(rows));

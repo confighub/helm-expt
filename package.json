@@ -227,6 +227,7 @@
     "flattening-safety": "node scripts/generate-flattening-safety-verdicts.mjs --generate",
     "flattening-safety:verify": "node scripts/generate-flattening-safety-verdicts.mjs --verify",
     "flattening-witnesses": "node scripts/scan-flattening-witnesses-all.mjs",
+    "flattening-witnesses:recheck": "node scripts/scan-flattening-witnesses-all.mjs --recheck",
     "flattening-evidence": "node scripts/generate-flattening-evidence.mjs --generate",
     "flattening-evidence:verify": "node scripts/generate-flattening-evidence.mjs --verify",
     "upstream-drift": "node scripts/generate-upstream-drift.mjs --generate",

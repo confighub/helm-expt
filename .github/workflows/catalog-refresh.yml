@@ -119,6 +119,17 @@ jobs:
           done < <(node scripts/print-chart-repositories.mjs)
           helm repo update >/dev/null
 
+      - name: Ask upstream whether the locked bytes still match
+        run: |
+          # Version movement is not the only way upstream changes under a
+          # catalog. A publisher can reuse a version string for different bytes,
+          # which no version comparison can see, and which the first sweep only
+          # caught because no witness existed yet. This asks every locked
+          # package directly. Drift with a decision recorded in the drift lane
+          # passes; drift without one stops the run, because a version string
+          # naming different bytes is a decision rather than a refresh.
+          npm run flattening-witnesses:recheck
+
       - name: Ask upstream what the latest versions are
         run: npm run top20:latest-refresh
 
