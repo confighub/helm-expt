@@ -5,6 +5,19 @@ UNOFFICIAL/EXPERIMENTAL. This entry belongs to
 platform spine without accelerators, for anyone who wants to exercise the
 catalog's config mechanics without a GPU, a cloud account, or an NGC key.
 
+## What upstream does and does not offer here
+
+AICR has no accelerator-free recipe. Its kind overlays exist, but they target
+GPU passthrough and assume host NVIDIA drivers, and asking the pinned binary
+for a recipe with no accelerator at all still returns the GPU operator, the
+DRA driver, and the fleet health component, because the GPU stack lives in the
+base overlay. This entry therefore duplicates nothing upstream. It is equally
+true that AICR would never emit this shape, so the starter is this catalog's
+own derivation rather than an AICR-supported configuration, and it should be
+read that way. The
+[composition-model reference](../../reference/aicr-composition-model.md)
+records the check behind both statements.
+
 ## Provenance by derivation, not authorship
 
 The starter invents nothing. Every one of its seven Argo CD Applications is a

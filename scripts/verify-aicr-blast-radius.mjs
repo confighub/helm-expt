@@ -37,9 +37,12 @@ import {
   write,
 } from "./lib/proof-common.mjs";
 
+// The records live outside the entry directories on purpose. A compiler owns
+// its entry directory and regenerates it wholesale, so a hand-authored file
+// kept inside one would be deleted on the next generate.
 const entryRecords = [
-  join(repoRoot, "examples", "aicr", "cpu-starter", "control-points.yaml"),
-  join(repoRoot, "examples", "aicr", "kserve-nim-inference", "control-points.yaml"),
+  join(repoRoot, "examples", "aicr", "control-points", "cpu-starter.yaml"),
+  join(repoRoot, "examples", "aicr", "control-points", "kserve-nim-inference.yaml"),
 ];
 const summaryPath = join(repoRoot, "data", "aicr-blast-radius", "summary.md");
 

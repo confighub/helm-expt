@@ -22,8 +22,8 @@ taxonomy follows that split.
 | Entry class | Status | Source |
 | --- | --- | --- |
 | Training | Exists: [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | NVIDIA AICR v0.14.0, retained exactly |
-| Inference / serving | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0 |
-| CPU starter | Exists as derived configuration: [the platform spine without accelerators](./cpu-starter.md) | Derived from the training entry by recorded selection rules; needs no GPU, cloud account, or NGC key |
+| Inference / serving | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0. AICR also has its own native NIM recipe, which this entry does not retain. |
+| CPU starter | Exists as derived configuration: [the platform spine without accelerators](./cpu-starter.md) | Derived from the training entry by recorded selection rules, with no upstream equivalent; needs no GPU, cloud account, or NGC key |
 
 All three entries exist today: the training entry with its proven mechanics,
 the inference entry as retained configuration, and the CPU starter as a
