@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-bitnami-zookeeper-13.8.7-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/zookeeper-13.8.7-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-zookeeper-13-8-7-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+  layerDigest: "sha256:8b102c3623c56584dc49a4804b96c672de7e152b591c0802c1f4e3bcc71c623b"
+  layerBytes: 3052
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-zookeeper-13-8-7-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-bitnami-zookeeper-13-8-7-default.tar.gz"

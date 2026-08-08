@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-bitnami-elasticsearch-22.1.6-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/elasticsearch-22.1.6-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:d241c2e048d1ada5980125e27a608c45847cbac63117f38609a09e1322819648"
+  layerDigest: "sha256:f5950aa0b9c3369b6275dd82b80f41a2590e4336963ae240f0bff91be2c730a5"
+  layerBytes: 3528
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-elasticsearch-22-1-6-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-bitnami-elasticsearch-22-1-6-default.tar.gz"

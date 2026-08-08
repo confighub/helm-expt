@@ -13219,7 +13219,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13236,7 +13236,7 @@
       "crd_documents": "15",
       "gated_subcharts": "0",
       "scanned_files": "63",
-      "decided_lanes": ""
+      "decided_lanes": "default:do-not-flatten"
     },
     {
       "repository": "bitnami",
@@ -13253,7 +13253,7 @@
       "crd_documents": "0",
       "gated_subcharts": "1",
       "scanned_files": "108",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13270,7 +13270,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13406,7 +13406,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "89",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13423,7 +13423,7 @@
       "crd_documents": "0",
       "gated_subcharts": "1",
       "scanned_files": "90",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13542,7 +13542,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "44",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "bitnami",
@@ -13559,7 +13559,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "41",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "cloudnative-pg",

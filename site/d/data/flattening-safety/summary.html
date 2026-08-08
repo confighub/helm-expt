@@ -526,9 +526,17 @@
 <tr><td>argo-cd/argo-rollouts</td><td>2.40.9</td><td>default</td><td>flatten-with-routes</td><td>recipes/argo-cd/argo-rollouts/2.40.9/publication/flattening-safety-verdict.yaml</td></tr>
 <tr><td>argo-cd/argocd-image-updater</td><td>1.2.2</td><td>default</td><td>flatten-with-routes</td><td>recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml</td></tr>
 <tr><td>rook-release/rook-ceph</td><td>v1.19.5</td><td>default</td><td>flatten-with-routes</td><td>recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml</td></tr>
-<tr><td>policy-reporter/policy-reporter</td><td>3.9.1</td><td>default</td><td>safe-to-flatten</td><td>recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml</td></tr></tbody></table>
+<tr><td>policy-reporter/policy-reporter</td><td>3.9.1</td><td>default</td><td>safe-to-flatten</td><td>recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/apache</td><td>11.4.29</td><td>default</td><td>safe-to-flatten</td><td>recipes/bitnami/apache/11.4.29/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/elasticsearch</td><td>22.1.6</td><td>default</td><td>safe-to-flatten</td><td>recipes/bitnami/elasticsearch/22.1.6/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/memcached</td><td>8.5.5</td><td>default</td><td>safe-to-flatten</td><td>recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/opensearch</td><td>2.0.10</td><td>default</td><td>safe-to-flatten</td><td>recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/phpmyadmin</td><td>20.0.0</td><td>default</td><td>safe-to-flatten</td><td>recipes/bitnami/phpmyadmin/20.0.0/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/spark</td><td>10.0.3</td><td>default</td><td>safe-to-flatten</td><td>recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/zookeeper</td><td>13.8.7</td><td>default</td><td>safe-to-flatten</td><td>recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml</td></tr>
+<tr><td>bitnami/contour</td><td>21.1.4</td><td>default</td><td>do-not-flatten</td><td>recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml</td></tr></tbody></table>
 <p>A lane holds for the audited base named in the verdict. The variantScope block records how other values move the finding set; a different base deserves its own verdict, which is why certified bundles key on chart version and recipe variant together.</p>
-<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 66 charts here now have that axis answered from source, across 82 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.</p>
+<p>This lane scans helm.sh/resource-policy at template level, which the catalog's quirk coverage recorded as a missing axis (data/quirk-coverage/coverage.csv). The 74 charts here now have that axis answered from source, across 90 chart-and-base verdicts; the catalog-wide rendered-object scan remains open.</p>
 <p>Witnesses are recorded once per pinned package by scripts/scan-flattening-witness.mjs, which needs the chart tarball and so runs outside the verify chain. Every witness hash is checked against the recipe source-lock here. Regenerate with <code>npm run flattening-safety</code>. Verify with <code>npm run flattening-safety:verify</code>.</p>
     </article>
   </main>

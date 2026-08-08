@@ -1,0 +1,108 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "bitnami-contour-21.1.4"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "contour"
+    version: "21.1.4"
+    packageSHA256: "dbb32d59417cb5800a337509521cce5ab2d37dac6e72e451190ced31b27986f8"
+  witnessRef: "data/flattening-safety/witnesses/bitnami-contour-21.1.4.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present"
+      detail: "templates/certgen/job.yaml runs at pre-install and pre-upgrade to mint the TLS material Contour and Envoy use to talk to each other, and no recorded observation exists to route it"
+      disposition: "the catalog's observed lifecycle routes cover other charts; nothing here has been watched, so no companion can be named"
+      evidence:
+        - "templates/certgen/job.yaml:13"
+        - "templates/certgen/rbac.yaml:15"
+        - "templates/certgen/rbac.yaml:37"
+        - "templates/certgen/serviceaccount.yaml:17"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "present-gated"
+      detail: "the remaining credential and certificate hits are in the default-backend TLS templates, off in the audited base"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "5 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:170"
+        - "charts/common/templates/_capabilities.tpl:171"
+        - "charts/common/templates/_compatibility.tpl:14"
+    -
+      class: "generated-secrets"
+      finding: "present-gated"
+      detail: "the remaining credential and certificate hits are in the default-backend TLS templates, off in the audited base"
+      disposition: "no route needed for the audited base"
+      evidence:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/default-backend/tls-secrets.yaml:29"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "17 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "2 crds-directory file(s), 15 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "certificates supplied from outside the render"
+      effect: "removes the certgen hook from the install path; that base trends flatten-with-routes with an ordering declaration for the definitions"
+  verdict:
+    lane: "do-not-flatten"
+    rationale: "A pre-install hook mints the certificates Contour and Envoy present to each other, and a flattened bundle carries neither the hook nor the material it would have produced. A lifecycle route could discharge that, but naming one without a recorded run would be inventing it, so the lane refuses rather than promises. The installer package is this chart's certified route."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/bitnami-contour-21.1.4.yaml"
+      - "recipes/bitnami/contour/21.1.4/source-lock.yaml"
