@@ -47,6 +47,8 @@ Every batch so far has produced errors that survived drafting and died on contac
 
 `scripts/scan-flattening-witnesses-all.mjs` keeps its downloads in a cache, so the tarball is usually already on disk.
 
+Cross-check the render too, not just the chart. The witness looks for *generated* credentials, so a Secret whose data is written straight from values is invisible to it. The minio tenant chart renders `MINIO_ROOT_PASSWORD` as a literal and its witness reports no generated secrets at all. `npm run verdict-render-parity:verify` now refuses any verdict calling a class absent that its own render contains, across hooks, keep policy, CRDs, webhooks and Secrets carrying data.
+
 ## Rule six: a lane that needs a companion must be able to get one
 
 `flatten-with-routes` names artifacts that have to exist. Before choosing it, check that the class has a route kind that can discharge it: hooks take `lifecycle-job`, keep policy takes `prune-protection`, CRDs take `apply-ordering`, credentials take `external-secret-reference`.
