@@ -2018,6 +2018,253 @@ const CHARTS = [
       },
     ],
   },
+  {
+    repo: "bitnami",
+    chart: "apache",
+    version: "11.4.29",
+    recipe: "recipes/bitnami/apache/11.4.29",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "the chart manages no credential; its generated-secret hits are TLS material in templates/tls-secrets.yaml, behind ingress TLS, off in the audited base",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the chart manages no credential; its generated-secret hits are TLS material in templates/tls-secrets.yaml, behind ingress TLS, off in the audited base",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "No credential, no definitions, no lifecycle construct. The certificate material this chart can generate sits behind ingress TLS, which the audited base leaves off, and the render carries no Secret at all.",
+    variantScope: [
+      {
+        values: "authentication or TLS enabled",
+        effect:
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "elasticsearch",
+    version: "22.1.6",
+    recipe: "recipes/bitnami/elasticsearch/22.1.6",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "the only helm-hooks hit is a values.yaml key at line 2236, not a template, so no hook object exists; the credential helper is packaged in the vendored library and this chart never calls it",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the only helm-hooks hit is a values.yaml key at line 2236, not a template, so no hook object exists; the credential helper is packaged in the vendored library and this chart never calls it",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The scan's hook finding is a values key rather than a template, and the credential helper it packages is never called from its own templates. The render confirms it: no Secret, no definitions, no hook.",
+    variantScope: [
+      {
+        values: "authentication or TLS enabled",
+        effect:
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "memcached",
+    version: "8.5.5",
+    recipe: "recipes/bitnami/memcached/8.5.5",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "templates/secrets.yaml calls the shared password helper, and auth.enabled is false in the audited base, so no Secret renders at all",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "templates/secrets.yaml calls the shared password helper, and auth.enabled is false in the audited base, so no Secret renders at all",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "This is where the bitnami databases and the bitnami caches part company. memcached does call the credential helper, and its auth is off by default, so the audited base renders no Secret. The lane follows what the base renders rather than what the chart could render.",
+    variantScope: [
+      {
+        values: "authentication or TLS enabled",
+        effect:
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "opensearch",
+    version: "2.0.10",
+    recipe: "recipes/bitnami/opensearch/2.0.10",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "the credential and certificate hits are in the dashboards and ingress TLS templates, off in the audited base, and the keep annotation rides templates/snapshots/pvc.yaml behind snapshots",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the credential and certificate hits are in the dashboards and ingress TLS templates, off in the audited base, and the keep annotation rides templates/snapshots/pvc.yaml behind snapshots",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Every construct the scan found is behind a value the audited base leaves off, and the render agrees: no Secret, no keep-annotated object, no definition.",
+    variantScope: [
+      {
+        values: "authentication or TLS enabled",
+        effect:
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "phpmyadmin",
+    version: "20.0.0",
+    recipe: "recipes/bitnami/phpmyadmin/20.0.0",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "the credential helper is packaged in the vendored library and this chart never calls it from its own templates",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the credential helper is packaged in the vendored library and this chart never calls it from its own templates",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart packages the shared credential helper and never calls it. Its render carries no Secret, no definitions and no lifecycle construct.",
+    variantScope: [
+      {
+        values: "authentication or TLS enabled",
+        effect:
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "spark",
+    version: "10.0.3",
+    recipe: "recipes/bitnami/spark/10.0.3",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "templates/secret.yaml renders behind security.passwordsSecretName being unset, and the Secret it produces in the audited base carries no data",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "templates/secret.yaml renders behind security.passwordsSecretName being unset, and the Secret it produces in the audited base carries no data",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The audited base renders one Secret and it is empty. Nothing is frozen into the bytes, which is the distinction between a placeholder and a credential.",
+    variantScope: [
+      {
+        values: "authentication or TLS enabled",
+        effect:
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "zookeeper",
+    version: "13.8.7",
+    recipe: "recipes/bitnami/zookeeper/13.8.7",
+    auditedBase: "default",
+    overrides: {
+      lookup: {
+        finding: "present-gated",
+        detail: "templates/secrets.yaml calls the shared password helper, and auth.client.enabled is false in the audited base, so no Secret renders at all",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "templates/secrets.yaml calls the shared password helper, and auth.client.enabled is false in the audited base, so no Secret renders at all",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Like memcached, this chart calls the credential helper and leaves client authentication off by default, so the audited base renders no Secret. The lane follows the base.",
+    variantScope: [
+      {
+        values: "authentication or TLS enabled",
+        effect:
+          "renders the credential or certificate this base leaves out, and freezes it into the bytes; that base is do-not-flatten until the material comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "bitnami",
+    chart: "contour",
+    version: "21.1.4",
+    recipe: "recipes/bitnami/contour/21.1.4",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail:
+          "templates/certgen/job.yaml runs at pre-install and pre-upgrade to mint the TLS material Contour and Envoy use to talk to each other, and no recorded observation exists to route it",
+        disposition:
+          "the catalog's observed lifecycle routes cover other charts; nothing here has been watched, so no companion can be named",
+      },
+      lookup: {
+        finding: "present-gated",
+        detail: "the remaining credential and certificate hits are in the default-backend TLS templates, off in the audited base",
+        disposition: "no route needed for the audited base",
+      },
+      "generated-secrets": {
+        finding: "present-gated",
+        detail: "the remaining credential and certificate hits are in the default-backend TLS templates, off in the audited base",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "A pre-install hook mints the certificates Contour and Envoy present to each other, and a flattened bundle carries neither the hook nor the material it would have produced. A lifecycle route could discharge that, but naming one without a recorded run would be inventing it, so the lane refuses rather than promises. The installer package is this chart's certified route.",
+    variantScope: [
+      {
+        values: "certificates supplied from outside the render",
+        effect:
+          "removes the certgen hook from the install path; that base trends flatten-with-routes with an ordering declaration for the definitions",
+      },
+    ],
+  },
 ];
 
 function witnessPath(entry) {

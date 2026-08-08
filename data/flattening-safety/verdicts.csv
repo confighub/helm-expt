@@ -81,3 +81,11 @@ argo-cd,argo-rollouts,2.40.9,default,flatten-with-routes,absent,absent,present,a
 argo-cd,argocd-image-updater,1.2.2,default,flatten-with-routes,absent,absent,present,absent,absent,present,recipes/argo-cd/argocd-image-updater/1.2.2/publication/flattening-safety-verdict.yaml
 rook-release,rook-ceph,v1.19.5,default,flatten-with-routes,absent,absent,present,absent,absent,present,recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml
 policy-reporter,policy-reporter,3.9.1,default,safe-to-flatten,absent,absent,absent,absent,present,present,recipes/policy-reporter/policy-reporter/3.9.1/publication/flattening-safety-verdict.yaml
+bitnami,apache,11.4.29,default,safe-to-flatten,absent,present-gated,absent,absent,present-gated,absent,recipes/bitnami/apache/11.4.29/publication/flattening-safety-verdict.yaml
+bitnami,elasticsearch,22.1.6,default,safe-to-flatten,present,present-gated,absent,absent,present-gated,absent,recipes/bitnami/elasticsearch/22.1.6/publication/flattening-safety-verdict.yaml
+bitnami,memcached,8.5.5,default,safe-to-flatten,absent,present-gated,absent,absent,present-gated,absent,recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml
+bitnami,opensearch,2.0.10,default,safe-to-flatten,absent,present-gated,present,absent,present-gated,absent,recipes/bitnami/opensearch/2.0.10/publication/flattening-safety-verdict.yaml
+bitnami,phpmyadmin,20.0.0,default,safe-to-flatten,absent,present-gated,absent,absent,present-gated,absent,recipes/bitnami/phpmyadmin/20.0.0/publication/flattening-safety-verdict.yaml
+bitnami,spark,10.0.3,default,safe-to-flatten,absent,present-gated,absent,absent,present-gated,absent,recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml
+bitnami,zookeeper,13.8.7,default,safe-to-flatten,absent,present-gated,absent,absent,present-gated,absent,recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml
+bitnami,contour,21.1.4,default,do-not-flatten,present,present-gated,absent,absent,present-gated,present,recipes/bitnami/contour/21.1.4/publication/flattening-safety-verdict.yaml

@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-bitnami-spark-10.0.3-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://charts.bitnami.com/bitnami"
+        name: "spark"
+        version: "10.0.3"
+        packageSHA256: "6d551a4f745c89d0b1cbfe8569dbb8bd93ec9d7e4704dab2cc86177a3a5359dc"
+    evidence:
+      - "recipes/bitnami/spark/10.0.3/source-lock.yaml"
+      - "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml"
+      - "recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/bitnami/spark/10.0.3/bases/default/upstream.yaml"
+        sha256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+        bytes: 13071
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/spark-10.0.3-default/space-guide.md"
+        sha256: "c81fb3796b8bf46e367130ed684e92a0057144d303132a39acefd50364cfab20"
+        bytes: 1037
+        role: "space-guide"
+    objectCount: 10
+    objectInventoryRef: "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "docker.io/bitnami/spark:4.0.0-debian-12-r20"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default:latest"
+    manifestDigest: "sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+    layerDigest: "sha256:c205d5f022b4c774e5158c89d3cfda0278cab8d6f2ed87fa11840c4fb8d21762"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "1 Secret object(s) in the committed default render, none carrying data; these are placeholders a controller populates after apply"
+      disposition: "nothing to externalise: the bundle ships the Secret empty and its own controller writes the material"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/bitnami/spark/10.0.3/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/bitnami/spark/10.0.3/source-lock.yaml"
+      - "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml"
+      - "recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/bitnami/spark/10.0.3/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-bitnami-spark-10-0-3-default/publication-receipt.yaml"

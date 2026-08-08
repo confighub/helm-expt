@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-bitnami-zookeeper-13.8.7-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://charts.bitnami.com/bitnami"
+        name: "zookeeper"
+        version: "13.8.7"
+        packageSHA256: "2bc9869d780095693effb093f6ed934426907fb33e6c8946cbfffe1f30d902f7"
+    evidence:
+      - "recipes/bitnami/zookeeper/13.8.7/source-lock.yaml"
+      - "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml"
+      - "recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/bitnami/zookeeper/13.8.7/bases/default/upstream.yaml"
+        sha256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+        bytes: 10514
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/zookeeper-13.8.7-default/space-guide.md"
+        sha256: "a7de89b5261bc1c8c7edab3d974a952b9525ce8e7e24f4fa13ac70cd6dbbe4c3"
+        bytes: 1057
+        role: "space-guide"
+    objectCount: 7
+    objectInventoryRef: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "docker.io/bitnami/zookeeper:3.9.3-debian-12-r21"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-zookeeper-13-8-7-default:latest"
+    manifestDigest: "sha256:9c156c3619ad18725cc5794536e85ad30e3ff4c4d37ab9b56234f6b04c27b245"
+    layerDigest: "sha256:8b102c3623c56584dc49a4804b96c672de7e152b591c0802c1f4e3bcc71c623b"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/bitnami/zookeeper/13.8.7/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/bitnami/zookeeper/13.8.7/source-lock.yaml"
+      - "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml"
+      - "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/bitnami/zookeeper/13.8.7/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-bitnami-zookeeper-13-8-7-default/publication-receipt.yaml"

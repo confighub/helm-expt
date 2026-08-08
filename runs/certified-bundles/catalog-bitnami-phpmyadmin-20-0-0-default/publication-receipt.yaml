@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-bitnami-phpmyadmin-20.0.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/phpmyadmin-20.0.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:450ebbdbf0fb9952f16af5d838b158cc6d964abe1890480c7af3d642a38a6c68"
+  layerDigest: "sha256:5fd76faf37f605937adf0bdb9805a042992fa8f52e6b703d41b87a979e2e1c5e"
+  layerBytes: 2580
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-phpmyadmin-20-0-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-bitnami-phpmyadmin-20-0-0-default.tar.gz"

@@ -1,0 +1,123 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-bitnami-memcached-8.5.5-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://charts.bitnami.com/bitnami"
+        name: "memcached"
+        version: "8.5.5"
+        packageSHA256: "a4e93ca0fd99b523a52b3c388421330a7cbdc47efc860aff79fba775be240047"
+    evidence:
+      - "recipes/bitnami/memcached/8.5.5/source-lock.yaml"
+      - "recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml"
+      - "recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/bitnami/memcached/8.5.5/bases/default/upstream.yaml"
+        sha256: "8cd477e08d9fdd2d56df7832f901d773af4f4313a405330180d7068cd7751558"
+        bytes: 5516
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/memcached-8.5.5-default/space-guide.md"
+        sha256: "17303862c0ed9673c7ea3dd1318be998c64fb41510b975f8a19b7f0c8cc20a93"
+        bytes: 1052
+        role: "space-guide"
+    objectCount: 5
+    objectInventoryRef: "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "registry-1.docker.io/bitnami/memcached:latest"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-memcached-8-5-5-default:latest"
+    manifestDigest: "sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc"
+    layerDigest: "sha256:4abc373b243a342d16949fd767b4e1bf432b974bdb1a1a25dd648f4798ef5979"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/bitnami/memcached/8.5.5/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/bitnami/memcached/8.5.5/source-lock.yaml"
+      - "recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml"
+      - "recipes/bitnami/memcached/8.5.5/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/bitnami/memcached/8.5.5/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-bitnami-memcached-8-5-5-default/publication-receipt.yaml"

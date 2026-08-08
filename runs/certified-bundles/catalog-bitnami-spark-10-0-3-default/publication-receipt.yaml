@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-bitnami-spark-10.0.3-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/spark-10.0.3-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:2f0f4a28df8f370fa167e5f9ffae20df50424ac410abe4e7532c4cb87f4d9b6d"
+  layerDigest: "sha256:c205d5f022b4c774e5158c89d3cfda0278cab8d6f2ed87fa11840c4fb8d21762"
+  layerBytes: 2458
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-spark-10-0-3-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-bitnami-spark-10-0-3-default.tar.gz"

@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-bitnami-memcached-8.5.5-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/memcached-8.5.5-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-memcached-8-5-5-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:87e0248d1428983b0b2aa9bb4316c8ad807949a7a3fa59c5227fb284ea9903cc"
+  layerDigest: "sha256:4abc373b243a342d16949fd767b4e1bf432b974bdb1a1a25dd648f4798ef5979"
+  layerBytes: 1938
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-bitnami-memcached-8-5-5-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-bitnami-memcached-8-5-5-default.tar.gz"
