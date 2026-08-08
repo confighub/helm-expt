@@ -194,6 +194,7 @@
     },
     "boundary": {
       "configPlaneOnly": true,
+      "published": true,
       "gpuWorkloadsProven": false,
       "secretValuesIncluded": false,
       "liveRegistryPublicationClaimed": false,

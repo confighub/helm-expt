@@ -1,0 +1,39 @@
+---
+# Source: aicr-bundle/templates/k8s-nim-operator.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "14"
+    name: k8s-nim-operator
+    namespace: argocd
+spec:
+    destination:
+        namespace: nvidia-nim
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: k8s-nim-operator
+        helm:
+            values: |-
+                dynamo:
+                  enabled: false
+                operator:
+                  admissionController:
+                    enabled: true
+                    tls:
+                      certManager:
+                        issuerType: selfsigned
+                      mode: cert-manager
+                  affinity: {}
+                  tolerations:
+                  - operator: Exists
+        repoURL: https://helm.ngc.nvidia.com/nvidia
+        targetRevision: 3.1.0
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true
