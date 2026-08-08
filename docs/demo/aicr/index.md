@@ -11,8 +11,17 @@ the files. The catalog applies the same discipline here that it applies to Helm
 charts and to the Kubara platform: retain exact versions, pin every package by an
 immutable OCI digest, and attach a receipt to every claim. Teams assembling GPU
 platforms copy YAML from blog posts today, and an H100 misconfiguration has a
-dollar sign attached. Nobody offers governed, provenance-carrying configuration
-for this space; that gap is why these entries exist.
+dollar sign attached.
+
+The gap these entries fill is governance, and it is worth being precise about
+that. AICR itself carries provenance: it signs its recipe catalog, ships
+per-component health checks, and emits attestable evidence from validation
+runs against real hardware. What no one offers is the governed half, meaning
+reviewed changes with previews, variant lineage, promotion history, and a
+record of what each change touched, applied to AI-platform configuration the
+same way it is applied to charts. The
+[comparison of AICR's evidence with our receipts](../../reference/aicr-evidence-and-our-receipts.md)
+sets out which tool answers which question.
 
 ## Three entry classes track how buyers differ
 
@@ -32,8 +41,9 @@ and the CPU starter is a rule-governed derivation of the training entry. The
 inference pair is deliberate: the AICR-native entry stands up a cluster that
 can serve NIM, and the KServe entry names the exact shape a given model runs
 in. Retaining both keeps the sourcing choice visible instead of implied, and
-the [entry page](./eks-h100-inference-nim.md) compares them directly. The catalog refuses
-manufactured variety: new entries come from upstream versions, from
+the [entry page](./eks-h100-inference-nim.md) compares them directly.
+
+The catalog refuses manufactured variety: new entries come from upstream versions, from
 deliberately authored shapes whose provenance is named, or from recorded
 derivations of an existing entry. The inference entry's sixteen model-by-GPU
 shapes are upstream-authored variety, retained exactly, and the starter's

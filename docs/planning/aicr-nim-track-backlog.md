@@ -257,3 +257,16 @@ keeps its references.
 60. **Re-check the catalog's stated contribution against upstream's.** The
     public pages should not imply this project invented provenance for a
     project that ships its own attestation chain. **Workshop-wide**.
+
+## Progress, 2026-08-08
+
+Done and merged: 51 (the AICR-native NIM entry, retained beside the KServe
+one), 52 (control points derived from the upstream registry), 54 (the
+ordering-parity lane, which retires the unearned-ordering caveat), and 53 with
+60 together in
+[AICR's evidence and our receipts](../reference/aicr-evidence-and-our-receipts.md),
+which also corrected three public claims.
+
+The next most valuable are 49 and 27, in that order, because they gate the
+publishing work. Task 2 remains the smallest high-value item.
+
