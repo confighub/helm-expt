@@ -1312,6 +1312,72 @@ const CHARTS = [
       },
     ],
   },
+  {
+    repo: "fluent",
+    chart: "fluent-bit",
+    version: "0.57.6",
+    recipe: "recipes/fluent/fluent-bit/0.57.6",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail:
+          "the only hook object is templates/tests/test-connection.yaml, and a recorded live run confirmed the chart's whole lifecycle route is that one post-install check",
+        disposition: "pruned from any bundle",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "No CRDs, no keep policy, no lookup, no generated material, and the single hook is a chart test. A recorded run reached the same conclusion from the other direction, finding nothing to route but an explicit post-install check.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-blackbox-exporter",
+    version: "11.15.1",
+    recipe: "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The scan found no hook, no keep policy, no lookup, no generated material, no webhook and no CRD. The one construct it does carry is an API-version branch in the autoscaler template, which the render inputs pin.",
+    variantScope: [],
+  },
+  {
+    repo: "projectcalico",
+    chart: "tigera-operator",
+    version: "v3.32.0",
+    recipe: "recipes/projectcalico/tigera-operator/v3.32.0",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail:
+          "templates/tigera-operator/00-uninstall.yaml is a pre-delete Job that tears the installation down; a recorded live run observed that teardown running as an explicit delete-cleanup action instead",
+        disposition:
+          "lifecycle route built from the recorded observation, executed by the delivery runtime",
+      },
+      lookup: {
+        finding: "present-gated",
+        detail:
+          "the felix-configuration template reads the cluster to choose an apiVersion, behind defaultFelixConfiguration.enabled, false in the audited base",
+        disposition: "no route needed for the audited base",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: ["lifecycle route for the pre-delete teardown, with stages taken from the recorded live observation"],
+    rationale:
+      "Everything this base renders survives flattening except the teardown, which only matters when the release goes away and is exactly what a flattened bundle drops in silence. A recorded run watched that teardown happen as an explicit action, so the lane names a companion rather than hoping for one.",
+    variantScope: [
+      {
+        values: "defaultFelixConfiguration.enabled: true",
+        effect:
+          "renders the felix configuration, whose apiVersion is chosen by reading the cluster; that base trends do-not-flatten",
+      },
+    ],
+  },
 ];
 
 function witnessPath(entry) {

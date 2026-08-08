@@ -13842,7 +13842,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "25",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "fluent",
@@ -14726,7 +14726,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "17",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "prometheus-community",
@@ -14913,7 +14913,7 @@
       "crd_documents": "0",
       "gated_subcharts": "0",
       "scanned_files": "29",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "prometheus-community",

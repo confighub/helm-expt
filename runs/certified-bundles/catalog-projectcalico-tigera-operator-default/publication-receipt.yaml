@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-projectcalico-tigera-operator-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/tigera-operator-v3.32.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:7ee5905f342788d4866493780d436c008ca62e384f2c49cc507833c792ff4b7b"
+  layerDigest: "sha256:b02d5a8847a9b299c250cc2183e3f2ee61791c9f78c190de40666bbb33a75922"
+  layerBytes: 6271
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/lifecycle.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-projectcalico-tigera-operator-default.tar.gz"

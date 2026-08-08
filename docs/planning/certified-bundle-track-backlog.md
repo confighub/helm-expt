@@ -37,8 +37,13 @@ flattenable without a verdict.
    the review has a starting point rather than a blank page. Scope it the way
    the consumer contract scoped assessment coverage. L, and everything in this
    theme depends on it.
-2. **Decide lanes for the charts the examples install.** A chart an example
-   deploys should not be undecided while the example claims it works. S to M.
+2. **Decide lanes for the charts the examples install.** Done for the three
+   that had witnesses and were still undecided: fluent-bit and
+   prometheus-blackbox-exporter are safe to flatten, and tigera-operator is
+   flatten-with-routes on the strength of a run that rendered its pre-delete
+   Job and executed it. The rest of the example set was already decided. Three
+   remaining charts have no witness because no packaged tarball is pinned for
+   them, which is a witness-coverage gap rather than a lane gap.
 3. **Write the lane-decision procedure down.** Done, at
    `docs/reference/deciding-a-flattening-lane.md`. Six rules, each one drawn
    from a draft that was wrong until the chart source contradicted it, plus the

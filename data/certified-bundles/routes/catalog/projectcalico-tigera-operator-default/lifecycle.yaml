@@ -1,0 +1,98 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "projectcalico-tigera-operator-default-lifecycle"
+spec:
+  quirkClass: "helm-hooks"
+  routeKind: "lifecycle-job"
+  discharges: "The chart defines 1 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "cub-installer-setup"
+        observedDetail: "rendered Project Calico cub installer package output"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/cub-installer-setup.txt"
+        evidenceSHA256: "3516e6c5fe4294b0cc2846c056dc946680f4403aa08a643514a9f896abf17dde"
+      -
+        order: 2
+        name: "kubectl-apply-operator-prerequisites"
+        observedDetail: "applied operator namespace, RBAC, ServiceAccount, and Deployment"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/kubectl-apply-operator-prerequisites.txt"
+        evidenceSHA256: "8ba07601bc61301fe6631cace0092a9420132cfc7b6731ef1709f00c5d2c3a49"
+      -
+        order: 3
+        name: "operator-deployment-ready"
+        observedDetail: "tigera-operator Deployment rolled out"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/deployment-tigera-operator-rollout.txt"
+        evidenceSHA256: "ed171615acfc5f024515a3bb18876c3b2507473f0f71fb67661674ca79c189a5"
+      -
+        order: 4
+        name: "operator-crds-established"
+        observedDetail: "operator-managed CRDs required by the rendered custom resources reached Established"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/operator-crds-established.txt"
+        evidenceSHA256: "0736f3b7f13a938328420c81162f4ac5051d43022fa433616ddf79679ee158ef"
+      -
+        order: 5
+        name: "kubectl-apply-custom-resources"
+        observedDetail: "applied APIServer, Goldmane, Installation, and Whisker after the operator CRDs existed"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/kubectl-apply-custom-resources.txt"
+        evidenceSHA256: "7c092306949ab49433283b1e425079f8e34c0b6b27c549a672631cd7f3506d16"
+      -
+        order: 6
+        name: "custom-resources-accepted"
+        observedDetail: "rendered operator custom resources were accepted by the live API server"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/custom-resources-accepted.yaml"
+        evidenceSHA256: "b0535b0916f3b61ec9eebabfa801e11640754e6b5fb938672121879ef547da46"
+      -
+        order: 7
+        name: "render-pre-delete-hook-job"
+        observedDetail: "rendered upstream Helm pre-delete hook Job for explicit lifecycle execution"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/pre-delete-hook-job.yaml"
+        evidenceSHA256: "f444cee8c8c8175ad25044c1249c405b3e7b01eb3e356636d4e14009cb19d5ce"
+      -
+        order: 8
+        name: "execute-pre-delete-cleanup-job"
+        observedDetail: "explicit pre-delete cleanup Job completed"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/pre-delete-hook-job-complete.txt"
+        evidenceSHA256: "e1343fc0add06329f3b2db00aa7e172706f2e56b1fda161307e62b519433f89e"
+      -
+        order: 9
+        name: "custom-resources-after-cleanup-job"
+        observedDetail: "captured remaining operator custom resources after the pre-delete cleanup Job"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/custom-resources-after-cleanup-job.yaml"
+        evidenceSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      -
+        order: 10
+        name: "delete-rendered-objects"
+        observedDetail: "deleted rendered package objects after explicit cleanup action"
+        evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/kubectl-delete-rendered-objects.txt"
+        evidenceSHA256: "aa8fe7582d4ccf44a31dc27d53f85a3e6c7906c1105b4d1522c5a6df70445fb5"
+    actionsRecordedWithoutArtifacts:
+      - "kind-create"
+    onStageFailure: "stop and report; never continue past a stage that did not pass"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "PreSync hooks for the stages that precede the workload, with the rest as sync waves"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "a Kustomization dependsOn chain, one entry per stage"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply each stage in order and wait on the recorded condition before the next"
+        proven: false
+    automatic: false
+  boundedness:
+    - "the stages were observed once, on 2026-06-11T17:49:13Z, against projectcalico/tigera-operator v3.32.0 base default"
+    - "the observation proves these stages ran and passed, not that they are the only ordering that works"
+    - "no runtime is proven to execute this route yet, so today it is a declaration a human follows"
+    - "The Helm pre-delete hook is treated as an explicit delete cleanup action. The run observes operator bootstrap, operator-managed CRD establishment, rendered custom resource acceptance, execution of the upstream pre-delete cleanup Job, and package object deletion in a fresh kind target. This does not claim production uninstall safety for every target state."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
+    verdictRef: "recipes/projectcalico/tigera-operator/v3.32.0/publication/flattening-safety-verdict.yaml"
