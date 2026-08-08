@@ -23,10 +23,22 @@ name: Weekly catalog refresh
 # maintainer can regenerate reproducibly at all.
 
 on:
-  schedule:
-    # Mondays, 06:00 UTC.
-    - cron: "0 6 * * 1"
+  # The schedule is deliberately switched off. This job is not ready to run
+  # unattended: its derived-views step refreshes review.csv without refreshing
+  # the two committed views that copy latest_version out of it, so the pull
+  # request it opens would contradict itself and merging it would turn
+  # `npm run verify` red. docs/planning/catalog-refresh-plan.md records what has
+  # to be true before the cron comes back, and the maintainer decides when.
+  #
+  #  schedule:
+  #    # Mondays, 06:00 UTC.
+  #    - cron: "0 6 * * 1"
   workflow_dispatch:
+    inputs:
+      acknowledge_known_gap:
+        description: "Type 'yes' to run anyway, knowing the derived-view fan-out is incomplete"
+        required: true
+        default: "no"
 
 permissions:
   contents: write
@@ -47,6 +59,16 @@ jobs:
     timeout-minutes: 60
 
     steps:
+      # A manual dispatch is the only way in while the schedule is off, and it
+      # still has to be deliberate. Refusing here costs one second and keeps a
+      # curious click from opening a pull request that contradicts itself.
+      - name: Refuse an unacknowledged run
+        run: |
+          if [ "${{ inputs.acknowledge_known_gap }}" != "yes" ]; then
+            echo "::error::This lane is held. Its derived-view fan-out is incomplete, so the pull request it opens would contradict itself. See docs/planning/catalog-refresh-plan.md. Dispatch with acknowledge_known_gap=yes only to test the machinery."
+            exit 1
+          fi
+
       - name: Check out helm-expt
         uses: actions/checkout@v6
         with:
@@ -125,6 +147,13 @@ jobs:
           npm run top20:latest-promotion-readiness
           npm run top20:latest-production-disposition
           npm run top20:latest-refresh
+          # Three more views copy latest_version straight out of review.csv.
+          # Leaving them behind is how the refresh would commit a change that
+          # disagrees with itself, and both of the first two have a --verify
+          # lane in the main chain, so main would go red on merge.
+          npm run refresh:survival
+          npm run top20:latest-replacement-decisions
+          npm run top20:latest-action-queue
           npm run data:index
           HELM_EXPT_SITE_GENERATED_AT="$(cat site/generated-at.txt)" npm run site:generate
 
@@ -134,7 +163,7 @@ jobs:
           # A refresh may rewrite its own views and the surfaces generated from
           # them. Anything else means a generator did more than this lane
           # intends, and the run stops rather than proposing it.
-          allowed='^(data/latest-top20-refresh/|data/production-disposition/next-actions|data/README.md|data/csv-index.csv|site/)'
+          allowed='^(data/latest-top20-refresh/|data/refresh-survival/|data/production-disposition/next-actions|data/README.md|data/csv-index.csv|site/)'
           unexpected="$(git status --porcelain | awk '{print $2}' | grep -vE "$allowed" || true)"
           if [ -n "$unexpected" ]; then
             echo "::error::The refresh touched paths outside its surface:"
@@ -146,6 +175,9 @@ jobs:
         if: steps.detect.outputs.moved == 'true'
         run: |
           npm run top20:latest-refresh:verify
+          npm run refresh:survival:verify
+          npm run top20:latest-replacement-decisions:verify
+          npm run top20:latest-action-queue:verify
           npm run top20:latest-promotion-readiness:verify
           npm run data:index:verify
           npm run site:verify

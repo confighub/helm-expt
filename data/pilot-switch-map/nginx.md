@@ -35,8 +35,7 @@ derived variant. The verdict is the diff, not an opinion.
 
 | Switch | Error |
 | --- | --- |
-| `cloneStaticSiteFromGit.enabled=true` | Command failed: helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values <tmp> --kube-version 1.30.0
-Pulled: registry-1.docker.io/bitnamicharts/ng |
+| `cloneStaticSiteFromGit.enabled=true` | Command failed: helm template nginx oci://registry-1.docker.io/bitnamicharts/nginx --version 24.0.2 --namespace nginx --values <tmp> --kube-version 1.30.0 Pulled: registry-1.docker.io/bitnamicharts/ng |
 
 A flip that breaks the render is itself a finding: the chart requires more than the toggle to enable that feature.
 

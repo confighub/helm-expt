@@ -91,7 +91,7 @@ function buildMap(name, chart) {
     try {
       objects = objectSet(renderHelm(chart, chart.baseValues + sw.values));
     } catch (error) {
-      rows.push({ switch: sw.name, kind: "render-error", error: normalizeTempPaths(error.message || error).slice(0, 200), added: [], removed: [] });
+      rows.push({ switch: sw.name, kind: "render-error", error: normalizeTempPaths(String(error.message || error)).replace(/\s+/g, " ").trim().slice(0, 200), added: [], removed: [] });
       process.stdout.write(`render-err  ${sw.name}\n`);
       continue;
     }
@@ -190,7 +190,7 @@ function renderMarkdown(name, chart, baselineObjects, rows) {
     ...field.map((r) => `| \`${r.switch}\` | ${r.variantObjects} (unchanged set) |`),
     ...(errors.length
       ? ["", "## Switches that failed to render when flipped", "", "| Switch | Error |", "| --- | --- |",
-         ...errors.map((r) => `| \`${r.switch}\` | ${r.error.replaceAll("|", "\\|")} |`),
+         ...errors.map((r) => `| \`${r.switch}\` | ${r.error.replaceAll("|", "\\|").replace(/\r?\n/g, " ")} |`),
          "", "A flip that breaks the render is itself a finding: the chart requires more than the toggle to enable that feature."]
       : []),
     "",

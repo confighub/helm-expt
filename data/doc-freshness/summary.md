@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-07 (commit `0717c08d3`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-07 (commit `459aa3a80`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,8 +24,8 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 266 |
-| Fresh (no linked source newer than the doc) | 47 |
-| **Review-due** | 58 |
+| Fresh (no linked source newer than the doc) | 46 |
+| **Review-due** | 59 |
 | No linked evidence sources (cannot auto-trigger) | 161 |
 
 ## Review queue
@@ -35,7 +35,7 @@ most recently changed triggers.
 
 | Doc | Area | Doc last changed | Days behind | Newer sources |
 | --- | --- | --- | ---: | --- |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 57 | `data/attack-plan-workdown/summary.md (2026-08-07)`<br>`CATALOG.md (2026-08-07)`<br>`data/README.md (2026-08-07)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 57 | `data/README.md (2026-08-07)`<br>`data/csv-index.csv (2026-08-07)`<br>`CATALOG.md (2026-08-07)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 49 | `data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-07-29)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 49 | `data/outcome-coverage/base-outcomes.csv (2026-07-29)`<br>`data/top100-readiness/next80-queues.csv (2026-07-29)`<br>`data/top100-readiness/next80-queues.md (2026-07-29)` |
 | [docs/user/why-this-does-not-collapse.md](../../docs/user/why-this-does-not-collapse.md) | user | 2026-06-10 | 49 | `data/top100-coverage/summary.md (2026-07-29)`<br>`data/live-e2e/normalization-rules.md (2026-06-30)`<br>`data/quirk-coverage/summary.md (2026-06-24)` |
@@ -48,7 +48,7 @@ most recently changed triggers.
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 47 | `data/production-disposition/summary.md (2026-07-28)`<br>`data/production-support-decisions/decisions.csv (2026-07-28)`<br>`data/production-support-decisions/summary.md (2026-07-28)` |
 | [docs/user/serious-charts.md](../../docs/user/serious-charts.md) | user | 2026-06-11 | 47 | `data/hard-chart-production-packets/summary.md (2026-07-28)`<br>`data/production-readiness-packets/cert-manager/packet.md (2026-06-23)`<br>`data/production-readiness-packets/external-secrets/packet.md (2026-06-23)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-12 | 47 | `data/top100-readiness/summary.md (2026-07-29)`<br>`data/top100-user-readiness/summary.md (2026-07-29)`<br>`data/top20-base-readiness/start-here.md (2026-07-28)` |
-| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 46 | `data/attack-plan-workdown/summary.md (2026-08-07)`<br>`CATALOG.md (2026-08-07)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
+| [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-23 | 46 | `CATALOG.md (2026-08-07)`<br>`data/attack-plan-workdown/summary.md (2026-08-07)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-13 | 46 | `data/live-helm-confighub-compare/summary.md (2026-07-29)`<br>`data/live-kind-parity/summary.md (2026-07-29)`<br>`data/live-parity-rerun-plan/summary.md (2026-07-29)` |
 | [docs/planning/where-does-my-hook-go.md](../../docs/planning/where-does-my-hook-go.md) | planning | 2026-06-14 | 46 | `data/lifecycle-routes/routes.json (2026-07-29)`<br>`data/lifecycle-routes/summary.md (2026-07-29)` |
 | [docs/reference/secret-lifecycle.md](../../docs/reference/secret-lifecycle.md) | reference | 2026-06-13 | 46 | `data/secret-lifecycle/secrets.csv (2026-07-29)`<br>`data/secret-lifecycle/summary.md (2026-07-29)`<br>`data/secret-lifecycle/variant-summary.csv (2026-07-29)` |
@@ -75,8 +75,8 @@ most recently changed triggers.
 | [docs/user/remote-images-and-supported-bases.md](../../docs/user/remote-images-and-supported-bases.md) | user | 2026-06-16 | 13 | `data/image-digest-workdown/summary.md (2026-06-29)`<br>`data/remote-image-runtime-workdown/summary.md (2026-06-24)` |
 | [docs/demo/apps/rbac-review.md](../../docs/demo/apps/rbac-review.md) | demo | 2026-07-27 | 12 | `data/app-readiness/summary.md (2026-08-07)` |
 | [docs/user/installer-oci-packages.md](../../docs/user/installer-oci-packages.md) | user | 2026-07-28 | 11 | `data/installer-oci-packages/packages.csv (2026-08-07)`<br>`data/installer-oci-packages/packages.json (2026-08-07)`<br>`data/installer-oci-packages/summary.md (2026-08-07)` |
+| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 10 | `CATALOG.md (2026-08-07)`<br>`data/attack-plan-workdown/summary.md (2026-08-07)` |
 | [docs/user/README.md](../../docs/user/README.md) | user | 2026-07-30 | 9 | `data/app-readiness/summary.md (2026-08-07)` |
-| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-07-29 | 9 | `data/attack-plan-workdown/summary.md (2026-08-07)`<br>`CATALOG.md (2026-08-07)` |
 | [docs/user/how-it-works.md](../../docs/user/how-it-works.md) | user | 2026-07-23 | 6 | `tests/README.md (2026-07-28)`<br>`tests/doctrine.md (2026-07-26)`<br>`data/oci-hook-delivery-proof/summary.md (2026-07-26)` |
 | [docs/user/helm-upgrade-crash-example.md](../../docs/user/helm-upgrade-crash-example.md) | user | 2026-06-13 | 5 | `data/blast-radius-accuracy/summary.md (2026-06-18)` |
 | [docs/user/hard-questions.md](../../docs/user/hard-questions.md) | user | 2026-07-26 | 4 | `data/claims-register/summary.md (2026-07-29)`<br>`data/secret-lifecycle/summary.md (2026-07-29)` |
@@ -85,6 +85,7 @@ most recently changed triggers.
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 3 | `tests/README.md (2026-07-28)`<br>`tests/doctrine.md (2026-07-26)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 2 | `data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
+| [docs/README.md](../../docs/README.md) | docs | 2026-08-07 | 1 | `CATALOG.md (2026-08-07)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |

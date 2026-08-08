@@ -23,7 +23,7 @@
     {
       "switch": "memoryHighWatermark.enabled=true",
       "kind": "render-error",
-      "error": "Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values <tmp> --kube-version 1.30.0\nPulled: registry-1.docker.io/bitnam",
+      "error": "Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values <tmp> --kube-version 1.30.0 Pulled: registry-1.docker.io/bitnam",
       "added": [],
       "removed": []
     },
@@ -54,7 +54,7 @@
     {
       "switch": "ldap.enabled=true",
       "kind": "render-error",
-      "error": "Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values <tmp> --kube-version 1.30.0\nPulled: registry-1.docker.io/bitnam",
+      "error": "Command failed: helm template rabbitmq oci://registry-1.docker.io/bitnamicharts/rabbitmq --version 16.0.14 --namespace rabbitmq --values <tmp> --kube-version 1.30.0 Pulled: registry-1.docker.io/bitnam",
       "added": [],
       "removed": []
     },

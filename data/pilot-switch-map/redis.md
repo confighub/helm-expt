@@ -32,8 +32,7 @@ derived variant. The verdict is the diff, not an opinion.
 
 | Switch | Error |
 | --- | --- |
-| `tls.enabled=true` | Command failed: helm template redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace redis --values <tmp> --kube-version 1.30.0
-Pulled: registry-1.docker.io/bitnamicharts/re |
+| `tls.enabled=true` | Command failed: helm template redis oci://registry-1.docker.io/bitnamicharts/redis --version 25.5.3 --namespace redis --values <tmp> --kube-version 1.30.0 Pulled: registry-1.docker.io/bitnamicharts/re |
 
 A flip that breaks the render is itself a finding: the chart requires more than the toggle to enable that feature.
 
