@@ -1,0 +1,309 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "RefusalCorpusReceipt"
+metadata:
+  name: "aicr-refusal-corpus"
+spec:
+  claim: "Every candidate in the AICR refusal corpus was run through the shipped lanes in a throwaway worktree, and each returned the verdict the corpus declared, including two candidates that had to be accepted."
+  boundary:
+    clusterRequired: false
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    networkRequired: false
+    note: "Every candidate is a change to committed configuration bytes, evaluated offline in a throwaway git worktree. No cluster, no registry, and no network takes part, and no credential in this file is real."
+  corpus:
+    path: "examples/aicr/refusal-corpus/candidates.yaml"
+    sha256: "2179d1431b67942d5d0a05eb93f77c018136998c51a587fcb88de0419036e526"
+  lanes:
+    -
+      id: "digest-index"
+      command: "node scripts/generate-aicr-digest-index.mjs --verify"
+    -
+      id: "inference-nim-index"
+      command: "node scripts/generate-aicr-digest-index.mjs --verify --example eks-h100-inference-nim"
+    -
+      id: "kserve-nim-index"
+      command: "node scripts/generate-aicr-kserve-nim-index.mjs --verify"
+    -
+      id: "blast-radius"
+      command: "node scripts/verify-aicr-blast-radius.mjs --verify"
+    -
+      id: "ordering-parity"
+      command: "node scripts/verify-aicr-ordering-parity.mjs --verify"
+    -
+      id: "signature-subject"
+      command: "node scripts/run-aicr-signature-verification.mjs --verify"
+  results:
+    -
+      candidate: "unmodified-tree"
+      verdict: "accepted"
+      decisiveLane: null
+      decisiveMessage: ""
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "accepted"
+          message: "verified sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e against 17 committed member payload(s)"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "accepted"
+          message: "verified blast-radius parity for 6 control point(s) and 2 reviewed change(s) across 3 entries"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+    -
+      candidate: "entry-prose-edited"
+      verdict: "accepted"
+      decisiveLane: null
+      decisiveMessage: ""
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "accepted"
+          message: "verified sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e against 17 committed member payload(s)"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "accepted"
+          message: "verified blast-radius parity for 6 control point(s) and 2 reviewed change(s) across 3 entries"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+    -
+      candidate: "retained-application-edited"
+      verdict: "refused"
+      decisiveLane: "digest-index"
+      decisiveMessage: "argocd-rendered/templates/cert-manager.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "refused"
+          message: "argocd-rendered/templates/cert-manager.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "accepted"
+          message: "verified blast-radius parity for 6 control point(s) and 2 reviewed change(s) across 3 entries"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+    -
+      candidate: "retained-edit-then-regenerated"
+      verdict: "refused"
+      decisiveLane: "digest-index:generate"
+      decisiveMessage: "argocd-rendered/templates/cert-manager.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "refused"
+          message: "argocd-rendered/templates/cert-manager.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "accepted"
+          message: "verified blast-radius parity for 6 control point(s) and 2 reviewed change(s) across 3 entries"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+        -
+          lane: "digest-index:generate"
+          verdict: "refused"
+          message: "argocd-rendered/templates/cert-manager.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+    -
+      candidate: "credential-retained-with-consistent-checksum"
+      verdict: "refused"
+      decisiveLane: "kserve-nim-index"
+      decisiveMessage: "upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml: a literal credential value is assigned to NGC_API_KEY; secret surfaces must carry names or substitutions only"
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "accepted"
+          message: "verified sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e against 17 committed member payload(s)"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "refused"
+          message: "upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml: a literal credential value is assigned to NGC_API_KEY; secret surfaces must carry names or substitutions only"
+        -
+          lane: "blast-radius"
+          verdict: "accepted"
+          message: "verified blast-radius parity for 6 control point(s) and 2 reviewed change(s) across 3 entries"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+    -
+      candidate: "control-point-token-copied-into-a-second-document"
+      verdict: "refused"
+      decisiveLane: "blast-radius"
+      decisiveMessage: "examples/aicr/control-points/eks-h100-training-kubeflow.yaml: control point prometheus-storage-class also reaches argoproj.io/v1alpha1|Application|argocd|gpu-operator, which the record does not declare"
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "refused"
+          message: "argocd-rendered/templates/gpu-operator.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "refused"
+          message: "examples/aicr/control-points/eks-h100-training-kubeflow.yaml: control point prometheus-storage-class also reaches argoproj.io/v1alpha1|Application|argocd|gpu-operator, which the record does not declare"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+    -
+      candidate: "control-point-token-removed-from-a-governed-document"
+      verdict: "refused"
+      decisiveLane: "blast-radius"
+      decisiveMessage: "examples/aicr/control-points/eks-h100-training-kubeflow.yaml: control point prometheus-storage-class declares argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack, which does not contain its locator"
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "refused"
+          message: "argocd-rendered/templates/kube-prometheus-stack.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "refused"
+          message: "examples/aicr/control-points/eks-h100-training-kubeflow.yaml: control point prometheus-storage-class declares argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack, which does not contain its locator"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+    -
+      candidate: "sync-wave-reordered"
+      verdict: "refused"
+      decisiveLane: "ordering-parity"
+      decisiveMessage: "examples/aicr/eks-h100-training-kubeflow: rendered sync-waves order components differently from the recipe (rendered: aws-ebs-csi-driver, aws-efa, nfd, nodewright-operator, nodewright-customizations, prometheus-operator-crds, kube-prometheus-stack, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kubeflow-trainer, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, cert-manager)"
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "refused"
+          message: "argocd-rendered/templates/cert-manager.yaml differs from argocd-rendered/checksums.txt; the rendered surface drifted"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "accepted"
+          message: "verified blast-radius parity for 6 control point(s) and 2 reviewed change(s) across 3 entries"
+        -
+          lane: "ordering-parity"
+          verdict: "refused"
+          message: "examples/aicr/eks-h100-training-kubeflow: rendered sync-waves order components differently from the recipe (rendered: aws-ebs-csi-driver, aws-efa, nfd, nodewright-operator, nodewright-customizations, prometheus-operator-crds, kube-prometheus-stack, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kubeflow-trainer, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, cert-manager)"
+        -
+          lane: "signature-subject"
+          verdict: "accepted"
+          message: "verified the AICR upstream signature receipt"
+    -
+      candidate: "attested-subject-bytes-edited"
+      verdict: "refused"
+      decisiveLane: "signature-subject"
+      decisiveMessage: "examples/aicr/upstream-signatures/v0.18.0/attested-subject/registry.yaml differs from its recorded checksum"
+      lanes:
+        -
+          lane: "digest-index"
+          verdict: "accepted"
+          message: "verified sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e against 17 committed member payload(s)"
+        -
+          lane: "inference-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2 against 20 committed member payload(s)"
+        -
+          lane: "kserve-nim-index"
+          verdict: "accepted"
+          message: "verified sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720 against 27 committed member payload(s)"
+        -
+          lane: "blast-radius"
+          verdict: "accepted"
+          message: "verified blast-radius parity for 6 control point(s) and 2 reviewed change(s) across 3 entries"
+        -
+          lane: "ordering-parity"
+          verdict: "accepted"
+          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+        -
+          lane: "signature-subject"
+          verdict: "refused"
+          message: "examples/aicr/upstream-signatures/v0.18.0/attested-subject/registry.yaml differs from its recorded checksum"

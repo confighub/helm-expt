@@ -134,6 +134,15 @@ and reached staging through a previewed promotion. Delivery is the rung it has
 not climbed. The rungs an entry has not climbed stay absent from its claims
 rather than implied.
 
+## What the entries refuse is recorded too
+
+A ladder records what the catalog accepted. The
+[refusal corpus](./refusal-corpus.md) records what it turns down, by running
+the shipped lanes against changes a contributor could plausibly propose and
+publishing the verdicts. Two of those candidates have to be accepted, because
+lanes that refused everything would look identical to lanes that refused the
+right things.
+
 ## The boundary every receipt states
 
 All proofs here run on kind or against ConfigHub, and they prove config-plane
