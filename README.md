@@ -964,3 +964,16 @@ and a safer path from test to production.
 
 Helm gives you charts. ConfigHub gives you managed, reviewable, scannable,
 promotable base and derived variants from those charts.
+
+## License
+
+This repository's own work is available under the MIT license in
+[LICENSE](LICENSE): the scripts, verifiers, documentation, site generators,
+receipts, and recorded data written for this project.
+
+The repository also redistributes work it did not write, and the MIT grant
+does not relicense any of it. Third-party charts, the packages and rendered
+objects derived from them, and the container images they reference keep
+their own licenses. The Catalog records those licenses per entry; where a
+[Catalog entry](CATALOG.md) declares a license, that declaration governs
+that entry's content.
