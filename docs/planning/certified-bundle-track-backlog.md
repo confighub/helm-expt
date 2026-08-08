@@ -62,9 +62,13 @@ flattenable without a verdict.
 8. **Emit the CRD ordering route for the other five flatten-with-routes
    bundles.** external-secrets, the three ACK charts, and karpenter all name the
    same companion. The machinery exists, so this is mechanical. S.
-9. **Emit a prune-protection route for keep-policy.** cert-manager's verdict
-   names it and nothing ships it. The route must say which objects survive a
-   prune and how each runtime expresses that. M. **Workshop-wide**.
+9. **Emit a prune-protection route for keep-policy.** Blocked, and worth
+   recording why before someone picks it up. No bundle that exists today has
+   keep-policy present, so the route has nothing honest to attach to.
+   cert-manager is the natural first case, and giving it a bundle means
+   shipping the three routes its verdict names, one of which is the
+   startupapicheck lifecycle route that task 10 must observe first. So this
+   follows task 10 rather than leading it. M. **Workshop-wide**.
 10. **Observe cert-manager's startupapicheck before routing it.** No
     lifecycle-route action packet exists for it, and emitting a hook route
     without recorded evidence would be inventing one. Run the hook lifecycle
@@ -82,8 +86,16 @@ flattenable without a verdict.
     claim. Two of three are asserted from the declaration alone. M.
 15. **Prove the same route under the cub-direct applier.** Its proven flag is
     false today and should either become true or be explained. M.
-16. **Fail a bundle whose verdict names a route it does not ship.** The receipt
-    can already tell; nothing checks. S. **Workshop-wide**.
+16. **Fail a bundle whose verdict names a route it does not ship.** Partly done.
+    Strict ingest refuses a dangling route reference and an unclaimed route, and
+    names every certified flatten-with-routes bundle that carries no route at
+    all. What is missing is per-class debt: saying a bundle owes prune
+    protection rather than owes something. That needs an explicit field on each
+    disposition rather than reading its prose. Inferring it from wording was
+    tried and reverted: it reported four bundles as owing namespace creation
+    when their namespace ships inside the bundle, which is a resolution and not
+    a debt. Add `companionRequired` to the disposition row and the check becomes
+    exact. S. **Workshop-wide**, because it changes the receipt shape.
 17. **Teach the delivery runtime to read a route.** Everything above produces
     routes that a human applies. The model claims the runtime executes them. L.
     **Workshop-wide**.
