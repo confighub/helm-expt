@@ -9,6 +9,7 @@ import {
   repoRoot,
   write,
 } from "./lib/proof-common.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "production-disposition");
 const reviewCsvPath = join(outputRoot, "top20.csv");
@@ -80,9 +81,9 @@ function recipeRoots() {
 }
 
 function productionRow(root, configHubProof, liveE2E, sourceFeatures, extensionSlots, lifecycleObservations, dispositionReceipts) {
-  const catalog = readYaml(join(root, "catalog-status.yaml"));
+  const catalog = readYaml(catalogDerivedPath(root, "catalog-status.yaml"));
   if (catalog.spec?.status !== "catalog-supported") return null;
-  const index = readYaml(join(root, "artifact-index.yaml"));
+  const index = readYaml(catalogDerivedPath(root, "artifact-index.yaml"));
   const controls = readYaml(join(root, "control-points.yaml"));
   const chart = catalog.spec.chart;
   const source = sourceFeatures.get(chart) ?? {};

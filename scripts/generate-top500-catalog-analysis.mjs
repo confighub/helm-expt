@@ -8,6 +8,7 @@ import {
   repoRoot,
   write,
 } from "./lib/proof-common.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "top500-catalog-analysis");
 const rawPath = join(outputRoot, "raw.json");
@@ -83,8 +84,8 @@ function currentProofIndex() {
   const allProofs = [];
   for (const recipePath of listFiles(join(repoRoot, "recipes")).filter((file) => file.endsWith("/recipe.yaml"))) {
     const root = dirname(recipePath);
-    const indexPath = join(root, "artifact-index.yaml");
-    const statusPath = join(root, "catalog-status.yaml");
+    const indexPath = catalogDerivedPath(root, "artifact-index.yaml");
+    const statusPath = catalogDerivedPath(root, "catalog-status.yaml");
     const helmPlanPath = join(root, "helm-plan.yaml");
     const valueModelPath = join(root, "value-model.yaml");
     const controlPointsPath = join(root, "control-points.yaml");
@@ -167,7 +168,11 @@ function currentProofIndex() {
     if (!byName.has(proof.name)) byName.set(proof.name, []);
     byName.get(proof.name).push(proof);
   }
-  check(proofs.length === 100, `expected 100 current recipe proofs, found ${proofs.length}`);
+  // A floor, not a fixed size. This catalog only grows, and an exact count
+  // turns every new entry into a failure here while still not noticing a
+  // collapse. The same idiom guards chart facts, catalog status, pain reports,
+  // and model completeness.
+  check(proofs.length >= 100, `expected at least 100 current recipe proofs, found ${proofs.length}`);
   return { proofs, retainedCandidateProofs: allProofs.length - proofs.length, byChart, byNameVersion, byName };
 }
 

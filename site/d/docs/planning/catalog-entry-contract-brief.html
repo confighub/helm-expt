@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Legacy Patch Review · Config Workshop</title>
-  <meta name="description" content="Legacy Patch Review: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/legacy-patch-review/summary.html">
-  <meta property="og:title" content="Legacy Patch Review · Config Workshop">
-  <meta property="og:description" content="Legacy Patch Review: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>Brief: one contract for every catalog entry · Config Workshop</title>
+  <meta name="description" content="Brief: one contract for every catalog entry: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-entry-contract-brief.html">
+  <meta property="og:title" content="Brief: one contract for every catalog entry · Config Workshop">
+  <meta property="og:description" content="Brief: one contract for every catalog entry: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/legacy-patch-review/summary.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-entry-contract-brief.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -438,42 +438,83 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Legacy Patch Review</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/legacy-patch-review/summary.md">View source markdown</a>.</p>
+    <h1>Brief: one contract for every catalog entry</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../docs/planning/catalog-entry-contract-brief.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated review creates the lane for valuable old-version patch support. It does not claim old-version support yet.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>recipes reviewed: 139
-legacy patch lanes open: 20
-old versions selected: 0</code></pre>
-<h2 id="open-lanes">Open Lanes</h2>
-<table><thead><tr><th>Chart</th><th>Status</th><th>Next action</th></tr></thead><tbody><tr><td><code>argo-cd/argo-cd@9.5.15</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>bitnami/mongodb@19.0.7</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>bitnami/mysql@14.0.3</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>bitnami/nginx@24.0.2</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>bitnami/postgresql@18.6.7</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>bitnami/rabbitmq@16.0.14</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>bitnami/redis@25.5.3</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>external-secrets/external-secrets@2.5.0</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>grafana/grafana@10.5.15</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>grafana/loki@7.0.0</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>grafana/tempo@1.24.4</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>hashicorp/consul@2.0.0</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>hashicorp/vault@0.32.0</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>ingress-nginx/ingress-nginx@4.15.1</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>jetstack/cert-manager@v1.20.2</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>longhorn/longhorn@1.11.2</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>metrics-server/metrics-server@3.13.0</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>prometheus-community/kube-prometheus-stack@85.3.3</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>prometheus-community/prometheus@29.8.0</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr>
-<tr><td><code>secrets-store-csi-driver/secrets-store-csi-driver@1.6.0</code></td><td>review-lane-open</td><td>Select old chart versions worth paid patch support and generate the first upgrade/patch scenario.</td></tr></tbody></table>
-<h2 id="required-proof-before-selling-old-version-patches">Required Proof Before Selling Old-Version Patches</h2>
-<ul><li>old-version source lock and dependency lock</li><li>old-version recipe and installer package</li><li>old-version rendered revision digest</li><li>patch diff against the supported current recipe</li><li>scan/gate result for the patched rendered objects</li><li>upgrade and rollback receipts</li><li>explicit support window and scope</li></ul>
+<p>EXPERIMENTAL</p>
+<p>The catalog's doctrine grew in layers. The early questions were about Helm quirks and Helm pain. Then came delivery and packaging, OCI as the single transport, installer packages, per-chart pages, ConfigHub variants and promotion. Most recently came flattening-safety verdicts, certified bundles, and the register discipline. Each layer wrote down what it needed. No layer wrote down what an entry owes in total.</p>
+<p>This brief asks whether all of it can be restated as one contract that applies to every entry, past and future. The answer is yes, with two additions the current doctrine does not have and one honest correction about how well the existing mechanism works.</p>
+<p>Every number here was measured against the tree, not quoted from an earlier document. Several earlier figures, including some in issue #1375, were counted at the wrong paths and are corrected below.</p>
+<h2 id="what-the-doctrine-already-says-well">What the doctrine already says well</h2>
+<p>Four passages are worth keeping word for word.</p>
+<p><code>docs/reference/config-catalog-doctrine.md:186</code> states the shape of the whole answer:</p>
+<blockquote><p>Every real base must also state whether those surrounding records are complete: lifecycle work is either attached, explicitly unnecessary, or an actionable gap; target prerequisites are either declared, explicitly unnecessary, or an actionable gap;</p></blockquote>
+<p>and closes at <code>:198</code> with the sentence that turns a taxonomy into a contract:</p>
+<blockquote><p>Missing information must not be presented as &quot;nothing required.&quot;</p></blockquote>
+<p><code>docs/reference/config-catalog-doctrine.md:384</code> forbids the inference that makes silence look like a decision:</p>
+<blockquote><p>It does not infer that a chart needs no route when none has been written.</p></blockquote>
+<p><code>tests/doctrine.md:7</code> defines what an incomplete proof is:</p>
+<blockquote><p>every proof must follow them, and a proof that skips one is incomplete, not just smaller.</p></blockquote>
+<p><code>tests/doctrine.md:56</code> names the outcomes and forbids silence:</p>
+<blockquote><p>Never silent - every outcome is named.</p></blockquote>
+<h2 id="the-correction-that-has-to-come-first">The correction that has to come first</h2>
+<p>The three-state rule is already implemented for two obligations, in <code>scripts/verify-helm-render-intent-contracts.mjs</code>, over 199 render intents, inside <code>npm run verify</code>. It looks like the model to generalise. Measured, it is weaker than it looks.</p>
+<p>The lifecycle state is <code>no-route-required</code> on <b>184 of 199</b> records. All 184 carry one identical reason, generated unconditionally at <code>scripts/generate-helm-render-intents.mjs:607</code>:</p>
+<blockquote><p>The current catalog record has no source hook or separate lifecycle step for this base.</p></blockquote>
+<p>Zero of the 184 carry evidence. Zero carry a next action. That is inference from absence written into a field, which is exactly what <code>config-catalog-doctrine.md:384</code> forbids. The declaration exists; the decision does not.</p>
+<p>The target-facts state has the opposite problem. The contract requires a <code>declarationSource</code> before it accepts <code>no-target-facts-required</code>, which is the right rule. <b>No record is in that state</b>, so the guard has never fired on a real entry. The states in use are 132 actionable gaps and 67 attached.</p>
+<p>So the mechanism to generalise is the <i>rule</i>, not its current implementation. A generated default is not a declaration, and a guard with no subjects is not evidence that a guard works.</p>
+<h2 id="the-contract">The contract</h2>
+<blockquote><p>Every catalog entry declares, for each obligation on its kind's list, one of three states. <b>Attached</b> names the record and its evidence path. <b>Explicitly unnecessary</b> names the source of the decision, never a generated default. <b>Actionable gap</b> names the next action. Silence is not a state. A lane enumerates entries directly, so an entry that declares nothing fails rather than disappearing. Any exception is a dated register entry that fails both when a subject is undeclared and when a declaration stops being true.</p></blockquote>
+<p>Two axes have to be added, because presence alone cannot express what the recent work discovered.</p>
+<p><b>Permission</b>, from issue #1392. Some obligations are not merely optional, they are forbidden. A <code>do-not-flatten</code> entry must never carry a certified bundle. An auditor who sees 16 bundle receipts against 139 entries and concludes 123 are missing has read a presence-only contract correctly and reached a false conclusion. So each obligation is <code>required</code>, <code>permitted</code>, or <code>forbidden</code> for a given entry, keyed on a decided lane, and the presence states apply only where it is required or permitted.</p>
+<p><b>Limits</b>, from issue #1393. Each obligation states what its evidence does not prove. The doctrine already has this instinct at <code>tests/doctrine.md:12</code>, where render parity never proves a quirk. Generalised, it means a certified bundle receipt says plainly that it covers packaging rather than runtime health, and a route declaration says plainly that it is a declaration rather than an execution.</p>
+<h2 id="are-target-facts-needed-for-every-route">Are target facts needed for every route?</h2>
+<p>No, and the contract must not couple them. They are separate obligations that meet at one point.</p>
+<p>Of <b>53</b> recorded routes in <code>data/lifecycle-routes/routes.csv</code>, <b>4</b> are in the <code>target-facts</code> quirk class. The rest are hook phases (23), delete policies (8), CRD installs (5), hook tests (4), webhook readiness (4), weight ordering (4), and one per-target hook. None of those requires a target fact.</p>
+<p>Where they meet is as one option among several. <code>data/lifecycle-routes/contract.md:125</code> offers <code>target-facts-or-preflight</code> as a way to satisfy a hook-phase prerequisite, and <code>:137</code> offers <code>preflight-or-presync</code> as an alternative to a target fact. A target fact is a mechanism a route may use to discharge a prerequisite, not a thing every route owes.</p>
+<p>The reverse is also common. <b>56</b> render intents have target facts attached with no route at all, because needing a Secret or a namespace before apply says nothing about needing a lifecycle action.</p>
+<p>So the entry list carries both obligations independently, and a route additionally records which mechanism discharges it.</p>
+<h2 id="what-an-entry-owes-by-kind">What an entry owes, by kind</h2>
+<table><thead><tr><th>Obligation</th><th>Chart entry</th><th>Platform shape</th><th>Fleet example</th></tr></thead><tbody><tr><td>Source and dependency pin</td><td>required</td><td>required</td><td>required</td></tr>
+<tr><td>Installer package and publication receipt</td><td>required</td><td>required</td><td>required</td></tr>
+<tr><td>Per-entry page and artifact index</td><td>required</td><td>required</td><td>required</td></tr>
+<tr><td>Helm pain report</td><td>required</td><td>forbidden, the source is not Helm</td><td>forbidden</td></tr>
+<tr><td>Lifecycle routes</td><td>required</td><td>required</td><td>required</td></tr>
+<tr><td>Target prerequisites</td><td>required</td><td>required</td><td>required</td></tr>
+<tr><td>Flattening-safety verdict</td><td>required</td><td>born-flattened, recorded once</td><td>forbidden</td></tr>
+<tr><td>Certified bundle receipt</td><td>permitted, gated on the verdict; forbidden when <code>do-not-flatten</code></td><td>permitted</td><td>forbidden</td></tr>
+<tr><td>Packaged CRD bundle</td><td>required when a base declares a CRD prerequisite</td><td>conditional</td><td>forbidden</td></tr>
+<tr><td>Licence record</td><td>required</td><td>required</td><td>required</td></tr>
+<tr><td>Retention state</td><td>required</td><td>required</td><td>required</td></tr></tbody></table>
+<p>The first three rows are the universal floor. Every one of the 139 entries already satisfies them today, which is the fact that makes the contract adoptable rather than aspirational.</p>
+<h2 id="what-it-would-cost-today">What it would cost today</h2>
+<p>Measured against 139 recipe roots.</p>
+<table><thead><tr><th>Obligation</th><th>Satisfied</th><th>Gap</th></tr></thead><tbody><tr><td>Catalog views: status, artifact index, page</td><td><b>139 of 139</b></td><td>none</td></tr>
+<tr><td>Installer package and publication receipt</td><td>139 of 139</td><td>none</td></tr>
+<tr><td>Helm pain report</td><td>130 of 139</td><td>9 entries</td></tr>
+<tr><td>Render intent, which carries lifecycle and target-facts states</td><td>110 of 139</td><td><b>29 entries holding 46 variants</b></td></tr>
+<tr><td>Lifecycle declared with a real decision</td><td>15 of 199 intents</td><td>184 generated defaults</td></tr>
+<tr><td>Target facts declared attached</td><td>67 of 199 intents</td><td>132 actionable gaps</td></tr></tbody></table>
+<p>The catalog views row corrects issue #1375, which reported 20 of 135 missing. They are complete. The generators resolve them through <code>catalogDerivedPath()</code> in <code>scripts/lib/catalog-derived-views.mjs</code>, which redirects immutable roots to an overlay; counting raw in-root paths produced the wrong answer.</p>
+<p>The largest genuine gap is the 29 orphan roots. They hold 46 variants that no render intent covers, so no lifecycle or target-facts state exists for them at all. They are not in the fourth state, they are outside the system that has states.</p>
+<h2 id="what-it-would-break-and-what-to-do-about-it">What it would break, and what to do about it</h2>
+<p>Two conventions coexist for reading catalog views. Only <b>8</b> scripts use <code>catalogDerivedPath()</code>. Four analyses read the raw in-root path and fail on every immutable root: <code>generate-production-disposition-lane</code>, <code>run-legacy-patch-review</code>, <code>generate-top500-catalog-analysis</code>, and <code>generate-top100-user-readiness</code>. Adopting a contract that enumerates entries directly makes this a one-line fix per script rather than a mystery.</p>
+<p>Two lanes assert fixed catalog sizes that stopped being true when the catalog grew: <code>check(entries.length === 100)</code> in <code>generate-top100-catalog-analysis</code> against 105, and <code>check(secretRows.length === 15)</code> in <code>generate-attack-plan-workdown</code> against 12. Under the contract these become derived counts, or declared expectations that say why the number is what it is.</p>
+<p>The lane vocabulary disagrees with itself. <code>tests/doctrine.md:57</code> lists five values, and <code>scripts/generate-disposition-frontier.mjs:50</code> admits six by adding <code>fail</code>. One of them is wrong and the contract cannot be written until someone says which.</p>
+<h2 id="what-not-to-do">What not to do</h2>
+<p>Do not enrol the 184 generated lifecycle defaults by keeping them. Deleting the unconditional fall-through at <code>generate-helm-render-intents.mjs:607</code> moves 184 records from a false declaration to an honest gap, and the count of gaps will rise sharply. That is the correct direction. A contract measured by how few gaps it shows is a contract that rewards silence.</p>
+<p>Do not require a certified bundle per entry. The verdict decides, and three entries are <code>do-not-flatten</code> today.</p>
+<p>Do not couple target facts to routes. The measurement above shows 49 of 53 routes need none, and 56 intents need target facts with no route.</p>
+<h2 id="the-first-increment">The first increment</h2>
+<ol><li>Fix the four raw-path readers. It clears four chain failures and costs a line each.</li><li>Enrol the 29 orphan roots so every entry has the states, before adding any new obligation to the list.</li><li>Replace the generated lifecycle default with an honest gap, and accept the rise in the gap count.</li><li>Settle the lane vocabulary.</li><li>Only then extend the three-state rule to the remaining obligations, with the permission and limits axes, one obligation at a time, each with a lane that enumerates entries directly.</li></ol>
+<h2 id="related">Related</h2>
+<p>Issue #1375 records the analysis-layer gap, with its numbers corrected in a comment. Issues #1391, #1392 and #1393 supply the permission and limits axes from the certified-bundle work. Issue #1359 records the chain blocker that hid most of this until today.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>data/legacy-patch-review/summary.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/planning/catalog-entry-contract-brief.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>
