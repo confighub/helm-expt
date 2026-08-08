@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NPM Script Catalog · Config Workshop</title>
-  <meta name="description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
-  <meta property="og:title" content="NPM Script Catalog · Config Workshop">
-  <meta property="og:description" content="NPM Script Catalog: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>How much of the catalog's upstream publishes provenance · Config Workshop</title>
+  <meta name="description" content="How much of the catalog's upstream publishes provenance: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/data/upstream-provenance/summary.html">
+  <meta property="og:title" content="How much of the catalog's upstream publishes provenance · Config Workshop">
+  <meta property="og:description" content="How much of the catalog's upstream publishes provenance: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/tests/npm-script-catalog.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/data/upstream-provenance/summary.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -437,66 +437,125 @@
 </head>
 <body>
   <header class="hero human-hero">
-    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../try.html">Try Redis</a><a href="../../testing.html">Examples</a><a href="../../charts/index.html">Catalog</a><a href="../../how-it-works.html">Deployment</a><a href="../../docs.html">Docs</a><a href="../../hard-questions.html">FAQ</a><a href="../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>NPM Script Catalog</h1>
-    <p class="lead">A repository document, rendered for the site. <a href="../../../tests/npm-script-catalog.md">View source markdown</a>.</p>
+    <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
+    <h1>How much of the catalog's upstream publishes provenance</h1>
+    <p class="lead">A repository document, rendered for the site. <a href="../../../../data/upstream-provenance/summary.md">View source markdown</a>.</p>
   </header>
   <main>
     <p class="generated"><b>Generated at:</b> 2026-08-08T00:00:00Z UTC · source: committed helm-expt evidence for this rendered repository document.</p>
     <article class="doc-body">
-<p>This generated page summarizes the current <code>package.json</code> script surface. The detailed one-row-per-script index is <a href="../../../tests/npm-script-catalog.csv">npm-script-catalog.csv</a>.</p>
-<p>Use <a href="npm-scripts.html">NPM Test And Verification Scripts</a> for the human runbook. Use this page when you need to audit whether a command is a verifier, a generator, a live test, or a user-side tutorial check.</p>
-<h2 id="summary">Summary</h2>
-<pre><code>scripts: 899</code></pre>
-<h2 id="by-category">By Category</h2>
-<table><thead><tr><th>Chain role</th><th>Scripts</th></tr></thead><tbody><tr><td><code>not-a-gate</code></td><td>474</td></tr>
-<tr><td><code>in-verify-chain</code></td><td>406</td></tr>
-<tr><td><code>gate-shaped-outside-chain</code></td><td>19</td></tr></tbody></table>
-<p>A lane whose role is <code>gate-shaped-outside-chain</code> is named like a gate and is not run by <code>npm run verify</code>. Each one needs a recorded reason, which <a href="npm-lane-roles.html">npm-lane-roles.md</a> carries.</p>
-<table><thead><tr><th>Category</th><th>Scripts</th></tr></thead><tbody><tr><td><code>other</code></td><td>394</td></tr>
-<tr><td><code>top20-chart-proof</code></td><td>123</td></tr>
-<tr><td><code>catalog-data</code></td><td>67</td></tr>
-<tr><td><code>production-support</code></td><td>65</td></tr>
-<tr><td><code>latest-version-refresh</code></td><td>38</td></tr>
-<tr><td><code>live-parity-gitops</code></td><td>37</td></tr>
-<tr><td><code>evidence-workdown</code></td><td>32</td></tr>
-<tr><td><code>confighub-proof</code></td><td>30</td></tr>
-<tr><td><code>hook-lifecycle</code></td><td>29</td></tr>
-<tr><td><code>repo-integrity</code></td><td>19</td></tr>
-<tr><td><code>confighub-catalog-org</code></td><td>11</td></tr>
-<tr><td><code>derived-variants</code></td><td>11</td></tr>
-<tr><td><code>local-live-evidence</code></td><td>8</td></tr>
-<tr><td><code>scale-proof</code></td><td>8</td></tr>
-<tr><td><code>user-install-verification</code></td><td>7</td></tr>
-<tr><td><code>oci-evidence</code></td><td>6</td></tr>
-<tr><td><code>oci-inspection</code></td><td>4</td></tr>
-<tr><td><code>oci-transformation</code></td><td>4</td></tr>
-<tr><td><code>adversarial-live</code></td><td>2</td></tr>
-<tr><td><code>catalog-readiness</code></td><td>2</td></tr>
-<tr><td><code>pilot-variant-model</code></td><td>2</td></tr></tbody></table>
-<h2 id="by-mode">By Mode</h2>
-<table><thead><tr><th>Mode</th><th>Scripts</th></tr></thead><tbody><tr><td><code>verify</code></td><td>392</td></tr>
-<tr><td><code>generate-or-run</code></td><td>347</td></tr>
-<tr><td><code>run</code></td><td>101</td></tr>
-<tr><td><code>self-test</code></td><td>49</td></tr>
-<tr><td><code>summary</code></td><td>9</td></tr>
-<tr><td><code>full-corpus-verify</code></td><td>1</td></tr></tbody></table>
-<h2 id="by-external-state">By External State</h2>
-<table><thead><tr><th>External state</th><th>Scripts</th></tr></thead><tbody><tr><td><code>none-for-verify</code></td><td>822</td></tr>
-<tr><td><code>confighub-or-live-cluster</code></td><td>33</td></tr>
-<tr><td><code>network-or-helm-repo</code></td><td>15</td></tr>
-<tr><td><code>local-kubernetes</code></td><td>14</td></tr>
-<tr><td><code>public-oci-registry</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-cluster-or-confighub</code></td><td>5</td></tr>
-<tr><td><code>user-supplied-oci</code></td><td>2</td></tr>
-<tr><td><code>authenticated-oci-registry</code></td><td>1</td></tr>
-<tr><td><code>local-kubara-binary</code></td><td>1</td></tr>
-<tr><td><code>network-or-git-source</code></td><td>1</td></tr></tbody></table>
-<h2 id="regenerate">Regenerate</h2>
-<pre><code>npm run npm-scripts:catalog
-npm run npm-scripts:catalog:verify</code></pre>
+<p><b>UNOFFICIAL/EXPERIMENTAL.</b> The snapshot is taken by <code>npm run upstream-provenance:run</code>, which is the only step that reaches the network. The summary is rendered by <code>npm run upstream-provenance:generate</code> and checked offline by <code>npm run upstream-provenance:verify</code>. The full table is <a href="../../../../data/upstream-provenance/provenance.csv">provenance.csv</a>.</p>
+<p>The AICR track proved a provenance chain end to end: a signature verified offline against pinned trust material, bound to bytes this repository holds. The obvious next question is how far that can reach, and nobody had asked it. This asks once per retained chart.</p>
+<p>Surveyed <b>2026-08-08</b>. For each retained chart, the upstream repository index was read for that exact version's tarball URL, and a HEAD request asked whether a Helm provenance file sits beside it. No signature was verified and nothing was downloaded.</p>
+<h2 id="the-answer">The answer</h2>
+<p><b>33 of 139 retained charts</b> publish a Helm provenance file, which is 24% of the catalog. 74 publish none, and 32 could not be asked, mostly because their charts are hosted in a way this convention does not cover.</p>
+<p>That number is the ceiling on any provenance claim the catalog could make by this mechanism. It is not a criticism of the publishers who sign nothing: signing a Helm chart is uncommon, and most of this catalog's upstreams have never done it.</p>
+<h2 id="by-upstream-repository">By upstream repository</h2>
+<p>9 of 58 upstream repositories sign at least one retained chart.</p>
+<table><thead><tr><th>Repository</th><th>Retained charts</th><th>Signed</th><th>Verdict</th></tr></thead><tbody><tr><td>https://aquasecurity.github.io/helm-charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://argoproj.github.io/argo-helm</td><td>8</td><td>8</td><td>signs every retained chart</td></tr>
+<tr><td>https://bitnami-labs.github.io/sealed-secrets</td><td>1</td><td>0</td><td>could not be asked</td></tr>
+<tr><td>https://charts.bitnami.com/bitnami</td><td>21</td><td>0</td><td>OCI-hosted, no provenance convention</td></tr>
+<tr><td>https://charts.crossplane.io/stable</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://charts.dexidp.io</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://charts.external-secrets.io</td><td>3</td><td>3</td><td>signs every retained chart</td></tr>
+<tr><td>https://charts.fairwinds.com/stable</td><td>2</td><td>0</td><td>could not be asked</td></tr>
+<tr><td>https://charts.gitlab.io</td><td>1</td><td>1</td><td>signs every retained chart</td></tr>
+<tr><td>https://charts.jetstack.io</td><td>4</td><td>2</td><td>signs some</td></tr>
+<tr><td>https://charts.longhorn.io</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://charts.rook.io/release</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://cloudnative-pg.github.io/charts</td><td>1</td><td>1</td><td>signs every retained chart</td></tr>
+<tr><td>https://coredns.github.io/helm</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://docs.tigera.io/calico/charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://falcosecurity.github.io/charts</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://fluent.github.io/helm-charts</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://grafana.github.io/helm-charts</td><td>9</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://haproxytech.github.io/helm-charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://helm.elastic.co</td><td>5</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://helm.linkerd.io/stable</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://helm.releases.hashicorp.com</td><td>3</td><td>3</td><td>signs every retained chart</td></tr>
+<tr><td>https://helm.runix.net</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://istio-release.storage.googleapis.com/charts</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://jaegertracing.github.io/helm-charts</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kedacore.github.io/charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes-sigs.github.io/aws-ebs-csi-driver</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes-sigs.github.io/descheduler</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes-sigs.github.io/external-dns</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes-sigs.github.io/metrics-server</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes.github.io/autoscaler</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kubernetes.github.io/ingress-nginx</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kyverno.github.io/kyverno</td><td>4</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://kyverno.github.io/policy-reporter</td><td>1</td><td>1</td><td>signs every retained chart</td></tr>
+<tr><td>https://metallb.github.io/metallb</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://nats-io.github.io/k8s/helm/charts</td><td>3</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://nvidia.github.io/k8s-device-plugin</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://oauth2-proxy.github.io/manifests</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://open-policy-agent.github.io/gatekeeper/charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://open-telemetry.github.io/opentelemetry-helm-charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://opencost.github.io/opencost-helm-chart</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://operator.min.io</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://percona.github.io/percona-helm-charts</td><td>3</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://prometheus-community.github.io/helm-charts</td><td>14</td><td>13</td><td>signs some</td></tr>
+<tr><td>https://stakater.github.io/stakater-charts</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://strimzi.io/charts</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://traefik.github.io/charts</td><td>1</td><td>1</td><td>signs every retained chart</td></tr>
+<tr><td>https://valkey.io/valkey-helm</td><td>1</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://victoriametrics.github.io/helm-charts</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>https://vmware-tanzu.github.io/helm-charts</td><td>2</td><td>0</td><td>publishes none</td></tr>
+<tr><td>oci://ghcr.io/traefik/helm</td><td>1</td><td>0</td><td>OCI-hosted, no provenance convention</td></tr>
+<tr><td>oci://public.ecr.aws/aws-controllers-k8s</td><td>3</td><td>0</td><td>OCI-hosted, no provenance convention</td></tr>
+<tr><td>oci://public.ecr.aws/karpenter</td><td>1</td><td>0</td><td>OCI-hosted, no provenance convention</td></tr>
+<tr><td>oci://registry-1.docker.io/cloudpirates/nginx</td><td>1</td><td>0</td><td>OCI-hosted, no provenance convention</td></tr>
+<tr><td>oci://registry-1.docker.io/cloudpirates/rabbitmq</td><td>1</td><td>0</td><td>OCI-hosted, no provenance convention</td></tr>
+<tr><td>oci://registry-1.docker.io/cloudpirates/redis</td><td>1</td><td>0</td><td>OCI-hosted, no provenance convention</td></tr></tbody></table>
+<h2 id="the-charts-that-could-carry-a-provenance-claim-today">The charts that could carry a provenance claim today</h2>
+<p>| <code>alertmanager</code> | 1.37.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>argo-cd</code> | 10.1.3 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>argo-cd</code> | 10.2.1 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>argo-cd</code> | 9.5.15 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>argo-cd</code> | 9.5.17 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>argo-events</code> | 2.4.21 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>argo-rollouts</code> | 2.40.9 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>argo-workflows</code> | 1.0.14 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>argocd-image-updater</code> | 1.2.2 | https://argoproj.github.io/argo-helm |</p>
+<p>| <code>cert-manager</code> | v1.20.2 | https://charts.jetstack.io |</p>
+<p>| <code>cert-manager</code> | v1.21.0 | https://charts.jetstack.io |</p>
+<p>| <code>cloudnative-pg</code> | 0.28.2 | https://cloudnative-pg.github.io/charts |</p>
+<p>| <code>consul</code> | 2.0.0 | https://helm.releases.hashicorp.com |</p>
+<p>| <code>external-secrets</code> | 2.5.0 | https://charts.external-secrets.io |</p>
+<p>| <code>external-secrets</code> | 2.7.0 | https://charts.external-secrets.io |</p>
+<p>| <code>external-secrets</code> | 2.8.0 | https://charts.external-secrets.io |</p>
+<p>| <code>gitlab-runner</code> | 0.89.0 | https://charts.gitlab.io |</p>
+<p>| <code>kube-prometheus-stack</code> | 85.3.3 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>kube-prometheus-stack</code> | 86.1.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>kube-prometheus-stack</code> | 87.15.1 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>kube-prometheus-stack</code> | 87.19.2 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>kube-state-metrics</code> | 7.4.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>policy-reporter</code> | 3.9.1 | https://kyverno.github.io/policy-reporter |</p>
+<p>| <code>prometheus</code> | 29.8.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>prometheus</code> | 29.9.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>prometheus-adapter</code> | 5.3.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>prometheus-blackbox-exporter</code> | 11.10.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>prometheus-blackbox-exporter</code> | 11.15.1 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>prometheus-node-exporter</code> | 4.55.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>prometheus-operator-crds</code> | 29.0.0 | https://prometheus-community.github.io/helm-charts |</p>
+<p>| <code>terraform</code> | 1.1.2 | https://helm.releases.hashicorp.com |</p>
+<p>| <code>traefik</code> | 40.2.0 | https://traefik.github.io/charts |</p>
+<p>| <code>vault</code> | 0.32.0 | https://helm.releases.hashicorp.com |</p>
+<h2 id="what-this-does-not-do">What this does not do</h2>
+<p>It does not verify a signature. A Helm provenance file is signed with a PGP key the publisher distributes separately, and deciding which keys to trust is a policy question this survey exists to inform rather than to pre-empt. Presence is a fact about the publisher; trust is a decision about them.</p>
+<p>It also asks only about Helm's own provenance mechanism. A publisher might sign container images, or attest builds, without signing the chart, and none of that would appear here. What this measures is the provenance a chart consumer can check at the point they pull the chart.</p>
+<h2 id="why-the-rest-could-not-be-asked">Why the rest could not be asked</h2>
+<ul><li><b>21</b> are listed in an HTTP index that points at an OCI reference rather than a tarball, which is the migration that followed one publisher's repricing.</li><li><b>8</b> sit in an OCI repository, which has no index and no provenance convention.</li><li><b>2</b> answered with a refusal rather than an answer.</li><li><b>1</b> sit in a repository whose index could not be read.</li></ul>
+<p>An unanswered question is not a negative answer, so none of these count as unsigned. The OCI rows are the interesting ones: a chart served from a registry carries no file beside a tarball, so provenance there would have to come from a registry-native signature rather than from this mechanism.</p>
+<h2 id="when-a-publisher-stops-signing">When a publisher stops signing</h2>
+<p>No chart has changed verdict since the previous survey. This is the first record for some of them, and a first record cannot show a change.</p>
+<p>A provenance claim that quietly disappears is worse than one never made. Each run compares its answers against the previous snapshot and records every chart whose verdict moved, so a publisher who stops signing leaves a record rather than a silence. That is the only way this survey can carry a claim over time rather than describing one afternoon.</p>
+<p>Everything in the verify path runs offline against committed bytes. Nothing was downloaded, no signature was made, and no cluster or organization took part.</p>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>tests/npm-script-catalog.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>data/upstream-provenance/summary.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

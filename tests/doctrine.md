@@ -115,6 +115,23 @@ rather than to a calendar: entries are keyed by the exact tag, so a version bump
 produces a reference nobody enumerated and the lane refuses it. A date-based
 cadence goes stale quietly, because nothing fails when a date passes.
 
+## 6g. A provenance claim may not degrade silently
+A claim that an artifact's provenance was verified is only worth making if its
+withdrawal is as visible as its assertion. An upstream that stops signing, or a
+chart that moves to a transport where the old signature does not apply, changes
+what the catalog can honestly say, and nothing about that change announces
+itself.
+
+So provenance is surveyed against a committed snapshot, and each run records
+every artifact whose verdict moved since the last one. A publisher who stops
+signing leaves a record rather than a silence, and the catalog withdraws the
+claim in the same place it made it.
+
+An unanswered question is not a negative answer. An artifact whose provenance
+could not be asked about is recorded as unknown, never as unsigned, because
+counting a refused request as evidence of absence would overstate the one thing
+this discipline exists to keep honest.
+
 ## 6d. Drift detection must state field coverage
 `cub-scout compare three-way --dry-from` can detect meaningful drift, but field
 coverage is part of the claim. A lane that catches replica or image drift but
