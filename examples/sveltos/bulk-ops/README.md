@@ -1,5 +1,10 @@
 # Sveltos bulk operations
 
+> This example now lives at
+> [confighub/sveltos-confighub](https://github.com/confighub/sveltos-confighub).
+> This copy is a frozen mirror; new work, live recordings, and issues belong
+> in that repository.
+
 This is chapter five of the Sveltos fleet example, and the last one in the
 brief: the change-it-once claim. One reviewed edit fans out to every
 environment record in one pass, every cluster converges, and a zero-drift
