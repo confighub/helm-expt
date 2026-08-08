@@ -1,0 +1,103 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "bitnami-postgresql-18.6.7"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "postgresql"
+    version: "18.6.7"
+    packageSHA256: "0ad5b7d9d50f53000b2369e3ee6aa70b32c3b91c363a118c78d9204ae3f98fe5"
+  witnessRef: "data/flattening-safety/witnesses/bitnami-postgresql-18.6.7.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "1 occurrence(s) in the packaged chart"
+      disposition: "named companion artifact required"
+      evidence:
+        - "templates/backup/pvc.yaml:22"
+    -
+      class: "lookup"
+      finding: "present"
+      detail: "the chart's own credential template calls the shared password-manage helper, which reads an existing Secret from the cluster before deciding whether to mint one"
+      disposition: "no emitted route discharges a live lookup-or-generate credential path"
+      evidence:
+        - "charts/common/templates/_secrets.tpl:103"
+        - "charts/common/templates/_secrets.tpl:166"
+        - "charts/common/templates/_secrets.tpl:188"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "present"
+      detail: "5 occurrence(s) in the packaged chart"
+      disposition: "render inputs pin the kube version; recorded in every certified bundle receipt"
+      evidence:
+        - "charts/common/templates/_capabilities.tpl:12"
+        - "charts/common/templates/_capabilities.tpl:22"
+        - "charts/common/templates/_capabilities.tpl:165"
+        - "charts/common/templates/_capabilities.tpl:166"
+        - "charts/common/templates/_compatibility.tpl:14"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "the audited base mints its credentials on render, in the chart's own templates rather than only in the vendored library"
+      disposition: "a flattened bundle would freeze one credential draw into a shared artifact"
+      evidence:
+        - "charts/common/templates/_secrets.tpl:70"
+        - "charts/common/templates/_secrets.tpl:95"
+        - "charts/common/templates/_secrets.tpl:132"
+        - "charts/common/templates/_secrets.tpl:133"
+        - "charts/common/templates/_secrets.tpl:137"
+        - "templates/secrets.yaml:14"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "auth.existingSecret, the catalog's static-passwords lane"
+      effect: "an external Secret reference discharges the credential hazard; that base deserves a fresh verdict and trends flatten-with-routes"
+  verdict:
+    lane: "do-not-flatten"
+    rationale: "The credentials are lookup-or-generate at render time in the shared bitnami secret helpers: the chart reads an existing Secret and mints one when absent. That is the exact construct a public flattened artifact must never freeze, and it is the same finding that decided the audited redis 27.0.0."
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/bitnami-postgresql-18.6.7.yaml"
+      - "recipes/bitnami/postgresql/18.6.7/source-lock.yaml"
