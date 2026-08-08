@@ -475,3 +475,11 @@ maintenance steps are recorded.
 7. Keep install-time choices small and typed when the source format supports that.
 8. Show why an entry exists, what problem it solves, how to try it, what was checked,
    and what remains.
+9. A record that names a file must name the file it currently points at, and a lane
+   must read back every fact a generator writes into a file another generator owns.
+   A fact nothing reads back disappears the next time the other generator runs, and
+   the disappearance looks exactly like a decision nobody made.
+10. A lane covers every subject of its kind, or it records which subjects it leaves
+    out and why. A check that reads ten charts is a sample of the catalog, and
+    treating a sample as a gate is how twenty-four stale records stayed invisible
+    while the lane that could have found them kept passing.

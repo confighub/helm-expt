@@ -1,0 +1,246 @@
+path,chart,variant,revision,state,render_state,next_action
+recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml,aqua/trivy-operator/0.32.1,default,r001,attached,matches,
+recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml,aqua/trivy-operator/0.32.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/argo-cd/argo-cd/10.1.3/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/10.1.3,default,r001,attached,matches,
+recipes/argo-cd/argo-cd/10.1.3/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.1.3,no-crds,r001,attached,matches,
+recipes/argo-cd/argo-cd/10.2.1/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/10.2.1,default,r001,attached,matches,
+recipes/argo-cd/argo-cd/10.2.1/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/10.2.1,no-crds,r001,attached,matches,
+recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.15,default,r001,attached,matches,
+recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.15,no-crds,r001,attached,matches,
+recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.17,default,r001,attached,matches,
+recipes/argo-cd/argo-cd/9.5.17/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-cd/9.5.17,no-crds,r001,attached,matches,
+recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml,argo-cd/argo-events/2.4.21,default,r001,attached,matches,
+recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-events/2.4.21,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/variant-revision.yaml,argo-cd/argo-rollouts/2.40.9,default,r001,attached,matches,
+recipes/argo-cd/argo-rollouts/2.40.9/revisions/no-crds/r001/variant-revision.yaml,argo-cd/argo-rollouts/2.40.9,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml,argo-cd/argo-workflows/1.0.14,controller-default-reviewed,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml,argo-cd/argo-workflows/1.0.14,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/argo-cd/argo-workflows/1.0.14/revisions/minimal-crds/r001/variant-revision.yaml,argo-cd/argo-workflows/1.0.14,minimal-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/argo-cd/argocd-image-updater/1.2.2/revisions/default/r001/variant-revision.yaml,argo-cd/argocd-image-updater/1.2.2,default,r001,attached,matches,
+recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml,autoscaler/cluster-autoscaler/9.57.0,controller-default-reviewed,r001,attached,matches,
+recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml,autoscaler/cluster-autoscaler/9.57.0,default,r001,attached,matches,
+recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml,autoscaler/vertical-pod-autoscaler/0.9.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml,autoscaler/vertical-pod-autoscaler/0.9.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/default/r001/variant-revision.yaml,aws-controllers-k8s/ec2-chart/1.18.4,default,r001,attached,matches,
+recipes/aws-controllers-k8s/ec2-chart/1.18.4/revisions/eks-inference/r001/variant-revision.yaml,aws-controllers-k8s/ec2-chart/1.18.4,eks-inference,r001,attached,matches,
+recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/default/r001/variant-revision.yaml,aws-controllers-k8s/eks-chart/1.16.3,default,r001,attached,matches,
+recipes/aws-controllers-k8s/eks-chart/1.16.3/revisions/eks-inference/r001/variant-revision.yaml,aws-controllers-k8s/eks-chart/1.16.3,eks-inference,r001,attached,matches,
+recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/variant-revision.yaml,aws-controllers-k8s/iam-chart/1.7.3,default,r001,attached,matches,
+recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml,aws-controllers-k8s/iam-chart/1.7.3,eks-inference,r001,attached,matches,
+recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml,aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1,default,r001,attached,matches,
+recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml,bitnami/apache/11.4.29,default,r001,attached,matches,
+recipes/bitnami/apache/11.4.29/revisions/legacy/r001/variant-revision.yaml,bitnami/apache/11.4.29,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml,bitnami/contour/21.1.4,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/contour/21.1.4/revisions/legacy/r001/variant-revision.yaml,bitnami/contour/21.1.4,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml,bitnami/contour/21.1.4,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/elasticsearch/22.1.6/revisions/default/r001/variant-revision.yaml,bitnami/elasticsearch/22.1.6,default,r001,attached,matches,
+recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/variant-revision.yaml,bitnami/elasticsearch/22.1.6,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/elasticsearch/22.1.6/revisions/legacy/r001/variant-revision.yaml,bitnami/elasticsearch/22.1.6,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/memcached/8.5.5/revisions/default/r001/variant-revision.yaml,bitnami/memcached/8.5.5,default,r001,attached,matches,
+recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml,bitnami/mongodb/19.0.7,existing-secret-replicaset,r001,attached,matches,
+recipes/bitnami/mongodb/19.0.7/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mongodb/19.0.7,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/variant-revision.yaml,bitnami/mongodb/19.0.9,existing-secret-replicaset,r001,attached,matches,
+recipes/bitnami/mongodb/19.0.9/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mongodb/19.0.9,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml,bitnami/mongodb/19.1.0,existing-secret-replicaset,r001,attached,matches,
+recipes/bitnami/mongodb/19.1.0/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mongodb/19.1.0,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml,bitnami/mysql/14.0.3,existing-secret,r001,attached,matches,
+recipes/bitnami/mysql/14.0.3/revisions/static-passwords/r001/variant-revision.yaml,bitnami/mysql/14.0.3,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml,bitnami/nginx/24.0.2,existing-tls-ingress,r001,attached,matches,
+recipes/bitnami/nginx/24.0.2/revisions/http-clusterip/r001/variant-revision.yaml,bitnami/nginx/24.0.2,http-clusterip,r001,attached,matches,
+recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml,bitnami/nginx/24.0.4,existing-tls-ingress,r001,attached,matches,
+recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/variant-revision.yaml,bitnami/nginx/24.0.4,http-clusterip,r001,attached,matches,
+recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml,bitnami/nginx/25.0.0,existing-tls-ingress,r001,attached,matches,
+recipes/bitnami/nginx/25.0.0/revisions/http-clusterip/r001/variant-revision.yaml,bitnami/nginx/25.0.0,http-clusterip,r001,attached,matches,
+recipes/bitnami/opensearch/2.0.10/revisions/default/r001/variant-revision.yaml,bitnami/opensearch/2.0.10,default,r001,attached,matches,
+recipes/bitnami/opensearch/2.0.10/revisions/ha/r001/variant-revision.yaml,bitnami/opensearch/2.0.10,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/opensearch/2.0.10/revisions/legacy/r001/variant-revision.yaml,bitnami/opensearch/2.0.10,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/variant-revision.yaml,bitnami/phpmyadmin/20.0.0,default,r001,attached,matches,
+recipes/bitnami/phpmyadmin/20.0.0/revisions/legacy/r001/variant-revision.yaml,bitnami/phpmyadmin/20.0.0,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/variant-revision.yaml,bitnami/postgresql/18.6.10,existing-secret,r001,attached,matches,
+recipes/bitnami/postgresql/18.6.10/revisions/static-passwords/r001/variant-revision.yaml,bitnami/postgresql/18.6.10,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml,bitnami/postgresql/18.6.7,existing-secret,r001,attached,matches,
+recipes/bitnami/postgresql/18.6.7/revisions/static-passwords/r001/variant-revision.yaml,bitnami/postgresql/18.6.7,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/variant-revision.yaml,bitnami/postgresql/18.7.0,existing-secret,r001,attached,matches,
+recipes/bitnami/postgresql/18.7.0/revisions/static-passwords/r001/variant-revision.yaml,bitnami/postgresql/18.7.0,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml,bitnami/rabbitmq/16.0.14,existing-secret,r001,attached,matches,
+recipes/bitnami/rabbitmq/16.0.14/revisions/static-passwords/r001/variant-revision.yaml,bitnami/rabbitmq/16.0.14,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml,bitnami/redis/25.5.3,default,r001,attached,matches,
+recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml,bitnami/redis/25.5.3,reuse-existing-secret,r001,attached,matches,
+recipes/bitnami/redis/27.0.0/revisions/default/r001/variant-revision.yaml,bitnami/redis/27.0.0,default,r001,attached,matches,
+recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/variant-revision.yaml,bitnami/redis/27.0.0,reuse-existing-secret,r001,attached,matches,
+recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml,bitnami/spark/10.0.3,default,r001,attached,matches,
+recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml,bitnami/spark/10.0.3,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/spark/10.0.3/revisions/legacy/r001/variant-revision.yaml,bitnami/spark/10.0.3,legacy,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml,bitnami/zookeeper/13.8.7,default,r001,attached,matches,
+recipes/bitnami/zookeeper/13.8.7/revisions/ha/r001/variant-revision.yaml,bitnami/zookeeper/13.8.7,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/bitnami/zookeeper/13.8.7/revisions/legacy/r001/variant-revision.yaml,bitnami/zookeeper/13.8.7,legacy,r001,attached,matches,
+recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.28.2,default,r001,attached,matches,
+recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/no-crds/r001/variant-revision.yaml,cloudnative-pg/cloudnative-pg/0.28.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/cloudpirates/nginx/0.16.1/revisions/default/r001/variant-revision.yaml,cloudpirates/nginx/0.16.1,default,r001,attached,matches,
+recipes/cloudpirates/rabbitmq/0.21.13/revisions/default/r001/variant-revision.yaml,cloudpirates/rabbitmq/0.21.13,default,r001,attached,matches,
+recipes/cloudpirates/redis/0.34.11/revisions/default/r001/variant-revision.yaml,cloudpirates/redis/0.34.11,default,r001,attached,matches,
+recipes/coredns/coredns/1.45.2/revisions/default/r001/variant-revision.yaml,coredns/coredns/1.45.2,default,r001,attached,matches,
+recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml,crossplane-stable/crossplane/2.3.1,default,r001,attached,matches,
+recipes/descheduler/descheduler/0.36.0/revisions/default/r001/variant-revision.yaml,descheduler/descheduler/0.36.0,default,r001,attached,matches,
+recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml,dex/dex/0.24.0,default,r001,attached,matches,
+recipes/elastic/eck-operator/3.4.0/revisions/default/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,default,r001,attached,matches,
+recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/elastic/eck-operator/3.4.0/revisions/no-crds/r001/variant-revision.yaml,elastic/eck-operator/3.4.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml,elastic/filebeat/8.5.1,default,r001,attached,matches,
+recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml,elastic/filebeat/8.5.1,node-or-cluster-collector,r001,attached,matches,
+recipes/elastic/kibana/8.5.1/revisions/default/r001/variant-revision.yaml,elastic/kibana/8.5.1,default,r001,attached,matches,
+recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml,elastic/logstash/8.5.1,default,r001,attached,matches,
+recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml,elastic/logstash/8.5.1,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/elastic/metricbeat/8.5.1/revisions/default/r001/variant-revision.yaml,elastic/metricbeat/8.5.1,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/external-dns/external-dns/1.21.1/revisions/default/r001/variant-revision.yaml,external-dns/external-dns/1.21.1,default,r001,attached,matches,
+recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml,external-dns/external-dns/1.21.1,dry-run-txt-registry,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml,external-dns/external-dns/1.21.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml,external-secrets/external-secrets/2.5.0,default,r001,attached,matches,
+recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml,external-secrets/external-secrets/2.5.0,no-crds,r001,attached,matches,
+recipes/external-secrets/external-secrets/2.7.0/revisions/default/r001/variant-revision.yaml,external-secrets/external-secrets/2.7.0,default,r001,attached,matches,
+recipes/external-secrets/external-secrets/2.7.0/revisions/no-crds/r001/variant-revision.yaml,external-secrets/external-secrets/2.7.0,no-crds,r001,attached,matches,
+recipes/external-secrets/external-secrets/2.8.0/revisions/default/r001/variant-revision.yaml,external-secrets/external-secrets/2.8.0,default,r001,attached,matches,
+recipes/external-secrets/external-secrets/2.8.0/revisions/no-crds/r001/variant-revision.yaml,external-secrets/external-secrets/2.8.0,no-crds,r001,attached,matches,
+recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/variant-revision.yaml,fairwinds-stable/goldilocks/10.3.0,default,r001,attached,matches,
+recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/variant-revision.yaml,fairwinds-stable/vpa/4.11.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/fairwinds-stable/vpa/4.11.0/revisions/no-crds/r001/variant-revision.yaml,fairwinds-stable/vpa/4.11.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/falcosecurity/falco/9.0.0/revisions/default/r001/variant-revision.yaml,falcosecurity/falco/9.0.0,default,r001,attached,matches,
+recipes/falcosecurity/falcosidekick/0.13.1/revisions/default/r001/variant-revision.yaml,falcosecurity/falcosidekick/0.13.1,default,r001,attached,matches,
+recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml,fluent/fluent-bit/0.57.6,default,r001,attached,matches,
+recipes/fluent/fluentd/0.5.3/revisions/default/r001/variant-revision.yaml,fluent/fluentd/0.5.3,default,r001,attached,matches,
+recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml,gatekeeper/gatekeeper/3.22.2,default,r001,attached,matches,
+recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml,gatekeeper/gatekeeper/3.22.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml,gitlab/gitlab-runner/0.89.0,default,r001,attached,matches,
+recipes/grafana/alloy/1.11.0/revisions/default/r001/variant-revision.yaml,grafana/alloy/1.11.0,default,r001,attached,matches,
+recipes/grafana/alloy/1.8.2/revisions/default/r001/variant-revision.yaml,grafana/alloy/1.8.2,default,r001,attached,matches,
+recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml,grafana/alloy/1.8.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml,grafana/grafana/10.5.15,existing-secret-ingress,r001,attached,matches,
+recipes/grafana/grafana/10.5.15/revisions/static-passwords/r001/variant-revision.yaml,grafana/grafana/10.5.15,static-passwords,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml,grafana/loki/7.0.0,simple-scalable-minio,r001,attached,matches,
+recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/variant-revision.yaml,grafana/loki/7.0.0,single-binary-filesystem,r001,attached,matches,
+recipes/grafana/loki/7.1.0/revisions/default/r001/variant-revision.yaml,grafana/loki/7.1.0,default,r001,attached,matches,
+recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml,grafana/promtail/6.17.1,default,r001,attached,matches,
+recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml,grafana/pyroscope/2.0.2,default,r001,attached,matches,
+recipes/grafana/pyroscope/2.0.2/revisions/ha/r001/variant-revision.yaml,grafana/pyroscope/2.0.2,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/grafana/pyroscope/2.0.2/revisions/no-crds/r001/variant-revision.yaml,grafana/pyroscope/2.0.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml,grafana/rollout-operator/0.49.0,default,r001,attached,matches,
+recipes/grafana/rollout-operator/0.49.0/revisions/no-crds/r001/variant-revision.yaml,grafana/rollout-operator/0.49.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/grafana/tempo/1.24.4/revisions/local-persistent/r001/variant-revision.yaml,grafana/tempo/1.24.4,local-persistent,r001,attached,matches,
+recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml,grafana/tempo/1.24.4,s3-query-observability,r001,attached,matches,
+recipes/haproxytech/kubernetes-ingress/1.52.0/revisions/default/r001/variant-revision.yaml,haproxytech/kubernetes-ingress/1.52.0,default,r001,attached,matches,
+recipes/hashicorp/consul/2.0.0/revisions/default-control-plane/r001/variant-revision.yaml,hashicorp/consul/2.0.0,default-control-plane,r001,attached,matches,
+recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml,hashicorp/consul/2.0.0,secure-mesh-existing-secrets,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml,hashicorp/terraform/1.1.2,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml,hashicorp/terraform/1.1.2,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml,hashicorp/vault/0.32.0,default,r001,attached,matches,
+recipes/hashicorp/vault/0.32.0/revisions/dev-mode/r001/variant-revision.yaml,hashicorp/vault/0.32.0,dev-mode,r001,attached,matches,
+recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml,hashicorp/vault/0.32.0,ha-raft-ui,r001,attached,matches,
+recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/admission-disabled/r001/variant-revision.yaml,ingress-nginx/ingress-nginx/4.15.1,admission-disabled,r001,attached,matches,
+recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml,ingress-nginx/ingress-nginx/4.15.1,default,r001,attached,matches,
+recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/variant-revision.yaml,ingress-nginx/ingress-nginx/4.15.1,internal-clusterip,r001,attached,matches,
+recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/variant-revision.yaml,istio/gateway/1.30.0,controller-default-reviewed,r001,attached,matches,
+recipes/istio/gateway/1.30.0/revisions/default/r001/variant-revision.yaml,istio/gateway/1.30.0,default,r001,attached,matches,
+recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml,istio/istiod/1.30.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml,jaegertracing/jaeger-operator/2.57.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml,jaegertracing/jaeger-operator/2.57.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/jaegertracing/jaeger/4.8.0/revisions/default/r001/variant-revision.yaml,jaegertracing/jaeger/4.8.0,default,r001,attached,matches,
+recipes/jetstack/cert-manager-csi-driver/v0.14.0/revisions/default/r001/variant-revision.yaml,jetstack/cert-manager-csi-driver/v0.14.0,default,r001,attached,matches,
+recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/variant-revision.yaml,jetstack/cert-manager/v1.20.2,crds-enabled,r001,attached,matches,
+recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml,jetstack/cert-manager/v1.20.2,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml,jetstack/cert-manager/v1.21.0,crds-enabled,r001,attached,matches,
+recipes/jetstack/cert-manager/v1.21.0/revisions/default/r001/variant-revision.yaml,jetstack/cert-manager/v1.21.0,default,r001,attached,matches,
+recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml,jetstack/trust-manager/v0.22.1,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml,jetstack/trust-manager/v0.22.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml,karpenter/karpenter/1.14.0,crds-managed,r001,attached,matches,
+recipes/karpenter/karpenter/1.14.0/revisions/default/r001/variant-revision.yaml,karpenter/karpenter/1.14.0,default,r001,attached,matches,
+recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml,karpenter/karpenter/1.14.0,eks-inference,r001,attached,matches,
+recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml,kedacore/keda/2.19.0,default,r001,attached,matches,
+recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/variant-revision.yaml,kedacore/keda/2.19.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.8.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/kyverno/kyverno-policies/3.8.2/revisions/default/r001/variant-revision.yaml,kyverno/kyverno-policies/3.8.2,default,r001,attached,matches,
+recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml,kyverno/kyverno/3.8.1,default,r001,attached,matches,
+recipes/kyverno/kyverno/3.8.1/revisions/no-crds/r001/variant-revision.yaml,kyverno/kyverno/3.8.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/kyverno/kyverno/3.8.2/revisions/default/r001/variant-revision.yaml,kyverno/kyverno/3.8.2,default,r001,attached,matches,
+recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml,linkerd/linkerd-crds/1.8.0,default,r001,attached,matches,
+recipes/longhorn/longhorn/1.11.2/revisions/default/r001/variant-revision.yaml,longhorn/longhorn/1.11.2,default,r001,attached,matches,
+recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml,longhorn/longhorn/1.11.2,ui-ingress,r001,attached,matches,
+recipes/longhorn/longhorn/1.12.0/revisions/default/r001/variant-revision.yaml,longhorn/longhorn/1.12.0,default,r001,attached,matches,
+recipes/metallb/metallb/0.16.1/revisions/default/r001/variant-revision.yaml,metallb/metallb/0.16.1,default,r001,attached,matches,
+recipes/metrics-server/metrics-server/3.13.0/revisions/default/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.0,default,r001,attached,matches,
+recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.0,external-tls-ca,r001,attached,matches,
+recipes/metrics-server/metrics-server/3.13.1/revisions/default/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.1,default,r001,attached,matches,
+recipes/metrics-server/metrics-server/3.13.1/revisions/external-tls-ca/r001/variant-revision.yaml,metrics-server/metrics-server/3.13.1,external-tls-ca,r001,attached,matches,
+recipes/minio-operator/operator/7.1.1/revisions/default/r001/variant-revision.yaml,minio-operator/operator/7.1.1,default,r001,attached,matches,
+recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml,minio-operator/tenant/7.1.1,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/nats/nack/0.34.0/revisions/default/r001/variant-revision.yaml,nats/nack/0.34.0,default,r001,attached,matches,
+recipes/nats/nack/0.34.0/revisions/no-crds/r001/variant-revision.yaml,nats/nack/0.34.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml,nats/nats/2.14.0,default,r001,attached,matches,
+recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml,nats/nats/2.14.0,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml,nats/surveyor/0.20.9,default-reviewed,r001,attached,matches,
+recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml,nats/surveyor/0.20.9,default,r001,attached,matches,
+recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml,nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18,default,r001,attached,matches,
+recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/default/r001/variant-revision.yaml,nvidia/nvidia-device-plugin/0.19.3,default,r001,attached,matches,
+recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/eks-inference/r001/variant-revision.yaml,nvidia/nvidia-device-plugin/0.19.3,eks-inference,r001,attached,matches,
+recipes/nvidia/nvidia-device-plugin/0.19.3/revisions/nfd-enabled/r001/variant-revision.yaml,nvidia/nvidia-device-plugin/0.19.3,nfd-enabled,r001,attached,matches,
+recipes/oauth2-proxy/oauth2-proxy/10.7.0/revisions/default/r001/variant-revision.yaml,oauth2-proxy/oauth2-proxy/10.7.0,default,r001,attached,matches,
+recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml,open-telemetry/opentelemetry-operator/0.114.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml,open-telemetry/opentelemetry-operator/0.114.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml,opencost/opencost/2.5.21,default,r001,attached,matches,
+recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml,percona/pg-operator/3.0.0,default,r001,attached,matches,
+recipes/percona/pg-operator/3.0.0/revisions/no-crds/r001/variant-revision.yaml,percona/pg-operator/3.0.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml,percona/psmdb-operator/1.22.0,default,r001,attached,matches,
+recipes/percona/psmdb-operator/1.22.0/revisions/no-crds/r001/variant-revision.yaml,percona/psmdb-operator/1.22.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml,percona/pxc-operator/1.19.1,default,r001,attached,matches,
+recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml,percona/pxc-operator/1.19.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/policy-reporter/policy-reporter/3.9.1/revisions/default/r001/variant-revision.yaml,policy-reporter/policy-reporter/3.9.1,default,r001,attached,matches,
+recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml,projectcalico/tigera-operator/v3.32.0,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/variant-revision.yaml,prometheus-community/alertmanager/1.37.0,default,r001,attached,matches,
+recipes/prometheus-community/alertmanager/1.37.0/revisions/ha/r001/variant-revision.yaml,prometheus-community/alertmanager/1.37.0,ha,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/85.3.3,default,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/85.3.3,no-crds,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/86.1.0,default,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/86.1.0,no-crds,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.15.1,default,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/existing-secret/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.15.1,existing-secret,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/87.15.1/revisions/no-crds/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.15.1,no-crds,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.19.2,default,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/existing-secret/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.19.2,existing-secret,r001,attached,matches,
+recipes/prometheus-community/kube-prometheus-stack/87.19.2/revisions/no-crds/r001/variant-revision.yaml,prometheus-community/kube-prometheus-stack/87.19.2,no-crds,r001,attached,matches,
+recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/kube-state-metrics/7.4.0,cluster-metrics-readonly,r001,attached,matches,
+recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/default/r001/variant-revision.yaml,prometheus-community/kube-state-metrics/7.4.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/apiservice-v1-capability/r001/variant-revision.yaml,prometheus-community/prometheus-adapter/5.3.0,apiservice-v1-capability,r001,attached,matches,
+recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/prometheus-adapter/5.3.0,cluster-metrics-readonly,r001,attached,matches,
+recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-adapter/5.3.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.10.0,cluster-metrics-readonly,r001,attached,matches,
+recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.10.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-blackbox-exporter/11.15.1,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml,prometheus-community/prometheus-node-exporter/4.55.0,cluster-metrics-readonly,r001,attached,matches,
+recipes/prometheus-community/prometheus-node-exporter/4.55.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-node-exporter/4.55.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-operator-crds/29.0.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus-pushgateway/3.6.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus/29.8.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/variant-revision.yaml,prometheus-community/prometheus/29.8.0,server-only-ephemeral,r001,attached,matches,
+recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/variant-revision.yaml,prometheus-community/prometheus/29.9.0,default,r001,attached,matches,
+recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml,prometheus-community/prometheus/29.9.0,server-only-ephemeral,r001,attached,matches,
+recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/variant-revision.yaml,rook-release/rook-ceph-cluster/v1.19.5,default,r001,frozen,matches,"leave the record alone and re-record it in the next Kubara catalog release, because this file is inside the pinned release baseline"
+recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/variant-revision.yaml,rook-release/rook-ceph/v1.19.5,default,r001,attached,matches,
+recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml,runix/pgadmin4/1.62.0,default,r001,attached,matches,
+recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/variant-revision.yaml,sealed-secrets/sealed-secrets/2.18.6,default,r001,attached,matches,
+recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/no-crds/r001/variant-revision.yaml,sealed-secrets/sealed-secrets/2.18.6,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/default/r001/variant-revision.yaml,secrets-store-csi-driver/secrets-store-csi-driver/1.6.0,default,r001,attached,matches,
+recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml,secrets-store-csi-driver/secrets-store-csi-driver/1.6.0,sync-secret-rotation,r001,attached,matches,
+recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml,stakater/reloader/2.2.12,controller-default-reviewed,r001,attached,matches,
+recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml,stakater/reloader/2.2.12,default,r001,attached,matches,
+recipes/stakater/reloader/2.2.14/revisions/default/r001/variant-revision.yaml,stakater/reloader/2.2.14,default,r001,attached,matches,
+recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml,strimzi/strimzi-kafka-operator/1.0.0,default,r001,attached,matches,
+recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml,strimzi/strimzi-kafka-operator/1.0.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/traefik/traefik/40.2.0/revisions/default/r001/variant-revision.yaml,traefik/traefik/40.2.0,default,r001,attached,matches,
+recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml,traefik/traefik/40.2.0,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/traefik/traefik/41.0.2/revisions/default/r001/variant-revision.yaml,traefik/traefik/41.0.2,default,r001,attached,matches,
+recipes/valkey/valkey/0.11.0/revisions/default/r001/variant-revision.yaml,valkey/valkey/0.11.0,default,r001,attached,matches,
+recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml,velero/velero/12.0.1,default,r001,attached,matches,
+recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml,velero/velero/12.0.1,no-crds,r001,absent,matches,re-render this variant through the proof kit so the revision records its digest inputs
+recipes/velero/velero/12.1.0/revisions/default/r001/variant-revision.yaml,velero/velero/12.1.0,default,r001,attached,matches,
+recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/variant-revision.yaml,vm/victoria-logs-single/0.12.5,default,r001,attached,matches,
+recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml,vm/victoria-metrics-single/0.39.0,default-reviewed,r001,attached,matches,
+recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/variant-revision.yaml,vm/victoria-metrics-single/0.39.0,default,r001,attached,matches,

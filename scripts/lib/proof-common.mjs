@@ -191,8 +191,12 @@ export function toYaml(value, indent = 0) {
   return JSON.stringify(value);
 }
 
+export function serializeYaml(value) {
+  return `${toYaml(value)}\n`;
+}
+
 export function writeYaml(path, value) {
-  write(path, `${toYaml(value)}\n`);
+  write(path, serializeYaml(value));
 }
 
 export function write(path, contents) {

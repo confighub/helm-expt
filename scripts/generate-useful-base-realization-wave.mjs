@@ -8,11 +8,48 @@ import {
   relativeRepo,
   repoRoot,
   runCub,
+  serializeYaml,
   sha256,
   sha256File,
   write,
-  writeYaml,
 } from "./lib/proof-common.mjs";
+import { releaseBaselineFiles } from "./lib/kubara-catalog-release.mjs";
+
+const baseline = releaseBaselineFiles(repoRoot);
+
+// An alias base is re-derived from its default on every run, so this script
+// rewrites files it has nothing to say about. The serializer quotes and orders
+// keys differently from whatever wrote those files first, so an unconditional
+// write reformats eight catalog-status files, an installer.yaml and a
+// variant.yaml without changing a single fact, and that churn moves the very
+// digests this script then records. Compare the rendered form against the
+// file's own round trip and write only where the meaning actually differs.
+function writeYaml(path, value) {
+  if (existsSync(path) && canonical(readYaml(path)) === canonical(value)) return;
+  // Re-deriving an alias must never rewrite a file the pinned Kubara release
+  // baseline recorded, because that file is evidence someone already pulled.
+  // Skipping is only acceptable because it is announced and because
+  // generate-variant-revision-digests carries the resulting wrong record as a
+  // named frozen state with the next release as its next action.
+  const repoRelative = relative(repoRoot, path).replaceAll("\\", "/");
+  if (baseline.has(repoRelative)) {
+    console.log(`skipped ${repoRelative}: inside the pinned release baseline, so the next release re-records it`);
+    return;
+  }
+  write(path, serializeYaml(value));
+}
+
+// Compare meaning, not layout. An alias variant is rebuilt field by field from
+// its default, so its keys arrive in a different order than the file states
+// them even when every fact is the same, and the serializer keeps whatever
+// order it is given.
+function canonical(value) {
+  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
 
 const args = process.argv.slice(2);
 const generate = args.includes("--generate");
@@ -74,7 +111,14 @@ const report = {
 
 if (generate) {
   for (const item of wave) {
-    if (realizationStrategyFor(item) === "values-profile-rerender") continue;
+    // A rerender owns its own render, values profile and receipts, so this
+    // script must not re-derive it from the default. It still owes the catalog
+    // status the same two facts every realized base owes, and that is the part
+    // no lane was keeping.
+    if (realizationStrategyFor(item) === "values-profile-rerender") {
+      updateCatalogStatus(item);
+      continue;
+    }
     realizeUsefulBase(item);
   }
   write(join(repoRoot, outputPaths.wave), report.wave);
@@ -187,10 +231,13 @@ function realizeUsefulBase(item) {
   check(existsSync(defaultBaseRoot), `${relativeRepo(packageRoot)} missing default base`);
   check(existsSync(defaultRevisionRoot), `${relativeRepo(recipeRoot)} missing default revision`);
 
-  rmSync(baseRoot, { recursive: true, force: true });
-  cpSync(defaultBaseRoot, baseRoot, { recursive: true });
-  rmSync(revisionRoot, { recursive: true, force: true });
-  cpSync(defaultRevisionRoot, revisionRoot, { recursive: true });
+  // The re-derivation deletes a tree and copies the default over it. That is
+  // safe for a tree this script owns and destructive for one the pinned release
+  // baseline recorded, because the delete lands first and the write that would
+  // put the alias metadata back is refused. Leave a recorded tree exactly as it
+  // was published.
+  replaceFromDefault(defaultBaseRoot, baseRoot);
+  replaceFromDefault(defaultRevisionRoot, revisionRoot);
 
   writeVariant(item);
   updateRecipe(item);
@@ -283,12 +330,27 @@ function updateCatalogStatus(item) {
   status.spec.supportedVariants = status.spec.supportedVariants ?? [];
   status.spec.productionReadiness = status.spec.productionReadiness || "not-reviewed-for-production";
   status.spec.notes = [
-    ...(status.spec.notes ?? []).filter((note) => !String(note).includes(`${item.base} is a realized useful-base alias`)),
-    liveFinding?.note
-      ? `${item.base} is a realized useful-base alias of the default render, but ${liveFinding.note.charAt(0).toLowerCase()}${liveFinding.note.slice(1)}`
-      : `${item.base} is a realized useful-base alias of the default render; catalog support still requires ConfigHub proof, selected live evidence, and production disposition.`,
+    ...(status.spec.notes ?? []).filter((note) => {
+      const text = String(note);
+      return !text.includes(`${item.base} is a realized useful-base alias`) && !text.includes(`${item.base} is a values-profile rerender`);
+    }),
+    usefulBaseNote(item),
   ];
   writeYaml(path, status);
+}
+
+// A rerender is not an alias, and its note has to say so. The wording here
+// matches what realize-useful-base-rerenders.mjs wrote by hand, because no npm
+// lane runs that script: it was run once, its output went unowned, and the note
+// it left behind was dropped later with nothing to notice.
+function usefulBaseNote(item) {
+  if (realizationStrategyFor(item) === "values-profile-rerender") {
+    return `${item.base} is a values-profile rerender that changes Helm inputs; catalog support still requires selected live evidence and production disposition.`;
+  }
+  const liveFinding = liveFindings.get(keyFor(item.chart, item.version, item.base));
+  return liveFinding?.note
+    ? `${item.base} is a realized useful-base alias of the default render, but ${liveFinding.note.charAt(0).toLowerCase()}${liveFinding.note.slice(1)}`
+    : `${item.base} is a realized useful-base alias of the default render; catalog support still requires ConfigHub proof, selected live evidence, and production disposition.`;
 }
 
 
@@ -427,6 +489,7 @@ function verifyUsefulBase(item) {
   check(recipe.spec?.variants?.includes(`variants/${item.base}/variant.yaml`), `${item.chart} recipe missing ${item.base}`);
   check(installer.spec?.bases?.some((base) => base.name === item.base), `${item.chart} installer missing base ${item.base}`);
   check(catalogStatus.spec?.candidateVariants?.includes(item.base), `${item.chart} catalog status missing candidate ${item.base}`);
+  verifyCatalogStatusNote(catalogStatus, item);
   check(existsSync(variantPath), `${item.chart} missing variant file ${item.base}`);
   check(existsSync(join(packageRoot, "bases", item.base, "upstream.yaml")), `${item.chart} missing package base upstream ${item.base}`);
   check(readFileSync(defaultRelease, "utf8") === readFileSync(aliasRelease, "utf8"), `${item.chart} ${item.base} must alias default rendered objects`);
@@ -438,9 +501,17 @@ function verifyUsefulBase(item) {
 
   const variant = readYaml(variantPath);
   check(variant.spec?.usefulBase?.realizationStrategy === "alias-of-default-render", `${item.chart} ${item.base} missing usefulBase alias metadata`);
-  const revision = readYaml(join(revisionRoot, "variant-revision.yaml"));
-  check(revision.spec?.digestInputs?.variantSHA256 === sha256File(variantPath), `${item.chart} ${item.base} variant digest mismatch`);
+  const revisionPath = join(revisionRoot, "variant-revision.yaml");
+  const revision = readYaml(revisionPath);
   check(revision.spec?.digestInputs?.renderedObjectSetSHA256 === sha256File(aliasRelease), `${item.chart} ${item.base} rendered digest mismatch`);
+  if (!frozenByRelease(revisionPath)) {
+    check(revision.spec?.digestInputs?.variantSHA256 === sha256File(variantPath), `${item.chart} ${item.base} variant digest mismatch`);
+  }
+  // The alias and the default are one pair of records, and this lane used to
+  // check only the alias half. When the Argo Workflows CRD route was written
+  // into both variants by hand, both revisions went stale and only the alias
+  // said so. Check the source half of the pair the same way.
+  verifyRevisionDigests(recipeRoot, "default", `${item.chart} default`);
   check(receipt.spec?.setupChecks?.some((setup) => setup.variant === item.base), `${item.chart} package receipt missing setup check for ${item.base}`);
   for (const file of receipt.spec?.package?.sourceFiles ?? []) {
     const actual = join(packageRoot, file.path);
@@ -451,6 +522,57 @@ function verifyUsefulBase(item) {
     receipt.spec?.deterministicBundle?.sha256 === deterministicBundleSHA(packageRoot, item),
     `${item.chart} deterministic package bundle SHA mismatch`,
   );
+}
+
+// This lane checked that the base appeared in the candidate list and never
+// checked the note that says what the candidate is. Commit 65907b6fe rewrote
+// catalog-status.yaml across 280 files with a different serializer and dropped
+// that note on all nine alias charts, and nothing failed, because a fact this
+// generator writes was a fact it never read back.
+function verifyCatalogStatusNote(catalogStatus, item) {
+  check(
+    (catalogStatus.spec?.notes ?? []).includes(usefulBaseNote(item)),
+    `${item.chart} catalog status is missing the ${item.base} useful-base note`,
+  );
+}
+
+function verifyRevisionDigests(recipeRoot, variantName, label) {
+  const revisionRoot = join(recipeRoot, "revisions", variantName, "r001");
+  const revisionPath = join(revisionRoot, "variant-revision.yaml");
+  const revision = readYaml(revisionPath);
+  const inputs = revision.spec?.digestInputs ?? {};
+  check(
+    inputs.renderedObjectSetSHA256 === sha256File(join(revisionRoot, "rendered", "release-objects.yaml")),
+    `${label} rendered digest mismatch`,
+  );
+  if (frozenByRelease(revisionPath)) return;
+  check(
+    inputs.variantSHA256 === sha256File(join(recipeRoot, "variants", variantName, "variant.yaml")),
+    `${label} variant digest mismatch`,
+  );
+}
+
+function replaceFromDefault(sourceRoot, targetRoot) {
+  const recorded = existsSync(targetRoot)
+    ? listFiles(targetRoot).map((file) => relative(repoRoot, file).replaceAll("\\", "/")).filter((file) => baseline.has(file))
+    : [];
+  if (recorded.length) {
+    console.log(
+      `kept ${relative(repoRoot, targetRoot).replaceAll("\\", "/")} as published: ${recorded.length} file(s) are in the pinned release baseline`,
+    );
+    return;
+  }
+  rmSync(targetRoot, { recursive: true, force: true });
+  cpSync(sourceRoot, targetRoot, { recursive: true });
+}
+
+// A record inside the pinned release baseline cannot be corrected here without
+// rewriting what the release published, so this lane stops claiming it is
+// right. It is not passed over either: generate-variant-revision-digests counts
+// it as frozen, names the next release as where it gets re-recorded, and
+// refuses if the number grows.
+function frozenByRelease(path) {
+  return baseline.has(relative(repoRoot, path).replaceAll("\\", "/"));
 }
 
 function verifyValuesProfileRerender(item) {
@@ -479,6 +601,7 @@ function verifyValuesProfileRerender(item) {
   check(recipe.spec?.variants?.includes(`variants/${item.base}/variant.yaml`), `${item.chart} recipe missing ${item.base}`);
   check(installer.spec?.bases?.some((base) => base.name === item.base), `${item.chart} installer missing base ${item.base}`);
   check(catalogStatus.spec?.candidateVariants?.includes(item.base), `${item.chart} catalog status missing candidate ${item.base}`);
+  verifyCatalogStatusNote(catalogStatus, item);
   check(existsSync(variantPath), `${item.chart} missing variant file ${item.base}`);
   check(existsSync(join(packageRoot, "bases", item.base, "upstream.yaml")), `${item.chart} missing package base upstream ${item.base}`);
   check(readFileSync(baseUpstream, "utf8") === readFileSync(releasePath, "utf8"), `${item.chart} ${item.base} package base must match rendered objects`);
