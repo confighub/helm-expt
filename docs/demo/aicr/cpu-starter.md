@@ -138,6 +138,25 @@ receipt whose change it realizes; the
 [summary](../../../data/aicr-cpu-starter-sync/summary.md) retells it in plain
 language.
 
+## It tracks one retained version, and says so
+
+The catalog retains two AICR versions now, so a derived entry has to answer
+whether it follows the newer one. This one does not.
+
+The starter derives from the v0.14.0 training entry and stays there. Every proof
+it holds, the ConfigHub import, the reviewed override, the promotion, the
+delivery and the sync, was produced from those bytes. Following a newer retained
+version would leave all of that describing an entry nobody derived. A refresh
+here means deriving a second starter with its own receipts, deliberately, and
+nothing about a new upstream release moves this one.
+
+That decision is recorded in the
+[derivation receipt](../../../examples/aicr/cpu-starter/derivation-receipt.yaml)
+rather than left as a convention, and the compiler refuses when the version it
+derives from disagrees with the version the naming register says this entry
+carries. Repointing the starter means moving both together, which is what makes
+the policy a rule instead of an intention.
+
 ## What is proven and what is not
 
 Proven: the selection is rule-governed, every copy is byte-identical to

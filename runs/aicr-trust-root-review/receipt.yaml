@@ -1,0 +1,62 @@
+apiVersion: "catalog.confighub.com/v1alpha1"
+kind: "TrustRootReviewReceipt"
+metadata:
+  name: "aicr-trust-root-review"
+spec:
+  claim: "The sigstore trust root this repository commits for offline AICR signature verification was compared against the trust root sigstore publishes, and the result was recorded whether or not they agreed."
+  observedAt: "2026-08-08T16:12:15.740Z"
+  committed:
+    path: "examples/aicr/upstream-signatures/trusted_root.json"
+    sha256: "6494e21ea73fa7ee769f85f57d5a3e6a08725eae1e38c755fc3517c9e6bc0b66"
+  published:
+    url: "https://raw.githubusercontent.com/sigstore/root-signing/main/targets/trusted_root.json"
+    sha256: "6494e21ea73fa7ee769f85f57d5a3e6a08725eae1e38c755fc3517c9e6bc0b66"
+  matchesPublished: true
+  cadence:
+    trigger: "drift"
+    rule: "Review when a retained AICR version changes, when the signature lane changes, and otherwise whenever this lane is run. There is no expiry to count down to: every active entry in the trust root carries a start date and no end date."
+    refreshIsDeliberate: "Replacing the committed trust root is a reviewable change on its own, never a side effect of another one. The verify lane refuses a trust root that moved without a review recording it."
+  material:
+    mediaType: "application/vnd.dev.sigstore.trustedroot+json;version=0.1"
+    active:
+      -
+        kind: "certificate authority"
+        subject: "sigstore"
+        start: "2022-04-13T20:06:15Z"
+        end: ""
+      -
+        kind: "transparency log"
+        subject: "https://rekor.sigstore.dev"
+        start: "2021-01-12T11:53:27Z"
+        end: ""
+      -
+        kind: "transparency log"
+        subject: "https://log2025-1.rekor.sigstore.dev"
+        start: "2025-09-23T00:00:00Z"
+        end: ""
+      -
+        kind: "certificate transparency log"
+        subject: "https://ctfe.sigstore.dev/2022"
+        start: "2022-10-20T00:00:00Z"
+        end: ""
+      -
+        kind: "timestamp authority"
+        subject: "sigstore-tsa-selfsigned"
+        start: "2025-07-04T00:00:00Z"
+        end: ""
+    retired:
+      -
+        kind: "certificate authority"
+        subject: "sigstore"
+        start: "2021-03-07T03:20:29Z"
+        end: "2022-12-31T23:59:59.999Z"
+      -
+        kind: "certificate transparency log"
+        subject: "https://ctfe.sigstore.dev/test"
+        start: "2021-03-14T00:00:00Z"
+        end: "2022-10-31T23:59:59.999Z"
+  boundary:
+    configPlaneOnly: true
+    note: "The review reads two JSON documents and compares them. Nothing is downloaded for execution, no signature is made, and no cluster or organization takes part."
+status:
+  result: "matches-published"
