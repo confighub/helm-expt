@@ -137,13 +137,61 @@ function verifyVerdictCitation(name, receipt) {
   return 1;
 }
 
+// A route is only worth anything if the bundle actually carries it. Two ways
+// that can be false, and both are defects rather than gaps: a disposition can
+// point at a route file the bundle does not ship, and a bundle can ship a route
+// no disposition claims. The third case, a lane that needs routes and ships
+// none, is honest unfinished work rather than a broken artifact, so it is
+// reported rather than refused.
+function verifyRouteIntegrity(name, receipt) {
+  const spec = receipt.spec;
+  const shipped = spec.bundle.files
+    .filter((file) => String(file.role ?? "").startsWith("route:"))
+    .map((file) => ({ path: file.path, quirk: String(file.role).slice("route:".length).trim() }));
+
+  const referenced = [];
+  for (const row of spec.dispositions) {
+    const match = String(row.disposition ?? "").match(/route this bundle ships at ([^\s,;]+)/);
+    if (match) referenced.push({ quirk: row.class, path: match[1] });
+  }
+
+  for (const reference of referenced) {
+    const carried = shipped.find((route) => route.path === reference.path);
+    if (!carried)
+      refuse(
+        name,
+        `the ${reference.quirk} disposition points at a route the bundle does not ship: ${reference.path}`,
+      );
+    if (carried.quirk !== reference.quirk)
+      refuse(
+        name,
+        `route ${reference.path} is carried for ${carried.quirk} but referenced by the ${reference.quirk} disposition`,
+      );
+  }
+
+  for (const route of shipped) {
+    if (!referenced.some((reference) => reference.path === route.path))
+      refuse(
+        name,
+        `the bundle ships a route no disposition references: ${route.path}. A route nothing claims is either unused or the disposition forgot it.`,
+      );
+  }
+
+  const needsRoutes = spec.verdict.lane === "flatten-with-routes" && spec.verdict.status === "certified";
+  return {
+    routes: shipped.length,
+    unrouted: needsRoutes && shipped.length === 0 ? name : null,
+  };
+}
+
 function verifyReceipt(path) {
   const receipt = readYaml(path);
   const name = receipt?.metadata?.name ?? path;
   verifyStructure(name, receipt);
   const hashes = verifyHashes(name, receipt);
   const citations = verifyVerdictCitation(name, receipt);
-  return { hashes, citations };
+  const routing = verifyRouteIntegrity(name, receipt);
+  return { hashes, citations, ...routing };
 }
 
 function receiptPaths() {
@@ -165,14 +213,26 @@ function runVerify() {
   check(paths.length > 0, "no certified-bundle receipts found");
   let hashes = 0;
   let citations = 0;
+  let routes = 0;
+  const unrouted = [];
   for (const path of paths) {
     const result = verifyReceipt(path);
     hashes += result.hashes;
     citations += result.citations;
+    routes += result.routes;
+    if (result.unrouted) unrouted.push(result.unrouted);
   }
   console.log(
-    `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed`,
+    `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed, ${routes} route(s) carried`,
   );
+  // Naming these is the point. A certified flatten-with-routes bundle that
+  // ships nothing is not a broken artifact, it is work the route lane has not
+  // reached, and silence would let it read as finished.
+  if (unrouted.length > 0) {
+    console.log(
+      `strict ingest: ${unrouted.length} certified flatten-with-routes bundle(s) carry no route yet: ${unrouted.join(", ")}`,
+    );
+  }
 }
 
 function expectRefusal(label, mutate) {
@@ -183,6 +243,7 @@ function expectRefusal(label, mutate) {
     verifyStructure("self-test", copy);
     verifyHashes("self-test", copy);
     verifyVerdictCitation("self-test", copy);
+    verifyRouteIntegrity("self-test", copy);
   } catch (error) {
     if (String(error.message).startsWith("strict ingest refuses")) return;
     throw error;
@@ -213,7 +274,22 @@ function runSelfTest() {
   expectRefusal("a dropped ingest contract", (receipt) => {
     receipt.spec.ingest.externalSourceAnnotation = "";
   });
-  console.log("strict ingest self-test: 6 refusal(s) fired as required");
+  // The base receipt is the traefik one, which ships a route, so both route
+  // refusals have something real to break.
+  expectRefusal("a disposition pointing at a route the bundle does not ship", (receipt) => {
+    receipt.spec.bundle.files = receipt.spec.bundle.files.filter(
+      (file) => !String(file.role ?? "").startsWith("route:"),
+    );
+  });
+  expectRefusal("a route no disposition references", (receipt) => {
+    for (const row of receipt.spec.dispositions) {
+      row.disposition = String(row.disposition).replace(
+        /discharged by the route this bundle ships at \S+/,
+        "explicit ordering declared at ingest",
+      );
+    }
+  });
+  console.log("strict ingest self-test: 8 refusal(s) fired as required");
 }
 
 if (mode === "--verify") {
