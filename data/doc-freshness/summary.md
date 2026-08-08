@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-08-07 (commit `459aa3a80`). Refresh with `npm run doc-freshness` - cheap, ride
+Snapshot as of 2026-08-08 (commit `3ffa31033`). Refresh with `npm run doc-freshness` - cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -23,10 +23,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 266 |
-| Fresh (no linked source newer than the doc) | 46 |
-| **Review-due** | 59 |
-| No linked evidence sources (cannot auto-trigger) | 161 |
+| Authored docs tracked | 268 |
+| Fresh (no linked source newer than the doc) | 47 |
+| **Review-due** | 58 |
+| No linked evidence sources (cannot auto-trigger) | 163 |
 
 ## Review queue
 
@@ -85,7 +85,6 @@ most recently changed triggers.
 | [docs/user/inspect-oci-package.md](../../docs/user/inspect-oci-package.md) | user | 2026-07-30 | 3 | `data/literal-config-examples/summary.md (2026-08-02)` |
 | [docs/user/security-end-to-end.md](../../docs/user/security-end-to-end.md) | user | 2026-07-26 | 3 | `tests/README.md (2026-07-28)`<br>`tests/doctrine.md (2026-07-26)` |
 | [docs/planning/config-catalog-demo-program.md](../../docs/planning/config-catalog-demo-program.md) | planning | 2026-07-27 | 2 | `data/serverless-oci-gitops-proof/summary.md (2026-07-28)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-08-07 | 1 | `CATALOG.md (2026-08-07)` |
 | [docs/planning/kubara-git-to-confighub-blog-brief.md](../../docs/planning/kubara-git-to-confighub-blog-brief.md) | planning | 2026-08-05 | 1 | `data/kubara-platform-matrix/matrix.html (2026-08-06)`<br>`data/kubara-release-acceptance/contract.yaml (2026-08-06)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
 | [docs/user/ai-assisted-helm-changes.md](../../docs/user/ai-assisted-helm-changes.md) | user | 2026-07-27 | 1 | `data/ai-change-review-live-proof/summary.md (2026-07-27)` |
@@ -163,12 +162,14 @@ into this freshness model.
 - [docs/planning/agent-experience-audit.md](../../docs/planning/agent-experience-audit.md)
 - [docs/planning/agent-experience-worklog.md](../../docs/planning/agent-experience-worklog.md)
 - [docs/planning/aicr-catalog-brief.md](../../docs/planning/aicr-catalog-brief.md)
+- [docs/planning/aicr-nim-track-backlog.md](../../docs/planning/aicr-nim-track-backlog.md)
 - [docs/planning/aicr-pilot-variants-brief.md](../../docs/planning/aicr-pilot-variants-brief.md)
 - [docs/planning/aicr-version-refresh-brief.md](../../docs/planning/aicr-version-refresh-brief.md)
 - [docs/planning/blog-posts.md](../../docs/planning/blog-posts.md)
 - [docs/planning/catalog-consumer-contract-brief.md](../../docs/planning/catalog-consumer-contract-brief.md)
 - [docs/planning/catalog-promotion-next-candidates.md](../../docs/planning/catalog-promotion-next-candidates.md)
 - [docs/planning/catalog-promotion-review.md](../../docs/planning/catalog-promotion-review.md)
+- [docs/planning/catalog-refresh-plan.md](../../docs/planning/catalog-refresh-plan.md)
 - [docs/planning/certified-bundle-model-brief.md](../../docs/planning/certified-bundle-model-brief.md)
 - [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
 - [docs/planning/flattening-safety-brief.md](../../docs/planning/flattening-safety-brief.md)

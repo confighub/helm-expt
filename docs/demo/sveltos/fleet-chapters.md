@@ -92,9 +92,10 @@ npm run sveltos-bulk-ops-proof:self-test
 The delivery machinery the chapters share can be rehearsed today with no
 account at all: the [fleet rehearsal](../../../examples/sveltos/fleet-rehearsal/README.md)
 builds the five-cluster kind fleet, converges Kyverno everywhere through
-portable OCI and Argo CD, lands a values change and a version bump on the
-pilot alone, and repairs injected drift, under a receipt that explicitly
-claims no governance.
+portable OCI and Argo CD, delivers a demo application to all four clusters
+with per-environment replica counts, lands a values change and a version
+bump on the pilot alone, and repairs injected drift, under a receipt that
+explicitly claims no governance.
 
 To find out whether the server fix has landed, one probe answers for every
 lane: `CUB_CONTEXT=my-policy npm run sveltos-gate:probe` wires a throwaway

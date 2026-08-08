@@ -3,7 +3,7 @@ kind: "SveltosFleetRehearsalReceipt"
 metadata:
   name: "fleet-delivery-rehearsal"
 spec:
-  recordedAt: "2026-08-07T13:14:05.493Z"
+  recordedAt: "2026-08-08T08:02:13.048Z"
   boundary:
     governanceClaim: false
     configHubUsed: false
@@ -23,6 +23,20 @@ spec:
       prod:
         path: "examples/sveltos/env-rollout/clusterprofile-prod.yaml"
         rawSha256: "dd1ce5de049e43803c8ac3cfe535b1ec9ab0dd75682762da1a236ac34fcde311"
+    appProfiles:
+      pilot:
+        path: "examples/sveltos/fleet-rehearsal/app-profile-pilot.yaml"
+        rawSha256: "10307aa2e4994200d2ffa5af86ade7a9f02d92ab8d13fd0806921909e2b941b0"
+      staging:
+        path: "examples/sveltos/fleet-rehearsal/app-profile-staging.yaml"
+        rawSha256: "951c9084c1db57723f6d320877de49a8d9d057c0fc77deecb7329536ba7fb64f"
+      prod:
+        path: "examples/sveltos/fleet-rehearsal/app-profile-prod.yaml"
+        rawSha256: "4179777084670181c56eeec72549f8d92e2434608437422f184ecf077a8ca8f8"
+    appChart:
+      chartVersion: "6.14.1"
+      chartDigest: "3d4a2ab092c83f39772de5f927aba6fb4f295a70e2b7302383edf249d44f78e3"
+      artifact: "https://stefanprodan.github.io/podinfo/podinfo-6.14.1.tgz"
     rehearsalLock: "examples/sveltos/fleet-rehearsal/source-lock.yaml"
     sveltosLock: "examples/sveltos/kyverno-fleet/source-lock.yaml"
     baselineChartVersion: "3.8.1"
@@ -38,6 +52,10 @@ spec:
       baseline: "r1-445596dc846a"
     prod:
       baseline: "r1-25f80d487bba"
+    app:
+      pilot: "a1-c556d530cb04"
+      staging: "a1-4ee07420bf1e"
+      prod: "a1-55d913dc4993"
   prerequisites:
     argoCd:
       version: "v3.4.6"
@@ -53,13 +71,13 @@ spec:
       omittedOptionalServiceMonitorCount: 2
       installationMethod: "pinned manifest applied as a management-cluster prerequisite"
   fleet:
-    managementCluster: "hx-sveltos-rehearse-mgmt-20260807131405"
+    managementCluster: "hx-sveltos-rehearse-mgmt-20260808080213"
     creationCommand: "kind create cluster"
     registrations:
       -
         method: "programmatic SveltosCluster registration"
         namespace: "projectsveltos"
-        cluster: "hx-sveltos-env-pilot-rh-20260807131405"
+        cluster: "hx-sveltos-env-pilot-rh-20260808080213"
         labels:
           environment: "pilot"
           sveltos-agent: "present"
@@ -73,7 +91,7 @@ spec:
       -
         method: "programmatic SveltosCluster registration"
         namespace: "projectsveltos"
-        cluster: "hx-sveltos-env-staging-rh-20260807131405"
+        cluster: "hx-sveltos-env-staging-rh-20260808080213"
         labels:
           environment: "staging"
           sveltos-agent: "present"
@@ -87,7 +105,7 @@ spec:
       -
         method: "programmatic SveltosCluster registration"
         namespace: "projectsveltos"
-        cluster: "hx-sveltos-env-prod-a-rh-20260807131405"
+        cluster: "hx-sveltos-env-prod-a-rh-20260808080213"
         labels:
           environment: "prod"
           sveltos-agent: "present"
@@ -101,7 +119,7 @@ spec:
       -
         method: "programmatic SveltosCluster registration"
         namespace: "projectsveltos"
-        cluster: "hx-sveltos-env-prod-b-rh-20260807131405"
+        cluster: "hx-sveltos-env-prod-b-rh-20260808080213"
         labels:
           environment: "prod"
           sveltos-agent: "present"
@@ -117,10 +135,10 @@ spec:
       releases:
         pilot:
           portable:
-            reference: "oci://127.0.0.1:32791/sveltos-fleet-rehearsal:pilot-r1"
-            clusterReference: "oci://host.docker.internal:32791/sveltos-fleet-rehearsal"
+            reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:pilot-r1"
+            clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
             targetRevision: "pilot-r1"
-            manifestDigest: "sha256:3045ab8937a70f479a67a0e71c5f58b1998ef479e0124bdf58e1c19f967aa143"
+            manifestDigest: "sha256:6cff1cf8db1143060cf434249888d1024ce550bda2a40e370e3a181c12a62d5a"
             objectCount: 1
             packagedDataSha256: "24a10206c42a4543404e4e299a0d690f13ccc13e143b318c483503147c17db85"
             pulledDataSha256: "24a10206c42a4543404e4e299a0d690f13ccc13e143b318c483503147c17db85"
@@ -131,15 +149,15 @@ spec:
             result: "pass"
             sync: "Synced"
             health: "Healthy"
-            revision: "sha256:3045ab8937a70f479a67a0e71c5f58b1998ef479e0124bdf58e1c19f967aa143"
-            expectedRevision: "sha256:3045ab8937a70f479a67a0e71c5f58b1998ef479e0124bdf58e1c19f967aa143"
+            revision: "sha256:6cff1cf8db1143060cf434249888d1024ce550bda2a40e370e3a181c12a62d5a"
+            expectedRevision: "sha256:6cff1cf8db1143060cf434249888d1024ce550bda2a40e370e3a181c12a62d5a"
             digestMatchesPortableOci: true
         staging:
           portable:
-            reference: "oci://127.0.0.1:32791/sveltos-fleet-rehearsal:staging-r1"
-            clusterReference: "oci://host.docker.internal:32791/sveltos-fleet-rehearsal"
+            reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:staging-r1"
+            clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
             targetRevision: "staging-r1"
-            manifestDigest: "sha256:ad08a3ea78c2ca3af42de914de06c95a57c51af5279c66d77fe32a62b9d58841"
+            manifestDigest: "sha256:21edfa17227864fc8d169c026df3a13c2a76974e8cfac5f5c7b1ea1cc0cf686f"
             objectCount: 1
             packagedDataSha256: "79cddceceaf3b8164e8abaf3dfc057fabb1ac201cd057ed3d617dc822393c7f3"
             pulledDataSha256: "79cddceceaf3b8164e8abaf3dfc057fabb1ac201cd057ed3d617dc822393c7f3"
@@ -150,15 +168,15 @@ spec:
             result: "pass"
             sync: "Synced"
             health: "Healthy"
-            revision: "sha256:ad08a3ea78c2ca3af42de914de06c95a57c51af5279c66d77fe32a62b9d58841"
-            expectedRevision: "sha256:ad08a3ea78c2ca3af42de914de06c95a57c51af5279c66d77fe32a62b9d58841"
+            revision: "sha256:21edfa17227864fc8d169c026df3a13c2a76974e8cfac5f5c7b1ea1cc0cf686f"
+            expectedRevision: "sha256:21edfa17227864fc8d169c026df3a13c2a76974e8cfac5f5c7b1ea1cc0cf686f"
             digestMatchesPortableOci: true
         prod:
           portable:
-            reference: "oci://127.0.0.1:32791/sveltos-fleet-rehearsal:prod-r1"
-            clusterReference: "oci://host.docker.internal:32791/sveltos-fleet-rehearsal"
+            reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:prod-r1"
+            clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
             targetRevision: "prod-r1"
-            manifestDigest: "sha256:a938aa089486073d76c0e21dcd59ea04560669d280c86f484c36759204f63d72"
+            manifestDigest: "sha256:9c8e24039fa2f4870370b9e3e2c56985a421f174dd1754c92cdc7dc3f222da55"
             objectCount: 1
             packagedDataSha256: "dd1ce5de049e43803c8ac3cfe535b1ec9ab0dd75682762da1a236ac34fcde311"
             pulledDataSha256: "dd1ce5de049e43803c8ac3cfe535b1ec9ab0dd75682762da1a236ac34fcde311"
@@ -169,18 +187,18 @@ spec:
             result: "pass"
             sync: "Synced"
             health: "Healthy"
-            revision: "sha256:a938aa089486073d76c0e21dcd59ea04560669d280c86f484c36759204f63d72"
-            expectedRevision: "sha256:a938aa089486073d76c0e21dcd59ea04560669d280c86f484c36759204f63d72"
+            revision: "sha256:9c8e24039fa2f4870370b9e3e2c56985a421f174dd1754c92cdc7dc3f222da55"
+            expectedRevision: "sha256:9c8e24039fa2f4870370b9e3e2c56985a421f174dd1754c92cdc7dc3f222da55"
             digestMatchesPortableOci: true
       observations:
         -
-          cluster: "hx-sveltos-env-pilot-rh-20260807131405"
+          cluster: "hx-sveltos-env-pilot-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-pilot"
           environment: "pilot"
           expectedRevisionId: "r1-5ef2cd8aef8e"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-pilot-sveltos-hx-sveltos-env-pilot-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-pilot-sveltos-hx-sveltos-env-pilot-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -213,13 +231,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-staging-rh-20260807131405"
+          cluster: "hx-sveltos-env-staging-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-staging"
           environment: "staging"
           expectedRevisionId: "r1-445596dc846a"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-staging-sveltos-hx-sveltos-env-staging-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-staging-sveltos-hx-sveltos-env-staging-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -252,13 +270,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-prod-a-rh-20260807131405"
+          cluster: "hx-sveltos-env-prod-a-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-prod-a"
           environment: "prod"
           expectedRevisionId: "r1-25f80d487bba"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-a-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-a-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -291,13 +309,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-prod-b-rh-20260807131405"
+          cluster: "hx-sveltos-env-prod-b-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-prod-b"
           environment: "prod"
           expectedRevisionId: "r1-25f80d487bba"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-b-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-b-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -329,12 +347,144 @@ spec:
                 desired: 1
                 available: 1
                 observedGenerationMatches: true
+    application:
+      releases:
+        pilot:
+          portable:
+            reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:pilot-app-r1"
+            clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
+            targetRevision: "pilot-app-r1"
+            manifestDigest: "sha256:c9178dfcd663d215fc76522e9e4e5c51e362de0df6b2b70949e94df917015883"
+            objectCount: 1
+            packagedDataSha256: "10307aa2e4994200d2ffa5af86ade7a9f02d92ab8d13fd0806921909e2b941b0"
+            pulledDataSha256: "10307aa2e4994200d2ffa5af86ade7a9f02d92ab8d13fd0806921909e2b941b0"
+            objectsMatchPackagedData: true
+            anonymousPull: true
+            registryLifetime: "temporary"
+          argo:
+            result: "pass"
+            sync: "Synced"
+            health: "Healthy"
+            revision: "sha256:c9178dfcd663d215fc76522e9e4e5c51e362de0df6b2b70949e94df917015883"
+            expectedRevision: "sha256:c9178dfcd663d215fc76522e9e4e5c51e362de0df6b2b70949e94df917015883"
+            digestMatchesPortableOci: true
+        staging:
+          portable:
+            reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:staging-app-r1"
+            clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
+            targetRevision: "staging-app-r1"
+            manifestDigest: "sha256:3004b4736a6aa360bd81da8f720488f55d68c0089c418ac53f51c196ed472d36"
+            objectCount: 1
+            packagedDataSha256: "951c9084c1db57723f6d320877de49a8d9d057c0fc77deecb7329536ba7fb64f"
+            pulledDataSha256: "951c9084c1db57723f6d320877de49a8d9d057c0fc77deecb7329536ba7fb64f"
+            objectsMatchPackagedData: true
+            anonymousPull: true
+            registryLifetime: "temporary"
+          argo:
+            result: "pass"
+            sync: "Synced"
+            health: "Healthy"
+            revision: "sha256:3004b4736a6aa360bd81da8f720488f55d68c0089c418ac53f51c196ed472d36"
+            expectedRevision: "sha256:3004b4736a6aa360bd81da8f720488f55d68c0089c418ac53f51c196ed472d36"
+            digestMatchesPortableOci: true
+        prod:
+          portable:
+            reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:prod-app-r1"
+            clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
+            targetRevision: "prod-app-r1"
+            manifestDigest: "sha256:6c855759147d6d80946d4e598f87f9e90787bf2b90c9ce8b7c5ab290e6bc2f0d"
+            objectCount: 1
+            packagedDataSha256: "4179777084670181c56eeec72549f8d92e2434608437422f184ecf077a8ca8f8"
+            pulledDataSha256: "4179777084670181c56eeec72549f8d92e2434608437422f184ecf077a8ca8f8"
+            objectsMatchPackagedData: true
+            anonymousPull: true
+            registryLifetime: "temporary"
+          argo:
+            result: "pass"
+            sync: "Synced"
+            health: "Healthy"
+            revision: "sha256:6c855759147d6d80946d4e598f87f9e90787bf2b90c9ce8b7c5ab290e6bc2f0d"
+            expectedRevision: "sha256:6c855759147d6d80946d4e598f87f9e90787bf2b90c9ce8b7c5ab290e6bc2f0d"
+            digestMatchesPortableOci: true
+      observations:
+        -
+          cluster: "hx-sveltos-env-pilot-rh-20260808080213"
+          logicalCluster: "hx-sveltos-env-pilot"
+          environment: "pilot"
+          expectedRevisionId: "a1-c556d530cb04"
+          observation:
+            result: "pass"
+            clusterSummary: "projectsveltos/podinfo-app-pilot-sveltos-hx-sveltos-env-pilot-rh-20260808080213"
+            helmFeatureStatus: "Provisioned"
+            helmRelease:
+              name: "podinfo"
+              namespace: "podinfo"
+              chart: "podinfo-6.14.1"
+              applicationVersion: "6.14.1"
+              status: "deployed"
+            replicas:
+              desired: 1
+              available: 1
+        -
+          cluster: "hx-sveltos-env-staging-rh-20260808080213"
+          logicalCluster: "hx-sveltos-env-staging"
+          environment: "staging"
+          expectedRevisionId: "a1-4ee07420bf1e"
+          observation:
+            result: "pass"
+            clusterSummary: "projectsveltos/podinfo-app-staging-sveltos-hx-sveltos-env-staging-rh-20260808080213"
+            helmFeatureStatus: "Provisioned"
+            helmRelease:
+              name: "podinfo"
+              namespace: "podinfo"
+              chart: "podinfo-6.14.1"
+              applicationVersion: "6.14.1"
+              status: "deployed"
+            replicas:
+              desired: 2
+              available: 2
+        -
+          cluster: "hx-sveltos-env-prod-a-rh-20260808080213"
+          logicalCluster: "hx-sveltos-env-prod-a"
+          environment: "prod"
+          expectedRevisionId: "a1-55d913dc4993"
+          observation:
+            result: "pass"
+            clusterSummary: "projectsveltos/podinfo-app-prod-sveltos-hx-sveltos-env-prod-a-rh-20260808080213"
+            helmFeatureStatus: "Provisioned"
+            helmRelease:
+              name: "podinfo"
+              namespace: "podinfo"
+              chart: "podinfo-6.14.1"
+              applicationVersion: "6.14.1"
+              status: "deployed"
+            replicas:
+              desired: 3
+              available: 3
+        -
+          cluster: "hx-sveltos-env-prod-b-rh-20260808080213"
+          logicalCluster: "hx-sveltos-env-prod-b"
+          environment: "prod"
+          expectedRevisionId: "a1-55d913dc4993"
+          observation:
+            result: "pass"
+            clusterSummary: "projectsveltos/podinfo-app-prod-sveltos-hx-sveltos-env-prod-b-rh-20260808080213"
+            helmFeatureStatus: "Provisioned"
+            helmRelease:
+              name: "podinfo"
+              namespace: "podinfo"
+              chart: "podinfo-6.14.1"
+              applicationVersion: "6.14.1"
+              status: "deployed"
+            replicas:
+              desired: 3
+              available: 3
     valuesChange:
       portable:
-        reference: "oci://127.0.0.1:32791/sveltos-fleet-rehearsal:pilot-r2"
-        clusterReference: "oci://host.docker.internal:32791/sveltos-fleet-rehearsal"
+        reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:pilot-r2"
+        clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
         targetRevision: "pilot-r2"
-        manifestDigest: "sha256:437e85801af01af8626c25d1fa0517039cb361a2af8b1a20cbbbf421d72738e9"
+        manifestDigest: "sha256:f72774c252ee9932bb922c3bc8a9a66276d6239b76e500f63104d26b332c50f4"
         objectCount: 1
         packagedDataSha256: "e361d21aea0de36c5022e23606f8fde93f95d900a33ac2d8d5ea6c527331c791"
         pulledDataSha256: "e361d21aea0de36c5022e23606f8fde93f95d900a33ac2d8d5ea6c527331c791"
@@ -345,18 +495,18 @@ spec:
         result: "pass"
         sync: "Synced"
         health: "Healthy"
-        revision: "sha256:437e85801af01af8626c25d1fa0517039cb361a2af8b1a20cbbbf421d72738e9"
-        expectedRevision: "sha256:437e85801af01af8626c25d1fa0517039cb361a2af8b1a20cbbbf421d72738e9"
+        revision: "sha256:f72774c252ee9932bb922c3bc8a9a66276d6239b76e500f63104d26b332c50f4"
+        expectedRevision: "sha256:f72774c252ee9932bb922c3bc8a9a66276d6239b76e500f63104d26b332c50f4"
         digestMatchesPortableOci: true
       observations:
         -
-          cluster: "hx-sveltos-env-pilot-rh-20260807131405"
+          cluster: "hx-sveltos-env-pilot-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-pilot"
           environment: "pilot"
           expectedRevisionId: "r2-4a7541e862f9"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-pilot-sveltos-hx-sveltos-env-pilot-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-pilot-sveltos-hx-sveltos-env-pilot-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -389,13 +539,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-staging-rh-20260807131405"
+          cluster: "hx-sveltos-env-staging-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-staging"
           environment: "staging"
           expectedRevisionId: "r1-445596dc846a"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-staging-sveltos-hx-sveltos-env-staging-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-staging-sveltos-hx-sveltos-env-staging-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -428,13 +578,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-prod-a-rh-20260807131405"
+          cluster: "hx-sveltos-env-prod-a-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-prod-a"
           environment: "prod"
           expectedRevisionId: "r1-25f80d487bba"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-a-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-a-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -467,13 +617,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-prod-b-rh-20260807131405"
+          cluster: "hx-sveltos-env-prod-b-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-prod-b"
           environment: "prod"
           expectedRevisionId: "r1-25f80d487bba"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-b-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-b-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -507,10 +657,10 @@ spec:
                 observedGenerationMatches: true
     versionBump:
       portable:
-        reference: "oci://127.0.0.1:32791/sveltos-fleet-rehearsal:pilot-r3"
-        clusterReference: "oci://host.docker.internal:32791/sveltos-fleet-rehearsal"
+        reference: "oci://127.0.0.1:32792/sveltos-fleet-rehearsal:pilot-r3"
+        clusterReference: "oci://host.docker.internal:32792/sveltos-fleet-rehearsal"
         targetRevision: "pilot-r3"
-        manifestDigest: "sha256:31506c470ba1cd5954766a32e884638b42ce4945db3820b7edb15492647646eb"
+        manifestDigest: "sha256:c8b17b6b7becde5fc1b1b4f0c1868989d785e176244fecd3c1bf0a23263f3390"
         objectCount: 1
         packagedDataSha256: "07d7c3e114dab7eaeb1ac6dfe609e71b43808448d6477ff9cb08684dd3eceb0d"
         pulledDataSha256: "07d7c3e114dab7eaeb1ac6dfe609e71b43808448d6477ff9cb08684dd3eceb0d"
@@ -521,18 +671,18 @@ spec:
         result: "pass"
         sync: "Synced"
         health: "Healthy"
-        revision: "sha256:31506c470ba1cd5954766a32e884638b42ce4945db3820b7edb15492647646eb"
-        expectedRevision: "sha256:31506c470ba1cd5954766a32e884638b42ce4945db3820b7edb15492647646eb"
+        revision: "sha256:c8b17b6b7becde5fc1b1b4f0c1868989d785e176244fecd3c1bf0a23263f3390"
+        expectedRevision: "sha256:c8b17b6b7becde5fc1b1b4f0c1868989d785e176244fecd3c1bf0a23263f3390"
         digestMatchesPortableOci: true
       observations:
         -
-          cluster: "hx-sveltos-env-pilot-rh-20260807131405"
+          cluster: "hx-sveltos-env-pilot-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-pilot"
           environment: "pilot"
           expectedRevisionId: "r3-6380460e7bd4"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-pilot-sveltos-hx-sveltos-env-pilot-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-pilot-sveltos-hx-sveltos-env-pilot-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -565,13 +715,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-staging-rh-20260807131405"
+          cluster: "hx-sveltos-env-staging-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-staging"
           environment: "staging"
           expectedRevisionId: "r1-445596dc846a"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-staging-sveltos-hx-sveltos-env-staging-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-staging-sveltos-hx-sveltos-env-staging-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -604,13 +754,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-prod-a-rh-20260807131405"
+          cluster: "hx-sveltos-env-prod-a-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-prod-a"
           environment: "prod"
           expectedRevisionId: "r1-25f80d487bba"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-a-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-a-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -643,13 +793,13 @@ spec:
                 available: 1
                 observedGenerationMatches: true
         -
-          cluster: "hx-sveltos-env-prod-b-rh-20260807131405"
+          cluster: "hx-sveltos-env-prod-b-rh-20260808080213"
           logicalCluster: "hx-sveltos-env-prod-b"
           environment: "prod"
           expectedRevisionId: "r1-25f80d487bba"
           observation:
             result: "pass"
-            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-b-rh-20260807131405"
+            clusterSummary: "projectsveltos/kyverno-env-prod-sveltos-hx-sveltos-env-prod-b-rh-20260808080213"
             helmFeatureStatus: "Provisioned"
             helmRelease:
               name: "kyverno"
@@ -682,7 +832,7 @@ spec:
                 available: 1
                 observedGenerationMatches: true
   driftRepair:
-    cluster: "hx-sveltos-env-pilot-rh-20260807131405"
+    cluster: "hx-sveltos-env-pilot-rh-20260808080213"
     logicalCluster: "hx-sveltos-env-pilot"
     drift:
       result: "pass"
@@ -695,31 +845,34 @@ spec:
   timings:
     -
       phase: "temporary OCI registry ready"
-      seconds: 1.2
+      seconds: 1.3
     -
       phase: "management cluster ready"
-      seconds: 25.5
+      seconds: 25
     -
       phase: "Argo CD converged on the management cluster"
-      seconds: 64.2
+      seconds: 57.9
     -
       phase: "four workload clusters ready"
-      seconds: 102.1
+      seconds: 102.7
     -
       phase: "Sveltos controllers converged"
-      seconds: 89.8
+      seconds: 101
     -
       phase: "four workload clusters registered"
       seconds: 1
     -
       phase: "baseline delivered to all four clusters"
-      seconds: 147
+      seconds: 192.4
+    -
+      phase: "application delivered to all four clusters"
+      seconds: 28.8
     -
       phase: "values change delivered to the pilot only"
-      seconds: 34.5
+      seconds: 55
     -
       phase: "version bump delivered to the pilot only"
-      seconds: 104
+      seconds: 103.8
     -
       phase: "injected drift repaired on the pilot"
       seconds: 15.3
@@ -735,4 +888,4 @@ spec:
     - "The chapter matrices are untouched; only the governed lanes may fill their observed cells."
 status:
   result: "pass"
-  claim: "The delivery machinery shared by the fleet chapters works end to end on this machine: a five-cluster kind fleet built, four clusters registered by environment label, portable OCI digests reconciled by the pinned Argo CD, Kyverno converged on all four clusters, a values change and a chart version bump each landed on the pilot alone while the other clusters held their state, and injected drift was repaired. No governance is claimed."
+  claim: "The delivery machinery shared by the fleet chapters works end to end on this machine: a five-cluster kind fleet built, four clusters registered by environment label, portable OCI digests reconciled by the pinned Argo CD, Kyverno converged on all four clusters, a demo application converged on all four clusters with per-environment replica counts from the same rails, a values change and a chart version bump each landed on the pilot alone while the other clusters held their state, and injected drift was repaired. No governance is claimed."
