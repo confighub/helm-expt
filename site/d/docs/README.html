@@ -673,6 +673,7 @@
 <tr><td><a href="user/ux-proposal-bulk-scan-patch-tutorial.html">ux-proposal-bulk-scan-patch-tutorial.md</a></td><td>Proposal for presenting scan, patch, review, and approve as a single bulk hardening flow.</td></tr></tbody></table>
 <h3 id="installer-and-proof-contracts">Installer And Proof Contracts</h3>
 <table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="reference/artifact-verifier-spec.html">artifact-verifier-spec.md</a></td><td>What the artifact verifier must check.</td></tr>
+<tr><td><a href="reference/redis-worked-example.html">redis-worked-example.md</a></td><td>The catalog's reference chart in one place: the proof, installer-package, local end-to-end, scan and variant lanes that every later chart's generated spec follows.</td></tr>
 <tr><td><a href="reference/certified-bundle-spec.html">certified-bundle-spec.md</a></td><td>The shared bundle-plus-receipt spec every producer emits against: bundle shape, receipt fields, quirk dispositions, and the flattening-safety verdict lanes.</td></tr>
 <tr><td><a href="reference/deciding-a-flattening-lane.html">deciding-a-flattening-lane.md</a></td><td>How a lane is decided from a witness: six rules, each drawn from a draft the chart source proved wrong, plus the regeneration order and what a decided lane does not mean.</td></tr>
 <tr><td><a href="reference/seven-stage-helm-lifecycle.html">seven-stage-helm-lifecycle.md</a></td><td>Seven-stage lifecycle, render parity boundary, hook routing, and support claims.</td></tr>
@@ -735,7 +736,6 @@
 <tr><td><a href="planning/where-does-my-hook-go.html">where-does-my-hook-go.md</a></td><td>Problem analysis and solution proposal generalizing the hook disposition model (observed/routed/per-target/refused) to every Helm behavior that does not survive a config-only render: named routes, the default-plus-legible-off-ramp requirement for humans and agents, a phased plan, and the #684 review notes.</td></tr>
 <tr><td><a href="planning/hook-route-execution-plan.html">hook-route-execution-plan.md</a></td><td>Scope for executing hook lifecycle routes (closing automatic:false): what each route class needs, GitOps-native emission vs product-direct cub execution, the execution receipt, and the phasing so hooks are automated and audited rather than run by hand.</td></tr>
 <tr><td><a href="planning/top20-full-proof-target.html">top20-full-proof-target.md</a></td><td>Definition and status of the top-20 full proof milestone.</td></tr>
-<tr><td><a href="planning/top100-full-proof-target.html">top100-full-proof-target.md</a></td><td>Definition and status of the top-100 proof surface.</td></tr>
 <tr><td><a href="../data/top50-completion/summary.html">../data/top50-completion/summary.md</a></td><td>Generated fifty-task completion plan: current status, evidence, verification command, and the next step for every agreed programme outcome.</td></tr>
 <tr><td><a href="planning/top500-matrix-refresh-review.html">top500-matrix-refresh-review.md</a></td><td>How the top-500 analysis should be regenerated and interpreted.</td></tr>
 <tr><td><a href="planning/latest-top20-refresh-plan.html">latest-top20-refresh-plan.md</a></td><td>Latest-version refresh plan for the supported top-20 charts.</td></tr>
@@ -750,19 +750,12 @@
 <tr><td><a href="planning/next-20-tasks.html">next-20-tasks.md</a></td><td>Distilled near-term catalog task queue.</td></tr></tbody></table>
 <h3 id="redis-proof-specs">Redis Proof Specs</h3>
 <p>These files define the first complete proof slice and the checks used by the Redis demo:</p>
-<table><thead><tr><th>File</th><th>Role</th></tr></thead><tbody><tr><td><a href="reference/redis-proof-spec.html">redis-proof-spec.md</a></td><td>Overall Redis proof specification.</td></tr>
-<tr><td><a href="reference/redis-installer-package-spec.html">redis-installer-package-spec.md</a></td><td>Redis <code>cub installer</code> package requirements.</td></tr>
-<tr><td><a href="reference/redis-default-variant-spec.html">redis-default-variant-spec.md</a></td><td>Default Redis variant requirements.</td></tr>
-<tr><td><a href="reference/redis-reuse-existing-secret-variant-spec.html">redis-reuse-existing-secret-variant-spec.md</a></td><td>Redis existing-Secret variant requirements.</td></tr>
-<tr><td><a href="reference/redis-variant-diff-spec.html">redis-variant-diff-spec.md</a></td><td>Expected differences between Redis variants.</td></tr>
-<tr><td><a href="reference/redis-local-e2e-spec.html">redis-local-e2e-spec.md</a></td><td>Local kind live/e2e proof specification.</td></tr>
-<tr><td><a href="reference/redis-local-scan-spec.html">redis-local-scan-spec.md</a></td><td>Local scan proof specification.</td></tr></tbody></table>
+<table><thead><tr><th>File</th><th>Role</th></tr></thead></table>
 <h3 id="demo-docs">Demo Docs</h3>
 <table><thead><tr><th>Location</th><th>Role</th></tr></thead><tbody><tr><td><a href="demo/redis/demo-script.html">demo/redis/demo-script.md</a></td><td>Redis walkthrough script.</td></tr>
 <tr><td><a href="demo/redis/function-scan-lane.html">demo/redis/function-scan-lane.md</a></td><td>Redis ConfigHub function scan lane.</td></tr>
 <tr><td><a href="demo/redis/safe-ops-lane.html">demo/redis/safe-ops-lane.md</a></td><td>Redis safe operation lane.</td></tr>
-<tr><td><a href="demo/redis/ux-acceptance.html">demo/redis/ux-acceptance.md</a></td><td>Redis UX acceptance criteria.</td></tr>
-<tr><td><a href="demo/nginx/confighub-proof-plan.html">demo/nginx/confighub-proof-plan.md</a></td><td>NGINX proof target plan.</td></tr></tbody></table>
+<tr><td><a href="demo/redis/ux-acceptance.html">demo/redis/ux-acceptance.md</a></td><td>Redis UX acceptance criteria.</td></tr></tbody></table>
 <h3 id="tests">Tests</h3>
 <table><thead><tr><th>Location</th><th>Role</th></tr></thead><tbody><tr><td><a href="../tests/README.html">../tests/README.md</a></td><td>Entry point for the repo's test material.</td></tr>
 <tr><td><a href="../tests/npm-scripts.html">../tests/npm-scripts.md</a></td><td>NPM script guide: what, why, how, mutability, and recommended checks by change type.</td></tr>
@@ -808,7 +801,6 @@
 <tr><td><a href="planning/get-started-rewrite-brief.html">get-started-rewrite-brief.md</a></td><td>Brief for Codex to rewrite the generated Get Started page (try.html) install-first around parity of outcomes: the full new copy, the recipe-vs-package explanation of <code>--pull</code>, verified commands, and generator notes.</td></tr>
 <tr><td><a href="planning/persona-ux-rerun-2026-06-22.html">persona-ux-rerun-2026-06-22.md</a></td><td>Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work.</td></tr>
 <tr><td><a href="planning/persona-ux-audit-2026-06-22.html">persona-ux-audit-2026-06-22.md</a></td><td>Ten-persona public-site audit after the homepage and guide restructuring, with verified findings and the next ranked UX fixes.</td></tr>
-<tr><td><a href="planning/how-it-works-website-brief.html">how-it-works-website-brief.md</a></td><td>Content + structure brief for the public site's &quot;How it works&quot; section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps.</td></tr>
 <tr><td><a href="planning/landing-page-restructure-brief.html">landing-page-restructure-brief.md</a></td><td>Brief for Codex to restructure the generated homepage around one narrative spine (look first, prove it on a cluster, change it and keep it) so the page makes one pitch instead of nine; executed by #1101.</td></tr>
 <tr><td><a href="planning/fuzz-corpus-tests-roadmap.html">fuzz-corpus-tests-roadmap.md</a></td><td>Roadmap for the non-website work (corpus, tests, fuzz, migration-UX): the test-our-tool principle, the persona taxonomy (F/G/cub-fuzz/Helm-migrant), the offline-first PR sequence, and the deferred live work.</td></tr>
 <tr><td><a href="planning/helm-vs-cub-adoption-audit.html">helm-vs-cub-adoption-audit.md</a></td><td>Adoption audit for places where cub is worse than or more confusing than plain Helm on the common journey, with each gap marked solved, managed, partial, or unmanaged.</td></tr>
