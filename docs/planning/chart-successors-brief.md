@@ -67,8 +67,48 @@ weigh; the survey records ranked alternates for both components.
 3. The three operators one at a time, postgresql first because the CNCF
    publisher clears the quality bar most cleanly.
 
+## Decisions recorded 2026-08-08
+
+Both redis engines enter the catalog as separate entries: the redis chart
+(keeps the engine; tri-licensed image with AGPLv3 as the open-source option)
+and the valkey chart (BSD-3-Clause fork). Buyers pick by license posture,
+and the catalog states both licenses plainly instead of choosing for them.
+
+Licenses become a visible catalog surface. The chart dossier now accepts a
+`spec.licenses` block (chart license with evidence, plus per-image licenses
+with notes), the artifact index and each entry's CATALOG.md render it, and
+the generator refuses a successor-publisher entry that omits it. Legacy
+entries backfill through their own reviewed work.
+
+The nginx migration is approved to start.
+
+## The nginx work order
+
+1. Placement: a successor track beside the fixed corpora (the next80 corpus
+   is contract-locked at eighty charts), keyed
+   `cloudpirates/nginx@0.16.1`, recipe at `recipes/cloudpirates/nginx/0.16.1`.
+2. Source lock: the OCI reference `oci://registry-1.docker.io/cloudpirates/nginx`
+   version 0.16.1, appVersion 1.31.3, with the chart digest recorded from an
+   anonymous pull at import time.
+3. Licenses block, required by the generator for this publisher: chart
+   Apache-2.0 (evidence: the artifacthub license annotation inside the pulled
+   chart), image `nginx` with the license read from the image's upstream
+   LICENSE at import time, stated with its evidence.
+4. Values mapping from the retired entry: the surface is near-identical;
+   record the switch-map deltas the survey noted for this publisher's charts
+   (existing-secret key names match; confirm probe and service keys at
+   import).
+5. Proofs in the established order: render proof and package first, kind
+   install proof next, live-parity later and serial. The verify chain must
+   stay green at every slice; no receipt is claimed before its lane runs.
+6. rabbitmq follows the same order with `cloudpirates/rabbitmq@0.21.13`;
+   redis and valkey follow once their entries are scaffolded, each carrying
+   the licenses block from day one.
+
 ## Boundary
 
-This survey names verified options and their measured availability. It
-changes no recipe, receipt, or catalog entry, and it makes no claim about
-any vendor beyond the recorded fetch results.
+This survey names verified options and their measured availability, records
+the engine and license decisions above, and adds the license machinery the
+successor entries require. It still changes no recipe, receipt, or catalog
+entry, and it makes no claim about any vendor beyond the recorded fetch
+results.
