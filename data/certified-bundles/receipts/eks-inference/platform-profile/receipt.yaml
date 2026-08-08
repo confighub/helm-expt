@@ -23,6 +23,11 @@ spec:
         path: "profile.yaml"
         sha256: "5a2fb0f41e3b81943f78947c451e822766fbd16308ad5968fc7c14ac785a8806"
         bytes: 3121
+      -
+        path: "data/certified-bundles/guides/eks-inference/platform-profile/space-guide.md"
+        sha256: "b40edfd12c7d5ac4709c4708e4ea58d559e1e8f8fd96e60bd9c1d3e1dc8ebb2c"
+        bytes: 923
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

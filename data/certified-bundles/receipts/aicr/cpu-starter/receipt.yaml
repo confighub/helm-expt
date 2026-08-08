@@ -54,6 +54,11 @@ spec:
         sha256: "0a277cf4d9f6b6fed5f2b890a94a366fba0a49859c9ae852999094ee79b34292"
         bytes: 786
         role: "Argo CD Application"
+      -
+        path: "data/certified-bundles/guides/aicr/cpu-starter/space-guide.md"
+        sha256: "bb00d8114bcb98c548f55b4063856fb3d12bea30d90e3153bf233ff524c6887f"
+        bytes: 1027
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

@@ -228,6 +228,22 @@ function verifyRouteIntegrity(name, receipt) {
   };
 }
 
+// The model promises three artifact classes travel inside a bundle: the
+// rendered configuration, the routes, and the words an operator needs beside
+// them. The first two are checked above. Without this, the third could quietly
+// stop shipping and the bundle would still look complete.
+function verifySpaceGuide(name, receipt) {
+  const guides = receipt.spec.bundle.files.filter((file) => file.role === "space-guide");
+  if (guides.length === 0)
+    refuse(
+      name,
+      "the bundle ships no space guide. A bundle carries the configuration, the routes, and the words an operator needs beside them; nothing explanatory lives out of band.",
+    );
+  if (guides.length > 1)
+    refuse(name, `the bundle ships ${guides.length} space guides, so a reader cannot tell which one governs`);
+  return 1;
+}
+
 function verifyReceipt(path) {
   const receipt = readYaml(path);
   const name = receipt?.metadata?.name ?? path;
@@ -235,7 +251,8 @@ function verifyReceipt(path) {
   const hashes = verifyHashes(name, receipt);
   const citations = verifyVerdictCitation(name, receipt);
   const routing = verifyRouteIntegrity(name, receipt);
-  return { hashes, citations, ...routing };
+  const guides = verifySpaceGuide(name, receipt);
+  return { hashes, citations, guides, ...routing };
 }
 
 function receiptPaths() {
@@ -258,16 +275,18 @@ function runVerify() {
   let hashes = 0;
   let citations = 0;
   let routes = 0;
+  let guides = 0;
   const unrouted = [];
   for (const path of paths) {
     const result = verifyReceipt(path);
     hashes += result.hashes;
     citations += result.citations;
     routes += result.routes;
+    guides += result.guides;
     if (result.unrouted) unrouted.push(result.unrouted);
   }
   console.log(
-    `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed, ${routes} route(s) carried`,
+    `strict ingest: ${paths.length} receipt(s) admitted, ${hashes} file hash(es) matched, ${citations} verdict citation(s) confirmed, ${routes} route(s) carried, ${guides} space guide(s)`,
   );
   // Naming these is the point. A certified flatten-with-routes bundle that
   // ships nothing is not a broken artifact, it is work the route lane has not
@@ -300,6 +319,7 @@ function expectRefusal(label, mutate, receiptOverride) {
     verifyHashes("self-test", copy);
     verifyVerdictCitation("self-test", copy);
     verifyRouteIntegrity("self-test", copy);
+    verifySpaceGuide("self-test", copy);
   } catch (error) {
     if (String(error.message).startsWith("strict ingest refuses")) return;
     throw error;
@@ -347,7 +367,10 @@ function runSelfTest() {
       );
     }
   }, routed);
-  console.log("strict ingest self-test: 8 refusal(s) fired as required");
+  expectRefusal("a bundle that ships no space guide", (receipt) => {
+    receipt.spec.bundle.files = receipt.spec.bundle.files.filter((file) => file.role !== "space-guide");
+  });
+  console.log("strict ingest self-test: 9 refusal(s) fired as required");
 }
 
 if (mode === "--verify") {

@@ -28,6 +28,11 @@ spec:
         path: "nvidia-device-plugin-controller.yaml"
         sha256: "5b4b4766301821fec558ecd02a58fc2e3140c32b051864aef5d9965a784f870d"
         bytes: 7534
+      -
+        path: "data/certified-bundles/guides/eks-inference/gpu-runtime/space-guide.md"
+        sha256: "d5054c9181bf44039c3eb3ba5d4a61c66f04a7a404e5c65f3f4e1490db8d04a6"
+        bytes: 946
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

@@ -23,6 +23,11 @@ spec:
         path: "controller-identity.yaml"
         sha256: "dc12b7d561b221cc88b9ffff956ee866e2b18207875bab508d1e7baecbffde1f"
         bytes: 5657
+      -
+        path: "data/certified-bundles/guides/eks-inference/karpenter-aws/space-guide.md"
+        sha256: "eb7d8e597470cacee1e5b90506981bb5e2509865ef6cb9670ddba539909b5b3b"
+        bytes: 914
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

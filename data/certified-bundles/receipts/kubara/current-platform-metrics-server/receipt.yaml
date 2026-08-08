@@ -56,6 +56,11 @@ spec:
         sha256: "b74ae9ea2d2fda2fd1c20fb5b638bbb3de30b65830f0f3257912d42aaa62779b"
         bytes: 296
         role: "wrapper chart file"
+      -
+        path: "data/certified-bundles/guides/kubara/current-platform-metrics-server/space-guide.md"
+        sha256: "0d327f1ee4c883940db4373f874e727de1200578971fc409d094c88f422db285"
+        bytes: 955
+        role: "space-guide"
     compositionIndexRef: "examples/kubara/current-platform/component-artifacts.yaml"
   ingest:
     granularity: "per-file"

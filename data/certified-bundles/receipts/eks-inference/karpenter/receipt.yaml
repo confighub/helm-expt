@@ -41,6 +41,11 @@ spec:
         sha256: "a445817ecabc311d5dfe77b8eb3267acf1b891abe3af7bcad80c19ea93843396"
         bytes: 2370
         role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/eks-inference/karpenter/space-guide.md"
+        sha256: "943b0839c98ccff58aa7a092957da093f570feb85c58254412ccb9e66e4f9bb8"
+        bytes: 1130
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

@@ -35,6 +35,11 @@ spec:
         path: "vllm-qwen.yaml"
         sha256: "0732999e14d819966f9dc442ad632e8d78a5c64817549f3bc3db66b2b24cb249"
         bytes: 3503
+      -
+        path: "data/certified-bundles/guides/eks-inference/inference-workloads/space-guide.md"
+        sha256: "4d55a9958b62e63020d4db3a4f589e4da399ca47521117438a8a4ec11860b58b"
+        bytes: 932
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"

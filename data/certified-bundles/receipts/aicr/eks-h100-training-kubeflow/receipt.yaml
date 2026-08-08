@@ -104,6 +104,11 @@ spec:
         sha256: "0a277cf4d9f6b6fed5f2b890a94a366fba0a49859c9ae852999094ee79b34292"
         bytes: 786
         role: "Argo CD Application"
+      -
+        path: "data/certified-bundles/guides/aicr/eks-h100-training-kubeflow/space-guide.md"
+        sha256: "85e4adbdc597ba22d50373d7f79bbd1d89d3e20b78fa2ca44670f4234d75698b"
+        bytes: 1073
+        role: "space-guide"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
