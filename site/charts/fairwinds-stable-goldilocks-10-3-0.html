@@ -489,6 +489,13 @@
       <p><a href="../d/docs/user/helm-presets-and-values.html#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
     </section>
 
+    
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>This version has no scan of its packaged chart, so this page reports nothing about what shipping it as plain rendered YAML would lose. Upstream now publishes different bytes under this same version string, so this catalog did not scan them. It keeps the bytes it locked, and records both digests and how to fetch the republished package, in the <a href="../d/data/upstream-drift/summary.html">upstream drift record</a>.</p>
+      <p>Missing evidence is not a safety finding in either direction. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for the versions that do carry a scan.</p>
+    </section>
+
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
       <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>

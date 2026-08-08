@@ -1,0 +1,212 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "aicr-eks-h100-inference-nim"
+spec:
+  producer:
+    name: "aicr"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "aicr-entry"
+    canonicalHome:
+      repository: "https://github.com/confighub/helm-expt"
+      path: "examples/aicr/eks-h100-inference-nim"
+    evidence:
+      - "examples/aicr/eks-h100-inference-nim/generation-receipt.yaml"
+      - "examples/aicr/eks-h100-inference-nim/digest-index/platform-index.json"
+      - "data/aicr-ordering-parity/summary.md"
+  bundle:
+    contentsKind: "rendered-config"
+    platformDigest: "sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2"
+    files:
+      -
+        path: "agentgateway-crds-post.yaml"
+        sha256: "cdc7ac12592f43cb3863ecbc1cc0e20f704c891949d17c1b5b95754074c4e5f6"
+        bytes: 782
+        role: "Argo CD Application"
+      -
+        path: "agentgateway-crds.yaml"
+        sha256: "2b886d4f8ca67d7f519fd7967430d53e4cab252cc3d60747dceaf1d77246876f"
+        bytes: 747
+        role: "Argo CD Application"
+      -
+        path: "agentgateway-post.yaml"
+        sha256: "ef49b8b171632c14126c4ac134383314048ac7a8b840f41c7ade3beb490b5614"
+        bytes: 767
+        role: "Argo CD Application"
+      -
+        path: "agentgateway.yaml"
+        sha256: "4845e8e16c85e6d7db694215618945986b1196ff0ee2231676a3cedd34658672"
+        bytes: 1085
+        role: "Argo CD Application"
+      -
+        path: "aicr-stack.yaml"
+        sha256: "d82c9446512e8fdfbfe8956e1fa582706535d391b4c361716cfdff24bc8e7e9e"
+        bytes: 893
+        role: "Argo CD Application"
+      -
+        path: "aws-ebs-csi-driver.yaml"
+        sha256: "7a6fadb331fbf72e5a0dfc3d938c3fce71839f004f3c63f1d22c99ef34f6c894"
+        bytes: 2320
+        role: "Argo CD Application"
+      -
+        path: "aws-efa.yaml"
+        sha256: "bf54f0f516ede4db2e432c52f03fa2608cacb5866cbfc42f7354f8262a3b16e2"
+        bytes: 1831
+        role: "Argo CD Application"
+      -
+        path: "cert-manager.yaml"
+        sha256: "ec2ffd8c1f2e78d2282d3fe501981fcd6461b4bee19a509cfc11fd922d2f7a6c"
+        bytes: 1900
+        role: "Argo CD Application"
+      -
+        path: "gpu-operator.yaml"
+        sha256: "2ae7636d00acd58965dfd15112a6e76f6a9de3f54e18e73809008036a5d9654f"
+        bytes: 8969
+        role: "Argo CD Application"
+      -
+        path: "k8s-ephemeral-storage-metrics.yaml"
+        sha256: "441cd956edbc202bd010de0778876b0780489402d819409871205d6b91edba89"
+        bytes: 1509
+        role: "Argo CD Application"
+      -
+        path: "k8s-nim-operator.yaml"
+        sha256: "5f8159244decb282f84be218b49c05668fa720de38121bee2901977a4046c231"
+        bytes: 1092
+        role: "Argo CD Application"
+      -
+        path: "kai-scheduler.yaml"
+        sha256: "f12628db33f14ec9b187ef8de8c3b46b39c9f3159a79077c71ac9f15cde8ddd3"
+        bytes: 932
+        role: "Argo CD Application"
+      -
+        path: "kube-prometheus-stack.yaml"
+        sha256: "85558726b9c1b3d53e1020717ce20f692403cc7c8ef1d2d6fb9ae0891ae42f3d"
+        bytes: 3312
+        role: "Argo CD Application"
+      -
+        path: "nfd.yaml"
+        sha256: "f210e4e5ec9511c54d1388f2ed53bfd8fce7b10bbec42883c382fdc9ab98b46b"
+        bytes: 1323
+        role: "Argo CD Application"
+      -
+        path: "nodewright-customizations.yaml"
+        sha256: "1d637566d122ea94db776e9f6c438a2f9ed0c6329c84782ce085c906df0713bc"
+        bytes: 779
+        role: "Argo CD Application"
+      -
+        path: "nodewright-operator.yaml"
+        sha256: "6a70c3c57e834492c012521a5e8817219a16a9447de931d95fbeca015dc6d27b"
+        bytes: 1336
+        role: "Argo CD Application"
+      -
+        path: "nvidia-dra-driver-gpu.yaml"
+        sha256: "4a12397732c46a619803d2767377725a7eae8861346ab1aec6f040160a4c0335"
+        bytes: 1594
+        role: "Argo CD Application"
+      -
+        path: "nvsentinel.yaml"
+        sha256: "f517d2ffc854fb6844e5e1d86026cc48d9ef70e9ffeb026894726504ba897c41"
+        bytes: 1290
+        role: "Argo CD Application"
+      -
+        path: "prometheus-adapter.yaml"
+        sha256: "1f30fc09941b1b4064c02ad79ac1da7736e0e70cfb5127a0ee0b5ddf8460c5af"
+        bytes: 4789
+        role: "Argo CD Application"
+      -
+        path: "prometheus-operator-crds.yaml"
+        sha256: "3b64c6c3ec16ad09eaf9306e63e31b843b80180c71d6335280b3d853136fde35"
+        bytes: 760
+        role: "Argo CD Application"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the platform-shape flattening verdict at data/aicr-flattening-verdicts/aicr-eks-h100-inference-nim/flattening-safety-verdict.yaml"
+    notes: "The bundle is the rendered Argo CD Application set for AICR v0.14.0. It is flattened output, and it ships with one route: the sync-wave ordering, emitted beside this receipt. The 16 charts these Applications reference are not flattened by this bundle. Argo CD renders them at sync time, so their flattening verdicts belong to the chart catalog and are deliberately out of scope here. No workload claim attaches. Every AICR receipt proves config-plane mechanics only."
+    componentDelivery:
+      mode: "render-late-by-argo"
+      referencedCharts:
+        - "agentgateway"
+        - "agentgateway-crds"
+        - "aws-ebs-csi-driver"
+        - "aws-efa-k8s-device-plugin"
+        - "cert-manager"
+        - "gpu-operator"
+        - "k8s-ephemeral-storage-metrics"
+        - "k8s-nim-operator"
+        - "kai-scheduler"
+        - "kube-prometheus-stack"
+        - "node-feature-discovery"
+        - "nvidia-dra-driver-gpu"
+        - "nvsentinel"
+        - "prometheus-adapter"
+        - "prometheus-operator-crds"
+        - "skyhook-operator"
+      outOfScopeReason: "a chart this bundle points at is never flattened by it, so this bundle cannot carry that chart's flattening verdict"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/eks-h100-inference-nim/argocd-rendered/templates"
+      - "examples/aicr/eks-h100-inference-nim/digest-index/platform-index.json"
+      - "examples/aicr/eks-h100-inference-nim/generation-receipt.yaml"

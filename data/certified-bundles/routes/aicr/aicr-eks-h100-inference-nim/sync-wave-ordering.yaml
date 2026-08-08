@@ -1,0 +1,177 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "aicr-eks-h100-inference-nim-sync-wave-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "The components of a platform install in a dependency order. Without an ordering declaration the Applications would apply in no guaranteed order, and a component would reach the cluster before the one it depends on."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "agentgateway-crds"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "agentgateway-crds"
+      -
+        order: 2
+        name: "agentgateway-crds-post"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "agentgateway-crds-post"
+      -
+        order: 3
+        name: "aws-ebs-csi-driver"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "aws-ebs-csi-driver"
+      -
+        order: 4
+        name: "aws-efa"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "aws-efa"
+      -
+        order: 5
+        name: "cert-manager"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "cert-manager"
+      -
+        order: 6
+        name: "agentgateway"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "agentgateway"
+      -
+        order: 7
+        name: "agentgateway-post"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "agentgateway-post"
+      -
+        order: 8
+        name: "nfd"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nfd"
+      -
+        order: 9
+        name: "nodewright-operator"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nodewright-operator"
+      -
+        order: 10
+        name: "nodewright-customizations"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nodewright-customizations"
+      -
+        order: 11
+        name: "prometheus-operator-crds"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-operator-crds"
+      -
+        order: 12
+        name: "kube-prometheus-stack"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kube-prometheus-stack"
+      -
+        order: 13
+        name: "gpu-operator"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "gpu-operator"
+      -
+        order: 14
+        name: "k8s-ephemeral-storage-metrics"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "k8s-ephemeral-storage-metrics"
+      -
+        order: 15
+        name: "k8s-nim-operator"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "k8s-nim-operator"
+      -
+        order: 16
+        name: "kai-scheduler"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "kai-scheduler"
+      -
+        order: 17
+        name: "nvidia-dra-driver-gpu"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nvidia-dra-driver-gpu"
+      -
+        order: 18
+        name: "nvsentinel"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "nvsentinel"
+      -
+        order: 19
+        name: "prometheus-adapter"
+        selector:
+          kinds:
+            - "Application"
+          names:
+            - "prometheus-adapter"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "the sync-wave annotation each Application carries"
+        proven: true
+    automatic: true
+  boundedness:
+    - "The order is not this project's invention. AICR computes deploymentOrder from the component dependency graph, and the ordering-parity lane checks that these sync-waves preserve it exactly."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/eks-h100-inference-nim/argocd-rendered/templates"
+      - "examples/aicr/eks-h100-inference-nim/recipe.yaml"
+      - "data/aicr-ordering-parity/summary.md"

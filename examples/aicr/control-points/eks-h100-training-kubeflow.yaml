@@ -1,0 +1,69 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: ControlPointRecord
+metadata:
+  name: aicr-eks-h100-training-kubeflow
+spec:
+  entry: examples/aicr/eks-h100-training-kubeflow
+  description: >-
+    The entry page says AICR fixes almost the whole platform and leaves exactly
+    four choices open: the storage class, the selector for accelerated nodes,
+    the selector for training workloads, and the source the delivery controller
+    reads. Three of those four are visible in the rendered Application set and
+    are declared here. The fourth is recorded as a gap rather than invented.
+  documentScope:
+    - argocd-rendered/templates
+  knownGaps:
+    - control: workload-selector
+      value: app.kubernetes.io/part-of=training
+      reason: >-
+        The generation receipt records this selector as a generation input, and
+        it does not appear anywhere in the rendered Applications. It is carried
+        inside the bundle payload that the path-sourced Applications point at,
+        which this document scope does not cover. Declaring it here would fail
+        the checker, and it should, because the record describes what these
+        documents contain.
+  controlPoints:
+    - id: prometheus-storage-class
+      description: >-
+        The storage class the Prometheus volume claim requests. This is the
+        same control point the derived CPU starter inherits, and the same
+        upstream declaration decides where it lands.
+      locator:
+        token: "storageClassName: gp3"
+      upstreamDeclaration:
+        registry: examples/aicr/upstream-reference/v0.14.0/registry.yaml
+        component: kube-prometheus-stack
+        pathsKey: storageClassPaths
+        paths:
+          - prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName
+      governs:
+        - argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack
+      reviewedChanges: []
+    - id: accelerated-node-selector
+      description: >-
+        The label that tells accelerated components which nodes carry GPUs. It
+        reaches four components, which is why it is the clearest example in the
+        catalog of a change whose correctness is its reach rather than its
+        value. Upstream declares accelerated nodeSelectorPaths for each of
+        these components in its registry.
+      locator:
+        token: "nvidia.com/gpu.present"
+      governs:
+        - argoproj.io/v1alpha1|Application|argocd|aws-efa
+        - argoproj.io/v1alpha1|Application|argocd|gpu-operator
+        - argoproj.io/v1alpha1|Application|argocd|kubeflow-trainer
+        - argoproj.io/v1alpha1|Application|argocd|nvidia-dra-driver-gpu
+      reviewedChanges: []
+    - id: bundle-source
+      description: >-
+        The OCI repository the delivery controller reads for the Applications
+        that carry a path source rather than a chart. Changing it repoints the
+        platform at a different published bundle, so it governs the root and
+        the two path-sourced companions together.
+      locator:
+        token: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-training-kubeflow-argocd"
+      governs:
+        - argoproj.io/v1alpha1|Application|argocd|aicr-stack
+        - argoproj.io/v1alpha1|Application|argocd|kubeflow-trainer-post
+        - argoproj.io/v1alpha1|Application|argocd|nodewright-customizations
+      reviewedChanges: []

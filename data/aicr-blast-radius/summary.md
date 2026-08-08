@@ -13,9 +13,23 @@ receipts of every reviewed change already made.
 
 | Entry | Control point | Documents governed | Reviewed changes checked |
 | --- | --- | --- | --- |
+| `aicr-eks-h100-training-kubeflow` | `prometheus-storage-class` (upstream-derived) | 1 | none yet |
+| `aicr-eks-h100-training-kubeflow` | `accelerated-node-selector` | 4 | none yet |
+| `aicr-eks-h100-training-kubeflow` | `bundle-source` | 3 | none yet |
 | `aicr-cpu-starter` | `prometheus-storage-class` (upstream-derived) | 1 | `runs/aicr-cpu-starter-variant/receipt.yaml` |
 | `aicr-kserve-nim-inference` | `model-cache-claim` | 16 | `runs/aicr-kserve-nim-import/receipt.yaml` |
 | `aicr-kserve-nim-inference` | `nim-telemetry-mode` | 10 | none yet |
+
+## Coverage
+
+2 of 6 declared control points have a reviewed
+change with a receipt behind it. A control point with none is not a defect; it
+is a change nobody has needed yet, and listing it keeps the gap visible rather
+than letting an empty column read as completeness.
+
+## Control points an entry documents but does not declare
+
+- `aicr-eks-h100-training-kubeflow` declares no control point for `workload-selector`. The generation receipt records this selector as a generation input, and it does not appear anywhere in the rendered Applications. It is carried inside the bundle payload that the path-sourced Applications point at, which this document scope does not cover. Declaring it here would fail the checker, and it should, because the record describes what these documents contain.
 
 The checker refuses three ways. It refuses when a control point reaches a
 document the record does not declare, which is how an under-declared change

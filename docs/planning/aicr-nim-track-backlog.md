@@ -91,7 +91,12 @@ code.
 
 ## Theme 4: join AICR to the certified bundle model
 
-21. **Give AICR entries certified-bundle receipts.** The model names AICR as a
+21. **Done 2026-08-08**, along with 22 and 23. AICR is the fifth producer;
+    four receipts, three platform-shape flattening verdicts, and three
+    ordering routes are emitted by the shared generator and admitted by the
+    strict ingest gate. The original framing follows.
+
+    **Give AICR entries certified-bundle receipts.** The model names AICR as a
     producer, and four producers have receipts while AICR has none. M,
     **Workshop-wide**, and it is the largest single inconsistency in the
     portfolio today.

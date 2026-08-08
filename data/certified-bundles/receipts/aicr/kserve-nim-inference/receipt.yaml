@@ -1,0 +1,221 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "aicr-kserve-nim-inference"
+spec:
+  producer:
+    name: "aicr"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "retained-upstream-tree"
+    canonicalHome:
+      repository: "https://github.com/NVIDIA/nim-deploy"
+      path: "kserve"
+    evidence:
+      - "examples/aicr/kserve-nim-inference/retention-receipt.yaml"
+      - "examples/aicr/kserve-nim-inference/digest-index/platform-index.json"
+  bundle:
+    contentsKind: "literal-config"
+    platformDigest: "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720"
+    files:
+      -
+        path: "upstream/kserve/runtimes/llama-3.1-70b-instruct-1.1.0.yaml"
+        sha256: "8202de030a453de67afc093ff86bc9f786083362734681df7df801fef21a8073"
+        bytes: 1276
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/llama-3.1-8b-instruct-1.1.0.yaml"
+        sha256: "283ed364275d0de2595431d174972fcca8beae583b7e6025c803ce612d6de0f5"
+        bytes: 1273
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2.yaml"
+        sha256: "0b4b64ce636d6d8cda018d4be2286aa5394819d574be1e93832e3d3bce72a441"
+        bytes: 1300
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/llama3-70b-instruct-1.0.0.yaml"
+        sha256: "1121783a347ffd4de347fcba649a392946220f9efa94ef9d95009a1e9e106b46"
+        bytes: 1267
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/llama3-8b-instruct-1.0.0.yaml"
+        sha256: "954761f0b89ded251ad9707c5e8064c53b2481fd9f6818d4297403e9a963cb7e"
+        bytes: 1264
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/mistral-7b-instruct-v03-1.0.0.yaml"
+        sha256: "78883a4a5a5db1ad8165a27c1280e4726fad4200d4fc80c7eb72093190ac0e29"
+        bytes: 1284
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/mixtral-8x22b-instruct-v01-1.0.0.yaml"
+        sha256: "454481446dc217b0a0a80fbd461e88b493b6e000753b84e042656002b49c72db"
+        bytes: 1293
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/mixtral-8x7b-instruct-v01-1.0.0.yaml"
+        sha256: "6835bf4437bf63c547b5211eb562814826389ee304121a9b2856eaa4083a4116"
+        bytes: 1290
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/nv-embedqa-e5-v5-1.0.0.yaml"
+        sha256: "191ea960bd47cfcea8cf623964df92a3e62500e937268bb65a27247cb7e889a3"
+        bytes: 1269
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/runtimes/nv-rerankqa-mistral-4b-v3-1.0.0.yaml"
+        sha256: "286f5783849bbac7796a320ef6a890203b890484e0f5a5ee4a8b7e1ceb67d8a9"
+        bytes: 1296
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama-3.1-70b-instruct_2xgpu_1.1.0.yaml"
+        sha256: "af28d69cc0f6a098b1e47898ce92fd9b5dbbd2a0da1d55b7a5d3cf712ec2325f"
+        bytes: 486
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama-3.1-8b-instruct_1xgpu_1.1.0.yaml"
+        sha256: "888a423b4dfb32131dbbc1a449fed9a3d58e1f6b0ab743d960e387692553ea7a"
+        bytes: 483
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama-3.3-nemotron-super-49b-v1_2xgpu_1.8.2.yaml"
+        sha256: "2b5c34503cbe57040d2de6f4671d8a7345faf647d7119b4b7432482621bbe4ef"
+        bytes: 490
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-70b-instruct_2xgpu_1.0.0.yaml"
+        sha256: "ff01ea9a34b8408ada2606858d0ae4b6c649be64299f3de7c2a450aadd3b377f"
+        bytes: 478
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-70b-instruct_4xa100_1.0.0.yaml"
+        sha256: "9061189e0295607dd37480a333032c4c207f045924a92ad7dac3e64cbf950414"
+        bytes: 549
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-70b-instruct_4xgpu_1.0.0.yaml"
+        sha256: "07b5991198bcb0ac53292f078009412e37f167198f83783998265ccb0f1e0493"
+        bytes: 478
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-70b-instruct_4xh100_1.0.0.yaml"
+        sha256: "f8a76033e393b378b42cf28dfcc47ed5a17864aaedc8e5f6eec2f262c937daac"
+        bytes: 549
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-8b-instruct_1xgpu_1.0.0.yaml"
+        sha256: "b8059146ba0fca7b3fef85bacd75a5d90610fd35dbbba17f7607621b29d03d7c"
+        bytes: 474
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-8b-instruct_2h100_1.0.0.yaml"
+        sha256: "a87b0aec9b6d8b3d34bb645fa6bd3ef1957160aa5cd3104e9004b050b2f984e6"
+        bytes: 545
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-8b-instruct_2xa100_1.0.0.yaml"
+        sha256: "d367cfb998cde6f4ab95ad7151233b7423c1fe412abd4fadf20d7d86937aea01"
+        bytes: 546
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/llama3-8b-instruct_2xgpu_1.0.0.yaml"
+        sha256: "3d98f5f6551579a5088109a42df0142b390630e5102d825b46fe334d66bb9339"
+        bytes: 474
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/mistral-7b-instruct-v03_1xgpu_1.0.0.yaml"
+        sha256: "cf280f2b91ac0f57738fddaedefc576213f5e0b47ba7a4792517fe2e098c1aaf"
+        bytes: 489
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/mixtral-8x22b-instruct-v01_8xgpu_1.0.0.yaml"
+        sha256: "cc1a4bb8343baa5fe2322a1964bce35fe3368b40812016353b3b88f9964caa21"
+        bytes: 498
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/mixtral-8x7b-instruct-v01_2xgpu_1.0.0.yaml"
+        sha256: "ba46fca83af16b6734f3919644dad50330c36f80f3466a6ab56c711b457e2bd0"
+        bytes: 495
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/nv-embedqa-e5-v5_1xgpu_1.0.0.yaml"
+        sha256: "6ffde1b01aeebfbdd51f34860863bf09c3da8b40b2b84b523f42989480a2d873"
+        bytes: 467
+        role: "KServe serving document"
+      -
+        path: "upstream/kserve/nim-models/nv-rerankqa-mistral-4b-v3_1xgpu_1.0.0.yaml"
+        sha256: "8ed5081a7a42f259d380ca26fc2c0ff6e8b6792dc9854a8443430fe825a2f8c5"
+        bytes: 494
+        role: "KServe serving document"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the retained serving documents"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the retained serving documents; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the retained serving documents"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the retained serving documents"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the retained serving documents"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "literal YAML; no template-time construct exists"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the retained serving documents"
+      disposition: "none required"
+  verdict:
+    lane: "born-flattened"
+    status: "certified"
+    decidedBy: "the source is literal YAML retained from upstream; nothing renders, so nothing is lost at render time"
+    notes: "The gated container images these documents reference are recorded as references. Nothing here mirrors an NGC artifact, and no NIM container ran to certify this bundle."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/kserve-nim-inference"
+      - "examples/aicr/kserve-nim-inference/retention-receipt.yaml"
+      - "examples/aicr/kserve-nim-inference/digest-index/platform-index.json"

@@ -50,6 +50,11 @@ spec:
         path: "namespace.yaml"
         sha256: "fa0a3b002b3400f24f4d1ff16ba4918523be316d1d138e79e5b650b83bee7596"
         bytes: 593
+      -
+        path: "data/certified-bundles/routes/eks-inference/ack-controllers/crd-ordering.yaml"
+        sha256: "e15b3ab078dcb0e4f2260bea512dcfbf0f09c72038b63e3ec0e7fcb3a9d69c48"
+        bytes: 2341
+        role: "route: crd-ordering"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -90,7 +95,7 @@ spec:
       class: "crd-ordering"
       finding: "present"
       detail: "41 CustomResourceDefinition(s) in the witnessed bundle files; per-file Units can race their CRDs"
-      disposition: "explicit ordering declared at ingest (file split or sync waves)"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/eks-inference/ack-controllers/crd-ordering.yaml"
     -
       class: "immutable-fields"
       finding: "not-evaluated"

@@ -489,6 +489,24 @@
       <p><a href="../d/docs/user/helm-presets-and-values.html#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
     </section>
 
+    
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 34 files.</p>
+      <div class="card"><table>
+        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
+        <tbody><tr><td>Capability branching</td><td>3</td><td>The chart chooses apiVersions from the cluster it renders against.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+    </section>
+
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
       <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>

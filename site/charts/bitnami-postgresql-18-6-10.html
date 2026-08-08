@@ -466,6 +466,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>The installer metadata records 1 external-requirement reference across these configurations. Inspect the package before choosing a base.</p>
     </section>
 
+    
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 65 files.</p>
+      <div class="card"><table>
+        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
+        <tbody><tr><td>Keep policy</td><td>1</td><td>A reconciler prunes what Helm promised to keep.</td></tr><tr><td>Cluster lookups</td><td>3</td><td>The chart reads the cluster while rendering, so a render without one is valid but wrong.</td></tr><tr><td>Capability branching</td><td>5</td><td>The chart chooses apiVersions from the cluster it renders against.</td></tr><tr><td>Generated credentials</td><td>10</td><td>Every render mints new values, and a shared artifact would freeze one draw.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+    </section>
+
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:1fe4595ee7e39914965e58019b56101e6e1f1ff24e750cb8283655dfb51a2e93</code> and manifest <code>sha256:3c92cad513a3543d36e71e60da8207512911cbaf39c9149854b5e42637489b8d</code>, and records an inspect-result digest.</p>
