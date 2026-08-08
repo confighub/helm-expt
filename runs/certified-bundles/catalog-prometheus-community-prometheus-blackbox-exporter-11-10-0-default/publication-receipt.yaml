@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-blackbox-exporter-11.10.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-blackbox-exporter-11.10.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:44b6d434f9b4532076a6f250a875dc47ed39262bc526f17352a3a254d421aca9"
+  layerDigest: "sha256:54a0bbfd4cb35220f86bdaee43e98d1352933517e99a55643ee436bd4126b487"
+  layerBytes: 1616
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-blackbox-exporter-11-10-0-default.tar.gz"

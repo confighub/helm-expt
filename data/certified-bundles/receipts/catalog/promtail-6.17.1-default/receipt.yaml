@@ -1,0 +1,124 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-grafana-promtail-6.17.1-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://grafana.github.io/helm-charts"
+        name: "promtail"
+        version: "6.17.1"
+        packageSHA256: "12115103a3b94932473fb3873aa670a68da9504e2f323c03790257088b479d9f"
+    evidence:
+      - "recipes/grafana/promtail/6.17.1/source-lock.yaml"
+      - "recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/grafana/promtail/6.17.1/bases/default/upstream.yaml"
+        sha256: "06ff3623536aeca2cb083040a0b0c22d6627e57cd6600f3f3482dd1e7d56eb35"
+        bytes: 7446
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/promtail-6.17.1-default/space-guide.md"
+        sha256: "5828d192a64acedccac34ccbcc892cf4fbd285412450f98848ff273de99cfb2e"
+        bytes: 1052
+        role: "space-guide"
+    objectCount: 5
+    objectInventoryRef: "recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "docker.io/grafana/promtail:3.5.1"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default:latest"
+    manifestDigest: "sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727"
+    layerDigest: "sha256:feab567193f47ce098e26240ae0a71d0908e005cc6abfb2c607935478c1ed8e8"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "present"
+      detail: "the rendered Secret holds promtail.yaml, the agent's own configuration, with no credential in the audited base"
+      disposition: "nothing to externalise: the Secret carries configuration the bundle is meant to deliver"
+      evidence: "recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/grafana/promtail/6.17.1/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/grafana/promtail/6.17.1/source-lock.yaml"
+      - "recipes/grafana/promtail/6.17.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/grafana/promtail/6.17.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/grafana/promtail/6.17.1/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-grafana-promtail-6-17-1-default/publication-receipt.yaml"

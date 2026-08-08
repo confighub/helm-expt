@@ -1,0 +1,126 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-opencost-opencost-2.5.21-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://opencost.github.io/opencost-helm-chart"
+        name: "opencost"
+        version: "2.5.21"
+        packageSHA256: "5f346f7e81d145b6e9d7f8217d1dafa3e31650a3c71b021274f6143220888649"
+    evidence:
+      - "recipes/opencost/opencost/2.5.21/source-lock.yaml"
+      - "recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
+      - "recipes/opencost/opencost/2.5.21/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/opencost/opencost/2.5.21/bases/default/upstream.yaml"
+        sha256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+        bytes: 10239
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/opencost-2.5.21-default/space-guide.md"
+        sha256: "f0aa6b45c1170b0988cfc2f48c411341997c227fcc336a6713619c62e2e23ac1"
+        bytes: 1056
+        role: "space-guide"
+    objectCount: 6
+    objectInventoryRef: "recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 2
+      pinnedByDigest: 2
+      pinnedByTag: 0
+      boundary: "every image is digest-pinned, so the bundle and what it starts are both fixed"
+      references:
+        -
+          reference: "ghcr.io/opencost/opencost-ui:1.120.2@sha256:3e7fc176315a25e7acca47b670fa78b2620480981e8d34c2e8f64ca6371c8bcc"
+          pinnedBy: "digest"
+        -
+          reference: "ghcr.io/opencost/opencost:1.120.2@sha256:5f37f689557dbb6737a9182b70625bba55bbba843a2caaba5a79746945a56cc6"
+          pinnedBy: "digest"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-opencost-opencost-2-5-21-default:latest"
+    manifestDigest: "sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009"
+    layerDigest: "sha256:588c9d3df976d7c78d2e60799d59fa52bcd70da7f6b31ac0ec982ee623a1c2aa"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/opencost/opencost/2.5.21/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/opencost/opencost/2.5.21/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/opencost/opencost/2.5.21/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/opencost/opencost/2.5.21/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/opencost/opencost/2.5.21/source-lock.yaml"
+      - "recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
+      - "recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/opencost/opencost/2.5.21/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-opencost-opencost-2-5-21-default/publication-receipt.yaml"

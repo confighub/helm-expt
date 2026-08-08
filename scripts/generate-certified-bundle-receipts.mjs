@@ -544,7 +544,7 @@ function buildTraefikReceipt() {
 // own builder because it predates this one; everything after it comes through
 // here, which is what makes publishing more bundles a matter of deciding lanes
 // rather than writing code.
-function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdictFile, notes, hookObservation }) {
+function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdictFile, notes, hookObservation, secretsCarryConfiguration }) {
   const sourceLock = readFileSync(repoPath(`${recipe}/source-lock.yaml`), "utf8");
   const revisionRel = `${recipe}/revisions/${base}/r001/variant-revision.yaml`;
   const revision = readFileSync(repoPath(revisionRel), "utf8");
@@ -639,6 +639,21 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
     templateEvidence: `the chart's template-level evidence is recorded in ${verdictRel}`,
     routeRefs,
   });
+
+  // A Secret with data is a debt only when the data is a credential. The render
+  // scan cannot tell the two apart, so where the verdict has adjudicated it the
+  // receipt says what the Secret actually carries and owes nothing.
+  if (secretsCarryConfiguration) {
+    const row = dispositions.find((entry) => entry.class === "generated-secrets");
+    check(
+      row.finding === "present",
+      `${chartName} ${base}: a configuration-Secret adjudication with nothing for it to adjudicate`,
+    );
+    row.detail = secretsCarryConfiguration;
+    row.disposition = "nothing to externalise: the Secret carries configuration the bundle is meant to deliver";
+    row.evidence = `${recipe}/publication/${verdictFile}`;
+    delete row.companionRequired;
+  }
 
   if (hookObservation) {
     const row = dispositions.find((entry) => entry.class === "helm-hooks");
@@ -1050,6 +1065,45 @@ const CATALOG_BUNDLES = [
   { repo: "prometheus-community", chart: "prometheus-blackbox-exporter", version: "11.15.1", base: "default" },
   { repo: "prometheus-community", chart: "prometheus", version: "29.8.0", base: "default" },
   { repo: "secrets-store-csi-driver", chart: "secrets-store-csi-driver", version: "1.6.0", base: "default" },
+  { repo: "autoscaler", chart: "cluster-autoscaler", version: "9.57.0", base: "default" },
+  { repo: "coredns", chart: "coredns", version: "1.45.2", base: "default" },
+  { repo: "crossplane-stable", chart: "crossplane", version: "2.3.1", base: "default" },
+  { repo: "descheduler", chart: "descheduler", version: "0.36.0", base: "default" },
+  { repo: "elastic", chart: "filebeat", version: "8.5.1", base: "default" },
+  { repo: "elastic", chart: "logstash", version: "8.5.1", base: "default" },
+  { repo: "elastic", chart: "metricbeat", version: "8.5.1", base: "default" },
+  { repo: "gitlab", chart: "gitlab-runner", version: "0.89.0", base: "default" },
+  {
+    repo: "grafana",
+    chart: "promtail",
+    version: "6.17.1",
+    base: "default",
+    // The render carries a Secret with data, and the scan cannot tell a
+    // credential from a configuration file. The verdict adjudicated it: this
+    // one holds promtail.yaml. Declared here rather than inferred from wording.
+    secretsCarryConfiguration: "the rendered Secret holds promtail.yaml, the agent's own configuration, with no credential in the audited base",
+  },
+  { repo: "istio", chart: "gateway", version: "1.30.0", base: "default" },
+  { repo: "jetstack", chart: "cert-manager-csi-driver", version: "v0.14.0", base: "default" },
+  {
+    repo: "nats",
+    chart: "nats",
+    version: "2.14.0",
+    base: "default",
+    secretsCarryConfiguration: "the rendered Secret is nats-box-contexts and holds a connection URL, with no credential in the audited base",
+  },
+  { repo: "nats", chart: "surveyor", version: "0.20.9", base: "default" },
+  { repo: "nfs-subdir-external-provisioner", chart: "nfs-subdir-external-provisioner", version: "4.0.18", base: "default" },
+  { repo: "opencost", chart: "opencost", version: "2.5.21", base: "default" },
+  { repo: "prometheus-community", chart: "kube-state-metrics", version: "7.4.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus-adapter", version: "5.3.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus-blackbox-exporter", version: "11.10.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus-node-exporter", version: "4.55.0", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus-pushgateway", version: "3.6.0", base: "default" },
+  { repo: "rook-release", chart: "rook-ceph-cluster", version: "v1.19.5", base: "default" },
+  { repo: "stakater", chart: "reloader", version: "2.2.12", base: "default" },
+  { repo: "stakater", chart: "reloader", version: "2.2.14", base: "default" },
+  { repo: "vm", chart: "victoria-metrics-single", version: "0.39.0", base: "default" },
 ];
 
 // A note a reader can check rather than a sentence that fills the field. It
@@ -1998,6 +2052,7 @@ function buildAll() {
           base: entry.base,
           chartName: `${entry.repo}/${entry.chart}`,
           verdictFile: verdictFileFor(recipe, entry.base),
+          secretsCarryConfiguration: entry.secretsCarryConfiguration,
         }),
       };
     }),

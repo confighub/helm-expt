@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-coredns-coredns-1.45.2-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/coredns-1.45.2-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-coredns-coredns-1-45-2-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:299b174490197ed7aa8d384c47f009da8b6e15dad34ce5f330ec61732afc01f2"
+  layerDigest: "sha256:72c5fe48338ab25563d90a59b19a4c4b3526f9404d80395d5052789fc2a36cc6"
+  layerBytes: 2035
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-coredns-coredns-1-45-2-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-coredns-coredns-1-45-2-default.tar.gz"

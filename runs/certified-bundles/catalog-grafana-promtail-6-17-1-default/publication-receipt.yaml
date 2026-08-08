@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-grafana-promtail-6.17.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/promtail-6.17.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:77c54084c317bf9621698a10dbee117ae2e252152f3d7f7f173d96b8eb2f5727"
+  layerDigest: "sha256:feab567193f47ce098e26240ae0a71d0908e005cc6abfb2c607935478c1ed8e8"
+  layerBytes: 2356
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-promtail-6-17-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-grafana-promtail-6-17-1-default.tar.gz"

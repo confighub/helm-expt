@@ -1378,6 +1378,376 @@ const CHARTS = [
       },
     ],
   },
+  {
+    repo: "autoscaler",
+    chart: "cluster-autoscaler",
+    version: "9.57.0",
+    recipe: "recipes/autoscaler/cluster-autoscaler/9.57.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "coredns",
+    chart: "coredns",
+    version: "1.45.2",
+    recipe: "recipes/coredns/coredns/1.45.2",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "crossplane-stable",
+    chart: "crossplane",
+    version: "2.3.1",
+    recipe: "recipes/crossplane-stable/crossplane/2.3.1",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "descheduler",
+    chart: "descheduler",
+    version: "0.36.0",
+    recipe: "recipes/descheduler/descheduler/0.36.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "filebeat",
+    version: "8.5.1",
+    recipe: "recipes/elastic/filebeat/8.5.1",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "logstash",
+    version: "8.5.1",
+    recipe: "recipes/elastic/logstash/8.5.1",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "elastic",
+    chart: "metricbeat",
+    version: "8.5.1",
+    recipe: "recipes/elastic/metricbeat/8.5.1",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "gitlab",
+    chart: "gitlab-runner",
+    version: "0.89.0",
+    recipe: "recipes/gitlab/gitlab-runner/0.89.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "istio",
+    chart: "gateway",
+    version: "1.30.0",
+    recipe: "recipes/istio/gateway/1.30.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "jetstack",
+    chart: "cert-manager-csi-driver",
+    version: "v0.14.0",
+    recipe: "recipes/jetstack/cert-manager-csi-driver/v0.14.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "nats",
+    chart: "surveyor",
+    version: "0.20.9",
+    recipe: "recipes/nats/surveyor/0.20.9",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "nfs-subdir-external-provisioner",
+    chart: "nfs-subdir-external-provisioner",
+    version: "4.0.18",
+    recipe: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "opencost",
+    chart: "opencost",
+    version: "2.5.21",
+    recipe: "recipes/opencost/opencost/2.5.21",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "kube-state-metrics",
+    version: "7.4.0",
+    recipe: "recipes/prometheus-community/kube-state-metrics/7.4.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-adapter",
+    version: "5.3.0",
+    recipe: "recipes/prometheus-community/prometheus-adapter/5.3.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-blackbox-exporter",
+    version: "11.10.0",
+    recipe: "recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-node-exporter",
+    version: "4.55.0",
+    recipe: "recipes/prometheus-community/prometheus-node-exporter/4.55.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-pushgateway",
+    version: "3.6.0",
+    recipe: "recipes/prometheus-community/prometheus-pushgateway/3.6.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "stakater",
+    chart: "reloader",
+    version: "2.2.12",
+    recipe: "recipes/stakater/reloader/2.2.12",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "stakater",
+    chart: "reloader",
+    version: "2.2.14",
+    recipe: "recipes/stakater/reloader/2.2.14",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "vm",
+    chart: "victoria-metrics-single",
+    version: "0.39.0",
+    recipe: "recipes/vm/victoria-metrics-single/0.39.0",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The chart carries no hook, keep policy, lookup, generated credential, webhook or CRD, and the committed render agrees: nothing it produces is discharged at render time.",
+    variantScope: [],
+  },
+  {
+    repo: "rook-release",
+    chart: "rook-ceph-cluster",
+    version: "v1.19.5",
+    recipe: "recipes/rook-release/rook-ceph-cluster/v1.19.5",
+    auditedBase: "default",
+    overrides: {},
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "Nothing this base renders is discharged at render time. What it does render is custom resources, so the definitions are a declared precondition on the rook-ceph operator chart rather than a companion this bundle can ship, which is how the catalog already treats karpenter's crds-managed base.",
+    variantScope: [
+      {
+        values: "the rook-ceph operator chart is not installed first",
+        effect:
+          "the custom resources this base renders have no definitions to validate against, and applying them fails",
+      },
+    ],
+  },
+  {
+    repo: "grafana",
+    chart: "promtail",
+    version: "6.17.1",
+    recipe: "recipes/grafana/promtail/6.17.1",
+    auditedBase: "default",
+    overrides: {
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the rendered Secret holds promtail.yaml, which is configuration rather than a credential; the audited base's file carries log level, listen ports and scrape config and no secret material",
+        disposition: "nothing to externalise: the Secret carries configuration the bundle is meant to deliver",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The one Secret this base renders is the agent's own configuration file, which the chart stores as a Secret because a config may embed credentials. The audited base's does not.",
+    variantScope: [
+      {
+        values: "a config section carrying credentials, such as a client basic-auth block",
+        effect:
+          "puts secret material into the rendered bytes; that base is do-not-flatten until the credential comes from an external reference",
+      },
+    ],
+  },
+  {
+    repo: "nats",
+    chart: "nats",
+    version: "2.14.0",
+    recipe: "recipes/nats/nats/2.14.0",
+    auditedBase: "default",
+    overrides: {
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the rendered Secret is nats-box-contexts and holds a connection URL, with no credential in the audited base",
+        disposition: "nothing to externalise: the Secret carries a connection context the bundle is meant to deliver",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The single Secret holds the nats-box connection context, which is a server URL. No credential reaches the rendered bytes in the audited base.",
+    variantScope: [
+      {
+        values: "a context configured with a token, nkey or user credential",
+        effect:
+          "writes that material into the rendered Secret; that base needs an external secret reference",
+      },
+    ],
+  },
+  {
+    repo: "minio-operator",
+    chart: "tenant",
+    version: "7.1.1",
+    recipe: "recipes/minio-operator/tenant/7.1.1",
+    auditedBase: "default",
+    overrides: {
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the rendered configuration Secret carries MINIO_ROOT_USER and MINIO_ROOT_PASSWORD as literal values from the chart's defaults",
+        disposition: "a flattened bundle would publish a working root credential in bytes that read as certified",
+      },
+    },
+    lane: "do-not-flatten",
+    routes: [],
+    rationale:
+      "The audited base writes the tenant's root credential into the rendered bytes as a literal value. That is worse than a generated one: every consumer of a published bundle would get the same known root password, from an artifact whose whole point is that it can be trusted. The installer package is this chart's certified route, because it renders at install time where the value can be replaced without republishing anything.",
+    variantScope: [
+      {
+        values: "a configuration Secret supplied from outside the render",
+        effect:
+          "removes the credential from the bytes; that base trends flatten-with-routes with an external secret reference",
+      },
+    ],
+  },
 ];
 
 function witnessPath(entry) {

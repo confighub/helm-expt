@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-vm-victoria-metrics-single-0.39.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/victoria-metrics-single-0.39.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:62ab272d95358ddca8a48f8ec591931e2f2ad7d0a2a3f73c22753efa7af78583"
+  layerDigest: "sha256:074ea2256a90abfdbdeb3eea2f1ae960b348a90b0801730db648b8907863c508"
+  layerBytes: 1529
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-vm-victoria-metrics-single-0-39-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-vm-victoria-metrics-single-0-39-0-default.tar.gz"

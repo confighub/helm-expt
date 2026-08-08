@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-autoscaler-cluster-autoscaler-9.57.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/cluster-autoscaler-9.57.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:e228d29680562202d81f7192b309f0d1fcfabbf2887a43ec6c2a4c7233c18ee3"
+  layerDigest: "sha256:2a7279a3146995a35c157f396ba7c60efbc092ec4397a52e6389b4fd803bc7be"
+  layerBytes: 1583
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-autoscaler-cluster-autoscaler-9-57-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-autoscaler-cluster-autoscaler-9-57-0-default.tar.gz"

@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-opencost-opencost-2.5.21-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/opencost-2.5.21-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-opencost-opencost-2-5-21-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:959d98626d39b93cd075044bcafb7258effb0064ce5e128206f8999686fb2009"
+  layerDigest: "sha256:588c9d3df976d7c78d2e60799d59fa52bcd70da7f6b31ac0ec982ee623a1c2aa"
+  layerBytes: 3144
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-opencost-opencost-2-5-21-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-opencost-opencost-2-5-21-default.tar.gz"
