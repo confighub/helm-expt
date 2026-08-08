@@ -19,17 +19,8 @@ import { join } from "node:path";
 // listFiles and sha256File come from the same helper the publisher uses, so a
 // match here means exactly what it meant at publication time.
 import { check, listFiles, readYaml, repoRoot, sha256File } from "./lib/proof-common.mjs";
+import { DECLARED_PACKAGE_DRIFT, packageDriftReason } from "./lib/installer-package-drift.mjs";
 
-// Each entry says which published package has moved, why, and what clears it.
-// An entry is a debt with a date on it, not a permanent exemption.
-const DECLARED_DRIFT = Object.freeze({
-  "packages/argo-cd/argo-cd/10.1.3": "2026-08-08: gained its packaged CRD bundle for the no-crds base. Awaiting republication.",
-  "packages/argo-cd/argo-cd/10.2.1": "2026-08-08: gained its packaged CRD bundle for the no-crds base. Awaiting republication.",
-  "packages/external-secrets/external-secrets/2.7.0": "2026-08-08: gained its packaged CRD bundle for the no-crds base. Awaiting republication.",
-  "packages/external-secrets/external-secrets/2.8.0": "2026-08-08: gained its packaged CRD bundle for the no-crds base. Awaiting republication.",
-  "packages/jetstack/cert-manager/v1.21.0": "2026-08-08: gained its packaged CRD bundle for the default base. Awaiting republication.",
-  "packages/karpenter/karpenter/1.14.0": "2026-08-08: gained its packaged CRD bundle for the crds-managed base. Awaiting republication.",
-});
 
 const mode = process.argv[2] ?? "--verify";
 if (!["--verify", "--report"].includes(mode)) {
@@ -66,21 +57,21 @@ for (const row of published) {
 
 if (mode === "--report") {
   for (const row of drifted) {
-    console.log(`${row.package_path}\n  recorded ${row.recorded}\n  actual   ${row.actual}\n  reason   ${DECLARED_DRIFT[row.package_path] ?? "(undeclared)"}`);
+    console.log(`${row.package_path}\n  recorded ${row.recorded}\n  actual   ${row.actual}\n  reason   ${packageDriftReason(row.package_path) || "(undeclared)"}`);
   }
   console.log(`${matched.length} match, ${drifted.length} drifted, ${unbound.length} cannot be checked because their receipt predates the source-tree digest`);
 } else {
-  const undeclared = drifted.filter((row) => !DECLARED_DRIFT[row.package_path]);
+  const undeclared = drifted.filter((row) => !packageDriftReason(row.package_path));
   check(
     undeclared.length === 0,
-    `these published packages no longer match the bytes their publication receipt recorded, and declare no reason in scripts/verify-installer-package-publication-drift.mjs: ${undeclared.map((row) => row.package_path).join(", ")}`,
+    `these published packages no longer match the bytes their publication receipt recorded, and declare no reason in scripts/lib/installer-package-drift.mjs: ${undeclared.map((row) => row.package_path).join(", ")}`,
   );
-  const stale = Object.keys(DECLARED_DRIFT).filter(
+  const stale = Object.keys(DECLARED_PACKAGE_DRIFT).filter(
     (path) => !drifted.some((row) => row.package_path === path),
   );
   check(
     stale.length === 0,
-    `these packages declare publication drift but now match their receipt, so remove them from DECLARED_DRIFT: ${stale.join(", ")}`,
+    `these packages declare publication drift but now match their receipt, so remove them from DECLARED_PACKAGE_DRIFT: ${stale.join(", ")}`,
   );
   console.log(
     `verified ${published.length} published installer package(s): ${matched.length} match their publication receipt, ${drifted.length} declared as awaiting republication, ${unbound.length} unbound because their receipt predates the source-tree digest`,

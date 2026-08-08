@@ -65,7 +65,7 @@ spec:
     ociRef: "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/karpenter-karpenter:1.14.0"
     installer: "packages/karpenter/karpenter/1.14.0/installer.yaml"
     receipt: "recipes/karpenter/karpenter/1.14.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5"
+    deterministicBundleSHA256: "8d01d0bbcecbe89b7bf4f11de980252ce6875f812d9d0d239bf4220107364a8e"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

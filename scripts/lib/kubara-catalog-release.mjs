@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { join as joinPath } from "node:path";
+import { packageDriftReason } from "./installer-package-drift.mjs";
 
 // One scope declaration for the additive Kubara catalog release. Promotion,
 // publication, and release acceptance all import these constants so a command
@@ -98,7 +99,12 @@ export function findKubaraReleaseScopeDrift(repoRoot, scope, roots) {
   for (const root of roots) {
     const files = scope.roots.get(root);
     if (!files) return `${root} is not in the recorded release scope`;
+    // A package whose change is declared in installer-package-drift is not a
+    // silent edit, and refusing it here would only push the same fact into a
+    // second exception list.
+    if (root.startsWith("packages/") && packageDriftReason(root)) continue;
     for (const [relativePath, expectedSha256] of Object.entries(files)) {
+      if (root.startsWith("recipes/") && isManagedRecipeOutput(relativePath)) continue;
       const filePath = joinPath(repoRoot, root, relativePath);
       if (!existsSync(filePath)) return `${root}/${relativePath} is missing`;
       const actual = createHash("sha256").update(readFileSync(filePath)).digest("hex");
@@ -106,4 +112,29 @@ export function findKubaraReleaseScopeDrift(repoRoot, scope, roots) {
     }
   }
   return "";
+}
+
+// A recipe root holds source next to output that generators own and rewrite.
+// The manifest records every file, because a faithful snapshot is the point,
+// but drift in managed output is a generator doing its job rather than someone
+// altering what the release recorded. The promotion verifier already draws this
+// line: it skips the publication receipt in its per-file comparison and checks
+// it structurally instead, and its core digest excludes the catalog views.
+//
+// Keep this list narrow. Everything else in a recipe root, including recipe.yaml,
+// the value model, the variants, the revisions, and the rendered objects, stays
+// covered byte for byte.
+const MANAGED_RECIPE_OUTPUT = new Set([
+  "CATALOG.md",
+  "artifact-index.yaml",
+  "catalog-status.yaml",
+  "helm-pain-report.yaml",
+  "inheritance-graph.yaml",
+  "weirdness-and-mitigations.md",
+  "publication/installer-package-receipt.yaml",
+]);
+
+export function isManagedRecipeOutput(relativePath) {
+  if (MANAGED_RECIPE_OUTPUT.has(relativePath)) return true;
+  return /^publication\/flattening-safety-verdict[^/]*\.yaml$/.test(relativePath);
 }
