@@ -534,6 +534,19 @@ function buildSite(generatedAt) {
       );
     }
   }
+  // Chart-level license record: researched from each chart's own release
+  // evidence and independently re-verified. Per-version artifact-index
+  // licenses win when both exist; this record covers the rest, so every
+  // catalog component can state its chart license with its evidence basis.
+  const chartLicenseRecord = readYaml(join(repoRoot, "data", "chart-licenses", "chart-licenses.yaml"));
+  const chartLicenseByChart = new Map();
+  for (const record of chartLicenseRecord?.spec?.charts ?? []) {
+    check(record.chart && record.spdx && record.spdx !== "unknown" && record.evidence?.url && record.evidence?.label,
+      `data/chart-licenses/chart-licenses.yaml: entry ${record.chart ?? "?"} must carry spdx and evidence; assumed licenses are refused`);
+    chartLicenseByChart.set(record.chart, record);
+  }
+  const chartLicensesResearchedAt = String(chartLicenseRecord?.metadata?.researchedAt ?? "");
+  check(/^\d{4}-\d{2}-\d{2}$/.test(chartLicensesResearchedAt), "data/chart-licenses/chart-licenses.yaml must record researchedAt");
   const publicChartKeys = new Set(catalogEntries.map((entry) => `${entry.chart}|${entry.version}`));
   const retainedComponentNames = new Set(installerOciPackages.map((row) => row.chart));
   const catalogEntryComponentNames = catalogEntries.map((entry) => entry.chart);
@@ -564,6 +577,12 @@ function buildSite(generatedAt) {
     "every retained Catalog version must have a unique OCI ref, and every publication receipt must belong to one version",
   );
   for (const row of installerOciPackages) verifyRetainedCatalogPackage(row);
+  for (const row of installerOciPackages) {
+    check(
+      licensesByChartVersion.has(`${row.chart}|${row.version}`) || chartLicenseByChart.has(row.chart),
+      `${row.chart}@${row.version}: every retained catalog version must carry a chart license from its artifact index or data/chart-licenses/chart-licenses.yaml`,
+    );
+  }
   const retainedOnlyComponentEntries = [...retainedComponentNames]
     .filter((chart) => !evidenceComponentNameSet.has(chart))
     .sort()
@@ -714,6 +733,8 @@ function buildSite(generatedAt) {
     activeProofQueue,
     catalogEntries,
     licensesByChartVersion,
+    chartLicenseByChart,
+    chartLicensesResearchedAt,
     catalogComponents,
     proofGradeEntries: proofGrade,
     latestCandidates,
@@ -6471,6 +6492,8 @@ function chartIndexHtml(catalog) {
         status,
         entry.source_features,
         entry.not_yet_enabled,
+        catalog.licensesByChartVersion?.get(`${entry.chart}|${entry.version}`)?.chart?.spdx
+          ?? catalog.chartLicenseByChart?.get(entry.chart)?.spdx,
         ...retainedRows.flatMap((row) => [row.version, row.bases, row.installer_oci_ref]),
       ]
         .filter(Boolean)
@@ -7296,6 +7319,20 @@ function gitOpsRuntimeReviewHtml(review, reviewPath) {
   </section>`;
 }
 
+// One-line chart license statement for a page header. Per-version artifact
+// index licenses win; the researched chart-level record covers the rest and
+// names its evidence basis and read date.
+function chartLicenseLineHtml(catalog, chart, version) {
+  const versionLicenses = catalog.licensesByChartVersion?.get(`${chart}|${version}`);
+  if (versionLicenses) {
+    return `<p>Licenses: chart <strong>${escapeHtml(versionLicenses.chart.spdx)}</strong> (${escapeHtml(versionLicenses.chart.evidence)})${(versionLicenses.images ?? []).length ? `; images: ${versionLicenses.images.map((image) => `${escapeHtml(image.component)} <strong>${escapeHtml(image.spdx)}</strong>${image.note ? ` (${escapeHtml(image.note)})` : ""}`).join("; ")}` : ""}.</p>`;
+  }
+  const record = catalog.chartLicenseByChart?.get(chart);
+  if (!record) return "";
+  const conflictNote = record.conflict ? " One source states it differently; the committed record keeps both statements." : "";
+  return `<p>Licenses: chart <strong>${escapeHtml(record.spdx)}</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">${escapeHtml(record.evidence.label)}, read ${escapeHtml(catalog.chartLicensesResearchedAt)}</a>).${conflictNote} This describes the chart templates, not the packaged application images.</p>`;
+}
+
 function retainedVersionPageHtml(catalog, row) {
   const identity = `${row.chart}@${row.version}`;
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
@@ -7324,9 +7361,7 @@ function retainedVersionPageHtml(catalog, row) {
     ? `The installer metadata records ${escapeHtml(row.external_requires_count)} external-requirement reference${Number(row.external_requires_count) === 1 ? "" : "s"} across these configurations. Inspect the package before choosing a base.`
     : "The installer metadata records no external-requirement references for these configurations. You must still review the rendered objects and target policy.";
   const rowLicenses = catalog.licensesByChartVersion?.get(`${row.chart}|${row.version}`);
-  const licenseLine = rowLicenses
-    ? `<p>Licenses: chart <strong>${escapeHtml(rowLicenses.chart.spdx)}</strong> (${escapeHtml(rowLicenses.chart.evidence)})${(rowLicenses.images ?? []).length ? `; images: ${rowLicenses.images.map((image) => `${escapeHtml(image.component)} <strong>${escapeHtml(image.spdx)}</strong>${image.note ? ` (${escapeHtml(image.note)})` : ""}`).join("; ")}` : ""}.</p>`
-    : "";
+  const licenseLine = chartLicenseLineHtml(catalog, row.chart, row.version);
   const packagedImageRows = String(row.rendered_yaml_paths ?? "").split(";").filter(Boolean).map((path) => {
     const base = path.match(/\/bases\/([^/]+)\//)?.[1] ?? "unrecorded base";
     const images = new Set();
@@ -7753,6 +7788,7 @@ function chartPageHtml(catalog, entry) {
     <p><strong>Evidence labels:</strong> Pass has a linked result. Watch names a limit to check. Blocked means do not use that path yet.</p>
     <p class="mono" style="font-size:.9rem">Upstream: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
     <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
+    ${chartLicenseLineHtml(catalog, entry.chart, entry.version)}
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>

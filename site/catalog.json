@@ -5686,6 +5686,8 @@
     }
   ],
   "licensesByChartVersion": {},
+  "chartLicenseByChart": {},
+  "chartLicensesResearchedAt": "2026-08-08",
   "catalogComponents": [
     {
       "proof_surface": "next80-proof-grade",

@@ -1,0 +1,1531 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ChartLicenseRecord
+metadata:
+  name: chart-licenses
+  researchedAt: '2026-08-08'
+  method: Each chart license was read live from its own release evidence (release-commit Chart.yaml, publisher
+    OCI config blob, source repository LICENSE, or the Artifact Hub package record), then independently
+    re-fetched and confirmed by a second pass. Licenses describe the chart templates, not the packaged
+    application or its images.
+  scope: chart-license-only; image licenses are recorded separately per entry in recipes/*/artifact-index.yaml
+    where known
+spec:
+  charts:
+  - chart: aqua/trivy-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/aquasecurity/trivy-operator/v0.30.1/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart 0.32.1 source lives in aquasecurity/trivy-operator under deploy/helm: deploy/helm/Chart.yaml
+      at app tag v0.30.1 (fetched) shows exactly version: 0.32.1 / appVersion: 0.30.1, and that repo''s
+      LICENSE at the same tag is Apache-2.0. The publisher repo aquasecurity/helm-charts (which hosts
+      the released tgz as a GitHub release asset) also carries an Apache-2.0 LICENSE (fetched). Artifact
+      Hub (repo ''trivy-operator'', repository URL https://aquasecurity.github.io/helm-charts/, matching
+      ours) reports license: null, and the packaged 0.32.1 tgz (downloaded) ships no license field or
+      LICENSE file.'
+  - chart: argo-cd/argo-cd
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/argoproj/argo-helm/argo-cd-9.5.15/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart lives in the argoproj/argo-helm monorepo (charts/argo-cd); the repo-root LICENSE
+      governs all charts in it. LICENSE fetched today at both retained tags argo-cd-9.5.15 and argo-cd-9.5.17
+      (https://raw.githubusercontent.com/argoproj/argo-helm/argo-cd-9.5.17/LICENSE), both Apache-2.0.
+      Chart.yaml at both tags carries no license annotation; Artifact Hub API (packages/helm/argo/argo-cd)
+      reports license:null, so it neither confirms nor conflicts.
+  - chart: argo-cd/argo-events
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/argoproj/argo-helm/argo-events-2.4.21/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart lives in the argoproj/argo-helm monorepo (charts/argo-events); repo-root LICENSE
+      governs. Fetched today at the exact retained tag argo-events-2.4.21. Chart.yaml at that tag has
+      no license annotation; Artifact Hub reports license:null.
+  - chart: argo-cd/argo-rollouts
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/argoproj/argo-helm/argo-rollouts-2.40.9/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart lives in the argoproj/argo-helm monorepo (charts/argo-rollouts); repo-root LICENSE
+      governs. Fetched today at the exact retained tag argo-rollouts-2.40.9. Chart.yaml has no license
+      annotation; Artifact Hub reports license:null.
+  - chart: argo-cd/argo-workflows
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/argoproj/argo-helm/argo-workflows-1.0.14/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart lives in the argoproj/argo-helm monorepo (charts/argo-workflows); repo-root LICENSE
+      governs. Fetched today at the exact retained tag argo-workflows-1.0.14. Chart.yaml has no license
+      annotation; Artifact Hub reports license:null.
+  - chart: argo-cd/argocd-image-updater
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/argoproj/argo-helm/argocd-image-updater-1.2.2/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: The CHART lives in the argoproj/argo-helm monorepo (charts/argocd-image-updater) even
+      though the application lives in argoproj-labs/argocd-image-updater; the argo-helm repo-root LICENSE
+      governs the chart. Fetched today at the exact retained tag argocd-image-updater-1.2.2. Chart.yaml
+      has no license annotation; Artifact Hub reports license:null.
+  - chart: autoscaler/cluster-autoscaler
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://api.github.com/repos/kubernetes/autoscaler/license
+      quote: '"spdx_id": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Version-exact check: downloaded the 9.57.0 chart tgz from the URL the official helm
+      index (kubernetes.github.io/autoscaler) points at, github.com/kubernetes/autoscaler/releases/download/cluster-autoscaler-chart-9.57.0/cluster-autoscaler-9.57.0.tgz;
+      its Chart.yaml (version 9.57.0) has no license field and the tgz ships no LICENSE, so the kubernetes/autoscaler
+      repo-root LICENSE governs (monorepo-LICENSE inference; raw LICENSE also fetched, Apache License
+      Version 2.0 text). Artifact Hub package cluster-autoscaler/cluster-autoscaler lists 9.57.0 but its
+      license field is null.'
+  - chart: autoscaler/vertical-pod-autoscaler
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://api.github.com/repos/kubernetes/autoscaler/license
+      quote: '"spdx_id": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Identity check matters here: several third-party charts share this name (Fairwinds,
+      cowboysysop). Ours is the kubernetes/autoscaler one — the kubernetes.github.io/autoscaler index
+      entry for 0.9.0 points at github.com/kubernetes/autoscaler/releases/download/vertical-pod-autoscaler-chart-0.9.0/vertical-pod-autoscaler-0.9.0.tgz,
+      which I downloaded; its Chart.yaml (version 0.9.0, maintainers kubernetes-sig-autoscaling) has no
+      license field and no LICENSE ships in the tgz, so the repo-root LICENSE governs (monorepo-LICENSE
+      inference; raw LICENSE fetched, Apache License Version 2.0 text).'
+  - chart: aws-controllers-k8s/ec2-chart
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://api.github.com/repos/aws-controllers-k8s/ec2-controller/license
+      quote: '"spdx_id": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart lives in the helm/ directory of aws-controllers-k8s/ec2-controller; repo-root
+      LICENSE governs it (monorepo-LICENSE inference). Verified for retained version 1.18.4: raw.githubusercontent.com/aws-controllers-k8s/ec2-controller/v1.18.4/helm/Chart.yaml
+      fetched (name ec2-chart, version 1.18.4, no license annotation) and raw LICENSE at tag v1.18.4 fetched,
+      showing the Apache License Version 2.0 text. Artifact Hub search for ec2-chart returns no package,
+      so no AH cross-check exists. Tag carries a v prefix (v1.18.4) relative to the chart version.'
+  - chart: aws-controllers-k8s/eks-chart
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://api.github.com/repos/aws-controllers-k8s/eks-controller/license
+      quote: '"spdx_id": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart lives in helm/ of aws-controllers-k8s/eks-controller; repo-root LICENSE governs
+      it (monorepo-LICENSE inference). Verified for retained version 1.16.3: raw Chart.yaml at tag v1.16.3
+      fetched (name eks-chart, version 1.16.3, no license annotation). Not on Artifact Hub, so no AH cross-check.'
+  - chart: aws-controllers-k8s/iam-chart
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://api.github.com/repos/aws-controllers-k8s/iam-controller/license
+      quote: '"spdx_id": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart lives in helm/ of aws-controllers-k8s/iam-controller; repo-root LICENSE governs
+      it (monorepo-LICENSE inference). Verified for retained version 1.7.3: raw Chart.yaml at tag v1.7.3
+      fetched (name iam-chart, version 1.7.3, no license annotation). Not on Artifact Hub, so no AH cross-check.'
+  - chart: aws-ebs-csi-driver/aws-ebs-csi-driver
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kubernetes-sigs/aws-ebs-csi-driver/helm-chart-aws-ebs-csi-driver-2.60.1/LICENSE
+      quote: Apache License
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart.yaml at tag helm-chart-aws-ebs-csi-driver-2.60.1 confirmed chart version 2.60.1
+      (our retained version) with no license field; Artifact Hub API (aws-ebs-csi-driver repo, matching
+      publisher URL) reports license:null. The kubernetes-sigs/aws-ebs-csi-driver repo-root LICENSE, fetched
+      at the exact chart-release tag, governs the charts/ directory and is Apache-2.0.
+  - chart: bitnami/apache
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/bitnami/charts/b74f6ac8ba3f94b7ded5d25f5e777cf0ca8b4480/bitnami/apache/Chart.yaml
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart.yaml pinned to the release commit for exactly our retained version 11.4.29; also
+      carries header ''SPDX-License-Identifier: APACHE-2.0''. Corroborated by bitnami/charts monorepo
+      LICENSE.md (Apache License 2.0) at main. Artifact Hub API .license is null for bitnami packages,
+      so it was unusable as evidence. Chart license only; the Apache httpd application is separately Apache-2.0.'
+  - chart: bitnami/contour
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/bitnami/charts/2037fe8c7abc53ab8dc6ded563e3a0f1c646d337/bitnami/contour/Chart.yaml
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart.yaml pinned to the release commit for exactly our retained version 21.1.4 (verified
+      ''version: 21.1.4'' in the same file). Corroborated by the bitnami/charts monorepo LICENSE.md (Apache
+      License 2.0).'
+  - chart: bitnami/elasticsearch
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/bitnami/charts/598214de2e85201aff28d4f1b2e1806b8e7d1bd1/bitnami/elasticsearch/Chart.yaml
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart.yaml pinned to the release commit for exactly our retained version 22.1.6. Chart
+      license only: the Elasticsearch APPLICATION is under Elastic''s own licensing (Elastic License 2.0
+      / SSPL / AGPL-3.0 depending on version), which is deliberately not reported here. Corroborated by
+      the monorepo LICENSE.md (Apache License 2.0).'
+  - chart: bitnami/memcached
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://registry-1.docker.io/v2/bitnamicharts/memcached/blobs/sha256:372237deb7c16616e3f679a8374db5aa92a1866f64f1336933dfe85e5cb008c3
+      quote: '"licenses":"Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Evidence is the Helm OCI config blob (the chart''s own Chart.yaml metadata as published
+      by Bitnami) for exactly version 8.5.5 from oci://registry-1.docker.io/bitnamicharts/memcached:8.5.5;
+      fetching the blob needs an anonymous pull token from auth.docker.io. Used because charts.bitnami.com/bitnami/memcached-8.5.5.tgz
+      returns 403 today (Broadcom lockdown) and 8.5.5 postdates the public GitHub repo, whose main shows
+      only 8.0.0. Corroborated by the monorepo LICENSE.md and by main Chart.yaml still declaring ''licenses:
+      Apache-2.0''.'
+  - chart: bitnami/mongodb
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://registry-1.docker.io/v2/bitnamicharts/mongodb/blobs/sha256:48a3e6b99cfbe8c3e7b2bf778211bf7d8259e6bdd99f2a68a92a6486a7e311a2
+      quote: '"licenses":"Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'All three retained versions verified individually today from the publisher''s Helm
+      OCI config blobs (Chart.yaml metadata) at registry-1.docker.io/bitnamicharts/mongodb: 19.0.7 (URL
+      cited), 19.0.9 (config sha256:882b28cbe4b6...), 19.1.0 (config sha256:a798d4039a81...); all say
+      "licenses":"Apache-2.0". Blob fetches need an anonymous pull token from auth.docker.io. charts.bitnami.com
+      tgz for these versions returns 403 today, and they postdate the public GitHub repo (main shows 17.0.2).
+      Chart license only: the MongoDB application is SSPL-1.0, not reported here.'
+  - chart: bitnami/mysql
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/bitnami/charts/79196dc5824d51adce926b809c6f7ecb7f9f0a43/bitnami/mysql/Chart.yaml
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart.yaml pinned to the release commit for exactly our retained version 14.0.3. Chart
+      license only: the MySQL application is GPL-2.0 with FOSS exception, not reported here. Corroborated
+      by the monorepo LICENSE.md (Apache License 2.0).'
+  - chart: bitnami/nginx
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://registry-1.docker.io/v2/bitnamicharts/nginx/blobs/sha256:e8dc3df1486d7ac0e44605f3262b0509a83f5b92392c1f389f8d1760a64f50e9
+      quote: '"licenses":"Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'All three retained versions verified individually today from the publisher''s Helm
+      OCI config blobs (Chart.yaml metadata) at registry-1.docker.io/bitnamicharts/nginx: 25.0.0 (URL
+      cited), 24.0.4 (config sha256:7e635981915a...), 24.0.2 (config sha256:36079a0b10f8...); all say
+      "licenses":"Apache-2.0". Blob fetches need an anonymous pull token from auth.docker.io. charts.bitnami.com
+      tgz for these versions returns 403 today, and they postdate the public GitHub repo (main shows 22.1.1).
+      The nginx application''s 2-clause-BSD license is not what is reported here.'
+  - chart: bitnami/opensearch
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/bitnami/charts/0822e6a9f462ebacce72f272b1c9ae83823b2a46/bitnami/opensearch/Chart.yaml
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart.yaml pinned to the release commit for exactly our retained version 2.0.10. Corroborated
+      by the monorepo LICENSE.md (Apache License 2.0). The OpenSearch application is also Apache-2.0,
+      but only the chart license is reported.
+  - chart: bitnami/phpmyadmin
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://charts.bitnami.com/bitnami/phpmyadmin-20.0.0.tgz
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'The exact retained package (phpmyadmin-20.0.0.tgz) still downloads from the listed
+      repository today (HTTP 200, unlike many other pinned Bitnami tgz which now 403); its packaged Chart.yaml
+      declares ''licenses: Apache-2.0'' and ''version: 20.0.0''. Chart license only: the phpMyAdmin application
+      is GPL-2.0, not reported here. Corroborated by the monorepo LICENSE.md.'
+  - chart: bitnami/postgresql
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://registry-1.docker.io/v2/bitnamicharts/postgresql/blobs/sha256:73717565b3d58f5e9dadec8dee73d970ab45982ca93bcb1f0d5378cb65c6da33
+      quote: '"licenses":"Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'All three retained versions verified individually today from the publisher''s Helm
+      OCI config blobs (Chart.yaml metadata) at registry-1.docker.io/bitnamicharts/postgresql: 18.7.0
+      (URL cited), 18.6.10 (config sha256:c6eb57f1da72...), 18.6.7 (config sha256:a7c2fc9a6e23...); all
+      say "licenses":"Apache-2.0". Blob fetches need an anonymous pull token from auth.docker.io. charts.bitnami.com
+      tgz for these versions returns 403 today, and they postdate the public GitHub repo (main shows 17.1.0).
+      The PostgreSQL application''s own license is not reported here.'
+  - chart: bitnami/rabbitmq
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://charts.bitnami.com/bitnami/rabbitmq-16.0.14.tgz
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'The exact retained package (rabbitmq-16.0.14.tgz) still downloads from the listed repository
+      today (HTTP 200); its packaged Chart.yaml declares ''licenses: Apache-2.0'' and ''version: 16.0.14''.
+      Chart license only: the RabbitMQ application is MPL-2.0, not reported here. Corroborated by the
+      monorepo LICENSE.md.'
+  - chart: bitnami/redis
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://registry-1.docker.io/v2/bitnamicharts/redis/blobs/sha256:57ec67e9a7e87807b5dd74eb2200b522fc31e27505973e6103481d8859bbc4c4
+      quote: '"licenses":"Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Both retained versions verified individually today from the publisher''s Helm OCI config
+      blobs (Chart.yaml metadata) at registry-1.docker.io/bitnamicharts/redis: 27.0.0 (URL cited), 25.5.3
+      (config sha256:5c62f2db4465...); both say "licenses":"Apache-2.0". Blob fetches need an anonymous
+      pull token from auth.docker.io. charts.bitnami.com tgz for these versions returns 403 today, and
+      they postdate the public GitHub repo (main shows 23.1.1). Chart license only: Redis the application
+      was relicensed (Redis 8 is AGPL-3.0/RSALv2/SSPLv1 tri-license); the chart remained Apache-2.0 and
+      that is what is reported.'
+  - chart: bitnami/spark
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/bitnami/charts/215c75892cfd0879a86024dc54e1db3c9b3f4018/bitnami/spark/Chart.yaml
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart.yaml pinned to the release commit for exactly our retained version 10.0.3. Corroborated
+      by the monorepo LICENSE.md (Apache License 2.0).
+  - chart: bitnami/zookeeper
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/bitnami/charts/3d774dece09376a094d4f214c2834bc942760771/bitnami/zookeeper/Chart.yaml
+      quote: 'licenses: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart.yaml pinned to the release commit for exactly our retained version 13.8.7. Corroborated
+      by the monorepo LICENSE.md (Apache License 2.0).
+  - chart: cloudnative-pg/cloudnative-pg
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/cloudnative-pg/charts/cloudnative-pg-v0.28.2/charts/cloudnative-pg/Chart.yaml
+      quote: 'SPDX-License-Identifier: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Two agreeing sources fetched: the chart''s own Chart.yaml at the exact tag cloudnative-pg-v0.28.2
+      carries an SPDX header (a license header comment, not a Helm annotation key), and the Artifact Hub
+      API for version 0.28.2 (https://artifacthub.io/api/v1/packages/helm/cloudnative-pg/cloudnative-pg/0.28.2)
+      reports "license":"Apache-2.0". Artifact Hub lists the repository as https://cloudnative-pg.io/charts/,
+      the project-domain alias of our listed https://cloudnative-pg.github.io/charts; both indexes (fetched)
+      carry the 0.28.2 entry.'
+  - chart: coredns/coredns
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/coredns/helm/coredns-1.45.2/LICENSE
+      quote: Apache License
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart.yaml at tag coredns-1.45.2 confirmed version 1.45.2 (our retained version); its
+      annotations block contains only artifacthub.io/changes, no license annotation, and Artifact Hub
+      API (coredns repo, matching publisher URL coredns.github.io/helm) reports license:null. The coredns/helm
+      repo-root LICENSE, fetched at the exact retained tag, governs this charts monorepo and is Apache-2.0.
+  - chart: crossplane-stable/crossplane
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/crossplane/crossplane/v2.3.1/LICENSE
+      quote: 'Apache License
+
+        Version 2.0, January 2004'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart source is crossplane/crossplane, cluster/charts/crossplane; the in-repo Chart.yaml
+      is a build placeholder (version: 0.0.1, no license field), so the governing evidence is the repo-root
+      LICENSE at tag v2.3.1 (Apache License 2.0), the release the stable-channel chart 2.3.1 is packaged
+      from. Corroborated by the Artifact Hub API package helm/crossplane/crossplane returning "license":"Apache-2.0"
+      — note that AH entry indexes the same publisher''s master channel (repository URL https://charts.crossplane.io/master/),
+      while our retained repository is the stable channel; https://charts.crossplane.io/stable/index.yaml
+      fetched today lists version: 2.3.1.'
+  - chart: descheduler/descheduler
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kubernetes-sigs/descheduler/descheduler-helm-chart-0.36.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart lives inside the kubernetes-sigs/descheduler application repo (charts/descheduler);
+      the repo-root LICENSE governs the whole repo including the chart. Fetched today at the exact chart-release
+      tag descheduler-helm-chart-0.36.0 (Chart.yaml at that tag verified today, version 0.36.0, no license
+      annotation). Artifact Hub (packages/helm/descheduler/descheduler) reports license:null.
+  - chart: dex/dex
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/dexidp/helm-charts/dex-0.24.0/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Two independent sources agree: dexidp/helm-charts repo-root LICENSE at the chart''s
+      own release tag dex-0.24.0 is Apache-2.0 (monorepo root governs charts/dex; Chart.yaml at that tag
+      has no license field), and Artifact Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/dex/dex/0.24.0)
+      returns "license":"Apache-2.0". Same publisher repo (charts.dexidp.io), not a fork.'
+  - chart: elastic/eck-operator
+    spdx: Elastic-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/elastic/cloud-on-k8s/v3.4.0/deploy/eck-operator/LICENSE
+      quote: Elastic License 2.0
+    confidence: high
+    verifiedIndependently: true
+    researchNote: The chart directory itself (deploy/eck-operator/LICENSE at tag v3.4.0, our retained
+      version) carries the Elastic License 2.0 — this is the CHART license, not just the application's.
+      Corroborated by Artifact Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/elastic/eck-operator/3.4.0
+      returns "license":"Elastic-2.0"). The repo root LICENSE.txt at v3.4.0 is also Elastic License 2.0;
+      GitHub's license API reports NOASSERTION for the repo. Elastic-2.0 is a source-available license,
+      not OSI-approved — compliance-relevant.
+  - chart: elastic/filebeat
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/elastic/helm-charts/v8.5.1/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: the LICENSE at the root of elastic/helm-charts at tag v8.5.1
+      (exactly our retained chart version) governs all charts in it; filebeat/Chart.yaml at that tag has
+      no license field and Artifact Hub''s .license is null. Unlike the Elastic products, this charts
+      repo is plain Apache-2.0. The repo is archived and 8.5.1 was the final release of these charts.'
+  - chart: elastic/kibana
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/elastic/helm-charts/v8.5.1/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: repo-root LICENSE of elastic/helm-charts at tag v8.5.1
+      (our retained version) governs the kibana chart; kibana/Chart.yaml at that tag has no license field
+      and Artifact Hub''s .license is null. The Kibana APPLICATION is under Elastic licensing, but the
+      chart templates in this repo are Apache-2.0 — do not conflate. Repo archived; 8.5.1 was the final
+      release.'
+  - chart: elastic/logstash
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/elastic/helm-charts/v8.5.1/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: repo-root LICENSE of elastic/helm-charts at tag v8.5.1
+      (our retained version) governs the logstash chart; logstash/Chart.yaml at that tag has no license
+      field and Artifact Hub''s .license is null. The Logstash APPLICATION is under Elastic licensing;
+      the chart is Apache-2.0. Repo archived; 8.5.1 was the final release.'
+  - chart: elastic/metricbeat
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/elastic/helm-charts/v8.5.1/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: repo-root LICENSE of elastic/helm-charts at tag v8.5.1
+      (our retained version) governs the metricbeat chart; metricbeat/Chart.yaml at that tag has no license
+      field and Artifact Hub''s .license is null. Repo archived; 8.5.1 was the final release.'
+  - chart: external-dns/external-dns
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://api.github.com/repos/kubernetes-sigs/external-dns/license
+      quote: '"spdx_id": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Version-exact check: charts/external-dns/Chart.yaml fetched at tag external-dns-helm-chart-1.21.1
+      (version 1.21.1, annotations: {} — no license annotation), so the repo license governs (monorepo-LICENSE
+      inference). The license file is LICENSE.md, not LICENSE (raw fetch of /LICENSE 404s; LICENSE.md
+      fetched, Apache License Version 2.0 text). Artifact Hub external-dns/external-dns (verified publisher,
+      kubernetes-sigs) shows 1.21.1 but license field is null.'
+  - chart: external-secrets/external-secrets
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/external-secrets/external-secrets/helm-chart-2.5.0/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Repo-root LICENSE of the external-secrets/external-secrets monorepo, fetched at the
+      exact chart release tag helm-chart-2.5.0; it governs the chart at deploy/charts/external-secrets
+      (Chart.yaml at that tag confirms ''version: "2.5.0"'', no license annotation). Artifact Hub package
+      (repo external-secrets-operator, url https://charts.external-secrets.io/ — matches ours modulo trailing
+      slash) exists at 2.5.0 but its license field is null, checked today.'
+  - chart: fairwinds-stable/goldilocks
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/FairwindsOps/charts/711b1723b2d1fa0ef9c63793c8f62d1d407bc469/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-root LICENSE inference: FairwindsOps/charts is a charts monorepo whose root
+      LICENSE (Apache License Version 2.0) governs all charts in it; the chart has no per-chart LICENSE
+      and no license annotation in Chart.yaml. Evidence is version-pinned: commit 711b1723 is the commit
+      whose stable/goldilocks/Chart.yaml reads ''version: 10.3.0'' (our retained version), verified today
+      by walking the Chart.yaml commit history. Artifact Hub''s license field for fairwinds-stable/goldilocks
+      10.3.0 is null, and the published goldilocks-10.3.0.tgz from https://charts.fairwinds.com/stable
+      contains no LICENSE file (both checked today).'
+  - chart: fairwinds-stable/vpa
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/FairwindsOps/charts/668395099685a5057ec86f0df71c028c46487243/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Same monorepo-root LICENSE inference as goldilocks: FairwindsOps/charts root LICENSE
+      (Apache-2.0) governs all charts; no per-chart LICENSE, no license annotation in Chart.yaml. Version-pinned:
+      commit 66839509 is the commit whose stable/vpa/Chart.yaml reads ''version: 4.11.0'' (our retained
+      version). Artifact Hub license field is null and the published vpa-4.11.0.tgz contains no LICENSE
+      file (both checked today). Chart license only; the packaged Kubernetes Vertical Pod Autoscaler application
+      is a separate upstream (kubernetes/autoscaler).'
+  - chart: falcosecurity/falco
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/falcosecurity/charts/falco-9.0.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: the LICENSE at the root of the falcosecurity/charts charts-only
+      monorepo governs all charts in it; fetched at the exact chart release tag falco-9.0.0. Chart.yaml
+      at that tag has no license annotation, the chart directory has no per-chart LICENSE (checked, 404),
+      and the Artifact Hub API license field is null for 9.0.0 — absence, not disagreement. This is the
+      chart license; the Falco application lives in a separate repo.'
+  - chart: falcosecurity/falcosidekick
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/falcosecurity/charts/falcosidekick-0.13.1/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: root LICENSE of the falcosecurity/charts charts-only monorepo
+      governs all charts in it; fetched at the exact chart release tag falcosidekick-0.13.1. Chart.yaml
+      at that tag has no license annotation, no per-chart LICENSE exists (checked, 404), and the Artifact
+      Hub API license field is null for 0.13.1. This is the chart license; the falcosidekick application
+      lives in a separate repo.'
+  - chart: fluent/fluent-bit
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/fluent/helm-charts/fluent-bit-0.57.6/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact release tag fluent-bit-0.57.6 of the fluent/helm-charts
+      monorepo; the root LICENSE governs all charts in it. Chart.yaml at that tag (fetched) has empty
+      annotations and no license field; per-chart LICENSE returns 404; Artifact Hub (repo ''fluent'',
+      matching repository URL) reports license: null. Chart license only — the fluent-bit application
+      is licensed separately.'
+  - chart: fluent/fluentd
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/fluent/helm-charts/fluentd-0.5.3/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact release tag fluentd-0.5.3 of the fluent/helm-charts monorepo;
+      the root LICENSE governs all charts in it. Chart.yaml at that tag (fetched) has no license field;
+      per-chart LICENSE returns 404; Artifact Hub reports license: null.'
+  - chart: gatekeeper/gatekeeper
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.22.2/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'The chart sources live inside the application repo open-policy-agent/gatekeeper under
+      charts/gatekeeper at the same tag v3.22.2 (Chart.yaml at that tag confirms version: 3.22.2); the
+      repo root LICENSE governs the whole repo including the chart, and no per-chart LICENSE exists (checked,
+      404). Chart.yaml carries no license annotation and the Artifact Hub API license field is null for
+      3.22.2 — absence, not disagreement.'
+  - chart: gitlab/gitlab-runner
+    spdx: MIT
+    evidence:
+      source: artifacthub-api
+      label: the Artifact Hub package record
+      url: https://artifacthub.io/api/v1/packages/helm/gitlab/gitlab-runner/0.89.0
+      quote: '"license":"MIT"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Artifact Hub package is the same publisher repo (charts.gitlab.io, listed there as
+      http://charts.gitlab.io/) and the version-pinned 0.89.0 record reports MIT. Corroborated by the
+      chart''s own repo LICENSE at the exact tag: https://gitlab.com/gitlab-org/charts/gitlab-runner/-/raw/v0.89.0/LICENSE
+      (fetched) opens "The MIT License (MIT)". The repo is chart-only, so the LICENSE is the chart''s
+      own. Chart license only — the GitLab Runner application is licensed separately by GitLab.'
+  - chart: grafana/alloy
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/grafana/alloy/helm-chart/1.8.2/LICENSING.md
+      quote: The default license for this project is [Apache-2.0](LICENSE).
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart source is the grafana/alloy repo at tag helm-chart/1.8.2 (Chart.yaml at that
+      tag confirms version: 1.8.2; no license annotation; no per-chart LICENSE file, probe returned 404).
+      LICENSING.md at the exact chart tag declares the project default Apache-2.0 with a single MIT carve-out
+      (internal/component/loki/secretfilter/gitleaks.toml) that is outside the chart path; repo-root LICENSE
+      at the same tag is the Apache License 2.0 text. Artifact Hub API license field is null for this
+      chart. The Alloy application is also Apache-2.0, unlike the Loki/Tempo/Pyroscope applications.'
+  - chart: grafana/grafana
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/grafana/helm-charts/grafana-10.5.15/charts/grafana/Chart.yaml
+      quote: '"artifacthub.io/license": Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Two fetched sources agree: Chart.yaml at tag grafana-10.5.15 carries the artifacthub.io/license:
+      Apache-2.0 annotation, and the Artifact Hub API (https://artifacthub.io/api/v1/packages/helm/grafana/grafana,
+      whose current version is exactly 10.5.15, repository https://grafana.github.io/helm-charts) returns
+      "license":"Apache-2.0". Monorepo-root LICENSE at the tag is also Apache License 2.0. This is the
+      chart license only; the Grafana application is separately licensed (AGPL). Chart.yaml at this tag
+      is marked deprecated: true, which a catalog may want to surface.'
+  - chart: grafana/loki
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/grafana/loki/helm-loki-7.0.0/LICENSING.md
+      quote: The following folders and their subfolders are licensed under Apache-2.0
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart source is grafana/loki at tag helm-loki-7.0.0, path production/helm/loki (Chart.yaml
+      there confirms version: 7.0.0; no license annotation; no per-chart LICENSE, probe 404). LICENSING.md
+      at that exact tag lists production/ among the Apache-2.0 folders, which covers the chart path explicitly.
+      The repo DEFAULT is AGPL-3.0-only and the Loki application is AGPL-3.0-only — that is the application
+      license, not the chart''s. Artifact Hub API license field is null.'
+  - chart: grafana/promtail
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/grafana/helm-charts/promtail-6.17.1/LICENSE
+      quote: 'Apache License
+
+        Version 2.0, January 2004'
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: 'Chart lives in the grafana/helm-charts charts monorepo (charts/promtail at tag promtail-6.17.1;
+      Chart.yaml confirms version 6.17.1, has no license annotation; no per-chart LICENSE, probe 404;
+      repo has no LICENSING.md). Relying on the monorepo-root LICENSE (fetched at the exact chart tag)
+      governing all charts in it. Artifact Hub API license field is null (its current package version
+      is exactly 6.17.1). Chart.yaml at this tag is marked deprecated: true.'
+  - chart: grafana/pyroscope
+    spdx: AGPL-3.0-only
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/grafana/pyroscope/pyroscope-2.0.2/LICENSING.md
+      quote: The default license for this project is [AGPL-3.0-only](LICENSE).
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: 'COMPLIANCE OUTLIER among the Grafana charts. Chart source is grafana/pyroscope at tag
+      pyroscope-2.0.2, path operations/pyroscope/helm/pyroscope (Chart.yaml confirms version: 2.0.2; no
+      license annotation; no per-chart LICENSE, probe 404). LICENSING.md at that exact tag sets the project
+      default to AGPL-3.0-only, and its Apache-2.0 carve-outs (lidia, og/pkg/agent/profiler, og/pkg/agent/ebpfspy,
+      og/packages/...) do NOT include the chart path, so the chart falls under the default; repo-root
+      LICENSE at the tag is the GNU AGPL v3 text. Artifact Hub API license field is null. Confidence medium
+      because the AGPL conclusion follows from the absence of a carve-out for the chart directory rather
+      than an explicit per-path statement; a reviewer may want to confirm intent with Grafana Labs before
+      treating the chart templates as AGPL.'
+  - chart: grafana/rollout-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/grafana/helm-charts/rollout-operator-0.49.0/LICENSE
+      quote: 'Apache License
+
+        Version 2.0, January 2004'
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart lives in the grafana/helm-charts charts monorepo (charts/rollout-operator at tag
+      rollout-operator-0.49.0; Chart.yaml confirms version 0.49.0 and has no license annotation; no per-chart
+      LICENSE; repo has no LICENSING.md). Relying on the monorepo-root LICENSE fetched at the exact chart
+      tag. Artifact Hub API license field is null.
+  - chart: grafana/tempo
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/grafana/helm-charts/tempo-1.24.4/LICENSE
+      quote: 'Apache License
+
+        Version 2.0, January 2004'
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: 'Chart lives in the grafana/helm-charts charts monorepo (charts/tempo at tag tempo-1.24.4;
+      Chart.yaml confirms version 1.24.4, no license annotation; no per-chart LICENSE; no LICENSING.md
+      in repo). Relying on the monorepo-root LICENSE fetched at the exact chart tag. The Tempo application
+      is AGPL-licensed — this row is the chart only, and the chart lives in the separate Apache-2.0 helm-charts
+      repo, not the tempo app repo. Artifact Hub API license field is null (its current package version
+      is exactly 1.24.4). Chart.yaml at this tag is marked deprecated: true.'
+  - chart: haproxytech/kubernetes-ingress
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/haproxytech/helm-charts/kubernetes-ingress-1.52.0/kubernetes-ingress/Chart.yaml
+      quote: 'artifacthub.io/license: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Multiple independent sources agree, all fetched today: Chart.yaml at tag kubernetes-ingress-1.52.0
+      (confirmed version 1.52.0 = our retained version) declares artifacthub.io/license: Apache-2.0 and
+      itself carries an Apache-2.0 header comment; Artifact Hub API (haproxytech repo, matching publisher
+      URL) reports "license":"Apache-2.0"; and the haproxytech/helm-charts repo-root LICENSE is Apache-2.0.
+      The chart is Apache-2.0 independent of HAProxy Enterprise product licensing.'
+  - chart: hashicorp/consul
+    spdx: MPL-2.0
+    evidence:
+      source: artifacthub-api
+      label: the Artifact Hub package record
+      url: https://artifacthub.io/api/v1/packages/helm/hashicorp/consul/2.0.0
+      quote: '"license":"MPL-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Artifact Hub package is the official hashicorp repo with url https://helm.releases.hashicorp.com
+      (matches ours), queried at exact version 2.0.0. Independently confirmed: chart source is hashicorp/consul-k8s,
+      and https://raw.githubusercontent.com/hashicorp/consul-k8s/v2.0.0/charts/consul/Chart.yaml carries
+      the header ''# SPDX-License-Identifier: MPL-2.0''; repo LICENSE at that tag is ''Mozilla Public
+      License, version 2.0''. Chart license only — Consul the application was relicensed to BUSL-1.1;
+      the chart repo remains MPL-2.0.'
+  - chart: hashicorp/terraform
+    spdx: MPL-2.0
+    evidence:
+      source: artifacthub-api
+      label: the Artifact Hub package record
+      url: https://artifacthub.io/api/v1/packages/helm/hashicorp/terraform/1.1.2
+      quote: '"license":"MPL-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Artifact Hub package is the official hashicorp repo (url https://helm.releases.hashicorp.com,
+      matches ours), queried at exact version 1.1.2. Independently confirmed: https://raw.githubusercontent.com/hashicorp/terraform-helm/v1.1.2/LICENSE
+      reads ''Mozilla Public License, version 2.0'' at the exact chart tag. Chart.yaml at that tag has
+      no license annotation. Chart license only — Terraform the product moved to BUSL-1.1, but the terraform-helm
+      chart repo is MPL-2.0. This chart installs the Terraform Cloud Operator, and 1.1.2 is also the latest
+      version on the repo''s main branch.'
+  - chart: hashicorp/vault
+    spdx: MPL-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/hashicorp/vault-helm/v0.32.0/Chart.yaml
+      quote: '# SPDX-License-Identifier: MPL-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Both repo statements fetched at exact tag v0.32.0: Chart.yaml header ''# SPDX-License-Identifier:
+      MPL-2.0'' and LICENSE ''Mozilla Public License, version 2.0''. The LICENSE file''s ''Incompatible
+      With Secondary Licenses'' text is only the standard MPL-2.0 template (Exhibit B definition appears
+      in every full MPL-2.0 text), so it does not by itself support the -no-copyleft-exception variant
+      Artifact Hub reports. Chart license only — Vault the application is BUSL-1.1 since 1.15; the vault-helm
+      chart stays MPL-2.0. Chart.yaml copyright line now reads ''Copyright IBM Corp. 2018, 2025''.'
+    conflict: Artifact Hub (https://artifacthub.io/api/v1/packages/helm/hashicorp/vault/0.32.0) reports
+      "license":"MPL-2.0-no-copyleft-exception", but the chart's own repo at the exact tag v0.32.0 states
+      MPL-2.0 in both the Chart.yaml SPDX header and the LICENSE file; per contract the chart source repository's
+      own statement wins.
+  - chart: ingress-nginx/ingress-nginx
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/helm-chart-4.15.1/LICENSE
+      quote: 'Apache License
+
+        Version 2.0, January 2004'
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: 'Chart.yaml at tag helm-chart-4.15.1 (charts/ingress-nginx, version: 4.15.1) has annotations
+      but no license annotation; Artifact Hub API license field is null (its current package version is
+      exactly 4.15.1). Relying on the repo-root LICENSE of the kubernetes/ingress-nginx monorepo (app
+      + chart in one repo), fetched at the exact chart tag, governing the chart directory.'
+  - chart: istio/gateway
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/istio/istio/1.30.0/LICENSE
+      quote: Apache License
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: 'The chart lives in the istio/istio monorepo at manifests/charts/gateway; the in-tree
+      Chart.yaml carries a placeholder ''version: 1.0.0'' that release-builder replaces at build time,
+      so version applicability comes from fetching the repo at the 1.30.0 release tag (matches our retained
+      1.30.0). Chart.yaml has no license field and Artifact Hub API (istio-official repo, matching publisher
+      URL istio-release.storage.googleapis.com/charts) reports license:null; repo-root LICENSE at the
+      1.30.0 tag governs and is Apache-2.0.'
+  - chart: istio/istiod
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/istio/istio/1.30.0/LICENSE
+      quote: Apache License
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart source is istio/istio manifests/charts/istio-control/istio-discovery (in-tree
+      Chart.yaml name 'istiod', placeholder version 1.0.0 replaced at build time). Chart.yaml at the 1.30.0
+      tag has no license field and Artifact Hub API (istio-official) reports license:null; repo-root LICENSE
+      fetched at the 1.30.0 tag (matches our retained 1.30.0) governs and is Apache-2.0.
+  - chart: jaegertracing/jaeger
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/jaegertracing/helm-charts/jaeger-4.8.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart lives in the jaegertracing/helm-charts monorepo (charts/jaeger); repo-root LICENSE
+      governs all charts in it. Fetched today at the exact retained tag jaeger-4.8.0. Chart.yaml at that
+      tag (verified today) has no license annotation; Artifact Hub (packages/helm/jaegertracing/jaeger)
+      reports license:null. Chart declares a dependency on the Bitnami 'common' library chart (2.x.x from
+      charts.bitnami.com) — a compliance reviewer may want that dependency's license tracked separately.
+  - chart: jaegertracing/jaeger-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/jaegertracing/helm-charts/jaeger-operator-2.57.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Chart lives in the jaegertracing/helm-charts monorepo (charts/jaeger-operator); repo-root
+      LICENSE governs. Fetched today at the exact retained tag jaeger-operator-2.57.0. Chart.yaml has
+      no license annotation; Artifact Hub reports license:null.
+  - chart: jetstack/cert-manager
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/cert-manager/cert-manager/v1.20.2/deploy/charts/cert-manager/Chart.template.yaml
+      quote: 'artifacthub.io/license: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Fetched at the exact retained tag v1.20.2. Two more fetched sources agree: Artifact
+      Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/cert-manager/cert-manager/1.20.2
+      returns "license":"Apache-2.0", repository url https://charts.jetstack.io matching ours; note AH
+      wants version 1.20.2 without the v prefix) and the repo LICENSE at v1.20.2 (Apache License Version
+      2.0 text).'
+  - chart: jetstack/cert-manager-csi-driver
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/cert-manager/csi-driver/v0.14.0/deploy/charts/csi-driver/Chart.yaml
+      quote: 'artifacthub.io/license: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Upstream repo is cert-manager/csi-driver; the chart is published as cert-manager-csi-driver
+      (Chart.yaml name: cert-manager-csi-driver, alternativeName csi-driver). Fetched at exact tag v0.14.0.
+      Artifact Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/cert-manager/cert-manager-csi-driver/0.14.0)
+      returns "license":"Apache-2.0" from repo https://charts.jetstack.io, and the repo LICENSE at v0.14.0
+      is Apache License Version 2.0 text.'
+  - chart: jetstack/trust-manager
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/cert-manager/trust-manager/v0.22.1/deploy/charts/trust-manager/Chart.yaml
+      quote: 'artifacthub.io/license: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Fetched at exact tag v0.22.1. Artifact Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/cert-manager/trust-manager/0.22.1)
+      returns "license":"Apache-2.0" from repo https://charts.jetstack.io, and the repo LICENSE at v0.22.1
+      is Apache License Version 2.0 text.
+  - chart: karpenter/karpenter
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/aws/karpenter-provider-aws/v1.14.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Published OCI artifact verified today: helm show chart oci://public.ecr.aws/karpenter/karpenter
+      --version 1.14.0 pulled digest sha256:4c1e3a9e158e59e2c30ef76ca0c2bf72ecf6d3a7f25c5c9b06d0bf47cfeec745
+      (appVersion 1.14.0, annotation artifacthub.io/alternativeName: karpenter-provider-aws, no license
+      field). Chart source is aws/karpenter-provider-aws charts/karpenter; repo-root LICENSE fetched today
+      at release tag v1.14.0 is Apache-2.0. Quirk: the in-repo Chart.yaml at tag v1.14.0 still reads version
+      1.13.0 — the release pipeline stamps the chart version at publish time, so the tag''s LICENSE is
+      the right governing text for the published 1.14.0 artifact. Artifact Hub (packages/helm/aws-karpenter/karpenter,
+      current version 1.14.0) reports license:null.'
+  - chart: kedacore/keda
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kedacore/charts/v2.19.0/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: kedacore/charts repo-root LICENSE at tag v2.19.0 is Apache-2.0
+      and governs the keda chart directory; keda/Chart.yaml at that same tag confirms version: 2.19.0
+      (exactly our retained version) and has no license field. Artifact Hub API .license is null for this
+      chart, so the repo LICENSE is the operative source. KEDA is a CNCF project.'
+  - chart: kyverno/kyverno
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kyverno/kyverno/kyverno-chart-3.8.1/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: the chart lives at charts/kyverno inside the kyverno/kyverno
+      application monorepo; the root LICENSE at the chart''s release tag kyverno-chart-3.8.1 (exactly
+      our retained version — charts/kyverno/Chart.yaml at that tag says version: 3.8.1) is Apache-2.0
+      and governs the chart. Chart.yaml has no license field/annotation; Artifact Hub API .license is
+      null for 3.8.1.'
+  - chart: kyverno/kyverno-policies
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kyverno/kyverno/kyverno-chart-3.8.0/LICENSE
+      quote: "Apache License\n                           Version 2.0, January 2004"
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-LICENSE inference: charts/kyverno-policies/Chart.yaml at tag kyverno-chart-3.8.0
+      states version: 3.8.0 (exactly our retained version) and the repo-root LICENSE at that same tag
+      is Apache-2.0. There is no dedicated kyverno-policies-3.8.0 tag — the policies chart is released
+      from the kyverno-chart-* tags. Chart.yaml has no license field; Artifact Hub API .license is null
+      for 3.8.0.'
+  - chart: linkerd/linkerd-crds
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://api.github.com/repos/linkerd/linkerd2/license
+      quote: '"spdx_id": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Version-exact check: downloaded linkerd-crds-1.8.0.tgz from helm.linkerd.io/stable
+      (the index''s own URL for 1.8.0); its Chart.yaml (version 1.8.0, sources github.com/linkerd/linkerd2)
+      has no license field, so the linkerd2 repo-root LICENSE governs (monorepo-LICENSE inference; raw
+      LICENSE fetched, Apache License Version 2.0 text). Distribution caveat, not license conflict: the
+      helm.linkerd.io/stable channel is frozen (Linkerd stable artifacts moved to Buoyant''s separate
+      distribution), but this chart and the linkerd2 source remain Apache-2.0; report the chart''s license,
+      not any vendor distribution terms. Artifact Hub linkerd2/linkerd-crds license field is null.'
+  - chart: longhorn/longhorn
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/longhorn/longhorn/v1.11.2/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Repo-root LICENSE of longhorn/longhorn at exact tag v1.11.2 (Apache-2.0); the chart
+      lives at chart/ in the same repo and its Chart.yaml at that tag confirms ''version: 1.11.2'' (our
+      retained version) with no license annotation. Monorepo-root inference applies (single chart in repo).
+      Artifact Hub package (repo ''longhorn'', url https://charts.longhorn.io, matches ours) exists at
+      1.11.2 but its license field is null, checked today.'
+  - chart: metallb/metallb
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/metallb/metallb/v0.16.1/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: 'No chart-level license declaration exists: the Artifact Hub record reports no license
+      and Chart.yaml at tag v0.16.1 carries no license field. Basis is the monorepo root LICENSE at the
+      exact tag matching retained version 0.16.1, inferred to cover the charts/ subdirectory; confidence
+      is medium solely because of that inference.'
+  - chart: metrics-server/metrics-server
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kubernetes-sigs/metrics-server/metrics-server-helm-chart-3.13.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Fetched at the chart-specific release tag metrics-server-helm-chart-3.13.0 (Chart.yaml
+      at that tag confirms version: 3.13.0). The chart lives inside the kubernetes-sigs/metrics-server
+      application repo under charts/metrics-server; repo root LICENSE governs it and no per-chart LICENSE
+      exists (checked, 404). Chart.yaml has no license annotation and the Artifact Hub API license field
+      is null for 3.13.0 — absence, not disagreement.'
+  - chart: minio-operator/operator
+    spdx: AGPL-3.0-only
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/minio/operator/v7.1.1/LICENSE
+      quote: GNU AFFERO GENERAL PUBLIC LICENSE
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'COMPLIANCE FLAG: the chart itself sits under AGPL, not just the application. LICENSE
+      fetched at the exact retained tag v7.1.1 is the GNU AGPL Version 3 text; helm/operator/Chart.yaml
+      at v7.1.1 fetched (version 7.1.1, no license annotation), so the repo-root LICENSE governs (monorepo-LICENSE
+      inference). GitHub license API reports the deprecated id "AGPL-3.0", which does not distinguish
+      -only from -or-later; the bare license text with no or-later notice in the chart directory is recorded
+      here as AGPL-3.0-only. Artifact Hub minio-operator/operator license field is null.'
+  - chart: minio-operator/tenant
+    spdx: AGPL-3.0-only
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/minio/operator/v7.1.1/LICENSE
+      quote: GNU AFFERO GENERAL PUBLIC LICENSE
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'COMPLIANCE FLAG: same minio/operator repo as the operator chart, same AGPL-3.0 root
+      LICENSE governing helm/tenant (monorepo-LICENSE inference). helm/tenant/Chart.yaml at v7.1.1 fetched
+      (version 7.1.1, no license annotation). GitHub license API reports deprecated "AGPL-3.0"; recorded
+      as AGPL-3.0-only per the bare license text. Artifact Hub minio-operator/tenant license field is
+      null.'
+  - chart: nats/nack
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/nats-io/k8s/nack-0.34.0/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact release tag nack-0.34.0 of the nats-io/k8s charts monorepo;
+      the root LICENSE governs all charts in it. Chart.yaml at that tag (fetched) has no license field,
+      and Artifact Hub (repo ''nats'', same repository URL https://nats-io.github.io/k8s/helm/charts/)
+      reports license: null.'
+  - chart: nats/nats
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/nats-io/k8s/nats-2.14.0/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact release tag nats-2.14.0 of the nats-io/k8s charts monorepo;
+      the root LICENSE governs all charts in it. Chart.yaml at that tag (fetched) has no license field
+      and no per-chart LICENSE exists (helm/charts/nats/LICENSE returns 404). Artifact Hub reports license:
+      null for this chart. Chart license only; the NATS server application is licensed separately (also
+      Apache-2.0 upstream, not asserted here).'
+  - chart: nats/surveyor
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/nats-io/k8s/surveyor-0.20.9/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact release tag surveyor-0.20.9 of the nats-io/k8s charts
+      monorepo; the root LICENSE governs all charts in it. Chart.yaml at that tag (fetched) has no license
+      field; Artifact Hub reports license: null.'
+  - chart: nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kubernetes-sigs/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner-4.0.18/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact release tag nfs-subdir-external-provisioner-4.0.18 of
+      the kubernetes-sigs monorepo that contains the chart under charts/; the root LICENSE governs the
+      whole repo. Chart.yaml at that tag (fetched) has no license field; Artifact Hub (same repository
+      URL) reports license: null for 4.0.18.'
+  - chart: nvidia/nvidia-device-plugin
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.19.3/LICENSE
+      quote: Apache License
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart source is NVIDIA/k8s-device-plugin at deployments/helm/nvidia-device-plugin; Chart.yaml
+      at tag v0.19.3 confirmed chart version 0.19.3 (our retained version) with no license field. Artifact
+      Hub API (nvidia-k8s-device-plugin repo, URL matches publisher https://nvidia.github.io/k8s-device-plugin
+      — beware the several same-named forks on Artifact Hub) reports license:null. Repo-root LICENSE fetched
+      at the exact v0.19.3 tag governs and is Apache-2.0. This is the device-plugin chart, not NVIDIA's
+      gpu-operator chart from helm.ngc.nvidia.com, and the chart license is separate from NVIDIA driver/container-runtime
+      EULAs the deployed images carry.
+  - chart: oauth2-proxy/oauth2-proxy
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/oauth2-proxy/manifests/oauth2-proxy-10.7.0/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Basis is the root LICENSE of the dedicated chart-source repository (oauth2-proxy/manifests)
+      at the exact release tag for retained version 10.7.0, so there is no application/chart monorepo
+      ambiguity. The packaged application lives in a different repository and its license was not researched
+      here.
+  - chart: open-telemetry/opentelemetry-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/open-telemetry/opentelemetry-helm-charts/opentelemetry-operator-0.114.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Upstream is the open-telemetry/opentelemetry-helm-charts monorepo (repository URL confirmed
+      via Artifact Hub package opentelemetry-helm/opentelemetry-operator, whose .license field is null).
+      Chart.yaml at tag opentelemetry-operator-0.114.0 (name and version confirmed in the same fetch)
+      carries no license annotation; license comes from the repo-root LICENSE fetched at that exact release
+      tag, which governs all charts in the monorepo.
+  - chart: opencost/opencost
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/opencost/opencost-helm-chart/opencost-2.5.21/LICENSE
+      quote: 'Apache License
+
+        Version 2.0, January 2004'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'opencost/opencost-helm-chart is a dedicated chart repository (the published repo https://opencost.github.io/opencost-helm-chart
+      serves from it), so the root LICENSE directly governs the chart with no monorepo ambiguity; fetched
+      at the exact tag opencost-2.5.21, whose Chart.yaml confirms version: 2.5.21 and carries no license
+      field. Artifact Hub API license field is null.'
+  - chart: percona/pg-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/percona/percona-helm-charts/pg-operator-3.0.0/LICENSE
+      quote: Licensed under the Apache License, Version 2.0 (the "License");
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: 'Chart.yaml (verified at tag pg-operator-3.0.0, version 3.0.0 = our retained version)
+      has no license field and Artifact Hub API reports license:null, so this rests on the monorepo-root
+      LICENSE of percona/percona-helm-charts, which governs all charts in it; LICENSE was fetched at the
+      exact retained tag. Oddity: the LICENSE copyright line reads ''Copyright 2019 Paul Czarkowski''
+      (the repo descends from his chart scaffolding), not Percona, but the license text is standard Apache-2.0.'
+  - chart: percona/psmdb-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/percona/percona-helm-charts/psmdb-operator-1.22.0/LICENSE
+      quote: Licensed under the Apache License, Version 2.0 (the "License");
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart.yaml at tag psmdb-operator-1.22.0 confirmed version 1.22.0 (our retained version)
+      and carries no license field; Artifact Hub API license is null. Monorepo-root LICENSE of percona/percona-helm-charts
+      governs all charts in it, fetched at the exact retained tag. Same Paul-Czarkowski copyright-header
+      oddity as the sibling Percona charts; license text is standard Apache-2.0. Percona's server products
+      use their own licenses, but that is the application, not this chart.
+  - chart: percona/pxc-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/percona/percona-helm-charts/pxc-operator-1.19.1/LICENSE
+      quote: Licensed under the Apache License, Version 2.0 (the "License");
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart.yaml at tag pxc-operator-1.19.1 confirmed version 1.19.1 (our retained version)
+      and carries no license field; Artifact Hub API license is null. Monorepo-root LICENSE of percona/percona-helm-charts
+      governs all charts in it, fetched at the exact retained tag. Same Paul-Czarkowski copyright-header
+      oddity; license text is standard Apache-2.0.
+  - chart: policy-reporter/policy-reporter
+    spdx: MIT
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kyverno/policy-reporter/policy-reporter-3.9.1/LICENSE.md
+      quote: MIT License
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: The Artifact Hub record reports no license and Chart.yaml at tag policy-reporter-3.9.1
+      carries no license field. Basis is the monorepo root LICENSE.md at the exact chart release tag for
+      retained version 3.9.1, inferred to cover the charts/ subdirectory. The copyright holder is the
+      maintainer personally, not the Kyverno organization.
+  - chart: projectcalico/tigera-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/projectcalico/calico/v3.32.0/LICENSE.md
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart templates live in the projectcalico/calico monorepo (charts/tigera-operator);
+      repo-root LICENSE.md fetched today at the exact release tag v3.32.0 is Apache-2.0. The published
+      tgz was verified today: the direct URL https://docs.tigera.io/calico/charts/tigera-operator-v3.32.0.tgz
+      returns 403 AccessDenied, but the repo index.yaml points to the GitHub release asset (github.com/projectcalico/calico/releases/download/v3.32.0/tigera-operator-v3.32.0.tgz)
+      which downloads fine; its Chart.yaml (version v3.32.0, no license field) lists projectcalico/calico
+      as source. This is the open-source Calico chart — do not confuse with separately-licensed Calico
+      Enterprise/Cloud products; the chart installs the tigera/operator application, whose own license
+      is a separate (also Apache-2.0) question. Artifact Hub (packages/helm/projectcalico/tigera-operator)
+      reports license:null.'
+  - chart: prometheus-community/alertmanager
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/alertmanager-1.37.0/charts/alertmanager/Chart.yaml
+      quote: '"artifacthub.io/license": Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Annotation verified at the exact retained version tag alertmanager-1.37.0. Second source
+      agrees: Artifact Hub API https://artifacthub.io/api/v1/packages/helm/prometheus-community/alertmanager
+      returns "license":"Apache-2.0" (for latest 1.41.0). Repo-root LICENSE of the prometheus-community/helm-charts
+      monorepo is also Apache License Version 2.0.'
+  - chart: prometheus-community/kube-prometheus-stack
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-prometheus-stack-86.1.0/charts/kube-prometheus-stack/Chart.yaml
+      quote: '"artifacthub.io/license": Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Both retained versions verified: the same annotation was fetched at tags kube-prometheus-stack-85.3.3
+      and kube-prometheus-stack-86.1.0. Second source agrees: Artifact Hub API returns "license":"Apache-2.0"
+      for this package from the same prometheus-community repository.'
+  - chart: prometheus-community/kube-state-metrics
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/kube-state-metrics-7.4.0/charts/kube-state-metrics/Chart.yaml
+      quote: '"artifacthub.io/license": Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Annotation verified at the exact retained version tag kube-state-metrics-7.4.0. Second
+      source agrees: Artifact Hub API https://artifacthub.io/api/v1/packages/helm/prometheus-community/kube-state-metrics
+      returns "license":"Apache-2.0". This is the chart license; the kube-state-metrics application is
+      separately Apache-2.0 upstream but that is not what is reported here.'
+  - chart: prometheus-community/prometheus
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/prometheus-29.9.0/charts/prometheus/Chart.yaml
+      quote: '"artifacthub.io/license": Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Both retained versions verified: the same annotation was fetched at tags prometheus-29.8.0
+      and prometheus-29.9.0. Second source agrees: Artifact Hub API https://artifacthub.io/api/v1/packages/helm/prometheus-community/prometheus
+      returns "license":"Apache-2.0".'
+  - chart: prometheus-community/prometheus-adapter
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/prometheus-adapter-5.3.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart.yaml at tag prometheus-adapter-5.3.0 carries no license annotation and the Artifact
+      Hub API .license field is null for this package. License is inferred from the repo-root LICENSE
+      of the prometheus-community/helm-charts monorepo, fetched at the exact retained release tag; that
+      root LICENSE governs all charts in the monorepo. No per-chart LICENSE file exists (charts/prometheus-adapter/LICENSE
+      returns 404).
+  - chart: prometheus-community/prometheus-blackbox-exporter
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/prometheus-blackbox-exporter-11.10.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart.yaml at tag prometheus-blackbox-exporter-11.10.0 carries no license annotation
+      and the Artifact Hub API .license field is null for this package. License is inferred from the repo-root
+      LICENSE of the prometheus-community/helm-charts monorepo, fetched at the exact retained release
+      tag; that root LICENSE governs all charts in the monorepo.
+  - chart: prometheus-community/prometheus-node-exporter
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/prometheus-node-exporter-4.55.0/charts/prometheus-node-exporter/Chart.yaml
+      quote: '"artifacthub.io/license": Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Annotation verified at the exact retained version tag prometheus-node-exporter-4.55.0.
+      Second source agrees: Artifact Hub API https://artifacthub.io/api/v1/packages/helm/prometheus-community/prometheus-node-exporter
+      returns "license":"Apache-2.0".'
+  - chart: prometheus-community/prometheus-operator-crds
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/prometheus-operator-crds-29.0.0/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Chart.yaml at tag prometheus-operator-crds-29.0.0 carries no license annotation and
+      the Artifact Hub API .license field is null for this package. License is inferred from the repo-root
+      LICENSE of the prometheus-community/helm-charts monorepo, fetched at the exact retained release
+      tag; that root LICENSE governs all charts in the monorepo. The bundled CRDs come from prometheus-operator,
+      which is itself Apache-2.0, but the chart license reported here rests on the chart repo's LICENSE.
+  - chart: prometheus-community/prometheus-pushgateway
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/prometheus-community/helm-charts/prometheus-pushgateway-3.6.0/charts/prometheus-pushgateway/Chart.yaml
+      quote: '"artifacthub.io/license": Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Annotation verified at the exact retained version tag prometheus-pushgateway-3.6.0.
+      Second source agrees: Artifact Hub API https://artifacthub.io/api/v1/packages/helm/prometheus-community/prometheus-pushgateway
+      returns "license":"Apache-2.0".'
+  - chart: rook-release/rook-ceph
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/rook/rook/v1.19.5/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Monorepo-root LICENSE inference: the chart lives at deploy/charts/rook-ceph in the
+      rook/rook monorepo and the root LICENSE at exact tag v1.19.5 is Apache License Version 2.0; it governs
+      all charts in the repo. The in-repo Chart.yaml carries placeholder ''version: 0.0.1'' (real version
+      injected at packaging — confirmed today by downloading https://charts.rook.io/release/rook-ceph-v1.19.5.tgz,
+      whose packaged Chart.yaml shows appVersion v1.19.5; no LICENSE file inside the tgz, no license annotation).
+      Artifact Hub (repo ''rook'', url https://charts.rook.io/release, matches ours) has a null license
+      field. Retained version string keeps the ''v'' prefix.'
+  - chart: rook-release/rook-ceph-cluster
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/rook/rook/v1.19.5/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Same rook/rook monorepo-root LICENSE inference as rook-ceph, at the same exact tag
+      v1.19.5 (Apache-2.0). Chart source: deploy/charts/rook-ceph-cluster; in-repo Chart.yaml is placeholder
+      0.0.1, and the published rook-ceph-cluster-v1.19.5.tgz (downloaded today from https://charts.rook.io/release)
+      shows packaged ''version: v1.19.5'' with no LICENSE file inside and no license annotation. Artifact
+      Hub license field is null.'
+  - chart: runix/pgadmin4
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/rowanruseler/helm-charts/pgadmin4-1.62.0/charts/pgadmin4/Chart.yaml
+      quote: 'license: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'The chart''s own Chart.yaml at release tag pgadmin4-1.62.0 (exactly our retained version)
+      declares license: Apache-2.0. Three sources agree: Chart.yaml, the rowanruseler/helm-charts repo-root
+      LICENSE at the same tag (Apache-2.0), and Artifact Hub API for the exact version (https://artifacthub.io/api/v1/packages/helm/runix/pgadmin4/1.62.0
+      returns "license":"Apache-2.0"). Upstream source repo is github.com/rowanruseler/helm-charts, published
+      via helm.runix.net. Note the pgAdmin4 APPLICATION itself is PostgreSQL-licensed; this row is the
+      chart only.'
+  - chart: sealed-secrets/sealed-secrets
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/bitnami-labs/sealed-secrets/helm-v2.18.6/LICENSE
+      quote: Licensed under the Apache License, Version 2.0 (the "License");
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact chart-release tag helm-v2.18.6; helm/sealed-secrets/Chart.yaml
+      at the same tag fetched (version 2.18.6, annotations only ''category: DeveloperTools'', no license
+      annotation), so the repo-root LICENSE governs (monorepo-LICENSE inference). This is the bitnami-labs/sealed-secrets
+      project repo, NOT the Bitnami charts monorepo, so the 2025 Bitnami/Broadcom distribution changes
+      do not touch this chart''s license. GitHub''s /license API for this repo returned HTTP 301 (redirect),
+      hence the raw-file evidence. Artifact Hub bitnami-labs/sealed-secrets (verified publisher) shows
+      2.18.6 but license field is null.'
+  - chart: secrets-store-csi-driver/secrets-store-csi-driver
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/v1.6.0/LICENSE
+      quote: Apache License, Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Repo-root LICENSE of kubernetes-sigs/secrets-store-csi-driver at exact tag v1.6.0 (Apache-2.0);
+      chart lives at charts/secrets-store-csi-driver in the same repo and its Chart.yaml at that tag confirms
+      ''version: 1.6.0'' (our retained version) with no license annotation. Monorepo-root inference applies.
+      Artifact Hub lists the package under repo name ''secret-store-csi-driver'' (singular ''secret'',
+      url https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts — matches ours) but its license
+      field is null, checked today. Standard CNCF/kubernetes-sigs Apache-2.0 licensing.'
+  - chart: stakater/reloader
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/stakater/Reloader/v1.4.18/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Chart versions do not match repo tags: chart 2.2.12 corresponds to repo tag v1.4.18
+      (verified: Chart.yaml at v1.4.18 under deployments/kubernetes/chart/reloader says version: 2.2.12,
+      appVersion v1.4.17). Repo root LICENSE at that exact tag is Apache License Version 2.0 text; the
+      chart lives in the same repo and has no per-chart LICENSE (checked, 404). Chart.yaml has no license
+      annotation and the Artifact Hub API license field is null for 2.2.12 — absence, not disagreement.
+      stakater.github.io/stakater-charts index.yaml lists reloader-2.2.12.tgz sourced from github.com/stakater/Reloader,
+      confirming the upstream mapping.'
+  - chart: strimzi/strimzi-kafka-operator
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/strimzi/strimzi-kafka-operator/1.0.0/LICENSE
+      quote: Apache License / Version 2.0, January 2004
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'LICENSE fetched at the exact git tag 1.0.0 of the strimzi/strimzi-kafka-operator monorepo,
+      which both contains the chart source (helm-charts/helm3/strimzi-kafka-operator) and hosts the published
+      1.0.0 tgz as a GitHub release asset (the URL strimzi.io/charts index.yaml points to, fetched). The
+      published tgz (downloaded) ships no license field in Chart.yaml and no LICENSE file. Caveat: the
+      in-git Chart.yaml at tag 1.0.0 is a build placeholder (version 0.1.1) whose version is stamped at
+      release time, so the tag-level LICENSE plus the release-asset binding is the evidence, not the in-git
+      Chart.yaml. Artifact Hub (repo ''strimzi'', https://strimzi.io/charts) reports license: null. Chart
+      license only — Strimzi the application is separately Apache-2.0 under the same repo.'
+  - chart: traefik/traefik
+    spdx: Apache-2.0
+    evidence:
+      source: artifacthub-api
+      label: the Artifact Hub package record
+      url: https://artifacthub.io/api/v1/packages/helm/traefik/traefik
+      quote: '"license": "Apache-2.0"'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: 'Two independent sources fetched today agree: Artifact Hub API (traefik repo, URL matches
+      publisher https://traefik.github.io/charts) reports "license":"Apache-2.0", and the traefik/traefik-helm-chart
+      repo-root LICENSE fetched at tag v40.2.0 (Chart.yaml there confirmed chart version 40.2.0 = our
+      retained version) is Apache-2.0. Chart.yaml itself carries no license annotation at that tag. Traefik
+      Labs'' commercial products (Traefik Hub/Enterprise) are licensed separately; the chart and the Traefik
+      proxy remain Apache-2.0.'
+  - chart: velero/velero
+    spdx: Apache-2.0
+    evidence:
+      source: upstream-repo-license
+      label: the chart source repository's LICENSE
+      url: https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-12.0.1/LICENSE
+      quote: Apache License Version 2.0, January 2004
+    confidence: medium
+    verifiedIndependently: true
+    researchNote: Upstream is the vmware-tanzu/helm-charts monorepo (repository URL https://vmware-tanzu.github.io/helm-charts/
+      confirmed via Artifact Hub package vmware-tanzu/velero, whose .license field is null). Chart.yaml
+      at tag velero-12.0.1 (name and version confirmed in the same fetch) carries no license annotation;
+      license comes from the repo-root LICENSE fetched at that exact release tag, which governs all charts
+      in the monorepo. No per-chart LICENSE file exists (charts/velero/LICENSE returns 404). Broadcom's
+      VMware product relicensing does not appear in this chart repo; the chart repo's own LICENSE is what
+      is reported.
+  - chart: vm/victoria-logs-single
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/VictoriaMetrics/helm-charts/victoria-logs-single-0.12.5/charts/victoria-logs-single/Chart.yaml
+      quote: 'artifacthub.io/license: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Fetched at the exact chart release tag victoria-logs-single-0.12.5. Artifact Hub API
+      for the exact version (https://artifacthub.io/api/v1/packages/helm/victoriametrics/victoria-logs-single/0.12.5)
+      returns "license":"Apache-2.0" from repo https://victoriametrics.github.io/helm-charts/ (trailing-slash
+      variant of ours), and the VictoriaMetrics/helm-charts repo root LICENSE at that tag is Apache License
+      Version 2.0 text. Chart license only; VictoriaMetrics enterprise application builds carry a different
+      license, not reported here.
+  - chart: vm/victoria-metrics-single
+    spdx: Apache-2.0
+    evidence:
+      source: chart-yaml-annotation
+      label: the chart's own Chart.yaml license metadata
+      url: https://raw.githubusercontent.com/VictoriaMetrics/helm-charts/victoria-metrics-single-0.39.0/charts/victoria-metrics-single/Chart.yaml
+      quote: 'artifacthub.io/license: Apache-2.0'
+    confidence: high
+    verifiedIndependently: true
+    researchNote: Fetched at the exact chart release tag victoria-metrics-single-0.39.0. Artifact Hub
+      API for the exact version (https://artifacthub.io/api/v1/packages/helm/victoriametrics/victoria-metrics-single/0.39.0)
+      returns "license":"Apache-2.0" from repo https://victoriametrics.github.io/helm-charts/, and the
+      repo root LICENSE at that tag is Apache License Version 2.0 text. Chart license only; VictoriaMetrics
+      enterprise application builds carry a different license, not reported here.
