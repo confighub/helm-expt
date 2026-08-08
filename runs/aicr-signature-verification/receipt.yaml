@@ -3,7 +3,7 @@ kind: "AicrUpstreamSignatureReceipt"
 metadata:
   name: "aicr-v0-18-0-recipe-catalog-signature"
 spec:
-  observedAt: "2026-08-07T14:34:19.278Z"
+  observedAt: "2026-08-08T13:38:19.813Z"
   upstream:
     project: "NVIDIA AICR"
     version: "v0.18.0"
@@ -21,6 +21,22 @@ spec:
       - "--use-signed-timestamps"
       - "--check-claims=false"
     decisionRecord: "docs/reference/aicr-signature-verification.md"
+  subjectBinding:
+    bound: true
+    attestedDigest: "b622b4f66d60129b8b6ff49b154ea2ea34e308bd681028cec5c79e6e9ed2db18"
+    recomputedDigest: "b622b4f66d60129b8b6ff49b154ea2ea34e308bd681028cec5c79e6e9ed2db18"
+    algorithm: "sha256 over u64be(len(registry.yaml)) || registry.yaml || u64be(len(validators/catalog.yaml)) || validators/catalog.yaml"
+    upstreamImplementation: "NVIDIA/aicr pkg/recipe/catalog/digest.go"
+    retainedParts:
+      -
+        file: "registry.yaml"
+        sha256: "3cfbb22fa83ed0183b83d2997140e707fa22079777e3fb93281ae0d85bbf8fc2"
+        bytes: 33045
+      -
+        file: "catalog.yaml"
+        sha256: "26a502b4423c824aac63c369fa22b8b80df1aef9baf2b89dbbc56808f8c0a015"
+        bytes: 13719
+    statement: "The signature is about bytes this repository holds. Recomputing the upstream algorithm over the retained component registry and validator catalog reproduces the attested subject digest exactly."
   signature:
     mediaType: "application/vnd.dev.sigstore.bundle.v0.3+json"
     payloadType: "application/vnd.in-toto+json"
@@ -42,8 +58,8 @@ spec:
     networkDisabled: true
     wrongIdentityRefused: true
   limits:
-    - "This receipt verifies the signature over the release's recipe-catalog attestation. It does not verify the recipe catalog artifact itself, because the catalog is not a release asset and no copy is retained here; the attestation's subject digest is recorded so a future retained copy can be bound to it."
-    - "Claim checking is disabled for the same reason, so this receipt proves who signed the statement and that the statement is intact, not that a local artifact matches it."
+    - "This receipt verifies the signature over the release's recipe-catalog attestation, and binds it to bytes this repository retains: the upstream digest algorithm, recomputed over the retained component registry and validator catalog, reproduces the attested subject exactly."
+    - "The two retained files are the whole of what the signature covers. The rest of the recipe tree, including overlays and mixins, is outside the attested subject and is not covered by this receipt."
     - "The trust root is pinned as committed bytes. Refreshing it is a deliberate change, and it is the one input that ages."
     - "This receipt concerns the upstream v0.18.0 release. The catalog still retains v0.14.0, which shipped no signature at all."
 status:

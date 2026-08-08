@@ -70,14 +70,36 @@ It proves three things:
 committed bundle without cosign, a container, or a network, so the ordinary
 verify chain stays free of this toolchain.
 
-## What it does not prove
+## The subject is bound to bytes we hold, since 2026-08-08
 
-The recipe catalog artifact itself is not checked here, because the catalog is
-not published as a release asset and no copy is retained. The attestation's
-subject digest is recorded in the receipt so that a future retained copy can
-be bound to it, and claim checking stays off until that copy exists. Read the
-receipt as evidence about who signed a statement, not yet as evidence about a
-file we hold.
+This section previously said the opposite, and the change is worth stating
+plainly rather than quietly editing.
+
+The signature covers a subject named `recipe-catalog`. Upstream computes that
+subject in `pkg/recipe/catalog/digest.go` as a length-prefixed SHA-256 over
+two files, the component registry and the validator catalog:
+
+```
+sha256( u64be(len(registry)) || registry || u64be(len(catalog)) || catalog )
+```
+
+The length prefixes make the encoding injective, so two different splits of
+the same bytes cannot collide. Both files are now retained beside the bundle,
+and the lane recomputes that digest over the retained bytes on every run. It
+reproduces the attested subject exactly, and the lane refuses if it ever stops
+doing so.
+
+That upgrades the receipt from a statement about a signer to a statement about
+an artifact this repository holds. An auditor can repeat the computation with
+nothing but the retained files and a hash function.
+
+## What it still does not prove
+
+The two bound files are the whole of what the signature covers. The rest of
+the recipe tree, including the overlays and mixins that decide what a platform
+contains, is outside the attested subject, so this receipt says nothing about
+them. That is upstream's scope decision rather than ours, and it is worth
+knowing before treating the signature as covering the recipes themselves.
 
 The receipt also concerns the upstream v0.18.0 release. The catalog still
 retains v0.14.0, which shipped no signature at all, so no retained entry
@@ -87,7 +109,6 @@ carries a signature claim today.
 
 The refresh brief can proceed with signature verification as the new rung a
 second retained entry would carry, and the cost of that rung is now known
-rather than estimated. When the refresh happens, the retained entry should
-bind its retained bytes to the attested subject digest and turn claim checking
-back on, which is the step that upgrades this from a statement about a signer
-to a statement about the artifact we retain.
+rather than estimated. The binding step it was waiting on is done, so a
+v0.18.0 retained entry would inherit a provenance chain that already runs from
+the signer through the attested subject to bytes on disk.
