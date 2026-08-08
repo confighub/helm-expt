@@ -1,0 +1,49 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceRetentionReceipt
+metadata:
+  name: aicr-eks-h100-inference-nim-operator-crds
+spec:
+  purpose: >-
+    The AICR-native inference entry installs the NIM operator as one of its
+    components, and the operator's custom resource definitions are the config
+    surface an operator team actually writes against. Retaining them lets a
+    proof show that the shapes a user would author are accepted by a real API
+    server, without installing the operator itself and without touching a
+    gated artifact.
+  source:
+    name: NVIDIA NIM Operator custom resource definitions
+    repository: https://github.com/NVIDIA/k8s-nim-operator
+    path: config/crd/bases
+    ref: v3.1.0
+    license: Apache-2.0
+    retrievedAt: "2026-08-08"
+  versionAgreement:
+    statement: >-
+      The retained tag matches the chart version the entry's own rendered
+      Application pins, so the definitions and the component agree rather than
+      drifting apart.
+    renderedApplication: argocd-rendered/templates/k8s-nim-operator.yaml
+    applicationTargetRevision: "3.1.0"
+    retainedTag: v3.1.0
+  retained:
+    directory: operator-crds
+    checksums: operator-crds-checksums.txt
+    files:
+      - name: apps.nvidia.com_nimcaches.yaml
+        sha256: 3bc4835c57765feaabd02c1911e0befe95ea7ca4dc8064e65723cfc8551a5c49
+      - name: apps.nvidia.com_nimservices.yaml
+        sha256: 9e8ac11128d1eec2e6a46c20a7df9e528d261ed1b0febe75fdad30d15ab33fe8
+    note: >-
+      Two of the operator's nine definitions are retained, the two a NIM
+      deployment writes: the cache and the service. The NeMo definitions and
+      the pipeline definition are out of scope for this entry and are not
+      retained, rather than retained and left unused.
+  boundary:
+    configPlaneOnly: true
+    operatorInstalled: false
+    gatedArtifactsRetained: false
+    statement: >-
+      These are definitions, not the operator. Nothing here runs a controller,
+      pulls a NIM image, or contacts NGC.
+status:
+  result: retained-offline

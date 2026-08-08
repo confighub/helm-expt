@@ -1,0 +1,37 @@
+# Authored by this catalog, not retained from upstream.
+#
+# The retained NIM operator definitions describe the shape a deployment writes.
+# Nothing upstream ships a ready-made NIMService for this entry, so this file
+# is the catalog's own minimal example of that shape, written to exercise the
+# definition rather than to recommend a deployment.
+#
+# The image reference and the model are the same ones the entry's described
+# profile records. They are references: the image lives behind NGC and is
+# pulled only by a user's own cluster with the user's own entitlement. The
+# pull secret and the cache claim are names a user supplies, not values this
+# catalog holds.
+apiVersion: apps.nvidia.com/v1alpha1
+kind: NIMService
+metadata:
+  name: llama-3-1-8b-instruct
+  namespace: nim-service
+spec:
+  image:
+    repository: nvcr.io/nim/meta/llama-3.1-8b-instruct
+    tag: "1.1.0"
+    pullPolicy: IfNotPresent
+    pullSecrets:
+      - ngc-secret
+  authSecret: ngc-api-secret
+  storage:
+    pvc:
+      create: false
+      name: nim-model-cache
+  replicas: 1
+  resources:
+    limits:
+      nvidia.com/gpu: "1"
+  expose:
+    service:
+      type: ClusterIP
+      port: 8000
