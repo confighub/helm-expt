@@ -543,6 +543,7 @@ if (fs.existsSync(chartPagesDir)) {
             "Publication proof: recorded · runtime proof: not inherited.",
             "It does not claim Argo CD sync, Kubernetes health, production readiness, or another version's test result.",
             "No version-specific runtime result is claimed here.",
+            "You can check a pull yourself",
           ]
         : [
             "Publication proof: not yet earned · runtime proof: not inherited.",

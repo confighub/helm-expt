@@ -485,9 +485,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
+      <div class="card"><table>
+        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
+        <tbody><tr><td>http-clusterip</td><td><code>registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f</code></td></tr><tr><td>existing-tls-ingress</td><td><code>registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f</code></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:c282cddd3f61388ba8e1abc51d32b468667577b9093e337e06ec45a5a1d1057c</code> and manifest <code>sha256:c5687d127873a97d9bbd089667f4b9a63c65e04da385d73e8271b007cd7d1f30</code>, and records an inspect-result digest.</p>
+      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./bitnami-nginx-24-0-2.html">24.0.2 evidence page</a>.</p>
     </section>
 

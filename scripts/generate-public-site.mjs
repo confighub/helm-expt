@@ -7327,6 +7327,30 @@ function retainedVersionPageHtml(catalog, row) {
   const licenseLine = rowLicenses
     ? `<p>Licenses: chart <strong>${escapeHtml(rowLicenses.chart.spdx)}</strong> (${escapeHtml(rowLicenses.chart.evidence)})${(rowLicenses.images ?? []).length ? `; images: ${rowLicenses.images.map((image) => `${escapeHtml(image.component)} <strong>${escapeHtml(image.spdx)}</strong>${image.note ? ` (${escapeHtml(image.note)})` : ""}`).join("; ")}` : ""}.</p>`
     : "";
+  const packagedImageRows = String(row.rendered_yaml_paths ?? "").split(";").filter(Boolean).map((path) => {
+    const base = path.match(/\/bases\/([^/]+)\//)?.[1] ?? "unrecorded base";
+    const images = new Set();
+    try {
+      const rendered = readFileSync(join(repoRoot, path), "utf8");
+      for (const match of rendered.matchAll(/^\s*(?:-\s+)?image:\s*["']?([^"'\n]+?)["']?\s*$/gm)) {
+        const image = match[1].trim();
+        if (image && !image.includes("{{")) images.add(image);
+      }
+    } catch {
+      return null;
+    }
+    return [base, [...images].sort()];
+  }).filter(Boolean);
+  const packagedImagesSection = packagedImageRows.length
+    ? `<section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.${(rowLicenses?.images ?? []).length ? " The image licenses recorded at the top of this page describe these references." : ""}</p>
+      ${markdownLikeTable([
+        ["Packaged base", "Image references"],
+        ...packagedImageRows.map(([base, images]) => [base, images.length ? images.map((image) => `<code>${escapeHtml(image)}</code>`).join("<br>") : "No image reference appears in this base's packaged manifests."]),
+      ], { rawSecondColumn: true })}
+    </section>`
+    : "";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -7374,11 +7398,15 @@ ${escapeHtml(row.setup_command)}</code></pre>
     </section>
 
     ${flatteningSectionHtml(catalog, row)}
+    ${packagedImagesSection}
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>${published
         ? `The committed publication receipt binds this package path and OCI ref to layer <code>${escapeHtml(layerDigest)}</code> and manifest <code>${escapeHtml(manifestDigest)}</code>, and records an inspect-result digest.`
         : "Nothing has been published for this version, so no publication receipt exists and no digest is bound. The package itself is committed and can be inspected from this repository."}</p>
+      ${published
+        ? `<p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>`
+        : ""}
       <p><strong>No version-specific runtime result is claimed here.</strong> ${evidenceVersionNote}</p>
     </section>
 

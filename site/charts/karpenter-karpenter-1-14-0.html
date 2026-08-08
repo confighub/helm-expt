@@ -486,9 +486,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
+      <div class="card"><table>
+        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
+        <tbody><tr><td>default</td><td><code>public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23</code></td></tr><tr><td>eks-inference</td><td><code>public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23</code></td></tr><tr><td>crds-managed</td><td><code>public.ecr.aws/karpenter/controller:1.14.0@sha256:723130949e4cab989461ff07d1be4cd781d63515432494641b33c235f300ae23</code></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:2c5cca259f1499af2fd96226d0bf47a11048ab19acdc538e68ba03aa62ab57e5</code> and manifest <code>sha256:0d01e90b659c943e4e0fc1fcf52a6be9e784c38905afc916303138ac7ffea9aa</code>, and records an inspect-result digest.</p>
+      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> This component has no separate evidence-bearing version yet, so no other version's readiness applies here. The publication receipt above carries the whole current claim.</p>
     </section>
 

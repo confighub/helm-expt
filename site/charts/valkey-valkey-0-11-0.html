@@ -467,9 +467,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
     </section>
 
     
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name. The image licenses recorded at the top of this page describe these references.</p>
+      <div class="card"><table>
+        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
+        <tbody><tr><td>default</td><td><code>docker.io/valkey/valkey:9.1.1</code></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:1464558511929a78f2a709819f4ffa387d4ee494d5464dd955531ab4d2e9d91c</code> and manifest <code>sha256:2fbbed3706b6947a30c6e26fc6190aa209441ef2cce1dcdbcca2586a0b2c7945</code>, and records an inspect-result digest.</p>
+      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> This component has no separate evidence-bearing version yet, so no other version's readiness applies here. The publication receipt above carries the whole current claim.</p>
     </section>
 
