@@ -313,6 +313,17 @@ against the recipe's dependency edges instead. That lesson generalises beyond
 AICR: a parity check should verify the property, not the shape the property
 happened to take in the version it was written against.
 
+Task 40 is done, and it belongs to no theme's schedule because it was the
+easiest workshop-wide win available. The credential guard the AICR inference
+compiler has carried since the license read now applies to every producer:
+[the credential boundary](../../data/credential-boundary/summary.md) walks
+every committed YAML document structurally and refuses a literal value assigned
+to a credential-shaped environment variable. Scanning 9958 documents found
+eight distinct shapes, all of them declared with reasons rather than silenced,
+and the lane refuses an exception that stops matching anything. The two worth
+reading are a key that looks leaked and is the finding a review demonstrates
+catching, and Vault's own dev-mode token in a base named dev-mode.
+
 Theme 1 is now closed. Task 3 is decided: the CPU starter tracks the one
 retained version it derives from and does not follow a newer one, because every
 proof it holds was produced from those bytes. The decision is in its derivation

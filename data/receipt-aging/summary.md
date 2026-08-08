@@ -66,13 +66,13 @@ families whose evidence has aged furthest.
 
 ## Receipts that cannot age
 
-530 of 1629 committed receipts record no date in any form.
+557 of 1656 committed receipts record no date in any form.
 Their evidence cannot be aged at all, which is a stronger problem than being
 old, and it is invisible until someone counts.
 
 | Family | Receipts with no date |
 | --- | --- |
-| `certified-bundles` | 3 |
+| `certified-bundles` | 30 |
 | `derived-variant-target-bound` | 3 |
 | `installer-oci` | 139 |
 | `latest-top20-refresh` | 10 |
