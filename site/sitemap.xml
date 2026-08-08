@@ -743,7 +743,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/blog-posts.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-consumer-contract-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-entry-contract-brief.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-kubara-composition-strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-next-candidates.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-refresh-plan.html</loc></url>
@@ -766,7 +765,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/independent-review-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/issue-backlog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/kubara-git-to-confighub-blog-brief.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/landing-page-restructure-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-handover.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/large-machine-roadmap.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/latest-top20-refresh-plan.html</loc></url>
@@ -782,14 +780,12 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/persona-ux-rerun-2026-06-22.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/pilot-adversarial-testing.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/pilot-demo-proof-plan.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/post-coverage-strategy.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/review-prompts.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/roadmap.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/robust-sceptic-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/server-account-pitch.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/serverless-verified-install-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/sveltos-fleet-brief.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/three-pillars-brief.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/top20-full-proof-target.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/top500-matrix-refresh-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/upgrade-story-plan.html</loc></url>
@@ -1045,7 +1041,6 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jaegertracing/jaeger/4.8.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager/v1.20.2/CATALOG.html</loc></url>
-  <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager/v1.20.2/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/cert-manager/v1.20.2/weirdness-and-mitigations.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/jetstack/trust-manager/v0.22.1/CATALOG.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/recipes/karpenter/karpenter/1.14.0/CATALOG.html</loc></url>
