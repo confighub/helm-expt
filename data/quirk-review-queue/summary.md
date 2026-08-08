@@ -8,11 +8,11 @@ auto-resolving would be cosmetic).
 ## Headline
 
 ```text
-flagged quirks: 201
-charts affected: 91
-  standard (confirm a catalog-wide home): 65
+flagged quirks: 222
+charts affected: 100
+  standard (confirm a catalog-wide home): 76
   build    (build a variant, then handle):  13
-  sme      (genuine per-chart human call):   123
+  sme      (genuine per-chart human call):   133
 ```
 
 ## Work it down in this order
@@ -25,18 +25,21 @@ _Resolution: confirm the catalog-wide ConfigHub home applies (CRD lifecycle / sc
 | --- | ---: | ---: |
 | `crds` | 32 | 32 |
 | `stateful-storage` | 12 | 12 |
-| `crd-policy` | 5 | 5 |
+| `crd-policy` | 7 | 7 |
+| `replicaset-topology` | 3 | 3 |
+| `edge-ingress-policy` | 3 | 3 |
 | `ui-ingress-policy` | 3 | 3 |
 | `apiservice` | 3 | 3 |
-| `replicaset-topology` | 1 | 1 |
-| `edge-ingress-policy` | 1 | 1 |
+| `storage-retention` | 2 | 2 |
+| `component-selection` | 2 | 2 |
 | `storage-config` | 1 | 1 |
 | `object-storage-policy` | 1 | 1 |
+| `object-store-runtime-prerequisite` | 1 | 1 |
 | `query-ingress-policy` | 1 | 1 |
+| `namespace-references` | 1 | 1 |
 | `mesh-gateway-policy` | 1 | 1 |
 | `service-exposure` | 1 | 1 |
-| `storage-retention` | 1 | 1 |
-| `component-selection` | 1 | 1 |
+| `operate-policy` | 1 | 1 |
 | `provider-integration` | 1 | 1 |
 
 ### 2. Build — needs a concrete variant first
@@ -55,9 +58,10 @@ _Resolution: per-chart human call: confirm safe (lifecycle policy / explicit ext
 | Category | Flags | Charts |
 | --- | ---: | ---: |
 | `tpl-extension-slots` | 62 | 62 |
-| `extension-slots` | 57 | 57 |
+| `extension-slots` | 60 | 60 |
+| `tpl` | 6 | 6 |
+| `gitops-handoff` | 2 | 2 |
 | `chart-deprecation` | 2 | 2 |
-| `gitops-handoff` | 1 | 1 |
 | `platform-variant` | 1 | 1 |
 
 ## Honesty note

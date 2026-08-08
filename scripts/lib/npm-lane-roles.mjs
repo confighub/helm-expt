@@ -40,7 +40,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "The committed runs/anonymous-oci-ci-proof/receipt.yaml still records a passing anonymous OCI->work->OCI CI run (same source reference, matching expected/observed manifest digests, zero ConfigHub token/context/env credentials, 6 reviewed NGINX objects, pulled-back object-set hash equal to the reviewed one), and data/anonymous-oci-ci-proof/summary.md byte-equals what renderSummary() re-derives from that receipt.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: data/anonymous-oci-ci-proof/summary.md is stale",
+    status: "red: summary is stale and only the live --run rewrites it, so clearing it needs a registry run",
   },
   "app-readiness:verify": {
     proves: "Byte-compares data/app-readiness/summary.md, rbac-findings.csv and matrix.html against what the generator re-derives from the 120 committed recipes/**/revisions/default/r001/rendered/release-objects.yaml files, so the catalog RBAC risk table (wildcard verbs, secret reads, escalate/bind/impersonate) still matches the rendered objects.",
@@ -76,7 +76,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "data/chart-use-guide/summary.md and chart-use-guide.csv byte-equal what buildReport() re-derives from data/top100-readiness/readiness.csv, data/status-dashboard/top20-status.csv and data/top100-promotion-wave/wave.csv.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: data/chart-use-guide/summary.md is stale; run npm run chart-use:guide",
+    status: "passes",
   },
   "chart:evidence-router:verify": {
     proves: "Byte-compares data/chart-evidence-router/router.csv and summary.md against a re-derivation that joins eleven committed CSVs (top100-user-readiness, chart-use-guide, top100-coverage, outcome-coverage, hook-coverage, quirk-work-queue, runtime-gitops, live-helm-confighub-compare, gitops-health-residue, production-support-decisions, top500) plus every data/runtime-gitops/receipts/**/latest.yaml, and asserts the router still resolves exactly 100 top-100 charts.",
@@ -94,7 +94,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "That every generated config-catalog surface still re-derives byte-for-byte from its committed sources: the 200-odd BaseVariantRecords plus records.json/csv/summary, catalog-standard policy (yaml+json), operational-class examples, the demo program, the OCI evidence chains, and the Top-50 completion tracker — and that config-catalog/base-records contains exactly the expected file set.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: docs/user/config-catalog-demonstrations.md is stale; run npm run config-catalog",
+    status: "passes",
   },
   "confighub-example-guides:verify": {
     proves: "Byte-compares data/confighub-example-guides/summary.md, guides.csv and every per-space guide markdown file against what the generator re-derives from data/installer-oci-packages/packages.json, data/helm-render-intents/intents.json, the master catalog matrix and the chart-use guide, and additionally asserts each guide's linked site/sh/*.sh helper exists and that no banned jargon phrase survives.",
@@ -112,7 +112,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "data/cub-adoption-caveats/caveats.csv, summary.md and summary.html byte-equal what generateAll() re-derives by walking every packages/<repo>/<chart>/<version>/installer.yaml (latest version per chart), scanning each default base's upstream.yaml for baked password key names and CRD objects, and cross-checking remediation bases against blocked live receipts.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: data/cub-adoption-caveats/caveats.csv is stale; run npm run cub-adoption-caveats:generate",
+    status: "passes",
   },
   "cub-installer:determinism:verify": {
     proves: "Re-renders data/cub-installer-determinism/summary.md and by-package.html from the committed runs/cub-installer-determinism/receipt.yaml and byte-compares them, and asserts the receipt kind is CubInstallerDeterminismReceipt with result in {pass, watch, blocked} — so the published \"same inputs render byte-identically\" claim still matches the recorded run.",
@@ -208,7 +208,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "Validates runs/hook-replacement-proof/receipt.yaml (kind, an allowed result, and presence of the neither/argo/flux legs) and byte-compares data/hook-replacement-proof/summary.md and by-controller.html against what the generator re-renders from it, so the published claim that all three recommended hook-replacement paths delivered and ran the routed Job matches the recorded run.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: runs/hook-replacement-proof/receipt.yaml missing; run npm run hook-replacement:proof",
+    status: "red: runs/hook-replacement-proof/receipt.yaml was never recorded, so the proof has to run before this lane can pass",
   },
   "hook-test:proof:verify": {
     proves: "That runs/hook-test-proof/receipt.yaml is a HookTestRouteProofReceipt carrying all three legs (renderParity, helmInstallSilent, explicitRouteRun) and that data/hook-test-proof/summary.md and visible-vs-silent.html are byte-identical to what the generator re-renders from it.",
@@ -496,7 +496,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "Byte-compares all four committed outputs in data/lifecycle-routes-by-variant (by-variant.csv, by-variant.json, summary.md, by-variant.html) against what the generator re-derives from data/lifecycle-route-actions/actions.csv, each recipes/<chart>/<version>/variants/<base>/variant.yaml, and the per-base hook_disposition column of data/master-catalog-matrix/matrix.csv.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: data/lifecycle-routes-by-variant/by-variant.csv is stale; run npm run lifecycle:routes-by-variant",
+    status: "passes",
   },
   "live-matrix:burndown:verify": {
     proves: "Byte-compares data/live-matrix-burndown/work-items.csv and summary.md against the burn-down the generator re-derives from data/master-catalog-matrix/matrix.csv (per-row live-parity and kind-parity lane states, merged with the active rerun map).",
@@ -532,7 +532,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "Byte-compares data/per-chart-hooks/summary.md, by-chart.html and cards.csv against what the generator re-derives by grouping data/lifecycle-route-actions/actions.csv per chart and joining data/chart-skills/skills.csv, including the headline disposition and the \"automatic\" count that backs the claim that no hook runs silently.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: data/per-chart-hooks/summary.md is stale; run npm run per-chart-hooks",
+    status: "passes",
   },
   "preview-readiness:verify": {
     proves: "Byte-compares data/preview-readiness/summary.md, quirks.csv and matrix.html against what the generator re-derives from data/quirk-coverage/coverage.csv, the authored quirk-to-preview-disposition table, catalog-wide capabilityProfile/targetFacts adoption counted across recipes/**/variants/*/variant.yaml, and the four anchor charts' committed variant.yaml files.",
@@ -556,7 +556,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "data/quirk-review-queue/queue.csv and summary.md byte-match the backlog re-derived from every recipes/**/helm-pain-report.yaml entry whose disposition is needs-operator-decision, classified into standard/build/sme.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: quirk-review-queue queue.csv is stale; run npm run quirk-queue:generate",
+    status: "passes",
   },
   "serverless-install-parity:proof:verify": {
     proves: "That the committed ServerlessInstallParityProofReceipt still passes and agrees with its installer-package publication receipt (same ref and manifest digest), records the anonymous manifest pull as pass and the render parity as 13 Helm objects / 14 cub objects / 13-of-13 semantic matches, and that the proof's summary.md and HTML re-render from it byte-for-byte.",
@@ -586,7 +586,7 @@ export const NPM_LANE_ROLES = Object.freeze({
     proves: "Byte-compares data/variant-backlog/backlog.csv and summary.md against a re-derivation that, for each of the 135 recipes/**/recipe.yaml roots, reads control-points.yaml and maps detected control-point categories to the seven standard variant dimensions (existing-secret, no-crds, ha, ingress-tls, minimal, tls, rotation), subtracts the dimensions the chart's existing variant names already cover, and asserts at least 100 recipe roots were found.",
     requires: "offline",
     disposition: "join-the-chain",
-    status: "red: variant-backlog backlog.csv is stale; run npm run variant-backlog:generate",
+    status: "passes",
   },
   "webhook-cert:lifecycle:verify": {
     proves: "data/webhook-cert-lifecycle/summary.md, evidence.csv and each receipts/<case>.yaml byte-match what the generator re-derives from the five declared webhook-cert cases, each of which must be paired with a passing ObservationReceipt under runs/next80-local-kind/ and, for the no-crds case, the expected number of CRDs staged from the committed rendered release objects.",
