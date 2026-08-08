@@ -11,10 +11,11 @@
 //   node scripts/verify-certified-bundle.mjs --verify      strict pass over all receipts
 //   node scripts/verify-certified-bundle.mjs --self-test   prove each refusal fires
 
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
+import { tmpdir } from "node:os";
 
-import { check, readYaml, repoRoot, sha256File } from "./lib/proof-common.mjs";
+import { check, readYaml, repoRoot, sha256File, toYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--verify";
 
@@ -191,6 +192,35 @@ function verifyRouteDocument(name, path) {
       if (unknown.length > 0)
         refuse(label, `stage "${stage.name}" carries unknown field(s): ${unknown.join(", ")}. Add them to the schema, or use the name the schema already has.`);
     }
+  }
+  // A lifecycle route claims its stages were watched. That claim is only worth
+  // something if the evidence it cites is still the evidence that was watched,
+  // so every stage is re-hashed against the file it names.
+  if (spec.routeKind === "lifecycle-job") {
+    const stages = spec.declaration?.stages;
+    if (!Array.isArray(stages) || stages.length === 0)
+      refuse(label, "a lifecycle route needs at least one stage, or it routes nothing");
+    const STAGE_KEYS = ["order", "name", "observedDetail", "evidence", "evidenceSHA256"];
+    for (const stage of stages) {
+      const unknown = Object.keys(stage).filter((key) => !STAGE_KEYS.includes(key));
+      if (unknown.length > 0)
+        refuse(label, `stage "${stage.name}" carries unknown field(s): ${unknown.join(", ")}`);
+      if (!stage.evidence || !stage.evidenceSHA256)
+        refuse(label, `stage "${stage.name}" claims an observation without naming the evidence for it`);
+      const evidencePath = join(repoRoot, stage.evidence);
+      if (!existsSync(evidencePath))
+        refuse(label, `stage "${stage.name}" cites evidence that is not in the repository: ${stage.evidence}`);
+      if (sha256File(evidencePath) !== stage.evidenceSHA256)
+        refuse(
+          label,
+          `stage "${stage.name}" cites ${stage.evidence}, whose bytes no longer match the hash the route recorded. The observation and the route have drifted apart.`,
+        );
+    }
+    if (spec.executedBy?.automatic === true)
+      refuse(
+        label,
+        "a lifecycle route runs work, and work is not idempotent by default. It stays manual until a runtime is watched executing it.",
+      );
   }
 }
 
@@ -373,6 +403,24 @@ function expectRefusal(label, mutate, receiptOverride) {
   throw new Error(`self-test failed: ${label} was admitted instead of refused`);
 }
 
+// Route rules read the document from disk rather than the receipt, so breaking
+// one means writing a broken copy out and pointing the checker at it.
+function expectRouteRefusal(label, routePath, mutate) {
+  const copy = JSON.parse(JSON.stringify(readYaml(routePath)));
+  mutate(copy);
+  const scratch = join(mkdtempSync(join(tmpdir(), "certified-bundle-selftest-")), "route.yaml");
+  writeFileSync(scratch, toYaml(copy));
+  try {
+    verifyRouteDocument("self-test", scratch);
+  } catch (error) {
+    if (String(error.message).startsWith("strict ingest refuses")) return;
+    throw error;
+  } finally {
+    rmSync(dirname(scratch), { recursive: true, force: true });
+  }
+  throw new Error(`self-test failed: ${label} was admitted instead of refused`);
+}
+
 function runSelfTest() {
   const paths = receiptPaths();
   check(paths.length > 0, "no certified-bundle receipts found");
@@ -424,7 +472,20 @@ function runSelfTest() {
     const row = receipt.spec.dispositions.find((entry) => entry.finding === "absent");
     row.companionRequired = "prune-protection";
   }, routed);
-  console.log("strict ingest self-test: 11 refusal(s) fired as required");
+  // The lifecycle route is the only claim in the model backed by a live run, so
+  // the two things that would hollow it out are tested directly: evidence that
+  // drifted, and a Job route quietly marked automatic.
+  const lifecycle = join(
+    repoRoot,
+    "data/certified-bundles/routes/catalog/gatekeeper-gatekeeper-default/lifecycle.yaml",
+  );
+  expectRouteRefusal("a lifecycle stage whose evidence no longer hashes", lifecycle, (route) => {
+    route.spec.declaration.stages[0].evidenceSHA256 = "0".repeat(64);
+  });
+  expectRouteRefusal("a lifecycle route marked automatic", lifecycle, (route) => {
+    route.spec.executedBy.automatic = true;
+  });
+  console.log("strict ingest self-test: 13 refusal(s) fired as required");
 }
 
 if (mode === "--verify") {

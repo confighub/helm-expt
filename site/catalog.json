@@ -13876,7 +13876,7 @@
       "crd_documents": "17",
       "gated_subcharts": "0",
       "scanned_files": "40",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "gitlab",

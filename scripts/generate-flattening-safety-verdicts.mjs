@@ -1264,6 +1264,54 @@ const CHARTS = [
       },
     ],
   },
+  // The first chart whose hook lane is decided from a live run rather than from
+  // reading the chart. runs/hook-lifecycle/gatekeeper-gatekeeper watched the
+  // install and upgrade routes on a fresh cluster, which is what lets the hook
+  // disposition name a companion instead of describing an intention.
+  {
+    repo: "gatekeeper",
+    chart: "gatekeeper",
+    version: "3.22.2",
+    recipe: "recipes/gatekeeper/gatekeeper/3.22.2",
+    auditedBase: "default",
+    overrides: {
+      "helm-hooks": {
+        finding: "present",
+        detail:
+          "17 hook objects across pre-install, pre-upgrade, post-install, post-upgrade and pre-delete, none of which travel in the rendered base; a recorded live run observed the install and upgrade phases running as explicit ordered actions instead",
+        disposition:
+          "lifecycle route built from the recorded observation, executed by the delivery runtime",
+      },
+      "webhook-ca": {
+        finding: "present",
+        detail:
+          "two webhook configurations whose serving certificate the controller writes itself; the same live run observed the Secret populated and admission routed after it",
+        disposition:
+          "the controller maintains its own material from inside the bundle; no external route needed",
+      },
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "lifecycle route for the hook phases, with stages taken from the recorded live observation",
+      "CRD ordering declaration for the 17 constraint CRDs",
+    ],
+    rationale:
+      "The chart's hooks do not survive flattening, and for once that is not a guess: a recorded run installed this base without them and watched the same work happen as explicit ordered actions. That observation is what the lifecycle route declares, so the lane names a companion the catalog can point at rather than one it hopes exists.",
+    variantScope: [
+      {
+        values: "the catalog's no-crds base",
+        effect: "removes the CRDs and the ordering route, leaving the lifecycle route alone",
+      },
+      {
+        values: "a values-supplied webhook certificate",
+        effect:
+          "replaces the controller-written Secret with external material, which removes the runtime dependency and adds an external secret reference",
+      },
+    ],
+  },
 ];
 
 function witnessPath(entry) {
