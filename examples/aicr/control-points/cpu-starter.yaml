@@ -21,6 +21,12 @@ spec:
         override any operator makes.
       locator:
         token: "storageClassName: gp3"
+      upstreamDeclaration:
+        registry: examples/aicr/upstream-reference/v0.14.0/registry.yaml
+        component: kube-prometheus-stack
+        pathsKey: storageClassPaths
+        paths:
+          - prometheus.prometheusSpec.storageSpec.volumeClaimTemplate.spec.storageClassName
       governs:
         - argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack
       reviewedChanges:

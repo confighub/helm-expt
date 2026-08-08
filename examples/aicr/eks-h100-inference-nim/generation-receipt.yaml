@@ -1,0 +1,101 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceGenerationReceipt
+metadata:
+  name: aicr-eks-h100-inference-nim-v0-14-0
+spec:
+  purpose: >-
+    The AICR-native inference shape, retained so it can be compared with the
+    catalog's other inference entry. The KServe entry retains NVIDIA's
+    nim-deploy reference implementation from a different repository. This entry
+    asks AICR itself for a NIM inference platform, which it supports through a
+    first-class platform criteria value. Holding both makes the sourcing choice
+    visible instead of implied.
+  source:
+    name: NVIDIA AICR
+    version: v0.14.0
+    commit: 0479e45e3ee4ea04d3fff55fd9160843d161c03c
+    repository: https://github.com/NVIDIA/aicr
+    releaseAsset:
+      name: aicr_0.14.0_darwin_arm64.tar.gz
+      sha256: 0d48b8835660891a6ca7c0df3290d6241d2fd76daa01c6cdf65a808401e6cf8d
+    binarySha256: 84c5f5d6052bb3daa0839702e6e3abc0a6fe9669293cd3ab66b41892b3c59a9c
+    binaryVerifiedBeforeUse: >-
+      The release asset and the extracted binary were both checked against the
+      checksums pinned in the training entry's generation receipt before the
+      binary was run.
+  criteria:
+    service: eks
+    accelerator: h100
+    os: ubuntu
+    intent: inference
+    platform: nim
+  generationInputs:
+    storageClass: gp3
+    acceleratedNodeSelector: nvidia.com/gpu.present=true
+    workloadSelector: app.kubernetes.io/part-of=inference
+    repoURL: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+  commands:
+    recipe:
+      - aicr
+      - recipe
+      - --service
+      - eks
+      - --accelerator
+      - h100
+      - --os
+      - ubuntu
+      - --intent
+      - inference
+      - --platform
+      - nim
+      - --output
+      - recipe.yaml
+    bundle:
+      - aicr
+      - bundle
+      - --recipe
+      - recipe.yaml
+      - --deployer
+      - argocd-helm
+      - --output
+      - ./argocd-helm-bundle
+      - --storage-class
+      - gp3
+      - --accelerated-node-selector
+      - nvidia.com/gpu.present=true
+      - --workload-selector
+      - app.kubernetes.io/part-of=inference
+    render:
+      - helm
+      - template
+      - aicr-argocd
+      - ./argocd-helm-bundle
+      - --namespace
+      - argocd
+      - --set
+      - repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+      - --output-dir
+      - rendered
+  result:
+    componentCount: 17
+    overlaysResolved: 8
+    renderedApplications: 20
+    nimOperatorVersion: "3.1.0"
+    inferenceGateway: agentgateway v2.2.1
+  boundary:
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    published: false
+    publishedStatement: >-
+      This entry is generated, retained, and rendered. It has not been published
+      to any registry, so it carries no public digest and no OCI transport
+      receipts. The repoURL in its rendered Applications is the reference a
+      publication would use, not a claim that one happened.
+    ngcContacted: false
+    imagesPulled: false
+    statement: >-
+      Config-plane only. No GPU workload ran, no NIM container started, and no
+      model was fetched to produce or verify this entry.
+status:
+  result: retained-offline
+  liveRegistryPublicationClaimed: false

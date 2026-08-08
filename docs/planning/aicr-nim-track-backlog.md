@@ -216,3 +216,44 @@ The tasks marked **Workshop-wide** are the ones worth reviewing together
 rather than one at a time. Most of them are not really AICR work. They are
 places where AICR pushed on a shared surface and found it had no answer yet,
 which is the most useful thing a new entry class can do.
+
+## Tasks the composition study added, 2026-08-07
+
+Reading AICR properly, and running the pinned binary, turned up work the
+original fifty did not contain. These are numbered from 51 so the earlier list
+keeps its references.
+
+51. **Decide whether to retain the AICR-native NIM recipe.** `platform: nim`
+    exists at the retained version and produces seventeen components including
+    the NIM operator. The catalog retains a different NVIDIA source. Either
+    retain both and say why, or switch. **Workshop-wide**, because it is the
+    first time two credible upstream sources compete for one entry.
+52. **Derive control points from `aicr query` instead of hand-writing them.**
+    AICR resolves dot-path selectors against the hydrated recipe, which is the
+    machine-readable form of what the control-point records declare by hand.
+    **Workshop-wide**, because it changes where control-point truth lives.
+53. **Compare AICR evidence bundles with catalog receipts.** `aicr evidence`
+    operates on recipe-evidence v1 bundles from `aicr validate
+    --emit-attestation`, for the same reason this project emits receipts.
+    **Workshop-wide**, and it may change how the catalog describes its own
+    contribution.
+54. **Cite the upstream `deploymentOrder` in the delivery proof.** The proof
+    holds the controller at zero because ordering was treated as unearned, and
+    the recipe declares the order explicitly.
+55. **Compare `aicr trust` with the committed trust root decision.** Upstream
+    ships trusted-root management; the decision record should say why the
+    catalog pins its own. **Workshop-wide**.
+56. **Compare `aicr mirror` with the remote dependency closure work.** Both
+    enumerate images and charts for air-gapped use. **Workshop-wide**.
+57. **Compare `aicr snapshot` and `aicr diff` with the reverse-reconcile and
+    cub-scout designs.** Upstream already detects drift against a recipe.
+    **Workshop-wide**.
+58. **Look at `aicr skill`, which writes an agent skill file for the CLI.**
+    The catalog generates chart skills for the same purpose.
+    **Workshop-wide**.
+59. **Study the parts this increment skipped.** The `aicrd` daemon, the
+    containerized validators, the evidence bundle format, the snapshot schema,
+    and the validation dashboard were all left unread.
+60. **Re-check the catalog's stated contribution against upstream's.** The
+    public pages should not imply this project invented provenance for a
+    project that ships its own attestation chain. **Workshop-wide**.

@@ -1,0 +1,33 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "OciBundleWitness"
+metadata:
+  name: "eks-inference-karpenter-aws"
+spec:
+  observedAt: "2026-08-07T17:30:00Z"
+  pullCommand: "oras pull ghcr.io/confighub/configs/eks-inference/karpenter-aws:latest"
+  artifact:
+    reference: "ghcr.io/confighub/configs/eks-inference/karpenter-aws:latest"
+    manifestDigest: "sha256:535376df49b0fe8f11f0cda012fb5399a7c70f59f4932335faee92a3cf0ad194"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    createdAnnotation: "1970-01-01T00:00:00Z"
+    layer:
+      mediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+      digest: "sha256:10b0631b882b60e6dfca2b6e121e98622678a43f60eebcd51648d17f7afb1c90"
+      bytes: 2071
+      title: "karpenter-aws.tar.gz"
+  extractedFiles:
+    -
+      path: "files/controller-identity.yaml"
+      bundlePath: "controller-identity.yaml"
+      sha256: "dc12b7d561b221cc88b9ffff956ee866e2b18207875bab508d1e7baecbffde1f"
+      bytes: 5657
+  producer:
+    repository: "https://github.com/confighub/eks-inference"
+    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    component: "karpenter-aws"
+    plane: "mgmt"
+    renderKind: "copy"
+  crossCheck:
+    committedRenderMatches: true
+    committedRenderPath: "configs/karpenter-aws at the producer commit above"
+    note: "Every extracted file hashes identically to the producer repository's committed render, so the published bundle and the reviewed source agree byte for byte."

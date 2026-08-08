@@ -1,0 +1,32 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceRetentionReceipt
+metadata:
+  name: aicr-upstream-reference-v0-14-0
+spec:
+  purpose: >-
+    AICR declares, per component, where a value such as a storage class or a
+    node selector lands in that component's Helm values. The catalog's
+    control-point records name what a reviewer may change, and until now they
+    asserted their scope by hand. Retaining the registry lets a control point
+    cite the upstream declaration instead, so the record is derived rather
+    than believed.
+  source:
+    name: NVIDIA AICR component registry
+    repository: https://github.com/NVIDIA/aicr
+    path: recipes/registry.yaml
+    ref: v0.14.0
+    license: Apache-2.0
+    retrievedAt: "2026-08-08"
+  retained:
+    file: v0.14.0/registry.yaml
+    sha256: 4c06164a19db340cc8876a572d102d5434259711500819673e74c60d9cd55e41
+    apiVersion: aicr.nvidia.com/v1alpha1
+    kind: ComponentRegistry
+    componentCount: 26
+  boundary:
+    configPlaneOnly: true
+    statement: >-
+      This is upstream reference data retained unmodified for cross-checking.
+      Nothing here is delivered to a cluster.
+status:
+  result: retained-offline

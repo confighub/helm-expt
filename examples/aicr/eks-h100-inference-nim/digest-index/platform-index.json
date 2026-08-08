@@ -1,0 +1,208 @@
+{
+  "apiVersion": "catalog.confighub.com/v1alpha1",
+  "kind": "AICRPlatformDigestIndex",
+  "metadata": {
+    "name": "aicr-eks-h100-inference-nim-v0-14-0-digest-index"
+  },
+  "spec": {
+    "platformDigest": "sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2",
+    "source": {
+      "binarySha256": "84c5f5d6052bb3daa0839702e6e3abc0a6fe9669293cd3ab66b41892b3c59a9c",
+      "binaryVerifiedBeforeUse": "The release asset and the extracted binary were both checked against the checksums pinned in the training entry's generation receipt before the binary was run.",
+      "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+      "name": "NVIDIA AICR",
+      "releaseAsset": {
+        "name": "aicr_0.14.0_darwin_arm64.tar.gz",
+        "sha256": "0d48b8835660891a6ca7c0df3290d6241d2fd76daa01c6cdf65a808401e6cf8d"
+      },
+      "repository": "https://github.com/NVIDIA/aicr",
+      "version": "v0.14.0"
+    },
+    "criteria": {
+      "accelerator": "h100",
+      "intent": "inference",
+      "os": "ubuntu",
+      "platform": "nim",
+      "service": "eks"
+    },
+    "transports": [],
+    "members": [
+      {
+        "component": "agentgateway-crds-post",
+        "role": "component-application",
+        "syncWave": 1,
+        "payloadSha256": "befb88ed9f44a6c3284526e04da86ffcde36e7410c1662dd3a8c797a994f8451",
+        "payloadPath": "payloads/agentgateway-crds-post-befb88ed9f44a6c3284526e04da86ffcde36e7410c1662dd3a8c797a994f8451.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/agentgateway-crds-post:payload-befb88ed9f44a6c3284526e04da86ffcde36e7410c1662dd3a8c797a994f8451"
+      },
+      {
+        "component": "agentgateway-crds",
+        "role": "component-application",
+        "syncWave": 0,
+        "payloadSha256": "15a34967e051b86bc647f71ad38a61c29480db996889b32594ff70ef2692f669",
+        "payloadPath": "payloads/agentgateway-crds-15a34967e051b86bc647f71ad38a61c29480db996889b32594ff70ef2692f669.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/agentgateway-crds:payload-15a34967e051b86bc647f71ad38a61c29480db996889b32594ff70ef2692f669"
+      },
+      {
+        "component": "agentgateway-post",
+        "role": "component-application",
+        "syncWave": 6,
+        "payloadSha256": "092da23fa5624960f7b8ec40c4f6a66736e53bfa0a975561b6e905cef50638c1",
+        "payloadPath": "payloads/agentgateway-post-092da23fa5624960f7b8ec40c4f6a66736e53bfa0a975561b6e905cef50638c1.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/agentgateway-post:payload-092da23fa5624960f7b8ec40c4f6a66736e53bfa0a975561b6e905cef50638c1"
+      },
+      {
+        "component": "agentgateway",
+        "role": "component-application",
+        "syncWave": 5,
+        "payloadSha256": "994ba328f43bbaecf2a021bf4c1cedc9d1678866ff22f0ddc52cee9e754f1b51",
+        "payloadPath": "payloads/agentgateway-994ba328f43bbaecf2a021bf4c1cedc9d1678866ff22f0ddc52cee9e754f1b51.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/agentgateway:payload-994ba328f43bbaecf2a021bf4c1cedc9d1678866ff22f0ddc52cee9e754f1b51"
+      },
+      {
+        "component": "aicr-stack",
+        "role": "platform-root",
+        "syncWave": null,
+        "payloadSha256": "16b88dfad1ef7d050b6317760b3e9df272aac1d14d55596df1361bafbb2af312",
+        "payloadPath": "payloads/aicr-stack-16b88dfad1ef7d050b6317760b3e9df272aac1d14d55596df1361bafbb2af312.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/aicr-stack:payload-16b88dfad1ef7d050b6317760b3e9df272aac1d14d55596df1361bafbb2af312"
+      },
+      {
+        "component": "aws-ebs-csi-driver",
+        "role": "component-application",
+        "syncWave": 2,
+        "payloadSha256": "35fa0e7a18561782ef6b18ed9786a5ac0eb67d715a42f4a629bd9b255fae2777",
+        "payloadPath": "payloads/aws-ebs-csi-driver-35fa0e7a18561782ef6b18ed9786a5ac0eb67d715a42f4a629bd9b255fae2777.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/aws-ebs-csi-driver:payload-35fa0e7a18561782ef6b18ed9786a5ac0eb67d715a42f4a629bd9b255fae2777"
+      },
+      {
+        "component": "aws-efa",
+        "role": "component-application",
+        "syncWave": 3,
+        "payloadSha256": "df4adeeae7140274e5cbac4777801b9e4cd1f2d1d2507fcc3fc66f4da1ad5297",
+        "payloadPath": "payloads/aws-efa-df4adeeae7140274e5cbac4777801b9e4cd1f2d1d2507fcc3fc66f4da1ad5297.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/aws-efa:payload-df4adeeae7140274e5cbac4777801b9e4cd1f2d1d2507fcc3fc66f4da1ad5297"
+      },
+      {
+        "component": "cert-manager",
+        "role": "component-application",
+        "syncWave": 4,
+        "payloadSha256": "0f03e7749709fd2b4b36ca49398723b2a15ddbac65d7d8038009efc4fafbc0b8",
+        "payloadPath": "payloads/cert-manager-0f03e7749709fd2b4b36ca49398723b2a15ddbac65d7d8038009efc4fafbc0b8.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/cert-manager:payload-0f03e7749709fd2b4b36ca49398723b2a15ddbac65d7d8038009efc4fafbc0b8"
+      },
+      {
+        "component": "gpu-operator",
+        "role": "component-application",
+        "syncWave": 12,
+        "payloadSha256": "355302c9ee11ba38deec4138ab084343439c8d8e2d8fb9ecae5f8effb5e933c7",
+        "payloadPath": "payloads/gpu-operator-355302c9ee11ba38deec4138ab084343439c8d8e2d8fb9ecae5f8effb5e933c7.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/gpu-operator:payload-355302c9ee11ba38deec4138ab084343439c8d8e2d8fb9ecae5f8effb5e933c7"
+      },
+      {
+        "component": "k8s-ephemeral-storage-metrics",
+        "role": "component-application",
+        "syncWave": 13,
+        "payloadSha256": "294f84e80cb7e2a23877592939680d1e3f002f208e7a214ad418c04b32329449",
+        "payloadPath": "payloads/k8s-ephemeral-storage-metrics-294f84e80cb7e2a23877592939680d1e3f002f208e7a214ad418c04b32329449.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/k8s-ephemeral-storage-metrics:payload-294f84e80cb7e2a23877592939680d1e3f002f208e7a214ad418c04b32329449"
+      },
+      {
+        "component": "k8s-nim-operator",
+        "role": "component-application",
+        "syncWave": 14,
+        "payloadSha256": "06212e59c658d7e69ad1fa588ff8707727b61f470541294425880b0c9e49c4c0",
+        "payloadPath": "payloads/k8s-nim-operator-06212e59c658d7e69ad1fa588ff8707727b61f470541294425880b0c9e49c4c0.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/k8s-nim-operator:payload-06212e59c658d7e69ad1fa588ff8707727b61f470541294425880b0c9e49c4c0"
+      },
+      {
+        "component": "kai-scheduler",
+        "role": "component-application",
+        "syncWave": 15,
+        "payloadSha256": "aa45608005eca1afa963fe1a58fbf0bb3ecaf70727993c56be55b77bc16b6f55",
+        "payloadPath": "payloads/kai-scheduler-aa45608005eca1afa963fe1a58fbf0bb3ecaf70727993c56be55b77bc16b6f55.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/kai-scheduler:payload-aa45608005eca1afa963fe1a58fbf0bb3ecaf70727993c56be55b77bc16b6f55"
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "role": "component-application",
+        "syncWave": 11,
+        "payloadSha256": "32227a122b50a4b3e5144459f1f6e1916729a7cf15dc708c208d628d4f22755c",
+        "payloadPath": "payloads/kube-prometheus-stack-32227a122b50a4b3e5144459f1f6e1916729a7cf15dc708c208d628d4f22755c.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/kube-prometheus-stack:payload-32227a122b50a4b3e5144459f1f6e1916729a7cf15dc708c208d628d4f22755c"
+      },
+      {
+        "component": "nfd",
+        "role": "component-application",
+        "syncWave": 7,
+        "payloadSha256": "10d3769531724e7dcc2e1a2cc6d918119145754d8301e3a6f0579b3e4b29bf30",
+        "payloadPath": "payloads/nfd-10d3769531724e7dcc2e1a2cc6d918119145754d8301e3a6f0579b3e4b29bf30.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/nfd:payload-10d3769531724e7dcc2e1a2cc6d918119145754d8301e3a6f0579b3e4b29bf30"
+      },
+      {
+        "component": "nodewright-customizations",
+        "role": "component-application",
+        "syncWave": 9,
+        "payloadSha256": "2ee5cdf1798fd2188f796706a84b2f7bd76659d11d305ef7d80514bcf5011973",
+        "payloadPath": "payloads/nodewright-customizations-2ee5cdf1798fd2188f796706a84b2f7bd76659d11d305ef7d80514bcf5011973.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/nodewright-customizations:payload-2ee5cdf1798fd2188f796706a84b2f7bd76659d11d305ef7d80514bcf5011973"
+      },
+      {
+        "component": "nodewright-operator",
+        "role": "component-application",
+        "syncWave": 8,
+        "payloadSha256": "d2a0c85b8da0fc6eae96d7726ea3583452a78b4baebdf0aa0f08f60dfe33e4d4",
+        "payloadPath": "payloads/nodewright-operator-d2a0c85b8da0fc6eae96d7726ea3583452a78b4baebdf0aa0f08f60dfe33e4d4.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/nodewright-operator:payload-d2a0c85b8da0fc6eae96d7726ea3583452a78b4baebdf0aa0f08f60dfe33e4d4"
+      },
+      {
+        "component": "nvidia-dra-driver-gpu",
+        "role": "component-application",
+        "syncWave": 16,
+        "payloadSha256": "fdf9bb06d1557dc8d1bf5011428a3122e2057ad23fca53f4dd20f5a6f74fb441",
+        "payloadPath": "payloads/nvidia-dra-driver-gpu-fdf9bb06d1557dc8d1bf5011428a3122e2057ad23fca53f4dd20f5a6f74fb441.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/nvidia-dra-driver-gpu:payload-fdf9bb06d1557dc8d1bf5011428a3122e2057ad23fca53f4dd20f5a6f74fb441"
+      },
+      {
+        "component": "nvsentinel",
+        "role": "component-application",
+        "syncWave": 17,
+        "payloadSha256": "6245ae588ca12e9351e80ec3dc72ecf307d4d5849f57c1c8ecdba023025e3ab2",
+        "payloadPath": "payloads/nvsentinel-6245ae588ca12e9351e80ec3dc72ecf307d4d5849f57c1c8ecdba023025e3ab2.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/nvsentinel:payload-6245ae588ca12e9351e80ec3dc72ecf307d4d5849f57c1c8ecdba023025e3ab2"
+      },
+      {
+        "component": "prometheus-adapter",
+        "role": "component-application",
+        "syncWave": 18,
+        "payloadSha256": "0596523fb5ea4ee9f78576f72003fa8824d62d450d344bc930a4318486cb5fca",
+        "payloadPath": "payloads/prometheus-adapter-0596523fb5ea4ee9f78576f72003fa8824d62d450d344bc930a4318486cb5fca.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/prometheus-adapter:payload-0596523fb5ea4ee9f78576f72003fa8824d62d450d344bc930a4318486cb5fca"
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "role": "component-application",
+        "syncWave": 10,
+        "payloadSha256": "5d92b22e99b7a1882913c293596cfcabdaa37d033a8e16e3df8ebcaaf6abd0b8",
+        "payloadPath": "payloads/prometheus-operator-crds-5d92b22e99b7a1882913c293596cfcabdaa37d033a8e16e3df8ebcaaf6abd0b8.json",
+        "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-components/prometheus-operator-crds:payload-5d92b22e99b7a1882913c293596cfcabdaa37d033a8e16e3df8ebcaaf6abd0b8"
+      }
+    ],
+    "aggregate": {
+      "plannedOCIRef": "oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-eks-h100-inference-nim-digest-index:platform-cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2",
+      "type": "target-neutral-index-published-only-after-member-manifest-digests-are-observed"
+    },
+    "boundary": {
+      "configPlaneOnly": true,
+      "published": false,
+      "gpuWorkloadsProven": false,
+      "secretValuesIncluded": false,
+      "liveRegistryPublicationClaimed": false,
+      "statement": "This index pins config-plane content by digest. No GPU workload ran to produce or verify it; workload-plane claims stay absent rather than implied."
+    }
+  },
+  "status": {
+    "result": "compiled-offline",
+    "liveRegistryPublicationClaimed": false
+  }
+}
