@@ -1,0 +1,135 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: GatedArtifactRegister
+metadata:
+  name: gated-artifacts
+spec:
+  description: >-
+    Every gated artifact this catalog's retained configuration names, and what
+    is known about the terms governing it. The catalog references gated
+    artifacts and never mirrors them, so the reference is all it holds. That
+    makes the reference the thing to enumerate: an artifact nobody listed is an
+    artifact nobody checked the terms for.
+  policy:
+    referenceNeverMirror: >-
+      Retained configuration names gated artifacts by reference. The catalog
+      does not copy, cache, re-host, or republish their bytes, and nothing in
+      any proof pulls one.
+    credentialsAreTargetFacts: >-
+      The key that reaches a gated registry belongs to the cluster that pulls,
+      never to this repository. Secret surfaces in retained bytes carry names
+      or substitutions, which the credential-boundary lane enforces across
+      every producer.
+    noVendorPerformanceClaims: >-
+      The catalog publishes no throughput, latency, or benchmark numbers for a
+      gated runtime. It has run none, and repeating a vendor's would be
+      passing off a claim it cannot verify.
+    entitlementIsTheUsersToRead: >-
+      The catalog names the terms a page listed on a date. It does not tell
+      anyone which entitlement or tier they need, because that is a reading of
+      their situation rather than a fact about an artifact.
+
+  # Re-reading is tied to the reference rather than to a calendar. Every entry
+  # below is keyed by the exact image reference including its tag, so a version
+  # bump produces a reference nobody enumerated and the lane refuses it until
+  # someone records what the new artifact's page says. A date-based cadence
+  # would go stale quietly; this one cannot.
+  reReadCadence:
+    trigger: reference-change
+    rule: >-
+      A gated reference is enumerated with the tag it carries. Changing the tag
+      means a new entry and a new read. Terms also have to be re-read at deploy
+      time by whoever pulls, because per-artifact terms override any general
+      statement recorded here.
+
+  # Why most entries below carry no named terms, stated rather than left as an
+  # absence a reader has to notice.
+  termsReadingLimit: >-
+    The NGC catalog pages that carry per-artifact terms are served behind bot
+    detection. Reading them automatically would mean working around that, which
+    this catalog will not do. So one artifact has named terms, read by hand on
+    the date recorded, and the rest are enumerated with their pages linked for a
+    person to read. The gap is measured and published rather than filled with a
+    guess.
+
+  scope:
+    roots: ["examples/aicr"]
+    referencePattern: "nvcr\\.io/[a-z0-9./_-]+:[a-zA-Z0-9._-]+"
+
+  artifacts:
+    - reference: nvcr.io/nim/meta/llama-3.1-8b-instruct:1.1.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama-3.1-8b-instruct
+      termsReadAt: "2026-08-07"
+      termsNamed:
+        - NVIDIA Software License Agreement
+        - Product-Specific Terms for AI Products
+        - NVIDIA Open Model Agreement
+        - Llama 3.1 Community License Agreement
+      record: examples/aicr/kserve-nim-inference/profile/model-profile.yaml
+      note: >-
+        The first described profile. Its terms were read by hand from the
+        catalog page on the date above and are carried as dated data.
+
+    - reference: nvcr.io/nim/meta/llama-3.1-70b-instruct:1.1.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama-3.1-70b-instruct
+      termsReadAt: null
+      note: Enumerated and referenced. Its per-artifact terms have not been read.
+
+    - reference: nvcr.io/nim/meta/llama3-8b-instruct:1.0.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama3-8b-instruct
+      termsReadAt: null
+      note: Enumerated and referenced. Its per-artifact terms have not been read.
+
+    - reference: nvcr.io/nim/meta/llama3-70b-instruct:1.0.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/meta/containers/llama3-70b-instruct
+      termsReadAt: null
+      note: Enumerated and referenced. Its per-artifact terms have not been read.
+
+    - reference: nvcr.io/nim/nvidia/llama-3.3-nemotron-super-49b-v1:1.8.2
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/llama-3.3-nemotron-super-49b-v1
+      termsReadAt: null
+      note: >-
+        Enumerated and referenced. Its per-artifact terms have not been read.
+        This is the shape whose upstream serving runtime carries underscores in
+        a Kubernetes name, recorded as a finding on the entry page.
+
+    - reference: nvcr.io/nim/mistralai/mistral-7b-instruct-v03:1.0.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/mistralai/containers/mistral-7b-instruct-v03
+      termsReadAt: null
+      note: >-
+        Enumerated and referenced. Its per-artifact terms have not been read,
+        and a third-party model may add its own model licence to NVIDIA's
+        product terms.
+
+    - reference: nvcr.io/nim/mistralai/mixtral-8x7b-instruct-v01:1.0.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/mistralai/containers/mixtral-8x7b-instruct-v01
+      termsReadAt: null
+      note: Enumerated and referenced. Its per-artifact terms have not been read.
+
+    - reference: nvcr.io/nim/mistralai/mixtral-8x22b-instruct-v01:1.0.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/mistralai/containers/mixtral-8x22b-instruct-v01
+      termsReadAt: null
+      note: Enumerated and referenced. Its per-artifact terms have not been read.
+
+    - reference: nvcr.io/nim/nvidia/nv-embedqa-e5-v5:1.0.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/nv-embedqa-e5-v5
+      termsReadAt: null
+      note: >-
+        An embedding runtime rather than a chat model. Enumerated and
+        referenced, with its per-artifact terms unread.
+
+    - reference: nvcr.io/nim/nvidia/nv-rerankqa-mistral-4b-v3:1.0.0
+      kind: nim-container
+      catalogPage: https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/nv-rerankqa-mistral-4b-v3
+      termsReadAt: null
+      note: >-
+        A reranking runtime. Enumerated and referenced, with its per-artifact
+        terms unread.
