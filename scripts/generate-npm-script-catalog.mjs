@@ -9,12 +9,22 @@ const mode = process.argv[2] ?? "--generate";
 
 const packageJson = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8"));
 const scripts = packageJson.scripts ?? {};
-const verifyChain = new Set(
-  String(scripts.verify ?? "")
-    .split(" && ")
-    .map((command) => command.trim())
-    .filter(Boolean),
-);
+// The chain itself can delegate. An element like `npm run foo:self-test` runs
+// whatever foo:self-test runs, so expand those before deciding what is covered,
+// or a lane the chain genuinely runs still reads as a gap.
+const verifyChain = expandChain(String(scripts.verify ?? ""));
+
+function expandChain(command, seen = new Set()) {
+  const leaves = new Set();
+  for (const part of String(command).split(" && ").map((item) => item.trim()).filter(Boolean)) {
+    leaves.add(part);
+    const delegated = part.match(/^npm run (?:-s )?([^\s]+)$/)?.[1];
+    if (delegated && !seen.has(delegated) && scripts[delegated]) {
+      for (const leaf of expandChain(scripts[delegated], new Set([...seen, delegated]))) leaves.add(leaf);
+    }
+  }
+  return leaves;
+}
 const rows = Object.entries(scripts).map(([name, command], index) => describeScript(name, command, index + 1));
 const summary = summarize(rows);
 const csv = renderCsv(rows);
@@ -318,6 +328,14 @@ function assertLaneRolesDeclared(hidden) {
   check(
     undeclared.length === 0,
     `these lanes are named like gates, are not run by \`npm run verify\`, and declare no role in scripts/lib/npm-lane-roles.mjs: ${undeclared.join(", ")}`,
+  );
+  // Once a lane joins the chain its entry here is noise, and noise is how a
+  // register stops being read. Prune it in the same pass that adds the lane.
+  const hiddenNames = new Set(hidden.map((row) => row.script));
+  const stale = Object.keys(NPM_LANE_ROLES).filter((lane) => !hiddenNames.has(lane));
+  check(
+    stale.length === 0,
+    `these lanes are now run by \`npm run verify\` and no longer need an entry in scripts/lib/npm-lane-roles.mjs: ${stale.join(", ")}`,
   );
   for (const [lane, role] of Object.entries(NPM_LANE_ROLES)) {
     check(role.proves && role.requires && role.disposition, `${lane}: lane role must record proves, requires, and disposition`);

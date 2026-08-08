@@ -17,9 +17,9 @@ scripts: 842
 
 | Chain role | Scripts |
 | --- | ---: |
-| `not-a-gate` | 448 |
-| `in-verify-chain` | 298 |
-| `gate-shaped-outside-chain` | 96 |
+| `not-a-gate` | 447 |
+| `in-verify-chain` | 376 |
+| `gate-shaped-outside-chain` | 19 |
 
 A lane whose role is `gate-shaped-outside-chain` is named like a gate and is
 not run by `npm run verify`. Each one needs a recorded reason, which

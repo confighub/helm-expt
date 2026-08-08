@@ -14,8 +14,8 @@ that are not yet current recipe rows. Use
 
 ```text
 charts with a recipe:                       100
-no open gap (built or n/a; modeled L2):     75
-charts with a hard gap (no workaround yet):  25
+no open gap (built or n/a; modeled L2):     78
+charts with a hard gap (no workaround yet):  22
 charts with buildable backlog (path exists): 38
 charts with remote dependency risk surfaced: 18
 non-exact dependency rows frozen to lock:    9
@@ -32,7 +32,7 @@ hook rows still needing source route review: 0
 ## What the hard gaps are (charts affected)
 
 ```text
-existing-secret - chart ships no Secret toggle:         15
+existing-secret - chart ships no Secret toggle:         12
 no-crds - template-baked CRDs, no clean toggle yet:     3
 curated proof lane — needs bespoke teaching:            6
 other hard gap:                                         1
@@ -85,13 +85,10 @@ other hard gap:                                         1
 | `grafana/tempo` | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul` | ha (curated proof lane — bespoke teaching needed) |
 | `jaegertracing/jaeger` | existing-secret (chart ships no Secret toggle) |
-| `kyverno/kyverno` | existing-secret (chart ships no Secret toggle) |
 | `metrics-server/metrics-server` | existing-secret (chart ships no Secret toggle) |
 | `minio-operator/operator` | no-crds (template-baked CRDs; no clean chart toggle yet) |
-| `prometheus-community/kube-prometheus-stack` | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/prometheus` | ha (curated proof lane — bespoke teaching needed) |
 | `rook-release/rook-ceph` | no-crds (template-baked CRDs; no clean chart toggle yet) |
-| `traefik/traefik` | existing-secret (chart ships no Secret toggle) |
 
 ## Files
 
