@@ -13049,7 +13049,7 @@
       "crd_documents": "3",
       "gated_subcharts": "0",
       "scanned_files": "21",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -13066,7 +13066,7 @@
       "crd_documents": "5",
       "gated_subcharts": "0",
       "scanned_files": "29",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "argo-cd",
@@ -13100,7 +13100,7 @@
       "crd_documents": "1",
       "gated_subcharts": "0",
       "scanned_files": "18",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "autoscaler",
@@ -13746,7 +13746,7 @@
       "crd_documents": "1",
       "gated_subcharts": "0",
       "scanned_files": "12",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "external-secrets",
@@ -13916,7 +13916,7 @@
       "crd_documents": "2",
       "gated_subcharts": "1",
       "scanned_files": "81",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "grafana",
@@ -13933,7 +13933,7 @@
       "crd_documents": "2",
       "gated_subcharts": "1",
       "scanned_files": "75",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "grafana",
@@ -14392,7 +14392,7 @@
       "crd_documents": "8",
       "gated_subcharts": "0",
       "scanned_files": "30",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "longhorn",
@@ -14494,7 +14494,7 @@
       "crd_documents": "2",
       "gated_subcharts": "0",
       "scanned_files": "11",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "minio-operator",
@@ -14528,7 +14528,7 @@
       "crd_documents": "6",
       "gated_subcharts": "0",
       "scanned_files": "7",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "nats",
@@ -14715,7 +14715,7 @@
       "crd_documents": "3",
       "gated_subcharts": "0",
       "scanned_files": "72",
-      "decided_lanes": ""
+      "decided_lanes": "default:safe-to-flatten"
     },
     {
       "repository": "projectcalico",
@@ -14953,7 +14953,7 @@
       "crd_documents": "11",
       "gated_subcharts": "0",
       "scanned_files": "13",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "prometheus-community",
@@ -15004,7 +15004,7 @@
       "crd_documents": "25",
       "gated_subcharts": "1",
       "scanned_files": "76",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "runix",
@@ -15089,7 +15089,7 @@
       "crd_documents": "10",
       "gated_subcharts": "0",
       "scanned_files": "37",
-      "decided_lanes": ""
+      "decided_lanes": "default:flatten-with-routes"
     },
     {
       "repository": "traefik",

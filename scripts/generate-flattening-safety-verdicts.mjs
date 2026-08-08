@@ -1748,6 +1748,276 @@ const CHARTS = [
       },
     ],
   },
+  {
+    repo: "external-dns",
+    chart: "external-dns",
+    version: "1.21.1",
+    recipe: "recipes/external-dns/external-dns/1.21.1",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "alloy",
+    version: "1.11.0",
+    recipe: "recipes/grafana/alloy/1.11.0",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "grafana",
+    chart: "alloy",
+    version: "1.8.2",
+    recipe: "recipes/grafana/alloy/1.8.2",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "linkerd",
+    chart: "linkerd-crds",
+    version: "1.8.0",
+    recipe: "recipes/linkerd/linkerd-crds/1.8.0",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 8 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "minio-operator",
+    chart: "operator",
+    version: "7.1.1",
+    recipe: "recipes/minio-operator/operator/7.1.1",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 2 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "nats",
+    chart: "nack",
+    version: "0.34.0",
+    recipe: "recipes/nats/nack/0.34.0",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 6 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "prometheus-community",
+    chart: "prometheus-operator-crds",
+    version: "29.0.0",
+    recipe: "recipes/prometheus-community/prometheus-operator-crds/29.0.0",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 10 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "strimzi",
+    chart: "strimzi-kafka-operator",
+    version: "1.0.0",
+    recipe: "recipes/strimzi/strimzi-kafka-operator/1.0.0",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 10 definition(s) this base renders",
+    ],
+    rationale:
+      "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-events",
+    version: "2.4.21",
+    recipe: "recipes/argo-cd/argo-events/2.4.21",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+      "resource-policy-keep": {
+        disposition: "prune protection ships beside the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 3 definition(s) this base renders",
+      "prune protection for the 3 object(s) carrying the keep promise",
+    ],
+    rationale:
+      "Two constructs need companions and both have one. The 3 definitions need ordering, and the 3 object(s) carrying the keep promise need prune protection, or a reconciler that deletes anything absent from its desired state takes them with the release.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argo-rollouts",
+    version: "2.40.9",
+    recipe: "recipes/argo-cd/argo-rollouts/2.40.9",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+      "resource-policy-keep": {
+        disposition: "prune protection ships beside the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 5 definition(s) this base renders",
+      "prune protection for the 5 object(s) carrying the keep promise",
+    ],
+    rationale:
+      "Two constructs need companions and both have one. The 5 definitions need ordering, and the 5 object(s) carrying the keep promise need prune protection, or a reconciler that deletes anything absent from its desired state takes them with the release.",
+    variantScope: [],
+  },
+  {
+    repo: "argo-cd",
+    chart: "argocd-image-updater",
+    version: "1.2.2",
+    recipe: "recipes/argo-cd/argocd-image-updater/1.2.2",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+      "resource-policy-keep": {
+        disposition: "prune protection ships beside the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 1 definition(s) this base renders",
+      "prune protection for the 1 object(s) carrying the keep promise",
+    ],
+    rationale:
+      "Two constructs need companions and both have one. The 1 definitions need ordering, and the 1 object(s) carrying the keep promise need prune protection, or a reconciler that deletes anything absent from its desired state takes them with the release.",
+    variantScope: [],
+  },
+  {
+    repo: "rook-release",
+    chart: "rook-ceph",
+    version: "v1.19.5",
+    recipe: "recipes/rook-release/rook-ceph/v1.19.5",
+    auditedBase: "default",
+    overrides: {
+      "crd-ordering": {
+        disposition: "ordering declaration ships with the bundle",
+      },
+      "resource-policy-keep": {
+        disposition: "prune protection ships beside the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "CRD ordering declaration for the 25 definition(s) this base renders",
+      "prune protection for the 20 object(s) carrying the keep promise",
+    ],
+    rationale:
+      "Two constructs need companions and both have one. The 25 definitions need ordering, and the 20 object(s) carrying the keep promise need prune protection, or a reconciler that deletes anything absent from its desired state takes them with the release.",
+    variantScope: [],
+  },
+  {
+    repo: "policy-reporter",
+    chart: "policy-reporter",
+    version: "3.9.1",
+    recipe: "recipes/policy-reporter/policy-reporter/3.9.1",
+    auditedBase: "default",
+    overrides: {
+      "generated-secrets": {
+        finding: "present",
+        detail:
+          "the rendered Secret holds config.yaml, the reporter's own target configuration, whose host fields are empty in the audited base",
+        disposition: "nothing to externalise: the Secret carries configuration the bundle is meant to deliver",
+      },
+    },
+    lane: "safe-to-flatten",
+    routes: [],
+    rationale:
+      "The audited base renders no definitions and no lifecycle construct. Its one Secret is the reporter's own configuration file, and the target hosts it names are empty until someone fills them.",
+    variantScope: [
+      {
+        values: "a target configured with a host and credentials",
+        effect:
+          "writes that material into the rendered Secret; that base needs an external secret reference",
+      },
+    ],
+  },
 ];
 
 function witnessPath(entry) {

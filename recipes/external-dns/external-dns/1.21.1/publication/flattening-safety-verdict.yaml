@@ -1,0 +1,86 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "external-dns-external-dns-1.21.1"
+spec:
+  chart:
+    repository: "external-dns"
+    name: "external-dns"
+    version: "1.21.1"
+    packageSHA256: "5dd033a4b872bf641860695705ee460031d0bc695f114bf8926fee6736814e19"
+  witnessRef: "data/flattening-safety/witnesses/external-dns-external-dns-1.21.1.yaml"
+  auditedBase: "default"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "ordering declaration ships with the bundle"
+      evidence:
+        - "1 crds-directory file(s), 1 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    []
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "The definitions are the only construct needing a companion: per-file Units can otherwise apply a custom resource before the definition that gives it meaning."
+    routes:
+      - "CRD ordering declaration for the 1 definition(s) this base renders"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/external-dns-external-dns-1.21.1.yaml"
+      - "recipes/external-dns/external-dns/1.21.1/source-lock.yaml"

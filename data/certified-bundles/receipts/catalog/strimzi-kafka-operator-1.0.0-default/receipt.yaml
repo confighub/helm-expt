@@ -1,0 +1,138 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-strimzi-strimzi-kafka-operator-1.0.0-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://strimzi.io/charts/"
+        name: "strimzi-kafka-operator"
+        version: "1.0.0"
+        packageSHA256: "afb2e7c9fd95eefef689097fc57740975f588f5285d1af1c00ef26cceff5f7c3"
+    evidence:
+      - "recipes/strimzi/strimzi-kafka-operator/1.0.0/source-lock.yaml"
+      - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default/upstream.yaml"
+        sha256: "f3cfe3329c6673870bb6ecd1d31cab9d74ee96695d6b2b6fbfb0f4a1a7b9f23b"
+        bytes: 842561
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
+        sha256: "7efb389fca327fec0775ed76d44a91c31bd40d449779129e21f1873512cef8d3"
+        bytes: 2311
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/strimzi-kafka-operator-1.0.0-default/space-guide.md"
+        sha256: "b9812b687a9a7a2c74c3644e52b83867f1bfc5412d9b28f232247896bfe4fbe0"
+        bytes: 1344
+        role: "space-guide"
+    objectCount: 27
+    objectInventoryRef: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 4
+      pinnedByDigest: 0
+      pinnedByTag: 4
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "quay.io/strimzi/operator:1.0.0"
+          pinnedBy: "tag"
+        -
+          reference: "type: object"
+          pinnedBy: "tag"
+        -
+          reference: "type: string"
+          pinnedBy: "tag"
+        -
+          reference: "{}"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default:latest"
+    manifestDigest: "sha256:294eee3efbb82b23a4efa4d489f531ec28d573e2dae8e89a35d26fe9873b0435"
+    layerDigest: "sha256:bb9677f7c8583714e27beb598d659bdd4afd162c48c007cf7276e331e4ac4ac9"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "10 CustomResourceDefinition(s) in the committed default render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/strimzi-strimzi-kafka-operator-1.0.0-default/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/strimzi/strimzi-kafka-operator/1.0.0/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 10 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/strimzi/strimzi-kafka-operator/1.0.0/source-lock.yaml"
+      - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/strimzi/strimzi-kafka-operator/1.0.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-strimzi-strimzi-kafka-operator-1-0-0-default/publication-receipt.yaml"

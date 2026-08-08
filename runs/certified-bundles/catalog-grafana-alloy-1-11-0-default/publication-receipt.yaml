@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-grafana-alloy-1.11.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/alloy-1.11.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:6e32777563ddad235768b363c34bed61d97c30954e2eebe8f79b063821f5a440"
+  layerDigest: "sha256:7a4293e1b691fdc5b4df8c02d50964912c58e777662d34838f8b46e50fd04869"
+  layerBytes: 4796
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-grafana-alloy-1-11-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-grafana-alloy-1-11-0-default.tar.gz"

@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-policy-reporter-policy-reporter-3.9.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/policy-reporter-3.9.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-9-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:82392e105c0de69c02d9e663b994784cf46787cb5ecef639d838eb7afc11be90"
+  layerDigest: "sha256:5d169884a0ea44d67086ca8e787dae6ee6006fc1404f3e15cbace4143c485c37"
+  layerBytes: 3834
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-policy-reporter-policy-reporter-3-9-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-policy-reporter-policy-reporter-3-9-1-default.tar.gz"

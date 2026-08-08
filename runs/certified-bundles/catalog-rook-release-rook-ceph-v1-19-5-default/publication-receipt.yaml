@@ -1,0 +1,18 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-rook-release-rook-ceph-v1.19.5-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/rook-ceph-v1.19.5-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:fa22559a14eba5e9cb038cc3e5a999a86ad01dd7b85b5d574266618b6a2d87e8"
+  layerDigest: "sha256:ca3c6406e9497b10de5145397eb6a1dabba8e6dbe14d35ad2c486d91b6cf027b"
+  layerBytes: 317221
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "routes/prune-protection.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-rook-release-rook-ceph-v1-19-5-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-rook-release-rook-ceph-v1-19-5-default.tar.gz"

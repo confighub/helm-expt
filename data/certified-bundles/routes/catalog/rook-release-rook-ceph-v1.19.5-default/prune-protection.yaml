@@ -1,0 +1,95 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "rook-release-rook-ceph-v1.19.5-default-prune-protection"
+spec:
+  quirkClass: "resource-policy-keep"
+  routeKind: "prune-protection"
+  discharges: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it."
+  declaration:
+    protect:
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephblockpoolradosnamespaces.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephblockpools.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephbucketnotifications.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephbuckettopics.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephclients.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephclusters.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephcosidrivers.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephfilesystemmirrors.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephfilesystems.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephfilesystemsubvolumegroups.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephnfses.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephnvmeofgateways.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephobjectrealms.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephobjectstores.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephobjectstoreusers.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephobjectzonegroups.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephobjectzones.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "cephrbdmirrors.ceph.rook.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "objectbucketclaims.objectbucket.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "objectbuckets.objectbucket.io"
+    onRemovalFromDesiredState: "leave in place and report, never delete"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "Prune=false on each protected resource, or excluding them from automated pruning"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "kustomize.toolkit.fluxcd.io/prune: disabled on each protected resource"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "exclude the protected identities from the delete set it computes"
+        proven: false
+    automatic: false
+  boundedness:
+    - "the route protects the objects it names; an object the bundle stops shipping is no longer covered by it"
+    - "protection is expressed by each runtime as a refusal to delete, so a runtime that ignores the route deletes silently"
+    - "no runtime is proven to execute this route yet, so today it is a declaration a human enforces"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+    verdictRef: "recipes/rook-release/rook-ceph/v1.19.5/publication/flattening-safety-verdict.yaml"

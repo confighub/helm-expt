@@ -1,0 +1,135 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-argo-cd-argo-events-2.4.21-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://argoproj.github.io/argo-helm"
+        name: "argo-events"
+        version: "2.4.21"
+        packageSHA256: "b325ca4569aa43b6bef3bb0065bb997727124017b307491a731e47cf527b69c7"
+    evidence:
+      - "recipes/argo-cd/argo-events/2.4.21/source-lock.yaml"
+      - "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+      - "recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/argo-cd/argo-events/2.4.21/bases/default/upstream.yaml"
+        sha256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+        bytes: 12065
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml"
+        sha256: "430e2bbe10c7e505a37951caef870e4f20ceeda92d6ccb1672f7bf046ef7d8ca"
+        bytes: 1926
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml"
+        sha256: "d4aecc26bad3a4bedf852e0e54863f07d0372fddc0385d19826cea5d57e25a34"
+        bytes: 1975
+        role: "route: resource-policy-keep"
+      -
+        path: "data/certified-bundles/guides/catalog/argo-events-2.4.21-default/space-guide.md"
+        sha256: "c05db985f29ac2f77513f5ec3c90f7a5bb245a4177f06373d3748caf37d561a1"
+        bytes: 1415
+        role: "space-guide"
+    objectCount: 9
+    objectInventoryRef: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/object-inventory.yaml"
+    images:
+      scannedFrom: "image: keys in the rendered object set, which covers containers and initContainers"
+      count: 1
+      pinnedByDigest: 0
+      pinnedByTag: 1
+      boundary: "this receipt certifies the rendered bytes, not the images they name: a tag can be repushed under the same string"
+      references:
+        -
+          reference: "quay.io/argoproj/argo-events:v1.9.10"
+          pinnedBy: "tag"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-argo-cd-argo-events-2-4-21-default:latest"
+    manifestDigest: "sha256:4f6ae53e43f15b6b0450e2f98522076871b86af272e29395baefcd145b3ab9fc"
+    layerDigest: "sha256:37a0205f675b60ef44e5fd438b6b68dbbc10f08d4087145caffead3d0722dda6"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "3 object(s) carry helm.sh/resource-policy in the committed default render"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/prune-protection.yaml"
+      companionRequired: "prune-protection"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "3 CustomResourceDefinition(s) in the committed default render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/argo-cd-argo-events-2.4.21-default/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/argo-cd/argo-events/2.4.21/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 3 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race, and for the 3 object(s) carrying the keep promise, which a pruning reconciler would delete. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/argo-cd/argo-events/2.4.21/source-lock.yaml"
+      - "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+      - "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/argo-cd/argo-events/2.4.21/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-argo-cd-argo-events-2-4-21-default/publication-receipt.yaml"
