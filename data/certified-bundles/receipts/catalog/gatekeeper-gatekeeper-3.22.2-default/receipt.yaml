@@ -38,11 +38,16 @@ spec:
         role: "route: helm-hooks"
       -
         path: "data/certified-bundles/guides/catalog/gatekeeper-gatekeeper-3.22.2-default/space-guide.md"
-        sha256: "5c953f9075dcf8cd1f480659b0feb0cae4101a39136019637458eaa1d13bea9d"
-        bytes: 1274
+        sha256: "2aba7b175caa06a5b35a620cf904d87b2d2cd32e3a9fb54d90163944bed8d8d0"
+        bytes: 1374
         role: "space-guide"
     objectCount: 30
     objectInventoryRef: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-default:latest"
+    manifestDigest: "sha256:41a6d20130adf3c65d1ddb6250fe46449d1fe23087be2f7c24b97b1946c14de4"
+    layerDigest: "sha256:7c9565fb6fa4a674a099f6ac2c72f32ef6b593a725fd1b1511eaf40f5334544b"
+    reproducible: true
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -118,3 +123,4 @@ spec:
       - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/variant-revision.yaml"
       - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/gatekeeper/gatekeeper/3.22.2/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-gatekeeper-gatekeeper-default/publication-receipt.yaml"

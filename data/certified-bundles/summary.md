@@ -6,7 +6,7 @@ One receipt shape covers a bundle from every producer. These four reference rece
 | --- | --- | --- | --- | --- | --- |
 | config-workshop-catalog | traefik-traefik-41.0.2-default | traefik 41.0.2 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest` | flatten-with-routes | certified |
 | config-workshop-catalog | jetstack-cert-manager-crds-enabled | cert-manager v1.21.0 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-crds-enabled:latest` | flatten-with-routes | certified |
-| config-workshop-catalog | gatekeeper-gatekeeper-default | gatekeeper 3.22.2 | not published | flatten-with-routes | certified |
+| config-workshop-catalog | gatekeeper-gatekeeper-default | gatekeeper 3.22.2 | `europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-gatekeeper-gatekeeper-default:latest` | flatten-with-routes | certified |
 | kubara | current-platform-metrics-server | metrics-server 3.13.1 | not published | safe-to-flatten | certified |
 | eks-inference | platform-profile | literal-yaml | `ghcr.io/confighub/configs/eks-inference/platform-profile:latest` | born-flattened | certified |
 | eks-inference | ack-controllers | helm-chart | `ghcr.io/confighub/configs/eks-inference/ack-controllers:latest` | flatten-with-routes | certified |
