@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { check, listFiles, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { catalogDerivedPath } from "./lib/catalog-derived-views.mjs";
 
 const outputRoot = join(repoRoot, "data", "legacy-patch-review");
 const reviewCsvPath = join(outputRoot, "review.csv");
@@ -41,7 +42,7 @@ function recipeRoots() {
 function reviewRecipe(root) {
   const sourceLock = readYaml(join(root, "source-lock.yaml"));
   const helmPlan = readYaml(join(root, "helm-plan.yaml"));
-  const status = readYaml(join(root, "catalog-status.yaml"));
+  const status = readYaml(catalogDerivedPath(root, "catalog-status.yaml"));
   const chart = status.spec?.chart ?? helmPlan.spec?.readiness?.chart ?? `${sourceLock.spec?.repositoryName}/${sourceLock.spec?.chart}`;
   const version = String(status.spec?.version ?? helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? "");
   const catalogStatus = status.spec?.status ?? "unknown";
