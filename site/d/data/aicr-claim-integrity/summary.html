@@ -453,6 +453,11 @@
 <tr><td><code>inference-nim-applications</code></td><td>20</td><td><code>files</code></td><td>The Argo CD Applications the AICR-native inference entry renders.</td></tr>
 <tr><td><code>inference-nim-components</code></td><td>17</td><td><code>listLength</code></td><td>The components the retained inference recipe declares an order for.</td></tr>
 <tr><td><code>inference-nim-overlays</code></td><td>8</td><td><code>number</code></td><td>The overlays AICR resolved to produce the inference recipe.</td></tr>
+<tr><td><code>training-v0180-applications</code></td><td>17</td><td><code>files</code></td><td>The Argo CD Applications the v0.18.0 training entry renders.</td></tr>
+<tr><td><code>training-v0180-components</code></td><td>15</td><td><code>listLength</code></td><td>The components the retained v0.18.0 recipe declares an order for.</td></tr>
+<tr><td><code>version-diff-version-only-moves</code></td><td>4</td><td><code>countWhere</code></td><td>Components whose chart version moved between the two retained AICR versions and whose sync-wave did not.</td></tr>
+<tr><td><code>version-diff-version-and-wave-moves</code></td><td>5</td><td><code>countWhere</code></td><td>Components whose chart version and sync-wave both moved between the two retained AICR versions.</td></tr>
+<tr><td><code>version-diff-version-moves</code></td><td>9</td><td><code>sum</code></td><td>Every component whose chart version moved between the two retained versions, however its wave behaved.</td></tr>
 <tr><td><code>kserve-serving-runtimes</code></td><td>10</td><td><code>files</code></td><td>The serving runtimes retained from the KServe subtree.</td></tr>
 <tr><td><code>kserve-model-shapes</code></td><td>16</td><td><code>files</code></td><td>The model-by-GPU shapes retained from the KServe subtree.</td></tr>
 <tr><td><code>kserve-retained-surfaces</code></td><td>26</td><td><code>sum</code></td><td>Every retained KServe surface the ConfigHub import carried, which is the runtimes and the model shapes together.</td></tr>
@@ -485,8 +490,13 @@
 <tr><td><code>claim-page-cites-the-inference-components</code></td><td><code>claim-integrity.md</code></td><td>&quot;seventeen components&quot;</td><td><code>inference-nim-components</code> = 17</td></tr>
 <tr><td><code>claim-page-cites-the-kserve-shapes</code></td><td><code>claim-integrity.md</code></td><td>&quot;sixteen model shapes&quot;, &quot;sixteen model-by-GPU shapes&quot;</td><td><code>kserve-model-shapes</code> = 16</td></tr>
 <tr><td><code>claim-page-cites-the-kserve-runtimes</code></td><td><code>claim-integrity.md</code></td><td>&quot;ten serving runtimes&quot;</td><td><code>kserve-serving-runtimes</code> = 10</td></tr>
-<tr><td><code>claim-page-cites-the-synced-applications</code></td><td><code>claim-integrity.md</code></td><td>&quot;two Applications&quot;</td><td><code>starter-synced-applications</code> = 2</td></tr></tbody></table>
-<p>24 claims across 7 pages are covered. A sentence that adds a new count fails the lane until it is declared here, which is the difference between a register and a list somebody once wrote.</p>
+<tr><td><code>claim-page-cites-the-synced-applications</code></td><td><code>claim-integrity.md</code></td><td>&quot;two Applications&quot;</td><td><code>starter-synced-applications</code> = 2</td></tr>
+<tr><td><code>v0180-page-renders-seventeen</code></td><td><code>eks-h100-training-kubeflow-v0-18-0.md</code></td><td>&quot;seventeen Argo CD Applications&quot;</td><td><code>training-v0180-applications</code> = 17</td></tr>
+<tr><td><code>v0180-page-declares-fifteen-components</code></td><td><code>eks-h100-training-kubeflow-v0-18-0.md</code></td><td>&quot;fifteen components&quot;</td><td><code>training-v0180-components</code> = 15</td></tr>
+<tr><td><code>v0180-page-cites-the-version-moves</code></td><td><code>eks-h100-training-kubeflow-v0-18-0.md</code></td><td>&quot;Nine components&quot;</td><td><code>version-diff-version-moves</code> = 9</td></tr>
+<tr><td><code>index-cites-the-v0180-components</code></td><td><code>index.md</code></td><td>&quot;fifteen components&quot;</td><td><code>training-v0180-components</code> = 15</td></tr>
+<tr><td><code>index-cites-the-version-moves</code></td><td><code>index.md</code></td><td>&quot;nine of them&quot;</td><td><code>version-diff-version-moves</code> = 9</td></tr></tbody></table>
+<p>29 claims across 8 pages are covered. A sentence that adds a new count fails the lane until it is declared here, which is the difference between a register and a list somebody once wrote.</p>
 <h2 id="what-this-does-not-check">What this does not check</h2>
 <p>It checks numbers, not meaning. A page can count correctly and still describe the wrong thing, and this lane will pass it. The claims that resist counting, such as which rung an entry has climbed or what a proof did not prove, are held by the receipts and by the platform evidence record rather than here.</p>
 <p>Everything runs offline against committed bytes. No cluster, no organization, and no network takes part.</p>

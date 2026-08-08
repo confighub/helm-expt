@@ -14,6 +14,7 @@ it.
 | Entry | Provenance | Platform digest | Ladder rungs with receipts |
 | --- | --- | --- | --- |
 | `eks-h100-training-kubeflow` | retained-upstream | `sha256:3f9ec2a69619…` | 2 |
+| `eks-h100-training-kubeflow-v0-18-0` | retained-upstream | `sha256:b9e5af994a0e…` | 0 |
 | `eks-h100-inference-nim` | retained-upstream | `sha256:cc4ea0fb2347…` | 1 |
 | `kserve-nim-inference` | retained-third-party | `sha256:7a219c5b0fde…` | 2 |
 | `cpu-starter` | derived | `sha256:d4c19c203ba3…` | 3 |

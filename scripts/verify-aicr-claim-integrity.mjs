@@ -104,8 +104,14 @@ function loadRegister(path = registerPath) {
       );
     }
   }
-  // A quantity nothing cites is a computation with no claim behind it.
+  // A quantity nothing cites is a computation with no claim behind it. A
+  // quantity another quantity builds on counts as cited, because an
+  // intermediate step is reached through whatever cites the result.
   const cited = new Set(spec.claims.map((claim) => claim.quantity));
+  for (const quantity of spec.quantities) {
+    if (quantity.compute.kind === "minus") cited.add(quantity.compute.from);
+    if (quantity.compute.kind === "sum") for (const id of quantity.compute.of) cited.add(id);
+  }
   const orphans = [...byId.keys()].filter((id) => !cited.has(id));
   check(orphans.length === 0, `${relativeRepo(path)}: ${orphans.join(", ")} computed but no claim cites them`);
   return { path, spec, quantitiesById: byId };
@@ -402,6 +408,12 @@ function selfTest() {
       })), /unused computed but no claim cites them/),
       "self-test accepted a quantity no claim cites",
     );
+    // An intermediate quantity is reached through the one that builds on it.
+    loadRegister(writeRegister("intermediate", (value) => {
+      value.spec.quantities.push({ id: "half", description: "fixture", compute: { kind: "files", dir: "entry", suffix: ".yaml" } });
+      value.spec.quantities.push({ id: "doubled", description: "fixture", compute: { kind: "sum", of: ["half", "entry-applications"] } });
+      value.spec.claims.push({ id: "beta-claim", quantity: "doubled", page: "alpha.md", phrases: ["six Applications"] });
+    }));
     check(
       fails(() => loadRegister(writeRegister("unknown-quantity", (value) => {
         value.spec.claims[0].quantity = "missing";

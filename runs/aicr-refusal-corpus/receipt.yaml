@@ -12,9 +12,9 @@ spec:
     note: "Every candidate is a change to committed configuration bytes, evaluated offline in a throwaway git worktree. No cluster, no registry, and no network takes part, and no credential in this file is real."
   corpus:
     path: "examples/aicr/refusal-corpus/candidates.yaml"
-    sha256: "2179d1431b67942d5d0a05eb93f77c018136998c51a587fcb88de0419036e526"
+    sha256: "ab988c0599704152832bdc5dad1db58e9f7b5e3dfb00ab5ac1f3e62a413d04e2"
   tree:
-    commit: "9745d2a2c95a7883f7dcab8857136a9a48594902"
+    commit: "09f328d301ede2dfb5e26df71133e44f41955f6c"
     note: "Each candidate ran in a throwaway worktree of this commit, so the run describes committed bytes rather than an author's working tree."
   lanes:
     -
@@ -61,7 +61,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -91,7 +91,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -121,7 +121,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -151,7 +151,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -185,7 +185,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -215,7 +215,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -245,7 +245,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -254,7 +254,7 @@ spec:
       candidate: "sync-wave-reordered"
       verdict: "refused"
       decisiveLane: "ordering-parity"
-      decisiveMessage: "examples/aicr/eks-h100-training-kubeflow: rendered sync-waves order components differently from the recipe (rendered: aws-ebs-csi-driver, aws-efa, nfd, nodewright-operator, nodewright-customizations, prometheus-operator-crds, kube-prometheus-stack, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kubeflow-trainer, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, cert-manager)"
+      decisiveMessage: "examples/aicr/eks-h100-training-kubeflow: gpu-operator is in wave 8 and depends on cert-manager in wave 97, so the rendered waves would run it too early"
       lanes:
         -
           lane: "digest-index"
@@ -275,7 +275,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "refused"
-          message: "examples/aicr/eks-h100-training-kubeflow: rendered sync-waves order components differently from the recipe (rendered: aws-ebs-csi-driver, aws-efa, nfd, nodewright-operator, nodewright-customizations, prometheus-operator-crds, kube-prometheus-stack, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kubeflow-trainer, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, cert-manager)"
+          message: "examples/aicr/eks-h100-training-kubeflow: gpu-operator is in wave 8 and depends on cert-manager in wave 97, so the rendered waves would run it too early"
         -
           lane: "signature-subject"
           verdict: "accepted"
@@ -305,7 +305,7 @@ spec:
         -
           lane: "ordering-parity"
           verdict: "accepted"
-          message: "verified that 32 component orderings across 2 entries match the order AICR declared"
+          message: "verified that 47 component orderings across 3 entries match the order AICR declared"
         -
           lane: "signature-subject"
           verdict: "refused"

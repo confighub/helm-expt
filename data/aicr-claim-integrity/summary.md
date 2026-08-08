@@ -20,6 +20,11 @@ cover.
 | `inference-nim-applications` | 20 | `files` | The Argo CD Applications the AICR-native inference entry renders. |
 | `inference-nim-components` | 17 | `listLength` | The components the retained inference recipe declares an order for. |
 | `inference-nim-overlays` | 8 | `number` | The overlays AICR resolved to produce the inference recipe. |
+| `training-v0180-applications` | 17 | `files` | The Argo CD Applications the v0.18.0 training entry renders. |
+| `training-v0180-components` | 15 | `listLength` | The components the retained v0.18.0 recipe declares an order for. |
+| `version-diff-version-only-moves` | 4 | `countWhere` | Components whose chart version moved between the two retained AICR versions and whose sync-wave did not. |
+| `version-diff-version-and-wave-moves` | 5 | `countWhere` | Components whose chart version and sync-wave both moved between the two retained AICR versions. |
+| `version-diff-version-moves` | 9 | `sum` | Every component whose chart version moved between the two retained versions, however its wave behaved. |
 | `kserve-serving-runtimes` | 10 | `files` | The serving runtimes retained from the KServe subtree. |
 | `kserve-model-shapes` | 16 | `files` | The model-by-GPU shapes retained from the KServe subtree. |
 | `kserve-retained-surfaces` | 26 | `sum` | Every retained KServe surface the ConfigHub import carried, which is the runtimes and the model shapes together. |
@@ -57,8 +62,13 @@ cover.
 | `claim-page-cites-the-kserve-shapes` | `claim-integrity.md` | "sixteen model shapes", "sixteen model-by-GPU shapes" | `kserve-model-shapes` = 16 |
 | `claim-page-cites-the-kserve-runtimes` | `claim-integrity.md` | "ten serving runtimes" | `kserve-serving-runtimes` = 10 |
 | `claim-page-cites-the-synced-applications` | `claim-integrity.md` | "two Applications" | `starter-synced-applications` = 2 |
+| `v0180-page-renders-seventeen` | `eks-h100-training-kubeflow-v0-18-0.md` | "seventeen Argo CD Applications" | `training-v0180-applications` = 17 |
+| `v0180-page-declares-fifteen-components` | `eks-h100-training-kubeflow-v0-18-0.md` | "fifteen components" | `training-v0180-components` = 15 |
+| `v0180-page-cites-the-version-moves` | `eks-h100-training-kubeflow-v0-18-0.md` | "Nine components" | `version-diff-version-moves` = 9 |
+| `index-cites-the-v0180-components` | `index.md` | "fifteen components" | `training-v0180-components` = 15 |
+| `index-cites-the-version-moves` | `index.md` | "nine of them" | `version-diff-version-moves` = 9 |
 
-24 claims across 7 pages are covered. A
+29 claims across 8 pages are covered. A
 sentence that adds a new count fails the lane until it is declared here, which
 is the difference between a register and a list somebody once wrote.
 

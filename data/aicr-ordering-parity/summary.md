@@ -4,16 +4,29 @@
 `npm run aicr-ordering:generate` and checked by
 `npm run aicr-ordering:verify`.
 
-Every AICR recipe carries an explicit `deploymentOrder` computed from the
-component dependency graph. This lane checks that the sync-waves in each
-entry's rendered Argo CD Applications order those components exactly as the
-recipe declares, so the ordering the bundles carry is upstream's rather than
-an artifact of rendering.
+Every AICR recipe carries the dependency edges its deployment order was
+computed from. This lane checks that the sync-waves in each entry's rendered
+Argo CD Applications respect every one of those edges, so the ordering the
+bundles carry is upstream's rather than an artifact of rendering. It checks
+`deploymentOrder` against the same edges, because a declared order that
+disagrees with the graph it came from is worth catching too.
 
-| Entry | Components ordered upstream | Applications rendered | Companions | Platform root |
-| --- | --- | --- | --- | --- |
-| `eks-h100-training-kubeflow` | 15 | 17 | `kubeflow-trainer-post` | `aicr-stack` |
-| `eks-h100-inference-nim` | 17 | 20 | `agentgateway-crds-post`, `agentgateway-post` | `aicr-stack` |
+| Entry | Order model | Distinct waves | Edges checked | Components ordered upstream | Applications rendered | Companions | Platform root |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `eks-h100-training-kubeflow` | total order | 16 | 17 | 15 | 17 | `kubeflow-trainer-post` | `aicr-stack` |
+| `eks-h100-training-kubeflow-v0-18-0` | parallel groups | 5 | 17 | 15 | 17 | `kubeflow-trainer-post` | `aicr-stack` |
+| `eks-h100-inference-nim` | total order | 19 | 18 | 17 | 20 | `agentgateway-crds-post`, `agentgateway-post` | `aicr-stack` |
+
+The order model column is the interesting one. AICR v0.14.0 gave every
+component its own wave, which is a total order, and an entry in that model is
+still held to the stronger claim that the rendered order equals the declared
+one exactly. AICR v0.18.0 deploys independent components in parallel and puts
+several in one wave, so the rendered output no longer carries a total order
+and cannot be held to that claim. Both are checked against the dependency
+edges, which is what the ordering was always meant to express.
+
+This is why the check moved. A rule that only knew about total orders would
+have refused the v0.18.0 entry for doing exactly what upstream now intends.
 
 Companions are Applications that render without appearing in
 `deploymentOrder`. They are the post-install partners of a component and the

@@ -57,6 +57,38 @@ spec:
       description: The overlays AICR resolved to produce the inference recipe.
       compute: { kind: number, file: examples/aicr/eks-h100-inference-nim/generation-receipt.yaml, path: spec.result.overlaysResolved }
 
+    - id: training-v0180-applications
+      description: The Argo CD Applications the v0.18.0 training entry renders.
+      compute: { kind: files, dir: examples/aicr/eks-h100-training-kubeflow-v0-18-0/argocd-rendered/templates, suffix: .yaml }
+    - id: training-v0180-components
+      description: The components the retained v0.18.0 recipe declares an order for.
+      compute: { kind: listLength, file: examples/aicr/eks-h100-training-kubeflow-v0-18-0/recipe.yaml, path: deploymentOrder }
+    - id: version-diff-version-only-moves
+      description: >-
+        Components whose chart version moved between the two retained AICR
+        versions and whose sync-wave did not.
+      compute:
+        kind: countWhere
+        file: data/aicr-version-diff/diff.json
+        path: components.changed
+        key: change
+        equals: version
+    - id: version-diff-version-and-wave-moves
+      description: >-
+        Components whose chart version and sync-wave both moved between the two
+        retained AICR versions.
+      compute:
+        kind: countWhere
+        file: data/aicr-version-diff/diff.json
+        path: components.changed
+        key: change
+        equals: version and wave
+    - id: version-diff-version-moves
+      description: >-
+        Every component whose chart version moved between the two retained
+        versions, however its wave behaved.
+      compute: { kind: sum, of: [version-diff-version-only-moves, version-diff-version-and-wave-moves] }
+
     - id: kserve-serving-runtimes
       description: The serving runtimes retained from the KServe subtree.
       compute: { kind: files, dir: examples/aicr/kserve-nim-inference/upstream/kserve/runtimes, suffix: .yaml }
@@ -209,3 +241,25 @@ spec:
       quantity: starter-synced-applications
       page: claim-integrity.md
       phrases: ["two Applications"]
+
+    - id: v0180-page-renders-seventeen
+      quantity: training-v0180-applications
+      page: eks-h100-training-kubeflow-v0-18-0.md
+      phrases: ["seventeen Argo CD Applications"]
+    - id: v0180-page-declares-fifteen-components
+      quantity: training-v0180-components
+      page: eks-h100-training-kubeflow-v0-18-0.md
+      phrases: ["fifteen components"]
+    - id: v0180-page-cites-the-version-moves
+      quantity: version-diff-version-moves
+      page: eks-h100-training-kubeflow-v0-18-0.md
+      phrases: ["Nine components"]
+
+    - id: index-cites-the-v0180-components
+      quantity: training-v0180-components
+      page: index.md
+      phrases: ["fifteen components"]
+    - id: index-cites-the-version-moves
+      quantity: version-diff-version-moves
+      page: index.md
+      phrases: ["nine of them"]

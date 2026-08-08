@@ -76,7 +76,7 @@ a corpus where a rule has none, so this table cannot silently go empty.
 - `control-point-token-removed-from-a-governed-document`, refused by `blast-radius`:
   > examples/aicr/control-points/eks-h100-training-kubeflow.yaml: control point prometheus-storage-class declares argoproj.io/v1alpha1|Application|argocd|kube-prometheus-stack, which does not contain its locator
 - `sync-wave-reordered`, refused by `ordering-parity`:
-  > examples/aicr/eks-h100-training-kubeflow: rendered sync-waves order components differently from the recipe (rendered: aws-ebs-csi-driver, aws-efa, nfd, nodewright-operator, nodewright-customizations, prometheus-operator-crds, kube-prometheus-stack, gpu-operator, k8s-ephemeral-storage-metrics, kai-scheduler, kubeflow-trainer, nvidia-dra-driver-gpu, nvsentinel, prometheus-adapter, cert-manager)
+  > examples/aicr/eks-h100-training-kubeflow: gpu-operator is in wave 8 and depends on cert-manager in wave 97, so the rendered waves would run it too early
 - `attested-subject-bytes-edited`, refused by `signature-subject`:
   > examples/aicr/upstream-signatures/v0.18.0/attested-subject/registry.yaml differs from its recorded checksum
 
