@@ -92,6 +92,8 @@ const chartSkillsJsonPath = join(repoRoot, "data", "chart-skills", "skills.json"
 const chartEvidenceRouterPath = join(repoRoot, "data", "chart-evidence-router", "router.csv");
 const masterCatalogMatrixPath = join(repoRoot, "data", "master-catalog-matrix", "matrix.csv");
 const cubAdoptionCaveatsPath = join(repoRoot, "data", "cub-adoption-caveats", "caveats.csv");
+const flatteningEvidencePath = join(repoRoot, "data", "flattening-safety", "evidence.csv");
+const flatteningCoveragePath = join(repoRoot, "data", "flattening-safety", "witness-coverage.csv");
 const TOP100_EVIDENCE_COMPONENT_COUNT = 100;
 const PUBLIC_CATALOG_COMPONENT_COUNT = 108;
 const PUBLIC_CATALOG_VERSION_COUNT = 135;
@@ -491,6 +493,8 @@ function buildSite(generatedAt) {
   const chartEvidenceRouter = existsSync(chartEvidenceRouterPath) ? parseCsv(readFileSync(chartEvidenceRouterPath, "utf8")) : [];
   const masterCatalogMatrix = parseCsv(readFileSync(masterCatalogMatrixPath, "utf8"));
   const cubAdoptionCaveats = existsSync(cubAdoptionCaveatsPath) ? parseCsv(readFileSync(cubAdoptionCaveatsPath, "utf8")) : [];
+  const flatteningEvidence = existsSync(flatteningEvidencePath) ? parseCsv(readFileSync(flatteningEvidencePath, "utf8")) : [];
+  const flatteningCoverage = existsSync(flatteningCoveragePath) ? parseCsv(readFileSync(flatteningCoveragePath, "utf8")) : [];
   const matrixDisposition = matrixLaneDispositionCounts(masterCatalogMatrix);
   check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
@@ -702,6 +706,8 @@ function buildSite(generatedAt) {
     proofGradeEntries: proofGrade,
     latestCandidates,
     baseReadiness,
+    flatteningEvidence,
+    flatteningCoverage,
     extensionSlots,
     chartUseGuide,
     refreshSurvival,
@@ -7343,6 +7349,7 @@ ${escapeHtml(row.setup_command)}</code></pre>
       <p>${requirementSummary}</p>
     </section>
 
+    ${flatteningSectionHtml(catalog, row)}
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>${published
@@ -7378,6 +7385,78 @@ ${escapeHtml(row.setup_command)}</code></pre>
   <footer>Generated from the retained installer package and its committed publication receipt. Publication proof is not runtime proof.</footer>
 </body>
 </html>
+`;
+}
+
+// What the packaged chart contains, and whether anyone has decided it is safe
+// to ship flattened. Evidence and verdict are different claims, so the page
+// says which it has. A chart with evidence and no decided lane reads as
+// undecided rather than as safe.
+function flatteningSectionHtml(catalog, entry) {
+  const repository = String(entry.chart || "").split("/")[0];
+  const name = String(entry.chart || "").split("/").slice(1).join("/");
+  const row = (catalog.flatteningEvidence || []).find(
+    (candidate) =>
+      candidate.repository === repository &&
+      candidate.chart === name &&
+      candidate.version === entry.version,
+  );
+  if (!row) {
+    const coverage = (catalog.flatteningCoverage || []).find(
+      (candidate) =>
+        candidate.repository === repository &&
+        candidate.chart === name &&
+        candidate.version === entry.version,
+    );
+    if (!coverage || ["scanned", "current"].includes(coverage.status)) return "";
+    const why =
+      coverage.status === "hash-mismatch"
+        ? `Upstream now publishes different bytes under this same version string, so this catalog did not scan them. It keeps the bytes it locked, and records both digests and how to fetch the republished package, in the <a href="../../data/upstream-drift/summary.md">upstream drift record</a>.`
+        : `The pinned package could not be fetched when the scan ran, so nothing was inspected. The recorded reason is: ${escapeHtml(String(coverage.detail || "no reason recorded"))}.`;
+    return `
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>This version has no scan of its packaged chart, so this page reports nothing about what shipping it as plain rendered YAML would lose. ${why}</p>
+      <p>Missing evidence is not a safety finding in either direction. Read the <a href="../../data/flattening-safety/evidence.md">catalog-wide evidence</a> for the versions that do carry a scan.</p>
+    </section>
+`;
+  }
+
+  const constructs = [
+    ["Helm hooks", row.hooks, "Hook Jobs never fire, or fire under a different hook dialect."],
+    ["Keep policy", row.keep_policy, "A reconciler prunes what Helm promised to keep."],
+    ["Cluster lookups", row.lookup, "The chart reads the cluster while rendering, so a render without one is valid but wrong."],
+    ["Webhook configuration", row.webhooks, "An empty certificate bundle makes admission fail closed."],
+    ["Capability branching", row.capabilities, "The chart chooses apiVersions from the cluster it renders against."],
+    ["Generated credentials", row.generated_secrets, "Every render mints new values, and a shared artifact would freeze one draw."],
+    ["Custom resource definitions", row.crd_documents, "Per-file delivery can race the definitions the resources depend on."],
+    ["Condition-gated subcharts", row.gated_subcharts, "What renders depends on which conditions the values switch on."],
+    ["Test hooks", row.test_hooks, "Test resources would ship to a cluster that never asked for them."],
+  ].filter(([, count]) => Number(count) > 0);
+
+  const lanes = String(row.decided_lanes || "").trim();
+  const laneLine = lanes
+    ? `<p>A flattening-safety verdict has decided this version: <strong>${escapeHtml(lanes)}</strong>. The verdict records one disposition per construct and names any companion artifact a flattened bundle must ship.</p>`
+    : `<p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>`;
+
+  const body = constructs.length
+    ? markdownLikeTable(
+        [
+          ["Construct", "Found", "Why it matters when a chart ships as plain YAML"],
+          ...constructs.map(([label, count, why]) => [label, String(count), why]),
+        ],
+        { rawSecondColumn: false },
+      )
+    : `<p>The scan found none of the constructs that render-time flattening loses, which is what makes a chart cheap to certify.</p>`;
+
+  return `
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across ${escapeHtml(String(row.scanned_files))} files.</p>
+      ${body}
+      ${laneLine}
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../../data/flattening-safety/evidence.md">catalog-wide evidence</a> for how common each one is.</p>
+    </section>
 `;
 }
 
@@ -7671,6 +7750,7 @@ function chartPageHtml(catalog, entry) {
       <p><a href="../../docs/user/helm-presets-and-values.md#where-each-setting-lives">Read the full values-versus-ConfigHub rule</a>.</p>
     </section>
 
+    ${flatteningSectionHtml(catalog, entry)}
     <section aria-labelledby="render-record-route">
       <h2 id="render-record-route">What The Starting Configuration Records</h2>
       <p>A base variant is a tested starting configuration for this chart. It records the chart version, values, namespace, release name, Kubernetes capabilities, source, generated objects, and test results.</p>

@@ -465,6 +465,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>The installer metadata records no external-requirement references for these configurations. You must still review the rendered objects and target policy.</p>
     </section>
 
+    
+    <section aria-labelledby="flattening">
+      <h2 id="flattening">What This Chart Contains</h2>
+      <p>Shipping a chart as plain rendered YAML is faster and simpler, and it silently drops anything Helm was going to do afterwards. This section reports what a scan of the packaged chart found, across 41 files.</p>
+      <div class="card"><table>
+        <thead><tr><th>Construct</th><th>Found</th><th>Why it matters when a chart ships as plain YAML</th></tr></thead>
+        <tbody><tr><td>Cluster lookups</td><td>1</td><td>The chart reads the cluster while rendering, so a render without one is valid but wrong.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>No flattening-safety verdict has decided this version yet, so this page reports what the chart contains and stops there. Undecided is not the same as safe.</p>
+      <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
+    </section>
+
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:e7d016fe4f673dc4887602f3408e0f7ecae189da78d71d48673fcca781487a0e</code> and manifest <code>sha256:204b16876ea9d7f9a487d3ad884f9b0c5f41e0e9a01d8b8c37c7bb6693575460</code>, and records an inspect-result digest.</p>
