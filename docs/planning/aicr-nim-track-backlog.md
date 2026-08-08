@@ -315,7 +315,16 @@ happened to take in the version it was written against.
 
 What remains in theme 1 is task 3, whether the CPU starter tracks one retained
 version or forks, which is a decision rather than a task, and task 7, the
-cadence for refreshing the committed sigstore trust root. Task 45, watching
-upstream releases and recording drift, is now more valuable than before,
-because two retained versions make the gap measurable rather than notional.
+cadence for refreshing the committed sigstore trust root.
+
+Task 45 is done. The
+[upstream watch](../../data/aicr-upstream-watch/summary.md) takes a committed
+snapshot of the release list and measures every retained version against it,
+offline after the fetch. It reports zero gap today, because the catalog's
+newest retained version is upstream's newest release, which is a fact with a
+date on it rather than a state. It also computes the release cadence, which
+turned up a small lesson: the median across every tag is one day, because the
+project publishes several tags together, so the measurement covers minor
+releases only and says so. A number that looked wrong was worth chasing rather
+than shipping.
 

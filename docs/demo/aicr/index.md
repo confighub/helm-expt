@@ -68,8 +68,11 @@ API keys enter the shape only as target facts.
 The training entry retains NVIDIA AICR v0.14.0 exactly: the release commit, the
 release-asset checksum, and the binary checksum are pinned in its
 [generation receipt](../../../examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml).
-Upstream has since released v0.15.0 through v0.18.0 (2026-07-23, checked
-2026-08-07) on a roughly biweekly cadence.
+How far behind upstream that leaves the catalog is measured rather than
+described. The
+[upstream watch](../../../data/aicr-upstream-watch/summary.md) compares every
+retained version against a committed snapshot of the release list, and it
+computes the release cadence instead of repeating it.
 
 That gap is the point of retention, not a defect. The retained entry stays
 byte-for-byte reproducible and its receipts stay true while upstream moves.
