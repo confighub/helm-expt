@@ -473,6 +473,15 @@ if (fs.existsSync(homePath)) {
     failures.push(`site/index.html: the catalog route card must carry the current component count (${PUBLIC_CATALOG_COMPONENT_COUNT} components); a stale count contradicts the catalog page`);
   }
   if (!home.includes('href="./hard-questions.html"')) failures.push("site/index.html: home navigation must link the FAQ like every other page");
+  if (!home.includes("Retained versions stay pullable")) failures.push("site/index.html: the front page must state that retained versions stay pullable from this catalog's registry");
+}
+
+const faqPath = path.join(root, "site/hard-questions.html");
+if (fs.existsSync(faqPath)) {
+  const faq = fs.readFileSync(faqPath, "utf8");
+  if (!faq.includes("What happens when a chart's upstream source changes its terms?")) {
+    failures.push("site/hard-questions.html: the FAQ must answer the upstream-terms-change question");
+  }
 }
 
 const catalogIndexPath = path.join(root, "site/charts/index.html");
@@ -502,6 +511,10 @@ if (fs.existsSync(catalogIndexPath)) {
   if (publicationReceiptLinks !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} publication-receipt links, found ${publicationReceiptLinks}`);
   if (packagedConfigurationRecords !== PUBLIC_CATALOG_VERSION_COUNT) failures.push(`site/charts/index.html: expected ${PUBLIC_CATALOG_VERSION_COUNT} per-version configuration records, found ${packagedConfigurationRecords}`);
   if (catalogIndex.includes("Search charts")) failures.push("site/charts/index.html: filter still uses chart-first naming");
+  const successorsRecordedMarks = [...catalogIndex.matchAll(/Successors recorded:/g)].length;
+  const successorToMarks = [...catalogIndex.matchAll(/Successor to </g)].length;
+  if (successorsRecordedMarks < 5) failures.push(`site/charts/index.html: expected at least 5 'Successors recorded' rows from data/chart-successions, found ${successorsRecordedMarks}`);
+  if (successorToMarks < 6) failures.push(`site/charts/index.html: expected at least 6 'Successor to' rows from data/chart-successions, found ${successorToMarks}`);
 }
 
 const chartPagesDir = path.join(root, "site/charts");

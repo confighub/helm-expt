@@ -583,6 +583,31 @@ function buildSite(generatedAt) {
       `${row.chart}@${row.version}: every retained catalog version must carry a chart license from its artifact index or data/chart-licenses/chart-licenses.yaml`,
     );
   }
+  // Succession record: the survey-picked replacements for components whose
+  // upstream source availability changed. Every successor named here must be
+  // a retained catalog component; picks that are not yet entries stay in
+  // planned with their tracking issue. The measured upstream exposure comes
+  // from the committed survey, never from an assumption.
+  const successionRecord = readYaml(join(repoRoot, "data", "chart-successions", "chart-successions.yaml"));
+  const chartSuccessions = new Map();
+  const chartSuccessorOf = new Map();
+  for (const succession of successionRecord?.spec?.successions ?? []) {
+    check(retainedComponentNames.has(succession.replaces),
+      `data/chart-successions: ${succession.replaces} is not a retained catalog component`);
+    for (const successor of succession.successors ?? []) {
+      check(retainedComponentNames.has(successor.chart),
+        `data/chart-successions: successor ${successor.chart} is not a retained catalog component`);
+      chartSuccessorOf.set(successor.chart, { replaces: succession.replaces, ...successor });
+    }
+    chartSuccessions.set(succession.replaces, succession);
+  }
+  const exposureSurvey = JSON.parse(readFileSync(join(repoRoot, "data", "bitnami-successors", "survey.json"), "utf8"));
+  const upstreamExposureMeasuredAt = String(exposureSurvey?.measuredAt ?? "");
+  check(/^\d{4}-\d{2}-\d{2}$/.test(upstreamExposureMeasuredAt), "data/bitnami-successors/survey.json must record measuredAt");
+  const upstreamExposureByChart = new Map();
+  for (const exposure of exposureSurvey?.exposure ?? []) {
+    upstreamExposureByChart.set(`bitnami/${exposure.component}`, exposure);
+  }
   const retainedOnlyComponentEntries = [...retainedComponentNames]
     .filter((chart) => !evidenceComponentNameSet.has(chart))
     .sort()
@@ -735,6 +760,10 @@ function buildSite(generatedAt) {
     licensesByChartVersion,
     chartLicenseByChart,
     chartLicensesResearchedAt,
+    chartSuccessions,
+    chartSuccessorOf,
+    upstreamExposureByChart,
+    upstreamExposureMeasuredAt,
     catalogComponents,
     proofGradeEntries: proofGrade,
     latestCandidates,
@@ -1799,7 +1828,7 @@ Wrote rendered OCI ./redis-rendered.oci:latest
           <div class="routes">
             <a class="route-card" href="./try.html"><h3>Try Redis <span class="tag">catalog package</span></h3><p>Pull one reviewed configuration. Read its 14 objects. Build a local OCI and verify it by pulling it back.</p><span class="go">Start the short example &rarr;</span></a>
             <a class="route-card mid" href="./testing.html#bring-your-own"><h3>Check your Helm values <span class="tag">your chart</span></h3><p>Preview values written by your team or AI. Review the objects, then correct the settings you do not want.</p><span class="go">Open the worked flow &rarr;</span></a>
-            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">${PUBLIC_CATALOG_COMPONENT_COUNT} components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence.</p><span class="go">Choose a configuration &rarr;</span></a>
+            <a class="route-card" href="./charts/index.html"><h3>Browse the Catalog <span class="tag">${PUBLIC_CATALOG_COMPONENT_COUNT} components</span></h3><p>Choose a component and exact retained version, then read its packaged configurations, prerequisites, hooks, CRDs, and current evidence. Retained versions stay pullable from this catalog's registry even when an upstream source changes its terms.</p><span class="go">Choose a configuration &rarr;</span></a>
           </div>
           <p class="intro">The <a href="./testing.html">Examples page</a> also starts from AICR recipes for AI infrastructure, existing OCI, or Kubernetes YAML. Local and CI paths work without signing in. A hosted no-sign-in service is planned.</p>
         </section>
@@ -3801,6 +3830,8 @@ function docsHtml() {
       <p>Apps on ConfigHub includes upgrade, lifecycle, RBAC, fleet, and AI review examples.</p>
       <h3><a href="./existing-apps.html">How do I start from an existing application?</a></h3>
       <p>Start read-only from GitOps, YAML, Helm, or a live cluster.</p>
+      <h3><a href="./d/docs/user/image-registry-migration.html">What if an upstream registry or its terms change?</a></h3>
+      <p>Repoint image references across environments with the digest intact, promote the change environment by environment, and prove where it landed.</p>
     </section>
 
     <section aria-labelledby="check">
@@ -4390,6 +4421,13 @@ function hardQuestionsHtml(catalog) {
           answer:
             "Public catalog browsing, local render checks, and catalog package setup are free or low-friction. Private catalogs, teams, approvals, application variants, promotions, fleet operations, and production responsibility are ConfigHub-managed.",
           links: [["Apps", "./journey.html"], ["Upgrade", "./private/"]],
+        },
+        {
+          status: "answered",
+          question: "What happens when a chart's upstream source changes its terms?",
+          answer:
+            "Retained versions stay pullable from this catalog's own registry, with their receipts unchanged. Packages are republished here at exact digests. When an upstream's terms or availability change, the catalog records the measured fact instead of removing the entry. Where a reviewed successor exists, the component's page and catalog row link it.",
+          links: [["Registry migration guide", "./d/docs/user/image-registry-migration.html"], ["Component Catalog", "./charts/index.html"]],
         },
 	        {
 	          status: "answered",
@@ -6505,8 +6543,19 @@ function chartIndexHtml(catalog) {
         matrixRows.some((row) => Number(row.hook_count || 0) > 0 || String(row.lifecycle_route_contract || "n/a") !== "n/a");
       const hasCrds = /crd/i.test(entry.source_features || "") || /crd/i.test(variants) || matrixRows.some((row) => /crd/i.test(row.quirk_features || ""));
       const evidenceSurface = entry.proof_surface === "retained-publication-only" ? "publication-only" : "readiness-evidence";
+      const succession = catalog.chartSuccessions?.get(entry.chart);
+      const successorRole = catalog.chartSuccessorOf?.get(entry.chart);
+      let successionNote = "";
+      if (succession?.successors?.length) {
+        const links = succession.successors.map((successor) => `<a href="${componentPageHref(catalog, successor.chart)}">${escapeHtml(successor.chart)}</a>`).join(" · ");
+        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successors recorded: ${links}</span>`;
+      } else if (succession?.planned?.length) {
+        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor picked, not yet a catalog entry</span>`;
+      } else if (successorRole) {
+        successionNote = `<br><span style="color:var(--muted);font-size:.85rem">Successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a></span>`;
+      }
       return `<tr data-chart-row data-evidence-surface="${evidenceSurface}" data-level="${escapeHtml(level)}" data-status="${escapeHtml(status)}" data-hooks="${hasHooks ? "yes" : "no"}" data-crds="${hasCrds ? "yes" : "no"}" data-search="${escapeHtml(featureText)}">
-        <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a></td>
+        <td><a href="./${chartPageFileName(entry)}">${escapeHtml(entry.chart)}</a>${successionNote}</td>
         <td>${retainedCatalogVersionCell(catalog, entry)}</td>
         <td>${firstPathCell(entry, firstRow)}</td>
         <td>${catalogUseCell(entry, firstRow)}</td>
@@ -7333,6 +7382,42 @@ function chartLicenseLineHtml(catalog, chart, version) {
   return `<p>Licenses: chart <strong>${escapeHtml(record.spdx)}</strong> (<a href="https://github.com/confighub/helm-expt/blob/main/data/chart-licenses/chart-licenses.yaml">${escapeHtml(record.evidence.label)}, read ${escapeHtml(catalog.chartLicensesResearchedAt)}</a>).${conflictNote} This describes the chart templates, not the packaged application images.</p>`;
 }
 
+// Canonical catalog page for a component, for cross-linking successions.
+function componentPageHref(catalog, chart) {
+  const component = catalog.catalogComponents?.find((entry) => entry.chart === chart);
+  return component ? `./${chartPageFileName(component)}` : "./index.html";
+}
+
+// Succession callout for a chart page header. Both directions render: a
+// component with recorded successors names them, and a successor names what
+// it can replace. Successions are recommendations to evaluate, not automatic
+// replacements. The upstream-exposure sentence states only the measured
+// fact and its date.
+function successionCalloutHtml(catalog, chart) {
+  const succession = catalog.chartSuccessions?.get(chart);
+  const successorRole = catalog.chartSuccessorOf?.get(chart);
+  const exposure = catalog.upstreamExposureByChart?.get(chart);
+  const sentences = [];
+  if (exposure && Number(exposure.httpStatus) >= 400) {
+    sentences.push(`The pinned upstream source download for this component returned HTTP ${escapeHtml(String(exposure.httpStatus))} when measured on ${escapeHtml(catalog.upstreamExposureMeasuredAt)}. The retained packages and publications recorded here stay pullable from this catalog's registry.`);
+  }
+  if (succession?.successors?.length) {
+    const links = succession.successors
+      .map((successor) => `<a href="${componentPageHref(catalog, successor.chart)}">${escapeHtml(successor.chart)}</a> (${escapeHtml(successor.shape)}; ${escapeHtml(successor.note)})`)
+      .join(" · ");
+    sentences.push(`Recorded successors: ${links}. These are recommendations to evaluate, not automatic replacements.`);
+  }
+  if (succession && !succession.successors?.length && succession.planned?.length) {
+    sentences.push(`The successor survey picked ${succession.planned.map((plan) => `${escapeHtml(plan.name)} (${escapeHtml(plan.note)})`).join("; ")}.`);
+  }
+  if (successorRole) {
+    sentences.push(`This component is recorded as a successor to <a href="${componentPageHref(catalog, successorRole.replaces)}">${escapeHtml(successorRole.replaces)}</a>. ${escapeHtml(successorRole.note)}`);
+  }
+  if (!sentences.length) return "";
+  sentences.push(`Read the <a href="../d/data/bitnami-successors/successors.html">successor survey</a> and the <a href="../d/docs/user/image-registry-migration.html">registry migration guide</a>.`);
+  return `<div class="card" data-succession-note><p>${sentences.join(" ")}</p></div>`;
+}
+
 function retainedVersionPageHtml(catalog, row) {
   const identity = `${row.chart}@${row.version}`;
   const configurations = String(row.bases ?? "").split(";").filter(Boolean);
@@ -7404,6 +7489,7 @@ function retainedVersionPageHtml(catalog, row) {
       : "This version is retained and packaged, and its public reference is reserved, but it has not been published yet, so there is no publication receipt to show. This page claims nothing about publication, Argo CD sync, Kubernetes health, or production readiness."}</p>
     <p class="tagline">${published ? "Publication proof: recorded" : "Publication proof: not yet earned"} · runtime proof: not inherited.</p>
     ${licenseLine}
+    ${successionCalloutHtml(catalog, row.chart)}
     <p><a href="./index.html">Back to the Component Catalog</a> · component versions: ${versionLinks}</p>
   </header>
   <main>
@@ -7789,6 +7875,7 @@ function chartPageHtml(catalog, entry) {
     <p class="mono" style="font-size:.9rem">Upstream: <a href="https://artifacthub.io/packages/search?ts_query_web=${encodeURIComponent(entry.chart.split("/").at(-1))}&amp;kind=0" rel="noopener">find this chart on Artifact Hub</a> · <a href="https://helm.sh/docs/" rel="noopener">Helm documentation</a>. This page adds checked configurations and test results.</p>
     <p class="tagline">Catalog readiness: ${escapeHtml(catalogReadinessLabel(entry))}.</p>
     ${chartLicenseLineHtml(catalog, entry.chart, entry.version)}
+    ${successionCalloutHtml(catalog, entry.chart)}
     <pre>${escapeHtml(firstRunnableCommandText)}</pre>
   </header>
   <main>
