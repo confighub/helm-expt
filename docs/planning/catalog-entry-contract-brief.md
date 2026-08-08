@@ -152,9 +152,23 @@ Measured against 139 recipe roots.
 | Catalog views: status, artifact index, page | **139 of 139** | none |
 | Installer package and publication receipt | 139 of 139 | none |
 | Helm pain report | 130 of 139 | 9 entries |
-| Render intent, which carries lifecycle and target-facts states | 110 of 139 | **29 entries holding 46 variants** |
-| Lifecycle declared with a real decision | 15 of 199 intents | 184 generated defaults |
-| Target facts declared attached | 67 of 199 intents | 132 actionable gaps |
+| Render intent, which carries lifecycle and target-facts states | **139 of 139** | closed by this branch |
+| Lifecycle declared with a real decision | 15 of 245 intents | 230 generated defaults |
+| Target facts declared attached | 67 of 245 intents | 178 actionable gaps |
+
+The render-intent row was the largest gap in this brief's first draft, at 110 of
+139 roots and 29 entries holding 46 variants. It is closed. The cause was a
+cycle rather than neglect: the master matrix required a render intent for every
+base row and aborted without one, and the intents are generated from the matrix,
+so an entry added later could enter neither. Letting a missing intent record an
+actionable gap instead of aborting the view made the entries visible, and the
+generator then produced the missing 46.
+
+Closing it moved the two declaration rows the other way, which is the honest
+direction. The denominator grew from 199 to 245, so the generated lifecycle
+defaults rose from 184 to 230 and the target-facts gaps from 132 to 178. Nothing
+got worse. The catalog stopped hiding 46 bases that had never declared
+anything.
 
 The catalog views row corrects issue #1375, which reported 20 of 135 missing.
 They are complete. The generators resolve them through `catalogDerivedPath()`
@@ -203,22 +217,18 @@ published lane surfaces were rationalised, and its CSV remains.
 
 What has not happened is expansion. Measured against 112 distinct charts:
 
-| matrix | charts covered |
-|---|---|
-| `lane-test-matrix/variant-lanes.csv` | **112 of 112** |
-| `master-catalog-matrix/matrix.csv` | 100 of 112 |
-| `matrix-completion-audit/audit.csv` | 100 of 112 |
-| `live-matrix-burndown/work-items.csv` | 47 of 112 |
+| matrix | before | now |
+|---|---|---|
+| `master-catalog-matrix/matrix.csv` | 100 of 112 charts | **112 of 112** |
+| `matrix-completion-audit/audit.csv` | 100 of 112 | **112 of 112** |
+| `lane-test-matrix/variant-lanes.csv` | 112 of 112 | 112 of 112 |
+| `live-matrix-burndown/work-items.csv` | 47 of 112 | 47 of 112, a work queue rather than a census |
 
-Twelve charts are absent from the master matrix: the three
-aws-controllers-k8s charts, three cloudpirates charts, karpenter,
-nvidia-device-plugin, valkey, metallb, oauth2-proxy, and policy-reporter. The
-lane-test matrix proves full coverage is achievable, so the gap is not
-structural.
-
-The cause is shared with the render-intent gap. The master matrix derives from
-render intents rather than enumerating entries, so a root with no intent is
-invisible to it. Fixing the enumeration fixes both.
+Twelve charts were absent from the master matrix: the three aws-controllers-k8s
+charts, three cloudpirates charts, karpenter, nvidia-device-plugin, valkey,
+metallb, oauth2-proxy, and policy-reporter. They are present now, and building
+the matrix enumerates recipe roots directly and fails naming any entry with no
+base row, so the next entry cannot be quietly absent.
 
 **Rule.** A matrix covers every entry, or names the entries it excludes and
 why. A matrix that silently spans a subset reports a percentage against the

@@ -496,9 +496,11 @@
 <table><thead><tr><th>Obligation</th><th>Satisfied</th><th>Gap</th></tr></thead><tbody><tr><td>Catalog views: status, artifact index, page</td><td><b>139 of 139</b></td><td>none</td></tr>
 <tr><td>Installer package and publication receipt</td><td>139 of 139</td><td>none</td></tr>
 <tr><td>Helm pain report</td><td>130 of 139</td><td>9 entries</td></tr>
-<tr><td>Render intent, which carries lifecycle and target-facts states</td><td>110 of 139</td><td><b>29 entries holding 46 variants</b></td></tr>
-<tr><td>Lifecycle declared with a real decision</td><td>15 of 199 intents</td><td>184 generated defaults</td></tr>
-<tr><td>Target facts declared attached</td><td>67 of 199 intents</td><td>132 actionable gaps</td></tr></tbody></table>
+<tr><td>Render intent, which carries lifecycle and target-facts states</td><td><b>139 of 139</b></td><td>closed by this branch</td></tr>
+<tr><td>Lifecycle declared with a real decision</td><td>15 of 245 intents</td><td>230 generated defaults</td></tr>
+<tr><td>Target facts declared attached</td><td>67 of 245 intents</td><td>178 actionable gaps</td></tr></tbody></table>
+<p>The render-intent row was the largest gap in this brief's first draft, at 110 of 139 roots and 29 entries holding 46 variants. It is closed. The cause was a cycle rather than neglect: the master matrix required a render intent for every base row and aborted without one, and the intents are generated from the matrix, so an entry added later could enter neither. Letting a missing intent record an actionable gap instead of aborting the view made the entries visible, and the generator then produced the missing 46.</p>
+<p>Closing it moved the two declaration rows the other way, which is the honest direction. The denominator grew from 199 to 245, so the generated lifecycle defaults rose from 184 to 230 and the target-facts gaps from 132 to 178. Nothing got worse. The catalog stopped hiding 46 bases that had never declared anything.</p>
 <p>The catalog views row corrects issue #1375, which reported 20 of 135 missing. They are complete. The generators resolve them through <code>catalogDerivedPath()</code> in <code>scripts/lib/catalog-derived-views.mjs</code>, which redirects immutable roots to an overlay; counting raw in-root paths produced the wrong answer.</p>
 <p>The largest genuine gap is the 29 orphan roots. They hold 46 variants that no render intent covers, so no lifecycle or target-facts state exists for them at all. They are not in the fourth state, they are outside the system that has states.</p>
 <h2 id="what-it-would-break-and-what-to-do-about-it">What it would break, and what to do about it</h2>
@@ -511,12 +513,11 @@
 <p>The catalog's oldest surfaces are matrices, and they still carry the most detail: <code>data/master-catalog-matrix/matrix.csv</code> holds <b>81 columns over 389 rows</b>, and <code>data/matrix-completion-audit/audit.csv</code> holds 657 rows.</p>
 <p>Nothing has been lost. The only matrix file ever deleted is <code>data/lane-test-matrix/summary.md</code>, removed deliberately in #514 when the published lane surfaces were rationalised, and its CSV remains.</p>
 <p>What has not happened is expansion. Measured against 112 distinct charts:</p>
-<table><thead><tr><th>matrix</th><th>charts covered</th></tr></thead><tbody><tr><td><code>lane-test-matrix/variant-lanes.csv</code></td><td><b>112 of 112</b></td></tr>
-<tr><td><code>master-catalog-matrix/matrix.csv</code></td><td>100 of 112</td></tr>
-<tr><td><code>matrix-completion-audit/audit.csv</code></td><td>100 of 112</td></tr>
-<tr><td><code>live-matrix-burndown/work-items.csv</code></td><td>47 of 112</td></tr></tbody></table>
-<p>Twelve charts are absent from the master matrix: the three aws-controllers-k8s charts, three cloudpirates charts, karpenter, nvidia-device-plugin, valkey, metallb, oauth2-proxy, and policy-reporter. The lane-test matrix proves full coverage is achievable, so the gap is not structural.</p>
-<p>The cause is shared with the render-intent gap. The master matrix derives from render intents rather than enumerating entries, so a root with no intent is invisible to it. Fixing the enumeration fixes both.</p>
+<table><thead><tr><th>matrix</th><th>before</th><th>now</th></tr></thead><tbody><tr><td><code>master-catalog-matrix/matrix.csv</code></td><td>100 of 112 charts</td><td><b>112 of 112</b></td></tr>
+<tr><td><code>matrix-completion-audit/audit.csv</code></td><td>100 of 112</td><td><b>112 of 112</b></td></tr>
+<tr><td><code>lane-test-matrix/variant-lanes.csv</code></td><td>112 of 112</td><td>112 of 112</td></tr>
+<tr><td><code>live-matrix-burndown/work-items.csv</code></td><td>47 of 112</td><td>47 of 112, a work queue rather than a census</td></tr></tbody></table>
+<p>Twelve charts were absent from the master matrix: the three aws-controllers-k8s charts, three cloudpirates charts, karpenter, nvidia-device-plugin, valkey, metallb, oauth2-proxy, and policy-reporter. They are present now, and building the matrix enumerates recipe roots directly and fails naming any entry with no base row, so the next entry cannot be quietly absent.</p>
 <p><b>Rule.</b> A matrix covers every entry, or names the entries it excludes and why. A matrix that silently spans a subset reports a percentage against the wrong denominator, which is how outcome coverage came to report 126 of 199 while the truth was 126 of 245.</p>
 <h3 id="duplication-one-render-one-copy">Duplication: one render, one copy</h3>
 <p>Nine variants declare <code>realizationStrategy: alias-of-default-render</code>. All nine render byte-identically to their default, duplicating <b>67 KB</b> of rendered objects across kube-state-metrics, prometheus-adapter, blackbox-exporter, argo-workflows, istio gateway, filebeat and others.</p>
