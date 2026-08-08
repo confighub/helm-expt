@@ -1,0 +1,44 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15-default-prune-protection"
+spec:
+  quirkClass: "resource-policy-keep"
+  routeKind: "prune-protection"
+  discharges: "Helm was asked to keep these objects when the release goes away. A reconciler that prunes anything absent from its desired state will delete them instead, and for a custom resource definition that takes every resource of that kind with it."
+  declaration:
+    protect:
+      -
+        kind: "CustomResourceDefinition"
+        name: "applications.argoproj.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "applicationsets.argoproj.io"
+      -
+        kind: "CustomResourceDefinition"
+        name: "appprojects.argoproj.io"
+    onRemovalFromDesiredState: "leave in place and report, never delete"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "Prune=false on each protected resource, or excluding them from automated pruning"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "kustomize.toolkit.fluxcd.io/prune: disabled on each protected resource"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "exclude the protected identities from the delete set it computes"
+        proven: false
+    automatic: false
+  boundedness:
+    - "the route protects the objects it names; an object the bundle stops shipping is no longer covered by it"
+    - "protection is expressed by each runtime as a refusal to delete, so a runtime that ignores the route deletes silently"
+    - "no runtime is proven to execute this route yet, so today it is a declaration a human enforces"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/argo-cd/argo-cd/9.5.15/revisions/default/r001/rendered/release-objects.yaml"
+    verdictRef: "recipes/argo-cd/argo-cd/9.5.15/publication/flattening-safety-verdict.yaml"

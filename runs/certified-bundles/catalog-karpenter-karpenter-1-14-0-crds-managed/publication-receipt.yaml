@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-karpenter-karpenter-1.14.0-crds-managed"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/karpenter-1.14.0-crds-managed/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-crds-managed:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+  layerDigest: "sha256:73bd886528430a023d0ed93b453ffc61d97e50e87f4b70cb0900ac74ef43306f"
+  layerBytes: 3142
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-crds-managed:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-karpenter-karpenter-1-14-0-crds-managed.tar.gz"

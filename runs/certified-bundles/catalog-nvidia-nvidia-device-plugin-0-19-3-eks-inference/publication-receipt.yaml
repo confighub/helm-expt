@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-nvidia-nvidia-device-plugin-0.19.3-eks-inference"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/nvidia-device-plugin-0.19.3-eks-inference/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:45b69a9327f12b9dd789084a459d9631076d39090220664662d8380717d8f036"
+  layerDigest: "sha256:35cc1f5a6f16abeb448f18698e940e7c22432e288e925f04021423d46cddf509"
+  layerBytes: 2379
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-nvidia-nvidia-device-plugin-0-19-3-eks-inference.tar.gz"

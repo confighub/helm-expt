@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-nvidia-nvidia-device-plugin-0.19.3-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/nvidia-device-plugin-0.19.3-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:7c21ec3d5d1925e04e93b90114e41810112a1d2ece3ff6048150aee184394745"
+  layerDigest: "sha256:6245260e6e0403317349ece01ef80a6e9f96dbfae9acb0f31dc85c50c7e66987"
+  layerBytes: 2412
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-nvidia-nvidia-device-plugin-0-19-3-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-nvidia-nvidia-device-plugin-0-19-3-default.tar.gz"

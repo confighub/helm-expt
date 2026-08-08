@@ -153,15 +153,16 @@ flattenable without a verdict.
     receipt now ships exactly one guide, written from the receipt so it cannot
     drift from what the bundle contains, and strict ingest refuses a bundle
     without one. **Workshop-wide**.
-28. **Publish flattened bundles for the lanes that permit them.** Decided. The
-    catalog becomes a two-product thing: the installer package stays the
-    render-late route, and a flattened bundle becomes the render-early one
-    wherever a verdict permits it. Receipt-per-published-bundle becomes the
-    rule. Note the coupling this creates, because it sets the order of work: a
-    bundle may only be published for a base whose lane is decided and permits
-    flattening, so publication is gated on theme 1. Sixteen audited bases
-    qualify today. L. **Workshop-wide**, because it decides what the catalog
-    sells.
+28. **Publish flattened bundles for the lanes that permit them.** Done for every
+    base that qualifies today. The catalog is now a two-product thing: the
+    installer package is the render-late route and a flattened bundle is the
+    render-early one, and 27 catalog bundles are published with a receipt each.
+    Publication stays gated on theme 1, so this list grows as lanes are decided
+    rather than by choosing to publish more. One qualifying base is deliberately
+    absent: nvidia's nfd-enabled render carries eight hook objects and no
+    observation exists to route them, so the companion-debt check refuses it,
+    which is the gate working rather than a gap. **Workshop-wide**, because it
+    decides what the catalog sells.
 29. **Emit a receipt per published bundle rather than per reference bundle.**
     The framing this task carried was wrong and is corrected here, because it
     read as 120 unreceipted entries. Every catalog entry already carries an

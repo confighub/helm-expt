@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-aws-controllers-k8s-eks-chart-1.16.3-eks-inference"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/eks-chart-1.16.3-eks-inference/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:1de5d80d723288464fe49cc31e37466b68c89d15720fddc45c2dee54c2064785"
+  layerDigest: "sha256:cb4ae28fb5c70df8d290812535e6430737bc3374b4b1d37f8683728c22e2e723"
+  layerBytes: 20422
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-aws-controllers-k8s-eks-chart-1-16-3-eks-inference.tar.gz"

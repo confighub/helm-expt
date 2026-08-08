@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-external-secrets-external-secrets-2.8.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/external-secrets-2.8.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-8-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:07c59422c14c9d8eb9a7aff9bd41b747ed306a38b65ef872bb8f00ab3b6dfa81"
+  layerDigest: "sha256:c6183f9753b192f89b51631536b203c0906da6417f62ff9fdd3ccf2156647f21"
+  layerBytes: 168702
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-external-secrets-external-secrets-2-8-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-external-secrets-external-secrets-2-8-0-default.tar.gz"

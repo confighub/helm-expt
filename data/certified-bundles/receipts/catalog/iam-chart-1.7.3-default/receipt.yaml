@@ -1,0 +1,119 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-aws-controllers-k8s-iam-chart-1.7.3-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "oci://public.ecr.aws/aws-controllers-k8s"
+        name: "iam-chart"
+        version: "1.7.3"
+        packageSHA256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
+    evidence:
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/variant-revision.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/default/upstream.yaml"
+        sha256: "350845a2ef277c599db5d4729da7c557505b39a6f6aec4be1e9d06dbb622243b"
+        bytes: 102554
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"
+        sha256: "2fde02de8675df38c776d650887dc006ae8f7a6824956215b4ad97a22166e6f8"
+        bytes: 2290
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/iam-chart-1.7.3-default/space-guide.md"
+        sha256: "7b0cfcd6017be8e933e35674a269dd1b40f95f6efd9204847ca97b8276dcd392"
+        bytes: 1334
+        role: "space-guide"
+    objectCount: 19
+    objectInventoryRef: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default:latest"
+    manifestDigest: "sha256:830958bdf8820a48d704ff4653dd65a87e52853b70c183188d3a917be7223c82"
+    layerDigest: "sha256:fd53f6beb33b14be4223e1bf8edb197ce1e73807566b56b816760ba80f5e0a4b"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "9 CustomResourceDefinition(s) in the committed default render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-default/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict-default.yaml"
+    notes: "This base needs a companion for the 9 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/variant-revision.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-default/publication-receipt.yaml"

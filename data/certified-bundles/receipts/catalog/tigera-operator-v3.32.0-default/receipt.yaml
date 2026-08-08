@@ -1,7 +1,7 @@
 apiVersion: "evidence.confighub.com/v1alpha1"
 kind: "CertifiedBundleReceipt"
 metadata:
-  name: "catalog-projectcalico-tigera-operator-default"
+  name: "catalog-projectcalico-tigera-operator-v3.32.0-default"
 spec:
   producer:
     name: "config-workshop-catalog"
@@ -27,21 +27,21 @@ spec:
         bytes: 19893
         role: "rendered object set"
       -
-        path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-default/lifecycle.yaml"
-        sha256: "e2234c800b0f66dfa2ba4e153c8d99c7d20be3fd4ba9dcd2994f74575fe399b0"
-        bytes: 5823
+        path: "data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml"
+        sha256: "fad229fbdc29f97895a864c800c8b7ba51f2513b1d5be9cb8b5b937d9bbaa01e"
+        bytes: 5831
         role: "route: helm-hooks"
       -
         path: "data/certified-bundles/guides/catalog/tigera-operator-v3.32.0-default/space-guide.md"
-        sha256: "4ace647a6c5dce3c97eab761d22a41c188b59046b55c0881eb4461404db136a8"
-        bytes: 1307
+        sha256: "8b5ff22ac5395dff9a66bae1041f466500796e74ec83cabd49a87f9b4ceacdda"
+        bytes: 1339
         role: "space-guide"
     objectCount: 10
     objectInventoryRef: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/object-inventory.yaml"
     artifactType: "application/vnd.confighub.config.bundle.v1"
-    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-default:latest"
-    manifestDigest: "sha256:7ee5905f342788d4866493780d436c008ca62e384f2c49cc507833c792ff4b7b"
-    layerDigest: "sha256:b02d5a8847a9b299c250cc2183e3f2ee61791c9f78c190de40666bbb33a75922"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-projectcalico-tigera-operator-v3-32-0-default:latest"
+    manifestDigest: "sha256:d27c24bc3943393174ba271df312d7177fa35b5275c24f302e49180f4e36d7fc"
+    layerDigest: "sha256:a05a696fd32bdeb44c90c52a4f209aa4b62cf58f4c57c9d4e37526eb52c38da9"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -52,7 +52,7 @@ spec:
       class: "helm-hooks"
       finding: "present"
       detail: "1 hook object(s) in the packaged chart, none of which survive into the committed default render"
-      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/projectcalico-tigera-operator-default/lifecycle.yaml, whose stages were observed on a live cluster"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/projectcalico-tigera-operator-v3.32.0-default/lifecycle.yaml, whose stages were observed on a live cluster"
       companionRequired: "lifecycle-job"
       evidence: "runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml"
     -
@@ -117,4 +117,4 @@ spec:
       - "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
       - "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml"
       - "packages/projectcalico/tigera-operator/v3.32.0/bases/default/upstream.yaml"
-      - "runs/certified-bundles/catalog-projectcalico-tigera-operator-default/publication-receipt.yaml"
+      - "runs/certified-bundles/catalog-projectcalico-tigera-operator-v3-32-0-default/publication-receipt.yaml"

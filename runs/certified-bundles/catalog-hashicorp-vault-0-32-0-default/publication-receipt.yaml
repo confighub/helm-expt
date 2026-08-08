@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-hashicorp-vault-0.32.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/vault-0.32.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:738077f6d7f213cfd8dd8128d81f9a34054d4a6f3d5aa346e3f06d12c0b16cae"
+  layerDigest: "sha256:928fe1f114e50d3e402aa29dbc43a5e80a27aeb629592c5abb4e5c23433d6c63"
+  layerBytes: 3993
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-hashicorp-vault-0-32-0-default.tar.gz"

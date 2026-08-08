@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-fluent-fluent-bit-0.57.6-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/fluent-bit-0.57.6-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluent-bit-0-57-6-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:added102e3f2373eb579d7e90d344b3e901046c2e4f45798dc36413e06510d4a"
+  layerDigest: "sha256:a8af7c036c38f9248a0a6e9bb335b7f38bb3b2dbf78ff421e685aa8b58d8b9d3"
+  layerBytes: 1986
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-fluent-fluent-bit-0-57-6-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-fluent-fluent-bit-0-57-6-default.tar.gz"

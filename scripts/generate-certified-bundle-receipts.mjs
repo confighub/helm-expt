@@ -566,7 +566,11 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
   }
   protectedObjects.sort((a, b) => (`${a.kind}/${a.name}` < `${b.kind}/${b.name}` ? -1 : 1));
 
-  const slug = `${chartName.replace("/", "-")}-${base}`;
+  // The version belongs in the slug. Without it two versions of the same chart
+  // and base write their routes to the same directory, and the second one wins
+  // silently. external-secrets ships 2.5.0 and 2.8.0 in exactly that shape.
+  const chartVersion = recipe.split("/").pop();
+  const slug = `${chartName.replace("/", "-")}-${chartVersion}-${base}`;
   const routeFiles = [];
   if (crdNames.length > 0) {
     const routeRel = `data/certified-bundles/routes/catalog/${slug}/crd-ordering.yaml`;
@@ -670,7 +674,7 @@ function buildCatalogBundleReceipt({ recipe, packageRoot, base, chartName, verdi
         lane,
         status: "certified",
         decidedBy: `the flattening-safety audit at ${verdictRel}`,
-        notes,
+        notes: notes ?? catalogBundleNote({ crds: scan.crds, keep: scan.keepDocs, lane }),
       },
       provenance: {
         emittedBy: "scripts/generate-certified-bundle-receipts.mjs",
@@ -1000,6 +1004,60 @@ function buildObservedLifecycleRoute({ name, observationRel, hookDocCount, verdi
       },
     },
   };
+}
+
+// Every decided base whose lane permits flattening and that has both a rendered
+// release and a package base. The list is the catalog's render-early product,
+// and it is deliberately not "every entry": publication is gated on a decided
+// lane, so this grows as theme 1 does. A base whose render carries hook objects
+// is absent until an observation exists to route them, which is why nvidia's
+// nfd-enabled base is not here.
+const CATALOG_BUNDLES = [
+  { repo: "argo-cd", chart: "argo-cd", version: "9.5.15", base: "default" },
+  { repo: "aws-controllers-k8s", chart: "ec2-chart", version: "1.18.4", base: "default" },
+  { repo: "aws-controllers-k8s", chart: "ec2-chart", version: "1.18.4", base: "eks-inference" },
+  { repo: "aws-controllers-k8s", chart: "eks-chart", version: "1.16.3", base: "default" },
+  { repo: "aws-controllers-k8s", chart: "eks-chart", version: "1.16.3", base: "eks-inference" },
+  { repo: "aws-controllers-k8s", chart: "iam-chart", version: "1.7.3", base: "default" },
+  { repo: "aws-controllers-k8s", chart: "iam-chart", version: "1.7.3", base: "eks-inference" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.5.0", base: "default" },
+  { repo: "external-secrets", chart: "external-secrets", version: "2.8.0", base: "default" },
+  { repo: "fluent", chart: "fluent-bit", version: "0.57.6", base: "default" },
+  { repo: "hashicorp", chart: "vault", version: "0.32.0", base: "default" },
+  { repo: "jetstack", chart: "cert-manager", version: "v1.20.2", base: "default" },
+  { repo: "jetstack", chart: "cert-manager", version: "v1.21.0", base: "default" },
+  { repo: "karpenter", chart: "karpenter", version: "1.14.0", base: "crds-managed" },
+  { repo: "karpenter", chart: "karpenter", version: "1.14.0", base: "default" },
+  { repo: "karpenter", chart: "karpenter", version: "1.14.0", base: "eks-inference" },
+  { repo: "metrics-server", chart: "metrics-server", version: "3.13.0", base: "default" },
+  { repo: "metrics-server", chart: "metrics-server", version: "3.13.1", base: "default" },
+  { repo: "nvidia", chart: "nvidia-device-plugin", version: "0.19.3", base: "default" },
+  { repo: "nvidia", chart: "nvidia-device-plugin", version: "0.19.3", base: "eks-inference" },
+  { repo: "prometheus-community", chart: "prometheus-blackbox-exporter", version: "11.15.1", base: "default" },
+  { repo: "prometheus-community", chart: "prometheus", version: "29.8.0", base: "default" },
+  { repo: "secrets-store-csi-driver", chart: "secrets-store-csi-driver", version: "1.6.0", base: "default" },
+];
+
+// A note a reader can check rather than a sentence that fills the field. It
+// states what the base actually renders and which companions therefore travel.
+function catalogBundleNote({ crds, keep, lane }) {
+  if (lane === "safe-to-flatten")
+    return "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it.";
+  const parts = [];
+  if (crds > 0)
+    parts.push(`the ${crds} CustomResourceDefinition(s) it renders, which per-file Units can otherwise race`);
+  if (keep > 0)
+    parts.push(`the ${keep} object(s) carrying the keep promise, which a pruning reconciler would delete`);
+  return `This base needs a companion for ${parts.join(", and for ")}. Each ships inside the bundle beside the rendered configuration.`;
+}
+
+// Which verdict file decided a base. Charts with more than one audited base name
+// them explicitly, and the rest carry the unsuffixed file.
+function verdictFileFor(recipe, base) {
+  const suffixed = `${recipe}/publication/flattening-safety-verdict-${base}.yaml`;
+  return existsSync(repoPath(suffixed))
+    ? `flattening-safety-verdict-${base}.yaml`
+    : "flattening-safety-verdict.yaml";
 }
 
 function buildSpaceGuide({ name, producer, sourceLine, contentsKind, files, verdict, routeFiles, uploadCommand }) {
@@ -1890,6 +1948,19 @@ function buildAll() {
           "The teardown is the whole hook story here. A flattened bundle drops the pre-delete Job silently, and the release only misses it when it goes away, which is the worst time to find out. The recorded run rendered that Job and ran it, so the route's stages include the execution itself rather than a rehearsal of it.",
       }),
     },
+    ...CATALOG_BUNDLES.map((entry) => {
+      const recipe = `recipes/${entry.repo}/${entry.chart}/${entry.version}`;
+      return {
+        rel: `data/certified-bundles/receipts/catalog/${entry.chart}-${entry.version}-${entry.base}/receipt.yaml`,
+        value: buildCatalogBundleReceipt({
+          recipe,
+          packageRoot: `packages/${entry.repo}/${entry.chart}/${entry.version}`,
+          base: entry.base,
+          chartName: `${entry.repo}/${entry.chart}`,
+          verdictFile: verdictFileFor(recipe, entry.base),
+        }),
+      };
+    }),
     { rel: "data/certified-bundles/receipts/kubara/current-platform-metrics-server/receipt.yaml", value: buildKubaraReceipt() },
     ...EKS_INFERENCE_COMPONENTS.map((component) => ({
       rel: `data/certified-bundles/receipts/eks-inference/${component.name}/receipt.yaml`,

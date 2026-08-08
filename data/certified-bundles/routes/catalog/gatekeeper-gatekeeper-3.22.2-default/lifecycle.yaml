@@ -1,0 +1,122 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2-default-lifecycle"
+spec:
+  quirkClass: "helm-hooks"
+  routeKind: "lifecycle-job"
+  discharges: "The chart defines 17 hook object(s) that do not travel in a flattened bundle, so the work they do has to happen some other way. A recorded run installed this base without them and watched that work happen as the ordered actions below."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "cub-installer-setup"
+        observedDetail: "rendered Gatekeeper cub installer package output"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/cub-installer-setup.txt"
+        evidenceSHA256: "90e8315c99eb022f87bfef1e7f60fd329530ece522deea682a54e4e41415fe4a"
+      -
+        order: 2
+        name: "kubectl-apply-separated-secrets"
+        observedDetail: "applied separated Gatekeeper Secret prerequisite"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/kubectl-apply-secrets.txt"
+        evidenceSHA256: "6c593fa091df62f761902632983d1209ecbe4f4b912efc1cac3c8f28b8723490"
+      -
+        order: 3
+        name: "kubectl-apply-manifests"
+        observedDetail: "applied Gatekeeper cub installer manifests"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/kubectl-apply-manifests.txt"
+        evidenceSHA256: "e0437392ca07562b1676cc014e7c8562c21f0a9ac793b8d66c1f9bbc40b23361"
+      -
+        order: 4
+        name: "crds-established"
+        observedDetail: "all rendered Gatekeeper CRDs reached Established"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/crds-established.txt"
+        evidenceSHA256: "c8a644f9d0c2344ea2d726b41196f685a2e2f2ec6d4de1b6db05a1852b40efd8"
+      -
+        order: 5
+        name: "controller-manager-ready"
+        observedDetail: "Gatekeeper controller manager rolled out"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/deployment-gatekeeper-controller-manager-rollout.txt"
+        evidenceSHA256: "fa740948d5596bbaef34fa5342f3d42baca871ec720076ccfee72fa21df481a3"
+      -
+        order: 6
+        name: "audit-ready"
+        observedDetail: "Gatekeeper audit deployment rolled out"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/deployment-gatekeeper-audit-rollout.txt"
+        evidenceSHA256: "c27887d5708820a76a7c5a177071c1f8479267717cc3fae6e812086d2a2411ca"
+      -
+        order: 7
+        name: "webhook-service-endpoints"
+        observedDetail: "Gatekeeper webhook Service has ready endpoints"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/service-gatekeeper-webhook-endpoints.yaml"
+        evidenceSHA256: "b29db1de99b2fd984a54bb07be232eeec259ee4a71bf251772f086a3f0e0f981"
+      -
+        order: 8
+        name: "webhook-secret-populated"
+        observedDetail: "Gatekeeper controller populated webhook TLS Secret keys"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/secret-gatekeeper-webhook-server-cert.json"
+        evidenceSHA256: "16ca2e68b1fc479839d7fb25578212821d0e365a69f59cde5053aa484971a33f"
+      -
+        order: 9
+        name: "webhook-configurations-routed"
+        observedDetail: "Gatekeeper webhook configurations point at the rendered Service and contain CA bundles"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/webhook-configurations.json"
+        evidenceSHA256: "09658ac09727ec045f74f68273521eb29c3bb4f05a0a522fddf0232a8c604096"
+      -
+        order: 10
+        name: "admission-server-dry-run"
+        observedDetail: "server-side dry-run exercised the live admission path"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/admission-server-dry-run.yaml"
+        evidenceSHA256: "33cb6887b20d304645036bfb00b8c55e5e19d0114aa0cfc54cef7825191ad084"
+      -
+        order: 11
+        name: "pre-upgrade-crd-route-apply"
+        observedDetail: "re-applied rendered Gatekeeper CRDs as the explicit pre-upgrade route"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/pre-upgrade-crd-route-apply.txt"
+        evidenceSHA256: "b65a35f9e05eca97e146787b80b690ecc44c13320c618ad2c2641538dc431fbb"
+      -
+        order: 12
+        name: "pre-upgrade-crds-established"
+        observedDetail: "Gatekeeper CRDs remained Established after the explicit pre-upgrade route"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/pre-upgrade-crds-established.txt"
+        evidenceSHA256: "c8a644f9d0c2344ea2d726b41196f685a2e2f2ec6d4de1b6db05a1852b40efd8"
+      -
+        order: 13
+        name: "pre-upgrade-webhook-configurations-routed"
+        observedDetail: "Gatekeeper webhook configurations stayed routed after the explicit pre-upgrade route"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/pre-upgrade-webhook-configurations.json"
+        evidenceSHA256: "09658ac09727ec045f74f68273521eb29c3bb4f05a0a522fddf0232a8c604096"
+      -
+        order: 14
+        name: "pre-upgrade-admission-server-dry-run"
+        observedDetail: "server-side dry-run exercised admission after the explicit pre-upgrade route"
+        evidence: "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/pre-upgrade-admission-server-dry-run.yaml"
+        evidenceSHA256: "95f99cf3346c390cc3708bf49785f7d9a0f27073e06a2421e9009259d1a25a74"
+    actionsRecordedWithoutArtifacts:
+      - "kind-create"
+    onStageFailure: "stop and report; never continue past a stage that did not pass"
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "PreSync hooks for the stages that precede the workload, with the rest as sync waves"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "a Kustomization dependsOn chain, one entry per stage"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply each stage in order and wait on the recorded condition before the next"
+        proven: false
+    automatic: false
+  boundedness:
+    - "the stages were observed once, on 2026-06-11T03:45:44Z, against gatekeeper/gatekeeper 3.22.2 base default"
+    - "the observation proves these stages ran and passed, not that they are the only ordering that works"
+    - "no runtime is proven to execute this route yet, so today it is a declaration a human follows"
+    - "The fresh-install route observes the separated Secret prerequisite, CRD establishment, controller readiness, webhook service readiness, controller-populated TLS material, and server-side admission dry-run. The pre-upgrade route rehearsal re-applies the pinned rendered CRDs, then rechecks CRD Established, webhook routing, and admission dry-run. It does not claim cross-version Gatekeeper upgrade support."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml"
+    verdictRef: "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml"

@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-jetstack-cert-manager-v1.21.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/cert-manager-v1.21.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:0180a8712ed49ad6bf6180f878f47e4f386b6ac7ecd8ae51c6c0de6a60a8186a"
+  layerDigest: "sha256:ed6197ebb4bfeff1f8132384a0c6ed0a8b19d074a2db20ec239a32f6458002f8"
+  layerBytes: 4597
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-jetstack-cert-manager-v1-21-0-default.tar.gz"
