@@ -3,7 +3,7 @@ kind: "OciBundleWitness"
 metadata:
   name: "eks-inference-gpu-runtime"
 spec:
-  observedAt: "2026-08-07T07:25:25Z"
+  observedAt: "2026-08-07T17:30:00Z"
   pullCommand: "oras pull ghcr.io/confighub/configs/eks-inference/gpu-runtime:latest"
   artifact:
     reference: "ghcr.io/confighub/configs/eks-inference/gpu-runtime:latest"
@@ -16,25 +16,22 @@ spec:
       bytes: 1869
       title: "gpu-runtime.tar.gz"
   extractedFiles:
-    - path: "files/00-namespace.yaml"
+    -
+      path: "files/00-namespace.yaml"
       bundlePath: "00-namespace.yaml"
       sha256: "3777a2a023671fd8894943a27916af8603e1719685b709f39f9814bee050446f"
       bytes: 776
-    - path: "files/nvidia-device-plugin-controller.yaml"
+    -
+      path: "files/nvidia-device-plugin-controller.yaml"
       bundlePath: "nvidia-device-plugin-controller.yaml"
       sha256: "5b4b4766301821fec558ecd02a58fc2e3140c32b051864aef5d9965a784f870d"
       bytes: 7534
   producer:
     repository: "https://github.com/confighub/eks-inference"
-    commit: "2e1a8823920ca4fc6f124db754b7f8f2cfe7d574"
+    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
     component: "gpu-runtime"
-    declaredInputs:
-      chartRepository: "https://nvidia.github.io/k8s-device-plugin"
-      chart: "nvidia-device-plugin"
-      chartVersion: "0.19.3"
-      kubeVersion: "1.31.0"
-      valuesPath: "src/gpu-runtime/values/nvidia-device-plugin.yaml"
-      renderCommand: "helm template with --include-crds and a pinned --kube-version, per scripts/render.sh"
+    plane: "workload"
+    renderKind: "helm"
   crossCheck:
     committedRenderMatches: true
     committedRenderPath: "configs/gpu-runtime at the producer commit above"

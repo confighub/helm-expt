@@ -1,0 +1,33 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "OciBundleWitness"
+metadata:
+  name: "eks-inference-platform-profile"
+spec:
+  observedAt: "2026-08-07T17:30:00Z"
+  pullCommand: "oras pull ghcr.io/confighub/configs/eks-inference/platform-profile:latest"
+  artifact:
+    reference: "ghcr.io/confighub/configs/eks-inference/platform-profile:latest"
+    manifestDigest: "sha256:af2a1d3dd9c74839c22121dcda1ac38c6600d67dd927a7a42280464a375acfcd"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    createdAnnotation: "1970-01-01T00:00:00Z"
+    layer:
+      mediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+      digest: "sha256:1bbb4b7cc2fd87c37d7fdc701665032700bc734b6f9a0b83104e277006ec5efa"
+      bytes: 1722
+      title: "platform-profile.tar.gz"
+  extractedFiles:
+    -
+      path: "files/profile.yaml"
+      bundlePath: "profile.yaml"
+      sha256: "5a2fb0f41e3b81943f78947c451e822766fbd16308ad5968fc7c14ac785a8806"
+      bytes: 3121
+  producer:
+    repository: "https://github.com/confighub/eks-inference"
+    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    component: "platform-profile"
+    plane: "hub"
+    renderKind: "copy"
+  crossCheck:
+    committedRenderMatches: true
+    committedRenderPath: "configs/platform-profile at the producer commit above"
+    note: "Every extracted file hashes identically to the producer repository's committed render, so the published bundle and the reviewed source agree byte for byte."
