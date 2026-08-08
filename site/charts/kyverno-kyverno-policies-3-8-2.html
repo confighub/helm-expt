@@ -484,9 +484,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
+      <div class="card"><table>
+        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
+        <tbody><tr><td>default</td><td>No image reference appears in this base's packaged manifests.</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:e7d016fe4f673dc4887602f3408e0f7ecae189da78d71d48673fcca781487a0e</code> and manifest <code>sha256:204b16876ea9d7f9a487d3ad884f9b0c5f41e0e9a01d8b8c37c7bb6693575460</code>, and records an inspect-result digest.</p>
+      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./kyverno-kyverno-policies-3-8-0.html">3.8.0 evidence page</a>.</p>
     </section>
 

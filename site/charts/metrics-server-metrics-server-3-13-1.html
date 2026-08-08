@@ -485,9 +485,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
+      <div class="card"><table>
+        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
+        <tbody><tr><td>default</td><td><code>registry.k8s.io/metrics-server/metrics-server:v0.8.1</code></td></tr><tr><td>external-tls-ca</td><td><code>registry.k8s.io/metrics-server/metrics-server:v0.8.1</code></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:dd108bf532abd76b79693826321835e7c79cb7982b7ec4b9c1fd709446f6b43a</code> and manifest <code>sha256:be476b65366c456783f0b2b09f21fff15ebba0c1547a043893893874fe87fc92</code>, and records an inspect-result digest.</p>
+      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./metrics-server-metrics-server-3-13-0.html">3.13.0 evidence page</a>.</p>
     </section>
 

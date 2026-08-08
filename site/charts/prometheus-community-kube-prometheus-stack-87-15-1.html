@@ -486,9 +486,24 @@ cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/
       <p>A construct being present does not make a chart unflattenable. Most are switched on or off by values, and a verdict records which ones the base you choose actually reaches. Read the <a href="../d/data/flattening-safety/evidence.html">catalog-wide evidence</a> for how common each one is.</p>
     </section>
 
+    <section aria-labelledby="images-pulled">
+      <h2 id="images-pulled">Images This Chart Pulls</h2>
+      <p>Every reference below is read from the committed package bases, so what you see is what the packaged manifests name.</p>
+      <div class="card"><table>
+        <thead><tr><th>Packaged base</th><th>Image references</th></tr></thead>
+        <tbody><tr><td>default</td><td><code>description: image defines Thanos container image URL.</code><br><code>description: |-</code><br><code>docker.io/grafana/grafana:13.1.0</code><br><code>quay.io/kiwigrid/k8s-sidecar:2.8.1</code><br><code>quay.io/prometheus-operator/prometheus-operator:v0.92.1</code><br><code>quay.io/prometheus/alertmanager:v0.33.1</code><br><code>quay.io/prometheus/node-exporter:v1.12.0-distroless</code><br><code>quay.io/prometheus/prometheus:v3.13.1-distroless</code><br><code>registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1</code></td></tr><tr><td>no-crds</td><td><code>docker.io/grafana/grafana:13.1.0</code><br><code>quay.io/kiwigrid/k8s-sidecar:2.8.1</code><br><code>quay.io/prometheus-operator/prometheus-operator:v0.92.1</code><br><code>quay.io/prometheus/alertmanager:v0.33.1</code><br><code>quay.io/prometheus/node-exporter:v1.12.0-distroless</code><br><code>quay.io/prometheus/prometheus:v3.13.1-distroless</code><br><code>registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1</code></td></tr><tr><td>existing-secret</td><td><code>description: image defines Thanos container image URL.</code><br><code>description: |-</code><br><code>docker.io/grafana/grafana:13.1.0</code><br><code>quay.io/kiwigrid/k8s-sidecar:2.8.1</code><br><code>quay.io/prometheus-operator/prometheus-operator:v0.92.1</code><br><code>quay.io/prometheus/alertmanager:v0.33.1</code><br><code>quay.io/prometheus/node-exporter:v1.12.0-distroless</code><br><code>quay.io/prometheus/prometheus:v3.13.1-distroless</code><br><code>registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1</code></td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
     <section aria-labelledby="retained-tests">
       <h2 id="retained-tests">What Has Been Tested</h2>
       <p>The committed publication receipt binds this package path and OCI ref to layer <code>sha256:1d76ec443339ee41cae97ef94c276d43bdc346de4ae6d86cf50ccab5a7b9c375</code> and manifest <code>sha256:c67c94b1d4fbcc042b4b66974237e9b09170b30dd5c78d20e99d359b328280ac</code>, and records an inspect-result digest.</p>
+      <p>You can check a pull yourself: the inspect command under Try This Chart prints the package's manifest and layer digests, and they must equal the receipted values above. If they differ, do not use the pulled package.</p>
       <p><strong>No version-specific runtime result is claimed here.</strong> The component row's readiness, caveats, and live evidence describe only its bold version. For that separate evidence, open the <a href="./prometheus-community-kube-prometheus-stack-85-3-3.html">85.3.3 evidence page</a>.</p>
     </section>
 
