@@ -121,6 +121,29 @@ structure, and it reports "Config data not changed" when a multi-line
 replacement finds no match, so that change waits for a structural editing
 path instead of being faked here.
 
+## Delivery to a cluster, and one thing it found
+
+```bash
+npm run aicr-kserve-delivery:verify
+```
+
+The retained documents met a real Kubernetes API server. All twenty-six
+traveled as one OCI artifact to a throwaway kind cluster carrying KServe's own
+custom resource definitions. Twenty-five were accepted and stored unchanged.
+
+One was refused, and finding that is why the proof exists. The serving runtime
+for the Nemotron shape carries underscores in its name, which is not a valid
+RFC 1123 subdomain, so no Kubernetes cluster will accept it. The proof
+confirms the refusal rather than assuming it from a pattern match, and the
+entry keeps the document exactly as upstream published it, because retention
+records what upstream shipped including its defects.
+
+The KServe controller was deliberately not installed. Without it nothing
+reconciles an InferenceService, so the run scheduled no pod and pulled no
+image, which is what keeps both the config-plane boundary and the licensing
+boundary intact. The run confirmed that too, finding zero workload pods and
+zero image-pull events naming the gated registry.
+
 ## What is proven and what is not
 
 Proven: the retention is exact, the shape is pinned by one digest, the

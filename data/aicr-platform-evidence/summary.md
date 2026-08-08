@@ -15,7 +15,7 @@ it.
 | --- | --- | --- | --- |
 | `eks-h100-training-kubeflow` | retained-upstream | `sha256:3f9ec2a69619…` | 2 |
 | `eks-h100-inference-nim` | retained-upstream | `sha256:cc4ea0fb2347…` | 0 |
-| `kserve-nim-inference` | retained-third-party | `sha256:7a219c5b0fde…` | 1 |
+| `kserve-nim-inference` | retained-third-party | `sha256:7a219c5b0fde…` | 2 |
 | `cpu-starter` | derived | `sha256:d4c19c203ba3…` | 3 |
 
 Cross-entry evidence covers the whole set rather than one entry:
@@ -24,7 +24,7 @@ Cross-entry evidence covers the whole set rather than one entry:
 The rungs no entry has climbed are listed in the record rather than left to
 inference:
 
-- Config-plane delivery for both inference entries.
+- Config-plane delivery for the AICR-native inference entry.
 - Any workload-plane claim, for every entry.
 
 Every path a consumer needs is published in the record, so nothing has to be
