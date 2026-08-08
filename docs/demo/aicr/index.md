@@ -39,8 +39,8 @@ Four entries exist today. The training entry carries the proven mechanics, the
 two inference entries answer the serving question at different granularities,
 and the CPU starter is a rule-governed derivation of the training entry. The
 inference pair is deliberate: the AICR-native entry stands up a cluster that
-can serve NIM, and the KServe entry names the exact shape a given model runs
-in. Retaining both keeps the sourcing choice visible instead of implied, and
+can serve NIM, and the KServe entry, retained at upstream commit 3ef33472,
+names the exact shape a given model runs in. Retaining both keeps the sourcing choice visible instead of implied, and
 the [entry page](./eks-h100-inference-nim.md) compares them directly.
 
 The catalog refuses manufactured variety: new entries come from upstream versions, from
