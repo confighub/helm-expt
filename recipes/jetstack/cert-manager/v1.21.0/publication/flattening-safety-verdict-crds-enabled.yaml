@@ -1,0 +1,103 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "jetstack-cert-manager-v1.21.0-crds-enabled"
+spec:
+  chart:
+    repository: "jetstack"
+    name: "cert-manager"
+    version: "v1.21.0"
+    packageSHA256: "9c2c6fabf3cf8fe14dacb016f37c819b66bc2c79e8b7acde4573d45ec141fb97"
+  witnessRef: "data/flattening-safety/witnesses/jetstack-cert-manager-v1.21.0.yaml"
+  auditedBase: "crds-enabled"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "present-gated"
+      detail: "the startupapicheck Job is a post-install hook, and this base renders with hooks excluded, so no hook object reaches the bundle"
+      disposition: "the check does not run from a flattened bundle; enable it through the render-late route or accept that the API readiness probe is skipped"
+      evidence:
+        - "values.yaml:1576"
+        - "values.yaml:1692"
+        - "values.yaml:1712"
+    -
+      class: "resource-policy-keep"
+      finding: "present"
+      detail: "the six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep"
+      disposition: "prune protection ships beside the bundle"
+      evidence:
+        - "templates/crd-acme.cert-manager.io_challenges.yaml:8"
+        - "templates/crd-acme.cert-manager.io_orders.yaml:8"
+        - "templates/crd-cert-manager.io_certificaterequests.yaml:8"
+        - "templates/crd-cert-manager.io_certificates.yaml:8"
+        - "templates/crd-cert-manager.io_clusterissuers.yaml:8"
+        - "templates/crd-cert-manager.io_issuers.yaml:8"
+    -
+      class: "lookup"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "2 occurrence(s) in the packaged chart"
+      disposition: "the cainjector controller maintains the CA at runtime and ships inside the bundle; no external route needed"
+      evidence:
+        - "templates/webhook-mutating-webhook.yaml:2"
+        - "templates/webhook-validating-webhook.yaml:2"
+    -
+      class: "capabilities-api-versions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "the six CRDs render into this base, so per-file Units can race them"
+      disposition: "ordering declaration ships with the bundle"
+      evidence:
+        - "0 crds-directory file(s), 6 CRD document(s)"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "cross-version property; see boundedness"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "subchart-conditions"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "absent from the packaged chart"
+      disposition: "none required"
+  variantScope:
+    -
+      values: "the default base"
+      effect: "renders no CRDs, so the keep promise and the ordering hazard both move to whoever installs the definitions"
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "This base renders the CRDs, so it carries both the keep promise and the ordering hazard, and each has a companion artifact that discharges it. The startupapicheck hook is excluded from the render rather than routed, which the hooks row states plainly."
+    routes:
+      - "prune protection for the six keep-annotated CRDs"
+      - "CRD ordering declaration for the six cert-manager CRDs"
+  boundedness:
+    - "immutable-field changes are a cross-version property; this verdict compares no second version (the CRD upgrade delta lane holds that precedent)"
+    - "the scan is static and does not execute templates, so values-gated reachability is a recorded judgment, not a render"
+    - "the witness scans the packaged chart including its vendored subcharts; charts pulled at deploy time are out of scope"
+  provenance:
+    emittedBy: "scripts/generate-flattening-safety-verdicts.mjs"
+    generatedFrom:
+      - "data/flattening-safety/witnesses/jetstack-cert-manager-v1.21.0.yaml"
+      - "recipes/jetstack/cert-manager/v1.21.0/source-lock.yaml"

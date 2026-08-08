@@ -182,6 +182,15 @@ function verifyRouteDocument(name, path) {
     const orders = stages.map((stage) => stage.order);
     if (orders.some((order, index) => order !== index + 1))
       refuse(label, `stage order must run 1..n without gaps, found ${orders.join(", ")}`);
+    // Two producers independently added a field for the same idea under
+    // different names, and only an out-of-band schema check noticed. An unknown
+    // key on a stage is a vocabulary drifting apart, so it is refused here.
+    const STAGE_KEYS = ["order", "name", "selector", "waitFor", "objectCount", "observedSyncWave"];
+    for (const stage of stages) {
+      const unknown = Object.keys(stage).filter((key) => !STAGE_KEYS.includes(key));
+      if (unknown.length > 0)
+        refuse(label, `stage "${stage.name}" carries unknown field(s): ${unknown.join(", ")}. Add them to the schema, or use the name the schema already has.`);
+    }
   }
 }
 
@@ -359,13 +368,11 @@ function runSelfTest() {
       (file) => !String(file.role ?? "").startsWith("route:"),
     );
   }, routed);
+  // Clear every disposition rather than rewriting the wording that references a
+  // route. Producers word it differently, and a mutation tied to one producer's
+  // phrasing stops testing anything the moment another producer ships a route.
   expectRefusal("a route no disposition references", (receipt) => {
-    for (const row of receipt.spec.dispositions) {
-      row.disposition = String(row.disposition).replace(
-        /discharged by the route this bundle ships at \S+/,
-        "explicit ordering declared at ingest",
-      );
-    }
+    for (const row of receipt.spec.dispositions) row.disposition = "none required";
   }, routed);
   expectRefusal("a bundle that ships no space guide", (receipt) => {
     receipt.spec.bundle.files = receipt.spec.bundle.files.filter((file) => file.role !== "space-guide");
