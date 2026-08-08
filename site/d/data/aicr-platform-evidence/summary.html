@@ -448,11 +448,11 @@
 <p>These entries are evidence, not a product line. Nobody is meant to install an AICR entry from the catalog the way they install a chart. The record exists so a reader can locate what was proven, follow the path to the receipt, and check it.</p>
 <table><thead><tr><th>Entry</th><th>Provenance</th><th>Platform digest</th><th>Ladder rungs with receipts</th></tr></thead><tbody><tr><td><code>eks-h100-training-kubeflow</code></td><td>retained-upstream</td><td><code>sha256:3f9ec2a69619…</code></td><td>2</td></tr>
 <tr><td><code>eks-h100-inference-nim</code></td><td>retained-upstream</td><td><code>sha256:cc4ea0fb2347…</code></td><td>0</td></tr>
-<tr><td><code>kserve-nim-inference</code></td><td>retained-third-party</td><td><code>sha256:7a219c5b0fde…</code></td><td>1</td></tr>
+<tr><td><code>kserve-nim-inference</code></td><td>retained-third-party</td><td><code>sha256:7a219c5b0fde…</code></td><td>2</td></tr>
 <tr><td><code>cpu-starter</code></td><td>derived</td><td><code>sha256:d4c19c203ba3…</code></td><td>3</td></tr></tbody></table>
 <p>Cross-entry evidence covers the whole set rather than one entry: <code>upstream-signature-verification</code>, <code>blast-radius-parity</code>, <code>ordering-parity</code>.</p>
 <p>The rungs no entry has climbed are listed in the record rather than left to inference:</p>
-<ul><li>Config-plane delivery for both inference entries.</li><li>Any workload-plane claim, for every entry.</li></ul>
+<ul><li>Config-plane delivery for the AICR-native inference entry.</li><li>Any workload-plane claim, for every entry.</li></ul>
 <p>Every path a consumer needs is published in the record, so nothing has to be reconstructed by convention. That is the consumer-contract rule applied to a shape the contract did not previously cover.</p>
     </article>
   </main>
