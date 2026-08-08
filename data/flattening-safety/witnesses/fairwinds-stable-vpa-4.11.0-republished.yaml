@@ -1,0 +1,86 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningWitness"
+metadata:
+  name: "fairwinds-stable-vpa-4.11.0-republished"
+spec:
+  chart:
+    repository: "fairwinds-stable"
+    name: "vpa"
+    version: "4.11.0"
+  package:
+    sha256: "2751f4ad7d3bc9114f79f03106e91676ae8cdbf3fe55a832159c8ae3b51c0c45"
+    observedAt: "2026-08-07T18:30:00Z"
+    scanner: "scripts/scan-flattening-witness.mjs"
+    note: "the bytes upstream publishes today under this version string, which are NOT the bytes this catalog locks; recorded so the republished artifact is available and inspectable"
+  scannedFiles: 58
+  subcharts:
+    count: 1
+    conditions:
+      -
+        dependency: "metrics-server"
+        condition: "metrics-server.enabled"
+  crds:
+    files: 1
+    documents: 2
+  hookValues:
+    - "post-install,post-upgrade"
+    - "pre-install,pre-upgrade"
+    - "pre-install,pre-upgrade,post-install,post-upgrade"
+    - "test"
+  findings:
+    lookup:
+      count: 1
+      files:
+        - "templates/webhooks/_webhook_helpers.tpl:6"
+    capabilities:
+      count: 6
+      files:
+        - "charts/metrics-server/templates/_helpers.tpl:97"
+        - "templates/admission-controller-pdb.yaml:3"
+        - "templates/recommender-pdb.yaml:3"
+        - "templates/tests/_test_helpers.tpl:6"
+        - "templates/tests/_test_helpers.tpl:8"
+        - "templates/updater-pdb.yaml:3"
+    helm-hooks:
+      count: 16
+      files:
+        - "templates/tests/crds-available.yaml:9"
+        - "templates/tests/create-vpa.yaml:9"
+        - "templates/tests/metrics.yaml:9"
+        - "templates/tests/rbac.yaml:5"
+        - "templates/tests/rbac.yaml:16"
+        - "templates/tests/rbac.yaml:54"
+        - "templates/tests/rbac.yaml:72"
+        - "templates/tests/rbac.yaml:113"
+        - "templates/tests/webhook.yaml:10"
+        - "templates/webhooks/jobs/certgen-clusterrole.yaml:7"
+        - "templates/webhooks/jobs/certgen-clusterrolebinding.yaml:7"
+        - "templates/webhooks/jobs/certgen-create.yaml:7"
+    resource-policy-keep:
+      count: 0
+      files:
+        []
+    generated-secrets:
+      count: 0
+      files:
+        []
+    webhook-config:
+      count: 1
+      files:
+        - "templates/webhooks/mutating.yaml:3"
+    namespace-creation:
+      count: 0
+      files:
+        []
+    test-hooks:
+      count: 9
+      files:
+        - "templates/tests/crds-available.yaml:9"
+        - "templates/tests/create-vpa.yaml:9"
+        - "templates/tests/metrics.yaml:9"
+        - "templates/tests/rbac.yaml:5"
+        - "templates/tests/rbac.yaml:16"
+        - "templates/tests/rbac.yaml:54"
+        - "templates/tests/rbac.yaml:72"
+        - "templates/tests/rbac.yaml:113"
+        - "templates/tests/webhook.yaml:10"

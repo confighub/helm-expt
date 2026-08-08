@@ -616,6 +616,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/top50-completion/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/top500-catalog-analysis/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/torture-suite/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/upstream-drift/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/useful-base-design-queue/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/useful-base-realization-wave/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/variant-backlog/summary.html</loc></url>
@@ -726,6 +727,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-promotion-review.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/catalog-refresh-plan.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/certified-bundle-model-brief.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/certified-bundle-track-backlog.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/chart-claim-integrity-audit-2026-06-22.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/config-catalog-demo-program.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/planning/corpus-rationalization-plan.html</loc></url>

@@ -13,10 +13,15 @@ import { join, relative } from "node:path";
 
 import { listFiles, repoRoot, toYaml, write } from "./lib/proof-common.mjs";
 
-const [chartDir, repo, chart, version, tarballSha, observedAt] = process.argv.slice(2);
+// The optional suffix and note exist for one case: upstream republished a
+// version string under different bytes. Those bytes deserve a witness of their
+// own, filed beside the locked one rather than overwriting it, and the note
+// says which is which so neither can be mistaken for the other.
+const [chartDir, repo, chart, version, tarballSha, observedAt, nameSuffix, packageNote] =
+  process.argv.slice(2);
 if (!chartDir || !repo || !chart || !version || !tarballSha || !observedAt) {
   console.error(
-    "usage: node scripts/scan-flattening-witness.mjs <extracted-chart-dir> <repo> <chart> <version> <tarball-sha256> <observed-at>",
+    "usage: node scripts/scan-flattening-witness.mjs <extracted-chart-dir> <repo> <chart> <version> <tarball-sha256> <observed-at> [name-suffix] [package-note]",
   );
   process.exit(1);
 }
@@ -97,10 +102,15 @@ for (const path of files) {
 const witness = {
   apiVersion: "evidence.confighub.com/v1alpha1",
   kind: "FlatteningWitness",
-  metadata: { name: `${repo}-${chart}-${version}` },
+  metadata: { name: `${repo}-${chart}-${version}${nameSuffix ? `-${nameSuffix}` : ""}` },
   spec: {
     chart: { repository: repo, name: chart, version },
-    package: { sha256: tarballSha, observedAt, scanner: "scripts/scan-flattening-witness.mjs" },
+    package: {
+      sha256: tarballSha,
+      observedAt,
+      scanner: "scripts/scan-flattening-witness.mjs",
+      ...(packageNote ? { note: packageNote } : {}),
+    },
     scannedFiles: files.length,
     subcharts: { count: subchartCount, conditions: subchartConditions },
     crds: { files: crdFiles, documents: crdDocs },
@@ -119,7 +129,7 @@ const out = join(
   "data",
   "flattening-safety",
   "witnesses",
-  `${repo}-${chart}-${version}.yaml`,
+  `${repo}-${chart}-${version}${nameSuffix ? `-${nameSuffix}` : ""}.yaml`,
 );
 write(out, `${toYaml(witness)}\n`);
 console.log(`wrote ${relative(repoRoot, out)} (${files.length} files scanned)`);
