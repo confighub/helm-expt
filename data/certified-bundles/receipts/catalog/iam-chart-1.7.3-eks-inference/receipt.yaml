@@ -1,0 +1,119 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-aws-controllers-k8s-iam-chart-1.7.3-eks-inference"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "oci://public.ecr.aws/aws-controllers-k8s"
+        name: "iam-chart"
+        version: "1.7.3"
+        packageSHA256: "598f87feacd5fc04403e37bda75ba6e56170f43778986ac411702d6207a82730"
+    evidence:
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/eks-inference/upstream.yaml"
+        sha256: "6f0442b679faf210cd45a2b44856acd2d96b675d5dc004f5b53f33677ec9c67d"
+        bytes: 102936
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml"
+        sha256: "12434862826f15812974d38862f2fa753ab3d0bf216ca9861a5330adc7545de8"
+        bytes: 2294
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/iam-chart-1.7.3-eks-inference/space-guide.md"
+        sha256: "d778790fdd47a509bd465737137e1d1c0fc23ba022a88351c8f64f4f773191d1"
+        bytes: 1350
+        role: "space-guide"
+    objectCount: 19
+    objectInventoryRef: "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference:latest"
+    manifestDigest: "sha256:4cecf677d5f63c7071520c2535d57a06347b926cd57bf221d2cc883d931e392e"
+    layerDigest: "sha256:70b3156bd9593927e48ac810ef479409ad994a396be0429633824ecc69c22364"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed eks-inference render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed eks-inference render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed eks-inference render; the chart's template-level evidence is recorded in recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed eks-inference render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed eks-inference render; the chart's template-level evidence is recorded in recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed eks-inference render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "9 CustomResourceDefinition(s) in the committed eks-inference render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/aws-controllers-k8s-iam-chart-1.7.3-eks-inference/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed eks-inference render; the chart's template-level evidence is recorded in recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed eks-inference render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/aws-controllers-k8s/iam-chart/1.7.3/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 9 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/source-lock.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/variant-revision.yaml"
+      - "recipes/aws-controllers-k8s/iam-chart/1.7.3/revisions/eks-inference/r001/rendered/release-objects.yaml"
+      - "packages/aws-controllers-k8s/iam-chart/1.7.3/bases/eks-inference/upstream.yaml"
+      - "runs/certified-bundles/catalog-aws-controllers-k8s-iam-chart-1-7-3-eks-inference/publication-receipt.yaml"

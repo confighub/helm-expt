@@ -1,0 +1,66 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "BundleRoute"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2-default-crd-ordering"
+spec:
+  quirkClass: "crd-ordering"
+  routeKind: "apply-ordering"
+  discharges: "Without an ordering declaration, per-file Units apply in no guaranteed order, so a custom resource can reach the cluster before the definition that gives it meaning."
+  declaration:
+    stages:
+      -
+        order: 1
+        name: "custom-resource-definitions"
+        selector:
+          kinds:
+            - "CustomResourceDefinition"
+          names:
+            - "assign.mutations.gatekeeper.sh"
+            - "assignimage.mutations.gatekeeper.sh"
+            - "assignmetadata.mutations.gatekeeper.sh"
+            - "configpodstatuses.status.gatekeeper.sh"
+            - "configs.config.gatekeeper.sh"
+            - "connectionpodstatuses.status.gatekeeper.sh"
+            - "connections.connection.gatekeeper.sh"
+            - "constraintpodstatuses.status.gatekeeper.sh"
+            - "constrainttemplatepodstatuses.status.gatekeeper.sh"
+            - "constrainttemplates.templates.gatekeeper.sh"
+            - "expansiontemplate.expansion.gatekeeper.sh"
+            - "expansiontemplatepodstatuses.status.gatekeeper.sh"
+            - "modifyset.mutations.gatekeeper.sh"
+            - "mutatorpodstatuses.status.gatekeeper.sh"
+            - "providerpodstatuses.status.gatekeeper.sh"
+            - "providers.externaldata.gatekeeper.sh"
+            - "syncsets.syncset.gatekeeper.sh"
+        waitFor: "every named definition reports the Established condition"
+        objectCount: 17
+      -
+        order: 2
+        name: "everything-else"
+        selector:
+          kinds:
+            - "*"
+        objectCount: 13
+  executedBy:
+    runtimes:
+      -
+        name: "Argo CD"
+        mechanism: "sync waves, the earlier stage at the lower wave number"
+        proven: false
+      -
+        name: "Flux"
+        mechanism: "dependsOn between the definitions Kustomization and the rest"
+        proven: false
+      -
+        name: "cub-direct applier"
+        mechanism: "apply stage one and wait for establishment before stage two"
+        proven: false
+    automatic: true
+  boundedness:
+    - "the route orders what the bundle contains; a definition this bundle does not ship must already exist on the target"
+    - "establishment is observed by the delivery runtime, so this route declares the wait rather than proving it happened"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/gatekeeper/gatekeeper/3.22.2/revisions/default/r001/rendered/object-inventory.yaml"
+    verdictRef: "recipes/gatekeeper/gatekeeper/3.22.2/publication/flattening-safety-verdict.yaml"

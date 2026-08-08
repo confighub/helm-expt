@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-metrics-server-metrics-server-3.13.1-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/metrics-server-3.13.1-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-1-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:c4a4976f073a9f79fee82ed6c6aecf108c4f48a2481b51e8cd82178f8757fef1"
+  layerDigest: "sha256:005d11a508ec3327c6c074f477f02c99d714def7b43fa8adf977f5073ec99bff"
+  layerBytes: 1878
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-metrics-server-metrics-server-3-13-1-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-metrics-server-metrics-server-3-13-1-default.tar.gz"

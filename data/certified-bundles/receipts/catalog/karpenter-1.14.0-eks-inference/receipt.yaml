@@ -1,0 +1,119 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-karpenter-karpenter-1.14.0-eks-inference"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "oci://public.ecr.aws/karpenter"
+        name: "karpenter"
+        version: "1.14.0"
+        packageSHA256: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
+    evidence:
+      - "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/karpenter/karpenter/1.14.0/bases/eks-inference/upstream.yaml"
+        sha256: "27259c2a0af970cd3b87623fa209ccd9d1e37dec693f1d6b0f0bc904958db64c"
+        bytes: 154429
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
+        sha256: "54bd301aa6046b7e67367a3d5f39a8a8e1fc0dddf0c993b74099ba7df8019c1f"
+        bytes: 2048
+        role: "route: crd-ordering"
+      -
+        path: "data/certified-bundles/guides/catalog/karpenter-1.14.0-eks-inference/space-guide.md"
+        sha256: "a572184dbdaef56fc031b34bcb257d592ab4c5a0468506e075b4d55c5b86ee67"
+        bytes: 1306
+        role: "space-guide"
+    objectCount: 18
+    objectInventoryRef: "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-eks-inference:latest"
+    manifestDigest: "sha256:a325fb8c9b9fa4e02cd4bd5f915402da00e07a58febd847ac6afeb4328cc987d"
+    layerDigest: "sha256:97db5c572f43e7857a5af76c671b07dd4040cdf232e4a18d28e0e2e1dd67f2fc"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed eks-inference render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed eks-inference render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed eks-inference render; the chart's template-level evidence is recorded in recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed eks-inference render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed eks-inference render; the chart's template-level evidence is recorded in recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed eks-inference render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "present"
+      detail: "5 CustomResourceDefinition(s) in the committed eks-inference render; per-file Units can race their CRDs"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/karpenter-karpenter-1.14.0-eks-inference/crd-ordering.yaml"
+      companionRequired: "apply-ordering"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed eks-inference render; the chart's template-level evidence is recorded in recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed eks-inference render"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict.yaml"
+    notes: "This base needs a companion for the 5 CustomResourceDefinition(s) it renders, which per-file Units can otherwise race. Each ships inside the bundle beside the rendered configuration."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/variant-revision.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/revisions/eks-inference/r001/rendered/release-objects.yaml"
+      - "packages/karpenter/karpenter/1.14.0/bases/eks-inference/upstream.yaml"
+      - "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-eks-inference/publication-receipt.yaml"

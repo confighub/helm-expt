@@ -53,8 +53,8 @@ spec:
     objectInventoryRef: "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/object-inventory.yaml"
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-traefik-traefik-41-0-2-default:latest"
-    manifestDigest: "sha256:91573183feafd532498027251a5a4fa7e8bf3cca132dc96f0ba1cf25ad0dd2cd"
-    layerDigest: "sha256:dcd29a4e7dc4b42afa91521695449745e48c442edeabd5a094d121c2e06985aa"
+    manifestDigest: "sha256:1414198b6b71d7b187904ec88c3c3093b21b849016f6922fbcff41a19e8e5c3b"
+    layerDigest: "sha256:4ed68eb9efd552548077f050df389c6698400318d21f780c2c728555b65c73bb"
     reproducible: true
   ingest:
     granularity: "per-file"

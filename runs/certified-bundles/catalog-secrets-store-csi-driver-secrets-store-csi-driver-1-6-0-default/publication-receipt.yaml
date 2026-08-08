@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/secrets-store-csi-driver-1.6.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:1760f3905d2973aa0d8f79520027ff754fcbe76f6a91ed4d5d6e91ffd53e6e8d"
+  layerDigest: "sha256:8c9e666bd73a1198e25e598022b92266f5eca14016aca54672363b32f43a3410"
+  layerBytes: 4461
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-secrets-store-csi-driver-secrets-store-csi-driver-1-6-0-default.tar.gz"

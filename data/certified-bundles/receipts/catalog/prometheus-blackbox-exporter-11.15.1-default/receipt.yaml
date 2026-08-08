@@ -1,0 +1,113 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-blackbox-exporter-11.15.1-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://prometheus-community.github.io/helm-charts"
+        name: "prometheus-blackbox-exporter"
+        version: "11.15.1"
+        packageSHA256: "4e8e45b8a6fbec4168d9b3e772a0219afec09b61c545af5f01395de363e30b5e"
+    evidence:
+      - "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/source-lock.yaml"
+      - "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/prometheus-community/prometheus-blackbox-exporter/11.15.1/bases/default/upstream.yaml"
+        sha256: "988144ef5b62615e820a8ada37fe9c0f9ee80bb853d5ec65c55a928faeba0c70"
+        bytes: 4039
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/prometheus-blackbox-exporter-11.15.1-default/space-guide.md"
+        sha256: "79fa088f3b9459ab0e4807a2c70c257d1191b9266da48abeac7f59d0b3da8985"
+        bytes: 1209
+        role: "space-guide"
+    objectCount: 4
+    objectInventoryRef: "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/default/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-15-1-default:latest"
+    manifestDigest: "sha256:b035b05d6e3eadf781facf0b7f63c0b7a1d2f25ed949fba3029ab424c2abac96"
+    layerDigest: "sha256:bd35b4cdae6f27d7660244a8dade173fe8a73abc261a6f8b090889c1b0416ddf"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed default render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/source-lock.yaml"
+      - "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/default/r001/variant-revision.yaml"
+      - "recipes/prometheus-community/prometheus-blackbox-exporter/11.15.1/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/prometheus-community/prometheus-blackbox-exporter/11.15.1/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-prometheus-community-prometheus-blackbox-exporter-11-15-1-default/publication-receipt.yaml"

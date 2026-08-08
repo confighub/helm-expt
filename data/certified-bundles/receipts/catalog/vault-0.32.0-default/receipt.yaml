@@ -1,0 +1,113 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-hashicorp-vault-0.32.0-default"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "https://helm.releases.hashicorp.com"
+        name: "vault"
+        version: "0.32.0"
+        packageSHA256: "e31ddf3f6dd031c0f5407dd6b63361ea5ff655f89c781049b39f4c2a95a6f88a"
+    evidence:
+      - "recipes/hashicorp/vault/0.32.0/source-lock.yaml"
+      - "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/hashicorp/vault/0.32.0/bases/default/upstream.yaml"
+        sha256: "6de2d61c8de0c21faa951e89ec16658bcdff22e69d78075fdd394d895a5e6978"
+        bytes: 15346
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/vault-0.32.0-default/space-guide.md"
+        sha256: "413a17f9aa2d49199bd2dcdc574258e050e7797b05b46ebc8bd6244b1b9109b7"
+        bytes: 1045
+        role: "space-guide"
+    objectCount: 12
+    objectInventoryRef: "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-hashicorp-vault-0-32-0-default:latest"
+    manifestDigest: "sha256:738077f6d7f213cfd8dd8128d81f9a34054d4a6f3d5aa346e3f06d12c0b16cae"
+    layerDigest: "sha256:928fe1f114e50d3e402aa29dbc43a5e80a27aeb629592c5abb4e5c23433d6c63"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed default render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed default render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "present"
+      detail: "1 webhook configuration(s), 1 with an empty caBundle, in the committed default render"
+      disposition: "route to cert-manager or a certgen lifecycle route"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed default render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed default render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed default render; the chart's template-level evidence is recorded in recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed default render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/hashicorp/vault/0.32.0/publication/flattening-safety-verdict.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/hashicorp/vault/0.32.0/source-lock.yaml"
+      - "recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml"
+      - "recipes/hashicorp/vault/0.32.0/revisions/default/r001/rendered/release-objects.yaml"
+      - "packages/hashicorp/vault/0.32.0/bases/default/upstream.yaml"
+      - "runs/certified-bundles/catalog-hashicorp-vault-0-32-0-default/publication-receipt.yaml"

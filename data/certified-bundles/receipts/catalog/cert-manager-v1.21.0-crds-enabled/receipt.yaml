@@ -1,7 +1,7 @@
 apiVersion: "evidence.confighub.com/v1alpha1"
 kind: "CertifiedBundleReceipt"
 metadata:
-  name: "catalog-jetstack-cert-manager-crds-enabled"
+  name: "catalog-jetstack-cert-manager-v1.21.0-crds-enabled"
 spec:
   producer:
     name: "config-workshop-catalog"
@@ -27,26 +27,26 @@ spec:
         bytes: 1037629
         role: "rendered object set"
       -
-        path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-crds-enabled/crd-ordering.yaml"
-        sha256: "46763e3096be69ac072bc709b7e7fcd95c28ce55c826dc88338c1a9c0cd7e9b8"
-        bytes: 2113
+        path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml"
+        sha256: "ce4eab52b01e826eea1222caa058b9cfb2de6647f21dc6aba383e72c4627bfd2"
+        bytes: 2121
         role: "route: crd-ordering"
       -
-        path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-crds-enabled/prune-protection.yaml"
-        sha256: "1682e4ab4874cde5fda9b1ceb4d5fd252d482312afb2c54707fef1ecb09b0691"
-        bytes: 2308
+        path: "data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml"
+        sha256: "a3a1a37b5c2bf1a56ffbe008376843554110f7239c8dc508efe9f2e6533b201d"
+        bytes: 2316
         role: "route: resource-policy-keep"
       -
         path: "data/certified-bundles/guides/catalog/cert-manager-v1.21.0-crds-enabled/space-guide.md"
-        sha256: "d3751032202577fb69458f68d142a1d394463678cf66639ca79578b899d2f6be"
-        bytes: 1433
+        sha256: "9afb9d8c542c9e7e448dd302aeb24ecdf275bc8d128d817a337638ab822931ce"
+        bytes: 1473
         role: "space-guide"
     objectCount: 46
     objectInventoryRef: "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/object-inventory.yaml"
     artifactType: "application/vnd.confighub.config.bundle.v1"
-    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-crds-enabled:latest"
-    manifestDigest: "sha256:1b6ee05187a5bc7d4b9a48e5ede5904a486e791009a06d372f5b4c76339f3a51"
-    layerDigest: "sha256:ee19992a39e3bd3be11995d11a72fce18cb73756ce4dcc36f3f0608a07b2633a"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled:latest"
+    manifestDigest: "sha256:e8d20c4184cbd842d8975d15477c4a462a1f18de36af3c7eb8bde1cff4a9d69d"
+    layerDigest: "sha256:09a57debe6be52a883644f47fe35ecda7b35140d06be1d6251949fa430e18a2d"
     reproducible: true
   ingest:
     granularity: "per-file"
@@ -62,7 +62,7 @@ spec:
       class: "resource-policy-keep"
       finding: "present"
       detail: "6 object(s) carry helm.sh/resource-policy in the committed crds-enabled render"
-      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/jetstack-cert-manager-crds-enabled/prune-protection.yaml"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/prune-protection.yaml"
       companionRequired: "prune-protection"
     -
       class: "lookup"
@@ -88,7 +88,7 @@ spec:
       class: "crd-ordering"
       finding: "present"
       detail: "6 CustomResourceDefinition(s) in the committed crds-enabled render; per-file Units can race their CRDs"
-      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/jetstack-cert-manager-crds-enabled/crd-ordering.yaml"
+      disposition: "discharged by the route this bundle ships at data/certified-bundles/routes/catalog/jetstack-cert-manager-v1.21.0-crds-enabled/crd-ordering.yaml"
       companionRequired: "apply-ordering"
     -
       class: "immutable-fields"
@@ -122,4 +122,4 @@ spec:
       - "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/variant-revision.yaml"
       - "recipes/jetstack/cert-manager/v1.21.0/revisions/crds-enabled/r001/rendered/release-objects.yaml"
       - "packages/jetstack/cert-manager/v1.21.0/bases/crds-enabled/upstream.yaml"
-      - "runs/certified-bundles/catalog-jetstack-cert-manager-crds-enabled/publication-receipt.yaml"
+      - "runs/certified-bundles/catalog-jetstack-cert-manager-v1-21-0-crds-enabled/publication-receipt.yaml"

@@ -1,0 +1,113 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "catalog-karpenter-karpenter-1.14.0-crds-managed"
+spec:
+  producer:
+    name: "config-workshop-catalog"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "helm-chart"
+    charts:
+      -
+        repository: "oci://public.ecr.aws/karpenter"
+        name: "karpenter"
+        version: "1.14.0"
+        packageSHA256: "d576f955623fa421933d69ea2badc422b24df318b352747a5cd3d18de710ffe2"
+    evidence:
+      - "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+  bundle:
+    contentsKind: "rendered-config"
+    files:
+      -
+        path: "packages/karpenter/karpenter/1.14.0/bases/crds-managed/upstream.yaml"
+        sha256: "cdfd98d41d43445a3c5830bd8f789012c5aa2953d4c68ee39c86490025d244cb"
+        bytes: 13705
+        role: "rendered object set"
+      -
+        path: "data/certified-bundles/guides/catalog/karpenter-1.14.0-crds-managed/space-guide.md"
+        sha256: "22fa8dbe8f1b8cbe79d2d147891220b2c400e7410154c90a0105bfc6dbb5bcb5"
+        bytes: 1093
+        role: "space-guide"
+    objectCount: 13
+    objectInventoryRef: "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/object-inventory.yaml"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-crds-managed:latest"
+    manifestDigest: "sha256:ab854b5a41bdb85e656b335a5e26b0025c098cc698fd7306fb827382fcf15091"
+    layerDigest: "sha256:73bd886528430a023d0ed93b453ffc61d97e50e87f4b70cb0900ac74ef43306f"
+    reproducible: true
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the committed crds-managed render"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the committed crds-managed render; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed crds-managed render; the chart's template-level evidence is recorded in recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the committed crds-managed render"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed crds-managed render; the chart's template-level evidence is recorded in recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+      disposition: "render inputs pin the kube version and are recorded in this receipt"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the committed crds-managed render"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the committed crds-managed render"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "a cross-version property; no second version is compared in this receipt"
+      disposition: "versioned replacement route when an upgrade pair is audited"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "template-time construct, invisible in the committed crds-managed render; the chart's template-level evidence is recorded in recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+      disposition: "the flattening-safety audit decides the certified disposition"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the committed crds-managed render"
+      disposition: "none required"
+  verdict:
+    lane: "safe-to-flatten"
+    status: "certified"
+    decidedBy: "the flattening-safety audit at recipes/karpenter/karpenter/1.14.0/publication/flattening-safety-verdict-crds-managed.yaml"
+    notes: "Nothing this base renders is discharged at render time, so the rendered configuration is the whole delivery and no companion travels with it."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "recipes/karpenter/karpenter/1.14.0/source-lock.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/variant-revision.yaml"
+      - "recipes/karpenter/karpenter/1.14.0/revisions/crds-managed/r001/rendered/release-objects.yaml"
+      - "packages/karpenter/karpenter/1.14.0/bases/crds-managed/upstream.yaml"
+      - "runs/certified-bundles/catalog-karpenter-karpenter-1-14-0-crds-managed/publication-receipt.yaml"

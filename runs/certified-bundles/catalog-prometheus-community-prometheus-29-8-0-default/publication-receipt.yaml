@@ -1,0 +1,16 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-prometheus-community-prometheus-29.8.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/prometheus-29.8.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-8-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:6f40c80011a2fb6d28f404703acf53ebaf45af923f735206b2a63444568df2b5"
+  layerDigest: "sha256:907ae3d46946dfd1521b52dfdbac430c03e551a4bd00bd300bc0cabc37150591"
+  layerBytes: 5432
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-prometheus-community-prometheus-29-8-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-prometheus-community-prometheus-29-8-0-default.tar.gz"

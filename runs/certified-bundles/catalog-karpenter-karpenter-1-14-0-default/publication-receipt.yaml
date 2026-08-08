@@ -1,0 +1,17 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundlePublicationReceipt"
+metadata:
+  name: "catalog-karpenter-karpenter-1.14.0-default"
+spec:
+  receipt: "data/certified-bundles/receipts/catalog/karpenter-1.14.0-default/receipt.yaml"
+  reference: "europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest"
+  artifactType: "application/vnd.confighub.config.bundle.v1"
+  manifestDigest: "sha256:659ce0303f879db0246a20c9659d06adea3c2fc3d8b77518b684512f235149fb"
+  layerDigest: "sha256:e9ccd7e84a90262271a84245917000021c251b45cf2b59405e4c4a7cc9ce9573"
+  layerBytes: 26630
+  reproducible: true
+  stagedFiles:
+    - "README.md"
+    - "routes/crd-ordering.yaml"
+    - "upstream.yaml"
+  command: "oras push europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bundles/catalog-karpenter-karpenter-1-14-0-default:latest --artifact-type application/vnd.confighub.config.bundle.v1 <tmp>/catalog-karpenter-karpenter-1-14-0-default.tar.gz"
