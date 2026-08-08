@@ -1,0 +1,60 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ChartSuccessionRecord
+metadata:
+  name: chart-successions
+  decidedAt: "2026-08-08"
+  basis: docs/planning/chart-successors-brief.md
+  exposure: data/bitnami-successors/survey.json
+  note: >-
+    Each succession follows the survey's live-verified recommendation. A
+    successor listed here must exist as a retained catalog component; picks
+    that are not yet catalog entries appear under planned with their tracking
+    issue. Successions are recommendations to evaluate, not automatic
+    replacements; an operator succeeds a chart with a different operating
+    shape and the note says so.
+spec:
+  successions:
+    - replaces: bitnami/redis
+      successors:
+        - chart: cloudpirates/redis
+          shape: plain chart
+          note: >-
+            Keeps the Redis engine with a near-identical values surface. The
+            Redis 8 image tri-license is recorded on its page.
+        - chart: valkey/valkey
+          shape: plain chart
+          note: >-
+            The BSD-3-Clause Valkey engine alternative. Both engines are
+            offered so the license posture stays the reader's choice.
+    - replaces: bitnami/nginx
+      successors:
+        - chart: cloudpirates/nginx
+          shape: plain chart
+          note: Plain chart with a digest-pinned image.
+    - replaces: bitnami/rabbitmq
+      successors:
+        - chart: cloudpirates/rabbitmq
+          shape: plain chart
+          note: Plain chart with a digest-pinned image.
+    - replaces: bitnami/postgresql
+      successors:
+        - chart: cloudnative-pg/cloudnative-pg
+          shape: operator
+          note: >-
+            An operator, not a drop-in chart; the operating shape changes.
+            Issue 1376 tracks the fuller successor entry.
+    - replaces: bitnami/mongodb
+      successors:
+        - chart: percona/psmdb-operator
+          shape: operator
+          note: >-
+            An operator, not a drop-in chart; the operating shape changes.
+            Issue 1378 tracks the fuller successor entry.
+    - replaces: bitnami/mysql
+      successors: []
+      planned:
+        - name: MySQL Operator for Kubernetes
+          note: >-
+            The survey's pick is not yet a catalog entry; issue 1377 tracks
+            it. The pinned mysql chart source still answered normally at the
+            last measurement.
