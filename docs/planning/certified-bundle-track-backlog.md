@@ -39,9 +39,10 @@ flattenable without a verdict.
    theme depends on it.
 2. **Decide lanes for the charts the examples install.** A chart an example
    deploys should not be undecided while the example claims it works. S to M.
-3. **Write the lane-decision procedure down.** Today the judgment lives in the
-   generator's decision table and in the heads of whoever wrote it. A short
-   procedure makes the next fifty decisions cheaper and more consistent. S.
+3. **Write the lane-decision procedure down.** Done, at
+   `docs/reference/deciding-a-flattening-lane.md`. Six rules, each one drawn
+   from a draft that was wrong until the chart source contradicted it, plus the
+   regeneration order and what a decided lane does not mean.
 4. **Adversarially verify every new lane before it lands.** The first drafting
    pass produced real errors that only a refutation pass caught, including a
    wrong object count and a mis-quoted secret mount path. Keep the pass. S per
