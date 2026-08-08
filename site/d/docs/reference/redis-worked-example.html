@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Redis Proof Spec · Config Workshop</title>
-  <meta name="description" content="Redis Proof Spec: a repository document from the helm-expt proof corpus, rendered for the site.">
-  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/redis-proof-spec.html">
-  <meta property="og:title" content="Redis Proof Spec · Config Workshop">
-  <meta property="og:description" content="Redis Proof Spec: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <title>The redis worked example · Config Workshop</title>
+  <meta name="description" content="The redis worked example: a repository document from the helm-expt proof corpus, rendered for the site.">
+  <link rel="canonical" href="https://confighub.github.io/helm-expt/site/d/docs/reference/redis-worked-example.html">
+  <meta property="og:title" content="The redis worked example · Config Workshop">
+  <meta property="og:description" content="The redis worked example: a repository document from the helm-expt proof corpus, rendered for the site.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/redis-proof-spec.html">
+  <meta property="og:url" content="https://confighub.github.io/helm-expt/site/d/docs/reference/redis-worked-example.html">
   <style>
     :root {
       color-scheme: light dark;
@@ -442,14 +442,19 @@
 <body>
   <header class="hero human-hero">
     <div class="site-chrome"><nav class="topbar"><a class="brand" href="../../../index.html" title="Home"><svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 1.5 14.5 7h-2v7H9.5v-4h-3v4H3.5V7h-2L8 1.5z"/></svg>Config Workshop</a><span class="site-purpose">AN EXPERIMENTAL TEST SITE FOR CONFIG TOOLS</span><span class="navlinks"><a href="../../../try.html">Try Redis</a><a href="../../../testing.html">Examples</a><a href="../../../charts/index.html">Catalog</a><a href="../../../how-it-works.html">Deployment</a><a href="../../../docs.html">Docs</a><a href="../../../hard-questions.html">FAQ</a><a href="../../../confighub.html">ConfigHub</a></span></nav></div>
-    <h1>Redis Proof Spec</h1>
-    <p class="lead">This spec defines the first main-path Redis proof. It must be agreed before creating <code>recipes/bitnami/redis/25.5.3/</code> artifacts. <a href="../../../../docs/reference/redis-proof-spec.md">View source markdown</a>.</p>
+    <h1>The redis worked example</h1>
+    <p class="lead">Redis is the catalog's reference chart. Its lanes were specified first, in the most detail, and the shape they settled on is the one every later chart follows. This is the whole contract in one place: seven specifications that used to sit in seven files nothing linked to. <a href="../../../../docs/reference/redis-worked-example.md">View source markdown</a>.</p>
   </header>
   <main>
     <article class="doc-body">
 
+<p>Each section below is a lane that still runs. The npm scripts are live (<code>redis:verify-proof</code>, <code>redis:verify-package</code>, <code>redis:local-e2e</code>, <code>redis:verify-confighub-proof</code>, and the variant lanes), so this is a description of current behaviour rather than a record of how things once were.</p>
+<p>Later charts are generated from declarative specs through <code>scripts/lib/proof-kit.mjs</code> rather than hand-written, which is why no other chart has prose at this depth. Read this to understand what the kit produces.</p>
+<h2 id="the-proof-lane">The proof lane</h2>
+<p>From <code>redis-proof-spec.md</code>.</p>
+<p>This spec defines the first main-path Redis proof. It must be agreed before creating <code>recipes/bitnami/redis/25.5.3/</code> artifacts.</p>
 <p>The purpose is not to prove the old top-20 archive. The old payload has been removed from the active tree. This proof renders Redis with regular Helm under pinned inputs, then verifies the current <code>cub installer</code> package against that baseline.</p>
-<h2 id="product-claim">Product Claim</h2>
+<h3 id="product-claim">Product Claim</h3>
 <p>For <code>bitnami/redis@25.5.3</code>, ConfigHub must prove:</p>
 <pre><code>correct variant
 safe operation
@@ -458,7 +463,7 @@ immediate proof</code></pre>
 <pre><code>default
 reuse-existing-secret</code></pre>
 <p>Later slices can add <code>ha</code>.</p>
-<h2 id="required-files">Required Files</h2>
+<h3 id="required-files">Required Files</h3>
 <pre><code>recipes/bitnami/redis/25.5.3/
   README.md
   helm-plan.yaml
@@ -506,7 +511,7 @@ packages/bitnami/redis/25.5.3/
 
 runs/redis-confighub/latest/
   upload-oci-receipt.yaml</code></pre>
-<h2 id="minimum-readiness-card">Minimum Readiness Card</h2>
+<h3 id="minimum-readiness-card">Minimum Readiness Card</h3>
 <p><code>README.md</code> must show the happy path before the artifact ladder:</p>
 <p class="install-cub-note">New to <code>cub</code>? <a href="../../../try.html#install-cub">Install the cub CLI</a> first. You can pull and render public catalog packages without an account. Commands that save or change ConfigHub data require you to sign in.</p>
   <pre><code>Chart: bitnami/redis 25.5.3
@@ -524,32 +529,31 @@ Proof: equivalence, render, scan/gate, package, upload/OCI receipts
 Variant diff: default -&gt; reuse-existing-secret explains removed Secret, changed
 StatefulSets, and added target fact</code></pre>
 <p>If scan/gate is not executed yet, the card must say <code>not-run</code> or <code>blocked</code>. If the local scan runs and finds risks, the card must say <code>warn</code> and explain which scopes are blocked. It must not imply a pass.</p>
-<h2 id="required-invariants">Required Invariants</h2>
-<h3 id="source-and-dependencies">Source And Dependencies</h3>
+<h3 id="required-invariants">Required Invariants</h3>
+<h4 id="source-and-dependencies">Source And Dependencies</h4>
 <ol><li><code>source-lock.yaml</code> identifies:<ul><li>chart repository: <code>bitnami</code></li><li>chart name: <code>redis</code></li><li>chart version: <code>25.5.3</code></li><li>content URL: <code>oci://registry-1.docker.io/bitnamicharts/redis:25.5.3</code></li><li>chart digest/sha matching the captured source evidence</li></ul></li><li><code>dependency-lock.yaml</code> records the Redis chart dependency closure, including the Bitnami <code>common</code> library chart version.</li><li><code>source-lock.yaml</code> and <code>dependency-lock.yaml</code> are referenced by <code>recipe.yaml</code>.</li></ol>
-<h3 id="variant">Variant</h3>
+<h4 id="variant">Variant</h4>
 <ol><li><code>variants/default/variant.yaml</code> records:<ul><li>variant name: <code>default</code></li><li>namespace: <code>redis</code></li><li>release name: <code>redis</code></li><li>values profile reference</li><li>capability profile: Kubernetes <code>1.30.0</code></li><li>hook policy: <code>no-hooks</code></li></ul></li><li><code>effective-values.yaml</code> records the exact values used for the render and their SHA256.</li></ol>
 <p>5b. <code>effective-values-reuse-existing-secret.yaml</code> records the existing-secret values and must not store <code>auth.password</code>.</p>
 <ol><li>Unknown, dead, or ignored values are represented explicitly as <code>unknown</code>, <code>not-checked</code>, or <code>none-detected</code>; silence is not allowed.</li></ol>
 <p>6b. <code>variants/reuse-existing-secret/variant.yaml</code> records the target Secret requirement: namespace <code>redis</code>, name <code>redis-existing-secret</code>, key <code>redis-password</code>.</p>
-<h3 id="rendered-revision">Rendered Revision</h3>
+<h4 id="rendered-revision">Rendered Revision</h4>
 <ol><li><code>variant-revision.yaml</code> binds:<ul><li>recipe digest</li><li>variant digest</li><li>effective-values digest</li><li>renderer/toolchain digest or version</li><li>rendered object set digest</li></ul></li><li><code>rendered/release-objects.yaml</code> contains the Helm-equivalent Redis release objects for the default variant.</li><li><code>rendered/object-inventory.yaml</code> contains every rendered object identity: <code>apiVersion|kind|namespace|name</code>.</li><li>There are exactly 14 Helm release objects for the default variant.</li></ol>
 <p>10b. There are exactly 13 Helm release objects for the <code>reuse-existing-secret</code> variant, and no rendered <code>Secret</code>.</p>
 <ol><li>There are no duplicate object identities.</li></ol>
-<h3 id="helm-equivalence">Helm Equivalence</h3>
-<ol><li><code>helm-equivalence-receipt.yaml</code> proves:<ul><li>regular Helm render SHA256: <code>362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d</code></li><li>regular Helm object count: <code>14</code></li><li><code>cub installer setup</code> object count including secrets/support objects: <code>15</code></li><li>semantic object matches: <code>14/14</code></li><li>allowed ConfigHub/cub-only object: <code>v1|Namespace||redis</code></li><li>separated secret count: <code>1</code></li></ul><p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
-</li><li>Every difference between Helm and cub output is classified as:<ul><li><code>semantic-normalization</code></li><li><code>installer-support-object</code></li><li><code>secret-separated</code></li><li><code>risk</code></li><li><code>blocked</code></li></ul></li></ol>
+<h4 id="helm-equivalence">Helm Equivalence</h4>
+<ol><li><code>helm-equivalence-receipt.yaml</code> proves:<ul><li>regular Helm render SHA256: <code>362dbc4854421a23ea48da4ee7e72dbc98422fa9affc26ac372c761d4b90e10d</code></li><li>regular Helm object count: <code>14</code></li><li><code>cub installer setup</code> object count including secrets/support objects: <code>15</code></li><li>semantic object matches: <code>14/14</code></li><li>allowed ConfigHub/cub-only object: <code>v1|Namespace||redis</code></li><li>separated secret count: <code>1</code></li></ul></li><li>Every difference between Helm and cub output is classified as:<ul><li><code>semantic-normalization</code></li><li><code>installer-support-object</code></li><li><code>secret-separated</code></li><li><code>risk</code></li><li><code>blocked</code></li></ul></li></ol>
 <p>13b. The <code>reuse-existing-secret</code> equivalence receipt must prove:</p>
 <ul><li>regular Helm object count: <code>13</code></li><li><code>cub installer setup</code> object count including support objects: <code>14</code></li><li>semantic object matches: <code>13/13</code></li><li>separated secret count: <code>0</code></li><li>target Secret requirement recorded separately from rendered output</li></ul>
 <p>13c. <code>diffs/default-to-reuse-existing-secret.yaml</code> must be recomputable from both rendered object sets. It must show:</p>
 <ul><li>removed object: <code>v1|Secret|redis|redis</code></li><li>added objects: none</li><li>changed objects: Redis master and replica StatefulSets</li><li>added target fact: <code>Secret redis/redis-existing-secret</code> key <code>redis-password</code></li></ul>
-<h3 id="installer-package">Installer Package</h3>
+<h4 id="installer-package">Installer Package</h4>
 <p>13d. <code>packages/bitnami/redis/25.5.3/installer.yaml</code> must declare a real installer <code>Package</code> with bases <code>default</code> and <code>reuse-existing-secret</code>. 13e. <code>cub installer package packages/bitnami/redis/25.5.3</code> must produce byte-identical <code>.tgz</code> files across two local runs. 13f. <code>cub installer setup --base default</code> must render the default variant and match Helm semantically, with only the namespace support object added. 13g. <code>cub installer setup --base reuse-existing-secret</code> must render the existing-secret variant and match Helm semantically, with only the namespace support object added.</p>
-<h3 id="confighub-upload-and-oci">ConfigHub Upload And OCI</h3>
+<h4 id="confighub-upload-and-oci">ConfigHub Upload And OCI</h4>
 <p>13h. <code>cub installer upload</code> must create one visible ConfigHub Space per current Redis variant in the configured demo org. 13i. Each variant Space must contain 14 variant-labeled Kubernetes Units plus an <code>installer-record</code> Unit. 13j. Rendered Secrets must not be uploaded by the default variant. 13k. The reuse-existing-secret variant must leave <code>redis-existing-secret</code> as an expected target fact, not as rendered or stored secret material. 13l. ConfigHub's hosted OCI endpoint must return a unit-level OCI manifest for a representative Redis Unit, with secret and bearer token omitted from the receipt.</p>
-<h3 id="scan-and-gate">Scan And Gate</h3>
+<h4 id="scan-and-gate">Scan And Gate</h4>
 <ol><li><code>scan-receipt.yaml</code> is bound to the rendered object set digest.</li><li><code>scan-receipt.yaml</code> must state scanner name/version/policy digest when run.</li><li>If no scanner has run, <code>scan-receipt.yaml</code> must say <code>result: not-run</code>.</li><li><code>install-gate.yaml</code> must derive its decision from available receipts: <code>allow</code>, <code>warn</code>, or <code>block</code>.</li><li><code>install-gate.yaml</code> must not allow a production gate when scan result is <code>not-run</code>; it may allow only <code>local-test</code> if explicitly marked.</li><li>When the deterministic local scan is present, <code>scan-receipt.yaml</code> must bind scanner name/version, policy bundle digest, finding counts, and findings to the rendered object digest.</li><li>When any high finding exists, <code>install-gate.yaml</code> must block production and may allow only <code>local-test</code>.</li></ol>
-<h2 id="proof-commands">Proof Commands</h2>
+<h3 id="proof-commands">Proof Commands</h3>
 <p>The first implementation must add commands or scripts that prove:</p>
 <pre><code>npm run verify
 npm run redis:compare</code></pre>
@@ -558,12 +562,192 @@ npm run redis:compare</code></pre>
 npm run redis:verify-package</code></pre>
 <p>The Redis proof verifier must fail if:</p>
 <ul><li>any referenced digest changes;</li><li>object count changes without receipt update;</li><li>the namespace support object is not explicitly classified;</li><li>scan/gate status is missing or falsely implies success;</li><li>any required file is absent.</li><li>the durable Redis installer package changes without receipt update;</li><li><code>cub installer package</code> stops being byte-deterministic;</li><li>either package base stops matching the corresponding Helm-equivalent variant revision.</li></ul>
-<h2 id="non-scope-for-first-redis-slice">Non-Scope For First Redis Slice</h2>
+<h3 id="non-scope-for-first-redis-slice">Non-Scope For First Redis Slice</h3>
 <p>The first Redis proof does not need to complete:</p>
 <ul><li>HA variant</li><li>upgrade/rollback simulation receipts</li></ul>
 <p>Those are required later, but they must not block the first Redis proof as long as their status is explicit.</p>
+<h2 id="the-installer-package-lane">The installer package lane</h2>
+<p>From <code>redis-installer-package-spec.md</code>.</p>
+<p>This spec defines the next executable Redis proof slice: turn the existing Redis variant revisions into a real <code>cub installer</code> package, then verify that the package remains deterministic and Helm-equivalent.</p>
+<p>This is not the old archived top-20 pathway. The package source is generated from the current Redis proof revisions:</p>
+<pre><code>recipes/bitnami/redis/25.5.3/revisions/*/r001/rendered/release-objects.yaml</code></pre>
+<p>The durable package source lives at:</p>
+<pre><code>packages/bitnami/redis/25.5.3/</code></pre>
+<h3 id="product-claim-1">Product Claim</h3>
+<p>For <code>bitnami/redis@25.5.3</code>, the current installer package must prove:</p>
+<pre><code>correct variants
+safe operations
+immediate proof</code></pre>
+<p>The package contains two real installer bases:</p>
+<pre><code>default
+reuse-existing-secret</code></pre>
+<p>The current executable selection UX is:</p>
+<p class="install-cub-note installer-command-note"><strong>What this command does.</strong> cub installer is a released, open-source plugin for the cub CLI. cub installer setup pulls a catalog package and writes its Kubernetes files locally. It does not apply those files to a cluster; use kubectl, Argo CD, or Flux for delivery. The generated scripts stop before doing any work when the plugin or <code>kustomize</code> is missing.</p>
+  <pre><code>cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base default --work-dir &lt;work&gt; --non-interactive --namespace redis
+cub installer setup --pull oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/bitnami-redis:25.5.3 --base reuse-existing-secret --work-dir &lt;work&gt; --non-interactive --namespace redis</code></pre>
+<h3 id="required-files-1">Required Files</h3>
+<pre><code>packages/bitnami/redis/25.5.3/
+  installer.yaml
+  README.md
+  bases/default/kustomization.yaml
+  bases/default/upstream.yaml
+  bases/reuse-existing-secret/kustomization.yaml
+  bases/reuse-existing-secret/upstream.yaml
+
+recipes/bitnami/redis/25.5.3/publication/
+  installer-package-receipt.yaml</code></pre>
+<h3 id="required-invariants-1">Required Invariants</h3>
+<ol><li><code>installer.yaml</code> declares a real installer <code>Package</code>.</li><li>The package name is <code>bitnami-redis</code> and version is <code>25.5.3</code>.</li><li>Exactly one base is default: <code>default</code>.</li><li>The <code>default</code> base points at the default Redis rendered object set.</li><li>The <code>reuse-existing-secret</code> base points at the existing-secret rendered object set.</li><li><code>cub installer package</code> produces byte-identical <code>.tgz</code> files across two local runs from the same source tree.</li><li>The package receipt records every package source file and SHA256.</li><li>The package receipt records the deterministic <code>.tgz</code> SHA256.</li><li><code>cub installer setup --base default</code> renders all 14 Helm Redis objects, plus only the installer namespace support object and one separated Secret.</li><li><code>cub installer setup --base reuse-existing-secret</code> renders all 13 Helm Redis objects, plus only the installer namespace support object and no separated Secret.</li><li>Every <code>cub installer</code> difference from Helm is semantic-equivalent or explicitly classified as the namespace support object.</li><li>OCI publication is a real gated command, not a fake transcript. It runs only when a registry ref is supplied:</li></ol>
+<pre><code>REDIS_INSTALLER_OCI_REF=oci://&lt;registry&gt;/&lt;repo&gt;:&lt;tag&gt; npm run redis:publish-package</code></pre>
+<h3 id="proof-commands-1">Proof Commands</h3>
+<pre><code>npm run redis:generate-package
+npm run redis:verify-package
+npm run redis:compare
+npm run verify</code></pre>
+<p>The default <code>npm run verify</code> must include <code>redis:verify-package</code>.</p>
+<h3 id="non-scope-for-this-slice">Non-Scope For This Slice</h3>
+<p>This slice does not require a live ConfigHub OCI endpoint to be running. If a registry ref and credentials are available, <code>npm run redis:publish-package</code> must package, push, inspect, and write a publication receipt under <code>runs/</code>. Without a registry ref, publication remains unrun rather than simulated.</p>
+<h2 id="the-local-end-to-end-lane">The local end-to-end lane</h2>
+<p>From <code>redis-local-e2e-spec.md</code>.</p>
+<p>This slice proves the Redis <code>default</code> and <code>reuse-existing-secret</code> rendered objects can run in a local Kubernetes cluster.</p>
+<p>It is intentionally local. It does not prove ConfigHub OCI publication, GitOps handoff, or production readiness.</p>
+<h3 id="scope">Scope</h3>
+<p>Input:</p>
+<pre><code>recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
+recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml</code></pre>
+<p>Output:</p>
+<pre><code>runs/redis-local-kind/latest/observation-receipt.yaml
+runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml
+runs/redis-local-kind/latest/kubectl-objects.txt
+runs/redis-local-kind/latest/redis-pong.txt</code></pre>
+<h3 id="cluster-rule">Cluster Rule</h3>
+<p>Use a dedicated local kind cluster:</p>
+<pre><code>helm-expt-redis</code></pre>
+<p>The e2e script may create this cluster if it is missing. It must not mutate any other cluster context.</p>
+<h3 id="apply-rule">Apply Rule</h3>
+<p>The rendered Redis release objects do not include the installer Namespace support object. For local e2e only, apply:</p>
+<pre><code>v1|Namespace||redis</code></pre>
+<p>before applying <code>release-objects.yaml</code>.</p>
+<p>This is the same intentional cub-only support object already classified in the Helm equivalence receipt.</p>
+<h3 id="required-checks">Required Checks</h3>
+<p>The e2e proof must:</p>
+<ol><li>Verify the rendered object SHA256 before applying.</li><li>Create/use only the <code>helm-expt-redis</code> kind cluster.</li><li>Check that a default StorageClass exists. If it does not, the script may install the pinned local-path provisioner for this dedicated kind cluster and must record that target fact in the receipt.</li><li>Create the <code>redis</code> Namespace support object.</li><li>For <code>reuse-existing-secret</code>, create the required target Secret <code>redis-existing-secret</code> with key <code>redis-password</code> before applying the release objects, and record it as a target fact.</li><li>Apply the exact rendered release objects.</li><li>Wait for:<ul><li><code>statefulset/redis-master</code></li><li><code>statefulset/redis-replicas</code></li></ul></li><li>Wait for the four Redis PVCs to be <code>Bound</code>.</li><li>Run a Redis client command that returns <code>PONG</code>.</li><li>Write an observation receipt with:<ul><li>observer name/version</li><li>cluster kind/name</li><li>observed timestamp</li><li>rendered object digest</li><li>variant revision reference</li><li>result</li><li>freshness TTL</li><li>target facts, including default StorageClass</li><li>required Secret target fact for <code>reuse-existing-secret</code></li><li>checked resources</li><li>bound PVC evidence</li><li>PONG evidence digest</li></ul></li></ol>
+<h3 id="gate-rule">Gate Rule</h3>
+<p>Local e2e success may satisfy <code>local-test</code>.</p>
+<p>It must not override the production block from the scan gate. Production remains blocked until high scan findings are fixed or explicitly waived.</p>
+<h2 id="the-local-scan-lane">The local scan lane</h2>
+<p>From <code>redis-local-scan-spec.md</code>.</p>
+<p>This slice replaces the Redis placeholder scan with a deterministic local scan that is bound to the rendered object digest.</p>
+<p>The goal is not to replace Trivy, Snyk, kube-linter, Kubescape, Checkov, or ConfigHub policy functions. The goal is to prove the receipt/gate model with a small scanner that always runs in this repo and catches real Redis risks.</p>
+<h3 id="scope-1">Scope</h3>
+<p>Input:</p>
+<pre><code>recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml</code></pre>
+<p>Output:</p>
+<pre><code>recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/scan-receipt.yaml
+recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/install-gate.yaml</code></pre>
+<h3 id="scanner-contract">Scanner Contract</h3>
+<p>The scanner name is:</p>
+<pre><code>helm-expt-local-rendered-object-scan</code></pre>
+<p>The scanner must:</p>
+<ol><li>Bind findings to <code>renderedObjectSetSHA256</code>.</li><li>Emit a stable <code>policyBundleDigest</code>.</li><li>Emit deterministic finding IDs, severities, object identities, and messages.</li><li>Fail verification if the scan receipt digest does not match the rendered object set.</li><li>Fail verification if the install gate allows production while any high finding exists.</li></ol>
+<h3 id="minimum-rules">Minimum Rules</h3>
+<p>V0 rules:</p>
+<table><thead><tr><th>Rule</th><th>Severity</th><th>Purpose</th></tr></thead><tbody><tr><td><code>mutable-image-tag</code></td><td>high</td><td>Catch unpinned or <code>latest</code> images.</td></tr>
+<tr><td><code>pdb-unhealthy-pod-eviction-policy</code></td><td>medium</td><td>Catch PDBs missing explicit unhealthy pod eviction behavior.</td></tr>
+<tr><td><code>service-selector-has-workload-match</code></td><td>high</td><td>Catch Services whose selector matches no workload pod template.</td></tr>
+<tr><td><code>workload-service-account-exists</code></td><td>high</td><td>Catch workloads using a ServiceAccount absent from the rendered set.</td></tr></tbody></table>
+<h3 id="expected-redis-findings">Expected Redis Findings</h3>
+<p>For <code>bitnami/redis@25.5.3</code> default, V0 is expected to produce:</p>
+<pre><code>high: 2
+medium: 2
+low: 0
+info: 0
+result: warn</code></pre>
+<p>Expected finding types:</p>
+<ul><li>two <code>mutable-image-tag</code> findings for Redis StatefulSets using <code>registry-1.docker.io/bitnami/redis:latest</code></li><li>two <code>pdb-unhealthy-pod-eviction-policy</code> findings for Redis PDBs</li></ul>
+<p>Because high findings exist, the install gate must:</p>
+<pre><code>decision: warn
+allowedScopes: [local-test]
+blockedScopes: [production]</code></pre>
+<p>This is the right outcome: the proof is correct and useful precisely because it shows the chart is not production-clean under this policy yet.</p>
+<h2 id="the-default-variant">The default variant</h2>
+<p>From <code>redis-default-variant-spec.md</code>.</p>
+<p>The first Redis proof variant must be named <code>default</code>, not <code>standalone</code>.</p>
+<p>Reason:</p>
+<pre><code>bitnami/redis@25.5.3 default render includes:
+- redis-master StatefulSet with 1 pod
+- redis-replicas StatefulSet with 3 pods</code></pre>
+<p>Calling this <code>standalone</code> is misleading. It weakens trust because the proof label would contradict the rendered objects.</p>
+<h3 id="required-rename">Required Rename</h3>
+<p>Rename:</p>
+<pre><code>variants/standalone/variant.yaml
+revisions/standalone/r001/</code></pre>
+<p>to:</p>
+<pre><code>variants/default/variant.yaml
+revisions/default/r001/</code></pre>
+<p>All receipts, run evidence, README cards, verifier scripts, and e2e scripts must refer to the <code>default</code> variant.</p>
+<h3 id="invariant">Invariant</h3>
+<p>The verifier must prove:</p>
+<pre><code>variant metadata.name == default
+variant revision path == revisions/default/r001/variant-revision.yaml
+observation receipt variantRevision points at revisions/default/r001/variant-revision.yaml</code></pre>
+<p>No proof file should present the default Bitnami Redis render as standalone.</p>
+<h2 id="the-variant-diff">The variant diff</h2>
+<p>From <code>redis-variant-diff-spec.md</code>.</p>
+<p>This slice makes the easy variant path visible.</p>
+<p>Input:</p>
+<pre><code>default/r001 rendered object set
+reuse-existing-secret/r001 rendered object set
+reuse-existing-secret target fact requirement</code></pre>
+<p>Output:</p>
+<pre><code>recipes/bitnami/redis/25.5.3/diffs/default-to-reuse-existing-secret.yaml</code></pre>
+<p>The diff must show:</p>
+<pre><code>removed Helm object: v1|Secret|redis|redis
+added Helm objects: none
+changed Helm objects:
+- apps/v1|StatefulSet|redis|redis-master
+- apps/v1|StatefulSet|redis|redis-replicas
+added target fact: Secret redis/redis-existing-secret key redis-password</code></pre>
+<p>The verifier must recompute the object-level diff from the two rendered object sets and reject the artifact if the summary lies.</p>
+<h2 id="the-reuse-existing-secret-variant">The reuse-existing-secret variant</h2>
+<p>From <code>redis-reuse-existing-secret-variant-spec.md</code>.</p>
+<p>This slice proves the first easy variant path after <code>default</code>.</p>
+<p>The variant is named <code>reuse-existing-secret</code>.</p>
+<p>Purpose:</p>
+<pre><code>Move Redis credential ownership out of Helm-generated Secret output and into
+an explicit target secret requirement.</code></pre>
+<h3 id="helm-values">Helm Values</h3>
+<p>The variant must set:</p>
+<pre><code>auth:
+  existingSecret: redis-existing-secret
+  existingSecretPasswordKey: redis-password</code></pre>
+<p>It must not set or store <code>auth.password</code>.</p>
+<h3 id="required-files-2">Required Files</h3>
+<pre><code>recipes/bitnami/redis/25.5.3/
+  effective-values-reuse-existing-secret.yaml
+  variants/reuse-existing-secret/variant.yaml
+  revisions/reuse-existing-secret/r001/
+    variant-revision.yaml
+    rendered/release-objects.yaml
+    rendered/object-inventory.yaml
+    receipts/helm-equivalence-receipt.yaml
+    receipts/render-receipt.yaml
+    receipts/scan-receipt.yaml
+    receipts/install-gate.yaml</code></pre>
+<h3 id="invariants">Invariants</h3>
+<p>The verifier must prove:</p>
+<pre><code>variant metadata.name == reuse-existing-secret
+rendered Helm object count == 13
+rendered Secret count == 0
+target secret requirement is recorded
+regular Helm output and cub installer setup output are semantically equivalent
+cub installer adds only the Namespace support object</code></pre>
+<p>The proof must make the happy path visible:</p>
+<pre><code>default variant: Helm renders Redis Secret
+reuse-existing-secret variant: Helm does not render Redis Secret
+safe operation: target must provide redis-existing-secret/redis-password</code></pre>
     </article>
   </main>
-  <footer><p>Generated from the committed markdown file <code>docs/reference/redis-proof-spec.md</code>. The source file is the authoritative version.</p></footer>
+  <footer><p>Generated from the committed markdown file <code>docs/reference/redis-worked-example.md</code>. The source file is the authoritative version.</p></footer>
 </body>
 </html>

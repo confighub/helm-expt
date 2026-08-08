@@ -283,6 +283,7 @@ ConfigHub primitives.
 | File | Role |
 | --- | --- |
 | [artifact-verifier-spec.md](./reference/artifact-verifier-spec.md) | What the artifact verifier must check. |
+| [redis-worked-example.md](./reference/redis-worked-example.md) | The catalog's reference chart in one place: the proof, installer-package, local end-to-end, scan and variant lanes that every later chart's generated spec follows. |
 | [certified-bundle-spec.md](./reference/certified-bundle-spec.md) | The shared bundle-plus-receipt spec every producer emits against: bundle shape, receipt fields, quirk dispositions, and the flattening-safety verdict lanes. |
 | [deciding-a-flattening-lane.md](./reference/deciding-a-flattening-lane.md) | How a lane is decided from a witness: six rules, each drawn from a draft the chart source proved wrong, plus the regeneration order and what a decided lane does not mean. |
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Seven-stage lifecycle, render parity boundary, hook routing, and support claims. |
@@ -357,7 +358,6 @@ Generated proof data for this section lives in:
 | [where-does-my-hook-go.md](./planning/where-does-my-hook-go.md) | Problem analysis and solution proposal generalizing the hook disposition model (observed/routed/per-target/refused) to every Helm behavior that does not survive a config-only render: named routes, the default-plus-legible-off-ramp requirement for humans and agents, a phased plan, and the #684 review notes. |
 | [hook-route-execution-plan.md](./planning/hook-route-execution-plan.md) | Scope for executing hook lifecycle routes (closing automatic:false): what each route class needs, GitOps-native emission vs product-direct cub execution, the execution receipt, and the phasing so hooks are automated and audited rather than run by hand. |
 | [top20-full-proof-target.md](./planning/top20-full-proof-target.md) | Definition and status of the top-20 full proof milestone. |
-| [top100-full-proof-target.md](./planning/top100-full-proof-target.md) | Definition and status of the top-100 proof surface. |
 | [../data/top50-completion/summary.md](../data/top50-completion/summary.md) | Generated fifty-task completion plan: current status, evidence, verification command, and the next step for every agreed programme outcome. |
 | [top500-matrix-refresh-review.md](./planning/top500-matrix-refresh-review.md) | How the top-500 analysis should be regenerated and interpreted. |
 | [latest-top20-refresh-plan.md](./planning/latest-top20-refresh-plan.md) | Latest-version refresh plan for the supported top-20 charts. |
@@ -378,13 +378,6 @@ Redis demo:
 
 | File | Role |
 | --- | --- |
-| [redis-proof-spec.md](./reference/redis-proof-spec.md) | Overall Redis proof specification. |
-| [redis-installer-package-spec.md](./reference/redis-installer-package-spec.md) | Redis `cub installer` package requirements. |
-| [redis-default-variant-spec.md](./reference/redis-default-variant-spec.md) | Default Redis variant requirements. |
-| [redis-reuse-existing-secret-variant-spec.md](./reference/redis-reuse-existing-secret-variant-spec.md) | Redis existing-Secret variant requirements. |
-| [redis-variant-diff-spec.md](./reference/redis-variant-diff-spec.md) | Expected differences between Redis variants. |
-| [redis-local-e2e-spec.md](./reference/redis-local-e2e-spec.md) | Local kind live/e2e proof specification. |
-| [redis-local-scan-spec.md](./reference/redis-local-scan-spec.md) | Local scan proof specification. |
 
 ### Demo Docs
 
@@ -394,7 +387,6 @@ Redis demo:
 | [demo/redis/function-scan-lane.md](demo/redis/function-scan-lane.md) | Redis ConfigHub function scan lane. |
 | [demo/redis/safe-ops-lane.md](demo/redis/safe-ops-lane.md) | Redis safe operation lane. |
 | [demo/redis/ux-acceptance.md](demo/redis/ux-acceptance.md) | Redis UX acceptance criteria. |
-| [demo/nginx/confighub-proof-plan.md](demo/nginx/confighub-proof-plan.md) | NGINX proof target plan. |
 
 ### Tests
 
@@ -457,7 +449,6 @@ not the primary user path.
 | [get-started-rewrite-brief.md](./planning/get-started-rewrite-brief.md) | Brief for Codex to rewrite the generated Get Started page (try.html) install-first around parity of outcomes: the full new copy, the recipe-vs-package explanation of `--pull`, verified commands, and generator notes. |
 | [persona-ux-rerun-2026-06-22.md](./planning/persona-ux-rerun-2026-06-22.md) | Rerun of the public-site persona UX audit after the adoption-lens site updates, including page metrics, eight persona findings, and ranked follow-up work. |
 | [persona-ux-audit-2026-06-22.md](./planning/persona-ux-audit-2026-06-22.md) | Ten-persona public-site audit after the homepage and guide restructuring, with verified findings and the next ranked UX fixes. |
-| [how-it-works-website-brief.md](./planning/how-it-works-website-brief.md) | Content + structure brief for the public site's "How it works" section (for Codex): the four-move spine, the honesty rails, suggested visuals, and the open content gaps. |
 | [landing-page-restructure-brief.md](./planning/landing-page-restructure-brief.md) | Brief for Codex to restructure the generated homepage around one narrative spine (look first, prove it on a cluster, change it and keep it) so the page makes one pitch instead of nine; executed by #1101. |
 | [fuzz-corpus-tests-roadmap.md](./planning/fuzz-corpus-tests-roadmap.md) | Roadmap for the non-website work (corpus, tests, fuzz, migration-UX): the test-our-tool principle, the persona taxonomy (F/G/cub-fuzz/Helm-migrant), the offline-first PR sequence, and the deferred live work. |
 | [helm-vs-cub-adoption-audit.md](./planning/helm-vs-cub-adoption-audit.md) | Adoption audit for places where cub is worse than or more confusing than plain Helm on the common journey, with each gap marked solved, managed, partial, or unmanaged. |
