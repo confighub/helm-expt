@@ -5877,6 +5877,17 @@ cub helm install &lt;release&gt; &lt;chart&gt; \\
         ["Live Space guides", `<a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd/README.md">Base</a> · <a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-development/README.md">development</a> · <a href="../data/helm-catalog-readmes/spaces/aicr-eks-h100-training-kubeflow-v0-14-0-argocd-staging/README.md">staging</a>.`],
       ], { rawSecondColumn: true })}
       <p>All three Spaces keep the catalog checks and required approval. The target must provide the Grafana Secret. This example has not run the Applications through Argo CD or proved an EKS GPU workload.</p>
+      <h3>Four platform shapes, and what each one has proved</h3>
+      <p>That training platform is one of four AICR entries. They are evidence rather than products. Nothing here is offered for installation the way a catalog chart is. Each entry carries a digest that pins its shape, plus a path to every receipt behind it. The table below is generated from <a href="../data/aicr-platform-evidence/summary.md">the evidence record</a>, so a row cannot claim a rung its receipts do not support.</p>
+      ${markdownLikeTable([
+        ["Shape", "Provenance", "Rungs with receipts"],
+        ...catalog.platformEvidence.spec.entries.map((entry) => [
+          `<a href="../${entry.paths.page}">${escapeHtml(entry.title)}</a>`,
+          escapeHtml(entry.provenance),
+          `${entry.ladder.climbedCount} · <code>${escapeHtml(entry.platformDigest.slice(0, 19))}…</code>`,
+        ]),
+      ], { rawFirstColumn: true, rawSecondColumn: true, rawThirdColumn: true })}
+      <p>Every one of them proves configuration mechanics only. No GPU workload ran to produce or verify any of it. The rungs no entry has climbed are listed in the record, not left to inference.</p>
     </section>
 
     <section aria-labelledby="existing-oci-change">
