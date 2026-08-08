@@ -1,0 +1,94 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "FlatteningSafetyVerdict"
+metadata:
+  name: "aicr-cpu-starter"
+spec:
+  subject:
+    kind: "aicr-platform-shape"
+    entry: "examples/aicr/cpu-starter"
+    platformDigest: "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564"
+    upstreamVersion: "v0.14.0"
+    note: "The subject is a platform shape rather than a chart. It is the rendered Argo CD Application set produced from AICR's argocd-helm bundle chart."
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  componentScope:
+    mode: "render-late-by-argo"
+    referencedCharts:
+      - "cert-manager"
+      - "k8s-ephemeral-storage-metrics"
+      - "kai-scheduler"
+      - "kube-prometheus-stack"
+      - "node-feature-discovery"
+      - "prometheus-adapter"
+      - "prometheus-operator-crds"
+    statement: "Each Application points at a chart that Argo CD renders at sync time. No chart is flattened by this shape, so no chart's flattening verdict is decided here. Those verdicts belong to the chart catalog and are read per chart."
+  verdict:
+    lane: "flatten-with-routes"
+    rationale: "The Application set is flattened output that carries an ordering declaration the delivery runtime executes. Ordering declarations are what this lane covers. Nothing else in the set needs a companion, because the constructs a flattening audit looks for live in the charts, and the charts are not flattened here."
+    routes:
+      - "sync-wave ordering across the platform components"
+  boundedness:
+    - "This verdict decides the wrapper, not the components. A component chart can be do-not-flatten and still ship inside this shape safely, because this shape does not flatten it."
+    - "The ordering is upstream's. AICR computes deploymentOrder from the dependency graph, and the ordering-parity lane checks these sync-waves preserve it."
+    - "The Applications carry automated sync policies. That is a delivery decision, not a flattening hazard, and the delivery proof holds the controller at zero rather than inheriting it silently."
+    - "No workload ran. This verdict is config-plane only, like every AICR receipt."
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/cpu-starter/argocd-rendered/templates"
+      - "examples/aicr/cpu-starter/digest-index/platform-index.json"
+      - "data/aicr-ordering-parity/summary.md"

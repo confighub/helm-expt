@@ -1,0 +1,138 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "CertifiedBundleReceipt"
+metadata:
+  name: "aicr-cpu-starter"
+spec:
+  producer:
+    name: "aicr"
+    repository: "https://github.com/confighub/helm-expt"
+  source:
+    kind: "aicr-entry"
+    canonicalHome:
+      repository: "https://github.com/confighub/helm-expt"
+      path: "examples/aicr/cpu-starter"
+    evidence:
+      - "examples/aicr/cpu-starter/derivation-receipt.yaml"
+      - "examples/aicr/cpu-starter/digest-index/platform-index.json"
+      - "data/aicr-ordering-parity/summary.md"
+  bundle:
+    contentsKind: "rendered-config"
+    platformDigest: "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564"
+    files:
+      -
+        path: "cert-manager.yaml"
+        sha256: "9429064306e0efcca02e29edafa202330de0d3cbab8b8d47d52f69a2e56b6453"
+        bytes: 1927
+        role: "Argo CD Application"
+      -
+        path: "k8s-ephemeral-storage-metrics.yaml"
+        sha256: "069c54ea067bee6e041f6356b6f72e1a00ce41294217fb5edaed085bbaeb1b2f"
+        bytes: 1535
+        role: "Argo CD Application"
+      -
+        path: "kai-scheduler.yaml"
+        sha256: "740ea2245f37828f383b89ed876cbfbcd4ad30972447cdbf57c06922348e5fbc"
+        bytes: 959
+        role: "Argo CD Application"
+      -
+        path: "kube-prometheus-stack.yaml"
+        sha256: "83f58c797a925802b31ea5874676ad7ee51b2c3439e9a86d06bbcf52a87a7656"
+        bytes: 3338
+        role: "Argo CD Application"
+      -
+        path: "nfd.yaml"
+        sha256: "ef2cfedf5ff066f0255ed0d910daacec6f78225f117a3bf95f8c448d1e8b0df6"
+        bytes: 1350
+        role: "Argo CD Application"
+      -
+        path: "prometheus-adapter.yaml"
+        sha256: "1d6fab6e8f60c9b7eda6ed266d0b172159bada60a95396f44f63c22039afe509"
+        bytes: 4816
+        role: "Argo CD Application"
+      -
+        path: "prometheus-operator-crds.yaml"
+        sha256: "0a277cf4d9f6b6fed5f2b890a94a366fba0a49859c9ae852999094ee79b34292"
+        bytes: 786
+        role: "Argo CD Application"
+  ingest:
+    granularity: "per-file"
+    spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
+    externalSourceAnnotation: "confighub.com/external-source"
+  dispositions:
+    -
+      class: "helm-hooks"
+      finding: "absent"
+      detail: "no helm.sh/hook annotation in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "resource-policy-keep"
+      finding: "absent"
+      detail: "no helm.sh/resource-policy annotation in the rendered Application set; the catalog does not yet scan this class as its own axis (data/quirk-coverage/coverage.csv)"
+      disposition: "none required"
+    -
+      class: "lookup"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "webhook-ca"
+      finding: "absent"
+      detail: "no webhook configuration in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "capabilities-api-versions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "generated-secrets"
+      finding: "absent"
+      detail: "no Secret object in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "crd-ordering"
+      finding: "absent"
+      detail: "no CustomResourceDefinition in the rendered Application set"
+      disposition: "none required"
+    -
+      class: "immutable-fields"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "namespace-creation"
+      finding: "absent"
+      detail: "no Namespace object ships in the bundle; the target namespace must exist before apply"
+      disposition: "declared at ingest"
+    -
+      class: "subchart-conditions"
+      finding: "not-evaluated"
+      detail: "not evaluated for this bundle: the charts these Applications reference are rendered by Argo CD at sync time, so no template-time construct is flattened here"
+      disposition: "carried by the referenced chart's own catalog verdict"
+    -
+      class: "test-hooks"
+      finding: "absent"
+      detail: "no test hook in the rendered Application set"
+      disposition: "none required"
+  verdict:
+    lane: "flatten-with-routes"
+    status: "certified"
+    decidedBy: "the platform-shape flattening verdict at data/aicr-flattening-verdicts/aicr-cpu-starter/flattening-safety-verdict.yaml"
+    notes: "The bundle is the rendered Argo CD Application set for AICR v0.14.0. It is flattened output, and it ships with one route: the sync-wave ordering, emitted beside this receipt. The 7 charts these Applications reference are not flattened by this bundle. Argo CD renders them at sync time, so their flattening verdicts belong to the chart catalog and are deliberately out of scope here. No workload claim attaches. Every AICR receipt proves config-plane mechanics only."
+    componentDelivery:
+      mode: "render-late-by-argo"
+      referencedCharts:
+        - "cert-manager"
+        - "k8s-ephemeral-storage-metrics"
+        - "kai-scheduler"
+        - "kube-prometheus-stack"
+        - "node-feature-discovery"
+        - "prometheus-adapter"
+        - "prometheus-operator-crds"
+      outOfScopeReason: "a chart this bundle points at is never flattened by it, so this bundle cannot carry that chart's flattening verdict"
+  provenance:
+    emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
+    generatedFrom:
+      - "examples/aicr/cpu-starter/argocd-rendered/templates"
+      - "examples/aicr/cpu-starter/digest-index/platform-index.json"
+      - "examples/aicr/cpu-starter/derivation-receipt.yaml"
