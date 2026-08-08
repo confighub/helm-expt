@@ -10,14 +10,14 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 849
+scripts: 850
 ```
 
 ## By Category
 
 | Chain role | Scripts |
 | --- | ---: |
-| `not-a-gate` | 450 |
+| `not-a-gate` | 451 |
 | `in-verify-chain` | 380 |
 | `gate-shaped-outside-chain` | 19 |
 
@@ -27,7 +27,7 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 
 | Category | Scripts |
 | --- | ---: |
-| `other` | 344 |
+| `other` | 345 |
 | `top20-chart-proof` | 123 |
 | `catalog-data` | 67 |
 | `production-support` | 65 |
@@ -55,7 +55,7 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 | --- | ---: |
 | `verify` | 374 |
 | `generate-or-run` | 326 |
-| `run` | 99 |
+| `run` | 100 |
 | `self-test` | 40 |
 | `summary` | 9 |
 | `full-corpus-verify` | 1 |
@@ -64,7 +64,7 @@ not run by `npm run verify`. Each one needs a recorded reason, which
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 772 |
+| `none-for-verify` | 773 |
 | `confighub-or-live-cluster` | 33 |
 | `network-or-helm-repo` | 15 |
 | `local-kubernetes` | 14 |
