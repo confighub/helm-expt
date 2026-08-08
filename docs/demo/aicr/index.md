@@ -22,12 +22,17 @@ taxonomy follows that split.
 | Entry class | Status | Source |
 | --- | --- | --- |
 | Training | Exists: [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | NVIDIA AICR v0.14.0, retained exactly |
-| Inference / serving | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0 |
-| CPU starter | Exists as derived configuration: [the platform spine without accelerators](./cpu-starter.md) | Derived from the training entry by recorded selection rules; needs no GPU, cloud account, or NGC key |
+| Inference / serving, platform level | Exists: [the AICR-native NIM platform](./eks-h100-inference-nim.md) | NVIDIA AICR v0.14.0 with `platform: nim`, retained exactly |
+| Inference / serving, model level | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0 |
+| CPU starter | Exists as derived configuration: [the platform spine without accelerators](./cpu-starter.md) | Derived from the training entry by recorded selection rules, with no upstream equivalent; needs no GPU, cloud account, or NGC key |
 
-All three entries exist today: the training entry with its proven mechanics,
-the inference entry as retained configuration, and the CPU starter as a
-rule-governed derivation of the training entry. The catalog refuses
+Four entries exist today. The training entry carries the proven mechanics, the
+two inference entries answer the serving question at different granularities,
+and the CPU starter is a rule-governed derivation of the training entry. The
+inference pair is deliberate: the AICR-native entry stands up a cluster that
+can serve NIM, and the KServe entry names the exact shape a given model runs
+in. Retaining both keeps the sourcing choice visible instead of implied, and
+the [entry page](./eks-h100-inference-nim.md) compares them directly. The catalog refuses
 manufactured variety: new entries come from upstream versions, from
 deliberately authored shapes whose provenance is named, or from recorded
 derivations of an existing entry. The inference entry's sixteen model-by-GPU

@@ -1,0 +1,28 @@
+---
+# Source: aicr-bundle/templates/agentgateway-crds-post.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "1"
+    name: agentgateway-crds-post
+    namespace: argocd
+spec:
+    destination:
+        namespace: agentgateway-system
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        helm:
+            values: |-
+                {}
+        path: 002-agentgateway-crds-post
+        repoURL: 'oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle'
+        targetRevision: '0.14.0'
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

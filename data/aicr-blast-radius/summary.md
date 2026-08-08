@@ -13,7 +13,7 @@ receipts of every reviewed change already made.
 
 | Entry | Control point | Documents governed | Reviewed changes checked |
 | --- | --- | --- | --- |
-| `aicr-cpu-starter` | `prometheus-storage-class` | 1 | `runs/aicr-cpu-starter-variant/receipt.yaml` |
+| `aicr-cpu-starter` | `prometheus-storage-class` (upstream-derived) | 1 | `runs/aicr-cpu-starter-variant/receipt.yaml` |
 | `aicr-kserve-nim-inference` | `model-cache-claim` | 16 | `runs/aicr-kserve-nim-import/receipt.yaml` |
 | `aicr-kserve-nim-inference` | `nim-telemetry-mode` | 10 | none yet |
 

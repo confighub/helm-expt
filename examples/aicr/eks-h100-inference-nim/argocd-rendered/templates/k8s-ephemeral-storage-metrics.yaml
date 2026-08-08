@@ -1,0 +1,43 @@
+---
+# Source: aicr-bundle/templates/k8s-ephemeral-storage-metrics.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+    annotations:
+        argocd.argoproj.io/sync-wave: "13"
+    name: k8s-ephemeral-storage-metrics
+    namespace: argocd
+spec:
+    destination:
+        namespace: monitoring
+        server: https://kubernetes.default.svc
+    project: default
+    source:
+        chart: k8s-ephemeral-storage-metrics
+        helm:
+            values: |-
+                deploy_type: Deployment
+                log_level: info
+                metrics:
+                  adjusted_polling_rate: false
+                  ephemeral_storage_container_limit_percentage: true
+                  ephemeral_storage_container_volume_limit_percentage: true
+                  ephemeral_storage_container_volume_usage: true
+                  ephemeral_storage_node_available: true
+                  ephemeral_storage_node_capacity: true
+                  ephemeral_storage_node_percentage: true
+                  ephemeral_storage_pod_usage: true
+                prometheus:
+                  enable: true
+                  release: kube-prometheus-stack
+                tolerations:
+                - operator: Exists
+        repoURL: https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart
+        targetRevision: 1.19.2
+    syncPolicy:
+        automated:
+            prune: true
+            selfHeal: true
+        syncOptions:
+            - CreateNamespace=true
+            - ServerSideApply=true

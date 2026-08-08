@@ -1,0 +1,48 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "OciBundleWitness"
+metadata:
+  name: "eks-inference-inference-workloads"
+spec:
+  observedAt: "2026-08-07T17:30:00Z"
+  pullCommand: "oras pull ghcr.io/confighub/configs/eks-inference/inference-workloads:latest"
+  artifact:
+    reference: "ghcr.io/confighub/configs/eks-inference/inference-workloads:latest"
+    manifestDigest: "sha256:3caf5e71463a8b680dbe7f6bde47dceb3671099f452f9586d032289c45fd8cbf"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    createdAnnotation: "1970-01-01T00:00:00Z"
+    layer:
+      mediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+      digest: "sha256:846fbc224eda8dcd0dc1bd4f6ae2607ac7ccb5001fabf0d396a27a6bf8d00a29"
+      bytes: 3333
+      title: "inference-workloads.tar.gz"
+  extractedFiles:
+    -
+      path: "files/00-namespace.yaml"
+      bundlePath: "00-namespace.yaml"
+      sha256: "55afb0ec3344145bb0d124ee88406c807655aea095a4bf3e90a1be0b1c988c50"
+      bytes: 691
+    -
+      path: "files/smoke-cpu.yaml"
+      bundlePath: "smoke-cpu.yaml"
+      sha256: "87cc494d388100617c36072bf847accc244daf6abb3ca027a007eeec257fb863"
+      bytes: 1571
+    -
+      path: "files/smoke-gpu.yaml"
+      bundlePath: "smoke-gpu.yaml"
+      sha256: "86742368268f62b67545f6bbc9438dcd3747e3f7f2dd4d167daf4bdcc8b53edf"
+      bytes: 2489
+    -
+      path: "files/vllm-qwen.yaml"
+      bundlePath: "vllm-qwen.yaml"
+      sha256: "0732999e14d819966f9dc442ad632e8d78a5c64817549f3bc3db66b2b24cb249"
+      bytes: 3503
+  producer:
+    repository: "https://github.com/confighub/eks-inference"
+    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    component: "inference-workloads"
+    plane: "workload"
+    renderKind: "copy"
+  crossCheck:
+    committedRenderMatches: true
+    committedRenderPath: "configs/inference-workloads at the producer commit above"
+    note: "Every extracted file hashes identically to the producer repository's committed render, so the published bundle and the reviewed source agree byte for byte."

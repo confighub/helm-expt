@@ -1,0 +1,48 @@
+apiVersion: "evidence.confighub.com/v1alpha1"
+kind: "OciBundleWitness"
+metadata:
+  name: "eks-inference-eks-cluster"
+spec:
+  observedAt: "2026-08-07T17:30:00Z"
+  pullCommand: "oras pull ghcr.io/confighub/configs/eks-inference/eks-cluster:latest"
+  artifact:
+    reference: "ghcr.io/confighub/configs/eks-inference/eks-cluster:latest"
+    manifestDigest: "sha256:cc6ae42f8347d5e06d7ad787f5582d96a3005c55674cc52c8c2a2d849917899f"
+    artifactType: "application/vnd.confighub.config.bundle.v1"
+    createdAnnotation: "1970-01-01T00:00:00Z"
+    layer:
+      mediaType: "application/vnd.oci.image.layer.v1.tar+gzip"
+      digest: "sha256:8aded0150d6f4d0bff5ba7c5bde5923f0a15cab4761d2d1d31d07b55483a60bb"
+      bytes: 2690
+      title: "eks-cluster.tar.gz"
+  extractedFiles:
+    -
+      path: "files/addons.yaml"
+      bundlePath: "addons.yaml"
+      sha256: "900906201f93497e07928543ee2341949db709a3a54e0e30613bddaaffca1a0d"
+      bytes: 1218
+    -
+      path: "files/cluster.yaml"
+      bundlePath: "cluster.yaml"
+      sha256: "43e649d14aafb1d958103de3418294faa19369ff138d427a9f1af6b4a8a48a2f"
+      bytes: 2090
+    -
+      path: "files/iam-roles.yaml"
+      bundlePath: "iam-roles.yaml"
+      sha256: "c6613e3b508602ac35ace4dc4b2e7f605fe25772f7414bf696c802cc28b542fa"
+      bytes: 1978
+    -
+      path: "files/nodegroup.yaml"
+      bundlePath: "nodegroup.yaml"
+      sha256: "c688de50bb8eb8d2f547f994ca6180040f07ce386b276f75d03e3d7b8807f6fe"
+      bytes: 1482
+  producer:
+    repository: "https://github.com/confighub/eks-inference"
+    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
+    component: "eks-cluster"
+    plane: "mgmt"
+    renderKind: "copy"
+  crossCheck:
+    committedRenderMatches: true
+    committedRenderPath: "configs/eks-cluster at the producer commit above"
+    note: "Every extracted file hashes identically to the producer repository's committed render, so the published bundle and the reviewed source agree byte for byte."

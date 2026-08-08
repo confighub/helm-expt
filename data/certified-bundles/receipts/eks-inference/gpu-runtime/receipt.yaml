@@ -6,21 +6,12 @@ spec:
   producer:
     name: "eks-inference"
     repository: "https://github.com/confighub/eks-inference"
-    commit: "2e1a8823920ca4fc6f124db754b7f8f2cfe7d574"
+    commit: "cedee01c303e9df1813bc2b09c2903d070240bd8"
   source:
     kind: "helm-chart"
-    charts:
-      -
-        repository: "https://nvidia.github.io/k8s-device-plugin"
-        name: "nvidia-device-plugin"
-        version: "0.19.3"
     evidence:
       - "data/certified-bundles/witnesses/eks-inference-gpu-runtime/witness.yaml"
-  renderInputs:
-    renderer: "helm"
-    kubeVersion: "1.31.0"
-    includeCrds: true
-    valuesRef: "src/gpu-runtime/values/nvidia-device-plugin.yaml in the producer repository"
+      - "recipes/nvidia/nvidia-device-plugin/0.19.3/source-lock.yaml"
   bundle:
     artifactType: "application/vnd.confighub.config.bundle.v1"
     reference: "ghcr.io/confighub/configs/eks-inference/gpu-runtime:latest"
@@ -33,12 +24,10 @@ spec:
         path: "00-namespace.yaml"
         sha256: "3777a2a023671fd8894943a27916af8603e1719685b709f39f9814bee050446f"
         bytes: 776
-        role: "namespace"
       -
         path: "nvidia-device-plugin-controller.yaml"
         sha256: "5b4b4766301821fec558ecd02a58fc2e3140c32b051864aef5d9965a784f870d"
         bytes: 7534
-        role: "controller"
   ingest:
     granularity: "per-file"
     spacePattern: "{{.Labels.Component}}-{{.Labels.Variant}}"
@@ -58,7 +47,7 @@ spec:
     -
       class: "lookup"
       finding: "not-evaluated"
-      detail: "template-time construct, invisible in the witnessed bundle files; the chart has no catalog entry yet; the producer's guard checked its five hazard patterns at build time"
+      detail: "template-time construct, invisible in the witnessed bundle files; the chart's template-level evidence lives in its catalog entry"
       disposition: "the flattening-safety audit decides the certified disposition"
     -
       class: "webhook-ca"
@@ -68,7 +57,7 @@ spec:
     -
       class: "capabilities-api-versions"
       finding: "not-evaluated"
-      detail: "template-time construct, invisible in the witnessed bundle files; the chart has no catalog entry yet; the producer's guard checked its five hazard patterns at build time"
+      detail: "template-time construct, invisible in the witnessed bundle files; the chart's template-level evidence lives in its catalog entry"
       disposition: "render inputs pin the kube version and are recorded in this receipt"
     -
       class: "generated-secrets"
@@ -93,7 +82,7 @@ spec:
     -
       class: "subchart-conditions"
       finding: "not-evaluated"
-      detail: "template-time construct, invisible in the witnessed bundle files; the chart has no catalog entry yet; the producer's guard checked its five hazard patterns at build time"
+      detail: "template-time construct, invisible in the witnessed bundle files; the chart's template-level evidence lives in its catalog entry"
       disposition: "the flattening-safety audit decides the certified disposition"
     -
       class: "test-hooks"
@@ -104,7 +93,7 @@ spec:
     lane: "safe-to-flatten"
     status: "certified"
     decidedBy: "the flattening-safety audit at recipes/nvidia/nvidia-device-plugin/0.19.3/publication/flattening-safety-verdict.yaml"
-    notes: "This receipt certifies a bundle the producer published, not one this repository built. The witness records the pulled digests and the byte agreement with the producer's committed render."
+    notes: "The NVIDIA device plugin, so GPU nodes advertise their hardware. The chart's node-feature-discovery subchart stays gated off in this render."
   provenance:
     emittedBy: "scripts/generate-certified-bundle-receipts.mjs"
     generatedFrom:

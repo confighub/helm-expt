@@ -35,7 +35,14 @@ import {
 } from "./lib/proof-common.mjs";
 
 const SYNC_WAVE_ANNOTATION = "argocd.argoproj.io/sync-wave";
-const exampleRoot = join(repoRoot, "examples", "aicr", "eks-h100-training-kubeflow");
+// The compiler serves any AICR entry that renders Argo CD Applications. An
+// entry that was published carries OCI transport receipts; an entry that was
+// only generated and retained declares its shape in index-config.yaml instead,
+// and its index records that publication never happened.
+const defaultExample = "eks-h100-training-kubeflow";
+const exampleFlagIndex = process.argv.indexOf("--example");
+const exampleName = exampleFlagIndex === -1 ? defaultExample : process.argv[exampleFlagIndex + 1];
+const exampleRoot = join(repoRoot, "examples", "aicr", exampleName);
 
 const mode = process.argv[2] ?? "--verify";
 if (!["--generate", "--verify", "--self-test"].includes(mode)) {
@@ -188,16 +195,37 @@ function compile(root) {
   const criteria = generationReceipt.spec?.criteria ?? {};
   check(Object.keys(criteria).length > 0, "generation receipt records no recipe criteria");
 
-  const ociReceipt = readYaml(join(root, "argocd-oci-receipt.yaml"));
+  // A published entry proves its transports with receipts. An unpublished one
+  // declares the same references as plans, and says so in its boundary.
+  const publishedEntry = existsSync(join(root, "argocd-oci-receipt.yaml"));
+  let ociBase = "";
+  let sourcePackageRepository = "";
+  let expectedObjectCount = null;
+  if (!publishedEntry) {
+    const config = readYaml(join(root, "index-config.yaml"));
+    ociBase = String(config.spec?.plannedOCIBase ?? "");
+    sourcePackageRepository = String(config.spec?.sourcePackageRepository ?? "");
+    expectedObjectCount = config.spec?.renderedApplications ?? null;
+    check(ociBase.startsWith("oci://"), "index-config.yaml names no planned OCI base");
+    check(sourcePackageRepository.startsWith("oci://"), "index-config.yaml names no source package repository");
+    check(
+      config.spec?.published === false,
+      "index-config.yaml is only for entries that were not published; a published entry needs its OCI receipt",
+    );
+  }
+  const ociReceipt = publishedEntry ? readYaml(join(root, "argocd-oci-receipt.yaml")) : {};
   const literal = ociReceipt.spec?.artifacts?.literalConfiguration ?? {};
   const sourcePackage = ociReceipt.spec?.artifacts?.sourcePackage ?? {};
-  check(/^sha256:[0-9a-f]{64}$/.test(literal.digest ?? ""), "OCI receipt pins no literal-configuration digest");
-  check(/^sha256:[0-9a-f]{64}$/.test(sourcePackage.portableDigest ?? ""), "OCI receipt pins no source-package digest");
-  check(Number.isInteger(literal.objectCount) && literal.objectCount > 0, "OCI receipt records no literal object count");
-  const ociBase = parentOciRepository(literal.publicTarget ?? "");
-  const sourcePackageRepository = stripOciTag(sourcePackage.publicTarget ?? "");
+  if (publishedEntry) {
+    check(/^sha256:[0-9a-f]{64}$/.test(literal.digest ?? ""), "OCI receipt pins no literal-configuration digest");
+    check(/^sha256:[0-9a-f]{64}$/.test(sourcePackage.portableDigest ?? ""), "OCI receipt pins no source-package digest");
+    check(Number.isInteger(literal.objectCount) && literal.objectCount > 0, "OCI receipt records no literal object count");
+    ociBase = parentOciRepository(literal.publicTarget ?? "");
+    sourcePackageRepository = stripOciTag(sourcePackage.publicTarget ?? "");
+    expectedObjectCount = literal.objectCount;
+  }
 
-  const transports = [
+  const transports = !publishedEntry ? [] : [
     manifestTransport(root, "argocd-config-oci", "literal-configuration", "local-argocd-config-oci-manifest.json", {
       receiptDigest: literal.digest,
       layout: "argocd-config",
@@ -299,8 +327,8 @@ function compile(root) {
     `component sync-waves are not the contiguous unique range 0..${waves.length - 1}: ${waves.join(", ")}`,
   );
   check(
-    members.length === literal.objectCount,
-    `rendered Application count ${members.length} differs from the receipt object count ${literal.objectCount}`,
+    expectedObjectCount === null || members.length === expectedObjectCount,
+    `rendered Application count ${members.length} differs from the recorded count ${expectedObjectCount}`,
   );
 
   const platformDigest = `sha256:${sha256(
@@ -329,6 +357,7 @@ function compile(root) {
       },
       boundary: {
         configPlaneOnly: true,
+        published: publishedEntry,
         gpuWorkloadsProven: false,
         secretValuesIncluded: false,
         liveRegistryPublicationClaimed: false,
