@@ -34,6 +34,20 @@ spec:
       # it. Naming the version once is enough, because the page then reads
       # naturally instead of repeating a tag in every sentence.
 
+    - id: eks-h100-training-kubeflow-v0-18-0
+      page: docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md
+      retainedVersion: v0.18.0
+      versionSource: >-
+        AICR's release tag. This is the second retained version of the same
+        platform, generated from the same criteria as the v0.14.0 entry, and
+        its directory carries the version because two entries now share one
+        description. The v0.14.0 entry keeps its original path so its receipts,
+        control points and published references stay valid, and this register
+        is where its version is recorded instead.
+      names:
+        - v0.18.0 training entry
+        - AICR v0.18.0 entry
+
     - id: eks-h100-inference-nim
       page: docs/demo/aicr/eks-h100-inference-nim.md
       retainedVersion: v0.14.0

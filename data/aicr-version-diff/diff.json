@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 1,
+  "from": {
+    "entry": "eks-h100-training-kubeflow",
+    "version": "v0.14.0",
+    "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c"
+  },
+  "to": {
+    "entry": "eks-h100-training-kubeflow-v0-18-0",
+    "version": "v0.18.0",
+    "commit": "1439f2fc5db27e6bb9ef3d73e8f8afca45a32126"
+  },
+  "shape": {
+    "componentsBefore": 15,
+    "componentsAfter": 15,
+    "componentSetIdentical": true,
+    "applicationsBefore": 17,
+    "applicationsAfter": 17,
+    "deploymentOrderIdentical": true,
+    "distinctWavesBefore": 16,
+    "distinctWavesAfter": 5
+  },
+  "components": {
+    "compared": 17,
+    "changed": [
+      {
+        "component": "aicr-stack",
+        "change": "version",
+        "from": {
+          "targetRevision": "0.14.0",
+          "wave": null
+        },
+        "to": {
+          "targetRevision": "0.18.0",
+          "wave": null
+        }
+      },
+      {
+        "component": "aws-ebs-csi-driver",
+        "change": "wave",
+        "from": {
+          "targetRevision": "2.59.0",
+          "wave": 0
+        },
+        "to": {
+          "targetRevision": "2.59.0",
+          "wave": 1
+        }
+      },
+      {
+        "component": "aws-efa",
+        "change": "version",
+        "from": {
+          "targetRevision": "0.5.26",
+          "wave": 1
+        },
+        "to": {
+          "targetRevision": "0.5.29",
+          "wave": 1
+        }
+      },
+      {
+        "component": "cert-manager",
+        "change": "wave",
+        "from": {
+          "targetRevision": "1.20.2",
+          "wave": 2
+        },
+        "to": {
+          "targetRevision": "1.20.2",
+          "wave": 1
+        }
+      },
+      {
+        "component": "gpu-operator",
+        "change": "version and wave",
+        "from": {
+          "targetRevision": "26.3.1",
+          "wave": 8
+        },
+        "to": {
+          "targetRevision": "26.3.3",
+          "wave": 9
+        }
+      },
+      {
+        "component": "kai-scheduler",
+        "change": "wave",
+        "from": {
+          "targetRevision": "v0.14.1",
+          "wave": 10
+        },
+        "to": {
+          "targetRevision": "v0.14.1",
+          "wave": 13
+        }
+      },
+      {
+        "component": "kube-prometheus-stack",
+        "change": "wave",
+        "from": {
+          "targetRevision": "84.4.0",
+          "wave": 7
+        },
+        "to": {
+          "targetRevision": "84.4.0",
+          "wave": 5
+        }
+      },
+      {
+        "component": "kubeflow-trainer",
+        "change": "wave",
+        "from": {
+          "targetRevision": "2.2.0",
+          "wave": 11
+        },
+        "to": {
+          "targetRevision": "2.2.0",
+          "wave": 13
+        }
+      },
+      {
+        "component": "kubeflow-trainer-post",
+        "change": "version and wave",
+        "from": {
+          "targetRevision": "0.14.0",
+          "wave": 12
+        },
+        "to": {
+          "targetRevision": "0.18.0",
+          "wave": 14
+        }
+      },
+      {
+        "component": "nfd",
+        "change": "version and wave",
+        "from": {
+          "targetRevision": "0.18.3",
+          "wave": 3
+        },
+        "to": {
+          "targetRevision": "0.19.0",
+          "wave": 1
+        }
+      },
+      {
+        "component": "nodewright-customizations",
+        "change": "version",
+        "from": {
+          "targetRevision": "0.14.0",
+          "wave": 5
+        },
+        "to": {
+          "targetRevision": "0.18.0",
+          "wave": 5
+        }
+      },
+      {
+        "component": "nodewright-operator",
+        "change": "version and wave",
+        "from": {
+          "targetRevision": "0.15.1",
+          "wave": 4
+        },
+        "to": {
+          "targetRevision": "v0.17.1",
+          "wave": 1
+        }
+      },
+      {
+        "component": "nvidia-dra-driver-gpu",
+        "change": "version",
+        "from": {
+          "targetRevision": "25.12.0",
+          "wave": 13
+        },
+        "to": {
+          "targetRevision": "0.4.1",
+          "wave": 13
+        }
+      },
+      {
+        "component": "nvsentinel",
+        "change": "version and wave",
+        "from": {
+          "targetRevision": "v1.3.0",
+          "wave": 14
+        },
+        "to": {
+          "targetRevision": "v1.9.0",
+          "wave": 13
+        }
+      },
+      {
+        "component": "prometheus-adapter",
+        "change": "wave",
+        "from": {
+          "targetRevision": "5.3.0",
+          "wave": 15
+        },
+        "to": {
+          "targetRevision": "5.3.0",
+          "wave": 9
+        }
+      },
+      {
+        "component": "prometheus-operator-crds",
+        "change": "wave",
+        "from": {
+          "targetRevision": "28.0.1",
+          "wave": 6
+        },
+        "to": {
+          "targetRevision": "28.0.1",
+          "wave": 1
+        }
+      }
+    ],
+    "unchanged": [
+      "k8s-ephemeral-storage-metrics"
+    ]
+  }
+}

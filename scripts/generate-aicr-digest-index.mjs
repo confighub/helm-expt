@@ -322,10 +322,18 @@ function compile(root) {
     .filter((member) => member.role === "component-application")
     .map((member) => member.syncWave)
     .sort((left, right) => left - right);
+  // AICR v0.14.0 gave every component its own wave, so a contiguous unique
+  // range was a fair structural check. v0.18.0 deploys independent components
+  // in parallel and deliberately puts several in one wave, so uniqueness is no
+  // longer a defect. What still has to hold is that every component carries a
+  // wave and that the waves do not run backwards. Whether the grouping
+  // respects the recipe's dependency edges is a stronger claim and belongs to
+  // the ordering-parity lane, which reads the recipe this compiler does not.
   check(
-    stableJson(waves) === stableJson(waves.map((_, index) => index)),
-    `component sync-waves are not the contiguous unique range 0..${waves.length - 1}: ${waves.join(", ")}`,
+    waves.every((wave) => Number.isInteger(wave) && wave >= 0),
+    `component sync-waves are not non-negative integers: ${waves.join(", ")}`,
   );
+  check(waves.length > 0, "no component Application carries a sync-wave");
   check(
     expectedObjectCount === null || members.length === expectedObjectCount,
     `rendered Application count ${members.length} differs from the recorded count ${expectedObjectCount}`,
@@ -555,7 +563,7 @@ function selfTest() {
     const refusals = [
       ["tampered", (files) => (files["beta.yaml"] += "# drifted\n"), /differs from argocd-rendered\/checksums\.txt/, "an unchecksummed rendered drift", { skipChecksum: true }],
       ["duplicate-name", (files) => (files["gamma.yaml"] = files["gamma.yaml"].replace("name: gamma", "name: alpha")), /share one name/, "a duplicate Application name"],
-      ["duplicate-wave", (files) => (files["gamma.yaml"] = files["gamma.yaml"].replace('sync-wave: "2"', 'sync-wave: "1"')), /contiguous unique range/, "a duplicated sync-wave"],
+      ["negative-wave", (files) => (files["gamma.yaml"] = files["gamma.yaml"].replace('sync-wave: "2"', 'sync-wave: "-1"')), /non-negative integers/, "a negative sync-wave"],
       ["second-root", (files) => {
         files["gamma.yaml"] = files["gamma.yaml"]
           .split("\n")

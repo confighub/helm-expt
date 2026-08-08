@@ -1,0 +1,15 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: DigestIndexConfig
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v0-18-0
+spec:
+  description: >-
+    This entry was generated and retained but never published, so it has no OCI
+    transport receipts. The references below are the ones a publication would
+    use, and the compiled index records published as false. The v0.14.0
+    training entry beside it is the published one, and the two are kept apart
+    so a reader is never left guessing which version a digest belongs to.
+  published: false
+  plannedOCIBase: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+  sourcePackageRepository: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt/aicr-bundle
+  renderedApplications: 17

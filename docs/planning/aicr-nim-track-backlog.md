@@ -300,8 +300,22 @@ claim register found two undeclared counted claims and one stale sentence on
 the overview page, which is the argument for the gate rather than a curated
 list.
 
-The next most valuable is theme 1. Task 2 is done, so a second retained entry
-at v0.18.0 now inherits a provenance chain that runs from the signer to bytes
-on disk. Task 4, the version-scoped naming pass, is deliberately cheaper
-before that entry lands than after.
+Theme 1 then landed. Task 4 was done first, as the brief advised, followed by
+tasks 1, 5 and 6 together in the v0.18.0 retained entry: the entry itself, the
+version difference recorded as computed data, and the answer to whether the
+stricter resolver changes what our criteria resolve to, which it does not.
+
+That entry produced the most useful finding of the day. Upstream's move to
+parallel deployment broke two of our checks, and both were wrong rather than
+upstream. A rule that only understood total orders would have refused an entry
+for doing what upstream now intends, so the ordering claim is now checked
+against the recipe's dependency edges instead. That lesson generalises beyond
+AICR: a parity check should verify the property, not the shape the property
+happened to take in the version it was written against.
+
+What remains in theme 1 is task 3, whether the CPU starter tracks one retained
+version or forks, which is a decision rather than a task, and task 7, the
+cadence for refreshing the committed sigstore trust root. Task 45, watching
+upstream releases and recording drift, is now more valuable than before,
+because two retained versions make the gap measurable rather than notional.
 

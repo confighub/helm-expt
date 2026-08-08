@@ -31,17 +31,20 @@ taxonomy follows that split.
 | Entry class | Status | Source |
 | --- | --- | --- |
 | Training | Exists: [EKS + H100 + Kubeflow](./eks-h100-training-kubeflow.md) | NVIDIA AICR v0.14.0, retained exactly |
+| Training, second retained version | Exists: [the same platform four minor versions later](./eks-h100-training-kubeflow-v0-18-0.md) | NVIDIA AICR v0.18.0, retained exactly, from the same criteria |
 | Inference / serving, platform level | Exists: [the AICR-native NIM platform](./eks-h100-inference-nim.md) | NVIDIA AICR v0.14.0 with `platform: nim`, retained exactly |
 | Inference / serving, model level | Exists as retained configuration: [NIM on KServe](./kserve-nim-inference.md) | The KServe subtree of [NVIDIA/nim-deploy](https://github.com/NVIDIA/nim-deploy) at an exact commit, Apache-2.0 |
 | CPU starter | Exists as derived configuration: [the platform spine without accelerators](./cpu-starter.md) | Derived from the training entry by recorded selection rules, with no upstream equivalent; needs no GPU, cloud account, or NGC key |
 
-Four entries exist today. The training entry carries the proven mechanics, the
-two inference entries answer the serving question at different granularities,
-and the CPU starter is a rule-governed derivation of the training entry. The
-inference pair is deliberate: the AICR-native entry stands up a cluster that
-can serve NIM, and the KServe entry, retained at upstream commit 3ef33472,
-names the exact shape a given model runs in. Retaining both keeps the sourcing choice visible instead of implied, and
-the [entry page](./eks-h100-inference-nim.md) compares them directly.
+Five entries exist today, covering four shapes. The training entry carries the
+proven mechanics and is retained at two upstream versions, the two inference
+entries answer the serving question at different granularities, and the CPU
+starter is a rule-governed derivation of the training entry. The inference pair
+is deliberate: the AICR-native entry stands up a cluster that can serve NIM, and
+the KServe entry, retained at upstream commit 3ef33472, names the exact shape a
+given model runs in. Retaining both keeps the sourcing choice visible instead of
+implied, and the [entry page](./eks-h100-inference-nim.md) compares them
+directly.
 
 The catalog refuses manufactured variety: new entries come from upstream versions, from
 deliberately authored shapes whose provenance is named, or from recorded
@@ -74,6 +77,21 @@ Refreshing the catalog to a newer AICR version creates a new retained entry with
 its own receipts next to the old one; it never overwrites the proven shape. This
 is the same retained-versions discipline the chart catalog and the Kubara
 component catalog follow.
+
+That is no longer a policy statement. The catalog now retains
+[v0.18.0 as a second entry](./eks-h100-training-kubeflow-v0-18-0.md), generated
+from the same criteria, so the two versions sit side by side and the difference
+between them is computed rather than described. The
+[version diff](../../../data/aicr-version-diff/summary.md) reads both entries'
+committed bytes on every run. The platform did not change and the parts did:
+the same fifteen components in the same declared order, with nine of them
+pulling a different chart version.
+
+The second version also proves something the first cannot. Its generating
+binary ships the signature bundle this repository verified offline, and it
+reports the same build commit that signature names, so the entry's provenance
+runs from an upstream signer to the bytes on disk rather than from a checksum
+alone.
 
 ## One digest pins each shape
 

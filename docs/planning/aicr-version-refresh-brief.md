@@ -141,3 +141,39 @@ time, and the network disabled verifies the v0.18.0 signature with no insecure
 flag, and the lane also proves it refuses a wrong signer identity. The refresh
 is unblocked, and the rung it would add is now demonstrated rather than
 assumed.
+
+## Built and merged 2026-08-08
+
+The entry exists at
+[examples/aicr/eks-h100-training-kubeflow-v0-18-0](../../examples/aicr/eks-h100-training-kubeflow-v0-18-0),
+with [its page](../demo/aicr/eks-h100-training-kubeflow-v0-18-0.md) and one
+digest pinning seventeen rendered Applications. Four things the brief listed as
+open are now answered.
+
+The stricter resolver changed nothing for our criteria. It accepted them and
+produced the same fifteen components the v0.14.0 recipe declares, so the risk
+the brief flagged did not materialise for this shape.
+
+The provenance chain worked and is stronger than the brief expected. The
+release asset matched the release's own checksums file, the tarball ships the
+signature bundle this repository had already verified offline, and the binary
+reports the same build commit the Fulcio certificate names. That is the new
+rung the refresh was supposed to buy, and it is bound to bytes rather than
+asserted.
+
+The parallel-deployment change broke two of our own checks, and both were
+wrong rather than upstream. The digest-index compiler demanded a contiguous
+unique wave range, and the ordering-parity lane compared waves against a
+linearization. Both now check the recipe's dependency edges, which is what
+ordering was always meant to express, and the ordering record says which model
+each entry follows.
+
+The version difference is recorded as data rather than prose, computed from
+both entries' committed bytes by
+[the version-diff lane](../../data/aicr-version-diff/summary.md), so it cannot
+drift from the entries it describes.
+
+The starter decision is still open. The CPU starter derives from the v0.14.0
+entry and its derivation receipt names that version, so nothing broke, but
+whether it tracks one retained version or forks is a decision rather than a
+task.

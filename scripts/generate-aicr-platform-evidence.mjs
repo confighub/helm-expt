@@ -55,6 +55,17 @@ const entries = [
     ],
   },
   {
+    id: "eks-h100-training-kubeflow-v0-18-0",
+    title: "EKS H100 Kubeflow training, AICR v0.18.0",
+    provenance: "retained-upstream",
+    page: "docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.md",
+    sourceReceipt: "generation-receipt.yaml",
+    // The second retained version has climbed no rung beyond retention. It is
+    // listed with an empty ladder rather than left out, because an entry that
+    // exists and has proven nothing further is a fact worth publishing.
+    ladder: [],
+  },
+  {
     id: "eks-h100-inference-nim",
     title: "EKS H100 NIM inference, AICR-native",
     provenance: "retained-upstream",

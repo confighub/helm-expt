@@ -162,6 +162,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-platform-evidence/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-refusal-corpus/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-variant-promotion-proof/summary.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/data/aicr-version-diff/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-ci-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/anonymous-oci-transform-proof/summary.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/data/apiservice-coverage/summary.html</loc></url>
@@ -652,6 +653,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/claim-integrity.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/cpu-starter.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-inference-nim.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow-v0-18-0.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/eks-h100-training-kubeflow.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/kserve-nim-inference.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/demo/aicr/refusal-corpus.html</loc></url>
@@ -933,6 +935,7 @@
   <url><loc>https://confighub.github.io/helm-expt/site/d/docs/user/why-this-exists.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/cpu-starter/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-inference-nim/digest-index/README.html</loc></url>
+  <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow-v0-18-0/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/digest-index/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/eks-h100-training-kubeflow/flux-bundle/README.html</loc></url>
   <url><loc>https://confighub.github.io/helm-expt/site/d/examples/aicr/kserve-nim-inference/digest-index/README.html</loc></url>

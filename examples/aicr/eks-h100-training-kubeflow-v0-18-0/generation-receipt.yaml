@@ -1,0 +1,140 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: SourceGenerationReceipt
+metadata:
+  name: aicr-eks-h100-training-kubeflow-v0-18-0
+spec:
+  purpose: >-
+    The second retained AICR version, generated from the same criteria as the
+    v0.14.0 training entry so the two can be compared byte for byte. The
+    retained-versions discipline says a refresh creates a new entry beside the
+    old one rather than overwriting it, and this is that entry.
+  source:
+    name: NVIDIA AICR
+    version: v0.18.0
+    commit: 1439f2fc5db27e6bb9ef3d73e8f8afca45a32126
+    repository: https://github.com/NVIDIA/aicr
+    releaseAsset:
+      name: aicr_0.18.0_darwin_arm64.tar.gz
+      sha256: ac29d8b853641dab3ffd8700afe1e9f8a5a901b201920335e10930e8be5c8b5d
+    releaseChecksums:
+      name: aicr_checksums.txt
+      sha256: 9b9c7cf7579104b94972f0a8399c14824c2a596836aa7d74b977c630003bbffc
+    binarySha256: 3b011745112ecee0c216310c732cbe13f474a21a20da6bc09476a2ee8d840a2a
+
+  # What was checked before the binary ran, and what those checks do and do
+  # not cover. The catalog holds a verified signature for this release, so
+  # this entry can say more about its own provenance than any entry before it.
+  provenance:
+    releaseAssetChecked: >-
+      The downloaded tarball matches the sha256 published in the release's own
+      aicr_checksums.txt, and that file's hash is recorded above so the check
+      can be repeated against the same list.
+    signatureBundleMatched: >-
+      The tarball ships recipe-catalog.sigstore.json, and it is byte-identical
+      to the copy this repository committed and verified offline in
+      examples/aicr/upstream-signatures/v0.18.0. The verification lane is
+      npm run aicr-signature:verify.
+    buildCommitAgrees: >-
+      The binary reports build commit 1439f2fc5db27e6bb9ef3d73e8f8afca45a32126,
+      which is the commit named in the Fulcio certificate that the verified
+      signature carries. The binary and the signature agree about which build
+      produced them.
+    notCovered: >-
+      The signature attests the recipe catalog, not the binary. The binary's
+      provenance here rests on the release checksums served over HTTPS and on
+      the agreement above, which is weaker than a signature over the binary
+      and is stated rather than glossed.
+
+  criteria:
+    service: eks
+    accelerator: h100
+    os: ubuntu
+    intent: training
+    platform: kubeflow
+  generationInputs:
+    storageClass: gp3
+    acceleratedNodeSelector: nvidia.com/gpu.present=true
+    workloadSelector: app.kubernetes.io/part-of=training
+    repoURL: oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+
+  commands:
+    recipe:
+      - aicr
+      - recipe
+      - --service
+      - eks
+      - --accelerator
+      - h100
+      - --os
+      - ubuntu
+      - --intent
+      - training
+      - --platform
+      - kubeflow
+      - --output
+      - recipe.yaml
+    bundle:
+      - aicr
+      - bundle
+      - --recipe
+      - recipe.yaml
+      - --deployer
+      - argocd-helm
+      - --output
+      - ./argocd-helm-bundle
+      - --storage-class
+      - gp3
+      - --accelerated-node-selector
+      - nvidia.com/gpu.present=true
+      - --workload-selector
+      - app.kubernetes.io/part-of=training
+    render:
+      - helm
+      - template
+      - aicr-argocd
+      - ./argocd-helm-bundle
+      - --namespace
+      - argocd
+      - --set
+      - repoURL=oci://europe-west1-docker.pkg.dev/nth-fort-499605-q5/helm-expt
+      - --output-dir
+      - rendered
+
+  result:
+    componentCount: 15
+    overlaysResolved: 8
+    renderedApplications: 17
+    strictResolverAccepted: true
+    strictResolverNote: >-
+      v0.18.0 enforces stated-criteria coverage and fails fast when a recipe
+      cannot satisfy its declared criteria. The retained criteria resolved
+      without complaint and produced the same fifteen components the v0.14.0
+      recipe declares, so the stricter resolver changed nothing for this shape.
+
+  normalization:
+    textFormatting:
+      files:
+        - argocd-rendered/templates/gpu-operator.yaml
+      change: Trailing spaces were removed.
+      reason: >-
+        The generated DCGM metrics block contains blank lines carrying spaces.
+        Removing those spaces makes the file pass the repository whitespace
+        check without changing the YAML data. The v0.14.0 entry recorded the
+        same normalization for the same file.
+
+  boundary:
+    configPlaneOnly: true
+    gpuWorkloadsProven: false
+    clusterRequired: false
+    note: >-
+      The binary was run offline against its own embedded recipe catalog. No
+      cluster was contacted, no GPU workload ran, and nothing here claims the
+      platform this recipe describes was deployed.
+
+status:
+  generated: true
+  checksumsVerified: true
+  published: false
+  ociBundleGenerated: false
+  configHubUpload: not-run
+  deliveryProof: not-run
