@@ -461,7 +461,7 @@
 <p>One criteria value moves the platform from training to serving. That is the argument for retaining recipes rather than hand-assembled YAML, made concrete.</p>
 <h2 id="how-the-two-inference-entries-differ">How the two inference entries differ</h2>
 <p>They are not competitors. They answer different questions at different granularities, which only became visible once both were retained.</p>
-<table><thead><tr><th></th><th>AICR-native (this entry)</th><th>nim-deploy KServe entry</th></tr></thead><tbody><tr><td>Source</td><td>AICR v0.14.0 itself</td><td>NVIDIA/nim-deploy at an exact commit</td></tr>
+<table><thead><tr><th></th><th>AICR-native (this entry)</th><th>nim-deploy KServe entry</th></tr></thead><tbody><tr><td>Source</td><td>AICR v0.14.0 itself</td><td>NVIDIA/nim-deploy at commit 3ef33472</td></tr>
 <tr><td>Granularity</td><td>Platform components</td><td>Model serving shapes</td></tr>
 <tr><td>Retained documents</td><td>20 Argo CD Applications</td><td>26 KServe documents</td></tr>
 <tr><td>Serving mechanism</td><td>The NIM operator reconciles NIM custom resources</td><td>KServe <code>InferenceService</code> against a <code>ClusterServingRuntime</code></td></tr>

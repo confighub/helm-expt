@@ -1,0 +1,73 @@
+apiVersion: catalog.confighub.com/v1alpha1
+kind: EntryNamingRegister
+metadata:
+  name: aicr-entry-naming
+spec:
+  description: >-
+    What each AICR entry is called in prose, and the retained version a page
+    has to name when it talks about that entry. The catalog retains exact
+    versions, so "the training entry" is only unambiguous while one training
+    entry exists. A second retained version turns every version-free reference
+    into a guess, and the cheapest time to fix that is before the second entry
+    lands rather than after.
+  scope:
+    pages:
+      - docs/demo/aicr
+      - docs/reference
+    prefix: aicr-
+    note: >-
+      Pages under docs/demo/aicr are all in scope. Under docs/reference only
+      files whose name starts with the prefix are, because that directory holds
+      much more than AICR.
+
+  entries:
+    - id: eks-h100-training-kubeflow
+      page: docs/demo/aicr/eks-h100-training-kubeflow.md
+      retainedVersion: v0.14.0
+      versionSource: >-
+        AICR's own release tag, recorded in the entry's generation receipt and
+        in the published platform evidence record.
+      names:
+        - training entry
+        - EKS + H100 + Kubeflow
+      # A page that mentions this entry has to name this version somewhere on
+      # it. Naming the version once is enough, because the page then reads
+      # naturally instead of repeating a tag in every sentence.
+
+    - id: eks-h100-inference-nim
+      page: docs/demo/aicr/eks-h100-inference-nim.md
+      retainedVersion: v0.14.0
+      versionSource: >-
+        The same AICR release as the training entry, since both were generated
+        by one pinned binary.
+      names:
+        - AICR-native inference entry
+        - AICR-native NIM platform
+
+    - id: kserve-nim-inference
+      page: docs/demo/aicr/kserve-nim-inference.md
+      retainedVersion: 3ef33472
+      versionSource: >-
+        This entry retains a GitHub subtree rather than a release, so its
+        version is the exact upstream commit the retention receipt pins. The
+        short form is what prose uses, and the receipt carries the full hash.
+      names:
+        - KServe entry
+        - NIM on KServe
+
+    - id: cpu-starter
+      page: docs/demo/aicr/cpu-starter.md
+      retainedVersion: v0.14.0
+      versionSource: >-
+        The starter is derived rather than retained, so it carries the version
+        of the entry it was derived from. The derivation receipt records that
+        source, and the decision on whether the starter tracks one version or
+        forks is still open.
+      names:
+        - CPU starter
+        - starter entry
+
+  # Pages that discuss the entries in general rather than any one of them.
+  # They are still checked, because a page naming an entry has to name its
+  # version wherever it appears.
+  exemptPages: []

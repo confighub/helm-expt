@@ -10,9 +10,10 @@ npm run aicr-claims:verify
 
 ## Prose does not fail a lane
 
-The AICR pages say the training entry renders seventeen Applications, that the
-inference recipe resolves eight overlays into seventeen components, that the
-KServe entry retains sixteen model shapes and ten serving runtimes. Every one
+The AICR pages say the v0.14.0 training entry renders seventeen Applications,
+that the inference recipe resolves eight overlays into seventeen components,
+and that the KServe entry retained at commit 3ef33472 holds sixteen model
+shapes and ten serving runtimes. Every one
 of those numbers was true when it was typed.
 
 An entry that gains a component makes several of them false at once, and
@@ -41,6 +42,19 @@ That check earned its place immediately. It found two claims this register's
 author had missed: the seventeen Application objects the ConfigHub import
 stored in one Unit, and the sixteen model-by-GPU shapes the overview cites from
 the inference entry.
+
+## The same discipline applies to which version a page means
+
+A count is not the only claim that rots. "The training entry" is unambiguous
+only while one training entry exists, and the catalog's whole argument is that
+it retains exact versions. A second retained version would turn every
+version-free reference on these pages into a guess.
+
+So a page that mentions an entry has to name that entry's retained version
+somewhere on it, once rather than in every sentence, and
+[the entry-naming lane](../../../data/aicr-entry-naming/summary.md) refuses a
+page that does not. Doing this before a second entry lands is much cheaper
+than doing it after.
 
 ## Where the numbers come from
 

@@ -52,7 +52,7 @@ granularities, which only became visible once both were retained.
 
 | | AICR-native (this entry) | nim-deploy KServe entry |
 | --- | --- | --- |
-| Source | AICR v0.14.0 itself | NVIDIA/nim-deploy at an exact commit |
+| Source | AICR v0.14.0 itself | NVIDIA/nim-deploy at commit 3ef33472 |
 | Granularity | Platform components | Model serving shapes |
 | Retained documents | 20 Argo CD Applications | 26 KServe documents |
 | Serving mechanism | The NIM operator reconciles NIM custom resources | KServe `InferenceService` against a `ClusterServingRuntime` |
