@@ -73,6 +73,9 @@ const lifecycleRoutesJsonPath = join(repoRoot, "data", "lifecycle-routes", "rout
 const lifecycleRouteActionsJsonPath = join(repoRoot, "data", "lifecycle-route-actions", "actions.json");
 const helmRenderIntentsPath = join(repoRoot, "data", "helm-render-intents", "intents.csv");
 const demoProgramPath = join(repoRoot, "data", "demo-program", "program.json");
+// The AICR entries are evidence rather than catalog products, so the site
+// publishes their record for discovery and checking, not for installation.
+const platformEvidencePath = join(repoRoot, "data", "aicr-platform-evidence", "platform-evidence.json");
 const helmCatalogReadmesPath = join(repoRoot, "data", "helm-catalog-readmes", "readmes.csv");
 const installerOciCatalogPath = join(repoRoot, "data", "installer-oci-packages", "packages.csv");
 const permanentLiteralOciReceiptPath = join(
@@ -469,6 +472,11 @@ function buildSite(generatedAt) {
   const helmRenderIntents = existsSync(helmRenderIntentsPath) ? parseCsv(readFileSync(helmRenderIntentsPath, "utf8")) : [];
   check(existsSync(demoProgramPath), "data/demo-program/program.json is missing; run npm run config-catalog");
   const demoProgram = JSON.parse(readFileSync(demoProgramPath, "utf8"));
+  check(
+    existsSync(platformEvidencePath),
+    "data/aicr-platform-evidence/platform-evidence.json is missing; run npm run aicr-platform-evidence:generate",
+  );
+  const platformEvidence = JSON.parse(readFileSync(platformEvidencePath, "utf8"));
   const helmCatalogReadmes = existsSync(helmCatalogReadmesPath) ? parseCsv(readFileSync(helmCatalogReadmesPath, "utf8")) : [];
   check(existsSync(installerOciCatalogPath), "data/installer-oci-packages/packages.csv is missing; run npm run installer-oci:catalog");
   const installerOciPackages = parseCsv(readFileSync(installerOciCatalogPath, "utf8"));
@@ -708,6 +716,7 @@ function buildSite(generatedAt) {
     lifecycleRouteActionSummary,
     helmRenderIntents,
     demoProgram,
+    platformEvidence,
     helmCatalogReadmes,
     installerOciPackages,
     lifecycleByVariant,

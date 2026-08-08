@@ -33540,6 +33540,193 @@
       }
     }
   },
+  "platformEvidence": {
+    "apiVersion": "catalog.confighub.com/v1alpha1",
+    "kind": "PlatformEvidenceRecord",
+    "metadata": {
+      "name": "aicr"
+    },
+    "spec": {
+      "contract": {
+        "kind": "evidence",
+        "statement": "These entries are evidence, not a product line. They record what was proven about governing AI-platform configuration, with a path to every receipt. They are not offered for installation from the catalog the way a chart is, and no support posture attaches to them.",
+        "consumerExpectation": "Locate an entry, follow its paths, and check its receipts. Every path a consumer needs is published here, so nothing is reconstructed by convention.",
+        "boundary": "Every entry proves config-plane mechanics only. No GPU workload ran to produce or verify any of it."
+      },
+      "entries": [
+        {
+          "id": "eks-h100-training-kubeflow",
+          "title": "EKS H100 Kubeflow training",
+          "provenance": "retained-upstream",
+          "platformDigest": "sha256:3f9ec2a69619682d151937fe77d3bba21c336f598678e05f2fdd4d53ba142f2e",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.14.0",
+            "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/eks-h100-training-kubeflow",
+            "page": "docs/demo/aicr/eks-h100-training-kubeflow.md",
+            "digestIndex": "examples/aicr/eks-h100-training-kubeflow/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/eks-h100-training-kubeflow/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/eks-h100-training-kubeflow/generation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [
+              {
+                "rung": "oci-round-trip",
+                "receipt": "runs/aicr-oci-roundtrip-proof/receipt.yaml",
+                "summary": "data/aicr-oci-roundtrip-proof/summary.md",
+                "result": "pass"
+              },
+              {
+                "rung": "confighub-variant-and-promotion",
+                "receipt": "runs/aicr-variant-promotion-proof/receipt.yaml",
+                "summary": "data/aicr-variant-promotion-proof/summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 2
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": true
+          }
+        },
+        {
+          "id": "eks-h100-inference-nim",
+          "title": "EKS H100 NIM inference, AICR-native",
+          "provenance": "retained-upstream",
+          "platformDigest": "sha256:cc4ea0fb2347d3c74d77642bb930aa3caa48d4115e4a3017fe95b140b025c4a2",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.14.0",
+            "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/eks-h100-inference-nim",
+            "page": "docs/demo/aicr/eks-h100-inference-nim.md",
+            "digestIndex": "examples/aicr/eks-h100-inference-nim/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/eks-h100-inference-nim/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/eks-h100-inference-nim/generation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [],
+            "climbedCount": 0
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": false
+          }
+        },
+        {
+          "id": "kserve-nim-inference",
+          "title": "NIM on KServe model shapes",
+          "provenance": "retained-third-party",
+          "platformDigest": "sha256:7a219c5b0fdef1860454f741d7089379b605d9a7c88d6a2a2ec1df5dbb90c720",
+          "upstream": {
+            "name": "NVIDIA nim-deploy KServe reference implementation",
+            "version": null,
+            "commit": "3ef33472b84da9f39131dff0326bf05ac1dc0fe6",
+            "repository": "https://github.com/NVIDIA/nim-deploy"
+          },
+          "paths": {
+            "entry": "examples/aicr/kserve-nim-inference",
+            "page": "docs/demo/aicr/kserve-nim-inference.md",
+            "digestIndex": "examples/aicr/kserve-nim-inference/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/kserve-nim-inference/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/kserve-nim-inference/retention-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [
+              {
+                "rung": "confighub-import-variant-and-promotion",
+                "receipt": "runs/aicr-kserve-nim-import/receipt.yaml",
+                "summary": "data/aicr-kserve-nim-import/summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 1
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": null
+          }
+        },
+        {
+          "id": "cpu-starter",
+          "title": "CPU starter, derived",
+          "provenance": "derived",
+          "platformDigest": "sha256:d4c19c203ba379690c8de8716b29712b14d69006ae928136f410f634a4a80564",
+          "upstream": {
+            "name": "NVIDIA AICR",
+            "version": "v0.14.0",
+            "commit": "0479e45e3ee4ea04d3fff55fd9160843d161c03c",
+            "repository": "https://github.com/NVIDIA/aicr"
+          },
+          "paths": {
+            "entry": "examples/aicr/cpu-starter",
+            "page": "docs/demo/aicr/cpu-starter.md",
+            "digestIndex": "examples/aicr/cpu-starter/digest-index/platform-index.json",
+            "digestIndexReadme": "examples/aicr/cpu-starter/digest-index/README.md",
+            "sourceReceipt": "examples/aicr/cpu-starter/derivation-receipt.yaml"
+          },
+          "ladder": {
+            "climbed": [
+              {
+                "rung": "confighub-variant-and-promotion",
+                "receipt": "runs/aicr-cpu-starter-variant/receipt.yaml",
+                "summary": "data/aicr-cpu-starter-variant/summary.md",
+                "result": "pass"
+              },
+              {
+                "rung": "config-plane-delivery",
+                "receipt": "runs/aicr-cpu-starter-delivery/receipt.yaml",
+                "summary": "data/aicr-cpu-starter-delivery/summary.md",
+                "result": "pass"
+              },
+              {
+                "rung": "one-reviewed-component-synced",
+                "receipt": "runs/aicr-cpu-starter-sync/receipt.yaml",
+                "summary": "data/aicr-cpu-starter-sync/summary.md",
+                "result": "pass"
+              }
+            ],
+            "climbedCount": 3
+          },
+          "boundary": {
+            "configPlaneOnly": true,
+            "gpuWorkloadsProven": false,
+            "published": null
+          }
+        }
+      ],
+      "crossEntryEvidence": [
+        {
+          "id": "upstream-signature-verification",
+          "receipt": "runs/aicr-signature-verification/receipt.yaml",
+          "summary": "data/aicr-signature-verification/summary.md"
+        },
+        {
+          "id": "blast-radius-parity",
+          "summary": "data/aicr-blast-radius/summary.md"
+        },
+        {
+          "id": "ordering-parity",
+          "summary": "data/aicr-ordering-parity/summary.md"
+        }
+      ],
+      "openRungs": [
+        "Config-plane delivery for both inference entries.",
+        "Any workload-plane claim, for every entry."
+      ]
+    }
+  },
   "helmCatalogReadmes": [
     {
       "space": "default",
