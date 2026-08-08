@@ -144,6 +144,50 @@ const CHARTS = [
     ],
   },
   {
+    repo: "jetstack",
+    chart: "cert-manager",
+    version: "v1.21.0",
+    recipe: "recipes/jetstack/cert-manager/v1.21.0",
+    auditedBase: "crds-enabled",
+    verdictFile: "flattening-safety-verdict-crds-enabled.yaml",
+    overrides: {
+      "helm-hooks": {
+        finding: "present-gated",
+        detail:
+          "the startupapicheck Job is a post-install hook, and this base renders with hooks excluded, so no hook object reaches the bundle",
+        disposition:
+          "the check does not run from a flattened bundle; enable it through the render-late route or accept that the API readiness probe is skipped",
+      },
+      "resource-policy-keep": {
+        detail:
+          "the six cert-manager CRDs render into this base and each carries helm.sh/resource-policy keep",
+        disposition: "prune protection ships beside the bundle",
+      },
+      "webhook-ca": {
+        disposition:
+          "the cainjector controller maintains the CA at runtime and ships inside the bundle; no external route needed",
+      },
+      "crd-ordering": {
+        detail: "the six CRDs render into this base, so per-file Units can race them",
+        disposition: "ordering declaration ships with the bundle",
+      },
+    },
+    lane: "flatten-with-routes",
+    routes: [
+      "prune protection for the six keep-annotated CRDs",
+      "CRD ordering declaration for the six cert-manager CRDs",
+    ],
+    rationale:
+      "This base renders the CRDs, so it carries both the keep promise and the ordering hazard, and each has a companion artifact that discharges it. The startupapicheck hook is excluded from the render rather than routed, which the hooks row states plainly.",
+    variantScope: [
+      {
+        values: "the default base",
+        effect:
+          "renders no CRDs, so the keep promise and the ordering hazard both move to whoever installs the definitions",
+      },
+    ],
+  },
+  {
     repo: "external-secrets",
     chart: "external-secrets",
     version: "2.8.0",

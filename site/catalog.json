@@ -14121,7 +14121,7 @@
       "crd_documents": "6",
       "gated_subcharts": "0",
       "scanned_files": "51",
-      "decided_lanes": "default:flatten-with-routes"
+      "decided_lanes": "crds-enabled:flatten-with-routes; default:flatten-with-routes"
     },
     {
       "repository": "jetstack",

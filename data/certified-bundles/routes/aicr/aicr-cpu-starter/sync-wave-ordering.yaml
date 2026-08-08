@@ -11,7 +11,7 @@ spec:
       -
         order: 1
         name: "cert-manager"
-        syncWave: 2
+        observedSyncWave: 2
         selector:
           kinds:
             - "Application"
@@ -20,7 +20,7 @@ spec:
       -
         order: 2
         name: "nfd"
-        syncWave: 3
+        observedSyncWave: 3
         selector:
           kinds:
             - "Application"
@@ -29,7 +29,7 @@ spec:
       -
         order: 3
         name: "prometheus-operator-crds"
-        syncWave: 6
+        observedSyncWave: 6
         selector:
           kinds:
             - "Application"
@@ -38,7 +38,7 @@ spec:
       -
         order: 4
         name: "kube-prometheus-stack"
-        syncWave: 7
+        observedSyncWave: 7
         selector:
           kinds:
             - "Application"
@@ -47,7 +47,7 @@ spec:
       -
         order: 5
         name: "k8s-ephemeral-storage-metrics"
-        syncWave: 9
+        observedSyncWave: 9
         selector:
           kinds:
             - "Application"
@@ -56,7 +56,7 @@ spec:
       -
         order: 6
         name: "kai-scheduler"
-        syncWave: 10
+        observedSyncWave: 10
         selector:
           kinds:
             - "Application"
@@ -65,7 +65,7 @@ spec:
       -
         order: 7
         name: "prometheus-adapter"
-        syncWave: 15
+        observedSyncWave: 15
         selector:
           kinds:
             - "Application"

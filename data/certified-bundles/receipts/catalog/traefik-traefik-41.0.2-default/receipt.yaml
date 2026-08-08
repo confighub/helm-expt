@@ -46,8 +46,8 @@ spec:
         role: "route: crd-ordering"
       -
         path: "data/certified-bundles/guides/catalog/traefik-traefik-41.0.2-default/space-guide.md"
-        sha256: "583ac54c9acafdd2ece1b17ebc8db28ea5c15c2b995b02739ee007bebd7360fa"
-        bytes: 1159
+        sha256: "4868eabd818d9850de674d772844d22883bf413890f5739fc8b29478db868084"
+        bytes: 1260
         role: "space-guide"
     objectCount: 31
     objectInventoryRef: "recipes/traefik/traefik/41.0.2/revisions/default/r001/rendered/object-inventory.yaml"
